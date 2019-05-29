@@ -18,6 +18,9 @@ git config --global color.diff-highlight.oldHighlight "red bold 52"
 git config --global color.diff-highlight.newNormal "green bold"
 git config --global color.diff-highlight.newHighlight "green bold 22"
 
+## Git Keychain:
+git config --global credential.helper osxkeychain
+
 ## Install Python Modules
 pip3 install mackup neovim
 
