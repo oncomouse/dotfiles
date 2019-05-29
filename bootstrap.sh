@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-## Get ready for fish:
-sudo echo "/usr/local/bin/fish" >> /etc/shells
 
 ## Get ready for xcode/brew:
 xcode-select --install
@@ -19,7 +17,7 @@ git config --global color.diff-highlight.newNormal "green bold"
 git config --global color.diff-highlight.newHighlight "green bold 22"
 
 ## Git Keychain:
-git config --global credential.helper osxkeychain
+git config --global credential.helper osxkeychain 
 
 ## Install Python Modules
 pip3 install mackup neovim
@@ -38,5 +36,8 @@ ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
 
 ## Setup $TERM
 tic -x ./tmux-256color.terminfo
+
+## Use Fish
+sudo dscl . -create /Users/$USER UserShell /usr/local/bin/fish
 
 echo "When Dropbox is configured and $(tput bold)$(tput setaf 5)done syncing$(tput sgr0), run $(tput setaf 6)mackup restore$(tput sgr0) to load configuration files."
