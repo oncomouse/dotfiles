@@ -16,6 +16,8 @@ brew "fzf"
 
 # Editor
 brew "neovim"
+brew "go"
+brew "bibtool"
 
 # System
 brew "coreutils"

@@ -17,7 +17,7 @@ git config --global color.diff-highlight.newNormal "green bold"
 git config --global color.diff-highlight.newHighlight "green bold 22"
 
 ## Git Keychain:
-git config --global credential.helper osxkeychain 
+git config --global credential.helper osxkeychain
 
 ## Install Python Modules
 pip3 install mackup neovim
@@ -35,9 +35,15 @@ git clone https://github.com/gpakosz/.tmux ~/.tmux
 ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
 
 ## Setup $TERM
-tic -x ./tmux-256color.terminfo
+tic -x ~/dotfiles/tmux-256color.terminfo
 
 ## Use Fish
 sudo dscl . -create /Users/$USER UserShell /usr/local/bin/fish
+
+# Configure FZF BibTeX
+go get github.com/msprev/fzf-bibtex
+go install github.com/msprev/fzf-bibtex/cmd/bibtex-ls
+go install github.com/msprev/fzf-bibtex/cmd/bibtex-markdown
+go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite
 
 echo "When Dropbox is configured and $(tput bold)$(tput setaf 5)done syncing$(tput sgr0), run $(tput setaf 6)mackup restore$(tput sgr0) to load configuration files."
