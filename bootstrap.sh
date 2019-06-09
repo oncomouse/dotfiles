@@ -8,7 +8,13 @@ if test ! $(which brew); then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
+## Install Brew
 brew bundle install
+
+## Copy Minimal Configuration Files
+cp -r ~/dotfiles/.config ~/
+cp -r ~/dotfiles/.vim* ~/
+cp -r ~/dotfiles/.tmux.conf.local ~/
 
 ## Diff-so-fancy Git stuff
 git config --global color.diff-highlight.oldNormal "red bold"
@@ -30,9 +36,16 @@ rbenv install 2.5.1 # Dreamhost Ruby
 rbenv install-latest
 rbenv global "$(rbenv versions | sed -e '$!d' -e 's/^[ \t]*//')"
 
-## Setup Oh My Tmux! (.tmux.conf.local will come from mackup)
+## Setup Oh My Tmux!
 git clone https://github.com/gpakosz/.tmux ~/.tmux
 ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
+
+## Setup Vim and NeoVim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+cp ~/.vim/autoload/plug.vim ~/.local/share/nvim/site/autoload/plug.vim
+vim +PlugInstall +qall
+nvim +PlugInstall +qall
 
 ## Setup $TERM
 tic -x ~/dotfiles/tmux-256color.terminfo
