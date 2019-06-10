@@ -24,8 +24,8 @@ let g:polyglot_disabled = ['markdown']
     " \ })
 "}}
 " Ditto {{
-  au FileType markdown DittoOn
-  nmap <leader>di <Plug>ToggleDitto
+  " au FileType markdown DittoOn
+  " nmap <leader>di <Plug>ToggleDitto
 "}}
 " Limelight {{
   let g:limelight_conceal_ctermfg="black"
