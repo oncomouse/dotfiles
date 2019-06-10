@@ -81,7 +81,10 @@ set clipboard=unnamed
 set autoread
 set autowrite
 
-set ts=2
+set ts=8
+set sts=2
+set sw=2
+set noexpandtab
 
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
