@@ -20,6 +20,7 @@ ln -s ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/
 ln -s ~/dotfiles/.config/fish/config.fish ~/.config/fish/
 ln -s ~/dotfiles/.config/fish/functions/fish_prompt.fish ~/.config/fish/functions/
 ln -s ~/dotfiles/.tmux.conf.local ~/
+ln -s ~/dotfiles/.mackup.cfg ~/
 
 ## Diff-so-fancy Git stuff
 git config --global color.diff-highlight.oldNormal "red bold"
