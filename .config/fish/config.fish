@@ -30,7 +30,9 @@ if test -e $HOME/.cargo/env
 end
 
 # Setup virtualenv support Fish:
-eval (python3 -m virtualfish)
+if python -c 'import pkgutil; import sys; sys.exit(0) if pkgutil.find_loader("virtualfish") else sys.exit(1)'
+  eval (python3 -m virtualfish)
+end
 
 # Setup Fuck:
 if command -sq thefuck
@@ -39,4 +41,6 @@ end
 set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
 
 # Setup NPM:
-status --is-interactive; and source (nodenv init -|psub)
+if command -sq nodenv
+  status --is-interactive; and source (nodenv init -|psub)
+end

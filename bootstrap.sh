@@ -11,10 +11,15 @@ fi
 ## Install Brew
 brew bundle install
 
-## Copy Minimal Configuration Files
-cp -r ~/dotfiles/.config ~/
-cp -r ~/dotfiles/.vim* ~/
-cp -r ~/dotfiles/.tmux.conf.local ~/
+## Link Minimal Configuration Files
+mkdir -p ~/.config/fish/functions/
+mkdir -p ~/.config/nvim/
+ln -s ~/dotfiles/.vimrc ~/
+ln -s ~/dotfiles/.config/vim-common ~/.config/
+ln -s ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/
+ln -s ~/dotfiles/.config/fish/config.fish ~/.config/fish/
+ln -s ~/dotfiles/.config/fish/functions/fish_prompt.fish ~/.config/fish/functions/
+ln -s ~/dotfiles/.tmux.conf.local ~/
 
 ## Diff-so-fancy Git stuff
 git config --global color.diff-highlight.oldNormal "red bold"
@@ -35,6 +40,10 @@ git clone https://github.com/momo-lab/rbenv-install-latest.git "$(rbenv root)"/p
 rbenv install 2.5.1 # Dreamhost Ruby
 rbenv install-latest
 rbenv global "$(rbenv versions | sed -e '$!d' -e 's/^[ \t]*//')"
+
+## Setup Oh My Fish!
+curl -L https://get.oh-my.fish | fish
+omf install z ssh-term-helper fish-spec nodenv bundler
 
 ## Setup Oh My Tmux!
 git clone https://github.com/gpakosz/.tmux ~/.tmux
