@@ -40,6 +40,10 @@ for files in s:config_list
   endfor
 endfor
 
+filetype plugin indent on
+set tabstop=2
+set shiftwidth=2
+" set expandtab
 
 " Different highlighting for long lines:
 let &colorcolumn=join(range(81,999),",")
