@@ -34,7 +34,7 @@ Plug 'neoclide/vim-jsx-improve' " Better than what's included
 Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
 Plug 'brookhong/ag.vim' " :Ag --<filetype> <regex>
 Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 " Git Support:
 Plug 'tpope/vim-fugitive' " :Gstatus for git statis; - to add, cc to commit
 Plug 'airblade/vim-gitgutter'
