@@ -10,9 +10,6 @@
   "     \ }
 "}}
 " FZF {{
-  " FZF BibTeX COnfiguration
-  let $FZF_BIBTEX_CACHEDIR = '/var/tmp'
-  let $FZF_BIBTEX_SOURCES = '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib'
 
   nnoremap <c-p> :FZF<cr>
   let g:fzf_nvim_statusline = 0 " disable statusline overwriting
@@ -37,6 +34,9 @@
   nnoremap <silent> <leader>ga :BCommits<CR>
   nnoremap <silent> <leader>ft :Filetypes<CR>
 
+  " FZF BibTeX COnfiguration
+  let $FZF_BIBTEX_CACHEDIR = '/var/tmp'
+  let $FZF_BIBTEX_SOURCES = '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib'
   function! s:bibtex_cite_sink(lines)
     let r=system("bibtex-cite ", a:lines)
     execute ':normal! i' . r

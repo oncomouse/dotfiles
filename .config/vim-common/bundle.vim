@@ -41,7 +41,7 @@ Plug 'airblade/vim-gitgutter'
 " Writing:
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-after' " Adds deoplete completions for BibTeX, use <ctrl>x <ctrl>o to search
+" Plug 'vim-pandoc/vim-pandoc-after' " Adds deoplete completions for BibTeX, use <ctrl>x <ctrl>o to search
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'reedes/vim-pencil'

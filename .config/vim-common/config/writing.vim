@@ -2,7 +2,7 @@
 let g:polyglot_disabled = ['markdown']
 " Pandoc {{
   " Set up vim-pandoc's bibtex support
-  let g:pandoc#biblio#bibs=['/Users/apilsch/Documents/Academic Stuff/library.bib']
+  let g:pandoc#biblio#bibs=['/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib']
   " Turn off folding
   let g:pandoc#modules#disabled = ["folding"]
   " Turn off conceal
@@ -12,6 +12,12 @@ let g:polyglot_disabled = ['markdown']
     " autocmd BufRead,BufNewFile *.md imap <buffer> <C-b> <Esc><localleader>bwi
   augroup END
 
+  if !exists('g:ycm_semantic_triggers')
+    let g:ycm_semantic_triggers = {}
+  endif
+  let g:ycm_semantic_triggers.markdown = ['@']
+  let g:ycm_semantic_triggers.pandoc = ['@']
+  let g:ycm_filetype_blacklist = {}
 "}}
 " Pandoc-After {{
   " Use deoplete for completion
