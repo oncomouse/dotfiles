@@ -51,9 +51,9 @@ Plug 'reedes/vim-textobj-sentence'
 " Plug 'reedes/vim-textobj-quote'
 Plug 'junegunn/vim-easy-align' " ga will align blocks to indicated character
 " Web Development:
-Plug 'chrisbra/Colorizer', { 'for': ['html', 'vue', 'jsx', 'js', 'css', 'scss'] }
-Plug 'maksimr/vim-jsbeautify', { 'for': ['html', 'vue', 'jsx', 'js', 'css', 'scss'] }
-Plug 'mattn/emmet-vim', { 'for': ['html', 'vue', 'jsx', 'js'] }
+Plug 'chrisbra/Colorizer' ", { 'for': ['html', 'vue', 'jsx', 'js', 'css', 'scss'] }
+Plug 'maksimr/vim-jsbeautify' ", { 'for': ['html', 'vue', 'jsx', 'js', 'css', 'scss'] }
+Plug 'mattn/emmet-vim' ", { 'for': ['html', 'vue', 'jsx', 'js'] }
 " File Viewers:
 Plug 'ryanoasis/vim-devicons'
 " Plug 'scrooloose/nerdtree'
