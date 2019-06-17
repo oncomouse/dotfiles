@@ -30,11 +30,11 @@ Plug 'neoclide/vim-jsx-improve' " Better than what's included
 " Plug 'cakebaker/scss-syntax.vim'
 " Plug 'vim-python/python-syntax'
 " Fuzzy Search:
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
 Plug 'brookhong/ag.vim' " :Ag --<filetype> <regex>
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " Git Support:
 Plug 'tpope/vim-fugitive' " :Gstatus for git statis; - to add, cc to commit
 Plug 'airblade/vim-gitgutter'
@@ -71,4 +71,5 @@ Plug 'tpope/vim-fireplace'
 Plug 'kovisoft/paredit'
 Plug 'weavejester/cljfmt'
 Plug 'kien/rainbow_parentheses.vim'
+Plug 'guns/vim-clojure-static'
 call plug#end()
