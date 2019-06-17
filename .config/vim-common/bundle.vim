@@ -66,4 +66,9 @@ Plug 'itchyny/lightline.vim'
 " Linter:
 " Plug 'w0rp/ale.git'
 " Plug 'maximbaz/lightline-ale'
+" Clojure:
+Plug 'tpope/vim-fireplace'
+Plug 'vim-scripts/paredit.vim'
+Plug 'weavejester/cljfmt'
+Plug 'kien/rainbow_parentheses.vim'
 call plug#end()

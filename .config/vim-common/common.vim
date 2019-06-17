@@ -34,6 +34,7 @@ let s:config_list = [
   \ 'config/visual-at.vim',
   \ 'config/linter.vim',
   \ 'config/todo.vim',
+  \ 'config/clojure.vim',
 \]
 
 for files in s:config_list
