@@ -24,8 +24,8 @@ Plug 'neoclide/vim-jsx-improve' " Better than what's included
 " Plug 'leshill/vim-json'
 " Plug 'isRuslan/vim-es6'
 " Plug 'posva/vim-vue'
-" Plug 'mxw/vim-jsx'
-" Plug 'pangloss/vim-javascript'
+" Plug 'mxw/vim-jsx' ", { 'for': ['js', 'jsx' ] }
+" Plug 'pangloss/vim-javascript' ", { 'for': ['js', 'jsx', 'vue' ] }
 " Plug 'dag/vim-fish'
 " Plug 'cakebaker/scss-syntax.vim'
 " Plug 'vim-python/python-syntax'
@@ -41,7 +41,6 @@ Plug 'airblade/vim-gitgutter'
 " Writing:
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-pandoc/vim-pandoc'
-" Plug 'vim-pandoc/vim-pandoc-after' " Adds deoplete completions for BibTeX, use <ctrl>x <ctrl>o to search
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'reedes/vim-pencil'
@@ -52,9 +51,9 @@ Plug 'reedes/vim-textobj-sentence'
 " Plug 'reedes/vim-textobj-quote'
 Plug 'junegunn/vim-easy-align' " ga will align blocks to indicated character
 " Web Development:
-" Plug 'chrisbra/Colorizer', { "for": ["html", "vue", "jsx", "js", "css", "scss"] }
-" Plug 'maksimr/vim-jsbeautify', { "for": ["html", "vue", "jsx", "js", "css", "scss"] }
-" Plug 'mattn/emmet-vim', { "for": ["html", "vue", "jsx", "js"] }
+Plug 'chrisbra/Colorizer', { 'for': ['html', 'vue', 'jsx', 'js', 'css', 'scss'] }
+Plug 'maksimr/vim-jsbeautify', { 'for': ['html', 'vue', 'jsx', 'js', 'css', 'scss'] }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'vue', 'jsx', 'js'] }
 " File Viewers:
 Plug 'ryanoasis/vim-devicons'
 " Plug 'scrooloose/nerdtree'
@@ -64,12 +63,12 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'itchyny/lightline.vim'
 " Plug 'mgee/lightline-bufferline'
 " Linter:
-" Plug 'w0rp/ale.git'
-" Plug 'maximbaz/lightline-ale'
+Plug 'w0rp/ale' ", { 'for': ['js', 'jsx', 'vue'] }
+Plug 'maximbaz/lightline-ale' ", { 'for': ['js', 'jsx', 'vue'] }
 " Clojure:
-Plug 'tpope/vim-fireplace'
-Plug 'kovisoft/paredit'
-Plug 'weavejester/cljfmt'
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'kovisoft/paredit', { 'for': 'clojure' }
+Plug 'weavejester/cljfmt', { 'for': 'clojure' }
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'guns/vim-clojure-static'
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 call plug#end()
