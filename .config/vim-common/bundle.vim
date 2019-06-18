@@ -34,7 +34,7 @@ Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
 Plug 'brookhong/ag.vim' " :Ag --<filetype> <regex>
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer' }
 " Git Support:
 Plug 'tpope/vim-fugitive' " :Gstatus for git statis; - to add, cc to commit
 Plug 'airblade/vim-gitgutter'
