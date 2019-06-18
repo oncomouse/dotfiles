@@ -17,8 +17,8 @@ let g:indent_guides_auto_colors = 0
 augroup indent-colors
   autocmd!
 
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#182933   ctermbg=235
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1c313d ctermbg=234
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1B2B34 ctermbg=235
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1C313D ctermbg=234
 augroup END
 
 " Turn off autoroot for non-project files:
