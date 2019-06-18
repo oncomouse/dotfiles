@@ -5,6 +5,7 @@ tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/cask-fonts"
+tap "ValeLint/vale"
 
 # Shell stuff
 brew "fish"
@@ -19,6 +20,7 @@ brew "vim"
 brew "neovim"
 brew "go"
 brew "bib-tool"
+brew "vale"
 
 # System
 brew "coreutils"
