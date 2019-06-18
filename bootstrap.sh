@@ -59,9 +59,9 @@ vim +PlugInstall +qall
 nvim +PlugInstall +qall
 
 ## Setup $TERM
-tic -x -o ~/.terminfo ~/dotfiles/tmux.terminfo
-tic -x -o ~/.terminfo ~/dotfiles/tmux-256color.terminfo
-tic -x -o ~/.terminfo ~/dotfiles/xterm-256color.terminfo
+tic -x -o ~/.terminfo ~/dotfiles/terms/tmux.terminfo
+tic -x -o ~/.terminfo ~/dotfiles/terms/tmux-256color.terminfo
+tic -x -o ~/.terminfo ~/dotfiles/terms/xterm-256color.terminfo
 
 ## Use Fish
 sudo dscl . -create /Users/$USER UserShell /usr/local/bin/fish

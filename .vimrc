@@ -1,2 +1,3 @@
-source $HOME/.config/vim-common/bundle.vim
-source $HOME/.config/vim-common/common.vim
+let &runtimepath .= ','.expand('~/.config/vim-common/')
+runtime bundle.vim
+runtime common.vim
