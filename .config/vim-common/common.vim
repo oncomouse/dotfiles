@@ -20,8 +20,7 @@ endif
 " Shortcut :tn for :tabnew
 ca tn tabnew
 
-" Add vim-common to runtimepath and include each file via runtime:
-let &runtimepath .= ','.expand('~/.config/vim-common/')
+" Include vim-common/config files:
 let s:config_list = [
   \ 'config/theme.vim',
   \ 'config/statusline.vim',
