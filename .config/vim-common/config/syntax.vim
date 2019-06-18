@@ -1,9 +1,15 @@
 " Syntax:
 " Make sure .md files are read as Markdown:
-" augroup markdownindent
+" augroup markdown
 "   autocmd!
 "   autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " augroup END
+call ale#linter#Define('pandoc', {
+\   'name': 'vale',
+\   'executable': 'vale',
+\   'command': 'vale --output=JSON %t',
+\   'callback': 'ale#handlers#vale#Handle',
+\})
 
 " Use vim-jsx-improved instead:
 let g:polyglot_disabled = ['jsx']
