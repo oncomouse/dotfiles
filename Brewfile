@@ -15,6 +15,7 @@ brew "the_silver_searcher"
 brew "fzf"
 
 # Editor
+brew "vim"
 brew "neovim"
 brew "go"
 brew "bib-tool"
