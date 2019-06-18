@@ -9,6 +9,7 @@ set mouse=a
 set clipboard=unnamed
 set autoread
 set autowrite
+set hidden " turn off buffer saving when switching
 
 if exists('+termguicolors')
   let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
@@ -35,7 +36,6 @@ let s:config_list = [
   \ 'config/visual-at.vim',
   \ 'config/linter.vim',
   \ 'config/todo.vim',
-  \ 'config/clojure.vim',
 \]
 for file in s:config_list
   exec 'runtime' file

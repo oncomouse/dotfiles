@@ -1,12 +1,9 @@
 " Syntax:
 " Make sure .md files are read as Markdown:
-augroup markdownindent
-  autocmd!
-
-  autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-  " Load Indent Guides for Python Files:
-  autocmd BufNewFile,BufReadPost *.py IndentGuidesEnable
-augroup END
+" augroup markdownindent
+"   autocmd!
+"   autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+" augroup END
 
 " Use vim-jsx-improved instead:
 let g:polyglot_disabled = ['jsx']
@@ -21,8 +18,16 @@ augroup indent-colors
   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1C313D ctermbg=234
 augroup END
 
+" Setup rainbow-parentheses:
+augroup rainbow-parentheses
+  autocmd!
+  autocmd VimEnter * RainbowParenthesesToggle
+  autocmd Syntax * RainbowParenthesesLoadRound
+  autocmd Syntax * RainbowParenthesesLoadSquare
+  autocmd Syntax * RainbowParenthesesLoadBraces
+augroup END
+
 " Turn off autoroot for non-project files:
 let g:rooter_patterns = ['project.clj', 'Rakefile', 'package.json', '.git/']
-
 " let g:rooter_change_directory_for_non_project_files = '' " can be current or home
 " let g:rooter_use_lcd = 1 " only change the current window
