@@ -7,10 +7,10 @@ let g:polyglot_disabled = ['markdown']
   let g:pandoc#modules#disabled = ["folding"]
   " Turn off conceal
   let g:pandoc#syntax#conceal#use = 0
-  augroup markdowncommands
+  " augroup markdowncommands
     " autocmd BufRead,BufNewFile *.md imap <buffer> <C-i> <Esc><localleader>iwi
     " autocmd BufRead,BufNewFile *.md imap <buffer> <C-b> <Esc><localleader>bwi
-  augroup END
+  " augroup END
 
   if !exists('g:ycm_semantic_triggers')
     let g:ycm_semantic_triggers = {}

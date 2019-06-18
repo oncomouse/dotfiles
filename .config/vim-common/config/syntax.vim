@@ -1,8 +1,12 @@
 " Syntax:
 " Make sure .md files are read as Markdown:
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-" Load Indent Guides for Python Files:
-autocmd BufNewFile,BufReadPost *.py IndentGuidesEnable
+augroup markdownindent
+  autocmd!
+
+  autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+  " Load Indent Guides for Python Files:
+  autocmd BufNewFile,BufReadPost *.py IndentGuidesEnable
+augroup END
 
 " Use vim-jsx-improved instead:
 let g:polyglot_disabled = ['jsx']
@@ -10,8 +14,12 @@ let g:polyglot_disabled = ['jsx']
 " Start with indent guides on:
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#182933   ctermbg=235
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1c313d ctermbg=234
+augroup indent-colors
+  autocmd!
+
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#182933   ctermbg=235
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1c313d ctermbg=234
+augroup END
 
 " Turn off autoroot for non-project files:
 let g:rooter_patterns = ['project.clj', 'Rakefile', 'package.json', '.git/']
