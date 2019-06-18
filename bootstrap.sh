@@ -34,6 +34,10 @@ git config --global credential.helper osxkeychain
 ## Install Python Modules
 pip3 install mackup neovim
 
+# Install proselinters
+pip3 install proselint
+npm i -g alex
+
 ## Setup Ruby
 mkdir -p "$(rbenv root)"/plugins
 git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
