@@ -21,6 +21,8 @@ endif
 ca tn tabnew
 
 " Include vim-common/config files:
+let g:vim_home = '~/.config/vim-common/'
+let g:editor_root=expand('~/.config/vim-common/')
 let s:config_list = [
   \ 'config/theme.vim',
   \ 'config/statusline.vim',
@@ -36,8 +38,11 @@ let s:config_list = [
   \ 'config/linter.vim',
   \ 'config/todo.vim',
 \]
-for file in s:config_list
-  exec 'runtime' file
+
+for files in s:config_list
+  for f in split(glob(vim_home.files), '\n')
+    exec 'source '.f
+  endfor
 endfor
 
 filetype plugin indent on
