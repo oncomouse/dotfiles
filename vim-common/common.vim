@@ -22,33 +22,6 @@ ca tn tabnew
 
 " Include vim-common/config files:
 runtime! config/**/*.vim
-" let g:vim_config = '~/.config/vim-common/config'
-" let g:editor_root=expand('~/.config/vim-common/')
-" let s:config_list = [
-"   \ 'config/theme.vim',
-"   \ 'config/statusline.vim',
-"   \ 'config/basic.vim',
-"   \ 'config/syntax.vim',
-"   \ 'config/fuzzy.vim',
-"   \ 'config/autocomplete.vim',
-"   \ 'config/git.vim',
-"   \ 'config/writing.vim',
-"   \ 'config/webdev.vim',
-"   \ 'config/filebrowser.vim',
-"   \ 'config/visual-at.vim',
-"   \ 'config/linter.vim',
-"   \ 'config/todo.vim',
-" \]
-
-" for file in s:config_list
-" for file in split(glob(vim_config.'/*.vim'), '\n')
-"   exec 'source' file
-" endfor
-" for files in s:config_list
-"   for f in split(glob(vim_home.files), '\n')
-"     exec 'source '.f
-"   endfor
-" endfor
 
 filetype plugin indent on
 set tabstop=8
