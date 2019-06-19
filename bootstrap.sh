@@ -13,9 +13,14 @@ brew bundle install
 
 ## Link Minimal Configuration Files
 mkdir -p ~/.config/fish/functions/
+mkdir -p ~/.vim/
 mkdir -p ~/.config/nvim/
 ln -s ~/dotfiles/.vimrc ~/
-ln -s ~/dotfiles/.config/vim-common ~/.config/
+ln -s ~/dotfiles/vim-common/config ~/.vim
+ln -s ~/dotfiles/vim-common/config ~/.config/nvim
+ln -s ~/dotfiles/vim-common/common.vim ~/.vim
+ln -s ~/dotfiles/vim-common/bundle.vim ~/.vim
+ln -s ~/dotfiles/vim-common/*.vim ~/.config/nvim
 ln -s ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/
 ln -s ~/dotfiles/.config/fish/config.fish ~/.config/fish/
 ln -s ~/dotfiles/.config/fish/functions/fish_prompt.fish ~/.config/fish/functions/
