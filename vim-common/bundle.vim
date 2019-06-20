@@ -20,9 +20,6 @@ Plug 'airblade/vim-rooter' " Set project root
 " Syntax:
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/vim-jsx-improve', { 'for': ['javascript', 'jsx'] } " Better than what's included
-Plug 'mhartington/nvim-typescript', { 'for': ['javascript', 'typescript'], 'do': './install.sh'} " Include tsserver support in deoplete
-Plug 'deoplete-plugins/deoplete-go', { 'for': 'go', 'do': 'make'} " Add go support for deoplete
-Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' } " Clojure support for deoplete
 " Plug 'styled-components/vim-styled-components'
 " Plug 'leshill/vim-json'
 " Plug 'isRuslan/vim-es6'
@@ -38,6 +35,10 @@ Plug 'brookhong/ag.vim' " :Ag --<filetype> <regex>
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer' }
+Plug 'mhartington/nvim-typescript', { 'for': ['javascript', 'typescript'], 'do': './install.sh'} " Include tsserver support in deoplete
+Plug 'deoplete-plugins/deoplete-go', { 'for': 'go', 'do': 'make'} " Add go support for deoplete
+Plug 'oncomouse/deoplete-biblatex'
+Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' } " Clojure support for deoplete
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else

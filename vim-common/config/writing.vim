@@ -1,36 +1,30 @@
 " Writing:
 let g:polyglot_disabled = ['markdown']
+" Deoplete BibLaTeX source {{
+	call deoplete#custom#option('sources', {
+		\ 'pandoc': ['biblatex', 'buffer', 'file']
+	\})
+	call deoplete#custom#var('biblatex', 'addinfo', 0)
+	call deoplete#custom#var('biblatex', 'bibfile', '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib')
+	call deoplete#custom#var('biblatex', 'filetypes', ['pandoc', 'markdown'])
+" }}
 " Pandoc {{
   " Set up vim-pandoc's bibtex support
-  let g:pandoc#biblio#bibs=['/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib']
-  " Turn off folding
-  let g:pandoc#modules#disabled = ["folding"]
+  " let g:pandoc#biblio#bibs=['/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib']
+  " Turn off folding and vim-pandoc's BibTeX support
+  let g:pandoc#modules#disabled = ["folding", "bibliographies"]
   " Turn off conceal
   let g:pandoc#syntax#conceal#use = 0
-  " augroup markdowncommands
-    " autocmd BufRead,BufNewFile *.md imap <buffer> <C-i> <Esc><localleader>iwi
-    " autocmd BufRead,BufNewFile *.md imap <buffer> <C-b> <Esc><localleader>bwi
-  " augroup END
+" call deoplete#custom#var('omni', 'input_patterns', {
+"   \ 'pandoc': '@\w*'
+" \})
 
-  call deoplete#custom#var('omni', 'input_patterns', {
-    \ 'pandoc': '@\w*'
-  \})
   " if !exists('g:ycm_semantic_triggers')
   "   let g:ycm_semantic_triggers = {}
   " endif
   " let g:ycm_semantic_triggers.markdown = ['@']
   " let g:ycm_semantic_triggers.pandoc = ['@']
   " let g:ycm_filetype_blacklist = {}
-"}}
-" Pandoc-After {{
-  " Use deoplete for completion
-  " let g:pandoc#after#modules#enabled = ["deoplete"]
-  " call deoplete#custom#var('omni', 'input_patterns', {
-    " \ 'pandoc': '@\w*',
-    " \ })
-  " call deoplete#custom#source('omni', 'functions', {
-    " \ 'pandoc': 'pandoc#completion#Complete',
-    " \ })
 "}}
 " Ditto {{
   " au FileType markdown DittoOn
