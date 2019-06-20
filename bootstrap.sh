@@ -13,7 +13,7 @@ brew bundle install
 
 ## Link Minimal Configuration Files
 mkdir -p ~/.config/fish/functions/
-mkdir -p ~/.vim/
+mkdir -p ~/.vim/autoload/
 mkdir -p ~/.config/nvim/
 ln -s ~/dotfiles/.vimrc ~/
 ln -s ~/dotfiles/vim-common/config ~/.vim
@@ -56,7 +56,7 @@ git clone https://github.com/gpakosz/.tmux ~/.tmux
 ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
 
 ## Setup Vim and NeoVim
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+curl -fLo ~/.vim/autoload/plug.vim \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 mkdir -p ~/.local/share/nvim/site/autoload
 cp ~/.vim/autoload/plug.vim ~/.local/share/nvim/site/autoload/plug.vim
