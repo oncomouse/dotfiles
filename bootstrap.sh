@@ -39,6 +39,9 @@ git config --global credential.helper osxkeychain
 ## Install Python Modules
 pip3 install mackup neovim
 
+## Install Node.js Modules
+npm install -g neovim typescript
+
 ## Setup Ruby
 mkdir -p "$(rbenv root)"/plugins
 git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build

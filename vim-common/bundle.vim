@@ -19,13 +19,16 @@ Plug 'airblade/vim-rooter' " Set project root
 " Plug 'michaeljsmith/vim-indent-object'
 " Syntax:
 Plug 'sheerun/vim-polyglot'
-Plug 'neoclide/vim-jsx-improve' " Better than what's included
+Plug 'neoclide/vim-jsx-improve', { 'for': ['javascript', 'jsx'] } " Better than what's included
+Plug 'mhartington/nvim-typescript', { 'for': ['javascript', 'typescript'], 'do': './install.sh'} " Include tsserver support in deoplete
+Plug 'deoplete-plugins/deoplete-go', { 'for': 'go', 'do': 'make'} " Add go support for deoplete
+Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' } " Clojure support for deoplete
 " Plug 'styled-components/vim-styled-components'
 " Plug 'leshill/vim-json'
 " Plug 'isRuslan/vim-es6'
 " Plug 'posva/vim-vue'
-" Plug 'mxw/vim-jsx' ", { 'for': ['js', 'jsx' ] }
-" Plug 'pangloss/vim-javascript' ", { 'for': ['js', 'jsx', 'vue' ] }
+" Plug 'mxw/vim-jsx' ", { 'for': ['javascript', 'jsx' ] }
+" Plug 'pangloss/vim-javascript' ", { 'for': ['javascript', 'jsx', 'vue' ] }
 " Plug 'dag/vim-fish'
 " Plug 'cakebaker/scss-syntax.vim'
 " Plug 'vim-python/python-syntax'
@@ -34,7 +37,14 @@ Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
 Plug 'brookhong/ag.vim' " :Ag --<filetype> <regex>
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer' }
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 " Git Support:
 Plug 'tpope/vim-fugitive' " :Gstatus for git statis; - to add, cc to commit
 Plug 'airblade/vim-gitgutter'
@@ -51,9 +61,9 @@ Plug 'reedes/vim-textobj-sentence'
 " Plug 'reedes/vim-textobj-quote'
 Plug 'junegunn/vim-easy-align' " ga will align blocks to indicated character
 " Web Development:
-Plug 'chrisbra/Colorizer' ", { 'for': ['html', 'vue', 'jsx', 'js', 'css', 'scss'] }
-Plug 'maksimr/vim-jsbeautify' ", { 'for': ['html', 'vue', 'jsx', 'js', 'css', 'scss'] }
-Plug 'mattn/emmet-vim' ", { 'for': ['html', 'vue', 'jsx', 'js'] }
+Plug 'chrisbra/Colorizer', { 'for': ['html', 'jsx', 'javascript', 'css', 'scss'] }
+Plug 'maksimr/vim-jsbeautify', { 'for': ['javascript', 'jsx'] }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript', 'jsx' ] }
 " File Viewers:
 Plug 'ryanoasis/vim-devicons'
 " Plug 'scrooloose/nerdtree'
@@ -63,8 +73,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'itchyny/lightline.vim'
 " Plug 'mgee/lightline-bufferline'
 " Linter:
-Plug 'w0rp/ale' ", { 'for': ['js', 'jsx', 'vue'] }
-Plug 'maximbaz/lightline-ale' ", { 'for': ['js', 'jsx', 'vue'] }
+Plug 'w0rp/ale' ", { 'for': ['javascript', 'jsx', 'vue'] }
+Plug 'maximbaz/lightline-ale' ", { 'for': ['javascript', 'jsx', 'vue'] }
 " Clojure:
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'kovisoft/paredit', { 'for': 'clojure' }

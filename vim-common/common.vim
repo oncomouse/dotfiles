@@ -23,6 +23,9 @@ ca tn tabnew
 " Include vim-common/config files:
 runtime! config/**/*.vim
 
+let g:deoplete#enable_at_startup = 1
+let g:nvim_typescript#javascript_support = 1
+
 filetype plugin indent on
 set tabstop=8
 set shiftwidth=2

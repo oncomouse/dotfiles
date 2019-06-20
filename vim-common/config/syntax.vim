@@ -37,3 +37,7 @@ augroup END
 let g:rooter_patterns = ['project.clj', 'Rakefile', 'package.json', '.git/']
 " let g:rooter_change_directory_for_non_project_files = '' " can be current or home
 " let g:rooter_use_lcd = 1 " only change the current window
+"
+call deoplete#custom#option('keyword_patterns', {
+  \ 'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
+\})

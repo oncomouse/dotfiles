@@ -12,12 +12,15 @@ let g:polyglot_disabled = ['markdown']
     " autocmd BufRead,BufNewFile *.md imap <buffer> <C-b> <Esc><localleader>bwi
   " augroup END
 
-  if !exists('g:ycm_semantic_triggers')
-    let g:ycm_semantic_triggers = {}
-  endif
-  let g:ycm_semantic_triggers.markdown = ['@']
-  let g:ycm_semantic_triggers.pandoc = ['@']
-  let g:ycm_filetype_blacklist = {}
+  call deoplete#custom#var('omni', 'input_patterns', {
+    \ 'pandoc': '@\w*'
+  \})
+  " if !exists('g:ycm_semantic_triggers')
+  "   let g:ycm_semantic_triggers = {}
+  " endif
+  " let g:ycm_semantic_triggers.markdown = ['@']
+  " let g:ycm_semantic_triggers.pandoc = ['@']
+  " let g:ycm_filetype_blacklist = {}
 "}}
 " Pandoc-After {{
   " Use deoplete for completion
