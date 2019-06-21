@@ -15,7 +15,7 @@
   "
   " Lint only on save:
   " let g:ale_lint_on_text_changed = 'never'
-  " let g:ale_lint_on_enter = 1
+  let g:ale_lint_on_enter = 0
   "
   " Add Vale to pandoc bc vim-pandoc insists on changing filetype:
   call ale#linter#Define('pandoc', {
