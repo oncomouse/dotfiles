@@ -14,8 +14,8 @@ set -gx FZF_DEFAULT_COMMAND 'ag --nocolor -g ""'
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_ALT_C_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_DEFAULT_OPTS '
-  --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
-  --color info:108,prompt:109,spinner:108,pointer:168,marker:168
+  --color bg:#1B2B34,fg:#C0C5CE,bg+:#4F5B66,fg+:#D8DEE9,hl:#99C794,hl+:#99C794
+  --color info:108,prompt:109,spinner:108,pointer:168,marker:#EC5f67
   '
 
 set -g fish_user_paths $HOME/bin $HOME/.local/bin $HOME/go/bin
