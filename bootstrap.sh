@@ -15,6 +15,7 @@ brew bundle install
 mkdir -p ~/.config/fish/functions/
 mkdir -p ~/.vim/autoload/
 mkdir -p ~/.config/nvim/
+ln -s ~/dotfiles/.agignore ~/
 ln -s ~/dotfiles/.vimrc ~/
 ln -s ~/dotfiles/vim-common/config ~/.vim
 ln -s ~/dotfiles/vim-common/config ~/.config/nvim
