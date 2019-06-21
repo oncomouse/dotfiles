@@ -1,5 +1,22 @@
 " Syntax:
 " Ale {{
+  " Better ALE Msg Format
+  " let g:ale_echo_msg_error_str = 'E'
+  " let g:ale_echo_msg_warning_str = 'W'
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+  let g:lightline#ale#indicator_checking = "\uf110"
+  let g:lightline#ale#indicator_warnings = "\uf071\u2003"
+  let g:lightline#ale#indicator_errors = "\uf05e\u2003"
+  let g:lightline#ale#indicator_ok = "\uf00c"
+  "
+  " Jump between ALE Errors:
+  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+  nmap <silent> <C-j> <Plug>(ale_next_wrap)
+  "
+  " Lint only on save:
+  " let g:ale_lint_on_text_changed = 'never'
+  " let g:ale_lint_on_enter = 1
+  "
   " Add Vale to pandoc bc vim-pandoc insists on changing filetype:
   call ale#linter#Define('pandoc', {
   \   'name': 'vale',
@@ -16,7 +33,6 @@
   let g:indent_guides_auto_colors = 0
   augroup indent-colors
     autocmd!
-
     autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1B2B34 ctermbg=235
     autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1C313D ctermbg=234
   augroup END
