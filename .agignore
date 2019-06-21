@@ -2,3 +2,7 @@ Library
 node_modules
 .git
 .DS_Store
+.rbenv
+.nodenv
+Mackup
+.sass-cache
