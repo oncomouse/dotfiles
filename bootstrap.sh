@@ -40,7 +40,7 @@ git config --global credential.helper osxkeychain
 pip3 install mackup neovim
 
 ## Install Node.js Modules
-npm install -g neovim typescript
+npm install -g neovim typescript@3.5.1 jsonlint
 
 ## Setup Ruby
 mkdir -p "$(rbenv root)"/plugins

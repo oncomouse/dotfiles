@@ -1,5 +1,5 @@
 " Writing:
-let g:polyglot_disabled = ['markdown']
+" let g:polyglot_disabled = ['markdown']
 " Deoplete BibLaTeX source {{
 	call deoplete#custom#option('sources', {
 		\ 'pandoc': ['biblatex', 'buffer', 'file']

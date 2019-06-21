@@ -12,7 +12,7 @@ call ale#linter#Define('pandoc', {
 \})
 
 " Use vim-jsx-improved instead:
-let g:polyglot_disabled = ['jsx']
+let g:polyglot_disabled = ['jsx', 'pandoc', 'javascript']
 
 " Start with indent guides on:
 let g:indent_guides_enable_on_vim_startup = 1
