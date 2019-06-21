@@ -21,11 +21,12 @@ Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 " Plug 'michaeljsmith/vim-indent-object'
 " Syntax:
 Plug 'sheerun/vim-polyglot' " Multi-language syntax pack (disabled in syntax.vim for pandoc & javascript)
-Plug 'neoclide/vim-jsx-improve' " Support JSX in yajs
+" Plug 'neoclide/vim-jsx-improve' " Support JSX in yajs
+Plug 'othree/yajs.vim' " Support JavaScript syntax (not using vim-polyglot)
+Plug 'mxw/vim-jsx'
 Plug 'othree/es.next.syntax.vim' " Support ES7+ syntax
 Plug 'othree/javascript-libraries-syntax.vim' " Support library syntax in JS
-Plug 'othree/yajs.vim' " Support JavaScript syntax (not using vim-polyglot)
-" Plug 'styled-components/vim-styled-components'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 " Fuzzy Search:
 Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
 Plug 'brookhong/ag.vim' " :Ag --<filetype> <regex>
