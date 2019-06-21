@@ -78,6 +78,9 @@ augroup writing
                                  \ | call pencil#init()
                                  \ | Limelight
   autocmd FileType text,pandoc,markdown  call pencil#init()
+  " Make sure j and k work with word wrap turned on:
+  autocmd FileType text,pandoc,markdown nmap j gj
+  autocmd FileType text,pandoc,markdown nmap k gk
   autocmd! User GoyoEnter call <SID>goyo_enter()
   autocmd! User GoyoLeave call <SID>goyo_leave()
 augroup END

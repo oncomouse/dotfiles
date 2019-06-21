@@ -18,6 +18,7 @@ Plug 'terryma/vim-expand-region' " + or _ to expand or shrink (visual)
 Plug 'airblade/vim-rooter' " Set project root
 Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
+Plug 'docunext/closetag.vim' " Do the same for HTML
 " Plug 'michaeljsmith/vim-indent-object'
 " Syntax:
 Plug 'sheerun/vim-polyglot' " Multi-language syntax pack (disabled in syntax.vim for pandoc & javascript)
@@ -28,7 +29,7 @@ Plug 'othree/javascript-libraries-syntax.vim' " Support library syntax in yajs
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' } " Styled-components in JS
 " Fuzzy Search:
 Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
-Plug 'brookhong/ag.vim' " :Ag --<filetype> <regex>
+Plug 'mileszs/ack.vim' " Use Ack.vim to use Ag (I know, I know)
 Plug '/usr/local/opt/fzf' " Load FZF into Vim
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer' }
@@ -50,13 +51,13 @@ Plug 'airblade/vim-gitgutter' " Git stats in the gutter
 " Writing:
 Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
 Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
-Plug 'junegunn/limelight.vim' " Highlight current paragraph
-Plug 'junegunn/goyo.vim' " Minimalist writing environment using :Goyo
-Plug 'reedes/vim-pencil' " Set various writing-friendly commands
-Plug 'reedes/vim-lexical' " Better spellchecking
+Plug 'junegunn/limelight.vim', { 'for': ['pandoc', 'markdown', 'text'] } " Highlight current paragraph
+Plug 'junegunn/goyo.vim', { 'for': ['pandoc', 'markdown', 'text'] } " Minimalist writing environment using :Goyo
+Plug 'reedes/vim-pencil', { 'for': ['pandoc', 'markdown', 'text'] } " Set various writing-friendly commands
+Plug 'reedes/vim-lexical', { 'for': ['pandoc', 'markdown', 'text'] } " Better spellchecking
 Plug 'reedes/vim-litecorrect' " Add autocorrections for boneheaded typos
 Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
-Plug 'reedes/vim-textobj-sentence' " Use as & is for selecting sentences; g) and g( for moving
+Plug 'reedes/vim-textobj-sentence', { 'for': ['pandoc', 'markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
 Plug 'junegunn/vim-easy-align' " ga will align blocks to indicated character
 " Web Development:
 Plug 'chrisbra/Colorizer', { 'for': ['html', 'javascript.jsx', 'javascript', 'css', 'scss'] }

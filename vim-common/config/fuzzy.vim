@@ -1,28 +1,30 @@
-" CTRL-P {{
-  " ctrlp support
-  " let g:ctrlp_brief_prompt=1
-  " let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-  " let g:ctrlp_show_hidden = 1
-  " let g:ctrlp_prompt_mappings = {
-  "     \ 'AcceptSelection("h")': ['<c-x>', '<c-s>'],
-  "     \ 'AcceptSelection("e")': ['<c-t>',],
-  "     \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-  "     \ }
-"}}
+" Ack.vim {{
+  if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+  endif
+" }}
 " FZF {{
-
-  nnoremap <c-p> :FZF<cr>
+  " Highlight file with <shift>-<tab>; press the follow to open:
+  let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit',
+      \ 'ctrl-t': 'tabnew',
+      \ 'ctrl-e': 'edit',
+      \ }
+  nnoremap <silent> <c-p> :FZF<CR>
+  nnoremap <silent> <leader>F :FZF ~<CR>
   let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
-  nnoremap <silent> <leader>f :Files<CR>
+  " Close the quick fix window:
+  nnoremap <silent> <leader>c :cclose<CR>
+
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>A :Windows<CR>
   nnoremap <silent> <leader>; :BLines<CR>
   nnoremap <silent> <leader>o :BTags<CR>
   nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>? :History<CR>
-  nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-  nnoremap <silent> <leader>. :AgIn
+  nnoremap <silent> <leader>/ :execute 'Ack! ' . input('Ack/')<CR>
   nnoremap <silent> <leader>r :call fzf#run({
     \   'source': 'sed "1d" $HOME/.cache/neomru/file',
     \   'sink': 'e '
@@ -34,6 +36,27 @@
   nnoremap <silent> <leader>ga :BCommits<CR>
   nnoremap <silent> <leader>ft :Filetypes<CR>
 
+  " Complete file name:
+  imap <C-x><C-f> <plug>(fzf-complete-file-ag)
+  " Complete file line:
+  imap <C-x><C-l> <plug>(fzf-complete-line)
+
+  function! SearchWordWithAg()
+    execute 'Ack!' expand('<cword>')
+  endfunction
+
+  function! SearchVisualSelectionWithAg() range
+    let old_reg = getreg('"')
+    let old_regtype = getregtype('"')
+    let old_clipboard = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', old_reg, old_regtype)
+    let &clipboard = old_clipboard
+    execute 'Ack!' selection
+  endfunction
+  "
   " FZF BibTeX COnfiguration
   let $FZF_BIBTEX_CACHEDIR = '/var/tmp'
   let $FZF_BIBTEX_SOURCES = '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib'
@@ -63,29 +86,5 @@
               \ 'up': '40%',
               \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
   augroup END
-
-  imap <C-x><C-f> <plug>(fzf-complete-file-ag)
-  imap <C-x><C-l> <plug>(fzf-complete-line)
-
-  function! SearchWordWithAg()
-    execute 'Ag' expand('<cword>')
-  endfunction
-
-  function! SearchVisualSelectionWithAg() range
-    let old_reg = getreg('"')
-    let old_regtype = getregtype('"')
-    let old_clipboard = &clipboard
-    set clipboard&
-    normal! ""gvy
-    let selection = getreg('"')
-    call setreg('"', old_reg, old_regtype)
-    let &clipboard = old_clipboard
-    execute 'Ag' selection
-  endfunction
-
-  function! SearchWithAgInDirectory(...)
-    call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf#vim#default_layout))
-  endfunction
-  command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 "}}
 
