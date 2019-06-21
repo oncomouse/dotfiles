@@ -35,7 +35,7 @@
 " Goyo {{
   function! s:goyo_enter()
     " Trigger Limelight
-    Limelight
+    " Limelight
     " For some reason, lightline-bufferline causes lightline to reenable, so
     " we have to turn it off on these events:
     augroup lightline_goyo
@@ -44,7 +44,7 @@
   endfunction
 
   function! s:goyo_leave()
-    Limelight!
+    " Limelight!
     augroup lightline_goyo
       autocmd!
     augroup END
@@ -72,10 +72,11 @@
 " Initialize our writing environment:
 augroup writing
   autocmd!
-  autocmd FileType pandoc,text,markdown,mkd call lexical#init()
+  autocmd FileType pandoc,text,markdown call lexical#init()
                                  \ | call litecorrect#init()
                                  \ | call textobj#sentence#init()
                                  \ | call pencil#init()
+                                 \ | Limelight
   autocmd FileType text,pandoc,markdown  call pencil#init()
   autocmd! User GoyoEnter call <SID>goyo_enter()
   autocmd! User GoyoLeave call <SID>goyo_leave()

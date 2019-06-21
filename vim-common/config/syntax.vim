@@ -58,7 +58,7 @@
   \})
 " }}
 " Colorizer {{
-  let g:colorizer_auto_filetype='css,scss,sass,less,html'
+  let g:colorizer_auto_filetype='css,scss,sass,less,html,javascript,javascript.jsx'
 " }}
 " Emmet
   let g:user_emmet_settings = {
@@ -66,4 +66,8 @@
       \      'extends' : 'jsx',
       \  },
     \}
+" }}
+" Better Whitespace {{
+  let g:better_whitespace_guicolor='#EC5f67'
+  let g:strip_whitespace_on_save=1
 " }}

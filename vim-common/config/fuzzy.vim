@@ -37,16 +37,11 @@
   " FZF BibTeX COnfiguration
   let $FZF_BIBTEX_CACHEDIR = '/var/tmp'
   let $FZF_BIBTEX_SOURCES = '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib'
+
   function! s:bibtex_cite_sink(lines)
     let r=system("bibtex-cite ", a:lines)
     execute ':normal! i' . r
   endfunction
-
-  nnoremap <C-c> :call fzf#run({
-              \ 'source': 'bibtex-ls',
-              \ 'sink*': function('<sid>bibtex_cite_sink'),
-              \ 'up': '40%',
-              \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
 
   function! s:bibtex_cite_sink_insert(lines)
     let r=system("bibtex-cite ", a:lines)
@@ -54,11 +49,20 @@
     call feedkeys('a', 'n')
   endfunction
 
-  inoremap <silent> <C-c> <c-g>u<c-o>:call fzf#run({
-            \ 'source': 'bibtex-ls',
-            \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
-            \ 'up': '40%',
-            \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+  augroup fzf-bibtex
+    autocmd!
+    autocmd FileType pandoc,text,markdown nnoremap <silent> <C-c> :call fzf#run({
+                \ 'source': 'bibtex-ls',
+                \ 'sink*': function('<sid>bibtex_cite_sink'),
+                \ 'up': '40%',
+                \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+
+    autocmd FileType pandoc,text,markdown inoremap <silent> <C-c> <c-g>u<c-o>:call fzf#run({
+              \ 'source': 'bibtex-ls',
+              \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
+              \ 'up': '40%',
+              \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+  augroup END
 
   imap <C-x><C-f> <plug>(fzf-complete-file-ag)
   imap <C-x><C-l> <plug>(fzf-complete-line)

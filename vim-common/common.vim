@@ -37,8 +37,8 @@ let &colorcolumn=join(range(81,999),",")
 highlight ColorColumn ctermbg=235 guibg=#182933
 
 hi clear SpellBad
-hi clear SpellCap
-hi clear SpellRare
-hi! SpellBad gui=undercurl guibg=#EC5F67
-hi! SpellCap gui=undercurl guibg=#C594C5
-hi! SpellRare gui=undercurl guibg=#6699CC
+hi! SpellBad gui=undercurl guibg=#343D46
+" hi clear SpellCap
+" hi clear SpellRare
+" hi! SpellCap gui=undercurl guibg=#C594C5
+" hi! SpellRare gui=undercurl guibg=#6699CC
