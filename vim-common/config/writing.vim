@@ -1,11 +1,11 @@
 " Writing:
 " Deoplete BibLaTeX source {{
-	call deoplete#custom#option('sources', {
-		\ 'pandoc': ['biblatex', 'buffer', 'file']
-	\})
-	call deoplete#custom#var('biblatex', 'addinfo', 0)
-	call deoplete#custom#var('biblatex', 'bibfile', '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib')
-	call deoplete#custom#var('biblatex', 'filetypes', ['pandoc', 'markdown'])
+    call deoplete#custom#option('sources', {
+            \ 'pandoc': ['biblatex', 'buffer', 'file']
+    \})
+    call deoplete#custom#var('biblatex', 'addinfo', 0)
+    call deoplete#custom#var('biblatex', 'bibfile', '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib')
+    call deoplete#custom#var('biblatex', 'filetypes', ['pandoc', 'markdown'])
 " }}
 " Pandoc {{
   " Uncomment to use the omni-func for bibliography completion:
@@ -22,6 +22,19 @@
         \ "html",
         \ "scss",
         \]
+  " augroup my_cm_setup
+  "   autocmd!
+  "   autocmd BufEnter * call ncm2#enable_for_buffer()
+  "   autocmd Filetype pandoc call ncm2#register_source({
+  "     \ 'name': 'pandoc',
+  "     \ 'priority': 8,
+  "     \ 'scope': ['pandoc'],
+  "     \ 'mark': 'md',
+  "     \ 'word_pattern': '\w+',
+  "     \ 'complete_pattern': ['@'],
+  "     \ 'on_complete': ['ncm2#on_complete#omni', 'pandoc#completion#Complete'],
+  "     \ })
+  " augroup END
   "
   " Deoplete omni-function bib completion:
   " call deoplete#custom#var('omni', 'input_patterns', {

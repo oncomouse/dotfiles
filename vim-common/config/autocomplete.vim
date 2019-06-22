@@ -1,23 +1,23 @@
 " Autocomplete:
 " Deoplete {{
+  "
   function! s:check_back_space() abort "{{{
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
   endfunction"}}}
-  " inoremap <silent><expr> <TAB>
-  "       \ pumvisible() ? "\<C-n>" :
-  "       \ <SID>check_back_space() ? "\<TAB>" :
-  "       \ deoplete#manual_complete()
+  "
   " Shift-tab to go up the list:
   imap <expr><S-TAB>
         \ pumvisible() ? "\<C-p>" : "<\S-TAB>"
   " Tab to go down the list:
   imap <expr><TAB>
-  \ pumvisible() ? "\<C-n>" :
+  \ pumvisible() ?
+  \ "\<C-n>" :
   \ neosnippet#expandable_or_jumpable() ?
   \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
   smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
   \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+  inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 "}}
 " Neosnippets {{
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -32,3 +32,11 @@
     autocmd FileType neosnippet setlocal tabstop=8 shiftwidth=8 softtabstop=8 expandtab=noexpandtab
   augroup END
 " }}
+" Deoplete-TernJS {{
+  " let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/tern'
+  " let g:deoplete#sources#ternjs#timeout = 1
+  " let g:deoplete#sources#ternjs#docs = 1
+  " let g:deoplete#sources#ternjs#filetypes = [
+  "     \ 'javascript.jsx',
+  "     \ ]
+"}}
