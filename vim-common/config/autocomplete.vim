@@ -1,7 +1,15 @@
 " Autocomplete:
 " COC {{
   " Add extensions
-  call coc#add_extension('coc-omni', 'coc-neosnippet', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-gocode', 'coc-css')
+  call coc#add_extension(
+        \'coc-omni',
+        \'coc-neosnippet',
+        \'coc-tsserver',
+        \'coc-json',
+        \'coc-html',
+        \'coc-gocode',
+        \'coc-css',
+        \)
   " Configure omnifunc completion for Clojure:
   call coc#config('coc.source.omni.filetypes',
         \ [
