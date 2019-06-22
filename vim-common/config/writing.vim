@@ -1,17 +1,17 @@
 " Writing:
 " Deoplete BibLaTeX source {{
-    call deoplete#custom#option('sources', {
-            \ 'pandoc': ['biblatex', 'buffer', 'file']
-    \})
-    call deoplete#custom#var('biblatex', 'addinfo', 0)
-    call deoplete#custom#var('biblatex', 'bibfile', '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib')
-    call deoplete#custom#var('biblatex', 'filetypes', ['pandoc', 'markdown'])
+    " call deoplete#custom#option('sources', {
+    "         \ 'pandoc': ['biblatex', 'buffer', 'file']
+    " \})
+    " call deoplete#custom#var('biblatex', 'addinfo', 0)
+    " call deoplete#custom#var('biblatex', 'bibfile', '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib')
+    " call deoplete#custom#var('biblatex', 'filetypes', ['pandoc', 'markdown'])
 " }}
 " Pandoc {{
   " Uncomment to use the omni-func for bibliography completion:
-  " let g:pandoc#biblio#bibs=['/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib']
+  let g:pandoc#biblio#bibs=['/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib']
   " Turn off folding and vim-pandoc's BibTeX support
-  let g:pandoc#modules#disabled = ["folding", "bibliography"]
+  let g:pandoc#modules#disabled = ["folding"]
   " Turn off conceal
   let g:pandoc#syntax#conceal#use = 0
   " Turn on language support
@@ -22,32 +22,14 @@
         \ "html",
         \ "scss",
         \]
-  " augroup my_cm_setup
-  "   autocmd!
-  "   autocmd BufEnter * call ncm2#enable_for_buffer()
-  "   autocmd Filetype pandoc call ncm2#register_source({
-  "     \ 'name': 'pandoc',
-  "     \ 'priority': 8,
-  "     \ 'scope': ['pandoc'],
-  "     \ 'mark': 'md',
-  "     \ 'word_pattern': '\w+',
-  "     \ 'complete_pattern': ['@'],
-  "     \ 'on_complete': ['ncm2#on_complete#omni', 'pandoc#completion#Complete'],
-  "     \ })
-  " augroup END
-  "
-  " Deoplete omni-function bib completion:
-  " call deoplete#custom#var('omni', 'input_patterns', {
-  "   \ 'pandoc': '@\w*'
-  " \})
   "
   " YouCompleteMe omni-function completion:
-  " if !exists('g:ycm_semantic_triggers')
-  "   let g:ycm_semantic_triggers = {}
-  " endif
-  " let g:ycm_semantic_triggers.markdown = ['@']
-  " let g:ycm_semantic_triggers.pandoc = ['@']
-  " let g:ycm_filetype_blacklist = {}
+  if !exists('g:ycm_semantic_triggers')
+    let g:ycm_semantic_triggers = {}
+  endif
+  let g:ycm_semantic_triggers.markdown = ['@']
+  let g:ycm_semantic_triggers.pandoc = ['@']
+  let g:ycm_filetype_blacklist = {}
 "}}
 " Limelight {{
   let g:limelight_conceal_ctermfg="black"
