@@ -18,7 +18,7 @@
 " }}
 " Pandoc {{
   " Uncomment to use the omni-func for bibliography completion:
-  " let g:pandoc#biblio#bibs=[g:bibliography_fil']
+  " let g:pandoc#biblio#bibs=[g:bibliography_file]
   " Turn off folding and vim-pandoc's BibTeX support
   let g:pandoc#modules#disabled = ["folding", "bibliography"]
   " Turn off conceal
