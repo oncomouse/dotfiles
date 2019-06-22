@@ -26,7 +26,7 @@ Plug 'othree/javascript-libraries-syntax.vim' " Support library syntax in yajs
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' } " Styled-components in JS
 " Fuzzy Search:
 Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
-Plug 'mileszs/ack.vim' " Use Ack.vim to use Ag (I know, I know)
+" Plug 'mileszs/ack.vim' " Use Ack.vim to use Ag (I know, I know)
 Plug '/usr/local/opt/fzf' " Load FZF into Vim
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer' }

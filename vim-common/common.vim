@@ -27,8 +27,12 @@ set expandtab
 set splitbelow
 set splitright
 
+let g:bibliography_file = '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib'
+
 " Shortcut :tn for :tabnew
 ca tn tabnew
+" Select whole file
+nnoremap <leader>vf ggVG
 
 " Include vim-common/config files:
 runtime! config/**/*.vim

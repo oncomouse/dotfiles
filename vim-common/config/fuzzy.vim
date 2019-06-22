@@ -1,7 +1,7 @@
 " Ack.vim {{
-  if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-  endif
+  " if executable('ag')
+  "   let g:ackprg = 'ag --vimgrep'
+  " endif
 " }}
 " FZF {{
   " Highlight file with <shift>-<tab>; press the follow to open:
@@ -24,7 +24,7 @@
   nnoremap <silent> <leader>o :BTags<CR>
   nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>? :History<CR>
-  nnoremap <silent> <leader>/ :execute 'Ack! ' . input('Ack/')<CR>
+  nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
   nnoremap <silent> <leader>r :call fzf#run({
     \   'source': 'sed "1d" $HOME/.cache/neomru/file',
     \   'sink': 'e '
@@ -42,7 +42,7 @@
   imap <C-x><C-l> <plug>(fzf-complete-line)
 
   function! SearchWordWithAg()
-    execute 'Ack!' expand('<cword>')
+    execute 'Ag' expand('<cword>')
   endfunction
 
   function! SearchVisualSelectionWithAg() range
@@ -54,12 +54,12 @@
     let selection = getreg('"')
     call setreg('"', old_reg, old_regtype)
     let &clipboard = old_clipboard
-    execute 'Ack!' selection
+    execute 'Ag' selection
   endfunction
   "
   " FZF BibTeX COnfiguration
   let $FZF_BIBTEX_CACHEDIR = '/var/tmp'
-  let $FZF_BIBTEX_SOURCES = '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib'
+  let $FZF_BIBTEX_SOURCES = g:bibliography_file
 
   function! s:bibtex_cite_sink(lines)
     let r=system("bibtex-cite ", a:lines)

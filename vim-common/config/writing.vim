@@ -7,7 +7,7 @@
               \ 'pandoc': ['biblatex']
       \})
       autocmd FileType pandoc call deoplete#custom#var('biblatex', 'addinfo', 0)
-      autocmd FileType pandoc call deoplete#custom#var('biblatex', 'bibfile', '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib')
+      autocmd FileType pandoc call deoplete#custom#var('biblatex', 'bibfile', g:bibliography_file)
       autocmd FileType pandoc call deoplete#custom#var('biblatex', 'filetypes', ['pandoc', 'markdown'])
       autocmd FileType pandoc imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "<\S-TAB>"
       autocmd FileType pandoc imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -18,7 +18,7 @@
 " }}
 " Pandoc {{
   " Uncomment to use the omni-func for bibliography completion:
-  " let g:pandoc#biblio#bibs=['/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib']
+  " let g:pandoc#biblio#bibs=[g:bibliography_fil']
   " Turn off folding and vim-pandoc's BibTeX support
   let g:pandoc#modules#disabled = ["folding", "bibliography"]
   " Turn off conceal
