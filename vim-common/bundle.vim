@@ -31,22 +31,22 @@ Plug '/usr/local/opt/fzf' " Load FZF into Vim
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer' }
 " Plug 'deoplete-plugins/deoplete-go', { 'for': 'go', 'do': 'make'} " Add go support for deoplete
-" Plug 'oncomouse/deoplete-biblatex', { 'for': 'pandoc' } " Custom BibLaTeX source, uses FZF-Bibtex library
+Plug 'oncomouse/deoplete-biblatex', { 'for': ['pandoc', 'markdown', 'text'] } " Custom BibLaTeX source, uses FZF-Bibtex library
 " Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' } " Clojure support for deoplete
 " Load deoplete differently for NeoVim and Vim:
-" if has('nvim')
-"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'for': ['pandoc', 'markdown', 'text'], 'do': ':UpdateRemotePlugins' }
 "   Plug 'mhartington/nvim-typescript', { 'do': './install.sh'} " Include tsserver support in deoplete
-" else
-"   Plug 'Shougo/deoplete.nvim'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
+else
+  Plug 'Shougo/deoplete.nvim', { 'for': ['pandoc', 'markdown', 'text'] }
+  Plug 'roxma/nvim-yarp', { 'for': ['pandoc', 'markdown', 'text'] }
+  Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['pandoc', 'markdown', 'text'] }
 "   Plug 'Shougo/vimproc.vim', {'do': 'make'}
 "   Plug 'Quramy/tsuquyomi'
 "   Plug 'rudism/deoplete-tsuquyomi'
 "   let g:tsuquyomi_javascript_support = 1
 "   autocmd FileType javascript,javascript.jsx setlocal omnifunc=tsuquyomi#complete
-" endif
+endif
 " Plug 'Shougo/neosnippet.vim' " Snippets support
 " Plug 'Shougo/neosnippet-snippets' " The snippets
 " Git Support:

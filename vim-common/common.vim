@@ -33,9 +33,6 @@ ca tn tabnew
 " Include vim-common/config files:
 runtime! config/**/*.vim
 
-let g:deoplete#enable_at_startup = 1
-let g:nvim_typescript#javascript_support = 1
-
 " Different highlighting for long lines:
 let &colorcolumn=join(range(81,999),",")
 highlight ColorColumn ctermbg=235 guibg=#182933

@@ -1,4 +1,8 @@
 " Autocomplete:
+" YCM {{
+  " Use deoplete for Pandoc:
+  let g:ycm_filetype_blacklist = { 'pandoc': 1 }
+" }}
 " Deoplete {{
   "
   "function! s:check_back_space() abort "{{{
