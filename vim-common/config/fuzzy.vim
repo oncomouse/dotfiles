@@ -1,8 +1,3 @@
-" Ack.vim {{
-  " if executable('ag')
-  "   let g:ackprg = 'ag --vimgrep'
-  " endif
-" }}
 " FZF {{
   " Highlight file with <shift>-<tab>; press the follow to open:
   let g:fzf_action = {
@@ -74,13 +69,13 @@
 
   augroup fzf-bibtex
     autocmd!
-    autocmd FileType pandoc,text,markdown nnoremap <silent> <C-c> :call fzf#run({
+    " Bind <ctrl+n> to citation look-up using FZF:
+    autocmd FileType pandoc,text,markdown nnoremap <silent> <C-N> :call fzf#run({
                 \ 'source': 'bibtex-ls',
                 \ 'sink*': function('<sid>bibtex_cite_sink'),
                 \ 'up': '40%',
                 \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
-
-    autocmd FileType pandoc,text,markdown inoremap <silent> <C-c> <c-g>u<c-o>:call fzf#run({
+    autocmd FileType pandoc,text,markdown inoremap <silent> <C-N> <c-g>u<c-o>:call fzf#run({
               \ 'source': 'bibtex-ls',
               \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
               \ 'up': '40%',

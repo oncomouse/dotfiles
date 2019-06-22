@@ -25,6 +25,9 @@
   \   'callback': 'ale#handlers#vale#Handle',
   \})
 " }}
+" vim-jsx-pretty {{
+  let g:vim_jsx_pretty_colorful_config = 1
+" }}
 " Polyglot {{
   let g:polyglot_disabled = ['jsx', 'pandoc', 'javascript'] " Disable JSX, JavaScript, and Pandoc syntax:
 " }}
@@ -73,4 +76,7 @@
 " Better Whitespace {{
   let g:better_whitespace_guicolor='#EC5f67'
   let g:strip_whitespace_on_save=1
+" }}
+" CoC JSONC {{
+  autocmd FileType json syntax match Comment +\/\/.\+$+
 " }}

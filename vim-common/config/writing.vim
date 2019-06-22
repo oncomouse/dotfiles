@@ -1,35 +1,44 @@
 " Writing:
 " Deoplete BibLaTeX source {{
     augroup deoplete-pandoc
-      autocmd!
-      autocmd FileType pandoc let b:coc_suggest_disable = 1
-      autocmd FileType pandoc call deoplete#custom#option('sources', {
-              \ 'pandoc': ['biblatex']
-      \})
-      autocmd FileType pandoc call deoplete#custom#var('biblatex', 'addinfo', 0)
-      autocmd FileType pandoc call deoplete#custom#var('biblatex', 'bibfile', g:bibliography_file)
-      autocmd FileType pandoc call deoplete#custom#var('biblatex', 'filetypes', ['pandoc', 'markdown'])
-      autocmd FileType pandoc imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "<\S-TAB>"
-      autocmd FileType pandoc imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-      autocmd FileType pandoc inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-      autocmd FileType pandoc call deoplete#initialize()
-      autocmd FileType pandoc call deoplete#enable()
+      " autocmd!
+      " autocmd FileType pandoc let b:coc_suggest_disable = 1
+      " autocmd FileType pandoc call deoplete#custom#option('sources', {
+      "         \ 'pandoc': ['biblatex']
+      " \})
+      " autocmd FileType pandoc call deoplete#custom#var('biblatex', 'addinfo', 0)
+      " autocmd FileType pandoc call deoplete#custom#var('biblatex', 'bibfile', g:bibliography_file)
+      " autocmd FileType pandoc call deoplete#custom#var('biblatex', 'filetypes', ['pandoc', 'markdown'])
+      " autocmd FileType pandoc imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "<\S-TAB>"
+      " autocmd FileType pandoc imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+      " autocmd FileType pandoc inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+      " autocmd FileType pandoc call deoplete#initialize()
+      " autocmd FileType pandoc call deoplete#enable()
     augroup END
+" }}
+" {{ CoC Pandoc
+  augroup coc-pandoc
+    autocmd!
+    autocmd FileType pandoc call coc#config('coc.source.buffer.enable', 0)
+    autocmd FileType pandoc call coc#config('coc.source.around.enable', 0)
+    autocmd FileType pandoc call coc#config('coc.source.snippets.enable', 0)
+    autocmd FileType pandoc call coc#config('coc.source.file.enable', 0)
+  augroup END
 " }}
 " Pandoc {{
   " Uncomment to use the omni-func for bibliography completion:
-  " let g:pandoc#biblio#bibs=[g:bibliography_file]
+  let g:pandoc#biblio#bibs=[g:bibliography_file]
   " Turn off folding and vim-pandoc's BibTeX support
-  let g:pandoc#modules#disabled = ["folding", "bibliography"]
+  let g:pandoc#modules#disabled = ['folding'] " , 'bibliography']
   " Turn off conceal
   let g:pandoc#syntax#conceal#use = 0
   " Turn on language support
   let g:pandoc#syntax#codeblocks#embeds#langs = [
-        \ "javascript",
-        \ "css",
-        \ "json",
-        \ "html",
-        \ "scss",
+        \ 'javascript',
+        \ 'css',
+        \ 'json',
+        \ 'html',
+        \ 'scss',
         \]
   "
   " YouCompleteMe omni-function completion:

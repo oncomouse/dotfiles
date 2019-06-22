@@ -1,5 +1,10 @@
 " Autocomplete:
 " COC {{
+  " Disable CoC for CSS:
+  augroup hyperstyle
+    autocmd!
+    autocmd FileType css,scss let b:coc_suggest_disable = 1
+  augroup END
   " Add extensions
   call coc#add_extension(
         \'coc-omni',
@@ -8,12 +13,13 @@
         \'coc-json',
         \'coc-html',
         \'coc-gocode',
-        \'coc-css',
         \)
+  call coc#config('suggest.snippetIndicator', '►')
   " Configure omnifunc completion for Clojure:
   call coc#config('coc.source.omni.filetypes',
         \ [
-        \   'clojure'
+        \   'clojure',
+        \   'pandoc'
         \ ]
         \)
   " Use vim-clojure-static for the omnifunc:
@@ -24,17 +30,12 @@
 " }}
 "" Neosnippets {{
   "
-  inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+  let g:neosnippet#disable_runtime_snippets = {
+        \ 'css': 1,
+        \ 'pandoc': 1,
+        \ 'markdown': 1,
+        \}
 
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-  let g:coc_snippet_next = '<tab>'
   call coc#config('suggest.noselect', 0)
   "
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)

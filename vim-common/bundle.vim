@@ -18,34 +18,24 @@ Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 Plug 'docunext/closetag.vim' " Do the same for HTML
 " Syntax:
-Plug 'sheerun/vim-polyglot' " Multi-language syntax pack (disabled in syntax.vim for pandoc & javascript)
+Plug 'MaxMEllon/vim-jsx-pretty' " Modular JSX support to add to yajs
 Plug 'othree/yajs.vim' " Support JavaScript syntax (not using vim-polyglot)
-Plug 'mxw/vim-jsx' " Modular JSX support to add to yajs
 Plug 'othree/es.next.syntax.vim' " Support ES7+ syntax in yajs
 Plug 'othree/javascript-libraries-syntax.vim' " Support library syntax in yajs
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' } " Styled-components in JS
+Plug 'sheerun/vim-polyglot' " Multi-language syntax pack (disabled in syntax.vim for pandoc & javascript)
+Plug 'rstacruz/vim-hyperstyle' " Fuzzy complete CSS properties
 " Fuzzy Search:
 Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
-" Plug 'mileszs/ack.vim' " Use Ack.vim to use Ag (I know, I know)
 Plug '/usr/local/opt/fzf' " Load FZF into Vim
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer' }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Use for code completion and snippet triggering
 Plug 'Shougo/neosnippet.vim' " Snippets support
 Plug 'Shougo/neosnippet-snippets' " The snippets
 " Git Support:
 Plug 'tpope/vim-fugitive' " :Gstatus for git status; - to add, cc to commit
 Plug 'airblade/vim-gitgutter' " Git stats in the gutter
 " Writing:
-" Use deoplete for bibliography autocompletion in pandoc:
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'for': ['pandoc', 'markdown', 'text'], 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim', { 'for': ['pandoc', 'markdown', 'text'] }
-  Plug 'roxma/nvim-yarp', { 'for': ['pandoc', 'markdown', 'text'] }
-  Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['pandoc', 'markdown', 'text'] }
-endif
-Plug 'oncomouse/deoplete-biblatex', { 'for': ['pandoc', 'markdown', 'text'] } " Custom BibLaTeX source, uses FZF-Bibtex library
 Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
 Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
 Plug 'junegunn/limelight.vim', { 'for': ['pandoc', 'markdown', 'text'] } " Highlight current paragraph
