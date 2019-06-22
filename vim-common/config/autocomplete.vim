@@ -1,5 +1,7 @@
 " Autocomplete:
 " COC {{
+  " Add extensions
+  call coc#add_extension('coc-omni', 'coc-neosnippet', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-gocode', 'coc-css')
   " Configure omnifunc completion for Clojure:
   call coc#config('coc.source.omni.filetypes',
         \ [
@@ -30,6 +32,8 @@
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
   xmap <C-k>     <Plug>(neosnippet_expand_target)
+  let g:coc_snippet_next = '<C-k>'
+  let g:coc_snippet_prev = '<C-j>'
   "
   " Enable snipMate compatibility feature.
   let g:neosnippet#snippets_directory = expand('~/dotfiles/vim-common/snippets')
