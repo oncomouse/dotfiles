@@ -8,6 +8,10 @@
   "       \ pumvisible() ? "\<C-n>" :
   "       \ <SID>check_back_space() ? "\<TAB>" :
   "       \ deoplete#manual_complete()
+  " Shift-tab to go up the list:
+  imap <expr><S-TAB>
+        \ pumvisible() ? "\<C-p>" : "<\S-TAB>"
+  " Tab to go down the list:
   imap <expr><TAB>
   \ pumvisible() ? "\<C-n>" :
   \ neosnippet#expandable_or_jumpable() ?
