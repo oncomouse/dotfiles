@@ -30,17 +30,25 @@ Plug 'mileszs/ack.vim' " Use Ack.vim to use Ag (I know, I know)
 Plug '/usr/local/opt/fzf' " Load FZF into Vim
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer' }
-Plug 'mhartington/nvim-typescript', { 'do': './install.sh'} " Include tsserver support in deoplete
 Plug 'deoplete-plugins/deoplete-go', { 'for': 'go', 'do': 'make'} " Add go support for deoplete
 Plug 'oncomouse/deoplete-biblatex', { 'for': 'pandoc' } " Custom BibLaTeX source, uses FZF-Bibtex library
-Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' } " Clojure support for deoplete
+" Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' } " Clojure support for deoplete
 " Load deoplete differently for NeoVim and Vim:
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'mhartington/nvim-typescript', { 'do': './install.sh'} " Include tsserver support in deoplete
 else
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
+  " Installs tsuquyomi
+  Plug 'Quramy/tsuquyomi'
+  " Installs and builds vimproc (required to launch tsserver)
+  Plug 'Shougo/vimproc.vim', {'do': 'make'}
+  " Installs this source
+  Plug 'rudism/deoplete-tsuquyomi'
+  let g:tsuquyomi_javascript_support = 1
+  autocmd FileType javascript,javascript.jsx setlocal omnifunc=tsuquyomi#complete
 endif
 Plug 'Shougo/neosnippet.vim' " Snippets support
 Plug 'Shougo/neosnippet-snippets' " The snippets
