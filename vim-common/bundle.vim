@@ -29,30 +29,23 @@ Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
 Plug 'mileszs/ack.vim' " Use Ack.vim to use Ag (I know, I know)
 Plug '/usr/local/opt/fzf' " Load FZF into Vim
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer' }
-" Plug 'deoplete-plugins/deoplete-go', { 'for': 'go', 'do': 'make'} " Add go support for deoplete
-Plug 'oncomouse/deoplete-biblatex', { 'for': ['pandoc', 'markdown', 'text'] } " Custom BibLaTeX source, uses FZF-Bibtex library
-" Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' } " Clojure support for deoplete
-" Load deoplete differently for NeoVim and Vim:
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'for': ['pandoc', 'markdown', 'text'], 'do': ':UpdateRemotePlugins' }
-"   Plug 'mhartington/nvim-typescript', { 'do': './install.sh'} " Include tsserver support in deoplete
-else
-  Plug 'Shougo/deoplete.nvim', { 'for': ['pandoc', 'markdown', 'text'] }
-  Plug 'roxma/nvim-yarp', { 'for': ['pandoc', 'markdown', 'text'] }
-  Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['pandoc', 'markdown', 'text'] }
-"   Plug 'Shougo/vimproc.vim', {'do': 'make'}
-"   Plug 'Quramy/tsuquyomi'
-"   Plug 'rudism/deoplete-tsuquyomi'
-"   let g:tsuquyomi_javascript_support = 1
-"   autocmd FileType javascript,javascript.jsx setlocal omnifunc=tsuquyomi#complete
-endif
-" Plug 'Shougo/neosnippet.vim' " Snippets support
-" Plug 'Shougo/neosnippet-snippets' " The snippets
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'Shougo/neosnippet.vim' " Snippets support
+Plug 'Shougo/neosnippet-snippets' " The snippets
 " Git Support:
 Plug 'tpope/vim-fugitive' " :Gstatus for git status; - to add, cc to commit
 Plug 'airblade/vim-gitgutter' " Git stats in the gutter
 " Writing:
+" Use deoplete for bibliography autocompletion in pandoc:
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'for': ['pandoc', 'markdown', 'text'], 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim', { 'for': ['pandoc', 'markdown', 'text'] }
+  Plug 'roxma/nvim-yarp', { 'for': ['pandoc', 'markdown', 'text'] }
+  Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['pandoc', 'markdown', 'text'] }
+endif
+Plug 'oncomouse/deoplete-biblatex', { 'for': ['pandoc', 'markdown', 'text'] } " Custom BibLaTeX source, uses FZF-Bibtex library
 Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
 Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
 Plug 'junegunn/limelight.vim', { 'for': ['pandoc', 'markdown', 'text'] } " Highlight current paragraph

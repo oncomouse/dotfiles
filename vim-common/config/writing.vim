@@ -2,6 +2,7 @@
 " Deoplete BibLaTeX source {{
     augroup deoplete-pandoc
       autocmd!
+      autocmd FileType pandoc let b:coc_suggest_disable = 1
       autocmd FileType pandoc call deoplete#custom#option('sources', {
               \ 'pandoc': ['biblatex']
       \})
