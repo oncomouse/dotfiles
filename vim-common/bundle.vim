@@ -3,7 +3,6 @@ call plug#begin()
 Plug 'mhartington/oceanic-next' " Theme
 " General Editing Plugins:
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
-Plug 'editorconfig/editorconfig-vim' " Support editor configuration
 Plug 'easymotion/vim-easymotion' " <leader><leader><motion key> for fast motion
 Plug 'AndrewRadev/splitjoin.vim' " gS & gJ to split and join one-liners / functions
 Plug 'ntpeters/vim-better-whitespace'
@@ -11,7 +10,6 @@ Plug 'tpope/vim-surround' " Change surrounding characters, see cheat sheet
 Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesEnable to see indentation guides
 Plug 'tpope/vim-repeat' " Repeat plugin commands
 Plug 'djoshea/vim-autoread' " Better auto-reloading support
-Plug 'MarcWeber/vim-addon-mw-utils' " I think this is required by something else
 Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
 Plug 'amix/open_file_under_cursor.vim' " gf to open path at cursor
 Plug 'terryma/vim-expand-region' " + or _ to expand or shrink (visual)
@@ -19,7 +17,6 @@ Plug 'airblade/vim-rooter' " Set project root
 Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 Plug 'docunext/closetag.vim' " Do the same for HTML
-" Plug 'michaeljsmith/vim-indent-object'
 " Syntax:
 Plug 'sheerun/vim-polyglot' " Multi-language syntax pack (disabled in syntax.vim for pandoc & javascript)
 Plug 'othree/yajs.vim' " Support JavaScript syntax (not using vim-polyglot)
@@ -45,6 +42,8 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+Plug 'Shougo/neosnippet.vim' " Snippets support
+Plug 'Shougo/neosnippet-snippets' " The snippets
 " Git Support:
 Plug 'tpope/vim-fugitive' " :Gstatus for git status; - to add, cc to commit
 Plug 'airblade/vim-gitgutter' " Git stats in the gutter
@@ -75,6 +74,6 @@ Plug 'maximbaz/lightline-ale' " Add linter status to lightline
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' } " REPL for Clojure
 Plug 'kovisoft/paredit' " <leader>> to move parentheses out a layer
 Plug 'weavejester/cljfmt', { 'for': 'clojure' } " Formatting for Clojure
-Plug 'kien/rainbow_parentheses.vim' " Rainbow parentheses
+Plug 'luochen1990/rainbow' " Rainbow parentheses
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 call plug#end()

@@ -38,13 +38,16 @@
   augroup END
 " }}
 " Rainbow Parentheses {{
-  augroup rainbow-parentheses
-    autocmd!
-    autocmd VimEnter * RainbowParenthesesToggle
-    autocmd Syntax * RainbowParenthesesLoadRound
-    autocmd Syntax * RainbowParenthesesLoadSquare
-    autocmd Syntax * RainbowParenthesesLoadBraces
-  augroup END
+  let g:rainbow_active = 1
+  let g:rainbow_conf = {
+  \	'guifgs': ['firebrick', 'purple', 'seagreen3', 'royalblue3', 'darkorange3', 'darkcyan'],
+  \ 'separately': {
+  \   '*': {},
+  \   'markdown': {
+  \     'parentheses_options': 'containedin=markdownCode contained',
+  \   }
+  \ }
+  \}
 " }}
 " Autoroot {{
   " Turn off autoroot for non-project files:
@@ -53,9 +56,9 @@
   " let g:rooter_use_lcd = 1 " only change the current window
 " }}
 " Connect Deoplete to clojure-vim/async-clj-omni {{
-  call deoplete#custom#option('keyword_patterns', {
-    \ 'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
-  \})
+  " call deoplete#custom#option('keyword_patterns', {
+  "   \ 'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
+  " \})
 " }}
 " Colorizer {{
   let g:colorizer_auto_filetype='css,scss,sass,less,html,javascript,javascript.jsx'

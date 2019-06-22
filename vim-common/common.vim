@@ -17,15 +17,6 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-" Shortcut :tn for :tabnew
-ca tn tabnew
-
-" Include vim-common/config files:
-runtime! config/**/*.vim
-
-let g:deoplete#enable_at_startup = 1
-let g:nvim_typescript#javascript_support = 1
-
 filetype plugin indent on
 
 set tabstop=8
@@ -35,6 +26,15 @@ set expandtab
 
 set splitbelow
 set splitright
+
+" Shortcut :tn for :tabnew
+ca tn tabnew
+
+" Include vim-common/config files:
+runtime! config/**/*.vim
+
+let g:deoplete#enable_at_startup = 1
+let g:nvim_typescript#javascript_support = 1
 
 " Different highlighting for long lines:
 let &colorcolumn=join(range(81,999),",")

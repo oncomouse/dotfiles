@@ -10,11 +10,18 @@
 " Pandoc {{
   " Uncomment to use the omni-func for bibliography completion:
   " let g:pandoc#biblio#bibs=['/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib']
-  "
   " Turn off folding and vim-pandoc's BibTeX support
-  let g:pandoc#modules#disabled = ["folding", "bibliographies"]
+  let g:pandoc#modules#disabled = ["folding", "bibliography"]
   " Turn off conceal
   let g:pandoc#syntax#conceal#use = 0
+  " Turn on language support
+  let g:pandoc#syntax#codeblocks#embeds#langs = [
+        \ "javascript",
+        \ "css",
+        \ "json",
+        \ "html",
+        \ "scss",
+        \]
   "
   " Deoplete omni-function bib completion:
   " call deoplete#custom#var('omni', 'input_patterns', {
