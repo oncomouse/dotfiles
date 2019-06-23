@@ -37,6 +37,7 @@ brew "python"
 brew "rbenv"
 brew "leiningen"
 brew "clojure-lsp"
+brew "clj-kondo"
 brew "yarn"
 brew "heroku/brew/heroku"
 
