@@ -25,8 +25,8 @@
     \   'sink': 'e '
     \ })<CR>
 
-  nnoremap <silent> K :call SearchWordWithAg()<CR>
-  vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+  nnoremap <silent> K :call my_fzf#SearchWordWithAg()<CR>
+  vnoremap <silent> K :call my_fzf#SearchVisualSelectionWithAg()<CR>
   nnoremap <silent> <leader>gl :Commits<CR>
   nnoremap <silent> <leader>ga :BCommits<CR>
   nnoremap <silent> <leader>ft :Filetypes<CR>
@@ -35,51 +35,16 @@
   imap <C-x><C-f> <plug>(fzf-complete-file-ag)
   " Complete file line:
   imap <C-x><C-l> <plug>(fzf-complete-line)
-
-  function! SearchWordWithAg()
-    execute 'Ag' expand('<cword>')
-  endfunction
-
-  function! SearchVisualSelectionWithAg() range
-    let old_reg = getreg('"')
-    let old_regtype = getregtype('"')
-    let old_clipboard = &clipboard
-    set clipboard&
-    normal! ""gvy
-    let selection = getreg('"')
-    call setreg('"', old_reg, old_regtype)
-    let &clipboard = old_clipboard
-    execute 'Ag' selection
-  endfunction
   "
   " FZF BibTeX COnfiguration
   let $FZF_BIBTEX_CACHEDIR = '/var/tmp'
   let $FZF_BIBTEX_SOURCES = g:bibliography_file
 
-  function! s:bibtex_cite_sink(lines)
-    let r=system("bibtex-cite ", a:lines)
-    execute ':normal! i' . r
-  endfunction
-
-  function! s:bibtex_cite_sink_insert(lines)
-    let r=system("bibtex-cite ", a:lines)
-    execute ':normal! i' . r
-    call feedkeys('a', 'n')
-  endfunction
-
   augroup fzf-bibtex
     autocmd!
     " Bind <ctrl+n> to citation look-up using FZF:
-    autocmd FileType pandoc,text,markdown nnoremap <silent> <C-N> :call fzf#run({
-                \ 'source': 'bibtex-ls',
-                \ 'sink*': function('<sid>bibtex_cite_sink'),
-                \ 'up': '40%',
-                \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
-    autocmd FileType pandoc,text,markdown inoremap <silent> <C-N> <c-g>u<c-o>:call fzf#run({
-              \ 'source': 'bibtex-ls',
-              \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
-              \ 'up': '40%',
-              \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+    autocmd FileType pandoc,text,markdown nnoremap <silent> <C-N> :call my_fzf#run_bibtex_ls('my_fzf#bibtex_cite_sink')<CR>
+    autocmd FileType pandoc,text,markdown inoremap <silent> <C-N> <c-g>u<c-o>:call my_fzf#run_bibtex_ls('my_fzf#bibtex_cite_sink_insert')<CR>
   augroup END
 "}}
 
