@@ -24,11 +24,6 @@
         \   'pandoc'
         \ ]
         \)
-  " Use vim-clojure-static for the omnifunc:
-  augroup clojure-autocomplete
-    autocmd!
-    autocmd BufEnter,WinEnter * if &filetype=='clojure'|setlocal omnifunc=clojurecomplete#Complete|endif
-  augroup END
 " }}
 "" Neosnippets {{
   "

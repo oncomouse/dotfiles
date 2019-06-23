@@ -80,3 +80,10 @@
 " CoC JSONC {{
   autocmd FileType json syntax match Comment +\/\/.\+$+
 " }}
+" vim-clojure-static {{
+  " Use vim-clojure-static for the omnifunc:
+  augroup clojure-autocomplete
+    autocmd!
+    autocmd BufEnter,WinEnter * if &filetype=='clojure'|setlocal omnifunc=clojurecomplete#Complete|endif
+  augroup END
+" }}
