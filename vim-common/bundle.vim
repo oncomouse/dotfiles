@@ -18,6 +18,7 @@ Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 Plug 'docunext/closetag.vim' " Do the same for HTML
 " Syntax:
+Plug 'hail2u/vim-css3-syntax' " Somehow, polyglot doesn't load this.
 Plug 'MaxMEllon/vim-jsx-pretty' " Modular JSX support to add to yajs
 Plug 'othree/yajs.vim' " Support JavaScript syntax (not using vim-polyglot)
 Plug 'othree/es.next.syntax.vim' " Support ES7+ syntax in yajs
