@@ -14,4 +14,4 @@ sudo brew services start dnscrypt-proxy
 dig test.foo @127.0.0.1
 dig google.com @127.0.0.1
 
-print "Assuming the two dig command above ran, you can set your DNS to 127.0.0.1"
+echo "Assuming the two dig command above ran, you can set your DNS to 127.0.0.1"
