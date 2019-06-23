@@ -17,11 +17,6 @@ mkdir -p ~/.vim/autoload/
 mkdir -p ~/.config/nvim/
 ln -s ~/dotfiles/.agignore ~/
 ln -s ~/dotfiles/.vimrc ~/
-ln -s ~/dotfiles/vim-common/config ~/.vim
-ln -s ~/dotfiles/vim-common/config ~/.config/nvim
-ln -s ~/dotfiles/vim-common/common.vim ~/.vim
-ln -s ~/dotfiles/vim-common/bundle.vim ~/.vim
-ln -s ~/dotfiles/vim-common/*.vim ~/.config/nvim
 ln -s ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/
 ln -s ~/dotfiles/.config/fish/config.fish ~/.config/fish/
 ln -s ~/dotfiles/.config/fish/functions/fish_prompt.fish ~/.config/fish/functions/
@@ -41,7 +36,7 @@ git config --global credential.helper osxkeychain
 pip3 install mackup neovim
 
 ## Install Node.js Modules
-npm install -g neovim typescript@3.5.1 jsonlint
+npm install -g neovim jsonlint
 
 ## Setup Ruby
 mkdir -p "$(rbenv root)"/plugins
