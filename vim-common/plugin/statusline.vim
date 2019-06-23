@@ -22,14 +22,12 @@
         \   'linter_warnings': 'lightline#ale#warnings',
         \   'linter_errors': 'lightline#ale#errors',
         \   'linter_ok': 'lightline#ale#ok',
-        \   'buffers': 'lightline#bufferline#buffers',
         \ },
         \ 'component_type': {
         \     'linter_checking': 'left',
         \     'linter_warnings': 'warning',
         \     'linter_errors': 'error',
         \     'linter_ok': 'left',
-        \     'buffers': 'tabsel',
         \ },
         \ 'separator': { 'left': '', 'right': '' },
         \ 'subseparator': { 'left': '', 'right': '' }
@@ -40,7 +38,6 @@
         \   'modified': 'MyModified',
         \ }
   let g:lightline.tabline = {'left': [['tabs']], 'right': []}
-  " let g:lightline.tabline = {'left': [['buffers']], 'right': []}
   let g:lightline.tab = {
         \ 'active': [ 'tabnum', 'filetype', 'mytabname', 'modified' ],
         \ 'inactive': [ 'tabnum', 'filetype', 'mytabname', 'modified' ] }
@@ -52,7 +49,6 @@
     let winnr = tabpagewinnr(a:n)
     let buf = expand('#'.buflist[winnr - 1])
     let filename = fnamemodify(buf, ":t")
-    " expand('#'.buflist[winnr - 1].':t') " buflist[winnr - 1]
     if filename == 'index.js' || filename == 'index.jsx' || filename == 'index.ts' || filename == 'index.tsx'
       return fnamemodify(buf, ':p:h:t') . '/i'
     endif
@@ -114,22 +110,3 @@
     return join(ret, ' ')
   endfunction
 "}}
-"Lightline Buffer {{
-  " let g:lightline#bufferline#enable_devicons = 1
-  " let g:lightline#bufferline#unicode_symbols = 1
-  " let g:lightline#bufferline#filename_modifier = ':s?index\.js?i?:.'
-  " let g:lightline#bufferline#show_number = 2
-
-  " Buffer controls:
-  " nmap <Leader>1 <Plug>lightline#bufferline#go(1)
-  " nmap <Leader>2 <Plug>lightline#bufferline#go(2)
-  " nmap <Leader>3 <Plug>lightline#bufferline#go(3)
-  " nmap <Leader>4 <Plug>lightline#bufferline#go(4)
-  " nmap <Leader>5 <Plug>lightline#bufferline#go(5)
-  " nmap <Leader>6 <Plug>lightline#bufferline#go(6)
-  " nmap <Leader>7 <Plug>lightline#bufferline#go(7)
-  " nmap <Leader>8 <Plug>lightline#bufferline#go(8)
-  " nmap <Leader>9 <Plug>lightline#bufferline#go(9)
-  " nmap <Leader>0 <Plug>lightline#bufferline#go(10)
-"}}
-
