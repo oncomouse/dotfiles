@@ -35,6 +35,8 @@ brew "node-build"
 brew "nodenv"
 brew "python"
 brew "rbenv"
+brew "leiningen"
+brew "clojure-lsp"
 brew "yarn"
 brew "heroku/brew/heroku"
 

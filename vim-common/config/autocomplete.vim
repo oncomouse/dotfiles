@@ -17,13 +17,26 @@
           \)
   endif
   call coc#config('suggest.snippetIndicator', '►')
-  " Configure omnifunc completion for Clojure:
+  " Configure omnifunc completion for Pandoc:
   call coc#config('coc.source.omni.filetypes',
         \ [
-        \   'clojure',
         \   'pandoc'
         \ ]
         \)
+  " Use clojure-lsp for clojure completion:
+  call coc#config('languageserver', {
+  \    'clojure-lsp': {
+  \      'command': 'bash',
+  \      'args': ['-c', 'clojure-lsp'],
+  \      'filetypes': ['clojure'],
+  \      'rootPatterns': ['project.clj'],
+  \      'additionalSchemes': ['jar', 'zipfile'],
+  \      'trace.server': 'verbose',
+  \      'initializationOptions': {
+  \      }
+  \    }
+  \  }
+  \)
 " }}
 "" Neosnippets {{
   "
