@@ -1,19 +1,21 @@
 " Autocomplete:
 " COC {{
   " Disable CoC for CSS:
-  augroup hyperstyle
+  augroup disable-coc-for-css
     autocmd!
     autocmd FileType css,scss let b:coc_suggest_disable = 1
   augroup END
   " Add extensions
-  call coc#add_extension(
-        \'coc-omni',
-        \'coc-neosnippet',
-        \'coc-tsserver',
-        \'coc-json',
-        \'coc-html',
-        \'coc-gocode',
-        \)
+  if !isdirectory(expand('~/.config/coc/extensions/node_modules/coc-gocode'))
+    call coc#add_extension(
+          \'coc-omni',
+          \'coc-neosnippet',
+          \'coc-tsserver',
+          \'coc-json',
+          \'coc-html',
+          \'coc-gocode',
+          \)
+  endif
   call coc#config('suggest.snippetIndicator', '►')
   " Configure omnifunc completion for Clojure:
   call coc#config('coc.source.omni.filetypes',
