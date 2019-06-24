@@ -20,8 +20,9 @@
   nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>? :History<CR>
   nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+  echo g:neomru#file_mru_path
   nnoremap <silent> <leader>r :call fzf#run({
-    \   'source': 'sed "1d" $HOME/.cache/neomru/file',
+    \   'source': 'sed "1d" '.g:neomru#file_mru_path,
     \   'sink': 'e '
     \ })<CR>
 
