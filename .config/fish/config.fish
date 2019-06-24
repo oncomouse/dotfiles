@@ -53,4 +53,3 @@ end
 if command -sq kitty
   kitty + complete setup fish | source
 end
-end
