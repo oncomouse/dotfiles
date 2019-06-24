@@ -48,3 +48,9 @@ set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
 if command -sq nodenv
   status --is-interactive; and source (nodenv init -|psub)
 end
+
+# Setup Kitty:
+if command -sq kitty
+  kitty + complete setup fish | source
+end
+end
