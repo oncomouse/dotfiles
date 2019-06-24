@@ -25,8 +25,8 @@
     \   'sink': 'e '
     \ })<CR>
 
-  nnoremap <silent> K :call my_fzf#SearchWordWithAg()<CR>
-  vnoremap <silent> K :call my_fzf#SearchVisualSelectionWithAg()<CR>
+  nnoremap <silent> K :call fzf_bibtex#SearchWordWithAg()<CR>
+  vnoremap <silent> K :call fzf_bibtex#SearchVisualSelectionWithAg()<CR>
   nnoremap <silent> <leader>gl :Commits<CR>
   nnoremap <silent> <leader>ga :BCommits<CR>
   nnoremap <silent> <leader>ft :Filetypes<CR>
@@ -43,8 +43,8 @@
   augroup fzf-bibtex
     autocmd!
     " Bind <ctrl+n> to citation look-up using FZF:
-    autocmd FileType pandoc,text,markdown nnoremap <silent> <C-N> :call my_fzf#run_bibtex_ls('my_fzf#bibtex_cite_sink')<CR>
-    autocmd FileType pandoc,text,markdown inoremap <silent> <C-N> <c-g>u<c-o>:call my_fzf#run_bibtex_ls('my_fzf#bibtex_cite_sink_insert')<CR>
+    autocmd FileType pandoc,text,markdown nnoremap <silent> <C-N> :call fzf_bibtex#run_bibtex_ls('fzf_bibtex#bibtex_cite_sink')<CR>
+    autocmd FileType pandoc,text,markdown inoremap <silent> <C-N> <c-g>u<c-o>:call fzf_bibtex#run_bibtex_ls('fzf_bibtex#bibtex_cite_sink_insert')<CR>
   augroup END
 "}}
 
