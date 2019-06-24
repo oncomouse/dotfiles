@@ -46,7 +46,22 @@
         \ 'markdown': 1,
         \}
 
-  call coc#config('suggest.noselect', 0)
+  " call coc#config('suggest.noselect', 0)
+  " use <tab> for trigger completion and navigate to the next complete item
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction
+
+  inoremap <silent><expr> <S-Tab>
+        \ pumvisible() ? "\<C-p>" :
+        \ <SID>check_back_space() ? "\<S-Tab>" :
+        \ coc#refresh()
+  inoremap <silent><expr> <TAB>
+  \ pumvisible() ? coc#_select_confirm() :
+  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
   "
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)
