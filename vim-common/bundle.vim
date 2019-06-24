@@ -55,7 +55,6 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript', 'javascript.jsx' ] }
 Plug 'ryanoasis/vim-devicons' " Fancy filetype icons in statusbar
 " Statusline:
 Plug 'itchyny/lightline.vim' " Statusbar
-" Plug 'mgee/lightline-bufferline'
 " Linter:
 Plug 'w0rp/ale' " Linter support
 Plug 'maximbaz/lightline-ale' " Add linter status to lightline
