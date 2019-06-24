@@ -18,7 +18,11 @@ set -gx FZF_DEFAULT_OPTS '
   --color info:108,prompt:109,spinner:108,pointer:168,marker:#EC5f67
   '
 
+# Local paths:
 set -g fish_user_paths $HOME/bin $HOME/.local/bin $HOME/go/bin
+
+# Set emoji width:
+set -g fish_emoji_width 2
 
 # Anaconda Setup:
 #set -gx PATH /anaconda3/bin $PATH
