@@ -146,7 +146,7 @@ tmux_conf_theme_left_separator_main=''  # /!\ you don't need to install Power
 tmux_conf_theme_left_separator_sub=''   #   you only need fonts patched with
 tmux_conf_theme_right_separator_main='' #   Powerline symbols or the standalone
 tmux_conf_theme_right_separator_sub=''  #   PowerlineSymbols.otf font
- 
+
 # status left/right content:
 #   - separate main sections with '|'
 #   - separate subsections with ','
@@ -169,8 +169,8 @@ tmux_conf_theme_right_separator_sub=''  #   PowerlineSymbols.otf font
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_status_left=' ❐ #S ' #| ↑#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{?battery_status, #{battery_status},}#{?battery_bar, #{battery_vbar},} | %R ' ##{?battery_percentage, #{battery_percentage},} | %R ' # | #{username}#{root} | %R '
+tmux_conf_theme_status_left=' ❐ #S' #| ↑#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
+tmux_conf_theme_status_right='#{prefix} | #(curl wttr.in?format=2),#{?battery_status, #{battery_status},}#{?battery_bar, #{battery_vbar},} | %R ' ##{?battery_percentage, #{battery_percentage},} | %R ' # | #{username}#{root} | %R ' ##{pairing}
 
 # status left style
 tmux_conf_theme_status_left_fg='#{tmux_theme_black}' #,#{tmux_theme_white},#{tmux_theme_white}'
@@ -178,10 +178,10 @@ tmux_conf_theme_status_left_bg='#{tmux_theme_yellow}' #,#{tmux_theme_magenta},#{
 tmux_conf_theme_status_left_attr='bold' #,none,none'
 
 # status right style
-tmux_conf_theme_status_right_fg='#5b6671,#343d46' #'#5b6671,#{tmux_theme_white},#343d46'
-tmux_conf_theme_status_right_bg='#{tmux_theme_bg},#{tmux_theme_white}'
+tmux_conf_theme_status_right_fg='#5b6671,#343d46,#{tmux_theme_white}' #'#5b6671,#{tmux_theme_white},#343d46'
+tmux_conf_theme_status_right_bg='#{tmux_theme_bg},#65737E,#{tmux_theme_blue}'
  # '#{tmux_theme_bg},#{tmux_theme_red},#{tmux_theme_white}'
-tmux_conf_theme_status_right_attr='none, bold' #'none,none,bold'
+tmux_conf_theme_status_right_attr='none, none, bold' #'none,none,bold'
 
 # pairing indicator
 tmux_conf_theme_pairing='👓 '          # U+1F453
@@ -234,11 +234,11 @@ tmux_conf_battery_vbar_palette='gradient'
 #tmux_conf_battery_vbar_palette='#d70000,#ff5f00,#5fff00'  # red, orange, green
 
 # symbols used to indicate whether battery is charging or discharging
-tmux_conf_battery_status_charging='↑'       # U+2191
-tmux_conf_battery_status_discharging='↓'    # U+2193
-#tmux_conf_battery_status_charging='⚡ '    # U+26A1
-#tmux_conf_battery_status_charging='🔌 '    # U+1F50C
-#tmux_conf_battery_status_discharging='🔋 ' # U+1F50B
+# tmux_conf_battery_status_charging='↑'       # U+2191
+# tmux_conf_battery_status_discharging='↓'    # U+2193
+# tmux_conf_battery_status_charging='⚡'    # U+26A1
+tmux_conf_battery_status_charging='🔌'    # U+1F50C
+tmux_conf_battery_status_discharging='🔋' # U+1F50B
 
 # clock style
 tmux_conf_theme_clock_colour=$tmux_color_blue

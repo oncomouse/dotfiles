@@ -22,6 +22,7 @@ ln -s ~/dotfiles/.config/fish/config.fish ~/.config/fish/
 ln -s ~/dotfiles/.config/fish/functions/fish_prompt.fish ~/.config/fish/functions/
 ln -s ~/dotfiles/.tmux.conf.local ~/
 ln -s ~/dotfiles/.mackup.cfg ~/
+ln -s ~/dotfiles/.config/kitty/ ~/.config/
 
 ## Diff-so-fancy Git stuff
 git config --global color.diff-highlight.oldNormal "red bold"
