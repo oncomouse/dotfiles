@@ -290,7 +290,10 @@ bind c new-window -c "#{pane_current_path}"
 # unbind '"'
 # unbind %
 
-set -g monitor-bell off
+# disable sound bell
+set -g bell-action none
+# disable visual bell
+set -g visual-bell off
 
 # move status line to top
 #set -g status-position top
