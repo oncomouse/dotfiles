@@ -2,6 +2,11 @@
 " Lightline {{
   set laststatus=2
   set showtabline=2
+  let g:lightline#ale#indicator_checking = "\uf110"
+  let g:lightline#ale#indicator_warnings = "\uf071\u2003"
+  let g:lightline#ale#indicator_errors = "\uf05e\u2003"
+  let g:lightline#ale#indicator_ok = "\uf00c"
+
   let g:lightline = {
         \ 'colorscheme': 'oceanicnext',
         \ 'active': {
@@ -73,7 +78,7 @@
   endfunction
 
   " WordCount
-  let g:word_count="<unknown>"
+  let g:word_count=''
   fun! WordCount()
       return g:word_count
   endfun

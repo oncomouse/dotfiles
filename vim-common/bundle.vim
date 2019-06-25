@@ -58,6 +58,7 @@ Plug 'itchyny/lightline.vim' " Statusbar
 " Linter:
 Plug 'w0rp/ale' " Linter support
 Plug 'maximbaz/lightline-ale' " Add linter status to lightline
+" Plug 'oncomouse/lightline-coc/'
 " Clojure:
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' } " REPL for Clojure
 Plug 'kovisoft/paredit' " <leader>> to move parentheses out a layer
