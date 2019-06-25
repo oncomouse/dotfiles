@@ -1,4 +1,9 @@
 " Syntax:
+" CoC {{
+  vmap <S-f> <Plug>(coc-format-selected)<CR>
+  nmap <leader>f <Plug>(coc-format-selected)
+  command! -nargs=0 Format :call CocAction('format')
+" }}
 " Ale {{
   " Better ALE Msg Format
   " let g:ale_echo_msg_error_str = 'E'
@@ -56,11 +61,6 @@
   let g:rooter_patterns = ['project.clj', 'Rakefile', 'package.json', '.git/']
   " let g:rooter_change_directory_for_non_project_files = '' " can be current or home
   " let g:rooter_use_lcd = 1 " only change the current window
-" }}
-" Connect Deoplete to clojure-vim/async-clj-omni {{
-  " call deoplete#custom#option('keyword_patterns', {
-  "   \ 'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
-  " \})
 " }}
 " Colorizer {{
   let g:colorizer_auto_filetype='css,scss,sass,less,html,javascript,javascript.jsx'
