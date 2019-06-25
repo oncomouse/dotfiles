@@ -25,7 +25,6 @@ Plug 'othree/es.next.syntax.vim' " Support ES7+ syntax in yajs
 Plug 'othree/javascript-libraries-syntax.vim' " Support library syntax in yajs
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' } " Styled-components in JS
 Plug 'sheerun/vim-polyglot' " Multi-language syntax pack (disabled in syntax.vim for pandoc & javascript)
-Plug 'rstacruz/vim-hyperstyle' " Fuzzy complete CSS properties
 " Fuzzy Search:
 Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
 Plug '/usr/local/opt/fzf' " Load FZF into Vim

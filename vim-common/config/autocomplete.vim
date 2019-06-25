@@ -1,10 +1,10 @@
 " Autocomplete:
 " COC {{
   " Disable CoC for CSS:
-  augroup disable-coc-for-css
-    autocmd!
-    autocmd FileType css,scss let b:coc_suggest_disable = 1
-  augroup END
+  " augroup disable-coc-for-css
+  "   autocmd!
+  "   autocmd FileType css,scss let b:coc_suggest_disable = 1
+  " augroup END
   " Add extensions
   if !isdirectory(expand('~/.config/coc/extensions/node_modules/coc-gocode'))
     call coc#add_extension(
@@ -14,6 +14,7 @@
           \'coc-json',
           \'coc-html',
           \'coc-gocode',
+          \'coc-css',
           \)
   endif
   call coc#config('suggest.snippetIndicator', '►')
