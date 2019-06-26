@@ -24,6 +24,13 @@
         \   'pandoc'
         \ ]
         \)
+  " JavaScript Config:
+  call coc#config('javascript.format', {
+      \   'placeOpenBraceOnNewLineForFunctions': 1,
+      \   'placeOpenBraceOnNewLineForControlBlocks': 1,
+      \   'insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces': 1,
+      \})
+
   " Use clojure-lsp for clojure completion:
   call coc#config('languageserver', {
   \    'clojure-lsp': {
