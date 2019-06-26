@@ -6,17 +6,36 @@
   "   autocmd FileType css,scss let b:coc_suggest_disable = 1
   " augroup END
   " Add extensions
-  if !isdirectory(expand('~/.config/coc/extensions/node_modules/coc-gocode'))
-    call coc#add_extension(
-          \'coc-omni',
-          \'coc-neosnippet',
-          \'coc-tsserver',
-          \'coc-json',
-          \'coc-html',
-          \'coc-gocode',
-          \'coc-css',
-          \)
-  endif
+  let coc_extensions = [
+  \  'coc-omni',
+  \  'coc-neosnippet',
+  \  'coc-tsserver',
+  \  'coc-json',
+  \  'coc-html',
+  \  'coc-gocode',
+  \  'coc-css',
+  \]
+
+  function! s:load_extension(ext) abort
+    if !isdirectory(expand('~/.config/coc/extensions/node_modules/'.a:ext))
+      call coc#add_extension(a:ext)
+    endif
+  endfunction
+  for ext in coc_extensions
+    call <SID>load_extension(ext)
+  endfor
+
+"   if !isdirectory(expand('~/.config/coc/extensions/node_modules/coc-gocode'))
+"     call coc#add_extension(
+"           \'coc-omni',
+"           \'coc-neosnippet',
+"           \'coc-tsserver',
+"           \'coc-json',
+"           \'coc-html',
+"           \'coc-gocode',
+"           \'coc-css',
+"           \)
+"   endif
   call coc#config('suggest.snippetIndicator', '►')
   " Configure omnifunc completion for Pandoc:
   call coc#config('coc.source.omni.filetypes',
