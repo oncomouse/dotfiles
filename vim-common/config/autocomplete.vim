@@ -48,8 +48,6 @@
   call coc#config('javascript.validate.enable', 0)
   " Format JavaScript the way I like:
   call coc#config('javascript.format', {
-      \   'placeOpenBraceOnNewLineForFunctions': 1,
-      \   'placeOpenBraceOnNewLineForControlBlocks': 1,
       \   'insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces': 1,
       \})
 
