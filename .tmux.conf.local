@@ -12,7 +12,6 @@
 #   - and iTerm2 is configured to send [1;9A -> [1;9D for option + arrow keys
 # then uncomment the following line to make Meta + arrow keys mapping work
 #set -ga terminal-overrides "*:kUP3=\e[1;9A,*:kDN3=\e[1;9B,*:kRIT3=\e[1;9C,*:kLFT3=\e[1;9D"
-
 set -g default-terminal 'tmux-256color'
 set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'
 # -- windows & pane creation ---------------------------------------------------
@@ -260,11 +259,13 @@ tmux_conf_copy_to_os_clipboard=false
 # Reload tmux sessions at restart:
 set -g @continuum-restore on
 # Plugins
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-sensible'
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @plugin 'christoomey/vim-tmux-navigator'
+set -g @tpm_plugins '            \
+  tmux-plugins/tpm               \
+  tmux-plugins/tmux-sensible     \
+  tmux-plugins/tmux-resurrect    \
+  tmux-plugins/tmux-continuum    \
+  christoomey/vim-tmux-navigator \
+'
 run '~/.tmux/plugins/tpm/tpm'
 
 # increase history size

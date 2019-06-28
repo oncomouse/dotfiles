@@ -54,6 +54,7 @@ omf install z ssh-term-helper fish-spec nodenv bundler
 ## Setup Oh My Tmux!
 git clone https://github.com/gpakosz/.tmux ~/.tmux
 ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 ## Setup Vim and NeoVim
 curl -fLo ~/.vim/autoload/plug.vim \
