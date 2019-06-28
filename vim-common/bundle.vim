@@ -17,6 +17,7 @@ Plug 'airblade/vim-rooter' " Set project root
 Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 Plug 'docunext/closetag.vim' " Do the same for HTML
+Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Syntax:
 Plug 'hail2u/vim-css3-syntax' " Somehow, polyglot doesn't load this.
 Plug 'MaxMEllon/vim-jsx-pretty' " Modular JSX support to add to yajs
