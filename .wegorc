@@ -35,6 +35,9 @@ jsn-no-indent=false
 # LOCATION to be queried (default 40.748,-73.985)
 location=30.7,-96.2
 
+# one-liner fronted: use color? (default false)
+onl-color=false
+
 # openweathermap backend: the api KEY to use (default )
 owm-api-key=1f640824f1212e236afe84287a784a2a
 

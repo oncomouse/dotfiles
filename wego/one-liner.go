@@ -3,6 +3,7 @@ package frontends
 import (
     "fmt"
     "log"
+    "flag"
 
     colorable "github.com/mattn/go-colorable"
     runewidth "github.com/mattn/go-runewidth"
@@ -11,6 +12,7 @@ import (
 
 type oneLinerConfig struct {
     unit iface.UnitSystem
+    color bool
 }
 func (c *oneLinerConfig) formatWind(cond iface.Cond) string {
     windDir := func(deg *int) string {
@@ -21,25 +23,28 @@ func (c *oneLinerConfig) formatWind(cond iface.Cond) string {
         return "" + arrows[((*deg+22)%360)/45]
     }
     color := func(spdKmph float32) string {
-        // colmap := []struct {
-        //     maxtemp float32
-        //     color   int
-        // }{
-        //     {0, 46}, {4, 82}, {7, 118}, {10, 154}, {13, 190},
-        //     {16, 226}, {20, 220}, {24, 214}, {28, 208}, {32, 202},
-        // }
+        colmap := []struct {
+            maxtemp float32
+            color   int
+        }{
+            {0, 46}, {4, 82}, {7, 118}, {10, 154}, {13, 190},
+            {16, 226}, {20, 220}, {24, 214}, {28, 208}, {32, 202},
+        }
 
-        // col := 196
-        // for _, candidate := range colmap {
-        //     if spdKmph < candidate.maxtemp {
-        //         col = candidate.color
-        //         break
-        //     }
-        // }
+        col := 196
+        for _, candidate := range colmap {
+            if spdKmph < candidate.maxtemp {
+                col = candidate.color
+                break
+            }
+        }
 
         s, _ := c.unit.Speed(spdKmph)
-        // return fmt.Sprintf("\033[38;5;%03dm%d\033[0m", col, int(s))
-        return fmt.Sprintf("%d", int(s))
+        if c.color {
+            return fmt.Sprintf("\033[38;5;%03dm%d\033[0m", col, int(s))
+        } else {
+            return fmt.Sprintf("%d", int(s))
+        }
     }
 
     // _, u := c.unit.Speed(0.0)
@@ -60,26 +65,29 @@ func (c *oneLinerConfig) formatWind(cond iface.Cond) string {
 
 func (c *oneLinerConfig) formatTemp(cond iface.Cond) string {
     color := func(temp float32) string {
-        // colmap := []struct {
-        //     maxtemp float32
-        //     color   int
-        // }{
-        //     {-15, 21}, {-12, 27}, {-9, 33}, {-6, 39}, {-3, 45},
-        //     {0, 51}, {2, 50}, {4, 49}, {6, 48}, {8, 47},
-        //     {10, 46}, {13, 82}, {16, 118}, {19, 154}, {22, 190},
-        //     {25, 226}, {28, 220}, {31, 214}, {34, 208}, {37, 202},
-        // }
+        colmap := []struct {
+            maxtemp float32
+            color   int
+        }{
+            {-15, 21}, {-12, 27}, {-9, 33}, {-6, 39}, {-3, 45},
+            {0, 51}, {2, 50}, {4, 49}, {6, 48}, {8, 47},
+            {10, 46}, {13, 82}, {16, 118}, {19, 154}, {22, 190},
+            {25, 226}, {28, 220}, {31, 214}, {34, 208}, {37, 202},
+        }
 
-        // col := 196
-        // for _, candidate := range colmap {
-        //     if temp < candidate.maxtemp {
-        //         col = candidate.color
-        //         break
-        //     }
-        // }
+        col := 196
+        for _, candidate := range colmap {
+            if temp < candidate.maxtemp {
+                col = candidate.color
+                break
+            }
+        }
         t, _ := c.unit.Temp(temp)
-        // return fmt.Sprintf("\033[38;5;%03dm%d\033[0m", col, int(t))
-        return fmt.Sprintf("%d", int(t))
+        if c.color {
+            return fmt.Sprintf("\033[38;5;%03dm%d\033[0m", col, int(t))
+        } else {
+            return fmt.Sprintf("%d", int(t))
+        }
     }
 
     _, u := c.unit.Temp(0.0)
@@ -137,6 +145,7 @@ func (c *oneLinerConfig) formatCond(cur []string, cond iface.Cond, current bool)
 }
 
 func (c *oneLinerConfig) Setup() {
+    flag.BoolVar(&c.color, "onl-color", false, "one-liner fronted: use color?")
 }
 
 func (c *oneLinerConfig) Render(r iface.Data, unitSystem iface.UnitSystem) {
