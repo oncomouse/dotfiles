@@ -77,6 +77,11 @@ go install github.com/msprev/fzf-bibtex/cmd/bibtex-ls
 go install github.com/msprev/fzf-bibtex/cmd/bibtex-markdown
 go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite
 
+# Configure Wego (used in tmux)
+go get github.com/schachmat/wego
+ln -s ~/dotfiles/wego/one-liner.go ~/go/src/github.com/schachmat/wego/frontends/
+go install github.com/schachmat/wego
+
 echo "Run $(tput bold)$(tput setaf 6)dns/bootstrap.sh$(tput sgr0) to install DNS proxy and local dev domains."
 
 echo "When Dropbox is configured and $(tput bold)$(tput setaf 5)done syncing$(tput sgr0), run $(tput setaf 6)mackup restore$(tput sgr0) to load configuration files."
