@@ -12,7 +12,6 @@
   \  'coc-tsserver',
   \  'coc-json',
   \  'coc-html',
-  \  'coc-gocode',
   \  'coc-css',
   \]
 
@@ -52,6 +51,13 @@
       \})
 
   " Use clojure-lsp for clojure completion:
+  call coc#config('languageserver', {
+  \  'golang': {
+  \    'command': 'gopls',
+  \    'rootPatterns': ['go.mod', '.vim/', '.git/', '.hg/'],
+  \    'filetypes': ['go']
+  \  }
+  \})
   call coc#config('languageserver', {
   \    'clojure-lsp': {
   \      'command': 'bash',
