@@ -80,6 +80,7 @@ go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite
 # Configure Wego (used in tmux)
 go get github.com/schachmat/wego
 ln -s ~/dotfiles/wego/one-liner.go ~/go/src/github.com/schachmat/wego/frontends/
+ln -s ~/dotfiles/.wegorc ~/
 go install github.com/schachmat/wego
 
 echo "Run $(tput bold)$(tput setaf 6)dns/bootstrap.sh$(tput sgr0) to install DNS proxy and local dev domains."
