@@ -34,7 +34,7 @@ git config --global color.diff-highlight.newHighlight "green bold 22"
 git config --global credential.helper osxkeychain
 
 ## Install Python Modules
-pip3 install mackup neovim virtualfish
+pip3 install mackup neovim virtualfish pylint jedi
 if [! -f "/usr/local/bin/python"]; then
   ln -s "$(which python3)" /usr/local/bin/python
 fi

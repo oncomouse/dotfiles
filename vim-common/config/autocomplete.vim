@@ -13,6 +13,7 @@
   \  'coc-json',
   \  'coc-html',
   \  'coc-css',
+  \  'coc-python',
   \]
 
   function! s:load_extension(ext) abort
