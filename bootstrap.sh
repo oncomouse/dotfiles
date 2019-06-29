@@ -34,7 +34,7 @@ git config --global color.diff-highlight.newHighlight "green bold 22"
 git config --global credential.helper osxkeychain
 
 ## Install Python Modules
-pip3 install mackup neovim
+pip3 install mackup neovim virtualfish
 
 ## Install Node.js Modules
 npm install -g neovim jsonlint
@@ -49,7 +49,7 @@ rbenv global "$(rbenv versions | sed -e '$!d' -e 's/^[ \t]*//')"
 
 ## Setup Oh My Fish!
 curl -L https://get.oh-my.fish | fish
-omf install z ssh-term-helper fish-spec nodenv bundler
+omf install z ssh-term-helper fish-spec nodenv bundler virtualfish
 
 ## Setup Oh My Tmux!
 git clone https://github.com/gpakosz/.tmux ~/.tmux
