@@ -35,10 +35,10 @@ git config --global credential.helper osxkeychain
 
 ## Install Python Modules
 pip3 install mackup neovim virtualfish
-if test -f "/usr/local/bin/python"; then
+if [! -f "/usr/local/bin/python"]; then
   ln -s "$(which python3)" /usr/local/bin/python
 fi
-if test -f "/usr/local/bin/pip"; then
+if [! -f "/usr/local/bin/pip"]; then
   ln -s "$(which pip3)" /usr/local/bin/pip
 fi
 
