@@ -55,7 +55,7 @@ rbenv global "$(rbenv versions | sed -e '$!d' -e 's/^[ \t]*//')"
 
 ## Setup Oh My Fish!
 curl -L https://get.oh-my.fish | fish
-omf install z ssh-term-helper fish-spec nodenv bundler virtualfish
+omf install z ssh-term-helper fish-spec nodenv virtualfish
 
 ## Setup Oh My Tmux!
 git clone https://github.com/gpakosz/.tmux ~/.tmux
