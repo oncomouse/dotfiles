@@ -88,9 +88,9 @@ function fish_prompt --description 'Write out the prompt'
 
     # Detect VIRTUAL_ENV
     if set -q VIRTUAL_ENV
-        echo -n -s " (" (set_color --bold blue) (basename "$VIRTUAL_ENV") (set_color normal) ")"
+        echo -n -s " (" (set_color yellow) \ue73c (set_color normal) " |" (set_color --bold blue) (basename "$VIRTUAL_ENV") (set_color normal) ")"
     end
-	
+
 	# Git
     printf '%s ' (__fish_vcs_prompt)
 
