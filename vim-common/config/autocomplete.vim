@@ -7,13 +7,14 @@
   " augroup END
   " Add extensions
   let coc_extensions = [
-  \  'coc-omni',
-  \  'coc-neosnippet',
-  \  'coc-tsserver',
-  \  'coc-json',
-  \  'coc-html',
-  \  'coc-css',
-  \  'coc-python',
+  \   'coc-omni',
+  \   'coc-neosnippet',
+  \   'coc-tsserver',
+  \   'coc-json',
+  \   'coc-html',
+  \   'coc-css',
+  \   'coc-python',
+  \   'coc-gocode',
   \]
 
   function! s:load_extension(ext) abort
