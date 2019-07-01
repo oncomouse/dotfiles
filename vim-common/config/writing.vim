@@ -106,10 +106,13 @@ augroup writing
                                  \ | call litecorrect#init()
                                  \ | call textobj#sentence#init()
                                  \ | call pencil#init()
-                                 \ | Limelight
   " Make sure j and k work with word wrap turned on:
   autocmd FileType pandoc,markdown nmap j gj
   autocmd FileType pandoc,markdown nmap k gk
+  " Ensure that lightline doesn't freak out when we use Goyo:
   autocmd! User GoyoEnter call <SID>goyo_enter()
   autocmd! User GoyoLeave call <SID>goyo_leave()
+  " Enable Limelight in pandoc and turn it off when we aren't in pandoc:
+  autocmd BufEnter * if &filetype=='pandoc'|Limelight|end
+  autocmd BufLeave * if &filetype=='pandoc'|!Limelight|end
 augroup END
