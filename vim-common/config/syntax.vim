@@ -109,6 +109,7 @@
     " autocmd BufEnter,WinEnter * if &filetype=='go'|setlocal omnifunc=|endif
     " Bind goto function definitions:
     autocmd FileType go nmap <leader>gd :GoDeclsDir<cr>
+    au FileType go nmap <F12> <Plug>(go-def)
   augroup END
 " }}
 " Other tabstops {{
