@@ -48,6 +48,7 @@ Plug 'Shougo/neosnippet-snippets' " The snippets
 " Git Support:
 Plug 'skywind3000/asyncrun.vim' " Does a lot of stuff, but we use it to make vim-fugitive async
 Plug 'tpope/vim-fugitive' " :Gstatus for git status; - to add, cc to commit
+Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
 Plug 'airblade/vim-gitgutter' " Git stats in the gutter
 " Writing:
 Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
