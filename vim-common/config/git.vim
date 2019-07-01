@@ -6,3 +6,6 @@
   let g:gitgutter_sign_removed_first_line = "✖"
   let g:gitgutter_sign_modified_removed = "…"
 "}}
+" AsyncRun compatibility with vim-fugitive {{
+  command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+" }}
