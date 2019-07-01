@@ -34,7 +34,8 @@
   let g:vim_jsx_pretty_colorful_config = 1
 " }}
 " Polyglot {{
-  let g:polyglot_disabled = ['jsx', 'pandoc', 'javascript'] " Disable JSX, JavaScript, and Pandoc syntax:
+  " Disable languages which need full support:
+  let g:polyglot_disabled = ['jsx', 'pandoc', 'javascript', 'go']
 " }}
 " Line Indent Colors {{
   let g:indent_guides_enable_on_vim_startup = 1
@@ -85,5 +86,43 @@
   augroup clojure-autocomplete
     autocmd!
     autocmd BufEnter,WinEnter * if &filetype=='clojure'|setlocal omnifunc=clojurecomplete#Complete|endif
+  augroup END
+" }}
+" vim-go {{
+  let g:go_fmt_command = "goimports"
+  let g:go_highlight_build_constraints = 1
+  let g:go_highlight_extra_types = 1
+  let g:go_highlight_fields = 1
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_types = 1
+  let g:go_auto_type_info = 1
+  augroup my-go-tabstops
+    autocmd!
+    autocmd FileType go setlocal tabstop=4
+    autocmd FileType go setlocal shiftwidth=4
+    autocmd FileType go setlocal noexpandtab
+
+    " Turn off omnifunc in go:
+    " autocmd BufEnter,WinEnter * if &filetype=='go'|setlocal omnifunc=|endif
+    " Bind goto function definitions:
+    autocmd FileType go nmap <leader>gd :GoDeclsDir<cr>
+  augroup END
+" }}
+" Other tabstops {{
+  augroup my-js-tabstops
+    autocmd!
+    autocmd FileType javascript,javascript.jsx setlocal tabstop=2
+    autocmd FileType javascript,javascript.jsx setlocal shiftwidth=2
+    autocmd FileType javascript,javascript.jsx setlocal softtabstop=2
+    autocmd FileType javascript,javascript.jsx setlocal expandtab
+  augroup END
+  augroup my-md-tabstops
+    autocmd!
+    autocmd FileType markdown,pandoc,md setlocal tabstop=4
+    autocmd FileType markdown,pandoc,md setlocal shiftwidth=4
+    autocmd FileType markdown,pandoc,md setlocal noexpandtab
   augroup END
 " }}

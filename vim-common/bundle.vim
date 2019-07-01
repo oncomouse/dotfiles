@@ -26,6 +26,7 @@ Plug 'othree/yajs.vim' " Support JavaScript syntax (not using vim-polyglot)
 Plug 'othree/es.next.syntax.vim' " Support ES7+ syntax in yajs
 Plug 'othree/javascript-libraries-syntax.vim' " Support library syntax in yajs
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' } " Styled-components in JS
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
 Plug 'sheerun/vim-polyglot' " Multi-language syntax pack (disabled in syntax.vim for pandoc & javascript)
 " Fuzzy Search:
 Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
