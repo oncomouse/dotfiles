@@ -23,10 +23,9 @@
   nnoremap <silent> <leader>r :call fzf#run({
     \   'source': 'sed "1d" '.g:neomru#file_mru_path,
     \   'sink': 'e '
-    \ })<CR>
 
-  nnoremap <silent> K :call fzf_bibtex#SearchWordWithAg()<CR>
-  vnoremap <silent> K :call fzf_bibtex#SearchVisualSelectionWithAg()<CR>
+  nnoremap <silent> K :call ag_search#SearchWordWithAg()<CR>
+  vnoremap <silent> K :call ag_search#SearchVisualSelectionWithAg()<CR>
   nnoremap <silent> <leader>gl :Commits<CR>
   nnoremap <silent> <leader>ga :BCommits<CR>
   nnoremap <silent> <leader>ft :Filetypes<CR>
