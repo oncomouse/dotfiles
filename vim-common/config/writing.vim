@@ -69,6 +69,7 @@
     " For some reason, lightline-bufferline causes lightline to reenable, so
     " we have to turn it off on these events:
     augroup lightline_goyo
+      autocmd!
       autocmd BufWritePost,TextChanged,TextChangedI * call lightline#disable()
     augroup END
   endfunction
@@ -100,6 +101,13 @@
   " source: http://www.naperwrimo.org/wiki/index.php?title=Vim_for_Writers
 "}}
 " Initialize our writing environment:
+function! s:limelight(on) abort
+  if a:on == 1
+    Limelight
+  else
+    Limelight!
+  endif
+endfunction
 augroup writing
   autocmd!
   autocmd FileType pandoc,markdown call lexical#init()
@@ -113,6 +121,6 @@ augroup writing
   autocmd! User GoyoEnter call <SID>goyo_enter()
   autocmd! User GoyoLeave call <SID>goyo_leave()
   " Enable Limelight in pandoc and turn it off when we aren't in pandoc:
-  autocmd BufEnter * if &filetype=='pandoc'|Limelight|end
-  autocmd BufLeave * if &filetype=='pandoc'|!Limelight|end
+  autocmd BufEnter * if &filetype=='pandoc'|call <SID>limelight(1)|end
+  autocmd BufLeave * if &filetype=='pandoc'|call <SID>limelight(0)|end
 augroup END
