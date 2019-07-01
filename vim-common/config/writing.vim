@@ -103,9 +103,13 @@
 " Initialize our writing environment:
 function! s:limelight(on) abort
   if a:on == 1
-    Limelight
+    if exists(":Limelight")
+      Limelight
+    endif
   else
-    Limelight!
+    if exists(":Limelight")
+      Limelight!
+    endif
   endif
 endfunction
 augroup writing
@@ -115,8 +119,8 @@ augroup writing
                                  \ | call textobj#sentence#init()
                                  \ | call pencil#init()
   " Make sure j and k work with word wrap turned on:
-  autocmd FileType pandoc,markdown nmap j gj
-  autocmd FileType pandoc,markdown nmap k gk
+  " autocmd FileType pandoc,markdown nmap j gj
+  " autocmd FileType pandoc,markdown nmap k gk
   " Ensure that lightline doesn't freak out when we use Goyo:
   autocmd! User GoyoEnter call <SID>goyo_enter()
   autocmd! User GoyoLeave call <SID>goyo_leave()
