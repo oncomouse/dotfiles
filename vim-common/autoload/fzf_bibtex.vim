@@ -5,7 +5,18 @@ endfunction
 
 function! fzf_bibtex#bibtex_cite_sink_insert(lines)
   let r=system("bibtex-cite ", a:lines)
-  execute ':normal! a' . r
+  execute ':normal! i' . r
+  call feedkeys('a', 'n')
+endfunction
+
+function! fzf_bibtex#bibtex_markdown_sink(lines)
+  let r=system("bibtex-markdown ", a:lines)
+  execute ':normal! i' . r
+endfunction
+
+function! fzf_bibtex#bibtex_markdown_sink_insert(lines)
+  let r=system("bibtex-markdown ", a:lines)
+  execute ':normal! i' . r
   call feedkeys('a', 'n')
 endfunction
 
