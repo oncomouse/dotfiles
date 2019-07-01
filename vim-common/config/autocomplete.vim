@@ -110,6 +110,6 @@
   let g:neosnippet#enable_snipmate_compatibility = 1
   augroup snippets
     autocmd!
-    autocmd FileType neosnippet setlocal tabstop=8 shiftwidth=8 softtabstop=8 expandtab=noexpandtab
+    autocmd FileType neosnippet setlocal tabstop=8 shiftwidth=8 softtabstop=8 noexpandtab
   augroup END
 " }}
