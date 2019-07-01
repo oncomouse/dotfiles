@@ -19,15 +19,25 @@ Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 Plug 'docunext/closetag.vim' " Do the same for HTML
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
-" Syntax:
-Plug 'hail2u/vim-css3-syntax' " Somehow, polyglot doesn't load this.
-Plug 'MaxMEllon/vim-jsx-pretty' " Modular JSX support to add to yajs
-Plug 'othree/yajs.vim' " Support JavaScript syntax (not using vim-polyglot)
-Plug 'othree/es.next.syntax.vim' " Support ES7+ syntax in yajs
-Plug 'othree/javascript-libraries-syntax.vim' " Support library syntax in yajs
+" Web Syntax:
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " Somehow, polyglot doesn't load this.
+Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'javascript.jsx'] } " Modular JSX support to add to yajs
+Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] } " Support JavaScript syntax (not using vim-polyglot)
+Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] } " Support ES7+ syntax in yajs
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] } " Support library syntax in yajs
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' } " Styled-components in JS
+Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " SCSS
+" Other Syntax:
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
-Plug 'sheerun/vim-polyglot' " Multi-language syntax pack (disabled in syntax.vim for pandoc & javascript)
+Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' } " Clojure support
+Plug 'dag/vim-fish', { 'for': 'fish' }
+Plug 'ericpruitt/tmux.vim', {'rtp': 'vim/'}
+Plug 'vim-python/python-syntax', { 'for': 'python' }
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
+Plug 'stephpy/vim-yaml', { 'for': 'yaml' } " YAML
+" Plug 'chr4/nginx.vim' " activate if you need this
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 " Fuzzy Search:
 Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
 Plug '/usr/local/opt/fzf' " Load FZF into Vim
