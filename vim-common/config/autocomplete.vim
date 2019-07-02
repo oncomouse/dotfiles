@@ -60,19 +60,19 @@
   " \    'filetypes': ['go']
   " \  }
   " \})
-  call coc#config('languageserver', {
-  \    'clojure-lsp': {
-  \      'command': 'bash',
-  \      'args': ['-c', 'clojure-lsp'],
-  \      'filetypes': ['clojure'],
-  \      'rootPatterns': ['project.clj'],
-  \      'additionalSchemes': ['jar', 'zipfile'],
-  \      'trace.server': 'verbose',
-  \      'initializationOptions': {
-  \      }
-  \    }
-  \  }
-  \)
+  " call coc#config('languageserver', {
+  " \    'clojure-lsp': {
+  " \      'command': 'bash',
+  " \      'args': ['-c', 'clojure-lsp'],
+  " \      'filetypes': ['clojure'],
+  " \      'rootPatterns': ['project.clj'],
+  " \      'additionalSchemes': ['jar', 'zipfile'],
+  " \      'trace.server': 'verbose',
+  " \      'initializationOptions': {
+  " \      }
+  " \    }
+  " \  }
+  " \)
 " }}
 "" Neosnippets {{
   "
