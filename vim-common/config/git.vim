@@ -15,4 +15,8 @@
   call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
   call gina#custom#command#option('status', '--group', 'short')
   call gina#custom#command#option('commit', '--group', 'short')
+  ca Gpush Gina push
+  ca Gstatus Gina status
+  ca Gdiff Gina diff
+  ca Gcommit Gina commit
 " }}
