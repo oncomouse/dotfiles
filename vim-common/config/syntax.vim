@@ -79,7 +79,10 @@
   let g:strip_whitespace_on_save=1
 " }}
 " CoC JSONC {{
-  autocmd FileType json syntax match Comment +\/\/.\+$+
+  augroup jsonc-syntax-coc
+    autocmd!
+    autocmd FileType json syntax match Comment +\/\/.\+$+
+  augroup END
 " }}
 " vim-clojure-static {{
   " Use vim-clojure-static for the omnifunc:
