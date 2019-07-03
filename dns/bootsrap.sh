@@ -7,6 +7,7 @@ rm /usr/local/etc/dnsmasq.conf
 rm /usr/local/etc/dnscrypt-proxy.toml
 ln -s ~/dotfiles/dns/dnsmasq.conf /usr/local/etc/
 ln -s ~/dotfiles/dns/dnscrypt-proxy.toml /usr/local/etc/
+ln -s ~/dotfiles/dns/dnsmasq.d/testing.conf /usr/local/etc/dnsmasq.d/
 
 sudo brew services start dnsmasq
 sudo brew services start dnscrypt-proxy
