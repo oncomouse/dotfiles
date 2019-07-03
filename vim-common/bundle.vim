@@ -3,7 +3,7 @@ call plug#begin()
 Plug 'mhartington/oceanic-next' " Theme
 " General Editing Plugins:
 Plug 'jiangmiao/auto-pairs' " Autocomplete pairable marks
-" Plug 'sickill/vim-pasta' " Indentation-forward pasting
+Plug 'sickill/vim-pasta' " Indentation-forward pasting
 Plug 'easymotion/vim-easymotion' " <leader><leader><motion key> for fast motion
 Plug 'AndrewRadev/splitjoin.vim' " gS & gJ to split and join one-liners / functions
 Plug 'ntpeters/vim-better-whitespace'
