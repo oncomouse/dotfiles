@@ -97,7 +97,7 @@ go install github.com/oncomouse/wttr-safe
 # Configure gocode and gopls
 go get -u github.com/mdempsky/gocode
 go install github.com/mdempsky/gocode
-gocode
+~/go/bin/gocode
 go get -u golang.org/x/tools/gopls
 go install golang.org/x/tools/gopls
 
