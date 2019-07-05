@@ -25,7 +25,7 @@ Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'javascript.jsx'] } " M
 Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] } " Support JavaScript syntax (not using vim-polyglot)
 Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] } " Support ES7+ syntax in yajs
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] } " Support library syntax in yajs
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' } " Styled-components in JS
+" Plug 'styled-components/vim-styled-components', { 'branch': 'main' } " Styled-components in JS
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " SCSS
 " Other Syntax:
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
