@@ -1,19 +1,19 @@
-" This is many of the commands from taskpaper.vim but set to load on my 
+" This is many of the commands from taskpaper.vim but set to load on my
 " todo.txt file and using my done notation. Also, turns off all the
 " formatting.
 augroup todo
   autocmd!
   " Mark a task as done:
-  autocmd BufRead,BufNewFile todo.txt nnoremap <buffer> <leader>td A X<esc>
-  autocmd BufRead,BufNewFile todo.txt vnoremap <buffer> <leader>td A X<esc>
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>td A X<esc>
+  autocmd BufRead,BufNewFile todo.* vnoremap <buffer> <leader>td A X<esc>
   " Go To Project
-  autocmd BufRead,BufNewFile todo.txt nnoremap <buffer> <leader>tg :call GoToProject()<CR>
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tg :call GoToProject()<CR>
   " Search for done tasks:
-  autocmd BufRead,BufNewFile todo.txt nnoremap <buffer> <leader>t/ / X$<CR>
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>t/ / X$<CR>
   " Go To Next Project:
-  autocmd BufRead,BufNewFile todo.txt nnoremap <buffer> <leader>tj :call NextProject()<CR>
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tj :call NextProject()<CR>
   " Go To Previous Project:
-  autocmd BufRead,BufNewFile todo.txt nnoremap <buffer> <leader>tk :call PrevProject()<CR>
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tk :call PrevProject()<CR>
 augroup END
 " Next/Previous Projects
 function! NextProject()
