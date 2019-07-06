@@ -2,7 +2,7 @@
 let mapleader = "\<Space>"
 let maplocalleader = "\\"
 
-let g:bibliography_file = '/Users/apilsch/Dropbox/Documents/Academic Stuff/library.bib'
+let g:bibliography_file = '/Users/apilsch/Nextcloud/Documents/Academic Stuff/library.bib'
 
 runtime! config/**/*.vim
 
