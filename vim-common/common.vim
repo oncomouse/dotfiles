@@ -29,6 +29,9 @@ set expandtab
 set splitbelow
 set splitright
 
+" Supposedly, this fixes issues with syntax highlighting:
+set redrawtime=10000
+
 " Shortcut :tn for :tabnew
 ca tn tabnew
 " Select whole file
