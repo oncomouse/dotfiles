@@ -130,3 +130,6 @@
     autocmd FileType markdown,pandoc,md setlocal noexpandtab
   augroup END
 " }}
+" Sexp Mappings {{
+let g:sexp_filetypes = 'lisp,scheme,clojure,javascript'
+" }}
