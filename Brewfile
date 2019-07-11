@@ -22,6 +22,10 @@ brew "go"
 brew "bib-tool"
 brew "vale"
 
+# Mail
+brew "mutt"
+brew "gnupg"
+
 # System
 brew "coreutils"
 brew "git"

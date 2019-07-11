@@ -21,6 +21,8 @@ ln -s ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/
 ln -s ~/dotfiles/.config/fish/config.fish ~/.config/fish/
 ln -s ~/dotfiles/.config/fish/functions/fish_prompt.fish ~/.config/fish/functions/
 ln -s ~/dotfiles/.tmux.conf.local ~/
+ln -s ~/dotfiles/.muttrc ~/
+ln -s ~/dotfiles/.mutt ~/
 ln -s ~/dotfiles/.mackup.cfg ~/
 ln -s ~/dotfiles/.config/kitty/ ~/.config/
 

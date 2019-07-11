@@ -1,0 +1,12 @@
+set imap_user = "oncomouse@gmail.com"
+set imap_pass = "`gpg --use-agent --quiet --batch -d ~/.mutt/ONCOMOUSE.gpg`"
+set smtp_url = "smtp://oncomouse@smtp.gmail.com:587/"
+set smtp_pass = "`gpg --use-agent --quiet --batch -d ~/.mutt/ONCOMOUSE.gpg`"
+set from = "oncomouse@gmail.com"
+set realname = "Andrew Pilsch"
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set header_cache = ~/.mutt/com.gmail.oncomouse/cache/headers
+set message_cachedir = ~/.mutt/com.gmail.oncomouse/cache/bodies
+set certificate_file = ~/.mutt/com.gmail.oncomouse/certificates

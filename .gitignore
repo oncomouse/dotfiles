@@ -6,3 +6,5 @@
 .config/fish/functions/fzf_key_bindings.fish
 .config/nvim/plugged/
 .config/nvim/.netrwhist
+.mutt/edu.tamu.apilsch
+.mutt/com.gmail.oncomouse
