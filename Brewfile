@@ -25,6 +25,7 @@ brew "vale"
 # Mail
 brew "mutt"
 brew "gnupg"
+brew "pinentry-mac"
 
 # System
 brew "coreutils"
