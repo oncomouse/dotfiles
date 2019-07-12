@@ -2,6 +2,7 @@ call plug#begin()
 " Themes:
 Plug 'mhartington/oceanic-next' " Theme
 " General Editing Plugins:
+Plug 'xero/securemodelines' " Secure modelines
 Plug 'jiangmiao/auto-pairs' " Autocomplete pairable marks
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
 Plug 'easymotion/vim-easymotion' " <leader><leader><motion key> for fast motion
