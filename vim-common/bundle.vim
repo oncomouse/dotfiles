@@ -18,7 +18,7 @@ Plug 'terryma/vim-expand-region' " + or _ to expand or shrink (visual)
 Plug 'airblade/vim-rooter' " Set project root
 Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
-Plug 'docunext/closetag.vim' " Do the same for HTML
+Plug 'docunext/closetag.vim' " Autoclose HTML tags
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Web Syntax:
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " Somehow, polyglot doesn't load this.
