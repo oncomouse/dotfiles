@@ -16,6 +16,10 @@
   call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
   call gina#custom#command#option('status', '--group', 'short')
   call gina#custom#command#option('commit', '--group', 'short')
+  augroup gina-shortcuts
+    autocmd!
+    autocmd BufEnter,WinEnter * if &syntax=='gina-status' || &filetype =='gina-status'|	call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})|endif
+  augroup END
   " Implement vim-fugitive commands in Gina:
   ca Gpush Gina push
   ca Gstatus Gina status
