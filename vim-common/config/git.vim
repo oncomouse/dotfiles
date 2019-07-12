@@ -16,8 +16,8 @@
   call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
   call gina#custom#command#option('status', '--group', 'short')
   call gina#custom#command#option('commit', '--group', 'short')
-  call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
   " Implement vim-fugitive commands in Gina:
+  call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
   ca Gpush Gina push
   ca Gstatus Gina status
   ca Gdiff Gina diff
