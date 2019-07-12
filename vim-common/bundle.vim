@@ -53,8 +53,10 @@ Plug 'airblade/vim-gitgutter' " Git stats in the gutter
 " Writing:
 Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
 Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
-" Plug 'junegunn/limelight.vim', { 'for': ['pandoc', 'markdown', 'text'] } " Highlight current paragraph
-Plug 'junegunn/goyo.vim', { 'for': ['pandoc', 'markdown', 'text'] } " Minimalist writing environment using :Goyo
+Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
+" 'for': ['pandoc', 'markdown', 'text'] } " Highlight current paragraph
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+"{ 'for': ['pandoc', 'markdown', 'text'] } " Minimalist writing environment using :Goyo
 Plug 'reedes/vim-pencil', { 'for': ['pandoc', 'markdown', 'text'] } " Set various writing-friendly commands
 Plug 'reedes/vim-lexical', { 'for': ['pandoc', 'markdown', 'text'] } " Better spellchecking
 Plug 'reedes/vim-litecorrect' " Add autocorrections for boneheaded typos
