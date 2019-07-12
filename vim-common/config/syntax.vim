@@ -65,7 +65,7 @@
   " let g:rooter_use_lcd = 1 " only change the current window
 " }}
 " Colorizer {{
-  let g:colorizer_auto_filetype='css,scss,sass,less,html,javascript,javascript.jsx'
+  let g:colorizer_auto_filetype='css,scss,sass,less,html,javascript,javascript.jsx,vim'
 " }}
 " Emmet
   let g:user_emmet_settings = {
