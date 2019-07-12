@@ -13,7 +13,7 @@ Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesEnable to see indentation 
 Plug 'tpope/vim-repeat' " Repeat plugin commands
 Plug 'djoshea/vim-autoread' " Better auto-reloading support
 Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
-Plug 'amix/open_file_under_cursor.vim' " gf to open path at cursor
+" Plug 'amix/open_file_under_cursor.vim' " gf to open path at cursor
 Plug 'terryma/vim-expand-region' " + or _ to expand or shrink (visual)
 Plug 'airblade/vim-rooter' " Set project root
 Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
