@@ -49,7 +49,7 @@
 " Rainbow Parentheses {{
   let g:rainbow_active = 1
   let g:rainbow_conf = {
-  \	'guifgs': ['firebrick', 'purple', 'seagreen3', 'royalblue3', 'darkorange3', 'darkcyan'],
+  \	'guifgs': ['#EC5f67', '#C594C5', '#5FB3B3', '#6699CC', '#FAC863'], "'darkcyan'],
   \ 'separately': {
   \   '*': {},
   \   'markdown': {
