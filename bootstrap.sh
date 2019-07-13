@@ -21,10 +21,14 @@ ln -s ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/
 ln -s ~/dotfiles/.config/fish/config.fish ~/.config/fish/
 ln -s ~/dotfiles/.config/fish/functions/fish_prompt.fish ~/.config/fish/functions/
 ln -s ~/dotfiles/.tmux.conf.local ~/
-ln -s ~/dotfiles/.muttrc ~/
-ln -s ~/dotfiles/.mutt ~/
+ln -s ~/dotfiles/mutt/muttrc ~/.muttrc
 ln -s ~/dotfiles/.mackup.cfg ~/
 ln -s ~/dotfiles/.config/kitty/ ~/.config/
+
+# Mail Setup
+mkdir -p ~/.mutt
+mkdir -p ~/.passwords
+~/dotfiles/mutt/make-gpg-keys.fish
 
 ## Diff-so-fancy Git stuff
 git config --global color.diff-highlight.oldNormal "red bold"

@@ -5,8 +5,8 @@ function encrypt_keys
 
   read -s -l -p 'set_color green; echo -n "Password for apilsch@tamu.edu"; set_color normal; echo "> "' tamu_password
 
-  echo $gmail_password | gpg --use-agent -e > ~/.mutt/ONCOMOUSE.gpg
-  echo $tamu_password | gpg --use-agent -e > ~/.mutt/TAMU.gpg
+  echo $gmail_password | gpg --use-agent -e -r "Andrew Pilsch" > ~/.passwords/oncomouse.gmail.com.gpg
+  echo $tamu_password | gpg --use-agent -e -r "Andrew Pilsch" > ~/.passwords/apilsch.tamu.edu.gpg
 end
 
 function make_key
