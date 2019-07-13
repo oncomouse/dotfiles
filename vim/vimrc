@@ -1,0 +1,3 @@
+let &runtimepath .= ','.expand('~/dotfiles/vim/')
+runtime bundle.vim
+runtime common.vim

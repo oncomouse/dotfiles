@@ -6,29 +6,50 @@ xcode-select --install
 if test ! $(which brew); then
   echo "Installing homebrew..."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+  brew update
 fi
 
 ## Install Brew
 brew bundle install
 
+# Remove any old versions of the files we create:
+declare -a created_files=("~/.vimrc" "~/.config/nvim/init.vim" "~/.config/fish/config.fish" "~/.tmux.conf.local" "~/.muttrc" "~/.mackup.cfg" "~/.config/kitty/kitty.conf", "~/.wegorc" "~/.lein/profiles.clj")
+
+for created_file in "${created_files[@]}"
+do
+  if test $created_file; then
+    mkdir -p ~/.backup
+    mv $created_file ~/.backup
+  fi
+done
+
 ## Link Minimal Configuration Files
 mkdir -p ~/.config/fish/functions/
 mkdir -p ~/.vim/autoload/
 mkdir -p ~/.config/nvim/
-ln -s ~/dotfiles/.agignore ~/
-ln -s ~/dotfiles/.vimrc ~/
-ln -s ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/
-ln -s ~/dotfiles/.config/fish/config.fish ~/.config/fish/
-ln -s ~/dotfiles/.config/fish/functions/fish_prompt.fish ~/.config/fish/functions/
-ln -s ~/dotfiles/.tmux.conf.local ~/
+mkdir -p ~/.config/kitty/
+mkdir -p ~/.lein/
+ln -s ~/dotfiles/ag/agignore ~/
+ln -s ~/dotfiles/vim/vimrc ~/.vimrc
+ln -s ~/dotfiles/vim/vimrc ~/.config/nvim/init.vim
+ln -s ~/dotfiles/fish/config.fish ~/.config/fish/
+ln -s ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
+ln -s ~/dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local
 ln -s ~/dotfiles/mutt/muttrc ~/.muttrc
-ln -s ~/dotfiles/.mackup.cfg ~/
-ln -s ~/dotfiles/.config/kitty/ ~/.config/
+ln -s ~/dotfiles/mackup/mackup.cfg ~/.mackup.cfg
+ln -s ~/dotfiles/kitty/kitty.conf ~/.config/kitty/
+ln -s ~/dotfiles/leinengen/profiles.clj  ~/.lein/
+ln -s ~/dotfiles/wego/wegorc ~/.wegorc
 
 # Mail Setup
 mkdir -p ~/.mutt
 mkdir -p ~/.passwords
 ~/dotfiles/mutt/make-gpg-keys.fish
+
+# GnuPG Setup
+mkdir -p ~/.gnupg
+echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
 
 ## Diff-so-fancy Git stuff
 git config --global color.diff-highlight.oldNormal "red bold"
@@ -41,10 +62,10 @@ git config --global credential.helper osxkeychain
 
 ## Install Python Modules
 pip3 install mackup neovim virtualfish pylint jedi
-if [! -f "/usr/local/bin/python"]; then
+if test ! "/usr/local/bin/python"; then
   ln -s "$(which python3)" /usr/local/bin/python
 fi
-if [! -f "/usr/local/bin/pip"]; then
+if test ! "/usr/local/bin/pip"; then
   ln -s "$(which pip3)" /usr/local/bin/pip
 fi
 
@@ -52,71 +73,87 @@ fi
 npm install -g neovim jsonlint
 
 ## Setup Ruby
-mkdir -p "$(rbenv root)"/plugins
-git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
-git clone https://github.com/momo-lab/rbenv-install-latest.git "$(rbenv root)"/plugins/rbenv-install-latest
-rbenv install 2.5.1 # Dreamhost Ruby
-rbenv install-latest
-rbenv global "$(rbenv versions | sed -e '$!d' -e 's/^[ \t]*//')"
+if [ ! -d "$(rbenv root)/plugins" ]; then
+  mkdir -p "$(rbenv root)"/plugins
+  git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+  git clone https://github.com/momo-lab/rbenv-install-latest.git "$(rbenv root)"/plugins/rbenv-install-latest
+  rbenv install -s 2.5.1 # Dreamhost Ruby
+  rbenv install-latest
+  rbenv global "$(rbenv versions | sed -e '$!d' -e 's/^[ \t]*//')"
+fi
 
 ## Setup Oh My Fish!
-curl -L https://get.oh-my.fish | fish
-omf install z ssh-term-helper fish-spec nodenv virtualfish
+if [ ! -d "~/.local/share/omf" ]; then
+  curl -L https://get.oh-my.fish | fish
+  omf install z ssh-term-helper fish-spec nodenv virtualfish
+fi
 
 ## Setup Oh My Tmux!
-git clone https://github.com/gpakosz/.tmux ~/.tmux
-ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if [ ! -d "~/.tmux" ]; then
+  git clone https://github.com/gpakosz/.tmux ~/.tmux
+  ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
 
 ## Setup Vim and NeoVim
-curl -fLo ~/.vim/autoload/plug.vim \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-mkdir -p ~/.local/share/nvim/site/autoload
-cp ~/.vim/autoload/plug.vim ~/.local/share/nvim/site/autoload/plug.vim
-vim +PlugInstall +qall
-nvim +PlugInstall +qall
+if test ! "~/.vim/autoload/plug.vim"; then
+  curl -fLo ~/.vim/autoload/plug.vim \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  mkdir -p ~/.local/share/nvim/site/autoload
+  cp ~/.vim/autoload/plug.vim ~/.local/share/nvim/site/autoload/plug.vim
+  vim +PlugInstall +qall
+  nvim +PlugInstall +qall
+else
+  vim +PlugInstall +PlugClean +qall
+  nvim +PlugInstall +PlugClean +qall
+fi
 
 ## Setup $TERM
-tic -x -o ~/.terminfo ~/dotfiles/terms/tmux.terminfo
-tic -x -o ~/.terminfo ~/dotfiles/terms/tmux-256color.terminfo
-tic -x -o ~/.terminfo ~/dotfiles/terms/xterm-256color.terminfo
+if [ ! -d "~/.terminfo" ]; then
+  tic -x -o ~/.terminfo ~/dotfiles/terms/tmux.terminfo
+  tic -x -o ~/.terminfo ~/dotfiles/terms/tmux-256color.terminfo
+  tic -x -o ~/.terminfo ~/dotfiles/terms/xterm-256color.terminfo
+fi
 
 ## Use Fish
 sudo dscl . -create /Users/$USER UserShell /usr/local/bin/fish
 
 # Configure FZF BibTeX
-go get github.com/msprev/fzf-bibtex
-go install github.com/msprev/fzf-bibtex/cmd/bibtex-ls
-go install github.com/msprev/fzf-bibtex/cmd/bibtex-markdown
-go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite
+if [ ! -d "~/go/src/github.com/msprev/fzf-bibtex" ]; then
+  go get github.com/msprev/fzf-bibtex
+  go install github.com/msprev/fzf-bibtex/cmd/bibtex-ls
+  go install github.com/msprev/fzf-bibtex/cmd/bibtex-markdown
+  go install github.com/msprev/fzf-bibtex/cmd/bibtex-cite
+fi
 
 # Configure Wego (used in tmux)
-go get github.com/schachmat/wego
-ln -s ~/dotfiles/wego/one-liner.go ~/go/src/github.com/schachmat/wego/frontends/
-ln -s ~/dotfiles/.wegorc ~/
-go install github.com/schachmat/wego
+if [ ! -d "~/go/src/github.com/schachmat/wego" ]; then
+  go get github.com/schachmat/wego
+  ln -s ~/dotfiles/wego/one-liner.go ~/go/src/github.com/schachmat/wego/frontends/
+  go install github.com/schachmat/wego
+fi
 
 # Configure wttr-safe, the failback client for wttr.in and wego:
-go get github.com/oncomouse/wttr-safe
-go install github.com/oncomouse/wttr-safe
+if [ ! -d "~/go/src/github.com/oncomouse/wttr-safe" ]; then
+  go get github.com/oncomouse/wttr-safe
+  go install github.com/oncomouse/wttr-safe
+fi
 
 # Configure gocode and gopls
-go get -u github.com/mdempsky/gocode
-go install github.com/mdempsky/gocode
-~/go/bin/gocode
-go get -u golang.org/x/tools/gopls
-go install golang.org/x/tools/gopls
+if [ ! -d "~/go/src/github.com/mdempsky/gocode" ]; then
+  go get -u github.com/mdempsky/gocode
+  go install github.com/mdempsky/gocode
+  ~/go/bin/gocode
+  go get -u golang.org/x/tools/gopls
+  go install golang.org/x/tools/gopls
+fi
 
 # Install CSL support:
-git clone https://github.com/citation-style-language/styles ~/.csl
+if [ ! -d "~/.csl" ]; then
+  git clone https://github.com/citation-style-language/styles ~/.csl
+fi
 
 # Leinengen Setup
-mkdir -p ~/.lein/
-ln -s ~/dotfiles/.lein/profiles.clj  ~/.lein/
-
-# GnuPG Setup
-mkdir -p ~/.gnupg
-echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
 
 echo "Run $(tput bold)$(tput setaf 6)dns/bootstrap.sh$(tput sgr0) to install DNS proxy and local dev domains."
 

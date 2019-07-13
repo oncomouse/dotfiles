@@ -33,5 +33,7 @@ function make_key
   read -p "echo ''" foo
 end
 
-make_key
+if count (gpg -k | ag "Andrew Pilsch") = 0
+  make_key
+end
 encrypt_keys
