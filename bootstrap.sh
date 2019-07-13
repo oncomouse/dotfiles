@@ -14,15 +14,20 @@ fi
 brew bundle install
 
 # Remove any old versions of the files we create:
-declare -a created_files=("~/.vimrc" "~/.config/nvim/init.vim" "~/.config/fish/config.fish" "~/.tmux.conf.local" "~/.muttrc" "~/.mackup.cfg" "~/.config/kitty/kitty.conf", "~/.wegorc" "~/.lein/profiles.clj")
+declare -a created_files=("~/.vimrc" "~/.config/nvim/init.vim" "~/.config/fish/config.fish" "~/.tmux.conf.local" "~/.muttrc" "~/.mackup.cfg" "~/.config/kitty/kitty.conf" "~/.wegorc" "~/.lein/profiles.clj" "~/.agignore")
 
+mkdir -p ~/.backup
 for created_file in "${created_files[@]}"
 do
+  created_file="${created_file/#\~/$HOME}"
   if test $created_file; then
-    mkdir -p ~/.backup
-    mv $created_file ~/.backup
+    if ! mv $created_file ~/.backup 2> /dev/null; then
+      rm $created_file
+    fi
   fi
 done
+# Delete backup if empty:
+rmdir ~/.backup 2> /dev/null
 
 ## Link Minimal Configuration Files
 mkdir -p ~/.config/fish/functions/
@@ -30,11 +35,11 @@ mkdir -p ~/.vim/autoload/
 mkdir -p ~/.config/nvim/
 mkdir -p ~/.config/kitty/
 mkdir -p ~/.lein/
-ln -s ~/dotfiles/ag/agignore ~/
+ln -s ~/dotfiles/ag/agignore ~/.agignore
 ln -s ~/dotfiles/vim/vimrc ~/.vimrc
 ln -s ~/dotfiles/vim/vimrc ~/.config/nvim/init.vim
 ln -s ~/dotfiles/fish/config.fish ~/.config/fish/
-ln -s ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
+ln -sf ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
 ln -s ~/dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local
 ln -s ~/dotfiles/mutt/muttrc ~/.muttrc
 ln -s ~/dotfiles/mackup/mackup.cfg ~/.mackup.cfg
@@ -45,7 +50,6 @@ ln -s ~/dotfiles/wego/wegorc ~/.wegorc
 # Mail Setup
 mkdir -p ~/.mutt
 mkdir -p ~/.passwords
-~/dotfiles/mutt/make-gpg-keys.fish
 
 # GnuPG Setup
 mkdir -p ~/.gnupg
@@ -73,7 +77,7 @@ fi
 npm install -g neovim jsonlint
 
 ## Setup Ruby
-if [ ! -d "$(rbenv root)/plugins" ]; then
+if test ! "$(rbenv root)/plugins" ; then
   mkdir -p "$(rbenv root)"/plugins
   git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
   git clone https://github.com/momo-lab/rbenv-install-latest.git "$(rbenv root)"/plugins/rbenv-install-latest
@@ -83,13 +87,13 @@ if [ ! -d "$(rbenv root)/plugins" ]; then
 fi
 
 ## Setup Oh My Fish!
-if [ ! -d "~/.local/share/omf" ]; then
+if test ! ~/.local/share/omf ; then
   curl -L https://get.oh-my.fish | fish
   omf install z ssh-term-helper fish-spec nodenv virtualfish
 fi
 
 ## Setup Oh My Tmux!
-if [ ! -d "~/.tmux" ]; then
+if test ! ~/.tmux ; then
   git clone https://github.com/gpakosz/.tmux ~/.tmux
   ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -109,7 +113,7 @@ else
 fi
 
 ## Setup $TERM
-if [ ! -d "~/.terminfo" ]; then
+if test ! "~/.terminfo" ; then
   tic -x -o ~/.terminfo ~/dotfiles/terms/tmux.terminfo
   tic -x -o ~/.terminfo ~/dotfiles/terms/tmux-256color.terminfo
   tic -x -o ~/.terminfo ~/dotfiles/terms/xterm-256color.terminfo
@@ -119,7 +123,7 @@ fi
 sudo dscl . -create /Users/$USER UserShell /usr/local/bin/fish
 
 # Configure FZF BibTeX
-if [ ! -d "~/go/src/github.com/msprev/fzf-bibtex" ]; then
+if test ! "~/go/src/github.com/msprev/fzf-bibtex" ; then
   go get github.com/msprev/fzf-bibtex
   go install github.com/msprev/fzf-bibtex/cmd/bibtex-ls
   go install github.com/msprev/fzf-bibtex/cmd/bibtex-markdown
@@ -127,20 +131,20 @@ if [ ! -d "~/go/src/github.com/msprev/fzf-bibtex" ]; then
 fi
 
 # Configure Wego (used in tmux)
-if [ ! -d "~/go/src/github.com/schachmat/wego" ]; then
+if test ! "~/go/src/github.com/schachmat/wego" ; then
   go get github.com/schachmat/wego
   ln -s ~/dotfiles/wego/one-liner.go ~/go/src/github.com/schachmat/wego/frontends/
   go install github.com/schachmat/wego
 fi
 
 # Configure wttr-safe, the failback client for wttr.in and wego:
-if [ ! -d "~/go/src/github.com/oncomouse/wttr-safe" ]; then
+if test ! "~/go/src/github.com/oncomouse/wttr-safe" ; then
   go get github.com/oncomouse/wttr-safe
   go install github.com/oncomouse/wttr-safe
 fi
 
 # Configure gocode and gopls
-if [ ! -d "~/go/src/github.com/mdempsky/gocode" ]; then
+if test ! "~/go/src/github.com/mdempsky/gocode" ; then
   go get -u github.com/mdempsky/gocode
   go install github.com/mdempsky/gocode
   ~/go/bin/gocode
@@ -149,12 +153,12 @@ if [ ! -d "~/go/src/github.com/mdempsky/gocode" ]; then
 fi
 
 # Install CSL support:
-if [ ! -d "~/.csl" ]; then
+if test ! "~/.csl" ; then
   git clone https://github.com/citation-style-language/styles ~/.csl
 fi
 
-# Leinengen Setup
+echo "Run $(tput bold)$(tput setaf 6)bash ~/dotfiles/dns/bootstrap.sh$(tput sgr0) to install DNS proxy and local dev domains."
 
-echo "Run $(tput bold)$(tput setaf 6)dns/bootstrap.sh$(tput sgr0) to install DNS proxy and local dev domains."
+echo "Run $(tput bold)$(tput setaf 6)fish ~/dotfiles/mutt/make-gpg-keys.fish$(tput sgr0) to create GPG keys for NeoMutt (make sure Firefox & Bitwarden are working first)!"
 
-echo "In Seafile, sync $(tput bold)Mackup$(tput spr0) and when $(tput bold)$(tput setaf 5)done syncing$(tput sgr0), run $(tput setaf 6)mackup restore$(tput sgr0) to load configuration files."
+echo "In Seafile, sync $(tput bold)Mackup$(tput sgr0) and when $(tput bold)$(tput setaf 5)done syncing$(tput sgr0), run $(tput setaf 6)mackup restore$(tput sgr0) to load configuration files."
