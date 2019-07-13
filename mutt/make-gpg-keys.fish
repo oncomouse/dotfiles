@@ -32,5 +32,5 @@ function make_key
   read -p "echo ''" foo
 end
 
-make_key()
-encrypt_keys()
+make_key
+encrypt_keys
