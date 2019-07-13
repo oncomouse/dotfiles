@@ -16,5 +16,5 @@ set imap_check_subscribed = "yes"
 set spoolfile = "+INBOX"
 
 # include sidebar (sourcing from a separate file)
-source "~/dotfiles/mutt/sidebar"
-# vim: syntax=muttrc
+# source "~/dotfiles/mutt/sidebar"
+# vim: syntax=muttrc:filetype=muttrc
