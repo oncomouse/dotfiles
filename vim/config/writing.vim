@@ -1,6 +1,6 @@
 " Writing:
 " Deoplete BibLaTeX source {{
-    augroup deoplete-pandoc
+    " augroup deoplete-pandoc
       " autocmd!
       " autocmd FileType pandoc let b:coc_suggest_disable = 1
       " autocmd FileType pandoc call deoplete#custom#option('sources', {
@@ -14,8 +14,19 @@
       " autocmd FileType pandoc inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
       " autocmd FileType pandoc call deoplete#initialize()
       " autocmd FileType pandoc call deoplete#enable()
-    augroup END
+    " augroup END
 " }}
+" FZF BibTeX COnfiguration {{{
+let $FZF_BIBTEX_CACHEDIR = '/var/tmp'
+let $FZF_BIBTEX_SOURCES = g:bibliography_file
+
+augroup fzf-bibtex
+  autocmd!
+  " Bind <ctrl+c> to citation look-up using FZF:
+  autocmd FileType pandoc,text,markdown nnoremap <silent> <C-C> :call fzf_bibtex#run_bibtex_ls('fzf_bibtex#bibtex_cite_sink')<CR>
+  autocmd FileType pandoc,text,markdown inoremap <silent> <C-C> <c-g>u<c-o>:call fzf_bibtex#run_bibtex_ls('fzf_bibtex#bibtex_cite_sink_insert')<CR>
+augroup END
+" }}}
 " {{ CoC Pandoc
   augroup coc-pandoc
     autocmd!

@@ -35,15 +35,5 @@
   " Complete file line:
   imap <C-x><C-l> <plug>(fzf-complete-line)
   "
-  " FZF BibTeX COnfiguration
-  let $FZF_BIBTEX_CACHEDIR = '/var/tmp'
-  let $FZF_BIBTEX_SOURCES = g:bibliography_file
-
-  augroup fzf-bibtex
-    autocmd!
-    " Bind <ctrl+c> to citation look-up using FZF:
-    autocmd FileType pandoc,text,markdown nnoremap <silent> <C-C> :call fzf_bibtex#run_bibtex_ls('fzf_bibtex#bibtex_cite_sink')<CR>
-    autocmd FileType pandoc,text,markdown inoremap <silent> <C-C> <c-g>u<c-o>:call fzf_bibtex#run_bibtex_ls('fzf_bibtex#bibtex_cite_sink_insert')<CR>
-  augroup END
 "}}
 
