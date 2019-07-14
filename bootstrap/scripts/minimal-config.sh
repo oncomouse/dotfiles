@@ -28,7 +28,7 @@ mkdir -p ~/.config/nvim/
 if [ $os == "macos" ]; then
   mkdir -p ~/.config/kitty/
 fi
-if [ ! -z $SERVER ]; then
+if [ -z $SERVER ]; then
   mkdir -p ~/.lein/
 fi
 ln -s ~/dotfiles/ag/agignore ~/.agignore
@@ -41,7 +41,7 @@ if [ $os == "macos" ]; then
   ln -s ~/dotfiles/kitty/kitty.conf ~/.config/kitty/
   ln -s ~/dotfiles/mackup/mackup.cfg ~/.mackup.cfg
 fi
-if [ ! -z $SERVER ]; then
+if [ -z $SERVER ]; then
   ln -s ~/dotfiles/vim/vimrc ~/.config/nvim/init.vim
   ln -s ~/dotfiles/mutt/muttrc ~/.muttrc
   ln -s ~/dotfiles/leinengen/profiles.clj  ~/.lein/

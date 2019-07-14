@@ -1,5 +1,7 @@
 # oncomouse Dotfiles
 
-These files are used to bootstrap a new macOS computer, using Homebrew.
+These dotfiles work for Mac OS and Ubuntu (for now). Ubuntu can also run for server or desktop configurations.
 
-To install, clone this repository into your home directory, then run `bash ./bootstrap.sh` in a shell.
+## Usage
+
+Run `git clone https://github.com/oncomouse/dotfiles ~/dotfiles` on your computer. Then run either `make desktop` or `make server` to install.
