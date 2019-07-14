@@ -13,7 +13,7 @@ else
 fi
 
 ## Install Brew
-brew bundle install --file=~/dotfiles/bootstrap/Brewfile
+brew bundle install --file=~/dotfiles/bootstrap/bundle/Brewfile
 
 ## GnuPG Setup for Mac:
 mkdir -p ~/.gnupg
