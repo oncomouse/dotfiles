@@ -2,7 +2,7 @@
 let mapleader = "\<Space>"
 let maplocalleader = "\\"
 
-let g:bibliography_file = '/Users/apilsch/Nextcloud/Documents/Academic Stuff/library.bib'
+let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
 
 set nomodeline
 let g:secure_modelines_verbose = 0
