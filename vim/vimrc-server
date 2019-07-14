@@ -19,19 +19,15 @@ call plug#begin()
   " Tmux:
   Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
   " Syntax:
-  Plug 'itchyny/lightline.vim' " Statusbar
-  " Linter:
-  Plug 'w0rp/ale' " Linter support
-  Plug 'maximbaz/lightline-ale' " Add linter status to lightline
   Plug 'sheerun/vim-polyglot' " Syntax
-  " Statusline:
-  Plug 'itchyny/lightline.vim' " Statusbar
-  " Linter:
-  Plug 'w0rp/ale' " Linter support
-  Plug 'maximbaz/lightline-ale' " Add linter status to lightline
+  Plug 'luochen1990/rainbow' " Rainbow parentheses
   " Fuzzy Search:
   Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
-  Plug '~/.fzf' " Load FZF into Vim
+  if isdirectory(expand('/usr/local/opt/fzf'))
+    Plug '/usr/local/opt/fzf' " Load FZF into Vim
+  else
+    Plug '~/.fzf'
+  endif
   Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
   " Git Support:
   Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
@@ -40,7 +36,6 @@ call plug#begin()
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
-  Plug 'luochen1990/rainbow' " Rainbow parentheses
 call plug#end()
 let &runtimepath .= ','.expand('~/dotfiles/vim/')
 runtime common.vim
@@ -48,10 +43,8 @@ let configs = [
   \ "deoplete",
   \ "fuzzy",
   \ "git",
-  \ "statusline",
   \ "syntax",
   \ "theme",
-  \ "visual-at",
 \]
 for file in configs
   let x = "config/".file.".vim"

@@ -1,41 +1,6 @@
 " Syntax:
-" CoC {{
-  vmap <S-f> <Plug>(coc-format-selected)<CR>
-  nmap <leader>f <Plug>(coc-format-selected)
-  command! -nargs=0 Format :call CocAction('format')
-" }}
-" Ale {{
-  " Better ALE Msg Format
-  " let g:ale_echo_msg_error_str = 'E'
-  " let g:ale_echo_msg_warning_str = 'W'
-  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-  "
-  " Jump between ALE Errors:
-  nmap <silent> <leader>h <Plug>(ale_previous_wrap)
-  nmap <silent> <leader>j <Plug>(ale_next_wrap)
-  nmap <silent> <leader>d :ALEDetail<CR>
-  "
-  " Lint only on save:
-  " let g:ale_lint_on_text_changed = 'never'
-  let g:ale_lint_on_enter = 1
-  "
-  " Use ALE w/ CoC:
-  call coc#config('coc.preferences.diagnostic.displayByAle', 1)
-  "
-  " Add Vale to pandoc bc vim-pandoc insists on changing filetype:
-  call ale#linter#Define('pandoc', {
-  \   'name': 'vale',
-  \   'executable': 'vale',
-  \   'command': 'vale --output=JSON %t',
-  \   'callback': 'ale#handlers#vale#Handle',
-  \})
-" }}
 " vim-jsx-pretty {{
   let g:vim_jsx_pretty_colorful_config = 1
-" }}
-" Polyglot {{
-  " Disable languages which need full support:
-  let g:polyglot_disabled = ['jsx', 'pandoc', 'javascript', 'go']
 " }}
 " Line Indent Colors {{
   let g:indent_guides_enable_on_vim_startup = 1
@@ -49,7 +14,8 @@
 " Rainbow Parentheses {{
   let g:rainbow_active = 1
   let g:rainbow_conf = {
-  \	'guifgs': ['#F99157', '#EC5f67', '#C594C5', '#5FB3B3', '#6699CC', '#FAC863', '#99C794', '#AB7967'],
+  \ 'guifgs': ['#F99157', '#EC5f67', '#C594C5', '#5FB3B3', '#6699CC', '#FAC863', '#99C794', '#AB7967'],
+  \ 'ctermfgs': [5, 4, 6, 2, 1],
   \ 'separately': {
   \   '*': {},
   \   'markdown': {

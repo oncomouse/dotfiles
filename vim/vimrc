@@ -2,6 +2,7 @@ let &runtimepath .= ','.expand('~/dotfiles/vim/')
 runtime bundle.vim
 runtime common.vim
 let configs = [
+  \ "ale",
   \ "autocomplete",
   \ "fuzzy",
   \ "git",
