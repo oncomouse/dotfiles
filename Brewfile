@@ -11,7 +11,7 @@ tap "ValeLint/vale"
 brew "fish"
 brew "diff-so-fancy"
 brew "thefuck"
-brew "z"
+brew "fasd"
 brew "the_silver_searcher"
 brew "fzf"
 

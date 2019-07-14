@@ -89,7 +89,7 @@ fi
 ## Setup Oh My Fish!
 if test ! ~/.local/share/omf ; then
   curl -L https://get.oh-my.fish | fish
-  omf install z ssh-term-helper fish-spec nodenv virtualfish
+  omf install fasd ssh-term-helper fish-spec nodenv virtualfish
 fi
 
 ## Setup Oh My Tmux!
