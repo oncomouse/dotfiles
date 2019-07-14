@@ -14,7 +14,6 @@ case `uname` in
     os=`cat /etc/os-release | ag "^NAME" | tr -d "NAME=" | tr -d '"' | tr '[:upper:]' '[:lower:]'`
     ;;
 esac
-echo $os
 
 # Remove any old versions of the files we create:
 declare -a created_files=("~/.vimrc" "~/.config/nvim/init.vim" "~/.config/fish/config.fish" "~/.tmux.conf.local" "~/.muttrc" "~/.mackup.cfg" "~/.config/kitty/kitty.conf" "~/.wegorc" "~/.lein/profiles.clj" "~/.agignore")
@@ -39,8 +38,8 @@ mkdir -p ~/.config/nvim/
 mkdir -p ~/.config/kitty/
 mkdir -p ~/.lein/
 ln -s ~/dotfiles/ag/agignore ~/.agignore
-ln -s "~/dotfiles/vim/vimrc-${os}" ~/.vimrc
-ln -s "~/dotfiles/vim/vimrc-${os}" ~/.config/nvim/init.vim
+ln -s ~/dotfiles/vim/vimrc-$os ~/.vimrc
+ln -s ~/dotfiles/vim/vimrc-$os ~/.config/nvim/init.vim
 ln -s ~/dotfiles/fish/config.fish ~/.config/fish/
 ln -sf ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
 ln -s ~/dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local
