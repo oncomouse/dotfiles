@@ -9,6 +9,9 @@ if command -sq rbenv
 	status --is-interactive; and source (rbenv init - | sed 's/setenv/set -gx/' | psub)
 end
 
+# Use vim as EDITOR:
+set -gx EDITOR /usr/local/bin/vim
+
 # Configure FZF to us Ag:
 set -gx FZF_DEFAULT_COMMAND 'ag --nocolor -g ""'
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
