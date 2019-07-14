@@ -32,8 +32,8 @@ if [ ! -z $SERVER ]; then
   mkdir -p ~/.lein/
 fi
 ln -s ~/dotfiles/ag/agignore ~/.agignore
-ln -s ~/dotfiles/vim/vimrc`if [ ! -z \$SERVER ]; then echo '-server'; fi` ~/.vimrc
-ln -s ~/dotfiles/vim/vimrc`if [ ! -z \$SERVER ]; then echo '-server'; fi` ~/.config/nvim/init.vim
+# Always link the minimal server rc file for vim:
+ln -s ~/dotfiles/vim/vimrc-server ~/.vimrc
 ln -s ~/dotfiles/fish/config.fish ~/.config/fish/
 ln -sf ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
 ln -s ~/dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local
@@ -42,6 +42,7 @@ if [ $os == "macos" ]; then
   ln -s ~/dotfiles/mackup/mackup.cfg ~/.mackup.cfg
 fi
 if [ ! -z $SERVER ]; then
+  ln -s ~/dotfiles/vim/vimrc ~/.config/nvim/init.vim
   ln -s ~/dotfiles/mutt/muttrc ~/.muttrc
   ln -s ~/dotfiles/leinengen/profiles.clj  ~/.lein/
 fi
