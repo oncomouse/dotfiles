@@ -14,7 +14,7 @@ do
   created_file="${created_file/#\~/$HOME}"
   if test $created_file; then
     if ! mv $created_file ~/.backup 2> /dev/null; then
-      rm $created_file
+      rm $created_file > /dev/null 2>&1
     fi
   fi
 done
