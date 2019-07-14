@@ -57,3 +57,10 @@ end
 if command -sq kitty
   kitty + complete setup fish | source
 end
+
+# Fasd Aliases:
+if command -sq nvim
+  alias v='f -e nvim'
+else
+  alias v='f -e vim'
+end
