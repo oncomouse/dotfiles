@@ -1,10 +1,5 @@
 " Autocomplete:
 " COC {{
-  " Disable CoC for CSS:
-  " augroup disable-coc-for-css
-  "   autocmd!
-  "   autocmd FileType css,scss let b:coc_suggest_disable = 1
-  " augroup END
   " Add extensions
   let coc_extensions = [
   \   'coc-omni',
@@ -76,11 +71,11 @@
 " }}
 "" Neosnippets {{
   "
-  let g:neosnippet#disable_runtime_snippets = {
-        \ 'css': 1,
-        \ 'pandoc': 1,
-        \ 'markdown': 1,
-        \}
+  " let g:neosnippet#disable_runtime_snippets = {
+  "       \ 'css': 1,
+  "       \ 'pandoc': 1,
+  "       \ 'markdown': 1,
+  "       \}
 
   " call coc#config('suggest.noselect', 0)
   " use <tab> for trigger completion and navigate to the next complete item
@@ -99,17 +94,17 @@
   \ <SID>check_back_space() ? "\<TAB>" :
   \ coc#refresh()
   "
-  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k>     <Plug>(neosnippet_expand_target)
-  let g:coc_snippet_next = '<C-k>'
-  let g:coc_snippet_prev = '<C-j>'
+  " imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  " smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  " xmap <C-k>     <Plug>(neosnippet_expand_target)
+  " let g:coc_snippet_next = '<C-k>'
+  " let g:coc_snippet_prev = '<C-j>'
   "
   " Enable snipMate compatibility feature.
-  let g:neosnippet#snippets_directory = expand('~/dotfiles/vim-common/snippets')
-  let g:neosnippet#enable_snipmate_compatibility = 1
-  augroup snippets
-    autocmd!
-    autocmd FileType neosnippet setlocal tabstop=8 shiftwidth=8 softtabstop=8 noexpandtab
-  augroup END
+  " let g:neosnippet#snippets_directory = expand('~/dotfiles/vim-common/snippets')
+  " let g:neosnippet#enable_snipmate_compatibility = 1
+  " augroup snippets
+  "   autocmd!
+  "   autocmd FileType neosnippet setlocal tabstop=8 shiftwidth=8 softtabstop=8 noexpandtab
+  " augroup END
 " }}
