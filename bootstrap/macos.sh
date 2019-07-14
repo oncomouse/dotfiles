@@ -43,6 +43,7 @@ $bash ~/dotfiles/bootstrap/scripts/oh-my-fish.sh
 $bash ~/dotfiles/bootstrap/scripts/tmux.sh
 $bash ~/dotfiles/bootstrap/scripts/vim.sh
 $bash ~/dotfiles/bootstrap/scripts/terms.sh
+$bash ~/dotfiles/bootstrap/scripts/fzf-bibtex.sh
 $bash ~/dotfiles/bootstrap/scripts/go.sh
 $bash ~/dotfiles/bootstrap/scripts/csl.sh
 
