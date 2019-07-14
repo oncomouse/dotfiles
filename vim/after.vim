@@ -41,4 +41,3 @@ endif
 " Buffer switching commands:
 nnoremap <silent> ]b :bn<CR>
 nnoremap <silent> [b :bp<CR>
-" nnoremap <silent> gg :e#<CR>
