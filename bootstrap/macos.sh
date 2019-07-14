@@ -16,10 +16,6 @@ fi
 brew bundle install
 
 $bash ~/dotfiles/bootstrap/scripts/minimal-config.sh
-
-## Use Fish
-sudo dscl . -create /Users/$USER UserShell /usr/local/bin/fish
-
 $bash ~/dotfiles/bootstrap/scripts/mutt.sh
 
 ## GnuPG Setup for Mac:
@@ -49,6 +45,9 @@ $bash ~/dotfiles/bootstrap/scripts/vim.sh
 $bash ~/dotfiles/bootstrap/scripts/terms.sh
 $bash ~/dotfiles/bootstrap/scripts/go.sh
 $bash ~/dotfiles/bootstrap/scripts/csl.sh
+
+## Use Fish
+sudo dscl . -create /Users/$USER UserShell /usr/local/bin/fish
 
 echo ""
 
