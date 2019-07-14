@@ -3,17 +3,17 @@ call plug#begin()
 Plug 'mhartington/oceanic-next' " Theme
 " General Editing Plugins:
 Plug 'xero/securemodelines' " Secure modelines
-Plug 'jiangmiao/auto-pairs' " Autocomplete pairable marks
+" Plug 'jiangmiao/auto-pairs' " Autocomplete pairable marks
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
 Plug 'easymotion/vim-easymotion' " <leader><leader><motion key> for fast motion
-Plug 'AndrewRadev/splitjoin.vim' " gS & gJ to split and join one-liners / functions
-Plug 'ntpeters/vim-better-whitespace'
+" Plug 'AndrewRadev/splitjoin.vim' " gS & gJ to split and join one-liners / functions
+" Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-surround' " Change surrounding characters, see cheat sheet
 Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesEnable to see indentation guides
 Plug 'tpope/vim-repeat' " Repeat plugin commands
 Plug 'djoshea/vim-autoread' " Better auto-reloading support
 Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
-Plug 'terryma/vim-expand-region' " + or _ to expand or shrink (visual)
+" Plug 'terryma/vim-expand-region' " + or _ to expand or shrink (visual)
 Plug 'airblade/vim-rooter' " Set project root
 Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
@@ -39,7 +39,6 @@ Plug 'stephpy/vim-yaml', { 'for': 'yaml' } " YAML
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 " Fuzzy Search:
-Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
 if isdirectory(expand('/usr/local/opt/fzf'))
   Plug '/usr/local/opt/fzf' " Load FZF into Vim
 else

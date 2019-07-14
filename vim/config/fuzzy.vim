@@ -20,10 +20,6 @@
   nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>? :History<CR>
   nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-  nnoremap <silent> <leader>r :call fzf#run({
-    \   'source': 'sed "1d" '.g:neomru#file_mru_path,
-    \   'sink': 'e '
-
   nnoremap <silent> K :call ag_search#SearchWordWithAg()<CR>
   vnoremap <silent> K :call ag_search#SearchVisualSelectionWithAg()<CR>
   nnoremap <silent> <leader>gl :Commits<CR>

@@ -99,3 +99,11 @@
 " Sexp Mappings {{
 let g:sexp_filetypes = 'lisp,scheme,clojure,javascript'
 " }}
+" Closer {{
+  augroup custom-closer
+    autocmd!
+    au FileType clojure,lisp,scheme,vim,fish
+        \ let b:closer = 1 |
+        \ let b:closer_flags = '([{'
+  augroup END
+" }}
