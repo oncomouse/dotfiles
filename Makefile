@@ -1,4 +1,4 @@
 macos:
 	bash ./bootstrap/macos.sh
 ubuntu-server:
-	bash ./bootstrap/ubuntu.sh
+	env SERVER=true bash ./bootstrap/ubuntu.sh
