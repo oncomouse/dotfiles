@@ -41,7 +41,11 @@ Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 " Fuzzy Search:
 Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
-Plug '/usr/local/opt/fzf' " Load FZF into Vim
+if !isdirectory(expand('/usr/local/opt/fzf'))
+  Plug '/usr/local/opt/fzf' " Load FZF into Vim
+else
+  Plug '~/.fzf'
+endif
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Use for code completion and snippet triggering
 " Plug 'Shougo/neosnippet.vim' " Snippets support
