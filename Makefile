@@ -1,3 +1,4 @@
 macos:
 	bash ./bootstrap/macos.sh
-install: macos
+ubuntu-server:
+	bash ./bootstrap/ubuntu.sh
