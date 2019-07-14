@@ -4,17 +4,7 @@
 #
 # Also build the basic dot directory structures.
 
-# Detect OS (used for Vim bundling):
-os="unknown"
-case `uname` in
-  Darwin)
-    os="macos"
-    ;;
-  Linux)
-    os=`cat /etc/os-release | ag "^NAME" | tr -d "NAME=" | tr -d '"' | tr '[:upper:]' '[:lower:]'`
-    ;;
-esac
-
+os=`bash ~/dotfiles/bootstrap/scripts/os.sh`
 # Remove any old versions of the files we create:
 declare -a created_files=("~/.vimrc" "~/.config/nvim/init.vim" "~/.config/fish/config.fish" "~/.tmux.conf.local" "~/.muttrc" "~/.mackup.cfg" "~/.config/kitty/kitty.conf" "~/.wegorc" "~/.lein/profiles.clj" "~/.agignore")
 
@@ -35,17 +25,24 @@ rmdir ~/.backup 2> /dev/null
 mkdir -p ~/.config/fish/functions/
 mkdir -p ~/.vim/autoload/
 mkdir -p ~/.config/nvim/
-mkdir -p ~/.config/kitty/
-mkdir -p ~/.lein/
+if [ $os == "macos" ]; then
+  mkdir -p ~/.config/kitty/
+fi
+if [ ! -z $SERVER ]; then
+  mkdir -p ~/.lein/
+fi
 ln -s ~/dotfiles/ag/agignore ~/.agignore
-ln -s ~/dotfiles/vim/vimrc-$os ~/.vimrc
-ln -s ~/dotfiles/vim/vimrc-$os ~/.config/nvim/init.vim
+ln -s ~/dotfiles/vim/vimrc`if [ ! -z \$SERVER ]; then echo '-server'; fi` ~/.vimrc
+ln -s ~/dotfiles/vim/vimrc`if [ ! -z \$SERVER ]; then echo '-server'; fi` ~/.config/nvim/init.vim
 ln -s ~/dotfiles/fish/config.fish ~/.config/fish/
 ln -sf ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
 ln -s ~/dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local
-ln -s ~/dotfiles/mutt/muttrc ~/.muttrc
-ln -s ~/dotfiles/mackup/mackup.cfg ~/.mackup.cfg
-ln -s ~/dotfiles/kitty/kitty.conf ~/.config/kitty/
-ln -s ~/dotfiles/leinengen/profiles.clj  ~/.lein/
+if [ $os == "macos" ]; then
+  ln -s ~/dotfiles/kitty/kitty.conf ~/.config/kitty/
+  ln -s ~/dotfiles/mackup/mackup.cfg ~/.mackup.cfg
+fi
+if [ ! -z $SERVER ]; then
+  ln -s ~/dotfiles/mutt/muttrc ~/.muttrc
+  ln -s ~/dotfiles/leinengen/profiles.clj  ~/.lein/
+fi
 ln -s ~/dotfiles/wego/wegorc ~/.wegorc
-
