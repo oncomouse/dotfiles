@@ -13,7 +13,6 @@ Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesEnable to see indentation 
 Plug 'tpope/vim-repeat' " Repeat plugin commands
 Plug 'djoshea/vim-autoread' " Better auto-reloading support
 Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
-" Plug 'amix/open_file_under_cursor.vim' " gf to open path at cursor
 Plug 'terryma/vim-expand-region' " + or _ to expand or shrink (visual)
 Plug 'airblade/vim-rooter' " Set project root
 Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
@@ -41,27 +40,21 @@ Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 " Fuzzy Search:
 Plug 'Shougo/neomru.vim' " Most Recently Used file list (<leader>r to see
-if !isdirectory(expand('/usr/local/opt/fzf'))
+if isdirectory(expand('/usr/local/opt/fzf'))
   Plug '/usr/local/opt/fzf' " Load FZF into Vim
 else
   Plug '~/.fzf'
 endif
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Use for code completion and snippet triggering
-" Plug 'Shougo/neosnippet.vim' " Snippets support
-" Plug 'Shougo/neosnippet-snippets' " The snippets
 " Git Support:
-" Plug 'skywind3000/asyncrun.vim' " Does a lot of stuff, but we use it to make vim-fugitive async
-" Plug 'tpope/vim-fugitive' " :Gstatus for git status; - to add, cc to commit
 Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
 Plug 'airblade/vim-gitgutter' " Git stats in the gutter
 " Writing:
 Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
 Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
 Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
-" 'for': ['pandoc', 'markdown', 'text'] } " Highlight current paragraph
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-"{ 'for': ['pandoc', 'markdown', 'text'] } " Minimalist writing environment using :Goyo
 Plug 'reedes/vim-pencil', { 'for': ['pandoc', 'markdown', 'text'] } " Set various writing-friendly commands
 Plug 'reedes/vim-lexical', { 'for': ['pandoc', 'markdown', 'text'] } " Better spellchecking
 Plug 'reedes/vim-litecorrect' " Add autocorrections for boneheaded typos
@@ -79,7 +72,6 @@ Plug 'itchyny/lightline.vim' " Statusbar
 " Linter:
 Plug 'w0rp/ale' " Linter support
 Plug 'maximbaz/lightline-ale' " Add linter status to lightline
-" Plug 'oncomouse/lightline-coc/'
 " Clojure:
 Plug 'venantius/vim-cljfmt', { 'for': 'clojure' } " Formatting for Clojure
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' } " REPL for Clojure

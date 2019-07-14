@@ -5,7 +5,7 @@ sudo apt-get upgrade -y
 # Install Necessary Tools:
 sudo apt-get install -y vim fish python3-pip silversearcher-ag
 
-if [ ! -z $SERVER ]; then
+if [ -z $SERVER ]; then
   sudo apt-get install -y pandoc pandoc-citeproc diction bibtool
   sudo apt-get install -y firefox
   ## Seafile Cilent
@@ -19,7 +19,7 @@ if [ ! -z $SERVER ]; then
 fi
 
 ## Install RBEnv:
-if [ ! -z $SERVER ]; then
+if [ -z $SERVER ]; then
   sudo apt-get -y install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
@@ -31,7 +31,7 @@ fi
 sudo apt-get install -y ranger caca-utils highlight atool w3m poppler-utils mediainfo
 
 ## Install NeoVim on Desktop:
-if [ ! -z $SERVER ];then
+if [ -z $SERVER ];then
   sudo add-apt-repository ppa:neovim-ppa/stable
   sudo apt-get update
   sudo apt-get install -y neovim
@@ -46,13 +46,8 @@ sudo apt-get update
 sudo apt-get install -y nodejs
 sudo apt-get install -y yarn
 
-# Install thefuck and virtualfish support:
-if ! pip3 list | ag "thefuck" > /dev/null 2>&1; then
-  pip3 install thefuck virtualfish
-fi
-
 ## Install Leiningen on Desktop
-if [ ! -z $SERVER ]; then
+if [ -z $SERVER ]; then
   sudo apt install -y default-jre
   sudo curl -fLo /usr/local/bin/lein \
     https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
@@ -98,15 +93,15 @@ git config --global user.name "oncomouse"
 git config --global user.email "oncomouse@gmail.com"
 
 $bash ~/dotfiles/bootstrap/scripts/vim.sh
-$bash ~/dotfiles/bootstrap/scripts/node-modules.sh
 $bash ~/dotfiles/bootstrap/scripts/oh-my-fish.sh
 $bash ~/dotfiles/bootstrap/scripts/tmux.sh
 $bash ~/dotfiles/bootstrap/scripts/terms.sh
 $bash ~/dotfiles/bootstrap/scripts/go.sh
 $bash ~/dotfiles/bootstrap/scripts/diff-so-fancy.sh
-if [ ! -z $SERVER ]; then
+$bash ~/dotfiles/bootstrap/scripts/node-modules.sh
+$bash ~/dotfiles/bootstrap/scripts/python-modules.sh
+if [ -z $SERVER ]; then
   $bash ~/dotfiles/bootstrap/scripts/mutt.sh
-  $bash ~/dotfiles/bootstrap/scripts/python-modules.sh
   $bash ~/dotfiles/bootstrap/scripts/rbenv.sh
   $bash ~/dotfiles/bootstrap/scripts/neovim.sh
   $bash ~/dotfiles/bootstrap/scripts/fzf-bibtex.sh
