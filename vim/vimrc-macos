@@ -1,0 +1,20 @@
+let &runtimepath .= ','.expand('~/dotfiles/vim/')
+runtime bundle.vim
+runtime common.vim
+let configs = [
+  \ "autocomplete",
+  \ "fuzzy",
+  \ "git",
+  \ "nvim-only",
+  \ "statusline",
+  \ "syntax",
+  \ "theme",
+  \ "todo",
+  \ "visual-at",
+  \ "writing",
+\]
+for file in configs
+  let x = "config/".file.".vim"
+  execute 'runtime' x
+  endfor
+runtime after.vim
