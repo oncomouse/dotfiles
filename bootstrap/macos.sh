@@ -15,19 +15,13 @@ fi
 ## Install Brew
 brew bundle install
 
-$bash ~/dotfiles/bootstrap/scripts/minimal-config.sh
-$bash ~/dotfiles/bootstrap/scripts/mutt.sh
-
 ## GnuPG Setup for Mac:
 mkdir -p ~/.gnupg
 echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
 
-$bash ~/dotfiles/bootstrap/scripts/diff-so-fancy.sh
-
 ## Git Keychain:
 git config --global credential.helper osxkeychain
 
-$bash ~/dotfiles/bootstrap/scripts/python-modules.sh
 
 ## Fix Homebrew's python3 mess:
 if test ! "/usr/local/bin/python"; then
@@ -37,11 +31,16 @@ if test ! "/usr/local/bin/pip"; then
   ln -s "$(which pip3)" /usr/local/bin/pip
 fi
 
+$bash ~/dotfiles/bootstrap/scripts/minimal-config.sh
+$bash ~/dotfiles/bootstrap/scripts/mutt.sh
+$bash ~/dotfiles/bootstrap/scripts/python-modules.sh
+$bash ~/dotfiles/bootstrap/scripts/diff-so-fancy.sh
 $bash ~/dotfiles/bootstrap/scripts/node-modules.sh
 $bash ~/dotfiles/bootstrap/scripts/rbenv.sh
 $bash ~/dotfiles/bootstrap/scripts/oh-my-fish.sh
 $bash ~/dotfiles/bootstrap/scripts/tmux.sh
 $bash ~/dotfiles/bootstrap/scripts/vim.sh
+$bash ~/dotfiles/bootstrap/scripts/neovim.sh
 $bash ~/dotfiles/bootstrap/scripts/terms.sh
 $bash ~/dotfiles/bootstrap/scripts/fzf-bibtex.sh
 $bash ~/dotfiles/bootstrap/scripts/go.sh
