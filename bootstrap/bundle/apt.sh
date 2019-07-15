@@ -41,7 +41,7 @@ if ! which tmux > /dev/null 2>&1; then
 fi
 
 # Install Fasd
-if test ! "/usr/local/bin/fasd"; then
+if ! which fasd > /dev/null 2>&1; then
   git clone https://github.com/clvv/fasd
   cd ~/dotfiles/fasd
   sudo make install
@@ -54,6 +54,14 @@ if ! which bat > /dev/null 2>&1; then
   curl -so ~/dotfiles/bat.deb https://github.com/sharkdp/bat/releases/download/v0.11.0/bat-musl_0.11.0_amd64.deb
   sudo dpkg -i ~/dotfiles/bat.deb
   rm ~/dotfiles/bat.deb
+fi
+
+# Install fd
+if ! which bat > /dev/null 2>&1; then
+  curl -so ~/dotfiles/fd.deb https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb
+
+  sudo dpkg -i ~/dotfiles/fd.deb
+  rm ~/dotfiles/fd.deb
 fi
 
 if [ -z $SERVER ]; then

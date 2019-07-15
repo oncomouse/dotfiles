@@ -16,6 +16,7 @@ brew "the_silver_searcher"
 brew "fzf"
 brew "bat"
 brew "htop"
+brew "fd"
 
 # Editor
 brew "vim"
