@@ -6,7 +6,7 @@ function ag; /usr/local/bin/ag --path-to-ignore ~/.agignore --hidden $argv; end
 function pilsch.com; ssh eschaton@birkenfeld.dreamhost.com; end
 # Load RBEnv
 if command -sq rbenv
-	status --is-interactive; and source (rbenv init - | sed 's/setenv/set -gx/' | psub)
+  status --is-interactive; and source (rbenv init - | sed 's/setenv/set -gx/' | psub)
 end
 
 # Use vim as EDITOR:
@@ -14,18 +14,19 @@ set -gx EDITOR /usr/local/bin/vim
 
 # Configure FZF to us Ag:
 #set -gx FZF_DEFAULT_COMMAND 'ag --nocolor -g ""'
-set -gx FZF_DEFAULT_COMMAND 'fd --type f --color=always'
+set -gx FZF_DEFAULT_COMMAND "fd --type f --color=always"
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-set -gx FZF_ALT_C_COMMAND "fd --type d --color=always"
-set -gx FZF_DEFAULT_OPTS '
+set -gx FZF_ALT_C_COMMAND "fd --type d --color=always . $HOME"
+set -gx FZF_DEFAULT_OPTS "
+  --ansi
   --color bg:#1B2B34,fg:#C0C5CE,bg+:#4F5B66,fg+:#D8DEE9,hl:#99C794,hl+:#99C794
   --color info:108,prompt:109,spinner:108,pointer:168,marker:#EC5f67
-  --bind="ctrl-o:execute(open {})+abort"
-  --bind="ctrl-e:execute(code {})+abort"
-  '
-set -gx FZF_CTRL_T_OPTS '
-  --ansi --preview-window "right:60%" --preview "bat --color=always --style=header,grid --line-range :300 {}"
-'
+  --bind='ctrl-o:execute(open {})+abort'
+  --bind='ctrl-e:execute(code {})+abort'
+  "
+set -gx FZF_CTRL_T_OPTS "
+  --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'
+  "
 
 # Local paths:
 set -g fish_user_paths $HOME/bin $HOME/.local/bin $HOME/go/bin
@@ -39,7 +40,7 @@ set -g fish_emoji_width 2
 
 # Sets up Rust's Cargo thing:
 if test -e $HOME/.cargo/env
-	source $HOME/.cargo/env
+  source $HOME/.cargo/env
 end
 
 # Setup virtualenv support Fish:
@@ -50,7 +51,7 @@ end
 
 # Setup Fuck:
 if command -sq thefuck
-	thefuck --alias | source
+  thefuck --alias | source
 end
 set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
 
