@@ -28,7 +28,19 @@ set -gx FZF_CTRL_T_OPTS "
   "
 
 # Local paths:
-set -g fish_user_paths $HOME/bin $HOME/.local/bin $HOME/go/bin
+if test -d ~/.fzf
+  set -g fisher_user_paths $fish_user_paths ~/.fzf/bin
+end
+if test -d $HOME/bin
+  set -g fisher_user_paths $fish_user_paths $HOME/bin
+end
+if test -d $HOME/go/bin
+  set -g fisher_user_paths $fish_user_paths $HOME/go/bin
+end
+if test -d $HOME/.local/bin
+  set -g fisher_user_paths $fish_user_paths $HOME/.local/bin
+end
+# set -g fish_user_paths $HOME/bin $HOME/.local/bin $HOME/go/bin
 
 # Set emoji width:
 set -g fish_emoji_width 2
