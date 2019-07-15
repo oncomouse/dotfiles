@@ -15,6 +15,7 @@ brew "fasd"
 brew "the_silver_searcher"
 brew "fzf"
 brew "bat"
+brew "htop"
 
 # Editor
 brew "vim"
