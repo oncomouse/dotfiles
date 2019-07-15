@@ -19,8 +19,12 @@ set -gx FZF_ALT_C_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_DEFAULT_OPTS '
   --color bg:#1B2B34,fg:#C0C5CE,bg+:#4F5B66,fg+:#D8DEE9,hl:#99C794,hl+:#99C794
   --color info:108,prompt:109,spinner:108,pointer:168,marker:#EC5f67
-  --ansi --preview-window "right:60%" --preview "bat --color=always --style=header,grid --line-range :300 {}"
+  --bind="ctrl-o:execute(open {})+abort"
+  --bind="ctrl-e:execute(code {})+abort"
   '
+set -gx FZF_CTRL_T_OPTS '
+  --ansi --preview-window "right:60%" --preview "bat --color=always --style=header,grid --line-range :300 {}"
+'
 
 # Local paths:
 set -g fish_user_paths $HOME/bin $HOME/.local/bin $HOME/go/bin
