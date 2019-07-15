@@ -50,7 +50,9 @@ if [ -z $SERVER ]; then
 fi
 
 ## Use Fish
-sudo dscl . -create /Users/$USER UserShell /usr/local/bin/fish
+if ! echo $SHELL | ag fish > /dev/null 2>&1; then
+  sudo dscl . -create /Users/$USER UserShell /usr/local/bin/fish
+fi
 
 echo ""
 
