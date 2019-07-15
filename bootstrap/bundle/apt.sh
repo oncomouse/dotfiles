@@ -51,20 +51,20 @@ fi
 
 # Install Bat
 if ! which bat > /dev/null 2>&1; then
-  curl -so ~/dotfiles/bat.deb https://github.com/sharkdp/bat/releases/download/v0.11.0/bat-musl_0.11.0_amd64.deb
+  curl -sLo ~/dotfiles/bat.deb https://github.com/sharkdp/bat/releases/download/v0.11.0/bat-musl_0.11.0_amd64.deb
   sudo dpkg -i ~/dotfiles/bat.deb
   rm ~/dotfiles/bat.deb
 fi
 
 # Install fd
-if ! which bat > /dev/null 2>&1; then
-  curl -so ~/dotfiles/fd.deb https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb
+if ! which fd > /dev/null 2>&1; then
+  curl -sLo ~/dotfiles/fd.deb https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb
   sudo dpkg -i ~/dotfiles/fd.deb
   rm ~/dotfiles/fd.deb
 fi
 
 if ! which exa > /dev/null 2>&1; then
-  curl -so ~/dotfiles/exa.zip https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
+  curl -sLo ~/dotfiles/exa.zip https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
   sudo apt-get install -y unzip
   unzip ~/dotfiles/exa.zip
   sudo mv exa-linux-x86_64 /usr/local/bin/exa
