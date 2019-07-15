@@ -51,6 +51,10 @@ sudo cp -prf /var/tmpold/* /tmp/
 sudo rm -rf /var/tmpold/
 sudo fish -c "echo \"tmpfs /run/shm tmpfs ro,noexec,nosuid 0 0\" >> /etc/fstab"
 
+if ! echo $SHELL | ag fish > /dev/null 2>&1; then
+  sudo chsh -s $(which fish) $USER
+fi
+
 # Clean up
 sudo apt -y autoremove
 
