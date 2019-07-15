@@ -74,3 +74,4 @@ end
 # Other Command Aliases:
 alias cat='bat'
 alias top='sudo htop'
+alias ls='exa --group-directories-first'

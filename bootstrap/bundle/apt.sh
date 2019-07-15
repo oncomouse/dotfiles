@@ -59,7 +59,6 @@ fi
 # Install fd
 if ! which bat > /dev/null 2>&1; then
   curl -so ~/dotfiles/fd.deb https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb
-
   sudo dpkg -i ~/dotfiles/fd.deb
   rm ~/dotfiles/fd.deb
 fi
