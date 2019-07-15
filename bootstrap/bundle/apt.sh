@@ -63,6 +63,14 @@ if ! which bat > /dev/null 2>&1; then
   rm ~/dotfiles/fd.deb
 fi
 
+if ! which exa > /dev/null 2>&1; then
+  curl -so ~/dotfiles/exa.zip https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
+  sudo apt-get install -y unzip
+  unzip ~/dotfiles/exa.zip
+  sudo mv exa-linux-x86_64 /usr/local/bin/exa
+  rm ~/dotfiles/exa.zip
+fi
+
 if [ -z $SERVER ]; then
   sudo apt-get install -y pandoc pandoc-citeproc diction bibtool
   sudo apt-get install -y firefox
