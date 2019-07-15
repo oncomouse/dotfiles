@@ -3,7 +3,7 @@
 sudo apt-get update
 sudo apt-get upgrade -y
 # Install Necessary Tools:
-sudo apt-get install -y vim fish python3-pip silversearcher-ag
+sudo apt-get install -y vim fish python3-pip silversearcher-ag htop
 sudo apt-get install -y ranger caca-utils highlight atool w3m poppler-utils mediainfo
 
 # Install Golang:
@@ -47,6 +47,13 @@ if test ! "/usr/local/bin/fasd"; then
   sudo make install
   cd ~/dotfiles
   rm -rf fasd
+fi
+
+# Install Bat
+if ! which bat > /dev/null 2>&1; then
+  curl -so ~/dotfiles/bat.deb https://github.com/sharkdp/bat/releases/download/v0.11.0/bat-musl_0.11.0_amd64.deb
+  sudo dpkg -i ~/dotfiles/bat.deb
+  rm ~/dotfiles/bat.deb
 fi
 
 if [ -z $SERVER ]; then
