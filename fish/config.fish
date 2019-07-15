@@ -1,7 +1,7 @@
 # Set $TERM for ssh to something not custom
 # function ssh; env TERM="xterm-256color" /usr/local/bin/ssh $argv; end
 # Universal ignore for ag
-function ag; /usr/local/bin/ag --path-to-ignore ~/.agignore --hidden $argv; end
+function ag; /usr/local/bin/ag --path-to-ignore ~/.ignore --hidden $argv; end
 # SSH to Dreamhost:
 function pilsch.com; ssh eschaton@birkenfeld.dreamhost.com; end
 # Load RBEnv
