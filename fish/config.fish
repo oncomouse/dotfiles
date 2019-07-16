@@ -7,7 +7,12 @@ if not functions -q fisher
   set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
   curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
   fish -c fisher
+end
 
+# Overwrite the fisher function to add the hook we need:
+functions --copy fisher __official_fisher
+function fisher
+  __official_fisher $argv
   # This fixes some wonky behavior in the fisher plugin for fasd
   printf "%s\n" \
   "function __fasd_run -e fish_preexec -d 'fasd takes record of the directories changed into'" \
