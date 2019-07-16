@@ -29,6 +29,7 @@ end
 set -gx EDITOR /usr/local/bin/vim
 
 # Configure FZF to us Ag:
+set -U FZF_FIND_FILE_COMMAND "fd --color=always --hidden"
 set -gx FZF_DEFAULT_COMMAND "fd --type f --color=always --hidden"
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_ALT_C_COMMAND "fd --type d --color=always . $HOME"
