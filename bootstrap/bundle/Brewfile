@@ -18,6 +18,7 @@ brew "bat"
 brew "htop"
 brew "fd"
 brew "exa"
+brew "ranger"
 
 # Editor
 brew "vim"
