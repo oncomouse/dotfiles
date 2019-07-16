@@ -7,19 +7,23 @@ sudo apt-get install -y vim fish python3-pip silversearcher-ag htop
 sudo apt-get install -y ranger caca-utils highlight atool w3m poppler-utils mediainfo
 
 # Install Golang:
-sudo add-apt-repository ppa:gophers/archive
-sudo apt-get update
-sudo apt-get install golang-1.11-go
-sudo ln -s /usr/lib/go-1.11/bin/* /usr/local/bin
+if ! which go > /dev/null 2>&1; then
+  sudo add-apt-repository ppa:gophers/archive
+  sudo apt-get update
+  sudo apt-get install golang-1.11-go
+  sudo ln -s /usr/lib/go-1.11/bin/* /usr/local/bin
+fi
 
 # Install Node.js
-sudo apt-get install -y curl python-software-properties
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt-get update
-sudo apt-get install -y nodejs
-sudo apt-get install -y yarn
+if ! which node > /dev/null 2>&1; then
+  sudo apt-get install -y curl python-software-properties
+  curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  sudo apt-get update
+  sudo apt-get install -y nodejs
+  sudo apt-get install -y yarn
+fi
 
 # Install FZF (configured in fish ctrl+r & ctrl+t):
 if test ! ~/.fzf; then

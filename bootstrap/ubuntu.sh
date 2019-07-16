@@ -8,6 +8,7 @@ $bash ~/dotfiles/bootstrap/bundle/apt.sh
 git config --global user.name "oncomouse"
 git config --global user.email "oncomouse@gmail.com"
 
+$bash ~/dotfiles/bootstrap/scripts/minimal-config.sh
 $bash ~/dotfiles/bootstrap/scripts/vim.sh
 $bash ~/dotfiles/bootstrap/scripts/tmux.sh
 $bash ~/dotfiles/bootstrap/scripts/terms.sh
