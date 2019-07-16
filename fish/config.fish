@@ -1,25 +1,18 @@
-# Set $TERM for ssh to something not custom
-# function ssh; env TERM="xterm-256color" /usr/local/bin/ssh $argv; end
-#
+# Add a version of fisher that emits events
+emit-fisher
 
-# Install fisher:
-if not functions -q fisher
-  set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
-  curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
-  fish -c fisher
-end
-
-# Overwrite the fisher function to add the hook we need:
-functions --copy fisher __official_fisher
-function fisher
-  __official_fisher $argv
+function fix-fasd --on-event fisher_install
   # This fixes some wonky behavior in the fisher plugin for fasd
+
+  echo "Patch FASD"
+
   printf "%s\n" \
   "function __fasd_run -e fish_preexec -d 'fasd takes record of the directories changed into'" \
   "  if test \$argv[1] != 'exit'" \
   "    command fasd --proc (command fasd --sanitize '\$argv') > '/dev/null' 2>&1 &" \
   "  end" \
   "end" > ~/.config/fish/conf.d/__fasd_run.fish
+  source ~/.config/fish/config.fish
 end
 
 # Universal ignore for ag
