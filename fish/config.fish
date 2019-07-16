@@ -1,19 +1,20 @@
 # Add a version of fisher that emits events
 emit-fisher
 
-function fix-fasd --on-event fisher_install
-  # This fixes some wonky behavior in the fisher plugin for fasd
-
-  echo "Patch FASD"
-
+# This fixes some wonky behavior in the fisher plugin for fasd
+function __patch-fasd
+  echo "Patching FASD…"
   printf "%s\n" \
   "function __fasd_run -e fish_preexec -d 'fasd takes record of the directories changed into'" \
   "  if test \$argv[1] != 'exit'" \
   "    command fasd --proc (command fasd --sanitize '\$argv') > '/dev/null' 2>&1 &" \
   "  end" \
   "end" > ~/.config/fish/conf.d/__fasd_run.fish
-  source ~/.config/fish/config.fish
+  source ~/.config/fish/conf.d/__fasd_run.fish
 end
+function __install-fix-fasd --on-event fisher_install;__patch-fasd;end
+function __add-fix-fasd --on-event fisher_add;__patch-fasd;end
+function __rm-fix-fasd --on-event fisher_rm;__patch-fasd;end
 
 # Universal ignore for ag
 function ag; /usr/local/bin/ag --path-to-ignore ~/.ignore --hidden $argv; end

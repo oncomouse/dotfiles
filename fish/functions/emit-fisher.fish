@@ -7,7 +7,9 @@ function emit-fisher
   end
 
   # Overwrite the fisher function to add events:
-  functions --copy fisher __official_fisher
+  if not functions -q __official_fisher
+    functions --copy fisher __official_fisher
+  end
 
   # Custom fisher function that emits events:
   function fisher
