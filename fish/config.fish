@@ -16,7 +16,7 @@ function __add-fix-fasd --on-event fisher_add;__patch-fasd;end
 function __rm-fix-fasd --on-event fisher_rm;__patch-fasd;end
 
 # Universal ignore for ag
-function ag; /usr/local/bin/ag --path-to-ignore ~/.ignore --hidden $argv; end
+function ag; /usr/bin/env ag --path-to-ignore ~/.ignore --hidden $argv; end
 # SSH to Dreamhost:
 function pilsch.com; ssh eschaton@birkenfeld.dreamhost.com; end
 # Load RBEnv
@@ -44,16 +44,16 @@ set -gx FZF_CTRL_T_OPTS "
 
 # Local paths:
 if [ -d ~/.fzf ]
-  set -gx fish_user_paths $fish_user_paths ~/.fzf/bin
+  set -g fish_user_paths $fish_user_paths ~/.fzf/bin
 end
 if [ -d ~/bin ]
-  set -gx fish_user_paths $fish_user_paths $HOME/bin
+  set -g fish_user_paths $fish_user_paths $HOME/bin
 end
 if [ -d ~/go/bin ]
-  set -gx fish_user_paths $fish_user_paths $HOME/go/bin
+  set -g fish_user_paths $fish_user_paths $HOME/go/bin
 end
 if [ -d ~/.local/bin ]
-  set -gx fish_user_paths $fish_user_paths $HOME/.local/bin
+  set -g fish_user_paths $fish_user_paths $HOME/.local/bin
 end
 # set -g fish_user_paths $HOME/bin $HOME/.local/bin $HOME/go/bin
 
