@@ -34,7 +34,6 @@ fi
 $bash ~/dotfiles/bootstrap/scripts/minimal-config.sh
 
 $bash ~/dotfiles/bootstrap/scripts/vim.sh
-$bash ~/dotfiles/bootstrap/scripts/fisher.sh
 $bash ~/dotfiles/bootstrap/scripts/tmux.sh
 $bash ~/dotfiles/bootstrap/scripts/terms.sh
 $bash ~/dotfiles/bootstrap/scripts/go.sh

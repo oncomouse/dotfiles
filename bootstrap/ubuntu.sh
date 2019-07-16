@@ -9,7 +9,6 @@ git config --global user.name "oncomouse"
 git config --global user.email "oncomouse@gmail.com"
 
 $bash ~/dotfiles/bootstrap/scripts/vim.sh
-$bash ~/dotfiles/bootstrap/scripts/fisher.sh
 $bash ~/dotfiles/bootstrap/scripts/tmux.sh
 $bash ~/dotfiles/bootstrap/scripts/terms.sh
 $bash ~/dotfiles/bootstrap/scripts/go.sh
