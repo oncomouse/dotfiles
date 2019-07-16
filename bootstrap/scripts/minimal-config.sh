@@ -6,7 +6,7 @@
 
 os=`bash ~/dotfiles/bootstrap/scripts/os.sh`
 # Remove any old versions of the files we create:
-declare -a created_files=("~/.vimrc" "~/.config/nvim/init.vim" "~/.config/fish/config.fish" "~/.tmux.conf.local" "~/.muttrc" "~/.mackup.cfg" "~/.config/kitty/kitty.conf" "~/.wegorc" "~/.lein/profiles.clj" "~/.ignore")
+declare -a created_files=("~/.vimrc" "~/.config/nvim/init.vim" "~/.config/fish/config.fish" "~/.config/fish/fishfile" "~/.tmux.conf.local" "~/.muttrc" "~/.mackup.cfg" "~/.config/kitty/kitty.conf" "~/.wegorc" "~/.lein/profiles.clj" "~/.ignore")
 
 mkdir -p ~/.backup
 for created_file in "${created_files[@]}"
@@ -35,6 +35,7 @@ ln -s ~/dotfiles/ag/agignore ~/.ignore
 # Always link the minimal server rc file for vim:
 ln -s ~/dotfiles/vim/vimrc-server ~/.vimrc
 ln -s ~/dotfiles/fish/config.fish ~/.config/fish/
+ln -s ~/dotfiles/fish/fishfile ~/.config/fish/
 ln -sf ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
 ln -s ~/dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local
 if [ $os == "macos" ]; then

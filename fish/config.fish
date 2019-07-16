@@ -1,5 +1,20 @@
 # Set $TERM for ssh to something not custom
 # function ssh; env TERM="xterm-256color" /usr/local/bin/ssh $argv; end
+#
+
+# Install fisher:
+if not functions -q fisher
+  set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+  curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+  fish -c fisher
+  printf "%s\n" \
+  "function __fasd_run -e fish_preexec -d 'fasd takes record of the directories changed into'" \
+  "  if test \$argv[1] != 'exit'" \
+  "    command fasd --proc (command fasd --sanitize '\$argv') > '/dev/null' 2>&1 &" \
+  "  end" \
+  "end" > ~/.config/fish/conf.d/__fasd_run.fish
+end
+
 # Universal ignore for ag
 function ag; /usr/local/bin/ag --path-to-ignore ~/.ignore --hidden $argv; end
 # SSH to Dreamhost:
