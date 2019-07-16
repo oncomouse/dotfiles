@@ -11,8 +11,8 @@ if test ! "~/go/src/github.com/schachmat/wego" ; then
   ln -s ~/dotfiles/wego/one-liner.go ~/go/src/github.com/schachmat/wego/frontends/
   go install github.com/schachmat/wego
 fi
-# Configure wttr-safe, the failback client for wttr.in and wego:
-if test ! "~/go/src/github.com/oncomouse/wttr-safe" ; then
-  go get github.com/oncomouse/wttr-safe
-  go install github.com/oncomouse/wttr-safe
-fi
+# # Configure wttr-safe, the failback client for wttr.in and wego:
+# if test ! "~/go/src/github.com/oncomouse/wttr-safe" ; then
+#   go get github.com/oncomouse/wttr-safe
+#   go install github.com/oncomouse/wttr-safe
+# fi
