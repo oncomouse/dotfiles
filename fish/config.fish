@@ -3,7 +3,6 @@ emit-fisher
 
 # This fixes some wonky behavior in the fisher plugin for fasd
 function __patch-fasd
-  echo "Patching FASD…"
   printf "%s\n" \
   "function __fasd_run -e fish_preexec -d 'fasd takes record of the directories changed into'" \
   "  if test \$argv[1] != 'exit'" \
