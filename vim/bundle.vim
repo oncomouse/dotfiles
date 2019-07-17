@@ -30,7 +30,7 @@ Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " SCSS
 " Other Syntax:
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' } " Clojure support
-Plug 'dag/vim-fish', { 'for': 'fish' }
+Plug 'georgewitteman/vim-fish', { 'for': 'fish' }
 Plug 'ericpruitt/tmux.vim', {'rtp': 'vim/'}
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
