@@ -1,5 +1,6 @@
 function battery-status
   battery.info.update
+  set -l battery_pct (math $BATTERY_PCT + 4.5)
   if [ "$BATTERY_PCT" -gt 50 ]
     set_color 5fff00
   else if [ "$BATTERY_PCT" -gt 20 ]
