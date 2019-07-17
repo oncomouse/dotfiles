@@ -36,7 +36,7 @@ function fish_prompt --description 'Write out the prompt'
         set -g __fish_git_prompt_char_conflictedstate "✖"
     end
     if not set -q __fish_git_prompt_char_cleanstate
-        set -g __fish_git_prompt_char_cleanstate "✔"
+        set -g __fish_git_prompt_char_cleanstate ""
     end
 
     if not set -q __fish_git_prompt_color_dirtystate
@@ -52,7 +52,7 @@ function fish_prompt --description 'Write out the prompt'
         set -g __fish_git_prompt_color_untrackedfiles $fish_color_normal
     end
     if not set -q __fish_git_prompt_color_cleanstate
-        set -g __fish_git_prompt_color_cleanstate green --bold
+        set -g __fish_git_prompt_color_cleanstate green
     end
 
     set -l last_status $status
