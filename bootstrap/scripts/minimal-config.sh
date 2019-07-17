@@ -39,6 +39,8 @@ ln -s ~/dotfiles/fish/config.fish ~/.config/fish/
 ln -s ~/dotfiles/fish/fishfile ~/.config/fish/
 ln -sf ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
 ln -sf ~/dotfiles/fish/completions/*.fish ~/.config/fish/completions/
+find -L ~/.config/fish/functions -type l -exec rm -- {} +
+find -L ~/.config/fish/completions -type l -exec rm -- {} +
 ln -s ~/dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local
 if [ $os == "macos" ]; then
   ln -s ~/dotfiles/kitty/kitty.conf ~/.config/kitty/
