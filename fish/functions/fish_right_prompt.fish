@@ -8,7 +8,17 @@ function fish_right_prompt
     set_color -b 65737E 343D46
     set -q BATTERY_IS_PLUGGED; and echo -n \ufba3; or echo -n \uf583
     echo " "
-    set_color (node ~/dotfiles/tools/color-gradient-picker.js "[[0,[215,0,0]],[20,[255,95,0]],[100,[95,255,0]]]" $BATTERY_PCT | tr -d "#")
+    if command -sq node
+      set_color (node ~/dotfiles/tools/color-gradient-picker.js "[[0,[215,0,0]],[20,[255,95,0]],[100,[95,255,0]]]" $BATTERY_PCT | tr -d "#")
+    else
+      if [ "$battery_value" -gt 50 ]
+        set_color 5fff00
+      else if [ "$battery_value" -gt 20 ]
+        set_color ff5f00
+      else
+        set_color d70000
+      end
+    end
     echo $battery_value | spark --max=100
     echo " "
     set_color -b 65737E blue
