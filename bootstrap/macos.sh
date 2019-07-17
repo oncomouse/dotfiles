@@ -3,7 +3,9 @@
 bash="$(which bash)"
 
 ## Get ready for xcode/brew:
-xcode-select --install
+if ! xcode-select --version > /dev/null 2>&1; then
+  xcode-select --install
+fi
 
 if test ! $(which brew); then
   echo "Installing homebrew..."
