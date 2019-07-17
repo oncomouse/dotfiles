@@ -7,7 +7,6 @@ if which npm > /dev/null 2>&1; then
       npm install -g neovim jsonlint trash-cli
     fi
   fi
-
   if [ "$os" != "macos" ]; then
     if ! npm list --depth 1 --global diff-so-fancy > /dev/null 2>&1; then
       npm install -g diff-so-fancy

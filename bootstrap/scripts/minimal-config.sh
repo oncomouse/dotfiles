@@ -23,6 +23,7 @@ rmdir ~/.backup 2> /dev/null
 
 ## Link Minimal Configuration Files
 mkdir -p ~/.config/fish/functions/
+mkdir -p ~/.config/fish/completions/
 mkdir -p ~/.vim/autoload/
 mkdir -p ~/.config/nvim/
 if [ $os == "macos" ]; then
@@ -37,6 +38,7 @@ ln -s ~/dotfiles/vim/vimrc-server ~/.vimrc
 ln -s ~/dotfiles/fish/config.fish ~/.config/fish/
 ln -s ~/dotfiles/fish/fishfile ~/.config/fish/
 ln -sf ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
+ln -sf ~/dotfiles/fish/completions/*.fish ~/.config/fish/completions/
 ln -s ~/dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local
 if [ $os == "macos" ]; then
   ln -s ~/dotfiles/kitty/kitty.conf ~/.config/kitty/
