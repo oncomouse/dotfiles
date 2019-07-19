@@ -1,4 +1,4 @@
 desktop:
-	bash ./bootstrap.sh
+	bash ./bootstrap/init.sh
 server:
-	env SERVER=true bash ./bootstrap.sh
+	env SERVER=true bash ./bootstrap/init.sh
