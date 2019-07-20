@@ -101,10 +101,11 @@
 " }}
 " Autopair {{
   let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', "`":"`"}
+  " ,'```':'```', '"""':'"""', "'''":"'''"})
   augroup autopair-enable
     autocmd!
-    autocmd FileType javascript,javascript.jsx,fish,vim,clojure,go,sh
-      \ let b:AutoPairs = extend(g:AutoPairs, { '{':'}','```':'```', '"""':'"""', "'''":"'''"})
+    autocmd FileType javascript,javascript.jsx,vim,clojure,go
+      \ let b:AutoPairs = extend(g:AutoPairs, { '{':'}' })
     autocmd FileType markdown,pandoc
       \ let b:AutoPairs = extend(g:AutoPairs, {'~~~':'~~~'})
   augroup END
