@@ -15,7 +15,8 @@ Plug 'djoshea/vim-autoread' " Better auto-reloading support
 Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
 " Plug 'terryma/vim-expand-region' " + or _ to expand or shrink (visual)
 Plug 'airblade/vim-rooter' " Set project root
-Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
+Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing (may use only in certain languages)
+" Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 Plug 'docunext/closetag.vim' " Autoclose HTML tags
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command

@@ -99,11 +99,13 @@
 " Sexp Mappings {{
 " let g:sexp_filetypes = 'lisp,scheme,clojure,javascript'
 " }}
-" Closer {{
-  augroup custom-closer
+" Autopair {{
+  let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', "`":"`"}
+  augroup autopair-enable
     autocmd!
-    au FileType clojure,lisp,scheme,vim,fish
-        \ let b:closer = 1 |
-        \ let b:closer_flags = '([{'
+    autocmd FileType javascript,javascript.jsx,fish,vim,clojure,go,sh
+      \ let b:AutoPairs = extend(g:AutoPairs, { '{':'}','```':'```', '"""':'"""', "'''":"'''"})
+    autocmd FileType markdown,pandoc
+      \ let b:AutoPairs = extend(g:AutoPairs, {'~~~':'~~~'})
   augroup END
 " }}
