@@ -102,3 +102,6 @@ end
 alias cat='bat'
 alias top='sudo htop'
 alias ls='exa --group-directories-first'
+
+# Colors:
+set fish_color_cwd cyan
