@@ -110,3 +110,11 @@
       \ let b:AutoPairs = extend(g:AutoPairs, {'~~~':'~~~'})
   augroup END
 " }}
+" Line numbers {{
+  augroup line-numbers
+    set number relativenumber
+    autocmd!
+    autocmd BufEnter,WinEnter * if &filetype=='pandoc'|setlocal nonumber norelativenumber|endif
+
+  augroup END
+" }}
