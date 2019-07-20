@@ -97,7 +97,7 @@
   augroup END
 " }}
 " Sexp Mappings {{
-let g:sexp_filetypes = 'lisp,scheme,clojure,javascript'
+" let g:sexp_filetypes = 'lisp,scheme,clojure,javascript'
 " }}
 " Closer {{
   augroup custom-closer

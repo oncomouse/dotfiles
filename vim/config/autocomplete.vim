@@ -20,6 +20,10 @@
   for ext in coc_extensions
     call <SID>load_extension(ext)
   endfor
+  " call coc#config('tsserver', {
+  "     \  'log': 'verbose',
+  "     \  'trace.server': 'verbose',
+  "     \ })
   call coc#config('suggest.snippetIndicator', '►')
   " Configure omnifunc completion for Pandoc:
   call coc#config('coc.source.omni.filetypes', [
@@ -30,7 +34,8 @@
   call coc#config('javascript.validate.enable', 0)
   " Format JavaScript the way I like:
   call coc#config('javascript.format', {
-      \   'insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces': 1,
+      \   'insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces': 0,
+      \   'insertSpaceBeforeFunctionParenthesis': 0,
       \})
   " CoC Formatting:
   vmap <S-f> <Plug>(coc-format-selected)<CR>
