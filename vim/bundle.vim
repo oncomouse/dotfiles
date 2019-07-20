@@ -20,6 +20,7 @@ Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing (may use only in certain l
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 Plug 'docunext/closetag.vim' " Autoclose HTML tags
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
+Plug 'skywind3000/asyncrun.vim'
 " Web Syntax:
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " Somehow, polyglot doesn't load this.
 Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'javascript.jsx'] } " Modular JSX support to add to yajs
