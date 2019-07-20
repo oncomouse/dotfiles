@@ -24,8 +24,4 @@
   ca Gstatus Gina status
   ca Gdiff Gina diff
   ca Gcommit Gina commit
-  augroup gina-linenumbers
-    autocmd!
-    autocmd FileType gina-status set number
-  augroup END
 " }}

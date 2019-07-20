@@ -114,7 +114,7 @@
   augroup line-numbers
     set number relativenumber
     autocmd!
-    autocmd BufEnter,WinEnter * if &filetype=='pandoc'|setlocal nonumber norelativenumber|endif
+    autocmd BufEnter,WinEnter * if &filetype=='pandoc' || &filetype=='text'|setlocal nonumber norelativenumber|endif
 
   augroup END
 " }}
