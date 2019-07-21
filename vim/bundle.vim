@@ -30,6 +30,7 @@ Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascri
 " Plug 'styled-components/vim-styled-components', { 'branch': 'main' } " Styled-components in JS
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " SCSS
 " Other Syntax:
+" Plug 'reasonml-editor/vim-reason-plus'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' } " Clojure support
 Plug 'georgewitteman/vim-fish', { 'for': 'fish' }

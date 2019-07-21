@@ -24,6 +24,16 @@
   "     \  'log': 'verbose',
   "     \  'trace.server': 'verbose',
   "     \ })
+  " if !empty(glob('/usr/local/bin/reason-language-server'))
+  "   call coc#config('languageserver', {
+  "     \  'reason': {
+  "     \    'command': '/usr/local/bin/reason-language-server',
+  "     \    'filetypes': ['reason'],
+  "     \    'rootPatterns': ['bsconfig.json', 'package.json', '.git/', '.merlin'],
+  "     \    'settings': {'reason_language_server' : {'format_width': 120}},
+  "     \  }
+  "     \})
+  " endif
   call coc#config('suggest.snippetIndicator', '►')
   " Configure omnifunc completion for Pandoc:
   call coc#config('coc.source.omni.filetypes', [
