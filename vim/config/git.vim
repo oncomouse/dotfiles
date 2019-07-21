@@ -24,4 +24,5 @@
   ca Gstatus Gina status
   ca Gdiff Gina diff
   ca Gcommit Gina commit
+  autocmd FileType gina-status set nu rnu
 " }}
