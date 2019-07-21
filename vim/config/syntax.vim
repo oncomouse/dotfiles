@@ -113,7 +113,8 @@
     set number relativenumber
     autocmd!
     autocmd BufEnter,WinEnter * if &filetype=='pandoc' || &filetype=='text'|setlocal nonumber norelativenumber|endif
-    autocmd TermOpen * setlocal nonumber norelativenumber
-
+    if has('nvim')
+      autocmd TermOpen * setlocal nonumber norelativenumber
+    endif
   augroup END
 " }}
