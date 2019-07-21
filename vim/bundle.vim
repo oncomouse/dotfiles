@@ -48,6 +48,8 @@ else
   Plug '~/.fzf'
 endif
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
+Plug 'Shougo/neoyank.vim'
+Plug 'justinhoward/fzf-neoyank'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Use for code completion and snippet triggering
 " Git Support:
 Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
