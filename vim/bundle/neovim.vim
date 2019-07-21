@@ -1,26 +1,3 @@
-call plug#begin()
-" Themes:
-Plug 'mhartington/oceanic-next' " Theme
-" General Editing Plugins:
-Plug 'xero/securemodelines' " Secure modelines
-" Plug 'jiangmiao/auto-pairs' " Autocomplete pairable marks
-Plug 'sickill/vim-pasta' " Indentation-forward pasting
-Plug 'easymotion/vim-easymotion' " <leader><leader><motion key> for fast motion
-" Plug 'AndrewRadev/splitjoin.vim' " gS & gJ to split and join one-liners / functions
-" Plug 'ntpeters/vim-better-whitespace'
-Plug 'tpope/vim-surround' " Change surrounding characters, see cheat sheet
-Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesEnable to see indentation guides
-Plug 'tpope/vim-repeat' " Repeat plugin commands
-Plug 'djoshea/vim-autoread' " Better auto-reloading support
-Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
-" Plug 'terryma/vim-expand-region' " + or _ to expand or shrink (visual)
-Plug 'airblade/vim-rooter' " Set project root
-Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing (may use only in certain languages)
-" Plug 'rstacruz/vim-closer' " Autoclose brackets etc when pressing Enter
-Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
-Plug 'docunext/closetag.vim' " Autoclose HTML tags
-Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
-Plug 'skywind3000/asyncrun.vim'
 " Web Syntax:
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " Somehow, polyglot doesn't load this.
 Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'javascript.jsx'] } " Modular JSX support to add to yajs
@@ -41,19 +18,8 @@ Plug 'stephpy/vim-yaml', { 'for': 'yaml' } " YAML
 " Plug 'chr4/nginx.vim' " activate if you need this
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-" Fuzzy Search:
-if isdirectory(expand('/usr/local/opt/fzf'))
-  Plug '/usr/local/opt/fzf' " Load FZF into Vim
-else
-  Plug '~/.fzf'
-endif
-Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
-Plug 'Shougo/neoyank.vim'
-Plug 'justinhoward/fzf-neoyank'
+" Autcomplete:
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Use for code completion and snippet triggering
-" Git Support:
-Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
-Plug 'airblade/vim-gitgutter' " Git stats in the gutter
 " Writing:
 Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
 Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
@@ -79,8 +45,6 @@ Plug 'maximbaz/lightline-ale' " Add linter status to lightline
 " Clojure:
 Plug 'venantius/vim-cljfmt', { 'for': 'clojure' } " Formatting for Clojure
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' } " REPL for Clojure
-Plug 'guns/vim-sexp' " Better slurp / barf
-Plug 'tpope/vim-sexp-mappings-for-regular-people' " >) <) >( <) to move parentheses
-Plug 'luochen1990/rainbow' " Rainbow parentheses
+Plug 'guns/vim-sexp', { 'for': ['clojure', 'lisp', 'scheme'] } " Better slurp / barf
+Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['clojure', 'lisp', 'scheme'] } " >) <) >( <) to move parentheses
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
-call plug#end()

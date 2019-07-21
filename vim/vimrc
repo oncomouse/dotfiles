@@ -1,5 +1,8 @@
 let &runtimepath .= ','.expand('~/dotfiles/vim/')
-runtime bundle.vim
+call plug#begin()
+runtime bundle/common.vim
+runtime bundle/neovim.vim
+call plug#end()
 runtime common.vim
 let configs = [
   \ "ale",
