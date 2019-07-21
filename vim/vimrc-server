@@ -1,5 +1,5 @@
 let &runtimepath .= ','.expand('~/dotfiles/vim/')
-call plug#begin()
+ call plug#begin()
 runtime bundle/common.vim
 runtime bundle/vim.vim
 call plug#end()
@@ -14,5 +14,22 @@ let configs = [
 for file in configs
   let x = "config/".file.".vim"
   execute 'runtime' x
-  endfor
+endfor
+
+function! Modified() abort
+  return &mod == 0 ? '' : '[+] '
+endfunction
+
+set statusline=
+set statusline+=%#CursorColumn#
+set statusline+=\ %f
+set statusline+=\ %{Modified()}
+set statusline+=%#LineNr#
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %l:%c
+set statusline+=\ 
+
+set laststatus=2
+
 runtime after.vim
