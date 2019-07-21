@@ -15,7 +15,7 @@
 
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>A :Windows<CR>
-  nnoremap <silent> <leader>; :BLines<CR>
+  nnoremap <silent> <leader>l :BLines<CR>
   nnoremap <silent> <leader>o :BTags<CR>
   nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>? :History<CR>
