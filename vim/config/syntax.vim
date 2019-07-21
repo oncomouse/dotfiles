@@ -113,6 +113,7 @@
     set number relativenumber
     autocmd!
     autocmd BufEnter,WinEnter * if &filetype=='pandoc' || &filetype=='text'|setlocal nonumber norelativenumber|endif
+    autocmd TermOpen * setlocal nonumber norelativenumber
 
   augroup END
 " }}
