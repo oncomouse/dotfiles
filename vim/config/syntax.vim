@@ -100,12 +100,10 @@
 " let g:sexp_filetypes = 'lisp,scheme,clojure,javascript'
 " }}
 " Autopair {{
-  let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', "`":"`"}
+  let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', "`":"`", '{': '}'}
   " ,'```':'```', '"""':'"""', "'''":"'''"})
   augroup autopair-enable
     autocmd!
-    autocmd FileType javascript,javascript.jsx,vim,clojure,go
-      \ let b:AutoPairs = extend(g:AutoPairs, { '{':'}' })
     autocmd FileType markdown,pandoc
       \ let b:AutoPairs = extend(g:AutoPairs, {'~~~':'~~~'})
   augroup END
