@@ -8,6 +8,7 @@
   nmap <silent> <leader>h <Plug>(ale_previous_wrap)
   nmap <silent> <leader>j <Plug>(ale_next_wrap)
   nmap <silent> <leader>d :ALEDetail<CR>
+  nmap <silent> <leader><leader>d :CocList diagnostics<CR>
   "
   " Lint only on save:
   " let g:ale_lint_on_text_changed = 'never'

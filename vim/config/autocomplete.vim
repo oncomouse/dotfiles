@@ -9,9 +9,7 @@
   \   'coc-html',
   \   'coc-css',
   \   'coc-python',
-  \   'coc-gocode',
   \]
-
   function! s:load_extension(ext) abort
     if !isdirectory(expand('~/.config/coc/extensions/node_modules/'.a:ext))
       call coc#add_extension(a:ext)
@@ -24,17 +22,40 @@
   "     \  'log': 'verbose',
   "     \  'trace.server': 'verbose',
   "     \ })
-  if !empty(glob('/usr/local/bin/reason-language-server'))
-    call coc#config('languageserver', {
-      \  'reason': {
-      \    'command': '/usr/local/bin/reason-language-server',
-      \    'filetypes': ['reason'],
-      \    'trace.server': 'verbose',
-      \    'rootPatterns': ['bsconfig.json', 'package.json', '.git/', '.merlin'],
-      \    'settings': {'reason_language_server' : {'format_width': 120}},
-      \  }
+  if executable('reason-language-server')
+    call coc#config('languageserver.reason', {
+      \  'command': 'reason-language-server',
+      \  'filetypes': ['reason'],
+      \  'trace.server': 'verbose',
+      \  'rootPatterns': ['bsconfig.json', 'package.json', '.git/', '.merlin'],
+      \  'settings': {'reason_language_server' : {'format_width': 120}},
       \})
   endif
+  " Use <c-space> to trigger completion.
+  inoremap <silent><expr> <c-space> coc#refresh()
+
+  " Remap keys for gotos
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+
+  " Use U to show documentation in preview window
+  nnoremap <silent> U :call <SID>show_documentation()<CR>
+
+  " Remap for rename current word
+  nmap <leader>rn <Plug>(coc-rename)
+
+  " Disable a bunch of vim-go features that ALE does:
+  let g:go_def_mapping_enabled = 0
+  let g:go_def_mode='gopls'
+  let g:go_info_mode='gopls'
+  let g:go_metalinter_enabled = []
+  call coc#config('languageserver.golang',{
+        \  "command": "gopls",
+        \  "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+        \  "filetypes": ["go"],
+        \})
   " Disable linters we use in CoC:
   let g:ale_linters = {
     \  'reason': [
@@ -50,7 +71,6 @@
   " Configure omnifunc completion for Pandoc:
   call coc#config('coc.source.omni.filetypes', [
       \   'pandoc',
-      \   'go',
       \])
   " JavaScript Config:
   " Don't do typechecking for JavaScript:
@@ -73,18 +93,16 @@
   nmap <silent> <leader>f <Plug>(coc-format-selected)<CR>
   command! -nargs=0 Format :call CocAction('format')
   " call coc#config('suggest.noselect', 0)
+  " Use tab for trigger completion with characters ahead and navigate.
+  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
   function! s:check_back_space() abort
     let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
+    return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
-
-  inoremap <silent><expr> <S-Tab>
-        \ pumvisible() ? "\<C-p>" :
-        \ <SID>check_back_space() ? "\<S-Tab>" :
-        \ coc#refresh()
-  inoremap <silent><expr> <TAB>
-  \ pumvisible() ? coc#_select_confirm() :
-  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ coc#refresh()
 " }}
