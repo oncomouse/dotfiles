@@ -35,10 +35,22 @@
       \  }
       \})
   endif
+  " Disable linters we use in CoC:
+  let g:ale_linters = {
+    \  'reason': [
+    \    'merlin',
+    \  ],
+    \ 'javascript': [
+    \    'eslint',
+    \    'flow',
+    \    'jshint',
+    \  ],
+    \}
   call coc#config('suggest.snippetIndicator', '►')
   " Configure omnifunc completion for Pandoc:
   call coc#config('coc.source.omni.filetypes', [
-      \   'pandoc'
+      \   'pandoc',
+      \   'go',
       \])
   " JavaScript Config:
   " Don't do typechecking for JavaScript:
