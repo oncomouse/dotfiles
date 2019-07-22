@@ -16,5 +16,6 @@ fi
 if which npm > /dev/null 2>&1; then
   if ! npm list --depth 1 --global reason-cli > /dev/null 2>&1; then
     npm install -g reason-cli@latest-$os
+    npm install -g bs-platform
   fi
 fi
