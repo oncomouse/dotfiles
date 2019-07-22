@@ -17,7 +17,6 @@ Plug 'docunext/closetag.vim' " Autoclose HTML tags
 " Tmux:
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Syntax:
-Plug 'sheerun/vim-polyglot' " Syntax
 Plug 'luochen1990/rainbow' " Rainbow parentheses
 " Fuzzy Search:
 if isdirectory(expand('/usr/local/opt/fzf'))
