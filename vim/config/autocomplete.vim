@@ -49,8 +49,8 @@
       \   'insertSpaceBeforeFunctionParenthesis': 0,
       \})
   " CoC Formatting:
-  vmap <S-f> <Plug>(coc-format-selected)<CR>
-  nmap <leader>f <Plug>(coc-format-selected)
+  vmap <silent> <leader>f <Plug>(coc-format-selected)<CR>
+  nmap <silent> <leader>f <Plug>(coc-format-selected)<CR>
   command! -nargs=0 Format :call CocAction('format')
   " call coc#config('suggest.noselect', 0)
   function! s:check_back_space() abort
