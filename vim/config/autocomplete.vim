@@ -48,6 +48,14 @@
       \   'insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces': 0,
       \   'insertSpaceBeforeFunctionParenthesis': 0,
       \})
+  " Format on save:
+  call coc#config('coc.preferences.formatOnSaveFiletypes', [
+      \ 'javascript',
+      \ 'javascript.jsx',
+      \ 'go',
+      \ 'reason',
+      \ 'python',
+      \])
   " CoC Formatting:
   vmap <silent> <leader>f <Plug>(coc-format-selected)<CR>
   nmap <silent> <leader>f <Plug>(coc-format-selected)<CR>
