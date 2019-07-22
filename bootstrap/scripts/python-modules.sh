@@ -2,7 +2,7 @@
 ## Install Python Modules
 if ! pip3 list | ag "virtualfish" > /dev/null 2>&1; then
   os=`bash ~/dotfiles/bootstrap/scripts/os.sh`
-  if os="macos"; then
+  if [ $os == 'macos' ]; then
     pip3 install mackup
   else
     pip3 install thefuck
