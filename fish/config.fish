@@ -25,7 +25,7 @@ if command -sq rbenv
 end
 
 # Use vim as EDITOR:
-set -gx EDITOR /usr/local/bin/vim
+set -gx EDITOR (which vim)
 
 # Configure FZF to us Ag:
 set -gx FZF_DEFAULT_COMMAND "fd --type f --color=always --hidden"
