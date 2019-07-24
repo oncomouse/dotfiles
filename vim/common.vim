@@ -10,6 +10,7 @@ let g:secure_modelines_modelines = 15
 
 syntax on
 
+" Basic Vim settings:
 set mouse=a
 set clipboard=unnamed
 set autoread
@@ -23,25 +24,24 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
+" Set default tabs:
 set tabstop=8
 set shiftwidth=2
 set softtabstop=2
 set expandtab
 
+" Better (to my mind) split creation defaults:
 set splitbelow
 set splitright
 
-" Supposedly, this fixes issues with syntax highlighting:
-set redrawtime=10000
-
 " Shortcut :tn for :tabnew
 ca tn tabnew
+
 " Select whole file
 nnoremap <leader>vf ggVG
 
-" Buffer switching commands:
-nnoremap <silent> ]b :bn<CR>
-nnoremap <silent> [b :bp<CR>
+" Set fold method to syntax by default:
+set foldmethod=syntax
 
 " Highlight a block and type "@" to run a macro on the block:
 xnoremap @ :<C-u>call visualat#ExecuteMacroOverVisualRange()<CR>
