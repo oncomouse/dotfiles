@@ -1,4 +1,5 @@
 let &runtimepath .= ','.expand('~/dotfiles/vim/')
+let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
  call plug#begin()
 runtime bundle/common.vim
 runtime bundle/vim.vim
