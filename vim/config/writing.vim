@@ -28,23 +28,22 @@ augroup fzf-bibtex
 augroup END
 " }}}
 " {{ CoC Pandoc
-  augroup coc-pandoc
-    autocmd!
-    autocmd FileType pandoc call coc#config('coc.source.buffer.enable', 0)
-    autocmd FileType pandoc call coc#config('coc.source.around.enable', 0)
-    autocmd FileType pandoc call coc#config('coc.source.snippets.enable', 0)
-    autocmd FileType pandoc call coc#config('coc.source.file.enable', 0)
-  augroup END
-  function! CocBufferOn() abort
-    call coc#config('coc.source.buffer.enable', 1)
-    call coc#config('coc.source.around.enable', 1)
-  endfunction
-  function! CocBufferOff() abort
-    call coc#config('coc.source.buffer.enable', 0)
-    call coc#config('coc.source.around.enable', 0)
-  endfunction
-  command CocBufferOn call CocBufferOn()
-  command CocBufferOff call CocBufferOff()
+
+  "   autocmd FileType pandoc call coc#config('coc.source.buffer.enable', 0)
+  "   autocmd FileType pandoc call coc#config('coc.source.around.enable', 0)
+  "   autocmd FileType pandoc call coc#config('coc.source.snippets.enable', 0)
+  "   autocmd FileType pandoc call coc#config('coc.source.file.enable', 0)
+  " augroup END
+  " function! CocBufferOn() abort
+  "   call coc#config('coc.source.buffer.enable', 1)
+  "   call coc#config('coc.source.around.enable', 1)
+  " endfunction
+  " function! CocBufferOff() abort
+  "   call coc#config('coc.source.buffer.enable', 0)
+  "   call coc#config('coc.source.around.enable', 0)
+  " endfunction
+  " command CocBufferOn call CocBufferOn()
+  " command CocBufferOff call CocBufferOff()
 " }}
 " Pandoc {{
   " Uncomment to use the omni-func for bibliography completion:

@@ -15,7 +15,7 @@
   let g:ale_lint_on_enter = 1
   "
   " Use ALE w/ CoC:
-  call coc#config('coc.preferences.diagnostic.displayByAle', 1)
+  " call coc#config('coc.preferences.diagnostic.displayByAle', 1)
   "
   " Add Vale to pandoc bc vim-pandoc insists on changing filetype:
   call ale#linter#Define('pandoc', {

@@ -18,8 +18,15 @@ Plug 'stephpy/vim-yaml', { 'for': 'yaml' } " YAML
 " Plug 'chr4/nginx.vim' " activate if you need this
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-" Autcomplete:
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " Use for code completion and snippet triggering
+" Autocomplete:
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh; npm i -g vscode-json-languageserver-bin vscode-css-languageserver-bin vscode-html-languageserver-bin javascript-typescript-langserver',
+    \ }
+Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
+Plug 'Shougo/neco-syntax'
+Plug 'Shougo/neco-vim'
+Plug 'wellle/tmux-complete.vim'
 " Writing:
 Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
 Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
