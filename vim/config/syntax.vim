@@ -1,7 +1,7 @@
 " Syntax:
 " General VIM {{{
   " Insert a semicolon at the end of the line with <leader>;
-  inoremap <leader>; <C-o>A;
+  inoremap <leader>; <C-o>A;<CR>
 " }}}
 " vim-jsx-pretty {{
   let g:vim_jsx_pretty_colorful_config = 1
