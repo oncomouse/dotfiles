@@ -18,7 +18,7 @@
       \ 'typescript': ['javascript-typescript-languageserver'],
       \}
   let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp.settings.json')
-  let g:LanguageClient_changeThrottle=0.5
+  let g:LanguageClient_diagnosticsEnable=0
 
   " Remap keys for gotos
   nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
