@@ -128,4 +128,4 @@ function! GoToProject()
     call SearchProjects(split(res, ':'))
   endif
 endfunction
-
+" # vim:foldmethod=marker

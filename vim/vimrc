@@ -16,7 +16,6 @@ let configs = [
   \ "syntax",
   \ "theme",
   \ "todo",
-  \ "visual-at",
   \ "writing",
 \]
 for file in configs

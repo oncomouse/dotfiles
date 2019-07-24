@@ -1,5 +1,11 @@
 " Autocomplete:
-"
+" Deoplete {{{
+  call deoplete#custom#var('omni', 'input_patterns', {
+  \ 'pandoc': '@[\w\-_\:\.]+',
+  \ 'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*',
+  \})
+" }}}
+" LanguageClient {{{
   let g:LanguageClient_serverCommands = {
       \ 'reason': ['reason_language_server'],
       \ 'go': ['gopls'],
@@ -13,20 +19,11 @@
       \}
   let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp.settings.json')
   let g:LanguageClient_changeThrottle=0.5
-  call deoplete#custom#var('omni', 'input_patterns', {
-  \ 'pandoc': '@[\w\-_\:\.]+',
-  \ 'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*',
-  \})
 
   " Remap keys for gotos
   nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-  " nmap <silent> gy <Plug>(coc-type-definition)
-  " nmap <silent> gi <Plug>(coc-implementation)
-  " nmap <silent> gr <Plug>(coc-references)
-
   " Use U to show documentation in preview window
   nnoremap <silent> U :call LanguageClient#textDocument_hover()<CR>
-
   " Remap for rename current word
   nmap <leader>rn :call LanguageClient#textDocument_rename()<CR>
 
@@ -41,8 +38,9 @@
   command! -nargs=0 Format :call LanguageClient#textDocument_formatting()
   " Autoformat on save:
   set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
-  augroup deoplete-format-on-save
+  augroup lsp-format-on-save
     autocmd!
-      autocmd BufWritePre * :normal ggVGgq
+      autocmd BufWritePre * :call LanguageClient#textDocument_formatting_sync()
   augroup END
-" }}
+" }}}
+" # vim:foldmethod=marker

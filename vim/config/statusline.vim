@@ -1,5 +1,5 @@
 " Statusline:
-" Lightline {{
+" Lightline {{{
   set laststatus=2
   set showtabline=2
   let g:lightline#ale#indicator_checking = "\uf110"
@@ -114,4 +114,5 @@
     endfor
     return join(ret, ' ')
   endfunction
-"}}
+"}}}
+" # vim:foldmethod=marker

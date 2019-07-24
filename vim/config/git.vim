@@ -1,5 +1,5 @@
 " Git Support:
-" Git Gutter {{
+" Git Gutter {{{
   let g:gitgutter_realtime = 1
   let g:gitgutter_eager = 1
   let g:gitgutter_max_signs = 1500
@@ -9,8 +9,8 @@
   let g:gitgutter_sign_removed = "✖"
   let g:gitgutter_sign_removed_first_line = "✖"
   let g:gitgutter_sign_modified_removed = "…"
-"}}
-" Gina {{
+" }}}
+" Gina {{{
   let &previewheight = 14
   call gina#custom#command#option('status', '--opener', &previewheight . 'split')
   call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
@@ -25,4 +25,6 @@
   ca Gdiff Gina diff
   ca Gcommit Gina commit
   autocmd FileType gina-status set nu rnu
-" }}
+" }}}
+" # vim:foldmethod=marker
+

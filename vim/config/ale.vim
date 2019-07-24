@@ -1,4 +1,4 @@
-" Ale {{
+" Ale {{{
   " Better ALE Msg Format
   " let g:ale_echo_msg_error_str = 'E'
   " let g:ale_echo_msg_warning_str = 'W'
@@ -24,4 +24,6 @@
   \   'command': 'vale --output=JSON %t',
   \   'callback': 'ale#handlers#vale#Handle',
   \})
-" }}
+" }}}
+" # vim:foldmethod=marker
+

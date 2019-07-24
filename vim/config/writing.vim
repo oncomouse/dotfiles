@@ -1,55 +1,25 @@
 " Writing:
-" Deoplete BibLaTeX source {{
-    " augroup deoplete-pandoc
-      " autocmd!
-      " autocmd FileType pandoc let b:coc_suggest_disable = 1
-      " autocmd FileType pandoc call deoplete#custom#option('sources', {
-      "         \ 'pandoc': ['biblatex']
-      " \})
-      " autocmd FileType pandoc call deoplete#custom#var('biblatex', 'addinfo', 0)
-      " autocmd FileType pandoc call deoplete#custom#var('biblatex', 'bibfile', g:bibliography_file)
-      " autocmd FileType pandoc call deoplete#custom#var('biblatex', 'filetypes', ['pandoc', 'markdown'])
-      " autocmd FileType pandoc imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "<\S-TAB>"
-      " autocmd FileType pandoc imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-      " autocmd FileType pandoc inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-      " autocmd FileType pandoc call deoplete#initialize()
-      " autocmd FileType pandoc call deoplete#enable()
-    " augroup END
-" }}
-" FZF BibTeX COnfiguration {{{
-let $FZF_BIBTEX_CACHEDIR = '/var/tmp'
-let $FZF_BIBTEX_SOURCES = g:bibliography_file
+" FZF BibTeX Configuration {{{
+  let $FZF_BIBTEX_CACHEDIR = '/var/tmp'
+  let $FZF_BIBTEX_SOURCES = g:bibliography_file
 
-augroup fzf-bibtex
-  autocmd!
-  " Bind <ctrl+c> to citation look-up using FZF:
-  autocmd FileType pandoc,text,markdown nnoremap <silent> <C-C> :call fzf_bibtex#run_bibtex_ls('fzf_bibtex#bibtex_cite_sink')<CR>
-  autocmd FileType pandoc,text,markdown inoremap <silent> <C-C> <c-g>u<c-o>:call fzf_bibtex#run_bibtex_ls('fzf_bibtex#bibtex_cite_sink_insert')<CR>
-augroup END
+  augroup fzf-bibtex
+    autocmd!
+    " Bind <ctrl+c> to citation look-up using FZF:
+    autocmd FileType pandoc,text,markdown nnoremap <silent> <C-C> :call fzf_bibtex#run_bibtex_ls('fzf_bibtex#bibtex_cite_sink')<CR>
+    autocmd FileType pandoc,text,markdown inoremap <silent> <C-C> <c-g>u<c-o>:call fzf_bibtex#run_bibtex_ls('fzf_bibtex#bibtex_cite_sink_insert')<CR>
+  augroup END
 " }}}
-" {{ CoC Pandoc
-
-  "   autocmd FileType pandoc call coc#config('coc.source.buffer.enable', 0)
-  "   autocmd FileType pandoc call coc#config('coc.source.around.enable', 0)
-  "   autocmd FileType pandoc call coc#config('coc.source.snippets.enable', 0)
-  "   autocmd FileType pandoc call coc#config('coc.source.file.enable', 0)
-  " augroup END
-  " function! CocBufferOn() abort
-  "   call coc#config('coc.source.buffer.enable', 1)
-  "   call coc#config('coc.source.around.enable', 1)
-  " endfunction
-  " function! CocBufferOff() abort
-  "   call coc#config('coc.source.buffer.enable', 0)
-  "   call coc#config('coc.source.around.enable', 0)
-  " endfunction
-  " command CocBufferOn call CocBufferOn()
-  " command CocBufferOff call CocBufferOff()
-" }}
-" Pandoc {{
+" Deoplete Source Ignore {{{
+  call  deoplete#custom#option('ignore_sources', {
+      \  'pandoc': ['buffer', 'around']
+      \}) 
+" }}}
+" Pandoc {{{
   " Uncomment to use the omni-func for bibliography completion:
   let g:pandoc#biblio#bibs=[g:bibliography_file]
   " Turn off folding and vim-pandoc's BibTeX support
-  let g:pandoc#modules#disabled = ['folding'] " , 'bibliography']
+  " let g:pandoc#modules#disabled = ['folding'] " , 'bibliography']
   " Turn off conceal
   let g:pandoc#syntax#conceal#use = 0
   " Turn on language support
@@ -60,19 +30,11 @@ augroup END
         \ 'html',
         \ 'scss',
         \]
-  "
-  " YouCompleteMe omni-function completion:
-  " if !exists('g:ycm_semantic_triggers')
-  "   let g:ycm_semantic_triggers = {}
-  " endif
-  " let g:ycm_semantic_triggers.markdown = ['@']
-  " let g:ycm_semantic_triggers.pandoc = ['@']
-  " let g:ycm_filetype_blacklist = {}
-"}}
-" Limelight {{
+"}}}
+" Limelight {{{
   let g:limelight_conceal_ctermfg="black"
-"}}
-" Goyo {{
+"}}}
+" Goyo {{{
   function! s:goyo_enter()
     " Trigger Limelight
     Limelight
@@ -103,14 +65,14 @@ augroup END
     set scrolloff=0
   endfunction
 
-"}}
-" Easy Align {{
+"}}}
+" Easy Align {{{
   " Start interactive EasyAlign in visual mode (e.g. vipga)
   xmap ga <Plug>(EasyAlign)
   " Start interactive EasyAlign for a motion/text object (e.g. gaip)
   nmap ga <Plug>(EasyAlign)
-"}}
-" Pencil {{
+"}}}
+" Pencil {{{
   " VimForWriters recommended Pencil config:
   let g:pencil#wrapModeDefault = 'soft'
   let g:pencil#textwidth = 74
@@ -121,32 +83,34 @@ augroup END
   let g:pencil#softDetectSample = 20
   let g:pencil#softDetectThreshold = 130
   " source: http://www.naperwrimo.org/wiki/index.php?title=Vim_for_Writers
-"}}
-" Initialize our writing environment:
-function! s:limelight(on) abort
-  if a:on == 1
-    if exists(":Limelight")
-      Limelight
+"}}}
+" Writing Environment: {{{
+  function! s:limelight(on) abort
+    if a:on == 1
+      if exists(":Limelight")
+        Limelight
+      endif
+    else
+      if exists(":Limelight")
+        Limelight!
+      endif
     endif
-  else
-    if exists(":Limelight")
-      Limelight!
-    endif
-  endif
-endfunction
-augroup writing
-  autocmd!
-  autocmd FileType pandoc,markdown call lexical#init()
-                                 \ | call litecorrect#init()
-                                 \ | call textobj#sentence#init()
-                                 \ | call pencil#init()
-  " Make sure j and k work with word wrap turned on:
-  " autocmd FileType pandoc,markdown nmap j gj
-  " autocmd FileType pandoc,markdown nmap k gk
-  " Ensure that lightline doesn't freak out when we use Goyo:
-  autocmd! User GoyoEnter call <SID>goyo_enter()
-  autocmd! User GoyoLeave call <SID>goyo_leave()
-  " Enable Limelight in pandoc and turn it off when we aren't in pandoc:
-  autocmd BufEnter * if &filetype=='pandoc'|call <SID>limelight(1)|end
-  autocmd BufLeave * if &filetype=='pandoc'|call <SID>limelight(0)|end
-augroup END
+  endfunction
+  augroup writing
+    autocmd!
+    autocmd FileType pandoc,markdown call lexical#init()
+                                   \ | call litecorrect#init()
+                                   \ | call textobj#sentence#init()
+                                   \ | call pencil#init()
+    " Make sure j and k work with word wrap turned on:
+    " autocmd FileType pandoc,markdown nmap j gj
+    " autocmd FileType pandoc,markdown nmap k gk
+    " Ensure that lightline doesn't freak out when we use Goyo:
+    autocmd! User GoyoEnter call <SID>goyo_enter()
+    autocmd! User GoyoLeave call <SID>goyo_leave()
+    " Enable Limelight in pandoc and turn it off when we aren't in pandoc:
+    autocmd BufEnter * if &filetype=='pandoc'|call <SID>limelight(1)|end
+    autocmd BufLeave * if &filetype=='pandoc'|call <SID>limelight(0)|end
+  augroup END
+" }}}
+" # vim:foldmethod=marker

@@ -1,4 +1,4 @@
-" FZF {{
+" FZF {{{
   " Highlight file with <shift>-<tab>; press the follow to open:
   let g:fzf_action = {
       \ 'ctrl-s': 'split',
@@ -36,5 +36,6 @@
   " Complete file line:
   imap <C-x><C-l> <plug>(fzf-complete-line)
   "
-"}}
+" }}}
 
+" # vim:foldmethod=marker

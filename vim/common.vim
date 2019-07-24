@@ -42,3 +42,6 @@ nnoremap <leader>vf ggVG
 " Buffer switching commands:
 nnoremap <silent> ]b :bn<CR>
 nnoremap <silent> [b :bp<CR>
+
+" Highlight a block and type "@" to run a macro on the block:
+xnoremap @ :<C-u>call visualat#ExecuteMacroOverVisualRange()<CR>
