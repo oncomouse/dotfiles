@@ -7,3 +7,5 @@ let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/
 set nomodeline
 let g:secure_modelines_verbose = 0
 let g:secure_modelines_modelines = 15
+
+inoremap <C-ENTER> <C-o>A<ENTER>

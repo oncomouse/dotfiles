@@ -28,7 +28,7 @@
       \  'filetypes': ['reason'],
       \  'trace.server': 'verbose',
       \  'rootPatterns': ['bsconfig.json', 'package.json', '.git/', '.merlin'],
-      \  'settings': {'reason_language_server' : {'format_width': 120}},
+      \  'settings': {'reason_language_server' : {'format_width': 80}},
       \})
   endif
   " Use <c-space> to trigger completion.
@@ -95,14 +95,13 @@
   " call coc#config('suggest.noselect', 0)
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-  inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ coc#refresh()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
   function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
-" }}
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<Down>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+  " }}
