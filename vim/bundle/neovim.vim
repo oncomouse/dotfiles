@@ -52,6 +52,6 @@ Plug 'maximbaz/lightline-ale' " Add linter status to lightline
 " Clojure:
 Plug 'venantius/vim-cljfmt', { 'for': 'clojure' } " Formatting for Clojure
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' } " REPL for Clojure
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'guns/vim-sexp', { 'for': ['clojure', 'lisp', 'scheme'] } " Better slurp / barf
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['clojure', 'lisp', 'scheme'] } " >) <) >( <) to move parentheses
-Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
