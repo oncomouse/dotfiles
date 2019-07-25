@@ -22,14 +22,6 @@
   " let g:pandoc#modules#disabled = ['folding'] " , 'bibliography']
   " Turn off conceal
   let g:pandoc#syntax#conceal#use = 0
-  " Turn on language support
-  let g:pandoc#syntax#codeblocks#embeds#langs = [
-        \ 'javascript',
-        \ 'css',
-        \ 'json',
-        \ 'html',
-        \ 'scss',
-        \]
 "}}}
 " Limelight {{{
   let g:limelight_conceal_ctermfg="black"
