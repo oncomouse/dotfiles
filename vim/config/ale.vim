@@ -10,11 +10,10 @@
   nmap <silent> <leader>ld :ALEDetail<CR>
   "
   let g:ale_lint_on_insert_leave = 1
-  let g:ale_cursor_detail = 1
-  let g:ale_disable_lsp = 0
+  let g:ale_cursor_detail = 0
   let g:ale_linters = {
     \  'javascript':  ['eslint', 'jshint', 'flow'],
-    \  'go': ['gopls', 'gofmt', 'golint'],
+    \  'go': ['govet', 'gofmt', 'golint'],
     \  'reason': ['reason-language-server'],
     \}
   " ALE's support for RLS is worthless:
