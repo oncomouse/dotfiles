@@ -1,28 +1,19 @@
 " Statusline:
-" Lightline Combined Diagnostic Plugin {{{
-  augroup lightline-combined
-    autocmd!
-    autocmd User LanguageClientDiagnosticsChanged call lightline#update()
-    autocmd User LanguageClientStarted call lightline#lsc#lspStarted()
-    autocmd User LanguageClientStopped call lightline#lsc#lspStopped()
-    autocmd User NeomakeFinished nested call lightline#update()
-  augroup END 
-" }}}
 " Lightline {{{
   set laststatus=2
   set showtabline=2
-  " let g:lightline#neomake#indicator_checking = "\uf110"
-  let g:lightline#combined#prefix_warnings = "\uf071\u2003"
-  let g:lightline#combined#prefix_errors = "\uf05e\u2003"
-  let g:lightline#combined#prefix_ok = "\uf00c"
-  let g:lightline#combined#prefix_infos = "\uf7fc"
+  let g:lightline#ale#indicator_checking = "\uf110"
+  let g:lightline#ale#indicator_warnings = "\uf071\u2003"
+  let g:lightline#ale#indicator_errors = "\uf05e\u2003"
+  let g:lightline#ale#indicator_ok = "\uf00c"
+
 
   let g:lightline = {
         \ 'colorscheme': 'oceanicnext',
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ],
         \             [ 'gitbranch', 'gitgutter', 'readonly', 'filename', 'modified' ] ],
-        \   'right': [ [ 'linter_infos', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+        \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
         \            [ 'lineinfo' ],
         \            [ 'wordcount' ], ]
         \ },
@@ -33,10 +24,10 @@
         \   'filetype': 'MyFiletype',
         \ },
         \ 'component_expand': {
-        \   'linter_warnings': 'lightline#combined#warnings',
-        \   'linter_errors': 'lightline#combined#errors',
-        \   'linter_ok': 'lightline#combined#ok',
-        \   'linter_info': 'lightline#combined#infos'
+        \   'linter_warnings': 'lightline#ale#warnings',
+        \   'linter_errors': 'lightline#ale#errors',
+        \   'linter_ok': 'lightline#ale#ok',
+        \   'linter_checking': 'lightline#ale#checking'
         \ },
         \ 'component_type': {
         \     'linter_checking': 'left',

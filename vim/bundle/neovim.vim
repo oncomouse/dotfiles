@@ -23,10 +23,12 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh; npm i -g vscode-json-languageserver-bin vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server',
     \ }
-Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'Shougo/neco-syntax'
-Plug 'Shougo/neco-vim'
 Plug 'wellle/tmux-complete.vim'
+Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
+Plug 'Shougo/neco-vim', { 'for': 'vim' }
+Plug 'ponko2/deoplete-fish', { 'for': 'fish' }
 " Writing:
 Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
 Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
@@ -46,13 +48,9 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript', 'javascript.jsx' ] }
 Plug 'ryanoasis/vim-devicons' " Fancy filetype icons in statusbar
 " Statusline:
 Plug 'itchyny/lightline.vim' " Statusbar
-Plug 'Palpatineli/lightline-lsc-nvim'
-Plug 'sinetoami/lightline-neomake'
+Plug 'maximbaz/lightline-ale' " Add linter status to lightline
 " Linter:
-Plug 'neomake/neomake'
-Plug 'benjie/local-npm-bin.vim'
-" Plug 'w0rp/ale' " Linter support
-" Plug 'maximbaz/lightline-ale' " Add linter status to lightline
+Plug 'w0rp/ale' " Linter support
 " Clojure:
 Plug 'venantius/vim-cljfmt', { 'for': 'clojure' } " Formatting for Clojure
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' } " REPL for Clojure
