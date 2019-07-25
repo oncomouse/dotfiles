@@ -21,5 +21,8 @@ let configs = [
 for file in configs
   let x = "config/".file.".vim"
   execute 'runtime' x
-  endfor
+endfor
+" Disable polyglot for all the syntaxes we already use:
+let g:polyglot_disabled = dotfiles#polyglot#overrides()
 runtime after.vim
+" # vim:foldmethod=marker

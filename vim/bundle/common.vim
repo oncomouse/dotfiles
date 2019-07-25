@@ -16,6 +16,7 @@ Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,
 " Tmux:
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Syntax:
+Plug 'sheerun/vim-polyglot'
 Plug 'luochen1990/rainbow' " Rainbow parentheses
 Plug 'Konfekt/FastFold' " Better fold support
 " Fuzzy Search:

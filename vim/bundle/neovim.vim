@@ -13,7 +13,6 @@ Plug 'ericpruitt/tmux.vim', {'rtp': 'vim/'}
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
-Plug 'georgewitteman/vim-fish', { 'for': 'fish' }
 Plug 'stephpy/vim-yaml', { 'for': 'yaml' } " YAML
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
