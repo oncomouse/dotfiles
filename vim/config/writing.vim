@@ -6,8 +6,8 @@
   augroup fzf-bibtex
     autocmd!
     " Bind <ctrl+c> to citation look-up using FZF:
-    autocmd FileType pandoc,text,markdown nnoremap <silent> <C-C> :call fzf_bibtex#run_bibtex_ls('fzf_bibtex#bibtex_cite_sink')<CR>
-    autocmd FileType pandoc,text,markdown inoremap <silent> <C-C> <c-g>u<c-o>:call fzf_bibtex#run_bibtex_ls('fzf_bibtex#bibtex_cite_sink_insert')<CR>
+    autocmd FileType pandoc,text,markdown nnoremap <silent> <C-C> :call dotfiles#fzf#bibtex_run_ls('dotfiles#fzf#bibtex_cite_sink')<CR>
+    autocmd FileType pandoc,text,markdown inoremap <silent> <C-C> <c-g>u<c-o>:call dotfiles#fzf#bibtex_run_ls('dotfiles#fzf#bibtex_cite_sink_insert')<CR>
   augroup END
 " }}}
 " Deoplete Source Ignore {{{

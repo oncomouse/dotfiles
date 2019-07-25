@@ -20,8 +20,8 @@
   " nnoremap <silent> <leader>O :Tags<CR>
   nnoremap <silent> <leader>? :History<CR>
   nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-  nnoremap <silent> K :call ag_search#SearchWordWithAg()<CR>
-  vnoremap <silent> K :call ag_search#SearchVisualSelectionWithAg()<CR>
+  nnoremap <silent> K :call dotfiles#ag#SearchWordWithAg()<CR>
+  vnoremap <silent> K :call dotfiles#ag#SearchVisualSelectionWithAg()<CR>
   " nnoremap <silent> <leader>gl :Commits<CR>
   " nnoremap <silent> <leader>ga :BCommits<CR>
   " nnoremap <silent> <leader>ft :Filetypes<CR>

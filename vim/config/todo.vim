@@ -7,12 +7,12 @@ augroup todo
   autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>td A X<esc>
   autocmd BufRead,BufNewFile todo.* vnoremap <buffer> <leader>td A X<esc>
   " Go To Project
-  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tg :call todo#GoToProject()<CR>
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tg :call dotfiles#todo#GoToProject()<CR>
   " Search for done tasks:
   autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>t/ / X$<CR>
   " Go To Next Project:
-  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tj :call todo#NextProject()<CR>
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tj :call dotfiles#todo#NextProject()<CR>
   " Go To Previous Project:
-  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tk :call todo#PrevProject()<CR>
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tk :call dotfiles#todo#PrevProject()<CR>
 augroup END
 " # vim:foldmethod=marker

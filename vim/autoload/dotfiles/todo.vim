@@ -1,17 +1,17 @@
 " Next/Previous Projects
-function! todo#NextProject()
+function! dotfiles#todo#NextProject()
   return search('^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$', 'w')
 endfunction
 
-function! todo#PrevProject()
+function! dotfiles#todo#PrevProject()
   return search('^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$', 'bw')
 endfunction
 " Search
-function! todo#SearchProject(project, depth, begin, end)
+function! dotfiles#todo#SearchProject(project, depth, begin, end)
     call cursor(a:begin, 1)
     return search('\v^\t{' . a:depth . '}\V' . a:project . ':', 'c', a:end)
 endfunction
-function! todo#SearchEndOfItem(...)
+function! dotfiles#todo#SearchEndOfItem(...)
     let lnum = a:0 > 0 ? a:1 : line('.')
     let flags = a:0 > 1 ? a:2 : ''
 
@@ -40,7 +40,7 @@ function! todo#SearchEndOfItem(...)
 
     return end
 endfunction
-function! todo#SearchProjects(projects)
+function! dotfiles#todo#SearchProjects(projects)
     if empty(a:projects)
         return 0
     endif
@@ -58,7 +58,7 @@ function! todo#SearchProjects(projects)
         endif
 
         let begin = line('.')
-        let end = todo#SearchEndOfItem(begin)
+        let end = dotfiles#todo#SearchEndOfItem(begin)
         let depth += 1
     endfor
 
@@ -67,7 +67,7 @@ function! todo#SearchProjects(projects)
 
     return begin
 endfunction
-function! todo#CompleteProject(lead, cmdline, pos)
+function! dotfiles#todo#CompleteProject(lead, cmdline, pos)
     let lnum = 1
     let list = []
     let stack = ['']
@@ -104,10 +104,10 @@ function! todo#CompleteProject(lead, cmdline, pos)
     return list
 endfunction
 
-function! todo#GoToProject()
+function! dotfiles#todo#GoToProject()
   let res = input('Project: ', '', 'customlist,CompleteProject')
 
   if res != ''
-    call todo#SearchProjects(split(res, ':'))
+    call dotfiles#todo#SearchProjects(split(res, ':'))
   endif
 endfunction

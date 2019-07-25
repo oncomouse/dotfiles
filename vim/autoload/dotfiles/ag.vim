@@ -1,8 +1,8 @@
-function! ag_search#SearchWordWithAg()
+function! dotfiles#ag#SearchWordWithAg()
   execute 'Ag' expand('<cword>')
 endfunction
 
-function! ag_search#SearchVisualSelectionWithAg() range
+function! dotfiles#ag#SearchVisualSelectionWithAg() range
   let old_reg = getreg('"')
   let old_regtype = getregtype('"')
   let old_clipboard = &clipboard
