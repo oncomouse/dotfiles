@@ -4,17 +4,15 @@ Plug 'mhartington/oceanic-next' " Theme
 Plug 'xero/securemodelines' " Secure modelines
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
 Plug 'easymotion/vim-easymotion' " <leader><leader><motion key> for fast motion
-" Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-surround' " Change surrounding characters, see cheat sheet
 Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesEnable to see indentation guides
 Plug 'tpope/vim-repeat' " Repeat plugin commands
 Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
-" Plug 'terryma/vim-expand-region' " + or _ to expand or shrink (visual)
 Plug 'airblade/vim-rooter' " Set project root
-Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing (may use only in certain languages)
+Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 Plug 'docunext/closetag.vim' " Autoclose HTML tags
-Plug 'wellle/targets.vim' " add in]) targets, plus words in commas (a,)
+Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,)
 " Tmux:
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Syntax:

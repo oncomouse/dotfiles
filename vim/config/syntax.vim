@@ -2,6 +2,7 @@
 " General VIM {{{
   " Insert a semicolon at the end of the line with <leader>;
   inoremap <leader>; <C-o>A;<CR>
+  let g:python_highlight_all = 1
 " }}}
 " vim-jsx-pretty {{{
   let g:vim_jsx_pretty_colorful_config = 1
@@ -37,7 +38,7 @@
 " Colorizer {{{
   let g:colorizer_auto_filetype='css,scss,sass,less,html,javascript,javascript.jsx,vim'
 " }}}
-" Emmet
+" Emmet {{{
   let g:user_emmet_settings = {
     \  'javascript.jsx' : {
       \      'extends' : 'jsx',

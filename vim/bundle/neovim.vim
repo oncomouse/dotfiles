@@ -1,21 +1,20 @@
 " Web Syntax:
-Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " Somehow, polyglot doesn't load this.
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'javascript.jsx'] } " Modular JSX support to add to yajs
 Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] } " Support JavaScript syntax (not using vim-polyglot)
 Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] } " Support ES7+ syntax in yajs
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] } " Support library syntax in yajs
-" Plug 'styled-components/vim-styled-components', { 'branch': 'main' } " Styled-components in JS
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " SCSS
 " Other Syntax:
-Plug 'reasonml-editor/vim-reason-plus'
+Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' } " Clojure support
-Plug 'georgewitteman/vim-fish', { 'for': 'fish' }
 Plug 'ericpruitt/tmux.vim', {'rtp': 'vim/'}
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
+Plug 'georgewitteman/vim-fish', { 'for': 'fish' }
 Plug 'stephpy/vim-yaml', { 'for': 'yaml' } " YAML
-" Plug 'chr4/nginx.vim' " activate if you need this
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 " Autocomplete:
@@ -23,7 +22,6 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh; npm i -g vscode-json-languageserver-bin vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server',
     \ }
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'Shougo/neco-syntax'
 Plug 'wellle/tmux-complete.vim'
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
