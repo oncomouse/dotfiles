@@ -11,12 +11,14 @@
   "
   let g:ale_lint_on_insert_leave = 1
   let g:ale_cursor_detail = 1
-  let g:ale_lint_on_enter = 1
-  let g:ale_lint_on_text_changed = "normal"
-  let g:ale_lint_on_save = 1
+  let g:ale_disable_lsp = 0
   let g:ale_linters = {
-    \  'javascript':  ['eslint', 'jshint', 'flow']
+    \  'javascript':  ['eslint', 'jshint', 'flow'],
+    \  'go': ['gopls', 'gofmt', 'golint'],
+    \  'reason': ['reason-language-server'],
     \}
+  " ALE's support for RLS is worthless:
+  let g:ale_reason_ls_executable = '/usr/local/bin/reason-language-server'
   " Add Vale to pandoc bc vim-pandoc insists on changing filetype:
   call ale#linter#Define('pandoc', {
   \   'name': 'vale',

@@ -7,19 +7,20 @@
 " }}}
 " LanguageClient {{{
   let g:LanguageClient_serverCommands = {
-      \ 'reason': ['reason_language_server'],
-      \ 'go': ['gopls'],
+      \ 'javascript': ['typescript-language-server', '--stdio'],
+      \ 'reason': ['reason-language-server'],
       \ 'html': ['html-languageserver', '--stdio'],
       \ 'json': ['json-languageserver', '--stdio'],
       \ 'css': ['css-languageserver', '--stdio'],
       \ 'scss': ['css-languageserver', '--stdio'],
-      \ 'javascript': ['javascript-typescript-languageserver'],
-      \ 'javascript.jsx': ['javascript-typescript-languageserver'],
-      \ 'typescript': ['javascript-typescript-languageserver'],
+      \ 'go': ['gopls'],
       \}
   let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp.settings.json')
-  let g:LanguageClient_diagnosticsEnable=0
-
+  let g:LanguageClient_diagnosticsEnable=1
+  let g:LanguageClient_useVirtualText=1
+  " let g:LanguageClient_loggingLevel='DEBUG'
+  " let g:LanguageClient_serverStderr=expand('~/lsp-server.log')
+  " let g:LanguageClient_loggingFile = expand('~/lsp-client.log')
   " Remap keys for gotos
   nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
   " Use U to show documentation in preview window

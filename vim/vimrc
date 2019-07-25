@@ -7,7 +7,6 @@ call plug#end()
 runtime common.vim
 let configs = [
   \ "deoplete",
-  \ "ale",
   \ "autocomplete",
   \ "fuzzy",
   \ "git",
