@@ -34,3 +34,4 @@ set statusline+=\
 set laststatus=2
 
 runtime after.vim
+" # vim:foldmethod=marker
