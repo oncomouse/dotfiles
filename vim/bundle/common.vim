@@ -18,6 +18,7 @@ Plug 'docunext/closetag.vim' " Autoclose HTML tags
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Syntax:
 Plug 'luochen1990/rainbow' " Rainbow parentheses
+Plug 'Konfekt/FastFold' " Better fold support
 " Fuzzy Search:
 if isdirectory(expand('/usr/local/opt/fzf'))
   Plug '/usr/local/opt/fzf' " Load FZF into Vim
