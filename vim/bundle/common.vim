@@ -14,6 +14,7 @@ Plug 'airblade/vim-rooter' " Set project root
 Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing (may use only in certain languages)
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 Plug 'docunext/closetag.vim' " Autoclose HTML tags
+Plug 'wellle/targets.vim' " add in]) targets, plus words in commas (a,)
 " Tmux:
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Syntax:
