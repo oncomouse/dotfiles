@@ -75,7 +75,7 @@ if &background == "light"
 else
   highlight LineNr       ctermfg=8
   highlight Comment      ctermfg=8
-  highlight ColorColumn ctermbg=0
+  highlight ColorColumn  ctermbg=0
   highlight Folded       ctermfg=8 ctermbg=0 " Addition
   highlight FoldColumn   ctermfg=7    ctermbg=8
   highlight Pmenu        ctermbg=NONE ctermfg=8 " Addition

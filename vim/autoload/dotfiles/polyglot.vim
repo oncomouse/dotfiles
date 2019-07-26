@@ -5,6 +5,8 @@ function! dotfiles#polyglot#overrides() abort
     \ 'go',
     \ 'html',
     \ 'javascript',
+    \ 'jsx',
+    \ 'javascript.jsx',
     \ 'json',
     \ 'python',
     \ 'reason',

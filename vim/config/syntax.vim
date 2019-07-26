@@ -12,20 +12,20 @@
   let g:indent_guides_auto_colors = 0
   augroup indent-colors
     autocmd!
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1B2B34 ctermbg=235
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1C313D ctermbg=234
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1B2B34 ctermbg=NONE
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1C313D ctermbg=0
   augroup END
 " }}}
 " Rainbow Parentheses {{{
   let g:rainbow_active = 1
   let g:rainbow_conf = {
   \ 'guifgs': ['#F99157', '#EC5f67', '#C594C5', '#5FB3B3', '#6699CC', '#FAC863', '#99C794', '#AB7967'],
-  \ 'ctermfgs': [5, 4, 6, 2, 1],
+  \ 'ctermfgs': [5, 4, 6, 9, 14, 2, 1],
   \ 'separately': {
   \   '*': {},
   \   'markdown': {
   \     'parentheses_options': 'containedin=markdownCode contained',
-  \   }
+  \   },
   \ }
   \}
 " }}}
