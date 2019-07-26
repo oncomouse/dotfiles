@@ -30,26 +30,26 @@ highlight TabLineFill    cterm=reverse
 highlight CursorColumn   ctermbg=7
 highlight CursorLine     cterm=underline
 highlight MatchParen     ctermbg=14
-highlight Constant       ctermfg=1
+highlight Constant       ctermfg=9
 highlight Special        ctermfg=5
-highlight Identifier     cterm=bold ctermfg=6 " Addition
-highlight Statement      ctermfg=3
-highlight PreProc        ctermfg=5
-highlight Type           ctermfg=2
+highlight Identifier     ctermfg=6
+highlight Statement      ctermfg=1 cterm=bold
+highlight PreProc        ctermfg=3
+highlight Type           ctermfg=3 cterm=bold
 highlight Underlined     cterm=underline ctermfg=5
 highlight Ignore         ctermfg=15
-highlight Error          ctermfg=15 ctermbg=9
+highlight Error          ctermfg=15 ctermbg=1
 highlight Todo           ctermfg=0 ctermbg=11
-highlight String ctermfg=2 " Addition
+highlight String         ctermfg=2
 
 let colors_name = "dim"
 
 " In diffs, added lines are green, changed lines are yellow, deleted lines are
 " red, and changed text (within a changed line) is bright yellow and bold.
-highlight DiffAdd        ctermfg=0    ctermbg=2
-highlight DiffChange     ctermfg=0    ctermbg=3
-highlight DiffDelete     ctermfg=0    ctermbg=1
-highlight DiffText       ctermfg=0    ctermbg=11   cterm=bold
+" highlight DiffAdd        ctermfg=0    ctermbg=2
+" highlight DiffChange     ctermfg=0    ctermbg=3
+" highlight DiffDelete     ctermfg=0    ctermbg=1
+" highlight DiffText       ctermfg=0    ctermbg=11   cterm=bold
 
 " Invert selected lines in visual mode
 highlight Visual         ctermfg=NONE ctermbg=NONE cterm=inverse
@@ -76,11 +76,11 @@ else
   highlight LineNr       ctermfg=8
   highlight Comment      ctermfg=8
   highlight ColorColumn  ctermbg=0
-  highlight Folded       ctermfg=8 ctermbg=0 " Addition
+  highlight Folded       ctermfg=8 ctermbg=0
   highlight FoldColumn   ctermfg=7    ctermbg=8
-  highlight Pmenu        ctermbg=NONE ctermfg=8 " Addition
-  highlight PmenuSel     ctermbg=NONE ctermfg=6 cterm=bold " Addition
-  highlight PmenuSbar    ctermbg=0 " Addition
+  highlight Pmenu        ctermbg=NONE ctermfg=8
+  highlight PmenuSel     ctermbg=NONE ctermfg=6 cterm=bold
+  highlight PmenuSbar    ctermbg=0
   highlight SpellCap     ctermfg=7    ctermbg=8
   highlight StatusLine   ctermfg=15   ctermbg=8    cterm=bold
   highlight StatusLineNC ctermfg=7    ctermbg=8    cterm=NONE
