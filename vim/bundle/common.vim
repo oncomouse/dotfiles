@@ -28,14 +28,6 @@ endif
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
 Plug 'Shougo/neoyank.vim'
 Plug 'justinhoward/fzf-neoyank'
-" Autcomplete:
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
 " Git Support:
 Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
 Plug 'airblade/vim-gitgutter' " Git stats in the gutter

@@ -6,7 +6,6 @@ runtime bundle/vim.vim
 call plug#end()
 runtime common.vim
 let configs = [
-  \ "deoplete",
   \ "fuzzy",
   \ "git",
   \ "syntax",
