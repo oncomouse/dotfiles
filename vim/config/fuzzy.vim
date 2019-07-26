@@ -11,7 +11,8 @@
   let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
   " Close the quick fix window:
-  nnoremap <silent> <leader>c :cclose<CR>
+  nnoremap <silent> <leader>cc :cwindow<CR>
+  nnoremap <silent> <leader>ll :lwindow<CR>
 
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>A :Windows<CR>
@@ -28,9 +29,9 @@
   
   " Access yank history:
   let g:neoyank#file = $HOME.'/.vim/yankring.txt'
-  nnoremap <leader>y :FZFNeoyank *<cr>
-  nnoremap <leader>Y :FZFNeoyank * P<cr>
-  vnoremap <leader>y :FZFNeoyankSelection<cr>
+  nnoremap <leader>rr :FZFNeoyank *<cr>
+  nnoremap <leader>RR :FZFNeoyank * P<cr>
+  vnoremap <leader>rr :FZFNeoyankSelection<cr>
   " Complete file name:
   imap <C-x><C-f> <plug>(fzf-complete-file-ag)
   " Complete file line:
