@@ -43,7 +43,6 @@ let g:colors_name = 'base16'
 " Optional variables are attributes and guisp
 function! g:Base16hi(group, ctermfg, ctermbg, ...)
   let l:attr = get(a:, 1)
-  let l:guisp = get(a:, 2)
 
   if a:ctermfg != ""
     exec "hi " . a:group . " ctermfg=" . a:ctermfg
