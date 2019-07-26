@@ -1,9 +1,6 @@
 " Web Syntax:
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'javascript.jsx'] } " Modular JSX support to add to yajs
-Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] } " Support JavaScript syntax (not using vim-polyglot)
-Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] } " Support ES7+ syntax in yajs
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] } " Support library syntax in yajs
+Plug 'neoclide/vim-jsx-improve', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " SCSS
 " Other Syntax:
 Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }

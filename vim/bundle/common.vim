@@ -1,6 +1,8 @@
-" Themes:
-Plug 'mhartington/oceanic-next' " Theme
+" Theme:
+Plug 'mhartington/oceanic-next'
+" Plug 'jeffkreeftmeijer/vim-dim'
 " General Editing Plugins:
+Plug 'guns/xterm-color-table.vim'
 Plug 'xero/securemodelines' " Secure modelines
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
 Plug 'easymotion/vim-easymotion' " <leader><leader><motion key> for fast motion
@@ -17,6 +19,7 @@ Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Syntax:
 Plug 'sheerun/vim-polyglot'
+" Plug 'bounceme/poppy.vim'
 Plug 'luochen1990/rainbow' " Rainbow parentheses
 Plug 'Konfekt/FastFold' " Better fold support
 " Fuzzy Search:
