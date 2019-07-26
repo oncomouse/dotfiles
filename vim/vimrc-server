@@ -21,12 +21,12 @@ function! Modified() abort
 endfunction
 
 set statusline=
-set statusline+=%#CursorColumn#
+set statusline+=%#ToolbarLine#
 set statusline+=\ %f
 set statusline+=\ %{Modified()}
-set statusline+=%#LineNr#
-set statusline+=%=
 set statusline+=%#CursorColumn#
+set statusline+=%=
+set statusline+=%#ToolbarLine#
 set statusline+=\ %l:%c
 set statusline+=\ 
 
