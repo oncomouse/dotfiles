@@ -47,7 +47,7 @@ Plug 'junegunn/vim-easy-align' " ga will align blocks to indicated character
 " Web Development:
 Plug 'chrisbra/Colorizer', { 'for': ['html', 'javascript.jsx', 'javascript', 'css', 'scss'] }
 Plug 'maksimr/vim-jsbeautify', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript', 'javascript.jsx' ] }
+Plug 'mattn/emmet-vim', { 'for': ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim'] }
 " File Viewers:
 Plug 'ryanoasis/vim-devicons' " Fancy filetype icons in statusbar
 " Statusline:
