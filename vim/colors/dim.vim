@@ -108,12 +108,12 @@ highlight jsStorageClass ctermfg=5
 
 highlight DiffAdd ctermfg=2 ctermbg=10 cterm=bold
 highlight DiffChange ctermfg=8 ctermbg=10
-highlight DiffDelete ctermfg=9 ctermbg=10
+highlight DiffDelete ctermfg=1 ctermbg=10
 highlight DiffText ctermfg=4 ctermbg=10
-highlight DiffAdded ctermfg=15 ctermbg=2 cterm=bold
-highlight DiffFile ctermfg=9 ctermbg=0
+highlight DiffAdded ctermfg=2 cterm=bold
+highlight DiffFile ctermfg=1 ctermbg=0
 highlight DiffNewFile ctermfg=2 ctermbg=0
 highlight DiffLine ctermfg=4 ctermbg=0
-highlight DiffRemoved ctermfg=15 ctermbg=9 cterm=bold
-highlight gitCommitOverflow ctermfg=9
+highlight DiffRemoved ctermfg=1 cterm=bold
+highlight gitCommitOverflow ctermfg=1
 highlight gitCommitSummary ctermfg=2
