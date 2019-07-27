@@ -1,7 +1,6 @@
 " Syntax:
 " General VIM {{{
   " Insert a semicolon at the end of the line with <leader>;
-  inoremap <leader>; <C-o>A;<CR>
   let g:python_highlight_all = 1
 " }}}
 " Folding {{{
