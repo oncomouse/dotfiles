@@ -1,6 +1,3 @@
-" Theme:
-Plug 'mhartington/oceanic-next'
-" Plug 'jeffkreeftmeijer/vim-dim'
 " General Editing Plugins:
 Plug 'guns/xterm-color-table.vim'
 Plug 'xero/securemodelines' " Secure modelines
@@ -19,7 +16,6 @@ Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Syntax:
 Plug 'sheerun/vim-polyglot'
-" Plug 'bounceme/poppy.vim'
 Plug 'luochen1990/rainbow' " Rainbow parentheses
 Plug 'Konfekt/FastFold' " Better fold support
 " Fuzzy Search:
@@ -29,8 +25,5 @@ else
   Plug '~/.fzf'
 endif
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
-Plug 'Shougo/neoyank.vim'
-Plug 'justinhoward/fzf-neoyank'
 " Git Support:
 Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
-" Plug 'airblade/vim-gitgutter' " Git stats in the gutter
