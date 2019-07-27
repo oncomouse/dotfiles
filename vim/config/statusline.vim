@@ -1,9 +1,16 @@
 " Statusline:
+  let g:nerdfonts = get(g:, "nerdfonts", 1)
 " Lightline Git Status {{{
   let g:lightline#gitdiff#indicator_added = '✚'
   let g:lightline#gitdiff#indicator_deleted = '✖'
   let g:lightline#gitdiff#indicator_modified = '…'
   let g:lightline#gitdiff#separator = ' ' 
+" }}}
+" Linter Status {{{
+  let g:dotfiles#combined#indicator_checking = "\uf110"
+  let g:dotfiles#combined#indicator_warnings = "\uf071\u2003"
+  let g:dotfiles#combined#indicator_errors = "\uf05e\u2003"
+  let g:dotfiles#combined#indicator_ok = "\uf00c"
 " }}}
 " Statusline {{{
   " Based on: https://github.com/lifepillar/vimrc
@@ -24,10 +31,6 @@
   function! SetupStl(curwin) abort
     return get(extend(w:, { 'lf_active': winnr() ==# a:curwin  }), '', '')
   endfunction
-  let g:dotfiles#combined#indicator_checking = "\uf110"
-  let g:dotfiles#combined#indicator_warnings = "\uf071\u2003"
-  let g:dotfiles#combined#indicator_errors = "\uf05e\u2003"
-  let g:dotfiles#combined#indicator_ok = "\uf00c"
   function! Componetize(func,...) abort
     let l:before = get(a:, 1, " ")
     let l:after = get(a:, 2, " ")
@@ -41,7 +44,8 @@
     return '%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings')."#
       \%{(w:['lf_active']?'  '.winnr().' ':'')}
       \%1*
-      \ %{&mod?'◦':' '}%t\ 
+      \ %{&mod?'◦':' '}%t
+      \%2*%{(&paste ? g:nerdfonts ? '\uf0ea  ':' (paste) ':' ')}
       \%2*%{(w:['lf_active'] && &rtp=~'gitdiff'? Componetize('lightline#gitdiff#get()','\u22EE ') :'')}
       \%0*%=
       \%1*\ %l:%c\ 
@@ -50,7 +54,7 @@
       \%5*%{w:['lf_active'] ? Componetize('dotfiles#combined#ok()', '', '  ') : ''}
       \%#".get(g:lf_stlh, mode(), 'Warnings')."#
       \%{w:['lf_active']
-      \?'  '.get(g:lf_stlm,mode(),mode()).(&paste?' PASTE ':' ')
+      \?'  '.get(g:lf_stlm,mode(),mode()).' '
       \:''}%*"
   endfunction
   set laststatus=2

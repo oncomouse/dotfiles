@@ -17,15 +17,7 @@ for file in configs
   execute 'runtime' x
 endfor
 
-" hi User1 ctermbg=8
-
-" set statusline=
-" set statusline+=%1*\ %t
-" set statusline+=%m\ 
-" set statusline+=%0*%=
-" set statusline+=%1*\ %l:%c\ 
-
-" set laststatus=2
+let g:nerdfonts=0
 
 runtime after.vim
 " # vim:foldmethod=marker
