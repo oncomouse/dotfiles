@@ -1,7 +1,13 @@
 " Statusline:
+" Lightline Git Status {{{
+let g:lightline#gitdiff#indicator_added = '✚'
+let g:lightline#gitdiff#indicator_deleted = '✖'
+let g:lightline#gitdiff#indicator_modified = '…'
+let g:lightline#gitdiff#separator = ' ' 
+" }}}
 " Lightline {{{
   set laststatus=2
-  set showtabline=2
+  " set showtabline=2
   let g:lightline#ale#indicator_checking = "\uf110"
   let g:lightline#ale#indicator_warnings = "\uf071\u2003"
   let g:lightline#ale#indicator_errors = "\uf05e\u2003"
@@ -9,16 +15,16 @@
 
 
   let g:lightline = {
-        \ 'colorscheme': 'oceanicnext',
+        \ 'colorscheme': '16color',
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'gitbranch', 'gitgutter', 'readonly', 'filename', 'modified' ] ],
+        \             [ 'gitdiff', 'readonly', 'filename', 'modified' ] ],
         \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-        \            [ 'lineinfo' ],
-        \            [ 'wordcount' ], ]
+        \              [ 'lineinfo' ],
+        \            ]
         \ },
         \ 'component_function': {
-        \   'gitbranch': 'fugitive#head',
+        \   'gitdiff': 'lightline#gitdiff#get',
         \   'gitgutter': 'MyGitGutter',
         \   'wordcount': 'WordCount',
         \   'filetype': 'MyFiletype',
@@ -35,9 +41,10 @@
         \     'linter_errors': 'error',
         \     'linter_ok': 'left',
         \ },
-        \ 'separator': { 'left': '', 'right': '' },
-        \ 'subseparator': { 'left': '', 'right': '' }
         \ }
+          " \ 'separator': { 'left': '', 'right': '' },
+        " \ 'subseparator': { 'left': '', 'right': '' }
+
   let g:lightline.tab_component_function = {
         \   'filetype': 'MyTabFiletype',
         \   'mytabname': 'MyTabName',
@@ -45,8 +52,8 @@
         \ }
   let g:lightline.tabline = {'left': [['tabs']], 'right': []}
   let g:lightline.tab = {
-        \ 'active': [ 'tabnum', 'filetype', 'mytabname', 'modified' ],
-        \ 'inactive': [ 'tabnum', 'filetype', 'mytabname', 'modified' ] }
+        \ 'active': [ 'tabnum', 'mytabname', 'modified' ],
+        \ 'inactive': [ 'tabnum', 'mytabname', 'modified' ] }
   set guioptions-=e
   " Display tab name, but use directory name if an index.js file is present:
   " Sourced from airline-vim
@@ -77,23 +84,6 @@
   function! MyFiletype()
     return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() : '') : ''
   endfunction
-
-  " WordCount
-  let g:word_count=''
-  fun! WordCount()
-      return g:word_count
-  endfun
-  fun! UpdateWordCount()
-      let s = system("wc -w ".expand("%p"))
-      let parts = split(s, ' ')
-      if len(parts) > 1
-          let g:word_count = parts[0]
-      endif
-  endfun
-  augroup WordCounter
-      au! CursorHold * call UpdateWordCount()
-      au! CursorHoldI * call UpdateWordCount()
-  augroup END
 
   function! MyGitGutter()
     if ! exists('*GitGutterGetHunkSummary')

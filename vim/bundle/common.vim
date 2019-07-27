@@ -33,4 +33,4 @@ Plug 'Shougo/neoyank.vim'
 Plug 'justinhoward/fzf-neoyank'
 " Git Support:
 Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
-Plug 'airblade/vim-gitgutter' " Git stats in the gutter
+" Plug 'airblade/vim-gitgutter' " Git stats in the gutter

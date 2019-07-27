@@ -82,8 +82,8 @@ else
   highlight PmenuSel     ctermbg=NONE ctermfg=6 cterm=bold
   highlight PmenuSbar    ctermbg=0
   highlight SpellCap     ctermfg=7    ctermbg=8
-  highlight StatusLine   ctermfg=15   ctermbg=8    cterm=bold
-  highlight StatusLineNC ctermfg=7    ctermbg=8    cterm=NONE
+  highlight StatusLine   ctermfg=15   ctermbg=NONE    cterm=bold
+  highlight StatusLineNC ctermfg=7    ctermbg=NONE    cterm=NONE
   highlight VertSplit    ctermfg=7    ctermbg=8    cterm=NONE
   highlight SignColumn                ctermbg=8
 endif
@@ -117,3 +117,7 @@ highlight DiffLine ctermfg=4 ctermbg=0
 highlight DiffRemoved ctermfg=1 cterm=bold
 highlight gitCommitOverflow ctermfg=1
 highlight gitCommitSummary ctermfg=2
+
+highlight vimBracket ctermfg=14
+highlight vimNotation ctermfg=6
+highlight Visual cterm=NONE ctermbg=10

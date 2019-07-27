@@ -6,12 +6,10 @@ function! dotfiles#polyglot#overrides() abort
     \ 'html',
     \ 'javascript',
     \ 'jsx',
-    \ 'javascript.jsx',
-    \ 'json',
+    \ 'markdown',
+    \ 'pandoc',
     \ 'python',
     \ 'reason',
-    \ 'ruby',
     \ 'scss',
-    \ 'tmux',
   \]
 endfunction

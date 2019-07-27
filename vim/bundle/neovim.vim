@@ -6,13 +6,14 @@ Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " SCSS
 Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' } " Clojure support
-Plug 'ericpruitt/tmux.vim', {'rtp': 'vim/'}
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
-Plug 'stephpy/vim-yaml', { 'for': 'yaml' } " YAML
-Plug 'chrisbra/csv.vim', { 'for': 'csv' }
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
+" Plug 'ericpruitt/tmux.vim', {'rtp': 'vim/'}
+" Plug 'stephpy/vim-yaml', { 'for': 'yaml' } " YAML
+" Plug 'chrisbra/csv.vim', { 'for': 'csv' }
+" Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 " Autocomplete:
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -31,7 +32,6 @@ Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
 Plug 'ponko2/deoplete-fish', { 'for': 'fish' }
 " Writing:
-Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
 Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
 Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
@@ -50,6 +50,7 @@ Plug 'ryanoasis/vim-devicons' " Fancy filetype icons in statusbar
 " Statusline:
 Plug 'itchyny/lightline.vim' " Statusbar
 Plug 'maximbaz/lightline-ale' " Add linter status to lightline
+Plug 'niklaas/lightline-gitdiff'
 " Linter:
 Plug 'w0rp/ale' " Linter support
 " Clojure:

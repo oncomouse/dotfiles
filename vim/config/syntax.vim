@@ -4,6 +4,13 @@
   inoremap <leader>; <C-o>A;<CR>
   let g:python_highlight_all = 1
 " }}}
+" Folding {{{
+augroup custom-folds
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker 
+  autocmd FileType css setlocal foldmethod=manual
+augroup END
+" }}}
 " vim-jsx-pretty {{{
   let g:vim_jsx_pretty_colorful_config = 1
 " }}}
