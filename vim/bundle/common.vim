@@ -2,7 +2,7 @@
 Plug 'guns/xterm-color-table.vim'
 Plug 'xero/securemodelines' " Secure modelines
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
-Plug 'easymotion/vim-easymotion' " <leader><leader><motion key> for fast motion
+" Plug 'easymotion/vim-easymotion' " <leader><leader><motion key> for fast motion
 Plug 'tpope/vim-surround' " Change surrounding characters, see cheat sheet
 Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesEnable to see indentation guides
 Plug 'tpope/vim-repeat' " Repeat plugin commands

@@ -79,18 +79,20 @@ else
   highlight Folded       ctermfg=8 ctermbg=0
   highlight FoldColumn   ctermfg=7    ctermbg=8
   highlight Pmenu        ctermbg=NONE ctermfg=8
-  highlight PmenuSel     ctermbg=NONE ctermfg=6 cterm=bold
+  highlight PmenuSel     ctermbg=4 ctermfg=15
   highlight PmenuSbar    ctermbg=0
   highlight SpellCap     ctermfg=7    ctermbg=8
   highlight StatusLine   ctermfg=15   ctermbg=NONE    cterm=bold
   highlight StatusLineNC ctermfg=7    ctermbg=NONE    cterm=NONE
   highlight VertSplit    ctermfg=7    ctermbg=8    cterm=NONE
-  highlight SignColumn                ctermbg=8
+  highlight SignColumn                ctermbg=NONE
 endif
 
 " My additions:
 
 highlight Noise ctermfg=6
+highlight AleErrorSign ctermbg=NONE ctermfg=1
+highlight AleWarningSign ctermbg=NONE ctermfg=3
 
 highlight htmlTag ctermfg=6
 highlight htmlTagName ctermfg=1

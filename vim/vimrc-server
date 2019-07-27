@@ -8,6 +8,7 @@ runtime common.vim
 let configs = [
   \ "fuzzy",
   \ "git",
+  \ "statusline",
   \ "syntax",
   \ "theme",
 \]
@@ -16,21 +17,15 @@ for file in configs
   execute 'runtime' x
 endfor
 
-function! Modified() abort
-  return &mod == 0 ? '' : '[+] '
-endfunction
+" hi User1 ctermbg=8
 
-set statusline=
-set statusline+=%#ToolbarLine#
-set statusline+=\ %f
-set statusline+=\ %{Modified()}
-set statusline+=%#CursorColumn#
-set statusline+=%=
-set statusline+=%#ToolbarLine#
-set statusline+=\ %l:%c
-set statusline+=\ 
+" set statusline=
+" set statusline+=%1*\ %t
+" set statusline+=%m\ 
+" set statusline+=%0*%=
+" set statusline+=%1*\ %l:%c\ 
 
-set laststatus=2
+" set laststatus=2
 
 runtime after.vim
 " # vim:foldmethod=marker

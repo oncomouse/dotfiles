@@ -1,109 +1,102 @@
 " Statusline:
 " Lightline Git Status {{{
-let g:lightline#gitdiff#indicator_added = '✚'
-let g:lightline#gitdiff#indicator_deleted = '✖'
-let g:lightline#gitdiff#indicator_modified = '…'
-let g:lightline#gitdiff#separator = ' ' 
+  let g:lightline#gitdiff#indicator_added = '✚'
+  let g:lightline#gitdiff#indicator_deleted = '✖'
+  let g:lightline#gitdiff#indicator_modified = '…'
+  let g:lightline#gitdiff#separator = ' ' 
 " }}}
-" Lightline {{{
-  set laststatus=2
-  " set showtabline=2
-  let g:lightline#ale#indicator_checking = "\uf110"
-  let g:lightline#ale#indicator_warnings = "\uf071\u2003"
-  let g:lightline#ale#indicator_errors = "\uf05e\u2003"
-  let g:lightline#ale#indicator_ok = "\uf00c"
-
-
-  let g:lightline = {
-        \ 'colorscheme': '16color',
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'gitdiff', 'readonly', 'filename', 'modified' ] ],
-        \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-        \              [ 'lineinfo' ],
-        \            ]
-        \ },
-        \ 'component_function': {
-        \   'gitdiff': 'lightline#gitdiff#get',
-        \   'gitgutter': 'MyGitGutter',
-        \   'wordcount': 'WordCount',
-        \   'filetype': 'MyFiletype',
-        \ },
-        \ 'component_expand': {
-        \   'linter_warnings': 'lightline#ale#warnings',
-        \   'linter_errors': 'lightline#ale#errors',
-        \   'linter_ok': 'lightline#ale#ok',
-        \   'linter_checking': 'lightline#ale#checking'
-        \ },
-        \ 'component_type': {
-        \     'linter_checking': 'left',
-        \     'linter_warnings': 'warning',
-        \     'linter_errors': 'error',
-        \     'linter_ok': 'left',
-        \ },
-        \ }
-          " \ 'separator': { 'left': '', 'right': '' },
-        " \ 'subseparator': { 'left': '', 'right': '' }
-
-  let g:lightline.tab_component_function = {
-        \   'filetype': 'MyTabFiletype',
-        \   'mytabname': 'MyTabName',
-        \   'modified': 'MyModified',
-        \ }
-  let g:lightline.tabline = {'left': [['tabs']], 'right': []}
-  let g:lightline.tab = {
-        \ 'active': [ 'tabnum', 'mytabname', 'modified' ],
-        \ 'inactive': [ 'tabnum', 'mytabname', 'modified' ] }
-  set guioptions-=e
-  " Display tab name, but use directory name if an index.js file is present:
-  " Sourced from airline-vim
-  function! MyTabName(n)
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    let buf = expand('#'.buflist[winnr - 1])
-    let filename = fnamemodify(buf, ":t")
-    if filename == 'index.js' || filename == 'index.jsx' || filename == 'index.ts' || filename == 'index.tsx'
-      return fnamemodify(buf, ':p:h:t') . '/i'
-    endif
-    return filename
+" Statusline {{{
+  " Based on: https://github.com/lifepillar/vimrc
+  let g:lf_stlh = {
+    \ 'n': 'NormalMode',  'i': 'InsertMode',      'R': 'ReplaceMode',
+    \ 'v': 'VisualMode',  'V': 'VisualMode', "\<c-v>": 'VisualMode',
+    \ 's': 'VisualMode',  'S': 'VisualMode', "\<c-s>": 'VisualMode',
+    \ 'c': 'CommandMode', 'r': 'CommandMode',     't': 'CommandMode',
+    \ '!': 'CommandMode',  '': 'StatusLineNC'
+    \ 
+    \}
+  let g:lf_stlm = {
+    \ 'n': 'Normal',           'i': 'Insert',          'R': 'Replace',
+    \ 'v': 'Visual',           'V': 'V·Line',          "\<c-v>": 'V·Block',
+    \ 's': 'Select',           'S': 'S·Line',          "\<c-s>": 'S·Block',
+    \ 'c': 'Command',          'r': 'Prompt',         't': 'Terminal',
+    \ '!': 'Shell'}
+  function! SetupStl(curwin) abort
+    return get(extend(w:, { 'lf_active': winnr() ==# a:curwin  }), '', '')
   endfunction
-  " ✎
-  function! MyModified(n)
-    let winnr = tabpagewinnr(a:n)
-    return gettabwinvar(a:n, winnr, '&modified') ? '✎' : gettabwinvar(a:n, winnr, '&modifiable') ? '' : ''
-  endfunction
-  " Display current filetype in tab name:
-  function! MyTabFiletype(n)
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    let buf = expand('#'.buflist[winnr - 1])
-    return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol(buf) : '') : ''
-  endfunction
-
-  " Display Current Filetype in Status Bar
-  function! MyFiletype()
-    return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() : '') : ''
-  endfunction
-
-  function! MyGitGutter()
-    if ! exists('*GitGutterGetHunkSummary')
-          \ || ! get(g:, 'gitgutter_enabled', 0)
-          \ || winwidth('.') <= 90
+  let g:dotfiles#combined#indicator_checking = "\uf110"
+  let g:dotfiles#combined#indicator_warnings = "\uf071\u2003"
+  let g:dotfiles#combined#indicator_errors = "\uf05e\u2003"
+  let g:dotfiles#combined#indicator_ok = "\uf00c"
+  function! Componetize(func,...) abort
+    let l:before = get(a:, 1, " ")
+    let l:after = get(a:, 2, " ")
+    let l:output = eval(a:func)
+    if l:output == ''
       return ''
     endif
-    let symbols = [
-          \ g:gitgutter_sign_added,
-          \ g:gitgutter_sign_modified,
-          \ g:gitgutter_sign_removed,
-          \ ]
-    let hunks = GitGutterGetHunkSummary()
-    let ret = []
-    for i in [0, 1, 2]
-      if hunks[i] > 0
-        call add(ret, symbols[i] . hunks[i])
-      endif
-    endfor
-    return join(ret, ' ')
+    return l:before.l:output.l:after
   endfunction
-"}}}
+  function! BuildStatus() abort
+    return '%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings')."#
+      \%{(w:['lf_active']?'  '.winnr().' ':'')}
+      \%1*
+      \ %{&mod?'◦':' '}%t\ 
+      \%2*%{(w:['lf_active'] && &rtp=~'gitdiff'? Componetize('lightline#gitdiff#get()','\u22EE ') :'')}
+      \%0*%=
+      \%1*\ %l:%c\ 
+      \%3*%{w:['lf_active'] ? Componetize('dotfiles#combined#warnings()') : ''}
+      \%4*%{w:['lf_active'] ? Componetize('dotfiles#combined#errors()', '  ') : ''}
+      \%5*%{w:['lf_active'] ? Componetize('dotfiles#combined#ok()', '', '  ') : ''}
+      \%#".get(g:lf_stlh, mode(), 'Warnings')."#
+      \%{w:['lf_active']
+      \?'  '.get(g:lf_stlm,mode(),mode()).(&paste?' PASTE ':' ')
+      \:''}%*"
+  endfunction
+  set laststatus=2
+  set statusline=%!BuildStatus()
+" }}}
+" Tabline {{{
+  function! BuildTabLabel(nr, active) abort
+    return (a:active ? '●' : a:nr).' '.fnamemodify(bufname(tabpagebuflist(a:nr)[tabpagewinnr(a:nr) - 1]), ":t:s/^$/[No Name]/").' '
+  endfunction
+
+  function! BuildTabLine() abort
+    return (tabpagenr('$') == 1 ? '' : join(map(
+      \ range(1, tabpagenr('$')),
+      \ '(v:val == tabpagenr() ? "%#TabLineSel#" : "%#TabLine#") . "%".v:val."T %{BuildTabLabel(".v:val.",".(v:val == tabpagenr()).")}"'
+      \ ), ''))
+      \ . "%#TabLineFill#%T%=⌘ %<%{&columns < 100 ? fnamemodify(getcwd(), ':t') : getcwd()} " . (tabpagenr('$') > 1 ? "%999X✕ " : "")
+  endfunction
+  set tabline=%!BuildTabLine()
+" }}}
+" Styles {{{
+  function! HighlightStatusline() abort
+    hi clear StatusLine
+    hi clear StatusLineNC
+    hi clear TabLineFill
+    hi clear TabLineSel
+    hi clear TabLine
+    highlight VisualMode  ctermbg=09 ctermfg=10 cterm=bold
+    highlight InsertMode  ctermbg=02 ctermfg=10 cterm=bold
+    highlight ReplaceMode ctermbg=01 ctermfg=10 cterm=bold
+    highlight CommandMode ctermbg=05 ctermfg=10 cterm=bold
+    highlight NormalMode  ctermbg=04 ctermfg=10 cterm=bold
+    highlight StatusLine term=NONE cterm=bold ctermbg=NONE ctermfg=10
+    highlight StatusLineNC ctermbg=NONE ctermfg=11 cterm=NONE
+    highlight User1 ctermbg=8 cterm=bold
+    highlight User2 ctermbg=8 cterm=NONE
+    highlight User3 ctermbg=3 ctermfg=10 cterm=NONE " Linter OK
+    highlight User4 ctermbg=1 ctermfg=10 cterm=NONE " Linter Error
+    highlight User5 ctermbg=4 ctermfg=10 cterm=NONE " Linter Warning
+    highlight TabLineFill ctermfg=11 ctermbg=NONE
+    highlight TabLineSel ctermbg=11 ctermfg=13 cterm=bold
+    highlight TabLine ctermbg=10 ctermfg=08
+  endfunction
+  augroup color-mode-switches
+    autocmd!
+    autocmd BufEnter * call HighlightStatusline()
+    autocmd ColorScheme * call HighlightStatusline()
+  augroup END
+" }}}
 " # vim:foldmethod=marker

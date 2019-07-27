@@ -48,8 +48,8 @@ Plug 'mattn/emmet-vim', { 'for': ['css', 'elm', 'haml', 'html', 'jade', 'less', 
 " File Viewers:
 Plug 'ryanoasis/vim-devicons' " Fancy filetype icons in statusbar
 " Statusline:
-Plug 'itchyny/lightline.vim' " Statusbar
-Plug 'maximbaz/lightline-ale' " Add linter status to lightline
+" Plug 'itchyny/lightline.vim' " Statusbar
+" Plug 'maximbaz/lightline-ale' " Add linter status to lightline
 Plug 'niklaas/lightline-gitdiff'
 " Linter:
 Plug 'w0rp/ale' " Linter support
