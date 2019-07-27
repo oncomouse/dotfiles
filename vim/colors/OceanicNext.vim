@@ -11,249 +11,197 @@
   endif
   let g:colors_name="OceanicNext"
 " }}}
-" {{{ Italics
-  let g:oceanic_next_terminal_italic = get(g:, 'oceanic_next_terminal_italic', 0)
-  let s:italic = ""
-  if g:oceanic_next_terminal_italic == 1
-    let s:italic = "italic"
-  endif
-"}}}
-" {{{ Bold
-  let g:oceanic_next_terminal_bold = get(g:, 'oceanic_next_terminal_bold', 0)
-  let s:bold = ""
-  if g:oceanic_next_terminal_bold == 1
-   let s:bold = "bold"
-  endif
-"}}}
-" {{{ Colors
-  let s:cterm00=['#1b2b34', '0']
-  let s:cterm10=['#343d46', '10']
-  let s:cterm11=['#4f5b66', '11']
-  let s:cterm08=['#65737e', '8']
-  let s:cterm12=['#a7adba', '12']
-  let s:cterm07a=['#c0c5ce', '7']
-  let s:cterm13=['#cdd3de', '13']
-  let s:cterm07=['#d8dee9', '7']
-  let s:cterm01=['#ec5f67', '1']
-  let s:cterm09=['#f99157', '9']
-  let s:cterm03=['#fac863', '3']
-  let s:cterm02=['#99c794', '2']
-  let s:cterm06=['#62b3b2', '6']
-  let s:cterm04=['#6699cc', '4']
-  let s:cterm05=['#c594c5', '5']
-  let s:cterm14=['#ab7967', '14']
-  let s:cterm15=['#ffffff', '15']
-  let s:none=['NONE', 'NONE']
+" {{{ call <sid>:hi(group, fg, bg cterm=gui
+hi Bold cterm='bold'
+hi Debug ctermfg=01
+hi Directory ctermfg=04
+hi ErrorMsg ctermfg=01 ctermbg=NONE
+hi Exception ctermfg=01
+hi FoldColumn ctermfg=04 ctermbg=NONE
+hi Folded ctermfg=08 ctermbg=00 cterm='italic'
+hi IncSearch ctermfg=10 ctermbg=09 cterm=NONE
+hi Italic cterm='italic'
 
-" }}}
-" {{{ Highlight function
-function! <sid>hi(group, fg, bg, attr)
-  " fg, bg, attr, attrsp
-  if !empty(a:fg)
-    exec "hi " . a:group . " guifg=" .  a:fg[0]
-    exec "hi " . a:group . " ctermfg=" . a:fg[1]
-  endif
-  if !empty(a:bg)
-    exec "hi " . a:group . " guibg=" .  a:bg[0]
-    exec "hi " . a:group . " ctermbg=" . a:bg[1]
-  endif
-  if a:attr != ""
-    exec "hi " . a:group . " gui=" .   a:attr
-    exec "hi " . a:group . " cterm=" . a:attr
-  endif
-endfunction
-" }}}
-" {{{ call <sid>:hi(group, fg, bg, gui)
-call <sid>hi('Bold',                       '',       '',       'bold')
-call <sid>hi('Debug',                      s:cterm01, '',       '')
-call <sid>hi('Directory',                  s:cterm04, '',       '')
-call <sid>hi('ErrorMsg',                   s:cterm01, s:none, '')
-call <sid>hi('Exception',                  s:cterm01, '',       '')
-call <sid>hi('FoldColumn',                 s:cterm04, s:none, '')
-call <sid>hi('Folded',                     s:cterm08, s:cterm00, s:italic)
-call <sid>hi('IncSearch',                  s:cterm10, s:cterm09, 'NONE')
-call <sid>hi('Italic',                     '',       '',       s:italic)
-
-call <sid>hi('Macro',                      s:cterm01, '',       '')
-call <sid>hi('MatchParen',                 s:cterm07a, s:cterm08, '')
-call <sid>hi('ModeMsg',                    s:cterm02, '',       '')
-call <sid>hi('MoreMsg',                    s:cterm02, '',       '')
-call <sid>hi('Question',                   s:cterm04, '',       '')
-call <sid>hi('Search',                     s:cterm08, s:cterm03, '')
-call <sid>hi('SpecialKey',                 s:cterm08, '',       '')
-call <sid>hi('TooLong',                    s:cterm01, '',       '')
-call <sid>hi('Underlined',                 s:cterm01, '',       '')
-call <sid>hi('Visual',                     '',       s:cterm11, '')
-call <sid>hi('VisualNOS',                  s:cterm01, '',       '')
-call <sid>hi('WarningMsg',                 s:cterm01, '',       '')
-call <sid>hi('WildMenu',                   s:cterm15, s:cterm04, '')
-call <sid>hi('Title',                      s:cterm04, '',       '')
-call <sid>hi('Conceal',                    s:cterm04, s:none, '')
-call <sid>hi('Cursor',                     s:cterm00, s:cterm07a, '')
-call <sid>hi('NonText',                    s:cterm08, '',       '')
-call <sid>hi('Normal',                     s:cterm07a, s:none, '')
-call <sid>hi('EndOfBuffer',                s:cterm07a, s:none, '')
-call <sid>hi('LineNr',                     s:cterm08, s:none, '')
-call <sid>hi('SignColumn',                 s:cterm00, s:none, '')
-call <sid>hi('StatusLine',                 s:cterm10, s:cterm08, 'NONE')
-call <sid>hi('StatusLineNC',               s:cterm08, s:cterm10, 'NONE')
-call <sid>hi('VertSplit',                  s:cterm00, s:cterm11, '')
-call <sid>hi('ColorColumn',                '',       s:cterm00, '')
-call <sid>hi('CursorColumn',               '',       s:cterm10, '')
-call <sid>hi('CursorLine',                 '',       s:cterm10, 'NONE')
-call <sid>hi('CursorLineNR',               s:cterm00, s:none, '')
-call <sid>hi('CursorLineNr',               s:cterm08, s:cterm10, '')
-call <sid>hi('PMenu',                      s:cterm12, s:cterm10, '')
-call <sid>hi('PMenuSel',                   s:cterm15, s:cterm04, '')
-call <sid>hi('PmenuSbar',                  '',       s:cterm11, '')
-call <sid>hi('PmenuThumb',                 '',       s:cterm07, '')
-call <sid>hi('TabLine',                    s:cterm08, s:cterm10, '')
-call <sid>hi('TabLineFill',                s:cterm08, s:cterm10, '')
-call <sid>hi('TabLineSel',                 s:cterm02, s:cterm10, '')
-call <sid>hi('helpExample',                s:cterm03, '',       '')
-call <sid>hi('helpCommand',                s:cterm03, '',       '')
+hi Macro ctermfg=01
+hi MatchParen ctermfg=07 ctermbg=08
+hi ModeMsg ctermfg=02
+hi MoreMsg ctermfg=02
+hi Question ctermfg=04
+hi Search ctermfg=08 ctermbg=03
+hi SpecialKey ctermfg=08
+hi TooLong ctermfg=01
+hi Underlined ctermfg=01
+hi Visual ctermbg=11
+hi VisualNOS ctermfg=01
+hi WarningMsg ctermfg=01
+hi WildMenu ctermfg=15 ctermbg=04
+hi Title ctermfg=04
+hi Conceal ctermfg=04 ctermbg=NONE
+hi Cursor ctermfg=00 ctermbg=07
+hi NonText ctermfg=08
+hi Normal ctermfg=07 ctermbg=NONE
+hi EndOfBuffer ctermfg=07 ctermbg=NONE
+hi LineNr ctermfg=08 ctermbg=NONE
+hi SignColumn ctermfg=00 ctermbg=NONE
+hi StatusLine ctermfg=10 ctermbg=08 cterm=NONE
+hi StatusLineNC ctermfg=08 ctermbg=10 cterm=NONE
+hi VertSplit ctermfg=00 ctermbg=11
+hi ColorColumn ctermbg=00
+hi CursorColumn ctermbg=11
+hi CursorLine ctermbg=10 cterm=NONE
+hi CursorLineNR ctermfg=00 ctermbg=NONE
+hi CursorLineNr ctermfg=08 ctermbg=10
+hi PMenu ctermfg=12 ctermbg=10
+hi PMenuSel ctermfg=15 ctermbg=04
+hi PmenuSbar ctermbg=11
+hi PmenuThumb ctermbg=07
+hi TabLine ctermfg=08 ctermbg=10
+hi TabLineFill ctermfg=08 ctermbg=10
+hi TabLineSel ctermfg=02 ctermbg=10
+hi helpExample ctermfg=03
+hi helpCommand ctermfg=03
 
 " Standard syntax highlighting
-call <sid>hi('Boolean',                    s:cterm09, '',       '')
-call <sid>hi('Character',                  s:cterm01, '',       '')
-call <sid>hi('Comment',                    s:cterm08, '',       s:italic)
-call <sid>hi('Conditional',                s:cterm05, '',       '')
-call <sid>hi('Constant',                   s:cterm09, '',       '')
-call <sid>hi('Define',                     s:cterm05, '',       '')
-call <sid>hi('Delimiter',                  s:cterm14, '',       '')
-call <sid>hi('Float',                      s:cterm09, '',       '')
-call <sid>hi('Function',                   s:cterm04, '',       '')
-call <sid>hi('Identifier',                 s:cterm06, '',       '')
-call <sid>hi('Include',                    s:cterm04, '',       '')
-call <sid>hi('Keyword',                    s:cterm05, '',       '')
-call <sid>hi('Label',                      s:cterm03, '',       '')
-call <sid>hi('Number',                     s:cterm09, '',       '')
-call <sid>hi('Operator',                   s:cterm07a, '',       '')
-call <sid>hi('PreProc',                    s:cterm03, '',       '')
-call <sid>hi('Repeat',                     s:cterm03, '',       '')
-call <sid>hi('Special',                    s:cterm06, '',       '')
-call <sid>hi('SpecialChar',                s:cterm14, '',       '')
-call <sid>hi('Statement',                  s:cterm01, '',       '')
-call <sid>hi('StorageClass',               s:cterm03, '',       '')
-call <sid>hi('String',                     s:cterm02, '',       '')
-call <sid>hi('Structure',                  s:cterm05, '',       '')
-call <sid>hi('Tag',                        s:cterm03, '',       '')
-call <sid>hi('Todo',                       s:cterm03, s:cterm10, '')
-call <sid>hi('Type',                       s:cterm03, '',       '')
-call <sid>hi('Typedef',                    s:cterm03, '',       '')
-call <sid>hi('Noise',                      s:cterm06,  '',       '')
+hi Boolean ctermfg=09
+hi Character ctermfg=01
+hi Comment ctermfg=08 cterm='italic'
+hi Conditional ctermfg=05
+hi Constant ctermfg=09
+hi Define ctermfg=05
+hi Delimiter ctermfg=14
+hi Float ctermfg=09
+hi Function ctermfg=04
+hi Identifier ctermfg=06
+hi Include ctermfg=04
+hi Keyword ctermfg=05
+hi Label ctermfg=03
+hi Number ctermfg=09
+hi Operator ctermfg=07
+hi PreProc ctermfg=03
+hi Repeat ctermfg=03
+hi Special ctermfg=06
+hi SpecialChar ctermfg=14
+hi Statement ctermfg=01
+hi StorageClass ctermfg=03
+hi String ctermfg=02
+hi Structure ctermfg=05
+hi Tag ctermfg=03
+hi Todo ctermfg=03 ctermbg=10
+hi Type ctermfg=03
+hi Typedef ctermfg=03
+hi Noise ctermfg=06
 
-call <sid>hi('SpellBad',                   '',       s:cterm11,'undercurl')
-call <sid>hi('SpellLocal',                 '',       '',       'undercurl')
-call <sid>hi('SpellCap',                   '',       s:cterm10,'undercurl')
-call <sid>hi('SpellRare',                  '',       '',       'undercurl')
+hi SpellBad ctermbg=11 cterm='undercurl'
+hi SpellLocal cterm='undercurl'
+hi SpellCap ctermbg=10 cterm='undercurl'
+hi SpellRare cterm='undercurl'
 
-call <sid>hi('csClass',                    s:cterm03, '',       '')
-call <sid>hi('csAttribute',                s:cterm03, '',       '')
-call <sid>hi('csModifier',                 s:cterm05, '',       '')
-call <sid>hi('csType',                     s:cterm01, '',       '')
-call <sid>hi('csUnspecifiedStatement',     s:cterm04, '',       '')
-call <sid>hi('csContextualStatement',      s:cterm05, '',       '')
-call <sid>hi('csNewDecleration',           s:cterm01, '',       '')
-call <sid>hi('cOperator',                  s:cterm06, '',       '')
-call <sid>hi('cPreCondit',                 s:cterm05, '',       '')
+hi csClass ctermfg=03
+hi csAttribute ctermfg=03
+hi csModifier ctermfg=05
+hi csType ctermfg=01
+hi csUnspecifiedStatement ctermfg=04
+hi csContextualStatement ctermfg=05
+hi csNewDecleration ctermfg=01
+hi cOperator ctermfg=06
+hi cPreCondit ctermfg=05
 
-call <sid>hi('cssColor',                   s:cterm06, '',       '')
-call <sid>hi('cssBraces',                  s:cterm07a, '',       '')
-call <sid>hi('cssClassName',               s:cterm05, '',       '')
+hi cssColor ctermfg=06
+hi cssBraces ctermfg=07
+hi cssClassName ctermfg=05
 
 
-call <sid>hi('DiffAdd',                    s:cterm02, s:cterm10, 'bold')
-call <sid>hi('DiffChange',                 s:cterm08, s:cterm10, '')
-call <sid>hi('DiffDelete',                 s:cterm01, s:cterm10, '')
-call <sid>hi('DiffText',                   s:cterm04, s:cterm10, '')
-call <sid>hi('DiffAdded',                  s:cterm15, s:cterm02, 'bold')
-call <sid>hi('DiffFile',                   s:cterm01, s:none, '')
-call <sid>hi('DiffNewFile',                s:cterm02, s:none, '')
-call <sid>hi('DiffLine',                   s:cterm04, s:none, '')
-call <sid>hi('DiffRemoved',                s:cterm15, s:cterm01, 'bold')
+hi DiffAdd ctermfg=02 ctermbg=10 cterm='bold'
+hi DiffChange ctermfg=08 ctermbg=10
+hi DiffDelete ctermfg=01 ctermbg=10
+hi DiffText ctermfg=04 ctermbg=10
+hi DiffAdded ctermfg=15 ctermbg=02 cterm='bold'
+hi DiffFile ctermfg=01 ctermbg=NONE
+hi DiffNewFile ctermfg=02 ctermbg=NONE
+hi DiffLine ctermfg=04 ctermbg=NONE
+hi DiffRemoved ctermfg=15 ctermbg=01 cterm='bold'
 
-" call <sid>hi('Error',                      s:cterm01, s:none,   'undercurl')
-" call <sid>hi('NvimInternalError',          s:cterm01, s:none,   '')
-" call <sid>hi('NvimInternalError',          s:cterm01, s:none,   '')
-call <sid>hi('gitCommitOverflow',          s:cterm01, '',       '')
-call <sid>hi('gitCommitSummary',           s:cterm02, '',       '')
+" hi Error ctermfg=01 ctermbg=NONE cterm='undercurl'
+" hi NvimInternalError ctermfg=01 ctermbg=NONE
+" hi NvimInternalError ctermfg=01 ctermbg=NONE
+hi gitCommitOverflow ctermfg=01
+hi gitCommitSummary ctermfg=02
 
-call <sid>hi('htmlBold',                   s:cterm03, '',       '')
-call <sid>hi('htmlItalic',                 s:cterm05, '',       '')
-call <sid>hi('htmlTag',                    s:cterm06, '',       '')
-call <sid>hi('htmlEndTag',                 s:cterm06, '',       '')
-call <sid>hi('htmlArg',                    s:cterm03, '',       '')
-call <sid>hi('htmlTagName',                s:cterm07, '',       '')
+hi htmlBold ctermfg=03
+hi htmlItalic ctermfg=05
+hi htmlTag ctermfg=06
+hi htmlEndTag ctermfg=06
+hi htmlArg ctermfg=03
+hi htmlTagName ctermfg=07
 
-call <sid>hi('jsGlobalObjects',            s:cterm09, '',       '')
-call <sid>hi('jsNumber',                   s:cterm09, '',       '')
-call <sid>hi('javaScriptBraces',           s:cterm07a, '',      '')
-call <sid>hi('jsFuncCall',                 s:cterm04, '',       '')
-call <sid>hi('jsStorageClass',             s:cterm05, '',       '')
+hi jsGlobalObjects ctermfg=09
+hi jsNumber ctermfg=09
+hi javaScriptBraces ctermfg=07
+hi jsFuncCall ctermfg=04
+hi jsStorageClass ctermfg=05
 
-call <sid>hi('markdownCode',               s:cterm02, '',       '')
-call <sid>hi('markdownCodeBlock',          s:cterm02, '',       '')
-call <sid>hi('markdownHeadingDelimiter',   s:cterm04, '',       '')
-call <sid>hi('markdownItalic',             s:cterm05, '',       s:italic)
-call <sid>hi('markdownBold',               s:cterm03, '',       s:bold)
-call <sid>hi('markdownCodeDelimiter',      s:cterm14, '',       s:italic)
-call <sid>hi('markdownError',              s:cterm07a, s:cterm00, '')
+hi markdownCode ctermfg=02
+hi markdownCodeBlock ctermfg=02
+hi markdownHeadingDelimiter ctermfg=04
+hi markdownItalic ctermfg=05 cterm='italic'
+hi markdownBold ctermfg=03 cterm='bold'
+hi markdownCodeDelimiter ctermfg=14 cterm='italic'
+hi markdownError ctermfg=07 ctermbg=00
 
-call <sid>hi('NeomakeErrorSign',           s:cterm01, s:none, '')
-call <sid>hi('NeomakeWarningSign',         s:cterm03, s:none, '')
-call <sid>hi('NeomakeInfoSign',            s:cterm15, s:none, '')
-call <sid>hi('NeomakeError',               s:cterm01, '',       'undercurl')
-call <sid>hi('NeomakeWarning',             s:cterm01, '',       'undercurl')
+hi NeomakeErrorSign ctermfg=01 ctermbg=NONE
+hi NeomakeWarningSign ctermfg=03 ctermbg=NONE
+hi NeomakeInfoSign ctermfg=15 ctermbg=NONE
+hi NeomakeError ctermfg=01 cterm='undercurl'
+hi NeomakeWarning ctermfg=01 cterm='undercurl'
 
-call <sid>hi('ALEErrorSign',               s:cterm01, s:none, s:bold)
-call <sid>hi('ALEWarningSign',             s:cterm03, s:none, s:bold)
-call <sid>hi('ALEInfoSign',                s:cterm15, s:none, s:bold)
+hi ALEErrorSign ctermfg=01 ctermbg=NONE cterm='bold'
+hi ALEWarningSign ctermfg=03 ctermbg=NONE cterm='bold'
+hi ALEInfoSign ctermfg=15 ctermbg=NONE cterm='bold'
 
-call <sid>hi('NERDTreeExecFile',           s:cterm07a, '',       '')
-call <sid>hi('NERDTreeDirSlash',           s:cterm04, '',       '')
-call <sid>hi('NERDTreeOpenable',           s:cterm04, '',       '')
-call <sid>hi('NERDTreeFile',               '',       s:none,   '')
-call <sid>hi('NERDTreeFlags',              s:cterm04, '',       '')
+hi NERDTreeExecFile ctermfg=07
+hi NERDTreeDirSlash ctermfg=04
+hi NERDTreeOpenable ctermfg=04
+hi NERDTreeFile ctermbg=NONE
+hi NERDTreeFlags ctermfg=04
 
-call <sid>hi('phpComparison',              s:cterm07a, '',       '')
-call <sid>hi('phpParent',                  s:cterm07a, '',       '')
-call <sid>hi('phpMemberSelector',          s:cterm07a, '',       '')
+hi phpComparison ctermfg=07
+hi phpParent ctermfg=07
+hi phpMemberSelector ctermfg=07
 
-call <sid>hi('pythonRepeat',               s:cterm05, '',       '')
-call <sid>hi('pythonOperator',             s:cterm05, '',       '')
+hi pythonRepeat ctermfg=05
+hi pythonOperator ctermfg=05
 
-call <sid>hi('rubyConstant',               s:cterm03, '',       '')
-call <sid>hi('rubySymbol',                 s:cterm02, '',       '')
-call <sid>hi('rubyAttribute',              s:cterm04, '',       '')
-call <sid>hi('rubyInterpolation',          s:cterm02, '',       '')
-call <sid>hi('rubyInterpolationDelimiter', s:cterm14, '',       '')
-call <sid>hi('rubyStringDelimiter',        s:cterm02, '',       '')
-call <sid>hi('rubyRegexp',                 s:cterm06, '',       '')
+hi rubyConstant ctermfg=03
+hi rubySymbol ctermfg=02
+hi rubyAttribute ctermfg=04
+hi rubyInterpolation ctermfg=02
+hi rubyInterpolationDelimiter ctermbg=14
+hi rubyStringDelimiter ctermfg=02
+hi rubyRegexp ctermfg=06
 
-call <sid>hi('sassidChar',                 s:cterm01, '',       '')
-call <sid>hi('sassClassChar',              s:cterm09, '',       '')
-call <sid>hi('sassInclude',                s:cterm05, '',       '')
-call <sid>hi('sassMixing',                 s:cterm05, '',       '')
-call <sid>hi('sassMixinName',              s:cterm04, '',       '')
+hi sassidChar ctermfg=01
+hi sassClassChar ctermfg=09
+hi sassInclude ctermfg=05
+hi sassMixing ctermfg=05
+hi sassMixinName ctermfg=04
 
-call <sid>hi('vimfilerLeaf',               s:cterm07a, '',       '')
-call <sid>hi('vimfilerNormalFile',         s:cterm07a, s:none, '')
-call <sid>hi('vimfilerOpenedFile',         s:cterm04, '',       '')
-call <sid>hi('vimfilerClosedFile',         s:cterm04, '',       '')
+hi vimfilerLeaf ctermfg=07
+hi vimfilerNormalFile ctermfg=07 ctermbg=NONE
+hi vimfilerOpenedFile ctermfg=04
+hi vimfilerClosedFile ctermfg=04
 
-call <sid>hi('GitGutterAdd',               s:cterm02, s:none, s:bold)
-call <sid>hi('GitGutterChange',            s:cterm04, s:none, s:bold)
-call <sid>hi('GitGutterDelete',            s:cterm01, s:none, s:bold)
-call <sid>hi('GitGutterChangeDelete',      s:cterm05, s:none, s:bold)
+hi GitGutterAdd ctermfg=02 ctermbg=NONE cterm='bold'
+hi GitGutterChange ctermfg=04 ctermbg=NONE cterm='bold'
+hi GitGutterDelete ctermfg=01 ctermbg=NONE cterm='bold'
+hi GitGutterChangeDelete ctermfg=05 ctermbg=NONE cterm='bold'
 
-call <sid>hi('SignifySignAdd',             s:cterm02, s:none, s:bold)
-call <sid>hi('SignifySignChange',          s:cterm04, s:none, s:bold)
-call <sid>hi('SignifySignDelete',          s:cterm01, s:none, s:bold)
-call <sid>hi('SignifySignChangeDelete',    s:cterm05, s:none, s:bold)
-call <sid>hi('SignifySignDeleteFirstLine', s:cterm01, s:none, s:bold)
+hi SignifySignAdd ctermfg=02 ctermbg=NONE cterm='bold'
+hi SignifySignChange ctermfg=04 ctermbg=NONE cterm='bold'
+hi SignifySignDelete ctermfg=01 ctermbg=NONE cterm='bold'
+hi SignifySignChangeDelete ctermfg=05 ctermbg=NONE cterm='bold'
+hi SignifySignDeleteFirstLine ctermbg=01 ctermbg=NONE cterm='bold'
 
-call <sid>hi('xmlTag',                     s:cterm06, '',       '')
-call <sid>hi('xmlTagName',                 s:cterm07a, '',       '')
-call <sid>hi('xmlEndTag',                  s:cterm06, '',       '')
+hi xmlTag ctermfg=06
+hi xmlTagName ctermfg=07
+hi xmlEndTag ctermfg=06
 " }}}
