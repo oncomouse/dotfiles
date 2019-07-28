@@ -116,16 +116,19 @@ hi gitCommitSummary ctermfg=02
 
 hi htmlBold ctermfg=03
 hi htmlItalic ctermfg=05
-hi htmlTag ctermfg=06
-hi htmlEndTag ctermfg=06
-hi htmlArg ctermfg=03
-hi htmlTagName ctermfg=07
+hi link htmlTag Noise
+hi link htmlEndTag Noise
+hi htmlArg ctermfg=09
+hi htmlTagName ctermfg=01
 
 hi jsGlobalObjects ctermfg=09
 hi jsNumber ctermfg=09
 hi jsBraces ctermfg=07
 hi jsFuncCall ctermfg=04
 hi jsStorageClass ctermfg=05
+hi link jsxAttrib htmlArg
+hi link jsxComponentName htmlTagName
+hi link jsxEndComponentName htmlTagName
 
 hi markdownCode ctermfg=02
 hi markdownCodeBlock ctermfg=02
