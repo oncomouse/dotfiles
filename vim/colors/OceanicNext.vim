@@ -17,7 +17,7 @@ hi Directory ctermfg=04
 hi ErrorMsg ctermfg=01 ctermbg=NONE
 hi Exception ctermfg=01
 hi FoldColumn ctermfg=04 ctermbg=NONE
-hi Folded ctermfg=08 ctermbg=00 cterm='italic'
+hi Folded ctermfg=08 ctermbg=10 cterm='italic'
 hi IncSearch ctermfg=10 ctermbg=09 cterm=NONE
 hi Italic cterm='italic'
 
@@ -45,7 +45,7 @@ hi SignColumn ctermfg=00 ctermbg=NONE
 hi StatusLine ctermfg=10 ctermbg=08 cterm=NONE
 hi StatusLineNC ctermfg=08 ctermbg=10 cterm=NONE
 hi VertSplit ctermfg=00 ctermbg=11
-hi ColorColumn ctermbg=00
+hi ColorColumn ctermbg=10
 hi CursorColumn ctermbg=11
 hi CursorLine ctermbg=10 cterm=NONE
 hi CursorLineNR ctermfg=00 ctermbg=NONE
@@ -133,7 +133,7 @@ hi markdownHeadingDelimiter ctermfg=04
 hi markdownItalic ctermfg=05 cterm='italic'
 hi markdownBold ctermfg=03 cterm='bold'
 hi markdownCodeDelimiter ctermfg=14 cterm='italic'
-hi markdownError ctermfg=07 ctermbg=00
+hi markdownError ctermfg=07 ctermbg=10
 
 hi pythonRepeat ctermfg=05
 hi pythonOperator ctermfg=05
