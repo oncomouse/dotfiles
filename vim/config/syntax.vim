@@ -13,14 +13,17 @@ augroup END
 " vim-jsx-pretty {{{
   let g:vim_jsx_pretty_colorful_config = 1
 " }}}
-" Line Indent Colors {{{
-  let g:indent_guides_enable_on_vim_startup = 1
-  let g:indent_guides_auto_colors = 0
-  augroup indent-colors
-    autocmd!
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1B2B34 ctermbg=NONE
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1C313D ctermbg=0
-  augroup END
+" Line Indent {{{
+  let g:indentLine_setColors = 1
+  let g:indentLine_char = "\u22EE"
+  let g:indentLine_color_term = 11
+  " let g:indent_guides_enable_on_vim_startup = 1
+  " let g:indent_guides_auto_colors = 0
+  " augroup indent-colors
+  "   autocmd!
+  "   autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1B2B34 ctermbg=NONE
+  "   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1C313D ctermbg=0
+  " augroup END
 " }}}
 " Rainbow Parentheses {{{
   let g:rainbow_active = 1

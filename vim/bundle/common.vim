@@ -4,7 +4,8 @@ Plug 'xero/securemodelines' " Secure modelines
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
 " Plug 'easymotion/vim-easymotion' " <leader><leader><motion key> for fast motion
 Plug 'tpope/vim-surround' " Change surrounding characters, see cheat sheet
-Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesEnable to see indentation guides
+" Plug 'nathanaelkane/vim-indent-guides' " :IndentGuidesEnable to see indentation guides
+Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-repeat' " Repeat plugin commands
 Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
 Plug 'airblade/vim-rooter' " Set project root
