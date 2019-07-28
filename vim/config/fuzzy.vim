@@ -44,10 +44,10 @@ let g:fzf_colors =
   " nnoremap <silent> <leader>ft :Filetypes<CR>
   
   " Access yank history:
-  let g:neoyank#file = $HOME.'/.vim/yankring.txt'
-  nnoremap <leader>rr :FZFNeoyank *<cr>
-  nnoremap <leader>RR :FZFNeoyank * P<cr>
-  vnoremap <leader>rr :FZFNeoyankSelection<cr>
+  " let g:neoyank#file = $HOME.'/.vim/yankring.txt'
+  " nnoremap <leader>rr :FZFNeoyank *<cr>
+  " nnoremap <leader>RR :FZFNeoyank * P<cr>
+  " vnoremap <leader>rr :FZFNeoyankSelection<cr>
   " Complete file name:
   imap <C-x><C-f> <plug>(fzf-complete-file-ag)
   " Complete file line:
