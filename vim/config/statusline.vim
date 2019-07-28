@@ -5,6 +5,11 @@ let g:nerdfonts = get(g:, "nerdfonts", 1)
   let g:lightline#gitdiff#indicator_deleted = '✖'
   let g:lightline#gitdiff#indicator_modified = '…'
   let g:lightline#gitdiff#separator = ' ' 
+  " Patches for bad buffers:
+  augroup gitdiff-no-bufread
+    autocmd CmdwinEnter * let g:lightline#gitdiff#cache[bufnr('%')]={}
+    autocmd FileType netrw let g:lightline#gitdiff#cache[bufnr('%')]={}
+  augroup END
 " }}}
 " Linter Status {{{
   let g:dotfiles#combined#indicator_checking = "\uf110"
