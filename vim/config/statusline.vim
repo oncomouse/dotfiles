@@ -65,9 +65,15 @@ let g:nerdfonts = get(g:, "nerdfonts", 1)
 " }}}
 " Tabline {{{
   function! BuildTabLabel(nr, active) abort
-    return (a:active ? '●' : a:nr).' '.fnamemodify(bufname(tabpagebuflist(a:nr)[tabpagewinnr(a:nr) - 1]), ":t:s/^$/[No Name]/").' '
+    return a:nr.' '.fnamemodify(bufname(tabpagebuflist(a:nr)[tabpagewinnr(a:nr) - 1]), ":t:s/^$/[No Name]/").TabModified(a:nr).' '
   endfunction
 
+  function! TabModified(nr)
+    let l:winnr = tabpagewinnr(a:nr)
+    let l:modified = g:nerdfonts ? '✎ ' : '●'
+    let l:readonly = g:nerdfonts ? ' ' : 'ro'
+    return gettabwinvar(a:nr, l:winnr, '&modified') ? l:modified : gettabwinvar(a:nr, l:winnr, '&modifiable') ? '' : l:readonly
+  endfunction
   function! BuildTabLine() abort
     return (tabpagenr('$') == 1 ? '' : join(map(
       \ range(1, tabpagenr('$')),
