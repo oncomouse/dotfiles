@@ -28,8 +28,8 @@ augroup END
 " Rainbow Parentheses {{{
   let g:rainbow_active = 1
   let g:rainbow_conf = {
-  \ 'guifgs': ['#F99157', '#EC5f67', '#C594C5', '#5FB3B3', '#6699CC', '#FAC863', '#99C794', '#AB7967'],
-  \ 'ctermfgs': [5, 4, 6, 9, 14, 2, 1],
+  \ 'guifgs': ['#C594C5', '#FAC863','#6699CC','#5FB3B3','#F99157','#AB7967','#99C794','#EC5f67'],
+  \ 'ctermfgs': [5, 3, 4, 6, 9, 14, 2, 1],
   \ 'separately': {
   \   '*': {},
   \   'markdown': {
@@ -126,7 +126,6 @@ augroup END
   augroup line-numbers
     set number relativenumber
     autocmd!
-    autocmd BufEnter,WinEnter * setlocal nonumber norelativenumber
     " autocmd BufEnter,WinEnter * if &filetype=='pandoc' || &filetype=='text'|setlocal nonumber norelativenumber|endif
     if has('nvim')
       autocmd TermOpen * setlocal nonumber norelativenumber
