@@ -126,7 +126,8 @@ augroup END
   augroup line-numbers
     set number relativenumber
     autocmd!
-    autocmd BufEnter,WinEnter * if &filetype=='pandoc' || &filetype=='text'|setlocal nonumber norelativenumber|endif
+    autocmd BufEnter,WinEnter * setlocal nonumber norelativenumber
+    " autocmd BufEnter,WinEnter * if &filetype=='pandoc' || &filetype=='text'|setlocal nonumber norelativenumber|endif
     if has('nvim')
       autocmd TermOpen * setlocal nonumber norelativenumber
     endif
