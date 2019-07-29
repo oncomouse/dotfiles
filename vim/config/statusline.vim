@@ -12,10 +12,10 @@ let g:nerdfonts = get(g:, "nerdfonts", 1)
   augroup END
 " }}}
 " Linter Status {{{
-  let g:dotfiles#combined#indicator_checking = "\uf110"
-  let g:dotfiles#combined#indicator_warnings = g:nerdfonts ? "\uf071\u2003" : "W: "
-  let g:dotfiles#combined#indicator_errors = g:nerdfonts ? "\uf05e\u2003" : "E: "
-  let g:dotfiles#combined#indicator_ok = g:nerdfonts ? "\uf00c" : "Ok"
+  let g:dotfiles#ale#indicator_checking = "\uf110"
+  let g:dotfiles#ale#indicator_warnings = g:nerdfonts ? "\uf071\u2003" : "W: "
+  let g:dotfiles#ale#indicator_errors = g:nerdfonts ? "\uf05e\u2003" : "E: "
+  let g:dotfiles#ale#indicator_ok = g:nerdfonts ? "\uf00c" : "Ok"
 " }}}
 " Statusline {{{
   function! Componetize(func,...) abort
@@ -54,9 +54,10 @@ let g:nerdfonts = get(g:, "nerdfonts", 1)
       \%2*%{(w:['lf_active'] && &rtp=~'gitdiff'? Componetize('lightline#gitdiff#get()','\u22EE ') :'')}
       \%0*%=
       \%1*\ %l:%c\ 
-      \%3*%{w:['lf_active'] ? Componetize('dotfiles#combined#warnings()') : ''}
-      \%4*%{w:['lf_active'] ? Componetize('dotfiles#combined#errors()', '  ') : ''}
-      \%5*%{w:['lf_active'] ? Componetize('dotfiles#combined#ok()', '', '  ') : ''}
+      \%3*%{w:['lf_active'] ? Componetize('dotfiles#ale#warnings()') : ''}
+      \%4*%{w:['lf_active'] ? Componetize('dotfiles#ale#errors()', '  ') : ''}
+      \%5*%{w:['lf_active'] ? Componetize('dotfiles#ale#ok()', '', '  ') : ''}
+      \%5*%{w:['lf_active'] ? Componetize('dotfiles#ale#checking()', '', '  ') : ''}
       \%#".get(g:lf_stlh, mode(), 'Warnings')."#
       \%{w:['lf_active']
       \?'  '.get(g:lf_stlm,mode(),mode()).' '
