@@ -83,35 +83,6 @@ let g:nerdfonts = get(g:, "nerdfonts", 1)
       \ . "%#TabLineFill#%T%=⌘ %<%{&columns < 100 ? fnamemodify(getcwd(), ':t') : getcwd()} " . (tabpagenr('$') > 1 ? "%999X✕ " : "")
   endfunction
 " }}}
-" Styles {{{
-  function! HighlightStatusline() abort
-    hi clear StatusLine
-    hi clear StatusLineNC
-    hi clear TabLineFill
-    hi clear TabLineSel
-    hi clear TabLine
-    highlight VisualMode  ctermbg=09 ctermfg=10 cterm=bold
-    highlight InsertMode  ctermbg=02 ctermfg=10 cterm=bold
-    highlight ReplaceMode ctermbg=01 ctermfg=10 cterm=bold
-    highlight CommandMode ctermbg=05 ctermfg=10 cterm=bold
-    highlight NormalMode  ctermbg=04 ctermfg=10 cterm=bold
-    highlight StatusLine term=NONE cterm=bold ctermbg=NONE ctermfg=10
-    highlight StatusLineNC ctermbg=NONE ctermfg=11 cterm=NONE
-    highlight User1 ctermbg=8 cterm=bold
-    highlight User2 ctermbg=8 cterm=NONE
-    highlight User3 ctermbg=3 ctermfg=10 cterm=NONE " Linter OK
-    highlight User4 ctermbg=1 ctermfg=10 cterm=NONE " Linter Error
-    highlight User5 ctermbg=4 ctermfg=10 cterm=NONE " Linter Warning
-    highlight TabLineFill ctermfg=11 ctermbg=NONE
-    highlight TabLineSel ctermbg=11 ctermfg=13 cterm=bold
-    highlight TabLine ctermbg=10 ctermfg=08
-  endfunction
-  augroup color-mode-switches
-    autocmd!
-    autocmd BufEnter * call HighlightStatusline()
-    autocmd ColorScheme * call HighlightStatusline()
-  augroup END
-" }}}
 set laststatus=2
 set statusline=%!BuildStatus()
 set tabline=%!BuildTabLine()
