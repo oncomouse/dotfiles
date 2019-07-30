@@ -56,7 +56,7 @@
   call <sid>hi('CommandMode',s:cterm10,s:cterm05,'bold')
   call <sid>hi('NormalMode',s:cterm10,s:cterm04,'bold')
   call <sid>hi('StatusLine',s:cterm10,s:ctermNONE,'NONE')
-  call <sid>hi('StatusLineNC', s:cterm11,s:ctermNONE, 'NONE')
+  call <sid>hi('StatusLineNC', s:cterm11,s:cterm10, 'NONE')
   call <sid>hi('User1', '', s:cterm08, 'bold')
   call <sid>hi('User2', '', s:cterm08, 'NONE')
   call <sid>hi('User3', s:cterm10, s:cterm03, 'NONE')
