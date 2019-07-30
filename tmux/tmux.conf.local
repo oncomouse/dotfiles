@@ -302,3 +302,4 @@ set -g visual-bell off
 
 # move status line to top
 #set -g status-position top
+# vim: set syntax=tmux
