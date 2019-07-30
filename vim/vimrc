@@ -24,5 +24,4 @@ for file in configs
 endfor
 " Disable polyglot for all the syntaxes we already use:
 let g:polyglot_disabled = dotfiles#polyglot#overrides()
-" CmdwinEnter
 " # vim:foldmethod=marker
