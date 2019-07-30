@@ -39,8 +39,6 @@ Plug 'reedes/vim-textobj-sentence', { 'for': ['pandoc', 'markdown', 'text'] } " 
 " Web Development:
 Plug 'chrisbra/Colorizer', { 'for': ['html', 'javascript.jsx', 'javascript', 'css', 'scss'] }
 Plug 'mattn/emmet-vim', { 'for': ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim'] }
-" File Viewers:
-Plug 'ryanoasis/vim-devicons' " Fancy filetype icons in statusbar
 " Statusline:
 Plug 'niklaas/lightline-gitdiff' " Though we don't use lightline, this generates git info for our statusline
 " Linter:
