@@ -11,11 +11,17 @@
   let g:colors_name="OceanicNext"
 " }}}
 " System Colors{{{
-  let s:kitty_colors = eval(system('fish -c kitty-colors'))
+  if &termguicolors == 1
+    let s:kitty_colors = eval(system('fish -c kitty-colors'))
+  endif
   let s:i = 0
   while s:i < len(s:kitty_colors)
-    execute 'let s:cterm'.printf('%02d', s:i).'=["'.printf('%02d', s:i)'", "'.s:kitty_colors[s:i].'"]'
-    execute 'let g:terminal_color_'.s:i.'="'.s:kitty_colors[s:i].'"'
+    if &termguicolors == 1
+      execute 'let s:cterm'.printf('%02d', s:i).'=["'.printf('%02d', s:i).'", "'.s:kitty_colors[s:i].'"]'
+      execute 'let g:terminal_color_'.s:i.'="'.s:kitty_colors[s:i].'"'
+    else
+      execute 'let s:cterm'.printf('%02d', s:i).'=["'.printf('%02d', s:i).'"]'
+    endif
     let s:i += 1
   endwhile
   let s:ctermNONE = ['NONE', 'NONE']
@@ -25,15 +31,21 @@
     " fg, bg, attr, attrsp
     if !empty(a:fg)
       exec "hi " . a:group . " ctermfg=" . a:fg[0]
-      exec "hi " . a:group . " guifg=" .  a:fg[1]
+      if &termguicolors == 1
+        exec "hi " . a:group . " guifg=" .  a:fg[1]
+      endif
     endif
     if !empty(a:bg)
       exec "hi " . a:group . " ctermbg=" . a:bg[0]
-      exec "hi " . a:group . " guibg=" .  a:bg[1]
+      if &termguicolors == 1
+        exec "hi " . a:group . " guibg=" .  a:bg[1]
+      endif
     endif
     if a:attr != ""
-      exec "hi " . a:group . " gui=" .   a:attr
       exec "hi " . a:group . " cterm=" . a:attr
+      if &termguicolors == 1
+        exec "hi " . a:group . " gui=" .   a:attr
+      endif
     endif
   endfunction
 " }}}
