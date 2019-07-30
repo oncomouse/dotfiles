@@ -14,7 +14,6 @@ syntax on
 " Basic Vim settings:
 set mouse=a
 set clipboard=unnamed
-set autoread
 set vb t_vb=
 set autowrite
 set hidden " turn off buffer saving when switching

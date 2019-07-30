@@ -83,7 +83,6 @@ let g:nerdfonts = get(g:, "nerdfonts", 1)
       \ . "%#TabLineFill#%T%=⌘ %<%{&columns < 100 ? fnamemodify(getcwd(), ':t') : getcwd()} " . (tabpagenr('$') > 1 ? "%999X✕ " : "")
   endfunction
 " }}}
-set laststatus=2
 set statusline=%!BuildStatus()
 set tabline=%!BuildTabLine()
 " # vim:foldmethod=marker
