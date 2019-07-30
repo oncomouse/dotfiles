@@ -4,8 +4,8 @@ Plug 'tpope/vim-sensible' " Good settings
 Plug 'guns/xterm-color-table.vim'
 Plug 'xero/securemodelines' " Secure modelines
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
-Plug 'tpope/vim-surround' " Change surrounding characters, see cheat sheet
 Plug 'Yggdroot/indentLine' " Indent with characters
+Plug 'tpope/vim-surround' " Change surrounding characters, see cheat sheet
 Plug 'tpope/vim-repeat' " Repeat plugin commands
 Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
 Plug 'airblade/vim-rooter' " Set project root
