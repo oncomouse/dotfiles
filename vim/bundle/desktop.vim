@@ -5,10 +5,6 @@ Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " SCSS
 " Other Syntax:
 Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
-Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' } " Clojure support
-Plug 'vim-python/python-syntax', { 'for': 'python' }
-Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
-Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
 " Plug 'ericpruitt/tmux.vim', {'rtp': 'vim/'}
 " Plug 'stephpy/vim-yaml', { 'for': 'yaml' } " YAML
@@ -26,11 +22,10 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-Plug 'Shougo/neco-syntax'
-Plug 'wellle/tmux-complete.vim'
-Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
-Plug 'Shougo/neco-vim', { 'for': 'vim' }
-Plug 'ponko2/deoplete-fish', { 'for': 'fish' }
+" Plug 'Shougo/neco-syntax' " Guess suggestions based on syntax
+Plug 'wellle/tmux-complete.vim' " Read from other Tmux splits
+Plug 'Shougo/neco-vim', { 'for': 'vim' } " Deoplete source for vim
+Plug 'ponko2/deoplete-fish', { 'for': 'fish' } " Deoplete source for fish
 " Writing:
 Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
 Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
@@ -40,17 +35,14 @@ Plug 'reedes/vim-lexical', { 'for': ['pandoc', 'markdown', 'text'] } " Better sp
 Plug 'reedes/vim-litecorrect' " Add autocorrections for boneheaded typos
 Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
 Plug 'reedes/vim-textobj-sentence', { 'for': ['pandoc', 'markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
-Plug 'junegunn/vim-easy-align' " ga will align blocks to indicated character
+" Plug 'junegunn/vim-easy-align' " ga will align blocks to indicated character
 " Web Development:
 Plug 'chrisbra/Colorizer', { 'for': ['html', 'javascript.jsx', 'javascript', 'css', 'scss'] }
-Plug 'maksimr/vim-jsbeautify', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mattn/emmet-vim', { 'for': ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim'] }
 " File Viewers:
 Plug 'ryanoasis/vim-devicons' " Fancy filetype icons in statusbar
 " Statusline:
-" Plug 'itchyny/lightline.vim' " Statusbar
-" Plug 'maximbaz/lightline-ale' " Add linter status to lightline
-Plug 'niklaas/lightline-gitdiff'
+Plug 'niklaas/lightline-gitdiff' " Though we don't use lightline, this generates git info for our statusline
 " Linter:
 Plug 'w0rp/ale' " Linter support
 " Clojure:
@@ -59,3 +51,9 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' } " REPL for Clojure
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'guns/vim-sexp', { 'for': ['clojure', 'lisp', 'scheme'] } " Better slurp / barf
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['clojure', 'lisp', 'scheme'] } " >) <) >( <) to move parentheses
+Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' } " Clojure support
+" Python:
+Plug 'vim-python/python-syntax', { 'for': 'python' }
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
+Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] } " Deoplete source for Python
