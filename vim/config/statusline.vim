@@ -49,7 +49,7 @@ let g:nerdfonts = get(g:, "nerdfonts", 1)
     return '%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings')."#
       \%{(w:['lf_active']?'  '.winnr().' ':'')}
       \%1*
-      \ %{&mod?'◦':' '}%t
+      \ %{&mod?'◦':''}%t
       \%2*%{(&paste ? g:nerdfonts ? '\uf0ea  ':' (paste) ':' ')}
       \%2*%{(w:['lf_active'] && &rtp=~'gitdiff'? Componetize('lightline#gitdiff#get()','\u22EE ') :'')}
       \%0*%=
