@@ -15,7 +15,7 @@
     let s:kitty_colors = eval(system('fish -c kitty-colors'))
   endif
   let s:i = 0
-  while s:i < len(s:kitty_colors)
+  while s:i < 16
     if &termguicolors == 1
       execute 'let s:cterm'.printf('%02d', s:i).'=["'.printf('%02d', s:i).'", "'.s:kitty_colors[s:i].'"]'
       execute 'let g:terminal_color_'.s:i.'="'.s:kitty_colors[s:i].'"'
@@ -66,6 +66,7 @@
   call <sid>hi('TabLineSel',s:cterm13,s:cterm11,'bold')
   call <sid>hi('TabLine', s:cterm08, s:cterm10, '')
 " }}}
+"
 " Basics {{{
 call <sid>hi('Bold','','','bold')
 call <sid>hi('Debug',s:cterm01,'','')
