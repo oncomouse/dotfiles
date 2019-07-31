@@ -18,13 +18,35 @@
   while s:i < 16
     if &termguicolors == 1
       execute 'let s:cterm'.printf('%02d', s:i).'=["'.printf('%02d', s:i).'", "'.s:kitty_colors[s:i].'"]'
-      execute 'let g:terminal_color_'.s:i.'="'.s:kitty_colors[s:i].'"'
     else
       execute 'let s:cterm'.printf('%02d', s:i).'=["'.printf('%02d', s:i).'"]'
     endif
     let s:i += 1
   endwhile
+
   let s:ctermNONE = ['NONE', 'NONE']
+  if has('nvim')
+    let g:terminal_color_0=s:cterm00[1]
+    let g:terminal_color_1=s:cterm01[1]
+    let g:terminal_color_2=s:cterm02[1]
+    let g:terminal_color_3=s:cterm03[1]
+    let g:terminal_color_4=s:cterm04[1]
+    let g:terminal_color_5=s:cterm05[1]
+    let g:terminal_color_6=s:cterm06[1]
+    let g:terminal_color_7=s:cterm07[1]
+    let g:terminal_color_8=s:cterm00[1]
+    let g:terminal_color_9=s:cterm01[1]
+    let g:terminal_color_10=s:cterm02[1]
+    let g:terminal_color_11=s:cterm03[1]
+    let g:terminal_color_12=s:cterm04[1]
+    let g:terminal_color_13=s:cterm05[1]
+    let g:terminal_color_14=s:cterm06[1]
+    let g:terminal_color_15=s:cterm07[1]
+    let g:terminal_color_16=s:cterm09[1]
+    let g:terminal_color_17=s:cterm14[1]
+    let g:terminal_color_foreground=s:cterm07[1]
+    let g:terminal_color_background=s:cterm00[1]
+  endif
 " }}}
 " Color Function {{{
   function! <sid>hi(group, fg, bg, attr)
