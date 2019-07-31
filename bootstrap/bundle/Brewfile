@@ -75,4 +75,4 @@ cask "karabiner-elements"
 # cask "nextcloud"
 # cask "iterm2"
 # cask "slack"
-# vim:syntax=conf
+# vim: filetype=octothrope-comment syntax=conf 
