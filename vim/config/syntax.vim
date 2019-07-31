@@ -2,10 +2,6 @@
 " General VIM {{{
   " Insert a semicolon at the end of the line with <leader>;
   let g:python_highlight_all = 1
-  augroup brewfile-commentary
-    autocmd!
-    autocmd FileType octothrope-comment setlocal commentstring=#\ %s
-  augroup END
 " }}}
 " Folding {{{
 augroup custom-folds
