@@ -39,6 +39,7 @@
   Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
       \ 'do': 'bash install.sh; npm i -g vscode-json-languageserver-bin vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server',
+      \ 'for': ['json', 'html', 'css', 'scss', 'sass', 'javascript', 'reason' ],
       \ }
   if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }

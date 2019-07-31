@@ -32,7 +32,7 @@
   set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
   augroup lsp-format-on-save
     autocmd!
-    autocmd BufWritePre * :call LanguageClient#textDocument_formatting_sync()
+    autocmd BufWritePre javascript,css,scss,sass,reason,html,json :call LanguageClient#textDocument_formatting_sync()
   augroup END
 " }}}
 " Vim-Go Support {{{
