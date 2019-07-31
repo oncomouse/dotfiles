@@ -60,6 +60,7 @@ brew "pandoc-citeproc"
 brew "tree"
 brew "wget"
 
+cask "font-dejavusansmono-nerd-font-mono"
 cask "font-firacode-nerd-font"
 cask "seafile-client"
 cask "flux"
@@ -74,3 +75,4 @@ cask "karabiner-elements"
 # cask "nextcloud"
 # cask "iterm2"
 # cask "slack"
+# vim:syntax=conf
