@@ -1,2 +1,3 @@
 brew "dnsmasq"
 brew "dnscrypt-proxy"
+# vim:ft=conf
