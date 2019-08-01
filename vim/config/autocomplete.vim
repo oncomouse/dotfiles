@@ -25,18 +25,14 @@
   " let g:LanguageClient_loggingLevel='DEBUG'
   " let g:LanguageClient_serverStderr=expand('~/lsp-server.log')
   " let g:LanguageClient_loggingFile = expand('~/lsp-client.log')
-  let g:lsp_started = {}
-  function! s:start_lsp(server_executable, ...) abort
-    if has_key(g:lsp_started, a:server_executable)
-      return
-    endif
-    let g:lsp_started[a:server_executable] = 1
-    call jobstart ( a:server_executable, { 'detach' : 1 } )
-  endfunction
   augroup lsp-load-settings
     autocmd!
     autocmd BufEnter * if dotfiles#lsp_test() | call dotfiles#lsp#load() | endif
-    " autocmd BufReadPre *.rb call <SID>start_lsp('solargraph socket')
+    " Since neither ale nor neovim-languageclient proivde a mechanism to start
+    " a socket-based LSP, this function starts one based on file type. Also,
+    " this can be used to run one LSP and share it between Ale and deoplete,
+    " but that doesn't really work out too often in practice:
+    " autocmd BufReadPre *.rb call dotfiles#lsp#start_lsp('solargraph socket')
   augroup END
 " }}}
 " Vim-Go Support {{{

@@ -39,3 +39,12 @@ function! dotfiles#lsp#load() abort
   call dotfiles#lsp#mappings()
   let g:dotfiles#lsp#loaded = 1
 endfunction
+
+let g:dotfiles#lsp#started = {}
+function! dotfiles#lsp#start_lsp(server_executable, ...) abort
+  if has_key(g:dotfiles#lsp#started, a:server_executable)
+    return
+  endif
+  let g:dotfiles#lsp#started[a:server_executable] = 1
+  call jobstart ( a:server_executable, { 'detach' : 1 } )
+endfunction
