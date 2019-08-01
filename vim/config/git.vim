@@ -24,7 +24,12 @@
   ca Gstatus Gina status
   ca Gdiff Gina diff
   ca Gcommit Gina commit
-  autocmd FileType gina-status set nu rnu
+  augroup gina-autocmd
+    autocmd FileType gina-status set nu rnu
+    " Disable indentLine for status:
+    autocmd FileType gina-status let b:indentLine_enabled=0 | let b:indentLine_ConcealOptionSet = 0
+    autocmd FileType diff setlocal nofoldenable
+  augroup END
 " }}}
 " # vim:foldmethod=marker
 
