@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 ## Install Node.js Modules
 if which npm > /dev/null 2>&1; then
-  if ! which mf > /dev/null 2>&1; then
-    npm install -g mf-cli
-  fi
-  if ! which trash > /dev/null 2>&1; then
-    npm install -g trash-cli
-  fi
-  if ! which diff-so-fancy > /dev/null 2>&1; then
-    npm install -g diff-so-fancy
-  fi
-  if [ -z $SERVER ]; then
-    if ! npm list --depth 1 --global neovim > /dev/null 2>&1; then
-      npm install -g neovim jsonlint
-    fi
+  if [ -z $SERVER ]; then 
+    npmlist=`npm list -g`
+    function npminstall() {
+      local repo=$1
+      if ! [[ $npmlist =~ $repo ]]; then 
+        npm install -g $1
+      fi
+    }
+    npminstall 'mf-cli' 
+    npminstall 'trash-cli' 
+    npminstall 'diff-so-fancy' 
+    npminstall 'neovim' 
+    npminstall 'jsonlint' 
   fi
 fi
