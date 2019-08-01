@@ -1,17 +1,17 @@
 " Next/Previous Projects
-function! dotfiles#todo#NextProject()
+function! dotfiles#todo#NextProject() abort
   return search('^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$', 'w')
 endfunction
 
-function! dotfiles#todo#PrevProject()
+function! dotfiles#todo#PrevProject() abort
   return search('^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$', 'bw')
 endfunction
 " Search
-function! dotfiles#todo#SearchProject(project, depth, begin, end)
+function! dotfiles#todo#SearchProject(project, depth, begin, end) abort
     call cursor(a:begin, 1)
     return search('\v^\t{' . a:depth . '}\V' . a:project . ':', 'c', a:end)
 endfunction
-function! dotfiles#todo#SearchEndOfItem(...)
+function! dotfiles#todo#SearchEndOfItem(...) abort
     let lnum = a:0 > 0 ? a:1 : line('.')
     let flags = a:0 > 1 ? a:2 : ''
 
@@ -22,7 +22,7 @@ function! dotfiles#todo#SearchEndOfItem(...)
     while lnum <= line('$')
         let line = getline(lnum)
 
-        if line =~ '^\s*$'
+        if line =~# '^\s*$'
             " Do nothing
         elseif depth < len(matchstr(line, '^\t*'))
             let end = lnum
@@ -40,7 +40,7 @@ function! dotfiles#todo#SearchEndOfItem(...)
 
     return end
 endfunction
-function! dotfiles#todo#SearchProjects(projects)
+function! dotfiles#todo#SearchProjects(projects) abort
     if empty(a:projects)
         return 0
     endif
@@ -67,7 +67,7 @@ function! dotfiles#todo#SearchProjects(projects)
 
     return begin
 endfunction
-function! dotfiles#todo#CompleteProject(lead, cmdline, pos)
+function! dotfiles#todo#CompleteProject(lead, cmdline, pos) abort
     let lnum = 1
     let list = []
     let stack = ['']
@@ -104,10 +104,10 @@ function! dotfiles#todo#CompleteProject(lead, cmdline, pos)
     return list
 endfunction
 
-function! dotfiles#todo#GoToProject()
+function! dotfiles#todo#GoToProject() abort
   let res = input('Project: ', '', 'customlist,CompleteProject')
 
-  if res != ''
+  if res !=# ''
     call dotfiles#todo#SearchProjects(split(res, ':'))
   endif
 endfunction

@@ -5,10 +5,10 @@
 " {{{ Setup
   set background=dark
   hi clear
-  if exists("syntax_on")
+  if exists('syntax_on')
     syntax reset
   endif
-  let g:colors_name="OceanicNext"
+  let g:colors_name='OceanicNext'
 " }}}
 " Load System Colors From Kitty {{{
   if &termguicolors == 1
@@ -46,21 +46,21 @@
   function! <sid>hi(group, fg, bg, attr)
     " fg, bg, attr, attrsp
     if !empty(a:fg)
-      exec "hi " . a:group . " ctermfg=" . a:fg[0]
+      exec 'hi ' . a:group . ' ctermfg=' . a:fg[0]
       if &termguicolors == 1
-        exec "hi " . a:group . " guifg=" .  a:fg[1]
+        exec 'hi ' . a:group . ' guifg=' .  a:fg[1]
       endif
     endif
     if !empty(a:bg)
-      exec "hi " . a:group . " ctermbg=" . a:bg[0]
+      exec 'hi ' . a:group . ' ctermbg=' . a:bg[0]
       if &termguicolors == 1
-        exec "hi " . a:group . " guibg=" .  a:bg[1]
+        exec 'hi ' . a:group . ' guibg=' .  a:bg[1]
       endif
     endif
-    if a:attr != ""
-      exec "hi " . a:group . " cterm=" . a:attr
+    if a:attr !=# ''
+      exec 'hi ' . a:group . ' cterm=' . a:attr
       if &termguicolors == 1
-        exec "hi " . a:group . " gui=" .   a:attr
+        exec 'hi ' . a:group . ' gui=' .   a:attr
       endif
     endif
   endfunction

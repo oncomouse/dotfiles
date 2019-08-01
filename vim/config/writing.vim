@@ -24,7 +24,7 @@
   let g:pandoc#syntax#conceal#use = 0
 "}}}
 " Limelight {{{
-  let g:limelight_conceal_ctermfg="black"
+  let g:limelight_conceal_ctermfg='black'
 "}}}
 " Goyo {{{
   function! s:goyo_enter()
@@ -79,11 +79,11 @@
 " Writing Environment: {{{
   function! s:limelight(on) abort
     if a:on == 1
-      if exists(":Limelight")
+      if exists(':Limelight')
         Limelight
       endif
     else
-      if exists(":Limelight")
+      if exists(':Limelight')
         Limelight!
       endif
     endif

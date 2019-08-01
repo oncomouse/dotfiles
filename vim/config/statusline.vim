@@ -1,4 +1,5 @@
 " Statusline:
+scriptencoding utf-8
 let g:nerdfonts = get(g:, 'nerdfonts', 1)
 " Lightline Git Status {{{
   let g:lightline#gitdiff#indicator_added = '✚'
@@ -87,4 +88,4 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
 " }}}
 set statusline=%!BuildStatus()
 set tabline=%!BuildTabLine()
-" # vim:foldmethod=marker
+" # vim:foldmethod=marker|

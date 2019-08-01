@@ -1,4 +1,4 @@
-if &rtp =~ 'deoplete'
+if &runtimepath =~# 'deoplete'
   function! SmartTab() abort
     let l:emmetTypes = ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim']
     if index(l:emmetTypes, &filetype) >= 0

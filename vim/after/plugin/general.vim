@@ -1,6 +1,6 @@
 
 " Different highlighting for long lines:
-let &colorcolumn=join(range(81,999),",")
+let &colorcolumn=join(range(81,999),',')
 
 " Spelling colors:
 " if exists('+termguicolors')

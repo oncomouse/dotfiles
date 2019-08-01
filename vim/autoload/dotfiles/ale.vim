@@ -1,3 +1,4 @@
+scriptencoding utf-8
 let s:ichecking = get(g:, 'dotfiles#ale#indicator_checking', '…')
 let s:iinfos = get(g:, 'dotfiles#ale#indicator_infos', 'I:')
 let s:iwarnings = get(g:, 'dotfiles#ale#indicator_warnings', 'W:')
@@ -6,7 +7,7 @@ let s:iok = get(g:, 'dotfiles#ale#indicator_ok', 'OK')
 let s:ale_enabled = get(b:, 'ale_enabled', get(g:, 'ale_enabled', 0))
 
 function! dotfiles#ale#aleDiagnostics() abort
-  if !exists(":ALEEnable") || !s:ale_enabled
+  if !exists(':ALEEnable') || !s:ale_enabled
     return { 'error': 0, 'style_error': 0, 'total': 0 }
   endif
   let l:counts = ale#statusline#Count(bufnr(''))

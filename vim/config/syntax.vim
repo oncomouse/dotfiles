@@ -65,7 +65,7 @@
   augroup END
 " }}}
 " vim-go {{{
-  let g:go_fmt_command = "goimports"
+  let g:go_fmt_command = 'goimports'
   let g:go_highlight_build_constraints = 1
   let g:go_highlight_extra_types = 1
   let g:go_highlight_fields = 1
@@ -107,7 +107,7 @@
 " let g:sexp_filetypes = 'lisp,scheme,clojure,javascript'
 " }}}
 " Autopair {{{
-  let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', "`":"`", '{': '}'}
+  let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', '`':'`', '{': '}'}
   " ,'```':'```', '"""':'"""', "'''":"'''"})
   augroup autopair-enable
     autocmd!
