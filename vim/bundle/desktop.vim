@@ -13,10 +13,6 @@
     Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
     Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
-    " Plug 'ericpruitt/tmux.vim', {'rtp': 'vim/'}
-    " Plug 'stephpy/vim-yaml', { 'for': 'yaml' } " YAML
-    " Plug 'chrisbra/csv.vim', { 'for': 'csv' }
-    " Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
   " }}}
   " Web Development: {{{
     Plug 'chrisbra/Colorizer', { 'for': ['html', 'javascript.jsx', 'javascript', 'css', 'scss'] }
@@ -44,7 +40,7 @@
   Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
       \ 'do': 'bash install.sh; npm i -g vscode-json-languageserver-bin vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server',
-      \ 'for': ['json', 'html', 'css', 'scss', 'sass', 'javascript', 'reason' ],
+      \ 'for': ['json', 'html', 'css', 'scss', 'sass', 'javascript', 'reason', 'ruby' ],
       \ }
   if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -53,7 +49,6 @@
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
   endif
-  " Plug 'Shougo/neco-syntax' " Guess suggestions based on syntax
   Plug 'wellle/tmux-complete.vim' " Read from other Tmux splits
   Plug 'Shougo/neco-vim', { 'for': 'vim' } " Deoplete source for vim
   Plug 'ponko2/deoplete-fish', { 'for': 'fish' } " Deoplete source for fish
@@ -67,7 +62,6 @@
   Plug 'reedes/vim-litecorrect' " Add autocorrections for boneheaded typos
   Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
   Plug 'reedes/vim-textobj-sentence', { 'for': ['pandoc', 'markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
-  " Plug 'junegunn/vim-easy-align' " ga will align blocks to indicated character
 " }}}
 " Statusline:
 Plug 'niklaas/lightline-gitdiff' " Though we don't use lightline, this generates git info for our statusline

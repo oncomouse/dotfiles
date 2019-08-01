@@ -12,9 +12,10 @@
   let g:ale_lint_on_insert_leave = 1
   let g:ale_cursor_detail = 0
   let g:ale_linters = {
-    \  'javascript':  ['eslint', 'jshint', 'flow'],
+    \  'javascript':  ['eslint', 'jshint', 'flow', 'tls'],
     \  'go': ['govet', 'gofmt', 'golint'],
     \  'reason': ['reason-language-server'],
+    \  'ruby': ['rubocop', 'ruby'],
     \}
   " ALE's support for RLS is worthless:
   let g:ale_reason_ls_executable = '/usr/local/bin/reason-language-server'

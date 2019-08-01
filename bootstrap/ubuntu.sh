@@ -16,6 +16,7 @@ $bash ~/dotfiles/bootstrap/scripts/go.sh
 $bash ~/dotfiles/bootstrap/scripts/diff-so-fancy.sh
 $bash ~/dotfiles/bootstrap/scripts/node-modules.sh
 $bash ~/dotfiles/bootstrap/scripts/python-modules.sh
+$bash ~/dotfiles/bootstrap/scripts/ruby-modules.sh
 $bash ~/dotfiles/bootstrap/scripts/fisher.sh
 if [ -z $SERVER ]; then
   $bash ~/dotfiles/bootstrap/scripts/reason.sh
