@@ -12,7 +12,6 @@ let configs = [
   \ 'folds',
   \ 'fuzzy',
   \ 'git',
-  \ 'nvim-only',
   \ 'statusline',
   \ 'syntax',
   \ 'theme',
