@@ -3,7 +3,6 @@ function! dotfiles#polyglot#overrides() abort
     \ 'clojure',
     \ 'css',
     \ 'go',
-    \ 'html',
     \ 'javascript',
     \ 'jsx',
     \ 'markdown',
