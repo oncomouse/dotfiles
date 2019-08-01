@@ -1,5 +1,5 @@
 " Statusline:
-let g:nerdfonts = get(g:, "nerdfonts", 1)
+let g:nerdfonts = get(g:, 'nerdfonts', 1)
 " Lightline Git Status {{{
   let g:lightline#gitdiff#indicator_added = '✚'
   let g:lightline#gitdiff#indicator_deleted = '✖'
@@ -13,16 +13,16 @@ let g:nerdfonts = get(g:, "nerdfonts", 1)
 " }}}
 " Linter Status {{{
   let g:dotfiles#ale#indicator_checking = "\uf110"
-  let g:dotfiles#ale#indicator_warnings = g:nerdfonts ? "\uf071\u2003" : "W: "
-  let g:dotfiles#ale#indicator_errors = g:nerdfonts ? "\uf05e\u2003" : "E: "
-  let g:dotfiles#ale#indicator_ok = g:nerdfonts ? "\uf00c" : "Ok"
+  let g:dotfiles#ale#indicator_warnings = g:nerdfonts ? "\uf071\u2003" : 'W: '
+  let g:dotfiles#ale#indicator_errors = g:nerdfonts ? "\uf05e\u2003" : 'E: '
+  let g:dotfiles#ale#indicator_ok = g:nerdfonts ? "\uf00c" : 'Ok'
 " }}}
 " Statusline {{{
   function! Componetize(func,...) abort
-    let l:before = get(a:, 1, " ")
-    let l:after = get(a:, 2, " ")
+    let l:before = get(a:, 1, ' ')
+    let l:after = get(a:, 2, ' ')
     let l:output = eval(a:func)
-    if l:output == ''
+    if l:output ==# ''
       return ''
     endif
     return l:before.l:output.l:after
@@ -68,7 +68,7 @@ let g:nerdfonts = get(g:, "nerdfonts", 1)
 " }}}
 " Tabline {{{
   function! BuildTabLabel(nr, active) abort
-    return a:nr.' '.fnamemodify(bufname(tabpagebuflist(a:nr)[tabpagewinnr(a:nr) - 1]), ":t:s/^$/[No Name]/").TabModified(a:nr).' '
+    return a:nr.' '.fnamemodify(bufname(tabpagebuflist(a:nr)[tabpagewinnr(a:nr) - 1]), ':t:s/^$/[No Name]/').TabModified(a:nr).' '
   endfunction
 
   function! TabModified(nr)
@@ -82,7 +82,7 @@ let g:nerdfonts = get(g:, "nerdfonts", 1)
       \ range(1, tabpagenr('$')),
       \ '(v:val == tabpagenr() ? "%#TabLineSel#" : "%#TabLine#") . "%".v:val."T %{BuildTabLabel(".v:val.",".(v:val == tabpagenr()).")}"'
       \ ), ''))
-      \ . "%#TabLineFill#%T%=⌘ %<%{&columns < 100 ? fnamemodify(getcwd(), ':t') : getcwd()} " . (tabpagenr('$') > 1 ? "%999X✕ " : "")
+      \ . "%#TabLineFill#%T%=⌘ %<%{&columns < 100 ? fnamemodify(getcwd(), ':t') : getcwd()} " . (tabpagenr('$') > 1 ? '%999X✕ ' : '')
   endfunction
 " }}}
 set statusline=%!BuildStatus()
