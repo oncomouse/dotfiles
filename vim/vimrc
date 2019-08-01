@@ -6,20 +6,21 @@ runtime bundle/desktop.vim
 call plug#end()
 runtime common.vim
 let configs = [
-  \ "deoplete",
-  \ "ale",
-  \ "autocomplete",
-  \ "fuzzy",
-  \ "git",
-  \ "nvim-only",
-  \ "statusline",
-  \ "syntax",
-  \ "theme",
-  \ "todo",
-  \ "writing",
+  \ 'deoplete',
+  \ 'ale',
+  \ 'autocomplete',
+  \ 'folds',
+  \ 'fuzzy',
+  \ 'git',
+  \ 'nvim-only',
+  \ 'statusline',
+  \ 'syntax',
+  \ 'theme',
+  \ 'todo',
+  \ 'writing',
 \]
 for file in configs
-  let x = "config/".file.".vim"
+  let x = 'config/'.file.'.vim'
   execute 'runtime' x
 endfor
 " Disable polyglot for all the syntaxes we already use:

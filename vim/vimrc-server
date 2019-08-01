@@ -6,18 +6,19 @@ runtime bundle/server.vim
 call plug#end()
 runtime common.vim
 let configs = [
-  \ "fuzzy",
-  \ "git",
-  \ "statusline",
-  \ "syntax",
-  \ "theme",
+  \ 'fuzzy',
+  \ 'git',
+  \ 'statusline',
+  \ 'syntax',
+  \ 'theme',
 \]
 for file in configs
-  let x = "config/".file.".vim"
+  let x = 'config/'.file.'.vim'
   execute 'runtime' x
 endfor
 
 let g:nerdfonts=0
+set nofoldenable " no folding in server mode
 augroup dotfiles-server-au
   " Turn on CursorLine Highlighting on Insert:
   autocmd InsertEnter,InsertLeave * set cul!

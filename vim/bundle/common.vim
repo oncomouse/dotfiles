@@ -1,8 +1,6 @@
 " Let's Get Started:
 Plug 'tpope/vim-sensible' " Good settings
-Plug 'Konfekt/FastFold' " Better fold support
 " General Editing Plugins:
-Plug 'guns/xterm-color-table.vim'
 Plug 'xero/securemodelines' " Secure modelines
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
 Plug 'tpope/vim-surround' " Change surrounding characters, see cheat sheet

@@ -14,7 +14,7 @@ syntax on
 " Basic Vim settings:
 set mouse=a
 set clipboard=unnamed
-set vb t_vb=
+set visualbell t_vb=
 set autowrite
 set hidden " turn off buffer saving when switching
 
@@ -47,16 +47,6 @@ nnoremap <leader>vf ggVG
 " Highlight a block and type "@" to run a macro on the block:
 xnoremap @ :<C-u>call visualat#ExecuteMacroOverVisualRange()<CR>
 
-" Folds {{{
-  " Set fold method to syntax by default:
-  set foldmethod=syntax
-  " FastFold:
-  nmap zuz <Plug>(FastFoldUpdate)
-  let g:fastfold_savehook = 1
-  let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
-  let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-  let g:fastfold_minlines = 0
-" }}}
 " Autocmds {{{
   augroup dotfile-autocmds
     autocmd BufReadPre *

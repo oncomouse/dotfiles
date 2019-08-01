@@ -1,5 +1,6 @@
 " Development: {{{
   " General Syntax: {{{ 
+    Plug 'Konfekt/FastFold' " Better fold support
     Plug 'Yggdroot/indentLine' " Indent with characters
     Plug 'luochen1990/rainbow' " Rainbow parentheses
   " }}}
