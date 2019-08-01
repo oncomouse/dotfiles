@@ -8,7 +8,7 @@ if ! pip3 list | ag "virtualfish" > /dev/null 2>&1; then
     pip3 install thefuck
   fi
   if [ -z $SERVER ];then
-    pip3 install neovim pylint jedi
+    pip3 install neovim pylint jedi vim-vint
   else
     pip3 install pynvim
   fi
