@@ -7,8 +7,11 @@
   \})
 " }}}
 " LanguageClient {{{
+  " Only set up LSP if it is in the runtime path:
+  " Basic settings
   let g:LanguageClient_serverCommands = {
       \ 'javascript': ['typescript-language-server', '--stdio'],
+      \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
       \ 'reason': ['reason-language-server'],
       \ 'html': ['html-languageserver', '--stdio'],
       \ 'json': ['json-languageserver', '--stdio'],
@@ -21,18 +24,9 @@
   " let g:LanguageClient_loggingLevel='DEBUG'
   " let g:LanguageClient_serverStderr=expand('~/lsp-server.log')
   " let g:LanguageClient_loggingFile = expand('~/lsp-client.log')
-  " Set our default mappings with a function:
-  call dotfiles#lsp#mappings()
- 
-  " Formatting:
-  vmap <silent> <leader>f :call LanguageClient#textDocument_rangeFormatting()
-  nmap <silent> <leader>f :call LanguageClient#textDocument_rangeFormatting()
-  command! -nargs=0 Format :call LanguageClient#textDocument_formatting()
-  " Autoformat on save:
-  set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
-  augroup lsp-format-on-save
+  augroup lsp-load-settings
     autocmd!
-    autocmd BufWritePre javascript,css,scss,sass,reason,html,json :call LanguageClient#textDocument_formatting_sync()
+    autocmd BufEnter * if dotfiles#lsp_test() | call dotfiles#lsp#load() | endif
   augroup END
 " }}}
 " Vim-Go Support {{{
@@ -45,25 +39,8 @@
   let g:go_metalinter_enabled = [] " Turn off metalinter in favor of ALE.
   augroup go-vim-definitions
     autocmd!
-    autocmd FileType go :autocmd! BufEnter <buffer> :call <SID>goKeyMappings(1)
-    autocmd FileType go :autocmd! BufLeave <buffer> :call <SID>goKeyMappings(0)
+    autocmd FileType go :autocmd! BufEnter <buffer> :call dotfiles#go#mappings(1)
+    autocmd FileType go :autocmd! BufLeave <buffer> :call dotfiles#go#mappings(0)
   augroup END
-
-  function! s:goKeyMappings(...) abort
-    let l:on = get(a:, 0, 0)
-    if l:on
-      nmap  <silent> gd :GoDef<CR>
-      nmap <silent> gy :GoDefType<CR>
-      nmap <silent> gi :GoImplements<CR>
-      nmap <silent> gr :GoReferrers<CR>
-      nmap <silent> U :GoDocBrowser<CR>
-      nmap <silent> <leader>rn :GoRename<CR>
-      nmap <leader>rt <Plug>(go-run-tab)
-      nmap <leader>rs <Plug>(go-run-split)
-      nmap <leader>rv <Plug>(go-run-vertical)
-    else
-      call dotfiles#lsp#mappings()
-    endif
-  endfunction
 " }}}
 " # vim:foldmethod=marker
