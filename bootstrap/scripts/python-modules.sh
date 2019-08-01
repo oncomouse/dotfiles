@@ -1,16 +1,23 @@
 #!/usr/bin/env bash
 ## Install Python Modules
-if ! pip3 list | ag "virtualfish" > /dev/null 2>&1; then
-  os=`bash ~/dotfiles/bootstrap/scripts/os.sh`
-  if [ $os == 'macos' ]; then
-    pip3 install mackup
-  else
-    pip3 install thefuck
+pip3list=`pip3 list | cut -d " " -f 1 | sed 1,2d`
+os=`bash ~/dotfiles/bootstrap/scripts/os.sh`
+function pip3install() {
+  local repo=$1
+  if ! [[ $pip3list =~ $repo ]]; then 
+    pip3 install $1
   fi
-  if [ -z $SERVER ];then
-    pip3 install neovim pylint jedi vim-vint
-  else
-    pip3 install pynvim
-  fi
-  pip3 install virtualfish
+}
+if [ $os == 'macos' ]; then
+  pip3install 'mackup'
+else
+  pip3install 'thefuck'
 fi
+if [ -z $SERVER ];then
+  pip3install 'neovim'
+  pip3install 'pylint'
+  pip3install 'jedi'
+  pip3install 'vim-vint'
+fi
+pip3install 'pynvim'
+pip3install 'virtualfish'
