@@ -12,7 +12,9 @@
 " }}}
 " Load System Colors From Kitty {{{
   if &termguicolors == 1
-    let s:kitty_colors = eval(system('fish -c kitty-colors'))
+    " Use the fish function kitty-color to change this when you update the
+    " terminal:
+    let s:kitty_colors = ['#1B2B34','#EC5F67','#99C794','#FAC863','#6699CC','#C594C5','#5FB3B3','#C0C5CE','#65737E','#F99157','#343D46','#4F5B66','#A7ADBA','#CDD3DE','#AB7967','#D8DEE9'] 
     let s:cterms = map(s:kitty_colors, {i,color -> [i, color]})
   else
     let s:cterms = map(range(0,15), {i -> [i]})
