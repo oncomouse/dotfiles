@@ -32,7 +32,6 @@
   " Python: {{{
     Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
-    Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] } " Deoplete source for Python
   " }}}
 " }}}
 " Autocomplete: {{{
@@ -48,6 +47,7 @@
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
   endif
+  Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' } " Deoplete source for Python
   Plug 'wellle/tmux-complete.vim' " Read from other Tmux splits
   Plug 'Shougo/neco-vim', { 'for': 'vim' } " Deoplete source for vim
   Plug 'ponko2/deoplete-fish', { 'for': 'fish' } " Deoplete source for fish
