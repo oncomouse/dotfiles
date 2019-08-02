@@ -16,11 +16,7 @@ Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same 
 " Syntax:
 Plug 'sheerun/vim-polyglot'
 " Fuzzy Search:
-if isdirectory(expand('/usr/local/opt/fzf'))
-  Plug '/usr/local/opt/fzf' " Load FZF into Vim
-else
-  Plug '~/.fzf'
-endif
+Plug (isdirectory('/usr/local/opt/fzf') ? '/usr/local/opt/fzf' : '~/.fzf')
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
 " Git Support:
 Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
