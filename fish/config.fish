@@ -24,9 +24,10 @@ if command -sq rbenv
   status --is-interactive; and source (rbenv init - | sed 's/setenv/set -gx/' | psub)
 end
 
-# Use vim as EDITOR:
+# Vim related aliases:
 if command -sq nvim
   set -gx EDITOR (which nvim) -u ~/dotfiles/vim/vimrc-server
+  # alias vim=(which nvim)" -u ~/dotfiles/vim/vimrc-server"
 else
   set -gx EDITOR (which vim)
 end
