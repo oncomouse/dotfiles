@@ -1,22 +1,12 @@
-" Set <leader> and <localleader>:
-let mapleader = "\<Space>"
-let maplocalleader = "\\"
-
-let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
-let g:large_file = 20*1024*1024
-
-set nomodeline
-let g:secure_modelines_verbose = 0
-let g:secure_modelines_modelines = 15
-
 syntax on
 
 " Basic Vim settings:
-set mouse=a
-set clipboard=unnamed
-set visualbell t_vb=
-set autowrite
+set mouse=a " Mouse support
+set clipboard=unnamed " MacOS clipboard support
+set visualbell t_vb= " Disable visual bell
+set autowrite " Autosave files
 set hidden " turn off buffer saving when switching
+set lazyredraw " Don't redraw between macro runs (may make terminal flicker)
 
 " Set default tabs:
 set tabstop=8
@@ -24,15 +14,25 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 
-" Better (to my mind) split creation defaults:
+" Override default split creation locations:
 set splitbelow
 set splitright
 
-" Shortcut :tn for :tabnew
-ca tn tabnew
+" Set <leader> and <localleader>:
+let mapleader = "\<Space>"
+let maplocalleader = "\\"
 
-" Select whole file
-nnoremap <leader>vf ggVG
+" Location of BiBLaTeX repo:
+let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
+" Set this for files to avoid highlighting:
+let g:large_file = 20*1024*1024
+" Set colorcolumn highlighting for long lines:
+let &colorcolumn=join(range(81,999),',')
+
+" Configure securemodeline:
+set nomodeline
+let g:secure_modelines_verbose = 0
+let g:secure_modelines_modelines = 15
 
 " Disabled Vim Plugins {{{
   let g:loaded_getscriptPlugin = 1
@@ -42,11 +42,16 @@ nnoremap <leader>vf ggVG
   let g:loaded_tarPlugin = 1
   let g:loaded_vimballPlugin = 1
   let g:loaded_zipPlugin = 1
+  let g:netrw_banner=0
 " }}}
-
-" Highlight a block and type "@" to run a macro on the block:
-xnoremap @ :<C-u>call visualat#ExecuteMacroOverVisualRange()<CR>
-
+" Maps & Abbreviations {{{
+  " Shortcut :tn for :tabnew
+  cabbrev tn tabnew
+  " Select whole file
+  nnoremap <leader>vf ggVG
+  " Highlight a block and type "@" to run a macro on the block:
+  xnoremap @ :<C-u>call visualat#ExecuteMacroOverVisualRange()<CR>
+" }}}
 " Autocmds {{{
   augroup dotfile-autocmds
     autocmd BufReadPre *
