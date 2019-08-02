@@ -1,3 +1,11 @@
+if has('mac')
+  " This is macOS only, I believe, but it fixes slow start-up for clipboard:
+  let g:clipboard = {
+        \'copy': {'+': 'pbcopy', '*': 'pbcopy'},
+        \'paste': {'+': 'pbpaste', '*': 'pbpaste'},
+        \'name': 'pbcopy', 'cache_enabled': 0
+        \}
+endif
 let &runtimepath .= ','.expand('~/dotfiles/vim/')
 call plug#begin('~/.vim/plugged/server/')
 runtime bundle/common.vim
