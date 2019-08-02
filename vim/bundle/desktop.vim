@@ -64,3 +64,4 @@
 " }}}
 " Statusline:
 Plug 'oncomouse/lightline-gitdiff-async'
+" Plug '~/Projects/lightline-gitdiff-async'
