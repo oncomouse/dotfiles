@@ -19,7 +19,7 @@
   endif
 
   let s:ctermNONE = ['NONE', 'NONE']
-  if has('nvim')
+  if has('nvim') && &termguicolors == 1
     let g:terminal_color_0=s:cterms[00][1]
     let g:terminal_color_1=s:cterms[01][1]
     let g:terminal_color_2=s:cterms[02][1]
