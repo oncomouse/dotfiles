@@ -2,6 +2,12 @@
 " General VIM {{{
   " Insert a semicolon at the end of the line with <leader>;
   let g:python_highlight_all = 1
+  " Proper keyword highlighting for CSS:
+  augroup VimCSS3Syntax
+    autocmd!
+
+    autocmd FileType css setlocal iskeyword+=-
+  augroup END
 " }}}
 " vim-jsx-pretty {{{
   let g:vim_jsx_pretty_colorful_config = 1
@@ -28,6 +34,8 @@
   \   'markdown': {
   \     'parentheses_options': 'containedin=markdownCode contained',
   \   },
+  \   'css': 0,
+  \   'scss': 0,
   \ }
   \}
 " }}}
