@@ -11,11 +11,24 @@
   "
   let g:ale_lint_on_insert_leave = 1
   let g:ale_cursor_detail = 0
+  " Define the linters we plan to use and disable all others:
+  let g:ale_linters_explicit = 1
   let g:ale_linters = {
-    \  'javascript':  ['eslint', 'jshint', 'flow', 'tls'],
+    \  'clojure': ['clj_kondo'],
+    \  'css': ['stylelint'],
     \  'go': ['govet', 'gofmt', 'golint'],
+    \  'javascript':  ['eslint'],
+    \  'pandoc': ['vale'],
+    \  'python': ['pylint', 'bandit'],
     \  'reason': ['reason-language-server'],
     \  'ruby': ['rubocop', 'ruby'],
+    \  'scss': ['stylelint'],
+    \  'vim': ['vint'],
+    \  'yaml': ['yamllint'],
+    \}
+  let g:ale_pattern_options = {
+    \  '\.min.js$': {'ale_enabled': 0},
+    \  'build/.*$': {'ale_enabled': 0},
     \}
   " ALE's support for RLS is worthless:
   let g:ale_reason_ls_executable = '/usr/local/bin/reason-language-server'

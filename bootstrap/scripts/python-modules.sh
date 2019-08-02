@@ -15,9 +15,14 @@ else
 fi
 if [ -z $SERVER ];then
   pip3install 'neovim'
-  pip3install 'pylint'
-  pip3install 'jedi'
+  # Vim Linters:
   pip3install 'vim-vint'
+  # Python Linters:
+  pip3install 'jedi'
+  pip3install 'pylint'
+  pip3install 'bandit'
+  # Yaml Linters:
+  pip3install 'yamllint'
 fi
 pip3install 'pynvim'
 pip3install 'virtualfish'
