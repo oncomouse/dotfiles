@@ -25,7 +25,11 @@ if command -sq rbenv
 end
 
 # Use vim as EDITOR:
-set -gx EDITOR (which vim)
+if command -sq nvim
+  set -gx EDITOR (which nvim) -u ~/dotfiles/vim/vimrc-server
+else
+  set -gx EDITOR (which vim)
+end
 
 # Configure FZF:
 set -gx FZF_DEFAULT_COMMAND "fd --type f --color=always --hidden"
