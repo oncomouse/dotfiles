@@ -2,7 +2,13 @@ syntax on
 
 " Basic Vim settings:
 set mouse=a " Mouse support
-set clipboard=unnamed " MacOS clipboard support
+if has('clipboard')
+  if has('unnamedplus')
+    set clipboard=unnamedplus,unnamed
+  else
+    set clipboard=unnamed
+  endif
+endif
 set visualbell t_vb= " Disable visual bell
 set autowrite " Autosave files
 set hidden " turn off buffer saving when switching
@@ -35,14 +41,21 @@ let g:secure_modelines_verbose = 0
 let g:secure_modelines_modelines = 15
 
 " Disabled Vim Plugins {{{
-  let g:loaded_getscriptPlugin = 1
-  let g:loaded_gzip = 1
-  let g:loaded_logiPat = 1
-  let g:loaded_rrhelper = 1
-  let g:loaded_tarPlugin = 1
-  let g:loaded_vimballPlugin = 1
-  let g:loaded_zipPlugin = 1
-  let g:netrw_banner=0
+  let g:loaded_gzip              = 1
+  let g:loaded_tar               = 1
+  let g:loaded_tarPlugin         = 1
+  let g:loaded_zip               = 1
+  let g:loaded_zipPlugin         = 1
+  let g:loaded_rrhelper          = 1
+  let g:loaded_2html_plugin      = 1
+  let g:loaded_vimball           = 1
+  let g:loaded_vimballPlugin     = 1
+  let g:loaded_getscript         = 1
+  let g:loaded_getscriptPlugin   = 1
+  let g:loaded_netrw             = 1
+  let g:loaded_netrwPlugin       = 1
+  let g:loaded_netrwSettings     = 1
+  let g:loaded_netrwFileHandlers = 1
 " }}}
 " Maps & Abbreviations {{{
   " Shortcut :tn for :tabnew

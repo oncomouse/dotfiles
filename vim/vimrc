@@ -1,3 +1,13 @@
+if has('mac')
+  " Set Python3 to homebrew's
+  let python3_host_prog='/usr/local/bin/python3'
+  " This is macOS only, I believe, but it fixes slow start-up for clipboard:
+  let g:clipboard = {
+        \'copy': {'+': 'pbcopy', '*': 'pbcopy'},
+        \'paste': {'+': 'pbpaste', '*': 'pbpaste'},
+        \'name': 'pbcopy', 'cache_enabled': 0
+        \}
+endif
 let &runtimepath .= ','.expand('~/dotfiles/vim/')
 let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
 call plug#begin('~/.vim/plugged/desktop/')
@@ -23,4 +33,5 @@ for file in configs
 endfor
 " Disable polyglot for all the syntaxes we already use:
 let g:polyglot_disabled = dotfiles#polyglot#overrides()
+
 " # vim:foldmethod=marker
