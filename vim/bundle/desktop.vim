@@ -6,12 +6,14 @@
   " }}}
   " Web Syntax: {{{
     Plug 'neoclide/vim-jsx-improve', { 'for': ['javascript', 'javascript.jsx'] }
-    Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " SCSS
+    Plug 'JulesWang/css.vim', { 'for': 'css' }
   " }}}
   " Other Syntax: {{{
     Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
-    Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc syntax
+    Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': ['markdown', 'pandoc'] }
+    Plug 'vim-python/python-syntax', { 'for': 'python' }
+    Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
   " }}}
   " Web Development: {{{
     Plug 'chrisbra/Colorizer', { 'for': ['html', 'javascript.jsx', 'javascript', 'css', 'scss'] }
@@ -23,13 +25,11 @@
   " Clojure: {{{
     Plug 'venantius/vim-cljfmt', { 'for': 'clojure' } " Formatting for Clojure
     Plug 'tpope/vim-fireplace', { 'for': 'clojure' } " REPL for Clojure
-    Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
     Plug 'guns/vim-sexp', { 'for': ['clojure', 'lisp', 'scheme'] } " Better slurp / barf
     Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['clojure', 'lisp', 'scheme'] } " >) <) >( <) to move parentheses
     Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' } " Clojure support
   " }}}
   " Python: {{{
-    Plug 'vim-python/python-syntax', { 'for': 'python' }
     Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
     Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] } " Deoplete source for Python

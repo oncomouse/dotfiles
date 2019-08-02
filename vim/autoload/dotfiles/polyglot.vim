@@ -9,6 +9,5 @@ function! dotfiles#polyglot#overrides() abort
     \ 'pandoc',
     \ 'python',
     \ 'reason',
-    \ 'scss',
   \]
 endfunction
