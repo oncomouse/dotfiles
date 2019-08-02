@@ -1,7 +1,7 @@
 " Folds {{{
   " Set fold method to syntax by default:
   set foldmethod=syntax
-  set foldlevel=99
+  set foldlevel=3
   " FastFold:
   nmap zuz <Plug>(FastFoldUpdate)
   let g:fastfold_savehook = 1
@@ -10,8 +10,9 @@
   let g:fastfold_minlines = 0
   augroup custom-folds
     autocmd!
-    autocmd FileType vim setlocal foldmethod=marker 
+    autocmd FileType vim setlocal foldmethod=marker foldlevel=0
     autocmd FileType css setlocal foldmethod=manual
+    autocmd FileType pandoc setlocal foldlevel=1
     autocmd FileType diff setlocal nofoldenable
   augroup END
 " }}}
