@@ -5,7 +5,6 @@
     Plug 'luochen1990/rainbow' " Rainbow parentheses
   " }}}
   " Web Syntax: {{{
-    Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
     Plug 'neoclide/vim-jsx-improve', { 'for': ['javascript', 'javascript.jsx'] }
     Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " SCSS
   " }}}
