@@ -12,7 +12,6 @@ $bash ~/dotfiles/bootstrap/scripts/minimal-config.sh
 $bash ~/dotfiles/bootstrap/scripts/vim.sh
 $bash ~/dotfiles/bootstrap/scripts/tmux.sh
 $bash ~/dotfiles/bootstrap/scripts/terms.sh
-$bash ~/dotfiles/bootstrap/scripts/go.sh
 $bash ~/dotfiles/bootstrap/scripts/diff-so-fancy.sh
 $bash ~/dotfiles/bootstrap/scripts/node-modules.sh
 $bash ~/dotfiles/bootstrap/scripts/python-modules.sh
