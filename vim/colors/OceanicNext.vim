@@ -10,7 +10,7 @@
   endif
   let g:colors_name='OceanicNext'
 " }}}
-" Load System Colors From Kitty {{{
+" Default Colors {{{
   if &termguicolors == 1
     " Use the fish function kitty-color to change this when you update the
     " terminal:
@@ -21,6 +21,8 @@
   endif
 
   let s:ctermNONE = ['NONE', 'NONE']
+" }}}
+" Set Terminal Colors {{{
   if has('nvim') && &termguicolors == 1
     let g:terminal_color_0=s:cterms[00][1]
     let g:terminal_color_1=s:cterms[01][1]
@@ -42,6 +44,24 @@
     let g:terminal_color_17=s:cterms[14][1]
     let g:terminal_color_foreground=s:cterms[07][1]
     let g:terminal_color_background=s:cterms[00][1]
+  elseif exists('*term_setansicolors') && &termguicolors == 1
+    let g:terminal_ansi_colors = repeat([0], 16)
+    let g:terminal_ansi_colors[0]=s:cterms[00][1]
+    let g:terminal_ansi_colors[1]=s:cterms[01][1]
+    let g:terminal_ansi_colors[2]=s:cterms[02][1]
+    let g:terminal_ansi_colors[3]=s:cterms[03][1]
+    let g:terminal_ansi_colors[4]=s:cterms[04][1]
+    let g:terminal_ansi_colors[5]=s:cterms[05][1]
+    let g:terminal_ansi_colors[6]=s:cterms[06][1]
+    let g:terminal_ansi_colors[7]=s:cterms[07][1]
+    let g:terminal_ansi_colors[8]=s:cterms[00][1]
+    let g:terminal_ansi_colors[9]=s:cterms[09][1]
+    let g:terminal_ansi_colors[10]=s:cterms[10][1]
+    let g:terminal_ansi_colors[11]=s:cterms[11][1]
+    let g:terminal_ansi_colors[12]=s:cterms[12][1]
+    let g:terminal_ansi_colors[13]=s:cterms[13][1]
+    let g:terminal_ansi_colors[14]=s:cterms[14][1]
+    let g:terminal_ansi_colors[15]=s:cterms[15][1]
   endif
 " }}}
 " Color Function {{{
@@ -75,6 +95,8 @@
   call <sid>hi('NormalMode',s:cterms[10],s:cterms[04],'bold')
   call <sid>hi('StatusLine',s:cterms[10],s:ctermNONE,'NONE')
   call <sid>hi('StatusLineNC', s:cterms[11],s:cterms[10], 'NONE')
+  call <sid>hi('StatusLineTerm',s:cterms[10],s:cterms[02],'NONE')
+  call <sid>hi('StatusLineTermNC', s:cterms[11],s:cterms[10], 'NONE')
   call <sid>hi('User1', '', s:cterms[08], 'bold')
   call <sid>hi('User2', '', s:cterms[08], 'NONE')
   call <sid>hi('User3', s:cterms[10], s:cterms[03], 'NONE')
@@ -85,12 +107,12 @@
   call <sid>hi('TabLineSel',s:cterms[13],s:cterms[11],'bold')
   call <sid>hi('TabLine', s:cterms[08], s:cterms[10], '')
 " }}}
-"
 " Basics {{{
 call <sid>hi('Bold','','','bold')
 call <sid>hi('Debug',s:cterms[01],'','')
 call <sid>hi('Directory',s:cterms[04],'','')
 call <sid>hi('ErrorMsg',s:cterms[01],s:ctermNONE,'')
+call <sid>hi('Error', s:cterms[15],s:cterms[09],'')
 call <sid>hi('Exception',s:cterms[01],'','')
 call <sid>hi('FoldColumn',s:cterms[04],s:ctermNONE,'')
 call <sid>hi('Folded',s:cterms[08],s:cterms[10],'italic')
@@ -130,6 +152,7 @@ call <sid>hi('PmenuSbar','',s:cterms[11],'')
 call <sid>hi('PmenuThumb','',s:cterms[07],'')
 call <sid>hi('helpExample',s:cterms[03],'','')
 call <sid>hi('helpCommand',s:cterms[03],'','')
+call <sid>hi('ToolbarButton',s:cterms[00], s:cterms[07], '')
 " }}}
 " Syntax Highlighting {{{
 call <sid>hi('Boolean',s:cterms[09],'','')
