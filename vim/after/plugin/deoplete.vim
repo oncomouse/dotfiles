@@ -9,6 +9,6 @@ if &runtimepath =~# 'deoplete'
   endfunction
   imap <expr><TAB> pumvisible() ? "\<C-n>" : SmartTab()
   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-  exec 'imap <expr><CR> pumvisible() ? deoplete#close_popup() : "\<CR>\<Plug>DiscretionaryEnd\<Plug>AutoPairsReturn"'
+  " exec 'imap <expr><CR> pumvisible() ? deoplete#close_popup() : "\<CR>\<Plug>DiscretionaryEnd\<Plug>AutoPairsReturn"'
   " imap <expr><Esc> pumvisible() ? deoplete#cancel_popup() : "\<ESC>"
 endif
