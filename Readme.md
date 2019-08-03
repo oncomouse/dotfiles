@@ -4,4 +4,4 @@ These dotfiles work for Mac OS and Ubuntu (for now). Ubuntu can also run for ser
 
 ## Usage
 
-Run `git clone https://github.com/oncomouse/dotfiles ~/dotfiles` on your computer. Then run either `make desktop` or `make server` to install.
+Run `git clone https://github.com/oncomouse/dotfiles ~/dotfiles` on your computer. Then run either `make desktop` or `make server` to install. `make` can also be re-run to update software.
