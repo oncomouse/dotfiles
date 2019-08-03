@@ -104,7 +104,7 @@ else
 end
 
 # Other Command Aliases:
-alias cat='bat'
+alias cat='bat --paging=never'
 alias top='sudo htop'
 alias ls='exa --group-directories-first'
 
