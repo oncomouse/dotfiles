@@ -53,9 +53,7 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
       \ %{&mod?'◦':''}%t
       \%2*%{(&paste ? g:nerdfonts ? '\uf0ea  ':' (paste) ':' ')}
       \%2*%{(w:['lf_active'] && &rtp=~'gitdiff'? Componetize('lightline#gitdiff#get()','\u22EE ') :'')}
-      \%6*%{w:['lf_active'] && g:nerdfonts ? '':''}
       \%0*%=
-      \%6*%{w:['lf_active'] && g:nerdfonts ? '':''}
       \%1*\ %l:%c\ 
       \%3*%{w:['lf_active'] ? Componetize('dotfiles#ale#warnings()') : ''}
       \%4*%{w:['lf_active'] ? Componetize('dotfiles#ale#errors()', '  ') : ''}
