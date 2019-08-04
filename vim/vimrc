@@ -1,4 +1,4 @@
-if has('mac')
+if has('mac') && has('nvim')
   " Set Python3 to homebrew's
   let python3_host_prog='/usr/local/bin/python3'
   " This is macOS only, I believe, but it fixes slow start-up for clipboard:
@@ -16,11 +16,11 @@ runtime bundle/desktop.vim
 call plug#end()
 runtime common.vim
 let configs = [
-  \ 'ale',
   \ 'autocomplete',
   \ 'folds',
   \ 'fuzzy',
   \ 'git',
+  \ 'lint',
   \ 'statusline',
   \ 'syntax',
   \ 'theme',

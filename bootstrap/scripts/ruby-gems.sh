@@ -11,6 +11,7 @@ if which gem > /dev/null 2>&1; then
   if [ -z $SERVER ];then
     geminstall 'neovim'
     geminstall 'rubocop'
+    geminstall 'solargraph'
   fi
   geminstall 'bundler'
 fi
