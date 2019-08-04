@@ -11,6 +11,7 @@ Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 Plug 'docunext/closetag.vim' " Autoclose HTML tags
 Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,)
+Plug 'machakann/vim-highlightedyank' " Highlight yanked text
 " Tmux:
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Syntax:

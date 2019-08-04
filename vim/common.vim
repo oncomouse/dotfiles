@@ -40,6 +40,14 @@ set nomodeline
 let g:secure_modelines_verbose = 0
 let g:secure_modelines_modelines = 15
 
+" Yanking:
+if has('nvim')
+  set inccommand=split
+endif
+if !exists('##TextYankPost')
+  map y <Plug>(highlightedyank)
+endif
+
 " Disabled Vim Plugins {{{
   let g:loaded_gzip              = 1
   let g:loaded_tar               = 1
