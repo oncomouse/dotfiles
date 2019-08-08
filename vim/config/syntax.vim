@@ -47,6 +47,7 @@
 " }}}
 " Colorizer {{{
   let g:colorizer_auto_filetype='css,scss,sass,less,html,javascript,javascript.jsx,vim'
+  let g:colorizer_disable_bufleave = 1
 " }}}
 " Emmet {{{
   let g:user_emmet_settings = {
