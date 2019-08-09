@@ -105,7 +105,7 @@ end
 
 # Other Command Aliases:
 alias cat='bat --paging=never'
-alias top='sudo htop'
+alias top='htop' # sudo
 alias ls='exa --group-directories-first'
 
 # Colors:
