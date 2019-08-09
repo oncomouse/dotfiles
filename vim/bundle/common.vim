@@ -14,10 +14,10 @@ Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,
 Plug 'machakann/vim-highlightedyank' " Highlight yanked text
 " Text Object Plugins:
 Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
-" Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
-" Plug 'thinca/vim-textobj-function-javascript' " js function support
-" Plug 'lucapette/vim-textobj-underscore' " i_, a_ for selecting inside underscores
-" Plug 'coderifous/textobj-word-column.vim' " ic, ac, aC, iC column selections
+Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
+Plug 'thinca/vim-textobj-function-javascript' " js function support
+Plug 'lucapette/vim-textobj-underscore' " i_, a_ for selecting inside underscores
+Plug 'coderifous/textobj-word-column.vim' " ic, ac, aC, iC column selections
 " Tmux:
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Syntax:
