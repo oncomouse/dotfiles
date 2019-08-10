@@ -3,6 +3,7 @@
     Plug 'Konfekt/FastFold' " Better fold support
     Plug 'Yggdroot/indentLine' " Indent with characters
     Plug 'luochen1990/rainbow' " Rainbow parentheses
+    Plug 'machakann/vim-highlightedyank' " Highlight yanked text
   " }}}
   " Web Syntax: {{{
     Plug 'neoclide/vim-jsx-improve', { 'for': ['javascript', 'javascript.jsx'] }
@@ -32,6 +33,13 @@
   " Python: {{{
     Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
+  " }}}
+  " Text Object Plugins: {{{
+    Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
+    Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
+    Plug 'thinca/vim-textobj-function-javascript' " js function support
+    Plug 'lucapette/vim-textobj-underscore' " i_, a_ for selecting inside underscores
+    Plug 'coderifous/textobj-word-column.vim' " ic, ac, aC, iC column selections
   " }}}
 " }}}
 " Autocomplete: {{{
