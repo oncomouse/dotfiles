@@ -27,35 +27,35 @@
   let g:limelight_conceal_ctermfg='black'
 "}}}
 " Goyo {{{
-  function! s:goyo_enter()
-    " Trigger Limelight
-    Limelight
-    " For some reason, lightline-bufferline causes lightline to reenable, so
-    " we have to turn it off on these events:
-    augroup lightline_goyo
-      autocmd!
-      autocmd BufWritePost,TextChanged,TextChangedI * call lightline#disable()
-    augroup END
-    ALEToggle
-    silent !tmux set status off
-    silent !tmux list-panes -F '\#F' | grep -q Z | tmux resize-pane -Z
-    set noshowmode
-    set noshowcmd
-    set scrolloff=999
-  endfunction
+  " function! s:goyo_enter()
+  "   " Trigger Limelight
+  "   Limelight
+  "   " For some reason, lightline-bufferline causes lightline to reenable, so
+  "   " we have to turn it off on these events:
+  "   augroup lightline_goyo
+  "     autocmd!
+  "     autocmd BufWritePost,TextChanged,TextChangedI * call lightline#disable()
+  "   augroup END
+  "   ALEToggle
+  "   silent !tmux set status off
+  "   silent !tmux list-panes -F '\#F' | grep -q Z | tmux resize-pane -Z
+  "   set noshowmode
+  "   set noshowcmd
+  "   set scrolloff=999
+  " endfunction
 
-  function! s:goyo_leave()
-    Limelight!
-    augroup lightline_goyo
-      autocmd!
-    augroup END
-    ALEToggle
-    silent !tmux set status on
-    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-    set showmode
-    set showcmd
-    set scrolloff=0
-  endfunction
+  " function! s:goyo_leave()
+  "   Limelight!
+  "   augroup lightline_goyo
+  "     autocmd!
+  "   augroup END
+  "   ALEToggle
+  "   silent !tmux set status on
+  "   silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  "   set showmode
+  "   set showcmd
+  "   set scrolloff=0
+  " endfunction
 
 "}}}
 " Easy Align {{{
