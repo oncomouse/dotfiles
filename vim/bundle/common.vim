@@ -20,8 +20,6 @@ Plug 'lucapette/vim-textobj-underscore' " i_, a_ for selecting inside underscore
 Plug 'coderifous/textobj-word-column.vim' " ic, ac, aC, iC column selections
 " Tmux:
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
-" Syntax:
-Plug 'sheerun/vim-polyglot'
 " Fuzzy Search:
 Plug (isdirectory('/usr/local/opt/fzf') ? '/usr/local/opt/fzf' : '~/.fzf')
 Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
