@@ -3,7 +3,7 @@
     Plug 'Konfekt/FastFold' " Better fold support
     Plug 'Yggdroot/indentLine' " Indent with characters
     Plug 'luochen1990/rainbow' " Rainbow parentheses
-    Plug 'machakann/vim-highlightedyank' " Highlight yanked text
+    " Plug 'machakann/vim-highlightedyank' " Highlight yanked text
   " }}}
   " Web Syntax: {{{
     Plug 'neoclide/vim-jsx-improve', { 'for': ['javascript', 'javascript.jsx'] }

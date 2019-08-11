@@ -2,13 +2,16 @@
 " CoC {{{
   " Add extensions
   let coc_extensions = [
-  \   'coc-omni',
-  \   'coc-tsserver',
-  \   'coc-json',
-  \   'coc-html',
   \   'coc-css',
+  \   'coc-html',
+  \   'coc-json',
+  \   'coc-lists',
+  \   'coc-omni',
+  \   'coc-pairs',
   \   'coc-python',
   \   'coc-solargraph',
+  \   'coc-tsserver',
+  \   'coc-yank',
   \]
   function! s:load_extension(ext) abort
     if !isdirectory(expand('~/.config/coc/extensions/node_modules/'.a:ext))
@@ -39,6 +42,8 @@
       return "\<tab>"
     endif
   endfunction
+  " Load errors in ALE:
+  call coc#config('coc.preferences.diagnostic.displayByAle', 1)
   imap <expr><TAB> pumvisible() ? "\<C-n>" : SmartTab()
   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
   augroup lsp-load-settings
