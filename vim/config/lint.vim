@@ -21,7 +21,7 @@
     \  'javascript':  ['eslint'],
     \  'pandoc': ['vale'],
     \  'python': ['pylint', 'bandit'],
-    \  'reason': ['reason-language-server'],
+    \  'reason': [],
     \  'ruby': ['rubocop', 'ruby'],
     \  'scss': ['stylelint'],
     \  'vim': ['vint'],
@@ -31,8 +31,6 @@
     \  '\.min.js$': {'ale_enabled': 0},
     \  'build/.*$': {'ale_enabled': 0},
     \}
-  " ALE's support for RLS is worthless:
-  let g:ale_reason_ls_executable = '/usr/local/bin/reason-language-server'
   " Add Vale to pandoc bc vim-pandoc insists on changing filetype:
   call ale#linter#Define('pandoc', {
   \   'name': 'vale',
