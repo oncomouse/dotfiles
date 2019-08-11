@@ -98,7 +98,7 @@ end
 
 # Fasd Aliases:
 if command -sq nvim
-  alias v='f -t -b viminfo -e nvim'
+  alias v='f -t -e nvim'
 else
   alias v='f -t -b viminfo -e vim'
 end

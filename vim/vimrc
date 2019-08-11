@@ -34,4 +34,15 @@ endfor
 " Disable polyglot for all the syntaxes we already use:
 let g:polyglot_disabled = dotfiles#polyglot#overrides()
 
+" Update fasd for NeoVim:
+function! s:fasd_update() abort
+  if empty(&buftype) || &filetype ==# 'dirvish'
+    call jobstart(['fasd', '-A', expand('%:p')])
+  endif
+endfunction
+
+augroup fasd
+  autocmd!
+  autocmd BufWinEnter,BufFilePost * call s:fasd_update()
+augroup END
 " # vim:foldmethod=marker
