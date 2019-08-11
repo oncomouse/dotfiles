@@ -1,7 +1,7 @@
 " Autocomplete:
 " CoC {{{
   " Add extensions
-  let coc_extensions = [
+  let g:coc_global_extensions = [
   \   'coc-css',
   \   'coc-html',
   \   'coc-json',
@@ -13,14 +13,6 @@
   \   'coc-tsserver',
   \   'coc-yank',
   \]
-  function! s:load_extension(ext) abort
-    if !isdirectory(expand('~/.config/coc/extensions/node_modules/'.a:ext))
-      call coc#add_extension(a:ext)
-    endif
-  endfunction
-  for ext in coc_extensions
-    call <SID>load_extension(ext)
-  endfor
   " call coc#config('tsserver', {
   "     \  'log': 'verbose',
   "     \  'trace.server': 'verbose',
