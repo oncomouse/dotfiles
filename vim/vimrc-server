@@ -10,7 +10,6 @@ let &runtimepath .= ','.expand('~/dotfiles/vim/')
 call plug#begin('~/.vim/plugged/server/')
 runtime bundle/common.vim
 runtime bundle/server.vim
-Plug 'sheerun/vim-polyglot'
 call plug#end()
 runtime common.vim
 let configs = [

@@ -15,6 +15,9 @@
     Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': ['markdown', 'pandoc'] }
     Plug 'vim-python/python-syntax', { 'for': 'python' }
     Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
+    Plug 'lepture/vim-css', { 'for': 'css' }
+    Plug 'cakebaker/scss-syntax.vim', { 'for': ['sass', 'scss'] }
+    Plug 'georgewitteman/vim-fish'
   " }}}
   " Web Development: {{{
     Plug 'chrisbra/Colorizer', { 'for': ['html', 'javascript.jsx', 'javascript', 'css', 'scss'] }
