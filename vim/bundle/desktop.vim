@@ -18,6 +18,7 @@
     Plug 'lepture/vim-css', { 'for': 'css' }
     Plug 'cakebaker/scss-syntax.vim', { 'for': ['sass', 'scss'] }
     Plug 'georgewitteman/vim-fish'
+    Plug 'elzr/vim-json'
   " }}}
   " Web Development: {{{
     Plug 'chrisbra/Colorizer', { 'for': ['html', 'javascript.jsx', 'javascript', 'css', 'scss'] }
@@ -46,20 +47,6 @@
   " }}}
 " }}}
 " Autocomplete: {{{
-  " Plug 'autozimu/LanguageClient-neovim', {
-  "     \ 'branch': 'next',
-  "     \ 'do': 'bash install.sh; npm i -g vscode-json-languageserver-bin vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server',
-  "     \ 'for': ['json', 'html', 'css', 'scss', 'sass', 'javascript', 'reason', 'ruby' ],
-  "     \ }
-  " if has('nvim')
-  "   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  " else
-  "   Plug 'Shougo/deoplete.nvim'
-  "   Plug 'roxma/nvim-yarp'
-  "   Plug 'roxma/vim-hug-neovim-rpc'
-  " endif
-  " Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' } " Deoplete source for Python
-  " Plug 'wellle/tmux-complete.vim' " Read from other Tmux splits
   Plug 'neoclide/coc.nvim', {'branc': 'release', 'do': { -> coc#util#install()}}
   Plug 'neoclide/coc-neco', { 'for': 'vim' }
   Plug 'Shougo/neco-vim', { 'for': 'vim' } " Deoplete source for vim

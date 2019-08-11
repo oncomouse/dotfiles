@@ -11,6 +11,7 @@
 " }}}
 " vim-jsx-pretty {{{
   let g:vim_jsx_pretty_colorful_config = 1
+  let g:vim_json_syntax_conceal = 0
 " }}}
 " Line Indent {{{
   let g:indentLine_setColors = 1
