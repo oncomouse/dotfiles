@@ -1,16 +1,35 @@
 " Autocomplete:
-" Deoplete {{{
-  let g:deoplete#enable_at_startup = 1
-  call deoplete#custom#source('file', 'rank', 1000)
-  let g:AutoPairsMapCR=0
-  let g:deoplete#auto_complete_start_length = 1
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#enable_smart_case = 1
-  call deoplete#custom#var('omni', 'input_patterns', {
-  \ 'pandoc': '@[\w\-_\:\.]+',
-  \ 'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*',
-  \ 'go': '[^. *\t]\.\w*',
-  \})
+" CoC {{{
+  " Add extensions
+  let coc_extensions = [
+  \   'coc-omni',
+  \   'coc-tsserver',
+  \   'coc-json',
+  \   'coc-html',
+  \   'coc-css',
+  \   'coc-python',
+  \]
+  function! s:load_extension(ext) abort
+    if !isdirectory(expand('~/.config/coc/extensions/node_modules/'.a:ext))
+      call coc#add_extension(a:ext)
+    endif
+  endfunction
+  for ext in coc_extensions
+    call <SID>load_extension(ext)
+  endfor
+  " call coc#config('tsserver', {
+  "     \  'log': 'verbose',
+  "     \  'trace.server': 'verbose',
+  "     \ })
+  if executable('reason-language-server')
+    call coc#config('languageserver.reason', {
+      \  'command': 'reason-language-server',
+      \  'filetypes': ['reason'],
+      \  'trace.server': 'verbose',
+      \  'rootPatterns': ['bsconfig.json', 'package.json', '.git/', '.merlin'],
+      \  'settings': {'reason_language_server' : {'format_width': 80}},
+      \})
+  endif
   function! SmartTab() abort
     let l:emmetTypes = ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim']
     if index(l:emmetTypes, &filetype) >= 0
@@ -21,27 +40,6 @@
   endfunction
   imap <expr><TAB> pumvisible() ? "\<C-n>" : SmartTab()
   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-  " exec 'imap <expr><CR> pumvisible() ? deoplete#close_popup() : "\<CR>\<Plug>DiscretionaryEnd\<Plug>AutoPairsReturn"'
-  " imap <expr><Esc> pumvisible() ? deoplete#cancel_popup() : "\<ESC>"
-" }}}
-" LanguageClient {{{
-  " Basic settings
-  let g:LanguageClient_serverCommands = {
-      \ 'javascript': ['typescript-language-server', '--stdio'],
-      \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
-      \ 'reason': ['reason-language-server'],
-      \ 'html': ['html-languageserver', '--stdio'],
-      \ 'json': ['json-languageserver', '--stdio'],
-      \ 'css': ['css-languageserver', '--stdio'],
-      \ 'scss': ['css-languageserver', '--stdio'],
-      \ 'ruby': ['solargraph', 'stdio'],
-      \}
-  let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp.settings.json')
-  let g:LanguageClient_diagnosticsEnable=0
-  let g:LanguageClient_useVirtualText=1
-  " let g:LanguageClient_loggingLevel='DEBUG'
-  " let g:LanguageClient_serverStderr=expand('~/lsp-server.log')
-  " let g:LanguageClient_loggingFile = expand('~/lsp-client.log')
   augroup lsp-load-settings
     autocmd!
     autocmd BufEnter * if dotfiles#lsp_test() | call dotfiles#lsp#load() | endif

@@ -10,10 +10,24 @@
     autocmd FileType pandoc,text,markdown inoremap <silent> <C-C> <c-g>u<c-o>:call dotfiles#fzf#bibtex_run_ls('dotfiles#fzf#bibtex_cite_sink_insert')<CR>
   augroup END
 " }}}
-" Deoplete Source Ignore {{{
-  call  deoplete#custom#option('ignore_sources', {
-      \  'pandoc': ['buffer', 'around']
-      \}) 
+" CoC Source Ignore {{{
+  augroup coc-pandoc
+    autocmd!
+    autocmd FileType pandoc call coc#config('coc.source.buffer.enable', 0)
+    autocmd FileType pandoc call coc#config('coc.source.around.enable', 0)
+    autocmd FileType pandoc call coc#config('coc.source.snippets.enable', 0)
+    autocmd FileType pandoc call coc#config('coc.source.file.enable', 0)
+  augroup END
+  function! CocBufferOn() abort
+    call coc#config('coc.source.buffer.enable', 1)
+    call coc#config('coc.source.around.enable', 1)
+  endfunction
+  function! CocBufferOff() abort
+    call coc#config('coc.source.buffer.enable', 0)
+    call coc#config('coc.source.around.enable', 0)
+  endfunction
+  command CocBufferOn call CocBufferOn()
+  command CocBufferOff call CocBufferOff()
 " }}}
 " Pandoc {{{
   " Uncomment to use the omni-func for bibliography completion:
