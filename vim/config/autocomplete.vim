@@ -8,6 +8,7 @@
   \   'coc-html',
   \   'coc-css',
   \   'coc-python',
+  \   'coc-solargraph',
   \]
   function! s:load_extension(ext) abort
     if !isdirectory(expand('~/.config/coc/extensions/node_modules/'.a:ext))
