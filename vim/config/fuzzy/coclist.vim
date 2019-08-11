@@ -18,8 +18,8 @@
     nnoremap <silent> <leader>cc :cwindow<CR>
     nnoremap <silent> <leader>ll :lwindow<CR>
     nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-    nnoremap <silent> K :call dotfiles#ag#SearchWordWithAg()<CR>
-    vnoremap <silent> K :call dotfiles#ag#SearchVisualSelectionWithAg()<CR>
+    " nnoremap <silent> K :call dotfiles#ag#SearchWordWithAg()<CR>
+    " vnoremap <silent> K :call dotfiles#ag#SearchVisualSelectionWithAg()<CR>
   endif 
 " }}}
 

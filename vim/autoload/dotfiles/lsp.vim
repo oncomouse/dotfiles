@@ -18,7 +18,7 @@ function! dotfiles#lsp#mappings() abort
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
   " Use U to show documentation in preview window
-  nnoremap <silent> U :call <SID>show_documentation()<CR>
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
 
   " Remap for rename current word
   nmap <leader>rn <Plug>(coc-rename)
