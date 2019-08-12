@@ -44,9 +44,9 @@ let g:secure_modelines_modelines = 15
 if has('nvim')
   set inccommand=split
 endif
-if !exists('##TextYankPost')
-  map y <Plug>(highlightedyank)
-endif
+" if !exists('##TextYankPost')
+"   map y <Plug>(highlightedyank)
+" endif
 
 " Disabled Vim Plugins {{{
   let g:loaded_gzip              = 1
