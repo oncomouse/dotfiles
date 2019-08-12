@@ -107,6 +107,7 @@ end
 alias cat='bat --paging=never'
 alias top='htop' # sudo
 alias ls='exa --group-directories-first'
+alias vim='nvim -u ~/dotfiles/vim/vimrc-server'
 
 # Colors:
 set fish_color_cwd cyan
