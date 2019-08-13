@@ -11,6 +11,7 @@ if which npm > /dev/null 2>&1; then
     }
     npminstall 'mf-cli' 
     npminstall 'trash-cli' 
+    npminstall 'empty-trash-cli'
     npminstall 'diff-so-fancy' 
     npminstall 'neovim' 
     npminstall 'jsonlint' 
