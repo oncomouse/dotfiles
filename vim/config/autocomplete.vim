@@ -17,15 +17,15 @@
   "     \  'log': 'verbose',
   "     \  'trace.server': 'verbose',
   "     \ })
-  if executable('reason-language-server')
-    call coc#config('languageserver.reason', {
-      \  'command': 'reason-language-server',
-      \  'filetypes': ['reason'],
-      \  'trace.server': 'verbose',
-      \  'rootPatterns': ['bsconfig.json', 'package.json', '.git/', '.merlin'],
-      \  'settings': {'reason_language_server' : {'format_width': 80}},
-      \})
-  endif
+  " if executable('reason-language-server')
+  "   call coc#config('languageserver.reason', {
+  "     \  'command': 'reason-language-server',
+  "     \  'filetypes': ['reason'],
+  "     \  'trace.server': 'verbose',
+  "     \  'rootPatterns': ['bsconfig.json', 'package.json', '.git/', '.merlin'],
+  "     \  'settings': {'reason_language_server' : {'format_width': 80}},
+  "     \})
+  " endif
   function! SmartTab() abort
     let l:emmetTypes = ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim']
     if index(l:emmetTypes, &filetype) >= 0

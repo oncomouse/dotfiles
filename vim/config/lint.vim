@@ -20,12 +20,12 @@
     \  'javascript':  ['eslint'],
     \  'pandoc': ['vale'],
     \  'python': ['pylint', 'bandit'],
-    \  'reason': [],
     \  'ruby': ['rubocop', 'ruby'],
     \  'scss': ['stylelint'],
     \  'vim': ['vint'],
     \  'yaml': ['yamllint'],
     \}
+  " \  'reason': [],
   let g:ale_pattern_options = {
     \  '\.min.js$': {'ale_enabled': 0},
     \  'build/.*$': {'ale_enabled': 0},
