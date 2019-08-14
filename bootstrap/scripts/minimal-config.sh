@@ -6,7 +6,7 @@
 
 os=`bash ~/dotfiles/bootstrap/scripts/os.sh`
 # Remove any old versions of the files we create:
-declare -a created_files=("~/.vimrc" "~/.config/nvim/init.vim" "~/.config/fish/config.fish" "~/.config/fish/fishfile" "~/.tmux.conf.local" "~/.muttrc" "~/.mackup.cfg" "~/.config/kitty/kitty.conf" "~/.wegorc" "~/.lein/profiles.clj" "~/.ignore")
+declare -a created_files=("~/.vimrc" "~/.config/nvim/init.vim" "~/.config/fish/config.fish" "~/.config/fish/fishfile" "~/.tmux.conf.local" "~/.muttrc" "~/.mackup.cfg" "~/.config/kitty/kitty.conf" "~/.wegorc" "~/.ignore")
 
 mkdir -p ~/.backup
 for created_file in "${created_files[@]}"
@@ -29,9 +29,6 @@ mkdir -p ~/.config/nvim/
 if [ $os == "macos" ]; then
   mkdir -p ~/.config/kitty/
 fi
-if [ -z $SERVER ]; then
-  mkdir -p ~/.lein/
-fi
 ln -s ~/dotfiles/ag/agignore ~/.ignore
 # Always link the minimal server rc file for vim:
 ln -s ~/dotfiles/vim/vimrc-server ~/.vimrc
@@ -49,6 +46,5 @@ fi
 if [ -z $SERVER ]; then
   ln -s ~/dotfiles/vim/vimrc ~/.config/nvim/init.vim
   ln -s ~/dotfiles/mutt/muttrc ~/.muttrc
-  ln -s ~/dotfiles/leinengen/profiles.clj  ~/.lein/
 fi
 ln -s ~/dotfiles/wego/wegorc ~/.wegorc
