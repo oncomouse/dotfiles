@@ -13,7 +13,6 @@
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
     Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': ['markdown', 'pandoc'] }
     Plug 'vim-python/python-syntax', { 'for': 'python' }
-    Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
     Plug 'lepture/vim-css', { 'for': 'css' }
     Plug 'cakebaker/scss-syntax.vim', { 'for': ['sass', 'scss'] }
     Plug 'oncomouse/vim-fish' " Async vim-fish
@@ -25,13 +24,6 @@
   " }}}
   " Linter: {{{
     Plug 'w0rp/ale' " Linter support
-  " }}}
-  " Clojure: {{{
-    Plug 'venantius/vim-cljfmt', { 'for': 'clojure' } " Formatting for Clojure
-    Plug 'tpope/vim-fireplace', { 'for': 'clojure' } " REPL for Clojure
-    Plug 'guns/vim-sexp', { 'for': ['clojure', 'lisp', 'scheme'] } " Better slurp / barf
-    Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['clojure', 'lisp', 'scheme'] } " >) <) >( <) to move parentheses
-    Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' } " Clojure support
   " }}}
   " Python: {{{
     Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }

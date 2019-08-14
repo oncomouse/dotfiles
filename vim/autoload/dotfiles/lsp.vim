@@ -35,7 +35,6 @@ function! dotfiles#lsp#formatting_commands() abort
   call coc#config('coc.source.omni.filetypes', [
       \   'pandoc',
       \   'go',
-      \   'clojure',
       \])
   " JavaScript Config:
   " Don't do typechecking for JavaScript:

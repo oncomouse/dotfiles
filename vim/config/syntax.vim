@@ -67,13 +67,6 @@
     autocmd FileType json syntax match Comment +\/\/.\+$+
   augroup END
 " }}}
-" vim-clojure-static {{{
-  " Use vim-clojure-static for the omnifunc:
-  augroup clojure-autocomplete
-    autocmd!
-    autocmd BufEnter,WinEnter * if &filetype=='clojure'|setlocal omnifunc=clojurecomplete#Complete|endif
-  augroup END
-" }}}
 " vim-go {{{
   let g:go_fmt_command = 'goimports'
   let g:go_highlight_build_constraints = 1
@@ -112,9 +105,6 @@
     autocmd FileType markdown,pandoc,md setlocal shiftwidth=4
     autocmd FileType markdown,pandoc,md setlocal noexpandtab
   augroup END
-" }}}
-" Sexp Mappings {{{
-" let g:sexp_filetypes = 'lisp,scheme,clojure,javascript'
 " }}}
 " Autopair {{{
   let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', '`':'`', '{': '}'}

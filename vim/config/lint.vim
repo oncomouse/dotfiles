@@ -15,7 +15,6 @@
   " Define the linters we plan to use and disable all others:
   let g:ale_linters_explicit = 1
   let g:ale_linters = {
-    \  'clojure': ['clj_kondo'],
     \  'css': ['stylelint'],
     \  'go': ['govet', 'gofmt', 'golint'],
     \  'javascript':  ['eslint'],
