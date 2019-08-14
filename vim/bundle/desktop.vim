@@ -16,7 +16,7 @@
     Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
     Plug 'lepture/vim-css', { 'for': 'css' }
     Plug 'cakebaker/scss-syntax.vim', { 'for': ['sass', 'scss'] }
-    Plug 'oncomouse/vim-fish'
+    Plug 'oncomouse/vim-fish' " Async vim-fish
     Plug 'elzr/vim-json'
   " }}}
   " Web Development: {{{
