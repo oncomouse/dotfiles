@@ -9,7 +9,6 @@
     Plug 'JulesWang/css.vim', { 'for': 'css' }
   " }}}
   " Other Syntax: {{{
-    " Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
     Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': ['markdown', 'pandoc'] }
     Plug 'vim-python/python-syntax', { 'for': 'python' }
