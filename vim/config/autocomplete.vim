@@ -27,6 +27,8 @@
       return "\<tab>"
     endif
   endfunction
+  " Turn of vim-lsp diagnostics:
+  call coc#config('vimlsp.diagnostic.enable', 0)
   " Load errors in ALE:
   call coc#config('coc.preferences.diagnostic.displayByAle', 1)
   imap <expr><TAB> pumvisible() ? "\<C-n>" : SmartTab()
