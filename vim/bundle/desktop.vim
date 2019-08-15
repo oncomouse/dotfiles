@@ -39,7 +39,6 @@
 " }}}
 " Autocomplete: {{{
   Plug 'neoclide/coc.nvim', {'branc': 'release', 'do': { -> coc#util#install()}}
-  Plug 'oncomouse/coc-fish' " Fish completion for Coc
   Plug 'wellle/tmux-complete.vim'
 " }}}
 " Writing: {{{

@@ -3,6 +3,7 @@
   " Add extensions
   let g:coc_global_extensions = [
   \   'coc-css',
+  \   'coc-fish',
   \   'coc-html',
   \   'coc-json',
   \   'coc-lists',
