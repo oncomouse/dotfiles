@@ -19,15 +19,6 @@
   "     \  'log': 'verbose',
   "     \  'trace.server': 'verbose',
   "     \ })
-  " if executable('reason-language-server')
-  "   call coc#config('languageserver.reason', {
-  "     \  'command': 'reason-language-server',
-  "     \  'filetypes': ['reason'],
-  "     \  'trace.server': 'verbose',
-  "     \  'rootPatterns': ['bsconfig.json', 'package.json', '.git/', '.merlin'],
-  "     \  'settings': {'reason_language_server' : {'format_width': 80}},
-  "     \})
-  " endif
   function! SmartTab() abort
     let l:emmetTypes = ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim']
     if index(l:emmetTypes, &filetype) >= 0
@@ -43,11 +34,6 @@
   augroup lsp-load-settings
     autocmd!
     autocmd BufEnter * if dotfiles#lsp_test() | call dotfiles#lsp#load() | endif
-    " Since neither ale nor neovim-languageclient proivde a mechanism to start
-    " a socket-based LSP, this function starts one based on file type. Also,
-    " this can be used to run one LSP and share it between Ale and deoplete,
-    " but that doesn't really work out too often in practice:
-    " autocmd BufReadPre *.rb call dotfiles#lsp#start_lsp('solargraph socket')
   augroup END
 " }}}
 " Vim-Go Support {{{
