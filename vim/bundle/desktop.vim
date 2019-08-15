@@ -39,9 +39,9 @@
 " }}}
 " Autocomplete: {{{
   Plug 'neoclide/coc.nvim', {'branc': 'release', 'do': { -> coc#util#install()}}
-  Plug 'neoclide/coc-neco', { 'for': 'vim' } " VimL completion for Coc
-  Plug 'oncomouse/coc-fish' " Fish completion for Coc
-  Plug 'Shougo/neco-vim', { 'for': 'vim' } " Deoplete source for vim
+  " Plug 'neoclide/coc-neco', { 'for': 'vim' } " VimL completion for Coc
+  " Plug 'oncomouse/coc-fish' " Fish completion for Coc
+  " Plug 'Shougo/neco-vim', { 'for': 'vim' } " Deoplete source for vim
   Plug 'wellle/tmux-complete.vim'
 " }}}
 " Writing: {{{

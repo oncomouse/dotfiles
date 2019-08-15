@@ -11,6 +11,7 @@
   \   'coc-python',
   \   'coc-solargraph',
   \   'coc-tsserver',
+  \   'coc-vimlsp',
   \   'coc-yank',
   \]
   " call coc#config('tsserver', {
