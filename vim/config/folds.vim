@@ -1,7 +1,7 @@
 " Folds {{{
   " Set fold method to syntax by default:
   set foldmethod=syntax
-  set foldlevel=3
+  set foldlevel=99
   " FastFold:
   nmap zuz <Plug>(FastFoldUpdate)
   let g:fastfold_savehook = 1
