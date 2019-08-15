@@ -9,6 +9,7 @@
       return join(list, "\n")
     endfunction
     nnoremap <silent> <c-p> :exe 'CocList files'<CR>
+    nnoremap <silent> <leader>F :exe 'CocList files '.expand('~')<CR>
     nnoremap <silent> <leader>a :exe 'CocList buffers'<CR>
     nnoremap <silent> <leader>A :exe 'CocList windows'<CR>
     nnoremap <silent> <leader>l :exe 'CocList lines'<CR>
