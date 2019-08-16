@@ -9,3 +9,4 @@ else
   nvim +PlugInstall +PlugClean +qall
 fi
 fish -c nvim-nightly
+launchctl load macos/com.pilsch.nvim-nightly.plist
