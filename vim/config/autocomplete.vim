@@ -30,6 +30,16 @@
   " Turn of vim-lsp diagnostics:
   call coc#config('vimlsp.diagnostic.enable', 0)
   " Load errors in ALE:
+  call coc#config('coc.preferences', {
+      \ 'hoverTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
+      \ })
+  call coc#config('suggest', {
+      \ 'echodocSupport': 1,
+      \ 'floatEnable': dotfiles#has_floating_window(),
+      \ })
+  call coc#config('signature', {
+      \ 'target': dotfiles#has_floating_window() ? 'float' : 'echo',
+      \ })
   call coc#config('coc.preferences.diagnostic.displayByAle', 1)
   imap <expr><TAB> pumvisible() ? "\<C-n>" : SmartTab()
   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
