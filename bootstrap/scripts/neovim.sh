@@ -8,3 +8,4 @@ if test ! "~/.local/share/nvim/site/autoload/plug.vim"; then
 else
   nvim +PlugInstall +PlugClean +qall
 fi
+fish -c nvim-nightly
