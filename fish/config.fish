@@ -96,6 +96,10 @@ if command -sq kitty
   kitty + complete setup fish | source
 end
 
+if [ -x ~/.local/bin/nvim-osx64/bin/nvim ]
+  alias nvim='~/.local/bin/nvim-osx64/bin/nvim'
+end
+
 # Fasd Aliases:
 if command -sq nvim
   alias v='f -t -e nvim'
