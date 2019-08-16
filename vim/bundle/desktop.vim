@@ -18,7 +18,8 @@
     Plug 'elzr/vim-json'
   " }}}
   " Web Development: {{{
-    Plug 'chrisbra/Colorizer', { 'for': ['html', 'javascript.jsx', 'javascript', 'css', 'scss'] }
+    " Plug 'chrisbra/Colorizer', { 'for': ['html', 'javascript.jsx', 'javascript', 'css', 'scss'] }
+    " Plug 'RRethy/vim-hexokinase' " Color display
     Plug 'mattn/emmet-vim', { 'for': ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim'] }
   " }}}
   " Linter: {{{
