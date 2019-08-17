@@ -19,6 +19,7 @@ brew "htop"
 brew "fd"
 brew "exa"
 brew "ranger"
+brew "shellcheck"
 
 # Editor
 brew "vim"
