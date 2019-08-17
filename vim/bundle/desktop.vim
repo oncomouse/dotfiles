@@ -9,7 +9,6 @@
     Plug 'JulesWang/css.vim', { 'for': 'css' }
   " }}}
   " Other Syntax: {{{
-    " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' } " Go support
     Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': ['markdown', 'pandoc'] }
     Plug 'vim-python/python-syntax', { 'for': 'python' }
     Plug 'lepture/vim-css', { 'for': 'css' }
@@ -18,12 +17,9 @@
     Plug 'elzr/vim-json'
   " }}}
   " Web Development: {{{
-    " Plug 'chrisbra/Colorizer', { 'for': ['html', 'javascript.jsx', 'javascript', 'css', 'scss'] }
-    " Plug 'RRethy/vim-hexokinase' " Color display
     Plug 'mattn/emmet-vim', { 'for': ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim'] }
   " }}}
   " Python: {{{
-    Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
   " }}}
   " Text Object Plugins: {{{
