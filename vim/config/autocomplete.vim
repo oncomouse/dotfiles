@@ -20,17 +20,7 @@
   \]
 " }}}
 " Coc Configuration {{{
-  " call coc#config('tsserver', {
-  "     \  'log': 'verbose',
-  "     \  'trace.server': 'verbose',
-  "     \ })
-  " Turn of vim-lsp diagnostics:
-  call coc#config('diagnostic-languageserver.trace.server', 'verbose')
-  call coc#config('vimlsp.diagnostic.enable', 1)
-  " Ruby:
-  call coc#config('solargraph.diagnostics', 1)
-  call coc#config('solargraph.formatting', 1)
-  " Diagnostic LSP:
+  " Diagnostic LSP: {{{
   call coc#config('diagnostic-languageserver', {
   \  'filetypes': {
   \    'sh': ['shellcheck'],
@@ -92,6 +82,7 @@
   \    },
   \  },
   \})
+  " }}}
   " Coc Floating Window Support:
   call coc#config('coc.preferences', {
       \ 'hoverTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
@@ -186,6 +177,13 @@
       autocmd FileType go call coc#config('coc.preferences', {'messageLevel': 'error',})
       autocmd BufWritePre *.go :OrganizeImports
     augroup END
+  " }}}
+  " VimL {{{
+    call coc#config('vimlsp.diagnostic.enable', 1)
+  " }}}
+  " Ruby: {{{
+    call coc#config('solargraph.diagnostics', 1)
+    call coc#config('solargraph.formatting', 1)
   " }}}
 " }}}
 " # vim:foldmethod=marker
