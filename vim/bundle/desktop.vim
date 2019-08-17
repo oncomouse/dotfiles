@@ -45,5 +45,6 @@
   Plug 'reedes/vim-litecorrect' " Add autocorrections for boneheaded typos
   Plug 'reedes/vim-textobj-sentence', { 'for': ['pandoc', 'markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
 " }}}
-" Statusline:
-Plug 'oncomouse/lightline-gitdiff-async'
+" Statusline: {{{
+  Plug 'oncomouse/lightline-gitdiff-async'
+" }}}
