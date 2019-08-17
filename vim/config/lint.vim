@@ -16,12 +16,13 @@
   let g:ale_linters_explicit = 1
   let g:ale_linters = {
     \  'css': ['stylelint'],
-    \  'go': ['govet', 'gofmt', 'golint'],
+    \  'go': ['gofmt', 'golint'],
     \  'javascript':  ['eslint'],
     \  'pandoc': ['vale'],
     \  'python': ['pylint', 'bandit'],
     \  'ruby': ['rubocop', 'ruby'],
     \  'scss': ['stylelint'],
+    \  'sh': ['shell'],
     \  'vim': ['vint'],
     \  'yaml': ['yamllint'],
     \}

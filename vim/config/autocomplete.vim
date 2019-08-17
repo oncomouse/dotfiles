@@ -1,9 +1,8 @@
-" Autocomplete:
-" CoC {{{
-  " Add extensions
+" Coc Extensions {{{
   let g:coc_global_extensions = [
   \   'coc-css',
   \   'coc-fish',
+  \   'coc-go',
   \   'coc-html',
   \   'coc-json',
   \   'coc-lists',
@@ -15,21 +14,17 @@
   \   'coc-vimlsp',
   \   'coc-yank',
   \]
+" }}}
+" Coc Configuration {{{
   " call coc#config('tsserver', {
   "     \  'log': 'verbose',
   "     \  'trace.server': 'verbose',
   "     \ })
-  function! SmartTab() abort
-    let l:emmetTypes = ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim']
-    if index(l:emmetTypes, &filetype) >= 0
-      return emmet#expandAbbrIntelligent("\<tab>")
-    else
-      return "\<tab>"
-    endif
-  endfunction
   " Turn of vim-lsp diagnostics:
   call coc#config('vimlsp.diagnostic.enable', 0)
   " Load errors in ALE:
+  call coc#config('coc.preferences.diagnostic.displayByAle', 1)
+  " Coc Floating Window Support:
   call coc#config('coc.preferences', {
       \ 'hoverTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
       \ })
@@ -40,26 +35,52 @@
   call coc#config('signature', {
       \ 'target': dotfiles#has_floating_window() ? 'float' : 'echo',
       \ })
-  call coc#config('coc.preferences.diagnostic.displayByAle', 1)
-  imap <expr><TAB> pumvisible() ? "\<C-n>" : SmartTab()
-  imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-  augroup lsp-load-settings
-    autocmd!
-    autocmd BufEnter * if dotfiles#lsp_test() | call dotfiles#lsp#load() | endif
-  augroup END
 " }}}
-" Vim-Go Support {{{
-  " B/c vim-go is a full-featured IDE on it's own, we have to set it up to work
-  " with deoplete + LSP (by turning off LSP and turning on Vim-Go's stuff).
-  " Also, see above, where the omnifunc is set for go (which uses gopls).
-  let g:go_def_mapping_enabled = 0
-  let g:go_def_mode='gopls'
-  let g:go_info_mode='gopls'
-  let g:go_metalinter_enabled = [] " Turn off metalinter in favor of ALE.
-  augroup go-vim-definitions
-    autocmd!
-    autocmd FileType go :autocmd! BufEnter <buffer> :call dotfiles#go#mappings(1)
-    autocmd FileType go :autocmd! BufLeave <buffer> :call dotfiles#go#mappings(0)
-  augroup END
+" Coc Keyboard shortcuts: {{{
+  imap <expr><TAB> pumvisible() ? "\<C-n>" : dotfiles#smart_tab()
+  imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+  " Remap keys for gotos
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+  " Use U to show documentation in preview window
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+  " Remap for rename current word
+  nmap <leader>rn <Plug>(coc-rename)
+  " Show symbols:
+  command! Symbols :<C-u>CocList -I symbols<cr>
+  nmap <leader>s :Symbols<CR>
+  " Formatting
+  set formatexpr=CocAction('formatSelected')
+  xmap <leader>f  <Plug>(coc-format-selected)
+  nmap <leader>f  <Plug>(coc-format-selected)
+  command! -nargs=0 Format :call CocAction('format')
+  " Autoformat on save:
+  call coc#config('coc.preferences.formatOnSaveFiletypes', [
+    \ 'javascript',
+    \ 'javascript.jsx',
+    \ 'go',
+    \ 'reason',
+    \ 'python',
+    \])
+" }}}
+" Coc Filetypes {{{
+  " JavaScript {{{
+    " Format JavaScript the way I like:
+    call coc#config('javascript.format', {
+        \   'insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces': 0,
+        \   'insertSpaceBeforeFunctionParenthesis': 0,
+        \})
+  " }}}
+  " Go {{{
+    command! -nargs=0 OrganizeImports :call CocAction('runCommand', 'editor.action.organizeImport')
+    augroup coc-go-commands
+      autocmd!
+      autocmd FileType go call coc#config('coc.preferences', {'messageLevel': 'error',})
+      autocmd BufWritePre *.go :OrganizeImports
+    augroup END
+  " }}}
 " }}}
 " # vim:foldmethod=marker
