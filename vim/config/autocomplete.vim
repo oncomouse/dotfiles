@@ -148,11 +148,10 @@
       let slash = (s:is_win && !&shellslash) ? '\\' : '/'
       let dir = substitute(a:dir, '[/\\]*$', slash, '')
       let args.dir = dir
+      exe 'CocList files '.expand(dir)
     else
-      let dir = s:shortpath()
+      exe 'CocList files'
     endif
-    echom dir
-    exe 'CocList files '.expand(dir)
   endfunction
   command!      -bang -nargs=? -complete=dir FZF       call CocFiles(<q-args>, <bang>0)
   command! Buffers :exe 'CocList buffers'

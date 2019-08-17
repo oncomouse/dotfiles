@@ -26,6 +26,7 @@
     Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
     Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
     Plug 'thinca/vim-textobj-function-javascript' " js function support
+    Plug 'haya14busa/vim-textobj-function-syntax' " syntax function support
     Plug 'lucapette/vim-textobj-underscore' " i_, a_ for selecting inside underscores
     Plug 'coderifous/textobj-word-column.vim' " ic, ac, aC, iC column selections
   " }}}
