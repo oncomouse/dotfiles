@@ -30,9 +30,6 @@ for file in configs
   let x = 'config/'.file.'.vim'
   execute 'runtime' x
 endfor
-" Disable polyglot for all the syntaxes we already use:
-let g:polyglot_disabled = dotfiles#polyglot#overrides()
-
 " Update fasd for NeoVim:
 function! s:fasd_update() abort
   if empty(&buftype) || &filetype ==# 'dirvish'

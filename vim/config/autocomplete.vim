@@ -99,6 +99,13 @@
       \ })
 " }}}
 " Coc Keyboard shortcuts: {{{
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
   imap <expr><TAB> pumvisible() ? "\<C-n>" : dotfiles#smart_tab()
   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
   nmap <silent> gd <Plug>(coc-definition)
