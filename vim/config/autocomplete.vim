@@ -139,6 +139,39 @@
     \ 'reason',
     \ 'python',
     \])
+  " Fuzzy (Implement fzf.vim lists for CocList)
+  let s:is_win = has('win32') || has('win64')
+  function! s:shortpath()
+    let short = fnamemodify(getcwd(), ':~:.')
+    if !has('win32unix')
+      let short = pathshorten(short)
+    endif
+    let slash = (s:is_win && !&shellslash) ? '\' : '/'
+    return empty(short) ? '~'.slash : short . (short =~ escape(slash, '\').'$' ? '' : slash)
+  endfunction
+
+  function! CocFiles(dir, ...)
+    let args = {}
+    if !empty(a:dir)
+      if !isdirectory(expand(a:dir))
+        return s:warn('Invalid directory')
+      endif
+      let slash = (s:is_win && !&shellslash) ? '\\' : '/'
+      let dir = substitute(a:dir, '[/\\]*$', slash, '')
+      let args.dir = dir
+    else
+      let dir = s:shortpath()
+    endif
+    echom dir
+    exe 'CocList files '.expand(dir)
+  endfunction
+  command!      -bang -nargs=? -complete=dir FZF       call CocFiles(<q-args>, <bang>0)
+  command! Buffers :exe 'CocList buffers'
+  command! Windows :exe 'CocList windows'
+  command! BLines :exe 'CocList lines'
+  command! History :exe 'CocList cmdhistory'
+  nnoremap <silent> <leader>rr  :<C-u>CocList -A --normal yank<cr>
+
 " }}}
 " Coc Filetypes {{{
   " JavaScript {{{
