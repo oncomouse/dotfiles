@@ -38,7 +38,8 @@
   " }}}
 " }}}
 " Autocomplete: {{{
-  Plug 'neoclide/coc.nvim', {'branc': 'release', 'do': { -> coc#util#install()}}
+  Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+  Plug 'oncomouse/coc-go', {'do': 'yarn install --frozen-lockfile'}
   Plug 'wellle/tmux-complete.vim'
 " }}}
 " Writing: {{{
