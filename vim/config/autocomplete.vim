@@ -110,7 +110,6 @@
 " Coc Keyboard shortcuts: {{{
   imap <expr><TAB> pumvisible() ? "\<C-n>" : dotfiles#smart_tab()
   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-  " Remap keys for gotos
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
@@ -118,15 +117,12 @@
   nmap <silent> <leader>lk <Plug>(coc-diagnostic-prev)
   nmap <silent> <leader>lj <Plug>(coc-diagnostic-next)
   nmap <silent> <leader>ll :<C-u>CocList diagnostics<CR>
-  " Use U to show documentation in preview window
   nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-  " Remap for rename current word
   nmap <leader>rn <Plug>(coc-rename)
-  " Show symbols:
   command! Symbols :<C-u>CocList -I symbols<cr>
   nmap <leader>s :Symbols<CR>
-  " Formatting
+" }}}
+" Coc Formatting {{{
   set formatexpr=CocAction('formatSelected')
   xmap <leader>f  <Plug>(coc-format-selected)
   nmap <leader>f  <Plug>(coc-format-selected)
@@ -139,7 +135,9 @@
     \ 'reason',
     \ 'python',
     \])
-  " Fuzzy (Implement fzf.vim lists for CocList)
+" }}}
+" Coc Fuzzy {{{
+  " (Implement fzf.vim lists for CocList)
   let s:is_win = has('win32') || has('win64')
   function! s:shortpath()
     let short = fnamemodify(getcwd(), ':~:.')
@@ -154,7 +152,7 @@
     let args = {}
     if !empty(a:dir)
       if !isdirectory(expand(a:dir))
-        return s:warn('Invalid directory')
+        echom s:warn('Invalid directory')
       endif
       let slash = (s:is_win && !&shellslash) ? '\\' : '/'
       let dir = substitute(a:dir, '[/\\]*$', slash, '')
