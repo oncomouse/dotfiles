@@ -22,9 +22,6 @@
     " Plug 'RRethy/vim-hexokinase' " Color display
     Plug 'mattn/emmet-vim', { 'for': ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim'] }
   " }}}
-  " Linter: {{{
-    Plug 'w0rp/ale' " Linter support
-  " }}}
   " Python: {{{
     Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }

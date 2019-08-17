@@ -15,9 +15,9 @@
     nnoremap <silent> <leader>l :exe 'CocList lines'<CR>
     nnoremap <silent> <leader>? :exe 'CocList cmdhistory'<CR>
     nnoremap <silent> <leader>rr  :<C-u>CocList -A --normal yank<cr>
-    " Close the quick fix window:
-    nnoremap <silent> <leader>cc :cwindow<CR>
-    nnoremap <silent> <leader>ll :lwindow<CR>
+    " " Close the quick fix window:
+    " nnoremap <silent> <leader>cc :cwindow<CR>
+    " nnoremap <silent> <leader>ll :lwindow<CR>
     nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
     " nnoremap <silent> K :call dotfiles#ag#SearchWordWithAg()<CR>
     " vnoremap <silent> K :call dotfiles#ag#SearchVisualSelectionWithAg()<CR>

@@ -55,14 +55,43 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
       \%2*%{(w:['lf_active'] && &rtp=~'gitdiff'? Componetize('lightline#gitdiff#get()','\u22EE ') :'')}
       \%0*%=
       \%1*\ %l:%c\ 
-      \%3*%{w:['lf_active'] ? Componetize('dotfiles#ale#warnings()') : ''}
-      \%4*%{w:['lf_active'] ? Componetize('dotfiles#ale#errors()', '  ') : ''}
-      \%5*%{w:['lf_active'] ? Componetize('dotfiles#ale#ok()', '', '  ') : ''}
-      \%5*%{w:['lf_active'] ? Componetize('dotfiles#ale#checking()', '', '  ') : ''}
+      \%3*%{w:['lf_active'] ? Componetize('CocWarning()') : ''}
+      \%4*%{w:['lf_active'] ? Componetize('CocError()', '  ') : ''}
+      \%5*%{w:['lf_active'] ? Componetize('CocOk()', '', '  ') : ''}
+      \%5*%{w:['lf_active'] ? Componetize('CocChecking()', '', '  ') : ''}
       \%#".get(g:lf_stlh, mode(), 'Warnings')."#
       \%{w:['lf_active']
       \?'  '.get(g:lf_stlm,mode(),mode()).' '
       \:''}%*"
+  endfunction
+  function! CocWarning() abort
+    let info = get(b:, 'coc_diagnostic_info', {})
+    let l:count = get(info, 'warning', 0) + get(info, 'information', 0)
+    if l:count > 0
+      return g:dotfiles#ale#indicator_warnings.l:count
+    endif
+    return  ''
+  endfunction
+  function! CocError() abort
+    let info = get(b:, 'coc_diagnostic_info', {})
+    if get(info, 'error', 0)
+      return g:dotfiles#ale#indicator_errors.info['error']
+    endif
+    return  ''
+  endfunction
+  function! CocOk() abort
+    if get(g:, 'coc_status', '') !=# ''
+      return ''
+    endif
+    let info = get(b:, 'coc_diagnostic_info', {})
+    if empty(info) | return g:dotfiles#ale#indicator_ok | endif
+    return ''
+  endfunction
+  function! CocChecking() abort
+    if get(g:, 'coc_status', '') !=# ''
+      return g:dotfiles#ale#indicator_checking
+    endif
+    return ''
   endfunction
 " }}}
 " Tabline {{{

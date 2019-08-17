@@ -20,7 +20,6 @@ let configs = [
   \ 'folds',
   \ 'fuzzy/coclist',
   \ 'git',
-  \ 'lint',
   \ 'statusline',
   \ 'syntax',
   \ 'theme',
