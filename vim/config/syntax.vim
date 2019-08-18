@@ -67,31 +67,13 @@
     autocmd FileType json syntax match Comment +\/\/.\+$+
   augroup END
 " }}}
-" vim-go {{{
-  let g:go_fmt_command = 'goimports'
-  let g:go_highlight_build_constraints = 1
-  let g:go_highlight_extra_types = 1
-  let g:go_highlight_fields = 1
-  let g:go_highlight_functions = 1
-  let g:go_highlight_methods = 1
-  let g:go_highlight_operators = 1
-  let g:go_highlight_structs = 1
-  let g:go_highlight_types = 1
-  let g:go_auto_type_info = 1
-  augroup my-go-tabstops
+" Tabstops {{{
+augroup my-go-tabstops
     autocmd!
     autocmd FileType go setlocal tabstop=4
     autocmd FileType go setlocal shiftwidth=4
     autocmd FileType go setlocal noexpandtab
-
-    " Turn off omnifunc in go:
-    " autocmd BufEnter,WinEnter * if &filetype=='go'|setlocal omnifunc=|endif
-    " Bind goto function definitions:
-    autocmd FileType go nmap <leader>gd :GoDeclsDir<cr>
-    au FileType go nmap <F12> <Plug>(go-def)
   augroup END
-" }}}
-" Other tabstops {{{
   augroup my-js-tabstops
     autocmd!
     autocmd FileType javascript,javascript.jsx setlocal tabstop=2
