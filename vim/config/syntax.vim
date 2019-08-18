@@ -68,7 +68,7 @@
   augroup END
 " }}}
 " Tabstops {{{
-augroup my-go-tabstops
+  augroup my-go-tabstops
     autocmd!
     autocmd FileType go setlocal tabstop=4
     autocmd FileType go setlocal shiftwidth=4
