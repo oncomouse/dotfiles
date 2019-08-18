@@ -1,11 +1,9 @@
 " Syntax:
 " General VIM {{{
-  " Insert a semicolon at the end of the line with <leader>;
   let g:python_highlight_all = 1
   " Proper keyword highlighting for CSS:
   augroup VimCSS3Syntax
     autocmd!
-
     autocmd FileType css setlocal iskeyword+=-
   augroup END
 " }}}
@@ -17,13 +15,6 @@
   let g:indentLine_setColors = 1
   let g:indentLine_char = "\u22EE"
   let g:indentLine_color_term = 11
-  " let g:indent_guides_enable_on_vim_startup = 1
-  " let g:indent_guides_auto_colors = 0
-  " augroup indent-colors
-  "   autocmd!
-  "   autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#1B2B34 ctermbg=NONE
-  "   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1C313D ctermbg=0
-  " augroup END
 " }}}
 " Rainbow Parentheses {{{
   let g:rainbow_active = 1
@@ -46,10 +37,6 @@
   " let g:rooter_change_directory_for_non_project_files = '' " can be current or home
   " let g:rooter_use_lcd = 1 " only change the current window
 " }}}
-" Colorizer {{{
-  let g:colorizer_auto_filetype='css,scss,sass,less,html,javascript,javascript.jsx,vim'
-  let g:colorizer_disable_bufleave = 1
-" }}}
 " Emmet {{{
   let g:user_emmet_settings = {
     \  'javascript.jsx' : {
@@ -57,32 +44,25 @@
       \  },
     \}
 " }}}
-" Better Whitespace {{{
-  let g:better_whitespace_guicolor='#EC5f67'
-  let g:strip_whitespace_on_save=1
-" }}}
-" CoC JSONC {{{
+" Coc JSONC {{{
   augroup jsonc-syntax-coc
     autocmd!
     autocmd FileType json syntax match Comment +\/\/.\+$+
   augroup END
 " }}}
 " Tabstops {{{
-  augroup my-go-tabstops
+  augroup my-tabstops
     autocmd!
+    " Go
     autocmd FileType go setlocal tabstop=4
     autocmd FileType go setlocal shiftwidth=4
     autocmd FileType go setlocal noexpandtab
-  augroup END
-  augroup my-js-tabstops
-    autocmd!
+    " JavaScript
     autocmd FileType javascript,javascript.jsx setlocal tabstop=2
     autocmd FileType javascript,javascript.jsx setlocal shiftwidth=2
     autocmd FileType javascript,javascript.jsx setlocal softtabstop=2
     autocmd FileType javascript,javascript.jsx setlocal expandtab
-  augroup END
-  augroup my-md-tabstops
-    autocmd!
+    " Markdown
     autocmd FileType markdown,pandoc,md setlocal tabstop=4
     autocmd FileType markdown,pandoc,md setlocal shiftwidth=4
     autocmd FileType markdown,pandoc,md setlocal noexpandtab
@@ -101,7 +81,6 @@
   augroup line-numbers
     set number relativenumber
     autocmd!
-    " autocmd BufEnter,WinEnter * if &filetype=='pandoc' || &filetype=='text'|setlocal nonumber norelativenumber|endif
     if has('nvim')
       autocmd TermOpen * setlocal nonumber norelativenumber
     endif
