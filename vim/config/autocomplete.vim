@@ -84,6 +84,11 @@
   \})
   " }}}
   " Coc Floating Window Support:
+  call coc#config('list.insertMappings', {
+      \  '<C-t>': 'action:tabe',
+      \  '<C-v>': 'action:vsplit',
+      \  '<C-s>': 'action:split',
+      \})
   call coc#config('coc.preferences', {
       \ 'hoverTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
       \ })
