@@ -1,6 +1,7 @@
 " Coc Extensions {{{
   " Once your pull request gets accepted, add back coc-go
   let g:coc_global_extensions = [
+  \   'coc-bibtex',
   \   'coc-css',
   \   'coc-diagnostic',
   \   'coc-eslint',
