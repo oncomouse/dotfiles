@@ -103,6 +103,10 @@
   call coc#config('diagnostics', {
       \ 'messageTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
       \ })
+  " Omnifunc:
+  call coc#config('coc.source.omni.filetypes', [
+        \ 'pandoc',
+        \ ])
 " }}}
 " Coc Keyboard shortcuts: {{{
   function! s:show_documentation()
@@ -172,6 +176,9 @@
   command! BLines :exe 'CocList lines'
   command! History :exe 'CocList cmdhistory'
   nnoremap <silent> <leader>rr  :<C-u>CocList -A --normal yank<cr>
+  " Implement Ag
+  call coc#config('list.source.grep.command', 'ag')
+  command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'CocList grep '.<q-args>
 
 " }}}
 " Coc Filetypes {{{
