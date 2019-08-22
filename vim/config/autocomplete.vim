@@ -2,6 +2,7 @@
   " Once your pull request gets accepted, add back coc-go
   let g:coc_global_extensions = [
   \   'coc-bibtex',
+  \   'coc-calc',
   \   'coc-css',
   \   'coc-diagnostic',
   \   'coc-eslint',
@@ -104,9 +105,9 @@
       \ 'messageTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
       \ })
   " Omnifunc:
-  call coc#config('coc.source.omni.filetypes', [
-        \ 'pandoc',
-        \ ])
+  " call coc#config('coc.source.omni.filetypes', [
+  "     \ 'pandoc',
+  "     \ ])
 " }}}
 " Coc Keyboard shortcuts: {{{
   function! s:show_documentation()
@@ -129,6 +130,10 @@
   nmap <leader>rn <Plug>(coc-rename)
   command! Symbols :<C-u>CocList -I symbols<cr>
   nmap <leader>s :Symbols<CR>
+  " append result on current expression
+  nmap <Leader>ca <Plug>(coc-calc-result-append)
+  " replace result on current expression
+  nmap <Leader>cr <Plug>(coc-calc-result-replace)
 " }}}
 " Coc Formatting {{{
   set formatexpr=CocAction('formatSelected')

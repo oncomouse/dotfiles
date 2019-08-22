@@ -29,6 +29,7 @@
     autocmd FileType pandoc call coc#config('coc.source.around.enable', 0)
     autocmd FileType pandoc call coc#config('coc.source.snippets.enable', 0)
     autocmd FileType pandoc call coc#config('coc.source.file.enable', 0)
+    autocmd FileType pandoc call coc#config('coc.source.tmux.enable', 0)
   augroup END
   function! CocBufferOn() abort
     call coc#config('coc.source.buffer.enable', 1)
@@ -43,9 +44,9 @@
 " }}}
 " Pandoc {{{
   " Uncomment to use the omni-func for bibliography completion:
-  let g:pandoc#biblio#bibs=[g:bibliography_file]
+  " let g:pandoc#biblio#bibs=[g:bibliography_file]
   " Turn off folding and vim-pandoc's BibTeX support
-  " let g:pandoc#modules#disabled = ['folding'] " , 'bibliography']
+  let g:pandoc#modules#disabled = ['bibliography']
   " Turn off conceal
   let g:pandoc#syntax#conceal#use = 0
 "}}}
