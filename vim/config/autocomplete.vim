@@ -10,7 +10,6 @@
   \   'coc-html',
   \   'coc-json',
   \   'coc-lists',
-  \   'coc-omni',
   \   'coc-pairs',
   \   'coc-python',
   \   'coc-solargraph',
