@@ -103,7 +103,7 @@
   call <sid>hi('User4', s:cterms[10], s:cterms[01], 'NONE')
   call <sid>hi('User5', s:cterms[10], s:cterms[04], 'NONE')
   call <sid>hi('User6', s:cterms[08], s:cterms[00], 'NONE')
-  call <sid>hi('User7', s:cterms[10], s:cterms[07], 'none')
+  call <sid>hi('User7', s:cterms[15], s:cterms[08], 'none')
   call <sid>hi('TabLineFill', s:cterms[11], s:ctermNONE, 'NONE')
   call <sid>hi('TabLineSel',s:cterms[13],s:cterms[11],'bold')
   call <sid>hi('TabLine', s:cterms[08], s:cterms[10], '')

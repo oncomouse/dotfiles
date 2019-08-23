@@ -59,12 +59,12 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
       \%3*%{w:['lf_active'] ? Componetize('CocWarning()') : ''}
       \%4*%{w:['lf_active'] ? Componetize('CocError()', '  ') : ''}
       \%5*%{w:['lf_active'] ? Componetize('CocOk()', '', '  ') : ''}
+      \%7*%{w:['lf_active'] ? Componetize('CocInformation()', '  ', ' ') : ''}
       \%#".get(g:lf_stlh, mode(), 'Warnings')."#
       \%{w:['lf_active']
       \?'  '.get(g:lf_stlm,mode(),mode()).' '
       \:''}%*"
   endfunction
-  "       \%7*%{w:['lf_active'] ? Componetize('CocInformation()', '  ', ' ') : ''}
   function CocGetInfo(key) abort
     let l:info = get(b:, 'coc_diagnostic_info', {})
     return get(info, a:key, 0)
@@ -82,7 +82,7 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
     return l:count > 0 ? g:dotfiles#ale#indicator_errors.l:count : ''
   endfunction
   function! CocOk() abort
-    let l:count = CocGetInfo('warning') + CocGetInfo('error')
+    let l:count = CocGetInfo('warning') + CocGetInfo('error') + CocGetInfo('information')
     return l:count == 0 ? g:dotfiles#ale#indicator_ok : ''
   endfunction
 " }}}
