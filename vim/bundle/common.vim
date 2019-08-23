@@ -8,7 +8,6 @@ Plug 'tpope/vim-repeat' " Repeat plugin commands
 Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
 Plug 'airblade/vim-rooter' " Set project root
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
-Plug 'docunext/closetag.vim' " Autoclose HTML tags
 Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,)
 " Tmux:
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
