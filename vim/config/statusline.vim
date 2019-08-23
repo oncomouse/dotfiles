@@ -16,6 +16,7 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
   let g:dotfiles#ale#indicator_checking = "\uf110"
   let g:dotfiles#ale#indicator_warnings = g:nerdfonts ? "\uf071\u2003" : 'W: '
   let g:dotfiles#ale#indicator_errors = g:nerdfonts ? "\uf05e\u2003" : 'E: '
+  let g:dotfiles#ale#indicator_information = g:nerdfonts ? "\uf7fc\u2003" : 'I: '
   let g:dotfiles#ale#indicator_ok = g:nerdfonts ? "\uf00c" : 'Ok'
 " }}}
 " Statusline {{{
@@ -63,34 +64,26 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
       \?'  '.get(g:lf_stlm,mode(),mode()).' '
       \:''}%*"
   endfunction
+  "       \%7*%{w:['lf_active'] ? Componetize('CocInformation()', '  ', ' ') : ''}
+  function CocGetInfo(key) abort
+    let l:info = get(b:, 'coc_diagnostic_info', {})
+    return get(info, a:key, 0)
+  endfunction
+  function! CocInformation() abort
+    let l:count = CocGetInfo('information')
+    return l:count > 0 ? g:dotfiles#ale#indicator_information.l:count : ''
+  endfunction
   function! CocWarning() abort
-    let info = get(b:, 'coc_diagnostic_info', {})
-    let l:count = get(info, 'warning', 0) + get(info, 'information', 0)
-    if l:count > 0
-      return g:dotfiles#ale#indicator_warnings.l:count
-    endif
-    return  ''
+    let l:count = CocGetInfo('warning')
+    return l:count > 0 ? g:dotfiles#ale#indicator_warnings.l:count : ''
   endfunction
   function! CocError() abort
-    let info = get(b:, 'coc_diagnostic_info', {})
-    if get(info, 'error', 0)
-      return g:dotfiles#ale#indicator_errors.info['error']
-    endif
-    return  ''
+    let l:count = CocGetInfo('error')
+    return l:count > 0 ? g:dotfiles#ale#indicator_errors.l:count : ''
   endfunction
   function! CocOk() abort
-    if get(g:, 'coc_status', '') !=# ''
-      return ''
-    endif
-    let info = get(b:, 'coc_diagnostic_info', {})
-    if empty(info) | return g:dotfiles#ale#indicator_ok | endif
-    return ''
-  endfunction
-  function! CocChecking() abort
-    if get(g:, 'coc_status', '') !=# ''
-      return g:dotfiles#ale#indicator_checking
-    endif
-    return ''
+    let l:count = CocGetInfo('warning') + CocGetInfo('error')
+    return l:count == 0 ? g:dotfiles#ale#indicator_ok : ''
   endfunction
 " }}}
 " Tabline {{{
