@@ -7,6 +7,8 @@
   " Web Syntax: {{{
     Plug 'neoclide/vim-jsx-improve', { 'for': ['javascript', 'javascript.jsx'] }
     Plug 'JulesWang/css.vim', { 'for': 'css' }
+    Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+    Plug 'peitalin/vim-jsx-typescript', { 'for': ['typescript', 'typescript.tsx']}
   " }}}
   " Other Syntax: {{{
     Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': ['markdown', 'pandoc'] }
