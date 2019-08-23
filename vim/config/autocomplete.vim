@@ -7,6 +7,7 @@
   \   'coc-diagnostic',
   \   'coc-eslint',
   \   'coc-fish',
+  \   'coc-go',
   \   'coc-html',
   \   'coc-json',
   \   'coc-lists',
