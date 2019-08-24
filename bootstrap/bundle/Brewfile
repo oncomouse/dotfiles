@@ -16,6 +16,7 @@ brew "openssh" # Same with OpenSSH
 brew "fish" # shell
 cask "kitty" # Terminal emulator
 cask "font-firacode-nerd-font" # Terminal font
+cask "font-hasklig-nerd-font" # Alternate (italic) terminal font
 brew "diff-so-fancy" # Fancy diffs for git
 brew "thefuck" # fix faulty commands with everyone's favorite word
 brew "fasd" # Autcompletion for directory jumping, z and v (for editing)
