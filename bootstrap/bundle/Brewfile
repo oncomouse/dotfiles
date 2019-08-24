@@ -1,76 +1,69 @@
 cask_args appdir: '/Applications'
 
-tap "heroku/brew"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/cask-fonts"
+tap "heroku/brew"
 tap "ValeLint/vale"
-
-# Shell stuff
-brew "fish"
-brew "diff-so-fancy"
-brew "thefuck"
-brew "fasd"
-brew "the_silver_searcher"
-brew "fzf"
-brew "bat"
-brew "htop"
-brew "fd"
-brew "exa"
-brew "ranger"
-brew "shellcheck"
-
-# Editor
-brew "vim"
-brew "neovim"
-brew "go"
-brew "bib-tool"
-brew "vale"
-
-# Mail
-brew "mutt"
-brew "gnupg"
-brew "pinentry-mac"
 
 # System
 brew "coreutils"
-brew "git"
-brew "grep"
-brew "tmux"
-brew "openssh"
+brew "git" # Always useful to have up-to-date versions
+brew "openssh" # Same with OpenSSH
+
+# Shell
+brew "fish" # shell
+cask "kitty" # Terminal emulator
+cask "font-firacode-nerd-font" # Terminal font
+brew "diff-so-fancy" # Fancy diffs for git
+brew "thefuck" # fix faulty commands with everyone's favorite word
+brew "fasd" # Autcompletion for directory jumping, z and v (for editing)
+brew "grep" # the old standby
+brew "the_silver_searcher" # ag for searching, fancy grep
+brew "ripgrep" # rg for searching, fancy and fast grep
+brew "fzf" # fuzzy finder in shell, <C-t> to bring up completion
+brew "bat" # syntax highlighting cat
+brew "htop" # fancy top
+brew "fd" # fast find command
+brew "exa" # better ls
+brew "ranger" # file manager
+brew "shellcheck" # bash linter
+brew "tmux" # terminal multiplexer, run multiple shells and save/restore sessions
+
+# Editor
+brew "vim" # Backup text editor
+brew "neovim" # Text editor
+cask "visual-studio-code" # Code IDE
+
+# Mail
+brew "mutt" # Command line email client
+brew "gnupg" # Encryption utilities
+brew "pinentry-mac" # Get secure passphrases for GPG
 
 # Programming
-brew "node"
-brew "node-build"
-brew "nodenv"
-brew "python"
-brew "rbenv"
-brew "yarn"
-brew "heroku/brew/heroku"
+brew "node" # Node.js
+brew "node-build" # Build Node binaries
+brew "nodenv" # Manage different Node.js installations
+brew "yarn" # Package manager for Node.js
+brew "go" # The Go programming language
+brew "python" # Python 3
+brew "rbenv" # Manage different Ruby installations
+brew "heroku/brew/heroku" # Build and install cloud apps
+cask "virtualbox" # Virtual machine software
 
 # Writing
-brew "diction"
-brew "pandoc"
-brew "pandoc-citeproc"
+brew "diction" # Analyze a document's word usage
+brew "pandoc" # Compile Markdown into .docx (and beyond!)
+brew "pandoc-citeproc" # Citation plugin for Pandoc
+brew "bib-tool" # Manage bibtex files
+brew "vale" # Markdown linter
+cask "zotero" # Bibliography management
 
-# Other
-brew "tree"
-brew "wget"
-
-# cask "font-dejavusansmono-nerd-font-mono"
-cask "font-firacode-nerd-font"
-cask "seafile-client"
-cask "flux"
-cask "firefox"
-cask "kitty"
-cask "virtualbox"
-cask "visual-studio-code"
-cask "zotero"
-cask "keycast"
-cask "karabiner-elements"
-# cask "dropbox"
-# cask "nextcloud"
-# cask "iterm2"
-# cask "slack"
+# Other GUI Applications
+cask "seafile-client" # File sharing
+cask "flux" # Night-time screen mode
+cask "firefox" # Browser
+cask "keycast" # Visualize keystrokes on-screen, great for teaching
+cask "karabiner-elements" # Keyboard remapping
 # vim: filetype=conf
