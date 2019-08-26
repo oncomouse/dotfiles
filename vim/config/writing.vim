@@ -1,4 +1,7 @@
 " Writing:
+" Pandoc shortcuts {{{
+nmap <C-b> ysiw*lysiw*
+" }}}
 " coc-bibtex Configuration {{{
   call coc#config('list.source.bibtex', {
   \  'files': [
