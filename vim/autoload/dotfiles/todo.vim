@@ -52,7 +52,7 @@ function! dotfiles#todo#SearchProjects(projects) abort
     let depth = 0
 
     for project in a:projects
-        if !todo#SearchProject(project, depth, begin, end)
+        if !dotfiles#todo#SearchProject(project, depth, begin, end)
             call setpos('.', save_pos)
             return 0
         endif
