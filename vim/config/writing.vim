@@ -1,6 +1,9 @@
 " Writing:
 " Pandoc shortcuts {{{
-nmap <C-b> ysiw*lysiw*
+augroup pandoc-shortcuts
+  autocmd!
+  autocmd FileType pandoc,markdown nmap <C-b> ysiw*lysiw*
+augroup END
 " }}}
 " coc-bibtex Configuration {{{
   call coc#config('list.source.bibtex', {
