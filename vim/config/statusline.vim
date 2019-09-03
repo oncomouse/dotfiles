@@ -58,9 +58,9 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
       \%1*\ %l:%c\ 
       \%3*%{w:['lf_active'] ? Componetize('CocWarning()') : ''}
       \%4*%{w:['lf_active'] ? Componetize('CocError()', '  ') : ''}
-      \%5*%{w:['lf_active'] ? Componetize('CocOk()', '', '  ') : ''}
-      \%7*%{w:['lf_active'] ? Componetize('CocInformation()', '  ', ' ') : ''}
+      \%5*%{w:['lf_active'] ? Componetize('CocInformation()', '  ', ' ') : ''}
       \%#".get(g:lf_stlh, mode(), 'Warnings')."#
+      \%{w:['lf_active'] ? Componetize('CocOk()', '', '  ') : ''}
       \%{w:['lf_active']
       \?'  '.get(g:lf_stlm,mode(),mode()).' '
       \:''}%*"
