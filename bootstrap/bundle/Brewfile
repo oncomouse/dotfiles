@@ -31,6 +31,7 @@ brew "exa" # better ls
 brew "ranger" # file manager
 brew "shellcheck" # bash linter
 brew "tmux" # terminal multiplexer, run multiple shells and save/restore sessions
+brew "jq" # streaming, inline JSON editor
 
 # Editor
 brew "vim" # Backup text editor
