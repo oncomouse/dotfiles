@@ -4,7 +4,7 @@ function cdf
   if test (count $argv) -ne 0
     set query -q (string join " " $argv)
   end
-  set -l dir (fd $target --type d --color always 2> /dev/null | fzf $query +m --layout=reverse --height=40%)
+  set -l dir (fd $target --type d --color always 2> /dev/null | fzf $query +m --layout=reverse --height=40% --preview='ls -1 --color=always {} | head -n 10')
   if test -n "$dir"
     cd $dir
   end
