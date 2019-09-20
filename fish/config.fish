@@ -26,8 +26,7 @@ end
 
 # Vim related aliases:
 if command -sq nvim
-  set -gx EDITOR (which nvim) -u ~/dotfiles/vim/vimrc-server
-  # alias vim=(which nvim)" -u ~/dotfiles/vim/vimrc-server"
+  set -gx EDITOR (which nvim)
 else
   set -gx EDITOR (which vim)
 end
@@ -96,9 +95,9 @@ if command -sq kitty
   kitty + complete setup fish | source
 end
 
-if [ -x ~/.local/bin/nvim-osx64/bin/nvim ]
-  alias nvim='~/.local/bin/nvim-osx64/bin/nvim'
-end
+# if [ -x ~/.local/bin/nvim-osx64/bin/nvim ]
+#   alias nvim='~/.local/bin/nvim-osx64/bin/nvim'
+# end
 
 # Fasd Aliases:
 if command -sq nvim
