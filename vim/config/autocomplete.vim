@@ -14,6 +14,7 @@
   \   'coc-pairs',
   \   'coc-python',
   \   'coc-solargraph',
+  \   'coc-styled-components',
   \   'coc-stylelint',
   \   'coc-tsserver',
   \   'coc-vimlsp',
