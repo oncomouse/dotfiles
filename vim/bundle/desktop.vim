@@ -19,6 +19,7 @@
   " }}}
   " Web Development: {{{
     Plug 'mattn/emmet-vim', { 'for': ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim'] }
+    Plug 'alvan/vim-closetag'
   " }}}
   " Python: {{{
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
