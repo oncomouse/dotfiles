@@ -10,63 +10,66 @@ tap "ValeLint/vale"
 # System
 brew "coreutils"
 brew "git" # Always useful to have up-to-date versions
-brew "openssh" # Same with OpenSSH
+brew "openssh" # More up-to-date version than system
 
 # Shell
-brew "fish" # shell
-cask "kitty" # Terminal emulator
-cask "font-firacode-nerd-font" # Install for VS Code & Kitty symbol_map
-cask "font-fira-code" # Terminal Font
-cask "font-hasklig" # Alternate (italic) terminal font
-brew "diff-so-fancy" # Fancy diffs for git
-brew "thefuck" # fix faulty commands with everyone's favorite word
-brew "fasd" # Autcompletion for directory jumping, z and v (for editing)
-brew "grep" # the old standby
-brew "the_silver_searcher" # ag for searching, fancy grep
-brew "ripgrep" # rg for searching, fancy and fast grep
-brew "fzf" # fuzzy finder in shell, <C-t> to bring up completion
 brew "bat" # syntax highlighting cat
-brew "htop" # fancy top
-brew "fd" # fast find command
+brew "diff-so-fancy" # Fancy diffs for git
 brew "exa" # better ls
-brew "ranger" # file manager
-brew "shellcheck" # bash linter
-brew "tmux" # terminal multiplexer, run multiple shells and save/restore sessions
+brew "fasd" # Autcompletion for directory jumping, z and v (for editing)
+brew "fd" # fast find command
+brew "fish" # shell
+brew "fzf" # fuzzy finder in shell, <C-t> to bring up completion
+brew "grep" # the old standby
+brew "htop" # fancy top
 brew "jq" # streaming, inline JSON editor
+brew "ranger" # file manager
+brew "ripgrep" # rg for searching, fancy and fast grep
+brew "shellcheck" # bash linter
+brew "the_silver_searcher" # ag for searching, fancy grep
+brew "thefuck" # fix faulty commands with everyone's favorite word
+brew "tmux" # terminal multiplexer, run multiple shells and save/restore sessions
+cask "kitty" # Terminal emulator
 
 # Editor
-brew "vim" # Backup text editor
 brew "neovim" # Text editor
+brew "vim" # Backup text editor
 cask "visual-studio-code" # Code IDE
 
+# Fonts
+cask "font-fira-code" # Terminal Font
+cask "font-firacode-nerd-font" # Install for VS Code & Kitty symbol_map
+cask "font-hasklig" # Alternate (italic) terminal font
+cask "font-tex-gyre-heros" # Used for CV on website
+
 # Mail
-brew "mutt" # Command line email client
 brew "gnupg" # Encryption utilities
+brew "mutt" # Command line email client
 brew "pinentry-mac" # Get secure passphrases for GPG
 
 # Programming
+brew "go" # The Go programming language
+brew "heroku/brew/heroku" # Build and install cloud apps
 brew "node" # Node.js
 brew "node-build" # Build Node binaries
 brew "nodenv" # Manage different Node.js installations
-brew "yarn" # Package manager for Node.js
-brew "go" # The Go programming language
 brew "python" # Python 3
 brew "rbenv" # Manage different Ruby installations
-brew "heroku/brew/heroku" # Build and install cloud apps
+brew "yarn" # Package manager for Node.js
 cask "virtualbox" # Virtual machine software
 
 # Writing
+brew "bib-tool" # Manage bibtex files
 brew "diction" # Analyze a document's word usage
 brew "pandoc" # Compile Markdown into .docx (and beyond!)
 brew "pandoc-citeproc" # Citation plugin for Pandoc
-brew "bib-tool" # Manage bibtex files
 brew "vale" # Markdown linter
 cask "zotero" # Bibliography management
 
 # Other GUI Applications
-cask "seafile-client" # File sharing
-cask "flux" # Night-time screen mode
 cask "firefox" # Browser
-cask "keycast" # Visualize keystrokes on-screen, great for teaching
+cask "flux" # Night-time screen mode
 cask "karabiner-elements" # Keyboard remapping
+cask "keycast" # Visualize keystrokes on-screen, great for teaching
+cask "seafile-client" # File sharing
 # vim: filetype=conf
