@@ -65,6 +65,7 @@ brew "pandoc" # Compile Markdown into .docx (and beyond!)
 brew "pandoc-citeproc" # Citation plugin for Pandoc
 brew "vale" # Markdown linter
 cask "zotero" # Bibliography management
+cask "basictex"
 
 # Other GUI Applications
 cask "firefox" # Browser

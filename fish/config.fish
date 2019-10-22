@@ -59,6 +59,9 @@ end
 if [ -d ~/.local/bin ]
   set -g fish_user_paths $fish_user_paths $HOME/.local/bin
 end
+if [ -d /usr/local/texlive/2016basic/bin/x86_64-darwin ]
+  set -g fish_user_paths $fish_user_paths /usr/local/texlive/2016basic/bin/x86_64-darwin
+end
 # set -g fish_user_paths $HOME/bin $HOME/.local/bin $HOME/go/bin
 
 # Set emoji width:
