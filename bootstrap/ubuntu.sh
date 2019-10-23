@@ -25,6 +25,7 @@ if [ -z $SERVER ]; then
   $bash ~/dotfiles/bootstrap/scripts/fzf-bibtex.sh
   $bash ~/dotfiles/bootstrap/scripts/csl.sh
   $bash ~/dotfiles/bootstrap/scripts/go.sh
+  $bash ~/dotfiles/bootstrap/scripts/tex.sh
 fi
 
 # Setup Firewall:
