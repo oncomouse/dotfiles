@@ -8,6 +8,7 @@
     Plug 'neoclide/vim-jsx-improve', { 'for': ['javascript', 'javascript.jsx'] }
     Plug 'JulesWang/css.vim', { 'for': 'css' }
     Plug 'peitalin/vim-jsx-typescript', { 'for': ['typescript', 'typescript.tsx']}
+    Plug 'norcalli/nvim-colorizer.lua' " Colorizer
   " }}}
   " Other Syntax: {{{
     Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': ['markdown', 'pandoc'] }
