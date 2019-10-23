@@ -86,7 +86,7 @@
     endif
   augroup END
 " }}}
-" {{{
+" Closetag {{{
   let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php,*.js,*.erb"
   let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
   let g:closetag_close_shortcut = '<leader>>'
