@@ -208,8 +208,8 @@ call <sid>hi('cssClassName',s:cterms[05],'','')
 call <sid>hi('gitCommitOverflow',s:cterms[01],'','')
 call <sid>hi('gitCommitSummary',s:cterms[02],'','')
 
-call <sid>hi('htmlBold',s:cterms[03],'','')
-call <sid>hi('htmlItalic',s:cterms[05],'','')
+call <sid>hi('htmlBold',s:cterms[04],'','BOLd')
+call <sid>hi('htmlItalic',s:cterms[05],'','ITALIC')
 hi link htmlTag Noise
 hi link htmlEndTag Noise
 call <sid>hi('htmlArg',s:cterms[09],'','')
@@ -228,7 +228,7 @@ call <sid>hi('markdownCode',s:cterms[02],'','')
 call <sid>hi('markdownCodeBlock',s:cterms[02],'','')
 call <sid>hi('markdownHeadingDelimiter',s:cterms[04],'','')
 call <sid>hi('markdownItalic',s:cterms[05],'','italic')
-call <sid>hi('markdownBold',s:cterms[03],'','bold')
+call <sid>hi('markdownBold',s:cterms[04],'','bold')
 call <sid>hi('markdownCodeDelimiter',s:cterms[14],'','italic')
 call <sid>hi('markdownError',s:cterms[07],s:cterms[10],'')
 
