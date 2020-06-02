@@ -31,11 +31,11 @@ augroup END
 " CoC Source Ignore {{{
   augroup coc-pandoc
     autocmd!
-    autocmd FileType pandoc call coc#config('coc.source.buffer.enable', 0)
-    autocmd FileType pandoc call coc#config('coc.source.around.enable', 0)
-    autocmd FileType pandoc call coc#config('coc.source.snippets.enable', 0)
-    autocmd FileType pandoc call coc#config('coc.source.file.enable', 0)
-    autocmd FileType pandoc call coc#config('coc.source.tmux.enable', 0)
+    autocmd FileType markdown,pandoc call coc#config('coc.source.buffer.enable', 0)
+    autocmd FileType markdown,pandoc call coc#config('coc.source.around.enable', 0)
+    autocmd FileType markdown,pandoc call coc#config('coc.source.snippets.enable', 0)
+    autocmd FileType markdown,pandoc call coc#config('coc.source.file.enable', 0)
+    autocmd FileType markdown,pandoc call coc#config('coc.source.tmux.enable', 0)
   augroup END
   function! CocBufferOn() abort
     call coc#config('coc.source.buffer.enable', 1)
@@ -51,20 +51,28 @@ augroup END
 " Vim-markdown {{{
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_strikethrough = 1
-let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal = 1
+let g:vim_markdown_math = 1
+function! ToggleConcealLevel()
+  if &conceallevel == 0
+    setlocal conceallevel=2
+  else
+    setlocal conceallevel=0
+  endif
+endfunction
+" <leader>cc turns conceal on and off
 augroup markdown_higlight
   autocmd!
-  autocmd Syntax markdown syntax match mkdCitation "\v\[[^\@]*\@\w+[^\]]*\]"
-  autocmd Syntax markdown highlight default link mkdCitation Type
+  autocmd FileType markdown,pandoc nnoremap <silent> <leader>cc :call ToggleConcealLevel()<CR>
 augroup END
 " }}}
 " Pandoc {{{
   " Uncomment to use the omni-func for bibliography completion:
   " let g:pandoc#biblio#bibs=[g:bibliography_file]
   " Turn off folding and vim-pandoc's BibTeX support
-  let g:pandoc#modules#disabled = ['bibliography']
+  " let g:pandoc#modules#disabled = ['bibliography']
   " Turn off conceal
-  let g:pandoc#syntax#conceal#use = 0
+  " let g:pandoc#syntax#conceal#use = 0
 "}}}
 " Limelight {{{
   let g:limelight_conceal_ctermfg='black'
@@ -144,8 +152,8 @@ augroup END
     autocmd! User GoyoEnter call <SID>goyo_enter()
     autocmd! User GoyoLeave call <SID>goyo_leave()
     " Enable Limelight in pandoc and turn it off when we aren't in pandoc:
-    autocmd BufEnter * if &filetype=='pandoc'|call <SID>limelight(1)|end
-    autocmd BufLeave * if &filetype=='pandoc'|call <SID>limelight(0)|end
+    autocmd BufEnter * if &filetype=='markdown'|call <SID>limelight(1)|end
+    autocmd BufLeave * if &filetype=='markdown'|call <SID>limelight(0)|end
   augroup END
 " }}}
 " # vim:foldmethod=marker
