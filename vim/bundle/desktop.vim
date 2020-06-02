@@ -11,7 +11,8 @@
     Plug 'norcalli/nvim-colorizer.lua' " Colorizer
   " }}}
   " Other Syntax: {{{
-    Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': ['markdown', 'pandoc'] }
+    Plug 'plasticboy/vim-markdown'
+    " Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': ['markdown', 'pandoc'] }
     Plug 'vim-python/python-syntax', { 'for': 'python' }
     Plug 'lepture/vim-css', { 'for': 'css' }
     Plug 'cakebaker/scss-syntax.vim', { 'for': ['sass', 'scss'] }
@@ -39,7 +40,7 @@
   Plug 'wellle/tmux-complete.vim'
 " }}}
 " Writing: {{{
-  Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
+  " Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
   " Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
   " Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
   Plug 'reedes/vim-pencil', { 'for': ['pandoc', 'markdown', 'text'] } " Set various writing-friendly commands

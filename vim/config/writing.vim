@@ -48,6 +48,16 @@ augroup END
   command CocBufferOn call CocBufferOn()
   command CocBufferOff call CocBufferOff()
 " }}}
+" Vim-markdown {{{
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_strikethrough = 1
+let g:vim_markdown_conceal = 0
+augroup markdown_higlight
+  autocmd!
+  autocmd Syntax markdown syntax match mkdCitation "\v\[[^\@]*\@\w+[^\]]*\]"
+  autocmd Syntax markdown highlight default link mkdCitation Type
+augroup END
+" }}}
 " Pandoc {{{
   " Uncomment to use the omni-func for bibliography completion:
   " let g:pandoc#biblio#bibs=[g:bibliography_file]
