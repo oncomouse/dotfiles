@@ -1,4 +1,4 @@
-syn match mkdPandocCitation /\v\[[^\@]*\@[_:.#$%&\-+?<>~\/a-zA-Z0-9]+[^\]]+\]/ contains=mkdPandocCiteKey,mkdBold,mkdItalic,htmlBold,htmlItalic
+syn match mkdPandocCitation /\v\[[^\@\]]*\@[_:.#$%&\-+?<>~\/a-zA-Z0-9]+[^\]]+\]/ contains=mkdPandocCiteKey,mkdBold,mkdItalic,htmlBold,htmlItalic
 syn match mkdPandocCiteKey /\v\@[_:.#$%&\-+?<>~\/a-zA-Z0-9]+/ contained
 syn cluster mkdNonListItem add=mkdPandocCitation,mkdPandocCiteKey
 hi link mkdPandocCiteKey Tag
