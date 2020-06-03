@@ -50,7 +50,7 @@ augroup END
 " }}}
 " Vim-markdown {{{
 let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_strikethrough = 1
+let g:vim_markdown_strikethrough = 0
 let g:vim_markdown_conceal = 1
 let g:vim_markdown_math = 1
 function! ToggleConcealLevel()
