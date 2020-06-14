@@ -2,13 +2,14 @@
   " General Syntax: {{{ 
     Plug 'Konfekt/FastFold' " Better fold support
     Plug 'Yggdroot/indentLine' " Indent with characters
-    Plug 'luochen1990/rainbow' " Rainbow parentheses
+    " Plug 'luochen1990/rainbow' " Rainbow parentheses
   " }}}
   " Web Syntax: {{{
     Plug 'neoclide/vim-jsx-improve', { 'for': ['javascript', 'javascript.jsx'] }
     Plug 'JulesWang/css.vim', { 'for': 'css' }
     Plug 'peitalin/vim-jsx-typescript', { 'for': ['typescript', 'typescript.tsx']}
     Plug 'norcalli/nvim-colorizer.lua' " Colorizer
+    Plug 'tpope/vim-liquid' " Liquid
   " }}}
   " Other Syntax: {{{
     Plug 'plasticboy/vim-markdown'
