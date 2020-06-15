@@ -124,8 +124,8 @@
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
-  nmap <silent> ]d <Plug>(coc-diagnostic-prev)
-  nmap <silent> [d <Plug>(coc-diagnostic-next)
+  nmap <silent> ]d <Plug>(coc-diagnostic-next)
+  nmap <silent> [d <Plug>(coc-diagnostic-prev)
   nmap <silent> []d :<C-u>CocList diagnostics<CR>
   nmap <silent> <leader>lk <Plug>(coc-diagnostic-prev)
   nmap <silent> <leader>lj <Plug>(coc-diagnostic-next)
