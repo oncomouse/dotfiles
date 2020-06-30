@@ -295,7 +295,7 @@ bind-key -T copy-mode-vi 'C-l' select-pane -R
 # bind-key -T copy-mode-vi 'C-\' select-pane -l
 
 # Bind enter copy mode to the same command used to exit term mode in NeoVim
-bind-key -Tmy-keys 'C-n' if-shell "$is_vim" 'send-keys C-\ C-n' 'copy-mode'
+bind-key -Tmy-keys 'C-n' if-shell "$is_vim" 'send-keys C-\\ C-n' 'copy-mode'
 bind-key -Troot C-\\ switch-client -Tmy-keys
 
 # increase history size
