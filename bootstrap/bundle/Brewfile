@@ -5,7 +5,7 @@ tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/cask-fonts"
 tap "heroku/brew"
-tap "ValeLint/vale"
+# tap "ValeLint/vale"
 
 # System
 brew "coreutils"
