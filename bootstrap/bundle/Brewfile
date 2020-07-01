@@ -23,7 +23,6 @@ brew "fzf" # fuzzy finder in shell, <C-t> to bring up completion
 brew "grep" # the old standby
 brew "htop" # fancy top
 brew "jq" # streaming, inline JSON editor
-brew "ranger" # file manager
 brew "ripgrep" # rg for searching, fancy and fast grep
 brew "shellcheck" # bash linter
 brew "the_silver_searcher" # ag for searching, fancy grep

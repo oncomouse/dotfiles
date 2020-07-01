@@ -4,7 +4,7 @@ sudo apt-get update
 sudo apt-get upgrade -y
 # Install Necessary Tools:
 sudo apt-get install -y vim fish python3-pip silversearcher-ag htop
-sudo apt-get install -y ranger caca-utils highlight atool w3m poppler-utils mediainfo
+sudo apt-get install -y caca-utils highlight atool w3m poppler-utils mediainfo
 
 # Install Golang:
 if ! which go > /dev/null 2>&1; then
