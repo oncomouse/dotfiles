@@ -21,6 +21,7 @@ function ag; /usr/bin/env ag --path-to-ignore ~/.ignore --hidden $argv; end
 function pilsch.com; ssh eschaton@birkenfeld.dreamhost.com; end
 # Load RBEnv
 if command -sq rbenv
+  set -gx RUBY_CONFIGURE_OPTS --with-openssl-dir=(brew --prefix openssl@1.1)
   status --is-interactive; and source (rbenv init - | sed 's/setenv/set -gx/' | psub)
 end
 
