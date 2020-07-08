@@ -105,6 +105,8 @@
   call coc#config('diagnostics', {
       \ 'messageTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
       \ })
+  " Search locally for eslint modules
+  call coc#config('eslint.nodePath', './node_modules')
   " Omnifunc:
   " call coc#config('coc.source.omni.filetypes', [
   "     \ 'pandoc',
