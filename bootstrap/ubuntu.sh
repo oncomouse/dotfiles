@@ -8,25 +8,7 @@ $bash ~/dotfiles/bootstrap/bundle/apt.sh
 git config --global user.name "oncomouse"
 git config --global user.email "oncomouse@gmail.com"
 
-$bash ~/dotfiles/bootstrap/scripts/minimal-config.sh
-$bash ~/dotfiles/bootstrap/scripts/vim.sh
-$bash ~/dotfiles/bootstrap/scripts/tmux.sh
-$bash ~/dotfiles/bootstrap/scripts/terms.sh
-$bash ~/dotfiles/bootstrap/scripts/diff-so-fancy.sh
-$bash ~/dotfiles/bootstrap/scripts/node-modules.sh
-$bash ~/dotfiles/bootstrap/scripts/python-modules.sh
-$bash ~/dotfiles/bootstrap/scripts/ruby-gems.sh
-$bash ~/dotfiles/bootstrap/scripts/fisher.sh
-if [ -z $SERVER ]; then
-  $bash ~/dotfiles/bootstrap/scripts/reason.sh
-  $bash ~/dotfiles/bootstrap/scripts/mutt.sh
-  $bash ~/dotfiles/bootstrap/scripts/rbenv.sh
-  $bash ~/dotfiles/bootstrap/scripts/neovim.sh
-  $bash ~/dotfiles/bootstrap/scripts/fzf-bibtex.sh
-  $bash ~/dotfiles/bootstrap/scripts/csl.sh
-  $bash ~/dotfiles/bootstrap/scripts/go.sh
-  $bash ~/dotfiles/bootstrap/scripts/tex.sh
-fi
+$bash ~/dotfiles/bootstrap/scripts/common.sh
 
 # Setup Firewall:
 sudo ufw allow OpenSSH

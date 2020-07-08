@@ -33,7 +33,7 @@ let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/
 " Set this for files to avoid highlighting:
 let g:large_file = 20*1024*1024
 " Set colorcolumn highlighting for long lines:
-let &colorcolumn=join(range(81,999),',')
+" let &colorcolumn=join(range(81,999),',')
 
 " Configure securemodeline:
 set nomodeline

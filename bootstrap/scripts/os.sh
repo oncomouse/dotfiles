@@ -5,7 +5,7 @@ case `uname` in
     os="macos"
     ;;
   Linux)
-    os=`cat /etc/os-release | ag "^NAME" | tr -d "NAME=" | tr -d '"' | tr '[:upper:]' '[:lower:]'`
+    os=$(grep "^NAME" < /etc/os-release | tr -d "NAME=" | tr -d '"' | tr '[:upper:]' '[:lower:]' | sed -e "s/ linux//")
     ;;
 esac
 echo $os
