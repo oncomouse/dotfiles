@@ -17,6 +17,7 @@
   \   'coc-styled-components',
   \   'coc-stylelint',
   \   'coc-tsserver',
+  \   'coc-tslint-plugin',
   \   'coc-vimlsp',
   \   'coc-yaml',
   \   'coc-yank',
@@ -107,6 +108,7 @@
       \ })
   " Search locally for eslint modules
   call coc#config('eslint.nodePath', './node_modules')
+  call coc#config('eslint.filetypes', ['javascript', 'javascriptreact'])
   " Omnifunc:
   " call coc#config('coc.source.omni.filetypes', [
   "     \ 'pandoc',
