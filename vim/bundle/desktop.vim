@@ -9,7 +9,6 @@
     Plug 'JulesWang/css.vim', { 'for': 'css' }
     Plug 'peitalin/vim-jsx-typescript', { 'for': ['typescript', 'typescript.tsx']}
     Plug 'norcalli/nvim-colorizer.lua' " Colorizer
-    Plug 'tpope/vim-liquid' " Liquid
   " }}}
   " Other Syntax: {{{
     Plug 'plasticboy/vim-markdown'
