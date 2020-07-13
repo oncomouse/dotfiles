@@ -101,12 +101,4 @@ if [ -z $SERVER ]; then
   sudo add-apt-repository ppa:neovim-ppa/stable
   sudo apt-get update
   sudo apt-get install -y neovim
-
-  ## Install Leiningen:
-  sudo apt install -y default-jre
-  sudo curl -fLo /usr/local/bin/lein \
-    https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-
-  ## Install Clojure Kondo
-  sudo curl -L https://raw.githubusercontent.com/borkdude/clj-kondo/master/script/install-clj-kondo | bash
 fi

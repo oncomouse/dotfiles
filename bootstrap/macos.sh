@@ -46,10 +46,6 @@ echo "Run $(tput bold)$(tput setaf 6)bash ~/dotfiles/dns/bootstrap.sh$(tput sgr0
 
 echo ""
 
-echo "Run $(tput bold)$(tput setaf 6)fish ~/dotfiles/mutt/make-gpg-keys.fish$(tput sgr0) to create GPG keys for NeoMutt (make sure Firefox & Bitwarden are working first)!"
-
-echo ""
-
 echo "In Seafile, sync $(tput bold)Mackup$(tput sgr0) and when $(tput bold)$(tput setaf 5)done syncing$(tput sgr0), run $(tput setaf 6)mackup restore$(tput sgr0) to load configuration files."
 
 echo ""
