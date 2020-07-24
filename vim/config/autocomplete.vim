@@ -29,10 +29,10 @@
   \    'yaml': ['yamllint'],
   \    'css': ['stylelint'],
   \    'scss': ['stylelint'],
-  \    'js': ['eslint', 'stylelint'],
-  \    'jsx': ['eslint', 'stylelint'],
-  \    'ts': ['eslint', 'stylelint'],
-  \    'tsx': ['eslint', 'stylelint'],
+  \    'javascript': ['eslint', 'stylelint'],
+  \    'javascript.jsx': ['eslint', 'stylelint'],
+  \    'typescript': ['eslint', 'stylelint'],
+  \    'typescript.tsx': ['eslint', 'stylelint'],
   \  },
   \  'linters': {
   \    'stylelint': {
@@ -163,8 +163,8 @@
       \ 'messageTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
       \ })
   " Search locally for eslint modules
-  call coc#config('eslint.nodePath', './node_modules')
-  call coc#config('eslint.filetypes', ['javascript', 'javascriptreact'])
+  " call coc#config('eslint.nodePath', './node_modules')
+  " call coc#config('eslint.filetypes', ['javascript', 'javascriptreact'])
   " Omnifunc:
   " call coc#config('coc.source.omni.filetypes', [
   "     \ 'pandoc',
