@@ -15,7 +15,6 @@
   \   'coc-solargraph',
   \   'coc-styled-components',
   \   'coc-tsserver',
-  \   'coc-tslint-plugin',
   \   'coc-vimlsp',
   \   'coc-yaml',
   \   'coc-yank',
@@ -31,6 +30,9 @@
   \    'css': ['stylelint'],
   \    'scss': ['stylelint'],
   \    'js': ['eslint', 'stylelint'],
+  \    'jsx': ['eslint', 'stylelint'],
+  \    'ts': ['eslint', 'stylelint'],
+  \    'tsx': ['eslint', 'stylelint'],
   \  },
   \  'linters': {
   \    'stylelint': {
