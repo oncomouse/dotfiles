@@ -41,11 +41,6 @@ cask "font-firacode-nerd-font" # Install for VS Code & Kitty symbol_map
 cask "font-hasklig" # Alternate (italic) terminal font
 cask "font-tex-gyre-heros" # Used for CV on website
 
-# Mail
-brew "gnupg" # Encryption utilities
-brew "mutt" # Command line email client
-brew "pinentry-mac" # Get secure passphrases for GPG
-
 # Programming
 brew "go" # The Go programming language
 brew "heroku/brew/heroku" # Build and install cloud apps
