@@ -5,7 +5,6 @@
   \   'coc-calc',
   \   'coc-css',
   \   'coc-diagnostic',
-  \   'coc-eslint',
   \   'coc-fish',
   \   'coc-go',
   \   'coc-html',
@@ -15,7 +14,6 @@
   \   'coc-python',
   \   'coc-solargraph',
   \   'coc-styled-components',
-  \   'coc-stylelint',
   \   'coc-tsserver',
   \   'coc-tslint-plugin',
   \   'coc-vimlsp',
@@ -30,8 +28,64 @@
   \    'sh': ['shellcheck'],
   \    'pandoc': ['vale'],
   \    'yaml': ['yamllint'],
+  \    'css': ['stylelint'],
+  \    'scss': ['stylelint'],
+  \    'js': ['eslint', 'stylelint'],
   \  },
   \  'linters': {
+  \    'stylelint': {
+  \      'command': './node_modules/.bin/stylelint',
+  \      'rootPatterns': [
+  \        '.git'
+  \      ],
+  \      'debounce': 100,
+  \      'args': [
+  \        '--formatter',
+  \        'json',
+  \        '--stdin-filename',
+  \        '%filepath'
+  \      ],
+  \      'sourceName': 'stylelint',
+  \      'parseJson': {
+  \        'errorsRoot': '[0].warnings',
+  \        'line': 'line',
+  \        'column': 'column',
+  \        'message': '${text}',
+  \        'security': 'severity'
+  \      },
+  \      'securities': {
+  \        'error': 'error',
+  \        'warning': 'warning'
+  \      }
+  \    },
+  \    'eslint': {
+  \      'command': './node_modules/.bin/eslint',
+  \      'rootPatterns': [
+  \        '.git'
+  \      ],
+  \      'debounce': 100,
+  \      'args': [
+  \        '--stdin',
+  \        '--stdin-filename',
+  \        '%filepath',
+  \        '--format',
+  \        'json'
+  \      ],
+  \      'sourceName': 'eslint',
+  \      'parseJson': {
+  \        'errorsRoot': '[0].messages',
+  \        'line': 'line',
+  \        'column': 'column',
+  \        'endLine': 'endLine',
+  \        'endColumn': 'endColumn',
+  \        'message': '${message} [${ruleId}]',
+  \        'security': 'severity'
+  \      },
+  \      'securities': {
+  \        '2': 'error',
+  \        '1': 'warning'
+  \      }
+  \    },
   \    'vale': {
   \      'command': 'vale',
   \      'rootPatterns': [],
