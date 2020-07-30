@@ -45,5 +45,6 @@ if [ $os == "macos" ]; then
 fi
 if [ -z $SERVER ]; then
   ln -s ~/dotfiles/vim/vimrc ~/.config/nvim/init.vim
+  ln -s ~/dotfiles/vim/coc-settings.json ~/.config/nvim/
 fi
 ln -s ~/dotfiles/wego/wegorc ~/.wegorc
