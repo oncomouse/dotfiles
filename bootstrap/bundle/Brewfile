@@ -33,6 +33,7 @@ cask "kitty" # Terminal emulator
 # Editor
 brew "neovim" # Text editor
 brew "vim" # Backup text editor
+brew "watchman" # Needed by CoC.nvim
 cask "visual-studio-code" # Code IDE
 
 # Fonts
