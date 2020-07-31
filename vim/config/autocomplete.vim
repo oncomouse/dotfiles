@@ -21,134 +21,7 @@
   \]
 " }}}
 " Coc Configuration {{{
-  " Diagnostic LSP: {{{
-  " call coc#config('diagnostic-languageserver', {
-  " \  'filetypes': {
-  " \    'sh': ['shellcheck'],
-  " \    'pandoc': ['vale'],
-  " \    'yaml': ['yamllint'],
-  " \    'css': ['stylelint'],
-  " \    'scss': ['stylelint'],
-  " \    'javascript': ['eslint', 'stylelint'],
-  " \    'javascript.jsx': ['eslint', 'stylelint'],
-  " \    'typescript': ['eslint', 'stylelint'],
-  " \    'typescript.tsx': ['eslint', 'stylelint'],
-  " \  },
-  " \  'linters': {
-  " \    'stylelint': {
-  " \      'command': './node_modules/.bin/stylelint',
-  " \      'rootPatterns': [
-  " \        '.git'
-  " \      ],
-  " \      'debounce': 100,
-  " \      'args': [
-  " \        '--formatter',
-  " \        'json',
-  " \        '--stdin-filename',
-  " \        '%filepath'
-  " \      ],
-  " \      'sourceName': 'stylelint',
-  " \      'parseJson': {
-  " \        'errorsRoot': '[0].warnings',
-  " \        'line': 'line',
-  " \        'column': 'column',
-  " \        'message': '${text}',
-  " \        'security': 'severity'
-  " \      },
-  " \      'securities': {
-  " \        'error': 'error',
-  " \        'warning': 'warning'
-  " \      }
-  " \    },
-  " \    'eslint': {
-  " \      'command': './node_modules/.bin/eslint',
-  " \      'rootPatterns': [
-  " \        '.git'
-  " \      ],
-  " \      'debounce': 100,
-  " \      'args': [
-  " \        '--stdin',
-  " \        '--stdin-filename',
-  " \        '%filepath',
-  " \        '--format',
-  " \        'json'
-  " \      ],
-  " \      'sourceName': 'eslint',
-  " \      'parseJson': {
-  " \        'errorsRoot': '[0].messages',
-  " \        'line': 'line',
-  " \        'column': 'column',
-  " \        'endLine': 'endLine',
-  " \        'endColumn': 'endColumn',
-  " \        'message': '${message} [${ruleId}]',
-  " \        'security': 'severity'
-  " \      },
-  " \      'securities': {
-  " \        '2': 'error',
-  " \        '1': 'warning'
-  " \      }
-  " \    },
-  " \    'vale': {
-  " \      'command': 'vale',
-  " \      'rootPatterns': [],
-  " \      'isStdout': 1,
-  " \      'isStderr': 0,
-  " \      'debounce': 100,
-  " \      'args': ['--output', 'JSON'],
-  " \      'offsetLine': 0,
-  " \      'offsetColumn': 0,
-  " \      'sourceName': 'vale',
-  " \      'formatLines': 14,
-  " \      'formatPattern': [
-  " \        '^\s*\{[\w\s\n\W]+?"Line": (\d+)[\w\s\n\W]+?"Message": "([^"]+)"[\w\s\n\W]+?"Severity":\s*"([^"]+)"[\w\s\n\W]+?"Span": \[\n\s+([0-9]+)[\w\s\n\W]+?\},{0,1}',
-  " \        {
-  " \          'line': 1,
-  " \          'column': 4,
-  " \          'message': [2],
-  " \          'security': 3,
-  " \        }
-  " \      ],
-  " \      'securities': {
-  " \        'error': 'error',
-  " \        'warning': 'warning',
-  " \        'note': 'info',
-  " \      },
-  " \    },
-  " \    'yamllint': {
-  " \      'command': 'yamllint',
-  " \      'rootPatterns': [],
-  " \      'isStdout': 1,
-  " \      'isStderr': 0,
-  " \      'debounce': 100,
-  " \      'args': ['-f','parsable','-'],
-  " \      'offsetLine': 0,
-  " \      'offsetColumn': 0,
-  " \      'sourceName': 'yamllint',
-  " \      'formatLines': 1,
-  " \      'formatPattern': [
-  " \        '^[^:]+:(\d+):(\d+):\s*\[([A-Za-z]+)\]\s*(.*)$',
-  " \        {
-  " \          'line': 1,
-  " \          'column': 2,
-  " \          'message': [4],
-  " \          'security': 3,
-  " \        }
-  " \      ],
-  " \      'securities': {
-  " \        'error': 'error',
-  " \        'warning': 'warning',
-  " \        'note': 'info',
-  " \      },
-  " \    },
-  " \  },
-  " \})
-  " }}}
   " Coc Floating Window Support:
-  " call coc#config('list.insertMappings', {
-  "     \  '<C-t>': 'action:tabe',
-  "     \  '<C-v>': 'action:vsplit',
-  "     \  '<C-s>': 'action:split',
-  "     \})
   call coc#config('coc.preferences', {
       \ 'hoverTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
       \ })
@@ -162,13 +35,6 @@
   call coc#config('diagnostics', {
       \ 'messageTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
       \ })
-  " Search locally for eslint modules
-  " call coc#config('eslint.nodePath', './node_modules')
-  " call coc#config('eslint.filetypes', ['javascript', 'javascriptreact'])
-  " Omnifunc:
-  " call coc#config('coc.source.omni.filetypes', [
-  "     \ 'pandoc',
-  "     \ ])
 " }}}
 " Coc Keyboard shortcuts: {{{
   function! s:show_documentation()
@@ -204,15 +70,6 @@
   xmap <leader>f  <Plug>(coc-format-selected)
   nmap <leader>f  <Plug>(coc-format-selected)
   command! -nargs=0 Format :call CocAction('format')
-  " Autoformat on save:
-  " call coc#config('tsserver.trace.server', 'verbose')
-  " call coc#config('coc.preferences.formatOnSaveFiletypes', [
-  "   \ 'javascript',
-  "   \ 'javascript.jsx',
-  "   \ 'go',
-  "   \ 'reason',
-  "   \ 'python',
-  "   \])
 " }}}
 " Coc Fuzzy {{{
   " (Implement fzf.vim lists for CocList)
@@ -252,13 +109,6 @@
 
 " }}}
 " Coc Filetypes {{{
-  " JavaScript {{{
-    " Format JavaScript the way I like:
-    " call coc#config('javascript.format', {
-    "     \   'insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces': 0,
-    "     \   'insertSpaceBeforeFunctionParenthesis': 0,
-    "     \})
-  " }}}
   " Go {{{
     command! -nargs=0 OrganizeImports :call CocAction('runCommand', 'editor.action.organizeImport')
     augroup coc-go-commands
@@ -266,13 +116,6 @@
       autocmd FileType go call coc#config('coc.preferences', {'messageLevel': 'error',})
       autocmd BufWritePre *.go :OrganizeImports
     augroup END
-  " }}}
-  " VimL {{{
-    " call coc#config('vimlsp.diagnostic.enable', 1)
-  " }}}
-  " Ruby: {{{
-    " call coc#config('solargraph.diagnostics', 1)
-    " call coc#config('solargraph.formatting', 1)
   " }}}
 " }}}
 " # vim:foldmethod=marker
