@@ -102,9 +102,8 @@
   command! Windows :exe 'CocList windows'
   command! BLines :exe 'CocList lines'
   command! History :exe 'CocList cmdhistory'
-  nnoremap <silent> <leader>rr  :<C-u>CocList -A --normal yank<cr>
+  nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
   " Implement Ag
-  " call coc#config('list.source.grep.command', 'ag')
   command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'CocList grep '.<q-args>
 
 " }}}
