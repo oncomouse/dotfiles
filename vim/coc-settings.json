@@ -10,18 +10,13 @@
     "javascript.jsx",
     "typescript",
     "typescript.tsx",
+    "json",
+    "css",
+    "scss",
     "go",
     "reason",
     "python"
   ],
-  "diagnostic-languageserver.formatFiletypes": {
-    "css": [
-      "stylelint"
-    ],
-    "scss": [
-      "styellint"
-    ]
-  },
   "diagnostic-languageserver.filetypes": {
     "sh": [
       "shellcheck"
@@ -32,28 +27,6 @@
     ],
     "yaml": [
       "yamllint"
-    ],
-    "css": [
-      "stylelint"
-    ],
-    "scss": [
-      "stylelint"
-    ],
-    "javascript": [
-      "eslint",
-      "stylelint"
-    ],
-    "javascript.jsx": [
-      "eslint",
-      "stylelint"
-    ],
-    "typescript": [
-      "eslint",
-      "stylelint"
-    ],
-    "typescript.tsx": [
-      "eslint",
-      "stylelint"
     ]
   },
   "diagnostic-languageserver.linters": {
@@ -153,7 +126,15 @@
   "typescript.format.enabled": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
   "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
+  "eslint.autoFixOnSave": true,
+  "eslint.nodePath": "./node_modules",
+  "eslint.filetypes": [
+    "javascript"
+  ],
   "vimlsp.diagnostic.enable": true,
   "solargraph.diagnostics": true,
-  "solargraph.formatting": true
+  "solargraph.formatting": true,
+  "stylelintplus.autoFixOnFormat": true,
+  "css.validate": false,
+  "scss.validate": false
 }
