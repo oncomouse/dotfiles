@@ -12,132 +12,165 @@
     "reason",
     "python"
   ],
-    "diagnostic-languageserver.filetypes": {
-      "sh": ["shellcheck"],
-      "pandoc": ["vale"],
-      "yaml": ["yamllint"],
-      "css": ["stylelint"],
-      "scss": ["stylelint"],
-      "javascript": ["eslint", "stylelint"],
-      "javascript.jsx": ["eslint", "stylelint"],
-      "typescript": ["eslint", "stylelint"],
-      "typescript.tsx": ["eslint", "stylelint"]
-    },
-    "diagnostic-languageserver.linters": {
-      "stylelint": {
-        "command": "./node_modules/.bin/stylelint",
-        "rootPatterns": [
-          ".git"
-        ],
-        "debounce": 100,
-        "args": [
-          "--formatter",
-          "json",
-          "--stdin-filename",
-          "%filepath"
-        ],
-        "sourceName": "stylelint",
-        "parseJson": {
-          "errorsRoot": "[0].warnings",
-          "line": "line",
-          "column": "column",
-          "message": "${text}",
-          "security": "severity"
-        },
-        "securities": {
-          "error": "error",
-          "warning": "warning"
-        }
+  "diagnostic-languageserver.filetypes": {
+    "sh": [
+      "shellcheck"
+    ],
+    "pandoc": [
+      "vale"
+    ],
+    "yaml": [
+      "yamllint"
+    ],
+    "css": [
+      "stylelint"
+    ],
+    "scss": [
+      "stylelint"
+    ],
+    "javascript": [
+      "eslint",
+      "stylelint"
+    ],
+    "javascript.jsx": [
+      "eslint",
+      "stylelint"
+    ],
+    "typescript": [
+      "eslint",
+      "stylelint"
+    ],
+    "typescript.tsx": [
+      "eslint",
+      "stylelint"
+    ]
+  },
+  "diagnostic-languageserver.linters": {
+    "stylelint": {
+      "command": "./node_modules/.bin/stylelint",
+      "rootPatterns": [
+        ".git"
+      ],
+      "debounce": 100,
+      "args": [
+        "--formatter",
+        "json",
+        "--stdin-filename",
+        "%filepath"
+      ],
+      "sourceName": "stylelint",
+      "parseJson": {
+        "errorsRoot": "[0].warnings",
+        "line": "line",
+        "column": "column",
+        "message": "${text}",
+        "security": "severity"
       },
-      "eslint": {
-        "command": "./node_modules/.bin/eslint",
-        "rootPatterns": [
-          ".git"
-        ],
-        "debounce": 100,
-        "args": [
-          "--stdin",
-          "--stdin-filename",
-          "%filepath",
-          "--format",
-          "json"
-        ],
-        "sourceName": "eslint",
-        "parseJson": {
-          "errorsRoot": "[0].messages",
-          "line": "line",
-          "column": "column",
-          "endLine": "endLine",
-          "endColumn": "endColumn",
-          "message": "${message} [${ruleId}]",
-          "security": "severity"
-        },
-        "securities": {
-          "2": "error",
-          "1": "warning"
-        }
-      },
-      "vale": {
-        "command": "vale",
-        "rootPatterns": [],
-        "isStdout": 1,
-        "isStderr": 0,
-        "debounce": 100,
-        "args": ["--output", "JSON"],
-        "offsetLine": 0,
-        "offsetColumn": 0,
-        "sourceName": "vale",
-        "formatLines": 14,
-        "formatPattern": [
-          "^\\s*\\{[\\w\\s\n\\W]+?\"Line\"\\: (\\d+)[\\w\\s\\n\\W]+?\"Message\": \"([^\"]+)\"[\\w\\s\\n\\W]+?\"Severity\":\\s*\"([^\"]+)\"[\\w\\s\\n\\W]+?\"Span\": [\\n\\s+([0-9]+)[\\w\\s\\n\\W]+?\\},{0,1}",
-          {
-            "line": 1,
-            "column": 4,
-            "message": [2],
-            "security": 3
-          }
-        ],
-        "securities": {
-          "error": "error",
-          "warning": "warning",
-          "note": "info"
-        }
-      },
-      "yamllint": {
-        "command": "yamllint",
-        "rootPatterns": [],
-        "isStdout": 1,
-        "isStderr": 0,
-        "debounce": 100,
-        "args": ["-f","parsable","-"],
-        "offsetLine": 0,
-        "offsetColumn": 0,
-        "sourceName": "yamllint",
-        "formatLines": 1,
-        "formatPattern": [
-          "^[^:]+:(\\d+):(\\d+):\\s*\\[([A-Za-z]+)\\]\\s*(.*)$",
-          {
-            "line": 1,
-            "column": 2,
-            "message": [4],
-            "security": 3
-          }
-        ],
-        "securities": {
-          "error": "error",
-          "warning": "warning",
-          "note": "info"
-        }
+      "securities": {
+        "error": "error",
+        "warning": "warning"
       }
     },
-    //"tsserver.trace.server": "verbose",
-    "javascript.format.enabled": true,
-    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
-    "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
-    "typescript.format.enabled": true,
-    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
-    "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
-    "vimlsp.diagnostic.enable":  true,
-    "solargraph.diagnostics":  true,
-    "solargraph.formatting": true
+    "eslint": {
+      "command": "./node_modules/.bin/eslint",
+      "rootPatterns": [
+        ".git"
+      ],
+      "debounce": 100,
+      "args": [
+        "--stdin",
+        "--stdin-filename",
+        "%filepath",
+        "--format",
+        "json"
+      ],
+      "sourceName": "eslint",
+      "parseJson": {
+        "errorsRoot": "[0].messages",
+        "line": "line",
+        "column": "column",
+        "endLine": "endLine",
+        "endColumn": "endColumn",
+        "message": "${message} [${ruleId}]",
+        "security": "severity"
+      },
+      "securities": {
+        "2": "error",
+        "1": "warning"
+      }
+    },
+    "vale": {
+      "command": "vale",
+      "rootPatterns": [],
+      "isStdout": 1,
+      "isStderr": 0,
+      "debounce": 100,
+      "args": [
+        "--output",
+        "JSON"
+      ],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "vale",
+      "formatLines": 14,
+      "formatPattern": [
+        "^\\s*\\{[\\w\\s\n\\W]+?\"Line\"\\: (\\d+)[\\w\\s\\n\\W]+?\"Message\": \"([^\"]+)\"[\\w\\s\\n\\W]+?\"Severity\":\\s*\"([^\"]+)\"[\\w\\s\\n\\W]+?\"Span\": [\\n\\s+([0-9]+)[\\w\\s\\n\\W]+?\\},{0,1}",
+        {
+          "line": 1,
+          "column": 4,
+          "message": [
+            2
+          ],
+          "security": 3
+        }
+      ],
+      "securities": {
+        "error": "error",
+        "warning": "warning",
+        "note": "info"
+      }
+    },
+    "yamllint": {
+      "command": "yamllint",
+      "rootPatterns": [],
+      "isStdout": 1,
+      "isStderr": 0,
+      "debounce": 100,
+      "args": [
+        "-f",
+        "parsable",
+        "-"
+      ],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "yamllint",
+      "formatLines": 1,
+      "formatPattern": [
+        "^[^:]+:(\\d+):(\\d+):\\s*\\[([A-Za-z]+)\\]\\s*(.*)$",
+        {
+          "line": 1,
+          "column": 2,
+          "message": [
+            4
+          ],
+          "security": 3
+        }
+      ],
+      "securities": {
+        "error": "error",
+        "warning": "warning",
+        "note": "info"
+      }
+    }
+  },
+  //"tsserver.trace.server": "verbose",
+  "javascript.format.enabled": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
+  "typescript.format.enabled": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
+  "vimlsp.diagnostic.enable": true,
+  "solargraph.diagnostics": true,
+  "solargraph.formatting": true
 }
