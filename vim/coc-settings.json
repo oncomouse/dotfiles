@@ -120,9 +120,11 @@
     }
   },
   "tsserver.trace.server": "verbose",
+  "javascript.validate.enable": false,
   "javascript.format.enabled": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
   "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
+  "typescript.validate.enable": false,
   "typescript.format.enabled": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
   "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
