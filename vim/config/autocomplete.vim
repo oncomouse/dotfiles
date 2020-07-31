@@ -53,9 +53,7 @@
   nmap <silent> ]d <Plug>(coc-diagnostic-next)
   nmap <silent> [d <Plug>(coc-diagnostic-prev)
   nmap <silent> []d :<C-u>CocList diagnostics<CR>
-  nmap <silent> <leader>lk <Plug>(coc-diagnostic-prev)
-  nmap <silent> <leader>lj <Plug>(coc-diagnostic-next)
-  nmap <silent> <leader>ll :<C-u>CocList diagnostics<CR>
+  nmap <silent> <leader>d :<C-u>CocList diagnostics<CR>
   nnoremap <silent> K :call <SID>show_documentation()<CR>
   nmap <leader>rn <Plug>(coc-rename)
   command! Symbols :<C-u>CocList -I symbols<cr>

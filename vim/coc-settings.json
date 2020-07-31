@@ -15,15 +15,20 @@
     "python"
   ],
   "diagnostic-languageserver.formatFiletypes": {
-    "css": ["stylelint"],
-    "scss": ["styellint"]
+    "css": [
+      "stylelint"
+    ],
+    "scss": [
+      "styellint"
+    ]
   },
   "diagnostic-languageserver.filetypes": {
     "sh": [
       "shellcheck"
     ],
-    "pandoc": [
-      "vale"
+    "markdown": [
+      "vale",
+      "proselint"
     ],
     "yaml": [
       "yamllint"
@@ -52,6 +57,31 @@
     ]
   },
   "diagnostic-languageserver.linters": {
+    "proselint": {
+      "command": "proselint",
+      "isStdout": true,
+      "isStderr": false,
+      "debounce": 100,
+      "args": [
+        "-"
+      ],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "proselint",
+      "formatLines": 1,
+      "formatPattern": [
+        "^[^:]+:(\\d+):(\\d+):(\\s)(.*)$",
+        {
+          "line": 1,
+          "column": 2,
+          "security": 3,
+          "message": 4
+        }
+      ],
+      "securities": {
+        " ": "info"
+      }
+    },
     "vale": {
       "command": "vale",
       "rootPatterns": [],
