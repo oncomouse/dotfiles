@@ -141,6 +141,7 @@
   "stylelintplus.autoFixOnFormat": true,
   "css.validate": false,
   "scss.validate": false,
+  "html.format.indentInnerHtml": true,
   // Only use Prettier for CSS:
   "prettier.disableLanguages": [
     "html",

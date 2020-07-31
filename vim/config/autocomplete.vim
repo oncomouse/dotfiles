@@ -118,5 +118,10 @@
       autocmd BufWritePre *.go :OrganizeImports
     augroup END
   " }}}
+  " HTML {{{
+    augroup coc-html-commands
+      autocmd FileType html let b:coc_pairs_disabled = ['<']
+    augroup END
+  " }}}
 " }}}
 " # vim:foldmethod=marker
