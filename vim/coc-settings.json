@@ -63,7 +63,8 @@
       "debounce": 100,
       "args": [
         "--output",
-        "JSON"
+        "JSON",
+        "_"
       ],
       "offsetLine": 0,
       "offsetColumn": 0,
