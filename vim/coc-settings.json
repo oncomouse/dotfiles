@@ -129,6 +129,7 @@
   "typescript.format.enabled": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
   "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
+  "tslint.autoFixOnSave": true,
   "eslint.autoFixOnSave": true,
   "eslint.nodePath": "./node_modules",
   "eslint.filetypes": [
@@ -139,5 +140,13 @@
   "solargraph.formatting": true,
   "stylelintplus.autoFixOnFormat": true,
   "css.validate": false,
-  "scss.validate": false
+  "scss.validate": false,
+  // Only use Prettier for CSS:
+  "prettier.disableLanguages": [
+    "html",
+    "markdown",
+    "javascript",
+    "typescript",
+    "json"
+  ]
 }
