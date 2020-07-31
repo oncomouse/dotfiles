@@ -8,10 +8,16 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "javascript.jsx",
+    "typescript",
+    "typescript.tsx",
     "go",
     "reason",
     "python"
   ],
+  "diagnostic-languageserver.formatFiletypes": {
+    "css": ["stylelint"],
+    "scss": ["styellint"]
+  },
   "diagnostic-languageserver.filetypes": {
     "sh": [
       "shellcheck"
@@ -46,59 +52,6 @@
     ]
   },
   "diagnostic-languageserver.linters": {
-    "stylelint": {
-      "command": "./node_modules/.bin/stylelint",
-      "rootPatterns": [
-        ".git"
-      ],
-      "debounce": 100,
-      "args": [
-        "--formatter",
-        "json",
-        "--stdin-filename",
-        "%filepath"
-      ],
-      "sourceName": "stylelint",
-      "parseJson": {
-        "errorsRoot": "[0].warnings",
-        "line": "line",
-        "column": "column",
-        "message": "${text}",
-        "security": "severity"
-      },
-      "securities": {
-        "error": "error",
-        "warning": "warning"
-      }
-    },
-    "eslint": {
-      "command": "./node_modules/.bin/eslint",
-      "rootPatterns": [
-        ".git"
-      ],
-      "debounce": 100,
-      "args": [
-        "--stdin",
-        "--stdin-filename",
-        "%filepath",
-        "--format",
-        "json"
-      ],
-      "sourceName": "eslint",
-      "parseJson": {
-        "errorsRoot": "[0].messages",
-        "line": "line",
-        "column": "column",
-        "endLine": "endLine",
-        "endColumn": "endColumn",
-        "message": "${message} [${ruleId}]",
-        "security": "severity"
-      },
-      "securities": {
-        "2": "error",
-        "1": "warning"
-      }
-    },
     "vale": {
       "command": "vale",
       "rootPatterns": [],
@@ -163,7 +116,7 @@
       }
     }
   },
-  //"tsserver.trace.server": "verbose",
+  "tsserver.trace.server": "verbose",
   "javascript.format.enabled": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
   "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
