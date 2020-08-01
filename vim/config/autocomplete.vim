@@ -18,7 +18,6 @@
   \   'coc-styled-components',
   \   'coc-stylelintplus',
   \   'coc-tsserver',
-  \   'coc-tslint-plugin',
   \   'coc-vimlsp',
   \   'coc-yaml',
   \   'coc-yank',
