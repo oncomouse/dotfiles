@@ -7,9 +7,9 @@
   },
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
-    "javascript.jsx",
+    "javascriptreact",
     "typescript",
-    "typescript.tsx",
+    "typescriptreact",
     "json",
     "css",
     "scss",
@@ -129,11 +129,13 @@
   "typescript.format.enabled": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
   "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
-  "tslint.autoFixOnSave": true,
   "eslint.autoFixOnSave": true,
   "eslint.nodePath": "./node_modules",
   "eslint.filetypes": [
-    "javascript"
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact"
   ],
   "vimlsp.diagnostic.enable": true,
   "solargraph.diagnostics": true,

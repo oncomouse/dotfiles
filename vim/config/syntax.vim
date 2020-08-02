@@ -6,10 +6,11 @@
     autocmd!
     autocmd FileType css setlocal iskeyword+=-
   augroup END
-" }}}
-" vim-jsx-pretty {{{
-  let g:vim_jsx_pretty_colorful_config = 1
-  let g:vim_json_syntax_conceal = 0
+  augroup VimTSXSyntax
+    autocmd!
+    autocmd FileType typescriptreact setlocal commentstring={/*\ %s\ */}
+    autocmd BufNewFile,BufRead *.tsx set filetype=typescript
+  augroup END
 " }}}
 " Line Indent {{{
   let g:indentLine_setColors = 1
@@ -39,7 +40,7 @@
 " }}}
 " Emmet {{{
   let g:user_emmet_settings = {
-    \  'javascript.jsx' : {
+    \  'javascriptreact' : {
       \      'extends' : 'jsx',
       \  },
     \}
@@ -58,10 +59,10 @@
     autocmd FileType go setlocal shiftwidth=4
     autocmd FileType go setlocal noexpandtab
     " JavaScript
-    autocmd FileType javascript,javascript.jsx setlocal tabstop=2
-    autocmd FileType javascript,javascript.jsx setlocal shiftwidth=2
-    autocmd FileType javascript,javascript.jsx setlocal softtabstop=2
-    autocmd FileType javascript,javascript.jsx setlocal expandtab
+    autocmd FileType javascript,javascriptreact setlocal tabstop=2
+    autocmd FileType javascript,javascriptreact setlocal shiftwidth=2
+    autocmd FileType javascript,javascriptreact setlocal softtabstop=2
+    autocmd FileType javascript,javascriptreact setlocal expandtab
     " Markdown
     autocmd FileType markdown,pandoc,md setlocal tabstop=4
     autocmd FileType markdown,pandoc,md setlocal shiftwidth=4
@@ -91,8 +92,8 @@
   let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
   let g:closetag_close_shortcut = '<leader>>'
   let g:closetag_regions = {
-    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-    \ 'javascript.jsx': 'jsxRegion',
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
     \ 'javascript': 'jsxRegion',
     \ }
 " }}}
