@@ -17,21 +17,6 @@
   let g:indentLine_char = "\u22EE"
   let g:indentLine_color_term = 11
 " }}}
-" Rainbow Parentheses {{{
-  let g:rainbow_active = 1
-  let g:rainbow_conf = {
-  \ 'guifgs': ['#C594C5', '#FAC863','#6699CC','#5FB3B3','#F99157','#AB7967','#99C794','#EC5f67'],
-  \ 'ctermfgs': [5, 3, 4, 6, 9, 14, 2, 1],
-  \ 'separately': {
-  \   '*': {},
-  \   'markdown': {
-  \     'parentheses_options': 'containedin=markdownCode contained',
-  \   },
-  \   'css': 0,
-  \   'scss': 0,
-  \ }
-  \}
-" }}}
 " Autoroot {{{
   " Turn off autoroot for non-project files:
   let g:rooter_patterns = ['project.clj', 'Rakefile', 'package.json', '.git/', 'go.mod', 'bsconfig.json']
@@ -69,15 +54,6 @@
     autocmd FileType markdown,pandoc,md setlocal noexpandtab
   augroup END
 " }}}
-" Autopair {{{
-  let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', '`':'`', '{': '}'}
-  " ,'```':'```', '"""':'"""', "'''":"'''"})
-  augroup autopair-enable
-    autocmd!
-    autocmd FileType markdown,pandoc
-      \ let b:AutoPairs = extend(g:AutoPairs, {'~~~':'~~~'})
-  augroup END
-" }}}
 " Line numbers {{{
   augroup line-numbers
     set number relativenumber
@@ -96,5 +72,8 @@
     \ 'javascriptreact': 'jsxRegion',
     \ 'javascript': 'jsxRegion',
     \ }
+" }}}
+" JSON {{{
+let g:vim_json_syntax_conceal = 0
 " }}}
 " # vim:foldmethod=marker

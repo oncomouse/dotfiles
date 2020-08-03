@@ -62,11 +62,10 @@
       "isStderr": 0,
       "debounce": 100,
       "args": [
-        "--output",
-        "JSON",
+        "--output=JSON",
         "_"
       ],
-      "offsetLine": 0,
+      "offsetLine": 2,
       "offsetColumn": 0,
       "sourceName": "vale",
       "formatLines": 14,

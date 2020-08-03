@@ -26,7 +26,11 @@ if [ -z $SERVER ];then
   # Markdown Linters:
   pip3install 'proselint'
   ln -sf ~/dotfiles/proselint ~/.config/
-  ln -sf ~/dotfiles/vale/vale.ini ~/.vale.ini
+  mkdir ~/.config/vale
+  ln -sf ~/dotfiles/vale/vale.ini ~/.config/vale/vale.ini
+  git clone https://github.com/errata-ai/vale ~/.config/vale/vale
+  mv ~/.config/vale/vale/styles ~/.config/vale/
+  rm -rf ~/.config/vale/vale
 fi
 pip3install 'pynvim'
 pip3install 'virtualfish'
