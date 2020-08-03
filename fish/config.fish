@@ -78,9 +78,9 @@ if test -e $HOME/.cargo/env
 end
 
 # Setup virtualenv support Fish:
-set -g VIRTUALFISH_DEFAULT_PYTHON (which python3)
-if python3 -c 'import pkgutil; import sys; sys.exit(0) if pkgutil.find_loader("virtualfish") else sys.exit(1)'
-  eval (python3 -m virtualfish)
+set -g VIRTUALFISH_DEFAULT_PYTHON (which python)
+if python -c 'import pkgutil; import sys; sys.exit(0) if pkgutil.find_loader("virtualfish") else sys.exit(1)'
+  eval (python -m virtualfish)
 end
 
 # Setup Fuck:
