@@ -12,7 +12,7 @@ $bash ~/dotfiles/bootstrap/scripts/python-modules.sh
 $bash ~/dotfiles/bootstrap/scripts/ruby-gems.sh
 $bash ~/dotfiles/bootstrap/scripts/fisher.sh
 if [ -z $SERVER ]; then
-  # $bash ~/dotfiles/bootstrap/scripts/reason.sh
+  $bash ~/dotfiles/bootstrap/scripts/vale.sh
   $bash ~/dotfiles/bootstrap/scripts/rbenv.sh
   $bash ~/dotfiles/bootstrap/scripts/neovim.sh
   $bash ~/dotfiles/bootstrap/scripts/fzf-bibtex.sh
