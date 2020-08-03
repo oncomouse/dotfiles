@@ -26,6 +26,7 @@ if [ -z $SERVER ];then
   # Markdown Linters:
   pip3install 'proselint'
   ln -sf ~/dotfiles/proselint ~/.config/
+  ln -sf ~/dotfiles/vale/vale.ini ~/.vale.ini
 fi
 pip3install 'pynvim'
 pip3install 'virtualfish'
