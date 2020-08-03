@@ -54,6 +54,25 @@
     autocmd FileType markdown,pandoc,md setlocal noexpandtab
   augroup END
 " }}}
+
+" Autopair {{{
+  let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', '`':'`', '{': '}'}
+  " ,'```':'```', '"""':'"""', "'''":"'''"})
+  augroup autopair-enable
+    autocmd!
+    autocmd FileType markdown,pandoc
+      \ let b:AutoPairs = extend(g:AutoPairs, {'~~~':'~~~'})
+  augroup END
+" }}}
+" Line numbers {{{
+  augroup line-numbers
+    set number relativenumber
+    autocmd!
+    if has('nvim')
+      autocmd TermOpen * setlocal nonumber norelativenumber
+    endif
+  augroup END
+" }}}
 " Line numbers {{{
   augroup line-numbers
     set number relativenumber
