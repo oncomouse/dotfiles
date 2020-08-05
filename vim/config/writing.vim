@@ -45,8 +45,8 @@ augroup END
     call coc#config('coc.source.buffer.enable', 0)
     call coc#config('coc.source.around.enable', 0)
   endfunction
-  command CocBufferOn call CocBufferOn()
-  command CocBufferOff call CocBufferOff()
+  command! CocBufferOn call CocBufferOn()
+  command! CocBufferOff call CocBufferOff()
 " }}}
 " Vim-markdown {{{
 let g:vim_markdown_frontmatter = 1
