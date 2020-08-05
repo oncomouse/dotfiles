@@ -87,6 +87,7 @@ function! <sid>hi(group, fg, bg, attr)
 endfunction
 " }}}
 let s:ctermNONE = ['NONE', 'NONE']
+hi HighlightedyankRegion ctermbg=9 guibg=#d0913d ctermfg=0 guifg=#232323
 call <sid>hi('VisualMode',s:cterms[8],s:cterms[09],'bold')
 call <sid>hi('InsertMode',s:cterms[8],s:cterms[02],'bold')
 call <sid>hi('ReplaceMode',s:cterms[8],s:cterms[13],'bold')
