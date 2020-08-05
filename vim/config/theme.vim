@@ -10,7 +10,15 @@ if dotfiles#desktop_test()
     lua require'colorizer'.setup()
   endif
 endif
-colorscheme OceanicNext
+" colorscheme OceanicNext
+colorscheme tempus_classic
+" Tempus Overrides:
+hi SpellBad gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15
+hi Pmenu gui=none guibg=#312e30 guifg=#aeadaf cterm=none ctermbg=8 ctermfg=15
+hi link htmlItalic MarkdownItalic
+hi link htmlBold MarkdownBold
+hi link htmlTag Noise
+hi link htmlEndTag Noise
 let g:oceanic_next_terminal_italic = 1
 let g:oceanic_next_terminal_bold = 1
 function! SynGroup()                                                            

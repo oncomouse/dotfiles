@@ -38,11 +38,40 @@ set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_ALT_C_COMMAND "fd --type d --color=always . $HOME"
 set -gx FZF_DEFAULT_OPTS "
   --ansi
-  --color fg:7,bg+:11,fg+:15,hl:2,hl+:2
-  --color info:4,prompt:4,spinner:4,pointer:9,marker:1
   --bind='ctrl-o:execute(open {})+abort'
   --bind='ctrl-e:execute(code {})+abort'
   "
+
+# Base 16 but our theme:
+set -l color00 '#232323'
+set -l color01 '#3a3a3a'
+set -l color02 '#515152'
+set -l color03 '#686869'
+set -l color04 '#807f80'
+set -l color05 '#8b8b8c'
+set -l color06 '#979698'
+set -l color07 '#aeadaf'
+set -l color08 '#d58888'
+set -l color09 '#d2813d'
+set -l color0A '#b1942b'
+set -l color0B '#96a42d'
+set -l color0C '#7aa880'
+set -l color0D '#8e9cc0'
+set -l color0E '#b58d88'
+set -l color0F '#d0913d'
+
+set -l FZF_NON_COLOR_OPTS
+
+for arg in (echo $FZF_DEFAULT_OPTS | tr " " "\n")
+    if not string match -q -- "--color*" $arg
+        set -a FZF_NON_COLOR_OPTS $arg
+    end
+end
+
+set -U FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
+" --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D"\
+" --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C"\
+" --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
 set -gx FZF_CTRL_T_OPTS "
   --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'
   "
