@@ -87,6 +87,8 @@ function! <sid>hi(group, fg, bg, attr)
 endfunction
 " }}}
 let s:ctermNONE = ['NONE', 'NONE']
+hi gitcommitSummary guifg=#7aa880 ctermfg=7
+hi gitcommitOverflow cterm=bold gui=bold ctermbg=13 guibg=#d58888 guifg=#232323 ctermfg=0
 hi HighlightedyankRegion ctermbg=9 guibg=#d0913d ctermfg=0 guifg=#232323
 hi CocErrorSign guibg=#312e30 guifg=#d2813d ctermfg=1 ctermbg=8
 hi CocWarningSign guibg=#312e30 guifg=#b1942b ctermfg=3 ctermbg=8
