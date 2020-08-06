@@ -54,7 +54,6 @@
     autocmd FileType markdown,pandoc,md setlocal noexpandtab
   augroup END
 " }}}
-
 " Autopair {{{
   let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', '`':'`', '{': '}'}
   " ,'```':'```', '"""':'"""', "'''":"'''"})

@@ -11,7 +11,6 @@
   \   'coc-html',
   \   'coc-json',
   \   'coc-lists',
-  \   'coc-pairs',
   \   'coc-prettier',
   \   'coc-python',
   \   'coc-solargraph',
