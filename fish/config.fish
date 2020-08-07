@@ -1,7 +1,7 @@
 # Add a version of fisher that emits events
 emit-fisher
 
-# This fixes some wonky behavior in the fisher plugin for fasd
+# # This fixes some wonky behavior in the fisher plugin for fasd
 function __patch-fasd
   printf "%s\n" \
   "function __fasd_run -e fish_preexec -d 'fasd takes record of the directories changed into'" \
@@ -19,10 +19,11 @@ function __rm-fix-fasd --on-event fisher_rm;__patch-fasd;end
 function ag; /usr/bin/env ag --path-to-ignore ~/.ignore --hidden $argv; end
 # SSH to Dreamhost:
 function pilsch.com; ssh eschaton@birkenfeld.dreamhost.com; end
+
 # Load RBEnv
 if command -sq rbenv
   set -gx RUBY_CONFIGURE_OPTS --with-openssl-dir=(brew --prefix openssl@1.1)
-  status --is-interactive; and source (rbenv init - | sed 's/setenv/set -gx/' | psub)
+  status --is-interactive; and source (rbenv init --no-rehash - | sed 's/setenv/set -gx/' | psub)
 end
 
 # Vim related aliases:
@@ -34,7 +35,7 @@ end
 
 # Configure FZF:
 set -gx FZF_DEFAULT_COMMAND "fd --type f --color=always --hidden"
-set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -gx FZF_ALT_C_COMMAND "fd --type d --color=always . $HOME"
 set -gx FZF_DEFAULT_OPTS "
   --ansi
@@ -77,29 +78,20 @@ set -gx FZF_CTRL_T_OPTS "
   "
 
 # Local paths:
-if [ -d ~/.fzf ]
-  set -g fish_user_paths $fish_user_paths ~/.fzf/bin
+function add_to_user_paths -a dir
+  if not contains $dir $fish_user_paths
+    and test -d $dir
+    set -U fish_user_paths $fish_user_paths $dir
+  end
 end
-if [ -d ~/bin ]
-  set -g fish_user_paths $fish_user_paths $HOME/bin
-end
-if [ -d ~/go/bin ]
-  set -g fish_user_paths $fish_user_paths $HOME/go/bin
-end
-if [ -d ~/.local/bin ]
-  set -g fish_user_paths $fish_user_paths $HOME/.local/bin
-end
-if [ -d /usr/local/texlive/2016basic/bin/x86_64-darwin ]
-  set -g fish_user_paths $fish_user_paths /usr/local/texlive/2016basic/bin/x86_64-darwin
-end
-# set -g fish_user_paths $HOME/bin $HOME/.local/bin $HOME/go/bin
+add_to_user_paths ~/.fzf/bin
+add_to_user_paths ~/bin
+add_to_user_paths ~/go/bin
+add_to_user_paths ~/.local/bin
+add_to_user_paths /usr/local/sbin
 
-# Set emoji width:
+# # Set emoji width:
 set -g fish_emoji_width 2
-
-# Anaconda Setup:
-#set -gx PATH /anaconda3/bin $PATH
-#source /anaconda3/etc/fish/conf.d/conda.fish
 
 # Sets up Rust's Cargo thing:
 if test -e $HOME/.cargo/env
@@ -107,43 +99,45 @@ if test -e $HOME/.cargo/env
 end
 
 # Setup virtualenv support Fish:
-set -g VIRTUALFISH_DEFAULT_PYTHON (which python)
-if python -c 'import pkgutil; import sys; sys.exit(0) if pkgutil.find_loader("virtualfish") else sys.exit(1)'
-  eval (python -m virtualfish)
+if not set -q VIRTUALFISH_DEFAULT_PYTHON
+  set -U VIRTUALFISH_DEFAULT_PYTHON (which python)
+  echo "Setting up virtualfish"
+  if python -c 'import pkgutil; import sys; sys.exit(0) if pkgutil.find_loader("virtualfish") else sys.exit(1)'
+    eval (python -m virtualfish | sed -e "s/set \-g/set -U/g")
+  end
 end
 
 # Setup Fuck:
 if command -sq thefuck
   thefuck --alias | source
 end
-set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
 
 # Setup NPM:
-if command -sq nodenv
-  status --is-interactive; and source (nodenv init -|psub)
-end
+# if command -sq nodenv
+#   status --is-interactive; and source (nodenv init -|psub)
+# end
 
 # Setup Kitty:
 if command -sq kitty
   kitty + complete setup fish | source
 end
 
-# if [ -x ~/.local/bin/nvim-osx64/bin/nvim ]
-#   alias nvim='~/.local/bin/nvim-osx64/bin/nvim'
-# end
+if [ -x ~/.local/bin/nvim-osx64/bin/nvim ]
+  function nvim;~/.local/bin/nvim-osx64/bin/nvim $argv;end
+end
 
 # Fasd Aliases:
 if command -sq nvim
-  alias v='f -t -e nvim'
+  function v;f -t -e nvim $argv;end
 else
-  alias v='f -t -b viminfo -e vim'
+  function v;f -t -b viminfo -e vim $argv;end
 end
 
 # Other Command Aliases:
-alias cat='bat --paging=never'
-alias top='htop' # sudo
-alias ls='exa --group-directories-first'
-alias vim='nvim -u ~/dotfiles/vim/vimrc-server'
+function cat;bat --paging=never $argv;end
+function top;htop $argv;end
+function ls;exa --group-directories-first $argv;end
+function vim;nvim -u ~/dotfiles/vim/vimrc-server $argv;end
 
 # Colors:
 set fish_color_cwd cyan
