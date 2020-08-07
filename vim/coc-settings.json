@@ -30,5 +30,6 @@
   "solargraph.formatting": true,
   "css.validate": false,
   "scss.validate": false,
+  "python.linting.enabled": false,
   "html.format.indentInnerHtml": true
 }
