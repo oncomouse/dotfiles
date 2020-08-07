@@ -21,10 +21,10 @@ function ag; /usr/bin/env ag --path-to-ignore ~/.ignore --hidden $argv; end
 function pilsch.com; ssh eschaton@birkenfeld.dreamhost.com; end
 
 # Load RBEnv
-if command -sq rbenv
-  set -gx RUBY_CONFIGURE_OPTS --with-openssl-dir=(brew --prefix openssl@1.1)
-  status --is-interactive; and source (rbenv init --no-rehash - | sed 's/setenv/set -gx/' | psub)
-end
+# if command -sq rbenv
+#   set -gx RUBY_CONFIGURE_OPTS --with-openssl-dir=(brew --prefix openssl@1.1)
+#   status --is-interactive; and source (rbenv init --no-rehash - | sed 's/setenv/set -gx/' | psub)
+# end
 
 # Vim related aliases:
 if command -sq nvim
@@ -98,14 +98,36 @@ if test -e $HOME/.cargo/env
   source $HOME/.cargo/env
 end
 
-# Setup virtualenv support Fish:
-if not set -q VIRTUALFISH_DEFAULT_PYTHON
-  set -U VIRTUALFISH_DEFAULT_PYTHON (which python)
-  echo "Setting up virtualfish"
-  if python -c 'import pkgutil; import sys; sys.exit(0) if pkgutil.find_loader("virtualfish") else sys.exit(1)'
-    eval (python -m virtualfish | sed -e "s/set \-g/set -U/g")
+# Configure ASDF:
+
+if not contains $HOME/.asdf/shims $fish_user_paths
+  echo "Loading ASDF"
+  set -x ASDF_DIR (brew --prefix asdf)
+  set -l asdf_data_dir (
+    if test -n "$ASDF_DATA_DIR"; echo $ASDF_DATA_DIR;
+    else; echo $HOME/.asdf; end)
+
+  # Add asdf to PATH
+  set -l asdf_bin_dirs $ASDF_DIR/bin $ASDF_DIR/shims $asdf_data_dir/shims
+  for x in $asdf_bin_dirs
+    if test -d $x
+      and not contains $x $fish_user_paths
+      set -Up fish_user_paths $x
+    end
   end
 end
+
+# Load the asdf wrapper function
+source $ASDF_DIR/lib/asdf.fish
+
+# Setup virtualenv support Fish:
+# if not set -q VIRTUALFISH_DEFAULT_PYTHON
+#   set -U VIRTUALFISH_DEFAULT_PYTHON (which python)
+#   echo "Setting up virtualfish"
+#   if python -c 'import pkgutil; import sys; sys.exit(0) if pkgutil.find_loader("virtualfish") else sys.exit(1)'
+#     eval (python -m virtualfish | sed -e "s/set \-g/set -U/g")
+#   end
+# end
 
 # Setup Fuck:
 if command -sq thefuck
@@ -122,9 +144,9 @@ if command -sq kitty
   kitty + complete setup fish | source
 end
 
-if [ -x ~/.local/bin/nvim-osx64/bin/nvim ]
-  function nvim;~/.local/bin/nvim-osx64/bin/nvim $argv;end
-end
+# if [ -x ~/.local/bin/nvim-osx64/bin/nvim ]
+#   function nvim;~/.local/bin/nvim-osx64/bin/nvim $argv;end
+# end
 
 # Fasd Aliases:
 if command -sq nvim
