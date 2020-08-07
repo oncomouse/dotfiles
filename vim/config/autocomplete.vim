@@ -9,6 +9,7 @@
   \   'coc-html',
   \   'coc-json',
   \   'coc-lists',
+  \   'coc-prettier',
   \   'coc-python',
   \   'coc-solargraph',
   \   'coc-styled-components',
@@ -135,10 +136,6 @@
   let g:ale_cursor_detail = 0
   " Define the linters we plan to use and disable all others:
   let g:ale_linters_explicit = 1
-  let g:ale_fixers = {
-        \'css': ['prettier'],
-        \'scss': ['prettier'],
-        \}
   let g:ale_linters = {
     \  'css': ['stylelint', 'prettier'],
     \  'go': ['govet', 'gofmt', 'golint'],
