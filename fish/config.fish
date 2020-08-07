@@ -91,7 +91,7 @@ add_to_user_paths ~/.local/bin
 add_to_user_paths /usr/local/sbin
 
 # # Set emoji width:
-set -g fish_emoji_width 2
+# set -g fish_emoji_width 2
 
 # Sets up Rust's Cargo thing:
 if test -e $HOME/.cargo/env
