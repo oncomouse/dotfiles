@@ -62,6 +62,7 @@ elseif exists('*term_setansicolors') && &termguicolors == 1
 endif
 " }}}
 " Tempus Overrides {{{
+hi Visual guibg=#8e9cc0 ctermbg=12
 hi Search guibg=#b1942b guifg=#232323 ctermbg=3 ctermbg=0
 hi gitcommitSummary guifg=#7aa880 ctermfg=7
 hi gitcommitOverflow cterm=bold gui=bold ctermbg=13 guibg=#d58888 guifg=#232323 ctermfg=0
