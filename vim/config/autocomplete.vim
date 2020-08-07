@@ -4,18 +4,14 @@
   \   'coc-bibtex',
   \   'coc-calc',
   \   'coc-css',
-  \   'coc-diagnostic',
   \   'coc-fish',
-  \   'coc-eslint',
   \   'coc-go',
   \   'coc-html',
   \   'coc-json',
   \   'coc-lists',
-  \   'coc-prettier',
   \   'coc-python',
   \   'coc-solargraph',
   \   'coc-styled-components',
-  \   'coc-stylelintplus',
   \   'coc-tsserver',
   \   'coc-vimlsp',
   \   'coc-yaml',
@@ -52,10 +48,10 @@
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
-  nmap <silent> ]d <Plug>(coc-diagnostic-next)
-  nmap <silent> [d <Plug>(coc-diagnostic-prev)
-  nmap <silent> []d :<C-u>CocList diagnostics<CR>
-  nmap <silent> <leader>d :<C-u>CocList diagnostics<CR>
+  " nmap <silent> ]d <Plug>(coc-diagnostic-next)
+  " nmap <silent> [d <Plug>(coc-diagnostic-prev)
+  " nmap <silent> []d :<C-u>CocList diagnostics<CR>
+  " nmap <silent> <leader>d :<C-u>CocList diagnostics<CR>
   nnoremap <silent> K :call <SID>show_documentation()<CR>
   nmap <leader>rn <Plug>(coc-rename)
   command! Symbols :<C-u>CocList -I symbols<cr>
@@ -121,5 +117,46 @@
       autocmd FileType html let b:coc_pairs_disabled = ['<']
     augroup END
   " }}}
+" }}}
+" ALE {{{
+  let g:ale_set_loclist = 0
+  let g:ale_set_quickfix = 1
+  " Better ALE Msg Format
+  " let g:ale_echo_msg_error_str = 'E'
+  " let g:ale_echo_msg_warning_str = 'W'
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+  "
+  " Jump between ALE Errors:
+  nmap <silent> <leader>d :<C-u>CocList quickfix<CR>
+  nmap <silent> [d :<C-u>ALEPreviousWrap<CR>
+  nmap <silent> ]d :<C-u>ALENextWrap<CR>
+  "
+  let g:ale_lint_on_insert_leave = 1
+  let g:ale_cursor_detail = 0
+  " Define the linters we plan to use and disable all others:
+  let g:ale_linters_explicit = 1
+  let g:ale_fixers = {
+        \'css': ['prettier'],
+        \'scss': ['prettier'],
+        \}
+  let g:ale_linters = {
+    \  'css': ['stylelint', 'prettier'],
+    \  'go': ['govet', 'gofmt', 'golint'],
+    \  'javascriptreact':  ['eslint'],
+    \  'javascript':  ['eslint'],
+    \  'markdown': ['vale', 'proselint'],
+    \  'python': ['pylint', 'bandit'],
+    \  'ruby': ['rubocop', 'ruby'],
+    \  'scss': ['stylelint', 'prettier'],
+    \  'typescript': ['eslint'],
+    \  'typescriptreact': ['eslint'],
+    \  'vim': ['vint'],
+    \  'yaml': ['yamllint'],
+    \}
+  let g:ale_fix_on_save = 1
+  let g:ale_pattern_options = {
+    \  '\.min.js$': {'ale_enabled': 0},
+    \  'build/.*$': {'ale_enabled': 0},
+    \}
 " }}}
 " # vim:foldmethod=marker

@@ -81,7 +81,7 @@ hi StatusLineTerm guifg=#96a42d ctermfg=10 guibg=#8c9e3d ctermbg=2 cterm=NONE gu
 hi StatusLineTermNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
 hi User1 ctermbg=8 guibg=#312e30 cterm=bold gui=bold
 hi User2 ctermbg=8 guibg=#312e30 cterm=NONE gui=NONE
-hi User3 guifg=#312e30 ctermfg=8 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+hi User3 guifg=#312e30 ctermfg=8 guibg=#b1942b ctermbg=3 cterm=NONE gui=NONE
 hi User4 guifg=#312e30 ctermfg=8 guibg=#d2813d ctermbg=1 cterm=NONE gui=NONE
 hi User5 guifg=#aeadaf ctermfg=15 guibg=#312e30 ctermbg=8 cterm=none gui=none
 hi User6 guifg=#312e30 ctermfg=8 guibg=#232323 ctermbg=0 cterm=NONE gui=NONE

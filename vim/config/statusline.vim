@@ -56,11 +56,11 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
       \%2*%{(w:['lf_active'] && &rtp=~'gitdiff'? Componetize('lightline#gitdiff#get()','\u22EE ') :'')}
       \%0*%=
       \%1*\ %l:%c\ 
-      \%3*%{w:['lf_active'] ? Componetize('CocWarning()') : ''}
-      \%4*%{w:['lf_active'] ? Componetize('CocError()', '  ') : ''}
-      \%5*%{w:['lf_active'] ? Componetize('CocInformation()', '  ', ' ') : ''}
+      \%3*%{w:['lf_active'] ? Componetize('dotfiles#ale#warnings()') : ''}
+      \%4*%{w:['lf_active'] ? Componetize('dotfiles#ale#errors()', '  ') : ''}
+      \%5*%{w:['lf_active'] ? Componetize('dotfiles#ale#ok()', '', '  ') : ''}
+      \%5*%{w:['lf_active'] ? Componetize('dotfiles#ale#checking()', '', '  ') : ''}
       \%#".get(g:lf_stlh, mode(), 'Warnings')."#
-      \%{w:['lf_active'] ? Componetize('CocOk()', '', '  ') : ''}
       \%{w:['lf_active']
       \?'  '.get(g:lf_stlm,mode(),mode()).' '
       \:''}%*"
