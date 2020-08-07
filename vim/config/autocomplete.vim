@@ -84,7 +84,9 @@
     let args = {}
     if !empty(a:dir)
       if !isdirectory(expand(a:dir))
-        echom s:warn('Invalid directory')
+        echohl WarningMsg
+        echom 'Invalid directory'
+        echohl None
       endif
       let slash = (s:is_win && !&shellslash) ? '\\' : '/'
       let dir = substitute(a:dir, '[/\\]*$', slash, '')
@@ -134,22 +136,6 @@
   "
   let g:ale_lint_on_insert_leave = 1
   let g:ale_cursor_detail = 0
-  " Define the linters we plan to use and disable all others:
-  let g:ale_linters_explicit = 1
-  let g:ale_linters = {
-    \  'css': ['stylelint', 'prettier'],
-    \  'go': ['govet', 'gofmt', 'golint'],
-    \  'javascriptreact':  ['eslint'],
-    \  'javascript':  ['eslint'],
-    \  'markdown': ['vale', 'proselint'],
-    \  'python': ['pylint', 'bandit'],
-    \  'ruby': ['rubocop', 'ruby'],
-    \  'scss': ['stylelint', 'prettier'],
-    \  'typescript': ['eslint'],
-    \  'typescriptreact': ['eslint'],
-    \  'vim': ['vint'],
-    \  'yaml': ['yamllint'],
-    \}
   let g:ale_fix_on_save = 1
   let g:ale_pattern_options = {
     \  '\.min.js$': {'ale_enabled': 0},
