@@ -45,11 +45,9 @@ cask "font-tex-gyre-heros" # Used for CV on website
 brew "go" # The Go programming language
 brew "heroku/brew/heroku" # Build and install cloud apps
 brew "node" # Node.js
-brew "node-build" # Build Node binaries
-brew "nodenv" # Manage different Node.js installations
 brew "python" # Python 3
-brew "rbenv" # Manage different Ruby installations
 brew "yarn" # Package manager for Node.js
+brew "asdf" # VM Manager for scripting languages
 cask "virtualbox" # Virtual machine software
 
 # Writing

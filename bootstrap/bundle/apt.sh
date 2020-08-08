@@ -5,6 +5,7 @@ sudo apt-get upgrade -y
 # Install Necessary Tools:
 sudo apt-get install -y vim fish python3-pip silversearcher-ag htop
 sudo apt-get install -y caca-utils highlight atool w3m poppler-utils mediainfo
+sudo apt-get install -y curl git
 
 # Install Golang:
 if ! which go > /dev/null 2>&1; then
@@ -92,9 +93,9 @@ if [ -z $SERVER ]; then
 
   ## Install RBEnv:
   sudo apt-get -y install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
-  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-  echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0-rc1
+  cd ~/.asdf && git checkout "$(git describe --abbrev=0 --tags)"
+  echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc
   source ~/.bashrc
 
   ## Install NeoVim:
