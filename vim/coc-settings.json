@@ -26,7 +26,7 @@
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
   "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
   "vimlsp.diagnostic.enable": true,
-  "solargraph.diagnostics": true,
+  "solargraph.diagnostics": false,
   "solargraph.formatting": true,
   "css.validate": false,
   "scss.validate": false,
