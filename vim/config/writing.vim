@@ -6,16 +6,16 @@ augroup pandoc-shortcuts
 augroup END
 " }}}
 " coc-bibtex Configuration {{{
-  call coc#config('list.source.bibtex', {
-  \  'files': [
-  \    g:bibliography_file,
-  \  ]
-  \})
-  augroup coc-bibtex
-    autocmd!
-    autocmd FileType pandoc,markdown nnoremap <silent> <C-C> :execute 'CocList bibtex'<CR>
-    autocmd FileType pandoc,markdown inoremap <silent> <C-C> <c-g>u<c-o>:execute 'CocList bibtex'<CR>
-  augroup END
+  " call coc#config('list.source.bibtex', {
+  " \  'files': [
+  " \    g:bibliography_file,
+  " \  ]
+  " \})
+  " augroup coc-bibtex
+  "   autocmd!
+  "   autocmd FileType pandoc,markdown nnoremap <silent> <C-C> :execute 'CocList bibtex'<CR>
+  "   autocmd FileType pandoc,markdown inoremap <silent> <C-C> <c-g>u<c-o>:execute 'CocList bibtex'<CR>
+  " augroup END
 " }}}
 " FZF BibTeX Configuration {{{
   " let $FZF_BIBTEX_CACHEDIR = '/var/tmp'
@@ -29,24 +29,24 @@ augroup END
   " augroup END
 " }}}
 " CoC Source Ignore {{{
-  augroup coc-pandoc
-    autocmd!
-    autocmd FileType markdown,pandoc call coc#config('coc.source.buffer.enable', 0)
-    autocmd FileType markdown,pandoc call coc#config('coc.source.around.enable', 0)
-    autocmd FileType markdown,pandoc call coc#config('coc.source.snippets.enable', 0)
-    autocmd FileType markdown,pandoc call coc#config('coc.source.file.enable', 0)
-    autocmd FileType markdown,pandoc call coc#config('coc.source.tmux.enable', 0)
-  augroup END
-  function! CocBufferOn() abort
-    call coc#config('coc.source.buffer.enable', 1)
-    call coc#config('coc.source.around.enable', 1)
-  endfunction
-  function! CocBufferOff() abort
-    call coc#config('coc.source.buffer.enable', 0)
-    call coc#config('coc.source.around.enable', 0)
-  endfunction
-  command! CocBufferOn call CocBufferOn()
-  command! CocBufferOff call CocBufferOff()
+  " augroup coc-pandoc
+  "   autocmd!
+  "   autocmd FileType markdown,pandoc call coc#config('coc.source.buffer.enable', 0)
+  "   autocmd FileType markdown,pandoc call coc#config('coc.source.around.enable', 0)
+  "   autocmd FileType markdown,pandoc call coc#config('coc.source.snippets.enable', 0)
+  "   autocmd FileType markdown,pandoc call coc#config('coc.source.file.enable', 0)
+  "   autocmd FileType markdown,pandoc call coc#config('coc.source.tmux.enable', 0)
+  " augroup END
+  " function! CocBufferOn() abort
+  "   call coc#config('coc.source.buffer.enable', 1)
+  "   call coc#config('coc.source.around.enable', 1)
+  " endfunction
+  " function! CocBufferOff() abort
+  "   call coc#config('coc.source.buffer.enable', 0)
+  "   call coc#config('coc.source.around.enable', 0)
+  " endfunction
+  " command! CocBufferOn call CocBufferOn()
+  " command! CocBufferOff call CocBufferOff()
 " }}}
 " Vim-markdown {{{
 let g:vim_markdown_frontmatter = 1

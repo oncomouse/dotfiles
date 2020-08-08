@@ -34,9 +34,14 @@
   " }}}
 " }}}
 " Autocomplete: {{{
-  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+  " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
   Plug 'wellle/tmux-complete.vim'
   Plug 'dense-analysis/ale'
+  Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
+  Plug 'neoclide/denite-extra'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'lionawurscht/deoplete-biblatex'
+  Plug 'Shougo/neoyank.vim'
 " }}}
 " Writing: {{{
   " Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
