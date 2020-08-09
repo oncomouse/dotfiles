@@ -5,48 +5,13 @@ augroup pandoc-shortcuts
   autocmd FileType pandoc,markdown nmap <C-b> ysiw*lysiw*
 augroup END
 " }}}
-" coc-bibtex Configuration {{{
-  " call coc#config('list.source.bibtex', {
-  " \  'files': [
-  " \    g:bibliography_file,
-  " \  ]
-  " \})
-  " augroup coc-bibtex
-  "   autocmd!
-  "   autocmd FileType pandoc,markdown nnoremap <silent> <C-C> :execute 'CocList bibtex'<CR>
-  "   autocmd FileType pandoc,markdown inoremap <silent> <C-C> <c-g>u<c-o>:execute 'CocList bibtex'<CR>
-  " augroup END
+" deoplete-biblatex {{{
+let g:deoplete#sources#biblatex#bibfile = g:bibliography_file
+let g:deoplete#sources#biblatex#addinfo = v:true
+call deoplete#custom#source('biblatex', 'filetypes', ['markdown'])
 " }}}
-" FZF BibTeX Configuration {{{
-  " let $FZF_BIBTEX_CACHEDIR = '/var/tmp'
-  " let $FZF_BIBTEX_SOURCES = g:bibliography_file
-
-  " augroup fzf-bibtex
-  "   autocmd!
-  "   " Bind <ctrl+c> to citation look-up using FZF:
-  "   autocmd FileType pandoc,text,markdown nnoremap <silent> <C-C> :call dotfiles#fzf#bibtex_run_ls('dotfiles#fzf#bibtex_cite_sink')<CR>
-  "   autocmd FileType pandoc,text,markdown inoremap <silent> <C-C> <c-g>u<c-o>:call dotfiles#fzf#bibtex_run_ls('dotfiles#fzf#bibtex_cite_sink_insert')<CR>
-  " augroup END
-" }}}
-" CoC Source Ignore {{{
-  " augroup coc-pandoc
-  "   autocmd!
-  "   autocmd FileType markdown,pandoc call coc#config('coc.source.buffer.enable', 0)
-  "   autocmd FileType markdown,pandoc call coc#config('coc.source.around.enable', 0)
-  "   autocmd FileType markdown,pandoc call coc#config('coc.source.snippets.enable', 0)
-  "   autocmd FileType markdown,pandoc call coc#config('coc.source.file.enable', 0)
-  "   autocmd FileType markdown,pandoc call coc#config('coc.source.tmux.enable', 0)
-  " augroup END
-  " function! CocBufferOn() abort
-  "   call coc#config('coc.source.buffer.enable', 1)
-  "   call coc#config('coc.source.around.enable', 1)
-  " endfunction
-  " function! CocBufferOff() abort
-  "   call coc#config('coc.source.buffer.enable', 0)
-  "   call coc#config('coc.source.around.enable', 0)
-  " endfunction
-  " command! CocBufferOn call CocBufferOn()
-  " command! CocBufferOff call CocBufferOff()
+" Deoplete ignore sources{{{
+call deoplete#custom#option('ignore_sources', {'markdown': ['around', 'buffer', 'file', 'tmux']})
 " }}}
 " Vim-markdown {{{
 let g:vim_markdown_frontmatter = 1
@@ -67,14 +32,6 @@ augroup markdown_higlight
   autocmd FileType markdown,pandoc nnoremap <silent> <leader>cc :call ToggleConcealLevel()<CR>
 augroup END
 " }}}
-" Pandoc {{{
-  " Uncomment to use the omni-func for bibliography completion:
-  " let g:pandoc#biblio#bibs=[g:bibliography_file]
-  " Turn off folding and vim-pandoc's BibTeX support
-  " let g:pandoc#modules#disabled = ['bibliography']
-  " Turn off conceal
-  " let g:pandoc#syntax#conceal#use = 0
-"}}}
 " Limelight {{{
   let g:limelight_conceal_ctermfg='black'
 "}}}

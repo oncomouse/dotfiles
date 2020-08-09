@@ -51,9 +51,6 @@ command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'Denite grep:::'.<q-args>
 " }}}
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#biblatex#bibfile = g:bibliography_file
-let g:deoplete#sources#biblatex#addinfo = v:true
-call deoplete#custom#source('biblatex', 'filetypes', ['markdown'])
 " }}}
 " vim-lsp-settings {{{
 " Alias the format document command:
