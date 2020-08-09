@@ -15,5 +15,7 @@ if which npm > /dev/null 2>&1; then
     npminstall 'diff-so-fancy' 
     npminstall 'neovim' 
     npminstall 'jsonlint' 
+    npminstall 'semistandard'
+    npminstall 'snazzy'
   fi
 fi
