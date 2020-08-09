@@ -12,7 +12,7 @@ require'colorizer'.setup{
 '*';
 markdown={
 names = false
-}
+};
 text={
 names = false
 }
