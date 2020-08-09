@@ -1,7 +1,7 @@
 scriptencoding utf-8
 " ALE {{{
-  let g:ale_set_loclist = 0
-  let g:ale_set_quickfix = 1
+  " let g:ale_set_loclist = 0
+  " let g:ale_set_quickfix = 1
   let g:ale_javascript_standard_executable = 'semistandard'
   command! Format ALEFix
   " Better ALE Msg Format
@@ -10,7 +10,7 @@ scriptencoding utf-8
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
   "
   " Jump between ALE Errors:
-  nmap <silent> <leader>d :<C-u>Denite quickfix<CR>
+  nmap <silent> <leader>d :<C-u>Denite location_list<CR>
   nmap <silent> [d :<C-u>ALEPreviousWrap<CR>
   nmap <silent> ]d :<C-u>ALENextWrap<CR>
   "
@@ -43,11 +43,12 @@ call denite#custom#source('file_rec', 'sorters', ['sorter_sublime'])
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.ropeproject/', '__pycache__/*', '*.pyc', 'node_modules/',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/', '*.png'])
-command!      -bang -nargs=? -complete=dir FZF    exe 'Denite file/rec '.<q-args>
+command!      -bang -nargs=? -complete=dir FZF    exe 'Denite  -start-filter file/rec '.<q-args>
+" Old FZF Interface:
 command! Buffers :exe 'Denite buffer'
 command! Windows :exe 'Denite window'
 command! BLines :exe 'Denite line'
-command! History :exe 'Denite history'
+command! History :exe 'Denite command_history'
 nnoremap <silent> <leader>y  :<C-u>Denite neoyank<CR>
 " Implement Ag
 command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'Denite grep:::'.<q-args>
