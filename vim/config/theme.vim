@@ -7,7 +7,17 @@ if dotfiles#desktop_test()
     let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
     " nvim-colorizer.lua:
-    lua require'colorizer'.setup()
+lua << EOF
+require'colorizer'.setup{
+'*';
+markdown={
+names = false
+}
+text={
+names = false
+}
+}
+EOF
   endif
 endif
 colorscheme tempus_classic
