@@ -63,10 +63,10 @@
   nmap <Leader>cr <Plug>(coc-calc-result-replace)
 " }}}
 " Coc Formatting {{{
-  set formatexpr=CocAction('formatSelected')
-  xmap <leader>f  <Plug>(coc-format-selected)
-  nmap <leader>f  <Plug>(coc-format-selected)
-  command! -nargs=0 Format :call CocAction('format')
+  " set formatexpr=CocAction('formatSelected')
+  " xmap <leader>f  <Plug>(coc-format-selected)
+  " nmap <leader>f  <Plug>(coc-format-selected)
+  " command! -nargs=0 Format :call CocAction('format')
 " }}}
 " Coc Fuzzy {{{
   " (Implement fzf.vim lists for CocList)
@@ -125,10 +125,12 @@
 
 " }}}
 " ALE {{{
+  command! Format ALEFix
   let g:ale_set_loclist = 0
   let g:ale_set_quickfix = 1
   let g:ale_javascript_standard_executable = 'semistandard'
- " Better ALE Msg Format
+  
+  " Better ALE Msg Format
   " let g:ale_echo_msg_error_str = 'E'
   " let g:ale_echo_msg_warning_str = 'W'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'

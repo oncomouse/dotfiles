@@ -17,5 +17,6 @@ if which npm > /dev/null 2>&1; then
     npminstall 'jsonlint' 
     npminstall 'semistandard'
     npminstall 'snazzy'
+    npminstall 'prettier'
   fi
 fi
