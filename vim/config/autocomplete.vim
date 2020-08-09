@@ -1,12 +1,7 @@
 scriptencoding utf-8
 " ALE {{{
-  " let g:ale_set_loclist = 0
-  " let g:ale_set_quickfix = 1
   let g:ale_javascript_standard_executable = 'semistandard'
   command! Format ALEFix
-  " Better ALE Msg Format
-  " let g:ale_echo_msg_error_str = 'E'
-  " let g:ale_echo_msg_warning_str = 'W'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
   "
   " Jump between ALE Errors:
@@ -16,6 +11,7 @@ scriptencoding utf-8
   "
   let g:ale_lint_on_insert_leave = 1
   let g:ale_cursor_detail = 0
+  let g:ale_disable_lsp = 1
   let g:ale_fix_on_save = 1
   let g:ale_pattern_options = {
     \  '\.min.js$': {'ale_enabled': 0},
@@ -56,7 +52,7 @@ command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'Denite grep:::'.<q-args>
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#biblatex#bibfile = g:bibliography_file
-let g:deoplete#sources#biblatex#addinfo = 1
+let g:deoplete#sources#biblatex#addinfo = v:true
 call deoplete#custom#source('biblatex', 'filetypes', ['markdown'])
 " }}}
 " vim-lsp-settings {{{
