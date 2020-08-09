@@ -121,6 +121,34 @@
     augroup END
   " }}}
 " }}}
+" Coc Ale Bridge {{{
+augroup coc-ale-bridge
+  autocmd!
+  autocmd User ALEWantResults call Hook(g:ale_want_results_buffer)
+augroup END
+
+function! ProcessList(idx, list) abort
+  let l:list = {
+  \ 'lnum': a:list['location']['range']['start']['line'],
+  \ 'end_lnum': a:list['location']['range']['start']['line'],
+  \ 'col': a:list['location']['range']['start']['character'],
+  \ 'end_col': a:list['location']['range']['end']['character'],
+  \ 'text': a:list['message'],
+  \ 'type': a:list['severity'][0],
+  \}
+  return l:list
+endfunction
+function! Hook(buffer) abort
+  if buflisted(a:buffer)
+    call ale#other_source#StartChecking(a:buffer, 'coc')
+    call CocActionAsync('diagnosticList', {_err, results -> HandleResults(a:buffer, results)})
+  endif
+endfunction
+function! HandleResults(buffer, results) abort
+    let l:output = map(a:results, function('ProcessList'))
+    call ale#other_source#ShowResults(a:buffer, 'coc', l:output)
+endfunction
+" }}}
 " ALE {{{
   let g:ale_set_loclist = 0
   let g:ale_set_quickfix = 1

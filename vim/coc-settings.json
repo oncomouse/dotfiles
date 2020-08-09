@@ -17,19 +17,19 @@
     "python"
   ],
   "tsserver.trace.server": "verbose",
-  "javascript.validate.enable": false,
+  "javascript.validate.enable": true,
   "javascript.format.enabled": true,
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
   "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
-  "typescript.validate.enable": false,
+  "typescript.validate.enable": true,
   "typescript.format.enabled": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
   "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
   "vimlsp.diagnostic.enable": true,
   "solargraph.diagnostics": false,
   "solargraph.formatting": true,
-  "css.validate": false,
-  "scss.validate": false,
+  "css.validate": true,
+  "scss.validate": true,
   "python.linting.enabled": false,
   "html.format.indentInnerHtml": true
 }
