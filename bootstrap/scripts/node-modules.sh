@@ -15,6 +15,9 @@ if which npm > /dev/null 2>&1; then
     npminstall 'diff-so-fancy' 
     npminstall 'neovim' 
     npminstall 'jsonlint' 
+    npminstall 'semistandard'
+    npminstall 'snazzy'
+    npminstall 'prettier'
     # Language servers:
     npminstall 'vscode-html-languageserver-bin'
     npminstall 'vscode-css-languageserver-bin'

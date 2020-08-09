@@ -2,6 +2,8 @@ scriptencoding utf-8
 " ALE {{{
   let g:ale_set_loclist = 0
   let g:ale_set_quickfix = 1
+  let g:ale_javascript_standard_executable = 'semistandard'
+  command! Format ALEFix
   " Better ALE Msg Format
   " let g:ale_echo_msg_error_str = 'E'
   " let g:ale_echo_msg_warning_str = 'W'
@@ -58,7 +60,6 @@ call deoplete#custom#source('biblatex', 'filetypes', ['markdown'])
 " }}}
 " vim-lsp-settings {{{
 " Alias the format document command:
-command Format LspDocumentFormat
 " Turn off all diagnostic stuff (pump it all to ALE):
 let g:lsp_signs_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 0

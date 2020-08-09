@@ -26,6 +26,8 @@ if [ -z $SERVER ];then
   # Markdown Linters:
   pip3install 'proselint'
   ln -sf ~/dotfiles/proselint ~/.config/
+  # BibTeX
+  pip3install 'bibtexparser'
 fi
 pip3install 'pynvim'
 pip3install 'virtualfish'
