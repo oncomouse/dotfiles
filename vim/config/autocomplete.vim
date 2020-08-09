@@ -1,4 +1,5 @@
 scriptencoding utf-8
+set completeopt=menu
 " ALE {{{
   let g:ale_javascript_standard_executable = 'semistandard'
   command! Format ALEFix

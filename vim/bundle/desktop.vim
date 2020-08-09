@@ -49,6 +49,7 @@
   Plug 'lighttiger2505/deoplete-vim-lsp' " Adds LSP as a Deoplete source
   " Fancy yanking:
   Plug 'Shougo/neoyank.vim' " Adds yank as a Denite source
+  Plug 'ncm2/float-preview.nvim' " Floating preview window
 " }}}
 " Writing: {{{
   " Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
