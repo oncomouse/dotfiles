@@ -34,14 +34,22 @@
   " }}}
 " }}}
 " Autocomplete: {{{
-  " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'wellle/tmux-complete.vim'
+  " ALE for linting:
   Plug 'dense-analysis/ale'
+  " Denite for lists:
   Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
-  Plug 'neoclide/denite-extra'
+  Plug 'neoclide/denite-extra' " Adds quickfix as a denite source
+  " Deoplete for completion:
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'lionawurscht/deoplete-biblatex'
-  Plug 'Shougo/neoyank.vim'
+  Plug 'lionawurscht/deoplete-biblatex' " Adds BibTeX as a Deoplete source
+  Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a Deoplete source
+  " Use Vim-LSP for LSP:
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'mattn/vim-lsp-settings'
+  Plug 'lighttiger2505/deoplete-vim-lsp' " Adds LSP as a Deoplete source
+  " Fancy yanking:
+  Plug 'Shougo/neoyank.vim' " Adds yank as a Denite source
+  Plug 'machakann/vim-highlightedyank' " Highlights yank
 " }}}
 " Writing: {{{
   " Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports

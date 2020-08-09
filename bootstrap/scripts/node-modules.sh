@@ -15,9 +15,10 @@ if which npm > /dev/null 2>&1; then
     npminstall 'diff-so-fancy' 
     npminstall 'neovim' 
     npminstall 'jsonlint' 
-    # Languae servers:
+    # Language servers:
     npminstall 'vscode-html-languageserver-bin'
     npminstall 'vscode-css-languageserver-bin'
+    npminstall 'vscode-json-languageserver-bin'
     npminstall 'typescript'
     npminstall 'vim-language-server'
   fi

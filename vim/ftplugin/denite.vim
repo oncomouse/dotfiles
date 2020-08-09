@@ -1,5 +1,5 @@
-nmap <C-p> :Denite -start-filter file/rec<CR>
-nmap <LEADER>a :Denite buffer<CR>
+nmap <silent><C-p> :Denite -start-filter file/rec<CR>
+nmap <silent><LEADER>a :Denite buffer<CR>
 nnoremap <LEADER>/ :Denite grep<CR>
 nnoremap <silent><buffer><expr> <CR>
       \ denite#do_map('do_action')
