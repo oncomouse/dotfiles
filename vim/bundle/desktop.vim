@@ -1,3 +1,6 @@
+" General Editing: {{{
+  Plug 'ncm2/float-preview.nvim' " Floating preview window
+" }}}
 " Development: {{{
   " General Syntax: {{{ 
     Plug 'Konfekt/FastFold' " Better fold support
@@ -37,9 +40,8 @@
   " Use Vim-LSP for LSP:
   Plug 'prabirshrestha/vim-lsp'
   Plug 'mattn/vim-lsp-settings'
-  " Denite for lists:
-  Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
-  Plug 'neoclide/denite-extra' " Adds location_list as a denite source
+  " vim-clap for lists:
+  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
   " Deoplete for completion:
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'lighttiger2505/deoplete-vim-lsp' " Adds LSP as a Deoplete source
@@ -47,9 +49,6 @@
   Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a Deoplete source
   " ALE for linting:
   Plug 'dense-analysis/ale'
-  " Fancy yanking:
-  Plug 'Shougo/neoyank.vim' " Adds yank as a Denite source
-  Plug 'ncm2/float-preview.nvim' " Floating preview window
 " }}}
 " Writing: {{{
   " Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
@@ -59,7 +58,4 @@
   Plug 'reedes/vim-lexical', { 'for': ['pandoc', 'markdown', 'text'] } " Better spellchecking
   Plug 'reedes/vim-litecorrect' " Add autocorrections for boneheaded typos
   Plug 'reedes/vim-textobj-sentence', { 'for': ['pandoc', 'markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
-" }}}
-" Statusline: {{{
-  Plug 'oncomouse/lightline-gitdiff-async'
 " }}}

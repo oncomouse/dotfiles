@@ -21,7 +21,6 @@ EOF
   endif
 endif
 colorscheme tempus_classic
-" Terminal Colors {{{
 if &termguicolors == 1
   " Use the fish function kitty-color to change this when you update the
   " terminal:
@@ -30,6 +29,7 @@ if &termguicolors == 1
 else
   let s:cterms = map(range(0,15), {i -> [i]})
 endif
+" Terminal Colors {{{
 if has('nvim') && &termguicolors == 1
   let g:terminal_color_0=s:cterms[0][1]
   let g:terminal_color_1=s:cterms[1][1]
@@ -102,6 +102,9 @@ hi link htmlItalic MarkdownItalic
 hi link htmlBold MarkdownBold
 hi link htmlTag Noise
 hi link htmlEndTag Noise
+" }}}
+" vim-clap Theme{{{
+let g:clap_theme = 'material_design_dark'
 " }}}
 " Highlight Reveal Function: {{{
 function! SynGroup()                                                            
