@@ -34,19 +34,19 @@
   " }}}
 " }}}
 " Autocomplete: {{{
-  " ALE for linting:
-  Plug 'dense-analysis/ale'
-  " Denite for lists:
-  Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
-  Plug 'neoclide/denite-extra' " Adds quickfix as a denite source
-  " Deoplete for completion:
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'lionawurscht/deoplete-biblatex' " Adds BibTeX as a Deoplete source
-  Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a Deoplete source
   " Use Vim-LSP for LSP:
   Plug 'prabirshrestha/vim-lsp'
   Plug 'mattn/vim-lsp-settings'
+  " Denite for lists:
+  Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
+  Plug 'neoclide/denite-extra' " Adds location_list as a denite source
+  " Deoplete for completion:
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'lighttiger2505/deoplete-vim-lsp' " Adds LSP as a Deoplete source
+  Plug 'lionawurscht/deoplete-biblatex' " Adds BibTeX as a Deoplete source
+  Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a Deoplete source
+  " ALE for linting:
+  Plug 'dense-analysis/ale'
   " Fancy yanking:
   Plug 'Shougo/neoyank.vim' " Adds yank as a Denite source
   Plug 'ncm2/float-preview.nvim' " Floating preview window
