@@ -4,14 +4,15 @@
   \   'coc-bibtex',
   \   'coc-calc',
   \   'coc-css',
+  \   'coc-diagnostic',
+  \   'coc-eslint',
   \   'coc-fish',
-  \   'coc-go',
   \   'coc-html',
   \   'coc-json',
   \   'coc-lists',
   \   'coc-prettier',
-  \   'coc-python',
   \   'coc-solargraph',
+  \   'coc-stylelintplus',
   \   'coc-styled-components',
   \   'coc-tsserver',
   \   'coc-vimlsp',
@@ -49,10 +50,9 @@
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
-  " nmap <silent> ]d <Plug>(coc-diagnostic-next)
-  " nmap <silent> [d <Plug>(coc-diagnostic-prev)
-  " nmap <silent> []d :<C-u>CocList diagnostics<CR>
-  " nmap <silent> <leader>d :<C-u>CocList diagnostics<CR>
+  nmap <silent> ]d <Plug>(coc-diagnostic-next)
+  nmap <silent> [d <Plug>(coc-diagnostic-prev)
+  nmap <silent> <leader>d :<C-u>CocList diagnostics<CR>
   nnoremap <silent> K :call <SID>show_documentation()<CR>
   nmap <leader>rn <Plug>(coc-rename)
   command! Symbols :<C-u>CocList -I symbols<cr>
@@ -63,10 +63,10 @@
   nmap <Leader>cr <Plug>(coc-calc-result-replace)
 " }}}
 " Coc Formatting {{{
-  " set formatexpr=CocAction('formatSelected')
-  " xmap <leader>f  <Plug>(coc-format-selected)
-  " nmap <leader>f  <Plug>(coc-format-selected)
-  " command! -nargs=0 Format :call CocAction('format')
+  set formatexpr=CocAction('formatSelected')
+  xmap <leader>f  <Plug>(coc-format-selected)
+  nmap <leader>f  <Plug>(coc-format-selected)
+  command! -nargs=0 Format :call CocAction('format')
 " }}}
 " Coc Fuzzy {{{
   " (Implement fzf.vim lists for CocList)
@@ -123,29 +123,5 @@
 " }}}
 " Coc Ale Bridge {{{
 
-" }}}
-" ALE {{{
-  command! Format ALEFix
-  let g:ale_set_loclist = 0
-  let g:ale_set_quickfix = 1
-  let g:ale_javascript_standard_executable = 'semistandard'
-  
-  " Better ALE Msg Format
-  " let g:ale_echo_msg_error_str = 'E'
-  " let g:ale_echo_msg_warning_str = 'W'
-  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-  "
-  " Jump between ALE Errors:
-  nmap <silent> <leader>d :<C-u>CocList quickfix<CR>
-  nmap <silent> [d :<C-u>ALEPreviousWrap<CR>
-  nmap <silent> ]d :<C-u>ALENextWrap<CR>
-  "
-  let g:ale_lint_on_insert_leave = 1
-  let g:ale_cursor_detail = 0
-  let g:ale_fix_on_save = 1
-  let g:ale_pattern_options = {
-    \  '\.min.js$': {'ale_enabled': 0},
-    \  'build/.*$': {'ale_enabled': 0},
-    \}
 " }}}
 " # vim:foldmethod=marker

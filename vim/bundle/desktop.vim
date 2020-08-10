@@ -36,7 +36,6 @@
 " Autocomplete: {{{
   Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
   Plug 'wellle/tmux-complete.vim'
-  Plug 'dense-analysis/ale'
 " }}}
 " Writing: {{{
   " Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
