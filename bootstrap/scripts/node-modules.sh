@@ -13,10 +13,6 @@ if which npm > /dev/null 2>&1; then
     npminstall 'trash-cli' 
     npminstall 'empty-trash-cli'
     npminstall 'diff-so-fancy' 
-    npminstall 'neovim' 
-    npminstall 'jsonlint' 
-    npminstall 'semistandard'
-    npminstall 'snazzy'
-    npminstall 'prettier'
+    npminstall 'neovim'
   fi
 fi
