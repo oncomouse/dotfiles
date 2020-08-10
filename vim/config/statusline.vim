@@ -42,6 +42,7 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
       \%1*
       \ %{&mod?'◦':''}%t
       \%2*%{(&paste ? g:nerdfonts ? '\uf0ea  ':' (paste) ':' ')}
+      \%2*%{(w:['lf_active'] ? Componetize('gina#component#status#preset(\"fancy\")','\u22EE ') :'')}
       \%0*%=
       \%1*\ %l:%c\ 
       \%3*%{w:['lf_active'] ? Componetize('dotfiles#ale#warnings()') : ''}
@@ -52,26 +53,6 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
       \%{w:['lf_active']
       \?'  '.get(g:lf_stlm,mode(),mode()).' '
       \:''}%*"
-  endfunction
-  function CocGetInfo(key) abort
-    let l:info = get(b:, 'coc_diagnostic_info', {})
-    return get(info, a:key, 0)
-  endfunction
-  function! CocInformation() abort
-    let l:count = CocGetInfo('information')
-    return l:count > 0 ? g:dotfiles#ale#indicator_information.l:count : ''
-  endfunction
-  function! CocWarning() abort
-    let l:count = CocGetInfo('warning')
-    return l:count > 0 ? g:dotfiles#ale#indicator_warnings.l:count : ''
-  endfunction
-  function! CocError() abort
-    let l:count = CocGetInfo('error')
-    return l:count > 0 ? g:dotfiles#ale#indicator_errors.l:count : ''
-  endfunction
-  function! CocOk() abort
-    let l:count = CocGetInfo('warning') + CocGetInfo('error') + CocGetInfo('information')
-    return l:count == 0 ? g:dotfiles#ale#indicator_ok : ''
   endfunction
 " }}}
 " Tabline {{{
