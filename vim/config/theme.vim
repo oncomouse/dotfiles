@@ -104,7 +104,7 @@ hi link htmlTag Noise
 hi link htmlEndTag Noise
 " }}}
 " vim-clap Theme{{{
-let g:clap_theme = 'material_design_dark'
+let g:clap_theme = 'tempus_classic'
 " }}}
 " Highlight Reveal Function: {{{
 function! SynGroup()                                                            
