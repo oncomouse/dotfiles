@@ -73,7 +73,7 @@ endif
 " }}}
 " Tempus Overrides {{{
 hi Visual guibg=#8e9cc0 ctermbg=12
-hi Search guibg=#b1942b guifg=#232323 ctermbg=3 ctermbg=0
+hi Search guibg=#b1942b guifg=#232323 ctermbg=3 ctermbg=0 gui=NONE cterm=NONE
 hi gitcommitSummary guifg=#7aa880 ctermfg=7
 hi gitcommitOverflow cterm=bold gui=bold ctermbg=13 guibg=#d58888 guifg=#232323 ctermfg=0
 hi HighlightedyankRegion ctermbg=9 guibg=#d0913d ctermfg=0 guifg=#232323
