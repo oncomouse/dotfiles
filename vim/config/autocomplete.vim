@@ -36,17 +36,17 @@ call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', [])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#source('file_rec', 'sorters', ['sorter_sublime'])
+call denite#custom#source('file_rec', 'sorters', ['sorter/sublime'])
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.ropeproject/', '__pycache__/*', '*.pyc', 'node_modules/',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/', '*.png'])
-command!      -bang -nargs=? -complete=dir FZF    exe 'Denite  -start-filter file/rec '.<q-args>
+command!      -bang -nargs=? -complete=dir FZF    exe 'Denite -match-highlight -split=floating -start-filter file/rec '.<q-args>
 " Old FZF Interface:
-command! Buffers :exe 'Denite buffer'
+command! Buffers :exe 'Denite -split=floating buffer'
 command! Windows :exe 'Denite window'
 command! BLines :exe 'Denite line'
 command! History :exe 'Denite command_history'
-nnoremap <silent> <leader>y  :<C-u>Denite neoyank<CR>
+nnoremap <silent> <leader>y  :<C-u>Denite -split=floating neoyank<CR>
 " Implement Ag
 command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'Denite grep:::'.<q-args>
 " }}}
