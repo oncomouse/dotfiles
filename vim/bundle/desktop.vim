@@ -51,9 +51,7 @@
   Plug 'dense-analysis/ale'
 " }}}
 " Writing: {{{
-  " Plug 'vim-pandoc/vim-pandoc' " Various pandoc supports
-  " Plug 'junegunn/limelight.vim', { 'on': 'Goyo' }
-  " Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+  Plug 'godlygeek/tabular' " :Tabular \| to auto-align tables
   Plug 'reedes/vim-pencil', { 'for': ['pandoc', 'markdown', 'text'] } " Set various writing-friendly commands
   Plug 'reedes/vim-lexical', { 'for': ['pandoc', 'markdown', 'text'] } " Better spellchecking
   Plug 'reedes/vim-litecorrect' " Add autocorrections for boneheaded typos
