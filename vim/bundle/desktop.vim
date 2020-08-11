@@ -43,6 +43,7 @@
   Plug 'lighttiger2505/deoplete-vim-lsp' " Adds LSP as a Deoplete source
   Plug 'lionawurscht/deoplete-biblatex' " Adds BibTeX as a Deoplete source
   Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a Deoplete source
+  Plug 'hrsh7th/vim-neco-calc' " Adds calculator as a Deoplete source
   " ALE for linting:
   Plug 'dense-analysis/ale'
 " }}}
