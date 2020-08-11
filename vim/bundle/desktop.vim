@@ -10,7 +10,6 @@
   " }}}
   " Other Syntax: {{{
     Plug 'plasticboy/vim-markdown'
-    Plug 'vim-python/python-syntax', { 'for': 'python' }
     Plug 'lepture/vim-css', { 'for': 'css' }
     Plug 'cakebaker/scss-syntax.vim', { 'for': ['sass', 'scss'] }
     Plug 'oncomouse/vim-fish' " Async vim-fish
@@ -19,9 +18,6 @@
   " Web Development: {{{
     Plug 'mattn/emmet-vim', { 'for': ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim'] }
     Plug 'alvan/vim-closetag'
-  " }}}
-  " Python: {{{
-    Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
   " }}}
   " Text Object Plugins: {{{
     Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
