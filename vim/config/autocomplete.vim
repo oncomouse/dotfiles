@@ -1,5 +1,8 @@
 scriptencoding utf-8
-set completeopt=menu
+set completeopt-=preview
+" float-preview.nvim{{{
+  let g:float_preview#docked = 0
+" }}}
 " ALE {{{
   let g:ale_javascript_standard_executable = 'semistandard'
   command! Format ALEFix
@@ -35,21 +38,33 @@ vnoremap <silent> <leader>/ :<C-u>Clap grep2 ++query=@visual<CR>
 let g:deoplete#enable_at_startup = 1
 " }}}
 " vim-lsp-settings {{{
-" Alias the format document command:
-" Turn off all diagnostic stuff (pump it all to ALE):
-let g:lsp_signs_enabled = 0
-let g:lsp_diagnostics_echo_cursor = 0
-let g:lsp_highlights_enabled = 0
-let g:lsp_textprop_enabled = 0
-let g:lsp_diagnostics_float_cursor = 0
-let g:lsp_virtual_text_enabled = 0
-" Turn off diagnostics in solargraph and just run rubocop through ALE:
-let g:lsp_settings = {
-      \  'solargraph': {
-      \    'config': {
-      \      'diagnostics': v:false,
-      \    },
-      \  },
-      \}
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      LspHover
+    endif
+  endfunction
+  " Turn off all diagnostic stuff (pump it all to ALE):
+  let g:lsp_signs_enabled = 0
+  let g:lsp_diagnostics_echo_cursor = 0
+  let g:lsp_highlights_enabled = 0
+  let g:lsp_textprop_enabled = 0
+  let g:lsp_diagnostics_float_cursor = 0
+  let g:lsp_virtual_text_enabled = 0
+  let g:lsp_preview_float = 0
+  nmap <silent> gd :<C-u>LspPeekDefinition<CR>
+  nmap <silent> gy :<C-u>LspPeekTypeDefinition<CR>
+  nmap <silent> gi :<C-u>LspPeekImplementation<CR>
+  nmap <silent> gr :<C-u>LspReferences<CR>
+  nmap <silent> K :<C-u>call <SID>show_documentation()<CR>
+  " Turn off diagnostics in solargraph and just run rubocop through ALE:
+  let g:lsp_settings = {
+        \  'solargraph': {
+        \    'config': {
+        \      'diagnostics': v:false,
+        \    },
+        \  },
+        \}
 " }}}
 " # vim:foldmethod=marker
