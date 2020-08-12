@@ -34,15 +34,16 @@
   " }}}
 " }}}
 " Autocomplete: {{{
-  " Use Vim-LSP for LSP:
-  Plug 'prabirshrestha/vim-lsp'
-  Plug 'mattn/vim-lsp-settings'
+  " LanguageClient-neovim for LSP:
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
   " Denite for lists:
   Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
   Plug 'neoclide/denite-extra' " Adds location_list as a denite source
   " Deoplete for completion:
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'lighttiger2505/deoplete-vim-lsp' " Adds LSP as a Deoplete source
   Plug 'lionawurscht/deoplete-biblatex' " Adds BibTeX as a Deoplete source
   Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a Deoplete source
   " ALE for linting:
