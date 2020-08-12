@@ -22,6 +22,17 @@
       "https://raw.githubusercontent.com/oncomouse/dotfiles/coc.nvim/vim/coc-settings.json"
     ]
   },
+  "ale-coc.nvim": {
+    "update": [
+      "https://raw.githubusercontent.com/oncomouse/dotfiles/ale-coc.nvim/bootstrap/scripts/node-modules.sh",
+      "https://raw.githubusercontent.com/oncomouse/dotfiles/ale-coc.nvim/bootstrap/scripts/ruby-gems.sh",
+      "https://raw.githubusercontent.com/oncomouse/dotfiles/ale-coc.nvim/vim/bundle/desktop.vim",
+      "https://raw.githubusercontent.com/oncomouse/dotfiles/ale-coc.nvim/vim/config/autocomplete.vim"
+    ],
+    "clean": [
+      "https://raw.githubusercontent.com/oncomouse/dotfiles/ale-coc.nvim/vim/coc-settings.json"
+    ]
+  },
   "clap": {
     "update": [
       "https://raw.githubusercontent.com/oncomouse/dotfiles/clap/bootstrap/scripts/node-modules.sh",
