@@ -1,3 +1,6 @@
+/**
+ * Usage: node index.js --package <clap|denite|coc.nvim>
+ */
 const fs = require('fs');
 const fetch = require('isomorphic-fetch');
 const argv = require('minimist')(process.argv.slice(2), {
