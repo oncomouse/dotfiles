@@ -38,9 +38,9 @@ scriptencoding utf-8
   call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
         \ [ '.git/', '.ropeproject/', '__pycache__/*', '*.pyc', 'node_modules/',
         \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/', '*.png'])
-  command!      -bang -nargs=? -complete=dir FZF    exe 'Denite -match-highlight -split=floating -start-filter file/rec '.<q-args>
+  command!      -bang -nargs=? -complete=dir FZF    exe 'Denite -auto-action=preview -floating-preview -match-highlight -split=floating -vertical-preview -start-filter file/rec '.<q-args>
   " Open location list:
-  nmap <silent> <leader>d :<C-u>Denite location_list<CR>
+  nmap <silent> <leader>d :<C-u>Denite -split=floating -vertical-preview -auto-action=preview -floating-preview location_list<CR>
   " Old FZF Interface:
   command! Buffers :exe 'Denite -split=floating buffer'
   command! Windows :exe 'Denite window'
