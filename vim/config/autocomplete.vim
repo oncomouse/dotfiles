@@ -1,18 +1,35 @@
+" ALE {{{
+  let g:ale_javascript_standard_executable = 'semistandard'
+  command! Format ALEFix
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+  "
+  " Jump between ALE Errors:
+  nmap <silent> [d :<C-u>ALEPreviousWrap<CR>
+  nmap <silent> ]d :<C-u>ALENextWrap<CR>
+  "
+  let g:ale_lint_on_insert_leave = 1
+  let g:ale_cursor_detail = 0
+  let g:ale_disable_lsp = 1
+  let g:ale_fix_on_save = 1
+  let g:ale_pattern_options = {
+    \  '\.min.js$': {'ale_enabled': 0},
+    \  'build/.*$': {'ale_enabled': 0},
+    \}
+" }}}
+" ALE Formatting {{{
+  command! -nargs=0 Format :exe 'ALEFix'
+" }}}
 " Coc Extensions {{{
   " Once your pull request gets accepted, add back coc-go
   let g:coc_global_extensions = [
   \   'coc-bibtex',
   \   'coc-calc',
   \   'coc-css',
-  \   'coc-diagnostic',
-  \   'coc-eslint',
   \   'coc-fish',
   \   'coc-html',
   \   'coc-json',
   \   'coc-lists',
-  \   'coc-prettier',
   \   'coc-solargraph',
-  \   'coc-stylelintplus',
   \   'coc-styled-components',
   \   'coc-tsserver',
   \   'coc-vimlsp',
@@ -52,21 +69,15 @@
   nmap <silent> gr <Plug>(coc-references)
   nmap <silent> ]d <Plug>(coc-diagnostic-next)
   nmap <silent> [d <Plug>(coc-diagnostic-prev)
-  nmap <silent> <leader>d :<C-u>CocList diagnostics<CR>
+  nmap <silent> <leader>d :<C-u>CocList loclist<CR>
   nnoremap <silent> K :call <SID>show_documentation()<CR>
-  nmap <leader>rn <Plug>(coc-rename)
+  nmap <leader>r <Plug>(coc-rename)
   command! Symbols :<C-u>CocList -I symbols<cr>
   nmap <leader>s :Symbols<CR>
   " append result on current expression
   nmap <Leader>ca <Plug>(coc-calc-result-append)
   " replace result on current expression
   nmap <Leader>cr <Plug>(coc-calc-result-replace)
-" }}}
-" Coc Formatting {{{
-  set formatexpr=CocAction('formatSelected')
-  xmap <leader>f  <Plug>(coc-format-selected)
-  nmap <leader>f  <Plug>(coc-format-selected)
-  command! -nargs=0 Format :call CocAction('format')
 " }}}
 " Coc Fuzzy {{{
   " (Implement fzf.vim lists for CocList)
@@ -120,8 +131,5 @@
       autocmd FileType html let b:coc_pairs_disabled = ['<']
     augroup END
   " }}}
-" }}}
-" Coc Ale Bridge {{{
-
 " }}}
 " # vim:foldmethod=marker

@@ -29,6 +29,7 @@
   " }}}
 " }}}
 " Autocomplete: {{{
+  Plug 'dense-analysis/ale'
   Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
   Plug 'wellle/tmux-complete.vim'
 " }}}
