@@ -1,15 +1,11 @@
 scriptencoding utf-8
 set completeopt-=preview
-" float-preview.nvim{{{
-  let g:float_preview#docked = 0
-" }}}
 " ALE {{{
   let g:ale_javascript_standard_executable = 'semistandard'
   command! Format ALEFix
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
   "
   " Jump between ALE Errors:
-  nmap <silent> <leader>d :<C-u>Clap loclist<CR>
   nmap <silent> [d :<C-u>ALEPreviousWrap<CR>
   nmap <silent> ]d :<C-u>ALENextWrap<CR>
   "
@@ -23,23 +19,28 @@ set completeopt-=preview
     \}
 " }}}
 " vim-clap {{{
-" Old FZF Interface:
-command!      -bang -nargs=? -complete=dir FZF    exe 'Clap files ++query='.<q-args>
-command! Buffers :exe 'Clap buffers'
-command! Windows :exe 'Clap windows'
-command! BLines :exe 'Clap lines'
-command! History :exe 'Clap command_history'
-nnoremap <silent> <leader>y  :<C-u>Clap yanks<CR>
-" Implement Ag
-command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'Clap grep2 ++query='.<q-args>
-vnoremap <silent> <leader>/ :<C-u>Clap grep2 ++query=@visual<CR>
+  " Disable location list:
+  nmap <silent> <leader>d :<C-u>Clap loclist<CR>
+  " Old FZF Interface:
+  command!      -bang -nargs=? -complete=dir FZF    exe 'Clap files ++query='.<q-args>
+  command! Buffers :exe 'Clap buffers'
+  command! Windows :exe 'Clap windows'
+  command! BLines :exe 'Clap lines'
+  command! History :exe 'Clap command_history'
+  nnoremap <silent> <leader>y  :<C-u>Clap yanks<CR>
+  " Implement Ag
+  command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'Clap grep2 ++query='.<q-args>
+  vnoremap <silent> <leader>/ :<C-u>Clap grep2 ++query=@visual<CR>
 " }}}
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
 " }}}
-" vim-lsp-settings {{{
-" Turn off all diagnostic stuff (pump it all to ALE):
+" LanguageClient-neovim {{{
+  " Turn off all diagnostic stuff (pump it all to ALE):
   let g:LanguageClient_diagnosticsEnable = v:false
+  " Always use hover:
+  let g:LanguageClient_hoverPreview = 'Always'
+  " Documentation Function
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
@@ -47,12 +48,13 @@ let g:deoplete#enable_at_startup = 1
       call LanguageClient#textDocument_hover()
     endif
   endfunction
+
   " Use Clap for selection in LSP:
   function! MySelectionUI(source, sink) abort
     return clap#run({'id': 'LCN', 'source': a:source, 'sink': a:sink})
   endfunction
-
   let g:LanguageClient_selectionUI = function('MySelectionUI')
+
   " Only load LSP commands if we are in a buffer where they exist:
   function! LC_maps() abort
     if has_key(g:LanguageClient_serverCommands, &filetype)
