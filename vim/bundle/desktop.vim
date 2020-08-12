@@ -34,13 +34,14 @@
 " }}}
 " Autocomplete: {{{
   " Use Vim-LSP for LSP:
-  Plug 'prabirshrestha/vim-lsp'
-  Plug 'mattn/vim-lsp-settings'
+  Plug 'autozimu/LanguageClient-neovim', {
+  \ 'branch': 'next',
+  \ 'do': 'bash install.sh',
+  \ }
   " vim-clap for lists:
   Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
   " Deoplete for completion:
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'lighttiger2505/deoplete-vim-lsp' " Adds LSP as a Deoplete source
   Plug 'lionawurscht/deoplete-biblatex' " Adds BibTeX as a Deoplete source
   Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a Deoplete source
   Plug 'hrsh7th/vim-neco-calc' " Adds calculator as a Deoplete source

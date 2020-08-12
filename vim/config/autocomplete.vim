@@ -38,33 +38,48 @@ vnoremap <silent> <leader>/ :<C-u>Clap grep2 ++query=@visual<CR>
 let g:deoplete#enable_at_startup = 1
 " }}}
 " vim-lsp-settings {{{
+" Turn off all diagnostic stuff (pump it all to ALE):
+  let g:LanguageClient_diagnosticsEnable = v:false
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
     else
-      LspHover
+      call LanguageClient#textDocument_hover()
     endif
   endfunction
-  " Turn off all diagnostic stuff (pump it all to ALE):
-  let g:lsp_signs_enabled = 0
-  let g:lsp_diagnostics_echo_cursor = 0
-  let g:lsp_highlights_enabled = 0
-  let g:lsp_textprop_enabled = 0
-  let g:lsp_diagnostics_float_cursor = 0
-  let g:lsp_virtual_text_enabled = 0
-  let g:lsp_preview_float = 0
-  nmap <silent> gd :<C-u>LspPeekDefinition<CR>
-  nmap <silent> gy :<C-u>LspPeekTypeDefinition<CR>
-  nmap <silent> gi :<C-u>LspPeekImplementation<CR>
-  nmap <silent> gr :<C-u>LspReferences<CR>
-  nmap <silent> K :<C-u>call <SID>show_documentation()<CR>
+  " Use Clap for selection in LSP:
+  function! MySelectionUI(source, sink) abort
+    return clap#run({'id': 'LCN', 'source': a:source, 'sink': a:sink})
+  endfunction
+
+  let g:LanguageClient_selectionUI = function('MySelectionUI')
+  " Only load LSP commands if we are in a buffer where they exist:
+  function! LC_maps() abort
+    if has_key(g:LanguageClient_serverCommands, &filetype)
+      nmap <F5> <Plug>(lcn-menu)
+      " Or map each action separately
+      nmap <silent> gd <Plug>(lcn-definition)
+      nmap <silent> gy <Plug>(lcn-type-definition)
+      nmap <silent> gi <Plug>(lcn-implementation)
+      nmap <silent> gr <Plug>(lnc-references)
+      nmap <silent> K :<C-u>call <SID>show_documentation()<CR>
+    endif
+  endfunction
+  augroup lc_maps
+    autocmd FileType * call LC_maps()
+  augroup END
   " Turn off diagnostics in solargraph and just run rubocop through ALE:
-  let g:lsp_settings = {
-        \  'solargraph': {
-        \    'config': {
-        \      'diagnostics': v:false,
-        \    },
-        \  },
+  let g:LanguageClient_serverCommands = {
+        \ 'javascript': ['/usr/local/bin/typescript-language-server', '--stdio'],
+        \ 'javascriptreact': ['/usr/local/bin/typescript-language-server', '--stdio'],
+        \ 'typescript': ['/usr/local/bin/typescript-language-server', '--stdio'],
+        \ 'typescriptreact': ['/usr/local/bin/typescript-language-server', '--stdio'],
+        \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
+        \ 'html': ['/usr/local/bin/html-languageserver', '--stdio'],
+        \ 'scss': ['/usr/local/bin/css-languageserver', '--stdio'],
+        \ 'css': ['/usr/local/bin/css-languageserver', '--stdio'],
+        \ 'json': ['/usr/local/bin/json-languageserver', '--stdio'],
+        \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
         \}
-" }}}
+  " }}}
 " # vim:foldmethod=marker
