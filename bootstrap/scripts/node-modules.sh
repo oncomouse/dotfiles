@@ -22,7 +22,7 @@ if which npm > /dev/null 2>&1; then
     npminstall 'vscode-html-languageserver-bin'
     npminstall 'vscode-css-languageserver-bin'
     npminstall 'vscode-json-languageserver-bin'
-    npminstall 'typescript'
+    npminstall 'typescript-language-server'
     npminstall 'vim-language-server'
   fi
 fi
