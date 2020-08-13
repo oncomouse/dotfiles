@@ -1,0 +1,126 @@
+{
+  "list.source.grep.command": "ag",
+  "list.insertMappings": {
+    "<C-t>": "action:tabe",
+    "<C-v>": "action:vsplit",
+    "<C-s>": "action:split"
+  },
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "css",
+    "scss"
+  ],
+  "diagnostic-languageserver.filetypes": {
+    "sh": ["shellcheck"],
+    "markdown": ["vale", "proselint"],
+    "yaml": ["yamllint"]
+  },
+  "diagnostic-languageserver.linters": {
+    "proselint": {
+      "command": "proselint",
+      "isStdout": true,
+      "isStderr": false,
+      "debounce": 100,
+      "args": ["-"],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "proselint",
+      "formatLines": 1,
+      "formatPattern": [
+        "^[^:]+:(\\d+):(\\d+):(\\s)(.*)$",
+        {
+          "line": 1,
+          "column": 2,
+          "security": 3,
+          "message": 4
+        }
+      ],
+      "securities": {
+        " ": "info"
+      }
+    },
+    "vale": {
+      "command": "vale",
+      "isStdout": true,
+      "isStderr": false,
+      "debounce": 100,
+      "args": ["--output=line", "%file"],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "vale",
+      "formatLines": 1,
+      "formatPattern": [
+        "([^:]+):([^:]+):([^:]+):([^:]+)(:)(.*)",
+        {
+          "line": 2,
+          "column": 3,
+          "security": 5,
+          "message": [4, " ", 6]
+        }
+      ],
+      "securities": {
+        ":": "info"
+      }
+    },
+    "yamllint": {
+      "command": "yamllint",
+      "rootPatterns": [],
+      "isStdout": 1,
+      "isStderr": 0,
+      "debounce": 100,
+      "args": ["-f", "parsable", "-"],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "yamllint",
+      "formatLines": 1,
+      "formatPattern": [
+        "^[^:]+:(\\d+):(\\d+):\\s*\\[([A-Za-z]+)\\]\\s*(.*)$",
+        {
+          "line": 1,
+          "column": 2,
+          "message": [4],
+          "security": 3
+        }
+      ],
+      "securities": {
+        "error": "error",
+        "warning": "warning",
+        "note": "info"
+      }
+    }
+  },
+  "javascript.validate.enable": false,
+  "javascript.format.enabled": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
+  "typescript.validate.enable": false,
+  "typescript.format.enabled": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
+  "eslint.autoFixOnSave": true,
+  "eslint.nodePath": "./node_modules",
+  "eslint.filetypes": [
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact"
+  ],
+  "vimlsp.diagnostic.enable": true,
+  "solargraph.diagnostics": true,
+  "solargraph.formatting": true,
+  "stylelintplus.autoFixOnFormat": true,
+  "css.validate": false,
+  "scss.validate": false,
+  "html.format.indentInnerHtml": true,
+  "prettier.disableLanguages": [
+    "html",
+    "markdown",
+    "javascript",
+    "typescript",
+    "json"
+  ]
+}
