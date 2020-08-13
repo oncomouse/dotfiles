@@ -58,6 +58,7 @@ let g:deoplete#enable_at_startup = 1
   " Only load LSP commands if we are in a buffer where they exist:
   function! LC_maps() abort
     if has_key(g:LanguageClient_serverCommands, &filetype)
+      nmap <silent> <F2> <Plug>(lcn-rename)
       nmap <F5> <Plug>(lcn-menu)
       " Or map each action separately
       nmap <silent> gd <Plug>(lcn-definition)
