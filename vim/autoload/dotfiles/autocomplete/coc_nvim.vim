@@ -1,4 +1,5 @@
 function! dotfiles#autocomplete#coc_nvim#init() abort
+  let g:coc_config_home = expand('~/dotfiles/vim/coc.nvim/coc-settings.json')
 " Coc Extensions {{{
   let g:coc_global_extensions = [
   \   'coc-bibtex',
@@ -20,9 +21,16 @@ function! dotfiles#autocomplete#coc_nvim#init() abort
   \   'coc-yank',
   \]
 " }}}
-" Coc Configuration {{{
-  " Coc Floating Window Support:
-  let g:coc_config_home = expand('~/dotfiles/vim/coc.nvim/coc-settings.json')
+" Coc Diagnostic shortcuts: {{{
+  nmap <silent> ]d <Plug>(coc-diagnostic-next)
+  nmap <silent> [d <Plug>(coc-diagnostic-prev)
+" }}}
+  call dotfiles#autocomplete#coc_nvim#configuration()
+  call dotfiles#autocomplete#coc_nvim#keyboard()
+  call dotfiles#autocomplete#coc_nvim#fuzzy()
+endfunction
+
+function! dotfiles#autocomplete#coc_nvim#configuration() abort
   call coc#config('coc.preferences', {
       \ 'hoverTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
       \ })
@@ -36,8 +44,9 @@ function! dotfiles#autocomplete#coc_nvim#init() abort
   call coc#config('diagnostics', {
       \ 'messageTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
       \ })
-" }}}
-" Coc Keyboard shortcuts: {{{
+endfunction
+
+function! dotfiles#autocomplete#coc_nvim#keyboard() abort
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
@@ -52,19 +61,16 @@ function! dotfiles#autocomplete#coc_nvim#init() abort
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
-  nmap <silent> ]d <Plug>(coc-diagnostic-next)
-  nmap <silent> [d <Plug>(coc-diagnostic-prev)
   nmap <silent> <leader>d :<C-u>CocList loclist<CR>
   nnoremap <silent> K :call <SID>show_documentation()<CR>
-  nmap <leader>r <Plug>(coc-rename)
   command! Symbols :<C-u>CocList -I symbols<cr>
-  nmap <leader>s :Symbols<CR>
   " append result on current expression
   nmap <Leader>ca <Plug>(coc-calc-result-append)
   " replace result on current expression
   nmap <Leader>cr <Plug>(coc-calc-result-replace)
-" }}}
-" Coc Fuzzy {{{
+endfunction
+
+function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
   " (Implement fzf.vim lists for CocList)
   let s:is_win = has('win32') || has('win64')
   function! s:shortpath()
@@ -100,7 +106,6 @@ function! dotfiles#autocomplete#coc_nvim#init() abort
   nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
   " Implement Ag
   command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'CocList grep '.<q-args>
-"}}}
 endfunction
 
 function! dotfiles#autocomplete#coc_nvim#writing() abort

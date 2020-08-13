@@ -25,12 +25,12 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
     if has_key(g:LanguageClient_serverCommands, &filetype)
       nmap <silent> <F2> <Plug>(lcn-rename)
       nmap <F5> <Plug>(lcn-menu)
-      " Or map each action separately
       nmap <silent> gd <Plug>(lcn-definition)
       nmap <silent> gy <Plug>(lcn-type-definition)
       nmap <silent> gi <Plug>(lcn-implementation)
       nmap <silent> gr <Plug>(lnc-references)
       nmap <silent> K :<C-u>call <SID>show_documentation()<CR>
+      command! Symbols :<C-u>call LanguageClient#textDocument_documentSymbol()<cr>
     endif
   endfunction
   augroup lc_maps
