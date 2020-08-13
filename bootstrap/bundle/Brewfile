@@ -35,10 +35,10 @@ brew "neovim" # Text editor
 brew "vim" # Backup text editor
 brew "watchman" # Needed by CoC.nvim
 cask "visual-studio-code" # Code IDE
-brew "javascript-typescript-langserver"
-brew "vscode-css-languageserver"
-brew "vscode-json-languageserver"
-brew "vscode-html-languageserver"
+brew "oncomouse/repo/javascript-typescript-langserver"
+brew "oncomouse/repo/vscode-css-languageserver-bin"
+brew "oncomouse/repo/vscode-json-languageserver-bin"
+brew "oncomouse/repo/vscode-html-languageserver-bin"
 
 # Fonts
 cask "font-fira-code" # Terminal Font
