@@ -1,17 +1,18 @@
 " Writing:
+" Autocomplete {{{
+if g:complete_package =~# 'coc.nvim'
+  call dotfiles#autocomplete#coc_nvim#writing()
+else
+  call dotfiles#autocomplete#deoplete#writing()
+endif
+"
+" }}}
 " Pandoc shortcuts {{{
 augroup pandoc-shortcuts
   autocmd!
   autocmd FileType pandoc,markdown nmap <C-b> ysiw*lysiw*
+  autocmd FileType pandoc,markdown call dotfiles#autocomplete#deoplete#writing()
 augroup END
-" }}}
-" deoplete-biblatex {{{
-let g:deoplete#sources#biblatex#bibfile = g:bibliography_file
-let g:deoplete#sources#biblatex#addinfo = v:true
-call deoplete#custom#source('biblatex', 'filetypes', ['markdown'])
-" }}}
-" Deoplete ignore sources{{{
-call deoplete#custom#option('ignore_sources', {'markdown': ['around', 'buffer', 'file', 'tmux']})
 " }}}
 " Vim-markdown {{{
 let g:vim_markdown_frontmatter = 1
@@ -35,38 +36,6 @@ augroup END
 " Limelight {{{
   let g:limelight_conceal_ctermfg='black'
 "}}}
-" Goyo {{{
-  " function! s:goyo_enter()
-  "   " Trigger Limelight
-  "   Limelight
-  "   " For some reason, lightline-bufferline causes lightline to reenable, so
-  "   " we have to turn it off on these events:
-  "   augroup lightline_goyo
-  "     autocmd!
-  "     autocmd BufWritePost,TextChanged,TextChangedI * call lightline#disable()
-  "   augroup END
-  "   ALEToggle
-  "   silent !tmux set status off
-  "   silent !tmux list-panes -F '\#F' | grep -q Z | tmux resize-pane -Z
-  "   set noshowmode
-  "   set noshowcmd
-  "   set scrolloff=999
-  " endfunction
-
-  " function! s:goyo_leave()
-  "   Limelight!
-  "   augroup lightline_goyo
-  "     autocmd!
-  "   augroup END
-  "   ALEToggle
-  "   silent !tmux set status on
-  "   silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  "   set showmode
-  "   set showcmd
-  "   set scrolloff=0
-  " endfunction
-
-"}}}
 " Easy Align {{{
   " Start interactive EasyAlign in visual mode (e.g. vipga)
   xmap ga <Plug>(EasyAlign)
@@ -85,33 +54,4 @@ augroup END
   let g:pencil#softDetectThreshold = 130
   " source: http://www.naperwrimo.org/wiki/index.php?title=Vim_for_Writers
 "}}}
-" Writing Environment: {{{
-  function! s:limelight(on) abort
-    if a:on == 1
-      if exists(':Limelight')
-        Limelight
-      endif
-    else
-      if exists(':Limelight')
-        Limelight!
-      endif
-    endif
-  endfunction
-  augroup writing
-    autocmd!
-    autocmd FileType pandoc,markdown call lexical#init()
-                                   \ | call litecorrect#init()
-                                   \ | call textobj#sentence#init()
-                                   \ | call pencil#init()
-    " Make sure j and k work with word wrap turned on:
-    " autocmd FileType pandoc,markdown nmap j gj
-    " autocmd FileType pandoc,markdown nmap k gk
-    " Ensure that lightline doesn't freak out when we use Goyo:
-    autocmd! User GoyoEnter call <SID>goyo_enter()
-    autocmd! User GoyoLeave call <SID>goyo_leave()
-    " Enable Limelight in pandoc and turn it off when we aren't in pandoc:
-    autocmd BufEnter * if &filetype=='markdown'|call <SID>limelight(1)|end
-    autocmd BufLeave * if &filetype=='markdown'|call <SID>limelight(0)|end
-  augroup END
-" }}}
 " # vim:foldmethod=marker

@@ -33,20 +33,32 @@
   " }}}
 " }}}
 " Autocomplete: {{{
-  " Use Vim-LSP for LSP:
-  Plug 'autozimu/LanguageClient-neovim', {
-  \ 'branch': 'next',
-  \ 'do': 'bash install.sh',
-  \ }
-  " vim-clap for lists:
-  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-  " Deoplete for completion:
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'lionawurscht/deoplete-biblatex' " Adds BibTeX as a Deoplete source
-  Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a Deoplete source
-  Plug 'hrsh7th/vim-neco-calc' " Adds calculator as a Deoplete source
+  " Load a list manager:
+  if complete_package ==# 'clap'
+    " vim-clap for lists:
+    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+  elseif complete_package ==# 'denite'
+    Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
+    Plug 'neoclide/denite-extra' " Adds location_list as a denite source
+  endif
+  " Load LSP + Completion:
+  if complete_package =~# 'coc.nvim'
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+  else
+    Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+    " Deoplete for completion:
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'lionawurscht/deoplete-biblatex' " Adds BibTeX as a Deoplete source
+    Plug 'hrsh7th/vim-neco-calc' " Adds calculator as a Deoplete source
+  endif
   " ALE for linting:
-  Plug 'dense-analysis/ale'
+  if complete_package !=# 'coc.nvim'
+    Plug 'dense-analysis/ale'
+  endif
+  Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a Deoplete source
 " }}}
 " Writing: {{{
   Plug 'godlygeek/tabular' " :Tabular \| to auto-align tables
