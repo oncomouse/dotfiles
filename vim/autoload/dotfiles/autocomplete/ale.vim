@@ -15,8 +15,4 @@ function! dotfiles#autocomplete#ale#init() abort
     \  '\.min.js$': {'ale_enabled': 0},
     \  'build/.*$': {'ale_enabled': 0},
     \}
-  augroup formatOnSave
-    autocmd!
-    autocmd BufWritePre * call s:format(v:true)
-  augroup END
 endfunction
