@@ -19,7 +19,7 @@
 " }}}
 " Autoroot {{{
   " Turn off autoroot for non-project files:
-  let g:rooter_patterns = ['project.clj', 'Rakefile', 'package.json', '.git/', 'go.mod', 'bsconfig.json']
+  let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'bsconfig.json']
   " let g:rooter_change_directory_for_non_project_files = '' " can be current or home
   " let g:rooter_use_lcd = 1 " only change the current window
 " }}}
@@ -72,15 +72,6 @@
     endif
   augroup END
 " }}}
-" Line numbers {{{
-  augroup line-numbers
-    set number relativenumber
-    autocmd!
-    if has('nvim')
-      autocmd TermOpen * setlocal nonumber norelativenumber
-    endif
-  augroup END
-" }}}
 " Closetag {{{
   let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php,*.js,*.erb"
   let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
@@ -92,6 +83,6 @@
     \ }
 " }}}
 " JSON {{{
-let g:vim_json_syntax_conceal = 0
+  let g:vim_json_syntax_conceal = 0
 " }}}
 " # vim:foldmethod=marker
