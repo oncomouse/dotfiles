@@ -47,7 +47,6 @@ cask "font-hasklig" # Alternate (italic) terminal font
 cask "font-tex-gyre-heros" # Used for CV on website
 
 # Programming
-brew "go" # The Go programming language
 brew "heroku/brew/heroku" # Build and install cloud apps
 brew "node" # Node.js
 brew "node-build" # Build Node binaries

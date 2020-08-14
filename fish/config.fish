@@ -86,7 +86,6 @@ function add_to_user_paths -a dir
 end
 add_to_user_paths ~/.fzf/bin
 add_to_user_paths ~/bin
-add_to_user_paths ~/go/bin
 add_to_user_paths ~/.local/bin
 add_to_user_paths /usr/local/sbin
 

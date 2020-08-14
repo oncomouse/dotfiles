@@ -6,14 +6,6 @@ sudo apt-get upgrade -y
 sudo apt-get install -y vim fish python3-pip silversearcher-ag htop
 sudo apt-get install -y caca-utils highlight atool w3m poppler-utils mediainfo
 
-# Install Golang:
-if ! which go > /dev/null 2>&1; then
-  sudo add-apt-repository ppa:gophers/archive
-  sudo apt-get update
-  sudo apt-get install golang-1.11-go
-  sudo ln -s /usr/lib/go-1.11/bin/* /usr/local/bin
-fi
-
 # Install Node.js
 if ! which node > /dev/null 2>&1; then
   sudo apt-get install -y curl python-software-properties
