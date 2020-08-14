@@ -54,6 +54,7 @@ brew "nodenv" # Manage different Node.js installations
 brew "python" # Python 3
 brew "rbenv" # Manage different Ruby installations
 brew "yarn" # Package manager for Node.js
+brew "tidy-html5" # Clean up HTML
 cask "virtualbox" # Virtual machine software
 
 # Writing
