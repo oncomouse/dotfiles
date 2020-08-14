@@ -37,6 +37,9 @@
   if complete_package ==# 'clap'
     " vim-clap for lists:
     Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+  elseif complete_package ==# 'fzf'
+    Plug (isdirectory('/usr/local/opt/fzf') ? '/usr/local/opt/fzf' : '~/.fzf')
+    Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
   elseif complete_package ==# 'denite'
     Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
     Plug 'neoclide/denite-extra' " Adds location_list as a denite source

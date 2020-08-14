@@ -30,7 +30,7 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
       nmap <silent> gi <Plug>(lcn-implementation)
       nmap <silent> gr <Plug>(lnc-references)
       nmap <silent> K :<C-u>call <SID>show_documentation()<CR>
-      command! Symbols :<C-u>call LanguageClient#textDocument_documentSymbol()<cr>
+      command! Symbols call LanguageClient#textDocument_documentSymbol()
     endif
   endfunction
   augroup lc_maps
