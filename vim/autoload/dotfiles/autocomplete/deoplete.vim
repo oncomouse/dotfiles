@@ -1,4 +1,5 @@
 function! dotfiles#autocomplete#deoplete#init() abort
+  call deoplete#enable()
 endfunction
 function! dotfiles#autocomplete#deoplete#writing() abort
   let g:deoplete#sources#biblatex#bibfile = g:bibliography_file
