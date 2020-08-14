@@ -1,1 +1,1 @@
-let b:ale_fixers = ['tidy']
+let b:ale_fixers = ['html-beautify']

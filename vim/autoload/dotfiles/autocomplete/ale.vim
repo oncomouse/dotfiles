@@ -1,8 +1,8 @@
 function! dotfiles#autocomplete#ale#init() abort
   let g:ale_javascript_standard_executable = 'semistandard'
-  command! Format ALEFix
+  " Check if we turned off ALE formatting in favor of LSP formatting:
+  command! Format exe ':ALEFix'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-  "
   " Jump between ALE Errors:
   nmap <silent> [d :<C-u>ALEPreviousWrap<CR>
   nmap <silent> ]d :<C-u>ALENextWrap<CR>
@@ -15,4 +15,8 @@ function! dotfiles#autocomplete#ale#init() abort
     \  '\.min.js$': {'ale_enabled': 0},
     \  'build/.*$': {'ale_enabled': 0},
     \}
+  augroup formatOnSave
+    autocmd!
+    autocmd BufWritePre * call s:format(v:true)
+  augroup END
 endfunction
