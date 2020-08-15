@@ -27,6 +27,7 @@
 " Fuzzy Bindings {{{
   nnoremap <silent> <c-p> :FZF<CR>
   nnoremap <silent> <leader>F :FZF ~<CR>
+  nnoremap <silent> <leader>d :LocationList<CR>
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>A :Windows<CR>
   nnoremap <silent> <leader>l :BLines<CR>

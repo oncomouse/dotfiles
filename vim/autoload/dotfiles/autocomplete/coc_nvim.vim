@@ -61,9 +61,7 @@ function! dotfiles#autocomplete#coc_nvim#keyboard() abort
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
-  nmap <silent> <leader>d :<C-u>CocList loclist<CR>
   nnoremap <silent> K :call <SID>show_documentation()<CR>
-  command! Symbols :<C-u>CocList -I symbols<cr>
   " append result on current expression
   nmap <Leader>ca <Plug>(coc-calc-result-append)
   " replace result on current expression
@@ -103,6 +101,8 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
   command! Windows :exe 'CocList windows'
   command! BLines :exe 'CocList lines'
   command! History :exe 'CocList cmdhistory'
+  command! Symbols exe 'CocList -I symbols'
+  command! LocationList exe 'CocList loclist'
   nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
   " Implement Ag
   command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'CocList grep '.<q-args>
