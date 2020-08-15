@@ -25,8 +25,8 @@
   let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 " }}}
 " Fuzzy Bindings {{{
-  nnoremap <silent> <c-p> :FZF<CR>
-  nnoremap <silent> <leader>F :FZF ~<CR>
+  nnoremap <silent> <c-p> :Files<CR>
+  nnoremap <silent> <leader>F :Files ~<CR>
   nnoremap <silent> <leader>d :LocationList<CR>
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>A :Windows<CR>

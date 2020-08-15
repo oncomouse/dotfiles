@@ -96,7 +96,7 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
       exe 'CocList files'
     endif
   endfunction
-  command!      -bang -nargs=? -complete=dir FZF       call CocFiles(<q-args>, <bang>0)
+  command! -bang -nargs=? -complete=dir Files call CocFiles(<q-args>, <bang>0)
   command! Buffers :exe 'CocList buffers'
   command! Windows :exe 'CocList windows'
   command! BLines :exe 'CocList lines'

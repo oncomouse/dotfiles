@@ -45,6 +45,7 @@ function! s:location_list() abort
         \ 'sink':    function('s:open_location_item'),
         \ 'options': '--reverse',
         \ 'down' : '40%',
+        \ 'window': 'call FloatingFZF()',
         \ }))
 endfunction
 function! FloatingFZF()
@@ -67,6 +68,8 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 function! dotfiles#autocomplete#fzf#init()
+  command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
   command! LocationList call s:location_list()
   command! Yanks exe 'FZFNeoyank'
   if has('nvim')
