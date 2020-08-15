@@ -69,5 +69,7 @@ endfunction
 function! dotfiles#autocomplete#fzf#init()
   command! LocationList call s:location_list()
   command! Yanks exe 'FZFNeoyank'
-  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+  if has('nvim')
+    let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+  endif
 endfunction
