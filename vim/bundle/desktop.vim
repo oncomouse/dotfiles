@@ -34,18 +34,22 @@
 " }}}
 " Autocomplete: {{{
   " Load a list manager:
-  if complete_package ==# 'clap'
+  if g:complete_package ==# 'denite' || g:complete_package ==# 'fzf'
+    Plug 'Shougo/neoyank.vim'
+  endif
+  if g:complete_package ==# 'clap'
     " vim-clap for lists:
     Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-  elseif complete_package ==# 'fzf'
+  elseif g:complete_package ==# 'fzf'
     Plug (isdirectory('/usr/local/opt/fzf') ? '/usr/local/opt/fzf' : '~/.fzf')
     Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
-  elseif complete_package ==# 'denite'
+    Plug 'justinhoward/fzf-neoyank' " Add Yank shortcut
+  elseif g:complete_package ==# 'denite'
     Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
     Plug 'neoclide/denite-extra' " Adds location_list as a denite source
   endif
   " Load LSP + Completion:
-  if complete_package =~# 'coc.nvim'
+  if g:complete_package =~# 'coc.nvim'
     Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
   else
     Plug 'autozimu/LanguageClient-neovim', {

@@ -47,6 +47,27 @@ function! s:location_list() abort
         \ 'down' : '40%',
         \ }))
 endfunction
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let width = float2nr(&columns - (&columns * 2 / 10))
+  let height = &previewheight "&lines - 3
+  let y = float2nr((&lines - height) / 2)
+  let x = float2nr((&columns - width) / 2)
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': y,
+        \ 'col': x,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
 function! dotfiles#autocomplete#fzf#init()
   command! LocationList call s:location_list()
+  command! Yanks exe 'FZFNeoyank'
+  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 endfunction

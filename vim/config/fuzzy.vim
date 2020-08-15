@@ -33,6 +33,7 @@
   nnoremap <silent> <leader>l :BLines<CR>
   nnoremap <silent> <leader>? :History<CR>
   nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+  nnoremap <silent> <leader>y :Yanks<CR>
   " FZF Only at this point:
   if &runtimepath =~# 'fzf'
     " Complete file name:

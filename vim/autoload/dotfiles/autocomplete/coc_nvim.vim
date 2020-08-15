@@ -103,7 +103,7 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
   command! History :exe 'CocList cmdhistory'
   command! Symbols exe 'CocList -I symbols'
   command! LocationList exe 'CocList loclist'
-  nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
+  command! Yanks exe 'CocList -A --normal yank'
   " Implement Ag
   command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'CocList grep '.<q-args>
 endfunction
