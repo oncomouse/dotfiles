@@ -43,7 +43,7 @@
   elseif g:complete_package ==# 'fzf'
     Plug (isdirectory('/usr/local/opt/fzf') ? '/usr/local/opt/fzf' : '~/.fzf')
     Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
-    Plug 'justinhoward/fzf-neoyank' " Add Yank shortcut
+    Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
   elseif g:complete_package ==# 'denite'
     Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
     Plug 'neoclide/denite-extra' " Adds location_list as a denite source

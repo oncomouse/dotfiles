@@ -41,9 +41,6 @@ function! s:location_list() abort
   call fzf#run(fzf#wrap('location_list', {
         \ 'source':  reverse(<sid>get_location_list()),
         \ 'sink':    function('s:open_location_item'),
-        \ 'options': '--reverse',
-        \ 'down' : '40%',
-        \ 'window': 'call FloatingFZF()',
         \ }))
 endfunction
 function! s:open_quickfix_item(e) abort
@@ -68,8 +65,6 @@ function! s:quickfix() abort
   call fzf#run(fzf#wrap('quickfix', {
         \ 'source':  reverse(<sid>quickfix_list()),
         \ 'sink':    function('s:open_quickfix_item'),
-        \ 'options': '--reverse',
-        \ 'down' : '40%',
         \ }))
 endfunction
 " =========================================================
@@ -98,11 +93,12 @@ endfunction
 function! dotfiles#autocomplete#fzf#init()
   command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
-  command! -bar -bang -nargs=? -complete=buffer Buffers
-    \ call fzf#vim#buffers(<q-args>, { 'options': ['--reverse'], "placeholder": "{1}" }, <bang>0)
   command! LocationList call s:location_list()
   command! QuickfixList call s:quickfix()
   command! Yanks exe 'FZFNeoyank'
+  nnoremap <leader>Y :FZFNeoyank " P<cr>
+  vnoremap <leader>y :FZFNeoyankSelection<cr>
+  let $FZF_DEFAULT_OPTS .= ' --reverse'
   if has('nvim')
     let g:fzf_layout = { 'window': 'call FloatingFZF()' }
   endif
