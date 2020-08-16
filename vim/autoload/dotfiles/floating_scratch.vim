@@ -7,6 +7,7 @@ function! dotfiles#floating_scratch#scratch() abort
     let buf = nvim_create_buf(v:false, v:true)
     let opts = {'relative': 'win', 'width': width, 'height': height, 'col': x,
         \ 'row': y, 'anchor': 'NW', 'style': 'minimal'}
+    call setbufvar(buf, '&filetype', 'scratch')
     let win = nvim_open_win(buf, 1, opts)
   else
     split
