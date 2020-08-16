@@ -1,5 +1,6 @@
 " General Editing: {{{
   Plug 'ncm2/float-preview.nvim' " Floating preview window
+  Plug 'mtth/scratch.vim'
 " }}}
 " Development: {{{
   " General Syntax: {{{ 
