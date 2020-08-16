@@ -103,6 +103,7 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
   command! History :exe 'CocList cmdhistory'
   command! Symbols exe 'CocList -I symbols'
   command! LocationList exe 'CocList loclist'
+  command! QuickfixList exe 'CocList quickfixlist'
   command! Yanks exe 'CocList -A --normal yank'
   command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
 endfunction

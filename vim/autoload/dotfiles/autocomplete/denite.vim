@@ -27,6 +27,7 @@ function! dotfiles#autocomplete#denite#init() abort
   command! BLines :exe 'Denite line'
   command! History :exe 'Denite command_history'
   command! LocationList :exe 'Denite -split=floating -vertical-preview -auto-action=preview -floating-preview location_list'
+  command! QuickfixList :exe 'Denite -split=floating -vertical-preview -auto-action=preview -floating-preview quickfix_list'
   command! Yanks :exe 'Denite -split=floating neoyank'
   command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'Denite grep:::'.<q-args>
 endfunction

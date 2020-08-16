@@ -32,8 +32,6 @@ function! s:open_location_item(e) abort
   else
     call s:execute('buffer +call cursor(' . string(linenr) . ',' . string(colum) . ') ' . string(bufnr))
   endif
-  " exe 'e ' . filename
-  " call cursor(linenr, colum)
 endfunction
 function! s:location_list() abort
   let s:source = 'location_list'
@@ -48,6 +46,33 @@ function! s:location_list() abort
         \ 'window': 'call FloatingFZF()',
         \ }))
 endfunction
+function! s:open_quickfix_item(e) abort
+  let line = a:e
+  let bufnr = fnameescape(split(line, ':\d\+:')[0])
+  let linenr = matchstr(line, ':\d\+:')[1:-2]
+  let colum = matchstr(line, '\(:\d\+\)\@<=:\d\+:')[1:-2]
+  if bufnr == bufnr('')
+    call s:jumpTo(linenr, colum)
+  else
+    call s:execute('buffer +call cursor(' . string(linenr) . ',' . string(colum) . ') ' . string(bufnr))
+  endif
+endfunction
+function! s:quickfix_to_grep(v) abort
+  return a:v.bufnr . ':' . a:v.lnum . ':' . a:v.col . ':' . a:v.text
+endfunction
+function! s:quickfix() abort
+  let s:source = 'quickfix'
+  function! s:quickfix_list() abort
+    return map(getqflist(), 's:quickfix_to_grep(v:val)')
+  endfunction
+  call fzf#run(fzf#wrap('quickfix', {
+        \ 'source':  reverse(<sid>quickfix_list()),
+        \ 'sink':    function('s:open_quickfix_item'),
+        \ 'options': '--reverse',
+        \ 'down' : '40%',
+        \ }))
+endfunction
+" =======================================================
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
   call setbufvar(buf, '&signcolumn', 'no')
@@ -71,6 +96,7 @@ function! dotfiles#autocomplete#fzf#init()
   command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
   command! LocationList call s:location_list()
+  command! QuickfixList call s:quickfix()
   command! Yanks exe 'FZFNeoyank'
   if has('nvim')
     let g:fzf_layout = { 'window': 'call FloatingFZF()' }

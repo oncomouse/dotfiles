@@ -27,6 +27,7 @@
 " Fuzzy Bindings {{{
   nnoremap <silent> <c-p> :Files<CR>
   nnoremap <silent> <leader>F :Files ~<CR>
+  nnoremap <silent> <leader>q :QuickfixList<CR>
   nnoremap <silent> <leader>d :LocationList<CR>
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>A :Windows<CR>
