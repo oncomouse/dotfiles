@@ -19,7 +19,7 @@
 " }}}
 " Autoroot {{{
   " Turn off autoroot for non-project files:
-  let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'bsconfig.json']
+  let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile']
   " let g:rooter_change_directory_for_non_project_files = '' " can be current or home
   " let g:rooter_use_lcd = 1 " only change the current window
 " }}}
