@@ -72,7 +72,9 @@ function! s:quickfix() abort
         \ 'down' : '40%',
         \ }))
 endfunction
-" =======================================================
+" =========================================================
+" From junegunn's dotfiles
+" =========================================================
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
   call setbufvar(buf, '&signcolumn', 'no')
@@ -92,9 +94,12 @@ function! FloatingFZF()
 
   call nvim_open_win(buf, v:true, opts)
 endfunction
+" =========================================================
 function! dotfiles#autocomplete#fzf#init()
   command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
+  command! -bar -bang -nargs=? -complete=buffer Buffers
+    \ call fzf#vim#buffers(<q-args>, { 'options': ['--reverse'], "placeholder": "{1}" }, <bang>0)
   command! LocationList call s:location_list()
   command! QuickfixList call s:quickfix()
   command! Yanks exe 'FZFNeoyank'
