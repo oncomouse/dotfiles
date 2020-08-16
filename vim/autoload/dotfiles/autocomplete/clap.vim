@@ -7,7 +7,6 @@ function! dotfiles#autocomplete#clap#init() abort
   command! History :exe 'Clap command_history'
   command! LocationList :exe 'Clap loclist'
   command! Yanks :exe 'Clap yanks'
-  " Implement Ag
-  command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'Clap grep2 ++query='.<q-args>
+  command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'Clap grep2 ++query='.<q-args>
   vnoremap <silent> <leader>/ :<C-u>Clap grep2 ++query=@visual<CR>
 endfunction

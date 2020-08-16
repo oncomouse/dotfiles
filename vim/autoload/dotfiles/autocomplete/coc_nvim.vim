@@ -104,8 +104,7 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
   command! Symbols exe 'CocList -I symbols'
   command! LocationList exe 'CocList loclist'
   command! Yanks exe 'CocList -A --normal yank'
-  " Implement Ag
-  command! -nargs=+ -complete=custom,s:GrepArgs Ag exe 'CocList grep '.<q-args>
+  command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
 endfunction
 
 function! dotfiles#autocomplete#coc_nvim#writing() abort
