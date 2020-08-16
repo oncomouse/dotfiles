@@ -12,6 +12,7 @@ augroup pandoc-shortcuts
   autocmd!
   autocmd FileType pandoc,markdown nmap <C-b> ysiw*lysiw*
   autocmd FileType pandoc,markdown call dotfiles#autocomplete#deoplete#writing()
+  autocmd FileType pandoc,markdown set wrap linebreak nolist
 augroup END
 " }}}
 " Vim-markdown {{{
