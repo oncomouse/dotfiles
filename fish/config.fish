@@ -120,11 +120,6 @@ source $ASDF_DIR/lib/asdf.fish
 if not set -q pisces_only_insert_at_eol
   set -U pisces_only_insert_at_eol 1
 end
-
-# Setup Fuck:
-if command -sq thefuck
-  thefuck --alias | source
-end
 #
 # Setup Kitty:
 if command -sq kitty

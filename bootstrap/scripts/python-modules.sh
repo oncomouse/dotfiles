@@ -10,8 +10,6 @@ function pip3install() {
 }
 if [ $os == 'macos' ]; then
   pip3install 'mackup'
-else
-  pip3install 'thefuck'
 fi
 if [ -z $SERVER ];then
   pip3install 'neovim'

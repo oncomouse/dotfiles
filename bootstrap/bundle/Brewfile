@@ -26,7 +26,6 @@ brew "jq" # streaming, inline JSON editor
 brew "ripgrep" # rg for searching, fancy and fast grep
 brew "shellcheck" # bash linter
 brew "the_silver_searcher" # ag for searching, fancy grep
-brew "thefuck" # fix faulty commands with everyone's favorite word
 brew "tmux" # terminal multiplexer, run multiple shells and save/restore sessions
 cask "kitty" # Terminal emulator
 
