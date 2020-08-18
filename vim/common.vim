@@ -44,9 +44,6 @@ let g:secure_modelines_modelines = 15
 if has('nvim')
   set inccommand=split
 endif
-" if !exists('##TextYankPost')
-"   map y <Plug>(highlightedyank)
-" endif
 
 " Disabled Vim Plugins {{{
   let g:loaded_gzip              = 1
@@ -70,8 +67,6 @@ endif
   map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-  " Shortcut :tn for :tabnew
-  cabbrev tn tabnew
   " Select whole file
   nnoremap <leader>vf ggVG
   " Highlight a block and type "@" to run a macro on the block:
@@ -79,11 +74,6 @@ endif
 " }}}
 " Autocmds {{{
   augroup dotfile-autocmds
-    autocmd BufReadPre *
-          \ let s = getfsize(expand("<afile>")) |
-          \ if s > g:large_file || s == -2 |
-          \   call lf_buffer#large(fnamemodify(expand("<afile>"), ":p")) |
-          \ endif
     " On opening a file, jump to the last known cursor position (see :h line())
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
