@@ -34,39 +34,39 @@
   augroup END
 " }}}
 " Plugins {{{
-" auto-pairs {{{
-  let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', '`':'`', '{': '}'}
-  " ,'```':'```', '"""':'"""', "'''":"'''"})
-  augroup autopair-enable
-    autocmd!
-    autocmd FileType markdown
-      \ let b:AutoPairs = extend(g:AutoPairs, {'~~~':'~~~'})
-  augroup END
-" }}}
-" vim-rooter {{{
-  " Turn off autoroot for non-project files:
-  let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile']
-  " let g:rooter_change_directory_for_non_project_files = '' " can be current or home
-  " let g:rooter_use_lcd = 1 " only change the current window
-" }}}
-" vim-closetag {{{
-  let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.js,*.erb'
-  let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
-  let g:closetag_filetypes = 'html,markdown,javascriptreact'
-  let g:closetag_close_shortcut = '<leader>>'
-  let g:closetag_regions = {
-    \ 'typescriptreact': 'jsxRegion,tsxRegion',
-    \ 'javascriptreact': 'jsxRegion',
-    \ 'javascript': 'jsxRegion',
-    \ }
-" }}}
-" vim-json {{{
-  let g:vim_json_syntax_conceal = 0
-" }}}
-" indentLine {{{
-  let g:indentLine_setColors = 1
-  let g:indentLine_char = "\u22EE"
-  let g:indentLine_color_term = 11
-" }}}
+  " auto-pairs {{{
+    let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', '`':'`', '{': '}'}
+    " ,'```':'```', '"""':'"""', "'''":"'''"})
+    augroup autopair-enable
+      autocmd!
+      autocmd FileType markdown
+        \ let b:AutoPairs = extend(g:AutoPairs, {'~~~':'~~~'})
+    augroup END
+  " }}}
+  " vim-rooter {{{
+    " Turn off autoroot for non-project files:
+    let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile']
+    " let g:rooter_change_directory_for_non_project_files = '' " can be current or home
+    " let g:rooter_use_lcd = 1 " only change the current window
+  " }}}
+  " vim-closetag {{{
+    let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.js,*.erb'
+    let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
+    let g:closetag_filetypes = 'html,markdown,javascriptreact'
+    let g:closetag_close_shortcut = '<leader>>'
+    let g:closetag_regions = {
+      \ 'typescriptreact': 'jsxRegion,tsxRegion',
+      \ 'javascriptreact': 'jsxRegion',
+      \ 'javascript': 'jsxRegion',
+      \ }
+  " }}}
+  " vim-json {{{
+    let g:vim_json_syntax_conceal = 0
+  " }}}
+  " indentLine {{{
+    let g:indentLine_setColors = 1
+    let g:indentLine_char = "\u22EE"
+    let g:indentLine_color_term = 11
+  " }}}
 " }}}
 " # vim:foldmethod=marker

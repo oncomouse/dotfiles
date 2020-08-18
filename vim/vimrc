@@ -28,18 +28,18 @@ let configs = [
   \ 'writing',
 \]
 for file in configs
-  let x = 'config/'.file.'.vim'
-  execute 'runtime' x
+  execute 'runtime config/'.file.'.vim'
 endfor
 " Update fasd for NeoVim:
 function! s:fasd_update() abort
-  if empty(&buftype) || &filetype ==# 'dirvish'
+  if empty(&buftype)
     call jobstart(['fasd', '-A', expand('%:p')])
   endif
 endfunction
-
 augroup fasd
   autocmd!
-  autocmd BufWinEnter,BufFilePost * call s:fasd_update()
+  if has('nvim')
+    autocmd BufWinEnter,BufFilePost * call s:fasd_update()
+  endif
 augroup END
 " # vim:foldmethod=marker

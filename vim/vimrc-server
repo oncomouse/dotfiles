@@ -7,6 +7,7 @@ if has('mac')
         \}
 endif
 let &runtimepath .= ','.expand('~/dotfiles/vim/')
+let g:complete_package = 'fzf'
 call plug#begin('~/.vim/plugged/server/')
 runtime bundle/common.vim
 runtime bundle/server.vim
@@ -20,8 +21,7 @@ let configs = [
   \ 'theme',
 \]
 for file in configs
-  let x = 'config/'.file.'.vim'
-  execute 'runtime' x
+  execute 'runtime config/'.file.'.vim'
 endfor
 
 let g:nerdfonts=0

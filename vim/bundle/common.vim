@@ -11,10 +11,14 @@ Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
 Plug 'airblade/vim-rooter' " Set project root
 Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,)
-" Plug 'tommcdo/vim-lion' " gl and gL to do spaced alignment (glip=) will align variables in a block
 Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing
 Plug 'machakann/vim-highlightedyank' " Highlights yank
 " Tmux:
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Git Support:
 Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
+" List Support:
+if g:complete_package ==# 'fzf'
+  Plug (isdirectory('/usr/local/opt/fzf') ? '/usr/local/opt/fzf' : '~/.fzf')
+  Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
+endif
