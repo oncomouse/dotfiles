@@ -13,14 +13,12 @@
   " }}}
   " Other Syntax: {{{
     Plug 'plasticboy/vim-markdown'
-    Plug 'vim-python/python-syntax', { 'for': 'python' }
-    Plug 'lepture/vim-css', { 'for': 'css' }
-    Plug 'cakebaker/scss-syntax.vim', { 'for': ['sass', 'scss'] }
+    Plug 'lepture/vim-css'
+    Plug 'cakebaker/scss-syntax.vim'
     Plug 'oncomouse/vim-fish' " Async vim-fish
     Plug 'elzr/vim-json'
   " }}}
   " Web Development: {{{
-    Plug 'mattn/emmet-vim', { 'for': ['css', 'elm', 'haml', 'html', 'jade', 'less', 'sass', 'scss', 'slim'] }
     Plug 'alvan/vim-closetag'
   " }}}
   " Text Object Plugins: {{{
@@ -69,8 +67,6 @@
 " }}}
 " Writing: {{{
   Plug 'godlygeek/tabular' " :Tabular \| to auto-align tables
-  Plug 'reedes/vim-pencil', { 'for': ['pandoc', 'markdown', 'text'] } " Set various writing-friendly commands
-  Plug 'reedes/vim-lexical', { 'for': ['pandoc', 'markdown', 'text'] } " Better spellchecking
   Plug 'reedes/vim-litecorrect' " Add autocorrections for boneheaded typos
-  Plug 'reedes/vim-textobj-sentence', { 'for': ['pandoc', 'markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
+  Plug 'reedes/vim-textobj-sentence' " Use as & is for selecting sentences; g) and g( for moving
 " }}}

@@ -21,4 +21,5 @@ function! dotfiles#autocomplete#ale_coc_nvim#init() abort
   call dotfiles#autocomplete#coc_nvim#configuration()
   call dotfiles#autocomplete#coc_nvim#keyboard()
   call dotfiles#autocomplete#coc_nvim#fuzzy()
+  call dotfiles#autocomplete#coc_nvim#syntax()
 endfunction

@@ -28,6 +28,14 @@ function! dotfiles#autocomplete#coc_nvim#init() abort
   call dotfiles#autocomplete#coc_nvim#configuration()
   call dotfiles#autocomplete#coc_nvim#keyboard()
   call dotfiles#autocomplete#coc_nvim#fuzzy()
+  call dotfiles#autocomplete#coc_nvim#syntax()
+endfunction
+
+function! dotfiles#autocomplete#coc_nvim#syntax() abort
+  augroup jsonc-syntax-coc
+    autocmd!
+    autocmd FileType json syntax match Comment +\/\/.\+$+
+  augroup END
 endfunction
 
 function! dotfiles#autocomplete#coc_nvim#configuration() abort

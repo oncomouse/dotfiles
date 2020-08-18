@@ -1,41 +1,4 @@
 " Syntax:
-" General VIM {{{
-  let g:python_highlight_all = 1
-  " Proper keyword highlighting for CSS:
-  augroup VimCSS3Syntax
-    autocmd!
-    autocmd FileType css setlocal iskeyword+=-
-  augroup END
-  augroup VimTSXSyntax
-    autocmd!
-    autocmd FileType typescriptreact setlocal commentstring={/*\ %s\ */}
-    autocmd BufNewFile,BufRead *.tsx set filetype=typescript
-  augroup END
-" }}}
-" Line Indent {{{
-  let g:indentLine_setColors = 1
-  let g:indentLine_char = "\u22EE"
-  let g:indentLine_color_term = 11
-" }}}
-" Autoroot {{{
-  " Turn off autoroot for non-project files:
-  let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile']
-  " let g:rooter_change_directory_for_non_project_files = '' " can be current or home
-  " let g:rooter_use_lcd = 1 " only change the current window
-" }}}
-" Emmet {{{
-  let g:user_emmet_settings = {
-    \  'javascriptreact' : {
-      \      'extends' : 'jsx',
-      \  },
-    \}
-" }}}
-" Coc JSONC {{{
-  augroup jsonc-syntax-coc
-    autocmd!
-    autocmd FileType json syntax match Comment +\/\/.\+$+
-  augroup END
-" }}}
 " Tabstops {{{
   augroup my-tabstops
     autocmd!
@@ -54,7 +17,24 @@
     autocmd FileType markdown,pandoc,md setlocal noexpandtab
   augroup END
 " }}}
-" Autopair {{{
+" Line numbers {{{
+  set number relativenumber
+  augroup line-numbers
+    autocmd!
+    if has('nvim')
+      autocmd TermOpen * setlocal nonumber norelativenumber
+    endif
+  augroup END
+" }}}
+" Syntax Autocmds {{{
+  " Proper keyword highlighting for CSS:
+  augroup VimCSS3Syntax
+    autocmd!
+    autocmd FileType css setlocal iskeyword+=-
+  augroup END
+" }}}
+" Plugins {{{
+" auto-pairs {{{
   let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', '`':'`', '{': '}'}
   " ,'```':'```', '"""':'"""', "'''":"'''"})
   augroup autopair-enable
@@ -63,18 +43,16 @@
       \ let b:AutoPairs = extend(g:AutoPairs, {'~~~':'~~~'})
   augroup END
 " }}}
-" Line numbers {{{
-  augroup line-numbers
-    set number relativenumber
-    autocmd!
-    if has('nvim')
-      autocmd TermOpen * setlocal nonumber norelativenumber
-    endif
-  augroup END
+" vim-rooter {{{
+  " Turn off autoroot for non-project files:
+  let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile']
+  " let g:rooter_change_directory_for_non_project_files = '' " can be current or home
+  " let g:rooter_use_lcd = 1 " only change the current window
 " }}}
-" Closetag {{{
-  let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php,*.js,*.erb"
+" vim-closetag {{{
+  let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.js,*.erb'
   let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
+  let g:closetag_filetypes = 'html,markdown,javascriptreact'
   let g:closetag_close_shortcut = '<leader>>'
   let g:closetag_regions = {
     \ 'typescriptreact': 'jsxRegion,tsxRegion',
@@ -82,7 +60,13 @@
     \ 'javascript': 'jsxRegion',
     \ }
 " }}}
-" JSON {{{
+" vim-json {{{
   let g:vim_json_syntax_conceal = 0
+" }}}
+" indentLine {{{
+  let g:indentLine_setColors = 1
+  let g:indentLine_char = "\u22EE"
+  let g:indentLine_color_term = 11
+" }}}
 " }}}
 " # vim:foldmethod=marker
