@@ -12,9 +12,9 @@
     autocmd FileType javascript,javascriptreact setlocal softtabstop=2
     autocmd FileType javascript,javascriptreact setlocal expandtab
     " Markdown
-    autocmd FileType markdown,pandoc,md setlocal tabstop=4
-    autocmd FileType markdown,pandoc,md setlocal shiftwidth=4
-    autocmd FileType markdown,pandoc,md setlocal noexpandtab
+    autocmd FileType markdown setlocal tabstop=4
+    autocmd FileType markdown setlocal shiftwidth=4
+    autocmd FileType markdown setlocal noexpandtab
   augroup END
 " }}}
 " Line numbers {{{
@@ -39,7 +39,7 @@
   " ,'```':'```', '"""':'"""', "'''":"'''"})
   augroup autopair-enable
     autocmd!
-    autocmd FileType markdown,pandoc
+    autocmd FileType markdown
       \ let b:AutoPairs = extend(g:AutoPairs, {'~~~':'~~~'})
   augroup END
 " }}}

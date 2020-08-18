@@ -124,16 +124,16 @@ function! dotfiles#autocomplete#coc_nvim#writing() abort
   \})
   augroup coc-bibtex
     autocmd!
-    autocmd FileType pandoc,markdown nnoremap <silent> <C-C> :execute 'CocList bibtex'<CR>
-    autocmd FileType pandoc,markdown inoremap <silent> <C-C> <c-g>u<c-o>:execute 'CocList bibtex'<CR>
+    autocmd FileType markdown nnoremap <silent> <C-C> :execute 'CocList bibtex'<CR>
+    autocmd FileType markdown inoremap <silent> <C-C> <c-g>u<c-o>:execute 'CocList bibtex'<CR>
   augroup END
-    augroup coc-pandoc
+  augroup coc-markdown
     autocmd!
-    autocmd FileType markdown,pandoc call coc#config('coc.source.buffer.enable', 0)
-    autocmd FileType markdown,pandoc call coc#config('coc.source.around.enable', 0)
-    autocmd FileType markdown,pandoc call coc#config('coc.source.snippets.enable', 0)
-    autocmd FileType markdown,pandoc call coc#config('coc.source.file.enable', 0)
-    autocmd FileType markdown,pandoc call coc#config('coc.source.tmux.enable', 0)
+    autocmd FileType markdown call coc#config('coc.source.buffer.enable', 0)
+    autocmd FileType markdown call coc#config('coc.source.around.enable', 0)
+    autocmd FileType markdown call coc#config('coc.source.snippets.enable', 0)
+    autocmd FileType markdown call coc#config('coc.source.file.enable', 0)
+    autocmd FileType markdown call coc#config('coc.source.tmux.enable', 0)
   augroup END
   function! CocBufferOn() abort
     call coc#config('coc.source.buffer.enable', 1)

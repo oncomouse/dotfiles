@@ -17,23 +17,28 @@ brew "bat" # syntax highlighting cat
 brew "diff-so-fancy" # Fancy diffs for git
 brew "exa" # better ls
 brew "fasd" # Autcompletion for directory jumping, z and v (for editing)
-brew "fd" # fast find command
 brew "fish" # shell
 brew "fzf" # fuzzy finder in shell, <C-t> to bring up completion
-brew "grep" # the old standby
 brew "htop" # fancy top
 brew "jq" # streaming, inline JSON editor
-brew "ripgrep" # rg for searching, fancy and fast grep
 brew "shellcheck" # bash linter
-brew "the_silver_searcher" # ag for searching, fancy grep
 brew "tmux" # terminal multiplexer, run multiple shells and save/restore sessions
+brew "httpie" # simplified http client
 cask "kitty" # Terminal emulator
+
+# Shell Search
+brew "grep" # the old standby
+brew "fd" # fast find command
+brew "the_silver_searcher" # ag for searching, fancy grep
+brew "ripgrep" # rg for searching, fancy and fast grep
 
 # Editor
 brew "neovim" # Text editor
 brew "vim" # Backup text editor
 brew "watchman" # Needed by CoC.nvim
 cask "visual-studio-code" # Code IDE
+
+# Language Servers:
 brew "oncomouse/repo/javascript-typescript-langserver"
 brew "oncomouse/repo/vscode-css-languageserver-bin"
 brew "oncomouse/repo/vscode-json-languageserver-bin"
@@ -70,4 +75,5 @@ cask "flux" # Night-time screen mode
 cask "karabiner-elements" # Keyboard remapping
 cask "keycast" # Visualize keystrokes on-screen, great for teaching
 cask "seafile-client" # File sharing
+cask "licecap" # Animated GIF maker
 # vim: filetype=conf

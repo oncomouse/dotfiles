@@ -1,5 +1,5 @@
 " Writing:
-" Autocomplete {{{
+" Configure autocompletion {{{
 if g:complete_package =~# 'coc.nvim'
   call dotfiles#autocomplete#coc_nvim#writing()
 else
@@ -19,13 +19,6 @@ augroup markdown-config
   autocmd FileType markdown set wrap linebreak nolist
   autocmd FileType markdown call textobj#sentence#init()
 augroup END
-" }}}
-" vim-markdown {{{
-let g:vim_markdown_frontmatter = 1 " Format YAML
-let g:vim_markdown_strikethrough = 0 " Don't format strikethrough
-let g:vim_markdown_conceal = 0 " Don't conceal
-let g:vim_markdown_conceal_code_blocks = 0 " Don't conceal code blocks
-let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
 " Turn conceal on and off in a buffer:
 function! ToggleConcealLevel()
   setlocal conceallevel= &conceallevel == 0 ? 2 : 0
@@ -35,5 +28,12 @@ augroup markdown_higlight
   autocmd!
   autocmd FileType markdown nnoremap <silent> <leader>cc :call ToggleConcealLevel()<CR>
 augroup END
+" }}}
+" vim-markdown {{{
+let g:vim_markdown_frontmatter = 1 " Format YAML
+let g:vim_markdown_strikethrough = 0 " Don't format strikethrough
+let g:vim_markdown_conceal = 0 " Don't conceal
+let g:vim_markdown_conceal_code_blocks = 0 " Don't conceal code blocks
+let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
 " }}}
 " # vim:foldmethod=marker
