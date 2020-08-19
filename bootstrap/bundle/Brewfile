@@ -73,6 +73,7 @@ cask "basictex"
 cask "licecap" # Animated GIF maker
 cask "obs" # Screencap
 cask "vlc" # Video playback
+cask "avidemux" # Simple editing
 
 # Other GUI Applications
 cask "firefox" # Browser
