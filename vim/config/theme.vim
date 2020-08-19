@@ -100,8 +100,8 @@ hi Pmenu gui=none guibg=#312e30 guifg=#aeadaf cterm=none ctermbg=8 ctermfg=15
 hi MarkdownItalic guifg=#d58888
 hi link htmlItalic MarkdownItalic
 hi link htmlBold MarkdownBold
-hi link htmlTag Noise
-hi link htmlEndTag Noise
+" hi link htmlTag Noise
+" hi link htmlEndTag Noise
 " }}}
 " vim-clap Theme{{{
 let g:clap_theme = 'tempus_classic'
