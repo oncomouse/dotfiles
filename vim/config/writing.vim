@@ -11,7 +11,7 @@ endif
 augroup markdown-config
   autocmd!
   " Mark things bold using vim-surround (which is annoying with vim-surround):
-  autocmd FileType markdown nmap <C-b> ysiw*lysiw*
+  autocmd FileType markdown nmap <C-b> saiw*lsaiw*
   autocmd FileType markdown imap <C-b> <C-o><C-b>
   " Set-up deoplete-biblatex:
   autocmd FileType markdown if ! g:complete_package =~# "coc.nvim" | call dotfiles#autocomplete#deoplete#writing() | endif
