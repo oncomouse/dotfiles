@@ -57,6 +57,5 @@
 " }}}
 " Writing: {{{
   Plug 'godlygeek/tabular' " :Tabular \| to auto-align tables (also :TableFormat in markdown)
-  Plug 'reedes/vim-litecorrect' " Add autocorrections for boneheaded typos
   Plug 'reedes/vim-textobj-sentence' " Use as & is for selecting sentences; g) and g( for moving
 " }}}
