@@ -7,7 +7,7 @@ if ! xcode-select --version > /dev/null 2>&1; then
   xcode-select --install
 fi
 
-if test ! $(which brew); then
+if test ! "$(which brew)"; then
   echo "Installing homebrew..."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
@@ -15,7 +15,8 @@ else
 fi
 
 ## Install Brew
-brew bundle install --file=~/dotfiles/bootstrap/bundle/Brewfile
+ln -sf ~/dotfiles/bootstrap/bundle/Brewfile ~/.Brewfile
+brew bundle install --global --no-lock
 
 ## GnuPG Setup for Mac:
 mkdir -p ~/.gnupg
@@ -36,8 +37,8 @@ fi
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 
 ## Use Fish
-if ! echo $SHELL | ag fish > /dev/null 2>&1; then
-  sudo dscl . -create /Users/$USER UserShell /usr/local/bin/fish
+if ! echo "$SHELL" | ag fish > /dev/null 2>&1; then
+  sudo dscl . -create "/Users/$USER" UserShell /usr/local/bin/fish
 fi
 
 echo ""
