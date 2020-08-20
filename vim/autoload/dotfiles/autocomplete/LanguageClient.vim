@@ -40,15 +40,15 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
   augroup END
   " Turn off diagnostics in solargraph and just run rubocop through ALE:
   let g:LanguageClient_serverCommands = {
-        \ 'javascript': ['tcp://127.0.0.1:2089'],
-        \ 'javascriptreact': ['tcp://127.0.0.1:2089'],
-        \ 'typescript': ['tcp://127.0.0.1:2089'],
-        \ 'typescriptreact': ['tcp://127.0.0.1:2089'],
+        \ 'javascript': ['/usr/local/bin/typescript-language-server', '--stdio'],
+        \ 'javascriptreact': ['/usr/local/bin/typescript-language-server', '--stdio'],
+        \ 'typescript': ['/usr/local/bin/typescript-language-server', '--stdio'],
+        \ 'typescriptreact': ['/usr/local/bin/typescript-language-server', '--stdio'],
         \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
         \ 'html': ['/usr/local/bin/html-languageserver', '--stdio'],
-        \ 'scss': ['tcp://127.0.0.1:2091'],
-        \ 'css': ['tcp://127.0.0.1:2091'],
-        \ 'json': ['tcp://127.0.0.1:2090'],
+        \ 'scss': ['/usr/local/bin/css-languageserver', '--stdio'],
+        \ 'css': ['/usr/local/bin/css-languageserver', '--stdio''tcp://127.0.0.1:2091'],
+        \ 'json': ['/usr/local/bin/json-languageserver', '--stdio''tcp://127.0.0.1:2091'],
         \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
         \}
 
