@@ -15,8 +15,8 @@ augroup markdown-config
   autocmd FileType markdown imap <C-b> <C-o><C-b>
   " Set-up deoplete-biblatex:
   autocmd FileType markdown if ! g:complete_package =~# "coc.nvim" | call dotfiles#autocomplete#deoplete#writing() | endif
-  " More writing-friendly linebreaks:
-  autocmd FileType markdown set wrap linebreak nolist
+  " More writing-friendly linebreaks and spelling:
+  autocmd FileType markdown setlocal wrap linebreak nolist spell
   autocmd FileType markdown call textobj#sentence#init()
 augroup END
 " Turn conceal on and off in a buffer:
