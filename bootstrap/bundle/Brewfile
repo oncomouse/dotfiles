@@ -5,7 +5,6 @@ tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/cask-fonts"
 tap "heroku/brew"
-tap "oncomouse/repo"
 
 # System
 brew "coreutils"
@@ -37,12 +36,6 @@ brew "neovim" # Text editor
 brew "vim" # Backup text editor
 brew "watchman" # Needed by CoC.nvim
 cask "visual-studio-code" # Code IDE
-
-# Language Servers:
-brew "oncomouse/repo/javascript-typescript-langserver"
-brew "oncomouse/repo/vscode-css-languageserver-bin"
-brew "oncomouse/repo/vscode-json-languageserver-bin"
-brew "oncomouse/repo/vscode-html-languageserver-bin"
 
 # Fonts
 cask "font-fira-code" # Terminal Font

@@ -19,5 +19,10 @@ if which npm > /dev/null 2>&1; then
     npminstall 'snazzy'
     npminstall 'prettier'
     npminstall 'js-beautify'
+    npminstall 'vscode-css-languageserver-bin'
+    npminstall 'vscode-html-languageserver-bin'
+    npminstall 'vscode-json-languageserver-bin'
+    npminstall 'typescript-language-server'
+    npminstall 'vim-language-server'
   fi
 fi
