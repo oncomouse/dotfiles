@@ -1,5 +1,7 @@
 syntax on
-
+if &shell =~# 'fish$'
+    set shell=sh
+endif
 " Basic Vim settings:
 set mouse=a " Mouse support
 if has('clipboard')
