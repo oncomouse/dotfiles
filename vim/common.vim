@@ -1,6 +1,6 @@
 syntax on
 if &shell =~# 'fish$'
-    set shell=sh
+    set shell=sh " Doing this seems to speed up FZF b/c Fish is a bit slow to start
     command! Terminal exe "terminal fish"
 endif
 " Basic Vim settings:
