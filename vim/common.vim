@@ -1,6 +1,7 @@
 syntax on
 if &shell =~# 'fish$'
     set shell=sh
+    command! Terminal exe "terminal fish"
 endif
 " Basic Vim settings:
 set mouse=a " Mouse support
