@@ -12,7 +12,6 @@
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker foldlevel=0
     autocmd FileType css setlocal foldmethod=manual
-    autocmd FileType markdown setlocal foldlevel=1
     autocmd FileType diff setlocal nofoldenable
   augroup END
 " }}}
