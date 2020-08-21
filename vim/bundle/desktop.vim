@@ -48,6 +48,7 @@
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'lionawurscht/deoplete-biblatex' " Adds BibTeX as a Deoplete source
     Plug 'hrsh7th/vim-neco-calc' " Adds calculator as a Deoplete source
+    Plug 'Shougo/neco-vim'
   endif
   " ALE for linting:
   if complete_package !=# 'coc.nvim'

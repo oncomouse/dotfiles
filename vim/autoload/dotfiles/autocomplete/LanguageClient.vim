@@ -36,6 +36,7 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
     endif
   endfunction
   augroup lc_maps
+    autocmd!
     autocmd FileType * call LC_maps()
   augroup END
   " Turn off diagnostics in solargraph and just run rubocop through ALE:
@@ -49,7 +50,7 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
         \ 'scss': ['/usr/local/bin/css-languageserver', '--stdio'],
         \ 'css': ['/usr/local/bin/css-languageserver', '--stdio''tcp://127.0.0.1:2091'],
         \ 'json': ['/usr/local/bin/json-languageserver', '--stdio''tcp://127.0.0.1:2091'],
-        \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
         \}
+  "         \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
 
 endfunction
