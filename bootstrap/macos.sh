@@ -43,7 +43,7 @@ fi
 
 ## Configure Karabiner
 mkdir -p ~/.config/karabiner
-ln -sf ~/dotfiles/automation/karabiner.json ~/.config/karabiner/karabiner.json
+ln -sf ~/dotfiles/automation/karabiner ~/.config/karabiner
 
 ## Configure Hammerspoon
 ln -sf ~/dotfiles/automation/hammerspoon ~/.hammerspoon
