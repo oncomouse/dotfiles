@@ -11,6 +11,7 @@
   Plug 'cakebaker/scss-syntax.vim'
   Plug 'oncomouse/vim-fish' " Async vim-fish
   Plug 'elzr/vim-json'
+  Plug 'tbastos/vim-lua'
 " }}}
 " Text Object Plugins: {{{
   Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
