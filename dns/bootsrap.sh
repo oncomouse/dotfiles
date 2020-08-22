@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-brew bundle install
+brew bundle install --no-lock
 
 mkdir -p /usr/local/etc/dnsmasq.d
 rm /usr/local/etc/dnsmasq.conf

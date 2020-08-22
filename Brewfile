@@ -62,6 +62,10 @@ brew "vale" # Markdown linter
 cask "zotero" # Bibliography management
 cask "basictex"
 
+# Automation
+cask "karabiner-elements" # Keyboard remapping
+cask "hammerspoon" # Automation
+
 # Online Teaching
 cask "licecap" # Animated GIF maker
 cask "obs" # Screencap
@@ -71,7 +75,6 @@ cask "avidemux" # Simple editing
 # Other GUI Applications
 cask "firefox" # Browser
 cask "flux" # Night-time screen mode
-cask "karabiner-elements" # Keyboard remapping
 cask "keycast" # Visualize keystrokes on-screen, great for teaching
 cask "seafile-client" # File sharing
 # vim: filetype=conf

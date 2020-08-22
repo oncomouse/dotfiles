@@ -15,7 +15,7 @@ else
 fi
 
 ## Install Brew
-ln -sf ~/dotfiles/bootstrap/bundle/Brewfile ~/.Brewfile
+ln -sf ~/dotfiles/Brewfile ~/.Brewfile
 brew bundle install --global --no-lock
 
 ## GnuPG Setup for Mac:
@@ -40,6 +40,10 @@ $bash ~/dotfiles/bootstrap/scripts/common.sh
 if ! echo "$SHELL" | ag fish > /dev/null 2>&1; then
   sudo dscl . -create "/Users/$USER" UserShell /usr/local/bin/fish
 fi
+
+## Configure Karabiner
+mkdir -p ~/.config/karabiner
+ln -sf ~/dotfiles/automation/karabiner.json ~/.config/karabiner/karabiner.json
 
 echo ""
 
