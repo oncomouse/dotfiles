@@ -45,6 +45,9 @@ fi
 mkdir -p ~/.config/karabiner
 ln -sf ~/dotfiles/automation/karabiner.json ~/.config/karabiner/karabiner.json
 
+## Configure Hammerspoon
+ln -sf ~/dotfiles/automation/hammerspoon ~/.hammerspoon
+
 echo ""
 
 echo "Run $(tput bold)$(tput setaf 6)bash ~/dotfiles/dns/bootstrap.sh$(tput sgr0) to install DNS proxy and local dev domains."
