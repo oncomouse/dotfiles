@@ -3,7 +3,7 @@
 if g:complete_package =~# 'coc.nvim'
   call dotfiles#autocomplete#coc_nvim#writing()
 else
-  call dotfiles#autocomplete#deoplete#writing()
+  call dotfiles#autocomplete#ncm2#writing()
 endif
 "
 " }}}

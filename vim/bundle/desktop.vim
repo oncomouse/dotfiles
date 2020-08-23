@@ -11,6 +11,8 @@
   Plug 'cakebaker/scss-syntax.vim'
   Plug 'oncomouse/vim-fish' " Async vim-fish
   Plug 'elzr/vim-json'
+  Plug 'xolox/vim-lua-ftplugin'
+  Plug 'xolox/vim-misc'
   Plug 'tbastos/vim-lua'
 " }}}
 " Text Object Plugins: {{{
@@ -45,11 +47,15 @@
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-    " Deoplete for completion:
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'lionawurscht/deoplete-biblatex' " Adds BibTeX as a Deoplete source
-    Plug 'hrsh7th/vim-neco-calc' " Adds calculator as a Deoplete source
+    " ncm2 for completion:
+    Plug 'roxma/nvim-yarp'
+    Plug 'ncm2/ncm2'
     Plug 'Shougo/neco-vim'
+    Plug 'ncm2/ncm2-vim'
+    Plug 'ncm2/ncm2-bufword'
+    Plug 'ncm2/ncm2-markdown-subscope'
+    Plug 'ncm2/ncm2-path'
+    Plug 'oncomouse/ncm2-biblatex'
   endif
   " ALE for linting:
   if complete_package !=# 'coc.nvim'
