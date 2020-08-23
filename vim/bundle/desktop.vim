@@ -11,9 +11,10 @@
   Plug 'cakebaker/scss-syntax.vim'
   Plug 'oncomouse/vim-fish' " Async vim-fish
   Plug 'elzr/vim-json'
-  Plug 'xolox/vim-lua-ftplugin'
-  Plug 'xolox/vim-misc'
-  Plug 'tbastos/vim-lua'
+  Plug 'tbastos/vim-lua' " For Lua
+  Plug 'xolox/vim-lua-ftplugin' " Lua omnifunc
+  Plug 'xolox/vim-misc'  " Required for above
+  Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " For Python
 " }}}
 " Text Object Plugins: {{{
   Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
@@ -55,6 +56,7 @@
     Plug 'ncm2/ncm2-bufword'
     Plug 'ncm2/ncm2-markdown-subscope'
     Plug 'ncm2/ncm2-path'
+    Plug 'ncm2/ncm2-jedi'
     Plug 'oncomouse/ncm2-biblatex'
   endif
   " ALE for linting:

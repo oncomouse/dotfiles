@@ -19,6 +19,7 @@ if [ -z $SERVER ];then
   pip3install 'jedi'
   pip3install 'pylint'
   pip3install 'bandit'
+  pip3install 'autopep8'
   # Yaml Linters:
   pip3install 'yamllint'
   # Markdown Linters:

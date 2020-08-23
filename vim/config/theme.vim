@@ -106,6 +106,22 @@ hi link htmlBold MarkdownBold
 " vim-clap Theme{{{
 let g:clap_theme = 'tempus_classic'
 " }}}
+" semshi {{{
+  hi semshiLocal           ctermfg=209 guifg=#ff875f
+  hi semshiGlobal          ctermfg=214 guifg=#d2813d
+  hi semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
+  hi semshiParameter       ctermfg=75  guifg=#6e9cb0
+  hi semshiParameterUnused ctermfg=117 guifg=#8e9cc0 cterm=underline gui=underline
+  hi semshiFree            ctermfg=218 guifg=#b58d88
+  hi semshiBuiltin         ctermfg=207 guifg=#d58888
+  hi semshiAttribute       ctermfg=49  guifg=#6da280
+  hi semshiSelf            ctermfg=249 guifg=#949d9f
+  hi semshiUnresolved      ctermfg=226 guifg=#b1942b cterm=underline gui=underline
+  hi semshiSelected        ctermfg=231 guifg=#232323 ctermbg=161 guibg=#ff875f
+
+  hi semshiErrorSign       ctermfg=231 guifg=#aeadaf ctermbg=160 guibg=#d70000
+  hi semshiErrorChar       ctermfg=231 guifg=#aeadaf ctermbg=160 guibg=#d70000
+" }}}
 " Highlight Reveal Function: {{{
 function! SynGroup()                                                            
   let l:s = synID(line('.'), col('.'), 1)                                       
