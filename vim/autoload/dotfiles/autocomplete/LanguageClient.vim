@@ -45,6 +45,7 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
         \ 'javascriptreact': ['/usr/local/bin/typescript-language-server', '--stdio'],
         \ 'typescript': ['/usr/local/bin/typescript-language-server', '--stdio'],
         \ 'typescriptreact': ['/usr/local/bin/typescript-language-server', '--stdio'],
+        \ 'python': ['/usr/local/bin/jedi-language-server'],
         \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
         \ 'html': ['/usr/local/bin/html-languageserver', '--stdio'],
         \ 'scss': ['/usr/local/bin/css-languageserver', '--stdio'],

@@ -26,7 +26,10 @@ if [ -z $SERVER ];then
   pip3install 'proselint'
   ln -sf ~/dotfiles/proselint ~/.config/
   # BibTeX
-  pip3install 'bibtexparser'
+  # pip3install 'bibtexparser'
+  pip3install 'bibparse'
+  # LSP
+  pip3install 'jedi-language-server'
 fi
 pip3install 'pynvim'
 pip3install 'virtualfish'

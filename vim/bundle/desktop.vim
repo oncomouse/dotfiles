@@ -56,7 +56,6 @@
     Plug 'ncm2/ncm2-bufword'
     Plug 'ncm2/ncm2-markdown-subscope'
     Plug 'ncm2/ncm2-path'
-    Plug 'ncm2/ncm2-jedi'
     Plug 'oncomouse/ncm2-biblatex'
   endif
   " ALE for linting:
