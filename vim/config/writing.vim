@@ -13,8 +13,8 @@ augroup markdown-config
   " Mark things bold using vim-surround (which is annoying with vim-surround):
   autocmd FileType markdown nmap <C-b> saiw*lsaiw*
   autocmd FileType markdown imap <C-b> <C-o><C-b>
-  " Set-up deoplete-biblatex:
-  autocmd FileType markdown if ! g:complete_package =~# "coc.nvim" | call dotfiles#autocomplete#deoplete#writing() | endif
+  " " Set-up ncm2-biblatex:
+  " autocmd FileType markdown if ! g:complete_package =~# "coc.nvim" | call dotfiles#autocomplete#ncm2#writing() | endif
   " More writing-friendly linebreaks and spelling:
   autocmd FileType markdown setlocal wrap linebreak nolist spell
   autocmd FileType markdown call textobj#sentence#init()

@@ -32,5 +32,6 @@ function! dotfiles#autocomplete#ncm2#writing() abort
   augroup biblatex_markdown
     autocmd!
     autocmd FileType markdown let b:ncm2_biblatex_enabled = v:true
+    autocmd FileType markdown call ncm2#blacklist_for_buffer(['buf', 'tmux'])
   augroup END
 endfunction
