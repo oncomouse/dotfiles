@@ -29,6 +29,7 @@ endfunction
 function! dotfiles#autocomplete#ncm2#writing() abort
   let g:ncm2_biblatex#bibfile = g:bibliography_file
   let g:ncm2_biblatex#addinfo = v:true
+  let g:ncm2_biblatex#reloadbibfileonchange = v:true
   augroup biblatex_markdown
     autocmd!
     autocmd FileType markdown let b:ncm2_biblatex_enabled = v:true
