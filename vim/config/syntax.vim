@@ -68,5 +68,8 @@
     let g:indentLine_char = "\u22EE"
     let g:indentLine_color_term = 11
   " }}}
+  " vim-lua-ftplugin {{{
+  let g:lua_check_syntax = 0
+  " }}}
 " }}}
 " # vim:foldmethod=marker

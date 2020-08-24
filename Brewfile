@@ -52,6 +52,8 @@ brew "python" # Python 3
 brew "rbenv" # Manage different Ruby installations
 brew "yarn" # Package manager for Node.js
 cask "virtualbox" # Virtual machine software
+brew "lua" # Lua
+brew "luarocks" # Lua Package Manager
 
 # Writing
 brew "bib-tool" # Manage bibtex files
