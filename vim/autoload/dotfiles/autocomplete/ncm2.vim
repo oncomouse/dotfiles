@@ -21,7 +21,7 @@ function! dotfiles#autocomplete#ncm2#init() abort
         \ 'mark': 'lua',
         \ 'word_pattern': '\w+|[^. *\t][.:]\w*',
         \ 'complete_pattern': ':\s*',
-        \ 'on_complete': ['ncm2#on_complete#omni', 'xolox#lua#omnifunc'],
+        \ 'on_complete': ['ncm2#on_complete#omni', 'xolox#lua#completefunc'],
         \ })
   augroup END
 endfunction
