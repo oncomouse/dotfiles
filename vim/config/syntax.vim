@@ -2,10 +2,10 @@
 " Tabstops {{{
   augroup my-tabstops
     autocmd!
-    " Go
-    autocmd FileType go setlocal tabstop=4
-    autocmd FileType go setlocal shiftwidth=4
-    autocmd FileType go setlocal noexpandtab
+    " Go, Lua
+    autocmd FileType go,lua setlocal tabstop=4
+    autocmd FileType go,lua setlocal shiftwidth=4
+    autocmd FileType go,lua setlocal noexpandtab
     " JavaScript
     autocmd FileType javascript,javascriptreact setlocal tabstop=2
     autocmd FileType javascript,javascriptreact setlocal shiftwidth=2
