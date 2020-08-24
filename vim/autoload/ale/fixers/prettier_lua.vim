@@ -1,5 +1,6 @@
 " Prettier for Lua
 " Need npm i -g prettier @prettier/plugin-lua
+" Needs npm i -g gakada/plugin-lua#prettier2 until they patch the plugin
 
 function! ale#fixers#prettier_lua#Fix(buffer) abort
     return ale#semver#RunWithVersionCheck(
