@@ -12,7 +12,7 @@
   Plug 'oncomouse/vim-fish' " Async vim-fish
   Plug 'elzr/vim-json'
   Plug 'tbastos/vim-lua' " For Lua
-  Plug 'xolox/vim-lua-ftplugin' " Lua omnifunc
+  " Plug 'xolox/vim-lua-ftplugin' " Lua omnifunc
   Plug 'xolox/vim-misc'  " Required for above
   Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " For Python
 " }}}

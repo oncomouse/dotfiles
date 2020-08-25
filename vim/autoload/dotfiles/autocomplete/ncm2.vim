@@ -13,16 +13,6 @@ function! dotfiles#autocomplete#ncm2#init() abort
         \ 'complete_pattern': ':\s*',
         \ 'on_complete': ['ncm2#on_complete#omni', 'fish#Complete'],
         \ })
-    au User Ncm2Plugin call ncm2#register_source({
-        \ 'name' : 'lua',
-        \ 'priority': 9,
-        \ 'subscope_enable': 1,
-        \ 'scope': ['lua'],
-        \ 'mark': 'lua',
-        \ 'word_pattern': '\w+|[^. *\t][.:]\w*',
-        \ 'complete_pattern': ':\s*',
-        \ 'on_complete': ['ncm2#on_complete#omni', 'xolox#lua#completefunc'],
-        \ })
   augroup END
 endfunction
 
