@@ -1,5 +1,5 @@
 function! dotfiles#autocomplete#ale#init() abort
-  let g:ale_javascript_standard_executable = 'semistandard'
+  let g:ale_lua_luacheck_options = '-d'
   " Check if we turned off ALE formatting in favor of LSP formatting:
   command! Format exe ':ALEFix'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -15,4 +15,11 @@ function! dotfiles#autocomplete#ale#init() abort
     \  '\.min.js$': {'ale_enabled': 0},
     \  'build/.*$': {'ale_enabled': 0},
     \}
+  call s:linter_options()
+endfunction
+function! s:linter_options() abort
+  " Standard options
+  let g:ale_javascript_standard_executable = 'semistandard'
+  " Luacheck options:
+
 endfunction
