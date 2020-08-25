@@ -46,7 +46,7 @@ mkdir -p ~/.config/karabiner
 ln -sf ~/dotfiles/automation/karabiner ~/.config/karabiner
 
 ## Configure Hammerspoon
-ln -sf ~/dotfiles/automation/hammerspoon ~/.hammerspoon
+ln -sf ~/dotfiles/hammerspoon ~/.hammerspoon
 
 echo ""
 
