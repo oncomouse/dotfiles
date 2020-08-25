@@ -1,4 +1,5 @@
 function! dotfiles#autocomplete#clap#init() abort
+  let g:clap_insert_mode_only = v:true
   " Old FZF Interface:
   command! -bang -nargs=? -complete=dir Files exe 'Clap files ++query='.<q-args>
   command! Buffers :exe 'Clap buffers'
