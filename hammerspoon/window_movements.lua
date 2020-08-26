@@ -26,33 +26,41 @@ window_movements.down = function()
 	local win = hs.window.focusedWindow()
 	if not win then return end
 	win:moveToUnit(
-		hs.geometry.rect(offset, offset, win_percentage, win_percentage),
-		0
+		hs.geometry.rect(offset, offset, win_percentage, win_percentage)
 	)
 end
 
 window_movements.up_left = function()
 	local win = hs.window.focusedWindow()
 	if not win then return end
-	win:moveToUnit(hs.geometry.rect(0, 0, 0.5, 0.5), 0)
+	win:moveToUnit(hs.geometry.rect(0, 0, 0.5, 0.5))
 end
 
 window_movements.up_right = function()
 	local win = hs.window.focusedWindow()
 	if not win then return end
-	win:moveToUnit(hs.geometry.rect(0.5, 0, 0.5, 0.5), 0)
+	win:moveToUnit(hs.geometry.rect(0.5, 0, 0.5, 0.5))
 end
 
 window_movements.down_left = function()
 	local win = hs.window.focusedWindow()
 	if not win then return end
-	win:moveToUnit(hs.geometry.rect(0, 0.5, 0.5, 0.5), 0)
+	win:moveToUnit(hs.geometry.rect(0, 0.5, 0.5, 0.5))
 end
 
 window_movements.down_right = function()
 	local win = hs.window.focusedWindow()
 	if not win then return end
-	win:moveToUnit(hs.geometry.rect(0.5, 0.5, 0.5, 0.5), 0)
+	win:moveToUnit(hs.geometry.rect(0.5, 0.5, 0.5, 0.5))
+end
+
+window_movements.gif_window = function()
+	local win = hs.window.focusedWindow()
+	if not win then return end
+	win:setSize({
+		w = 900,
+		h = 618,
+	})
 end
 
 return window_movements

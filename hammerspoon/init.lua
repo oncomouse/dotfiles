@@ -9,7 +9,7 @@ ext.utils.string_literal = require("string_literal")
 --- Shortcut keys:
 hyper = { "ctrl", "alt", "cmd", "shift" }
 mash = { "ctrl", "alt", "cmd" }
--- mashshift = { "ctrl", "alt", "shift" }
+mashshift = { "ctrl", "alt", "shift" }
 
 -- Summon console:
 hs.hotkey.bindSpec({ mash, "space" }, hs.toggleConsole)
@@ -28,6 +28,8 @@ hs.hotkey.bindSpec({ mash, "left" }, ext.utils.window_movements.up_left)
 hs.hotkey.bindSpec({ mash, "right" }, ext.utils.window_movements.down_right)
 hs.hotkey.bindSpec({ mash, "up" }, ext.utils.window_movements.up_right)
 hs.hotkey.bindSpec({ mash, "down" }, ext.utils.window_movements.down_left)
+-- Livestreaming:
+hs.hotkey.bindSpec({ mashshift, "left" }, ext.utils.window_movements.gif_window)
 -- Spotify controls:
 function show_spotify_song()
 	hs.alert.show(
