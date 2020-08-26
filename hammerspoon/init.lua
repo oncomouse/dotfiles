@@ -4,8 +4,9 @@ ext = {
 	utils = {},
 	watchers = {},
 }
-ext.utils.window_movements = require("window_movements")
-ext.utils.string_literal = require("string_literal")
+ext.utils.window_movements = require("utils/window_movements")
+ext.utils.string_literal = require("utils/string_literal")
+ext.utils.reload_config = require("utils/reload_config")
 --- Shortcut keys:
 hyper = { "ctrl", "alt", "cmd", "shift" }
 mash = { "ctrl", "alt", "cmd" }
@@ -65,29 +66,23 @@ hs.hotkey.bindSpec({ hyper, "m" }, function()
 	hs.urlevent.openURL("https://mail.google.com")
 end)
 -- App Switcher:
-local applicationHyperkeys = {
+local application_hyperkeys = {
 	k = "Kitty",
 	f = "Firefox",
 }
-for key, app in pairs(applicationHyperkeys) do
+for key, app in pairs(application_hyperkeys) do
 	hs.hotkey.bind(hyper, key, function()
 		hs.application.launchOrFocus(app)
 	end)
 end
--- autoreload hammerspoon
-function ext.utils.reloadConfig()
-	-- stop watchers to avoid leaks
-	hs.fnutils.each(ext.watchers, function(watcher)
-		watcher:stop()
-	end)
-
+-- Reload configuration:
+hs.hotkey.bind(hyper, "0", function()
 	hs.reload()
-end
+end)
 -- Auto-reload configuration:
-hs.hotkey.bind(hyper, "0", ext.utils.reloadConfig)
 ext.watchers.patchwatcher =
 	hs.pathwatcher.new(
 		os.getenv("HOME") .. "/.hammerspoon/",
-		ext.utils.reloadConfig
+		ext.utils.reload_config
 	):start()
 hs.alert.show("Config loaded")
