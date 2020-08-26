@@ -8,5 +8,7 @@ if test ! "~/.local/share/nvim/site/autoload/plug.vim"; then
 else
   nvim +PlugInstall +PlugClean +qall
 fi
-fish -c nvim-nightly
-launchctl load macos/com.pilsch.nvim-nightly.plist
+# fish -c nvim-nightly
+# launchctl load macos/com.pilsch.nvim-nightly.plist
+# VimR config:
+ln -sf ~/dotfiles/vim/ginit.vim ~/.config/nvim/
