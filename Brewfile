@@ -63,6 +63,7 @@ brew "pandoc-citeproc" # Citation plugin for Pandoc
 brew "vale" # Markdown linter
 cask "zotero" # Bibliography management
 cask "basictex"
+cask "vimr" # NeoVim GUI
 
 # Automation
 cask "karabiner-elements" # Keyboard remapping

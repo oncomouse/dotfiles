@@ -42,6 +42,8 @@ ln -s ~/dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local
 if [ $os == "macos" ]; then
   ln -s ~/dotfiles/kitty/kitty.conf ~/.config/kitty/
   ln -s ~/dotfiles/mackup/mackup.cfg ~/.mackup.cfg
+  # Configure VimR:
+  ln -s ~/dotfiles/vim/ginit.vim ~/.config/nvim/ginit.vim
 fi
 if [ -z $SERVER ]; then
   ln -s ~/dotfiles/vim/vimrc ~/.config/nvim/init.vim
