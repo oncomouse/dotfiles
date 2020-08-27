@@ -13,21 +13,5 @@
   nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
   nnoremap <silent> <leader>y :Yanks<CR>
 " }}}
-" FZF Configuration {{{
-  " Highlight file with <shift>-<tab>; press the follow to open:
-  let g:fzf_action = {
-    \ 'ctrl-s': 'split',
-    \ 'ctrl-v': 'vsplit',
-    \ 'ctrl-t': 'tabnew',
-    \ 'ctrl-e': 'edit',
-    \ }
-  let g:fzf_nvim_statusline = 0 " disable statusline overwriting
-  if &runtimepath =~# 'fzf'
-    " Complete file name:
-    imap <C-x><C-f> <plug>(fzf-complete-file-ag)
-    " Complete file line:
-    imap <C-x><C-l> <plug>(fzf-complete-line)
-  endif
-" }}}
 
 " # vim:foldmethod=marker
