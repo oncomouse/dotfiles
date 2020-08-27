@@ -16,8 +16,8 @@ augroup markdown-config
   " " Set-up ncm2-biblatex:
   " autocmd FileType markdown if ! g:complete_package =~# "coc.nvim" | call dotfiles#autocomplete#ncm2#writing() | endif
   " More writing-friendly linebreaks and spelling:
-  autocmd FileType markdown setlocal wrap linebreak nolist spell
-  autocmd FileType markdown call textobj#sentence#init()
+  autocmd FileType markdown,text setlocal wrap linebreak nolist spell
+  autocmd FileType markdown,text call textobj#sentence#init()
 augroup END
 " Turn conceal on and off in a buffer:
 function! ToggleConcealLevel()
