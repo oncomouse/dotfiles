@@ -69,6 +69,7 @@ end)
 local application_hyperkeys = {
 	k = "Kitty",
 	f = "Firefox",
+	v = "VimR",
 }
 for key, app in pairs(application_hyperkeys) do
 	hs.hotkey.bind(hyper, key, function()
