@@ -72,6 +72,10 @@ if not set -q FZF_DEFAULT_COMMAND
   set -U FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 end
 
+# Open directories in Finder w/ alt+o
+function choose_dir_with_fzf; set -l file (fd -t d "^\w" ~ | fzf --reverse --height 40%); if test -n $file;else; open $file; end; end
+bind \eo choose_dir_with_fzf
+
 # Local paths:
 function add_to_user_paths -a dir
   # Delete $dir if it is present but does not exist:
