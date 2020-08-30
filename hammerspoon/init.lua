@@ -8,7 +8,7 @@ _.utils = {
 	reload_config = require("utils/reload_config"),
 	show_spotify_song = require("utils/show_spotify_song"),
 	show_date = require("utils/show_date"),
-	make_app_switcher = require("utils/app_switcher"),
+	make_modal = require("utils/make_modal"),
 }
 --- Modifier keys:
 _.mods = {
@@ -65,7 +65,7 @@ hs.window.animationDuration = 0
 for mod_key, quickkeys in pairs(_.modal_keys) do
 	local mod = _.mods[mod_key]
 	for key, launchers in pairs(quickkeys) do
-		_.utils.make_app_switcher(mod, key, launchers)
+		_.utils.make_modal(mod, key, launchers)
 	end
 end
 
