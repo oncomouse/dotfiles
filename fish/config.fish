@@ -101,6 +101,7 @@ add_to_user_paths ~/.fzf/bin
 
 # Configure ASDF:
 if not contains $HOME/.asdf/shims $fish_user_paths
+  and test (uname) = "Darwin"
   echo "Loading ASDF"
   set -x ASDF_DIR (brew --prefix asdf)
   set -l asdf_data_dir (
