@@ -1,6 +1,12 @@
 -- luacheck: globals hs
 local window_movements = {}
 
+window_movements.center_on_screen = function()
+	local win = hs.window.focusedWindow()
+	if not win then return end
+	win:centerOnScreen()
+end
+
 window_movements.left = function()
 	local win = hs.window.focusedWindow()
 	if not win then return end

@@ -12,13 +12,13 @@ function make_app_switcher(mods, hotkey, quickkeys)
 	for key, app in pairs(quickkeys) do
 		if type(app) == "table" then
 			for _k, mod_app in pairs(app) do
-				app_switcher:bind(mod_app[1], key, function()
+				app_switcher:bind(mod_app[1], tostring(key), function()
 					launchApp(mod_app[2])
 					app_switcher:exit()
 				end)
 			end
 		else
-			app_switcher:bind("", key, function()
+			app_switcher:bind("", tostring(key), function()
 				launchApp(app)
 				app_switcher:exit()
 			end)
