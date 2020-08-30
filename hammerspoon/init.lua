@@ -93,6 +93,11 @@ end
 ext.modals.app_switcher:bind("", "escape", function()
 	ext.modals.app_switcher:exit()
 end)
+-- hyper + a, ? shows list of apps
+ext.modals.app_switcher:bind("shift", "/", function()
+	hs.alert.show(hs.inspect.inspect(application_hyperkeys))
+	ext.modals.app_switcher:exit()
+end)
 function ext.modals.app_switcher:entered()
 	hs.timer.doAfter(10, function()
 		self:exit()
