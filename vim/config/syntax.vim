@@ -70,6 +70,15 @@
   " }}}
   " vim-sandwich {{{
     let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+    " sa<target>b adds Bold:
+    let g:sandwich#recipes += [
+          \{ 
+          \ 'buns': ['**', '**'],
+          \ 'filetype': ['markdown'],
+          \ 'kind': ['add', 'replace'],
+          \ 'input': ['b'],
+          \},
+          \]
     " sa<target>t adds HTML tags:
     let g:sandwich#recipes += [
           \   {
