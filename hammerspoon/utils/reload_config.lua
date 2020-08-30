@@ -1,5 +1,5 @@
 -- luacheck: globals hs _
-function reload_config(files)
+function reload_config(files, watchers)
 	local doReload = false
 	for _, file in pairs(files) do
 		if file:sub(-4) == ".lua" then
@@ -9,7 +9,7 @@ function reload_config(files)
 	end
 	if doReload then
 		-- stop watchers to avoid leaks
-		hs.fnutils.each(_.watchers, function(watcher)
+		hs.fnutils.each(watchers, function(watcher)
 			watcher:stop()
 		end)
 

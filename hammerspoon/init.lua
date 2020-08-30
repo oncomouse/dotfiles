@@ -1,6 +1,6 @@
 --luacheck: globals hs
 -- _ is the universal configuration object:
-_ = {}
+local _ = {}
 --- Modifier keys:
 _.mods = {
 	hyper = { "ctrl", "alt", "cmd", "shift" },
@@ -75,9 +75,10 @@ hs.hotkey.bind(_.mods.hyper, "0", function()
 	hs.reload()
 end)
 -- Auto-reload configuration:
-_.watchers.patchwatcher =
-	hs.pathwatcher.new(
-		os.getenv("HOME") .. "/.hammerspoon/",
-		_.utils.reload_config
-	):start()
+_.watchers.patchwatcher = hs.pathwatcher.new(
+	os.getenv("HOME") .. "/.hammerspoon/",
+	function(files)
+		_.utils.reload_config(files, _.watchers)
+	end
+):start()
 hs.alert.show("Config loaded")
