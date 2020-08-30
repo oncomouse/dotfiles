@@ -3,6 +3,7 @@
 ext = {
 	utils = {},
 	watchers = {},
+	modals = {},
 }
 ext.utils.window_movements = require("utils/window_movements")
 ext.utils.string_literal = require("utils/string_literal")
@@ -11,6 +12,7 @@ ext.utils.reload_config = require("utils/reload_config")
 hyper = { "ctrl", "alt", "cmd", "shift" }
 mash = { "ctrl", "alt", "cmd" }
 mashshift = { "ctrl", "alt", "shift" }
+-- shortmash = {"ctrl", "cmd"}
 
 -- Summon console:
 hs.hotkey.bindSpec({ mash, "space" }, hs.toggleConsole)
@@ -66,14 +68,34 @@ hs.hotkey.bindSpec({ hyper, "m" }, function()
 	hs.urlevent.openURL("https://mail.google.com")
 end)
 -- App Switcher:
+-- hyper + a loads app switch mode, then key triggers app:
 local application_hyperkeys = {
 	k = "Kitty",
-	f = "Firefox",
+	f = { { "", "Firefox" }, { "shift", "Finder" } },
 	v = "VimR",
 }
+ext.modals.app_switcher = hs.hotkey.modal.new(hyper, "a")
 for key, app in pairs(application_hyperkeys) do
-	hs.hotkey.bind(hyper, key, function()
-		hs.application.launchOrFocus(app)
+	if type(app) == "table" then
+		for _k, mod_app in pairs(app) do
+			ext.modals.app_switcher:bind(mod_app[1], key, function()
+				hs.application.launchOrFocus(mod_app[2])
+				ext.modals.app_switcher:exit()
+			end)
+		end
+	else
+		ext.modals.app_switcher:bind("", key, function()
+			hs.application.launchOrFocus(app)
+			ext.modals.app_switcher:exit()
+		end)
+	end
+end
+ext.modals.app_switcher:bind("", "escape", function()
+	ext.modals.app_switcher:exit()
+end)
+function ext.modals.app_switcher:entered()
+	hs.timer.doAfter(10, function()
+		self:exit()
 	end)
 end
 -- Reload configuration:
