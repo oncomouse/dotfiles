@@ -1,3 +1,4 @@
+-- luacheck: globals hs _
 function reload_config(files)
 	local doReload = false
 	for _, file in pairs(files) do
@@ -8,7 +9,7 @@ function reload_config(files)
 	end
 	if doReload then
 		-- stop watchers to avoid leaks
-		hs.fnutils.each(ext.watchers, function(watcher)
+		hs.fnutils.each(_.watchers, function(watcher)
 			watcher:stop()
 		end)
 

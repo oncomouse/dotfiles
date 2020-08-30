@@ -1,32 +1,35 @@
 --luacheck: globals hs
--- Load libraries:
-_ = {
-	utils = {},
-	watchers = {},
-	modals = {},
-	--- Shortcut keys:
-	mods = {
-		hyper = { "ctrl", "alt", "cmd", "shift" },
-		mash = { "ctrl", "alt", "cmd" },
-		mashshift = { "ctrl", "alt", "shift" },
-		-- shortmash = {"ctrl", "cmd"},
-	},
-	hotkeys = {
-		-- hyper + a -> _ to launch:
-		application_quickkeys = {
-			k = "Kitty",
-			f = { { "", "Firefox" }, { "shift", "Finder" } },
-			v = "VimR",
-			z = "Zotero",
-		},
+-- _ is the universal configuration object:
+_ = {}
+--- Modifier keys:
+_.mods = {
+	hyper = { "ctrl", "alt", "cmd", "shift" },
+	mash = { "ctrl", "alt", "cmd" },
+	mashshift = { "ctrl", "alt", "shift" },
+	-- shortmash = {"ctrl", "cmd"},
+}
+-- Groups of hotkeys:
+_.hotkeys = {
+	-- hyper + a -> _ to launch:
+	application_quickkeys = {
+		k = "Kitty",
+		f = { { "", "Firefox" }, { _.mods.hyper, "Finder" } },
+		v = "VimR",
+		z = "Zotero",
 	},
 }
-_.utils.window_movements = require("utils/window_movements")
-_.utils.string_literal = require("utils/string_literal")
-_.utils.reload_config = require("utils/reload_config")
-_.utils.show_spotify_song = require("utils/show_spotify_song")
-_.utils.show_date = require("utils/show_date")
-_.utils.make_app_switcher = require("utils/app_switcher")
+-- Load external libraries:
+_.utils = {
+	window_movements = require("utils/window_movements"),
+	string_literal = require("utils/string_literal"),
+	reload_config = require("utils/reload_config"),
+	show_spotify_song = require("utils/show_spotify_song"),
+	show_date = require("utils/show_date"),
+	make_app_switcher = require("utils/app_switcher"),
+}
+_.watchers = {}
+_.modals = {}
+-- Load libraries:
 
 -- Summon console:
 hs.hotkey.bindSpec({ _.mods.mash, "space" }, hs.toggleConsole)
