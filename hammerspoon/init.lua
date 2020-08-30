@@ -12,8 +12,9 @@ _.mods = {
 _.hotkeys = {
 	-- hyper + a -> _ to launch:
 	application_quickkeys = {
-		k = "Kitty",
 		f = { { "", "Firefox" }, { _.mods.hyper, "Finder" } },
+		m = "Messages",
+		k = "Kitty",
 		v = "VimR",
 		z = "Zotero",
 	},
