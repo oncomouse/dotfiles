@@ -142,7 +142,7 @@ end
 function cat;bat --paging=never $argv;end
 function top;htop $argv;end
 function ls;exa --group-directories-first $argv;end
-function vim;nvim -u ~/dotfiles/vim/vimrc-server $argv;end
+function vim;if command -sq nvim; nvim -u ~/dotfiles/vim/vimrc-server $argv;else; /usr/bin/vim $argv;end; end
 function standard;/usr/local/bin/semistandard $argv | /usr/local/bin/snazzy;end
 
 # Colors:
