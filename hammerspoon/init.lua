@@ -13,8 +13,11 @@ _.hotkeys = {
 	-- hyper + a -> _ to launch:
 	application_quickkeys = {
 		f = { { "", "Firefox" }, { _.mods.hyper, "Finder" } },
-		m = "Messages",
+		m = { { "", "Messages" }, { _.mods.hyper, function()
+			hs.urlevent.openURL("https://mail.google.com")
+		end } }, -- Open Mail with hyper+a, hyper+m
 		k = "Kitty",
+		s = "Spotify",
 		v = "VimR",
 		z = "Zotero",
 	},
@@ -30,9 +33,8 @@ _.utils = {
 }
 _.watchers = {}
 _.modals = {}
--- Load libraries:
 
--- Summon console:
+-- Hammerspoon console:
 hs.hotkey.bindSpec({ _.mods.mash, "space" }, hs.toggleConsole)
 
 -- Window management:
@@ -59,11 +61,8 @@ hs.hotkey.bindSpec(
 )
 -- Spotify controls:
 hs.hotkey.bindSpec({ _.mods.hyper, "space" }, _.utils.show_spotify_song)
-
+-- Show date:
 hs.hotkey.bindSpec({ _.mods.hyper, "d" }, _.utils.show_date)
-hs.hotkey.bindSpec({ _.mods.hyper, "m" }, function()
-	hs.urlevent.openURL("https://mail.google.com")
-end)
 
 _.modals.app_switcher =
 	_.utils.make_app_switcher(
