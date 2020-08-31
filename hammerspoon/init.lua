@@ -16,8 +16,24 @@ _.mods = {
 	mash = { "ctrl", "alt", "cmd" },
 	mashshift = { "ctrl", "alt", "shift" },
 	-- shortmash = {"ctrl", "cmd"},
+	-- ctrl = { "ctrl" },
+	-- cmd = { "cmd" },
+	-- alt = { "alt" },
 }
--- Groups of hotkeys:
+-- Shortcuts:
+_.hot_keys = {
+	-- No modifiers:
+	_ = {},
+	-- Hammerspoon console:
+	mash = { space = hs.toggleConsole },
+	hyper = {
+		-- Show current Spotify song:
+		space = _.utils.show_spotify_song,
+		-- Show date:
+		d = _.utils.show_date,
+	},
+}
+-- Groups of hot_keys:
 _.modal_keys = {
 	hyper = {
 		-- Modal app launcher:
@@ -55,11 +71,16 @@ _.modal_keys = {
 _.watchers = {}
 _.modals = {}
 
--- Hammerspoon console:
-hs.hotkey.bindSpec({ _.mods.mash, "space" }, hs.toggleConsole)
-
 -- Window management:
 hs.window.animationDuration = 0
+
+-- Generate hot keys:
+for mod_key, hot_keys in pairs(_.hot_keys) do
+	local mod = (mod_key == "_" and "" or _.mods[mod_key])
+	for key, func in pairs(hot_keys) do
+		hs.hotkey.bind(mod, key, func)
+	end
+end
 
 -- Generate modals:
 for mod_key, quickkeys in pairs(_.modal_keys) do
@@ -69,15 +90,6 @@ for mod_key, quickkeys in pairs(_.modal_keys) do
 	end
 end
 
--- Spotify controls:
-hs.hotkey.bindSpec({ _.mods.hyper, "space" }, _.utils.show_spotify_song)
--- Show date:
-hs.hotkey.bindSpec({ _.mods.hyper, "d" }, _.utils.show_date)
-
--- Reload configuration:
-hs.hotkey.bind(_.mods.hyper, "0", function()
-	hs.reload()
-end)
 -- Auto-reload configuration:
 _.watchers.patchwatcher = hs.pathwatcher.new(
 	os.getenv("HOME") .. "/.hammerspoon/",
