@@ -85,7 +85,7 @@ endif
   augroup END
 " }}}
 " vim-wiki {{{
-let g:vimwiki_list = [{'path': '~/Seafile/Todo',
+let g:vimwiki_list = [{'path': '~/Seafile/Todo/Wiki',
                       \ 'syntax': 'markdown', 'ext': '.md',
                       \ 'index': 'Wiki'}]
 let g:vimwiki_global_ext = 0
