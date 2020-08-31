@@ -49,8 +49,9 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
         \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
         \ 'html': ['/usr/local/bin/html-languageserver', '--stdio'],
         \ 'scss': ['/usr/local/bin/css-languageserver', '--stdio'],
-        \ 'css': ['/usr/local/bin/css-languageserver', '--stdio''tcp://127.0.0.1:2091'],
-        \ 'json': ['/usr/local/bin/json-languageserver', '--stdio''tcp://127.0.0.1:2091'],
+        \ 'css': ['/usr/local/bin/css-languageserver', '--stdio'],
+        \ 'json': ['/usr/local/bin/json-languageserver', '--stdio'],
+        \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt']
         \}
   "         \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
 
