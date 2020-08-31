@@ -51,8 +51,7 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
         \ 'scss': ['/usr/local/bin/css-languageserver', '--stdio'],
         \ 'css': ['/usr/local/bin/css-languageserver', '--stdio'],
         \ 'json': ['/usr/local/bin/json-languageserver', '--stdio'],
-        \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt']
+        \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt'],
+        \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
         \}
-  "         \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
-
 endfunction
