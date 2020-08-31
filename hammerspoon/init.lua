@@ -21,7 +21,8 @@ _.mods = {
 	-- cmd = { "cmd" },
 	-- alt = { "alt" },
 }
--- Shortcuts:
+-- Hot keys:
+-- Launched using <mod>+<hotkey>
 _.hot_keys = {
 	-- No modifiers:
 	_ = {},
@@ -34,7 +35,9 @@ _.hot_keys = {
 		d = _.utils.show_date,
 	},
 }
--- Groups of hot_keys:
+-- Modal shortcuts:
+-- modals are enter with <mod>+<hotkey>, then trigger by pressing the combo below.
+-- <esc> in a modal cancels the sequence; the sequence also cancels after 10 seconds.
 _.modal_keys = {
 	hyper = {
 		-- Modal app launcher:
