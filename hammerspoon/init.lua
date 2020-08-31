@@ -9,6 +9,7 @@ _.utils = {
 	show_spotify_song = require("utils/show_spotify_song"),
 	show_date = require("utils/show_date"),
 	make_modal = require("utils/make_modal"),
+	bind_generator = require("utils/bind_generator"),
 }
 --- Modifier keys:
 _.mods = {
@@ -70,25 +71,17 @@ _.modal_keys = {
 }
 _.watchers = {}
 _.modals = {}
+_.generators = {
+	hotkeys = _.utils.bind_generator(_.mods, hs.hotkey.bind),
+	modals = _.utils.bind_generator(_.mods, _.utils.make_modal),
+}
 
 -- Window management:
 hs.window.animationDuration = 0
 
--- Generate hot keys:
-for mod_key, hot_keys in pairs(_.hot_keys) do
-	local mod = (mod_key == "_" and "" or _.mods[mod_key])
-	for key, func in pairs(hot_keys) do
-		hs.hotkey.bind(mod, key, func)
-	end
-end
-
--- Generate modals:
-for mod_key, quickkeys in pairs(_.modal_keys) do
-	local mod = _.mods[mod_key]
-	for key, launchers in pairs(quickkeys) do
-		_.utils.make_modal(mod, key, launchers)
-	end
-end
+-- Hook up shortcuts:
+_.generators.hotkeys(_.hot_keys)
+_.generators.modals(_.modal_keys)
 
 -- Auto-reload configuration:
 _.watchers.patchwatcher = hs.pathwatcher.new(
