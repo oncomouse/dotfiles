@@ -13,7 +13,12 @@ if has('mac') && has('nvim')
 endif
 let &runtimepath .= ','.expand('~/dotfiles/vim/')
 let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
-let g:complete_package = 'fzf' " fzf, clap, ale-coc.nvim, coc.nvim, or denite
+" fzf, clap, ale-coc.nvim, coc.nvim, or denite
+if has('gui_vimr')
+  let g:complete_package = 'clap'
+else
+  let g:complete_package = 'fzf'
+end
 call plug#begin('~/.vim/plugged/desktop/')
 runtime bundle/common.vim
 runtime bundle/desktop.vim
