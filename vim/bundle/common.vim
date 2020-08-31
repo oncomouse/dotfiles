@@ -14,6 +14,8 @@ Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
 Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,)
 Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing
 Plug 'machakann/vim-highlightedyank' " Highlights yank
+" Writing:
+Plug 'vimwiki/vimwiki'
 " Tmux:
 Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
 " Git Support:
