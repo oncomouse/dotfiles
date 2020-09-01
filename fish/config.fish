@@ -28,7 +28,7 @@ end
 # Configure FZF:
 if not set -q -U FZF_DEFAULT_COMMAND
   echo "Setting FZF"
-  set -Ux FZF_DEFAULT_COMMAND "rg --files --hidden --follow"
+  set -Ux FZF_DEFAULT_COMMAND "fd -t f --hidden --follow"
   set -Ux FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
   set -Ux FZF_ALT_C_COMMAND "fd --type d --color=always ."
   set -l FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"\
