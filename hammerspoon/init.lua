@@ -73,7 +73,6 @@ _.modal_keys = {
 	},
 }
 _.watchers = {}
-_.modals = {}
 _.generators = {
 	hotkeys = _.utils.bind_generator(_.mods, hs.hotkey.bind),
 	modals = _.utils.bind_generator(_.mods, _.utils.make_modal),
