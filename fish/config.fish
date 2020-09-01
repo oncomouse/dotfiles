@@ -15,28 +15,23 @@
 # function __add-fix-fasd --on-event fisher_add;__patch-fasd;end
 # function __rm-fix-fasd --on-event fisher_rm;__patch-fasd;end
 
-# Universal ignore for ag
-function ag; /usr/bin/env ag --path-to-ignore ~/.ignore --hidden $argv; end
-# SSH to Dreamhost:
-function pilsch.com; ssh eschaton@birkenfeld.dreamhost.com; end
-
 # Vim related aliases:
-if not set -q EDITOR 
+if not set -q -U EDITOR 
   echo "Setting EDITOR"
   if command -sq nvim
-    set -U EDITOR (which nvim)
+    set -Ux EDITOR (which nvim)
   else
-    set -U EDITOR (which vim)
+    set -Ux EDITOR (which vim)
   end
 end
 
 # Configure FZF:
-if not set -q FZF_DEFAULT_COMMAND
+if not set -q -U FZF_DEFAULT_COMMAND
   echo "Setting FZF"
-  set -U FZF_DEFAULT_COMMAND "rg --files --hidden --follow"
-  set -U FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
-  set -U FZF_ALT_C_COMMAND "fd --type d --color=always . $HOME"
-  set -U FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"\
+  set -Ux FZF_DEFAULT_COMMAND "rg --files --hidden --follow"
+  set -Ux FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+  set -Ux FZF_ALT_C_COMMAND "fd --type d --color=always ."
+  set -l FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"\
   " --bind='ctrl-e:execute(nvim {})+abort'"
 
   # Base 16 but our theme:
@@ -65,15 +60,20 @@ if not set -q FZF_DEFAULT_COMMAND
       end
   end
 
-  set -U FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
+  set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
   " --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D"\
   " --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C"\
   " --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
-  set -U FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+  set -Ux FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 end
 
 # Open directories in Finder w/ alt+o
-function choose_dir_with_fzf; set -l file (fd -t d "^\w" ~ | fzf --reverse --height 40%); if test -n $file;else; open $file; end; end
+function choose_dir_with_fzf
+  eval "fd --type d . $HOME | fzf +m $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" | read -l result
+  if [ -n "$result" ]
+    open $result
+  end
+end
 bind \eo choose_dir_with_fzf
 
 # Local paths:
@@ -81,12 +81,12 @@ function add_to_user_paths -a dir
   # Delete $dir if it is present but does not exist:
   if set -l index (contains -i $dir $fish_user_paths)
     if not test -d $dir
-      set --erase -U fish_user_paths[$index]
+      set -e -U fish_user_paths[$index]
     end
   # Add $dir if it is not present but does exist:
   else
     if test -d $dir
-      set -U fish_user_paths $fish_user_paths $dir
+      set -Ux fish_user_paths $fish_user_paths $dir
     end
   end
 end
@@ -130,6 +130,11 @@ end
 if command -sq kitty
   kitty + complete setup fish | source
 end
+
+# Universal ignore for ag
+function ag; /usr/bin/env ag --path-to-ignore ~/.ignore --hidden $argv; end
+# SSH to Dreamhost:
+function pilsch.com; ssh eschaton@birkenfeld.dreamhost.com; end
 
 # Fasd Aliases:
 if command -sq nvim

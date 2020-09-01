@@ -99,6 +99,8 @@ function! dotfiles#autocomplete#fzf#init()
   nnoremap <leader>Y :FZFNeoyank " P<cr>
   vnoremap <leader>y :FZFNeoyankSelection<cr>
   let $FZF_DEFAULT_OPTS .= ' --reverse'
+  " We use fd internally, as it 
+  " let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden'
   if has('nvim')
     let g:fzf_layout = { 'window': 'call FloatingFZF()' }
   endif
