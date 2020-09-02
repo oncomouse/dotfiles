@@ -3,7 +3,7 @@ Plug 'tpope/vim-sensible' " Good settings
 Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
 " General Editing Plugins:
 Plug 'xero/securemodelines' " Secure modelines
-" Plug 'sickill/vim-pasta' " Indentation-forward pasting
+Plug 'sickill/vim-pasta' " Indentation-forward pasting
 Plug 'machakann/vim-sandwich' " Change surrounding chars, sa adds, sd delete, sr replaces
 Plug 'tpope/vim-repeat' " Repeat plugin commands
 Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
