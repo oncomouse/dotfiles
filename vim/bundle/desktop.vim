@@ -12,8 +12,6 @@
   Plug 'oncomouse/vim-fish' " Async vim-fish
   Plug 'elzr/vim-json'
   Plug 'tbastos/vim-lua' " For Lua
-  " Plug 'xolox/vim-lua-ftplugin' " Lua omnifunc
-  Plug 'xolox/vim-misc'  " Required for above
   Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " For Python
 " }}}
 " Text Object Plugins: {{{
@@ -33,8 +31,6 @@
   if g:complete_package ==# 'clap'
     Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
   elseif g:complete_package ==# 'fzf'
-    Plug (isdirectory('/usr/local/opt/fzf') ? '/usr/local/opt/fzf' : '~/.fzf')
-    Plug 'junegunn/fzf.vim'
     Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
   elseif g:complete_package ==# 'denite'
     Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
@@ -54,7 +50,6 @@
     Plug 'Shougo/neco-vim'
     Plug 'ncm2/ncm2-vim'
     Plug 'ncm2/ncm2-bufword'
-    Plug 'ncm2/ncm2-markdown-subscope'
     Plug 'ncm2/ncm2-path'
     Plug 'oncomouse/ncm2-biblatex'
   endif
@@ -65,6 +60,6 @@
   Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a completion source
 " }}}
 " Writing: {{{
-  Plug 'godlygeek/tabular' " :Tabular \| to auto-align tables (also :TableFormat in markdown)
+  Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
   Plug 'reedes/vim-textobj-sentence' " Use as & is for selecting sentences; g) and g( for moving
 " }}}
