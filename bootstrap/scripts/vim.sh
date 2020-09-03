@@ -4,13 +4,13 @@ if [ ! -d "$HOME/.vim/autoload/plug.vim" ]; then
   mkdir -p ~/.vim/autoload
   curl -fLo ~/.vim/autoload/plug.vim \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  vim +PlugInstall +qall
+  eval "$(which vim) +PlugInstall +qall"
   if command -v nvim &> /dev/null; then
-    nvim +PlugInstall +qall
+    eval "$(which nvim) +PlugInstall +qall"
   fi
 else
-  vim +PlugInstall +PlugClean +qall
+  eval "$(which vim) +PlugInstall +PlugClean +qall"
   if command -v nvim &> /dev/null; then
-    nvim +PlugInstall +PlugClean +qall
+    eval "$(which nvim) +PlugInstall +PlugClean +qall"
   fi
 fi
