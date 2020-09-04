@@ -73,9 +73,9 @@ endif
   " Select whole file
   nnoremap <leader>vf ggVG
   " Clear currently highlighted regexp:
-  nnoremap <leader>cr :let<C-u>let @/=""<CR>
+  nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
   " Highlight a block and type "@" to run a macro on the block:
-  xnoremap @ :<C-u>call visualat#ExecuteMacroOverVisualRange()<CR>
+  xnoremap <silent> @ :<C-u>call visualat#ExecuteMacroOverVisualRange()<CR>
 " }}}
 " Autocmds {{{
   augroup dotfile-autocmds
