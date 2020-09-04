@@ -35,6 +35,12 @@ _.hot_keys = {
 		d = _.utils.show_date,
 	},
 }
+-- WHY WON'T THIS WORK:
+-- o = function()
+-- hs.execute(
+-- 	"kitty -o font_size=18 -o remember_window_size=no -o initial_window_width=900 --session=$HOME/dotfiles/kitty/sessions/chooser"
+-- )
+-- end,
 -- Modal shortcuts:
 -- modals are enter with <mod>+<hotkey>, then trigger by pressing the combo below.
 -- <esc> in a modal cancels the sequence; the sequence also cancels after 10 seconds.
