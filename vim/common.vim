@@ -72,11 +72,14 @@ endif
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
   " Select whole file
   nnoremap <leader>vf ggVG
+  " Clear currently highlighted regexp:
+  nnoremap <leader>cr :let<C-u>let @/=""<CR>
   " Highlight a block and type "@" to run a macro on the block:
   xnoremap @ :<C-u>call visualat#ExecuteMacroOverVisualRange()<CR>
 " }}}
 " Autocmds {{{
   augroup dotfile-autocmds
+    autocmd!
     " On opening a file, jump to the last known cursor position (see :h line())
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
