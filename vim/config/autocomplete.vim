@@ -9,5 +9,4 @@ else
   call dotfiles#autocomplete#ncm2#init()
   call dotfiles#autocomplete#LanguageClient#init()
 endif
-nmap <leader>s :Symbols<CR>
 " # vim:foldmethod=marker
