@@ -147,11 +147,22 @@ end
 function cat;bat --paging=never $argv;end
 function top;htop $argv;end
 function ls;exa --group-directories-first $argv;end
+# Vim is Neovim in server mode:
 function vim
   if command -sq nvim
     eval (which nvim) -u ~/dotfiles/vim/vimrc-server $argv
   else
     eval (which vim) $argv
+  end
+end
+# Vi is Neovim or Vim in barebones mode:
+function vi
+  if command -sq nvim
+    eval (which nvim) -u ~/dotfiles/vim/vimrc-minimal $argv
+  else if command -sq vim
+    eval (which vim) -u ~/dotfiles/vim/vimrc-minimal $argv
+  else
+    eval (which vi) $argv
   end
 end
 function standard;/usr/local/bin/semistandard $argv | /usr/local/bin/snazzy;end

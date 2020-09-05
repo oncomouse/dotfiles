@@ -1,8 +1,4 @@
 syntax on
-if &shell =~# 'fish$'
-    set shell=sh " Doing this seems to speed up FZF b/c Fish is a bit slow to start
-    command! Terminal exe "terminal fish"
-endif
 " Basic Vim settings:
 set mouse=a " Mouse support
 if has('clipboard')
@@ -88,6 +84,7 @@ endif
   augroup END
 " }}}
 " vim-wiki {{{
+" vim-wiki is currently disabled:
 let g:vimwiki_list = [{'path': '~/Seafile/Todo/Wiki',
                       \ 'syntax': 'markdown', 'ext': '.md',
                       \ 'index': 'Wiki'}]

@@ -30,8 +30,16 @@ if [ $os == "macos" ]; then
   mkdir -p ~/.config/kitty/
 fi
 ln -s ~/dotfiles/ag/agignore ~/.ignore
-# Always link the minimal server rc file for vim:
+# Always link the server rc file for vim:
 ln -s ~/dotfiles/vim/vimrc-server ~/.vimrc
+# If Neovim is installed, link the correct rc file:
+if command -v nvim &> /dev/null; then
+  if [ -z $SERVER ]; then
+    ln -s ~/dotfiles/vim/vimrc-desktop ~/.config/nvim/init.vim
+  else
+    ln -s ~/dotfiles/vim/vimrc-server ~/.config/nvim/init.vim
+  fi
+fi
 ln -s ~/dotfiles/fish/config.fish ~/.config/fish/
 ln -s ~/dotfiles/fish/fishfile ~/.config/fish/
 ln -sf ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
@@ -42,10 +50,4 @@ ln -s ~/dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local
 if [ $os == "macos" ]; then
   ln -s ~/dotfiles/kitty/kitty.conf ~/.config/kitty/
   ln -s ~/dotfiles/mackup/mackup.cfg ~/.mackup.cfg
-  # Configure VimR:
-  ln -s ~/dotfiles/vim/ginit.vim ~/.config/nvim/ginit.vim
-fi
-if [ -z $SERVER ]; then
-  ln -s ~/dotfiles/vim/vimrc ~/.config/nvim/init.vim
-  ln -s ~/dotfiles/vim/coc-settings.json ~/.config/nvim/
 fi

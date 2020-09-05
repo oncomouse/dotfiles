@@ -11,26 +11,134 @@ if has('mac') && has('nvim')
         \'name': 'pbcopy', 'cache_enabled': 0
         \}
 endif
-let &runtimepath .= ','.expand('~/dotfiles/vim/')
+" Install vim_plug if it is missing:
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  augroup vim_plug
+    autocmd!
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
+  augroup END
+endif
+let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'server')
 let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
 " fzf, clap, ale-coc.nvim, coc.nvim, or denite
 let g:complete_package = 'fzf'
-call plug#begin('~/.vim/plugged/desktop/')
-runtime bundle/common.vim
-runtime bundle/desktop.vim
+call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
+  " Let's Get Started: {{
+    Plug 'tpope/vim-sensible' " Good settings
+    Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
+  " }}
+  " General Editing Plugins: {{{
+    Plug 'xero/securemodelines' " Secure modelines
+    Plug 'sickill/vim-pasta' " Indentation-forward pasting
+    Plug 'machakann/vim-sandwich' " Change surrounding chars, sa adds, sd delete, sr replaces
+    Plug 'tpope/vim-repeat' " Repeat plugin commands
+    Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
+    Plug 'airblade/vim-rooter' " Set project root
+    Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
+    Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,)
+    Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing
+    Plug 'machakann/vim-highlightedyank' " Highlights yank
+  " }}}
+  " Writing: {{{
+    " Plug 'vimwiki/vimwiki'
+  " }}}
+  " Tmux: {{{
+    Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
+  " }}}
+  " Git Support: {{{
+    Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
+  " }}}
+  " List Support: {{{
+    if g:complete_package ==# 'fzf'
+      Plug (isdirectory('/usr/local/opt/fzf') ? '/usr/local/opt/fzf' : '~/.fzf')
+      Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
+    endif
+  " }}}
+  if g:dotfiles_mode ==# 'desktop'
+    " General Editing: {{{
+      Plug 'ncm2/float-preview.nvim' " Floating preview window
+      Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
+      Plug 'alvan/vim-closetag' " Automatically close HTML tags
+      Plug 'Konfekt/FastFold' " Better fold support
+      Plug 'Yggdroot/indentLine' " Indent with characters
+    " }}}
+    " Syntax: {{{
+      Plug 'neoclide/vim-jsx-improve'
+      Plug 'plasticboy/vim-markdown'
+      Plug 'cakebaker/scss-syntax.vim'
+      Plug 'oncomouse/vim-fish' " Async vim-fish
+      Plug 'elzr/vim-json'
+      Plug 'tbastos/vim-lua' " For Lua
+      Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " For Python
+    " }}}
+    " Text Object Plugins: {{{
+      Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
+      Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
+      Plug 'thinca/vim-textobj-function-javascript' " js function support
+      Plug 'haya14busa/vim-textobj-function-syntax' " syntax-based function support
+      Plug 'lucapette/vim-textobj-underscore' " i_, a_ for selecting inside underscores
+      Plug 'coderifous/textobj-word-column.vim' " ic, ac, aC, iC column selections
+    " }}}
+    " Autocomplete: {{{
+      " Need NeoYank for some lists to implement yank history:
+      if g:complete_package ==# 'denite' || g:complete_package ==# 'fzf'
+        Plug 'Shougo/neoyank.vim'
+      endif
+      " Load a list manager:
+      if g:complete_package ==# 'clap'
+        Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+      elseif g:complete_package ==# 'fzf'
+        Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
+      elseif g:complete_package ==# 'denite'
+        Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
+        Plug 'neoclide/denite-extra' " Adds location_list and quickfix_list as denite sources
+      endif
+      " Load LSP + Completion:
+      if g:complete_package =~# 'coc.nvim'
+        Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+      else
+        Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': 'bash install.sh',
+        \ }
+        " ncm2 for completion:
+        Plug 'roxma/nvim-yarp'
+        Plug 'ncm2/ncm2'
+        Plug 'Shougo/neco-vim'
+        Plug 'ncm2/ncm2-vim'
+        Plug 'ncm2/ncm2-bufword'
+        Plug 'ncm2/ncm2-path'
+        Plug 'oncomouse/ncm2-biblatex'
+      endif
+      " ALE for linting:
+      if complete_package !=# 'coc.nvim'
+        Plug 'dense-analysis/ale'
+      endif
+      Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a completion source
+    " }}}
+    " Writing: {{{
+      Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
+      Plug 'reedes/vim-textobj-sentence' " Use as & is for selecting sentences; g) and g( for moving
+    " }}}
+  endif
 call plug#end()
 runtime common.vim
 let configs = [
-  \ 'autocomplete',
-  \ 'folds',
   \ 'fuzzy',
   \ 'git',
   \ 'statusline',
   \ 'syntax',
   \ 'theme',
-  \ 'todo',
-  \ 'writing',
 \]
+if g:dotfiles_mode ==# 'desktop'
+  let configs = configs + [
+    \ 'autocomplete',
+    \ 'folds',
+    \ 'todo',
+    \ 'writing',
+  \]
+endif
 for file in configs
   execute 'runtime config/'.file.'.vim'
 endfor
@@ -40,10 +148,18 @@ function! s:fasd_update() abort
     call jobstart(['fasd', '-A', expand('%:p')])
   endif
 endfunction
-augroup fasd
-  autocmd!
-  if has('nvim')
-    autocmd BufWinEnter,BufFilePost * call s:fasd_update()
-  endif
-augroup END
+if has('nvim')
+  augroup fasd
+    autocmd!
+      autocmd BufWinEnter,BufFilePost * call s:fasd_update()
+  augroup END
+endif
+if dotfiles_mode ==# 'server'
+  let g:nerdfonts=0
+  set nofoldenable " no folding in server mode
+  augroup dotfiles-server-au
+    " Turn on CursorLine Highlighting on Insert:
+    autocmd InsertEnter,InsertLeave * set cul!
+  augroup END
+endif
 " # vim:foldmethod=marker
