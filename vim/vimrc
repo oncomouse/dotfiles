@@ -1,9 +1,9 @@
 if has('mac') && has('nvim')
   " Set Python3 to homebrew's
   let g:loaded_python_provider = 0
+  let g:loaded_node_provider = 1
+  let g:loaded_ruby_provider = 1
   let g:python3_host_prog='/usr/local/bin/python3'
-  let g:ruby_host_prog = '~/.asdf/shims/neovim-ruby-host'
-  let g:node_host_prog='/usr/local/bin/neovim-node-host'
   " This is macOS only, I believe, but it fixes slow start-up for clipboard:
   let g:clipboard = {
         \'copy': {'+': 'pbcopy', '*': 'pbcopy'},
