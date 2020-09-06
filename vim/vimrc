@@ -144,6 +144,10 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
   let g:airline_symbols = get(g:, 'airline_symbols', {})
   let g:airline_symbols.dirty= '…'
   let g:airline_symbols.linenr = ''
+  let g:airline#extensions#ale#show_line_numbers = 0
+  let g:airline#extensions#ale#error_symbol = g:dotfiles_mode ==# 'desktop' ? "\uf05e\u2003" : 'E: ' 
+  let g:airline#extensions#ale#warning_symbol = g:dotfiles_mode ==# 'desktop' ? "\uf071\u2003" : 'W: '
+  let g:airline#extensions#ale#checking_symbol = g:dotfiles_mode ==# 'desktop' ? "\uf110" : '...'
   " }}}
   " Git Support: {{{
     Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit

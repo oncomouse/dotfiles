@@ -61,6 +61,7 @@ let g:airline#themes#tempus_classic#palette = {}
 " airline_x/y/z, respectively.
 
 " The tempus_classic theme:
+let s:kitty_colors = ['#232323','#d2813d','#8c9e3d','#b1942b','#6e9cb0','#b58d88','#6da280','#949d9f','#312e30','#d0913d','#96a42d','#a8a030','#8e9cc0','#d58888','#7aa880','#aeadaf'] 
 let s:airline_a_normal   = [ '#312e30' , '#6e9cb0' , 8  , 4   ]
 let s:airline_b_normal   = [ '#aeadaf' , '#4a4a4b' , 0  , 238 ]
 let s:airline_c_normal   = [ '#949d9f' , '#3a3a3a' , 15 , 237 ]
@@ -147,3 +148,18 @@ let g:airline#themes#tempus_classic#palette.terminal = airline#themes#generate_c
 let g:airline#themes#tempus_classic#palette.accents = {
       \ 'red': [ '#d58888' , '' , 13 , ''  ]
       \ }
+" Customize error and warning highlights:
+let s:tempus_error_warning = {
+      \ 'airline_error': ['#312e30', '#d2813d', 8, 1],
+      \ 'airline_warning': ['#312e30', '#b1942b', 8, 3],
+      \ }
+let g:airline#themes#tempus_classic#palette.normal.airline_warning = s:tempus_error_warning.airline_warning
+let g:airline#themes#tempus_classic#palette.normal.airline_error = s:tempus_error_warning.airline_error
+let g:airline#themes#tempus_classic#palette.insert.airline_warning = s:tempus_error_warning.airline_warning
+let g:airline#themes#tempus_classic#palette.insert.airline_error = s:tempus_error_warning.airline_error
+let g:airline#themes#tempus_classic#palette.commandline.airline_warning = s:tempus_error_warning.airline_warning
+let g:airline#themes#tempus_classic#palette.commandline.airline_error = s:tempus_error_warning.airline_error
+let g:airline#themes#tempus_classic#palette.replace.airline_warning = s:tempus_error_warning.airline_warning
+let g:airline#themes#tempus_classic#palette.replace.airline_error = s:tempus_error_warning.airline_error
+let g:airline#themes#tempus_classic#palette.terminal.airline_warning = s:tempus_error_warning.airline_warning
+let g:airline#themes#tempus_classic#palette.terminal.airline_error = s:tempus_error_warning.airline_error
