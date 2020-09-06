@@ -155,11 +155,17 @@ let s:tempus_error_warning = {
       \ }
 let g:airline#themes#tempus_classic#palette.normal.airline_warning = s:tempus_error_warning.airline_warning
 let g:airline#themes#tempus_classic#palette.normal.airline_error = s:tempus_error_warning.airline_error
+let g:airline#themes#tempus_classic#palette.normal_modified.airline_warning = s:tempus_error_warning.airline_warning
+let g:airline#themes#tempus_classic#palette.normal_modified.airline_error = s:tempus_error_warning.airline_error
 let g:airline#themes#tempus_classic#palette.insert.airline_warning = s:tempus_error_warning.airline_warning
 let g:airline#themes#tempus_classic#palette.insert.airline_error = s:tempus_error_warning.airline_error
+let g:airline#themes#tempus_classic#palette.insert_modified.airline_warning = s:tempus_error_warning.airline_warning
+let g:airline#themes#tempus_classic#palette.insert_modified.airline_error = s:tempus_error_warning.airline_error
 let g:airline#themes#tempus_classic#palette.commandline.airline_warning = s:tempus_error_warning.airline_warning
 let g:airline#themes#tempus_classic#palette.commandline.airline_error = s:tempus_error_warning.airline_error
 let g:airline#themes#tempus_classic#palette.replace.airline_warning = s:tempus_error_warning.airline_warning
 let g:airline#themes#tempus_classic#palette.replace.airline_error = s:tempus_error_warning.airline_error
+let g:airline#themes#tempus_classic#palette.replace_modified.airline_warning = s:tempus_error_warning.airline_warning
+let g:airline#themes#tempus_classic#palette.replace_modified.airline_error = s:tempus_error_warning.airline_error
 let g:airline#themes#tempus_classic#palette.terminal.airline_warning = s:tempus_error_warning.airline_warning
 let g:airline#themes#tempus_classic#palette.terminal.airline_error = s:tempus_error_warning.airline_error
