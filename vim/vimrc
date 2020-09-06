@@ -141,6 +141,7 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
   let g:airline#extensions#whitespace#enabled = 0
   let g:airline#extensions#ale#enabled = 1
   let g:airline_detect_spell = 0
+  let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
   let g:airline_symbols = get(g:, 'airline_symbols', {})
   let g:airline_symbols.dirty= '…'
   let g:airline_symbols.linenr = ''
