@@ -1,3 +1,5 @@
+scriptencoding utf8
+
 if has('mac') && has('nvim')
   let g:python_host_prog='/usr/bin/python2.7'
   let g:python3_host_prog='/usr/local/bin/python3'
@@ -10,6 +12,16 @@ if has('mac') && has('nvim')
         \'name': 'pbcopy', 'cache_enabled': 0
         \}
 endif
+
+" Dotfiles Settings: {{{
+let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'server')
+" fzf, clap, ale-coc.nvim, coc.nvim, or denite
+let g:complete_package = 'fzf'
+" Location of BiBLaTeX repo:
+let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
+" This avoids highlighting big files:
+let g:large_file = 20*1024*1024
+" }}}
 
 " Basic Vim settings:
 set mouse=a " Mouse support
@@ -75,15 +87,6 @@ let &previewheight = 14
 " Link in dotfiles:
 let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
 
-" Dotfiles Settings: {{{
-let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'server')
-" fzf, clap, ale-coc.nvim, coc.nvim, or denite
-let g:complete_package = 'fzf'
-" Location of BiBLaTeX repo:
-let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
-" This avoids highlighting big files:
-let g:large_file = 20*1024*1024
-" }}}
 " Plug-ins: {{{
 " Install vim_plug if it is missing:
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -130,6 +133,16 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
   " }}}
   " Tmux: {{{
     Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
+  " }}}
+  " Statusline: {{{
+  Plug 'vim-airline/vim-airline'
+  let g:airline_powerline_fonts = g:dotfiles_mode ==# 'desktop'
+  let g:airline_skip_empty_sections = 1
+  let g:airline#extensions#whitespace#enabled = 0
+  let g:airline#extensions#ale#enabled = 1
+  let let g:airline_detect_spell = 0
+  let g:airline_symbols = get(g:, 'airline_symbols', {})
+  let g:airline_symbols.dirty= '…'
   " }}}
   " Git Support: {{{
     Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
@@ -232,7 +245,6 @@ call plug#end()
 " }}}
 " Modular Configuration Files: {{{
 let configs = [
-  \ 'statusline',
   \ 'theme',
 \]
 if g:dotfiles_mode ==# 'desktop'
