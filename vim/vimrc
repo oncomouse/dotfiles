@@ -140,9 +140,10 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
   let g:airline_skip_empty_sections = 1
   let g:airline#extensions#whitespace#enabled = 0
   let g:airline#extensions#ale#enabled = 1
-  let let g:airline_detect_spell = 0
+  let g:airline_detect_spell = 0
   let g:airline_symbols = get(g:, 'airline_symbols', {})
   let g:airline_symbols.dirty= '…'
+  let g:airline_symbols.linenr = ''
   " }}}
   " Git Support: {{{
     Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
