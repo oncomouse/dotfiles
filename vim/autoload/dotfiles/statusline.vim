@@ -1,13 +1,6 @@
 " Statusline:
 scriptencoding utf-8
-let g:nerdfonts = get(g:, 'nerdfonts', 1)
-" Linter Status {{{
-  let g:dotfiles#ale#indicator_checking = "\uf110"
-  let g:dotfiles#ale#indicator_warnings = g:nerdfonts ? "\uf071\u2003" : 'W: '
-  let g:dotfiles#ale#indicator_errors = g:nerdfonts ? "\uf05e\u2003" : 'E: '
-  let g:dotfiles#ale#indicator_information = g:nerdfonts ? "\uf7fc\u2003" : 'I: '
-  let g:dotfiles#ale#indicator_ok = g:nerdfonts ? "\uf00c" : 'Ok'
-" }}}
+let g:nerdfonts = g:dotfiles_mode ==# 'desktop'
 " Statusline {{{
   function! Componetize(func,...) abort
     let l:before = get(a:, 1, ' ')
@@ -36,7 +29,7 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
   function! SetupStl(curwin) abort
     return get(extend(w:, { 'lf_active': winnr() ==# a:curwin  }), '', '')
   endfunction
-  function! BuildStatus() abort
+  function! dotfiles#statusline#statusline() abort
     return '%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings')."#
       \%{(w:['lf_active']?'  '.winnr().' ':'')}
       \%1*
@@ -45,11 +38,6 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
       \%2*%{(w:['lf_active'] ? Componetize('gina#component#status#preset(\"fancy\")','\u22EE ') :'')}
       \%0*%=
       \%1*\ %l:%c\ 
-      \%3*%{w:['lf_active'] ? Componetize('dotfiles#ale#warnings()') : ''}
-      \%4*%{w:['lf_active'] ? Componetize('dotfiles#ale#errors()', '  ') : ''}
-      \%5*%{w:['lf_active'] ? Componetize('dotfiles#ale#ok()', '', '  ') : ''}
-      \%5*%{w:['lf_active'] ? Componetize('dotfiles#ale#checking()', '', '  ') : ''}
-      \%#".get(g:lf_stlh, mode(), 'Warnings')."#
       \%{w:['lf_active']
       \?'  '.get(g:lf_stlm,mode(),mode()).' '
       \:''}%*"
@@ -66,7 +54,7 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
     let l:readonly = g:nerdfonts ? ' ' : 'ro'
     return gettabwinvar(a:nr, l:winnr, '&modified') ? l:modified : gettabwinvar(a:nr, l:winnr, '&modifiable') ? '' : l:readonly
   endfunction
-  function! BuildTabLine() abort
+  function! dotfiles#statusline#tabline() abort
     return (tabpagenr('$') == 1 ? '' : join(map(
       \ range(1, tabpagenr('$')),
       \ '(v:val == tabpagenr() ? "%#TabLineSel#" : "%#TabLine#") . "%".v:val."T %{BuildTabLabel(".v:val.",".(v:val == tabpagenr()).")}"'
@@ -74,6 +62,4 @@ let g:nerdfonts = get(g:, 'nerdfonts', 1)
       \ . "%#TabLineFill#%T%=⌘ %<%{&columns < 100 ? fnamemodify(getcwd(), ':t') : getcwd()} " . (tabpagenr('$') > 1 ? '%999X✕ ' : '')
   endfunction
 " }}}
-set statusline=%!BuildStatus()
-set tabline=%!BuildTabLine()
 " # vim:foldmethod=marker|

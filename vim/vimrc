@@ -87,6 +87,11 @@ let &previewheight = 14
 " Link in dotfiles:
 let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
 
+" Show Updates Of Commands
+if has('nvim')
+  set inccommand=split
+endif
+
 " Plug-ins: {{{
 " Install vim_plug if it is missing:
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -97,7 +102,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   augroup END
 endif
 call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
-  " Let's Get Started: {{
+  " Get Started: {{
     Plug 'tpope/vim-sensible' " Good settings
     Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
   " }}
@@ -108,6 +113,21 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
     let g:secure_modelines_modelines = 15
     Plug 'sickill/vim-pasta' " Indentation-forward pasting
     Plug 'machakann/vim-sandwich' " Change surrounding chars, sa adds, sd delete, sr replaces
+    function! s:load_sandwich() abort
+      let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+      " sa<target>b adds Bold:
+      let g:sandwich#recipes += [
+            \{ 
+            \ 'buns': ['**', '**'],
+            \ 'filetype': ['markdown'],
+            \ 'input': ['b'],
+            \},
+            \]
+    endfunction
+    augroup sandwich-startup
+      autocmd!
+      autocmd VimEnter * call s:load_sandwich()
+    augroup END
     Plug 'tpope/vim-repeat' " Repeat plugin commands
     Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
     Plug 'airblade/vim-rooter' " Set project root
@@ -132,37 +152,25 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
     " let g:vimwiki_global_ext = 0
   " }}}
   " Tmux: {{{
-    Plug 'christoomey/vim-tmux-navigator' " Navigate TMUX & Vim panes with the same command
-  " }}}
-  " Statusline: {{{
-  Plug 'vim-airline/vim-airline'
-  " Use powerline symbols if we are in desktop mode:
-  let g:airline_powerline_fonts = g:dotfiles_mode ==# 'desktop'
-  " Skip empty sections:
-  let g:airline_skip_empty_sections = 1
-  " Don't check for whitespace errors:
-  let g:airline#extensions#whitespace#enabled = 0
-  " Don't detect if spelling is enabled:
-  let g:airline_detect_spell = 0
-  " Don't show encoding if it's standard:
-  let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-  let g:airline_symbols = get(g:, 'airline_symbols', {})
-  let g:airline_symbols.dirty= '…'
-  let g:airline_symbols.linenr = ''
-  " ALE:
-  let g:airline#extensions#ale#enabled = 1
-  " Turn off line number of first error:
-  let g:airline#extensions#ale#show_line_numbers = 0
-  " ALE Error Symbols:
-  let g:airline#extensions#ale#error_symbol = g:airline_powerline_fonts ? "\uf05e\u2003" : 'E: ' 
-  let g:airline#extensions#ale#warning_symbol = g:airline_powerline_fonts ? "\uf071\u2003" : 'W: '
-  let g:airline#extensions#ale#checking_symbol = g:airline_powerline_fonts ? "\uf110" : '...'
-  " Disable the differentiation between INSERT and INSERT COMPL:
-  let g:airline_mode_map = {}
-  let g:airline_mode_map['ic'] = 'INSERT'
+    " Navigate TMUX & Vim panes with the same command
+    Plug 'christoomey/vim-tmux-navigator'
   " }}}
   " Git Support: {{{
     Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
+    function! s:load_gina() abort
+      call gina#custom#command#option('status', '--opener', &previewheight . 'split')
+      call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
+      call gina#custom#command#option('diff', '--opener', &previewheight . 'split')
+      call gina#custom#command#option('status', '--group', 'short')
+      call gina#custom#command#option('commit', '--group', 'short')
+      call gina#custom#command#option('diff', '--group', 'short')
+      " Implement vim-fugitive commands in Gina:
+      call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
+    endfunction
+    augroup gina-startup
+      autocmd!
+      autocmd VimEnter * call s:load_gina()
+    augroup END
   " }}}
   " List Support: {{{
     if g:complete_package ==# 'fzf'
@@ -193,6 +201,34 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
       let g:indentLine_setColors = 1
       let g:indentLine_char = "\u22EE"
       let g:indentLine_color_term = 11
+    " }}}
+    " Statusline: {{{
+      Plug 'vim-airline/vim-airline'
+      " Use powerline symbols if we are in desktop mode:
+      let g:airline_powerline_fonts = g:dotfiles_mode ==# 'desktop'
+      " Skip empty sections:
+      let g:airline_skip_empty_sections = 1
+      " Don't check for whitespace errors:
+      let g:airline#extensions#whitespace#enabled = 0
+      " Don't detect if spelling is enabled:
+      let g:airline_detect_spell = 0
+      " Don't show encoding if it's standard:
+      let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+      " No line number symbols:
+      let g:airline_symbols = get(g:, 'airline_symbols', {})
+      let g:airline_symbols.dirty= '…'
+      let g:airline_symbols.linenr = ''
+      " ALE:
+      let g:airline#extensions#ale#enabled = 1
+      " Turn off line number of first error:
+      let g:airline#extensions#ale#show_line_numbers = 0
+      " ALE Error Symbols:
+      let g:airline#extensions#ale#error_symbol = g:airline_powerline_fonts ? "\uf05e\u2003" : 'E: ' 
+      let g:airline#extensions#ale#warning_symbol = g:airline_powerline_fonts ? "\uf071\u2003" : 'W: '
+      let g:airline#extensions#ale#checking_symbol = g:airline_powerline_fonts ? "\uf110" : '...'
+      " Disable the differentiation between INSERT and INSERT COMPL:
+      let g:airline_mode_map = get(g:, 'airline_mod_map', {})
+      let g:airline_mode_map['ic'] = 'INSERT'
     " }}}
     " Syntax: {{{
       Plug 'neoclide/vim-jsx-improve'
@@ -260,25 +296,7 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
   endif
 call plug#end()
 " }}}
-" Modular Configuration Files: {{{
-let configs = [
-  \ 'theme',
-\]
-if g:dotfiles_mode ==# 'desktop'
-  let configs = configs + [
-    \ 'todo',
-    \ 'writing',
-  \]
-endif
-for file in configs
-  execute 'runtime config/'.file.'.vim'
-endfor
-" }}}
-" Yanking:
-if has('nvim')
-  set inccommand=split
-endif
-" Maps & Abbreviations {{{
+" Maps & Abbreviations: {{{
   " Shortcut to view current syntax highlighting group:
   map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -291,7 +309,7 @@ endif
   xnoremap <silent> @ :<C-u>call visualat#ExecuteMacroOverVisualRange()<CR>
   " Update fast folds:
   nmap zuz <Plug>(FastFoldUpdate)
-  " Fuzzy search bindings: {{{
+  " Fuzzy Search Bindings: {{{
     " Every list source we could implement (see g:complete_package) implements
     " these commmands, so I can use CoC or clap and they implement the FZF
     " interface. This unifies the list management:
@@ -308,7 +326,7 @@ endif
     nnoremap <silent> <leader>s :Symbols<CR>
   " }}}
 " }}}
-" Autocmds {{{
+" Autocmds: {{{
   augroup dotfile-autocmds
     autocmd!
     " On opening a file, jump to the last known cursor position (see :h line())
@@ -324,8 +342,83 @@ endif
     autocmd FileType diff setlocal nofoldenable
   augroup END
 " }}}
+" Theme: {{{
+set background=dark
+" Only use termguicolors if in desktop mode:
+if g:dotfiles_mode ==# 'desktop'
+  if exists('+termguicolors')
+    let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+    " nvim-colorizer.lua: {{{
+lua << EOF
+require'colorizer'.setup{
+'*';
+markdown={
+names = false
+};
+text={
+names = false
+}
+}
+EOF
+" }}}
+  endif
+endif
+colorscheme tempus_classic
+" Setup terminal colors:
+call dotfiles#colors#termcolors()
+" Tempus Classic Additions: {{{
+  hi Visual guibg=#8e9cc0 ctermbg=12
+  hi Search guibg=#b1942b guifg=#232323 ctermbg=3 ctermbg=0 gui=NONE cterm=NONE
+  hi gitcommitSummary guifg=#7aa880 ctermfg=7
+  hi gitcommitOverflow cterm=bold gui=bold ctermbg=13 guibg=#d58888 guifg=#232323 ctermfg=0
+  hi HighlightedyankRegion ctermbg=9 guibg=#d0913d ctermfg=0 guifg=#232323
+  hi CocErrorSign guibg=#312e30 guifg=#d2813d ctermfg=1 ctermbg=8
+  hi CocWarningSign guibg=#312e30 guifg=#b1942b ctermfg=3 ctermbg=8
+  hi CocInfoSign guibg=#312e30 guifg=#d2813d ctermfg=3 ctermbg=8
+  hi VisualMode guifg=#312e30 ctermfg=8 guibg=#d0913d ctermbg=9 cterm=bold gui=bold
+  hi InsertMode guifg=#312e30 ctermfg=8 guibg=#8c9e3d ctermbg=2 cterm=bold gui=bold
+  hi ReplaceMode guifg=#312e30 ctermfg=8 guibg=#d58888 ctermbg=13 cterm=bold gui=bold
+  hi CommandMode guifg=#312e30 ctermfg=8 guibg=#C594C5 ctermbg=6 cterm=bold gui=bold
+  hi NormalMode guifg=#312e30 ctermfg=8 guibg=#6e9cb0 ctermbg=4 cterm=bold gui=bold
+  hi StatusLine guifg=#312e30 ctermfg=8 guibg=NONE ctermbg=NONE cterm=NONE gui=NONE
+  hi StatusLineNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+  hi StatusLineTerm guifg=#96a42d ctermfg=10 guibg=#8c9e3d ctermbg=2 cterm=NONE gui=NONE
+  hi StatusLineTermNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+  hi User1 ctermbg=8 guibg=#312e30 cterm=bold gui=bold
+  hi User2 ctermbg=8 guibg=#312e30 cterm=NONE gui=NONE
+  hi User3 guifg=#312e30 ctermfg=8 guibg=#b1942b ctermbg=3 cterm=NONE gui=NONE
+  hi User4 guifg=#312e30 ctermfg=8 guibg=#d2813d ctermbg=1 cterm=NONE gui=NONE
+  hi User5 guifg=#aeadaf ctermfg=15 guibg=#312e30 ctermbg=8 cterm=none gui=none
+  hi User6 guifg=#312e30 ctermfg=8 guibg=#232323 ctermbg=0 cterm=NONE gui=NONE
+  hi SpellBad gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15
+  hi Pmenu gui=none guibg=#312e30 guifg=#aeadaf cterm=none ctermbg=8 ctermfg=15
+  hi MarkdownItalic guifg=#d58888
+  hi link htmlItalic MarkdownItalic
+  hi link htmlBold MarkdownBold
+  " hi link htmlTag Noise
+  " hi link htmlEndTag Noise
+" }}}
+" Semishi Formatting: {{{
+  hi semshiLocal           ctermfg=209 guifg=#ff875f
+  hi semshiGlobal          ctermfg=214 guifg=#d2813d
+  hi semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
+  hi semshiParameter       ctermfg=75  guifg=#6e9cb0
+  hi semshiParameterUnused ctermfg=117 guifg=#8e9cc0 cterm=underline gui=underline
+  hi semshiFree            ctermfg=218 guifg=#b58d88
+  hi semshiBuiltin         ctermfg=207 guifg=#d58888
+  hi semshiAttribute       ctermfg=49  guifg=#6da280
+  hi semshiSelf            ctermfg=249 guifg=#949d9f
+  hi semshiUnresolved      ctermfg=226 guifg=#b1942b cterm=underline gui=underline
+  hi semshiSelected        ctermfg=231 guifg=#232323 ctermbg=161 guibg=#ff875f
 
-" Load autocompletion: {{{
+  hi semshiErrorSign       ctermfg=231 guifg=#aeadaf ctermbg=160 guibg=#d70000
+  hi semshiErrorChar       ctermfg=231 guifg=#aeadaf ctermbg=160 guibg=#d70000
+" }}}
+let g:clap_theme = 'tempus_classic'
+" }}}
+" Load Autocompletion: {{{
 if g:dotfiles_mode ==# 'desktop'
   set completeopt-=preview
   " Debugger:
@@ -348,31 +441,26 @@ if g:dotfiles_mode ==# 'desktop'
   endif
 endif
 " }}}
-" Plug-in Configuration: {{{
-  " vim-sandwich {{{
-    let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
-    " sa<target>b adds Bold:
-    let g:sandwich#recipes += [
-          \{ 
-          \ 'buns': ['**', '**'],
-          \ 'filetype': ['markdown'],
-          \ 'input': ['b'],
-          \},
-          \]
-  " }}}
-  " Gina {{{
-  call gina#custom#command#option('status', '--opener', &previewheight . 'split')
-  call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
-  call gina#custom#command#option('diff', '--opener', &previewheight . 'split')
-  call gina#custom#command#option('status', '--group', 'short')
-  call gina#custom#command#option('commit', '--group', 'short')
-  call gina#custom#command#option('diff', '--group', 'short')
-  " Implement vim-fugitive commands in Gina:
-  call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
-  " }}}
+" Todo Configuration: {{{
+" This is many of the commands from taskpaper.vim but set to load on my
+" todo.txt file and using my done notation. Also, turns off all the
+" formatting.
+augroup todo
+  autocmd!
+  " Mark a task as done:
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>td A X<esc>
+  autocmd BufRead,BufNewFile todo.* vnoremap <buffer> <leader>td A X<esc>
+  " Go To Project
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tg :call dotfiles#todo#GoToProject()<CR>
+  " Search for done tasks:
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>t/ / X$<CR>
+  " Go To Next Project:
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tj :call dotfiles#todo#NextProject()<CR>
+  " Go To Previous Project:
+  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tk :call dotfiles#todo#PrevProject()<CR>
+augroup END
 " }}}
-
-" Update fasd for NeoVim:
+" Update fasd for NeoVim: {{{
 if has('nvim')
   function! s:fasd_update() abort
     if empty(&buftype)
@@ -381,14 +469,19 @@ if has('nvim')
   endfunction
   augroup fasd
     autocmd!
-      autocmd BufWinEnter,BufFilePost * call s:fasd_update()
+    autocmd BufWinEnter,BufFilePost * call s:fasd_update()
   augroup END
 endif
-if dotfiles_mode ==# 'server'
-  let g:nerdfonts=0
-  augroup dotfiles-server-au
-    " Turn on CursorLine Highlighting on Insert:
-    autocmd InsertEnter,InsertLeave * set cul!
-  augroup END
-endif
+" }}}
+" Server only settings: {{{
+  set statusline=%!dotfiles#statusline#statusline()
+  set tabline=%!dotfiles#statusline#tabline()
+  if dotfiles_mode ==# 'server'
+    augroup dotfiles-server-au
+      autocmd!
+      " Turn on CursorLine Highlighting on Insert:
+      autocmd InsertEnter,InsertLeave * set cul!
+    augroup END
+  endif
+" }}}
 " # vim:foldmethod=marker
