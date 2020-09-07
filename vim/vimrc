@@ -1,4 +1,8 @@
 scriptencoding utf8
+" In case this was loaded without a wrapper:
+if !&runtimepath =~# expand('~/dotfiles/vim/')
+  let &runtimepath .= ','.expand('~/dotfiles/vim/')
+endif
 
 if has('mac') && has('nvim')
   let g:python_host_prog='/usr/bin/python2.7'
