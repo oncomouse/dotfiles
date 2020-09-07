@@ -93,8 +93,10 @@ let g:airline#themes#tempus_classic#palette.normal = airline#themes#generate_col
 " Here we define overrides for when the buffer is modified.  This will be
 " applied after g:airline#themes#tempus_classic#palette.normal, hence why only certain keys are
 " declared.
+"       \ 'airline_c': [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
+
 let g:airline#themes#tempus_classic#palette.normal_modified = {
-      \ 'airline_c': [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
+      \ 'airline_c': g:airline#themes#tempus_classic#palette.normal['airline_c']
       \ }
 
 let s:airline_a_insert = [ s:airline_a_normal[0] , '#96a42d' , s:airline_a_normal[2]  , 2  ]
