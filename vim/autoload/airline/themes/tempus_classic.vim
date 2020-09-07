@@ -134,6 +134,7 @@ let g:airline#themes#tempus_classic#palette.commandline = airline#themes#generat
 
 let g:airline#themes#tempus_classic#palette.terminal = airline#themes#generate_color_map(s:airline_a_commandline, s:airline_b_insert, s:airline_c_insert)
 
+
 " Accents are used to give parts within a section a slightly different look or
 " color. Here we are defining a "red" accent, which is used by the 'readonly'
 " part by default. Only the foreground colors are specified, so the background
@@ -148,6 +149,7 @@ let g:airline#themes#tempus_classic#palette.accents = {
 let s:tempus_error_warning = {
       \ 'airline_error': ['#312e30', '#d2813d', 8, 1],
       \ 'airline_warning': ['#312e30', '#b1942b', 8, 3],
+      \ 'airline_term': s:airline_c_normal,
       \ }
 let s:airline_modes = [
       \'normal',
