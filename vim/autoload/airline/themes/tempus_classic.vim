@@ -97,13 +97,11 @@ let g:airline#themes#tempus_classic#palette.normal_modified = {
       \ 'airline_c': [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
       \ }
 
-let s:airline_a_insert = [ '#312e30' , '#96a42d' , 8  , 2  ]
+let s:airline_a_insert = [ s:airline_a_normal[0] , '#96a42d' , s:airline_a_normal[2]  , 2  ]
 let s:airline_b_insert = s:airline_b_normal
 let s:airline_c_insert = s:airline_c_normal
 let g:airline#themes#tempus_classic#palette.insert = airline#themes#generate_color_map(s:airline_a_insert, s:airline_b_insert, s:airline_c_insert)
-let g:airline#themes#tempus_classic#palette.insert_modified = {
-      \ 'airline_c': [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
-      \ }
+let g:airline#themes#tempus_classic#palette.insert_modified = g:airline#themes#tempus_classic#palette.normal_modified
 let g:airline#themes#tempus_classic#palette.insert_paste = {
       \ 'airline_a': [ s:airline_a_insert[0]   , '#d0913d' , s:airline_a_insert[2] , 9     , ''     ] ,
       \ }
@@ -113,25 +111,21 @@ let g:airline#themes#tempus_classic#palette.replace.airline_a = [ s:airline_b_in
 let g:airline#themes#tempus_classic#palette.replace_modified = g:airline#themes#tempus_classic#palette.insert_modified
 
 
-let s:airline_a_visual = [ '#312e30' , '#d2813d' , 8 , 1 ]
+let s:airline_a_visual = [ s:airline_a_normal[0] , '#d2813d' , s:airline_a_normal[2] , 1 ]
 let s:airline_b_visual = s:airline_b_normal
 let s:airline_c_visual = s:airline_c_normal
 let g:airline#themes#tempus_classic#palette.visual = airline#themes#generate_color_map(s:airline_a_visual, s:airline_b_visual, s:airline_c_visual)
-let g:airline#themes#tempus_classic#palette.visual_modified = {
-      \ 'airline_c': [ '#ffffff' , '#5f005f' , 255     , 53      , ''     ] ,
-      \ }
+let g:airline#themes#tempus_classic#palette.visual_modified = g:airline#themes#tempus_classic#palette.normal_modified
 
 let s:airline_a_inactive = [ '#4e4e4e' , '#1c1c1c' , 239 , 234 , '' ]
 let s:airline_b_inactive = [ '#4e4e4e' , '#262626' , 239 , 235 , '' ]
 let s:airline_c_inactive = [ '#4e4e4e' , '#303030' , 239 , 236 , '' ]
 let g:airline#themes#tempus_classic#palette.inactive = airline#themes#generate_color_map(s:airline_a_inactive, s:airline_b_inactive, s:airline_c_inactive)
-let g:airline#themes#tempus_classic#palette.inactive_modified = {
-      \ 'airline_c': [ '#875faf' , '' , 97 , '' , '' ] ,
-      \ }
+let g:airline#themes#tempus_classic#palette.inactive_modified = g:airline#themes#tempus_classic#palette.normal_modified
 
 " For commandline mode, we use the colors from normal mode, except the mode
 " indicator should be colored differently, e.g. light green
-let s:airline_a_commandline = [ '#312e30' , '#C594C5' , 8  , 138  ]
+let s:airline_a_commandline = [ s:airline_a_normal[0] , '#C594C5' , s:airline_a_normal[2]  , 138  ]
 let s:airline_b_commandline = s:airline_b_normal
 let s:airline_c_commandline = s:airline_c_normal
 let g:airline#themes#tempus_classic#palette.commandline = airline#themes#generate_color_map(s:airline_a_commandline, s:airline_b_commandline, s:airline_c_commandline)
@@ -153,19 +147,16 @@ let s:tempus_error_warning = {
       \ 'airline_error': ['#312e30', '#d2813d', 8, 1],
       \ 'airline_warning': ['#312e30', '#b1942b', 8, 3],
       \ }
-let g:airline#themes#tempus_classic#palette.normal.airline_warning = s:tempus_error_warning.airline_warning
-let g:airline#themes#tempus_classic#palette.normal.airline_error = s:tempus_error_warning.airline_error
-let g:airline#themes#tempus_classic#palette.normal_modified.airline_warning = s:tempus_error_warning.airline_warning
-let g:airline#themes#tempus_classic#palette.normal_modified.airline_error = s:tempus_error_warning.airline_error
-let g:airline#themes#tempus_classic#palette.insert.airline_warning = s:tempus_error_warning.airline_warning
-let g:airline#themes#tempus_classic#palette.insert.airline_error = s:tempus_error_warning.airline_error
-let g:airline#themes#tempus_classic#palette.insert_modified.airline_warning = s:tempus_error_warning.airline_warning
-let g:airline#themes#tempus_classic#palette.insert_modified.airline_error = s:tempus_error_warning.airline_error
-let g:airline#themes#tempus_classic#palette.commandline.airline_warning = s:tempus_error_warning.airline_warning
-let g:airline#themes#tempus_classic#palette.commandline.airline_error = s:tempus_error_warning.airline_error
-let g:airline#themes#tempus_classic#palette.replace.airline_warning = s:tempus_error_warning.airline_warning
-let g:airline#themes#tempus_classic#palette.replace.airline_error = s:tempus_error_warning.airline_error
-let g:airline#themes#tempus_classic#palette.replace_modified.airline_warning = s:tempus_error_warning.airline_warning
-let g:airline#themes#tempus_classic#palette.replace_modified.airline_error = s:tempus_error_warning.airline_error
-let g:airline#themes#tempus_classic#palette.terminal.airline_warning = s:tempus_error_warning.airline_warning
-let g:airline#themes#tempus_classic#palette.terminal.airline_error = s:tempus_error_warning.airline_error
+let s:airline_modes = [
+      \'normal',
+      \'normal_modified',
+      \'insert',
+      \'insert_modified',
+      \'replace',
+      \'replace_modified',
+      \'commandline',
+      \'terminal'
+      \]
+for m in s:airline_modes
+  call extend(g:airline#themes#tempus_classic#palette[m], s:tempus_error_warning)
+endfor
