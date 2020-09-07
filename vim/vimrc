@@ -110,7 +110,7 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
     Plug 'tpope/vim-sensible' " Good settings
     Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
   " }}
-  " General Editing Plugins: {{{
+  " General Editing: {{{
     Plug 'xero/securemodelines' " Secure modelines
     set nomodeline
     let g:secure_modelines_verbose = 0
@@ -425,15 +425,14 @@ let g:clap_theme = 'tempus_classic'
 " Load Autocompletion: {{{
 if g:dotfiles_mode ==# 'desktop'
   set completeopt-=preview
-  " Debugger:
+  " Linter:
   if g:complete_package !=# 'coc.nvim'
     call dotfiles#autocomplete#ale#init()
   endif
   " List Management:
   call dotfiles#autocomplete#{substitute(g:complete_package, '[.-]', '_', 'g')}#init()
-  " Language server and autocompletion:
-  if g:complete_package =~# 'coc.nvim'
-  else
+  " Language Server And Autocompletion:
+  if !(g:complete_package =~# 'coc.nvim')
     call dotfiles#autocomplete#ncm2#init()
     call dotfiles#autocomplete#LanguageClient#init()
   endif
