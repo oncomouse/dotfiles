@@ -223,6 +223,7 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
       let g:airline_symbols = get(g:, 'airline_symbols', {})
       let g:airline_symbols.dirty= '…'
       let g:airline_symbols.linenr = ''
+      let g:airline_symbols.maxlinenr = ''
       " ALE:
       let g:airline#extensions#ale#enabled = (complete_package !=# 'coc.nvim')
       " Turn off line number of first error:
@@ -234,6 +235,10 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
       " Disable the differentiation between INSERT and INSERT COMPL:
       let g:airline_mode_map = get(g:, 'airline_mod_map', {})
       let g:airline_mode_map['ic'] = 'INSERT'
+      augroup start_airline
+        autocmd!
+        autocmd VimEnter * call dotfiles#airline#init()
+      augroup END
     " }}}
     " Syntax: {{{
       Plug 'neoclide/vim-jsx-improve'
