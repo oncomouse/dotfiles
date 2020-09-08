@@ -3,120 +3,120 @@ scriptencoding utf8
 if !(&runtimepath =~# expand('~/dotfiles/vim/').',')
   let &runtimepath .= ','.expand('~/dotfiles/vim/')
 endif
-
-if has('mac') && has('nvim')
-  let g:python_host_prog='/usr/bin/python2.7'
-  let g:python3_host_prog='/usr/local/bin/python3'
-  let g:ruby_host_prog=expand('~/.asdf/shims/neovim-ruby-host')
-  let g:node_host_prog='/usr/local/lib/node_modules/neovim/bin/cli.js'
-  " This is macOS only, I believe, but it fixes slow start-up for clipboard:
-  let g:clipboard = {
-        \'copy': {'+': 'pbcopy', '*': 'pbcopy'},
-        \'paste': {'+': 'pbpaste', '*': 'pbpaste'},
-        \'name': 'pbcopy', 'cache_enabled': 0
-        \}
-endif
-
-" Dotfiles Settings: {{{
-let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
-" fzf, clap, ale-coc.nvim, coc.nvim, or denite
-let g:complete_package = 'fzf'
-" Location of BiBLaTeX repo:
-let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
-" This avoids highlighting big files:
-let g:large_file = 20*1024*1024
-" }}}
-
-" Basic Vim settings:
-set mouse=a " Mouse support
-if has('clipboard')
-  if has('unnamedplus')
-    set clipboard=unnamedplus,unnamed
-  else
-    set clipboard=unnamed
+" Mac NeoVim Settings: {{{
+  if has('mac') && has('nvim')
+    let g:python_host_prog='/usr/bin/python2.7'
+    let g:python3_host_prog='/usr/local/bin/python3'
+    let g:ruby_host_prog=expand('~/.asdf/shims/neovim-ruby-host')
+    let g:node_host_prog='/usr/local/lib/node_modules/neovim/bin/cli.js'
+    " This is macOS only, I believe, but it fixes slow start-up for clipboard:
+    let g:clipboard = {
+          \'copy': {'+': 'pbcopy', '*': 'pbcopy'},
+          \'paste': {'+': 'pbpaste', '*': 'pbpaste'},
+          \'name': 'pbcopy', 'cache_enabled': 0
+          \}
   endif
-endif
-set visualbell t_vb= " Disable visual bell
-set autowrite " Autosave files
-set hidden " turn off buffer saving when switching
-set lazyredraw " Don't redraw between macro runs (may make terminal flicker)
-
-" Set default tabs:
-set tabstop=8
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-" Override default tabs: {{{
-  augroup my-tabstops
-    autocmd!
-    " Go, Lua
-    autocmd FileType markdown,go,lua setlocal tabstop=4
-    autocmd FileType markdown,go,lua setlocal shiftwidth=4
-    autocmd FileType markdown,go,lua setlocal noexpandtab
-    " JavaScript
-    autocmd FileType javascript,javascriptreact setlocal tabstop=2
-    autocmd FileType javascript,javascriptreact setlocal shiftwidth=2
-    autocmd FileType javascript,javascriptreact setlocal softtabstop=2
-    autocmd FileType javascript,javascriptreact setlocal expandtab
-  augroup END
 " }}}
+" Dotfiles Settings: {{{
+  let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
+  " fzf, clap, ale-coc.nvim, coc.nvim, or denite
+  let g:complete_package = 'fzf'
+  " Location of BiBLaTeX repo:
+  let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
+  " This avoids highlighting big files:
+  let g:large_file = 20*1024*1024
+" }}}
+" Basic Vim Settings: {{{
+  set mouse=a " Mouse support
+  if has('clipboard')
+    if has('unnamedplus')
+      set clipboard=unnamedplus,unnamed
+    else
+      set clipboard=unnamed
+    endif
+  endif
+  set visualbell t_vb= " Disable visual bell
+  set autowrite " Autosave files
+  set hidden " turn off buffer saving when switching
+  set lazyredraw " Don't redraw between macro runs (may make terminal flicker)
 
-" Set fold defaults:
-if has('nvim-0.5')
-  set foldmethod=expr
-  set foldexpr=nvim_treesitter#foldexpr()
-else
-  if g:dotfiles_mode ==# 'server'
-    set nofoldenable " no folding in server mode
-  else
-    set foldmethod=syntax
-    set foldlevel=99
-    augroup custom-folds
+  " Override Default Split Creation Locations:
+  set splitbelow
+  set splitright
+
+  " Set Leader:
+  let mapleader = "\<Space>"
+
+  " Line Numbering:
+  set number relativenumber
+  " Turn off line numbering in NeoVim terminal:
+  if has('nvim')
+    augroup line-numbers
       autocmd!
-      autocmd FileType vim setlocal foldmethod=marker foldlevel=0
-      autocmd FileType css setlocal foldmethod=manual
-      autocmd FileType diff setlocal nofoldenable
+        autocmd TermOpen * setlocal nonumber norelativenumber
     augroup END
   endif
-endif
 
-" Override default split creation locations:
-set splitbelow
-set splitright
+  " Height Of The Preview Window:
+  let &previewheight = 14
 
-" Set <leader>:
-let mapleader = "\<Space>"
+  " Link In Dotfiles:
+  let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
 
-" Line Numbering:
-set number relativenumber
-if has('nvim')
-  augroup line-numbers
-    autocmd!
-      autocmd TermOpen * setlocal nonumber norelativenumber
-  augroup END
-endif
-
-" Height of the preview window, in lines:
-let &previewheight = 14
-
-" Link in dotfiles:
-let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
-
-" Show Updates Of Commands
-if has('nvim')
-  set inccommand=split
-endif
-
-" Plug-ins: {{{
-" Install vim_plug if it is missing:
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  augroup vim_plug
-    autocmd!
-    autocmd VimEnter * PlugInstall | source $MYVIMRC
-  augroup END
-endif
-call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
+  " Show Updates Of Commands:
+  if has('nvim')
+    set inccommand=split
+  endif
+" }}}
+" Tabs: {{{
+  set tabstop=8
+  set shiftwidth=2
+  set softtabstop=2
+  set expandtab
+  " Override Defaults: {{{
+    augroup my-tabstops
+      autocmd!
+      " Go, Lua
+      autocmd FileType markdown,go,lua setlocal tabstop=4
+      autocmd FileType markdown,go,lua setlocal shiftwidth=4
+      autocmd FileType markdown,go,lua setlocal noexpandtab
+      " JavaScript
+      autocmd FileType javascript,javascriptreact setlocal tabstop=2
+      autocmd FileType javascript,javascriptreact setlocal shiftwidth=2
+      autocmd FileType javascript,javascriptreact setlocal softtabstop=2
+      autocmd FileType javascript,javascriptreact setlocal expandtab
+    augroup END
+  " }}}
+" }}}
+" Folds: {{{
+  if has('nvim-0.5')
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
+  else
+    if g:dotfiles_mode ==# 'server'
+      set nofoldenable " no folding in server mode
+    else
+      set foldmethod=syntax
+      set foldlevel=99
+      augroup custom-folds
+        autocmd!
+        autocmd FileType vim setlocal foldmethod=marker foldlevel=0
+        autocmd FileType css setlocal foldmethod=manual
+        autocmd FileType diff setlocal nofoldenable
+      augroup END
+    endif
+  endif
+" }}}
+" Plugins: {{{
+  " Install vim_plug if it is missing:
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    augroup vim_plug
+      autocmd!
+      autocmd VimEnter * PlugInstall | source $MYVIMRC
+    augroup END
+  endif
+  call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
   " NeoVim 0.5 stuff: {{{
     if has('nvim-0.5')
       Plug 'nvim-treesitter/nvim-treesitter'
@@ -337,7 +337,7 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
   endif
 call plug#end()
 " }}}
-" Maps & Abbreviations: {{{
+" Maps: {{{
   " Shortcut to view current syntax highlighting group:
   map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -350,10 +350,10 @@ call plug#end()
   xnoremap <silent> @ :<C-u>call visualat#ExecuteMacroOverVisualRange()<CR>
   " Update fast folds:
   nmap zuz <Plug>(FastFoldUpdate)
-  " Fuzzy Search Bindings: {{{
+  " Standard Fuzzy Bindings: {{{
     " Every list source we could implement (see g:complete_package) implements
     " these commmands, so I can use CoC or clap and they implement the FZF
-    " interface. This unifies the list management:
+    " interface. This unifies fuzzy list management:
     nnoremap <silent> <c-p> :Files<CR>
     nnoremap <silent> <leader>F :Files ~<CR>
     nnoremap <silent> <leader>q :QuickfixList<CR>
@@ -366,16 +366,37 @@ call plug#end()
     nnoremap <silent> <leader>y :Yanks<CR>
     nnoremap <silent> <leader>s :Symbols<CR>
   " }}}
-" }}}
-" Autocmds: {{{
-  augroup dotfile-autocmds
-    autocmd!
-    " On opening a file, jump to the last known cursor position (see :h line())
-    autocmd BufReadPost *
-          \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
-          \   exe "normal! g`\"" |
-          \ endif 
-  augroup END
+  " Standard LSP Bindings: {{{
+    if (g:dotfiles_mode ==# 'desktop')
+      nmap <silent> <F2> <Plug>(dotfiles-rename)
+      nmap <silent> <F5> <Plug>(dotfiles-commands)
+      nmap <silent> gd   <Plug>(dotfiles-definition)
+      nmap <silent> gy   <Plug>(dotfiles-type-definition)
+      nmap <silent> gi   <Plug>(dotfiles-implementation)
+      nmap <silent> gr   <Plug>(dotfiles-references)
+      nmap <silent> K    <Plug>(dotfiles-documentation)
+      nmap <silent> [d   <Plug>(dotfiles-diagnostic-previous)
+      nmap <silent> ]d   <Plug>(dotfiles-diagnostic-next)
+    endif
+  " }}}
+  " Todo Configuration: {{{
+    " This is many of the commands from taskpaper.vim but set to load on my
+    " todo.txt file and using my done notation:
+    augroup todo
+      autocmd!
+      " Mark a task as done:
+      autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>td A X<esc>
+      autocmd BufRead,BufNewFile todo.* vnoremap <buffer> <leader>td A X<esc>
+      " Go To Project
+      autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tg :call dotfiles#todo#GoToProject()<CR>
+      " Search for done tasks:
+      autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>t/ / X$<CR>
+      " Go To Next Project:
+      autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tj :call dotfiles#todo#NextProject()<CR>
+      " Go To Previous Project:
+      autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tk :call dotfiles#todo#PrevProject()<CR>
+    augroup END
+  " }}}
 " }}}
 " Theme: {{{
 set background=dark
@@ -466,54 +487,35 @@ call dotfiles#colors#termcolors()
 " }}}
 let g:clap_theme = 'tempus_classic'
 " }}}
-" Load Autocompletion: {{{
-call dotfiles#autocomplete()
-" Standard Completion bindings:
-if (g:dotfiles_mode ==# 'desktop')
-  nmap <silent> <F2> <Plug>(dotfiles-rename)
-  nmap <silent> <F5> <Plug>(dotfiles-commands)
-  nmap <silent> gd   <Plug>(dotfiles-definition)
-  nmap <silent> gy   <Plug>(dotfiles-type-definition)
-  nmap <silent> gi   <Plug>(dotfiles-implementation)
-  nmap <silent> gr   <Plug>(dotfiles-references)
-  nmap <silent> K    <Plug>(dotfiles-documentation)
-  nmap <silent> [d   <Plug>(dotfiles-diagnostic-previous)
-  nmap <silent> ]d   <Plug>(dotfiles-diagnostic-next)
-endif
+" Other Settings: {{{
+  " Jump To Last Position: {{{
+    augroup dotfile-autocmds
+      autocmd!
+      " On opening a file, jump to the last known cursor position (see :h line())
+      autocmd BufReadPost *
+            \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
+            \   exe "normal! g`\"" |
+            \ endif 
+    augroup END
+  " }}}
+  " Load Autocompletion: {{{
+  call dotfiles#autocomplete()
+  " }}}
+  " Update FASD For NeoVim: {{{
+  if has('nvim')
+    function! s:fasd_update() abort
+      if empty(&buftype)
+        call jobstart(['fasd', '-A', expand('%:p')])
+      endif
+    endfunction
+    augroup fasd
+      autocmd!
+      autocmd BufWinEnter,BufFilePost * call s:fasd_update()
+    augroup END
+  endif
+  " }}}
 " }}}
-" Todo Configuration: {{{
-" This is many of the commands from taskpaper.vim but set to load on my
-" todo.txt file and using my done notation. Also, turns off all the
-" formatting.
-augroup todo
-  autocmd!
-  " Mark a task as done:
-  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>td A X<esc>
-  autocmd BufRead,BufNewFile todo.* vnoremap <buffer> <leader>td A X<esc>
-  " Go To Project
-  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tg :call dotfiles#todo#GoToProject()<CR>
-  " Search for done tasks:
-  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>t/ / X$<CR>
-  " Go To Next Project:
-  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tj :call dotfiles#todo#NextProject()<CR>
-  " Go To Previous Project:
-  autocmd BufRead,BufNewFile todo.* nnoremap <buffer> <leader>tk :call dotfiles#todo#PrevProject()<CR>
-augroup END
-" }}}
-" Update fasd for NeoVim: {{{
-if has('nvim')
-  function! s:fasd_update() abort
-    if empty(&buftype)
-      call jobstart(['fasd', '-A', expand('%:p')])
-    endif
-  endfunction
-  augroup fasd
-    autocmd!
-    autocmd BufWinEnter,BufFilePost * call s:fasd_update()
-  augroup END
-endif
-" }}}
-" Server only settings: {{{
+" Server Only Settings: {{{
   set statusline=%!dotfiles#statusline#statusline()
   set tabline=%!dotfiles#statusline#tabline()
   if dotfiles_mode ==# 'server'
