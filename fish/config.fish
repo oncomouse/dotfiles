@@ -129,6 +129,8 @@ if status is-interactive
     end
   end
 
+  function nvim5;$HOME/.local/bin/nvim-osx64/bin/nvim $argv;end
+
   # Load the asdf wrapper function
   source $ASDF_DIR/lib/asdf.fish
 

@@ -62,11 +62,22 @@ set expandtab
 " }}}
 
 " Set fold defaults:
-if g:dotfiles_mode ==# 'server'
-  set nofoldenable " no folding in server mode
+if has('nvim-0.5')
+  set foldmethod=expr
+  set foldexpr=nvim_treesitter#foldexpr()
 else
-  set foldmethod=syntax
-  set foldlevel=99
+  if g:dotfiles_mode ==# 'server'
+    set nofoldenable " no folding in server mode
+  else
+    set foldmethod=syntax
+    set foldlevel=99
+    augroup custom-folds
+      autocmd!
+      autocmd FileType vim setlocal foldmethod=marker foldlevel=0
+      autocmd FileType css setlocal foldmethod=manual
+      autocmd FileType diff setlocal nofoldenable
+    augroup END
+  endif
 endif
 
 " Override default split creation locations:
@@ -106,6 +117,11 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   augroup END
 endif
 call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
+  " NeoVim 0.5 stuff: {{{
+    if has('nvim-0.5')
+      Plug 'nvim-treesitter/nvim-treesitter'
+    end
+  " }}}
   " Get Started: {{{
     Plug 'tpope/vim-sensible' " Good settings
     Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
@@ -358,12 +374,6 @@ call plug#end()
           \   exe "normal! g`\"" |
           \ endif 
   augroup END
-  augroup custom-folds
-    autocmd!
-    autocmd FileType vim setlocal foldmethod=marker foldlevel=0
-    autocmd FileType css setlocal foldmethod=manual
-    autocmd FileType diff setlocal nofoldenable
-  augroup END
 " }}}
 " Theme: {{{
 set background=dark
@@ -387,6 +397,16 @@ names = false
 EOF
 " }}}
   endif
+endif
+if has('nvim-0.5')
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "javascript", "python", "lua", "markdown", "yaml", "css", "javascript" },     -- one of "all", "language", or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+  },
+}
+EOF
 endif
 colorscheme tempus_classic
 " Setup terminal colors:
