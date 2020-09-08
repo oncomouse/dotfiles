@@ -21,25 +21,15 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
     endfunction
     let g:LanguageClient_selectionUI = function('MySelectionUI')
   endif
+  " Standard commands (bindings are in vimrc)
+  command! Rename call LanguageClient#textDocument_rename()
+  command! Definition call LanguageClient#textDocument_definition()
+  command! TypeDefinition call LanguageClient#textDocument_typeDefinition()
+  command! Implementation call LanguageClient#textDocument_implementation()
+  command! References call LanguageClient#textDocument_references()
+  command! Documentation call <SID>show_documentation()<CR>
+  command! Commands call LanguageClient_contextMenu()
 
-  " Only load LSP commands if we are in a buffer where they exist:
-  function! LC_maps() abort
-    if has_key(g:LanguageClient_serverCommands, &filetype)
-      nmap <silent> <F2> <Plug>(lcn-rename)
-      nmap <F5> <Plug>(lcn-menu)
-      nmap <silent> gd <Plug>(lcn-definition)
-      nmap <silent> gy <Plug>(lcn-type-definition)
-      nmap <silent> gi <Plug>(lcn-implementation)
-      nmap <silent> gr <Plug>(lnc-references)
-      nmap <silent> K :<C-u>call <SID>show_documentation()<CR>
-      command! Symbols call LanguageClient#textDocument_documentSymbol()
-    endif
-  endfunction
-  augroup lc_maps
-    autocmd!
-    autocmd FileType * call LC_maps()
-  augroup END
-  " Turn off diagnostics in solargraph and just run rubocop through ALE:
   let g:LanguageClient_serverCommands = {
         \ 'javascript': ['/usr/local/bin/typescript-language-server', '--stdio'],
         \ 'javascriptreact': ['/usr/local/bin/typescript-language-server', '--stdio'],

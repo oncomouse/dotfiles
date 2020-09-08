@@ -202,7 +202,9 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
   if g:dotfiles_mode ==# 'desktop'
     " General Editing: {{{
       Plug 'ncm2/float-preview.nvim' " Floating preview window
-      Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
+      if has('nvim')
+        Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
+      endif
       Plug 'alvan/vim-closetag' " Automatically close HTML tags
       let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.js,*.erb'
       let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
@@ -384,26 +386,29 @@ if g:dotfiles_mode ==# 'desktop'
     let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
     " nvim-colorizer.lua: {{{
+    if has('nvim')
 lua << EOF
 require'colorizer'.setup{
-'*';
-markdown={
-names = false
-};
-text={
-names = false
-}
+  '*';
+  markdown={
+    names = false
+  };
+  text={
+    names = false
+  }
 }
 EOF
+    endif
 " }}}
   endif
 endif
 if has('nvim-0.5')
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "javascript", "python", "lua", "markdown", "yaml", "css", "javascript" },     -- one of "all", "language", or a list of languages
+  -- one of "all", "language", or a list of languages
+  ensure_installed = { "javascript", "python", "lua", "markdown", "yaml", "css", "javascript", "html" },
   highlight = {
-    enable = true,              -- false will disable the whole extension
+    enable = true,
   },
 }
 EOF
@@ -463,6 +468,17 @@ let g:clap_theme = 'tempus_classic'
 " }}}
 " Load Autocompletion: {{{
 call dotfiles#autocomplete()
+if (g:dotfiles_mode ==# 'desktop')
+  nmap <silent><nowait> <F2> :<C-u>Rename<CR>
+  nmap <silent> <F5> :<C-u>Commands<CR>
+  nmap <silent> gd :<C-u>Definition<CR>
+  nmap <silent> gy :<C-u>TypeDefinition<CR>
+  nmap <silent> gi :<C-u>Implementation<CR>
+  nmap <silent> gr :<C-u>References<CR>
+  nmap <silent> K :<C-u>Documentation<CR>
+  nmap <silent> [d :<C-u>PreviousDiagnostic<CR>
+  nmap <silent> ]d :<C-u>NextDiagnostic<CR>
+endif
 " }}}
 " Todo Configuration: {{{
 " This is many of the commands from taskpaper.vim but set to load on my

@@ -22,8 +22,8 @@ function! dotfiles#autocomplete#coc_nvim#init() abort
   \]
 " }}}
 " Coc Diagnostic shortcuts: {{{
-  nmap <silent> ]d <Plug>(coc-diagnostic-next)
-  nmap <silent> [d <Plug>(coc-diagnostic-prev)
+  command! NextDiagnostic call CocActionAsync('diagnosticNext')
+  command! PreviousDiagnostic call CocActionAsync('diagnosticPrevious')
 " }}}
   call dotfiles#autocomplete#coc_nvim#configuration()
   call dotfiles#autocomplete#coc_nvim#keyboard()
@@ -62,14 +62,16 @@ function! dotfiles#autocomplete#coc_nvim#keyboard() abort
       call CocAction('doHover')
     endif
   endfunction
+  command! Rename call CocActionAsync('rename')
+  command! Definition call CocActionAsync('jumpDefinition')
+  command! TypeDefinition call CocActionAsync('jumpTypeDefinition')
+  command! Implementation call CocActionAsync('jumpImplementation')
+  command! References call call CocActionAsync('jumpReferences')
+  command! Documentation call <SID>show_documentation()<CR>
+  command! Commands exe ':CocList commands'
+  " command! LSC_Symbols exe ':CocList symbols'
   imap <expr><TAB> pumvisible() ? "\<C-n>" : "<TAB>"
   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-  nmap <silent> <F2> <Plug>(coc-rename)
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
   " append result on current expression
   nmap <Leader>ca <Plug>(coc-calc-result-append)
   " replace result on current expression
