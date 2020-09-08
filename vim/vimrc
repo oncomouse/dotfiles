@@ -60,7 +60,7 @@ endif
   " Height Of The Preview Window:
   let &previewheight = 14
 
-  " Link In Dotfiles:
+  " Add Dotfiles After To RTP:
   let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
 
   " Show Updates Of Commands:
@@ -117,14 +117,14 @@ endif
     augroup END
   endif
   call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
+  " Get Started: {{{
+    Plug 'tpope/vim-sensible' " Good settings
+    Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
+  " }}}
   " NeoVim 0.5 stuff: {{{
     if has('nvim-0.5')
       Plug 'nvim-treesitter/nvim-treesitter'
     end
-  " }}}
-  " Get Started: {{{
-    Plug 'tpope/vim-sensible' " Good settings
-    Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
   " }}}
   " General Editing: {{{
     Plug 'xero/securemodelines' " Secure modelines
@@ -201,8 +201,8 @@ endif
   " }}}
   if g:dotfiles_mode ==# 'desktop'
     " General Editing: {{{
-      Plug 'ncm2/float-preview.nvim' " Floating preview window
       if has('nvim')
+        Plug 'ncm2/float-preview.nvim' " Floating preview window
         Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
       endif
       Plug 'alvan/vim-closetag' " Automatically close HTML tags
