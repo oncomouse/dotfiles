@@ -22,13 +22,14 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
     let g:LanguageClient_selectionUI = function('MySelectionUI')
   endif
   " Standard commands (bindings are in vimrc)
-  command! Rename call LanguageClient#textDocument_rename()
-  command! Definition call LanguageClient#textDocument_definition()
-  command! TypeDefinition call LanguageClient#textDocument_typeDefinition()
-  command! Implementation call LanguageClient#textDocument_implementation()
-  command! References call LanguageClient#textDocument_references()
-  command! Documentation call <SID>show_documentation()<CR>
-  command! Commands call LanguageClient_contextMenu()
+  nmap <Plug>(dotfiles-rename) <Plug>(lcn-rename)
+  nmap <Plug>(dotfiles-commands) <Plug>(lcn-menu)
+  nmap <Plug>(dotfiles-definition) <Plug>(lcn-definition)
+  nmap <Plug>(dotfiles-type-definition) <Plug>(lcn-type-definition)
+  nmap <Plug>(dotfiles-implementation) <Plug>(lcn-implementation)
+  nmap <Plug>(dotfiles-references) <Plug>(lnc-references)
+  nmap <Plug>(dotfiles-documentation) :<C-u>call <SID>show_documentation()<CR>
+  command! Symbols call LanguageClient#textDocument_documentSymbol()
 
   let g:LanguageClient_serverCommands = {
         \ 'javascript': ['/usr/local/bin/typescript-language-server', '--stdio'],

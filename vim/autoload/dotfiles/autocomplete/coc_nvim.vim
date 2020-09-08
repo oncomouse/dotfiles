@@ -22,8 +22,8 @@ function! dotfiles#autocomplete#coc_nvim#init() abort
   \]
 " }}}
 " Coc Diagnostic shortcuts: {{{
-  command! NextDiagnostic call CocActionAsync('diagnosticNext')
-  command! PreviousDiagnostic call CocActionAsync('diagnosticPrevious')
+  nmap <Plug>(dotfiles-diagnostic-next) <Plug>(coc-diagnostic-next)
+  nmap <Plug>(dotfiles-diagnostic-previous) <Plug>(coc-diagnostic-previous)
 " }}}
   call dotfiles#autocomplete#coc_nvim#configuration()
   call dotfiles#autocomplete#coc_nvim#keyboard()
@@ -62,14 +62,13 @@ function! dotfiles#autocomplete#coc_nvim#keyboard() abort
       call CocAction('doHover')
     endif
   endfunction
-  command! Rename call CocActionAsync('rename')
-  command! Definition call CocActionAsync('jumpDefinition')
-  command! TypeDefinition call CocActionAsync('jumpTypeDefinition')
-  command! Implementation call CocActionAsync('jumpImplementation')
-  command! References call call CocActionAsync('jumpReferences')
-  command! Documentation call <SID>show_documentation()<CR>
-  command! Commands exe ':CocList commands'
-  " command! LSC_Symbols exe ':CocList symbols'
+  nmap <Plug>(dotfiles-rename) <Plug>(coc-rename)
+  nmap <Plug>(dotfiles-definition) <Plug>(coc-definition)
+  nmap <Plug>(dotfiles-type-definition) <Plug>(coc-type-definition)
+  nmap <Plug>(dotfiles-implementation) <Plug>(coc-implementation)
+  nmap <Plug>(dotfiles-references) <Plug>(coc-references)
+  nmap <Plug>(dotfiles-documentation) :<C-u>call <SID>show_documentation()<CR>
+  nmap <Plug>(dotfiles-commands) :<C-u>CocList commands<CR>
   imap <expr><TAB> pumvisible() ? "\<C-n>" : "<TAB>"
   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
   " append result on current expression
