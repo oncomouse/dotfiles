@@ -62,7 +62,7 @@ function! dotfiles#autocomplete#coc_nvim#keyboard() abort
       call CocAction('doHover')
     endif
   endfunction
-  imap <expr><TAB> pumvisible() ? "\<C-n>" : dotfiles#smart_tab()
+  imap <expr><TAB> pumvisible() ? "\<C-n>" : "<TAB>"
   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
   nmap <silent> <F2> <Plug>(coc-rename)
   nmap <silent> gd <Plug>(coc-definition)
