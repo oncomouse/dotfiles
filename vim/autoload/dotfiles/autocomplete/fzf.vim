@@ -1,7 +1,7 @@
 " =========================================================
 " Adapted from Coc.nvim:
 " =========================================================
-function s:jumpTo(line, character) abort
+function! s:jumpTo(line, character) abort
   " let content = getline(a:line + 1)
   " let pre = strcharpart(content, 0, a:character)
   " let col = strlen(pre) + 1
