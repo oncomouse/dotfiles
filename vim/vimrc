@@ -143,6 +143,7 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
     " ,'```':'```', '"""':'"""', "'''":"'''"})
     augroup autopair-enable
       autocmd!
+      autocmd FileType vim let b:AutoPairs = AutoPairsDefine({}, ['"'])
       autocmd FileType markdown
         \ let b:AutoPairs = extend(g:AutoPairs, {'~~~':'~~~'})
     augroup END
@@ -223,7 +224,7 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
       let g:airline_symbols.dirty= '…'
       let g:airline_symbols.linenr = ''
       " ALE:
-      let g:airline#extensions#ale#enabled = 1
+      let g:airline#extensions#ale#enabled = (complete_package !=# 'coc.nvim')
       " Turn off line number of first error:
       let g:airline#extensions#ale#show_line_numbers = 0
       " ALE Error Symbols:
@@ -290,6 +291,19 @@ call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
       " ALE for linting:
       if complete_package !=# 'coc.nvim'
         Plug 'dense-analysis/ale'
+        let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+        let g:ale_lint_on_insert_leave = 1
+        let g:ale_cursor_detail = 0
+        let g:ale_disable_lsp = 1
+        let g:ale_fix_on_save = 1
+        let g:ale_pattern_options = {
+          \  '\.min.js$': {'ale_enabled': 0},
+          \  'build/.*$': {'ale_enabled': 0},
+          \}
+        let g:ale_set_signs = 0 " Turn off sign column
+        " Specific linters:
+        let g:ale_lua_luacheck_options = '-d'
+        let g:ale_javascript_standard_executable = 'semistandard'
       endif
       Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a completion source
     " }}}
