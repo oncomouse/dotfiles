@@ -106,10 +106,10 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   augroup END
 endif
 call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
-  " Get Started: {{
+  " Get Started: {{{
     Plug 'tpope/vim-sensible' " Good settings
     Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
-  " }}
+  " }}}
   " General Editing: {{{
     Plug 'xero/securemodelines' " Secure modelines
     set nomodeline
