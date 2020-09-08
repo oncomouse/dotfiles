@@ -200,6 +200,9 @@ endif
     endif
   " }}}
   if g:dotfiles_mode ==# 'desktop'
+    if has('nvim-0.5')
+      Plug 'neovim/nvim-lspconfig'
+    endif
     " General Editing: {{{
       if has('nvim')
         Plug 'ncm2/float-preview.nvim' " Floating preview window
@@ -295,7 +298,17 @@ endif
         Plug 'neoclide/denite-extra' " Adds location_list and quickfix_list as denite sources
       endif
       " Load LSP + Completion:
-      if g:complete_package =~# 'coc.nvim'
+      if !(g:complete_package =~# 'coc.nvim')
+        Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+        let g:nvim_typescript#javascript_support = 1
+        let g:nvim_typescript#diagnostics_enable = 0
+      endif
+      if has('nvim-0.5')
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+        Plug 'lionawurscht/deoplete-biblatex' " Adds BibTeX as a Deoplete source
+        Plug 'hrsh7th/vim-neco-calc' " Adds calculator as a Deoplete source
+        Plug 'Shougo/deoplete-lsp' " LSP Source
+      elseif g:complete_package =~# 'coc.nvim'
         Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
       else
         Plug 'autozimu/LanguageClient-neovim', {
@@ -305,8 +318,8 @@ endif
         " ncm2 for completion:
         Plug 'roxma/nvim-yarp'
         Plug 'ncm2/ncm2'
-        Plug 'Shougo/neco-vim'
-        Plug 'ncm2/ncm2-vim'
+        " Plug 'Shougo/neco-vim'
+        " Plug 'ncm2/ncm2-vim'
         Plug 'ncm2/ncm2-bufword'
         Plug 'ncm2/ncm2-path'
         Plug 'oncomouse/ncm2-biblatex'

@@ -32,10 +32,6 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
   command! Symbols call LanguageClient#textDocument_documentSymbol()
 
   let g:LanguageClient_serverCommands = {
-        \ 'javascript': ['/usr/local/bin/typescript-language-server', '--stdio'],
-        \ 'javascriptreact': ['/usr/local/bin/typescript-language-server', '--stdio'],
-        \ 'typescript': ['/usr/local/bin/typescript-language-server', '--stdio'],
-        \ 'typescriptreact': ['/usr/local/bin/typescript-language-server', '--stdio'],
         \ 'python': ['/usr/local/bin/jedi-language-server'],
         \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
         \ 'html': ['/usr/local/bin/html-languageserver', '--stdio'],
