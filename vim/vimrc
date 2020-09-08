@@ -18,7 +18,7 @@ if has('mac') && has('nvim')
 endif
 
 " Dotfiles Settings: {{{
-let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'server')
+let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
 " fzf, clap, ale-coc.nvim, coc.nvim, or denite
 let g:complete_package = 'fzf'
 " Location of BiBLaTeX repo:
