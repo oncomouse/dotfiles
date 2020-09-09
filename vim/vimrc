@@ -303,21 +303,20 @@ endif
         let g:nvim_typescript#diagnostics_enable = 0
         if has('nvim-0.5')
           Plug 'neovim/nvim-lspconfig'
-          Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-          Plug 'lionawurscht/deoplete-biblatex' " Adds BibTeX as a Deoplete source
-          Plug 'hrsh7th/vim-neco-calc' " Adds calculator as a Deoplete source
-          Plug 'Shougo/deoplete-lsp' " LSP Source
         else
           Plug 'autozimu/LanguageClient-neovim', {
           \ 'branch': 'next',
           \ 'do': 'bash install.sh',
           \ }
-          " ncm2 for completion:
-          Plug 'roxma/nvim-yarp'
-          Plug 'ncm2/ncm2'
-          Plug 'ncm2/ncm2-bufword'
-          Plug 'ncm2/ncm2-path'
-          Plug 'oncomouse/ncm2-biblatex'
+        endif
+        " ncm2 for completion:
+        Plug 'roxma/nvim-yarp'
+        Plug 'ncm2/ncm2'
+        Plug 'ncm2/ncm2-bufword'
+        Plug 'ncm2/ncm2-path'
+        Plug 'oncomouse/ncm2-biblatex'
+        if has('nvim-0.5')
+          Plug 'oncomouse/ncm2-lsp'
         endif
       endif
       " ALE for linting:
