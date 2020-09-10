@@ -291,16 +291,23 @@ endif
         Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
         let g:nvim_typescript#javascript_support = 1
         let g:nvim_typescript#diagnostics_enable = 0
-        Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
-        \ }
+        if has('nvim-0.5')
+          Plug 'neovim/nvim-lspconfig'
+        else
+          Plug 'autozimu/LanguageClient-neovim', {
+          \ 'branch': 'next',
+          \ 'do': 'bash install.sh',
+          \ }
+        endif
         " ncm2 for completion:
         Plug 'roxma/nvim-yarp'
         Plug 'ncm2/ncm2'
         Plug 'ncm2/ncm2-bufword'
         Plug 'ncm2/ncm2-path'
         Plug 'oncomouse/ncm2-biblatex'
+        if has('nvim-0.5')
+          Plug 'oncomouse/ncm2-lsp'
+        endif
       endif
       " ALE for linting:
       if complete_package !=# 'coc.nvim'

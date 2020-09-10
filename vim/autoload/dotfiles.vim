@@ -16,17 +16,16 @@ function! dotfiles#autocomplete() abort
     " List Management:
     call dotfiles#autocomplete#{substitute(g:complete_package, '[.-]', '_', 'g')}#init()
     " Language Server And Autocompletion:
-    if has('nvim-0.5')
-      call dotfiles#autocomplete#deoplete#init()
-      call dotfiles#autocomplete#nvim_lsp#init()
-    elseif !(g:complete_package =~# 'coc.nvim')
+    if !(g:complete_package =~# 'coc.nvim')
+      if has('nvim-0.5')
+        call dotfiles#autocomplete#nvim_lsp#init()
+      else
+        call dotfiles#autocomplete#LanguageClient#init()
+      endif
       call dotfiles#autocomplete#ncm2#init()
-      call dotfiles#autocomplete#LanguageClient#init()
     endif
     " Writing:
-    if has('nvim-0.5')
-      call dotfiles#autocomplete#deoplete#writing()
-    elseif g:complete_package =~# 'coc.nvim'
+    if g:complete_package =~# 'coc.nvim'
       call dotfiles#autocomplete#coc_nvim#writing()
     else
       call dotfiles#autocomplete#ncm2#writing()
