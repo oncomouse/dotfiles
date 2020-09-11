@@ -261,7 +261,7 @@ endif
       Plug 'elzr/vim-json'
       let g:vim_json_syntax_conceal = 0
       Plug 'tbastos/vim-lua' " For Lua
-      Plug 'numirias/semshi', { 'for': ['python'], 'do': ':UpdateRemotePlugins' } " For Python
+      Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " For Python
     " }}}
     " Text Object Plugins: {{{
       Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
@@ -288,7 +288,7 @@ endif
       if g:complete_package =~# 'coc.nvim'
         Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
       else
-        Plug 'mhartington/nvim-typescript', {'do': './install.sh', 'for': ['javascript', 'javascriptreact', 'typescript', 'typescriptreact']}
+        Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
         let g:nvim_typescript#javascript_support = 1
         let g:nvim_typescript#diagnostics_enable = 0
         if has('nvim-0.5')
