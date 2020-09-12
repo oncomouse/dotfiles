@@ -40,5 +40,6 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
         \ 'json': ['/usr/local/bin/json-languageserver', '--stdio'],
         \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt'],
         \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
+        \ 'markdown': ['tcp://127.0.0.1:8080'],
         \}
 endfunction
