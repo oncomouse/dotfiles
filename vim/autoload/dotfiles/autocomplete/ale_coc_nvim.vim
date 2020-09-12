@@ -1,5 +1,5 @@
 function! dotfiles#autocomplete#ale_coc_nvim#init() abort
-  let g:coc_config_home = expand('~/dotfiles/vim/coc.nvim/coc-ale-settings.json')
+  let g:coc_config_home = expand('~/dotfiles/vim/coc.nvim/ale')
 " Coc Extensions {{{
   " Once your pull request gets accepted, add back coc-go
   let g:coc_global_extensions = [

@@ -122,5 +122,20 @@
     "javascript",
     "typescript",
     "json"
-  ]
+  ],
+  "languageserver": {
+    "citation": {
+      "host": "127.0.0.1",
+      "port": 8080,
+      "filetypes": ["markdown"],
+      "trace.server": "verbose",
+      "settings": {
+        "citation": {
+          "bibliographies": [
+            "/Users/apilsch/Seafile/My Library/Document/Academic Stuff/library.bib"
+          ]
+        }
+      }
+    }
+  }
 }
