@@ -4,8 +4,8 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
   " Turn off all diagnostic stuff (pump it all to ALE):
   let g:LanguageClient_diagnosticsEnable = v:false
   " Debug:
-  let g:LanguageClient_loggingFile = expand('~/lc.log')
-  let g:LanguageClient_loggingLevel = 'DEBUG'
+  " let g:LanguageClient_loggingFile = expand('~/lc.log')
+  " let g:LanguageClient_loggingLevel = 'DEBUG'
   " Always use hover:
   let g:LanguageClient_hoverPreview = 'Always'
   " Documentation Function
@@ -43,6 +43,6 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
         \ 'json': ['/usr/local/bin/json-languageserver', '--stdio'],
         \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt'],
         \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
-        \ 'markdown': ['tcp://127.0.0.1:8080'],
+        \ 'markdown': ['~/.local/bin/citation-langserver'],
         \}
 endfunction
