@@ -15,9 +15,16 @@
     "scss"
   ],
   "diagnostic-languageserver.filetypes": {
-    "sh": ["shellcheck"],
-    "markdown": ["vale", "proselint"],
-    "yaml": ["yamllint"]
+    "sh": [
+      "shellcheck"
+    ],
+    "markdown": [
+      "vale",
+      "proselint"
+    ],
+    "yaml": [
+      "yamllint"
+    ]
   },
   "diagnostic-languageserver.linters": {
     "proselint": {
@@ -25,7 +32,9 @@
       "isStdout": true,
       "isStderr": false,
       "debounce": 100,
-      "args": ["-"],
+      "args": [
+        "-"
+      ],
       "offsetLine": 0,
       "offsetColumn": 0,
       "sourceName": "proselint",
@@ -48,7 +57,10 @@
       "isStdout": true,
       "isStderr": false,
       "debounce": 100,
-      "args": ["--output=line", "%file"],
+      "args": [
+        "--output=line",
+        "%file"
+      ],
       "offsetLine": 0,
       "offsetColumn": 0,
       "sourceName": "vale",
@@ -59,7 +71,11 @@
           "line": 2,
           "column": 3,
           "security": 5,
-          "message": [4, " ", 6]
+          "message": [
+            4,
+            " ",
+            6
+          ]
         }
       ],
       "securities": {
@@ -72,7 +88,11 @@
       "isStdout": 1,
       "isStderr": 0,
       "debounce": 100,
-      "args": ["-f", "parsable", "-"],
+      "args": [
+        "-f",
+        "parsable",
+        "-"
+      ],
       "offsetLine": 0,
       "offsetColumn": 0,
       "sourceName": "yamllint",
@@ -82,7 +102,9 @@
         {
           "line": 1,
           "column": 2,
-          "message": [4],
+          "message": [
+            4
+          ],
           "security": 3
         }
       ],
@@ -127,12 +149,14 @@
     "citation": {
       "host": "127.0.0.1",
       "port": 8080,
-      "filetypes": ["markdown"],
+      "filetypes": [
+        "markdown"
+      ],
       "trace.server": "verbose",
       "settings": {
         "citation": {
           "bibliographies": [
-            "/Users/apilsch/Seafile/My Library/Document/Academic Stuff/library.bib"
+            "/Users/apilsch/Seafile/My Library/Documents/Academic Stuff/library.bib"
           ]
         }
       }

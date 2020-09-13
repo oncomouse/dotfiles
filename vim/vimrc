@@ -20,7 +20,7 @@ endif
 " Dotfiles Settings: {{{
   let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
   " fzf, clap, ale-coc.nvim, coc.nvim, or denite
-  let g:complete_package = 'coc.nvim'
+  let g:complete_package = 'fzf'
   " Location of BiBLaTeX repo:
   let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
   " This avoids highlighting big files:
