@@ -30,7 +30,7 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
   nmap <Plug>(dotfiles-definition) <Plug>(lcn-definition)
   nmap <Plug>(dotfiles-type-definition) <Plug>(lcn-type-definition)
   nmap <Plug>(dotfiles-implementation) <Plug>(lcn-implementation)
-  nmap <Plug>(dotfiles-references) <Plug>(lnc-references)
+  nmap <Plug>(dotfiles-references) <Plug>(lcn-references)
   nmap <Plug>(dotfiles-documentation) :<C-u>call <SID>show_documentation()<CR>
   command! Symbols call LanguageClient#textDocument_documentSymbol()
 
