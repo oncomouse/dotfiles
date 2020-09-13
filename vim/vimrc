@@ -192,7 +192,7 @@ endif
   if g:dotfiles_mode ==# 'desktop'
     " General Editing: {{{
       if has('nvim')
-        Plug 'ncm2/float-preview.nvim' " Floating preview window
+        " Plug 'ncm2/float-preview.nvim' " Floating preview window
         Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
       endif
       Plug 'alvan/vim-closetag' " Automatically close HTML tags
@@ -267,6 +267,7 @@ endif
       Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
       Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
       Plug 'thinca/vim-textobj-function-javascript' " js function support
+      Plug 'bps/vim-textobj-python' " function and class support for Python
       Plug 'haya14busa/vim-textobj-function-syntax' " syntax-based function support
       Plug 'coderifous/textobj-word-column.vim' " ic, ac, aC, iC column selections
     " }}}
@@ -330,7 +331,7 @@ endif
     " }}}
     " Writing: {{{
       Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
-      Plug 'reedes/vim-textobj-sentence', { 'for': ['markdown'] } " Use as & is for selecting sentences; g) and g( for moving
+      Plug 'reedes/vim-textobj-sentence', { 'for': ['markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
     " }}}
   endif
 call plug#end()

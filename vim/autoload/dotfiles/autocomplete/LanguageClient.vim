@@ -3,7 +3,9 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
   let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp/settings.json')
   " Turn off all diagnostic stuff (pump it all to ALE):
   let g:LanguageClient_diagnosticsEnable = v:false
+  " Debug:
   let g:LanguageClient_loggingFile = expand('~/lc.log')
+  let g:LanguageClient_loggingLevel = 'DEBUG'
   " Always use hover:
   let g:LanguageClient_hoverPreview = 'Always'
   " Documentation Function
