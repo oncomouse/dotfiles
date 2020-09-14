@@ -130,7 +130,9 @@
       "trace.server": "verbose",
       "settings": {
         "citation": {
-          "bibliographies": ["./*.bib"]
+          "bibliographies": [
+            "/Users/apilsch/Seafile/My Library/Documents/Academic Stuff/library.bib"
+          ]
         }
       }
     }
