@@ -292,6 +292,7 @@ endif
         Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
         let g:nvim_typescript#javascript_support = 1
         let g:nvim_typescript#diagnostics_enable = 0
+        let g:nvim_typescript#signature_complete = 1
         if has('nvim-0.5')
           Plug 'neovim/nvim-lspconfig'
         else
