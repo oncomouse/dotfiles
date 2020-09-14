@@ -192,7 +192,7 @@ endif
   if g:dotfiles_mode ==# 'desktop'
     " General Editing: {{{
       if has('nvim')
-        " Plug 'ncm2/float-preview.nvim' " Floating preview window
+        Plug 'ncm2/float-preview.nvim' " Floating preview window
         Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
       endif
       Plug 'alvan/vim-closetag' " Automatically close HTML tags
