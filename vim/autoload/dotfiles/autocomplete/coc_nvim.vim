@@ -1,9 +1,6 @@
 function! dotfiles#autocomplete#coc_nvim#init() abort
   let g:coc_config_home = expand('~/dotfiles/vim/coc.nvim/')
 
-" Coc Extensions {{{
-"   \   'coc-bibtex',
-
   let g:coc_global_extensions = [
   \   'coc-calc',
   \   'coc-css',

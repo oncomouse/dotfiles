@@ -3,7 +3,6 @@ function! dotfiles#autocomplete#ale_coc_nvim#init() abort
 " Coc Extensions {{{
   " Once your pull request gets accepted, add back coc-go
   let g:coc_global_extensions = [
-  \   'coc-bibtex',
   \   'coc-calc',
   \   'coc-css',
   \   'coc-fish',

@@ -279,6 +279,7 @@ endif
       " Load a list manager:
       if g:complete_package ==# 'clap'
         Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+        let g:clap_insert_mode_only = v:true
       elseif g:complete_package ==# 'fzf'
         Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
       elseif g:complete_package ==# 'denite'
@@ -300,6 +301,26 @@ endif
           \ 'branch': 'next',
           \ 'do': 'bash install.sh',
           \ }
+          let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp/settings.json')
+          let g:LanguageClient_useVirtualText = 'CodeLens'
+          " Turn off all diagnostic stuff (pump it all to ALE):
+          let g:LanguageClient_diagnosticsEnable = v:false
+          " Debug:
+          " let g:LanguageClient_loggingFile = expand('~/lc.log')
+          " let g:LanguageClient_loggingLevel = 'DEBUG'
+          " Always use hover:
+          let g:LanguageClient_hoverPreview = 'Always'
+          let g:LanguageClient_serverCommands = {
+                \ 'python': ['/usr/local/bin/jedi-language-server'],
+                \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
+                \ 'html': ['/usr/local/bin/html-languageserver', '--stdio'],
+                \ 'scss': ['/usr/local/bin/css-languageserver', '--stdio'],
+                \ 'css': ['/usr/local/bin/css-languageserver', '--stdio'],
+                \ 'json': ['/usr/local/bin/json-languageserver', '--stdio'],
+                \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt'],
+                \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
+                \ 'markdown': ['~/.local/bin/citation-langserver'],
+                \}
         endif
         " ncm2 for completion:
         Plug 'roxma/nvim-yarp'
