@@ -20,6 +20,7 @@ if [ -z $SERVER ];then
   pip3install 'pylint'
   pip3install 'bandit'
   pip3install 'autopep8'
+  pip3install 'reorder-python-imports'
   # Yaml Linters:
   pip3install 'yamllint'
   # Markdown Linters:
