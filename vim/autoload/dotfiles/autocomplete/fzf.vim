@@ -19,11 +19,11 @@ endfunction
 " =========================================================
 " Adapted from SpaceVim
 " =========================================================
-function! s:location_list_to_grep(v) abort
+function! s:list_to_grep(v) abort
   let l:bufname = a:v.bufnr == bufnr('') ? '' : fnamemodify(bufname(a:v.bufnr), ':~:.') . ':'
   return l:bufname . a:v.lnum . ':' . a:v.col . ':' . a:v.text
 endfunction
-function! s:open_location_item(e) abort
+function! s:open_list_item(e) abort
   let l:line = a:e
   if !(matchstr(l:line[0], '\d'))
     let l:bufname = fnameescape(split(l:line, ':')[0])
@@ -38,37 +38,19 @@ function! s:open_location_item(e) abort
   call s:jumpTo(l:linenr, l:colum)
 endfunction
 function! s:location_list() abort
-  let s:source = 'location_list'
-  function! s:get_location_list() abort
-    return map(getloclist(0), 's:location_list_to_grep(v:val)')
-  endfunction
-  call fzf#run(fzf#wrap('location_list', {
-        \ 'source':  reverse(<sid>get_location_list()),
-        \ 'sink':    function('s:open_location_item'),
-        \ }))
-endfunction
-function! s:open_quickfix_item(e) abort
-  let line = a:e
-  let bufnr = fnameescape(split(line, ':\d\+:')[0])
-  let linenr = matchstr(line, ':\d\+:')[1:-2]
-  let colum = matchstr(line, '\(:\d\+\)\@<=:\d\+:')[1:-2]
-  if bufnr == bufnr('')
-    call s:jumpTo(linenr, colum)
-  else
-    call s:execute('buffer +call cursor(' . string(linenr) . ',' . string(colum) . ') ' . string(bufnr))
-  endif
-endfunction
-function! s:quickfix_to_grep(v) abort
-  return a:v.bufnr . ':' . a:v.lnum . ':' . a:v.col . ':' . a:v.text
+  let name = 'location_list'
+  let source = reverse(map(getloclist(0), 's:list_to_grep(v:val)'))
+  call s:fzf_list(name, source)
 endfunction
 function! s:quickfix() abort
-  let s:source = 'quickfix'
-  function! s:quickfix_list() abort
-    return map(getqflist(), 's:quickfix_to_grep(v:val)')
-  endfunction
-  call fzf#run(fzf#wrap('quickfix', {
-        \ 'source':  reverse(<sid>quickfix_list()),
-        \ 'sink':    function('s:open_quickfix_item'),
+  let name = 'quickfix'
+  let source = reverse(map(getqflist(), 's:list_to_grep(v:val)'))
+  call s:fzf_list(name, source)
+endfunction
+function! s:fzf_list(name, source) abort
+  call fzf#run(fzf#wrap(a:name, {
+        \ 'source': a:source,
+        \ 'sink': function('s:open_list_item'),
         \ }))
 endfunction
 " =========================================================
