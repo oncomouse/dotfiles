@@ -1,25 +1,34 @@
-# Local paths:
-function add_to_user_paths -a dir
-  # Delete $dir if it is present but does not exist:
-  if set -l index (contains -i $dir $fish_user_paths)
-    if not test -d $dir
-      set -e -U fish_user_paths[$index]
-    end
-  # Add $dir if it is not present but does exist:
-  else
-    if test -d $dir
-      set -Ux fish_user_paths $fish_user_paths $dir
+if status --is-login
+  # Local paths:
+  function add_to_user_paths -a dir
+    # Delete $dir if it is present but does not exist:
+    if set -l index (contains -i $dir $fish_user_paths)
+      if not test -d $dir
+        set -e -U fish_user_paths[$index]
+      end
+    # Add $dir if it is not present but does exist:
+    else
+      if test -d $dir
+        echo "Adding" $dir "to fish_user_paths"
+        set -Ux fish_user_paths $fish_user_paths $dir
+      end
     end
   end
+  # Custom paths:
+  add_to_user_paths ~/bin
+  add_to_user_paths ~/.local/bin
+  # Set up Cargo:
+  add_to_user_paths ~/.cargo/bin
+  # Set up FZF (if local):
+  add_to_user_paths ~/.fzf/bin
+  # Set up Poetry:
+  add_to_user_paths ~/.poetry/bin
+  # Set up ASDF:
+  add_to_user_paths ~/.asdf/shims
+  add_to_user_paths /usr/local/opt/asdf/bin
+  # Sbin:
+  add_to_user_paths /usr/local/sbin
 end
-# Custom paths:
-add_to_user_paths ~/bin
-add_to_user_paths ~/.local/bin
-add_to_user_paths /usr/local/sbin
-# Set up Cargo:
-add_to_user_paths ~/.cargo/bin
-# Set up FZF:
-add_to_user_paths ~/.fzf/bin
 
 # Universal ignore for ag
 function ag; /usr/bin/env ag --path-to-ignore ~/.ignore --hidden $argv; end
@@ -46,16 +55,6 @@ function vi
   end
 end
 function standard;/usr/local/bin/semistandard $argv | /usr/local/bin/snazzy;end
-
-# Vim related aliases:
-if not set -q -U EDITOR 
-  echo "Setting EDITOR"
-  if command -sq nvim
-    set -Ux EDITOR (which nvim)
-  else
-    set -Ux EDITOR (which vim)
-  end
-end
 
 # The rest of this configuration file only needs to load if shell is interactive:
 if status is-interactive
@@ -111,23 +110,23 @@ if status is-interactive
   bind \eo choose_dir_with_fzf
 
   # Configure ASDF:
-  if not contains $HOME/.asdf/shims $fish_user_paths
-    and test (uname) = "Darwin"
-    echo "Loading ASDF"
-    set -Ux ASDF_DIR (brew --prefix asdf)
-    set -l asdf_data_dir (
-      if test -n "$ASDF_DATA_DIR"; echo $ASDF_DATA_DIR;
-      else; echo $HOME/.asdf; end)
+  # if not contains $HOME/.asdf/shims $fish_user_paths
+  #   and test (uname) = "Darwin"
+  #   echo "Loading ASDF"
+  #   set -Ux ASDF_DIR (brew --prefix asdf)
+  #   set -l asdf_data_dir (
+  #     if test -n "$ASDF_DATA_DIR"; echo $ASDF_DATA_DIR;
+  #     else; echo $HOME/.asdf; end)
 
-    # Add asdf to PATH
-    set -l asdf_bin_dirs $ASDF_DIR/bin $ASDF_DIR/shims $asdf_data_dir/shims
-    for x in $asdf_bin_dirs
-      if test -d $x
-        and not contains $x $fish_user_paths
-        set -Up fish_user_paths $x
-      end
-    end
-  end
+  #   # Add asdf to PATH
+  #   set -l asdf_bin_dirs $ASDF_DIR/bin $ASDF_DIR/shims $asdf_data_dir/shims
+  #   for x in $asdf_bin_dirs
+  #     if test -d $x
+  #       and not contains $x $fish_user_paths
+  #       add_to_user_paths $x
+  #     end
+  #   end
+  # end
 
   function nvim5;$HOME/.local/bin/nvim-osx64/bin/nvim $argv;end
 
@@ -170,6 +169,4 @@ if status is-interactive
       exec kp
     end
   end
-
 end
-
