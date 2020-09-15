@@ -127,6 +127,7 @@ endif
     set nomodeline
     let g:secure_modelines_verbose = 0
     let g:secure_modelines_modelines = 15
+    Plug 'rhysd/clever-f.vim' " Smarter, repeatable f, F, t, T
     Plug 'sickill/vim-pasta' " Indentation-forward pasting
     Plug 'machakann/vim-sandwich' " Change surrounding chars, sa adds, sd delete, sr replaces
     function! s:load_sandwich() abort
