@@ -157,7 +157,7 @@ endif
       autocmd!
       autocmd FileType vim let b:AutoPairs = AutoPairsDefine({}, ['"'])
       autocmd FileType markdown
-        \ let b:AutoPairs = extend(g:AutoPairs, {'~~~':'~~~'})
+        \ let b:AutoPairs = AutoPairsDefine({'~~~':'~~~'})
     augroup END
     Plug 'machakann/vim-highlightedyank' " Highlights yank
   " }}}
