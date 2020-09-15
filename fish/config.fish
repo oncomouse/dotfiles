@@ -28,6 +28,9 @@ if status --is-login
   add_to_user_paths /usr/local/opt/asdf/bin
   # Sbin:
   add_to_user_paths /usr/local/sbin
+
+  # Setup mypy:
+  set -Ux MYPYPATH ~/dotfiles/python/stubs
 end
 
 # Universal ignore for ag
