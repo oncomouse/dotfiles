@@ -140,8 +140,8 @@ endif
     augroup END
     Plug 'tpope/vim-repeat' " Repeat plugin commands
     Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
-    Plug 'airblade/vim-rooter' " Set project root
-    let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile']
+    " Plug 'airblade/vim-rooter' " Set project root
+    " let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile']
     Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
     Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,)
     Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing
@@ -198,7 +198,7 @@ endif
       Plug 'alvan/vim-closetag' " Automatically close HTML tags
       let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.js,*.erb'
       let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
-      let g:closetag_filetypes = 'html,markdown,javascriptreact'
+      let g:closetag_filetypes = 'html,javascriptreact'
       let g:closetag_close_shortcut = '<leader>>'
       let g:closetag_regions = {
         \ 'typescriptreact': 'jsxRegion,tsxRegion',
@@ -269,7 +269,7 @@ endif
       Plug 'thinca/vim-textobj-function-javascript' " js function support
       Plug 'bps/vim-textobj-python' " function and class support for Python
       Plug 'haya14busa/vim-textobj-function-syntax' " syntax-based function support
-      Plug 'coderifous/textobj-word-column.vim' " ic, ac, aC, iC column selections
+      " Plug 'coderifous/textobj-word-column.vim' " ic, ac, aC, iC column selections
     " }}}
     " Autocomplete: {{{
       " Need NeoYank for some lists to implement yank history:
@@ -349,7 +349,7 @@ endif
         let g:ale_lua_luacheck_options = '-d'
         let g:ale_javascript_standard_executable = 'semistandard'
       endif
-      Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a completion source
+      " Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a completion source
     " }}}
     " Writing: {{{
       Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
