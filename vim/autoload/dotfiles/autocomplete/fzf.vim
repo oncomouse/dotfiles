@@ -1,21 +1,21 @@
 " =========================================================
 " Adapted from Coc.nvim:
 " =========================================================
-function! s:jumpTo(line, character) abort
+" function! s:jumpTo(line, character) abort
   " let content = getline(a:line + 1)
   " let pre = strcharpart(content, 0, a:character)
   " let col = strlen(pre) + 1
-  call cursor(a:line, a:character)
-endfunction
-function! s:execute(cmd)
-  silent exe a:cmd
-  if &filetype ==# ''
-    filetype detect
-  endif
-  if !has('nvim')
-    redraw!
-  endif
-endfunction
+  " call cursor(a:line, a:character)
+" endfunction
+" function! s:execute(cmd)
+"   silent exe a:cmd
+"   if &filetype ==# ''
+"     filetype detect
+"   endif
+"   if !has('nvim')
+"     redraw!
+"   endif
+" endfunction
 " =========================================================
 " Adapted from SpaceVim
 " =========================================================
@@ -35,7 +35,7 @@ function! s:open_list_item(e) abort
     let l:linenr = parts[0]
     let l:colum = parts[1]
   endif
-  call s:jumpTo(l:linenr, l:colum)
+  call cursor(l:linenr, l:colum)
 endfunction
 function! s:location_list() abort
   let name = 'location_list'
