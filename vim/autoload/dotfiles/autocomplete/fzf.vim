@@ -20,18 +20,22 @@ endfunction
 " Adapted from SpaceVim
 " =========================================================
 function! s:location_list_to_grep(v) abort
-  return a:v.bufnr . ':' . a:v.lnum . ':' . a:v.col . ':' . a:v.text
+  let l:bufname = a:v.bufnr == bufnr('') ? '' : fnamemodify(bufname(a:v.bufnr), ':~:.') . ':'
+  return l:bufname . a:v.lnum . ':' . a:v.col . ':' . a:v.text
 endfunction
 function! s:open_location_item(e) abort
-  let line = a:e
-  let bufnr = fnameescape(split(line, ':\d\+:')[0])
-  let linenr = matchstr(line, ':\d\+:')[1:-2]
-  let colum = matchstr(line, '\(:\d\+\)\@<=:\d\+:')[1:-2]
-  if bufnr == bufnr('')
-    call s:jumpTo(linenr, colum)
+  let l:line = a:e
+  if !(matchstr(l:line[0], '\d'))
+    let l:bufname = fnameescape(split(l:line, ':')[0])
+    let l:linenr = matchstr(l:line, ':\d\+:')[1:-2]
+    let l:colum = matchstr(l:line, '\(:\d\+\)\@<=:\d\+:')[1:-2]
+    execute 'edit' l:bufname
   else
-    call s:execute('buffer +call cursor(' . string(linenr) . ',' . string(colum) . ') ' . string(bufnr))
+    let parts = split(l:line, ':')
+    let l:linenr = parts[0]
+    let l:colum = parts[1]
   endif
+  call s:jumpTo(l:linenr, l:colum)
 endfunction
 function! s:location_list() abort
   let s:source = 'location_list'
