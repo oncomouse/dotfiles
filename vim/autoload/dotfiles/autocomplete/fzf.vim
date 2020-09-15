@@ -57,11 +57,11 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 " =========================================================
-" Based on vim-ripgrep
+" Adapted From vim-ripgrep
 " =========================================================
 function! s:rg_search_term(txt)
   if empty(a:txt)
-    return expand("<cword>")
+    return expand('<cword>')
   else
     return a:txt
   endif
