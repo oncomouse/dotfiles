@@ -67,7 +67,13 @@ endif
   if has('nvim')
     set inccommand=split
   endif
-" }}}
+
+  " Use RipGrep For Grep:
+  if executable('rg')
+    let &grepprg='rg --vimgrep'
+    let &grepformat='%f:%l:%c:%m'
+  endif
+  " }}}
 " Tabs: {{{
   set tabstop=8
   set shiftwidth=2

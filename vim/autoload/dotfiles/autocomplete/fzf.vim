@@ -1,22 +1,4 @@
 " =========================================================
-" Adapted from Coc.nvim:
-" =========================================================
-" function! s:jumpTo(line, character) abort
-  " let content = getline(a:line + 1)
-  " let pre = strcharpart(content, 0, a:character)
-  " let col = strlen(pre) + 1
-  " call cursor(a:line, a:character)
-" endfunction
-" function! s:execute(cmd)
-"   silent exe a:cmd
-"   if &filetype ==# ''
-"     filetype detect
-"   endif
-"   if !has('nvim')
-"     redraw!
-"   endif
-" endfunction
-" =========================================================
 " Adapted from SpaceVim
 " =========================================================
 function! s:list_to_grep(v) abort
@@ -37,21 +19,20 @@ function! s:open_list_item(e) abort
   endif
   call cursor(l:linenr, l:colum)
 endfunction
+function! s:fzf_list(name, is_quickfix) abort
+  let source = a:is_quickfix ? getqflist() : getloclist(0)
+  call fzf#run(fzf#wrap(a:name, {
+        \ 'source': reverse(map(source, 's:list_to_grep(v:val)')),
+        \ 'sink': function('s:open_list_item'),
+        \ }))
+endfunction
 function! s:location_list() abort
   let name = 'location_list'
-  let source = reverse(map(getloclist(0), 's:list_to_grep(v:val)'))
-  call s:fzf_list(name, source)
+  call s:fzf_list(name, v:false)
 endfunction
 function! s:quickfix() abort
   let name = 'quickfix'
-  let source = reverse(map(getqflist(), 's:list_to_grep(v:val)'))
-  call s:fzf_list(name, source)
-endfunction
-function! s:fzf_list(name, source) abort
-  call fzf#run(fzf#wrap(a:name, {
-        \ 'source': a:source,
-        \ 'sink': function('s:open_list_item'),
-        \ }))
+  call s:fzf_list(name, v:true)
 endfunction
 " =========================================================
 " From junegunn's dotfiles
@@ -76,11 +57,39 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 " =========================================================
+" Based on vim-ripgrep
+" =========================================================
+function! s:rg_search_term(txt)
+  if empty(a:txt)
+    return expand("<cword>")
+  else
+    return a:txt
+  endif
+endfunction
+function! s:rg_search(txt)
+  let l:rgopts = ' '
+  if &ignorecase == 1
+    let l:rgopts = l:rgopts . '-i '
+  endif
+  if &smartcase == 1
+    let l:rgopts = l:rgopts . '-S '
+  endif
+  silent! exe 'grep! ' . l:rgopts . a:txt
+  if !(len(getqflist()))
+    echo 'No match found for ' . a:txt
+  endif
+endfunction
+function! s:rg(txt)
+  call s:rg_search(s:rg_search_term(a:txt))
+  call s:quickfix()
+endfunction
+" =========================================================
 function! dotfiles#autocomplete#fzf#init()
   command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
   command! LocationList call s:location_list()
   command! QuickfixList call s:quickfix()
+  command! -nargs=* -complete=file Rg :call s:rg(<q-args>)
   command! Yanks exe 'FZFNeoyank'
   nnoremap <leader>Y :FZFNeoyank " P<cr>
   vnoremap <leader>y :FZFNeoyankSelection<cr>
