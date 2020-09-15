@@ -169,6 +169,9 @@ endif
     else
       Plug 'machakann/vim-highlightedyank' " Highlights yank
     endif
+    if has('nvim-0.5')
+      Plug 'nvim-treesitter/nvim-treesitter'
+    endif
   " }}}
   " Writing: {{{
     " Plug 'vimwiki/vimwiki'
@@ -514,6 +517,11 @@ call dotfiles#colors#termcolors()
   hi semshiErrorChar       ctermfg=231 guifg=#aeadaf ctermbg=160 guibg=#d70000
 " }}}
 let g:clap_theme = 'tempus_classic'
+" treesitter {{{
+  if has('nvim-0.5')
+    lua require('dotfiles/treesitter')
+  endif
+" }}}
 " }}}
 " Other Settings: {{{
   " Jump To Last Position: {{{
