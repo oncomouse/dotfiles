@@ -1,4 +1,6 @@
+" ==============================================================================
 " Sourced from tpope/vim-sensible
+" ==============================================================================
 if has('autocmd')
 filetype plugin indent on
 endif
@@ -19,10 +21,6 @@ set ttimeoutlen=100
 endif
 
 set incsearch
-" Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-endif
 
 set laststatus=2
 set ruler
@@ -44,7 +42,7 @@ if &listchars ==# 'eol:$'
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 endif
 
-if v:version > 703 || v:version == 703 && has("patch541")
+if v:version > 703 || v:version == 703 && has('patch541')
 set formatoptions+=j " Delete comment character when joining commented lines
 endif
 
@@ -65,4 +63,34 @@ set viewoptions-=options
 " Allow color schemes to do bright colors without forcing bold.
 if &t_Co == 8 && $TERM !~# '^Eterm'
 set t_Co=16
+endif
+" ==============================================================================
+" My stuff:
+" ==============================================================================
+set visualbell t_vb= " Disable visual bell
+set autowrite " Autosave files
+set hidden " turn off buffer saving when switching
+set lazyredraw " Don't redraw between macro runs (may make terminal flicker)
+
+" Override Default Split Creation Locations:
+set splitbelow
+set splitright
+
+" Line Numbering:
+set number relativenumber
+" Turn off line numbering in NeoVim terminal:
+if has('nvim')
+  augroup line-numbers
+    autocmd!
+      autocmd TermOpen * setlocal nonumber norelativenumber
+  augroup END
+endif
+
+" Height Of The Preview Window:
+let &previewheight = 14
+
+" Use RipGrep For Grep:
+if executable('rg')
+  let &grepprg='rg --vimgrep'
+  let &grepformat='%f:%l:%c:%m'
 endif

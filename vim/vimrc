@@ -36,33 +36,7 @@ endif
     endif
   endif
 
-  set visualbell t_vb= " Disable visual bell
-  set autowrite " Autosave files
-  set hidden " turn off buffer saving when switching
-  set lazyredraw " Don't redraw between macro runs (may make terminal flicker)
-
-  " Override Default Split Creation Locations:
-  set splitbelow
-  set splitright
-
-  " Line Numbering:
-  set number relativenumber
-  " Turn off line numbering in NeoVim terminal:
-  if has('nvim')
-    augroup line-numbers
-      autocmd!
-        autocmd TermOpen * setlocal nonumber norelativenumber
-    augroup END
-  endif
-
-  " Height Of The Preview Window:
-  let &previewheight = 14
-
-  " Use RipGrep For Grep:
-  if executable('rg')
-    let &grepprg='rg --vimgrep'
-    let &grepformat='%f:%l:%c:%m'
-  endif
+  runtime vimrc-minimal
 
   " Set Leader:
   let mapleader = "\<Space>"
@@ -121,7 +95,6 @@ endif
   endif
   call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
   " Get Started: {{{
-    Plug 'tpope/vim-sensible'
     Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
     Plug 'xero/securemodelines' " Secure modelines
     set nomodeline
