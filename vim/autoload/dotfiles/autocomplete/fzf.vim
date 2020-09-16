@@ -57,39 +57,11 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 " =========================================================
-" Adapted From vim-ripgrep
-" =========================================================
-function! s:rg_search_term(txt)
-  if empty(a:txt)
-    return expand('<cword>')
-  else
-    return a:txt
-  endif
-endfunction
-function! s:rg_search(txt)
-  let l:rgopts = ' '
-  if &ignorecase == 1
-    let l:rgopts = l:rgopts . '-i '
-  endif
-  if &smartcase == 1
-    let l:rgopts = l:rgopts . '-S '
-  endif
-  silent! exe 'grep! ' . l:rgopts . a:txt
-  if !(len(getqflist()))
-    echo 'No match found for ' . a:txt
-  endif
-endfunction
-function! s:rg(txt)
-  call s:rg_search(s:rg_search_term(a:txt))
-  call s:quickfix()
-endfunction
-" =========================================================
 function! dotfiles#autocomplete#fzf#init()
   command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
   command! LocationList call s:location_list()
   command! QuickfixList call s:quickfix()
-  command! -nargs=* -complete=file Rg :call s:rg(<q-args>)
   command! Yanks exe 'FZFNeoyank'
   nnoremap <leader>Y :FZFNeoyank " P<cr>
   vnoremap <leader>y :FZFNeoyankSelection<cr>
