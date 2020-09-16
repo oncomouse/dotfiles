@@ -6,6 +6,6 @@ function! dotfiles#autocomplete#clap#init() abort
   command! BLines :exe 'Clap lines'
   command! History :exe 'Clap command_history'
   command! LocationList :exe 'Clap loclist'
-  command! QuickfixList :exe 'Clap quickfixlist'
+  command! QuickfixList :exe 'Clap quickfix'
   command! Yanks :exe 'Clap yanks'
 endfunction
