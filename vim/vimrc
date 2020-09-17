@@ -272,6 +272,7 @@ endif
       if g:complete_package ==# 'clap'
         Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
         let g:clap_insert_mode_only = v:true
+        let g:clap_search_box_border_style = 'nil'
       elseif g:complete_package ==# 'fzf'
         Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
       elseif g:complete_package ==# 'denite'
