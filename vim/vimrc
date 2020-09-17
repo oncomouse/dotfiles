@@ -202,10 +202,10 @@ endif
       let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
       let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
       let g:fastfold_minlines = 0
-      " Plug 'Yggdroot/indentLine' " Indent with characters
-      " let g:indentLine_setColors = 1
-      " let g:indentLine_char = "\u22EE"
-      " let g:indentLine_color_term = 11
+      Plug 'Yggdroot/indentLine' " Indent with characters
+      let g:indentLine_setColors = 1
+      let g:indentLine_char = "\u22EE"
+      let g:indentLine_color_term = 11
     " }}}
     " Statusline: {{{
       Plug 'vim-airline/vim-airline'
