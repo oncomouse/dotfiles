@@ -74,9 +74,8 @@ function! dotfiles#autocomplete#fzf#init()
   nnoremap <leader>Y :FZFNeoyank " P<cr>
   vnoremap <leader>y :FZFNeoyankSelection<cr>
   let $FZF_DEFAULT_OPTS .= ' --reverse'
-  " We use fd internally, as it 
   " let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden'
-  if has('nvim')
+  if has('nvim') && g:dotfiles_mode ==# 'desktop'
     let g:fzf_layout = { 'window': 'call FloatingFZF()' }
   endif
   let g:fzf_action = {
@@ -87,7 +86,7 @@ function! dotfiles#autocomplete#fzf#init()
     \ }
   let g:fzf_nvim_statusline = 0 " disable statusline overwriting
   " Complete file name:
-  imap <C-x><C-f> <plug>(fzf-complete-file-ag)
+  imap <C-x><C-f> <plug>(fzf-complete-file-rg)
   " Complete file line:
   imap <C-x><C-l> <plug>(fzf-complete-line)
 endfunction
