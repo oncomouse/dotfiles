@@ -4,7 +4,7 @@ function! dotfiles#autocomplete#clap#init() abort
   command! Buffers :exe 'Clap buffers'
   command! Windows :exe 'Clap windows'
   command! BLines :exe 'Clap lines'
-  command! History :exe 'Clap command_history'
+  command! Commands :exe 'Clap command_history'
   command! LocationList :exe 'Clap loclist'
   command! QuickfixList :exe 'Clap quickfix'
   command! Yanks :exe 'Clap yanks'

@@ -26,7 +26,7 @@ function! dotfiles#autocomplete#denite#init() abort
   command! Buffers :exe 'Denite -split=floating buffer'
   command! Windows :exe 'Denite window'
   command! BLines :exe 'Denite line'
-  command! History :exe 'Denite command_history'
+  command! Commands :exe 'Denite command_history'
   command! LocationList :exe 'Denite -split=floating -vertical-preview -auto-action=preview -floating-preview location_list'
   command! QuickfixList :exe 'Denite -split=floating -vertical-preview -auto-action=preview -floating-preview quickfix_list'
   command! Yanks :exe 'Denite -split=floating neoyank'

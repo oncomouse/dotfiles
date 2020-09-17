@@ -109,7 +109,7 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
   command! Buffers :exe 'CocList buffers'
   command! Windows :exe 'CocList windows'
   command! BLines :exe 'CocList lines'
-  command! History :exe 'CocList cmdhistory'
+  command! Commands :exe 'CocList cmdhistory'
   command! Symbols exe 'CocList -I symbols'
   command! LocationList exe 'CocList loclist'
   command! QuickfixList exe 'CocList quickfixlist'

@@ -380,7 +380,7 @@ call plug#end()
     nnoremap <silent> <leader>a :Buffers<CR>
     nnoremap <silent> <leader>A :Windows<CR>
     nnoremap <silent> <leader>l :BLines<CR>
-    nnoremap <silent> <leader>? :History<CR>
+    nnoremap <silent> <leader>? :Commands<CR>
     if g:dotfiles_mode ==# 'server'
       nnoremap <silent> <leader>y :Yanks<CR>
       nnoremap <silent> <leader>s :Symbols<CR>
