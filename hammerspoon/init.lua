@@ -10,6 +10,7 @@ _.utils = {
 	show_date = require("utils/show_date"),
 	make_modal = require("utils/make_modal"),
 	bind_generator = require("utils/bind_generator"),
+	caffeine = require("utils/caffeine"),
 }
 --- Modifier keys:
 _.mods = {
@@ -33,6 +34,8 @@ _.hot_keys = {
 		space = _.utils.show_spotify_song,
 		-- Show date:
 		d = _.utils.show_date,
+		-- Toggle caffeine:
+		c = _.utils.caffeine,
 	},
 }
 -- WHY WON'T THIS WORK:
