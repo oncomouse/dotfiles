@@ -375,8 +375,8 @@ call plug#end()
     " interface. This unifies fuzzy list management:
     nnoremap <silent> <c-p> :Files<CR>
     nnoremap <silent> <leader>F :Files ~<CR>
-    nnoremap <silent> <leader>q :cclose | QuickfixList<CR>
-    nnoremap <silent> <leader>d :lclose | LocationList<CR>
+    nnoremap <silent> <leader>q :cclose <Bar> QuickfixList<CR>
+    nnoremap <silent> <leader>d :lclose <Bar> LocationList<CR>
     nnoremap <silent> <leader>a :Buffers<CR>
     nnoremap <silent> <leader>A :Windows<CR>
     nnoremap <silent> <leader>l :BLines<CR>
