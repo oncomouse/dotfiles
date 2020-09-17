@@ -8,4 +8,5 @@ function! dotfiles#autocomplete#clap#init() abort
   command! LocationList :exe 'Clap loclist'
   command! QuickfixList :exe 'Clap quickfix'
   command! Yanks :exe 'Clap yanks'
+  command! -nargs=+ -complete=custom,dotfiles#rg_args Rg exe 'Clap grep2 ++query='.<q-args>
 endfunction

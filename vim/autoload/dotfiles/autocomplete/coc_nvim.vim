@@ -114,6 +114,7 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
   command! LocationList exe 'CocList loclist'
   command! QuickfixList exe 'CocList quickfixlist'
   command! Yanks exe 'CocList -A --normal yank'
+  command! -nargs=+ -complete=custom,dotfiles#rg_args Rg exe 'CocList grep '.<q-args>
 endfunction
 
 function! dotfiles#autocomplete#coc_nvim#writing() abort

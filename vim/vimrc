@@ -20,7 +20,7 @@ endif
 " Dotfiles Settings: {{{
   let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
   " fzf, clap, ale-coc.nvim, coc.nvim, or denite
-  let g:complete_package = 'fzf'
+  let g:complete_package = 'clap'
   " Location of BiBLaTeX repo:
   let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
   " This avoids highlighting big files:
@@ -413,7 +413,7 @@ call plug#end()
     " We no longer rely on the built-in FZF RipGrep command.
     " Instead, we use rg as grepprg and open :QuickfixList
     " after a command is run:
-    command! -nargs=* -complete=file Rg :call s:rg(<q-args>)
+    " command! -nargs=* -complete=file Rg :call s:rg(<q-args>)
     nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
   " }}}
   " Standard LSP Bindings: {{{

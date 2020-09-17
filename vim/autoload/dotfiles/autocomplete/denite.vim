@@ -20,6 +20,7 @@ function! dotfiles#autocomplete#denite#init() abort
         \ [ '.git/', '.ropeproject/', '__pycache__/*', '*.pyc', 'node_modules/',
         \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/', '*.png'])
   command! -bang -nargs=? -complete=dir Files exe 'Denite -auto-action=preview -floating-preview -match-highlight -split=floating -vertical-preview -start-filter file/rec '.<q-args>
+  command! -nargs=+ -complete=custom,dotfiles#rg_args Rg exe 'Denite grep:::'.<q-args>
   " Open location list:
   " Old FZF Interface:
   command! Buffers :exe 'Denite -split=floating buffer'

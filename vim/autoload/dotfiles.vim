@@ -32,3 +32,8 @@ function! dotfiles#autocomplete() abort
     endif
   endif
 endfunction
+function! dotfiles#rg_args(...) abort
+  let list = ['-S', '--smart-case', '-i', '--ignore-case', '-w', '--word-regexp',
+  \ '-e', '--regexp', '-u', '--unrestricted', '-t', '--type']
+  return join(list, "\n")
+endfunction
