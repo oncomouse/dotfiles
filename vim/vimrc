@@ -375,13 +375,13 @@ call plug#end()
     " interface. This unifies fuzzy list management:
     nnoremap <silent> <c-p> :Files<CR>
     nnoremap <silent> <leader>F :Files ~<CR>
-    nnoremap <silent> <leader>q :QuickfixList<CR>
-    nnoremap <silent> <leader>d :LocationList<CR>
+    nnoremap <silent> <leader>q :cclose | QuickfixList<CR>
+    nnoremap <silent> <leader>d :lclose | LocationList<CR>
     nnoremap <silent> <leader>a :Buffers<CR>
     nnoremap <silent> <leader>A :Windows<CR>
     nnoremap <silent> <leader>l :BLines<CR>
     nnoremap <silent> <leader>? :History<CR>
-    if g:dotfiles_mode == 'server'
+    if g:dotfiles_mode ==# 'server'
       nnoremap <silent> <leader>y :Yanks<CR>
       nnoremap <silent> <leader>s :Symbols<CR>
     endif
@@ -550,7 +550,8 @@ let g:clap_theme = 'tempus_classic'
   " }}}
   " Load Autocompletion: {{{
   call dotfiles#autocomplete()
-  if g:dotfiles_mode == 'server'
+  " Load FZF bindings for server mode:
+  if g:dotfiles_mode ==# 'server'
     call dotfiles#autocomplete#fzf#init()
   endif
   " }}}
