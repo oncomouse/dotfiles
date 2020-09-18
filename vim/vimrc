@@ -268,9 +268,7 @@ endif
       if g:complete_package ==# 'fzf'
         Plug 'Shougo/neoyank.vim'
         Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
-      endif
-      " Load a list manager:
-      if g:complete_package ==# 'clap'
+      elseif g:complete_package ==# 'clap'
         Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
         let g:clap_insert_mode_only = v:true
         let g:clap_search_box_border_style = 'nil'
@@ -278,6 +276,26 @@ endif
       " Load LSP + Completion:
       if g:complete_package =~# 'coc.nvim'
         Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+        let g:coc_config_home = expand('~/dotfiles/vim/lsp-settings/coc.nvim/')
+        let g:coc_global_extensions = [
+        \   'coc-calc',
+        \   'coc-css',
+        \   'coc-diagnostic',
+        \   'coc-eslint',
+        \   'coc-fish',
+        \   'coc-html',
+        \   'coc-jedi',
+        \   'coc-json',
+        \   'coc-lists',
+        \   'coc-prettier',
+        \   'coc-solargraph',
+        \   'coc-stylelintplus',
+        \   'coc-styled-components',
+        \   'coc-tsserver',
+        \   'coc-vimlsp',
+        \   'coc-yaml',
+        \   'coc-yank',
+        \]
       else
         Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
         let g:nvim_typescript#javascript_support = 1
@@ -290,7 +308,7 @@ endif
           \ 'branch': 'next',
           \ 'do': 'bash install.sh',
           \ }
-          let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp/settings.json')
+          let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp-settings/LanguageClient-neovim/settings.json')
           let g:LanguageClient_useVirtualText = 'CodeLens'
           " Turn off all diagnostic stuff (pump it all to ALE):
           let g:LanguageClient_diagnosticsEnable = v:false
