@@ -19,8 +19,8 @@ endif
 " }}}
 " Dotfiles Settings: {{{
   let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
-  " fzf, clap, ale-coc.nvim, coc.nvim, or denite
-  let g:complete_package = 'fzf'
+  " fzf, clap, or coc.nvim
+  let g:complete_package = 'clap'
   " Location of BiBLaTeX repo:
   let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
   " This avoids highlighting big files:
@@ -265,19 +265,15 @@ endif
     " }}}
     " Autocomplete: {{{
       " Need NeoYank for some lists to implement yank history:
-      if g:complete_package ==# 'denite' || g:complete_package ==# 'fzf'
+      if g:complete_package ==# 'fzf'
         Plug 'Shougo/neoyank.vim'
+        Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
       endif
       " Load a list manager:
       if g:complete_package ==# 'clap'
         Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
         let g:clap_insert_mode_only = v:true
         let g:clap_search_box_border_style = 'nil'
-      elseif g:complete_package ==# 'fzf'
-        Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
-      elseif g:complete_package ==# 'denite'
-        Plug 'Shougo/denite.nvim', { 'do' : ':UpdateRemotePlugins' }
-        Plug 'neoclide/denite-extra' " Adds location_list and quickfix_list as denite sources
       endif
       " Load LSP + Completion:
       if g:complete_package =~# 'coc.nvim'
