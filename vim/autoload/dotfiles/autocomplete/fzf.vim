@@ -56,13 +56,6 @@ function! FloatingFZF()
 
   call nvim_open_win(buf, v:true, opts)
 endfunction
-function! s:p(bang, ...)
-  let preview_window = get(g:, 'fzf_preview_window', a:bang && &columns >= 80 || &columns >= 120 ? 'right': '')
-  if len(preview_window)
-    return call('fzf#vim#with_preview', add(copy(a:000), preview_window))
-  endif
-  return {}
-endfunction
 " =========================================================
 function! dotfiles#autocomplete#fzf#init()
   command! -bang -nargs=? -complete=dir Files
@@ -70,7 +63,6 @@ function! dotfiles#autocomplete#fzf#init()
   command! LocationList call s:location_list()
   command! QuickfixList call s:quickfix()
   command! Yanks exe 'FZFNeoyank'
-  command! -bang -nargs=* -complete=custom,dotfiles#rg_args Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, s:p(<bang>0), <bang>0)
   nnoremap <leader>Y :FZFNeoyank " P<cr>
   vnoremap <leader>y :FZFNeoyankSelection<cr>
   let $FZF_DEFAULT_OPTS .= ' --reverse'

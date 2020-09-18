@@ -1,26 +1,4 @@
 function! dotfiles#autocomplete#coc_nvim#init() abort
-  let g:coc_config_home = expand('~/dotfiles/vim/coc.nvim/')
-
-  let g:coc_global_extensions = [
-  \   'coc-calc',
-  \   'coc-css',
-  \   'coc-diagnostic',
-  \   'coc-eslint',
-  \   'coc-fish',
-  \   'coc-html',
-  \   'coc-jedi',
-  \   'coc-json',
-  \   'coc-lists',
-  \   'coc-prettier',
-  \   'coc-solargraph',
-  \   'coc-stylelintplus',
-  \   'coc-styled-components',
-  \   'coc-tsserver',
-  \   'coc-vimlsp',
-  \   'coc-yaml',
-  \   'coc-yank',
-  \]
-" }}}
 " Coc Diagnostic shortcuts: {{{
   nmap <Plug>(dotfiles-diagnostic-next) <Plug>(coc-diagnostic-next)
   nmap <Plug>(dotfiles-diagnostic-previous) <Plug>(coc-diagnostic-previous)
