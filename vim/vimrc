@@ -114,6 +114,32 @@ endif
             \ 'input': ['b'],
             \},
             \]
+      let g:sandwich#recipes += [
+            \{
+            \ 'buns': ['[[', ']]'],
+            \ 'filetype': ['vimwiki'],
+            \ 'input': ['l'],
+            \},
+            \]
+      function! VimWikiHeaderCount(head) abort
+        if a:head == 1
+          let s:HeaderCount = str2nr(input('Header Level: '))
+          if s:HeaderCount <= 0
+            throw 'OperatorSandwichCancel'
+          endif
+        endif
+        return (a:head ? '' : ' ') . repeat('=', s:HeaderCount) . (a:head ? ' ' : '')
+      endfunction
+      let g:sandwich#recipes += [
+            \{
+            \ 'buns': ['VimWikiHeaderCount(1)', 'VimWikiHeaderCount(0)'],
+            \ 'filetype': ['vimwiki'],
+            \ 'expr' : 1,
+            \ 'kind': ['add', 'replace'],
+            \ 'action': ['add'],
+            \ 'input': ['h'],
+            \}
+            \]
     endfunction
     augroup sandwich-startup
       autocmd!
@@ -147,11 +173,11 @@ endif
     endif
   " }}}
   " Writing: {{{
-    " Plug 'vimwiki/vimwiki'
-    " let g:vimwiki_list = [{'path': '~/Seafile/Todo/Wiki',
-    "                       \ 'syntax': 'markdown', 'ext': '.md',
-    "                       \ 'index': 'Wiki'}]
-    " let g:vimwiki_global_ext = 0
+    Plug 'vimwiki/vimwiki'
+    let g:vimwiki_list = [{'path': '~/Seafile/Todo/Wiki',
+                          \ 'index': 'Wiki'}]
+    let g:vimwiki_global_ext = 0
+    let g:vimwiki_conceallevel = 0
   " }}}
   " Tmux: {{{
     " Navigate TMUX & Vim panes with the same command
