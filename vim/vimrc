@@ -524,59 +524,65 @@ EOF
 " }}}
   endif
 endif
-colorscheme tempus_classic
 " Setup terminal colors:
 call dotfiles#colors#termcolors()
 " Tempus Classic Additions: {{{
-  hi Visual guibg=#8e9cc0 ctermbg=12
-  hi Search guibg=#b1942b guifg=#232323 ctermbg=3 ctermbg=0 gui=NONE cterm=NONE
-  hi gitcommitSummary guifg=#7aa880 ctermfg=7
-  hi gitcommitOverflow cterm=bold gui=bold ctermbg=13 guibg=#d58888 guifg=#232323 ctermfg=0
-  hi IncSearch ctermbg=9 guibg=#d0913d ctermfg=0 guifg=#232323 gui=NONE cterm=NONE
-  hi HighlightedyankRegion ctermbg=9 guibg=#d0913d ctermfg=0 guifg=#232323
-  hi CocErrorSign guibg=#312e30 guifg=#d2813d ctermfg=1 ctermbg=8
-  hi CocWarningSign guibg=#312e30 guifg=#b1942b ctermfg=3 ctermbg=8
-  hi CocInfoSign guibg=#312e30 guifg=#d2813d ctermfg=3 ctermbg=8
-  hi VisualMode guifg=#312e30 ctermfg=8 guibg=#d0913d ctermbg=9 cterm=bold gui=bold
-  hi InsertMode guifg=#312e30 ctermfg=8 guibg=#8c9e3d ctermbg=2 cterm=bold gui=bold
-  hi ReplaceMode guifg=#312e30 ctermfg=8 guibg=#d58888 ctermbg=13 cterm=bold gui=bold
-  hi CommandMode guifg=#312e30 ctermfg=8 guibg=#C594C5 ctermbg=6 cterm=bold gui=bold
-  hi NormalMode guifg=#312e30 ctermfg=8 guibg=#6e9cb0 ctermbg=4 cterm=bold gui=bold
-  hi StatusLine guifg=#312e30 ctermfg=8 guibg=NONE ctermbg=NONE cterm=NONE gui=NONE
-  hi StatusLineNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-  hi StatusLineTerm guifg=#96a42d ctermfg=10 guibg=#8c9e3d ctermbg=2 cterm=NONE gui=NONE
-  hi StatusLineTermNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-  if dotfiles_mode ==# 'server'
-    hi User1 ctermbg=8 guibg=#312e30 cterm=bold gui=bold
-    hi User2 ctermbg=8 guibg=#312e30 cterm=NONE gui=NONE
-    hi User3 guifg=#312e30 ctermfg=8 guibg=#b1942b ctermbg=3 cterm=NONE gui=NONE
-    hi User4 guifg=#312e30 ctermfg=8 guibg=#d2813d ctermbg=1 cterm=NONE gui=NONE
-    hi User5 guifg=#aeadaf ctermfg=15 guibg=#312e30 ctermbg=8 cterm=none gui=none
-    hi User6 guifg=#312e30 ctermfg=8 guibg=#232323 ctermbg=0 cterm=NONE gui=NONE
-  endif
-  hi SpellBad gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15
-  hi Pmenu gui=none guibg=#312e30 guifg=#aeadaf cterm=none ctermbg=8 ctermfg=15
-  hi MarkdownItalic guifg=#d58888
-  hi link htmlItalic MarkdownItalic
-  hi link htmlBold MarkdownBold
-  " hi link htmlTag Noise
-  " hi link htmlEndTag Noise
-" }}}
-" Semishi Formatting: {{{
-  hi semshiLocal           ctermfg=209 guifg=#ff875f
-  hi semshiGlobal          ctermfg=214 guifg=#d2813d
-  hi semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
-  hi semshiParameter       ctermfg=75  guifg=#6e9cb0
-  hi semshiParameterUnused ctermfg=117 guifg=#8e9cc0 cterm=underline gui=underline
-  hi semshiFree            ctermfg=218 guifg=#b58d88
-  hi semshiBuiltin         ctermfg=207 guifg=#d58888
-  hi semshiAttribute       ctermfg=49  guifg=#6da280
-  hi semshiSelf            ctermfg=249 guifg=#949d9f
-  hi semshiUnresolved      ctermfg=226 guifg=#b1942b cterm=underline gui=underline
-  hi semshiSelected        ctermfg=231 guifg=#232323 ctermbg=161 guibg=#ff875f
+  function! s:tempus_highlights() abort
+    hi Visual guibg=#8e9cc0 ctermbg=12
+    hi Search guibg=#b1942b guifg=#232323 ctermbg=3 ctermbg=0 gui=NONE cterm=NONE
+    hi gitcommitSummary guifg=#7aa880 ctermfg=7
+    hi gitcommitOverflow cterm=bold gui=bold ctermbg=13 guibg=#d58888 guifg=#232323 ctermfg=0
+    hi IncSearch ctermbg=9 guibg=#d0913d ctermfg=0 guifg=#232323 gui=NONE cterm=NONE
+    hi HighlightedyankRegion ctermbg=9 guibg=#d0913d ctermfg=0 guifg=#232323
+    hi CocErrorSign guibg=#312e30 guifg=#d2813d ctermfg=1 ctermbg=8
+    hi CocWarningSign guibg=#312e30 guifg=#b1942b ctermfg=3 ctermbg=8
+    hi CocInfoSign guibg=#312e30 guifg=#d2813d ctermfg=3 ctermbg=8
+    hi VisualMode guifg=#312e30 ctermfg=8 guibg=#d0913d ctermbg=9 cterm=bold gui=bold
+    hi InsertMode guifg=#312e30 ctermfg=8 guibg=#8c9e3d ctermbg=2 cterm=bold gui=bold
+    hi ReplaceMode guifg=#312e30 ctermfg=8 guibg=#d58888 ctermbg=13 cterm=bold gui=bold
+    hi CommandMode guifg=#312e30 ctermfg=8 guibg=#C594C5 ctermbg=6 cterm=bold gui=bold
+    hi NormalMode guifg=#312e30 ctermfg=8 guibg=#6e9cb0 ctermbg=4 cterm=bold gui=bold
+    hi StatusLine guifg=#312e30 ctermfg=8 guibg=NONE ctermbg=NONE cterm=NONE gui=NONE
+    hi StatusLineNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+    hi StatusLineTerm guifg=#96a42d ctermfg=10 guibg=#8c9e3d ctermbg=2 cterm=NONE gui=NONE
+    hi StatusLineTermNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+    if g:dotfiles_mode ==# 'server'
+      hi User1 ctermbg=8 guibg=#312e30 cterm=bold gui=bold
+      hi User2 ctermbg=8 guibg=#312e30 cterm=NONE gui=NONE
+      hi User3 guifg=#312e30 ctermfg=8 guibg=#b1942b ctermbg=3 cterm=NONE gui=NONE
+      hi User4 guifg=#312e30 ctermfg=8 guibg=#d2813d ctermbg=1 cterm=NONE gui=NONE
+      hi User5 guifg=#aeadaf ctermfg=15 guibg=#312e30 ctermbg=8 cterm=none gui=none
+      hi User6 guifg=#312e30 ctermfg=8 guibg=#232323 ctermbg=0 cterm=NONE gui=NONE
+    endif
+    hi SpellBad gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15
+    hi Pmenu gui=none guibg=#312e30 guifg=#aeadaf cterm=none ctermbg=8 ctermfg=15
+    hi MarkdownItalic guifg=#d58888
+    hi link htmlItalic MarkdownItalic
+    hi link htmlBold MarkdownBold
+    " Clever-F Highlighting:
+    hi CleverFDefaultLabel gui=bold cterm=bold guifg=#d58888 ctermfg=13
+    " Semishi Formatting: {{{
+      hi semshiLocal           ctermfg=209 guifg=#ff875f
+      hi semshiGlobal          ctermfg=214 guifg=#d2813d
+      hi semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
+      hi semshiParameter       ctermfg=75  guifg=#6e9cb0
+      hi semshiParameterUnused ctermfg=117 guifg=#8e9cc0 cterm=underline gui=underline
+      hi semshiFree            ctermfg=218 guifg=#b58d88
+      hi semshiBuiltin         ctermfg=207 guifg=#d58888
+      hi semshiAttribute       ctermfg=49  guifg=#6da280
+      hi semshiSelf            ctermfg=249 guifg=#949d9f
+      hi semshiUnresolved      ctermfg=226 guifg=#b1942b cterm=underline gui=underline
+      hi semshiSelected        ctermfg=231 guifg=#232323 ctermbg=161 guibg=#ff875f
 
-  hi semshiErrorSign       ctermfg=231 guifg=#aeadaf ctermbg=160 guibg=#d70000
-  hi semshiErrorChar       ctermfg=231 guifg=#aeadaf ctermbg=160 guibg=#d70000
+      hi semshiErrorSign       ctermfg=231 guifg=#aeadaf ctermbg=160 guibg=#d70000
+      hi semshiErrorChar       ctermfg=231 guifg=#aeadaf ctermbg=160 guibg=#d70000
+    " }}}
+  endfunction 
+  augroup tempus_highlights
+    autocmd!
+    autocmd ColorScheme tempus_classic call s:tempus_highlights()
+  augroup END
+  colorscheme tempus_classic
 " }}}
 let g:clap_theme = 'tempus_classic'
 " treesitter {{{
