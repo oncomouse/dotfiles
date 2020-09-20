@@ -592,9 +592,9 @@ let g:clap_theme = 'tempus_classic'
     augroup END
   " }}}
   " Load Autocompletion: {{{
-  call dotfiles#autocomplete()
-  " Load FZF bindings for server mode:
-  if g:dotfiles_mode ==# 'server'
+  if g:dotfiles_mode ==# 'desktop'
+    call dotfiles#autocomplete#init()
+  elseif g:dotfiles_mode ==# 'server'
     call dotfiles#autocomplete#fzf#init()
   endif
   " }}}
