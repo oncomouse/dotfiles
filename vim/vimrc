@@ -582,8 +582,8 @@ call dotfiles#colors#termcolors()
     autocmd!
     autocmd ColorScheme tempus_classic call s:tempus_highlights()
   augroup END
-  colorscheme tempus_classic
 " }}}
+colorscheme tempus_classic
 let g:clap_theme = 'tempus_classic'
 " treesitter {{{
   if has('nvim-0.5')
