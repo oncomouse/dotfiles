@@ -116,6 +116,12 @@ endif
             \]
       let g:sandwich#recipes += [
             \{
+            \ 'buns': ['“', '”'],
+            \ 'filetype': ['markdown', 'text', 'vimwiki'],
+            \}
+            \]
+      let g:sandwich#recipes += [
+            \{
             \ 'buns': ['[[', ']]'],
             \ 'filetype': ['vimwiki'],
             \ 'input': ['l'],
@@ -342,6 +348,9 @@ endif
           " let g:LanguageClient_loggingLevel = 'DEBUG'
           " Always use hover:
           let g:LanguageClient_hoverPreview = 'Always'
+          " Root patterns:
+          let g:LanguageClient_rootMarkers = ['.git', 'Rakefile', 'Gemfile',
+                \ 'project.json', 'pyproject.toml', 'setup.py']
           let g:LanguageClient_serverCommands = {
                 \ 'python': ['/usr/local/bin/jedi-language-server'],
                 \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
