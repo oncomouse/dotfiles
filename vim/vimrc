@@ -509,17 +509,7 @@ if g:dotfiles_mode ==# 'desktop'
     set termguicolors
     " nvim-colorizer.lua: {{{
     if has('nvim')
-lua << EOF
-require'colorizer'.setup{
-  '*';
-  markdown={
-    names = false
-  };
-  text={
-    names = false
-  }
-}
-EOF
+      lua require'colorizer'.setup{'*',markdown={names=false},text={names=false}}
     endif
 " }}}
   endif
