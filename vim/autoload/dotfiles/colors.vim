@@ -7,7 +7,24 @@ function! dotfiles#colors#termcolors() abort
   if &termguicolors == 1
     " Use the fish function kitty-color to change this when you update the
     " terminal:
-    let s:kitty_colors = ['#232323','#d2813d','#8c9e3d','#b1942b','#6e9cb0','#b58d88','#6da280','#949d9f','#312e30','#d0913d','#96a42d','#a8a030','#8e9cc0','#d58888','#7aa880','#aeadaf'] 
+    let s:kitty_colors = [
+          \ '#232323',
+          \ '#d2813d',
+          \ '#8c9e3d',
+          \ '#b1942b',
+          \ '#6e9cb0',
+          \ '#b58d88',
+          \ '#6da280',
+          \ '#949d9f',
+          \ '#312e30',
+          \ '#d0913d',
+          \ '#96a42d',
+          \ '#a8a030',
+          \ '#8e9cc0',
+          \ '#d58888',
+          \ '#7aa880',
+          \ '#aeadaf',
+          \ ] 
     let s:cterms = map(s:kitty_colors, {i,color -> [i, color]})
   else
     let s:cterms = map(range(0,15), {i -> [i]})

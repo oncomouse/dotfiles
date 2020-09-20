@@ -513,7 +513,7 @@ call dotfiles#colors#termcolors()
       hi StatusLineTermNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
       hi User1 ctermbg=237 guibg=#3a3a3a cterm=NONE gui=NONE
     endif
-    hi SpellBad gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15
+    hi SpellBad gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8
     hi Pmenu gui=none guibg=#312e30 guifg=#aeadaf cterm=none ctermbg=8 ctermfg=15
     hi MarkdownItalic guifg=#d58888
     hi link htmlItalic MarkdownItalic
