@@ -23,7 +23,7 @@ let s:nerdfonts = g:dotfiles_mode ==# 'desktop'
     \ 'n': 'NormalMode',  'i': 'InsertMode',      'R': 'ReplaceMode',
     \ 'v': 'VisualMode',  'V': 'VisualMode', "\<c-v>": 'VisualMode',
     \ 's': 'VisualMode',  'S': 'VisualMode', "\<c-s>": 'VisualMode',
-    \ 'c': 'CommandMode', 'r': 'CommandMode',     't': 'CommandMode',
+    \ 'c': 'CommandMode', 'r': 'CommandMode',     't': 'TerminalMode',
     \ '!': 'CommandMode',  '': 'StatusLineNC'
     \ 
     \}
