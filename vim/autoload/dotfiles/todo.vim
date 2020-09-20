@@ -1,8 +1,11 @@
-" Next/Previous Projects
 function! dotfiles#todo#toggle_done() abort
   let line=getline('.')
   if line =~# ' X$'
     call setline('.', substitute(line, ' X$', '', ''))
+  elseif line =~# '[ ]'
+    call setline('.', substitute(line, '[ ]', '[X]', ''))
+  elseif line =~# '[X]'
+    call setline('.', substitute(line, '[X]', '[ ]', ''))
   else
     call setline('.', line . ' X')
   endif
@@ -10,7 +13,6 @@ endfunction
 function! dotfiles#todo#next_project() abort
   return search('^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$', 'w')
 endfunction
-
 function! dotfiles#todo#prev_project() abort
   return search('^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$', 'bw')
 endfunction
