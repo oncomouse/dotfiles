@@ -586,7 +586,7 @@ let g:clap_theme = 'tempus_classic'
   if dotfiles_mode ==# 'server'
     " Use the old statusline for server mode:
     set statusline=%!dotfiles#statusline#statusline()
-    set tabline=%!dotfiles#statusline#tabline()
+    " set tabline=%!dotfiles#statusline#tabline()
     augroup dotfiles-server-au
       autocmd!
       " Turn on CursorLine Highlighting on Insert:

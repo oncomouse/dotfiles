@@ -1,6 +1,13 @@
 " Statusline:
 scriptencoding utf-8
-let g:nerdfonts = g:dotfiles_mode ==# 'desktop'
+let s:nerdfonts = g:dotfiles_mode ==# 'desktop'
+" Linter Status {{{
+  let g:dotfiles#ale#indicator_checking = s:nerdfonts ? "\uf110" : '…'
+  let g:dotfiles#ale#indicator_warnings = s:nerdfonts ? "\uf071\u2003" : 'W: '
+  let g:dotfiles#ale#indicator_errors = s:nerdfonts ? "\uf05e\u2003" : 'E: '
+  let g:dotfiles#ale#indicator_information = s:nerdfonts ? "\uf7fc\u2003" : 'I: '
+  let g:dotfiles#ale#indicator_ok = s:nerdfonts ? "\uf00c" : 'Ok'
+" }}}
 " Statusline {{{
   function! Componetize(func,...) abort
     let l:before = get(a:, 1, ' ')
@@ -16,7 +23,7 @@ let g:nerdfonts = g:dotfiles_mode ==# 'desktop'
     \ 'n': 'NormalMode',  'i': 'InsertMode',      'R': 'ReplaceMode',
     \ 'v': 'VisualMode',  'V': 'VisualMode', "\<c-v>": 'VisualMode',
     \ 's': 'VisualMode',  'S': 'VisualMode', "\<c-s>": 'VisualMode',
-    \ 'c': 'CommandMode', 'r': 'CommandMode',     't': 'TerminalMode',
+    \ 'c': 'CommandMode', 'r': 'CommandMode',     't': 'CommandMode',
     \ '!': 'CommandMode',  '': 'StatusLineNC'
     \ 
     \}
@@ -29,33 +36,21 @@ let g:nerdfonts = g:dotfiles_mode ==# 'desktop'
   function! SetupStl(curwin) abort
     return get(extend(w:, { 'lf_active': winnr() ==# a:curwin  }), '', '')
   endfunction
+  function! Componetize(content, ...) abort
+    return a:content
+  endfunction
   function! dotfiles#statusline#statusline() abort
     return '%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'#
           \ %t%m%h%w%r%q 
           \%1*%=
           \ %y 
-          \'.'%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'#
+          \'.'%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings')."#
           \ %l/%L:%c 
-          \%*'
-  endfunction
-" }}}
-" Tabline {{{
-  function! BuildTabLabel(nr, active) abort
-    return a:nr.' '.fnamemodify(bufname(tabpagebuflist(a:nr)[tabpagewinnr(a:nr) - 1]), ':t:s/^$/[No Name]/').TabModified(a:nr).' '
-  endfunction
-
-  function! TabModified(nr)
-    let l:winnr = tabpagewinnr(a:nr)
-    let l:modified = g:nerdfonts ? '✎ ' : '●'
-    let l:readonly = g:nerdfonts ? ' ' : 'ro'
-    return gettabwinvar(a:nr, l:winnr, '&modified') ? l:modified : gettabwinvar(a:nr, l:winnr, '&modifiable') ? '' : l:readonly
-  endfunction
-  function! dotfiles#statusline#tabline() abort
-    return (tabpagenr('$') == 1 ? '' : join(map(
-      \ range(1, tabpagenr('$')),
-      \ '(v:val == tabpagenr() ? "%#TabLineSel#" : "%#TabLine#") . "%".v:val."T %{BuildTabLabel(".v:val.",".(v:val == tabpagenr()).")}"'
-      \ ), ''))
-      \ . "%#TabLineFill#%T%=⌘ %<%{&columns < 100 ? fnamemodify(getcwd(), ':t') : getcwd()} " . (tabpagenr('$') > 1 ? '%999X✕ ' : '')
+          \%3*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#warnings()') : ''}
+          \%4*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#errors()', '  ') : ''}
+          \%5*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#ok()', '', '  ') : ''}
+          \%5*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#checking()', '', '  ') : ''}
+          \%*"
   endfunction
 " }}}
 " # vim:foldmethod=marker|
