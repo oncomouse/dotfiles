@@ -151,7 +151,6 @@ endif
       autocmd!
       autocmd VimEnter * call s:load_sandwich()
     augroup END
-    " Plug 'tpope/vim-repeat' " Repeat plugin commands
     Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
     Plug 'airblade/vim-rooter' " Set project root
     let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile'
@@ -163,6 +162,8 @@ endif
     " ,'```':'```', '"""':'"""', "'''":"'''"})
     augroup autopair-enable
       autocmd!
+      " Remove auto-pairing for quotations in Vimscript (which should be
+      " comments only):
       autocmd FileType vim let b:AutoPairs = AutoPairsDefine({}, ['"'])
       autocmd FileType markdown
         \ let b:AutoPairs = AutoPairsDefine({'~~~':'~~~//m'})
@@ -292,8 +293,6 @@ endif
       Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
       Plug 'thinca/vim-textobj-function-javascript' " js function support
       Plug 'bps/vim-textobj-python' " function and class support for Python
-      Plug 'haya14busa/vim-textobj-function-syntax' " syntax-based function support
-      " Plug 'coderifous/textobj-word-column.vim' " ic, ac, aC, iC column selections
     " }}}
     " Autocomplete: {{{
       " Need NeoYank for some lists to implement yank history:
@@ -390,7 +389,6 @@ endif
         let g:ale_lua_luacheck_options = '-d'
         let g:ale_javascript_standard_executable = 'semistandard'
       endif
-      " Plug 'wellle/tmux-complete.vim' " Adds TMUX buffers as a completion source
     " }}}
     " Writing: {{{
       Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
@@ -429,7 +427,7 @@ call plug#end()
     nnoremap <silent> <leader>A :Windows<CR>
     nnoremap <silent> <leader>l :BLines<CR>
     nnoremap <silent> <leader>? :Commands<CR>
-    if g:dotfiles_mode ==# 'server'
+    if g:dotfiles_mode ==# 'desktop'
       nnoremap <silent> <leader>y :Yanks<CR>
       nnoremap <silent> <leader>s :Symbols<CR>
     endif
