@@ -465,7 +465,9 @@ call plug#end()
 
     augroup todo
       autocmd!
+      " Load For Any Todo Files:
       autocmd BufRead,BufNewFile todo.* call s:map_todo()
+      " Load For VimWiki:
       autocmd FileType vimwiki call s:map_todo()
     augroup END
   " }}}
@@ -497,22 +499,19 @@ call dotfiles#colors#termcolors()
     hi CocErrorSign guibg=#312e30 guifg=#d2813d ctermfg=1 ctermbg=8
     hi CocWarningSign guibg=#312e30 guifg=#b1942b ctermfg=3 ctermbg=8
     hi CocInfoSign guibg=#312e30 guifg=#d2813d ctermfg=3 ctermbg=8
-    hi VisualMode guifg=#312e30 ctermfg=8 guibg=#d0913d ctermbg=9 cterm=bold gui=bold
-    hi InsertMode guifg=#312e30 ctermfg=8 guibg=#8c9e3d ctermbg=2 cterm=bold gui=bold
-    hi ReplaceMode guifg=#312e30 ctermfg=8 guibg=#d58888 ctermbg=13 cterm=bold gui=bold
-    hi CommandMode guifg=#312e30 ctermfg=8 guibg=#C594C5 ctermbg=6 cterm=bold gui=bold
-    hi NormalMode guifg=#312e30 ctermfg=8 guibg=#6e9cb0 ctermbg=4 cterm=bold gui=bold
-    hi StatusLine guifg=#312e30 ctermfg=8 guibg=NONE ctermbg=NONE cterm=NONE gui=NONE
-    hi StatusLineNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi StatusLineTerm guifg=#96a42d ctermfg=10 guibg=#8c9e3d ctermbg=2 cterm=NONE gui=NONE
-    hi StatusLineTermNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
     if g:dotfiles_mode ==# 'server'
-      hi User1 ctermbg=8 guibg=#312e30 cterm=bold gui=bold
-      hi User2 ctermbg=8 guibg=#312e30 cterm=NONE gui=NONE
-      hi User3 guifg=#312e30 ctermfg=8 guibg=#b1942b ctermbg=3 cterm=NONE gui=NONE
-      hi User4 guifg=#312e30 ctermfg=8 guibg=#d2813d ctermbg=1 cterm=NONE gui=NONE
-      hi User5 guifg=#aeadaf ctermfg=15 guibg=#312e30 ctermbg=8 cterm=none gui=none
-      hi User6 guifg=#312e30 ctermfg=8 guibg=#232323 ctermbg=0 cterm=NONE gui=NONE
+      hi VisualMode guifg=#312e30 ctermfg=8 guibg=#d0913d ctermbg=9 cterm=bold gui=bold
+      hi InsertMode guifg=#312e30 ctermfg=8 guibg=#8c9e3d ctermbg=2 cterm=bold gui=bold
+      hi ReplaceMode guifg=#312e30 ctermfg=8 guibg=#d58888 ctermbg=13 cterm=bold gui=bold
+      hi CommandMode guifg=#312e30 ctermfg=8 guibg=#6da280 ctermbg=6 cterm=bold gui=bold
+      " #C594C5 182
+      hi TerminalMode guifg=#312e30 ctermfg=8 guibg=#8e9cc0 ctermbg=12 cterm=bold gui=bold
+      hi NormalMode guifg=#312e30 ctermfg=8 guibg=#6e9cb0 ctermbg=4 cterm=bold gui=bold
+      hi StatusLine guifg=#312e30 ctermfg=8 guibg=NONE ctermbg=NONE cterm=NONE gui=NONE
+      hi StatusLineNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+      hi StatusLineTerm guifg=#96a42d ctermfg=10 guibg=#8c9e3d ctermbg=2 cterm=NONE gui=NONE
+      hi StatusLineTermNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+      hi User1 ctermbg=237 guibg=#3a3a3a cterm=NONE gui=NONE
     endif
     hi SpellBad gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15
     hi Pmenu gui=none guibg=#312e30 guifg=#aeadaf cterm=none ctermbg=8 ctermfg=15
@@ -585,6 +584,7 @@ let g:clap_theme = 'tempus_classic'
 " }}}
 " Server Only Settings: {{{
   if dotfiles_mode ==# 'server'
+    " Use the old statusline for server mode:
     set statusline=%!dotfiles#statusline#statusline()
     set tabline=%!dotfiles#statusline#tabline()
     augroup dotfiles-server-au

@@ -16,7 +16,7 @@ let g:nerdfonts = g:dotfiles_mode ==# 'desktop'
     \ 'n': 'NormalMode',  'i': 'InsertMode',      'R': 'ReplaceMode',
     \ 'v': 'VisualMode',  'V': 'VisualMode', "\<c-v>": 'VisualMode',
     \ 's': 'VisualMode',  'S': 'VisualMode', "\<c-s>": 'VisualMode',
-    \ 'c': 'CommandMode', 'r': 'CommandMode',     't': 'CommandMode',
+    \ 'c': 'CommandMode', 'r': 'CommandMode',     't': 'TerminalMode',
     \ '!': 'CommandMode',  '': 'StatusLineNC'
     \ 
     \}
@@ -30,17 +30,13 @@ let g:nerdfonts = g:dotfiles_mode ==# 'desktop'
     return get(extend(w:, { 'lf_active': winnr() ==# a:curwin  }), '', '')
   endfunction
   function! dotfiles#statusline#statusline() abort
-    return '%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings')."#
-      \%{(w:['lf_active']?'  '.winnr().' ':'')}
-      \%1*
-      \ %{&mod?'◦':''}%t
-      \%2*%{(&paste ? g:nerdfonts ? '\uf0ea  ':' (paste) ':' ')}
-      \%2*%{(w:['lf_active'] ? Componetize('gina#component#status#preset(\"fancy\")','\u22EE ') :'')}
-      \%0*%=
-      \%1*\ %l:%c\ 
-      \%{w:['lf_active']
-      \?'  '.get(g:lf_stlm,mode(),mode()).' '
-      \:''}%*"
+    return '%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'#
+          \ %t%m%h%w%r%q 
+          \%1*%=
+          \ %y 
+          \'.'%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'#
+          \ %l/%L:%c 
+          \%*'
   endfunction
 " }}}
 " Tabline {{{
