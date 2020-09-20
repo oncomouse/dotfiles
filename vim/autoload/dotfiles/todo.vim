@@ -2,9 +2,9 @@ function! dotfiles#todo#toggle_done() abort
   let line=getline('.')
   if line =~# ' X$'
     call setline('.', substitute(line, ' X$', '', ''))
-  elseif line =~# '[ ]'
+  elseif line =~# '\[ \]'
     call setline('.', substitute(line, '[ ]', '[X]', ''))
-  elseif line =~# '[X]'
+  elseif line =~# '\[X\]'
     call setline('.', substitute(line, '[X]', '[ ]', ''))
   else
     call setline('.', line . ' X')
