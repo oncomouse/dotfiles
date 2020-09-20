@@ -153,8 +153,9 @@ endif
     augroup END
     " Plug 'tpope/vim-repeat' " Repeat plugin commands
     Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
-    " Plug 'airblade/vim-rooter' " Set project root
-    " let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile']
+    Plug 'airblade/vim-rooter' " Set project root
+    let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile'
+          \ , 'pyproject.toml', 'setup.py']
     Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
     Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,)
     Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing
@@ -349,8 +350,7 @@ endif
           " Always use hover:
           let g:LanguageClient_hoverPreview = 'Always'
           " Root patterns:
-          let g:LanguageClient_rootMarkers = ['.git', 'Rakefile', 'Gemfile',
-                \ 'project.json', 'pyproject.toml', 'setup.py']
+          let g:LanguageClient_rootMarkers = g:rooter_patterns
           let g:LanguageClient_serverCommands = {
                 \ 'python': ['/usr/local/bin/jedi-language-server'],
                 \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
