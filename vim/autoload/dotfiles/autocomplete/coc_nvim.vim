@@ -89,8 +89,8 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
   command! BLines :exe 'CocList lines'
   command! Commands :exe 'CocList cmdhistory'
   command! Symbols exe 'CocList -I symbols'
-  command! LocationList exe 'CocList loclist'
-  command! QuickfixList exe 'CocList quickfixlist'
+  command! LocationList exe 'CocList location'
+  command! QuickfixList exe 'CocList quickfix'
   command! Yanks exe 'CocList -A --normal yank'
   command! -nargs=+ -complete=custom,dotfiles#rg_args Rg exe 'CocList grep '.<q-args>
 endfunction
