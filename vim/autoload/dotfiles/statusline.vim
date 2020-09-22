@@ -37,7 +37,12 @@ let s:nerdfonts = g:dotfiles_mode ==# 'desktop'
     return get(extend(w:, { 'lf_active': winnr() ==# a:curwin  }), '', '')
   endfunction
   function! Componetize(content, ...) abort
-    return a:content
+    if strlen(a:content) == 0
+      return ''
+    endif
+    let before = get(a:, 1, '')
+    let after = get(a:, 2, '')
+    return before . a:content . after
   endfunction
   function! dotfiles#statusline#statusline() abort
     return '%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'#
