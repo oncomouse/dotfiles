@@ -241,7 +241,7 @@ endif
       let g:indentLine_color_term = 11
     " }}}
     " Statusline: {{{
-      " Plug 'vim-airline/vim-airline'
+      Plug 'vim-airline/vim-airline'
       " Use powerline symbols if we are in desktop mode:
       let g:airline_powerline_fonts = g:dotfiles_mode ==# 'desktop'
       " Skip empty sections:
@@ -584,7 +584,6 @@ let g:clap_theme = 'tempus_classic'
   " }}}
 " }}}
 " Server Only Settings: {{{
-set statusline=%!dotfiles#statusline#statusline()
   if dotfiles_mode ==# 'server'
     " Use the old statusline for server mode:
     set statusline=%!dotfiles#statusline#statusline()
