@@ -6,7 +6,7 @@ let s:nerdfonts = g:dotfiles_mode ==# 'desktop'
   let g:dotfiles#ale#indicator_warnings = s:nerdfonts ? "\uf071\u2003" : 'W: '
   let g:dotfiles#ale#indicator_errors = s:nerdfonts ? "\uf05e\u2003" : 'E: '
   let g:dotfiles#ale#indicator_information = s:nerdfonts ? "\uf7fc\u2003" : 'I: '
-  let g:dotfiles#ale#indicator_ok = s:nerdfonts ? "\uf00c" : 'Ok'
+  let g:dotfiles#ale#indicator_ok = ''
 " }}}
 " Statusline {{{
   function! Componetize(func,...) abort
@@ -36,14 +36,6 @@ let s:nerdfonts = g:dotfiles_mode ==# 'desktop'
   function! SetupStl(curwin) abort
     return get(extend(w:, { 'lf_active': winnr() ==# a:curwin  }), '', '')
   endfunction
-  function! Componetize(content, ...) abort
-    if strlen(a:content) == 0
-      return ''
-    endif
-    let before = get(a:, 1, '')
-    let after = get(a:, 2, '')
-    return before . a:content . after
-  endfunction
   function! dotfiles#statusline#statusline() abort
     return '%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'#
           \ %t%m%h%w%r%q 
@@ -51,10 +43,10 @@ let s:nerdfonts = g:dotfiles_mode ==# 'desktop'
           \ %y 
           \'.'%{SetupStl('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings')."#
           \ %l/%L:%c 
-          \%3*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#warnings()') : ''}
-          \%4*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#errors()', '  ') : ''}
-          \%5*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#ok()', '', '  ') : ''}
-          \%5*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#checking()', '', '  ') : ''}
+          \%2*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#warnings()') : ''}
+          \%3*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#errors()', '  ') : ''}
+          \%4*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#ok()', '', '  ') : ''}
+          \%4*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#checking()', ' ', ' ') : ''}
           \%*"
   endfunction
 " }}}
