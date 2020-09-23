@@ -270,7 +270,7 @@ endif
       let g:airline_mode_map['ic'] = 'INSERT'
       augroup start_airline
         autocmd!
-        " autocmd VimEnter * call dotfiles#airline#init()
+        autocmd VimEnter * call dotfiles#airline#init()
       augroup END
     " }}}
     " Syntax: {{{
@@ -464,7 +464,7 @@ endif
 " Setup terminal colors:
 call dotfiles#colors#termcolors()
 " Tempus Classic Additions: {{{
-  function! s:tempus_highlights() abort
+  function! s:tempus_color_additions() abort
     hi Visual guibg=#8e9cc0 ctermbg=12
     hi Search guibg=#b1942b guifg=#232323 ctermbg=3 ctermbg=0 gui=NONE cterm=NONE
     hi gitcommitSummary guifg=#7aa880 ctermfg=7
@@ -513,9 +513,9 @@ call dotfiles#colors#termcolors()
       hi semshiErrorChar       ctermfg=231 guifg=#aeadaf ctermbg=160 guibg=#d70000
     " }}}
   endfunction 
-  augroup tempus_highlights
+  augroup tempus_color_additions
     autocmd!
-    autocmd ColorScheme tempus_classic call s:tempus_highlights()
+    autocmd ColorScheme tempus_classic call s:tempus_color_additions()
   augroup END
 " }}}
 colorscheme tempus_classic
