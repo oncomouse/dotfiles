@@ -1,4 +1,4 @@
-function! dotfiles#todo#toggle_done() abort
+function! todo#toggle_done() abort
   let line=getline('.')
   if line =~# ' X$'
     call setline('.', substitute(line, ' X$', '', ''))
@@ -10,10 +10,10 @@ function! dotfiles#todo#toggle_done() abort
     call setline('.', line . ' X')
   endif
 endfunction
-function! dotfiles#todo#next_project() abort
+function! todo#next_project() abort
   return search('^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$', 'w')
 endfunction
-function! dotfiles#todo#prev_project() abort
+function! todo#prev_project() abort
   return search('^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$', 'bw')
 endfunction
 " Search
@@ -77,7 +77,7 @@ function! s:search_projects(projects) abort
 
     return begin
 endfunction
-function! dotfiles#todo#CompleteProject(lead, cmdline, pos) abort
+function! todo#CompleteProject(lead, cmdline, pos) abort
     let lnum = 1
     let list = []
     let stack = ['']
@@ -114,7 +114,7 @@ function! dotfiles#todo#CompleteProject(lead, cmdline, pos) abort
     return list
 endfunction
 
-function! dotfiles#todo#goto_project() abort
+function! todo#goto_project() abort
   let res = input('Project: ', '', 'customlist,CompleteProject')
 
   if res !=# ''
