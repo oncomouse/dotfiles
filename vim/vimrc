@@ -446,8 +446,6 @@ call plug#end()
       nmap <silent> ]d   <Plug>(dotfiles-diagnostic-next)
     endif
   " }}}
-  " Todo Configuration: {{{
-  " }}}
 " }}}
 " Theme: {{{
 set background=dark
