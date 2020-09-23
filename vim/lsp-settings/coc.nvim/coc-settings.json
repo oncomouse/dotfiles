@@ -1,5 +1,5 @@
 {
-  "list.source.grep.command": "ag",
+  "list.source.grep.command": "rg",
   "list.insertMappings": {
     "<C-t>": "action:tabe",
     "<C-v>": "action:vsplit",
