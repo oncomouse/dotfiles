@@ -451,16 +451,16 @@ call plug#end()
     " todo.txt file and using my done notation:
     function! s:map_todo() abort
       " Mark A Task As Done:
-      nnoremap <buffer> <leader>td :call dotfiles#todo#toggle_done()<CR>
-      vnoremap <buffer> <leader>td :call dotfiles#todo#toggle_done()<CR>
+      nnoremap <silent><buffer> <leader>td :call dotfiles#todo#toggle_done()<CR>
+      vnoremap <silent><buffer> <leader>td :call dotfiles#todo#toggle_done()<CR>
       " Go To Project:
-      nnoremap <buffer> <leader>tg :call dotfiles#todo#goto_project()<CR>
+      nnoremap <silent><buffer> <leader>tg :call dotfiles#todo#goto_project()<CR>
       " Search For Done Tasks:
-      nnoremap <buffer> <leader>t/ / X$<CR>
+      nnoremap <silent><buffer> <leader>t/ / X$<CR>
       " Go To Next Project:
-      nnoremap <buffer> ]t :call dotfiles#todo#next_project()<CR>
+      nnoremap <silent><buffer> ]t :call dotfiles#todo#next_project()<CR>
       " Go To Previous Project:
-      nnoremap <buffer> [t :call dotfiles#todo#prev_project()<CR>
+      nnoremap <silent><buffer> [t :call dotfiles#todo#prev_project()<CR>
     endfunction
 
     augroup todo
