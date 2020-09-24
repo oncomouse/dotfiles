@@ -114,6 +114,26 @@ endif
             \ 'input': ['b'],
             \},
             \]
+      function! MarkdownLink(head) abort
+        if (a:head)
+          return '['
+        endif
+        let l:url = input('URL: ')
+        if l:url ==# ''
+          throw 'OperatorSandwichCancel'
+        endif
+        return ']('.l:url.')'
+      endfunction
+      let g:sandwich#recipes += [
+            \{
+            \ 'buns': ['MarkdownLink(1)', 'MarkdownLink(0)'],
+            \ 'expr': 1,
+            \ 'filetype': ['markdown'],
+            \ 'kind': ['add', 'replace'],
+            \ 'action': ['add'],
+            \ 'input': ['l'],
+            \}
+            \]
       let g:sandwich#recipes += [
             \{
             \ 'buns': ['“', '”'],
