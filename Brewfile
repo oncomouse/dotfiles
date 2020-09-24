@@ -36,6 +36,7 @@ brew "neovim" # Text editor
 brew "vim" # Backup text editor
 brew "watchman" # Needed by CoC.nvim
 cask "visual-studio-code" # Code IDE
+cask "vimr"
 
 # Fonts
 cask "font-fira-code" # Terminal Font
