@@ -1,0 +1,5 @@
+cd ~/Seafile/Todo
+title todo
+launch vim todo.txt
+
+new_tab
