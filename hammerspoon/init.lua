@@ -1,7 +1,6 @@
 --luacheck: globals hs
 require"hs.application"
 -- _ is the universal configuration object:
-local monitorId = "794E2377-E88C-E977-FDBC-F6FE54D92AAE"
 local _ = {}
 -- Load external libraries:
 _.utils = {
@@ -15,6 +14,7 @@ _.utils = {
 	caffeine = require("utils/caffeine"),
 	spaces = require("hs._asm.undocumented.spaces"),
 }
+local monitorId = ""
 function createMissingSpace(space)
 	local count = space - #_.spaces
 	for _i = 1, count do
@@ -150,7 +150,11 @@ _.generators.hotkeys(_.hot_keys)
 _.generators.modals(_.modal_keys)
 
 function get_spaces()
-	return _.utils.spaces.layout()[monitorId]
+	local layout = _.utils.spaces.layout()
+	for k in pairs(layout) do
+		monitorId = k
+	end
+	return layout[monitorId]
 end
 
 _.spaces = get_spaces()
