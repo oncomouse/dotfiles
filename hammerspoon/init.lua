@@ -1,5 +1,7 @@
 --luacheck: globals hs
+require"hs.application"
 -- _ is the universal configuration object:
+local monitorId = "794E2377-E88C-E977-FDBC-F6FE54D92AAE"
 local _ = {}
 -- Load external libraries:
 _.utils = {
@@ -11,7 +13,33 @@ _.utils = {
 	make_modal = require("utils/make_modal"),
 	bind_generator = require("utils/bind_generator"),
 	caffeine = require("utils/caffeine"),
+	spaces = require("hs._asm.undocumented.spaces"),
 }
+function createMissingSpace(space)
+	local count = space - #_.spaces
+	for _i = 1, count do
+		_.spaces[#_.spaces + 1] = _.utils.spaces.createSpace(monitorId)
+	end
+	return _.spaces[space]
+end
+function sendToSpace(space)
+	return function()
+		local win = hs.window.focusedWindow()
+		if (#_.spaces <= space) then
+			win:spacesMoveTo(createMissingSpace(space))
+		else
+			win:spacesMoveTo(_.spaces[space])
+		end
+	end
+end
+function changeToSpace(space)
+	return function()
+		if (#_.spaces <= space) then
+			createMissingSpace(space)
+		end
+		_.utils.spaces.changeToSpace(_.spaces[space])
+	end
+end
 --- Modifier keys:
 _.mods = {
 	hyper = { "ctrl", "alt", "cmd", "shift" },
@@ -36,14 +64,30 @@ _.hot_keys = {
 		d = _.utils.show_date,
 		-- Toggle caffeine:
 		c = _.utils.caffeine,
+		-- Why does nothing work in this stupid fucking program:
+		left = function()
+			hs.window.focusedWindow():focusWindowWest()
+		end,
+		right = function()
+			hs.window.focusedWindow():focusWindowEast()
+		end,
+		down = function()
+			hs.window.focusedWindow():focusWindowSouth()
+		end,
+		up = function()
+			hs.window.focusedWindow():focusWindowNorth()
+		end,
 	},
 }
--- WHY WON'T THIS WORK:
--- o = function()
--- hs.execute(
--- 	"kitty -o font_size=18 -o remember_window_size=no -o initial_window_width=900 --session=$HOME/dotfiles/kitty/sessions/chooser"
--- )
--- end,
+hs.hotkey.bindSpec({ _.mods.hyper, "1" }, changeToSpace(1))
+hs.hotkey.bindSpec({ _.mods.hyper, "2" }, changeToSpace(2))
+hs.hotkey.bindSpec({ _.mods.hyper, "3" }, changeToSpace(3))
+hs.hotkey.bindSpec({ _.mods.hyper, "4" }, changeToSpace(4))
+hs.hotkey.bindSpec({ _.mods.hyper, "5" }, changeToSpace(5))
+hs.hotkey.bindSpec({ _.mods.hyper, "6" }, changeToSpace(6))
+hs.hotkey.bindSpec({ _.mods.hyper, "7" }, changeToSpace(7))
+hs.hotkey.bindSpec({ _.mods.hyper, "8" }, changeToSpace(8))
+hs.hotkey.bindSpec({ _.mods.hyper, "9" }, changeToSpace(9))
 -- Modal shortcuts:
 -- modals are enter with <mod>+<hotkey>, then trigger by pressing the combo below.
 -- <esc> in a modal cancels the sequence; the sequence also cancels after 10 seconds.
@@ -59,6 +103,17 @@ _.modal_keys = {
 			s = "Spotify",
 			v = "VimR",
 			z = "Zotero",
+		},
+		m = {
+			[1] = sendToSpace(1),
+			[2] = sendToSpace(2),
+			[3] = sendToSpace(3),
+			[4] = sendToSpace(4),
+			[5] = sendToSpace(5),
+			[6] = sendToSpace(6),
+			[7] = sendToSpace(7),
+			[8] = sendToSpace(8),
+			[9] = sendToSpace(9),
 		},
 		-- Modal window movements:
 		-- hyper + w -> c = center
@@ -93,6 +148,12 @@ hs.window.animationDuration = 0
 -- Hook up shortcuts:
 _.generators.hotkeys(_.hot_keys)
 _.generators.modals(_.modal_keys)
+
+function get_spaces()
+	return _.utils.spaces.layout()[monitorId]
+end
+
+_.spaces = get_spaces()
 
 -- Auto-reload configuration:
 _.watchers.patchwatcher = hs.pathwatcher.new(
