@@ -4,15 +4,16 @@ require"hs.application"
 local _ = {}
 -- Load external libraries:
 _.utils = {
-	window_movements = require("utils/window_movements"),
-	string_literal = require("utils/string_literal"),
-	reload_config = require("utils/reload_config"),
-	show_spotify_song = require("utils/show_spotify_song"),
-	show_date = require("utils/show_date"),
-	make_modal = require("utils/make_modal"),
-	bind_generator = require("utils/bind_generator"),
-	caffeine = require("utils/caffeine"),
+	window_movements = require("utils.window_movements"),
+	string_literal = require("utils.string_literal"),
+	reload_config = require("utils.reload_config"),
+	show_spotify_song = require("utils.show_spotify_song"),
+	show_date = require("utils.show_date"),
+	make_modal = require("utils.make_modal"),
+	bind_generator = require("utils.bind_generator"),
+	caffeine = require("utils.caffeine"),
 	spaces = require("hs._asm.undocumented.spaces"),
+	fuzzy_switch = require("utils.fuzzy_switch"),
 }
 local monitorId = ""
 function createMissingSpace(space)
@@ -64,7 +65,7 @@ _.hot_keys = {
 		d = _.utils.show_date,
 		-- Toggle caffeine:
 		c = _.utils.caffeine,
-		-- Why does nothing work in this stupid fucking program:
+		p = _.utils.fuzzy_switch,
 		left = function()
 			hs.window.focusedWindow():focusWindowWest()
 		end,
