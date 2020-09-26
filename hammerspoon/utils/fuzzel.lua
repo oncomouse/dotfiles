@@ -53,7 +53,7 @@
 
 --- A collection of methods for finding edit distance between two strings
 
-local utf8 = require"lua-utf8"
+-- local utf8 = require"lua-utf8"
 --Assign locals to these to the minifier can compress the file better
 local strlen,
 	chrat,
@@ -71,7 +71,7 @@ local strlen,
 	tblcat
 =
 	utf8.len,
-	utf8.byte,
+	string.byte,
 	math.min,
 	assert,
 	pairs,
@@ -80,7 +80,7 @@ local strlen,
 	unpack,
 	table.insert,
 	table.sort,
-	utf8.sub,
+	string.sub,
 	true,
 	false,
 	table.concat
@@ -143,7 +143,7 @@ local function genericDistance(stringa, stringb, addcost, subcost, delcost, ...)
 		dyntbl[i] = {}
 		for j = 0, sblen do
 			dyntbl[i][j] = 0
-		end
+hs.inspect.inspect(		)end
 	end
 
 	--Initalize the matrix
