@@ -40,12 +40,12 @@ function _fuzzyFilterChoices(query)
 		return
 	end
 	pickedChoices = {}
-	for i, j in pairs(_fuzzyChoices) do
-		fullText = (j["text"] .. " " .. j["subText"]):lower()
+	for _i, choice in pairs(_fuzzyChoices) do
+		fullText = (choice["text"] .. " " .. choice["subText"]):lower()
 		score = fuzzyQuery(fullText, query:lower())
 		if score > 0 then
-			j["fzf_score"] = score
-			table.insert(pickedChoices, j)
+			choice["fzf_score"] = score
+			table.insert(pickedChoices, choice)
 		end
 	end
 	local sort_func = function(a, b)
@@ -74,6 +74,8 @@ function _fuzzyPickWindow(item)
 	window:focus()
 end
 
+local apps_to_skip = { "UnmountAssistantAgent" }
+
 function windowFuzzySearch()
 	windows =
 		hs.window.filter.default:getWindows(hs.window.filter.sortByFocusedLast)
@@ -86,15 +88,12 @@ function windowFuzzySearch()
 		item = {
 			text = app,
 			subText = title,
-			--["image"] = w:snapshot(),
 			windowID = w:id(),
 		}
-		-- Handle special cases as necessary
-		--if app == "Safari" and title == "" then
-		-- skip, it's a weird empty window that shows up sometimes for some reason
-		--else
-		table.insert(_fuzzyChoices, item)
-		--end
+		-- Anything we want to skip?
+		if not hs.fnutils.contains(apps_to_skip, app) then
+			table.insert(_fuzzyChoices, item)
+		end
 	end
 	_fuzzyLastWindow = hs.window.focusedWindow()
 	_fuzzyChooser =
