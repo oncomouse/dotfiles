@@ -80,5 +80,6 @@ cask "avidemux" # Simple editing
 cask "firefox" # Browser
 cask "flux" # Night-time screen mode
 cask "keycast" # Visualize keystrokes on-screen, great for teaching
+cask "grandperspective" # Visualize disk usage
 cask "seafile-client" # File sharing
 # vim: filetype=conf
