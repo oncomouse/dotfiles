@@ -37,6 +37,7 @@ end
 function ag; /usr/bin/env ag --path-to-ignore ~/.ignore --hidden $argv; end
 # Other Command Aliases:
 function cat;bat --paging=never $argv;end
+function icat;kitty +kitten icat $argv; end
 function top;htop $argv;end
 function ls;exa --group-directories-first $argv;end
 # Vim is Neovim in server mode:
