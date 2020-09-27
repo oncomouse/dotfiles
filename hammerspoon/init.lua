@@ -12,35 +12,9 @@ _.utils = {
 	make_modal = require("utils.make_modal"),
 	bind_generator = require("utils.bind_generator"),
 	caffeine = require("utils.caffeine"),
-	spaces = require("hs._asm.undocumented.spaces"),
+	spaces = require("utils.spaces"),
 	fuzzy_switch = require("utils.fuzzy_switch"),
 }
-local monitorId = ""
-function createMissingSpace(space)
-	local count = space - #_.spaces
-	for _i = 1, count do
-		_.spaces[#_.spaces + 1] = _.utils.spaces.createSpace(monitorId)
-	end
-	return _.spaces[space]
-end
-function sendToSpace(space)
-	return function()
-		local win = hs.window.focusedWindow()
-		if (#_.spaces <= space) then
-			win:spacesMoveTo(createMissingSpace(space))
-		else
-			win:spacesMoveTo(_.spaces[space])
-		end
-	end
-end
-function changeToSpace(space)
-	return function()
-		if (#_.spaces <= space) then
-			createMissingSpace(space)
-		end
-		_.utils.spaces.changeToSpace(_.spaces[space])
-	end
-end
 --- Modifier keys:
 _.mods = {
 	hyper = { "ctrl", "alt", "cmd", "shift" },
@@ -53,6 +27,14 @@ _.mods = {
 }
 -- Hot keys:
 -- Launched using <mod>+<hotkey>
+function focusWindowDirection(dir)
+	return function()
+		local win = hs.window.focusedWindow()
+		if win and win["focusWindow" .. dir] then
+			return win["focusWindow" .. dir](nil, false, true)
+		end
+	end
+end
 _.hot_keys = {
 	-- No modifiers:
 	_ = {},
@@ -66,29 +48,22 @@ _.hot_keys = {
 		-- Toggle caffeine:
 		c = _.utils.caffeine,
 		p = _.utils.fuzzy_switch,
-		left = function()
-			hs.window.focusedWindow():focusWindowWest()
-		end,
-		right = function()
-			hs.window.focusedWindow():focusWindowEast()
-		end,
-		down = function()
-			hs.window.focusedWindow():focusWindowSouth()
-		end,
-		up = function()
-			hs.window.focusedWindow():focusWindowNorth()
-		end,
+		left = focusWindowDirection("West"),
+		right = focusWindowDirection("East"),
+		up = focusWindowDirection("North"),
+		down = focusWindowDirection("South"),
 	},
 }
-hs.hotkey.bindSpec({ _.mods.hyper, "1" }, changeToSpace(1))
-hs.hotkey.bindSpec({ _.mods.hyper, "2" }, changeToSpace(2))
-hs.hotkey.bindSpec({ _.mods.hyper, "3" }, changeToSpace(3))
-hs.hotkey.bindSpec({ _.mods.hyper, "4" }, changeToSpace(4))
-hs.hotkey.bindSpec({ _.mods.hyper, "5" }, changeToSpace(5))
-hs.hotkey.bindSpec({ _.mods.hyper, "6" }, changeToSpace(6))
-hs.hotkey.bindSpec({ _.mods.hyper, "7" }, changeToSpace(7))
-hs.hotkey.bindSpec({ _.mods.hyper, "8" }, changeToSpace(8))
-hs.hotkey.bindSpec({ _.mods.hyper, "9" }, changeToSpace(9))
+-- For some reason the hot_keys api (but not the modals one) does not work with number keys:
+hs.hotkey.bindSpec({ _.mods.hyper, "1" }, _.utils.spaces.change_to_space(1))
+hs.hotkey.bindSpec({ _.mods.hyper, "2" }, _.utils.spaces.change_to_space(2))
+hs.hotkey.bindSpec({ _.mods.hyper, "3" }, _.utils.spaces.change_to_space(3))
+hs.hotkey.bindSpec({ _.mods.hyper, "4" }, _.utils.spaces.change_to_space(4))
+hs.hotkey.bindSpec({ _.mods.hyper, "5" }, _.utils.spaces.change_to_space(5))
+hs.hotkey.bindSpec({ _.mods.hyper, "6" }, _.utils.spaces.change_to_space(6))
+hs.hotkey.bindSpec({ _.mods.hyper, "7" }, _.utils.spaces.change_to_space(7))
+hs.hotkey.bindSpec({ _.mods.hyper, "8" }, _.utils.spaces.change_to_space(8))
+hs.hotkey.bindSpec({ _.mods.hyper, "9" }, _.utils.spaces.change_to_space(9))
 -- Modal shortcuts:
 -- modals are enter with <mod>+<hotkey>, then trigger by pressing the combo below.
 -- <esc> in a modal cancels the sequence; the sequence also cancels after 10 seconds.
@@ -105,16 +80,17 @@ _.modal_keys = {
 			v = "VimR",
 			z = "Zotero",
 		},
+		-- Move window to numbered spaces:
 		m = {
-			[1] = sendToSpace(1),
-			[2] = sendToSpace(2),
-			[3] = sendToSpace(3),
-			[4] = sendToSpace(4),
-			[5] = sendToSpace(5),
-			[6] = sendToSpace(6),
-			[7] = sendToSpace(7),
-			[8] = sendToSpace(8),
-			[9] = sendToSpace(9),
+			[1] = _.utils.spaces.send_to_space(1),
+			[2] = _.utils.spaces.send_to_space(2),
+			[3] = _.utils.spaces.send_to_space(3),
+			[4] = _.utils.spaces.send_to_space(4),
+			[5] = _.utils.spaces.send_to_space(5),
+			[6] = _.utils.spaces.send_to_space(6),
+			[7] = _.utils.spaces.send_to_space(7),
+			[8] = _.utils.spaces.send_to_space(8),
+			[9] = _.utils.spaces.send_to_space(9),
 		},
 		-- Modal window movements:
 		-- hyper + w -> c = center
@@ -149,16 +125,6 @@ hs.window.animationDuration = 0
 -- Hook up shortcuts:
 _.generators.hotkeys(_.hot_keys)
 _.generators.modals(_.modal_keys)
-
-function get_spaces()
-	local layout = _.utils.spaces.layout()
-	for k in pairs(layout) do
-		monitorId = k
-	end
-	return layout[monitorId]
-end
-
-_.spaces = get_spaces()
 
 -- Auto-reload configuration:
 _.watchers.patchwatcher = hs.pathwatcher.new(
