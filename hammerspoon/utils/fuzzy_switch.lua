@@ -2,20 +2,20 @@
 -- Fuzzy Window Switcher
 local spaces = require("hs._asm.undocumented.spaces.")
 
-_fuzzyChoices = nil
-_fuzzyChooser = nil
-_fuzzyLastWindow = nil
+local _fuzzyChoices = nil
+local _fuzzyChooser = nil
+local _fuzzyLastWindow = nil
 
-function fuzzyQuery(s, m)
-	s_index = 1
-	m_index = 1
-	match_start = nil
+local function fuzzyQuery(s, m)
+	local s_index = 1
+	local m_index = 1
+	local match_start = nil
 	while true do
 		if s_index > s:len() or m_index > m:len() then
 			return -1
 		end
-		s_char = s:sub(s_index, s_index)
-		m_char = m:sub(m_index, m_index)
+		local s_char = s:sub(s_index, s_index)
+		local m_char = m:sub(m_index, m_index)
 		if s_char == m_char then
 			if match_start == nil then
 				match_start = s_index
@@ -34,15 +34,15 @@ function fuzzyQuery(s, m)
 	end
 end
 
-function _fuzzyFilterChoices(query)
+local function _fuzzyFilterChoices(query)
 	if query:len() == 0 then
 		_fuzzyChooser:choices(_fuzzyChoices)
 		return
 	end
-	pickedChoices = {}
+	local pickedChoices = {}
 	for _i, choice in pairs(_fuzzyChoices) do
-		fullText = (choice["text"] .. " " .. choice["subText"]):lower()
-		score = fuzzyQuery(fullText, query:lower())
+		local fullText = (choice["text"] .. " " .. choice["subText"]):lower()
+		local score = fuzzyQuery(fullText, query:lower())
 		if score > 0 then
 			choice["fzf_score"] = score
 			table.insert(pickedChoices, choice)
@@ -55,7 +55,7 @@ function _fuzzyFilterChoices(query)
 	_fuzzyChooser:choices(pickedChoices)
 end
 
-function _fuzzyPickWindow(item)
+local function _fuzzyPickWindow(item)
 	if item == nil then
 		if _fuzzyLastWindow then
 			-- Workaround so last focused window stays focused after dismissing
@@ -76,16 +76,15 @@ end
 
 local apps_to_skip = { "UnmountAssistantAgent" }
 
-function windowFuzzySearch()
-	windows =
+local function windowFuzzySearch()
+	local windows =
 		hs.window.filter.default:getWindows(hs.window.filter.sortByFocusedLast)
 	-- windows = hs.window.orderedWindows()
 	_fuzzyChoices = {}
 	for i, w in pairs(windows) do
-		title = w:title()
-		app = w:application():name()
-		hs.console.printStyledtext(app .. w:id())
-		item = {
+		local title = w:title()
+		local app = w:application():name()
+		local item = {
 			text = app,
 			subText = title,
 			windowID = w:id(),
