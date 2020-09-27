@@ -23,6 +23,7 @@ brew "jq" # streaming, inline JSON editor
 brew "shellcheck" # bash linter
 brew "tmux" # terminal multiplexer, run multiple shells and save/restore sessions
 brew "httpie" # simplified http client
+brew "neofetch" # system info
 cask "kitty" # Terminal emulator
 
 # Shell Search
