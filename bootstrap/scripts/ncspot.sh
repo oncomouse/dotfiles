@@ -2,8 +2,9 @@
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 if [ ! -d ~/.cargo ]; then
   rustup-init
+  source $HOME/.cargo/env
 fi
-git https://github.com/hrkfdn/ncspot ~/ncspot
+git clone https://github.com/hrkfdn/ncspot ~/ncspot
 if [ "$os" == "macos" ]; then
   cargo install --path ~/ncspot --no-default-features --features portaudio_backend,cursive/pancurses-backend,mpris,share_clipboard,notify
 else
