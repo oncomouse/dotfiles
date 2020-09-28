@@ -35,6 +35,14 @@ function focusWindowDirection(dir)
 		end
 	end
 end
+function control_ncspot(method)
+	return function()
+		local command =
+			"/usr/bin/env dbus-send --print-reply --dest=org.mpris.MediaPlayer2.ncspot /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player." .. method
+		hs.execute(command, true)
+	end
+end
+
 _.hot_keys = {
 	-- No modifiers:
 	_ = {},
@@ -42,16 +50,17 @@ _.hot_keys = {
 	mash = { space = hs.toggleConsole },
 	hyper = {
 		-- Show current Spotify song:
-		space = _.utils.show_spotify_song,
+		-- space = _.utils.show_spotify_song,
+		space = control_ncspot("PlayPause"),
+		up = control_ncspot("PlayPause"),
+		down = control_ncspot("PlayPause"),
+		right = control_ncspot("Next"),
+		left = control_ncspot("Previous"),
 		-- Show date:
 		d = _.utils.show_date,
 		-- Toggle caffeine:
 		c = _.utils.caffeine,
 		p = _.utils.fuzzy_switch,
-		left = focusWindowDirection("West"),
-		right = focusWindowDirection("East"),
-		up = focusWindowDirection("North"),
-		down = focusWindowDirection("South"),
 	},
 }
 -- For some reason the hot_keys api (but not the modals one) does not work with number keys:
@@ -64,14 +73,6 @@ hs.hotkey.bindSpec({ _.mods.hyper, "6" }, _.utils.spaces.change_to_space(6))
 hs.hotkey.bindSpec({ _.mods.hyper, "7" }, _.utils.spaces.change_to_space(7))
 hs.hotkey.bindSpec({ _.mods.hyper, "8" }, _.utils.spaces.change_to_space(8))
 hs.hotkey.bindSpec({ _.mods.hyper, "9" }, _.utils.spaces.change_to_space(9))
-
-function control_ncspot(method)
-	return function()
-		local command =
-			"/usr/bin/env dbus-send --print-reply --dest=org.mpris.MediaPlayer2.ncspot /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player." .. method
-		result = hs.execute(command, true)
-	end
-end
 
 -- Modal shortcuts:
 -- modals are enter with <mod>+<hotkey>, then trigger by pressing the combo below.
@@ -122,6 +123,8 @@ _.modal_keys = {
 		},
 		s = {
 			space = control_ncspot("PlayPause"),
+			up = control_ncspot("PlayPause"),
+			down = control_ncspot("PlayPause"),
 			right = control_ncspot("Next"),
 			left = control_ncspot("Previous"),
 		},
