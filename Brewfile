@@ -75,6 +75,11 @@ cask "obs" # Screencap
 cask "vlc" # Video playback
 cask "avidemux" # Simple editing
 
+# Music
+brew "portaudio"
+brew "dbus"
+brew "rustup"
+
 # Other GUI Applications
 cask "firefox" # Browser
 cask "flux" # Night-time screen mode
