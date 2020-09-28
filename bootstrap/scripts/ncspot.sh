@@ -17,5 +17,4 @@ else
   mkdir -p ~/.config/ncspot
   ln -sf ~/dotfiles/ncspot/config.toml ~/.config/ncspot/config.toml
 fi
-cd ~/dotfiles
 rm -rf ~/ncspot

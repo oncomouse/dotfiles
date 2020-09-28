@@ -3,3 +3,7 @@ title todo
 launch vim todo.txt
 
 new_tab
+title spotify
+launch ncspot
+
+new_tab
