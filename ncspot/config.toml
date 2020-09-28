@@ -1,3 +1,8 @@
 use_nerdfont = true
 notify = true
 volnorm = true
+
+[theme]
+
+highlight = "light black"
+highlight_bg = "#aeadaf"
