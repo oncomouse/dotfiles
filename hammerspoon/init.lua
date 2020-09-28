@@ -64,6 +64,15 @@ hs.hotkey.bindSpec({ _.mods.hyper, "6" }, _.utils.spaces.change_to_space(6))
 hs.hotkey.bindSpec({ _.mods.hyper, "7" }, _.utils.spaces.change_to_space(7))
 hs.hotkey.bindSpec({ _.mods.hyper, "8" }, _.utils.spaces.change_to_space(8))
 hs.hotkey.bindSpec({ _.mods.hyper, "9" }, _.utils.spaces.change_to_space(9))
+
+function control_ncspot(method)
+	return function()
+		local command =
+			"/usr/bin/env dbus-send --print-reply --dest=org.mpris.MediaPlayer2.ncspot /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player." .. method
+		result = hs.execute(command, true)
+	end
+end
+
 -- Modal shortcuts:
 -- modals are enter with <mod>+<hotkey>, then trigger by pressing the combo below.
 -- <esc> in a modal cancels the sequence; the sequence also cancels after 10 seconds.
@@ -110,6 +119,11 @@ _.modal_keys = {
 			right = _.utils.window_movements.right,
 			up = _.utils.window_movements.up,
 			down = _.utils.window_movements.down,
+		},
+		s = {
+			space = control_ncspot("PlayPause"),
+			right = control_ncspot("Next"),
+			left = control_ncspot("Previous"),
 		},
 	},
 }
