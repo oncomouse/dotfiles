@@ -77,6 +77,7 @@ cask "vlc" # Video playback
 cask "avidemux" # Simple editing
 
 # Other GUI Applications
+cask "amethyst" # Tiling Window Manager
 cask "firefox" # Browser
 cask "flux" # Night-time screen mode
 cask "keycast" # Visualize keystrokes on-screen, great for teaching
