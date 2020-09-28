@@ -82,11 +82,11 @@ if [ -z $SERVER ]; then
   sudo apt-get update
   sudo apt-get -y install virtualbox-6.0
 
-  ## Install RBEnv:
+  ## Install ASDF:
   sudo apt-get -y install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
-  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-  echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+  echo ". $HOME/.asdf/asdf.sh" >> ~/.bashrc
+  echo ". $HOME/.asdf/completions/asdf.bash" >. ~/.bashrc
   source ~/.bashrc
 
   ## Install NeoVim:

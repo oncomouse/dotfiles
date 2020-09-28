@@ -48,14 +48,12 @@ cask "font-tex-gyre-heros" # Used for CV on website
 # Programming
 brew "heroku/brew/heroku" # Build and install cloud apps
 brew "node" # Node.js
-brew "node-build" # Build Node binaries
-brew "nodenv" # Manage different Node.js installations
 brew "python" # Python 3
-brew "rbenv" # Manage different Ruby installations
 brew "yarn" # Package manager for Node.js
 cask "virtualbox" # Virtual machine software
 brew "lua" # Lua
 brew "luarocks" # Lua Package Manager
+brew "asdf" # Unified Ruby / Node version managing
 
 # Writing
 brew "bib-tool" # Manage bibtex files
