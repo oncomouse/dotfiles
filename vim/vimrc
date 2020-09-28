@@ -510,6 +510,8 @@ call dotfiles#colors#termcolors()
     hi User3 guifg=#312e30 ctermfg=8 guibg=#d2813d ctermbg=1 cterm=NONE gui=NONE
     hi User4 guifg=#aeadaf ctermfg=15 guibg=#312e30 ctermbg=8 cterm=none gui=none
     hi SpellBad gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8
+    hi ALEError gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#d2813d
+    hi ALEWarning gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#b1942b
     hi Pmenu gui=none guibg=#312e30 guifg=#aeadaf cterm=none ctermbg=8 ctermfg=15
     hi MarkdownItalic guifg=#d58888
     hi link htmlItalic MarkdownItalic
