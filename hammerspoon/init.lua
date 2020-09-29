@@ -50,8 +50,8 @@ _.hot_keys = {
 	mash = { space = hs.toggleConsole },
 	hyper = {
 		-- Show current Spotify song:
-		-- space = _.utils.show_spotify_song,
-		space = control_ncspot("PlayPause"),
+		space = _.utils.show_spotify_song,
+		-- space = control_ncspot("PlayPause"),
 		up = control_ncspot("PlayPause"),
 		down = control_ncspot("PlayPause"),
 		right = control_ncspot("Next"),
