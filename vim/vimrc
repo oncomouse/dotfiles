@@ -433,6 +433,8 @@ call plug#end()
   nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
   " Highlight a block and type "@" to run a macro on the block:
   xnoremap <silent> @ :<C-u>call visualat#ExecuteMacroOverVisualRange()<CR>
+  " <F4> makes:
+  nnoremap <silent><buffer> <F4> :make!<CR>
   " Update fast folds:
   nmap zuz <Plug>(FastFoldUpdate)
   " Standard Fuzzy Bindings: {{{

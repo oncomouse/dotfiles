@@ -6,7 +6,22 @@ function! ToggleConcealLevel() abort
 endfunction
 nnoremap <buffer> <silent> <leader>cc :call ToggleConcealLevel()<CR>
 " Ctrl+Shift+<-/-> indents
-imap <buffer> <silent> <C-S-Left> <C-o><<
-imap <buffer> <silent> <C-S-Right> <C-o>>>
-" Compile markdown to .docx with pandoc:
-let &l:makeprg='pandoc -f markdown+smart -t docx -i % -o %:r.docx'
+imap <buffer> <silent> <C-S-[> <C-o><<
+imap <buffer> <silent> <C-S-]> <C-o>>>
+
+function! s:get_makeprg() abort
+  " Included with vim-rooter:
+  let l:root = FindRootDirectory()
+  if len(globpath(l:root, '_config.yml'))
+    " Jekyll
+    let &l:makeprg='bundle exec jekyll build'
+  elseif l:root =~# 'slides'
+    " Slide Repo
+    let &l:makeprg='bundle exec rake build; bundle exec rake deploy'
+  else
+    " Compile markdown to .docx with pandoc:
+    let &l:makeprg='pandoc -f markdown+smart -t docx -i % -o %:r.docx'
+  endif
+endfunction
+
+call s:get_makeprg()
