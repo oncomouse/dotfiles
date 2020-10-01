@@ -25,6 +25,12 @@ echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
 ## Git Keychain:
 git config --global credential.helper osxkeychain
 
+## macOS Defaults:
+
+# Turn on font smoothing:
+defaults write -g CGFontRenderingFontSmoothingDisabled -bool false
+# Use <tab> to select any UI element:
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 ## Fix Homebrew's python3 mess:
 if test ! "/usr/local/bin/python"; then
