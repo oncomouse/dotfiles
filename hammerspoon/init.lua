@@ -52,10 +52,10 @@ _.hot_keys = {
 		-- Show current Spotify song:
 		space = _.utils.show_spotify_song,
 		-- space = control_ncspot("PlayPause"),
-		up = control_ncspot("PlayPause"),
-		down = control_ncspot("PlayPause"),
-		right = control_ncspot("Next"),
-		left = control_ncspot("Previous"),
+		-- up = control_ncspot("PlayPause"),
+		-- down = control_ncspot("PlayPause"),
+		-- right = control_ncspot("Next"),
+		-- left = control_ncspot("Previous"),
 		-- Show date:
 		d = _.utils.show_date,
 		-- Toggle caffeine:
@@ -64,15 +64,19 @@ _.hot_keys = {
 	},
 }
 -- For some reason the hot_keys api (but not the modals one) does not work with number keys:
-hs.hotkey.bindSpec({ _.mods.hyper, "1" }, _.utils.spaces.change_to_space(1))
-hs.hotkey.bindSpec({ _.mods.hyper, "2" }, _.utils.spaces.change_to_space(2))
-hs.hotkey.bindSpec({ _.mods.hyper, "3" }, _.utils.spaces.change_to_space(3))
-hs.hotkey.bindSpec({ _.mods.hyper, "4" }, _.utils.spaces.change_to_space(4))
-hs.hotkey.bindSpec({ _.mods.hyper, "5" }, _.utils.spaces.change_to_space(5))
-hs.hotkey.bindSpec({ _.mods.hyper, "6" }, _.utils.spaces.change_to_space(6))
-hs.hotkey.bindSpec({ _.mods.hyper, "7" }, _.utils.spaces.change_to_space(7))
-hs.hotkey.bindSpec({ _.mods.hyper, "8" }, _.utils.spaces.change_to_space(8))
-hs.hotkey.bindSpec({ _.mods.hyper, "9" }, _.utils.spaces.change_to_space(9))
+-- hs.hotkey.bindSpec({ _.mods.hyper, "1" }, _.utils.spaces.change_to_space(1))
+-- hs.hotkey.bindSpec({ _.mods.hyper, "2" }, _.utils.spaces.change_to_space(2))
+-- hs.hotkey.bindSpec({ _.mods.hyper, "3" }, _.utils.spaces.change_to_space(3))
+-- hs.hotkey.bindSpec({ _.mods.hyper, "4" }, _.utils.spaces.change_to_space(4))
+-- hs.hotkey.bindSpec({ _.mods.hyper, "5" }, _.utils.spaces.change_to_space(5))
+-- hs.hotkey.bindSpec({ _.mods.hyper, "6" }, _.utils.spaces.change_to_space(6))
+-- hs.hotkey.bindSpec({ _.mods.hyper, "7" }, _.utils.spaces.change_to_space(7))
+-- hs.hotkey.bindSpec({ _.mods.hyper, "8" }, _.utils.spaces.change_to_space(8))
+-- hs.hotkey.bindSpec({ _.mods.hyper, "9" }, _.utils.spaces.change_to_space(9))
+-- hs.hotkey.bindSpec(
+-- 	{ _.mods.hyper, "left" },
+-- 	_.utils.spaces.change_to_nearby_space(-1)
+-- )
 
 -- Modal shortcuts:
 -- modals are enter with <mod>+<hotkey>, then trigger by pressing the combo below.
