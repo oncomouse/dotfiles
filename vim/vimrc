@@ -112,17 +112,18 @@ endif
           \ , 'pyproject.toml', 'setup.py']
     Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
     Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,)
-    Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing
-    let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', '`':'`', '{': '}'}
-    " ,'```':'```', '"""':'"""', "'''":"'''"})
-    augroup autopair-enable
-      autocmd!
-      " Remove auto-pairing for quotations in Vimscript (which should be
-      " comments only):
-      autocmd FileType vim let b:AutoPairs = AutoPairsDefine({}, ['"'])
-      autocmd FileType markdown
-        \ let b:AutoPairs = AutoPairsDefine({'~~~':'~~~//m'})
-    augroup END
+    Plug 'Raimondi/delimitMate' " Auto-pairing
+    " Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing
+    " let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', '`':'`', '{': '}'}
+    " " ,'```':'```', '"""':'"""', "'''":"'''"})
+    " augroup autopair-enable
+    "   autocmd!
+    "   " Remove auto-pairing for quotations in Vimscript (which should be
+    "   " comments only):
+    "   autocmd FileType vim let b:AutoPairs = AutoPairsDefine({}, ['"'])
+    "   autocmd FileType markdown
+    "     \ let b:AutoPairs = AutoPairsDefine({'~~~':'~~~//m'})
+    " augroup END
     if has('nvim-0.5')
       augroup highlight_yank
         autocmd!
@@ -345,6 +346,7 @@ endif
       Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
       Plug 'reedes/vim-textobj-sentence', { 'for': ['markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
       Plug 'reedes/vim-textobj-quote', { 'for': ['markdown', 'text'] } " Makes aq & iq for smart quotes
+      let g:textobj#quote#educate = v:false
       " Initialize the plugin when it is dynamically loaded:
       augroup load-sentence
         autocmd!
