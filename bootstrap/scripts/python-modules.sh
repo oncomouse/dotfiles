@@ -33,8 +33,11 @@ if [ -z $SERVER ];then
   pip3install 'bibparse'
   # LSP
   pip3install 'jedi-language-server'
+  # Image support for Ranger:
+  pip3install 'pillow'
 fi
 pip3install 'pynvim'
 pip3install 'virtualfish'
+pip3install 'ranger-fm'
 # Install poetry
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3

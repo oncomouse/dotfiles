@@ -137,6 +137,11 @@ if status is-interactive
   # Load the asdf wrapper function
   source $ASDF_DIR/lib/asdf.fish
 
+  # Don't reload default ranger settings:
+  if not set -q RANGER_LOAD_DEFAULT_RC
+    set -Ux RANGER_LOAD_DEFAULT_RC 0
+  end
+
   # Configure Pisces (fish pairing):
   if not set -q pisces_only_insert_at_eol
     set -Ux pisces_only_insert_at_eol 1
