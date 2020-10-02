@@ -142,10 +142,6 @@ endif
     let g:vimwiki_global_ext = 0
     let g:vimwiki_conceallevel = 0
   " }}}
-  " Tmux: {{{
-    " Navigate TMUX & Vim panes with the same command
-    Plug 'christoomey/vim-tmux-navigator'
-  " }}}
   " Git Support: {{{
     Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
     function! s:load_gina() abort

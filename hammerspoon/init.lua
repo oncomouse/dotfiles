@@ -63,6 +63,8 @@ _.hot_keys = {
 		p = _.utils.fuzzy_switch,
 	},
 }
+-- Make sure we have 9 spaces:
+_.utils.spaces.create_missing_space(9)
 -- For some reason the hot_keys api (but not the modals one) does not work with number keys:
 -- hs.hotkey.bindSpec({ _.mods.hyper, "1" }, _.utils.spaces.change_to_space(1))
 -- hs.hotkey.bindSpec({ _.mods.hyper, "2" }, _.utils.spaces.change_to_space(2))
