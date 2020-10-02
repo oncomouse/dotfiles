@@ -139,7 +139,7 @@ if status is-interactive
 
   # Don't reload default ranger settings:
   if not set -q RANGER_LOAD_DEFAULT_RC
-    set -Ux RANGER_LOAD_DEFAULT_RC 0
+    set -Ux RANGER_LOAD_DEFAULT_RC FALSE
   end
 
   # Configure Pisces (fish pairing):
