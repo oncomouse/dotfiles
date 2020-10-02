@@ -24,7 +24,23 @@ local function change_to_space(space)
 		if (#spaces <= space) then
 			create_missing_space(space)
 		end
-		spaces_api.changeToSpace(spaces[space], false)
+		-- spaces_api.changeToSpace(spaces[space], false)
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.cmd, true):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.alt, true):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.ctrl, true):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.shift, true):post()
+		hs.eventtap.event.newKeyEvent(
+			hs.keycodes.map["" .. space .. ""],
+			true
+		):post()
+		hs.eventtap.event.newKeyEvent(
+			hs.keycodes.map["" .. space .. ""],
+			false
+		):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.cmd, false):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.alt, false):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.ctrl, false):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.shift, false):post()
 	end
 end
 local function get_spaces()

@@ -1,10 +1,18 @@
 -- luacheck: globals hs
 -- Fuzzy Window Switcher
-local spaces = require("hs._asm.undocumented.spaces.")
+local spaces_api = require("hs._asm.undocumented.spaces.")
 
 local _fuzzyChoices = nil
 local _fuzzyChooser = nil
 local _fuzzyLastWindow = nil
+
+local function get_spaces()
+	local layout = spaces_api.layout()
+	for k in pairs(layout) do
+		monitorId = k
+	end
+	return layout[monitorId]
+end
 
 local function fuzzyQuery(s, m)
 	local s_index = 1
@@ -65,10 +73,26 @@ local function _fuzzyPickWindow(item)
 		return
 	end
 	local id = item["windowID"]
-	local currentSpace = spaces.activeSpace()
-	local windowSpaces = spaces.windowOnSpaces(id)
+	local currentSpace = spaces_api.activeSpace()
+	local windowSpaces = spaces_api.windowOnSpaces(id)
 	if not hs.fnutils.contains(windowSpaces, currentSpace) then
-		spaces.changeToSpace(windowSpaces[1])
+		local space = hs.fnutils.indexOf(get_spaces(), windowSpaces[1])
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.cmd, true):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.alt, true):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.ctrl, true):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.shift, true):post()
+		hs.eventtap.event.newKeyEvent(
+			hs.keycodes.map["" .. space .. ""],
+			true
+		):post()
+		hs.eventtap.event.newKeyEvent(
+			hs.keycodes.map["" .. space .. ""],
+			false
+		):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.cmd, false):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.alt, false):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.ctrl, false):post()
+		hs.eventtap.event.newKeyEvent(hs.keycodes.map.shift, false):post()
 	end
 	local window = hs.window.get(id)
 	window:focus()
