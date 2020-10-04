@@ -25,6 +25,7 @@ brew "tmux" # terminal multiplexer, run multiple shells and save/restore session
 brew "httpie" # simplified http client
 brew "neofetch" # system info
 cask "kitty" # Terminal emulator
+brew "poppler" # Terminal PDF tools (needed for ranger preview)
 
 # Shell Search
 brew "grep" # the old standby
