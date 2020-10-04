@@ -101,7 +101,7 @@ endif
     let g:secure_modelines_modelines = 15
   " }}}
   " General Editing: {{{
-    Plug 'rhysd/clever-f.vim' " Smarter, repeatable f, F, t, T
+    " Plug 'rhysd/clever-f.vim' " Smarter, repeatable f, F, t, T
     Plug 'sickill/vim-pasta' " Indentation-forward pasting
     Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
     Plug 'tpope/vim-repeat'
@@ -110,19 +110,8 @@ endif
     let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile'
           \ , 'pyproject.toml', 'setup.py']
     Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
-    Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,)
+    " Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,)
     Plug 'Raimondi/delimitMate' " Auto-pairing
-    " Plug 'jiangmiao/auto-pairs' " Aggressive auto-pairing
-    " let g:AutoPairs = {'(':')', '[':']',"'":"'",'"':'"', '`':'`', '{': '}'}
-    " " ,'```':'```', '"""':'"""', "'''":"'''"})
-    " augroup autopair-enable
-    "   autocmd!
-    "   " Remove auto-pairing for quotations in Vimscript (which should be
-    "   " comments only):
-    "   autocmd FileType vim let b:AutoPairs = AutoPairsDefine({}, ['"'])
-    "   autocmd FileType markdown
-    "     \ let b:AutoPairs = AutoPairsDefine({'~~~':'~~~//m'})
-    " augroup END
     if has('nvim-0.5')
       augroup highlight_yank
         autocmd!
@@ -136,11 +125,11 @@ endif
     endif
   " }}}
   " Writing: {{{
-    Plug 'vimwiki/vimwiki'
-    let g:vimwiki_list = [{'path': '~/Seafile/Todo/Wiki',
-                          \ 'index': 'Wiki'}]
-    let g:vimwiki_global_ext = 0
-    let g:vimwiki_conceallevel = 0
+    " Plug 'vimwiki/vimwiki'
+    " let g:vimwiki_list = [{'path': '~/Seafile/Todo/Wiki',
+    "                       \ 'index': 'Wiki'}]
+    " let g:vimwiki_global_ext = 0
+    " let g:vimwiki_conceallevel = 0
   " }}}
   " Git Support: {{{
     Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
