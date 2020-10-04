@@ -2,8 +2,8 @@ cd ~/Seafile/Todo
 title todo
 launch nvim todo.txt
 
-new_tab
-title spotify
-launch ncspot
+# new_tab
+# title spotify
+# launch ncspot
 
 new_tab
