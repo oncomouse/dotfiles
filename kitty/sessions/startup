@@ -1,6 +1,6 @@
 cd ~/Seafile/Todo
 title todo
-launch vim todo.txt
+launch nvim todo.txt
 
 new_tab
 title spotify
