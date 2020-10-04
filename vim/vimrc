@@ -104,7 +104,6 @@ endif
     Plug 'rhysd/clever-f.vim' " Smarter, repeatable f, F, t, T
     Plug 'sickill/vim-pasta' " Indentation-forward pasting
     Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-    augroup END
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
     Plug 'airblade/vim-rooter' " Set project root
