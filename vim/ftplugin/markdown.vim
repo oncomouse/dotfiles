@@ -6,8 +6,8 @@ function! ToggleConcealLevel() abort
 endfunction
 nnoremap <buffer> <silent> <leader>cc :call ToggleConcealLevel()<CR>
 " Ctrl+Shift+<-/-> indents
-imap <buffer> <silent> <C-S-[> <C-o><<
-imap <buffer> <silent> <C-S-]> <C-o>>>
+imap <buffer> <silent> <C-S-Left> <C-o><<
+imap <buffer> <silent> <C-S-Right> <C-o>>>
 
 function! s:get_makeprg() abort
   " Included with vim-rooter:
