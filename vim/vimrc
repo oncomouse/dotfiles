@@ -280,6 +280,16 @@ endif
         \ 'branch': 'next',
         \ 'do': 'bash install.sh',
         \ }
+        function! s:start_lsp() abort
+          let g:LanguageClient_fzfOptions = ['--delimiter', ':', '--preview-window', '+{2}-5'] + fzf#vim#with_preview('right:50%:hidden', '?').options
+        endfunction
+        augroup start_lsp
+          autocmd!
+          autocmd VimEnter * call s:start_lsp()
+        augroup END
+        let g:LanguageClient_selectionUI = 'fzf'
+        " let g:LanguageClient_fzfOptions = fzf#vim#with_preview().options
+        let g:LanguageClient_fzfContextMenu = 1
         let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp-settings/LanguageClient-neovim/settings.json')
         let g:LanguageClient_useVirtualText = 'CodeLens'
         " Turn off all diagnostic stuff (pump it all to ALE):
