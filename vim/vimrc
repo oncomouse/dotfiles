@@ -125,11 +125,12 @@ endif
     endif
   " }}}
   " Writing: {{{
-    " Plug 'vimwiki/vimwiki'
-    " let g:vimwiki_list = [{'path': '~/Seafile/Todo/Wiki',
-    "                       \ 'index': 'Wiki'}]
-    " let g:vimwiki_global_ext = 0
-    " let g:vimwiki_conceallevel = 0
+    Plug 'vimwiki/vimwiki'
+    let g:vimwiki_list = [{'path': '~/Seafile/Todo/Wiki',
+          \ 'syntax': 'markdown', 'ext': '.md',
+                          \ 'index': 'Wiki'}]
+    let g:vimwiki_global_ext = 0
+    let g:vimwiki_conceallevel = 0
   " }}}
   " Git Support: {{{
     Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
