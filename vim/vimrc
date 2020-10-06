@@ -110,7 +110,7 @@ endif
     let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile'
           \ , 'pyproject.toml', 'setup.py']
     Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
-    " Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,)
+    Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
     Plug 'Raimondi/delimitMate' " Auto-pairing
     if has('nvim-0.5')
       augroup highlight_yank
