@@ -155,6 +155,11 @@ endif
       Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
     endif
   " }}}
+  " Server Syntax {{{
+    if g:dotfiles_mode ==# 'server'
+      Plug 'sheerun/vim-polyglot'
+    endif
+  " }}}
   if g:dotfiles_mode ==# 'desktop'
     " General Editing: {{{
       if has('nvim')
@@ -215,6 +220,7 @@ endif
       augroup END
     " }}}
     " Syntax: {{{
+      Plug 'cespare/vim-toml' " Toml syntax
       Plug 'neoclide/vim-jsx-improve'
       Plug 'plasticboy/vim-markdown'
       let g:vim_markdown_frontmatter = 1 " Format YAML
