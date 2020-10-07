@@ -22,7 +22,7 @@ endfunction
 function! s:fzf_list(name, is_quickfix) abort
   let source = a:is_quickfix ? getqflist() : getloclist(0)
   call fzf#run(fzf#wrap(a:name, {
-        \ 'source': reverse(map(source, 's:list_to_grep(v:val)')),
+        \ 'source': map(source, 's:list_to_grep(v:val)'),
         \ 'sink': function('s:open_list_item'),
         \ }))
 endfunction

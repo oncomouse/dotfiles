@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-os=`bash ~/dotfiles/bootstrap/scripts/os.sh`
-bash=`which bash`
-env=`which env`
+os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
+bash=$(which bash)
+env=$(which env)
 case $os in
   macos)
-    $env SERVER=$SERVER $bash $HOME/dotfiles/bootstrap/macos.sh
+    $env SERVER="$SERVER" "$bash" "$HOME/dotfiles/bootstrap/macos.sh"
     ;;
   ubuntu)
-    $env SERVER=$SERVER $bash $HOME/dotfiles/bootstrap/ubuntu.sh
+    $env SERVER="$SERVER" "$bash" "$HOME/dotfiles/bootstrap/ubuntu.sh"
     ;;
   *)
     echo "Cannot recognize your operating system: $os"

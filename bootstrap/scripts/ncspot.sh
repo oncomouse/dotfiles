@@ -2,7 +2,7 @@
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 if [ ! -d ~/.cargo ]; then
   rustup-init
-  source $HOME/.cargo/env
+  source "$HOME/.cargo/env"
 fi
 git clone https://github.com/hrkfdn/ncspot ~/ncspot
 if [ "$os" == "macos" ]; then

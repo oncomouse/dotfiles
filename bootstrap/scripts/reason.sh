@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-os=`bash ~/dotfiles/bootstrap/scripts/os.sh`
-if [ $os != 'macos' ]; then
+os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
+if [ "$os" != 'macos' ]; then
   os='linux'
 fi
 if ! which reason-language-server > /dev/null 2>&1; then

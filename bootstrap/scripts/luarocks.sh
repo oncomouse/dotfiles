@@ -5,7 +5,7 @@ lualist=$(luarocks list --porcelain | cut -f 1)
 function luainstall() {
   local repo=$1
   if ! [[ $lualist =~ $repo ]]; then 
-    luarocks install $repo
+    luarocks install "$repo"
   fi
 }
 if [ -z "$SERVER" ];then

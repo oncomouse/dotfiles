@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ## Diff-so-fancy Git stuff
-os=`bash ~/dotfiles/bootstrap/scripts/os.sh`
-if [ which npm > /dev/null 2>&1 ] || [ "$os" == "macos" ]; then
+os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
+if which npm > /dev/null 2>&1 || [ "$os" == "macos" ]; then
   git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
   git config --global color.ui true
   git config --global color.diff-highlight.oldNormal "red bold"

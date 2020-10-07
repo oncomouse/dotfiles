@@ -27,21 +27,21 @@ fi
 if ! which tmux > /dev/null 2>&1; then
   sudo apt -y install automake build-essential pkg-config libevent-dev libncurses5-dev bison
   git clone https://github.com/tmux/tmux.git ~/dotfiles/tmux
-  cd ~/dotfiles/tmux
+  cd ~/dotfiles/tmux || exit
   git checkout tags/2.9a
   ./autogen.sh; ./configure; make
   sudo make install
   sudo apt -y remove automake build-essential pkg-config libevent-dev libncurses5-dev bison
-  cd ~/dotfiles
+  cd ~/dotfiles || exit
   rm -rf tmux
 fi
 
 # Install Fasd
 if ! which fasd > /dev/null 2>&1; then
   git clone https://github.com/clvv/fasd
-  cd ~/dotfiles/fasd
+  cd ~/dotfiles/fasd || exit
   sudo make install
-  cd ~/dotfiles
+  cd ~/dotfiles || exit
   rm -rf fasd
 fi
 
@@ -67,7 +67,7 @@ if ! which exa > /dev/null 2>&1; then
   rm ~/dotfiles/exa.zip
 fi
 
-if [ -z $SERVER ]; then
+if [ -z "$SERVER" ]; then
   sudo apt-get install -y pandoc pandoc-citeproc diction bibtool
   sudo apt-get install -y firefox
 

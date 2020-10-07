@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 os="unknown"
-case `uname` in
+case $(uname) in
   Darwin)
     os="macos"
     ;;
@@ -8,4 +8,4 @@ case `uname` in
     os=$(grep "^NAME" < /etc/os-release | tr -d "NAME=" | tr -d '"' | tr '[:upper:]' '[:lower:]' | sed -e "s/ linux//")
     ;;
 esac
-echo $os
+echo "$os"
