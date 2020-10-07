@@ -1,0 +1,36 @@
+[[dot]]
+source = "vim/vimrc-server"
+target = ".vimrc"
+
+[[dot]]
+source = "kitty"
+target = ".config/kitty"
+
+[[dot]]
+source = "fish/config.fish"
+target = ".config/fish/"
+
+[[dot]]
+source = "fish/fishfile"
+target = ".config/fish/"
+
+[[dot]]
+source = "fish/functions/*.fish"
+target = ".config/fish/functions/"
+
+[[dot]]
+source = "fish/completions/*.fish"
+target = ".config/fish/completions/"
+
+[[dot]]
+source = "ag/agignore"
+target = ".ignore"
+
+[[dot]]
+source = "rubocop"
+target = ".config"
+
+[[profiles.macos.dot]]
+source = "Brewfile"
+target = ".Brewfile"
+

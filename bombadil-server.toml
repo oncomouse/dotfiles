@@ -1,10 +1,10 @@
 dotfiles_dir = "dotfiles"
 
 [[hook]]
-command = "make desktop"
+command = "make server"
 
 [[import]]
 path = "~/dotfiles/bombadil/common.toml"
 
 [[import]]
-path = "~/dotfiles/bombadil/desktop-only.toml"
+path = "~/dotfiles/bombadil/server-only.toml"

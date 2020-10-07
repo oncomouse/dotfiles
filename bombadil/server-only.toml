@@ -1,0 +1,3 @@
+[[dot]]
+source = "vim/vimrc-server"
+target = ".config/nvim/init.vim"

@@ -1,0 +1,31 @@
+[[dot]]
+source = "vim/vimrc-desktop"
+target = ".config/nvim/init.vim"
+
+[[dot]]
+source = "vale/vale.ini"
+target = ".vale.ini"
+
+[[dot]]
+source = "proselint"
+target = ".config/"
+
+[[profiles.macos.dot]]
+source = "automation/karabiner"
+target = ".config/karabiner"
+
+[[profiles.macos.dot]]
+source = "hammerspoon"
+target = ".hammerspoon"
+
+[[profiles.macos.dot]]
+source = "vim/ginit.vim"
+target = ".config/nvim/"
+
+[[profiles.macos.dot]]
+source = "ncspot/config.toml"
+target = "Library/Preferences/org.affekt.ncspot/config.toml"
+
+[[profiles.linux.dot]]
+source = "ncspot/config.toml"
+target = ".config/ncspot/config.toml"
