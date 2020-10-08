@@ -1,7 +1,10 @@
 dotfiles_dir = "dotfiles"
 
-[[hook]]
-command = "make server"
+[[profiles.macos.hook]]
+command = "env SERVER=true bash ~/dotfiles/bootstrap/init.sh"
+
+[[profiles.linux.hook]]
+command = "env SERVER=true bash ~/dotfiles/bootstrap/init.sh"
 
 [[import]]
 path = "~/dotfiles/bombadil/common.toml"

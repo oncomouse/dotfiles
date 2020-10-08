@@ -1,7 +1,10 @@
 dotfiles_dir = "dotfiles"
 
-[[hook]]
-command = "make desktop"
+[[profiles.macos.hook]]
+command = "bash ~/dotfiles/bootstrap/init.sh"
+
+[[profiles.linux.hook]]
+command = "bash ~/dotfiles/bootstrap/init.sh"
 
 [[import]]
 path = "~/dotfiles/bombadil/common.toml"

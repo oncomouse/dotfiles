@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 
@@ -9,8 +9,7 @@ if [ -n "$SERVER" ]; then
 else
   bombadil install -c ~/dotfiles/bombadil.toml
 fi
-
-if [ "$os" = "macos" ]; then
+if [ "$os" == "macos" ]; then
   bombadil link -p macos
 else
   bombadil link -p linux
