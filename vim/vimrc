@@ -110,7 +110,8 @@ endif
     let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile'
           \ , 'pyproject.toml', 'setup.py']
     Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
-    Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
+    " Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
+    " let g:targets_seekRanges = 'cc cr cb cB lc ac Ac lr lb ar ab lB Ar aB Ab AB'
     Plug 'Raimondi/delimitMate' " Auto-pairing
     if has('nvim-0.5')
       augroup highlight_yank
@@ -237,6 +238,7 @@ endif
     " }}}
     " Text Object Plugins: {{{
       Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
+      Plug 'EvanQuan/vim-textobj-delimiters'" Delimited selectors
       Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
       Plug 'thinca/vim-textobj-function-javascript' " js function support
       Plug 'bps/vim-textobj-python' " function and class support for Python
