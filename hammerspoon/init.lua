@@ -18,6 +18,7 @@ _.utils = {
 	caffeine = require("utils.caffeine"),
 	spaces = require("utils.spaces"),
 	fuzzy_switch = require("utils.fuzzy_switch"),
+	ncspot = require("utils.ncspot"),
 }
 --- Modifier keys:
 _.mods = {
@@ -31,21 +32,6 @@ _.mods = {
 }
 -- Hot keys:
 -- Launched using <mod>+<hotkey>
-function focusWindowDirection(dir)
-	return function()
-		local win = hs.window.focusedWindow()
-		if win and win["focusWindow" .. dir] then
-			return win["focusWindow" .. dir](nil, false, true)
-		end
-	end
-end
-function control_ncspot(method)
-	return function()
-		local command =
-			"/usr/bin/env dbus-send --print-reply --dest=org.mpris.MediaPlayer2.ncspot /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player." .. method
-		hs.execute(command, true)
-	end
-end
 
 _.hot_keys = {
 	-- No modifiers:
@@ -55,11 +41,6 @@ _.hot_keys = {
 	hyper = {
 		-- Show current Spotify song:
 		space = _.utils.show_spotify_song,
-		-- space = control_ncspot("PlayPause"),
-		-- up = control_ncspot("PlayPause"),
-		-- down = control_ncspot("PlayPause"),
-		-- right = control_ncspot("Next"),
-		-- left = control_ncspot("Previous"),
 		-- Show date:
 		d = _.utils.show_date,
 		-- Toggle caffeine:
@@ -132,11 +113,11 @@ _.modal_keys = {
 			down = _.utils.window_movements.down,
 		},
 		s = {
-			space = control_ncspot("PlayPause"),
-			up = control_ncspot("PlayPause"),
-			down = control_ncspot("PlayPause"),
-			right = control_ncspot("Next"),
-			left = control_ncspot("Previous"),
+			space = _.utils.ncspot("PlayPause"),
+			up = _.utils.ncspot("PlayPause"),
+			down = _.utils.ncspot("PlayPause"),
+			right = _.utils.ncspot("Next"),
+			left = _.utils.ncspot("Previous"),
 		},
 	},
 }
