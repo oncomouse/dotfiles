@@ -47,6 +47,9 @@ endif
   if has('nvim')
     set inccommand=split
   endif
+
+  " Set Spellfile Location:
+  set spellfile=~/dotfiles/vim/spell/en.utf-8.add
   " }}}
 " Tabs: {{{
   set tabstop=8
