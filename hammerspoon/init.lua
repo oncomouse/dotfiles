@@ -2,6 +2,10 @@
 require"hs.application"
 -- _ is the universal configuration object:
 local _ = {}
+-- Configuration
+_.configuration = {
+	caffeine = { timeout = 3600 },
+}
 -- Load external libraries:
 _.utils = {
 	window_movements = require("utils.window_movements"),
@@ -59,7 +63,7 @@ _.hot_keys = {
 		-- Show date:
 		d = _.utils.show_date,
 		-- Toggle caffeine:
-		c = _.utils.caffeine,
+		c = _.utils.caffeine(_.configuration.caffeine.timeout),
 		p = _.utils.fuzzy_switch,
 	},
 }

@@ -1,19 +1,40 @@
 -- luacheck: globals hs
-local caffeine = hs.menubar.new()
-function setCaffeineDisplay(state)
+local caffeineMenuBarItem = hs.menubar.new()
+--- How long (in seconds) to let caffeine run:
+local caffeineTimer = nil
+function setCaffeineDisplay(state, timeOut)
 	if state then
-		caffeine:setIcon("caffeine-on.pdf")
+		caffeineMenuBarItem:setIcon("caffeine-on.pdf")
+		caffeineTimer = hs.timer.doAfter(timeOut, turnOffCaffeine(timeOut))
 	else
-		caffeine:setIcon("caffeine-off.pdf")
+		if caffeineTimer ~= nil then
+			caffeineTimer:stop()
+		end
+		caffeineMenuBarItem:setIcon("caffeine-off.pdf")
 	end
 end
 
-function caffeineClicked()
-	setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"))
+function turnOffCaffeine(timeOut)
+	return function()
+		if hs.caffeinate.get("displayIdle") then
+			setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"), timeOut)
+		end
+	end
 end
 
-if caffeine then
-	caffeine:setClickCallback(caffeineClicked)
-	setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
+function caffeineClicked(timeOut)
+	return function()
+		setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"), timeOut)
+	end
 end
-return caffeineClicked
+
+function caffeineConfig(timeOut)
+	local caffeineCallback = caffeineClicked(timeOut)
+	if caffeineMenuBarItem then
+		caffeineMenuBarItem:setClickCallback(caffeineCallback)
+		setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
+	end
+	return caffeineCallback
+end
+
+return caffeineConfig
