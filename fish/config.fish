@@ -26,6 +26,7 @@ if status --is-login
   # Set up ASDF:
   add_to_user_paths ~/.asdf/shims
   add_to_user_paths /usr/local/opt/asdf/bin
+  add_to_user_paths ~/.asdf/bin
   # Sbin:
   add_to_user_paths /usr/local/sbin
 
