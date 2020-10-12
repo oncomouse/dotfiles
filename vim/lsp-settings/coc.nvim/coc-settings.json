@@ -125,9 +125,8 @@
   ],
   "languageserver": {
     "citation": {
-      "command": "~/.local/bin/citation-langserver",
+      "command": "/usr/local/bin/citation-langserver",
       "filetypes": ["markdown"],
-      "trace.server": "verbose",
       "settings": {
         "citation": {
           "bibliographies": [
