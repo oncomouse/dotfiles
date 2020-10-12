@@ -108,11 +108,11 @@ let g:airline#themes#tempus_classic#palette.insert_paste = {
       \ 'airline_a': [ s:airline_a_insert[0]   , '#d0913d' , s:airline_a_insert[2] , 9     , ''     ] ,
       \ }
 
-let s:airline_a_replace = [ s:airline_b_insert[0]   , '#d58888' , s:airline_b_insert[2] , 13     , ''     ]
+let s:airline_a_replace = [ s:airline_a_normal[0]   , '#d58888' , s:airline_a_normal[2] , 13     , ''     ]
 let s:airline_b_replace = s:airline_b_normal
 let s:airline_c_replace = s:airline_c_normal
 let g:airline#themes#tempus_classic#palette.replace = airline#themes#generate_color_map(s:airline_a_replace, s:airline_b_replace, s:airline_c_replace)
-let g:airline#themes#tempus_classic#palette.replace_modified = g:airline#themes#tempus_classic#palette.insert_modified
+let g:airline#themes#tempus_classic#palette.replace_modified = g:airline#themes#tempus_classic#palette.normal_modified
 
 
 let s:airline_a_visual = [ s:airline_a_normal[0] , '#d2813d' , s:airline_a_normal[2] , 1 ]
