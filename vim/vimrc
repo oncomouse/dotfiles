@@ -313,6 +313,11 @@ endif
         let g:nvim_typescript#javascript_support = 1
         let g:nvim_typescript#diagnostics_enable = 0
         let g:nvim_typescript#signature_complete = 1
+        augroup typescript
+          autocmd!
+          autocmd FileType javascript,typescript setlocal omnifunc=TSOmniFunc
+        augroup END
+
         " if has('nvim-0.5')
         "   Plug 'neovim/nvim-lspconfig'
         " else
@@ -352,13 +357,18 @@ endif
               \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
               \ 'markdown': ['/usr/local/bin/citation-langserver'],
               \}
-        " endif
-        " ncm2 for completion:
-        Plug 'roxma/nvim-yarp'
-        Plug 'ncm2/ncm2'
-        Plug 'ncm2/ncm2-bufword'
-        Plug 'ncm2/ncm2-path'
-        " Plug 'oncomouse/ncm2-biblatex'
+        Plug 'lifepillar/vim-mucomplete'
+        " Mandatory options for plugin to work
+        set completeopt+=menuone
+        set completeopt+=noselect
+        " Shut off completion messages
+        set shortmess+=c
+        " prevent a condition where vim lags due to searching include files.
+        set complete-=i
+        let g:mucomplete#enable_auto_at_startup = 1
+        " :help mucomplete#chains for more details
+        let g:mucomplete#chains = {}
+        let g:mucomplete#chains.default  = ['path', 'omni', 'keyn', 'dict', 'uspl']
         " if has('nvim-0.5')
         "   Plug 'oncomouse/ncm2-lsp'
         " endif

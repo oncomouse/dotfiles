@@ -14,13 +14,13 @@ function! dotfiles#autocomplete#init() abort
     call dotfiles#autocomplete#LanguageClient#init()
     " endif
     " Completion:
-    call dotfiles#autocomplete#ncm2#init()
+    " call dotfiles#autocomplete#ncm2#init()
     " Linter:
     call dotfiles#autocomplete#ale#init()
     " List Management:
     call dotfiles#autocomplete#{substitute(g:complete_package, '[.-]', '_', 'g')}#init()
     " Writing:
-    call dotfiles#autocomplete#ncm2#writing()
+    " call dotfiles#autocomplete#ncm2#writing()
   endif
 endfunction
 
