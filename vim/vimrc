@@ -315,7 +315,7 @@ endif
         let g:nvim_typescript#signature_complete = 1
         augroup typescript
           autocmd!
-          autocmd FileType javascript,typescript setlocal omnifunc=TSOmniFunc
+          autocmd FileType javascript,typescript,javascriptreact,typescriptreact setlocal omnifunc=TSOmniFunc
         augroup END
 
         " if has('nvim-0.5')
@@ -389,6 +389,7 @@ endif
         " Specific linters:
         let g:ale_lua_luacheck_options = '-d'
         let g:ale_javascript_standard_executable = 'semistandard'
+        let g:ale_typescript_standard_executable = 'semistandard'
       endif
     " }}}
     " Writing: {{{
