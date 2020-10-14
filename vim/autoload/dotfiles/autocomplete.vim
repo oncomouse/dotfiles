@@ -1,6 +1,5 @@
 " Initialize Autocomplete:
 function! dotfiles#autocomplete#init() abort
-  set completeopt-=preview
   if g:complete_package ==# 'coc.nvim'
     " Combined Functions:
     call dotfiles#autocomplete#coc_nvim#init()
@@ -13,14 +12,10 @@ function! dotfiles#autocomplete#init() abort
     " else
     call dotfiles#autocomplete#LanguageClient#init()
     " endif
-    " Completion:
-    " call dotfiles#autocomplete#ncm2#init()
     " Linter:
     call dotfiles#autocomplete#ale#init()
     " List Management:
     call dotfiles#autocomplete#{substitute(g:complete_package, '[.-]', '_', 'g')}#init()
-    " Writing:
-    " call dotfiles#autocomplete#ncm2#writing()
   endif
 endfunction
 

@@ -197,7 +197,7 @@ endif
   if g:dotfiles_mode ==# 'desktop'
     " General Editing: {{{
       if has('nvim')
-        Plug 'ncm2/float-preview.nvim' " Floating preview window
+        " Plug 'ncm2/float-preview.nvim' " Floating preview window
         Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
       endif
       Plug 'alvan/vim-closetag' " Automatically close HTML tags
@@ -361,17 +361,24 @@ endif
         " Mandatory options for plugin to work
         set completeopt+=menuone
         set completeopt+=noselect
+        set completeopt+=noinsert
+        " Add preview:
+        set completeopt+=preview
         " Shut off completion messages
         set shortmess+=c
         " prevent a condition where vim lags due to searching include files.
         set complete-=i
         let g:mucomplete#enable_auto_at_startup = 1
-        " :help mucomplete#chains for more details
+        " helps prevent lag working with LSP:
+        let g:mucomplete#completion_delay = 5
+        " don't map <tab> and <s-tab>:
+        let g:mucomplete#no_mappings = 1
+        " but do map <c-j> and <c-j> for cycling:
+        imap <unique> <c-j> <plug>(MUcompleteCycFwd)
+        imap <unique> <c-h> <plug>(MUcompleteCycBwd)
         let g:mucomplete#chains = {}
-        let g:mucomplete#chains.default  = ['path', 'omni', 'keyn', 'dict', 'uspl']
-        " if has('nvim-0.5')
-        "   Plug 'oncomouse/ncm2-lsp'
-        " endif
+        let g:mucomplete#chains.default  = ['path', 'omni', 'keyn']
+        let g:mucomplete#chains.markdown = ['path', 'omni', 'keyn', 'dict', 'uspl']
       endif
       " ALE for linting:
       if complete_package !=# 'coc.nvim'
@@ -539,6 +546,8 @@ let g:clap_theme = 'tempus_classic'
   " Jump To Last Position: {{{
     augroup dotfile-autocmds
       autocmd!
+      " Close preview window:
+      autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
       " On opening a file, jump to the last known cursor position (see :h line())
       autocmd BufReadPost *
             \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
