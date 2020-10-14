@@ -106,8 +106,8 @@ endif
   " General Editing: {{{
     " Plug 'rhysd/clever-f.vim' " Smarter, repeatable f, F, t, T
     Plug 'sickill/vim-pasta' " Indentation-forward pasting
-    Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
     Plug 'tpope/vim-repeat'
+    Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
     Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
     Plug 'airblade/vim-rooter' " Set project root
     let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile'
