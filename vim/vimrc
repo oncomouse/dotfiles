@@ -86,34 +86,106 @@ endif
   endif
 " }}}
 " Plugins: {{{
-  " Install vim_plug if it is missing:
-  if empty(glob('~/.vim/autoload/plug.vim'))
-    silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  function! s:packager_dir() abort
+    return has('nvim') ? '~/.config/nvim/pack/packager/opt/vim-packager' : '~/.vim/pack/packager/opt/vim-packager'
+  endfunction
+  function! PackagerInit() abort
+    packadd vim-packager
+    call packager#init()
+    call packager#add('kristijanhusak/vim-packager', { 'type': 'opt' })
+    call packager#add('https://gitlab.com/protesilaos/tempus-themes-vim.git')
+    call packager#add('xero/securemodelines') " Secure modelines
+    call packager#add('sickill/vim-pasta') " Indentation-forward pasting
+    call packager#add('tpope/vim-repeat')
+    call packager#add('oncomouse/vim-surround') " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
+    call packager#add('tpope/vim-commentary') " Comment w/ gcc or gc (visual)
+    call packager#add('airblade/vim-rooter') " Set project root
+    call packager#add('tpope/vim-endwise') " Add 'end' to the end of functions
+    call packager#add('wellle/targets.vim') " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
+    call packager#add('Raimondi/delimitMate') " Auto-pairing
+    if has('nvim-0.5')
+      call packager#add('nvim-treesitter/nvim-treesitter')
+    else
+      call packager#add('machakann/vim-highlightedyank') " Highlights yank
+    endif
+    call packager#add('vimwiki/vimwiki', { 'type': 'opt' })
+    call packager#add('lambdalisue/gina.vim') " :Gina status to schedule; :Gina commit to commit
+    if g:dotfiles_mode ==# 'server' || g:complete_package ==# 'fzf'
+      call packager#local(isdirectory('/usr/local/opt/fzf') ? '/usr/local/opt/fzf' : '~/.fzf')
+      call packager#add('junegunn/fzf.vim') " Add shorcuts for FZF
+    endif
+    if g:dotfiles_mode ==# 'server'
+      call packager#add('sheerun/vim-polyglot')
+    elseif g:dotfiles_mode ==# 'desktop'
+      if has('nvim')
+        " 'ncm2/float-preview.nvim' " Floating preview window
+        call packager#add('norcalli/nvim-colorizer.lua') " HTML codes and HTML color words to colors
+      endif
+      call packager#add('alvan/vim-closetag') " Automatically close HTML tags
+      call packager#add('Konfekt/FastFold') " Better fold support
+      call packager#add('Yggdroot/indentLine') " Indent with characters
+      call packager#add('vim-airline/vim-airline')
+      call packager#add('cespare/vim-toml') " Toml syntax
+      call packager#add('neoclide/vim-jsx-improve')
+      call packager#add('plasticboy/vim-markdown')
+      call packager#add('cakebaker/scss-syntax.vim')
+      call packager#add('oncomouse/vim-fish') " Async vim-fish
+      call packager#add('elzr/vim-json')
+      call packager#add('tbastos/vim-lua') " For Lua
+      call packager#add('numirias/semshi', { 'do': ':UpdateRemotePlugins' }) " For Python
+      call packager#add('kana/vim-textobj-user') " Allow custom textobj definitions
+      call packager#add('kana/vim-textobj-function') " af, if, aF, iF select function
+      call packager#add('thinca/vim-textobj-function-javascript') " js function support
+      call packager#add('bps/vim-textobj-python') " function and class support for Python
+      if g:complete_package ==# 'fzf'
+        call packager#add('Shougo/neoyank.vim')
+        call packager#add('oncomouse/fzf-neoyank') " Add Yank shortcut
+      elseif g:complete_package ==# 'clap'
+        call packager#add('liuchengxu/vim-clap', { 'do': ':Clap install-binary!' })
+      endif
+      if g:complete_package !=# 'coc.nvim'
+        call packager#add('dense-analysis/ale')
+        call packager#add('mhartington/nvim-typescript', {'do': './install.sh'})
+        call packager#add('autozimu/LanguageClient-neovim', {
+              \ 'branch': 'next',
+              \ 'do': 'bash install.sh',
+              \ })
+        call packager#add('lifepillar/vim-mucomplete')
+      else
+        call packager#add('neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'})
+      endif
+      call packager#add('godlygeek/tabular') " :Tabular /| to auto-align tables (also :TableFormat in markdown)
+      call packager#add('reedes/vim-textobj-sentence', { 'type': 'opt' }) " Use as & is for selecting sentences; g) and g( for moving
+      call packager#add('reedes/vim-textobj-quote', { 'type': 'opt' }) " Makes aq & iq for smart quotes
+    endif
+  endfunction
+  augroup vim_packager_opt_loader
+    autocmd!
+    autocmd FileType markdown,text packadd vim-textobj-sentence | call textobj#sentence#init()
+    autocmd FileType markdown,text packadd vim-textobj-quote | call textobj#quote#init()
+  augroup END
+  " Install vim-packager if it is missing:
+  if empty(glob(s:packager_dir()))
+    silent execute '!git clone https://github.com/kristijanhusak/vim-packager ' . s:packager_dir()
     augroup vim_plug
       autocmd!
-      autocmd VimEnter * PlugInstall | source $MYVIMRC
+      autocmd VimEnter * PackagerInstall | source $MYVIMRC
     augroup END
   endif
+  command! PackagerInstall call PackagerInit() | call packager#install()
+  command! -bang PackagerUpdate call PackagerInit() | call packager#update({ 'force_hooks': '<bang>' })
+  command! PackagerClean call PackagerInit() | call packager#clean()
+  command! PackagerStatus call PackagerInit() | call packager#status()
   call plug#begin('~/.vim/plugged/' . g:dotfiles_mode)
   " Get Started: {{{
-    Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
-    Plug 'xero/securemodelines' " Secure modelines
     set nomodeline
     let g:secure_modelines_verbose = 0
     let g:secure_modelines_modelines = 15
   " }}}
   " General Editing: {{{
-    " Plug 'rhysd/clever-f.vim' " Smarter, repeatable f, F, t, T
-    Plug 'sickill/vim-pasta' " Indentation-forward pasting
-    Plug 'tpope/vim-repeat'
-    Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-    Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
-    Plug 'airblade/vim-rooter' " Set project root
+    " 'rhysd/clever-f.vim' " Smarter, repeatable f, F, t, T
     let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile'
           \ , 'pyproject.toml', 'setup.py']
-    Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
-    Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
     " From original targets.vim code:
     " currently undocumented, currently not supposed to be user defined
     " but could be used to disable 'smart' quote skipping
@@ -145,21 +217,17 @@ endif
     " \ 'l2r': ['110', '112'],
     " \ 'n2b': ['002', '200', '202'],
     " \ }
-    Plug 'Raimondi/delimitMate' " Auto-pairing
     if has('nvim-0.5')
       augroup highlight_yank
         autocmd!
         autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
       augroup END
     else
-      Plug 'machakann/vim-highlightedyank' " Highlights yank
-    endif
-    if has('nvim-0.5')
-      Plug 'nvim-treesitter/nvim-treesitter'
     endif
   " }}}
   " Writing: {{{
-    Plug 'vimwiki/vimwiki'
+    " Lazy load vimwiki:
+    nnoremap <silent><Leader>ww :unmap <Leader>ww<BAR>packadd vimwiki<BAR>VimwikiIndex<CR>
     let g:vimwiki_list = [{'path': '~/Seafile/Todo/Wiki',
           \ 'syntax': 'markdown', 'ext': '.md',
                           \ 'index': 'Wiki'}]
@@ -167,7 +235,6 @@ endif
     let g:vimwiki_conceallevel = 0
   " }}}
   " Git Support: {{{
-    Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
     function! s:load_gina() abort
       call gina#custom#command#option('status', '--opener', &previewheight . 'split')
       call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
@@ -183,24 +250,8 @@ endif
       autocmd VimEnter * call s:load_gina()
     augroup END
   " }}}
-  " List Support: {{{
-    if g:dotfiles_mode ==# 'server' || g:complete_package ==# 'fzf'
-      Plug (isdirectory('/usr/local/opt/fzf') ? '/usr/local/opt/fzf' : '~/.fzf')
-      Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
-    endif
-  " }}}
-  " Server Syntax {{{
-    if g:dotfiles_mode ==# 'server'
-      Plug 'sheerun/vim-polyglot'
-    endif
-  " }}}
   if g:dotfiles_mode ==# 'desktop'
     " General Editing: {{{
-      if has('nvim')
-        " Plug 'ncm2/float-preview.nvim' " Floating preview window
-        Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
-      endif
-      Plug 'alvan/vim-closetag' " Automatically close HTML tags
       let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.js,*.erb'
       let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
       let g:closetag_filetypes = 'html,javascriptreact'
@@ -210,18 +261,15 @@ endif
         \ 'javascriptreact': 'jsxRegion',
         \ 'javascript': 'jsxRegion',
         \ }
-      Plug 'Konfekt/FastFold' " Better fold support
       let g:fastfold_savehook = 1
       let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
       let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
       let g:fastfold_minlines = 0
-      Plug 'Yggdroot/indentLine' " Indent with characters
       let g:indentLine_setColors = 1
       let g:indentLine_char = "\u22EE"
       let g:indentLine_color_term = 11
     " }}}
     " Statusline: {{{
-      Plug 'vim-airline/vim-airline'
       " Use powerline symbols if we are in desktop mode:
       let g:airline_powerline_fonts = g:dotfiles_mode ==# 'desktop'
       " Skip empty sections:
@@ -254,40 +302,19 @@ endif
       augroup END
     " }}}
     " Syntax: {{{
-      Plug 'cespare/vim-toml' " Toml syntax
-      Plug 'neoclide/vim-jsx-improve'
-      Plug 'plasticboy/vim-markdown'
       let g:vim_markdown_frontmatter = 1 " Format YAML
       let g:vim_markdown_strikethrough = 0 " Don't format strikethrough
       let g:vim_markdown_conceal = 0 " Don't conceal
       let g:vim_markdown_conceal_code_blocks = 0 " Don't conceal code blocks
       let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
-      Plug 'cakebaker/scss-syntax.vim'
-      Plug 'oncomouse/vim-fish' " Async vim-fish
-      Plug 'elzr/vim-json'
       let g:vim_json_syntax_conceal = 0
-      Plug 'tbastos/vim-lua' " For Lua
-      Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " For Python
-    " }}}
-    " Text Object Plugins: {{{
-      Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
-      Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
-      Plug 'thinca/vim-textobj-function-javascript' " js function support
-      Plug 'bps/vim-textobj-python' " function and class support for Python
     " }}}
     " Autocomplete: {{{
       " Need NeoYank for some lists to implement yank history:
-      if g:complete_package ==# 'fzf'
-        Plug 'Shougo/neoyank.vim'
-        Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
-      elseif g:complete_package ==# 'clap'
-        Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
         let g:clap_insert_mode_only = v:true
         let g:clap_search_box_border_style = 'nil'
-      endif
       " Load LSP + Completion:
       if g:complete_package =~# 'coc.nvim'
-        Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
         let g:coc_config_home = expand('~/dotfiles/vim/lsp-settings/coc.nvim/')
         let g:coc_global_extensions = [
         \   'coc-calc',
@@ -309,14 +336,9 @@ endif
         \   'coc-yank',
         \]
       else
-        Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
         let g:nvim_typescript#javascript_support = 1
         let g:nvim_typescript#diagnostics_enable = 0
         let g:nvim_typescript#signature_complete = 1
-        Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
-        \ }
         function! s:start_lsp() abort
           let g:LanguageClient_fzfOptions = ['--delimiter', ':', '--preview-window', '+{2}-5'] + fzf#vim#with_preview('right:50%:hidden', '?').options
         endfunction
@@ -348,7 +370,6 @@ endif
               \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
               \ 'markdown': ['/usr/local/bin/citation-langserver'],
               \}
-        Plug 'lifepillar/vim-mucomplete'
         " Completeopt:
         set completeopt=menuone,noselect,noinsert,preview
         " Shut off completion messages
@@ -370,10 +391,7 @@ endif
         let g:mucomplete#chains.default  = ['path', 'omni', 'keyn', 'dict', 'uspl']
         " Turn on dictionary and spelling suggestions in markdown:
         " let g:mucomplete#chains.markdown = ['path', 'omni', 'keyn', 'dict', 'uspl']
-      endif
       " ALE for linting:
-      if complete_package !=# 'coc.nvim'
-        Plug 'dense-analysis/ale'
         let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
         let g:ale_lint_on_insert_leave = 1
         let g:ale_cursor_detail = 0
@@ -391,9 +409,6 @@ endif
       endif
     " }}}
     " Writing: {{{
-      Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
-      Plug 'reedes/vim-textobj-sentence', { 'for': ['markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
-      Plug 'reedes/vim-textobj-quote', { 'for': ['markdown', 'text'] } " Makes aq & iq for smart quotes
       let g:textobj#quote#educate = v:false
       " Initialize the plugin when it is dynamically loaded:
       augroup load-sentence
