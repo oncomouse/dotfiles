@@ -86,16 +86,16 @@ endif
   endif
 " }}}
 " Plugin Installation: {{{
-  function! s:packager_dir() abort
-    return has('nvim') ? '~/.config/nvim/pack/packager/opt/vim-packager' : '~/.vim/pack/packager/opt/vim-packager'
-  endfunction
+  let &packpath = join(['~', 'dotfiles', '.packed', g:dotfiles_mode], '/')
+  let g:dotfiles_packager_dir = join([&packpath, 'pack', 'packager'], '/')
+  let s:packager_dir = join([g:dotfiles_packager_dir, 'opt', 'vim-packager'], '/')
   command! PackagerInstall call dotfiles#install_packages() | call packager#install()
   command! -bang PackagerUpdate call dotfiles#install_packages() | call packager#update({ 'force_hooks': '<bang>' })
   command! PackagerClean call dotfiles#install_packages() | call packager#clean()
   command! PackagerStatus call dotfiles#install_packages() | call packager#status()
   " Install vim-packager if it is missing:
-  if empty(glob(s:packager_dir()))
-    silent execute '!git clone https://github.com/kristijanhusak/vim-packager ' . s:packager_dir()
+  if empty(glob(s:packager_dir))
+    silent execute '!git clone https://github.com/kristijanhusak/vim-packager ' . s:packager_dir
     augroup vim_plug
       autocmd!
       autocmd VimEnter * PackagerInstall
@@ -358,8 +358,10 @@ endif
   " Load opt packages {{{:
     augroup vim_packager_opt_loader
       autocmd!
-      autocmd FileType markdown,text packadd vim-textobj-sentence | call textobj#sentence#init()
-      autocmd FileType markdown,text packadd vim-textobj-quote | call textobj#quote#init()
+      if g:dotfiles_mode ==# 'desktop'
+        autocmd FileType markdown,text packadd vim-textobj-sentence | call textobj#sentence#init()
+        autocmd FileType markdown,text packadd vim-textobj-quote | call textobj#quote#init()
+      endif
     augroup END
   " }}}
 " }}}

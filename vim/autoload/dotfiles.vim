@@ -12,7 +12,7 @@ function! dotfiles#rg_args(...) abort
 endfunction
 function! dotfiles#install_packages() abort
   packadd vim-packager
-  call packager#init()
+  call packager#init({'dir': g:dotfiles_packager_dir})
   call packager#add('kristijanhusak/vim-packager', { 'type': 'opt' })
   call packager#add('https://gitlab.com/protesilaos/tempus-themes-vim') " Theme
   call packager#add('xero/securemodelines') " Secure modelines
