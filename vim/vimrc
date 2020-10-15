@@ -98,7 +98,7 @@ endif
     silent execute '!git clone https://github.com/kristijanhusak/vim-packager ' . s:packager_dir()
     augroup vim_plug
       autocmd!
-      autocmd VimEnter * PackagerInstall | source $MYVIMRC
+      autocmd VimEnter * PackagerInstall
     augroup END
   endif
 "}}}
