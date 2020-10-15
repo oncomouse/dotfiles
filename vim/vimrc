@@ -96,7 +96,7 @@ endif
   " Install vim-packager if it is missing:
   if empty(glob(s:packager_dir))
     silent execute '!git clone https://github.com/kristijanhusak/vim-packager ' . s:packager_dir
-    augroup vim_plug
+    augroup vim_packager
       autocmd!
       autocmd VimEnter * PackagerInstall
     augroup END
