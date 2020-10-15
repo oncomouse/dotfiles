@@ -364,8 +364,8 @@ endif
         imap <unique> <c-h> <plug>(MUcompleteCycBwd)
         imap <unique> <c-n> <plug>(MUcompleteFwd)
         imap <unique> <c-p> <plug>(MUcompleteBwd)
-        imap <expr> <left> mucomplete#extend_bwd("\<left>")
-        imap <expr> <right> mucomplete#extend_fwd("\<right>")
+        imap <expr> <c-k> mucomplete#extend_bwd("\<c-k>")
+        imap <expr> <c-l> mucomplete#extend_fwd("\<c-l>")
         let g:mucomplete#chains = {}
         let g:mucomplete#chains.default  = ['path', 'omni', 'keyn', 'dict', 'uspl']
         " Turn on dictionary and spelling suggestions in markdown:
