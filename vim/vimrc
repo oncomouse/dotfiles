@@ -331,8 +331,8 @@ endif
         " Turn off all diagnostic stuff (pump it all to ALE):
         let g:LanguageClient_diagnosticsEnable = v:false
         " Debug:
-        " let g:LanguageClient_loggingFile = expand('~/lc.log')
-        " let g:LanguageClient_loggingLevel = 'DEBUG'
+        let g:LanguageClient_loggingFile = expand('~/lc.log')
+        let g:LanguageClient_loggingLevel = 'DEBUG'
         " Always use hover:
         let g:LanguageClient_hoverPreview = 'Always'
         " Root patterns:
@@ -367,9 +367,11 @@ endif
         imap <expr> <c-k> mucomplete#extend_bwd("\<c-k>")
         imap <expr> <c-l> mucomplete#extend_fwd("\<c-l>")
         let g:mucomplete#chains = {}
-        let g:mucomplete#chains.default  = ['path', 'omni', 'keyn', 'dict', 'uspl']
-        " Turn on dictionary and spelling suggestions in markdown:
-        " let g:mucomplete#chains.markdown = ['path', 'omni', 'keyn', 'dict', 'uspl']
+        let g:mucomplete#chains.default  = ['path', 'omni', 'keyn']
+        let g:mucomplete#chains.vim = ['path', 'omni', 'cmd', 'keyn']
+        " Turn on dictionary and spelling suggestions in markdown & text:
+        let g:mucomplete#chains.markdown = ['path', 'omni', 'keyn', 'dict', 'uspl']
+        let g:mucomplete#chains.text = ['path', 'omni', 'keyn', 'dict', 'uspl']
       endif
       " ALE for linting:
       if complete_package !=# 'coc.nvim'
