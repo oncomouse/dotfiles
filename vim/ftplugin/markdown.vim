@@ -24,6 +24,8 @@ function! s:get_makeprg() abort
   endif
 endfunction
 
+let &l:iskeyword=&iskeyword.",',-"
+
 call s:get_makeprg()
 
 let b:surround_{char2nr("b")} = '**\r**'
