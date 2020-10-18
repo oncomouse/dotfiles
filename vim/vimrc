@@ -114,37 +114,6 @@ endif
           \ , 'pyproject.toml', 'setup.py']
     Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
     Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
-    " From original targets.vim code:
-    " currently undocumented, currently not supposed to be user defined
-    " but could be used to disable 'smart' quote skipping
-    " some technicalities: inverse mapping from quote reps to quote arg reps
-    " quote rep '102' means:
-    "   1: even number of quotation character left from cursor
-    "   0: no quotation char under cursor
-    "   2: even number (but nonzero) of quote chars right of cursor
-    " arg rep 'r1l' means:
-    "   r: select to right (l: to left; n: not at all)
-    "   1: single speed (each quote char starts one text object)
-    "      (2: double speed, skip pseudo quotes)
-    "   l: skip first quote when going left ("last" quote objects)
-    "      (r: skip once when going right ("next"); b: both; n: none
-    " let g:targets_quoteDirs = {
-    " \ 'r1n': ['001', '201', '100', '102'],
-    " \ 'r1l': ['010', '012', '111', '210', '212'],
-    " \ 'r2n': ['101'],
-    " \ 'r2l': ['011', '211'],
-    " \ 'r2b': ['000', '002', '200', '202'],
-    " \ 'l2r': ['110', '112'],
-    " \ }
-    " let g:default_quoteDirs = {
-    " \ 'r1n': ['001', '201', '100', '102'],
-    " \ 'r1l': ['010', '012', '111', '210', '212'],
-    " \ 'r2n': ['101'],
-    " \ 'r2l': ['011', '211'],
-    " \ 'r2b': ['000'],
-    " \ 'l2r': ['110', '112'],
-    " \ 'n2b': ['002', '200', '202'],
-    " \ }
     Plug 'Raimondi/delimitMate' " Auto-pairing
     if has('nvim-0.5')
       augroup highlight_yank
@@ -219,6 +188,7 @@ endif
       let g:indentLine_setColors = 1
       let g:indentLine_char = "\u22EE"
       let g:indentLine_color_term = 11
+      Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
     " }}}
     " Statusline: {{{
       Plug 'vim-airline/vim-airline'
@@ -422,6 +392,28 @@ call plug#end()
   nnoremap <silent><buffer> <F4> :make!<CR>
   " Update fast folds:
   nmap zuz <Plug>(FastFoldUpdate)
+  " Grep {{{
+    if executable('rg')
+      set grepprg=rg\ --vimgrep
+    elseif executable('ag')
+      set grepprg=ag\ --vimgrep
+    endif
+    function! Grep(...)
+      return system(join([&grepprg] + [expand(fnameescape(join(a:000, ' ')))], ' '))
+    endfunction
+
+    command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
+    command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
+
+    cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
+    cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
+    augroup quickfix
+      autocmd!
+      autocmd QuickFixCmdPost [^l]* cwindow
+      autocmd QuickFixCmdPost l* lwindow
+    augroup END
+    nnoremap <silent> <leader>/ :execute 'Grep ' . input('Grep/')<CR>
+  " }}}
   " Standard Fuzzy Bindings: {{{
     " Every list source we could implement (see g:complete_package) implements
     " these commmands, so I can use CoC or clap and they implement the FZF
@@ -438,7 +430,6 @@ call plug#end()
       nnoremap <silent> <leader>y :Yanks<CR>
       nnoremap <silent> <leader>s :Symbols<CR>
     endif
-    nnoremap <silent> <leader>/ :execute 'Rg ' . input('Rg/')<CR>
   " }}}
   " Standard LSP Bindings: {{{
     if (g:dotfiles_mode ==# 'desktop')
