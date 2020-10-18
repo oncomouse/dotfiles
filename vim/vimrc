@@ -106,7 +106,6 @@ endif
     let g:secure_modelines_modelines = 15
   " }}}
   " General Editing: {{{
-    " Plug 'rhysd/clever-f.vim' " Smarter, repeatable f, F, t, T
     Plug 'sickill/vim-pasta' " Indentation-forward pasting
     Plug 'tpope/vim-repeat'
     Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
@@ -168,7 +167,6 @@ endif
   if g:dotfiles_mode ==# 'desktop'
     " General Editing: {{{
       if has('nvim')
-        " Plug 'ncm2/float-preview.nvim' " Floating preview window
         Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
       endif
       Plug 'alvan/vim-closetag' " Automatically close HTML tags
@@ -303,8 +301,8 @@ endif
         " Turn off all diagnostic stuff (pump it all to ALE):
         let g:LanguageClient_diagnosticsEnable = v:false
         " Debug:
-        let g:LanguageClient_loggingFile = expand('~/lc.log')
-        let g:LanguageClient_loggingLevel = 'DEBUG'
+        " let g:LanguageClient_loggingFile = expand('~/lc.log')
+        " let g:LanguageClient_loggingLevel = 'DEBUG'
         " Always use hover:
         let g:LanguageClient_hoverPreview = 'Always'
         " Root patterns:
