@@ -35,6 +35,7 @@ endif
     endif
   endif
 
+  " Load Basic Settings:
   runtime vimrc-minimal
 
   " Set Leader:
@@ -80,7 +81,8 @@ endif
     augroup custom-folds
       autocmd!
       autocmd FileType vim setlocal foldmethod=marker foldlevel=0
-      autocmd FileType css setlocal foldmethod=manual
+      autocmd FileType css setlocal foldmethod=syntax foldlevel=0
+      autocmd FileType scss setlocal foldmethod=syntax foldlevel=0
       autocmd FileType diff setlocal nofoldenable
     augroup END
   endif
