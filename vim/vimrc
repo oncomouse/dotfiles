@@ -279,87 +279,78 @@ endif
         \   'coc-yank',
         \]
       else
-        Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-        let g:nvim_typescript#javascript_support = 1
-        let g:nvim_typescript#diagnostics_enable = 0
-        let g:nvim_typescript#signature_complete = 1
-        Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
-        \ }
-        function! s:start_lsp() abort
-          let g:LanguageClient_fzfOptions = ['--delimiter', ':', '--preview-window', '+{2}-5'] + fzf#vim#with_preview('right:50%:hidden', '?').options
-        endfunction
-        augroup start_lsp
-          autocmd!
-          autocmd VimEnter * call s:start_lsp()
-        augroup END
-        let g:LanguageClient_selectionUI = 'fzf'
-        let g:LanguageClient_fzfContextMenu = 1
-        let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp-settings/LanguageClient-neovim/settings.json')
-        let g:LanguageClient_useVirtualText = 'CodeLens'
-        " Turn off all diagnostic stuff (pump it all to ALE):
-        let g:LanguageClient_diagnosticsEnable = v:false
-        " Debug:
-        " let g:LanguageClient_loggingFile = expand('~/lc.log')
-        " let g:LanguageClient_loggingLevel = 'DEBUG'
-        " Always use hover:
-        let g:LanguageClient_hoverPreview = 'Always'
-        " Root patterns:
-        let g:LanguageClient_rootMarkers = g:rooter_patterns
-        let g:LanguageClient_serverCommands = {
-              \ 'python': ['/usr/local/bin/jedi-language-server'],
-              \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
-              \ 'html': ['/usr/local/bin/html-languageserver', '--stdio'],
-              \ 'scss': ['/usr/local/bin/css-languageserver', '--stdio'],
-              \ 'css': ['/usr/local/bin/css-languageserver', '--stdio'],
-              \ 'json': ['/usr/local/bin/json-languageserver', '--stdio'],
-              \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt'],
-              \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
-              \ 'markdown': ['/usr/local/bin/citation-langserver'],
-              \}
-        Plug 'lifepillar/vim-mucomplete'
-        " Completeopt:
-        set completeopt=menuone,noselect,noinsert,preview
-        " Shut off completion messages
-        set shortmess+=c
-        " prevent a condition where vim lags due to searching include files.
-        set complete-=i
-        " let g:mucomplete#enable_auto_at_startup = 1
-        " helps prevent lag working with LSP:
-        " let g:mucomplete#completion_delay = 0
-        " don't map <tab> and <s-tab>:
-        let g:mucomplete#no_mappings = 1
-        imap <unique> <c-j> <plug>(MUcompleteCycFwd)
-        imap <unique> <c-h> <plug>(MUcompleteCycBwd)
-        imap <unique> <c-n> <plug>(MUcompleteFwd)
-        imap <unique> <c-p> <plug>(MUcompleteBwd)
-        imap <expr> <c-k> mucomplete#extend_bwd("\<c-k>")
-        imap <expr> <c-l> mucomplete#extend_fwd("\<c-l>")
-        let g:mucomplete#chains = {}
-        let g:mucomplete#chains.default  = ['path', 'omni', 'keyn']
-        let g:mucomplete#chains.vim = ['path', 'omni', 'cmd', 'keyn']
-        " Turn on dictionary and spelling suggestions in markdown & text:
-        let g:mucomplete#chains.markdown = ['path', 'omni', 'keyn', 'dict', 'uspl']
-        let g:mucomplete#chains.text = ['path', 'omni', 'keyn', 'dict', 'uspl']
-      endif
-      " ALE for linting:
-      if complete_package !=# 'coc.nvim'
-        Plug 'dense-analysis/ale'
-        let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-        let g:ale_lint_on_insert_leave = 1
-        let g:ale_cursor_detail = 0
-        let g:ale_disable_lsp = 1
-        let g:ale_fix_on_save = 1
-        let g:ale_pattern_options = {
-          \  '\.min.js$': {'ale_enabled': 0},
-          \  'build/.*$': {'ale_enabled': 0},
-          \}
-        let g:ale_set_signs = 0 " Turn off sign column
-        " Specific linters:
-        let g:ale_lua_luacheck_options = '-d'
-        let g:ale_javascript_standard_executable = 'semistandard'
-        let g:ale_typescript_standard_executable = 'semistandard'
+        " LSP Support: {{{
+          Plug 'autozimu/LanguageClient-neovim', {
+          \ 'branch': 'next',
+          \ 'do': 'bash install.sh',
+          \ }
+          let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp-settings/LanguageClient-neovim/settings.json')
+          let g:LanguageClient_useVirtualText = 'CodeLens'
+          " Turn off all diagnostic stuff (pump it all to ALE):
+          let g:LanguageClient_diagnosticsEnable = v:false
+          " Debug:
+          " let g:LanguageClient_loggingFile = expand('~/lc.log')
+          " let g:LanguageClient_loggingLevel = 'DEBUG'
+          " Always use hover:
+          let g:LanguageClient_hoverPreview = 'Always'
+          " Root patterns:
+          let g:LanguageClient_rootMarkers = g:rooter_patterns
+          let g:LanguageClient_serverCommands = {
+                \ 'python': ['/usr/local/bin/jedi-language-server'],
+                \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
+                \ 'html': ['/usr/local/bin/html-languageserver', '--stdio'],
+                \ 'scss': ['/usr/local/bin/css-languageserver', '--stdio'],
+                \ 'css': ['/usr/local/bin/css-languageserver', '--stdio'],
+                \ 'json': ['/usr/local/bin/json-languageserver', '--stdio'],
+                \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt'],
+                \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
+                \ 'markdown': ['/usr/local/bin/citation-langserver'],
+                \}
+        " }}}
+        " μComplete: {{{
+          Plug 'lifepillar/vim-mucomplete'
+          " Completeopt:
+          set completeopt=menuone,noselect,noinsert,preview
+          " Shut off completion messages
+          set shortmess+=c
+          " prevent a condition where vim lags due to searching include files.
+          set complete-=i
+          " don't map <tab> and <s-tab>:
+          let g:mucomplete#no_mappings = 1
+          " Use standard bindings to cycle sources:
+          imap <unique> <c-j> <plug>(MUcompleteCycFwd)
+          imap <unique> <c-h> <plug>(MUcompleteCycBwd)
+          " Override default <c-n>/<c-p> (& complete defaults):
+          imap <unique> <c-n> <plug>(MUcompleteFwd)
+          imap <unique> <c-p> <plug>(MUcompleteBwd)
+          " Extend completion backwards or forewards:
+          imap <expr> <c-k> mucomplete#extend_bwd("\<c-k>")
+          imap <expr> <c-l> mucomplete#extend_fwd("\<c-l>")
+          let g:mucomplete#chains = {}
+          " Default is path, omni, keywords (forward):
+          let g:mucomplete#chains.default  = ['path', 'omni', 'keyn']
+          " Undocumented behavior turns off omnifunc for VimScript (fun!):
+          let g:mucomplete#chains.vim = ['path', 'omni', 'cmd', 'keyn']
+          " Turn on dictionary and spelling suggestions in markdown & text:
+          let g:mucomplete#chains.markdown = ['path', 'omni', 'keyn', 'dict', 'uspl']
+          let g:mucomplete#chains.text = ['path', 'omni', 'keyn', 'dict', 'uspl']
+        " }}}
+        " ALE For Linting: {{{
+          Plug 'dense-analysis/ale'
+          let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+          let g:ale_lint_on_insert_leave = 1
+          let g:ale_cursor_detail = 0
+          " Always use preview for hover (only used w/ JS languages):
+          let g:ale_hover_to_preview = 1
+          " We let our LSP client handle LSPs:
+          let g:ale_disable_lsp = 1
+          let g:ale_fix_on_save = 1
+          let g:ale_pattern_options = {
+            \  '\.min.js$': {'ale_enabled': 0},
+            \  'build/.*$': {'ale_enabled': 0},
+            \}
+          let g:ale_set_signs = 0 " Turn off sign column
+        " }}}
       endif
     " }}}
     " Writing: {{{
