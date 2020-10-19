@@ -195,9 +195,9 @@ endif
       " Use powerline symbols if we are in desktop mode:
       let g:airline_powerline_fonts = g:dotfiles_mode ==# 'desktop'
       let g:airline_left_sep = ''
-      let g:airline_left_alt_sep = '┊'
+      let g:airline_left_alt_sep = ''
       let g:airline_right_sep = ''
-      let g:airline_right_alt_sep = '┊'
+      let g:airline_right_alt_sep = ''
       " Skip empty sections:
       " let g:airline_skip_empty_sections = 1
       " Don't check for whitespace errors:
