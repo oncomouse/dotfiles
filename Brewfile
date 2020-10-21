@@ -51,6 +51,7 @@ brew "heroku/brew/heroku" # Build and install cloud apps
 brew "node" # Node.js
 brew "python" # Python 3
 brew "yarn" # Package manager for Node.js
+brew "janet" # Janet programming language
 cask "virtualbox" # Virtual machine software
 brew "lua" # Lua
 brew "luarocks" # Lua Package Manager
