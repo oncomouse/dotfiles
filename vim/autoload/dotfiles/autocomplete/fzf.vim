@@ -78,7 +78,7 @@ function! dotfiles#autocomplete#fzf#init()
     \ }
   let g:fzf_nvim_statusline = 0 " disable statusline overwriting
   " Complete file name:
-  imap <C-x><C-f> <plug>(fzf-complete-file-rg)
+  " imap <C-x><C-f> <plug>(fzf-complete-file-ag)
   " Complete file line:
-  imap <C-x><C-l> <plug>(fzf-complete-line)
+  " imap <C-x><C-l> <plug>(fzf-complete-line)
 endfunction
