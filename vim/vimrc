@@ -243,12 +243,14 @@ endif
       let g:vim_json_syntax_conceal = 0
       Plug 'tbastos/vim-lua' " Lua Syntax
       Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " Variable Highlighting for Python
-      Plug 'bakpakin/fennel.vim' " Fennel Syntax
-      Plug 'janet-lang/janet.vim' " Janet Syntax
-      Plug 'guns/vim-sexp' " Sexp (list manipulation)
-      let g:sexp_filetypes = 'clojure,scheme,lisp,timl,janet,fennel'
-      Plug 'tpope/vim-sexp-mappings-for-regular-people' " Better Sexp Mappings
-      Plug 'Olical/conjure', {'tag': 'v4.7.0'} " Conjure REPL Bridge
+      " Janet / Fennel {{{{
+        Plug 'bakpakin/fennel.vim' " Fennel Syntax
+        Plug 'janet-lang/janet.vim' " Janet Syntax
+        Plug 'guns/vim-sexp' " Sexp (list manipulation)
+        let g:sexp_filetypes = 'clojure,scheme,lisp,timl,janet,fennel'
+        Plug 'tpope/vim-sexp-mappings-for-regular-people' " Better Sexp Mappings
+        Plug 'Olical/conjure', {'tag': 'v4.7.0'} " Conjure REPL Bridge
+      " }}}}
     " }}}
     " Text Object Plugins: {{{
       Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
