@@ -152,6 +152,7 @@ endif
       autocmd!
       autocmd VimEnter * call s:load_gina()
     augroup END
+    cnoreabbrev gina Gina
   " }}}
   " List Support: {{{
     if g:dotfiles_mode ==# 'server' || g:complete_package ==# 'fzf'
