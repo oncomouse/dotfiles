@@ -231,9 +231,6 @@ endif
       Plug 'cespare/vim-toml' " Toml syntax
       Plug 'neoclide/vim-jsx-improve'
       Plug 'plasticboy/vim-markdown'
-      Plug 'bakpakin/fennel.vim' " Fennel Syntax
-      Plug 'janet-lang/janet.vim' " Janet Syntax
-      Plug 'Olical/conjure', {'tag': 'v4.7.0'} " Conjure REPL
       let g:vim_markdown_frontmatter = 1 " Format YAML
       let g:vim_markdown_strikethrough = 0 " Don't format strikethrough
       let g:vim_markdown_conceal = 0 " Don't conceal
@@ -245,6 +242,12 @@ endif
       let g:vim_json_syntax_conceal = 0
       Plug 'tbastos/vim-lua' " For Lua
       Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " For Python
+      Plug 'bakpakin/fennel.vim' " Fennel Syntax
+      Plug 'janet-lang/janet.vim' " Janet Syntax
+      Plug 'guns/vim-sexp' " Sexp
+      let g:sexp_filetypes = 'clojure,scheme,lisp,timl,janet,fennel'
+      Plug 'tpope/vim-sexp-mappings-for-regular-people' " Better Sexp mappings
+      Plug 'Olical/conjure', {'tag': 'v4.7.0'} " Conjure REPL
     " }}}
     " Text Object Plugins: {{{
       Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
