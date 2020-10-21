@@ -79,9 +79,9 @@ cask "vlc" # Video playback
 cask "avidemux" # Simple editing
 
 # Music
-brew "portaudio"
-brew "dbus"
-brew "rustup"
+# brew "portaudio"
+# brew "dbus"
+# brew "rustup"
 
 # Other GUI Applications
 cask "firefox" # Browser

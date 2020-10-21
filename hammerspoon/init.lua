@@ -18,7 +18,7 @@ _.utils = {
 	caffeine = require("utils.caffeine"),
 	spaces = require("utils.spaces"),
 	fuzzy_switch = require("utils.fuzzy_switch"),
-	ncspot = require("utils.ncspot"),
+	-- ncspot = require("utils.ncspot"),
 }
 --- Modifier keys:
 _.mods = {
@@ -98,13 +98,13 @@ _.modal_keys = {
 			up = _.utils.window_movements.up,
 			down = _.utils.window_movements.down,
 		},
-		s = {
-			space = _.utils.ncspot("PlayPause"),
-			up = _.utils.ncspot("PlayPause"),
-			down = _.utils.ncspot("PlayPause"),
-			right = _.utils.ncspot("Next"),
-			left = _.utils.ncspot("Previous"),
-		},
+		-- s = {
+		-- 	space = _.utils.ncspot("PlayPause"),
+		-- 	up = _.utils.ncspot("PlayPause"),
+		-- 	down = _.utils.ncspot("PlayPause"),
+		-- 	right = _.utils.ncspot("Next"),
+		-- 	left = _.utils.ncspot("Previous"),
+		-- },
 	},
 }
 _.watchers = {}
