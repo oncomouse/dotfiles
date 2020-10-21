@@ -231,6 +231,7 @@ endif
       Plug 'cespare/vim-toml' " Toml syntax
       Plug 'neoclide/vim-jsx-improve'
       Plug 'plasticboy/vim-markdown'
+      Plug 'bakpakin/fennel.vim' " Fennel Syntax
       Plug 'janet-lang/janet.vim' " Janet Syntax
       Plug 'Olical/conjure', {'tag': 'v4.7.0'} " Conjure REPL
       let g:vim_markdown_frontmatter = 1 " Format YAML
