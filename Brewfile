@@ -52,10 +52,11 @@ brew "node" # Node.js
 brew "python" # Python 3
 brew "yarn" # Package manager for Node.js
 brew "janet" # Janet programming language
-cask "virtualbox" # Virtual machine software
-brew "lua" # Lua
-brew "luarocks" # Lua Package Manager
+brew "fennel" # Fennel programming language (can also be embedded)
+brew "lua" # Lua programming language
+brew "luarocks" # Lua package manager
 brew "asdf" # Unified Ruby / Node version managing
+cask "virtualbox" # Virtual machine software
 
 # Writing
 brew "bib-tool" # Manage bibtex files
