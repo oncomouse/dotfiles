@@ -50,20 +50,6 @@ _.hot_keys = {
 }
 -- Make sure we have 9 spaces:
 _.utils.spaces.create_missing_space(9)
--- For some reason the hot_keys api (but not the modals one) does not work with number keys:
--- hs.hotkey.bindSpec({ _.mods.hyper, "1" }, _.utils.spaces.change_to_space(1))
--- hs.hotkey.bindSpec({ _.mods.hyper, "2" }, _.utils.spaces.change_to_space(2))
--- hs.hotkey.bindSpec({ _.mods.hyper, "3" }, _.utils.spaces.change_to_space(3))
--- hs.hotkey.bindSpec({ _.mods.hyper, "4" }, _.utils.spaces.change_to_space(4))
--- hs.hotkey.bindSpec({ _.mods.hyper, "5" }, _.utils.spaces.change_to_space(5))
--- hs.hotkey.bindSpec({ _.mods.hyper, "6" }, _.utils.spaces.change_to_space(6))
--- hs.hotkey.bindSpec({ _.mods.hyper, "7" }, _.utils.spaces.change_to_space(7))
--- hs.hotkey.bindSpec({ _.mods.hyper, "8" }, _.utils.spaces.change_to_space(8))
--- hs.hotkey.bindSpec({ _.mods.hyper, "9" }, _.utils.spaces.change_to_space(9))
--- hs.hotkey.bindSpec(
--- 	{ _.mods.hyper, "left" },
--- 	_.utils.spaces.change_to_nearby_space(-1)
--- )
 
 -- Modal shortcuts:
 -- modals are enter with <mod>+<hotkey>, then trigger by pressing the combo below.

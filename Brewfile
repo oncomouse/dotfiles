@@ -56,7 +56,7 @@ brew "fennel" # Fennel programming language (can also be embedded)
 brew "lua" # Lua programming language
 brew "luarocks" # Lua package manager
 brew "asdf" # Unified Ruby / Node version managing
-cask "virtualbox" # Virtual machine software
+# cask "virtualbox" # Virtual machine software
 
 # Writing
 brew "bib-tool" # Manage bibtex files
