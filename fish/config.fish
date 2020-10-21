@@ -60,6 +60,7 @@ function vi
   end
 end
 function standard;/usr/local/bin/semistandard $argv | /usr/local/bin/snazzy;end
+function janet-repl;/usr/local/bin/janet -e "(import spork/netrepl) (netrepl/server)";end
 
 # The rest of this configuration file only needs to load if shell is interactive:
 if status is-interactive
