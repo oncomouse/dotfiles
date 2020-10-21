@@ -390,7 +390,7 @@ call plug#end()
   nnoremap <silent><buffer> <F4> :make!<CR>
   " Update fast folds:
   nmap zuz <Plug>(FastFoldUpdate)
-  " Grep {{{
+  " Grep: {{{
     if executable('rg')
       set grepprg=rg\ --vimgrep
     elseif executable('ag')
@@ -405,10 +405,22 @@ call plug#end()
 
     cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
     cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
+    function! s:open_list(qf) abort
+      let l:list = a:qf ? getqflist() : getloclist()
+      let l:pfx = a:qf ? 'c' : 'l'
+      if len(l:list) == 0
+        redraw
+        echohl ErrorMsg
+        echo 'No Results'
+        echohl NONE
+      else
+        exec(l:pfx.'window')
+      endif
+    endfunction
     augroup quickfix
       autocmd!
-      autocmd QuickFixCmdPost [^l]* cwindow
-      autocmd QuickFixCmdPost l* lwindow
+      autocmd QuickFixCmdPost [^l]* call s:open_list(1)
+      autocmd QuickFixCmdPost l* call s:open_list(0)
     augroup END
     nnoremap <silent> <leader>/ :execute 'Grep ' . input('Grep/')<CR>
   " }}}

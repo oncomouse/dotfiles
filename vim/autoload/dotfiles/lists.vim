@@ -16,6 +16,7 @@ function! dotfiles#lists#toggle(bufname, pfx)
   if a:pfx ==# 'l' && len(getloclist(0)) == 0
       echohl ErrorMsg
       echo 'Location List is Empty.'
+      echohl NONE
       return
   endif
   let winnr = winnr()
