@@ -54,6 +54,10 @@ ln -sf ~/dotfiles/automation/karabiner ~/.config/karabiner
 ## Configure Hammerspoon
 ln -sf ~/dotfiles/hammerspoon ~/.hammerspoon
 
+## Configure Kitty:
+mkdir -p ~/.terminfo/78/
+ln -sf /Applications/kitty.app/Contents/Resources/terminfo/78/xterm-kitty ~/.terminfo/78
+
 echo ""
 
 echo "Run $(tput bold)$(tput setaf 6)bash ~/dotfiles/dns/bootstrap.sh$(tput sgr0) to install DNS proxy and local dev domains."
