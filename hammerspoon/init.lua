@@ -1,5 +1,5 @@
 --luacheck: globals hs
-require"hs.application"
+require"luarocks.loader"
 -- _ is the universal configuration object:
 local _ = {}
 -- Configuration
