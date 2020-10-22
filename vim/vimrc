@@ -40,6 +40,7 @@ endif
 
   " Set Leader:
   let mapleader = "\<Space>"
+  let maplocalleader = ','
 
   " Add Dotfiles After To RTP:
   let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
@@ -247,9 +248,24 @@ endif
         Plug 'bakpakin/fennel.vim' " Fennel Syntax
         Plug 'janet-lang/janet.vim' " Janet Syntax
         Plug 'guns/vim-sexp' " Sexp (list manipulation)
-        let g:sexp_filetypes = 'clojure,scheme,lisp,timl,janet,fennel'
+        let g:sexp_filetypes = 'clojure,scheme,lisp,janet,fennel'
+        let g:sexp_enable_insert_mode_mappings = 0
         Plug 'tpope/vim-sexp-mappings-for-regular-people' " Better Sexp Mappings
         Plug 'Olical/conjure', {'tag': 'v4.7.0'} " Conjure REPL Bridge
+        Plug 'luochen1990/rainbow', { 'for': split(g:sexp_filetypes, ',')}
+        let g:rainbow_active = 0
+        let g:rainbow_conf = {
+              \'guifgs': ['#d0913d','#96a42d','#8e9cc0','#d58888','#7aa880','#C594C5','#eb4034',],
+              \}
+        function! s:add_rainbow() abort
+          if g:sexp_filetypes =~# &filetype
+            RainbowToggle
+          endif
+        endfunction
+        augroup rainbow
+          autocmd!
+          autocmd VimEnter * call s:add_rainbow()
+        augroup END
       " }}}}
     " }}}
     " Text Object Plugins: {{{
