@@ -258,7 +258,7 @@ endif
               \'guifgs': ['#d0913d','#96a42d','#8e9cc0','#d58888','#7aa880','#C594C5','#eb4034',],
               \}
         function! s:add_rainbow() abort
-          if g:sexp_filetypes =~# &filetype
+          if &filetype !=# '' && g:sexp_filetypes =~# &filetype
             RainbowToggle
           endif
         endfunction
