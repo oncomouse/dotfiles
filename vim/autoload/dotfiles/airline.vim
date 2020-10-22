@@ -4,6 +4,8 @@ function! dotfiles#airline#better_quickfix(...) abort
     let w:airline_section_a = airline#extensions#quickfix#get_type()
     let w:airline_section_b = '%{get(w:, "quickfix_title", "")}'
     let w:airline_section_c = g:airline_powerline_fonts ? '' : 'ro'
+    let w:airline_section_x = ''
+    let w:airline_section_y = ''
   endif
 endfunction
 function! dotfiles#airline#init() abort
