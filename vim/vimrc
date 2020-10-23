@@ -19,7 +19,7 @@ endif
 " }}}
 " Dotfiles Settings: {{{
   let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
-  let g:complete_package = 'fzf' " fzf, clap, or coc.nvim
+  let g:complete_package = 'fzf' " fzf or coc.nvim
   " Location of BiBLaTeX repo:
   let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
   " This avoids highlighting big files:
@@ -279,10 +279,6 @@ endif
       if g:complete_package ==# 'fzf'
         Plug 'Shougo/neoyank.vim'
         Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
-      elseif g:complete_package ==# 'clap'
-        Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-        let g:clap_insert_mode_only = v:true
-        let g:clap_search_box_border_style = 'nil'
       endif
       " Load LSP + Completion:
       if g:complete_package =~# 'coc.nvim'
@@ -448,7 +444,7 @@ call plug#end()
   " }}}
   " Standard Fuzzy Bindings: {{{
     " Every list source we could implement (see g:complete_package) implements
-    " these commmands, so I can use CoC or clap and they implement the FZF
+    " these commmands, so I can use CoC and it implements the FZF
     " interface. This unifies fuzzy list management:
     nnoremap <silent> <c-p> :Files<CR>
     nnoremap <silent> <leader>F :Files ~<CR>
@@ -551,7 +547,6 @@ call dotfiles#colors#termcolors()
   augroup END
 " }}}
 colorscheme tempus_classic
-let g:clap_theme = 'tempus_classic'
 " treesitter {{{
   if has('nvim-0.5')
     lua require('dotfiles/treesitter')

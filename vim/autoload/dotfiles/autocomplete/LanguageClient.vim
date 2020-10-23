@@ -1,11 +1,4 @@
 function! dotfiles#autocomplete#LanguageClient#init() abort
-  if g:complete_package ==# 'clap'
-    " Use Clap for selection in LSP:
-    function! MySelectionUI(source, sink) abort
-      return clap#run({'id': 'LCN', 'source': a:source, 'sink': a:sink})
-    endfunction
-    let g:LanguageClient_selectionUI = function('MySelectionUI')
-  endif
   " Documentation Function
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
