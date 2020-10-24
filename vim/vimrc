@@ -247,6 +247,7 @@ endif
       let g:autorepl_enable = 0
       " Janet / Fennel {{{{
         " Plug 'bakpakin/fennel.vim' " Fennel Syntax
+        " Plug 'Olical/aniseed' " Use Fennel in nvim
         " Plug 'janet-lang/janet.vim' " Janet Syntax
         " Plug 'guns/vim-sexp' " Sexp (list manipulation)
         " let g:sexp_filetypes = 'clojure,scheme,lisp,janet,fennel'
