@@ -1,1 +1,1 @@
-command! Scratch call dotfiles#floating_scratch#scratch()
+command! Scratch call floating_scratch#scratch()
