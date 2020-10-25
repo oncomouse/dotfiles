@@ -413,6 +413,9 @@ call plug#end()
   nnoremap <silent><buffer> <F4> :make!<CR>
   " Update fast folds:
   nmap zuz <Plug>(FastFoldUpdate)
+  " Navigate quickfix
+  nnoremap <silent> ]q :cnext<CR>
+  nnoremap <silent> [q :cprevious<CR>
   " Grep: {{{
     if executable('rg')
       set grepprg=rg\ --vimgrep
