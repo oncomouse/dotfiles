@@ -1,4 +1,4 @@
-function! dotfiles#floating_scratch#scratch() abort
+function! floating_scratch#scratch() abort
   let width = float2nr(&columns - (&columns * 2 / 10))
   let height = &previewheight
   let y = float2nr((&lines - height) / 2)
