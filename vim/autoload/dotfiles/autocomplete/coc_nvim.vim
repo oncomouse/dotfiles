@@ -18,17 +18,17 @@ endfunction
 
 function! dotfiles#autocomplete#coc_nvim#configuration() abort
   call coc#config('coc.preferences', {
-      \ 'hoverTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
+      \ 'hoverTarget': dotfiles#coc#has_floating_window() ? 'float' : 'echo',
       \ })
   call coc#config('suggest', {
       \ 'echodocSupport': 1,
-      \ 'floatEnable': dotfiles#has_floating_window(),
+      \ 'floatEnable': dotfiles#coc#has_floating_window(),
       \ })
   call coc#config('signature', {
-      \ 'target': dotfiles#has_floating_window() ? 'float' : 'echo',
+      \ 'target': dotfiles#coc#has_floating_window() ? 'float' : 'echo',
       \ })
   call coc#config('diagnostics', {
-      \ 'messageTarget': dotfiles#has_floating_window() ? 'float' : 'echo',
+      \ 'messageTarget': dotfiles#coc#has_floating_window() ? 'float' : 'echo',
       \ })
 endfunction
 
@@ -92,7 +92,7 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
   command! LocationList exe 'CocList location'
   command! QuickfixList exe 'CocList quickfix'
   command! Yanks exe 'CocList -A --normal yank'
-  command! -nargs=+ -complete=custom,dotfiles#rg_args Rg exe 'CocList grep '.<q-args>
+  command! -nargs=+ -complete=custom,dotfiles#coc#rg_args Rg exe 'CocList grep '.<q-args>
 endfunction
 
 function! dotfiles#autocomplete#coc_nvim#writing() abort
