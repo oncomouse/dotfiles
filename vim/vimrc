@@ -317,7 +317,7 @@ endif
           let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp-settings/LanguageClient-neovim/settings.json')
           let g:LanguageClient_useVirtualText = 'CodeLens'
           " Turn off all diagnostic stuff (pump it all to ALE):
-          let g:LanguageClient_diagnosticsEnable = v:false
+          let g:LanguageClient_diagnosticsEnable = 0
           " Debug:
           " let g:LanguageClient_loggingFile = expand('~/lc.log')
           " let g:LanguageClient_loggingLevel = 'DEBUG'
@@ -387,7 +387,7 @@ endif
       Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
       Plug 'reedes/vim-textobj-sentence', { 'for': ['markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
       Plug 'reedes/vim-textobj-quote', { 'for': ['markdown', 'text'] } " Makes aq & iq for smart quotes
-      let g:textobj#quote#educate = v:false
+      let g:textobj#quote#educate = 0
       " Initialize the plugin when it is dynamically loaded:
       augroup load-sentence
         autocmd!
