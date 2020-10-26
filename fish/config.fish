@@ -37,7 +37,7 @@ end
 # Universal ignore for ag
 function ag; /usr/bin/env ag --path-to-ignore ~/.ignore --hidden $argv; end
 # Other Command Aliases:
-function cat;bat --paging=never $argv;end
+function cat;bat --paging=never --theme=ansi-dark $argv;end
 function icat;kitty +kitten icat $argv; end
 function top;htop $argv;end
 function ls;exa --group-directories-first $argv;end
