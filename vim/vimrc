@@ -190,6 +190,7 @@ endif
       let g:indentLine_setColors = 1
       let g:indentLine_char = "\u22EE"
       let g:indentLine_color_term = 11
+      let g:indentLine_fileTypeExclude = ['markdown', 'fzf']
       Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
     " }}}
     " Statusline: {{{
