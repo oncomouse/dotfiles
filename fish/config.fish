@@ -103,7 +103,7 @@ if status is-interactive
     " --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D"\
     " --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C"\
     " --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
-    set -Ux FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+    set -Ux FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=ansi-dark --color=always --style=header,grid --line-range :300 {}'"
   end
 
   # Open directories in Finder w/ alt+o
