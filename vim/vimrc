@@ -52,7 +52,14 @@ endif
 
   " Set Spellfile Location:
   set spellfile=~/dotfiles/vim/spell/en.utf-8.add
-  " }}}
+
+  " Grep:
+  if executable('rg')
+    set grepprg=rg\ --vimgrep
+  elseif executable('ag')
+    set grepprg=ag\ --vimgrep
+  endif
+" }}}
 " Tabs: {{{
   set tabstop=8
   set shiftwidth=2
@@ -125,17 +132,14 @@ endif
     else
       Plug 'machakann/vim-highlightedyank' " Highlights yank
     endif
-    if has('nvim-0.5')
-      Plug 'nvim-treesitter/nvim-treesitter'
-    endif
   " }}}
   " Writing: {{{
-    Plug 'vimwiki/vimwiki'
-    let g:vimwiki_list = [{'path': '~/Seafile/Todo/Wiki',
-          \ 'syntax': 'markdown', 'ext': '.md',
-                          \ 'index': 'Wiki'}]
-    let g:vimwiki_global_ext = 0
-    let g:vimwiki_conceallevel = 0
+    " Plug 'vimwiki/vimwiki'
+    " let g:vimwiki_list = [{'path': '~/Seafile/Todo/Wiki',
+    "       \ 'syntax': 'markdown', 'ext': '.md',
+    "                       \ 'index': 'Wiki'}]
+    " let g:vimwiki_global_ext = 0
+    " let g:vimwiki_conceallevel = 0
   " }}}
   " Git Support: {{{
     Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
@@ -197,10 +201,6 @@ endif
       Plug 'vim-airline/vim-airline'
       " Use powerline symbols if we are in desktop mode:
       let g:airline_powerline_fonts = g:dotfiles_mode ==# 'desktop'
-      " let g:airline_left_sep = ''
-      " let g:airline_left_alt_sep = ''
-      " let g:airline_right_sep = ''
-      " let g:airline_right_alt_sep = ''
       " Skip empty sections:
       let g:airline_skip_empty_sections = 1
       " Don't check for whitespace errors:
@@ -414,48 +414,16 @@ call plug#end()
   " Clear currently highlighted regexp:
   nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
   " Highlight a block and type "@" to run a macro on the block:
-  xnoremap <silent> @ :<C-u>call visualat#ExecuteMacroOverVisualRange()<CR>
+  xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
   " <F4> makes:
   nnoremap <silent><buffer> <F4> :make!<CR>
   " Update fast folds:
   nmap zuz <Plug>(FastFoldUpdate)
-  " Navigate quickfix
+  " Navigate quickfix:
   nnoremap <silent> ]q :cnext<CR>
   nnoremap <silent> [q :cprevious<CR>
-  " Grep: {{{
-    if executable('rg')
-      set grepprg=rg\ --vimgrep
-    elseif executable('ag')
-      set grepprg=ag\ --vimgrep
-    endif
-    function! Grep(...)
-      return system(join([&grepprg] + [expand(fnameescape(join(a:000, ' ')))], ' '))
-    endfunction
-
-    command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
-    command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
-
-    cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
-    cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
-    function! s:open_list(qf) abort
-      let l:list = a:qf ? getqflist() : getloclist()
-      let l:pfx = a:qf ? 'c' : 'l'
-      if len(l:list) == 0
-        redraw
-        echohl ErrorMsg
-        echo 'No Results'
-        echohl NONE
-      else
-        exec(l:pfx.'window')
-      endif
-    endfunction
-    augroup quickfix
-      autocmd!
-      autocmd QuickFixCmdPost [^l]* call s:open_list(1)
-      autocmd QuickFixCmdPost l* call s:open_list(0)
-    augroup END
-    nnoremap <silent> <leader>/ :execute 'Grep ' . input('Grep/')<CR>
-  " }}}
+  " Grep project:
+  nnoremap <silent> <leader>/ :execute 'Grep ' . input('Grep/')<CR>
   " Standard Fuzzy Bindings: {{{
     " Every list source we could implement (see g:complete_package) implements
     " these commmands, so I can use CoC and it implements the FZF
@@ -536,8 +504,6 @@ call dotfiles#colors#termcolors()
     hi MarkdownItalic guifg=#d58888
     hi link htmlItalic MarkdownItalic
     hi link htmlBold MarkdownBold
-    " Clever-F Highlighting:
-    hi CleverFDefaultLabel gui=bold cterm=bold guifg=#d58888 ctermfg=13
     " Semishi Formatting: {{{
       hi semshiLocal           ctermfg=209 guifg=#ff875f
       hi semshiGlobal          ctermfg=214 guifg=#d2813d
@@ -561,11 +527,6 @@ call dotfiles#colors#termcolors()
   augroup END
 " }}}
 colorscheme tempus_classic
-" treesitter {{{
-  if has('nvim-0.5')
-    lua require('dotfiles/treesitter')
-  endif
-" }}}
 " }}}
 " Other Settings: {{{
   " Jump To Last Position: {{{
