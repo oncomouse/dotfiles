@@ -60,16 +60,17 @@ endfunction
 function! dotfiles#autocomplete#fzf#init()
   command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
-  command! LocationList call s:location_list()
-  command! QuickfixList call s:quickfix()
-  command! Yanks exe 'FZFNeoyank'
-  nnoremap <leader>Y :FZFNeoyank " P<cr>
-  vnoremap <leader>y :FZFNeoyankSelection<cr>
+  if g:complete_package ==# 'desktop'
+    command! Yanks exe 'FZFNeoyank'
+    nnoremap <leader>Y :FZFNeoyank " P<cr>
+    vnoremap <leader>y :FZFNeoyankSelection<cr>
+  endif
   let $FZF_DEFAULT_OPTS .= ' --reverse'
   " let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden'
-  if has('nvim') && g:dotfiles_mode ==# 'desktop'
-    let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-  endif
+  " if has('nvim') && g:dotfiles_mode ==# 'desktop'
+  "   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+  " endif
+  " let g:fzf_layout = { 'down': '45%'}
   let g:fzf_action = {
     \ 'ctrl-s': 'split',
     \ 'ctrl-v': 'vsplit',
