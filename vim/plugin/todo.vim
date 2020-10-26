@@ -12,6 +12,9 @@ function! s:map_todo() abort
   nnoremap <silent><buffer> ]t :call todo#next_project()<CR>
   " Go To Previous Project:
   nnoremap <silent><buffer> [t :call todo#prev_project()<CR>
+  " Ctrl+Shift+<-/-> indents
+  imap <buffer> <silent> <C-S-Left> <C-o><<
+  imap <buffer> <silent> <C-S-Right> <C-o>>>
 endfunction
 
 augroup todo
