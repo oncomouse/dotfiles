@@ -488,14 +488,21 @@ call dotfiles#colors#termcolors()
     " #C594C5 182
     hi TerminalMode guifg=#312e30 ctermfg=8 guibg=#8e9cc0 ctermbg=12 cterm=bold gui=bold
     hi NormalMode guifg=#312e30 ctermfg=8 guibg=#6e9cb0 ctermbg=4 cterm=bold gui=bold
+    hi VisualModeInv guifg=#d0913d ctermfg=9 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+    hi InsertModeInv guifg=#8c9e3d ctermfg=2 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+    hi ReplaceModeInv guifg=#d58888 ctermfg=13 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+    hi CommandModeInv guifg=#6da280 ctermfg=6 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+    hi TerminalModeInv guifg=#8e9cc0 ctermfg=12 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+    hi NormalModeInv guifg=#6e9cb0 ctermfg=4 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
     hi StatusLine guifg=#312e30 ctermfg=8 guibg=NONE ctermbg=NONE cterm=NONE gui=NONE
     hi StatusLineNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
     hi StatusLineTerm guifg=#96a42d ctermfg=10 guibg=#8c9e3d ctermbg=2 cterm=NONE gui=NONE
     hi StatusLineTermNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi User1 ctermbg=237 guibg=#3a3a3a cterm=NONE gui=NONE
+    hi User1 ctermfg=15 guifg=#949d9f ctermbg=8 guibg=#312e30 cterm=NONE gui=NONE
     hi User2 guifg=#312e30 ctermfg=8 guibg=#b1942b ctermbg=3 cterm=NONE gui=NONE
     hi User3 guifg=#312e30 ctermfg=8 guibg=#d2813d ctermbg=1 cterm=NONE gui=NONE
-    hi User4 guifg=#aeadaf ctermfg=15 guibg=#312e30 ctermbg=8 cterm=none gui=none
+    hi User4 guifg=#aeadaf ctermfg=0 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+    hi User5 guifg=#aeadaf ctermfg=0 guibg=#4a4a4b ctermbg=238 cterm=NONE gui=NONE
     hi SpellBad gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#d58888
     hi ALEError gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#d2813d
     hi ALEWarning gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#b1942b
