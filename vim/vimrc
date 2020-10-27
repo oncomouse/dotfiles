@@ -374,7 +374,6 @@ endif
         " ALE For Linting: {{{
           Plug 'dense-analysis/ale'
           let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-          let g:ale_lint_on_insert_leave = 1
           let g:ale_cursor_detail = 0
           " Always use preview for hover (only used w/ JS languages):
           let g:ale_hover_to_preview = 1
