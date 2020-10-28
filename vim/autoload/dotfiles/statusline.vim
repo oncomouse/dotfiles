@@ -76,7 +76,7 @@ let g:statusline_right_soft_sep = get(g:, 'statusline_right_soft_sep', '│') " 
           \".'%{dotfiles#statusline#setup('.winnr().')}%#'.dotfiles#statusline#mode_color(winnr(), 1)."#
           \%{w:['lf_active'] && &filetype !=# 'qf' ? dotfiles#statusline#separator('left', 1) : ''}
           \%1* %f%m%h%w%r%=
-          \ %y
+          \ %y 
           \%5*
           \%{Componetize('dotfiles#statusline#wordcount()', ' ', dotfiles#statusline#separator('right',0))}
           \ %l/%L:%c 
