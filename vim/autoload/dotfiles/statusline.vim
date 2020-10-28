@@ -58,28 +58,33 @@ let g:nerdfonts = g:dotfiles_mode ==# 'desktop'
     if &filetype ==# 'gina-status'
       return 'Gina'
     endif
+    if &filetype ==# 'qf'
+      return ''
+    endif
     return get(g:lf_stlm, mode())
   endfunction
-  function! dotfiles#statusline#qfline() abort
-    return '%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'#
-          \ %{dotfiles#statusline#qfbuftype()}
-          \ '.'%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'Inv'."#
-          \ %{dotfiles#statusline#separator('left', 1)}
-          \ %{exists('w:quickfix_title') ? ' '.w:quickfix_title : ''}
-          \ "
+  function! dotfiles#statusline#mode_color(curwin,...) abort
+    " if !has_key(w:, 'lf_active')
+    "   return 'User1'
+    " endif
+    let l:inverse = get(a:, 001, 0)
+    return get(g:lf_stlh, mode()) . (l:inverse ? 'Inv' : '')
+  endfunction
+  function dotfiles#statusline#active(curwin) abort
+    return w:lf_active == a:curwin
   endfunction
   function! dotfiles#statusline#statusline() abort
-    return '%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'#
-          \ '.'%{dotfiles#statusline#mode()} 
-          \'.'%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'Inv'."#
-          \%{dotfiles#statusline#separator('left', 1)}
-          \%1* %f%m%h%w%r%q%=
-          \ %y 
-          \".'%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'Inv'."#
-          \%{dotfiles#statusline#separator('right', 1)}
-          \%*"
-          \ .'%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings')."#
-          \ %{Componetize('dotfiles#statusline#wordcount()', '', dotfiles#statusline#separator('right',0))}
+    return '%{dotfiles#statusline#setup('.winnr().')}%#'.dotfiles#statusline#mode_color(winnr()).'#
+          \'."%{w:['lf_active'] ? Componetize('dotfiles#statusline#mode()', '  ', ' ') : ''}
+          \".'%{dotfiles#statusline#setup('.winnr().')}%#'.dotfiles#statusline#mode_color(winnr(), 1)."#
+          \%{w:['lf_active'] && &filetype !=# 'qf' ? dotfiles#statusline#separator('left', 1) : ''}
+          \%1* %f%m%h%w%r%=
+          \ %y
+          \%< ".'%{dotfiles#statusline#setup('.winnr().')}%#'.dotfiles#statusline#mode_color(winnr(), 1)."#
+          \%{ w:['lf_active'] ? dotfiles#statusline#separator('right', 1) : ''}
+          \%*
+          \%{dotfiles#statusline#setup('.winnr().')}%#".dotfiles#statusline#mode_color(winnr())."#
+          \%{Componetize('dotfiles#statusline#wordcount()', '  ', dotfiles#statusline#separator('right',0))}
           \ %l/%L:%c 
           \%2*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#warnings()') : ''}
           \%3*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#errors()', '  ') : ''}
