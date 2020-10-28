@@ -10,7 +10,7 @@ let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
   let g:dotfiles#ale#indicator_ok = ''
 " }}}
 " Statusline {{{
-  function! Componetize(func,...) abort
+  function! dotfiles#statusline#componetize(func,...) abort
     let l:before = get(a:, 1, ' ')
     let l:after = get(a:, 2, ' ')
     let l:output = eval(a:func)
@@ -45,9 +45,6 @@ let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
   function! dotfiles#statusline#wordcount() abort
     return &filetype =~# '\v^(markdown|txt|vimwiki)' ? wordcount().words . ' words ' : ''
   endfunction
-  function! dotfiles#statusline#qfbuftype() abort
-    return  (getwininfo(win_getid())[0].quickfix) ? 'Quickfix List' : 'Location List'
-  endfunction
   function! dotfiles#statusline#mode() abort
     if &filetype ==# 'gina-status'
       return 'Gina'
@@ -57,22 +54,18 @@ let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
     endif
     return get(g:lf_stlm, mode())
   endfunction
-  function! dotfiles#statusline#mode_color(curwin,...) abort
-    let l:inverse = get(a:, 001, 0)
-    return get(g:lf_stlh, mode()) . (l:inverse ? 'Inv' : '')
-  endfunction
   function! dotfiles#statusline#statusline() abort
-    return '%{dotfiles#statusline#setup('.winnr().')}%#'.dotfiles#statusline#mode_color(winnr()).'#
-          \'."%{w:['lf_active'] ? Componetize('dotfiles#statusline#mode()', '  ', ' ') : ''}
+    return '%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode()).'#
+          \'."%{w:['lf_active'] ? dotfiles#statusline#componetize('dotfiles#statusline#mode()', '  ', ' ') : ''}
           \%1* %f%m%h%w%r%=
           \ %y 
           \%5*
-          \%{Componetize('dotfiles#statusline#wordcount()', ' ', g:statusline_soft_sep)}
+          \%{dotfiles#statusline#componetize('dotfiles#statusline#wordcount()', ' ', g:statusline_soft_sep)}
           \ %l/%L:%c 
-          \%2*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#warnings()') : ''}
-          \%3*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#errors()', '  ') : ''}
-          \%4*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#ok()', '', '  ') : ''}
-          \%2*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#checking()', ' ', ' ') : ''}
+          \%2*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#warnings()') : ''}
+          \%3*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#errors()', '  ') : ''}
+          \%4*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#ok()', '', '  ') : ''}
+          \%2*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#checking()', ' ', ' ') : ''}
           \%*"
   endfunction
 " }}}
