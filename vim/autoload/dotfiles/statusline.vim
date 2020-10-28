@@ -1,10 +1,7 @@
 " Statusline:
 scriptencoding utf-8
 let g:nerdfonts = g:dotfiles_mode ==# 'desktop'
-let g:statusline_left_sep = get(g:, 'statusline_left_sep', '') " g:nerdfonts ? '' :
-let g:statusline_left_soft_sep = get(g:, 'statusline_left_soft_sep','│') "  g:nerdfonts ? '' : 
-let g:statusline_right_sep = get(g:, 'statusline_right_sep',  '') " g:nerdfonts ? '' :
-let g:statusline_right_soft_sep = get(g:, 'statusline_right_soft_sep', '│') " g:nerdfonts ? '' : 
+let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
 " Linter Status {{{
   let g:dotfiles#ale#indicator_checking = g:nerdfonts ? "\uf110" : '…'
   let g:dotfiles#ale#indicator_warnings = g:nerdfonts ? "\uf071\u2003" : 'W: '
@@ -45,12 +42,6 @@ let g:statusline_right_soft_sep = get(g:, 'statusline_right_soft_sep', '│') " 
   function! dotfiles#statusline#setup(curwin) abort
     return get(extend(w:, { 'lf_active': winnr() ==# a:curwin  }), '', '')
   endfunction
-  function! dotfiles#statusline#separator(dir, hard) abort
-    if a:dir ==# 'left'
-      return a:hard ? g:statusline_left_sep : g:statusline_left_soft_sep
-    endif
-    return a:hard ? g:statusline_right_sep : g:statusline_right_soft_sep
-  endfunction
   function! dotfiles#statusline#wordcount() abort
     return &filetype =~# '\v^(markdown|txt|vimwiki)' ? wordcount().words . ' words ' : ''
   endfunction
@@ -73,12 +64,10 @@ let g:statusline_right_soft_sep = get(g:, 'statusline_right_soft_sep', '│') " 
   function! dotfiles#statusline#statusline() abort
     return '%{dotfiles#statusline#setup('.winnr().')}%#'.dotfiles#statusline#mode_color(winnr()).'#
           \'."%{w:['lf_active'] ? Componetize('dotfiles#statusline#mode()', '  ', ' ') : ''}
-          \".'%{dotfiles#statusline#setup('.winnr().')}%#'.dotfiles#statusline#mode_color(winnr(), 1)."#
-          \%{w:['lf_active'] && &filetype !=# 'qf' ? dotfiles#statusline#separator('left', 1) : ''}
           \%1* %f%m%h%w%r%=
           \ %y 
           \%5*
-          \%{Componetize('dotfiles#statusline#wordcount()', ' ', dotfiles#statusline#separator('right',0))}
+          \%{Componetize('dotfiles#statusline#wordcount()', ' ', g:statusline_soft_sep)}
           \ %l/%L:%c 
           \%2*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#warnings()') : ''}
           \%3*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? Componetize('dotfiles#ale#errors()', '  ') : ''}
