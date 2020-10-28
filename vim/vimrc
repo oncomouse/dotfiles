@@ -198,37 +198,37 @@ endif
       Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
     " }}}
     " Statusline: {{{
-      Plug 'vim-airline/vim-airline'
-      " Use powerline symbols if we are in desktop mode:
-      let g:airline_powerline_fonts = g:dotfiles_mode ==# 'desktop'
-      " Skip empty sections:
-      let g:airline_skip_empty_sections = 1
-      " Don't check for whitespace errors:
-      let g:airline#extensions#whitespace#enabled = 0
-      " Don't detect if spelling is enabled:
-      let g:airline_detect_spell = 0
-      " Don't show encoding if it's standard:
-      let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-      " No line number symbols:
-      let g:airline_symbols = get(g:, 'airline_symbols', {})
-      let g:airline_symbols.dirty= '…'
-      let g:airline_symbols.linenr = ''
-      let g:airline_symbols.maxlinenr = ''
-      " ALE:
-      let g:airline#extensions#ale#enabled = (complete_package !=# 'coc.nvim')
-      " Turn off line number of first error:
-      let g:airline#extensions#ale#show_line_numbers = 0
-      " ALE Error Symbols:
-      let g:airline#extensions#ale#error_symbol = g:airline_powerline_fonts ? "\uf05e\u2003" : 'E: ' 
-      let g:airline#extensions#ale#warning_symbol = g:airline_powerline_fonts ? "\uf071\u2003" : 'W: '
-      let g:airline#extensions#ale#checking_symbol = g:airline_powerline_fonts ? "\uf110" : '...'
-      " Disable the differentiation between INSERT and INSERT COMPL:
-      let g:airline_mode_map = get(g:, 'airline_mod_map', {})
-      let g:airline_mode_map['ic'] = 'INSERT'
-      augroup start_airline
-        autocmd!
-        autocmd VimEnter * call dotfiles#airline#init()
-      augroup END
+      " Plug 'vim-airline/vim-airline'
+      " " Use powerline symbols if we are in desktop mode:
+      " let g:airline_powerline_fonts = g:dotfiles_mode ==# 'desktop'
+      " " Skip empty sections:
+      " let g:airline_skip_empty_sections = 1
+      " " Don't check for whitespace errors:
+      " let g:airline#extensions#whitespace#enabled = 0
+      " " Don't detect if spelling is enabled:
+      " let g:airline_detect_spell = 0
+      " " Don't show encoding if it's standard:
+      " let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+      " " No line number symbols:
+      " let g:airline_symbols = get(g:, 'airline_symbols', {})
+      " let g:airline_symbols.dirty= '…'
+      " let g:airline_symbols.linenr = ''
+      " let g:airline_symbols.maxlinenr = ''
+      " " ALE:
+      " let g:airline#extensions#ale#enabled = (complete_package !=# 'coc.nvim')
+      " " Turn off line number of first error:
+      " let g:airline#extensions#ale#show_line_numbers = 0
+      " " ALE Error Symbols:
+      " let g:airline#extensions#ale#error_symbol = g:airline_powerline_fonts ? "\uf05e\u2003" : 'E: ' 
+      " let g:airline#extensions#ale#warning_symbol = g:airline_powerline_fonts ? "\uf071\u2003" : 'W: '
+      " let g:airline#extensions#ale#checking_symbol = g:airline_powerline_fonts ? "\uf110" : '...'
+      " " Disable the differentiation between INSERT and INSERT COMPL:
+      " let g:airline_mode_map = get(g:, 'airline_mod_map', {})
+      " let g:airline_mode_map['ic'] = 'INSERT'
+      " augroup start_airline
+      "   autocmd!
+      "   autocmd VimEnter * call dotfiles#airline#init()
+      " augroup END
     " }}}
     " Syntax: {{{
       Plug 'cespare/vim-toml' " TOML syntax
@@ -498,11 +498,11 @@ call dotfiles#colors#termcolors()
     hi StatusLineNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
     hi StatusLineTerm guifg=#96a42d ctermfg=10 guibg=#8c9e3d ctermbg=2 cterm=NONE gui=NONE
     hi StatusLineTermNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi User1 ctermfg=15 guifg=#949d9f ctermbg=8 guibg=#312e30 cterm=NONE gui=NONE
+    hi User1 ctermfg=7 guifg=#949d9f ctermbg=8 guibg=#312e30 cterm=NONE gui=NONE
     hi User2 guifg=#312e30 ctermfg=8 guibg=#b1942b ctermbg=3 cterm=NONE gui=NONE
     hi User3 guifg=#312e30 ctermfg=8 guibg=#d2813d ctermbg=1 cterm=NONE gui=NONE
-    hi User4 guifg=#aeadaf ctermfg=0 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi User5 guifg=#aeadaf ctermfg=0 guibg=#4a4a4b ctermbg=238 cterm=NONE gui=NONE
+    hi User4 guifg=#aeadaf ctermfg=15 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+    hi User5 guifg=#aeadaf ctermfg=15 guibg=#4a4a4b ctermbg=238 cterm=NONE gui=NONE
     hi SpellBad gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#d58888
     hi ALEError gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#d2813d
     hi ALEWarning gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#b1942b
@@ -569,9 +569,9 @@ colorscheme tempus_classic
   " }}}
 " }}}
 " Server Only Settings: {{{
+set statusline=%!dotfiles#statusline#statusline()
   if dotfiles_mode ==# 'server'
     " Use the old statusline for server mode:
-    set statusline=%!dotfiles#statusline#statusline()
     " set tabline=%!dotfiles#statusline#tabline()
     augroup dotfiles-server-au
       autocmd!
