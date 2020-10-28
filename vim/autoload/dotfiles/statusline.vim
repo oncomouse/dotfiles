@@ -51,9 +51,26 @@ let g:nerdfonts = g:dotfiles_mode ==# 'desktop'
   function! dotfiles#statusline#wordcount() abort
     return &filetype =~# '\v^(markdown|txt|vimwiki)' ? wordcount().words . ' words ' : ''
   endfunction
+  function! dotfiles#statusline#qfbuftype() abort
+    return  (getwininfo(win_getid())[0].quickfix) ? 'Quickfix List' : 'Location List'
+  endfunction
+  function! dotfiles#statusline#mode() abort
+    if &filetype ==# 'gina-status'
+      return 'Gina'
+    endif
+    return get(g:lf_stlm, mode())
+  endfunction
+  function! dotfiles#statusline#qfline() abort
+    return '%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'#
+          \ %{dotfiles#statusline#qfbuftype()}
+          \ '.'%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'Inv'."#
+          \ %{dotfiles#statusline#separator('left', 1)}
+          \ %{exists('w:quickfix_title') ? ' '.w:quickfix_title : ''}
+          \ "
+  endfunction
   function! dotfiles#statusline#statusline() abort
     return '%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'#
-          \ '.'%{get(g:lf_stlm, mode())} 
+          \ '.'%{dotfiles#statusline#mode()} 
           \'.'%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode(), 'Warnings').'Inv'."#
           \%{dotfiles#statusline#separator('left', 1)}
           \%1* %f%m%h%w%r%q%=
