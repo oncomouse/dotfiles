@@ -77,9 +77,6 @@ let g:statusline_right_soft_sep = get(g:, 'statusline_right_soft_sep', '│') " 
           \%{w:['lf_active'] && &filetype !=# 'qf' ? dotfiles#statusline#separator('left', 1) : ''}
           \%1* %f%m%h%w%r%=
           \ %y
-          \%< %{dotfiles#statusline#setup(".winnr().")}%#User5Inv#
-          \%{ w:['lf_active'] ? dotfiles#statusline#separator('right', 1) : ''}
-          \%*
           \%5*
           \%{Componetize('dotfiles#statusline#wordcount()', ' ', dotfiles#statusline#separator('right',0))}
           \ %l/%L:%c 
@@ -90,4 +87,3 @@ let g:statusline_right_soft_sep = get(g:, 'statusline_right_soft_sep', '│') " 
           \%*"
   endfunction
 " }}}
-" # vim:foldmethod=marker|
