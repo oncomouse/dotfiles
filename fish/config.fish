@@ -29,6 +29,7 @@ if status --is-login
   add_to_user_paths ~/.asdf/bin
   # Sbin:
   add_to_user_paths /usr/local/sbin
+  add_to_user_paths ~/.ghcup/bin
 
   # Setup mypy:
   set -Ux MYPYPATH ~/dotfiles/python/stubs
