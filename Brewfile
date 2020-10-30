@@ -55,7 +55,6 @@ brew "janet" # Janet programming language
 brew "lua" # Lua programming language
 brew "luarocks" # Lua package manager
 brew "asdf" # Unified Ruby / Node version managing
-brew "stack" # Haskell Stack
 # cask "virtualbox" # Virtual machine software
 
 # Writing
