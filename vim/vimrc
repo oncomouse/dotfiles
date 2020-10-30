@@ -245,7 +245,11 @@ endif
       let g:vim_json_syntax_conceal = 0
       Plug 'tbastos/vim-lua' " Lua Syntax
       Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " Variable Highlighting for Python
-      let g:autorepl_enable = 0
+      " Autorepl automatically starts a repl on language load:
+      let g:autorepl_commands = {
+            \'janet': ['/usr/local/bin/janet','-e','"(import spork/netrepl) (netrepl/server)"'],
+            \'haskell': {'command': ['~/.ghcup/bin/ghci'], 'interactive': 1},
+            \}
       " Janet / Fennel {{{{
         " Plug 'bakpakin/fennel.vim' " Fennel Syntax
         " Plug 'Olical/aniseed' " Use Fennel in nvim
@@ -337,6 +341,7 @@ endif
           " Root patterns:
           let g:LanguageClient_rootMarkers = g:rooter_patterns
           let g:LanguageClient_serverCommands = {
+                \ 'haskell': ['haskell-language-server-wrapper', '--lsp'],
                 \ 'python': ['/usr/local/bin/jedi-language-server'],
                 \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
                 \ 'html': ['/usr/local/bin/html-languageserver', '--stdio'],
