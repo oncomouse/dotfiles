@@ -4,8 +4,8 @@ function! s:start(command, ...) abort
   let interactive = get(a:, 001, 0)
   if has('nvim')
     if interactive
-      let shell_command = type(a:command) == v:t_list ? join(a:command, ' ') : a:command
-      let job_id = execute(':enew | set nonumber | set norelativenumber | echo termopen("'.shell_command.'")')
+      enew
+      let job_id = termopen(a:command)
       bp
       return job_id
     endif
