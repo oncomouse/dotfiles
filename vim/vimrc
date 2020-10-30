@@ -273,6 +273,11 @@ endif
         "       \'janet': '/usr/local/bin/janet -e "(import spork/netrepl) (netrepl/server)"',
         "       \}
       " }}}}
+      " Haskell {{{
+      Plug 'neovimhaskell/haskell-vim'
+      Plug 'jpalardy/vim-slime'
+      let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
+      " }}}
     " }}}
     " Text Object Plugins: {{{
       Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
