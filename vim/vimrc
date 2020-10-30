@@ -197,39 +197,6 @@ endif
       let g:indentLine_fileTypeExclude = ['markdown', 'fzf']
       Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
     " }}}
-    " Statusline: {{{
-      " Plug 'vim-airline/vim-airline'
-      " " Use powerline symbols if we are in desktop mode:
-      " let g:airline_powerline_fonts = g:dotfiles_mode ==# 'desktop'
-      " " Skip empty sections:
-      " let g:airline_skip_empty_sections = 1
-      " " Don't check for whitespace errors:
-      " let g:airline#extensions#whitespace#enabled = 0
-      " " Don't detect if spelling is enabled:
-      " let g:airline_detect_spell = 0
-      " " Don't show encoding if it's standard:
-      " let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-      " " No line number symbols:
-      " let g:airline_symbols = get(g:, 'airline_symbols', {})
-      " let g:airline_symbols.dirty= '…'
-      " let g:airline_symbols.linenr = ''
-      " let g:airline_symbols.maxlinenr = ''
-      " " ALE:
-      " let g:airline#extensions#ale#enabled = (complete_package !=# 'coc.nvim')
-      " " Turn off line number of first error:
-      " let g:airline#extensions#ale#show_line_numbers = 0
-      " " ALE Error Symbols:
-      " let g:airline#extensions#ale#error_symbol = g:airline_powerline_fonts ? "\uf05e\u2003" : 'E: ' 
-      " let g:airline#extensions#ale#warning_symbol = g:airline_powerline_fonts ? "\uf071\u2003" : 'W: '
-      " let g:airline#extensions#ale#checking_symbol = g:airline_powerline_fonts ? "\uf110" : '...'
-      " " Disable the differentiation between INSERT and INSERT COMPL:
-      " let g:airline_mode_map = get(g:, 'airline_mod_map', {})
-      " let g:airline_mode_map['ic'] = 'INSERT'
-      " augroup start_airline
-      "   autocmd!
-      "   autocmd VimEnter * call dotfiles#airline#init()
-      " augroup END
-    " }}}
     " Syntax: {{{
       Plug 'cespare/vim-toml' " TOML syntax
       Plug 'neoclide/vim-jsx-improve' " JSX (javascriptreact) Syntax
