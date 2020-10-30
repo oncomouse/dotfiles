@@ -52,7 +52,6 @@ brew "node" # Node.js
 brew "python" # Python 3
 brew "yarn" # Package manager for Node.js
 brew "janet" # Janet programming language
-brew "fennel" # Fennel programming language (can also be embedded)
 brew "lua" # Lua programming language
 brew "luarocks" # Lua package manager
 brew "asdf" # Unified Ruby / Node version managing
