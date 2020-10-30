@@ -10,6 +10,4 @@ function luainstall() {
 }
 if [ -z "$SERVER" ];then
   luainstall 'luacheck'
-  luainstall 'fennel'
-  luainstall 'fun'
 fi
