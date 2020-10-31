@@ -212,9 +212,9 @@ endif
       " Autorepl automatically starts a repl on language load and connects to
       " slime:
       let g:autorepl_commands = {
-            \'haskell': {'command': '~/.ghcup/bin/ghci', 'interactive': 1},
-            \'javascript': {'command': '/usr/local/bin/node', 'interactive': 1, 'auto': 0},
-            \'ruby': {'command': '~/.asdf/shims/irb', 'interactive': 1, 'auto': 0},
+            \'haskell': '~/.ghcup/bin/ghci',
+            \'javascript': {'command': '/usr/local/bin/node', 'auto': 0},
+            \'ruby': {'command': '~/.asdf/shims/irb', 'auto': 0},
             \}
     " }}}
     " Text Object Plugins: {{{
