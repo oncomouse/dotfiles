@@ -8,38 +8,43 @@ function! s:start(command, ...) abort
     " This gets sourced I think before this gets set for terminals:
     set nonumber
     set norelativenumber
-    call execute(':term '.command)
-    let job_id = &channel
+    call execute(':terminal '.(has('nvim') ? '' : '++curwin ++kill=term ').expand(command))
+    let job_id = has('nvim') ? &channel : buffer_number()
     if !focus
       bp
     endif
     return job_id
   endif
-  return jobstart(a:command)
+  return has('nvim') ? jobstart(a:command) : job_getchannel(job_start(a:command))
 endfunction
-function! autorepl#start(ft, ...) abort
+function! s:load_repl(ft,auto) abort
   if !(has_key(g:autorepl_commands, a:ft))
     return
   endif
-  let auto = get(a:, 001, 1)
   let job_id = get(g:autorepl_jobs, a:ft, -1)
+  let start = 0
   if job_id < 0
     let job = g:autorepl_commands[a:ft]
     let job_type = type(job)
     if job_type == v:t_dict
-      if auto == 0 || get(job, 'auto', 1)
-        let g:autorepl_jobs[a:ft] = s:start(job['command'], get(job, 'interactive', 0), !auto)
+      if a:auto == 0 || get(job, 'auto', 1)
+        let g:autorepl_jobs[a:ft] = s:start(job['command'], get(job, 'interactive', 0), !a:auto)
+        let start = 1
       endif
     else
       let g:autorepl_jobs[a:ft] = s:start(job)
+      let start = 1
     endif
   endif
-  if auto == 0 || get(job, 'auto', 1)
+  if job_id >= 0 || start
     " Signal slime of our job_id:
-    let b:slime_config = {'jobid': g:autorepl_jobs[a:ft]}
+    let b:slime_config = {'jobid': g:autorepl_jobs[a:ft], 'bufnr': g:autorepl_jobs[a:ft]}
   endif
+endfunction
+function! autorepl#start(ft) abort
+  call s:load_repl(a:ft, 1)
 endfunction
 
 function! autorepl#open_repl() abort
-  call autorepl#start(&filetype, 0)
+  call s:load_repl(&filetype, 0)
 endfunction
