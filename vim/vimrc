@@ -219,6 +219,8 @@ endif
       " \'janet': ['/usr/local/bin/janet','-e','"(import spork/netrepl) (netrepl/server)"'],
       let g:autorepl_commands = {
             \'haskell': {'command': '~/.ghcup/bin/ghci', 'interactive': 1},
+            \'javascript': {'command': '/usr/local/bin/node', 'interactive': 1, 'auto': 0},
+            \'ruby': {'command': '~/.asdf/shims/irb', 'interactive': 1, 'auto': 0},
             \}
     " }}}
     " Text Object Plugins: {{{
