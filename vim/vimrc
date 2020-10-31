@@ -211,6 +211,7 @@ endif
       let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
       " Autorepl automatically starts a repl on language load and connects to
       " slime:
+      Plug 'oncomouse/vim-autorepl'
       let g:autorepl_commands = {
             \'haskell': '~/.ghcup/bin/ghci',
             \'javascript': {'command': '/usr/local/bin/node', 'auto': 0},
