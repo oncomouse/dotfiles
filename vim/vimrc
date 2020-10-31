@@ -212,12 +212,14 @@ endif
       let g:vim_json_syntax_conceal = 0
       Plug 'tbastos/vim-lua' " Lua Syntax
       Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " Variable Highlighting for Python
+      Plug 'jpalardy/vim-slime'
+      let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
+      Plug 'neovimhaskell/haskell-vim'
       " Autorepl automatically starts a repl on language load:
-      let g:autorepl_enable = 0
-      " let g:autorepl_commands = {
-      "       \'janet': ['/usr/local/bin/janet','-e','"(import spork/netrepl) (netrepl/server)"'],
-      "       \'haskell': {'command': ['~/.ghcup/bin/ghci'], 'interactive': 1},
-      "       \}
+      " \'janet': ['/usr/local/bin/janet','-e','"(import spork/netrepl) (netrepl/server)"'],
+      let g:autorepl_commands = {
+            \'haskell': {'command': '~/.ghcup/bin/ghci', 'interactive': 1},
+            \}
     " }}}
     " Text Object Plugins: {{{
       Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
