@@ -66,6 +66,9 @@ endfunction
 function! s:load_repl(ft, auto) abort
   " Don't load if we don't have a repl defined:
   if !(has_key(g:autorepl_commands, a:ft))
+    if a:auto == 0
+      echohl ErrorMsg | echo 'No REPL configured for '.&filetype | echohl None
+    endif
     return
   endif
   if get(s:autorepl_jobs, a:ft, -1) < 0
@@ -86,6 +89,7 @@ function! s:load_repl(ft, auto) abort
         let s:autorepl_jobs[a:ft] = -1
         let buffers_to_update = s:autorepl_buffers[a:ft]
         call s:load_repl(a:ft, a:auto)
+        " Reconnect each tracked buffer:
         for bufn in buffers_to_update
           if buffer_exists(bufn)
             execute('buffer '.bufn)
@@ -107,4 +111,12 @@ endfunction
 " Manually start a REPL:
 function! autorepl#open_repl() abort
   call s:load_repl(&filetype, 0)
+endfunction
+function! autorepl#attach_repl() abort
+  if get(s:autorepl_jobs, &filetype, -1) >= 0
+    call s:connect_to_slime(s:autorepl_jobs[&filetype])
+    call s:track_buffer(&filetype)
+  else
+    echohl ErrorMsg | echo 'No running REPL found for '.&filetype | echohl None
+  endif
 endfunction
