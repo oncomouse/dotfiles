@@ -55,6 +55,12 @@ function! s:connect_to_slime(val) abort
     let b:slime_config = eval("{'".(has('nvim') ? 'jobid' : 'bufnr')."': ".a:val.'}')
   endif
 endfunction
+function! s:track_buffer(ft) abort
+  if !has_key(s:autorepl_buffers, a:ft)
+    let s:autorepl_buffers[a:ft] = []
+  endif
+  call add(s:autorepl_buffers[a:ft], bufnr(''))
+endfunction
 " Command to start a REPL if none is running and connect the buffer if a REPL
 " is running:
 function! s:load_repl(ft, auto) abort
@@ -62,18 +68,14 @@ function! s:load_repl(ft, auto) abort
   if !(has_key(g:autorepl_commands, a:ft))
     return
   endif
-  let job_id = get(s:autorepl_jobs, a:ft, -1)
-  if !has_key(s:autorepl_buffers, a:ft)
-    let s:autorepl_buffers[a:ft] = []
-  endif
-  call add(s:autorepl_buffers[a:ft], bufnr(''))
-  if job_id < 0
+  if get(s:autorepl_jobs, a:ft, -1) < 0
     let job = extend(s:autorepl_defaults, (type(g:autorepl_commands[a:ft]) == v:t_dict ?
           \ g:autorepl_commands[a:ft] : {'command': g:autorepl_commands[a:ft]}))
     " Do we have to start a job (did the user call for a REPL or is the job
     " autostart-able?):
     if a:auto == 0 || job.auto
       let s:autorepl_jobs[a:ft] = s:start_repl(job.command, job.interactive, !a:auto)
+      call s:track_buffer(a:ft)
     endif
   else
     " Anything to do when a REPL is already running. Here we hook into
@@ -93,6 +95,7 @@ function! s:load_repl(ft, auto) abort
         endfor
       else
         call s:connect_to_slime(s:autorepl_jobs[a:ft])
+        call s:track_buffer(a:ft)
       endif
     endif
   endif
