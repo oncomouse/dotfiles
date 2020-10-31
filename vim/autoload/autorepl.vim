@@ -10,7 +10,7 @@ function! s:start_repl(command, ...) abort
   if interactive
     " Open the terminal command:
     call execute(':terminal '.(has('nvim') ? '' : '++curwin ++kill=term ').expand(command))
-    " This gets sourced I think before this gets set for terminals:
+    " Turn off line numbers in term buffer, if we want to:
     if g:autorepl_no_line_numbers
       set nonumber
       set norelativenumber
@@ -19,7 +19,7 @@ function! s:start_repl(command, ...) abort
     if !focus
       bp
     endif
-    " Return the identifier we need for slime:
+    " Return the identifier we need for slime or tracking the job:
     return output
   endif
   " If not interactive, start the job:
@@ -44,9 +44,12 @@ function! s:load_repl(ft,auto) abort
       let start = 1
     endif
   endif
+  " Anything we need to do if we started a REPL or one is already running:
   if job_id >= 0 || start
     " Signal slime of our job_id:
-    let b:slime_config = {'jobid': g:autorepl_jobs[a:ft], 'bufnr': g:autorepl_jobs[a:ft]}
+    if get(g:, 'slime_target', '') =~# 'vim'
+      let b:slime_config = eval("{'".(has('nvim') ? 'jobid' : 'bufnr')."': ".g:autorepl_jobs[a:ft].'}')
+    endif
   endif
 endfunction
 function! autorepl#start(ft) abort
