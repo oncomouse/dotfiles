@@ -78,20 +78,22 @@ function! s:load_repl(ft, auto) abort
   else
     " Anything to do when a REPL is already running. Here we hook into
     " vim-slime:
-    if !s:is_job_running(s:autorepl_jobs[a:ft])
-      " Recover if the REPL has crashed or been quit:
-      let s:autorepl_jobs[a:ft] = -1
-      let buffers_to_update = s:autorepl_buffers[a:ft]
-      call s:load_repl(a:ft, a:auto)
-      for bufn in buffers_to_update
-        if buffer_exists(bufn)
-          execute('buffer '.bufn)
-          call s:connect_to_slime(s:autorepl_jobs[a:ft])
-          bp
-        endif
-      endfor
-    else
-      call s:connect_to_slime(s:autorepl_jobs[a:ft])
+    if get(g:, 'slime_target', '') =~# 'vim'
+      if !s:is_job_running(s:autorepl_jobs[a:ft])
+        " Recover if the REPL has crashed or been quit:
+        let s:autorepl_jobs[a:ft] = -1
+        let buffers_to_update = s:autorepl_buffers[a:ft]
+        call s:load_repl(a:ft, a:auto)
+        for bufn in buffers_to_update
+          if buffer_exists(bufn)
+            execute('buffer '.bufn)
+            call s:connect_to_slime(s:autorepl_jobs[a:ft])
+            bp
+          endif
+        endfor
+      else
+        call s:connect_to_slime(s:autorepl_jobs[a:ft])
+      endif
     endif
   endif
 endfunction
