@@ -3,7 +3,9 @@ let g:autorepl_commands = get(g:, 'autorepl_commands', {})
 " Turn off line numbers in terminal (this is a problem in Neovim):
 let g:autorepl_no_line_numbers = get(g:, 'autorepl_no_line_numbers', 1)
 " Track jobs:
-let s:autorepl_jobs = get(g:, 'autorepl_jobs', {})
+let s:autorepl_jobs = {}
+" Track buffers:
+let s:autorepl_buffers = {}
 " Default configuration is interactive and autoload:
 let s:autorepl_defaults = {'interactive': 1, 'auto': 1}
 " Command to start the REPL in interactive mode or headless mode:
@@ -61,6 +63,10 @@ function! s:load_repl(ft, auto) abort
     return
   endif
   let job_id = get(s:autorepl_jobs, a:ft, -1)
+  if !has_key(s:autorepl_buffers, a:ft)
+    let s:autorepl_buffers[a:ft] = []
+  endif
+  call add(s:autorepl_buffers[a:ft], bufnr(''))
   if job_id < 0
     let job = extend(s:autorepl_defaults, (type(g:autorepl_commands[a:ft]) == v:t_dict ?
           \ g:autorepl_commands[a:ft] : {'command': g:autorepl_commands[a:ft]}))
@@ -73,8 +79,17 @@ function! s:load_repl(ft, auto) abort
     " Anything to do when a REPL is already running. Here we hook into
     " vim-slime:
     if !s:is_job_running(s:autorepl_jobs[a:ft])
+      " Recover if the REPL has crashed or been quit:
       let s:autorepl_jobs[a:ft] = -1
+      let buffers_to_update = s:autorepl_buffers[a:ft]
       call s:load_repl(a:ft, a:auto)
+      for bufn in buffers_to_update
+        if buffer_exists(bufn)
+          execute('buffer '.bufn)
+          call s:connect_to_slime(s:autorepl_jobs[a:ft])
+          bp
+        endif
+      endfor
     else
       call s:connect_to_slime(s:autorepl_jobs[a:ft])
     endif
