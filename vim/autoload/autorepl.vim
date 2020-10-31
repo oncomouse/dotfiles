@@ -1,23 +1,32 @@
 let g:autorepl_commands = get(g:, 'autorepl_commands', {})
 let g:autorepl_jobs = get(g:, 'autorepl_jobs', {})
-function! s:start(command, ...) abort
+let g:autorepl_no_line_numbers = get(g:, 'autorepl_no_line_numbers', 1)
+function! s:start_repl(command, ...) abort
+  " Is the REPL interactive:
   let interactive = get(a:, 001, 0)
+  " Is the REPL going to retain focus:
   let focus = get(a:, 002, 0)
   let command = type(a:command) == v:t_list ? join(a:command, ' ') : a:command
   if interactive
-    " This gets sourced I think before this gets set for terminals:
-    set nonumber
-    set norelativenumber
+    " Open the terminal command:
     call execute(':terminal '.(has('nvim') ? '' : '++curwin ++kill=term ').expand(command))
-    let job_id = has('nvim') ? &channel : buffer_number()
+    " This gets sourced I think before this gets set for terminals:
+    if g:autorepl_no_line_numbers
+      set nonumber
+      set norelativenumber
+    endif
+    let output = has('nvim') ? &channel : buffer_number()
     if !focus
       bp
     endif
-    return job_id
+    " Return the identifier we need for slime:
+    return output
   endif
+  " If not interactive, start the job:
   return has('nvim') ? jobstart(a:command) : job_getchannel(job_start(a:command))
 endfunction
 function! s:load_repl(ft,auto) abort
+  " Don't load if we don't have a repl defined:
   if !(has_key(g:autorepl_commands, a:ft))
     return
   endif
@@ -25,14 +34,13 @@ function! s:load_repl(ft,auto) abort
   let start = 0
   if job_id < 0
     let job = g:autorepl_commands[a:ft]
-    let job_type = type(job)
-    if job_type == v:t_dict
-      if a:auto == 0 || get(job, 'auto', 1)
-        let g:autorepl_jobs[a:ft] = s:start(job['command'], get(job, 'interactive', 0), !a:auto)
-        let start = 1
-      endif
+    if type(job) != v:t_dict
+      let job = {'command': job, 'interactive': 0, 'auto': 1}
     else
-      let g:autorepl_jobs[a:ft] = s:start(job)
+      let job = extend({'interactive': 0, 'auto': 1}, job)
+    endif
+    if a:auto == 0 || job.auto
+      let g:autorepl_jobs[a:ft] = s:start_repl(job.command, job.interactive, !a:auto)
       let start = 1
     endif
   endif

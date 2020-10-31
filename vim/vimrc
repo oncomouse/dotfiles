@@ -133,14 +133,6 @@ endif
       Plug 'machakann/vim-highlightedyank' " Highlights yank
     endif
   " }}}
-  " Writing: {{{
-    " Plug 'vimwiki/vimwiki'
-    " let g:vimwiki_list = [{'path': '~/Seafile/Todo/Wiki',
-    "       \ 'syntax': 'markdown', 'ext': '.md',
-    "                       \ 'index': 'Wiki'}]
-    " let g:vimwiki_global_ext = 0
-    " let g:vimwiki_conceallevel = 0
-  " }}}
   " Git Support: {{{
     Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
     function! s:load_gina() abort
@@ -211,11 +203,14 @@ endif
       Plug 'elzr/vim-json' " JSON Syntax
       let g:vim_json_syntax_conceal = 0
       Plug 'tbastos/vim-lua' " Lua Syntax
+      Plug 'neovimhaskell/haskell-vim' " Haskell Syntax
       Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " Variable Highlighting for Python
-      Plug 'jpalardy/vim-slime'
+    " }}}
+    " REPL: {{{
+      Plug 'jpalardy/vim-slime' " <c-c><c-c> to send visual selection to REPL
       let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
-      Plug 'neovimhaskell/haskell-vim'
-      " Autorepl automatically starts a repl on language load:
+      " Autorepl automatically starts a repl on language load and connects to
+      " slime:
       let g:autorepl_commands = {
             \'haskell': {'command': '~/.ghcup/bin/ghci', 'interactive': 1},
             \'javascript': {'command': '/usr/local/bin/node', 'interactive': 1, 'auto': 0},
