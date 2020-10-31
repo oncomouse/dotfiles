@@ -1,1 +1,1 @@
-let b:ale_fixers=['stylish_haskell']
+let b:ale_fixers=['stylish-haskell']
