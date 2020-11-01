@@ -204,31 +204,31 @@ endif
       let g:vim_json_syntax_conceal = 0
       Plug 'tbastos/vim-lua' " Lua Syntax
       Plug 'neovimhaskell/haskell-vim' " Haskell Syntax
-      Plug 'janet-lang/janet.vim' " Janet Syntax
-      Plug 'bakpakin/fennel.vim' " Fennel Syntax
+      " Plug 'janet-lang/janet.vim' " Janet Syntax
+      " Plug 'bakpakin/fennel.vim' " Fennel Syntax
       Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " Variable Highlighting for Python
-      Plug 'guns/vim-sexp' " Sexp (list manipulation)
-      let g:sexp_filetypes = 'clojure,scheme,lisp,janet,fennel'
-      let g:sexp_enable_insert_mode_mappings = 0
-      Plug 'luochen1990/rainbow', { 'for': split(g:sexp_filetypes, ',')}
-      let g:rainbow_active = 0
-      let g:rainbow_conf = {
-            \'guifgs': ['#d0913d','#96a42d','#8e9cc0','#d58888','#7aa880','#C594C5','#eb4034',],
-            \}
-      function! s:add_rainbow() abort
-        if &filetype !=# '' && g:sexp_filetypes =~# &filetype
-          RainbowToggle
-        endif
-      endfunction
-      augroup rainbow
-        autocmd!
-        autocmd VimEnter * call s:add_rainbow()
-      augroup END
+      " Plug 'guns/vim-sexp' " Sexp (list manipulation)
+      " let g:sexp_filetypes = 'clojure,scheme,lisp,janet,fennel'
+      " let g:sexp_enable_insert_mode_mappings = 0
+      " Plug 'luochen1990/rainbow', { 'for': split(g:sexp_filetypes, ',')}
+      " let g:rainbow_active = 0
+      " let g:rainbow_conf = {
+      "       \'guifgs': ['#d0913d','#96a42d','#8e9cc0','#d58888','#7aa880','#C594C5','#eb4034',],
+      "       \}
+      " function! s:add_rainbow() abort
+      "   if &filetype !=# '' && g:sexp_filetypes =~# &filetype
+      "     RainbowToggle
+      "   endif
+      " endfunction
+      " augroup rainbow
+      "   autocmd!
+      "   autocmd VimEnter * call s:add_rainbow()
+      " augroup END
     " }}}
     " REPL: {{{
-      Plug 'Olical/conjure', {'tag': 'v4.7.0'} " Conjure REPL Bridge
-      Plug 'Olical/aniseed' " Use Fennel in nvim
-      Plug 'tpope/vim-sexp-mappings-for-regular-people' " Better Sexp Mappings
+      " Plug 'Olical/conjure', {'tag': 'v4.7.0'} " Conjure REPL Bridge
+      " Plug 'Olical/aniseed' " Use Fennel in nvim
+      " Plug 'tpope/vim-sexp-mappings-for-regular-people' " Better Sexp Mappings
       Plug 'jpalardy/vim-slime' " <c-c><c-c> to send visual selection to REPL
       let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
       " Autorepl automatically starts a repl on language load and connects to
@@ -311,7 +311,7 @@ endif
                 \}
         " }}}
         " μComplete: {{{
-          Plug 'lifepillar/vim-mucomplete'
+          " Plug 'lifepillar/vim-mucomplete'
           " Completeopt:
           set completeopt=menuone,noselect,noinsert,preview
           " Shut off completion messages
@@ -319,24 +319,24 @@ endif
           " prevent a condition where vim lags due to searching include files.
           set complete-=i
           " don't map <tab> and <s-tab>:
-          let g:mucomplete#no_mappings = 1
+          " let g:mucomplete#no_mappings = 1
           " Use standard bindings to cycle sources:
-          imap <unique> <c-j> <plug>(MUcompleteCycFwd)
-          imap <unique> <c-h> <plug>(MUcompleteCycBwd)
+          " imap <unique> <c-j> <plug>(MUcompleteCycFwd)
+          " imap <unique> <c-h> <plug>(MUcompleteCycBwd)
           " Override default <c-n>/<c-p> (& complete defaults):
-          imap <unique> <c-n> <plug>(MUcompleteFwd)
-          imap <unique> <c-p> <plug>(MUcompleteBwd)
+          " imap <unique> <c-n> <plug>(MUcompleteFwd)
+          " imap <unique> <c-p> <plug>(MUcompleteBwd)
           " Extend completion backwards or forewards:
-          imap <expr> <c-k> mucomplete#extend_bwd("\<c-k>")
-          imap <expr> <c-l> mucomplete#extend_fwd("\<c-l>")
-          let g:mucomplete#chains = {}
+          " imap <expr> <c-k> mucomplete#extend_bwd("\<c-k>")
+          " imap <expr> <c-l> mucomplete#extend_fwd("\<c-l>")
+          " let g:mucomplete#chains = {}
           " Default is path, omni, keywords (forward):
-          let g:mucomplete#chains.default  = ['path', 'omni', 'keyn']
+          " let g:mucomplete#chains.default  = ['path', 'omni', 'keyn']
           " Undocumented behavior turns off omnifunc for VimScript (fun!):
-          let g:mucomplete#chains.vim = ['path', 'omni', 'cmd', 'keyn']
+          " let g:mucomplete#chains.vim = ['path', 'omni', 'cmd', 'keyn']
           " Turn on dictionary and spelling suggestions in markdown & text:
-          let g:mucomplete#chains.markdown = ['path', 'omni', 'keyn', 'dict', 'uspl']
-          let g:mucomplete#chains.text = ['path', 'omni', 'keyn', 'dict', 'uspl']
+          " let g:mucomplete#chains.markdown = ['path', 'omni', 'keyn', 'dict', 'uspl']
+          " let g:mucomplete#chains.text = ['path', 'omni', 'keyn', 'dict', 'uspl']
         " }}}
         " ALE For Linting: {{{
           Plug 'dense-analysis/ale'
