@@ -28,3 +28,4 @@ if [ ! -f ~/.stack/config.yaml ]; then
 fi
 
 stack install stylish-haskell
+stack install floskell
