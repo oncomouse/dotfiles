@@ -482,6 +482,7 @@ call dotfiles#colors#termcolors()
     hi MarkdownItalic guifg=#d58888
     hi link htmlItalic MarkdownItalic
     hi link htmlBold MarkdownBold
+    hi mkdBlockquote gui=italic cterm=italic guifg=#949d9f
     " Semishi Formatting: {{{
       hi semshiLocal           ctermfg=209 guifg=#ff875f
       hi semshiGlobal          ctermfg=214 guifg=#d2813d
