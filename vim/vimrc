@@ -304,6 +304,7 @@ endif
             let g:LanguageClient_rootMarkers = g:rooter_patterns
             let g:LanguageClient_serverCommands = {
                   \ 'python': ['/usr/local/bin/jedi-language-server'],
+                  \ 'haskell': ['~/.ghcup/bin/haskell-language-server-wrapper', '--lsp'],
                   \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
                   \ 'html': ['/usr/local/bin/html-languageserver', '--stdio'],
                   \ 'scss': ['/usr/local/bin/css-languageserver', '--stdio'],
