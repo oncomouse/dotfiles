@@ -42,16 +42,16 @@ configs.emmy_lua = {
 	}
 }
 
+-- lsp.tsserver,
 local active_configs = {
-    lsp.jedi_lsp,
-    lsp.citation_langserver,
-	lsp.tsserver,
+    lsp.jedi_language_server, -- X
+	lsp.html, -- X
+    lsp.citation_langserver, -- X
+	lsp.emmy_lua, -- X
 	lsp.vimls,
 	lsp.solargraph,
-	lsp.html,
 	lsp.cssls,
 	lsp.jsonls,
-	lsp.emmy_lua,
 }
 
 for i,config in pairs(active_configs) do
