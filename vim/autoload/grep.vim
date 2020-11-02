@@ -15,7 +15,7 @@ function! s:extract_qf(ln, line) abort
           \'filename': parts[0],
           \'lnum': parts[1],
           \'col': parts[2],
-          \'text': parts[3],
+          \'text': join(parts[3:], ':'),
           \}
   catch
     return ''
