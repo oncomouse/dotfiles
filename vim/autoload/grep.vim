@@ -36,7 +36,7 @@ endfunction
 function! s:grep_output(job, data, ...) abort
   call setqflist(map(a:data, function('s:extract_qf')), g:grep_output ? 'a': 'r')
   if g:grep_output == 0
-    call grep#open_list(g:grep_qf)
+    call grep#open_list(1)
     let g:grep_output = 1
   endif
 endfunction
@@ -47,7 +47,6 @@ function! grep#grep(...) abort
     if g:grep_job < 0
       call grep#stop()
     endif
-    let g:grep_qf = get(a:, 001, 0)
     let g:grep_job = jobstart(join([&grepprg] + [expand(fnameescape(join(a:000, ' ')))], ' '), {
           \'on_stdout': function('s:grep_output'),
           \'on_done': function('s:grep_done'),
@@ -57,7 +56,7 @@ function! grep#grep(...) abort
 endfunction
 
 function! grep#open_list(qf) abort
-  let l:list = a:qf ? getqflist() : getloclist()
+  let l:list = a:qf ? getqflist() : getloclist(winnr())
   let l:pfx = a:qf ? 'c' : 'l'
   if len(l:list) == 0
     redraw
