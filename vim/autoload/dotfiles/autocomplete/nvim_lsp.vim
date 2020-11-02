@@ -14,5 +14,6 @@ function! dotfiles#autocomplete#nvim_lsp#init()
   nnoremap <silent><Plug>(dotfiles-references) :<C-u>lua vim.lsp.buf.references()<CR>
   nnoremap <silent><Plug>(dotfiles-documentation) :<C-u>call <SID>show_documentation()<CR>
   nnoremap <silent><Plug>(dotfiles-commands) :<CR>
+  set omnifunc=v:lua.vim.lsp.omnifunc
   lua require('dotfiles/nvim_lsp') 
 endfunction
