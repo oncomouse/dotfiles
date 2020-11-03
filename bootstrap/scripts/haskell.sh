@@ -29,3 +29,4 @@ fi
 
 stack install stylish-haskell
 stack install floskell
+stack install hlint
