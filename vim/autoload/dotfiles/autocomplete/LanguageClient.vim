@@ -23,6 +23,8 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
   nmap <Plug>(dotfiles-references) <Plug>(lcn-references)
   nmap <Plug>(dotfiles-documentation) :<C-u>call <SID>show_documentation()<CR>
   nmap <Plug>(dotfiles-codelens) <Plug>(lcn-code-lens-action)
+  nmap <Plug>(dotfiles-codeaction) <Plug>(lcn-code-action)
+  vmap <Plug>(dotfiles-codeaction-selected) <Plug>(lcn-code-action)
   command! Symbols call LanguageClient#textDocument_documentSymbol()
 
 endfunction

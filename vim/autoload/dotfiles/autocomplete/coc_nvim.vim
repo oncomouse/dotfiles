@@ -40,6 +40,8 @@ function! dotfiles#autocomplete#coc_nvim#keyboard() abort
       call CocAction('doHover')
     endif
   endfunction
+  vmap <Plug>(dotfiles-codeaction-selected) <Plug>(coc-codeaction-selected)
+  nmap <Plug>(dotfiles-codeaction) <Plug>(coc-codeaction-line)
   nmap <Plug>(dotfiles-rename) <Plug>(coc-rename)
   nmap <Plug>(dotfiles-definition) <Plug>(coc-definition)
   nmap <Plug>(dotfiles-type-definition) <Plug>(coc-type-definition)
