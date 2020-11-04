@@ -47,6 +47,7 @@ function! dotfiles#autocomplete#coc_nvim#keyboard() abort
   nmap <Plug>(dotfiles-references) <Plug>(coc-references)
   nmap <Plug>(dotfiles-documentation) :<C-u>call <SID>show_documentation()<CR>
   nmap <Plug>(dotfiles-commands) :<C-u>CocList commands<CR>
+  nmap <Plug>(dotfiles-codelens) <Plug>(coc-codelens-action)
   imap <expr><TAB> pumvisible() ? "\<C-n>" : "<TAB>"
   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
   " append result on current expression
