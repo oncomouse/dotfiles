@@ -1,6 +1,6 @@
 function! dotfiles#javascript#ftplugin() abort
   " Enable tsserver:
-  let b:ale_disable_lsp = 0
+  " let b:ale_disable_lsp = 0
   " Use semistandard as a linter:
   let g:ale_javascript_standard_executable = 'semistandard'
   let g:ale_typescript_standard_executable = 'semistandard'
@@ -12,15 +12,15 @@ function! dotfiles#javascript#ftplugin() abort
   set errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %m,%-G%.%#
 
   " Setup omnifunc for muComplete:
-  setlocal omnifunc=ale#completion#OmniFunc
+  " setlocal omnifunc=ale#completion#OmniFunc
 endfunction
 
 function! dotfiles#javascript#after_ftplugin() abort
   " Remap LSP commands for:
-  nmap <buffer><silent> <F2> :ALERename<CR>
-  nmap <buffer><silent> gd   :ALEGoToDefinition<CR>
-  nmap <buffer><silent> gy   :ALEGoToTypeDefinition<CR>
-  nmap <buffer><silent> gr   :ALEFindReferences<CR>
-  nmap <buffer><silent> K    :ALEHover<CR>
+  " nmap <buffer><silent> <F2> :ALERename<CR>
+  " nmap <buffer><silent> gd   :ALEGoToDefinition<CR>
+  " nmap <buffer><silent> gy   :ALEGoToTypeDefinition<CR>
+  " nmap <buffer><silent> gr   :ALEFindReferences<CR>
+  " nmap <buffer><silent> K    :ALEHover<CR>
 endfunction
 

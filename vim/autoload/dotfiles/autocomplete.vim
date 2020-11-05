@@ -7,11 +7,11 @@ function! dotfiles#autocomplete#init() abort
     call dotfiles#autocomplete#coc_nvim#writing()
   else
     " Language Server Client:
-    if has('nvim-0.5')
-      call dotfiles#autocomplete#nvim_lsp#init()
-    else
-      call dotfiles#autocomplete#LanguageClient#init()
-    endif
+    " if has('nvim-0.5')
+    "   call dotfiles#autocomplete#nvim_lsp#init()
+    " else
+    call dotfiles#autocomplete#LanguageClient#init()
+    " endif
     " Linter:
     call dotfiles#autocomplete#ale#init()
     " List Management:
