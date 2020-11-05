@@ -14,6 +14,8 @@ else
   ghcup upgrade
 fi
 
+ln -sf ~/dotfiles/haskell/ghci ~/.ghci
+
 ghcup install ghc recommended
 ghcup install cabal recommended
 ghcup install hls recommended
