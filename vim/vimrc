@@ -66,6 +66,9 @@ endif
   set shortmess+=c
   " prevent a condition where vim lags due to searching include files.
   set complete-=i
+
+  " Statusline:
+  set statusline=%!dotfiles#statusline#statusline()
 " }}}
 " Tabs: {{{
   set tabstop=8
@@ -358,10 +361,6 @@ endif
 call plug#end()
 " }}}
 " Maps: {{{
-  " Shortcut to view current syntax highlighting group:
-  map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-    \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
   " Insert newline at end of line:
   inoremap <silent> <M-CR> <C-O>$<CR>
   " Select whole file
@@ -379,6 +378,10 @@ call plug#end()
   nnoremap <silent> [q :cprevious<CR>
   " Grep project:
   nnoremap <silent> <leader>/ :execute 'Grep ' . input('Grep/')<CR>
+  " Shortcut to view current syntax highlighting group:
+  map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+    \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
   " Standard Fuzzy Bindings: {{{
     " Every list source we could implement (see g:complete_package) implements
     " these commmands, so I can use CoC and it implements the FZF
@@ -397,6 +400,8 @@ call plug#end()
     endif
   " }}}
   " Standard LSP Bindings: {{{
+    " As with Fuzzy bindings (above), we set all the LSP commands to Plug
+    " bindings and then rebind them here to the keys we actually want to use:
     if (g:dotfiles_mode ==# 'desktop')
       nmap <silent> <F2> <Plug>(dotfiles-rename)
       nmap <silent> <F5> <Plug>(dotfiles-commands)
@@ -495,18 +500,16 @@ call dotfiles#colors#termcolors()
 colorscheme tempus_classic
 " }}}
 " Other Settings: {{{
-  " Jump To Last Position: {{{
-    augroup dotfile-autocmds
-      autocmd!
-      " Close preview window:
-      autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-      " On opening a file, jump to the last known cursor position (see :h line())
-      autocmd BufReadPost *
-            \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
-            \   exe "normal! g`\"" |
-            \ endif 
-    augroup END
-  " }}}
+  augroup dotfile-autocmds
+    autocmd!
+    " Close preview window:
+    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+    " On opening a file, jump to the last known cursor position (see :h line())
+    autocmd! BufReadPost *
+          \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
+          \   exe "normal! g`\"" |
+          \ endif 
+  augroup END
   " Load Autocompletion: {{{
   if g:dotfiles_mode ==# 'desktop'
     call dotfiles#autocomplete#init()
@@ -529,10 +532,7 @@ colorscheme tempus_classic
   " }}}
 " }}}
 " Server Only Settings: {{{
-set statusline=%!dotfiles#statusline#statusline()
   if dotfiles_mode ==# 'server'
-    " Use the old statusline for server mode:
-    " set tabline=%!dotfiles#statusline#tabline()
     augroup dotfiles-server-au
       autocmd!
       " Turn on CursorLine Highlighting on Insert:
