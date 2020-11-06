@@ -362,6 +362,8 @@ call plug#end()
   map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+  " Insert newline at end of line:
+  inoremap <silent> <M-CR> <C-O>$<CR>
   " Select whole file
   nnoremap <leader>vf ggVG
   " Clear currently highlighted regexp:
