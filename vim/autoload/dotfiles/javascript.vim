@@ -6,6 +6,8 @@ function! dotfiles#javascript#ftplugin() abort
   let g:ale_typescript_standard_executable = 'semistandard'
   " Use our semistandard fixer:
   let b:ale_fixers = [function('ale#fixers#semistandard#Fix')]
+  " Suppress eslint error:
+  let g:ale_javascript_eslint_suppress_missing_config = 1
 
   " Set makeprg:
   let &l:makeprg = 'npx semistandard --no-install'
