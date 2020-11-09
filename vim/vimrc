@@ -254,6 +254,7 @@ endif
     " Text Object Plugins: {{{
       Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
       Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
+      Plug 'rhysd/vim-textobj-ruby' " ar for ruby objects
       Plug 'thinca/vim-textobj-function-javascript' " js function support
       Plug 'bps/vim-textobj-python' " function and class support for Python
     " }}}
