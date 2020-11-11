@@ -311,6 +311,7 @@ endif
           " let g:LanguageClient_loggingFile = expand('~/lc.log')
           " let g:LanguageClient_loggingLevel = 'DEBUG'
           " Always use hover:
+          let g:LanguageClient_useFloatingHover = 0
           let g:LanguageClient_hoverPreview = 'Always'
           " Root patterns:
           let g:LanguageClient_rootMarkers = g:rooter_patterns
