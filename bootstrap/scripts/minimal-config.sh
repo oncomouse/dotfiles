@@ -26,9 +26,7 @@ mkdir -p ~/.config/fish/functions/
 mkdir -p ~/.config/fish/completions/
 mkdir -p ~/.vim/autoload/
 mkdir -p ~/.config/nvim/
-if [ "$os" == "macos" ]; then
-  mkdir -p ~/.config/kitty/
-fi
+mkdir -p ~/.config/kitty/
 ln -s ~/dotfiles/ag/agignore ~/.ignore
 # Always link the server rc file for vim:
 ln -s ~/dotfiles/vim/vimrc-server ~/.vimrc
@@ -46,8 +44,7 @@ ln -sf ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
 ln -sf ~/dotfiles/fish/completions/*.fish ~/.config/fish/completions/
 find -L ~/.config/fish/functions -type l -exec rm -- {} +
 find -L ~/.config/fish/completions -type l -exec rm -- {} +
-# ln -s ~/dotfiles/tmux/tmux.conf.local ~/.tmux.conf.local
+ln -s ~/dotfiles/kitty/kitty.conf ~/.config/kitty/
 if [ "$os" == "macos" ]; then
-  ln -s ~/dotfiles/kitty/kitty.conf ~/.config/kitty/
   ln -s ~/dotfiles/mackup/mackup.cfg ~/.mackup.cfg
 fi
