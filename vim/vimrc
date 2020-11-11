@@ -312,7 +312,7 @@ endif
           " let g:LanguageClient_loggingLevel = 'DEBUG'
           " Always use hover:
           let g:LanguageClient_useFloatingHover = 0
-          let g:LanguageClient_hoverPreview = 'Always'
+          let g:LanguageClient_hoverPreview = 'Auto'
           " Root patterns:
           let g:LanguageClient_rootMarkers = g:rooter_patterns
           let g:LanguageClient_serverCommands = {
