@@ -366,7 +366,7 @@ call plug#end()
 " }}}
 " Maps: {{{
   " Insert newline at end of line:
-  inoremap <silent> <M-CR> <C-O>$<CR>
+  inoremap <silent> <M-CR> <END><CR>
   " Select whole file
   nnoremap <leader>vf ggVG
   " Clear currently highlighted regexp:
@@ -382,6 +382,8 @@ call plug#end()
   nnoremap <silent> [q :cprevious<CR>
   " Grep project:
   nnoremap <silent> <leader>/ :execute 'Grep ' . input('Grep/')<CR>
+  " Calculator (not sure how this works):
+  inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
   " Shortcut to view current syntax highlighting group:
   map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
