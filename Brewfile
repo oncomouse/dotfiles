@@ -21,7 +21,7 @@ brew "fzf" # fuzzy finder in shell, <C-t> to bring up completion
 brew "htop" # fancy top
 brew "jq" # streaming, inline JSON editor
 brew "shellcheck" # bash linter
-brew "tmux" # terminal multiplexer, run multiple shells and save/restore sessions
+# brew "tmux" # terminal multiplexer, run multiple shells and save/restore sessions
 brew "httpie" # simplified http client
 brew "neofetch" # system info
 cask "kitty" # Terminal emulator
@@ -51,7 +51,7 @@ brew "heroku/brew/heroku" # Build and install cloud apps
 brew "node" # Node.js
 brew "python" # Python 3
 brew "yarn" # Package manager for Node.js
-brew "janet" # Janet programming language
+# brew "janet" # Janet programming language
 brew "lua" # Lua programming language
 brew "luarocks" # Lua package manager
 brew "asdf" # Unified Ruby / Node version managing
