@@ -1,0 +1,7 @@
+configuration {
+ modi: "window,drun,ssh,combi";
+ theme: "tempus-classic";
+ font: "Fira Code 18";
+ combi-modi: "window,drun";
+ icon-theme: "Mate";
+}

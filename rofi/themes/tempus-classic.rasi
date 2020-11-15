@@ -1,0 +1,70 @@
+/* ==========================================================================
+   Rofi color theme
+
+   Based on the Tempus color scheme for Vim by protesilaos
+   https://gitlab.com/protesilaos/tempus-themes
+
+   Adapted from Rofi gruvbox theme:
+   https://github.com/bardisty/gruvbox-rofi
+
+   File: tempus-classic.rasi
+   Desc: Tempus Classic color theme for Rofi
+   Author: oncomouse <oncomouse@gmail.com>
+   ========================================================================== */
+
+* {
+    /* Theme settings */
+    highlight: bold italic;
+    scrollbar: true;
+
+    /* Tempus Classic colors */
+    tempus-dark-bg0:          #232323;
+    tempus-dark-bg0-soft:     #312E30;
+    tempus-dark-bg3:          #4a4a4b;
+    tempus-dark-fg0:          #aeadaf;
+    tempus-dark-fg1:          #949d9f;
+    tempus-dark-gray:         #3a3a3a;
+    tempus-dark-red-dark:     #b58d88;
+    tempus-dark-red-light:    #d58888;
+    tempus-dark-yellow-dark:  #a8a030;
+    tempus-dark-yellow-light: #b1942b;
+    tempus-dark-orange:       #d2813d;
+    tempus-light-orange:      #d0913d;
+    tempus-dark-green:        #8c9e3d;
+    tempus-light-green:       #96a42d;
+    tempus-dark-blue:         #6e9cb0;
+    tempus-light-blue:        #8e9cc0;
+    tempus-dark-teal:         #6da280;
+    tempus-light-teal:        #7aa880;
+
+    /* Theme colors */
+    background:                  @tempus-dark-bg0;
+    background-color:            @background;
+    foreground:                  @tempus-dark-fg1;
+    border-color:                @tempus-dark-gray;
+    separatorcolor:              @border-color;
+    scrollbar-handle:            @border-color;
+
+    normal-background:           @background;
+    normal-foreground:           @foreground;
+    alternate-normal-background: @tempus-dark-bg0-soft;
+    alternate-normal-foreground: @foreground;
+    selected-normal-background:  @tempus-dark-bg3;
+    selected-normal-foreground:  @tempus-dark-fg0;
+
+    active-background:           @tempus-dark-yellow-dark;
+    active-foreground:           @background;
+    alternate-active-background: @active-background;
+    alternate-active-foreground: @active-foreground;
+    selected-active-background:  @tempus-dark-yellow-light;
+    selected-active-foreground:  @active-foreground;
+
+    urgent-background:           @tempus-dark-red-dark;
+    urgent-foreground:           @background;
+    alternate-urgent-background: @urgent-background;
+    alternate-urgent-foreground: @urgent-foreground;
+    selected-urgent-background:  @tempus-dark-red-light;
+    selected-urgent-foreground:  @urgent-foreground;
+}
+
+@import "tempus-common.inc"
