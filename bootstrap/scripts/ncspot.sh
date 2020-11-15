@@ -7,7 +7,7 @@ fi
 git clone https://github.com/hrkfdn/ncspot ~/ncspot
 if [ "$os" == "macos" ]; then
   cargo install --path ~/ncspot --no-default-features --features portaudio_backend,cursive/pancurses-backend,mpris,share_clipboard,notify
-else
+elif [ "$os" == "ubuntu" ]; then
   sudo apt install libncursesw5-dev libdbus-1-dev libpulse-dev libssl-dev libxcb1-dev libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev
   cargo install --path ~/ncspot
 fi
