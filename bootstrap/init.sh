@@ -10,6 +10,9 @@ case $os in
   ubuntu)
     $env SERVER="$SERVER" "$bash" "$HOME/dotfiles/bootstrap/ubuntu.sh"
     ;;
+  arch)
+    $env SERVER="$SERVER" "$bash" "$HOME/dotfiles/bootstrap/arch.sh"
+    ;;
   *)
     echo "Cannot recognize your operating system: $os"
     ;;
