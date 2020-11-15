@@ -10,7 +10,7 @@ git config --global user.name "oncomouse"
 git config --global user.email "oncomouse@gmail.com"
 
 $bash ~/dotfiles/bootstrap/scripts/common.sh
-
+$bash ~/dotfiles/bootstrap/scripts/ncspot.sh
 $bash ~/dotfiles/bootstrap/scripts/spectrwm.conf
 $bash ~/dotfiles/bootstrap/scripts/rofi.conf
 
