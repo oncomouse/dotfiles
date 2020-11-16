@@ -46,3 +46,7 @@ sudo fish -c "echo \"tmpfs /run/shm tmpfs ro,noexec,nosuid 0 0\" >> /etc/fstab"
 if ! echo "$SHELL" | grep fish > /dev/null 2>&1; then
   sudo chsh -s "$(which fish)" "$USER"
 fi
+
+# Configure xdg-utils
+xdg-settings set default-web-browser firefox.desktop
+xdg-mime default org.pwmt.zathura.desktop application/pdf
