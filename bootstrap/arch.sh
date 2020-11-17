@@ -14,6 +14,10 @@ $bash ~/dotfiles/bootstrap/scripts/ncspot.sh
 $bash ~/dotfiles/bootstrap/scripts/spectrwm.conf
 $bash ~/dotfiles/bootstrap/scripts/rofi.conf
 
+# Other setup files:
+ln -sf ~/dotfiles/xorg/xprofile ~/.xprofile
+ln -sf ~/dotfiles/gtk3 ~/.config/
+
 # Enable OpenSSH:
 systemctl enable sshd.service
 systemctl start sshd.service
