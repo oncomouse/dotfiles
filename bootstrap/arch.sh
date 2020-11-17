@@ -16,7 +16,7 @@ $bash ~/dotfiles/bootstrap/scripts/rofi.conf
 
 # Other setup files:
 ln -sf ~/dotfiles/xorg/xprofile ~/.xprofile
-ln -sf ~/dotfiles/gtk3 ~/.config/
+ln -sf ~/dotfiles/gtk-3.0 ~/.config/
 
 # Enable OpenSSH:
 systemctl enable sshd.service
