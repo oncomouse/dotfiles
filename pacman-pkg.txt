@@ -32,5 +32,5 @@ neofetch
 shellcheck
 zathura
 zathura-pdf-poppler
-thunar
+pcmanfm
 tumbler
