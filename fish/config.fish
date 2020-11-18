@@ -63,6 +63,9 @@ end
 function standard;/usr/local/bin/semistandard $argv | /usr/local/bin/snazzy;end
 function janet-repl;/usr/local/bin/janet -e "(import spork/netrepl) (netrepl/server)";end
 
+# Dotfiles utility functions:
+source $HOME/dotfiles/fish/dotfiles.fish
+
 # The rest of this configuration file only needs to load if shell is interactive:
 if status is-interactive
   # Configure FZF:
