@@ -27,6 +27,7 @@ htop
 exa
 fzf
 bat
+jq
 ttf-fira-code
 tex-gyre-fonts
 neofetch
