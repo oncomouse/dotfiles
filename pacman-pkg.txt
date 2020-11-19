@@ -5,7 +5,8 @@ xorg-xsetroot
 xsel
 lightdm
 lightdm-gtk-greeter
-spectrwm
+bspwm
+sxhkd
 rofi
 texlive-core
 xlockmore
