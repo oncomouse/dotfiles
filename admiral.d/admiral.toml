@@ -1,0 +1,30 @@
+[admiral]
+items = ["left", "workspaces",
+         "center", "title",
+         "right", "clock"]
+
+[workspaces]
+path = "./bspwm_workspaces.sh"
+
+[title]
+path = "xtitle -s -t 50"
+
+[clock]
+path = "date '+%-I:%M%p  '"
+reload = 1
+
+[battery]
+path = "acpi --battery | cut -d, -f2 | echo -n ' '"
+
+# Used for formatting lemonbar
+[left]
+path = "echo '%{l}'"
+static = true
+
+[center]
+path = "echo '%{c}'"
+static = true
+
+[right]
+path = "echo '%{r}'"
+static = true

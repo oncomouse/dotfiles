@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 
-packages=( "nerd-fonts-fira-code" "otf-hasklig" "ncspot" "pandoc-bin" "vale" "visual-studio-code-bin" "zotero" )
+packages=(
+  "admiral-git"
+  "lemonbar-xft-git"
+  "ncspot"
+  "nerd-fonts-fira-code"
+  "otf-hasklig"
+  "pandoc-bin"
+  "vale"
+  "visual-studio-code-bin"
+  "xtitle"
+  "zotero"
+)
 
 mkdir -p ~/aur
 for package in "${packages[@]}"; do
