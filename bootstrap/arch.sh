@@ -3,7 +3,7 @@ bash=$(which bash)
 
 # Assume "pacman -S grub base-devel vi git curl fish" run during install:
 sudo pacman -S - < ~/dotfiles/pacman-pkg.txt
-$bash ~/dotfiles/bootstrap/scripts/aur.conf
+$bash ~/dotfiles/bootstrap/scripts/aur.sh
 
 # Setup Git:
 git config --global user.name "oncomouse"
@@ -11,13 +11,12 @@ git config --global user.email "oncomouse@gmail.com"
 
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 $bash ~/dotfiles/bootstrap/scripts/ncspot.sh
-# $bash ~/dotfiles/bootstrap/scripts/spectrwm.conf
-$bash ~/dotfiles/bootstrap/scripts/rofi.conf
+$bash ~/dotfiles/bootstrap/scripts/rofi.sh
 
 # Other setup files:
-ln -sf ~/dotfiles/bspwm ~/.config
-ln -sf ~/dotfiles/sxhkd ~/.config
-ln -sf ~/dotfiles/admiral.d ~/.config
+ln -sf ~/dotfiles/bspwm ~/.config/
+ln -sf ~/dotfiles/sxhkd ~/.config/
+ln -sf ~/dotfiles/admiral.d ~/.config/
 ln -sf ~/dotfiles/xorg/xprofile ~/.xprofile
 ln -sf ~/dotfiles/gtk-3.0 ~/.config/
 
