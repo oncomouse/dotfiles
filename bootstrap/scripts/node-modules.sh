@@ -23,5 +23,6 @@ if which npm > /dev/null 2>&1; then
     npminstall 'vscode-langservers-extracted'
     npminstall 'typescript-language-server'
     npminstall 'vim-language-server'
+    npminstall '@bitwarden/cli'
   fi
 fi
