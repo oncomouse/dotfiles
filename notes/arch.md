@@ -1,9 +1,13 @@
 Additional Packages to install, before reboot:
 
-`pacman -S grub base-devel vi git curl fish`
+`pacman -S grub base-devel vim git curl fish`
 
 1. Configure [grub](https://wiki.archlinux.org/index.php/GRUB)
 1. Configure [sudo](https://wiki.archlinux.org/index.php/Sudo)
+
+# User
+
+useradd -m andrew
 
 # Network Configuration
 
@@ -15,8 +19,5 @@ Additional Packages to install, before reboot:
 > [Network]
 > DHCP=yes
 
-1. systemctl enable dhcpcd@enp0s3.service
 1. systemctl enable systemd-networkd.service
 1. systemctl enable systemd-resolved.service
-1. systemctl start systemd-resolved.service
-1. systemctl start systemd-networkd.service
