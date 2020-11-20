@@ -3,7 +3,7 @@
 #
 
 # terminal emulator
-alt + Return
+alt + shift + Return
 	kitty
 
 # program launcher
