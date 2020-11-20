@@ -2,7 +2,7 @@ openssh
 xdg-utils
 xorg-server
 xorg-xsetroot
-xsel
+xclip
 lightdm
 lightdm-gtk-greeter
 bspwm
@@ -36,3 +36,4 @@ shellcheck
 zathura
 zathura-pdf-poppler
 pcmanfm
+pango
