@@ -26,6 +26,7 @@ brew "httpie" # simplified http client
 brew "neofetch" # system info
 cask "kitty" # Terminal emulator
 brew "poppler" # Terminal PDF tools (needed for ranger preview)
+brew "nnn"
 
 # Shell Search
 brew "grep" # the old standby
