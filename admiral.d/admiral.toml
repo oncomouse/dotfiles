@@ -1,10 +1,19 @@
 [admiral]
 items = ["left", "workspaces",
          "center", "title",
-         "right", "clock"]
+         "right", "network", "padding", "clock"]
+
+[battery]
+path = "bash ~/dotfiles/admiral.d/scripts/battery.sh"
+
+[padding]
+path = "echo -n '  '"
+
+[network]
+path = "bash ~/dotfiles/admiral.d/scripts/network_name.sh"
 
 [workspaces]
-path = "./bspwm_workspaces.sh"
+path = "bash ~/dotfiles/admiral.d/scripts/workspace.sh"
 
 [title]
 path = "xtitle -s -t 50"
@@ -12,9 +21,6 @@ path = "xtitle -s -t 50"
 [clock]
 path = "date '+%-I:%M%p  '"
 reload = 1
-
-[battery]
-path = "acpi --battery | cut -d, -f2 | echo -n ' '"
 
 # Used for formatting lemonbar
 [left]
