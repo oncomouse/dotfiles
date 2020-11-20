@@ -37,3 +37,4 @@ shellcheck
 zathura
 zathura-pdf-poppler
 pcmanfm
+nnn
