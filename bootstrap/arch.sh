@@ -21,6 +21,9 @@ ln -sf ~/dotfiles/xorg/xprofile ~/.xprofile
 ln -sf ~/dotfiles/xorg/Xresources ~/.Xresources
 ln -sf ~/dotfiles/gtk-3.0 ~/.config/
 
+# Enable LightDM:
+systemctl enable lightdm
+
 # Enable OpenSSH:
 systemctl enable sshd.service
 systemctl start sshd.service

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Source: https://github.com/addy-dclxvi/void-bspwm-dotfiles/blob/master/home/addy/.scripts/rofia
+
 # A messy & pathetic script to launch rofi with xrdb colours
 # Cheers! addy
 

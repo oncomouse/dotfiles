@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Source: https://github.com/addy-dclxvi/void-bspwm-dotfiles/blob/master/home/addy/.scripts/vanela
+
 # Just a simple Lemonbar script
 # Only clickable workspaces, window title, and clock
 # Spamming command every second using shell to generate statusline is not really efficient

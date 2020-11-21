@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Source: https://github.com/addy-dclxvi/void-bspwm-dotfiles/blob/master/home/addy/.scripts/paintee
+
 # Paintee
 # A script to get colours from xrdb & deploy it to cache
 # Then refresh URxvt colour on the fly
