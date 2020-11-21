@@ -44,7 +44,7 @@ fi
 PANEL_HEIGHT=30
 PANEL_HORIZONTAL_OFFSET=8
 PANEL_VERTICAL_OFFSET=8
-PANEL_WIDTH=$(($(xrandr |awk '$0 ~ "*" {print $1}' | cut -d 'x' -f 1) - $(($PANEL_HORIZONTAL_OFFSET * 2))
+PANEL_WIDTH=$(($(xrandr |awk '$0 ~ "*" {print $1}' | cut -d 'x' -f 1) - $((PANEL_HORIZONTAL_OFFSET * 2))
 ))
 PANEL_FONT="Fira Code SemiBold:size=14"
 PANEL_ICON_FONT="Font Awesome 5 Free:size=13"
@@ -75,7 +75,7 @@ COLOR_TITLE_BG="$BACKGROUND"
 COLOR_SYS_FG="$BACKGROUND"
 COLOR_SYS_BG="$CYAN"
 
-bspc config top_padding $(($PANEL_HEIGHT + $PANEL_VERTICAL_OFFSET))
+bspc config top_padding $((PANEL_HEIGHT + PANEL_VERTICAL_OFFSET))
 
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
