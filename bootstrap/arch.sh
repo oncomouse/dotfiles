@@ -31,7 +31,7 @@ systemctl start sshd.service
 sudo pacman -S ufw
 sudo systemctl enable ufw.service
 sudo systemctl start ufw.service
-sudo ufw allow OpenSSH
+sudo ufw allow SSH
 sudo ufw enable
 
 # Restrict su
