@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 packages=(
-  "admiral-git"
   "lemonbar-xft-git"
   "ncspot"
   "nerd-fonts-fira-code"
