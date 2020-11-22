@@ -1,4 +1,5 @@
 let b:ale_fixers = []
+let b:ale_linters = ['vale', 'proselint']
 setlocal wrap linebreak nolist spell
 " Turn conceal on and off in a buffer:
 function! ToggleConcealLevel() abort
