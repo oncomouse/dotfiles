@@ -38,12 +38,6 @@ if command -v nvim &> /dev/null; then
     ln -s ~/dotfiles/vim/vimrc-server ~/.config/nvim/init.vim
   fi
 fi
-ln -s ~/dotfiles/fish/config.fish ~/.config/fish/
-ln -s ~/dotfiles/fish/fishfile ~/.config/fish/
-ln -sf ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
-ln -sf ~/dotfiles/fish/completions/*.fish ~/.config/fish/completions/
-find -L ~/.config/fish/functions -type l -exec rm -- {} +
-find -L ~/.config/fish/completions -type l -exec rm -- {} +
 ln -s ~/dotfiles/kitty/kitty.conf ~/.config/kitty/
 if [ "$os" == "macos" ]; then
   ln -s ~/dotfiles/mackup/mackup.cfg ~/.mackup.cfg
