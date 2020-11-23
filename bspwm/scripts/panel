@@ -41,8 +41,8 @@ else
 fi
 
 # Panel configurations
-PANEL_HEIGHT=30
-PANEL_HORIZONTAL_OFFSET=8
+PANEL_HEIGHT=35
+PANEL_HORIZONTAL_OFFSET=$(bspc config window_gap)
 PANEL_VERTICAL_OFFSET=8
 PANEL_WIDTH=$(($(xrandr |awk '$0 ~ "*" {print $1}' | cut -d 'x' -f 1) - $((PANEL_HORIZONTAL_OFFSET * 2))
 ))
