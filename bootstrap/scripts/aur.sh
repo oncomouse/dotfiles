@@ -6,6 +6,7 @@ packages=(
   "nerd-fonts-fira-code"
   "otf-hasklig"
   "pandoc-bin"
+  "rofi-wifi-menu-git"
   "ttf-font-awesome-4"
   "vale"
   "visual-studio-code-bin"
