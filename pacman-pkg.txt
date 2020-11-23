@@ -38,3 +38,5 @@ zathura-pdf-poppler
 pcmanfm
 nnn
 wireless_tools
+dunst
+libnotify
