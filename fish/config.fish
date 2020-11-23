@@ -68,7 +68,11 @@ source $HOME/dotfiles/fish/dotfiles.fish
 
 # The rest of this configuration file only needs to load if shell is interactive:
 if status is-interactive
-  # Configure FZF:
+  # Test for keyring:
+  if test -n "$DESKTOP_SESSION"
+    set -x (gnome-keyring-daemon --start | string split "=")
+  end
+# Configure FZF:
   if not set -q -U FZF_DEFAULT_COMMAND
     echo "Setting FZF"
     set -Ux FZF_DEFAULT_COMMAND "fd -t f --hidden --follow"

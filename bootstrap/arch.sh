@@ -8,6 +8,7 @@ $bash ~/dotfiles/bootstrap/scripts/aur.sh
 # Setup Git:
 git config --global user.name "oncomouse"
 git config --global user.email "oncomouse@gmail.com"
+git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
 
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 $bash ~/dotfiles/bootstrap/scripts/ncspot.sh
