@@ -8,7 +8,7 @@ alt + shift + Return
 
 # program launcher
 alt + p
-	~/dotfiles/bspwm/scripts/rofi -show combi -show-icons
+	rofi -show combi -show-icons
 
 # make sxhkd reload its configuration files:
 alt + ESC

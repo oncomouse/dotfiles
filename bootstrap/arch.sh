@@ -16,7 +16,7 @@ $bash ~/dotfiles/bootstrap/scripts/rofi.sh
 # Other setup files:
 ln -sf ~/dotfiles/bspwm ~/.config/
 ln -sf ~/dotfiles/sxhkd ~/.config/
-ln -sf ~/dotfiles/admiral.d ~/.config/
+ln -sf ~/dotfiles/dunst ~/.config/
 ln -sf ~/dotfiles/xorg/xprofile ~/.xprofile
 ln -sf ~/dotfiles/xorg/Xresources ~/.Xresources
 ln -sf ~/dotfiles/gtk-3.0 ~/.config/

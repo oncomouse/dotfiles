@@ -41,13 +41,13 @@ else
 fi
 
 # Panel configurations
-PANEL_HEIGHT=30
-PANEL_HORIZONTAL_OFFSET=8
+PANEL_HEIGHT=35
+PANEL_HORIZONTAL_OFFSET=$(bspc config window_gap)
 PANEL_VERTICAL_OFFSET=8
 PANEL_WIDTH=$(($(xrandr |awk '$0 ~ "*" {print $1}' | cut -d 'x' -f 1) - $((PANEL_HORIZONTAL_OFFSET * 2))
 ))
 PANEL_FONT="Fira Code SemiBold:size=14"
-PANEL_ICON_FONT="Font Awesome 5 Free:size=13"
+PANEL_ICON_FONT="FontAwesome:size=13"
 PANEL_FIFO=/tmp/panel-fifo
 PANEL_WM_NAME=bspwm_panel
 COLOR_DEFAULT_FG="$FOREGROUND"
@@ -56,7 +56,7 @@ COLOR_MONITOR_FG="$FOREGROUND"
 COLOR_MONITOR_BG="$BACKGROUND"
 COLOR_FOCUSED_MONITOR_FG="$CYAN"
 COLOR_FOCUSED_MONITOR_BG="$BACKGROUND"
-COLOR_FREE_FG="$BLACK"
+COLOR_FREE_FG="$FOREGROUND"
 COLOR_FREE_BG="$BACKGROUND"
 COLOR_FOCUSED_FREE_FG="$BLUE"
 COLOR_FOCUSED_FREE_BG="$BACKGROUND"
@@ -74,6 +74,10 @@ COLOR_TITLE_FG="$FOREGROUND"
 COLOR_TITLE_BG="$BACKGROUND"
 COLOR_SYS_FG="$BACKGROUND"
 COLOR_SYS_BG="$CYAN"
+COLOR_WIFI_FG="$BACKGROUND"
+COLOR_WIFI_BG="$GREEN"
+COLOR_BATTERY_FG="$BACKGROUND"
+COLOR_BATTERY_BG="$YELLOW"
 
 bspc config top_padding $((PANEL_HEIGHT + PANEL_VERTICAL_OFFSET))
 
@@ -82,26 +86,83 @@ mkfifo "$PANEL_FIFO"
 
 clock() {
     while true; do
-        date +"S%a %-d %b %H:%M"
+        date +"S%a %l:%M %p"
         sleep 30
     done
 }
+wifi() {
+  while true; do
+    nname=$(iwgetid -r)
+    echo -n "N%{A:connman-gtk:}"
+    if [[ $nname != "" ]]; then
+      echo -n "$nname"
+    else
+      echo -n "Not connected"
+    fi
+    echo "%{A}"
+    sleep 30
+  done
+}
+
+battery() {
+  while true; do
+    status="$(cat /sys/class/power_supply/BAT0/status)"
+    capacity="$(cat /sys/class/power_supply/BAT0/capacity)"
+    color=false
+    echo -n "B"
+    if [[ $status == "Charging" ]]; then
+        echo -en "\uf0e7"
+    elif [[ $capacity -ge  "85" ]]; then
+        echo -en "\uf240"
+    elif [[ $capacity -ge "65" ]]; then
+        echo -en "\uf241"
+    elif [[ $capacity -ge "45" ]]; then
+        echo -en "\uf242"
+    elif [[ $capacity -ge "15" ]]; then
+        echo -en "\uf243"
+    elif [[ $capacity -ge "0" ]]; then
+        color=true
+        echo -en "%{F$RED}\uf244"
+        echo -n "%{F-}"
+    fi
+
+    echo -n " $capacity%"
+
+    if [[ $color ]]; then
+        echo "%{F-}"
+    else
+        echo
+    fi
+    sleep 30
+  done
+}
 
 # Just to make sure there is no double process
-killall -9 lemonbar xtitle xdo clock
+killall -9 lemonbar xtitle xdo clock wifi battery
 
 # Echo every modules to PANEL_FIFO
 clock > "$PANEL_FIFO" &
 xtitle -t 70 -sf 'T%s\n' > "$PANEL_FIFO" &
 bspc subscribe report > "$PANEL_FIFO" &
+wifi > "$PANEL_FIFO" &
+battery > "$PANEL_FIFO" &
 num_mon=$(bspc query -M | wc -l)
 
 # Then read those value
 panel_bar() {
-blurred='\uf111'
-focused='\uf192'
+WM_BLURRED_ICON='\uf10c'
+WM_BLURRED_FREE_ICON='\uf1db'
+WM_FOCUSED_ICON='\uf111'
+WIFI_ICON='\uf1eb'
 while read -r line ; do
   case $line in
+    B*)
+      batinfo="%{F$COLOR_BATTERY_FG}%{B$COLOR_BATTERY_BG} ${line#?} %{B-}%{F-}"
+      ;;
+    N*)
+      # Network output
+      netinfo="%{F$COLOR_WIFI_FG}%{B$COLOR_WIFI_BG} ${WIFI_ICON} ${line#?} %{B-}%{F-}"
+      ;;
     S*)
       # clock output
       sys="%{F$COLOR_SYS_FG}%{B$COLOR_SYS_BG} ${line#?} %{B-}%{F-}"
@@ -144,10 +205,10 @@ while read -r line ; do
                 FG=$COLOR_FREE_FG
                 BG=$COLOR_FREE_BG
                 UL=$BG
-                output=$blurred
+                output=$WM_BLURRED_FREE_ICON
                 ;;
               F*)
-                output=$focused
+                output=$WM_FOCUSED_ICON
                 if [ "$on_focused_monitor" ] ; then
                   # focused free desktop
                   FG=$COLOR_FOCUSED_FREE_FG
@@ -161,14 +222,14 @@ while read -r line ; do
                 fi
                 ;;
               o*)
-                output=$blurred
+                output=$WM_BLURRED_ICON
                 # occupied desktop
                 FG=$COLOR_OCCUPIED_FG
                 BG=$COLOR_OCCUPIED_BG
                 UL=$BG
                 ;;
               O*)
-                output=$focused
+                output=$WM_FOCUSED_ICON
                 if [ "$on_focused_monitor" ] ; then
                   # focused occupied desktop
                   FG=$COLOR_FOCUSED_OCCUPIED_FG
@@ -182,14 +243,14 @@ while read -r line ; do
                 fi
                 ;;
               u*)
-                output=$blurred
+                output=$WM_BLURRED_ICON
                 # urgent desktop
                 FG=$COLOR_URGENT_FG
                 BG=$COLOR_URGENT_BG
                 UL=$BG
                 ;;
               U*)
-                output=$focused
+                output=$WM_FOCUSED_ICON
                 if [ "$on_focused_monitor" ] ; then
                   # focused urgent desktop
                   FG=$COLOR_FOCUSED_URGENT_FG
@@ -215,7 +276,7 @@ while read -r line ; do
       ;;
   esac
   # printf "%s\n" "%{l}${wm}%{c}${title}%{r}${sys}"
-  echo -e "%{l}${wm}%{c}${title}%{r}${sys}"
+  echo -e "%{l}${wm}%{c}${title}%{r}${netinfo}${batinfo}${sys}"
 done
 }
 

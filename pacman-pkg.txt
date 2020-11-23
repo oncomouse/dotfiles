@@ -30,11 +30,12 @@ fzf
 bat
 jq
 ttf-fira-code
-ttf-font-awesome
 tex-gyre-fonts
 neofetch
-shellcheck
 zathura
 zathura-pdf-poppler
 pcmanfm
 nnn
+wireless_tools
+dunst
+libnotify

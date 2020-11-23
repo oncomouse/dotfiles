@@ -1,2 +1,3 @@
+/usr/bin/dunst &
 xrdb ~/.Xresources
 xsetroot -solid "#3a3a3a"
