@@ -330,6 +330,7 @@ endif
                 \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt'],
                 \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
                 \ 'markdown': ['/usr/local/bin/citation-langserver'],
+                \ 'bash': ['/usr/local/bin/bash-language-server'],
                 \}
         " }}}
         " ALE For Linting: {{{
