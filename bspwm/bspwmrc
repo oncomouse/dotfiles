@@ -3,7 +3,6 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 killall lemonbar
-# admiral | lemonbar -g x30 -f 'Font Awesome 5 Free:size=13' -f 'Font Awesome 5 Brands:size=13' -f 'Font Awesome 5 Free Solid:size=13' -f 'Fira Code:size=14' -B '#232323' -F '#AEADAF' -a 32 |sh &
 ~/dotfiles/bspwm/scripts/xcolors &
 ~/dotfiles/bspwm/scripts/panel &
 
