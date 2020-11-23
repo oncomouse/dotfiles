@@ -74,6 +74,8 @@ COLOR_TITLE_FG="$FOREGROUND"
 COLOR_TITLE_BG="$BACKGROUND"
 COLOR_SYS_FG="$BACKGROUND"
 COLOR_SYS_BG="$CYAN"
+COLOR_WIFI_FG="$BACKGROUND"
+COLOR_WIFI_BG="$GREEN"
 
 bspc config top_padding $((PANEL_HEIGHT + PANEL_VERTICAL_OFFSET))
 
@@ -86,23 +88,42 @@ clock() {
         sleep 30
     done
 }
+wifi() {
+  while true; do
+    nname=$(iwgetid -r)
+    echo -n "N%{A:connman-gtk:}"
+    if [[ $nname != "" ]]; then
+      echo -n "$nname"
+    else
+      echo -n "Not connected"
+    fi
+    echo "%{A}"
+    sleep 30
+  done
+}
 
 # Just to make sure there is no double process
-killall -9 lemonbar xtitle xdo clock
+killall -9 lemonbar xtitle xdo clock wifi
 
 # Echo every modules to PANEL_FIFO
 clock > "$PANEL_FIFO" &
 xtitle -t 70 -sf 'T%s\n' > "$PANEL_FIFO" &
 bspc subscribe report > "$PANEL_FIFO" &
+wifi > "$PANEL_FIFO" &
 num_mon=$(bspc query -M | wc -l)
 
 # Then read those value
 panel_bar() {
-blurred='\uf10c'
-blurred_empty='\uf1db'
-focused='\uf111'
+WM_BLURRED_ICON='\uf10c'
+WM_BLURRED_FREE_ICON='\uf1db'
+WM_FOCUSED_ICON='\uf111'
+WIFI_ICON='\uf1eb'
 while read -r line ; do
   case $line in
+    N*)
+      # Network output
+      netinfo="%{F$COLOR_WIFI_FG}%{B$COLOR_WIFI_BG} ${WIFI_ICON} ${line#?} %{B-}%{F-}"
+      ;;
     S*)
       # clock output
       sys="%{F$COLOR_SYS_FG}%{B$COLOR_SYS_BG} ${line#?} %{B-}%{F-}"
@@ -145,10 +166,10 @@ while read -r line ; do
                 FG=$COLOR_FREE_FG
                 BG=$COLOR_FREE_BG
                 UL=$BG
-                output=$blurred_empty
+                output=$WM_BLURRED_FREE_ICON
                 ;;
               F*)
-                output=$focused
+                output=$WM_FOCUSED_ICON
                 if [ "$on_focused_monitor" ] ; then
                   # focused free desktop
                   FG=$COLOR_FOCUSED_FREE_FG
@@ -162,14 +183,14 @@ while read -r line ; do
                 fi
                 ;;
               o*)
-                output=$blurred
+                output=$WM_BLURRED_ICON
                 # occupied desktop
                 FG=$COLOR_OCCUPIED_FG
                 BG=$COLOR_OCCUPIED_BG
                 UL=$BG
                 ;;
               O*)
-                output=$focused
+                output=$WM_FOCUSED_ICON
                 if [ "$on_focused_monitor" ] ; then
                   # focused occupied desktop
                   FG=$COLOR_FOCUSED_OCCUPIED_FG
@@ -183,14 +204,14 @@ while read -r line ; do
                 fi
                 ;;
               u*)
-                output=$blurred
+                output=$WM_BLURRED_ICON
                 # urgent desktop
                 FG=$COLOR_URGENT_FG
                 BG=$COLOR_URGENT_BG
                 UL=$BG
                 ;;
               U*)
-                output=$focused
+                output=$WM_FOCUSED_ICON
                 if [ "$on_focused_monitor" ] ; then
                   # focused urgent desktop
                   FG=$COLOR_FOCUSED_URGENT_FG
@@ -216,7 +237,7 @@ while read -r line ; do
       ;;
   esac
   # printf "%s\n" "%{l}${wm}%{c}${title}%{r}${sys}"
-  echo -e "%{l}${wm}%{c}${title}%{r}${sys}"
+  echo -e "%{l}${wm}%{c}${title}%{r}${netinfo}${sys}"
 done
 }
 
