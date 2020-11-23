@@ -77,7 +77,7 @@ COLOR_SYS_BG="$CYAN"
 COLOR_WIFI_FG="$BACKGROUND"
 COLOR_WIFI_BG="$GREEN"
 COLOR_BATTERY_FG="$BACKGROUND"
-COLOR_BATTERY_BG="$BLUE"
+COLOR_BATTERY_BG="$YELLOW"
 
 bspc config top_padding $((PANEL_HEIGHT + PANEL_VERTICAL_OFFSET))
 
@@ -123,8 +123,8 @@ battery() {
     elif [[ $capacity -ge "0" ]]; then
         color=true
         echo -en "%{F$RED}\uf244"
+        echo -n "%{F-}"
     fi
-    echo -n "%{F-}"
 
     echo -n " $capacity%"
 
@@ -157,7 +157,7 @@ WIFI_ICON='\uf1eb'
 while read -r line ; do
   case $line in
     B*)
-      batinfo="%{F$COLOR_BATTERY_FG}%{B$COLOR_WIFI_BG} ${line#?} %{B-}%{F-}"
+      batinfo="%{F$COLOR_BATTERY_FG}%{B$COLOR_BATTERY_BG} ${line#?} %{B-}%{F-}"
       ;;
     N*)
       # Network output
