@@ -39,3 +39,5 @@ nnn
 wireless_tools
 dunst
 libnotify
+gnome-keyring
+libsecret
