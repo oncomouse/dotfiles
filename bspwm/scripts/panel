@@ -133,6 +133,7 @@ battery() {
     else
         echo
     fi
+    sleep 30
   done
 }
 
