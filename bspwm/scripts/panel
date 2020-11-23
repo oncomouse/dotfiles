@@ -93,7 +93,7 @@ clock() {
 wifi() {
   while true; do
     nname=$(iwgetid -r)
-    echo -n "N%{A:connman-gtk:}"
+    echo -n "N%{A:rofi-wifi-menu:}"
     if [[ $nname != "" ]]; then
       echo -n "$nname"
     else
