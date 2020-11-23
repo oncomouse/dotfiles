@@ -76,6 +76,8 @@ COLOR_SYS_FG="$BACKGROUND"
 COLOR_SYS_BG="$CYAN"
 COLOR_WIFI_FG="$BACKGROUND"
 COLOR_WIFI_BG="$GREEN"
+COLOR_BATTERY_FG="$BACKGROUND"
+COLOR_BATTERY_BG="$BLUE"
 
 bspc config top_padding $((PANEL_HEIGHT + PANEL_VERTICAL_OFFSET))
 
@@ -102,14 +104,47 @@ wifi() {
   done
 }
 
+battery() {
+  while true; do
+    status="$(cat /sys/class/power_supply/BAT0/status)"
+    capacity="$(cat /sys/class/power_supply/BAT0/capacity)"
+    color=false
+    echo -n "B"
+    if [[ $status == "Charging" ]]; then
+        echo -en "\uf0e7"
+    elif [[ $capacity -ge  "85" ]]; then
+        echo -en "\uf240"
+    elif [[ $capacity -ge "65" ]]; then
+        echo -en "\uf241"
+    elif [[ $capacity -ge "45" ]]; then
+        echo -en "\uf242"
+    elif [[ $capacity -ge "15" ]]; then
+        echo -en "\uf243"
+    elif [[ $capacity -ge "0" ]]; then
+        color=true
+        echo -en "%{F$RED}\uf244"
+    fi
+    echo -n "%{F-}"
+
+    echo -n " $capacity%"
+
+    if [[ $color ]]; then
+        echo "%{F-}"
+    else
+        echo
+    fi
+  done
+}
+
 # Just to make sure there is no double process
-killall -9 lemonbar xtitle xdo clock wifi
+killall -9 lemonbar xtitle xdo clock wifi battery
 
 # Echo every modules to PANEL_FIFO
 clock > "$PANEL_FIFO" &
 xtitle -t 70 -sf 'T%s\n' > "$PANEL_FIFO" &
 bspc subscribe report > "$PANEL_FIFO" &
 wifi > "$PANEL_FIFO" &
+battery > "$PANEL_FIFO" &
 num_mon=$(bspc query -M | wc -l)
 
 # Then read those value
@@ -120,6 +155,9 @@ WM_FOCUSED_ICON='\uf111'
 WIFI_ICON='\uf1eb'
 while read -r line ; do
   case $line in
+    B*)
+      batinfo="%{F$COLOR_BATTERY_FG}%{B$COLOR_WIFI_BG} ${line#?} %{B-}%{F-}"
+      ;;
     N*)
       # Network output
       netinfo="%{F$COLOR_WIFI_FG}%{B$COLOR_WIFI_BG} ${WIFI_ICON} ${line#?} %{B-}%{F-}"
@@ -237,7 +275,7 @@ while read -r line ; do
       ;;
   esac
   # printf "%s\n" "%{l}${wm}%{c}${title}%{r}${sys}"
-  echo -e "%{l}${wm}%{c}${title}%{r}${netinfo}${sys}"
+  echo -e "%{l}${wm}%{c}${title}%{r}${netinfo}${batinfo}${sys}"
 done
 }
 
