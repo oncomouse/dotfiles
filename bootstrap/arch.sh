@@ -38,6 +38,7 @@ sudo ufw enable
 sudo groupadd admin
 sudo usermod -a -G admin andrew
 sudo passwd -l root
+sudo chgrp -R admin /usr/local
 
 # Secure /tmp
 sudo fallocate -l 1G /tmpdisk
