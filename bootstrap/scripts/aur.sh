@@ -7,6 +7,7 @@ packages=(
   "otf-hasklig"
   "pandoc-bin"
   "rofi-wifi-menu-git"
+  "shellcheck-bin"
   "ttf-font-awesome-4"
   "vale"
   "visual-studio-code-bin"

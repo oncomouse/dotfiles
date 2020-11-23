@@ -32,7 +32,6 @@ jq
 ttf-fira-code
 tex-gyre-fonts
 neofetch
-shellcheck
 zathura
 zathura-pdf-poppler
 pcmanfm
