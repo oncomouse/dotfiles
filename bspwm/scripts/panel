@@ -68,8 +68,8 @@ COLOR_URGENT_FG="$RED"
 COLOR_URGENT_BG="$YBLUE"
 COLOR_FOCUSED_URGENT_FG="$RED"
 COLOR_FOCUSED_URGENT_BG="$BLUE"
-COLOR_STATE_FG="$FOREGROUND"
-COLOR_STATE_BG="$BACKGROUND"
+COLOR_STATE_FG="$BLACK"
+COLOR_STATE_BG="$MAGENTA"
 COLOR_TITLE_FG="$FOREGROUND"
 COLOR_TITLE_BG="$BACKGROUND"
 COLOR_SYS_FG="$BLACK"
@@ -281,8 +281,9 @@ while read -r line ; do
             ;;
           [LTG]*)
             # layout, state and flags
-            wm="${wm}%{F$COLOR_STATE_FG}%{B$COLOR_STATE_BG} ${name} %{B-}%{F-}"
-            true
+            if [[ $name != "" ]]; then
+              wm="${wm}%{F$COLOR_STATE_FG}%{B$COLOR_STATE_BG} ${name} %{B-}%{F-}"
+            fi
             ;;
         esac
         shift
