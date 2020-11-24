@@ -281,7 +281,7 @@ while read -r line ; do
             ;;
           [LTG]*)
             # layout, state and flags
-            # wm="${wm}%{F$COLOR_STATE_FG}%{B$COLOR_STATE_BG} ${name} %{B-}%{F-}"
+            wm="${wm}%{F$COLOR_STATE_FG}%{B$COLOR_STATE_BG} ${name} %{B-}%{F-}"
             true
             ;;
         esac
