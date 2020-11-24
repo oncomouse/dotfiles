@@ -2,23 +2,12 @@
 
 # Source: https://github.com/addy-dclxvi/void-bspwm-dotfiles/blob/master/home/addy/.scripts/vanela
 
-# Just a simple Lemonbar script
-# Only clickable workspaces, window title, and clock
-# Spamming command every second using shell to generate statusline is not really efficient
-# So I only put those three items
-# If I need other status informations
-# I'd rather to call them using Dunst
-
 # Workspace indicator is generated using bspc subscribe
 # Which only update if there is an reaction on bspwm
 # Window title is generated using xtitle
 # Which also has subscribe event ability
 # Clock is generated using looped date command
 # Only update every thirty seconds
-
-# Based on default example from Bspwm GitHub repository
-# Some parts are modified to make them look like what i want
-# Cheers! Addy
 
 getcolors () {
   FOREGROUND=$(xrdb -query | grep 'foreground:'| awk '{print $NF}')
@@ -80,6 +69,17 @@ COLOR_BATTERY_FG="$BLACK"
 COLOR_BATTERY_BG="$YELLOW"
 COLOR_MEMORY_FG="$BLACK"
 COLOR_MEMORY_BG="$YELLOW"
+COLOR_CPU_FG="$BLACK"
+COLOR_CPU_BG="$YELLOW"
+
+# Icons:
+WM_BLURRED_ICON='\uf10c'
+WM_BLURRED_FREE_ICON='\uf1db'
+WM_FOCUSED_ICON='\uf111'
+WIFI_ICON='\ufaa8'
+WIFI_NO_ICON='\ufaa9'
+MEMORY_ICON='\uf85a'
+CPU_ICON='\ufb19'
 
 bspc config top_padding $((PANEL_HEIGHT + PANEL_VERTICAL_OFFSET))
 
@@ -97,11 +97,17 @@ wifi() {
     nname=$(iwgetid -r)
     echo -n "N%{A:rofi-wifi-menu:}"
     if [[ $nname != "" ]]; then
-      echo -n "$nname"
+      echo -n "${WIFI_ICON} $nname"
     else
-      echo -n "Not connected"
+      echo -n "${WIFI_NO_ICON}"
     fi
     echo "%{A}"
+    sleep 30
+  done
+}
+cpuload() {
+  while true; do
+    echo "C$(ps -eo pcpu | awk 'BEGIN {sum=0.0f} {sum+=$1} END {print sum}')"
     sleep 30
   done
 }
@@ -109,7 +115,7 @@ memused() {
   while true; do
     # store the total and free memory in two variables
     echo "M$(awk '/MemTotal/{t=$2}; /MemFree/{f=$2}; /^Buffers/{b=$2}; /^Cached/{c=$2}; END{printf("%d\n",(t-f-b-c)*100/t)}' < /proc/meminfo)%"
-    sleep 5
+    sleep 30
   done
 }
 battery() {
@@ -119,19 +125,30 @@ battery() {
     color=false
     echo -n "B"
     if [[ $status == "Charging" ]]; then
-        echo -en "\uf0e7"
-    elif [[ $capacity -ge  "85" ]]; then
-        echo -en "\uf240"
-    elif [[ $capacity -ge "65" ]]; then
-        echo -en "\uf241"
-    elif [[ $capacity -ge "45" ]]; then
-        echo -en "\uf242"
-    elif [[ $capacity -ge "15" ]]; then
-        echo -en "\uf243"
-    elif [[ $capacity -ge "0" ]]; then
-        color=true
-        echo -en "%{F$RED}\uf244"
-        echo -n "%{F-}"
+      color=true
+      echo -en "%{F$GREEN}\uf583"
+    elif [[ $capacity -ge "91" ]]; then
+      echo -en "\uf578"
+    elif [[ $capacity -ge "81" ]]; then
+      echo -en "\uf581"
+    elif [[ $capacity -ge "71" ]]; then
+      echo -en "\uf580"
+    elif [[ $capacity -ge "61" ]]; then
+      echo -en "\uf57f"
+    elif [[ $capacity -ge "51" ]]; then
+      echo -en "\uf57e"
+    elif [[ $capacity -ge "41" ]]; then
+      echo -en "\uf57d"
+    elif [[ $capacity -ge "31" ]]; then
+      echo -en "\uf57c"
+    elif [[ $capacity -ge "21" ]]; then
+      echo -en "\uf57b"
+    elif [[ $capacity -ge "11" ]]; then
+      color=true
+      echo -en "%{F$RED}\uf57a"
+    else
+      color=true
+      echo -en "%{F$RED}\uf579"
     fi
 
     echo -n " $capacity%"
@@ -146,26 +163,25 @@ battery() {
 }
 
 # Just to make sure there is no double process
-killall -9 lemonbar xtitle xdo clock wifi battery memused
+killall -9 lemonbar xtitle xdo clock wifi battery memused cpuload
 
 # Echo every modules to PANEL_FIFO
 clock > "$PANEL_FIFO" &
-xtitle -t 70 -sf 'T%s\n' > "$PANEL_FIFO" &
+xtitle -t 50 -sf 'T%s\n' > "$PANEL_FIFO" &
 bspc subscribe report > "$PANEL_FIFO" &
 wifi > "$PANEL_FIFO" &
 battery > "$PANEL_FIFO" &
 memused > "$PANEL_FIFO" &
+cpuload > "$PANEL_FIFO" &
 num_mon=$(bspc query -M | wc -l)
 
 # Then read those value
 panel_bar() {
-WM_BLURRED_ICON='\uf10c'
-WM_BLURRED_FREE_ICON='\uf1db'
-WM_FOCUSED_ICON='\uf111'
-WIFI_ICON='\uf1eb'
-MEMORY_ICON='\uf85a'
 while read -r line ; do
   case $line in
+    C*)
+      cpuinfo="%{F$COLOR_CPU_FG}%{B$COLOR_CPU_BG} ${CPU_ICON} ${line#?} %{B-}%{F-}"
+      ;;
     M*)
       meminfo="%{F$COLOR_MEMORY_FG}%{B$COLOR_MEMORY_BG} ${MEMORY_ICON} ${line#?} %{B-}%{F-}"
       ;;
@@ -174,7 +190,7 @@ while read -r line ; do
       ;;
     N*)
       # Network output
-      netinfo="%{F$COLOR_WIFI_FG}%{B$COLOR_WIFI_BG} ${WIFI_ICON} ${line#?} %{B-}%{F-}"
+      netinfo="%{F$COLOR_WIFI_FG}%{B$COLOR_WIFI_BG} ${line#?} %{B-}%{F-}"
       ;;
     S*)
       # clock output
@@ -291,7 +307,7 @@ while read -r line ; do
       ;;
   esac
   # printf "%s\n" "%{l}${wm}%{c}${title}%{r}${sys}"
-  echo -e "%{l}${wm}%{c}${title}%{r}${netinfo}${meminfo}${batinfo}${sys}"
+  echo -e "%{l}${wm}%{c}${title}%{r}${netinfo}${cpuinfo}${meminfo}${batinfo}${sys}"
 done
 }
 
