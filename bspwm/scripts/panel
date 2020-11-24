@@ -46,8 +46,8 @@ PANEL_HORIZONTAL_OFFSET=$(bspc config window_gap)
 PANEL_VERTICAL_OFFSET=8
 PANEL_WIDTH=$(($(xrandr |awk '$0 ~ "*" {print $1}' | cut -d 'x' -f 1) - $((PANEL_HORIZONTAL_OFFSET * 2))
 ))
-PANEL_FONT="Fira Code SemiBold:size=14"
-PANEL_ICON_FONT="FontAwesome:size=13"
+PANEL_FONT="Fira Code Semibold:size=14"
+PANEL_ICON_FONT="FiraCode Nerd Font Mono:style=Bold:size=17"
 PANEL_FIFO=/tmp/panel-fifo
 PANEL_WM_NAME=bspwm_panel
 COLOR_DEFAULT_FG="$FOREGROUND"
@@ -78,6 +78,8 @@ COLOR_WIFI_FG="$BLACK"
 COLOR_WIFI_BG="$GREEN"
 COLOR_BATTERY_FG="$BLACK"
 COLOR_BATTERY_BG="$YELLOW"
+COLOR_MEMORY_FG="$BLACK"
+COLOR_MEMORY_BG="$YELLOW"
 
 bspc config top_padding $((PANEL_HEIGHT + PANEL_VERTICAL_OFFSET))
 
@@ -103,7 +105,13 @@ wifi() {
     sleep 30
   done
 }
-
+memused() {
+  while true; do
+    # store the total and free memory in two variables
+    echo "M$(awk '/MemTotal/{t=$2}; /MemFree/{f=$2}; /^Buffers/{b=$2}; /^Cached/{c=$2}; END{printf("%d\n",(t-f-b-c)*100/t)}' < /proc/meminfo)%"
+    sleep 5
+  done
+}
 battery() {
   while true; do
     status="$(cat /sys/class/power_supply/BAT0/status)"
@@ -138,7 +146,7 @@ battery() {
 }
 
 # Just to make sure there is no double process
-killall -9 lemonbar xtitle xdo clock wifi battery
+killall -9 lemonbar xtitle xdo clock wifi battery memused
 
 # Echo every modules to PANEL_FIFO
 clock > "$PANEL_FIFO" &
@@ -146,6 +154,7 @@ xtitle -t 70 -sf 'T%s\n' > "$PANEL_FIFO" &
 bspc subscribe report > "$PANEL_FIFO" &
 wifi > "$PANEL_FIFO" &
 battery > "$PANEL_FIFO" &
+memused > "$PANEL_FIFO" &
 num_mon=$(bspc query -M | wc -l)
 
 # Then read those value
@@ -154,8 +163,12 @@ WM_BLURRED_ICON='\uf10c'
 WM_BLURRED_FREE_ICON='\uf1db'
 WM_FOCUSED_ICON='\uf111'
 WIFI_ICON='\uf1eb'
+MEMORY_ICON='\uf85a'
 while read -r line ; do
   case $line in
+    M*)
+      meminfo="%{F$COLOR_MEMORY_FG}%{B$COLOR_MEMORY_BG} ${MEMORY_ICON} ${line#?} %{B-}%{F-}"
+      ;;
     B*)
       batinfo="%{F$COLOR_BATTERY_FG}%{B$COLOR_BATTERY_BG} ${line#?} %{B-}%{F-}"
       ;;
@@ -277,7 +290,7 @@ while read -r line ; do
       ;;
   esac
   # printf "%s\n" "%{l}${wm}%{c}${title}%{r}${sys}"
-  echo -e "%{l}${wm}%{c}${title}%{r}${netinfo}${batinfo}${sys}"
+  echo -e "%{l}${wm}%{c}${title}%{r}${netinfo}${meminfo}${batinfo}${sys}"
 done
 }
 
