@@ -41,3 +41,4 @@ dunst
 libnotify
 gnome-keyring
 libsecret
+unzip

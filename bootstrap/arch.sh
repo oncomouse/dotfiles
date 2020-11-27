@@ -62,3 +62,12 @@ fi
 # Configure xdg-utils
 xdg-settings set default-web-browser firefox.desktop
 xdg-mime default org.pwmt.zathura.desktop application/pdf
+
+# Fonts
+mkdir -p ~/Downloads
+curl -o "$HOME/Downloads/calvin-font.zip https://dl.dafont.com/dl/?f=calvin_and_hobbes"
+unzip -d ~/Downloads ~/Downloads/calvin-font.zip
+sudo mkdir -p /usr/share/fonts/misc/
+sudo mv ~/Downloads/*.TTF /usr/share/fonts/misc/
+rm ~/Downloads/calvin-font.zip
+fc-cache -r
