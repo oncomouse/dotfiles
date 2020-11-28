@@ -9,7 +9,7 @@ packages=(
   "pandoc-bin"
   "rofi-wifi-menu-git"
   "shellcheck-bin"
-  "vale"
+  "https://github.com/oncomouse/vale-bin"
   "visual-studio-code-bin"
   "xtitle"
   "zotero"
@@ -18,11 +18,18 @@ packages=(
 mkdir -p ~/aur
 for package in "${packages[@]}"; do
   cd ~/aur || continue
+  regex='^http'
+  if [[ $package =~ $regex ]]; then
+    url=$package
+    package=$(cut -d "/" -f5 <<< "$package")
+  else
+    url="https://aur.archlinux.org/$package"
+  fi
   if [ -d "./$package" ]; then
     cd "$package" || continue
     git pull
   else
-    git clone "https://aur.archlinux.org/$package"
+    git clone "$url"
     cd "$package" || continue
   fi
   makepkg -si --noconfirm
