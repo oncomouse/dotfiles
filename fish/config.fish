@@ -30,6 +30,12 @@ if status --is-login
   # Sbin:
   add_to_user_paths /usr/local/sbin
   add_to_user_paths ~/.ghcup/bin
+  # NPM Local:
+  add_to_user_paths ~/.npm-packages/bin
+
+  # NPM Local manpath:
+  set -q MANPATH || set MANPATH ''
+  set -Ux MANPATH $MANPATH ~/.npm-packages/share/man
 
   # Setup mypy:
   set -Ux MYPYPATH ~/dotfiles/python/stubs
@@ -60,7 +66,7 @@ function vi
     eval (which vi) $argv
   end
 end
-function standard;/usr/local/bin/semistandard $argv | /usr/local/bin/snazzy;end
+function standard;~/.npm-packages/bin/semistandard $argv | ~/.npm-packages/bin/snazzy;end
 function janet-repl;/usr/local/bin/janet -e "(import spork/netrepl) (netrepl/server)";end
 
 # Dotfiles utility functions:

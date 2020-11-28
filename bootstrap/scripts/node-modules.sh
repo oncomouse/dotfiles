@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 ## Install Node.js Modules
+# Setup a local to user global npm path:
+mkdir -p "${HOME}/.npm-packages/lib"
+npm config set prefix "${HOME}/.npm-packages"
 if which npm > /dev/null 2>&1; then
   if [ -z "$SERVER" ]; then 
     npmlist=$(npm list -g)
