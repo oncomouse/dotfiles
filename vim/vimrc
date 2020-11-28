@@ -331,6 +331,7 @@ endif
                 \ 'vim': ['/usr/bin/env', 'vim-language-server', '--stdio'],
                 \ 'markdown': ['/usr/bin/env', 'citation-langserver'],
                 \ 'bash': ['/usr/bin/env', 'bash-language-server'],
+                \ 'sh': ['/usr/bin/env', 'bash-language-server'],
                 \}
         " }}}
         " ALE For Linting: {{{
