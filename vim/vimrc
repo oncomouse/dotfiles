@@ -316,21 +316,21 @@ endif
           " Root patterns:
           let g:LanguageClient_rootMarkers = g:rooter_patterns
           let g:LanguageClient_serverCommands = {
-                \ 'javascript': ['/usr/local/bin/typescript-language-server', '--stdio'],
-                \ 'javascriptreact': ['/usr/local/bin/typescript-language-server', '--stdio'],
-                \ 'typescript': ['/usr/local/bin/typescript-language-server', '--stdio'],
-                \ 'typescriptreact': ['/usr/local/bin/typescript-language-server', '--stdio'],
-                \ 'python': ['/usr/local/bin/jedi-language-server'],
+                \ 'javascript': ['~/.npm-packages/bin/typescript-language-server', '--stdio'],
+                \ 'javascriptreact': ['~/.npm-packages/bin/typescript-language-server', '--stdio'],
+                \ 'typescript': ['~/.npm-packages/bin/typescript-language-server', '--stdio'],
+                \ 'typescriptreact': ['~/.npm-packages/bin/typescript-language-server', '--stdio'],
+                \ 'python': ['/usr/bin/env', 'jedi-language-server'],
                 \ 'haskell': ['~/.ghcup/bin/haskell-language-server-wrapper', '--lsp'],
                 \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
-                \ 'json': ['/usr/local/bin/vscode-json-languageserver', '--stdio'],
-                \ 'html': ['/usr/local/bin/vscode-html-languageserver', '--stdio'],
-                \ 'scss': ['/usr/local/bin/vscode-css-languageserver', '--stdio'],
-                \ 'css': ['/usr/local/bin/vscode-css-languageserver', '--stdio'],
+                \ 'json': ['~/.npm-packages/bin/vscode-json-languageserver', '--stdio'],
+                \ 'html': ['~/.npm-packages/bin/vscode-html-languageserver', '--stdio'],
+                \ 'scss': ['~/.npm-packages/bin/vscode-css-languageserver', '--stdio'],
+                \ 'css': ['~/.npm-packages/bin/vscode-css-languageserver', '--stdio'],
                 \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt'],
-                \ 'vim': ['/usr/local/bin/vim-language-server', '--stdio'],
-                \ 'markdown': ['/usr/local/bin/citation-langserver'],
-                \ 'bash': ['/usr/local/bin/bash-language-server'],
+                \ 'vim': ['~/.npm-packages/bin/vim-language-server', '--stdio'],
+                \ 'markdown': ['~/.npm-packages/bin/citation-langserver'],
+                \ 'bash': ['~/.npm-packages/bin/bash-language-server'],
                 \}
         " }}}
         " ALE For Linting: {{{
