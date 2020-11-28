@@ -4,7 +4,7 @@ packages=(
   "i3lock-color-git"
   "lemonbar-xft-git"
   "ncspot"
-  "nerd-fonts-complete"
+  "otf-fira-code-nerd-font"
   "otf-hasklig"
   "pandoc-bin"
   "rofi-wifi-menu-git"
@@ -25,6 +25,6 @@ for package in "${packages[@]}"; do
     git clone "https://aur.archlinux.org/$package"
     cd "$package" || continue
   fi
-  makepkg -si
+  makepkg -si --noconfirm
 done
 cd ~/dotfiles || exit
