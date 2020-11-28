@@ -4,7 +4,7 @@ packages=(
   "i3lock-color-git"
   "lemonbar-xft-git"
   "ncspot"
-  "otf-fira-code-nerd-font"
+  "otf-nerd-fonts-fira-code"
   "otf-hasklig"
   "pandoc-bin"
   "rofi-wifi-menu-git"
