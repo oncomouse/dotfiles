@@ -15,7 +15,17 @@ useradd -m andrew
 
 > [Match]
 > Name=en*
+> Name=eth*
 >  
+> [Network]
+> DHCP=yes
+
+/etc/systemd/network/20-wireless.network:
+
+> [Match]
+> Name=wlp*
+> Name=wlan*
+> 
 > [Network]
 > DHCP=yes
 
