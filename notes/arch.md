@@ -14,7 +14,7 @@ useradd -m andrew
 /etc/systemd/network/20-wired.network:
 
 > [Match]
-> Name=enp0s3
+> Name=en*
 >  
 > [Network]
 > DHCP=yes
