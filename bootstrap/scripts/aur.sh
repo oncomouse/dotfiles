@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 packages=(
+  "i3lock-color-git"
   "lemonbar-xft-git"
   "ncspot"
   "nerd-fonts-complete"
