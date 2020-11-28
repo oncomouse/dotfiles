@@ -81,7 +81,7 @@ cask "avidemux" # Simple editing
 # Music
 # brew "portaudio"
 # brew "dbus"
-# brew "rustup"
+brew "rustup"
 
 # Other GUI Applications
 cask "firefox" # Browser
