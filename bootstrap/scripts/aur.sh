@@ -21,7 +21,8 @@ for package in "${packages[@]}"; do
   regex='^http'
   if [[ $package =~ $regex ]]; then
     url=$package
-    package=$(cut -d "/" -f5 <<< "$package")
+    [[ $url =~ \/([^/]*)$ ]]
+    package=${BASH_REMATCH[1]}
   else
     url="https://aur.archlinux.org/$package"
   fi
