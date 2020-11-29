@@ -2,6 +2,7 @@ openssh
 xdg-utils
 xorg-server
 xorg-xsetroot
+xorg-xrdb
 xclip
 lightdm
 lightdm-gtk-greeter
