@@ -2,12 +2,17 @@
 
 Notes:
 1. Don't use systemd-start stuff, just use `arch-chroot /mnt`
-1. maximevince's note is correct
-1. In example `refind` config, image name should be `initramfs-linux-zen.img` (No slash)
+1. `mkinitcpio -p linux` should be `mkinitcpio -p linux-zen`
+1. Always use `/dev/mapper/cryptswap`
+1. In example `refind` config, image name should be `initramfs-linux-zen.img`
 
 Additional Packages to install, before reboot:
 
-`pacman -S refind base-devel vim git curl fish`
+`pacman -S refind base-devel vim git curl fish dhcpcd btrfs-progs iw gptfdisk terminus-font`
+
+Set `/etc/vconsole.conf` to:
+
+> FONT=ter-v18n
 
 1. Configure [sudo](https://wiki.archlinux.org/index.php/Sudo)
 
@@ -37,3 +42,4 @@ useradd -m -G wheel -s /usr/bin/fish andrew
 
 1. systemctl enable systemd-networkd.service
 1. systemctl enable systemd-resolved.service
+1. systemctl enable dhcpcd.service
