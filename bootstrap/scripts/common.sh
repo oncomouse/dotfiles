@@ -16,7 +16,7 @@ if [ -z "$SERVER" ]; then
   $bash ~/dotfiles/bootstrap/scripts/vale.sh
   $bash ~/dotfiles/bootstrap/scripts/asdf.sh
   $bash ~/dotfiles/bootstrap/scripts/neovim.sh
-  $bash ~/dotfiles/bootstrap/scripts/haskell.sh
+  # $bash ~/dotfiles/bootstrap/scripts/haskell.sh
   $bash ~/dotfiles/bootstrap/scripts/csl.sh
   $bash ~/dotfiles/bootstrap/scripts/tex.sh
 fi

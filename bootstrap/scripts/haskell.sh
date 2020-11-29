@@ -10,9 +10,8 @@ if test ! "$(which ghcup)"; then
     curl --proto '=https' --tlsv1.2 -s -o ~/.local/bin/ghcup https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup
   fi
   chmod +x ~/.local/bin/ghcup
-else
-  ghcup upgrade
 fi
+ghcup upgrade
 
 ln -sf ~/dotfiles/haskell/ghci ~/.ghci
 
