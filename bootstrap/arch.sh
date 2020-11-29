@@ -8,6 +8,7 @@ sudo pacman -S --noconfirm - < ~/dotfiles/pacman-pkg.txt
 git config --global user.name "oncomouse"
 git config --global user.email "oncomouse@gmail.com"
 git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
+git config --global rebase.pull false
 
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 $bash ~/dotfiles/bootstrap/scripts/aur.sh
@@ -62,7 +63,7 @@ xdg-mime default org.pwmt.zathura.desktop application/pdf
 
 # Fonts
 mkdir -p ~/Downloads
-curl -o "$HOME/Downloads/calvin-font.zip https://dl.dafont.com/dl/?f=calvin_and_hobbes"
+curl -o "$HOME/Downloads/calvin-font.zip" "https://dl.dafont.com/dl/?f=calvin_and_hobbes"
 unzip -d ~/Downloads ~/Downloads/calvin-font.zip
 sudo mkdir -p /usr/share/fonts/misc/
 sudo mv ~/Downloads/*.TTF /usr/share/fonts/misc/
