@@ -9,6 +9,7 @@ git config --global user.name "oncomouse"
 git config --global user.email "oncomouse@gmail.com"
 git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
 git config --global rebase.pull false
+git config --global core.editor "nvim"
 
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 $bash ~/dotfiles/bootstrap/scripts/aur.sh
@@ -21,6 +22,7 @@ ln -sf ~/dotfiles/dunst ~/.config/
 ln -sf ~/dotfiles/xorg/xprofile ~/.xprofile
 ln -sf ~/dotfiles/xorg/Xresources ~/.Xresources
 ln -sf ~/dotfiles/gtk-3.0 ~/.config/
+ln -sf ~/dotfiles/gtk-2.0/gtkrc-2.0 ~/.gtkrc-2.0
 
 # Enable LightDM:
 systemctl enable lightdm
