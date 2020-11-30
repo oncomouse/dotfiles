@@ -7,7 +7,7 @@ for arg in (echo $FZF_DEFAULT_OPTS | tr " " "\n")
 end
 
 set -gx FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
-" --color=bg+:#{color11.strip},bg:#{background.strip},spinner:#{color14.strip},hl:#{color12.strip}"\
+" --color=bg+:#{color8.strip},bg:#{background.strip},spinner:#{color14.strip},hl:#{color12.strip}"\
 " --color=fg:#{foreground.strip},header:#{color12.strip},info:#{background.strip},pointer:#{color14.strip}"\
-" --color=marker:#{color14.strip},fg+:#{background.strip},prompt:#{color3.strip},hl+:#{color12.strip}"
+" --color=marker:#{color14.strip},fg+:#{foreground.strip},prompt:#{color3.strip},hl+:#{color12.strip}"
 
