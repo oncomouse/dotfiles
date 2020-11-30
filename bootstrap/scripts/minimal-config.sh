@@ -42,3 +42,4 @@ ln -s ~/dotfiles/kitty/kitty.conf ~/.config/kitty/
 if [ "$os" == "macos" ]; then
   ln -s ~/dotfiles/mackup/mackup.cfg ~/.mackup.cfg
 fi
+ln -sf ~/dotfiles/wal ~/.config/
