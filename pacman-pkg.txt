@@ -1,4 +1,5 @@
 openssh
+ufw
 xdg-utils
 xorg-server
 xorg-xsetroot
