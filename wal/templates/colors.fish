@@ -1,16 +1,16 @@
 # set fish_color_normal normal
 set fish_color_normal {foreground.strip}
-# set fish_color_command 005fd7
+# set fish_color_command #005fd7
 set fish_color_command {color2.strip}
-# set fish_color_param 00afff
-set fish_color_param {color1.strip}
-# set fish_color_redirection 00afff
+# set fish_color_param #00afff
+set fish_color_param {color4.strip}
+# set fish_color_redirection #00afff
 set fish_color_redirection $fish_color_param
-# set fish_color_comment 990000
+# set fish_color_comment #990000
 set fish_color_comment {color8.strip}
-set fish_color_error ff0000
+set fish_color_error #ff0000
 # set fish_color_escape 00a6b2
-set fish_color_escape {color5.strip}
+set fish_color_escape {color13.strip}
 # set fish_color_operator 00a6b2
 set fish_color_operator $fish_color_escape
 set fish_color_end {color4.strip}
