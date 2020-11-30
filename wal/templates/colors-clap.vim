@@ -19,21 +19,21 @@ let s:palette.current_selection = {{ 'ctermbg': '236', 'guibg': '#4a4a4b', 'cter
 let s:palette.selected_sign = {{ 'ctermfg': '196', 'guifg': '#{color13.strip}' }}
 let s:palette.current_selection_sign = s:palette.selected_sign
 let g:clap#themes#wal#palette = s:palette
-
-" let g:clap_fuzzy_match_hl_groups = [
-"       \ [22, '#{color4.strip}'],
-"       \ [23, '#6f9dab'],
-"       \ [24, '#709ea7'],
-"       \ [25, '#719fa2'],
-"       \ [26, '#72a09e'],
-"       \ [27, '#73a19a'],
-"       \ [58, '#74a295'],
-"       \ [59, '#75a391'],
-"       \ [60, '#76a48d'],
-"       \ [61, '#77a588'],
-"       \ [62, '#78a684'],
-"       \ [63, '#{color14.strip}'],
-"       \]
+let g:clap_fuzzy_match_hl_groups = [
+      \ [22, '#4568DC'],
+      \ [23, '#4D68D8'],
+      \ [24, '#5668D5'],
+      \ [25, '#5F68D1'],
+      \ [26, '#6868CE'],
+      \ [27, '#7168CA'],
+      \ [28, '#7A69C7'],
+      \ [29, '#8369C4'],
+      \ [30, '#8C69C0'],
+      \ [31, '#9569BD'],
+      \ [32, '#9E69B9'],
+      \ [33, '#A769B6'],
+      \ [34, '#B06AB3'],
+      \]
 let &cpoptions = s:save_cpo
 unlet s:save_cpo
 
