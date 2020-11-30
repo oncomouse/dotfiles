@@ -1,7 +1,7 @@
 configuration {
  modi: "window,drun,ssh,combi";
- @import "~/.cache/wal/colors-rofi-dark";
- font: "Fira Code 18";
+ theme: "~/.cache/wal/colors-rofi-dark";
+ font: "Fira Code 14";
  combi-modi: "window,drun";
  icon-theme: "Mate";
 }

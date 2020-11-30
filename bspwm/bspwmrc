@@ -1,7 +1,8 @@
 #! /bin/sh
+# Source Pywal:
+. "${HOME}/.cache/wal/colors.sh"
 pgrep -x sxhkd > /dev/null || sxhkd &
 killall lemonbar
-~/dotfiles/bspwm/scripts/xcolors &
 ~/dotfiles/bspwm/scripts/panel &
 
 bspc monitor -d I II III IV V #VI VII VIII IX X
@@ -12,10 +13,10 @@ bspc config window_gap           5
 bspc config split_ratio          0.52
 bspc config borderless_monocle   false
 bspc config gapless_monocle      false
-bspc config normal_border_color  "$BACKGROUND"
-bspc config active_border_color  "$WHITE"
-bspc config focused_border_color "$BLUE"
-bspc config presel_feedback_color "$YELLOW"
+bspc config normal_border_color  "$background"
+bspc config active_border_color  "$color8"
+bspc config focused_border_color "$color4"
+bspc config presel_feedback_color "$color3"
 
 # bspc rule -a Gimp desktop='^8' state=floating follow=on
 # bspc rule -a Chromium desktop='^2'
