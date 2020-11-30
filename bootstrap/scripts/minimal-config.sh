@@ -6,7 +6,7 @@
 
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 # Remove any old versions of the files we create:
-declare -a created_files=("$HOME/.vimrc" "$HOME/.config/nvim/init.vim" "$HOME/.config/fish/config.fish" "$HOME/.config/fish/fishfile" "$HOME/.tmux.conf.local" "$HOME/.mackup.cfg" "$HOME/.config/kitty/kitty.conf" "$HOME/.ignore")
+declare -a created_files=("$HOME/.vimrc" "$HOME/.config/nvim/init.vim" "$HOME/.config/fish/config.fish" "$HOME/.config/fish/fishfile" "$HOME/.mackup.cfg" "$HOME/.config/kitty/kitty.conf" "$HOME/.ignore")
 
 mkdir -p ~/.backup
 for created_file in "${created_files[@]}"
