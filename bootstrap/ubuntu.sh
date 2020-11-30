@@ -4,10 +4,6 @@ bash="$(which bash)"
 
 $bash ~/dotfiles/bootstrap/bundle/apt.sh
 
-# Setup Git:
-git config --global user.name "oncomouse"
-git config --global user.email "oncomouse@gmail.com"
-
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 
 # Setup Firewall:

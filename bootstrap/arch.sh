@@ -4,13 +4,6 @@ bash=$(which bash)
 # Assume "pacman -S grub base-devel vi git curl fish" run during install:
 sudo pacman -S --noconfirm - < ~/dotfiles/pacman-pkg.txt
 
-# Setup Git:
-git config --global user.name "oncomouse"
-git config --global user.email "oncomouse@gmail.com"
-git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
-git config --global rebase.pull false
-git config --global core.editor "nvim"
-
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 $bash ~/dotfiles/bootstrap/scripts/aur.sh
 

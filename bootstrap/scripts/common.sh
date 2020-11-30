@@ -3,6 +3,7 @@
 bash="$(which bash)"
 
 $bash ~/dotfiles/bootstrap/scripts/minimal-config.sh
+$bash ~/dotfiles/bootstrap/scripts/git.sh
 $bash ~/dotfiles/bootstrap/scripts/vim.sh
 # $bash ~/dotfiles/bootstrap/scripts/terms.sh
 $bash ~/dotfiles/bootstrap/scripts/diff-so-fancy.sh
