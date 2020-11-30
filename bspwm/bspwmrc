@@ -1,6 +1,4 @@
 #! /bin/sh
-# '#232323','#d2813d','#8c9e3d','#b1942b','#6e9cb0','#b58d88','#6da280','#949d9f','#312e30','#d0913d','#96a42d','#a8a030','#8e9cc0','#d58888','#7aa880','#aeadaf' 
-
 pgrep -x sxhkd > /dev/null || sxhkd &
 killall lemonbar
 ~/dotfiles/bspwm/scripts/xcolors &
@@ -14,9 +12,10 @@ bspc config window_gap           5
 bspc config split_ratio          0.52
 bspc config borderless_monocle   false
 bspc config gapless_monocle      false
-bspc config normal_border_color  "#232323"
-bspc config active_border_color  "#949d9f"
-bspc config focused_border_color "#6e9cb0"
+bspc config normal_border_color  "$BACKGROUND"
+bspc config active_border_color  "$WHITE"
+bspc config focused_border_color "$BLUE"
+bspc config presel_feedback_color "$YELLOW"
 
 # bspc rule -a Gimp desktop='^8' state=floating follow=on
 # bspc rule -a Chromium desktop='^2'

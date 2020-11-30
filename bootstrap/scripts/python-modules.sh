@@ -36,6 +36,8 @@ if [ -z "$SERVER" ];then
   pip3install 'citation-langserver'
   # Image support for Ranger:
   pip3install 'pillow'
+  # Pywal:
+  pip3install 'pywal'
 fi
 pip3install 'pynvim'
 pip3install 'virtualfish'

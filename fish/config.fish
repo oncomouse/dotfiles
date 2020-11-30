@@ -35,10 +35,10 @@ if status --is-login
 
   # NPM Local manpath:
   set -q MANPATH || set MANPATH ''
-  set -Ux MANPATH $MANPATH ~/.npm-packages/share/man
+  set -gx MANPATH $MANPATH ~/.npm-packages/share/man
 
   # Setup mypy:
-  set -Ux MYPYPATH ~/dotfiles/python/stubs
+  set -gx MYPYPATH ~/dotfiles/python/stubs
 end
 
 # Universal ignore for ag
@@ -78,45 +78,21 @@ if status is-interactive
   if test -n "$DESKTOP_SESSION"
     set -x (gnome-keyring-daemon --start | string split "=")
   end
+  # Setup Pywal colors:
+  source ~/.cache/wal/colors.fish
+  # Setup FZF themes:
+  if status --is-login
+    set -l FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"\
+    " --bind='ctrl-e:execute(nvim {})+abort'"
+    source ~/.cache/wal/colors-fzf.fish
+  end
 # Configure FZF:
   if not set -q -U FZF_DEFAULT_COMMAND
     echo "Setting FZF"
     set -Ux FZF_DEFAULT_COMMAND "fd -t f --hidden --follow"
     set -Ux FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
     set -Ux FZF_ALT_C_COMMAND "fd --type d --hidden --follow"
-    set -l FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"\
-    " --bind='ctrl-e:execute(nvim {})+abort'"
 
-    # Base 16 but our theme:
-    set -l color00 '#232323'
-    set -l color01 '#3a3a3a'
-    set -l color02 '#515152'
-    set -l color03 '#686869'
-    set -l color04 '#807f80'
-    set -l color05 '#8b8b8c'
-    set -l color06 '#979698'
-    set -l color07 '#aeadaf'
-    set -l color08 '#d58888'
-    set -l color09 '#d2813d'
-    set -l color0A '#b1942b'
-    set -l color0B '#96a42d'
-    set -l color0C '#7aa880'
-    set -l color0D '#8e9cc0'
-    set -l color0E '#b58d88'
-    set -l color0F '#d0913d'
-
-    set -l FZF_NON_COLOR_OPTS
-
-    for arg in (echo $FZF_DEFAULT_OPTS | tr " " "\n")
-        if not string match -q -- "--color*" $arg
-            set -a FZF_NON_COLOR_OPTS $arg
-        end
-    end
-
-    set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
-    " --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D"\
-    " --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C"\
-    " --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
     set -Ux FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=ansi-dark --color=always --style=header,grid --line-range :300 {}'"
   end
 

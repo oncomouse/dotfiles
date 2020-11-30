@@ -44,3 +44,4 @@ gnome-keyring
 libsecret
 unzip
 materia-gtk-theme
+pidof

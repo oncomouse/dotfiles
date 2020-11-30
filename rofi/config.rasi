@@ -1,6 +1,6 @@
 configuration {
  modi: "window,drun,ssh,combi";
- theme: "tempus-classic";
+ @import "~/.cache/wal/colors-rofi-dark";
  font: "Fira Code 18";
  combi-modi: "window,drun";
  icon-theme: "Mate";

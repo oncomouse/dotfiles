@@ -48,6 +48,7 @@ cask "font-hasklig" # Alternate (italic) terminal font
 cask "font-tex-gyre-heros" # Used for CV on website
 
 # Programming
+brew "rustup" # Enough things I use use this
 brew "heroku/brew/heroku" # Build and install cloud apps
 brew "node" # Node.js
 brew "python" # Python 3
@@ -81,7 +82,9 @@ cask "avidemux" # Simple editing
 # Music
 # brew "portaudio"
 # brew "dbus"
-brew "rustup"
+
+# Pywal
+brew "pidof"
 
 # Other GUI Applications
 cask "firefox" # Browser
