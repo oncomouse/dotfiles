@@ -7,7 +7,7 @@ set fish_color_param {color4.strip}
 # set fish_color_redirection #00afff
 set fish_color_redirection $fish_color_param
 # set fish_color_comment #990000
-set fish_color_comment {color8.strip}
+set fish_color_comment {color7.strip}
 set fish_color_error #ff0000
 # set fish_color_escape 00a6b2
 set fish_color_escape {color13.strip}
