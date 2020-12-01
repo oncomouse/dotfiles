@@ -17,6 +17,10 @@ ln -sf ~/dotfiles/xorg/Xresources ~/.Xresources
 ln -sf ~/dotfiles/gtk-3.0 ~/.config/
 ln -sf ~/dotfiles/gtk-2.0/gtkrc-2.0 ~/.gtkrc-2.0
 
+# Enable Redshift:
+ln -sf ~/dotfiles/redshift/ ~/.config/
+systemctl --user enable redshift
+
 # Enable LightDM:
 sudo systemctl enable lightdm
 
