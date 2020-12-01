@@ -36,7 +36,7 @@ tex-gyre-fonts
 neofetch
 zathura
 zathura-pdf-poppler
-pcmanfm
+pcmanfm-gtk3
 nnn
 wireless_tools
 dunst
