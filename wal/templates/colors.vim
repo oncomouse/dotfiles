@@ -294,17 +294,19 @@ hi MarkdownItalic guifg=#{color13.strip}
 hi link htmlItalic MarkdownItalic
 hi link htmlBold MarkdownBold
 hi mkdBlockquote gui=italic cterm=italic guifg=#{color7.strip}
-hi semshiLocal           ctermfg=209 guifg=#ff875f
-hi semshiGlobal          ctermfg=214 guifg=#{color1.strip}
-hi semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
-hi semshiParameter       ctermfg=75  guifg=#{color4.strip}
-hi semshiParameterUnused ctermfg=117 guifg=#{color12.strip} cterm=underline gui=underline
-hi semshiFree            ctermfg=218 guifg=#{color5.strip}
-hi semshiBuiltin         ctermfg=207 guifg=#{color13.strip}
-hi semshiAttribute       ctermfg=49  guifg=#{color6.strip}
-hi semshiSelf            ctermfg=249 guifg=#{color7.strip}
-hi semshiUnresolved      ctermfg=226 guifg=#{color3.strip} cterm=underline gui=underline
-hi semshiSelected        ctermfg=231 guifg=#{background.strip} ctermbg=161 guibg=#ff875f
+" Semishi Formatting: {{{{{{
+  hi semshiLocal           ctermfg=209 guifg=#ff875f
+  hi semshiGlobal          ctermfg=214 guifg=#{color1.strip}
+  hi semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
+  hi semshiParameter       ctermfg=75  guifg=#{color4.strip}
+  hi semshiParameterUnused ctermfg=117 guifg=#{color12.strip} cterm=underline gui=underline
+  hi semshiFree            ctermfg=218 guifg=#{color5.strip}
+  hi semshiBuiltin         ctermfg=207 guifg=#{color13.strip}
+  hi semshiAttribute       ctermfg=49  guifg=#{color6.strip}
+  hi semshiSelf            ctermfg=249 guifg=#{color7.strip}
+  hi semshiUnresolved      ctermfg=226 guifg=#{color3.strip} cterm=underline gui=underline
+  hi semshiSelected        ctermfg=231 guifg=#{background.strip} ctermbg=161 guibg=#ff875f
 
-hi semshiErrorSign       ctermfg=231 guifg=#{foreground.strip} ctermbg=160 guibg=#d70000
-hi semshiErrorChar       ctermfg=231 guifg=#{foreground.strip} ctermbg=160 guibg=#d70000
+  hi semshiErrorSign       ctermfg=231 guifg=#{foreground.strip} ctermbg=160 guibg=#d70000
+  hi semshiErrorChar       ctermfg=231 guifg=#{foreground.strip} ctermbg=160 guibg=#d70000
+" }}}}}}
