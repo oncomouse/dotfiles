@@ -10,6 +10,8 @@ let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
   let g:dotfiles#ale#indicator_ok = ''
 " }}}
 " Statusline {{{
+  let g:dotfiles_sl_left = g:nerdfonts ? '' : ''
+  let g:dotfiles_sl_right =g:nerdfonts ? '' : ''
   function! dotfiles#statusline#componetize(func,...) abort
     let l:before = get(a:, 1, ' ')
     let l:after = get(a:, 2, ' ')
