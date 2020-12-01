@@ -48,6 +48,7 @@ function cat;bat --paging=never --theme=ansi-dark $argv;end
 function icat;kitty +kitten icat $argv; end
 function top;htop $argv;end
 function ls;exa --group-directories-first $argv;end
+function wal;python3 ~/dotfiles/wal/scripts/custom_wal.py $argv;end
 # Vim is Neovim in server mode:
 function vim
   if command -sq nvim

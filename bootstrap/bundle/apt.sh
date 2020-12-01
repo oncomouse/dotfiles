@@ -23,19 +23,6 @@ if test ! ~/.fzf; then
   ~/.fzf/install
 fi
 
-# Build and Install Tmux
-if ! which tmux > /dev/null 2>&1; then
-  sudo apt -y install automake build-essential pkg-config libevent-dev libncurses5-dev bison
-  git clone https://github.com/tmux/tmux.git ~/dotfiles/tmux
-  cd ~/dotfiles/tmux || exit
-  git checkout tags/2.9a
-  ./autogen.sh; ./configure; make
-  sudo make install
-  sudo apt -y remove automake build-essential pkg-config libevent-dev libncurses5-dev bison
-  cd ~/dotfiles || exit
-  rm -rf tmux
-fi
-
 # Install Fasd
 if ! which fasd > /dev/null 2>&1; then
   git clone https://github.com/clvv/fasd

@@ -24,6 +24,10 @@ endif
   let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
   " This avoids highlighting big files:
   let g:large_file = 20*1024*1024
+  " Set RTP for Wal stuff:
+  if g:dotfiles_mode ==# 'desktop'
+    let &runtimepath .= ','.expand('~/.cache/wal/vim/')
+  endif
 " }}}
 " Basic Vim Settings: {{{
   set mouse=a " Mouse support
@@ -118,7 +122,6 @@ endif
   endif
   call plug#begin(has('nvim') ? g:neovim_plug_dir . '/plugged/' : '~/.vim/plugged/' . g:dotfiles_mode)
   " Get Started: {{{
-    Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
     Plug 'xero/securemodelines' " Secure modelines
     set nomodeline
     let g:secure_modelines_verbose = 0
@@ -168,8 +171,9 @@ endif
       Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
     endif
   " }}}
-  " Server Syntax {{{
+  " Server-Only {{{
     if g:dotfiles_mode ==# 'server'
+      Plug 'dylanaraps/wal.vim'
       Plug 'sheerun/vim-polyglot'
     endif
   " }}}
@@ -268,7 +272,7 @@ endif
         Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
         let g:clap_insert_mode_only = v:true
         let g:clap_search_box_border_style = 'nil'
-        let g:clap_theme = 'tempus_classic'
+        let g:clap_theme = 'wal'
       endif
       " Load LSP + Completion:
       if g:complete_package =~# 'coc.nvim'
@@ -440,72 +444,7 @@ if g:dotfiles_mode ==# 'desktop'
     endif
   endif
 endif
-" Setup terminal colors:
-call dotfiles#colors#termcolors()
-" Tempus Classic Additions: {{{
-  function! s:tempus_color_additions() abort
-    hi Visual guibg=#8e9cc0 ctermbg=12
-    hi Search guibg=#b1942b guifg=#232323 ctermbg=3 ctermbg=0 gui=NONE cterm=NONE
-    hi gitcommitSummary guifg=#7aa880 ctermfg=7
-    hi gitcommitOverflow cterm=bold gui=bold ctermbg=13 guibg=#d58888 guifg=#232323 ctermfg=0
-    hi IncSearch ctermbg=9 guibg=#d0913d ctermfg=0 guifg=#232323 gui=NONE cterm=NONE
-    hi HighlightedyankRegion ctermbg=9 guibg=#d0913d ctermfg=0 guifg=#232323
-    hi CocErrorSign guibg=#312e30 guifg=#d2813d ctermfg=1 ctermbg=8
-    hi CocWarningSign guibg=#312e30 guifg=#b1942b ctermfg=3 ctermbg=8
-    hi CocInfoSign guibg=#312e30 guifg=#d2813d ctermfg=3 ctermbg=8
-    hi VisualMode guifg=#312e30 ctermfg=8 guibg=#d0913d ctermbg=9 cterm=bold gui=bold
-    hi InsertMode guifg=#312e30 ctermfg=8 guibg=#8c9e3d ctermbg=2 cterm=bold gui=bold
-    hi ReplaceMode guifg=#312e30 ctermfg=8 guibg=#d58888 ctermbg=13 cterm=bold gui=bold
-    hi CommandMode guifg=#312e30 ctermfg=8 guibg=#6da280 ctermbg=6 cterm=bold gui=bold
-    " #C594C5 182
-    hi TerminalMode guifg=#312e30 ctermfg=8 guibg=#CC9CCF ctermbg=182 cterm=bold gui=bold
-    hi NormalMode guifg=#312e30 ctermfg=8 guibg=#6e9cb0 ctermbg=4 cterm=bold gui=bold
-    hi VisualModeInv guifg=#d0913d ctermfg=9 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi InsertModeInv guifg=#8c9e3d ctermfg=2 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi ReplaceModeInv guifg=#d58888 ctermfg=13 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi CommandModeInv guifg=#6da280 ctermfg=6 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi TerminalModeInv guifg=#8e9cc0 ctermfg=12 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi NormalModeInv guifg=#6e9cb0 ctermfg=4 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi StatusLine guifg=#312e30 ctermfg=8 guibg=NONE ctermbg=NONE cterm=NONE gui=NONE
-    hi StatusLineNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi StatusLineTerm guifg=#96a42d ctermfg=10 guibg=#8c9e3d ctermbg=2 cterm=NONE gui=NONE
-    hi StatusLineTermNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi User1 ctermfg=7 guifg=#949d9f ctermbg=8 guibg=#312e30 cterm=NONE gui=NONE
-    hi User2 guifg=#312e30 ctermfg=8 guibg=#b1942b ctermbg=3 cterm=NONE gui=NONE
-    hi User3 guifg=#312e30 ctermfg=8 guibg=#d2813d ctermbg=1 cterm=NONE gui=NONE
-    hi User4 guifg=#aeadaf ctermfg=15 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
-    hi User5 guifg=#aeadaf ctermfg=15 guibg=#4a4a4b ctermbg=238 cterm=NONE gui=NONE
-    hi SpellBad gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#d58888
-    hi ALEError gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#d2813d
-    hi ALEWarning gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#b1942b
-    hi Pmenu gui=none guibg=#312e30 guifg=#aeadaf cterm=none ctermbg=8 ctermfg=15
-    hi MarkdownItalic guifg=#d58888
-    hi link htmlItalic MarkdownItalic
-    hi link htmlBold MarkdownBold
-    hi mkdBlockquote gui=italic cterm=italic guifg=#949d9f
-    " Semishi Formatting: {{{
-      hi semshiLocal           ctermfg=209 guifg=#ff875f
-      hi semshiGlobal          ctermfg=214 guifg=#d2813d
-      hi semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
-      hi semshiParameter       ctermfg=75  guifg=#6e9cb0
-      hi semshiParameterUnused ctermfg=117 guifg=#8e9cc0 cterm=underline gui=underline
-      hi semshiFree            ctermfg=218 guifg=#b58d88
-      hi semshiBuiltin         ctermfg=207 guifg=#d58888
-      hi semshiAttribute       ctermfg=49  guifg=#6da280
-      hi semshiSelf            ctermfg=249 guifg=#949d9f
-      hi semshiUnresolved      ctermfg=226 guifg=#b1942b cterm=underline gui=underline
-      hi semshiSelected        ctermfg=231 guifg=#232323 ctermbg=161 guibg=#ff875f
-
-      hi semshiErrorSign       ctermfg=231 guifg=#aeadaf ctermbg=160 guibg=#d70000
-      hi semshiErrorChar       ctermfg=231 guifg=#aeadaf ctermbg=160 guibg=#d70000
-    " }}}
-  endfunction 
-  augroup tempus_color_additions
-    autocmd!
-    autocmd ColorScheme tempus_classic call s:tempus_color_additions()
-  augroup END
-" }}}
-colorscheme tempus_classic
+colorscheme wal
 " }}}
 " Other Settings: {{{
   augroup dotfile-autocmds

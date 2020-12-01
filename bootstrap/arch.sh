@@ -4,18 +4,11 @@ bash=$(which bash)
 # Assume "pacman -S grub base-devel vi git curl fish" run during install:
 sudo pacman -S --noconfirm - < ~/dotfiles/pacman-pkg.txt
 
-# Setup Git:
-git config --global user.name "oncomouse"
-git config --global user.email "oncomouse@gmail.com"
-git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
-git config --global rebase.pull false
-git config --global core.editor "nvim"
-
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 $bash ~/dotfiles/bootstrap/scripts/aur.sh
-$bash ~/dotfiles/bootstrap/scripts/rofi.sh
 
 # Other setup files:
+ln -sf ~/dotfiles/rofi/ ~/.config/
 ln -sf ~/dotfiles/bspwm ~/.config/
 ln -sf ~/dotfiles/sxhkd ~/.config/
 ln -sf ~/dotfiles/dunst ~/.config/
@@ -25,13 +18,12 @@ ln -sf ~/dotfiles/gtk-3.0 ~/.config/
 ln -sf ~/dotfiles/gtk-2.0/gtkrc-2.0 ~/.gtkrc-2.0
 
 # Enable LightDM:
-systemctl enable lightdm
+sudo systemctl enable lightdm
 
-# Enable OpenSSH:
-systemctl enable sshd.service
-systemctl start sshd.service
+arch# Enable OpenSSH:
+sudo systemctl enable sshd.service
+sudo systemctl start sshd.service
 
-sudo pacman -S ufw
 sudo systemctl enable ufw.service
 sudo systemctl start ufw.service
 sudo ufw allow SSH

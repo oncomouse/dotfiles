@@ -22,9 +22,6 @@ brew bundle install --global --no-lock
 mkdir -p ~/.gnupg
 echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
 
-## Git Keychain:
-git config --global credential.helper osxkeychain
-
 ## macOS Defaults:
 
 # Turn on font smoothing:
