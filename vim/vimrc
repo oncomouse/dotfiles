@@ -173,7 +173,7 @@ endif
   " }}}
   " Server-Only {{{
     if g:dotfiles_mode ==# 'server'
-      Plug 'dylanaraps/wal.vim'
+      Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
       Plug 'sheerun/vim-polyglot'
     endif
   " }}}
@@ -443,8 +443,14 @@ if g:dotfiles_mode ==# 'desktop'
       lua require'colorizer'.setup{'*',markdown={names=false},text={names=false}}
     endif
   endif
+  colorscheme wal
+else
+  augroup tempus_color_additions
+    autocmd!
+    autocmd ColorScheme tempus_classic call dotfiles#colors#tempus_color_additions()
+  augroup END
+  colorscheme tempus_classic
 endif
-colorscheme wal
 " }}}
 " Other Settings: {{{
   augroup dotfile-autocmds

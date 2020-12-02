@@ -61,13 +61,13 @@ let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
           \'."%{w:['lf_active'] ? dotfiles#statusline#componetize('dotfiles#statusline#mode()', '  ', ' ') : ''}
           \%1* %f%m%h%w%r%=
           \ %y 
-          \%5*
+          \%#StatusLineInfo#
           \%{dotfiles#statusline#componetize('dotfiles#statusline#wordcount()', ' ', g:statusline_soft_sep)}
           \ %l/%L:%c 
-          \%2*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#warnings()') : ''}
-          \%3*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#errors()', '  ') : ''}
-          \%4*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#ok()', '', '  ') : ''}
-          \%2*%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#checking()', ' ', ' ') : ''}
+          \%#StatusWarning#%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#warnings()') : ''}
+          \%#StatusError#%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#errors()', '  ') : ''}
+          \%#StatusOk#%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#ok()', '', '  ') : ''}
+          \%#StatusWarning#%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#checking()', ' ', ' ') : ''}
           \%*"
   endfunction
 " }}}

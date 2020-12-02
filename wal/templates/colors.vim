@@ -49,7 +49,7 @@ hi ToolbarButton gui=bold guibg=#{color7.strip} guifg=#{background.strip} term=n
 
 hi WildMenu guibg=#{background.strip} guifg=#{foreground.strip} term=standout ctermbg=0 ctermfg=15
 
-hi Terminal guibg=#{background.strip} guifg=#{foreground.strip} term=none ctermbg=0 ctermfg=15
+hi Terminal guibg=#{background.strip} guifg=#{foreground.strip} term=none ctermbg=none ctermfg=15
 
 " Constructs
 " ----------
@@ -84,7 +84,7 @@ hi Macro gui=bold guifg=#{color9.strip} cterm=bold ctermfg=9
 hi Include guifg=#{color9.strip} ctermfg=9
 hi Define guifg=#{color9.strip} ctermfg=9
 
-hi Title gui=bold guibg=#{background.strip} guifg=#{color6.strip} cterm=bold ctermbg=0 ctermfg=6
+hi Title gui=bold guibg=#{background.strip} guifg=#{color6.strip} cterm=bold ctermbg=none ctermfg=6
 
 hi Delimeter gui=bold guifg=#{color5.strip} cterm=bold ctermfg=5
 hi Delimiter gui=bold guifg=#{color5.strip} cterm=bold ctermfg=5
@@ -256,7 +256,7 @@ hi SyntasticWarningSign guifg=#{background.strip} guibg=#{color3.strip} ctermfg=
 " Custom Additions
 " ------
 hi Visual guibg=#{color12.strip} ctermbg=12
-hi Search guibg=#{color3.strip} guifg=#{background.strip} ctermbg=3 ctermbg=0 gui=NONE cterm=NONE
+hi Search guibg=#{color3.strip} guifg=#{background.strip} ctermbg=3 ctermbg=none gui=NONE cterm=NONE
 hi gitcommitSummary guifg=#{color14.strip} ctermfg=7
 hi gitcommitOverflow cterm=bold gui=bold ctermbg=13 guibg=#{color13.strip} guifg=#{background.strip} ctermfg=0
 hi IncSearch ctermbg=9 guibg=#{color9.strip} ctermfg=0 guifg=#{background.strip} gui=NONE cterm=NONE
@@ -271,21 +271,27 @@ hi CommandMode guifg=#{color8.strip} ctermfg=8 guibg=#{color6.strip} ctermbg=6 c
 " #C594C5 182
 hi TerminalMode guifg=#{color8.strip} ctermfg=8 guibg=#CC9CCF ctermbg=182 cterm=bold gui=bold
 hi NormalMode guifg=#{color8.strip} ctermfg=8 guibg=#{color4.strip} ctermbg=4 cterm=bold gui=bold
-hi VisualModeInv guifg=#{color9.strip} ctermfg=9 guibg=#{color8.strip} ctermbg=8 cterm=NONE gui=NONE
-hi InsertModeInv guifg=#{color2.strip} ctermfg=2 guibg=#{color8.strip} ctermbg=8 cterm=NONE gui=NONE
-hi ReplaceModeInv guifg=#{color13.strip} ctermfg=13 guibg=#{color8.strip} ctermbg=8 cterm=NONE gui=NONE
-hi CommandModeInv guifg=#{color6.strip} ctermfg=6 guibg=#{color8.strip} ctermbg=8 cterm=NONE gui=NONE
-hi TerminalModeInv guifg=#{color12.strip} ctermfg=12 guibg=#{color8.strip} ctermbg=8 cterm=NONE gui=NONE
-hi NormalModeInv guifg=#{color4.strip} ctermfg=4 guibg=#{color8.strip} ctermbg=8 cterm=NONE gui=NONE
+hi VisualModeInv guifg=#{color9.strip} ctermfg=9 guibg=#{background.strip} ctermbg=none cterm=NONE gui=NONE
+hi InsertModeInv guifg=#{color2.strip} ctermfg=2 guibg=#{background.strip} ctermbg=none cterm=NONE gui=NONE
+hi ReplaceModeInv guifg=#{color13.strip} ctermfg=13 guibg=#{background.strip} ctermbg=none cterm=NONE gui=NONE
+hi CommandModeInv guifg=#{color6.strip} ctermfg=6 guibg=#{background.strip} ctermbg=none cterm=NONE gui=NONE
+hi TerminalModeInv guifg=#{color12.strip} ctermfg=12 guibg=#{background.strip} ctermbg=none cterm=NONE gui=NONE
+hi NormalModeInv guifg=#{color4.strip} ctermfg=4 guibg=#{background.strip} ctermbg=none cterm=NONE gui=NONE
 hi StatusLine guifg=#{color8.strip} ctermfg=8 guibg=NONE ctermbg=NONE cterm=NONE gui=NONE
 hi StatusLineNC guifg=#{color11.strip} ctermfg=11 guibg=#{color8.strip} ctermbg=8 cterm=NONE gui=NONE
 hi StatusLineTerm guifg=#{color10.strip} ctermfg=10 guibg=#{color2.strip} ctermbg=2 cterm=NONE gui=NONE
 hi StatusLineTermNC guifg=#{color11.strip} ctermfg=11 guibg=#{color8.strip} ctermbg=8 cterm=NONE gui=NONE
 hi User1 ctermfg=7 guifg=#{color7.strip} ctermbg=8 guibg=#{color8.strip} cterm=NONE gui=NONE
-hi User2 guifg=#{color8.strip} ctermfg=8 guibg=#{color3.strip} ctermbg=3 cterm=NONE gui=NONE
-hi User3 guifg=#{color8.strip} ctermfg=8 guibg=#{color1.strip} ctermbg=1 cterm=NONE gui=NONE
-hi User4 guifg=#{foreground.strip} ctermfg=15 guibg=#{color8.strip} ctermbg=8 cterm=NONE gui=NONE
-hi User5 guifg=#{foreground.strip} ctermfg=15 guibg=#4a4a4b ctermbg=238 cterm=NONE gui=NONE
+hi link User2 Normal
+hi StatusWarning guifg=#{color8.strip} ctermfg=8 guibg=#{color3.strip} ctermbg=3 cterm=NONE gui=NONE
+hi StatusError guifg=#{color8.strip} ctermfg=8 guibg=#{color1.strip} ctermbg=1 cterm=NONE gui=NONE
+hi StatusOk guifg=#{foreground.strip} ctermfg=15 guibg=#{color8.strip} ctermbg=8 cterm=NONE gui=NONE
+hi StatusWarningInv guibg=#{background.strip} ctermfg=none guifg=#{color3.strip} ctermfg=3 cterm=NONE gui=NONE
+hi StatusErrorInv guibg=#{background.strip} ctermfg=none guifg=#{color1.strip} ctermfg=1 cterm=NONE gui=NONE
+hi StatusOkInv guibg=#{background.strip} ctermfg=none guifg=#{color8.strip} ctermfg=8 cterm=NONE gui=NONE
+hi StatusInfoInv ctermfg=8 guifg=#{color8.strip} ctermbg=none guibg=#{background.strip} cterm=NONE gui=NONE
+hi StatusLineInfo guifg=#{foreground.strip} ctermfg=15 guibg=#4a4a4b ctermbg=238 cterm=NONE gui=NONE
+hi StatusLineInfoInv guifg=#4a4a4b ctermfg=238 ctermbg=1 guibg=#{background.strip} cterm=NONE gui=NONE
 hi SpellBad gui=underline guifg=#{foreground.strip} guibg=#{color8.strip} cterm=underline ctermfg=15 ctermbg=8 guisp=#{color13.strip}
 hi ALEError gui=underline guifg=#{foreground.strip} guibg=#{color8.strip} cterm=underline ctermfg=15 ctermbg=8 guisp=#{color1.strip}
 hi ALEWarning gui=underline guifg=#{foreground.strip} guibg=#{color8.strip} cterm=underline ctermfg=15 ctermbg=8 guisp=#{color3.strip}

@@ -70,3 +70,52 @@ function! dotfiles#colors#termcolors() abort
     let g:terminal_ansi_colors[15]=s:cterms[15][1]
   endif
 endfunction
+" Tempus Classic Additions: {{{
+function! dotfiles#colors#tempus_color_additions() abort
+  hi Visual guibg=#8e9cc0 ctermbg=12
+  hi Search guibg=#b1942b guifg=#232323 ctermbg=3 ctermbg=none gui=NONE cterm=NONE
+  hi gitcommitSummary guifg=#7aa880 ctermfg=7
+  hi gitcommitOverflow cterm=bold gui=bold ctermbg=13 guibg=#d58888 guifg=#232323 ctermfg=0
+  hi IncSearch ctermbg=9 guibg=#d0913d ctermfg=0 guifg=#232323 gui=NONE cterm=NONE
+  hi HighlightedyankRegion ctermbg=9 guibg=#d0913d ctermfg=0 guifg=#232323
+  hi CocErrorSign guibg=#312e30 guifg=#d2813d ctermfg=1 ctermbg=8
+  hi CocWarningSign guibg=#312e30 guifg=#b1942b ctermfg=3 ctermbg=8
+  hi CocInfoSign guibg=#312e30 guifg=#d2813d ctermfg=3 ctermbg=8
+  hi VisualMode guifg=#312e30 ctermfg=8 guibg=#d0913d ctermbg=9 cterm=bold gui=bold
+  hi InsertMode guifg=#312e30 ctermfg=8 guibg=#8c9e3d ctermbg=2 cterm=bold gui=bold
+  hi ReplaceMode guifg=#312e30 ctermfg=8 guibg=#d58888 ctermbg=13 cterm=bold gui=bold
+  hi CommandMode guifg=#312e30 ctermfg=8 guibg=#6da280 ctermbg=6 cterm=bold gui=bold
+  " #C594C5 182
+  hi TerminalMode guifg=#312e30 ctermfg=8 guibg=#CC9CCF ctermbg=182 cterm=bold gui=bold
+  hi NormalMode guifg=#312e30 ctermfg=8 guibg=#6e9cb0 ctermbg=4 cterm=bold gui=bold
+  hi VisualModeInv guifg=#d0913d ctermfg=9 guibg=#232323 ctermbg=none cterm=NONE gui=NONE
+  hi InsertModeInv guifg=#8c9e3d ctermfg=2 guibg=#232323 ctermbg=none cterm=NONE gui=NONE
+  hi ReplaceModeInv guifg=#d58888 ctermfg=13 guibg=#232323 ctermbg=none cterm=NONE gui=NONE
+  hi CommandModeInv guifg=#6da280 ctermfg=6 guibg=#232323 ctermbg=none cterm=NONE gui=NONE
+  hi TerminalModeInv guifg=#8e9cc0 ctermfg=12 guibg=#232323 ctermbg=none cterm=NONE gui=NONE
+  hi NormalModeInv guifg=#6e9cb0 ctermfg=4 guibg=#232323 ctermbg=none cterm=NONE gui=NONE
+  hi StatusLine guifg=#312e30 ctermfg=8 guibg=NONE ctermbg=NONE cterm=NONE gui=NONE
+  hi StatusLineNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+  hi StatusLineTerm guifg=#96a42d ctermfg=10 guibg=#8c9e3d ctermbg=2 cterm=NONE gui=NONE
+  hi StatusLineTermNC guifg=#a8a030 ctermfg=11 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+  hi User1 ctermfg=7 guifg=#949d9f ctermbg=8 guibg=#312e30 cterm=NONE gui=NONE
+  hi link User2 Normal
+  hi StatusWarning guifg=#312e30 ctermfg=8 guibg=#b1942b ctermbg=3 cterm=NONE gui=NONE
+  hi StatusError guifg=#312e30 ctermfg=8 guibg=#d2813d ctermbg=1 cterm=NONE gui=NONE
+  hi StatusOk guifg=#aeadaf ctermfg=15 guibg=#312e30 ctermbg=8 cterm=NONE gui=NONE
+  hi StatusWarningInv guibg=#232323 ctermfg=none guifg=#b1942b ctermfg=3 cterm=NONE gui=NONE
+  hi StatusErrorInv guibg=#232323 ctermfg=none guifg=#d2813d ctermfg=1 cterm=NONE gui=NONE
+  hi StatusOkInv guibg=#232323 ctermfg=none guifg=#312e30 ctermfg=8 cterm=NONE gui=NONE
+  hi StatusInfoInv ctermfg=8 guifg=#312e30 ctermbg=none guibg=#232323 cterm=NONE gui=NONE
+  hi StatusLineInfo guifg=#aeadaf ctermfg=15 guibg=#4a4a4b ctermbg=238 cterm=NONE gui=NONE
+  hi StatusLineInfoInv guifg=#4a4a4b ctermfg=238 ctermbg=1 guibg=#232323 cterm=NONE gui=NONE
+  hi SpellBad gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#d58888
+  hi ALEError gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#d2813d
+  hi ALEWarning gui=underline guifg=#aeadaf guibg=#312e30 cterm=underline ctermfg=15 ctermbg=8 guisp=#b1942b
+  hi Pmenu gui=none guibg=#312e30 guifg=#aeadaf cterm=none ctermbg=8 ctermfg=15
+  hi MarkdownItalic guifg=#d58888
+  hi link htmlItalic MarkdownItalic
+  hi link htmlBold MarkdownBold
+  hi mkdBlockquote gui=italic cterm=italic guifg=#949d9f
+endfunction 
+" }}}
