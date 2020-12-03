@@ -264,13 +264,13 @@ hi HighlightedyankRegion ctermbg=9 guibg=#{color9.strip} ctermfg=0 guifg=#{backg
 hi CocErrorSign guibg=#{color8.strip} guifg=#{color1.strip} ctermfg=1 ctermbg=8
 hi CocWarningSign guibg=#{color8.strip} guifg=#{color3.strip} ctermfg=3 ctermbg=8
 hi CocInfoSign guibg=#{color8.strip} guifg=#{color1.strip} ctermfg=3 ctermbg=8
-hi VisualMode guifg=#{color8.strip} ctermfg=8 guibg=#{color9.strip} ctermbg=9 cterm=bold gui=bold
-hi InsertMode guifg=#{color8.strip} ctermfg=8 guibg=#{color2.strip} ctermbg=2 cterm=bold gui=bold
-hi ReplaceMode guifg=#{color8.strip} ctermfg=8 guibg=#{color13.strip} ctermbg=13 cterm=bold gui=bold
-hi CommandMode guifg=#{color8.strip} ctermfg=8 guibg=#{color6.strip} ctermbg=6 cterm=bold gui=bold
+hi VisualMode guifg=#{background.strip} ctermfg=0 guibg=#{color9.strip} ctermbg=9 cterm=bold gui=bold
+hi InsertMode guifg=#{background.strip} ctermfg=0 guibg=#{color2.strip} ctermbg=2 cterm=bold gui=bold
+hi ReplaceMode guifg=#{background.strip} ctermfg=0 guibg=#{color13.strip} ctermbg=13 cterm=bold gui=bold
+hi CommandMode guifg=#{background.strip} ctermfg=0 guibg=#{color6.strip} ctermbg=6 cterm=bold gui=bold
 " #C594C5 182
-hi TerminalMode guifg=#{color8.strip} ctermfg=8 guibg=#CC9CCF ctermbg=182 cterm=bold gui=bold
-hi NormalMode guifg=#{color8.strip} ctermfg=8 guibg=#{color4.strip} ctermbg=4 cterm=bold gui=bold
+hi TerminalMode guifg=#{background.strip} ctermfg=0 guibg=#CC9CCF ctermbg=182 cterm=bold gui=bold
+hi NormalMode guifg=#{background.strip} ctermfg=0 guibg=#{color4.strip} ctermbg=4 cterm=bold gui=bold
 hi VisualModeInv guifg=#{color9.strip} ctermfg=9 guibg=#{background.strip} ctermbg=none cterm=NONE gui=NONE
 hi InsertModeInv guifg=#{color2.strip} ctermfg=2 guibg=#{background.strip} ctermbg=none cterm=NONE gui=NONE
 hi ReplaceModeInv guifg=#{color13.strip} ctermfg=13 guibg=#{background.strip} ctermbg=none cterm=NONE gui=NONE
