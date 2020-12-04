@@ -1,4 +1,5 @@
 import sys
+from os import path
 from os import system
 from pathlib import Path
 from shutil import copyfile
@@ -31,3 +32,13 @@ if which("kitty") is not None:
     system("kitty @ set-colors -a -c {}/.cache/wal/colors-kitty.conf".format(home))
 if which("fish") is not None:
     system('fish -c "source {}/.cache/wal/colors-fzf.fish"'.format(home))
+if which("bat") is not None:
+    if not path.isdir("{}/.config/bat/themes/".format(home)):
+        system("mkdir -p {}/.config/bat/themes".format(home))
+    if not path.isfile("{}/.config/bat/themes/wal.tmTheme".format(home)):
+        system(
+            "ln -sf {home}/.cache/wal/colors.tmTheme {home}/.config/bat/themes/wal.tmTheme".format(
+                home=home
+            )
+        )
+    system("bat cache --build")
