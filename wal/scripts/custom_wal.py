@@ -25,5 +25,5 @@ copyfile(
 )
 
 # Run oomox:
-if which("oomox") != None:
+if which("oomox") is not None:
     system("oomox -d True -o oomox-Wal {}/.cache/wal/colors-oomox".format(home))
