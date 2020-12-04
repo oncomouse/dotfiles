@@ -81,10 +81,12 @@ if status is-interactive
   end
   # Setup Pywal colors:
   source ~/.cache/wal/colors.fish
+  if not set -q -U FZF_DEFAULT_OPS
+    set -Ux FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"\
+                            " --bind='ctrl-e:execute(nvim {})+abort'"
+  end
   # Setup FZF themes:
-  if status --is-login
-    set -l FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"\
-    " --bind='ctrl-e:execute(nvim {})+abort'"
+  if not set -q -U FZF_COLORS
     source ~/.cache/wal/colors-fzf.fish
   end
   if not set -q -U NNN_FCOLORS

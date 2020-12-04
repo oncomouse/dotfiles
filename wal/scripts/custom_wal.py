@@ -27,3 +27,7 @@ copyfile(
 # Run oomox:
 if which("oomox") is not None:
     system("oomox -d True -o oomox-Wal {}/.cache/wal/colors-oomox".format(home))
+if which("kitty") is not None:
+    system("kitty @ set-colors -a -c {}/.cache/wal/colors-kitty.conf".format(home))
+if which("fish") is not None:
+    system('fish -c "source {}/.cache/wal/colors-fzf.fish"'.format(home))
