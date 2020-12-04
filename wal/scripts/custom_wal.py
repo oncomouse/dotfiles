@@ -2,6 +2,7 @@ import sys
 from os import system
 from pathlib import Path
 from shutil import copyfile
+from shutil import which
 
 import pywal
 
@@ -24,4 +25,5 @@ copyfile(
 )
 
 # Run oomox:
-system("oomox -d True -o oomox-Wal {}/.cache/wal/colors-oomox".format(home))
+if which("oomox") != None:
+    system("oomox -d True -o oomox-Wal {}/.cache/wal/colors-oomox".format(home))
