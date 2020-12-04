@@ -87,6 +87,10 @@ if status is-interactive
     " --bind='ctrl-e:execute(nvim {})+abort'"
     source ~/.cache/wal/colors-fzf.fish
   end
+  if not set -q -U NNN_FCOLORS
+    echo "Setting NNN_FCOLORS"
+    set -Ux NNN_FCOLORS "0603040200050E070D09abc4"
+  end
 # Configure FZF:
   if not set -q -U FZF_DEFAULT_COMMAND
     echo "Setting FZF"
