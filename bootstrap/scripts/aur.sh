@@ -4,6 +4,7 @@ packages=(
   "i3lock-color-git"
   "lemonbar-xft-git"
   "ncspot"
+  "numix-icon-theme-git"
   "otf-nerd-fonts-fira-code"
   "otf-hasklig"
   "pandoc-bin"
