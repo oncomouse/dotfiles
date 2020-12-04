@@ -9,7 +9,7 @@ home = str(Path.home())
 new_args = " ".join(sys.argv[1:])
 system("wal {}".format(new_args))
 
-# Make a temporary vim dir:
+# Make a vim dir to add to &runtimepath:
 Path("{}/.cache/wal/vim/colors/".format(home)).mkdir(parents=True, exist_ok=True)
 Path("{}/.cache/wal/vim/autoload/clap/themes/".format(home)).mkdir(
     parents=True, exist_ok=True
@@ -22,3 +22,6 @@ copyfile(
     "{}/.cache/wal/colors-clap.vim".format(home),
     "{}/.cache/wal/vim/autoload/clap/themes/wal.vim".format(home),
 )
+
+# Run oomox:
+system("oomox -d True -o oomox-Wal {}/.cache/wal/colors-oomox".format(home))
