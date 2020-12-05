@@ -3,7 +3,6 @@
 # Setup fish's environment:
 mkdir -p ~/.config/fish/functions
 mkdir -p ~/.config/fish/completions
-ln -s ~/dotfiles/fish/config.fish ~/.config/fish
 ln -sf ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
 ln -sf ~/dotfiles/fish/completions/*.fish ~/.config/fish/completions/
 find -L ~/.config/fish/functions -type l -exec rm -- {} +

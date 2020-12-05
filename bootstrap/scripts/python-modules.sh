@@ -27,7 +27,6 @@ if [ -z "$SERVER" ];then
   pip3install 'yamllint'
   # Markdown Linters:
   pip3install 'proselint'
-  ln -sf ~/dotfiles/proselint ~/.config/
   # BibTeX
   # pip3install 'bibtexparser'
   pip3install 'bibparse'

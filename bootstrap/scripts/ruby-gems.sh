@@ -12,7 +12,6 @@ if which gem > /dev/null 2>&1; then
     geminstall 'neovim'
     geminstall 'rubocop'
     geminstall 'solargraph'
-    ln -s ~/dotfiles/rubocop ~/.config
   fi
   geminstall 'bundler'
 fi

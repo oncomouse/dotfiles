@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-/usr/bin/env python ~/dotfiles/wal/scripts/custom_wal.py --theme tempus_classic
+/usr/bin/env python ~/dotfiles/scripts/wal/custom_wal.py --theme tempus_classic

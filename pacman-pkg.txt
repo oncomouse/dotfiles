@@ -48,3 +48,4 @@ unzip
 materia-gtk-theme
 redshift
 feh
+stow
