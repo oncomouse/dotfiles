@@ -47,3 +47,4 @@ libsecret
 unzip
 materia-gtk-theme
 redshift
+feh
