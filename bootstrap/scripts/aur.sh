@@ -12,6 +12,7 @@ packages=(
   "rofi-wifi-menu-git"
   "shellcheck-bin"
   "tllocalmgr-git"
+  "themix-gui-git"
   "https://github.com/oncomouse/vale-bin"
   "visual-studio-code-bin"
   "xtitle"

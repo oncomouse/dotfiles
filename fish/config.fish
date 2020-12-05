@@ -44,7 +44,7 @@ end
 # Universal ignore for ag
 function ag; /usr/bin/env ag --path-to-ignore ~/.ignore --hidden $argv; end
 # Other Command Aliases:
-function cat;bat --paging=never --theme=ansi-dark $argv;end
+function cat;bat --paging=never --theme=wal $argv;end
 function icat;kitty +kitten icat $argv; end
 function top;htop $argv;end
 function ls;exa --group-directories-first $argv;end
@@ -81,10 +81,11 @@ if status is-interactive
   end
   # Setup Pywal colors:
   source ~/.cache/wal/colors.fish
+  if not set -q -U FZF_DEFAULT_OPS
+    set -Ux FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
+  end
   # Setup FZF themes:
-  if status --is-login
-    set -l FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"\
-    " --bind='ctrl-e:execute(nvim {})+abort'"
+  if not set -q -U FZF_COLORS
     source ~/.cache/wal/colors-fzf.fish
   end
   if not set -q -U NNN_FCOLORS
@@ -98,7 +99,7 @@ if status is-interactive
     set -Ux FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
     set -Ux FZF_ALT_C_COMMAND "fd --type d --hidden --follow"
 
-    set -Ux FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=ansi-dark --color=always --style=header,grid --line-range :300 {}'"
+    set -Ux FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=wal --color=always --style=header,grid --line-range :300 {}'"
   end
 
   # Open directories in Finder w/ alt+o
