@@ -15,6 +15,7 @@ packages=(
   "themix-gui-git"
   "https://github.com/oncomouse/vale-bin"
   "visual-studio-code-bin"
+  "viu"
   "xtitle"
   "zotero"
 )

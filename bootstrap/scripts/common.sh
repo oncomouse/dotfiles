@@ -20,4 +20,5 @@ if [ -z "$SERVER" ]; then
   # $bash ~/dotfiles/bootstrap/scripts/haskell.sh
   $bash ~/dotfiles/bootstrap/scripts/csl.sh
   $bash ~/dotfiles/bootstrap/scripts/tex.sh
+  $bash ~/dotfiles/bootstrap/scripts/nnn.sh
 fi
