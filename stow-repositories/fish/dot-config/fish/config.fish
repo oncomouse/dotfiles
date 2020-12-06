@@ -48,12 +48,11 @@ function cat;bat --paging=never --theme=wal $argv;end
 function icat;kitty +kitten icat $argv; end
 function top;htop $argv;end
 function ls;exa --group-directories-first $argv;end
-function wal;python ~/dotfiles/scripts/wal/custom_wal.py $argv;end
-function stow;/usr/bin/env python "$HOME/dotfiles/scripts/stow.py" -d "$HOME/dotfiles/stow-repositories" -t "$HOME" --no-folding --dotfiles $argv;end
+function wal;python3 ~/dotfiles/wal/scripts/custom_wal.py $argv;end
 # Vim is Neovim in server mode:
 function vim
   if command -sq nvim
-    eval (which nvim) -u ~/dotfiles/stow-repositories/vim/dot-vimrc $argv
+    eval (which nvim) -u ~/dotfiles/vim/vimrc-server $argv
   else
     eval (which vim) $argv
   end
@@ -72,7 +71,7 @@ function standard;~/.npm-packages/bin/semistandard $argv | ~/.npm-packages/bin/s
 function janet-repl;/usr/local/bin/janet -e "(import spork/netrepl) (netrepl/server)";end
 
 # Dotfiles utility functions:
-source $HOME/dotfiles/configurations/fish/dotfiles.fish
+source $HOME/dotfiles/fish/dotfiles.fish
 
 # The rest of this configuration file only needs to load if shell is interactive:
 if status is-interactive
@@ -82,7 +81,7 @@ if status is-interactive
   end
   # Setup Pywal colors:
   source ~/.cache/wal/colors.fish
-  if not set -q -U FZF_DEFAULT_OPS
+  if not set -q FZF_DEFAULT_OPTS
     set -Ux FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
   end
   # Setup FZF themes:
