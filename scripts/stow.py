@@ -61,6 +61,11 @@ def stow():
             args.output_dir, guess_filename(input_file.replace(stash_dir + "/", ""))
         )
         if path.isdir(input_file):
+            if path.islink(output_file) and args.overwrite:
+                if args.no or args.verbose:
+                    print("Removing existing file at: {}".format(output_file))
+                if not args.no:
+                    os.unlink(output_file)
             if path.isdir(output_file) or args.no_folding:
                 for file in pathlib.Path(input_file).glob("*"):
                     stow_files.append(str(file))
@@ -71,6 +76,11 @@ def stow():
                     os.symlink(input_file, output_file)
         else:
             ## Make the output directory, if it does not exist:
+            if path.islink(output_file) and args.overwrite:
+                if args.no or args.verbose:
+                    print("Removing existing file at: {}".format(output_file))
+                if not args.no:
+                    os.unlink(output_file)
             if not path.isdir(path.dirname(output_file)):
                 if args.no or args.verbose:
                     print("Making path at: {}".format(path.dirname(output_file)))
