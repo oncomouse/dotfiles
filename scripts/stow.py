@@ -104,6 +104,8 @@ def delete():
                     os.unlink(output_file)
     # Remove any empty directories we might have created when stowing:
     for directory in directories:
+        if not path.isdir(file) and not path.islink(file):
+            continue
         if len(os.listdir(directory)) == 0:
             if args.no or args.verbose:
                 print("Unlinking: {}".format(directory))
