@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 dotfiles_stow () {
-  /usr/bin/env python "$HOME/dotfiles/scripts/stow.py" -d "$HOME/dotfiles/stow-repositories" -t "$HOME" --no-folding --dotfiles --no "$1"
+  /usr/bin/env python "$HOME/dotfiles/scripts/stow.py" -d "$HOME/dotfiles/stow-repositories" -t "$HOME" --no-folding --dotfiles --overwrite "$1"
 }
 # Basic Setup:
 mkdir -p ~/.config/fish
