@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 
 # Setup fish's environment:
-mkdir -p ~/.config/fish/functions
-mkdir -p ~/.config/fish/completions
-ln -sf ~/dotfiles/fish/functions/*.fish ~/.config/fish/functions/
-ln -sf ~/dotfiles/fish/completions/*.fish ~/.config/fish/completions/
-find -L ~/.config/fish/functions -type l -exec rm -- {} +
-find -L ~/.config/fish/completions -type l -exec rm -- {} +
+/usr/bin/env python "$HOME/dotfiles/scripts/stow.py" -d "$HOME/dotfiles/stow-repositories" -t "$HOME" --no-folding --dotfiles -R fish
 
 fisher_plugins=(
   "jorgebucaran/fisher"
