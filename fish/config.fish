@@ -81,7 +81,7 @@ if status is-interactive
   end
   # Setup Pywal colors:
   source ~/.cache/wal/colors.fish
-  if not set -q -U FZF_DEFAULT_OPS
+  if not set -q FZF_DEFAULT_OPTS
     set -Ux FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
   end
   # Setup FZF themes:
