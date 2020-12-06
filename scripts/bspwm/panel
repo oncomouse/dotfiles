@@ -12,7 +12,7 @@
 # Source Pywal:
 . "${HOME}/.cache/wal/colors.sh"
 
-# Panel configurations
+# Panel conf
 PANEL_HEIGHT=35
 PANEL_HORIZONTAL_OFFSET=$(bspc config window_gap)
 PANEL_VERTICAL_OFFSET=$(bspc config window_gap)

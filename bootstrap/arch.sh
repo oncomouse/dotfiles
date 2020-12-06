@@ -2,7 +2,7 @@
 bash=$(which bash)
 
 # Assume "pacman -S grub base-devel vi git curl fish" run during install:
-sudo pacman -S --noconfirm - < ~/dotfiles/configurations/pacman/packages.txt
+sudo pacman -S --noconfirm - < ~/dotfiles/conf/pacman/packages.txt
 
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 if [ -z "$SERVER" ]; then

@@ -57,9 +57,9 @@ end
 # Vi is Neovim or Vim in barebones mode:
 function vi
   if command -sq nvim
-    eval (which nvim) -u ~/dotfiles/configurations/vim/vimrc-minimal $argv
+    eval (which nvim) -u ~/dotfiles/conf/vim/vimrc-minimal $argv
   else if command -sq vim
-    eval (which vim) -u ~/dotfiles/configurations/vim/vimrc-minimal $argv
+    eval (which vim) -u ~/dotfiles/conf/vim/vimrc-minimal $argv
   else
     eval (which vi) $argv
   end
@@ -68,7 +68,7 @@ function standard;~/.npm-packages/bin/semistandard $argv | ~/.npm-packages/bin/s
 function janet-repl;/usr/local/bin/janet -e "(import spork/netrepl) (netrepl/server)";end
 
 # Dotfiles utility functions:
-source /Users/apilsch/dotfiles/configurations/fish/dotfiles.fish
+source /Users/apilsch/dotfiles/conf/fish/dotfiles.fish
 
 # The rest of this configuration file only needs to load if shell is interactive:
 if status is-interactive
