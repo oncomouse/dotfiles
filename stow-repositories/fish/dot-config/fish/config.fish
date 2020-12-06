@@ -36,9 +36,6 @@ if status --is-login
   # NPM Local manpath:
   set -q MANPATH || set MANPATH ''
   set -gx MANPATH $MANPATH ~/.npm-packages/share/man
-
-  # Setup mypy:
-  set -gx MYPYPATH ~/dotfiles/python/stubs
 end
 
 # Universal ignore for ag
@@ -48,11 +45,11 @@ function cat;bat --paging=never --theme=wal $argv;end
 function icat;kitty +kitten icat $argv; end
 function top;htop $argv;end
 function ls;exa --group-directories-first $argv;end
-function wal;python3 ~/dotfiles/wal/scripts/custom_wal.py $argv;end
+function wal;python3 ~/dotfiles/scripts/wal/custom_wal.py $argv;end
 # Vim is Neovim in server mode:
 function vim
   if command -sq nvim
-    eval (which nvim) -u ~/dotfiles/vim/vimrc-server $argv
+    eval (which nvim) -u ~/.vimrc $argv
   else
     eval (which vim) $argv
   end
@@ -60,9 +57,9 @@ end
 # Vi is Neovim or Vim in barebones mode:
 function vi
   if command -sq nvim
-    eval (which nvim) -u ~/dotfiles/vim/vimrc-minimal $argv
+    eval (which nvim) -u ~/dotfiles/configurations/vim/vimrc-minimal $argv
   else if command -sq vim
-    eval (which vim) -u ~/dotfiles/vim/vimrc-minimal $argv
+    eval (which vim) -u ~/dotfiles/configurations/vim/vimrc-minimal $argv
   else
     eval (which vi) $argv
   end
@@ -71,7 +68,7 @@ function standard;~/.npm-packages/bin/semistandard $argv | ~/.npm-packages/bin/s
 function janet-repl;/usr/local/bin/janet -e "(import spork/netrepl) (netrepl/server)";end
 
 # Dotfiles utility functions:
-source $HOME/dotfiles/fish/dotfiles.fish
+source /Users/apilsch/dotfiles/configurations/fish/dotfiles.fish
 
 # The rest of this configuration file only needs to load if shell is interactive:
 if status is-interactive
