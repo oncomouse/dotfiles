@@ -109,6 +109,11 @@ def delete():
                 print("Unlinking: {}".format(directory))
             if not args.no:
                 os.rmdir(directory)
+        else:
+            for file in pathlib.Path(directory).glob("*"):
+                if path.islink(file) and not os.path.exists(os.readlink(str(file))):
+                    if not args.no:
+                        os.unlink(str(file))
 
 
 # Arguments:
