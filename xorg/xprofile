@@ -1,3 +1,0 @@
-/usr/bin/dunst &
-xrdb ~/.Xresources
-feh --bg-scale wallpaper/wallhaven-453lo1.jpg

@@ -13,8 +13,6 @@ if test ! "$(which ghcup)"; then
 fi
 ghcup upgrade
 
-ln -sf ~/dotfiles/haskell/ghci ~/.ghci
-
 ghcup install ghc recommended
 ghcup install cabal recommended
 ghcup install hls recommended

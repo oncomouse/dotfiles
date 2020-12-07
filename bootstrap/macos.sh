@@ -15,7 +15,6 @@ else
 fi
 
 ## Install Brew
-ln -sf ~/dotfiles/Brewfile ~/.Brewfile
 brew bundle install --global --no-lock
 
 ## GnuPG Setup for Mac:
@@ -44,12 +43,7 @@ if ! echo "$SHELL" | ag fish > /dev/null 2>&1; then
   sudo dscl . -create "/Users/$USER" UserShell /usr/local/bin/fish
 fi
 
-## Configure Karabiner
-mkdir -p ~/.config/karabiner
-ln -sf ~/dotfiles/automation/karabiner ~/.config/karabiner
-
 ## Configure Hammerspoon
-ln -sf ~/dotfiles/hammerspoon ~/.hammerspoon
 
 ## Configure Kitty:
 mkdir -p ~/.terminfo/78/

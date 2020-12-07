@@ -9,11 +9,4 @@ elif [ "$os" == "ubuntu" ]; then
   sudo apt install libncursesw5-dev libdbus-1-dev libpulse-dev libssl-dev libxcb1-dev libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev
   cargo install --path ~/ncspot
 fi
-if [ "$os" == "macos" ]; then
-  mkdir -p ~/Library/Preferences/org.affekt.ncspot/
-  ln -sf ~/dotfiles/ncspot/config.toml ~/Library/Preferences/org.affekt.ncspot/config.toml
-else
-  mkdir -p ~/.config/ncspot
-  ln -sf ~/dotfiles/ncspot/config.toml ~/.config/ncspot/config.toml
-fi
 rm -rf ~/ncspot
