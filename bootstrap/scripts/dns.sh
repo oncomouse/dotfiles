@@ -15,4 +15,18 @@ if [[ $os == "macos" ]];then
   dig google.com @127.0.0.1
 
   echo "Assuming the two dig command above ran, you can set your DNS to 127.0.0.1"
+elif [[ $os == "arch" ]];then
+  rm /etc/resolv.conf
+  ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+  mkdir -p /etc/resolved.conf.d
+cat <<-'EOF' | sudo tee /etc/resolved.conf.d/dnssec.conf
+[Resolve]
+DNSSEC=true
+EOF
+cat <<-'EOF' | sudo tee /etc/resolved.conf.d/dns-over-tls.conf
+[Resolve]
+DNS=9.9.9.9
+DNSOverTLS=yes
+EOF
+  sudo systemctl restart systemd-resolved
 fi

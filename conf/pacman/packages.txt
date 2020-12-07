@@ -1,6 +1,5 @@
 openssh
-dnsmasq
-dnscrypt-proxy
+systemd-resolvconf
 ufw
 xdg-utils
 xorg-server
