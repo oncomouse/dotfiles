@@ -68,7 +68,7 @@ function standard;~/.npm-packages/bin/semistandard $argv | ~/.npm-packages/bin/s
 function janet-repl;/usr/local/bin/janet -e "(import spork/netrepl) (netrepl/server)";end
 
 # Dotfiles utility functions:
-source /Users/apilsch/dotfiles/conf/fish/dotfiles.fish
+source $HOME/dotfiles/conf/fish/dotfiles.fish
 
 # The rest of this configuration file only needs to load if shell is interactive:
 if status is-interactive
