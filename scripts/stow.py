@@ -224,8 +224,8 @@ parser.add_argument(
 )
 parser.add_argument(
     "stash",
-    default=None,
-    nargs="?",
+    default=[],
+    nargs="*",
     help="The name of the stow repository (directory located inside of --dir) to stow.",
 )
 args = parser.parse_args()
@@ -239,7 +239,7 @@ if (
     raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT))
 
 delete_repos = args.delete + args.restow
-stow_repos = args.restow + args.stow + ([args.stash] if args.stash is not None else [])
+stow_repos = args.restow + args.stow + args.stash
 if len(delete_repos) > 0:
     for repo in delete_repos:
         if args.no or args.verbose:
