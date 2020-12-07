@@ -10,7 +10,8 @@ tap "heroku/brew"
 brew "coreutils"
 brew "git" # Always useful to have up-to-date versions
 brew "openssh" # More up-to-date version than system
-brew "stow" # GNU Stow, dotfile manager
+brew "dnsmasq" # DNS
+brew "dnscrypt-proxy" # DNS
 
 # Shell
 brew "bat" # syntax highlighting cat

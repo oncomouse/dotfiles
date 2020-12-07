@@ -1,4 +1,6 @@
 openssh
+dnsmasq
+dnscrypt-proxy
 ufw
 xdg-utils
 xorg-server
