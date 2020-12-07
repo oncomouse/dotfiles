@@ -41,5 +41,4 @@ useradd -m -G wheel -s /usr/bin/fish andrew
 > DHCP=yes
 
 1. systemctl enable systemd-networkd.service
-1. systemctl enable systemd-resolved.service
 1. systemctl enable dhcpcd.service
