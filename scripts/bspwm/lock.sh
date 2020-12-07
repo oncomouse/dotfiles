@@ -36,4 +36,4 @@ i3lock --nofork                 \
     \
     --indicator			\
     \
-    --image=$HOME/dotfiles/wallpaper/lock-wallpaper.png
+    --image=$HOME/dotfiles/conf/wallpaper/lock-wallpaper.png
