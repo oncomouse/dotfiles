@@ -34,22 +34,36 @@ if ! which fasd > /dev/null 2>&1; then
   rm -rf fasd
 fi
 
+package_version() {
+  regex='^http'
+  if [[ $1 =~ $regex ]]; then
+    url=$1
+  else
+    url="https://github.com/${1}"
+  fi
+  pkgver=$(git ls-remote --sort="version:refname" --tags "${url}" | tail -n 1 | cut -d "/" -f3 | sed -e "s/v//" | tr -d '\n')
+  echo -n "$pkgver"
+}
+
 # Install Bat
 if ! which bat > /dev/null 2>&1; then
-  curl -sLo ~/dotfiles/bat.deb https://github.com/sharkdp/bat/releases/download/v0.11.0/bat-musl_0.11.0_amd64.deb
+  pkgver=$(package_version sharkdp/bat)
+  curl -sLo ~/dotfiles/bat.deb https://github.com/sharkdp/bat/releases/download/v${pkgver}/bat-musl_${pkgver}_amd64.deb
   sudo dpkg -i ~/dotfiles/bat.deb
   rm ~/dotfiles/bat.deb
 fi
 
 # Install fd
 if ! which fd > /dev/null 2>&1; then
-  curl -sLo ~/dotfiles/fd.deb https://github.com/sharkdp/fd/releases/download/v7.3.0/fd-musl_7.3.0_amd64.deb
+  pkgver=$(package_version sharkdp/fd)
+  curl -sLo ~/dotfiles/fd.deb https://github.com/sharkdp/fd/releases/download/v${pkgver}/fd-musl_${pkgver}_amd64.deb
   sudo dpkg -i ~/dotfiles/fd.deb
   rm ~/dotfiles/fd.deb
 fi
 
 if ! which exa > /dev/null 2>&1; then
-  curl -sLo ~/dotfiles/exa.zip https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
+  pkgver=$(package_version ogham/exa)
+  curl -sLo ~/dotfiles/exa.zip https://github.com/ogham/exa/releases/download/v${pkgver}/exa-linux-x86_64-${pkgver}.zip
   sudo apt-get install -y unzip
   unzip ~/dotfiles/exa.zip
   sudo mv exa-linux-x86_64 /usr/local/bin/exa
