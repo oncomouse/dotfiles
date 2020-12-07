@@ -16,6 +16,11 @@ from collections import deque
 from os import path
 
 
+def get_stash_dir(stow):
+    global args
+    return path.join(path.realpath(args.source_dir), stow)
+
+
 def guess_filename(file):
     """Figure out the file's name when it has been deployed."""
     global args
@@ -44,7 +49,7 @@ def output_file_exists(input_file, output_file):
     )
 
 
-def stow():
+def stow(repo):
     """Parse the indicated repository and stow the necessary files.
 
     The logic of this function is pretty complicated, but it seems to work best
@@ -53,7 +58,8 @@ def stow():
     become needed. This appears to be the best way to implement folding or to
     avoid folding when required.
     """
-    global stash_dir, args
+    global args
+    stash_dir = get_stash_dir(repo)
     stow_files = deque([str(file) for file in pathlib.Path(stash_dir).glob("*")])
     while len(stow_files) > 0:
         input_file = stow_files.pop()
@@ -111,10 +117,11 @@ def stow():
                 os.symlink(input_file, output_file)
 
 
-def delete():
+def delete(repo):
     """Handle deleting stowed files."""
-    global stash_dir, args
+    global args
     # We track directories so we can remove any we empty:
+    stash_dir = get_stash_dir(repo)
     directories = []
     for file in pathlib.Path(stash_dir).glob("**/*"):
         input_file = str(file)
@@ -167,13 +174,25 @@ parser.add_argument(
 parser.add_argument(
     "--delete",
     "-D",
-    action="store_true",
+    type=str,
+    default=[],
+    nargs="+",
     help="Delete a previously stowed repository by removing the deployed symlinks.",
+)
+parser.add_argument(
+    "--stow",
+    "-S",
+    type=str,
+    default=[],
+    nargs="+",
+    help="Explicitly stow a repository. Useful when stacking multiple operations.",
 )
 parser.add_argument(
     "--restow",
     "-R",
-    action="store_true",
+    type=str,
+    default=[],
+    nargs="+",
     help="Delete and then stow a previously stowed repository. This is useful for cleaning dead symlinks.",
 )
 parser.add_argument(
@@ -205,15 +224,29 @@ parser.add_argument(
 )
 parser.add_argument(
     "stash",
+    default=None,
+    nargs="?",
     help="The name of the stow repository (directory located inside of --dir) to stow.",
 )
 args = parser.parse_args()
 
-stash_dir = path.join(path.realpath(args.source_dir), args.stash)
-if not path.isdir(stash_dir):
-    raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), stash_dir)
-if args.delete or args.restow:
-    delete()
-if not args.delete:
-    ## Find a way to delete dead links
-    stow()
+if (
+    len(args.delete) == 0
+    and len(args.stow) == 0
+    and len(args.restow) == 0
+    and args.stash is None
+):
+    raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT))
+
+delete_repos = args.delete + args.restow
+stow_repos = args.restow + args.stow + ([args.stash] if args.stash is not None else [])
+if len(delete_repos) > 0:
+    for repo in delete_repos:
+        if args.no or args.verbose:
+            print("Deleting: {}".format(repo))
+        delete(repo)
+if len(stow_repos) > 0:
+    for repo in stow_repos:
+        if args.no or args.verbose:
+            print("Stowing: {}".format(repo))
+        stow(repo)
