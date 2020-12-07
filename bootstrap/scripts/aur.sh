@@ -31,13 +31,23 @@ for package in "${packages[@]}"; do
   else
     url="https://aur.archlinux.org/$package"
   fi
+  build=1
   if [ -d "./$package" ]; then
     cd "$package" || continue
-    git pull
+    git remote update >> /dev/null
+    local_rev=$(git rev-parse master)
+    remote_rev=$(git rev-parse origin/master)
+    if [[ $local_rev != "$remote_rev" ]];then
+      git pull
+    else
+      build=0
+    fi
   else
     git clone "$url"
     cd "$package" || continue
   fi
-  makepkg -si --noconfirm
+  if [[ $build == 1 ]]; then
+    makepkg -si --noconfirm
+  fi
 done
 cd ~/dotfiles || exit
