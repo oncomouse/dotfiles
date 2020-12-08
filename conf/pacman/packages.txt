@@ -1,5 +1,6 @@
 openssh
-systemd-resolvconf
+unbound-resolvconf
+unbound
 ufw
 xdg-utils
 xorg-server
