@@ -83,7 +83,8 @@ if status is-interactive
     set -Ux FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
   end
   # Setup FZF themes:
-  if not set -q -U FZF_COLORS
+  if test (echo $FZF_DEFAULT_OPTS | grep color -c) -eq 0
+    echo "Sourcing FZF_COLORS"
     source ~/.cache/wal/colors-fzf.fish
   end
   if not set -q -U NNN_FCOLORS
