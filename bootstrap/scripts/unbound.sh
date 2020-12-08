@@ -134,6 +134,6 @@ elif [[ $os == "arch" ]]; then
   cat << EOF | sudo tee /etc/resolv.conf
 nameserver ::1
 nameserver 127.0.0.1
-options trust-adfi
+options trust-ad
 EOF
 fi
