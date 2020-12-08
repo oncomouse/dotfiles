@@ -125,7 +125,8 @@ if [[ $os == "macos" ]]; then
   networksetup -setdnsservers Wi-Fi 127.0.0.1
 elif [[ $os == "arch" ]]; then
   sudo systemctl stop systemd-resolved
-  sudo systemctl disable systemd-resolved  sudo systemctl enable unbound-resolvconf
+  sudo systemctl disable systemd-resolved
+  sudo systemctl enable unbound-resolvconf
   sudo systemctl enable unbound
   sudo systemctl start unbound-resolvconf
   sudo systemctl start unbound
