@@ -58,7 +58,7 @@ server:
 	# enable IPV4
 	do-ip4: yes
 	# disable IPV6
-	do-ip6: yes
+	do-ip6: no
 	# enable UDP
 	do-udp: yes
 	# enable TCP, you could disable this if not needed, UDP is quicker
