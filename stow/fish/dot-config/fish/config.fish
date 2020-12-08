@@ -36,6 +36,9 @@ if status --is-login
   # NPM Local manpath:
   set -q MANPATH || set MANPATH ''
   set -gx MANPATH $MANPATH ~/.npm-packages/share/man
+
+  # Set Python stub location:
+  set -gx MYPYPATH ~/dotfiles/conf/python-stubs
 end
 
 # Universal ignore for ag
