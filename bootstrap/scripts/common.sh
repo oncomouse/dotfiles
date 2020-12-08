@@ -5,7 +5,7 @@ bash="$(which bash)"
 $bash ~/dotfiles/bootstrap/scripts/stow.sh
 $bash ~/dotfiles/bootstrap/scripts/git.sh
 $bash ~/dotfiles/bootstrap/scripts/vim.sh
-$bash ~/dotfiles/bootstrap/scripts/dns.sh
+$bash ~/dotfiles/bootstrap/scripts/unbound.sh
 $bash ~/dotfiles/bootstrap/scripts/diff-so-fancy.sh
 $bash ~/dotfiles/bootstrap/scripts/node-modules.sh
 $bash ~/dotfiles/bootstrap/scripts/python-modules.sh
