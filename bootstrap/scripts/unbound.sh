@@ -39,11 +39,11 @@ elif [[ $os == "arch" ]]; then
   root=""
   sudo useradd _unbound
 fi
-sudo unbound-anchor -a "${root}/etc/unbound/root.key"
+sudo unbound-anchor -4 -a "${root}/etc/unbound/root.key"
 sudo unbound-control-setup -d "${root}/etc/unbound"
 sudo curl --output "${root}/etc/unbound/root.hints" https://www.internic.net/domain/named.cache
 (curl --silent https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts | grep '^0\.0\.0\.0' | sort) | awk '{print "local-zone: \""$2"\" refuse"}' | sudo tee "${root}/etc/unbound/zone-block-general.conf"
-cat << 'EOF' | sudo tee "${root}/etc/unbound/unbound.conf"
+cat << EOF | sudo tee "${root}/etc/unbound/unbound.conf"
 server:
 	# log verbosity
 	verbosity: 1
@@ -51,14 +51,14 @@ server:
 	access-control: 127.0.0.1/8 allow
 	chroot: ""
 	username: "_unbound"
-	auto-trust-anchor-file: "${root}/etc/unbound/root.key"
-	root-hints: "${root}/etc/unbound/root.hints"
+	auto-trust-anchor-file: root.key
+	root-hints: root.hints
 	# answer DNS queries on this port
 	port: 53
 	# enable IPV4
 	do-ip4: yes
 	# disable IPV6
-	do-ip6: no
+	do-ip6: yes
 	# enable UDP
 	do-udp: yes
 	# enable TCP, you could disable this if not needed, UDP is quicker
@@ -127,7 +127,7 @@ elif [[ $os == "arch" ]]; then
   sudo systemctl start unbound-resolvconf
   sudo systemctl start unbound
   sudo rm /etc/resolv.conf
-  cat << 'EOF' | sudo tee /etc/resolv.conf
+  cat << EOF | sudo tee /etc/resolv.conf
 nameserver ::1
 nameserver 127.0.0.1
 options trust-adfi
