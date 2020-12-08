@@ -3,6 +3,7 @@ os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 if [[ $os == "macos" ]];then
   root="/usr/local"
   tls="/usr/local/etc/openssl/cert.pem"
+  group="staff"
   user_id=$(dscl . -list /Users UniqueID | grep _unbound | sed -e "s/.* //g")
   group_id=$(dscl . -list /Groups PrimaryGroupID | grep _unbound | sed -e "s/.* //g")
   if [[ $user_id == '' ]];then
@@ -38,8 +39,8 @@ if [[ $os == "macos" ]];then
   fi
 elif [[ $os == "arch" ]]; then
   root=""
+  group="wheel"
   tls="/etc/ssl/certs/ca-certificates.crt"
-  sudo useradd _unbound
 fi
 sudo unbound-anchor -4 -a "${root}/etc/unbound/root.key"
 sudo unbound-control-setup -d "${root}/etc/unbound"
@@ -118,7 +119,7 @@ forward-zone:
 	# forward-addr:1.1.1.1@853
 	forward-tls-upstream: yes
 EOF
-sudo chown -R _unbound:staff "${root}/etc/unbound"
+sudo chown -R _unbound:${group} "${root}/etc/unbound"
 sudo chmod 640 "${root}"/etc/unbound/*
 if [[ $os == "macos" ]]; then
   sudo brew services start unbound
@@ -126,9 +127,12 @@ if [[ $os == "macos" ]]; then
 elif [[ $os == "arch" ]]; then
   sudo systemctl stop systemd-resolved
   sudo systemctl disable systemd-resolved
-  sudo systemctl enable unbound-resolvconf
+  cat << EOF | sudo SYSTEMD_EDITOR=tee systemctl edit unbound.service
+[Service]
+User=
+User=root
+EOF
   sudo systemctl enable unbound
-  sudo systemctl start unbound-resolvconf
   sudo systemctl start unbound
   sudo rm /etc/resolv.conf
   cat << EOF | sudo tee /etc/resolv.conf
@@ -136,4 +140,5 @@ nameserver ::1
 nameserver 127.0.0.1
 options trust-ad
 EOF
+  sudo chattr +i /etc/resolv.conf
 fi

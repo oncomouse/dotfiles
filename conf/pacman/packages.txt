@@ -1,6 +1,6 @@
 openssh
-unbound-resolvconf
 unbound
+expat
 ufw
 xdg-utils
 xorg-server
