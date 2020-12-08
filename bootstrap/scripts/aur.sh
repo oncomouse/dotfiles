@@ -9,6 +9,7 @@ packages=(
   "otf-hasklig"
   "pandoc-bin"
   "perl-term-shellui"
+  "picom-git"
   "rofi-wifi-menu-git"
   "shellcheck-bin"
   "tllocalmgr-git"
