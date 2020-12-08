@@ -2,6 +2,7 @@
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 if [[ $os == "macos" ]];then
   root="/usr/local"
+  tls="/usr/local/etc/openssl/cert.pem"
   user_id=$(dscl . -list /Users UniqueID | grep _unbound | sed -e "s/.* //g")
   group_id=$(dscl . -list /Groups PrimaryGroupID | grep _unbound | sed -e "s/.* //g")
   if [[ $user_id == '' ]];then
@@ -37,6 +38,7 @@ if [[ $os == "macos" ]];then
   fi
 elif [[ $os == "arch" ]]; then
   root=""
+  tls="/etc/ssl/certs/ca-certificates.crt"
   sudo useradd _unbound
 fi
 sudo unbound-anchor -4 -a "${root}/etc/unbound/root.key"
@@ -100,6 +102,7 @@ server:
 	val-clean-additional: yes
 	# additional blocklist (Steven Black hosts file, read above)
 	include: ${root}/etc/unbound/zone-block-general.conf
+        tls-cert-bundle: ${tls}
 remote-control:
 	control-enable: yes
 	control-interface: 127.0.0.1
@@ -113,7 +116,7 @@ forward-zone:
 	forward-addr:9.9.9.9@853
 	# or Cloudflare
 	# forward-addr:1.1.1.1@853
-	forward-ssl-upstream:yes
+	forward-tls-upstream: yes
 EOF
 sudo chown -R _unbound:staff "${root}/etc/unbound"
 sudo chmod 640 "${root}"/etc/unbound/*
