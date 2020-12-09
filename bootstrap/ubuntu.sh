@@ -70,6 +70,13 @@ if ! which exa > /dev/null 2>&1; then
   rm ~/dotfiles/exa.zip
 fi
 
+if ! which rg > /dev/null 2>&1; then
+  pkgver=$(package_version BurntSushi/ripgrep)
+  curl -sLo ~/dotfiles/rg.deb https://github.com/BurntSushi/ripgrep/releases/download/v${pkgver}/ripgrep_${pkgver}_amd64.deb
+  sudo dpkg -i ~/dotfiles/rg.deb
+  rm ~/dotfiles/rg.deb
+fi
+
 if [ -z "$SERVER" ]; then
   sudo apt-get install -y pandoc pandoc-citeproc diction bibtool
   sudo apt-get install -y firefox
