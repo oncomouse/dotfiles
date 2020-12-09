@@ -48,8 +48,8 @@ function cat;bat --paging=never --theme=wal $argv;end
 function icat;kitty +kitten icat $argv; end
 function top;htop $argv;end
 function ls;exa --group-directories-first $argv;end
-function wal;python $HOME/dotfiles/scripts/wal/custom_wal.py $argv;end
-function stow;python $HOME/dotfiles/scripts/stow.py -d "$HOME/dotfiles/stow" -t "$HOME" --no-folding --dotfiles $argv;end
+function wal;eval (if command -sq python3; echo "python3"; else; echo "python"; end) $HOME/dotfiles/scripts/wal/custom_wal.py $argv;end
+function stow;eval (if command -sq python3; echo "python3"; else; echo "python"; end) $HOME/dotfiles/scripts/stow.py -d "$HOME/dotfiles/stow" -t "$HOME" --no-folding --dotfiles $argv;end
 # Vim is Neovim in server mode:
 function vim
   if command -sq nvim
@@ -81,7 +81,9 @@ if status is-interactive
     set -x (gnome-keyring-daemon --start | string split "=")
   end
   # Setup Pywal colors:
-  source ~/.cache/wal/colors.fish
+  if test -d ~/.cache/wal/colors.fish
+    source ~/.cache/wal/colors.fish
+  end
   if not set -q FZF_DEFAULT_OPTS
     set -Ux FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
   end

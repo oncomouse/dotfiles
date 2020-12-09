@@ -38,7 +38,7 @@ if [ -z "$SERVER" ]; then
   if [ "$os" == "macos" ]; then
     mkdir -p ~/Library/Preferences/org.affekt.ncspot/
     dotfiles_stow ncspot-macos
-  else
+  elif [ -z "$SERVER" ]; then
     mkdir -p ~/.config/ncspot
     dotfiles_stow ncspot-linux
   fi
