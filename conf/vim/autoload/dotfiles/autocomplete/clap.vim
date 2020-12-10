@@ -1,6 +1,6 @@
 function! dotfiles#autocomplete#clap#init() abort
   " Old FZF Interface:
-  command! -nargs=? -complete=dir Files exe 'Clap files ++query='.<q-args>.' --hidden'
+  command! -nargs=? -complete=dir Files exe 'Clap files ++query='.<q-args>
   command! Buffers :exe 'Clap buffers'
   command! Windows :exe 'Clap windows'
   command! BLines :exe 'Clap lines'
