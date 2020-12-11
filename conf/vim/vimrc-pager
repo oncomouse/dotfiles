@@ -1,0 +1,21 @@
+if has('clipboard')
+  if has('unnamedplus')
+    set clipboard=unnamedplus,unnamed
+  else
+    set clipboard=unnamed
+  endif
+endif
+let &runtimepath .= ','.expand('~/dotfiles/conf/vim/')
+if has('mac') && has('nvim')
+  let g:python_host_prog='/usr/bin/python2.7'
+  let g:python3_host_prog='/usr/local/bin/python3'
+  let g:ruby_host_prog=expand('~/.asdf/shims/neovim-ruby-host')
+  let g:node_host_prog='/usr/local/lib/node_modules/neovim/bin/cli.js'
+  " This is macOS only, I believe, but it fixes slow start-up for clipboard:
+  let g:clipboard = {
+        \'copy': {'+': 'pbcopy', '*': 'pbcopy'},
+        \'paste': {'+': 'pbpaste', '*': 'pbpaste'},
+        \'name': 'pbcopy', 'cache_enabled': 0
+        \}
+endif
+runtime vimrc-minimal
