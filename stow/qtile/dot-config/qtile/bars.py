@@ -30,7 +30,7 @@ main_bar = bar.Bar(
             format="{percent:.0%} {hour:d}:{min:02d} " "{watt:.2}W",
         ),
         widget.Sep(**soft_sep),
-        widget.Clock(timezone="Europe/Paris", format="%B %-d, %H:%M"),
+        widget.Clock(timezone="America/Chicago", format="%B %-d, %H:%M"),
     ],
     30,
 )
