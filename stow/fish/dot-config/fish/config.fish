@@ -1,7 +1,3 @@
-# Dotfiles utility functions:
-source $HOME/dotfiles/conf/fish/dotfiles.fish
-
-# The rest of this configuration file only needs to load if shell is interactive:
 if status is-interactive
   # Test for keyring:
   if test -n "$DESKTOP_SESSION"
@@ -32,15 +28,6 @@ if status is-interactive
 
     set -Ux FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=wal --color=always --style=header,grid --line-range :300 {}'"
   end
-
-  # Open directories in Finder w/ alt+o
-  function choose_dir_with_fzf
-    eval "fd --type d . $HOME | fzf +m $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" | read -l result
-    if test -n "$result"
-      open $result
-    end
-  end
-  bind \eo choose_dir_with_fzf
 
   # Configure ASDF:
   # if not contains $HOME/.asdf/shims $fish_user_paths
@@ -73,8 +60,6 @@ if status is-interactive
   if command -sq kitty
     kitty + complete setup fish | source
   end
-  # SSH to Dreamhost:
-  function pilsch.com; ssh eschaton@birkenfeld.dreamhost.com; end
 
   # Fasd Aliases:
   if command -sq nvim
@@ -85,19 +70,4 @@ if status is-interactive
 
   # Colors:
   set fish_color_cwd cyan
-
-  # Source: https://github.com/SidOfc/dotfiles/blob/master/config.fish
-  function kp --description "Kill processes"
-    set -l __kp__pid ''
-    set __kp__pid (ps -ef | sed 1d | eval "fzf $FZF_DEFAULT_OPTS -m --header='[kill:process]'" | awk '{print $2}')
-
-    if test "x$__kp__pid" != "x"
-      if test "x$argv[1]" != "x"
-        echo $__kp__pid | xargs kill $argv[1]
-      else
-        echo $__kp__pid | xargs kill
-      end
-      exec kp
-    end
-  end
 end
