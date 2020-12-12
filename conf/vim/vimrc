@@ -307,7 +307,7 @@ endif
           \ 'branch': 'next',
           \ 'do': 'bash install.sh',
           \ }
-          let g:LanguageClient_settingsPath = expand('~/dotfiles/vim/lsp-settings/LanguageClient-neovim/settings.json')
+          let g:LanguageClient_settingsPath = expand('~/dotfiles/conf/vim/lsp-settings/LanguageClient-neovim/settings.json')
           let g:LanguageClient_useVirtualText = 'CodeLens'
           " Turn off all diagnostic stuff (pump it all to ALE):
           let g:LanguageClient_diagnosticsEnable = 0
