@@ -50,4 +50,7 @@ unzip
 materia-gtk-theme
 redshift
 feh
-stow
+qtile
+python-iwlib
+python-psutil
+python-xdg
