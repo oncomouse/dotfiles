@@ -10,7 +10,7 @@ from mouse import mouse
 from screen import screens
 
 layouts = [
-    layout.Bsp,
+    layout.Bsp(),
 ]
 
 widget_defaults = {"font": "FiraCode Nerd Font", "fontsize": 12, "padding": 3}
