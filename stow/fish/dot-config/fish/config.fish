@@ -7,27 +7,19 @@ if status is-interactive
   if test -d $HOME/.cache/wal
     source ~/.cache/wal/colors.fish
   end
-  if not set -q -U NNN_FCOLORS
-    echo "Setting NNN_FCOLORS"
-    set -Ux NNN_FCOLORS "0603040200050E070D09abc4"
-  end
+  setuvar NNN_FCOLORS "0603040200050E070D09abc4"
 # Configure FZF:
-  if not set -q FZF_DEFAULT_OPTS
-    set -Ux FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
-  end
+  setuvar FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
   # Setup FZF themes:
   if test -d "$HOME/.cache/wal" -a (echo $FZF_DEFAULT_OPTS | grep color -c) -eq 0
     echo "Sourcing FZF_COLORS"
     source ~/.cache/wal/colors-fzf.fish
   end
-  if not set -q -U FZF_DEFAULT_COMMAND
-    echo "Setting FZF"
-    set -Ux FZF_DEFAULT_COMMAND "fd -t f --hidden --follow"
-    set -Ux FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
-    set -Ux FZF_ALT_C_COMMAND "fd --type d --hidden --follow"
+  setuvar FZF_DEFAULT_COMMAND "fd -t f --hidden --follow"
+  setuvar FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+  setuvar FZF_ALT_C_COMMAND "fd --type d --hidden --follow"
 
-    set -Ux FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=wal --color=always --style=header,grid --line-range :300 {}'"
-  end
+  setuvar FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=wal --color=always --style=header,grid --line-range :300 {}'"
 
   # Configure ASDF:
   # if not contains $HOME/.asdf/shims $fish_user_paths
@@ -52,9 +44,7 @@ if status is-interactive
   source $ASDF_DIR/lib/asdf.fish
 
   # Configure Pisces (fish pairing):
-  if not set -q pisces_only_insert_at_eol
-    set -Ux pisces_only_insert_at_eol 1
-  end
+  setuvar pisces_only_insert_at_eol 1
   #
   # Setup Kitty:
   if command -sq kitty

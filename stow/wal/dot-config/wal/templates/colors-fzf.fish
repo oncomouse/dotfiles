@@ -10,4 +10,3 @@ set -Ux FZF_COLORS " --color=bg+:{color8},bg:{background},spinner:{color14},hl:{
 " --color=marker:{color14},fg+:{foreground},prompt:{color3},hl+:{color12}"
 
 set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS $FZF_COLORS"
-
