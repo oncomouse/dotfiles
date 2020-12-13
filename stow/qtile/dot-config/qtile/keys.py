@@ -1,5 +1,7 @@
 from groups import groups
 from libqtile.command import lazy
+from libqtile.config import EzClick as Click
+from libqtile.config import EzDrag as Drag
 from libqtile.config import Key
 
 BROWSER = "firefox"
@@ -68,3 +70,14 @@ for i in groups:
             lazy.window.togroup(i.name, switch_group=True),
         )
     )
+
+# Drag floating layouts.
+mouse = [
+    Drag(
+        "M-1",
+        lazy.window.set_position_floating(),
+        start=lazy.window.get_position(),
+    ),
+    Drag("M-3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Click("M-2", lazy.window.bring_to_front()),
+]
