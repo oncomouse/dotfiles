@@ -9,6 +9,7 @@
 .config/nvim/.netrwhist
 .mutt/edu.tamu.apilsch
 .mutt/com.gmail.oncomouse
+__pycache__
 
 # dependencies
 node_modules
