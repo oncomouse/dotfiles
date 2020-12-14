@@ -1,3 +1,4 @@
+# type: ignore
 from typing import List  # noqa: F401
 
 from groups import groups

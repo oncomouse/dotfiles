@@ -1,10 +1,12 @@
+# type: ignore
 from colors import colors
 from groups import group_names
 from keys import HOME
-from keys import launcher
 from libqtile import bar
 from libqtile import widget
 from libqtile.config import Screen
+
+# from keys import launcher
 
 # from playerfunc import currently_playing
 
@@ -49,101 +51,101 @@ widgets = [
     widget.TextBox(
         **separator_defaults, text=right_sep, foreground=colors["groups_bg"]
     ),
-    widget.TaskList(
-        background=colors["tasklist_bg"],
-        border=colors["tasklist_bg"],
-        borderwidth=2,
-        highlight_method="block",
-        # icon_size=20,
-        margin_y=3,
-        margin_x=3,
-        padding_x=3,
-        padding_y=3,
-        spacing=0,
-        # max_title_width=24,
-        markup_floating="",
-        markup_focused="",
-        markup_maximized="",
-        markup_minimized="",
-        markup_normal="",
-    ),
-    # Center
-    widget.Systray(
-        padding=5,
-    ),
-    widget.TextBox(
-        text="  ",
-    ),
-    widget.TextBox(
-        **separator_defaults,
-        text=left_sep,
-        background=colors["bg"],
-        foreground=colors["player_bg"],
-    ),
-    # widget.GenPollText(
-    #     func=currently_playing,
-    #     mouse_callbacks={
-    #         "Button1": lambda qtile: qtile.cmd_spawn("playerctl play-pause"),
-    #         "Button4": lambda qtile: qtile.cmd_spawn("playerctl previous"),
-    #         "Button5": lambda qtile: qtile.cmd_spawn("playerctl next"),
-    #     },
-    #     update_interval=2,
-    #     background=colors["player_bg"],
+    # widget.TaskList(
+    #     background=colors["tasklist_bg"],
+    #     border=colors["tasklist_bg"],
+    #     borderwidth=2,
+    #     highlight_method="block",
+    #     # icon_size=20,
+    #     margin_y=3,
+    #     margin_x=3,
+    #     padding_x=3,
+    #     padding_y=3,
+    #     spacing=0,
+    #     # max_title_width=24,
+    #     markup_floating="",
+    #     markup_focused="",
+    #     markup_maximized="",
+    #     markup_minimized="",
+    #     markup_normal="",
+    # ),
+    # # Center
+    # widget.Systray(
     #     padding=5,
     # ),
-    widget.TextBox(
-        **separator_defaults,
-        text=sep,
-        foreground=colors["sep"],
-        background=colors["player_bg"],
-    ),
-    widget.BatteryIcon(
-        theme_path=TELA_ICONS + "24/panel/",
-        background=colors["battery_bg"],
-        mouse_callbacks={
-            "Button4": lambda qtile: qtile.cmd_spawn("xbacklight -inc 10"),
-            "Button5": lambda qtile: qtile.cmd_spawn("xbacklight -dec 10"),
-        },
-        update_interval=1,
-    ),
-    widget.Backlight(
-        backlight_name="intel_backlight",
-        brightness_file="brightness",
-        max_brightness_file="max_brightness",
-        # fmt="{0} ",
-        format="{percent:2.0%}",
-        background=colors["battery_bg"],
-        step=10,
-        # change_command='xbacklight -set {0}',
-        change_command="xbacklight -set {0}",
-        update_interval=0.2,
-        # mouse_callbacks={
-        # 'Button4': lambda qtile: qtile.cmd_spawn('xbacklight -inc 10'),
-        # 'Button5': lambda qtile: qtile.cmd_spawn('xbacklight -dec 10'),
-        # }
-    ),
-    widget.TextBox(
-        **separator_defaults,
-        text=sep,
-        foreground=colors["sep"],
-        background=colors["battery_bg"],
-    ),
-    widget.Volume(
-        step=5,
-        padding=0,
-        margin=0,
-        theme_path=TELA_ICONS + "24/panel/",
-        volume_app="pavucontrol",
-        background=colors["volume_bg"],
-    ),
-    widget.Volume(
-        step=5,
-        padding=0,
-        margin=0,
-        volume_app="pavucontrol",
-        fmt=" {0} ",
-        background=colors["volume_bg"],
-    ),
+    # widget.TextBox(
+    #     text="  ",
+    # ),
+    # widget.TextBox(
+    #     **separator_defaults,
+    #     text=left_sep,
+    #     background=colors["bg"],
+    #     foreground=colors["player_bg"],
+    # ),
+    # # widget.GenPollText(
+    # #     func=currently_playing,
+    # #     mouse_callbacks={
+    # #         "Button1": lambda qtile: qtile.cmd_spawn("playerctl play-pause"),
+    # #         "Button4": lambda qtile: qtile.cmd_spawn("playerctl previous"),
+    # #         "Button5": lambda qtile: qtile.cmd_spawn("playerctl next"),
+    # #     },
+    # #     update_interval=2,
+    # #     background=colors["player_bg"],
+    # #     padding=5,
+    # # ),
+    # widget.TextBox(
+    #     **separator_defaults,
+    #     text=sep,
+    #     foreground=colors["sep"],
+    #     background=colors["player_bg"],
+    # ),
+    # widget.BatteryIcon(
+    #     theme_path=TELA_ICONS + "24/panel/",
+    #     background=colors["battery_bg"],
+    #     mouse_callbacks={
+    #         "Button4": lambda qtile: qtile.cmd_spawn("xbacklight -inc 10"),
+    #         "Button5": lambda qtile: qtile.cmd_spawn("xbacklight -dec 10"),
+    #     },
+    #     update_interval=1,
+    # ),
+    # # widget.Backlight(
+    # #     backlight_name="intel_backlight",
+    # #     brightness_file="brightness",
+    # #     max_brightness_file="max_brightness",
+    # #     # fmt="{0} ",
+    # #     format="{percent:2.0%}",
+    # #     background=colors["battery_bg"],
+    # #     step=10,
+    # #     # change_command='xbacklight -set {0}',
+    # #     change_command="xbacklight -set {0}",
+    # #     update_interval=0.2,
+    # #     # mouse_callbacks={
+    # #     # 'Button4': lambda qtile: qtile.cmd_spawn('xbacklight -inc 10'),
+    # #     # 'Button5': lambda qtile: qtile.cmd_spawn('xbacklight -dec 10'),
+    # #     # }
+    # # ),
+    # widget.TextBox(
+    #     **separator_defaults,
+    #     text=sep,
+    #     foreground=colors["sep"],
+    #     background=colors["battery_bg"],
+    # ),
+    # widget.Volume(
+    #     step=5,
+    #     padding=0,
+    #     margin=0,
+    #     theme_path=TELA_ICONS + "24/panel/",
+    #     volume_app="pavucontrol",
+    #     background=colors["volume_bg"],
+    # ),
+    # widget.Volume(
+    #     step=5,
+    #     padding=0,
+    #     margin=0,
+    #     volume_app="pavucontrol",
+    #     fmt=" {0} ",
+    #     background=colors["volume_bg"],
+    # ),
     widget.TextBox(
         **separator_defaults,
         text=sep,

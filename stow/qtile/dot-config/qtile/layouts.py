@@ -1,3 +1,4 @@
+# type: ignore
 from libqtile import layout
 
 layout_defaults = dict(
@@ -7,8 +8,8 @@ layout_defaults = dict(
     grow_amount=3,
 )
 layouts = [
-    layout.Max(**layout_defaults),
     layout.Bsp(**layout_defaults),
+    layout.Max(**layout_defaults),
 ]
 
 floating_layout_defaults = layout_defaults.copy()

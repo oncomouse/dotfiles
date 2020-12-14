@@ -1,3 +1,4 @@
+# type: ignore
 from keys import keys
 from keys import mod
 from libqtile.config import Group
