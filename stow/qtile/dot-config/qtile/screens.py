@@ -12,9 +12,9 @@ from libqtile.config import Screen
 
 TELA_ICONS = "/usr/share/icons/Numix/"
 
-left_sep = ""
+left_sep = ""
 sep = ""
-right_sep = ""
+right_sep = ""
 
 separator_defaults = dict(
     font="FiraCode Nerd Font Mono",

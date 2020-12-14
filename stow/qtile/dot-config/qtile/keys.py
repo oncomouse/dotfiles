@@ -54,7 +54,8 @@ keys = [
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     # Toggle Floating
-    Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle Floating"),
+    Key([mod], "s", lazy.window.toggle_floating(), desc="Toggle Floating"),
+    Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle Fullscreen"),
     # Move Floating Window:
     Key([mod, "shift"], "Up", lazy.window.move_floating(0, -20), desc="Move Up"),
     Key([mod, "shift"], "Down", lazy.window.move_floating(0, 20), desc="Move Down"),
@@ -63,6 +64,10 @@ keys = [
     # Apps:
     Key([mod, "shift"], "Return", lazy.spawn(TERM_EMULATOR)),
     Key([mod], "p", lazy.spawn("rofi -Show combi -Show-icons")),
+    # Kill:
+    Key([mod], "w", lazy.window.kill()),
+    Key([mod, "shift"], "q", lazy.shutdown()),
+    Key([mod], "q", lazy.restart()),
 ]
 
 

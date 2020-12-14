@@ -9,7 +9,7 @@ layout_defaults = dict(
 )
 layouts = [
     layout.Bsp(**layout_defaults),
-    layout.Max(**layout_defaults),
+    # layout.Max(**layout_defaults),
 ]
 
 floating_layout_defaults = layout_defaults.copy()
