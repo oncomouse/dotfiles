@@ -10,6 +10,7 @@
 # Only update every thirty seconds
 
 # Source Pywal:
+# shellcheck source=../../../.cache/wal/colors.sh
 . "${HOME}/.cache/wal/colors.sh"
 
 # Panel conf
@@ -18,7 +19,7 @@ PANEL_HORIZONTAL_OFFSET=$(bspc config window_gap)
 PANEL_VERTICAL_OFFSET=$(bspc config window_gap)
 PANEL_WIDTH=$(($(xrandr |awk '$0 ~ "*" {print $1}' | cut -d 'x' -f 1) - $((PANEL_HORIZONTAL_OFFSET * 2))
 ))
-PANEL_FONT="Fira Code Semibold:size=14"
+PANEL_FONT="Fira Sans:style=SemiBold:size=14"
 PANEL_ICON_FONT="FiraCode Nerd Font Mono:style=Bold:size=17"
 PANEL_FIFO=/tmp/panel-fifo
 PANEL_WM_NAME=bspwm_panel
@@ -187,7 +188,7 @@ while read -r line ; do
       # workspaces output
       wm=
       IFS=':'
-      set -- ${line#?}
+      set -- "${line#?}"
       while [ $# -gt 0 ] ; do
         item=$1
         name=${item#?}
@@ -207,7 +208,7 @@ while read -r line ; do
                 on_focused_monitor=1
                 ;;
             esac
-            [ $num_mon -lt 2 ] && shift && continue
+            [ "$num_mon" -lt 2 ] && shift && continue
             wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc monitor -f ${name}:} ${name} %{A}%{B-}%{F-}"
             ;;
           [fFoOuU]*)
