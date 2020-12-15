@@ -34,22 +34,4 @@ else:
         ),
     )
 
-colors = dict(
-    layout_border=colorscheme["colors"]["color4"],
-    bg=colorscheme["colors"]["color8"],
-    rofi=colorscheme["colors"]["color7"],
-    groups_bg=colorscheme["colors"]["color4"],
-    groups_active=colorscheme["colors"]["color7"],
-    groups_highlight=colorscheme["colors"]["color12"],
-    groups_highlight_color=colorscheme["colors"]["color7"],
-    groups_inactive=colorscheme["colors"]["color0"],
-    tasklist_bg=colorscheme["colors"]["color8"],
-    sep=colorscheme["colors"]["color7"],
-    player_bg=colorscheme["colors"]["color4"],
-    lang_bg=colorscheme["colors"]["color4"],
-    battery_bg=colorscheme["colors"]["color4"],
-    volume_bg=colorscheme["colors"]["color4"],
-    clock_bg=colorscheme["colors"]["color4"],
-    clock_fg=colorscheme["colors"]["color7"],
-    layout_icon_bg=colorscheme["colors"]["color7"],
-)
+colors = colorscheme["colors"]

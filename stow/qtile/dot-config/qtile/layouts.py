@@ -1,10 +1,11 @@
 # type: ignore
+from colors import colors
 from libqtile import layout
 
 layout_defaults = dict(
     margin=2,
     border_width=3,
-    # border_focus=colors["layout_border"],
+    border_focus=colors["color4"],
     grow_amount=3,
 )
 layouts = [

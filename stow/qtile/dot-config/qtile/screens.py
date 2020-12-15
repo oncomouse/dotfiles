@@ -19,37 +19,48 @@ right_sep = ""
 separator_defaults = dict(
     font="FiraCode Nerd Font Mono",
     fontsize=21,
+    padding=0,
+    margin=0,
 )
 
 
-widget_defaults = dict(font="FiraCode Nerd Font Mono", fontsize=12, padding=0, margin=0)
+widget_defaults = dict(
+    font="Fira Code Bold",
+    fontsize=15,
+    padding=0,
+    margin=0,
+    foreground=colors["color15"],
+)
 
 extension_defaults = widget_defaults.copy()
 
 widgets = [
     widget.TextBox(
         **separator_defaults,
-        text=right_sep,
-        background=colors["groups_bg"],
-        foreground=colors["rofi"],
+        text=left_sep,
+        background=colors["color8"],
+        foreground=colors["color4"],
     ),
     widget.GroupBox(
-        background=colors["groups_bg"],
-        active=colors["groups_active"],
-        block_highlight_text_color=colors["groups_highlight_color"],
-        highlight_color=colors["groups_highlight"],
+        background=colors["color4"],
+        active=colors["color4"],
+        block_highlight_text_color=colors["color8"],
+        highlight_color=colors["color9"],
         highlight_method="line",
         borderwidth=0,
         rounded=False,
-        inactive=colors["groups_inactive"],
         margin_y=3,
         margin_x=2,
         padding_x=8,
         fmt="<b>{}</b>",
+        urgent_border=colors["color13"],
         visible_groups=group_names,  # Fix bug of extra groups appearing from default config
     ),
     widget.TextBox(
-        **separator_defaults, text=right_sep, foreground=colors["groups_bg"]
+        **separator_defaults,
+        text=right_sep,
+        background=colors["color8"],
+        foreground=colors["color4"],
     ),
     # widget.TaskList(
     #     background=colors["tasklist_bg"],
@@ -70,12 +81,7 @@ widgets = [
     #     markup_normal="",
     # ),
     # # Center
-    # widget.Systray(
-    #     padding=5,
-    # ),
-    # widget.TextBox(
-    #     text="  ",
-    # ),
+    widget.WindowName(fmt="{}"),
     # widget.TextBox(
     #     **separator_defaults,
     #     text=left_sep,
@@ -148,23 +154,23 @@ widgets = [
     # ),
     widget.TextBox(
         **separator_defaults,
-        text=sep,
-        foreground=colors["sep"],
-        background=colors["volume_bg"],
+        text=left_sep,
+        foreground=colors["color4"],
+        background=colors["color8"],
     ),
     widget.Clock(
-        background=colors["clock_bg"],
-        foreground=colors["clock_fg"],
+        background=colors["color4"],
+        foreground=colors["color8"],
         format="%d %B | %H:%M",
         fmt="<span font_family='Fira Code Nerd Font' size='larger'> </span> {}",
         padding=4,
     ),
     widget.TextBox(
         **separator_defaults,
-        text=left_sep,
-        background=colors["clock_bg"],
-        foreground=colors["layout_icon_bg"],
+        text=right_sep,
+        background=colors["color8"],
+        foreground=colors["color4"],
     ),
 ]
 
-screens = [Screen(top=bar.Bar(widgets, 28, background=colors["bg"]))]
+screens = [Screen(top=bar.Bar(widgets, 28, background=colors["color8"]))]
