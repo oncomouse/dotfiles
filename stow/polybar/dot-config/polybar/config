@@ -20,7 +20,7 @@ background=${xrdb:background:#222}
 
 [bar/mybar]
 foreground=${colors.foreground}
-background=${colors.background}
+background=#00000000
 font-0=Fira Sans:style=SemiBold:size=14;3
 font-1=FiraCode Nerd Font Mono:style=Bold:size=17;3
 modules-left = bspwm bspwm-status
