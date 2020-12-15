@@ -2,6 +2,7 @@
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 if [[ $os == "macos" ]];then
   root="/usr/local"
+  user="_unbound"
   tls="/usr/local/etc/openssl/cert.pem"
   group="staff"
   user_id=$(dscl . -list /Users UniqueID | grep _unbound | sed -e "s/.* //g")
@@ -40,6 +41,7 @@ if [[ $os == "macos" ]];then
 elif [[ $os == "arch" ]]; then
   root=""
   group="wheel"
+  user="unbound"
   tls="/etc/ssl/certs/ca-certificates.crt"
 fi
 sudo unbound-anchor -4 -a "${root}/etc/unbound/root.key"
@@ -53,7 +55,7 @@ server:
 	interface: 127.0.0.1
 	access-control: 127.0.0.1/8 allow
 	chroot: ""
-	username: "_unbound"
+	username: "${user}"
 	auto-trust-anchor-file: root.key
 	root-hints: root.hints
 	# answer DNS queries on this port
@@ -119,7 +121,7 @@ forward-zone:
 	# forward-addr:1.1.1.1@853
 	forward-tls-upstream: yes
 EOF
-sudo chown -R _unbound:${group} "${root}/etc/unbound"
+sudo chown -R ${user}:${group} "${root}/etc/unbound"
 sudo chmod 640 "${root}"/etc/unbound/*
 if [[ $os == "macos" ]]; then
   sudo brew services start unbound
