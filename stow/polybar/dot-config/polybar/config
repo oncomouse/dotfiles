@@ -18,10 +18,11 @@ color15=${xrdb:color15:#222}
 
 [bar/mybar]
 foreground=${colors.color15}
-background=${colors.color0}
+background=${colors.color8}
 font-0=Fira Sans:style=SemiBold:size=14;3
 font-1=FiraCode Nerd Font Mono:style=Bold:size=17;3
-modules-left = bspwm
+modules-left = bspwm, bspwm-status
+modules-center = title
 modules-right = date
 
 [module/date]
@@ -30,9 +31,7 @@ date = %Y-%m-%d%
 
 [module/bspwm]
 type = internal/bspwm
-format = <label-state> <label-mode>
-format-foreground=${colors.color15}
-format-background=${colors.color8}
+format = <label-state>
 pin-workspaces = false
 inline-mode = false
 enable-click = true
@@ -51,7 +50,21 @@ label-empty=%{T1}%{T-}
 label-empty-foreground=${colors.color8}
 label-empty-background=${colors.color5}
 label-empty-padding=1
+[module/bspwm-status]
+format = <label-mode>
+format-foreground=${colors.color15}
+format-background=${colors.color8}
+pin-workspaces = false
+inline-mode = false
+enable-click = false
+enable-scroll = false
+reverse-scroll = false
 label-tiling=T
 label-fullscreen=F
 label-floating=S
+
+[module/title]
+type = internal/xwindow
+label = %title%
+label-maxlen = 50
 ; vim:ft=dosini
