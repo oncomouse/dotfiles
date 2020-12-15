@@ -9,6 +9,7 @@ xorg-xrdb
 xclip
 lightdm
 lightdm-gtk-greeter
+accountsservice
 bspwm
 sxhkd
 rofi
