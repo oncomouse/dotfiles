@@ -1,0 +1,57 @@
+[colors]
+color0=${xrdb:color0:#222}
+color1=${xrdb:color1:#222}
+color2=${xrdb:color2:#222}
+color3=${xrdb:color3:#222}
+color4=${xrdb:color4:#222}
+color5=${xrdb:color5:#222}
+color6=${xrdb:color6:#222}
+color7=${xrdb:color7:#222}
+color8=${xrdb:color8:#222}
+color9=${xrdb:color9:#222}
+color10=${xrdb:color10:#222}
+color11=${xrdb:color11:#222}
+color12=${xrdb:color12:#222}
+color13=${xrdb:color13:#222}
+color14=${xrdb:color14:#222}
+color15=${xrdb:color15:#222}
+
+[bar/mybar]
+foreground=${colors.color15}
+background=${colors.color0}
+font-0=Fira Sans:style=SemiBold:size=14;3
+font-1=FiraCode Nerd Font Mono:style=Bold:size=17;3
+modules-left = bspwm
+modules-right = date
+
+[module/date]
+type = internal/date
+date = %Y-%m-%d%
+
+[module/bspwm]
+type = internal/bspwm
+format = <label-state> <label-mode>
+format-foreground=${colors.color15}
+format-background=${colors.color8}
+pin-workspaces = false
+inline-mode = false
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+fuzzy-match = true
+label-focused=%{T1}%{T-}
+label-focused-foreground=${colors.color8}
+label-focused-background=${colors.color5}
+label-focused-padding=1
+label-occupied=%{T1}%{T-}
+label-occupied-padding=1
+label-occupied-foreground=${colors.color8}
+label-occupied-background=${colors.color5}
+label-empty=%{T1}%{T-}
+label-empty-foreground=${colors.color8}
+label-empty-background=${colors.color5}
+label-empty-padding=1
+label-tiling=T
+label-fullscreen=F
+label-floating=S
+; vim:ft=dosini
