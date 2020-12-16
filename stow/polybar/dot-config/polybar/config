@@ -1,148 +1,20 @@
-[colors]
-color0=${xrdb:color0:#222}
-color1=${xrdb:color1:#222}
-color2=${xrdb:color2:#222}
-color3=${xrdb:color3:#222}
-color4=${xrdb:color4:#222}
-color5=${xrdb:color5:#222}
-color6=${xrdb:color6:#222}
-color7=${xrdb:color7:#222}
-color8=${xrdb:color8:#222}
-color9=${xrdb:color9:#222}
-color10=${xrdb:color10:#222}
-color11=${xrdb:color11:#222}
-color12=${xrdb:color12:#222}
-color13=${xrdb:color13:#222}
-color14=${xrdb:color14:#222}
-color15=${xrdb:color15:#222}
-foreground=${xrdb:foreground:#222}
-background=${xrdb:background:#222}
+include-file = ~/.config/polybar/colors.ini
+include-file = ~/.config/polybar/modules.ini
 
-[bar/mybar]
-foreground=${colors.foreground}
-background=#00000000
-font-0=Fira Sans:style=SemiBold:size=14;3
-font-1=FiraCode Nerd Font Mono:style=Bold:size=17;3
-modules-left = bspwm mod
+[bar/panel]
+foreground = ${colors.foreground}
+background = #00000000
+font-0 = Fira Sans:style=SemiBold:size=14;3
+font-1 = FiraCode Nerd Font Mono:style=Bold:size=17;3
+font-2 = Wuncon Siji:pixelsize=14;3
+modules-left = bspwm bspwmmod
 modules-center = title
-modules-right = date
-offset-x=5
-offset-y=5
-width=100%:-10
+modules-right = pulseaudio date
+offset-x = 5
+offset-y = 5
+width = 100%:-10
+wm-restack = bspwm
+scroll-up = #bspwm.prev
+scroll-down = #bspwm.next
 
-[module/date]
-type = internal/date
-date = %a %l:%M %p%
-date-alt = %A, %d %b %g
-format-background=${colors.color6}
-format-foreground=${colors.background}
-format-padding=3
-
-[module/bspwm]
-type = internal/bspwm
-format = <label-state>
-pin-workspaces = false
-inline-mode = false
-enable-click = true
-enable-scroll = true
-reverse-scroll = true
-format-padding=0
-format-background=${colors.color5}
-fuzzy-match = true
-label-focused=%{T1}%{T-}
-label-focused-foreground=${colors.background}
-label-focused-background=${colors.color5}
-label-focused-padding=1
-label-occupied=%{T1}%{T-}
-label-occupied-padding=1
-label-occupied-foreground=${colors.background}
-label-occupied-background=${colors.color5}
-label-empty=%{T1}%{T-}
-label-empty-foreground=${colors.background}
-label-empty-background=${colors.color5}
-label-empty-padding=1
-
-[module/mod]
-
-type = internal/bspwm
-format = <label-mode>
-format-margin=0
-
-label-monocle = "  M  "
-label-monocle-foreground = ${colors.background}
-label-monocle-background = ${colors.color4}
-label-monocle-padding = 0
-
-label-tiled = "  T  "
-label-tiled-foreground = ${colors.background}
-label-tiled-background = ${colors.color4}
-label-tiled-padding = 0
-
-label-fullscreen = "  F  "
-label-fullscreen-foreground = ${colors.background}
-label-fullscreen-background = ${colors.color4}
-label-fullscreen-padding = 0
-
-label-floating = "  S  "
-label-floating-foreground = ${colors.background}
-label-floating-background = ${colors.color4}
-label-floating-padding = 0
-
-label-pseudotiled = "  P  "
-label-pseudotiled-foreground = ${colors.background}
-label-pseudotiled-background = ${colors.color4}
-label-pseudotiled-padding = 0
-
-label-locked = "  L  "
-label-locked-foreground = ${colors.background}
-label-locked-background = ${colors.color4}
-label-locked-padding = 0
-
-label-sticky = "  S  "
-label-sticky-foreground = ${colors.background}
-label-sticky-background = ${colors.color4}
-label-sticky-padding = 0
-
-label-private =  "  P  "
-label-private-foreground = ${colors.background}
-label-private-background = ${colors.color4}
-label-private-padding = 0
-
-format-padding = 0
-format-foreground = ${colors.background}
-format-background = ${colors.color4}
-[module/title]
-type = internal/xwindow
-label = %title%
-label-maxlen = 100
-label-background=${colors.background}
-label-padding=3
-
-; Needs cmst, siji-git from AUR
-; [module/network]
-; type = internal/network
-; interface = wlp3s0
-
-; interval = 3.0
-; accumulate-stats = true
-; unknown-as-up = true
-
-; format-connected = <ramp-signal> <label-connected>
-; format-connected-background = ${colors.color2}
-; format-connected-foreground = ${colors.background}
-; format-connected-padding = 3
-
-; format-disconnected = <label-disconnected>
-; format-disconnected-background = ${colors.color2}
-; format-disconnected-foreground = ${colors.background}
-; format-disconnected-padding = 3
-
-; label-connected = "%{T1:cmst -d&:} %essid% %{T-}"
-; label-disconnected = "%{T1:cmst -d&:}x%{T-}"
-
-; ramp-signal-0 = 
-; ramp-signal-1 = 
-; ramp-signal-2 = 
-; ramp-signal-3 = 
-; ramp-signal-4 = 
-; vim:ft=dosini
+; vim:ft = dosini
