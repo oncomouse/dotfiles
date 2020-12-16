@@ -21,6 +21,21 @@ Set `/etc/vconsole.conf` to:
 
 useradd -m -G wheel -s /usr/bin/fish andrew
 
+# IWD Wifi Configuration
+
+~~~sh
+# systemctl start iwd
+# systemctl start rfkill-unblock@wifi
+# iwctl device wlp1s0 set-property Powered on
+# iwctl
+[iwd]# station wlp1s0 connect ESSID
+Type the network passphrase for ESSID psk.
+Passphrase: secret
+[iwd]# exit
+# sed '/^Passphrase=/d' /var/lib/iwd/ESSID.psk > /mnt/var/lib/iwd/ESSID.psk
+# chmod 0600 /mnt/var/lib/iwd/ESSID.psk
+~~~
+
 # Network Configuration
 
 /etc/systemd/network/20-wired.network:
