@@ -205,6 +205,7 @@ endif
       Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
     " }}}
     " Syntax: {{{
+      Plug 'baskerville/vim-sxhkdrc' " Sxhkd syntax
       Plug 'cespare/vim-toml' " TOML syntax
       Plug 'neoclide/vim-jsx-improve' " JSX (javascriptreact) Syntax
       Plug 'plasticboy/vim-markdown' " Markdown Syntax
