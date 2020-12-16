@@ -1,9 +1,7 @@
-#! /bin/sh
+#!/bin/sh
 # Source Pywal:
 . "${HOME}/.cache/wal/colors.sh"
 pgrep -x sxhkd > /dev/null || sxhkd &
-# killall lemonbar
-# ~/dotfiles/scripts/bspwm/panel &
 $HOME/.config/polybar/launch.sh &
 
 bspc monitor -d I II III IV V #VI VII VIII IX X
