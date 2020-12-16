@@ -124,12 +124,16 @@ alt + ctrl + shift + space
 # 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # expand a window by moving one of its side outward
-ctrl + alt + {Left,Down,Up,Right}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+# ctrl + alt + {Left,Down,Up,Right}
+# 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # contract a window by moving one of its side inward
-ctrl + alt + shift + {Left,Down,Up,Right}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+# ctrl + alt + shift + {Left,Down,Up,Right}
+# 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# modal resize:
+ctrl + alt + e : {_, shift + } {h,j,k,l}
+    ~/dotfiles/scripts/bspwm/resize {expand, contract} {west,south,north,east} 20
 
 # move a floating window
 alt + shift + {Left,Down,Up,Right}
