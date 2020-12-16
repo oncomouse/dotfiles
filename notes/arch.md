@@ -1,4 +1,5 @@
 [Alternate Install](https://wiki.archlinux.org/index.php/User:Altercation/Bullet_Proof_Arch_Install#Objectives)
+[IWD Wifi instructions](https://sudaraka.org/how-to/archlinux-installation-guide-2019/)
 
 Notes:
 1. Don't use systemd-start stuff, just use `arch-chroot /mnt`
@@ -8,7 +9,7 @@ Notes:
 
 Additional Packages to install, before reboot:
 
-`pacman -S refind base-devel vim git curl fish dhcpcd btrfs-progs iw gptfdisk terminus-font`
+`pacman -S refind base-devel vim git curl fish dhcpcd btrfs-progs iw gptfdisk iwd terminus-font`
 
 Set `/etc/vconsole.conf` to:
 

@@ -2,23 +2,22 @@
 
 packages=(
   "i3lock-color-git"
-  # "lemonbar-xft-git"
   # "ncspot"
   "numix-icon-theme-git"
   "otf-nerd-fonts-fira-code"
   "otf-hasklig"
   "pandoc-bin"
   "perl-term-shellui"
-  # "picom-git"
+  "picom-git"
   "polybar-git"
   # "rofi-wifi-menu-git"
   "shellcheck-bin"
+  # "xtitle"
   "tllocalmgr-git"
   "themix-gui-git"
   "https://github.com/oncomouse/vale-bin"
-  "visual-studio-code-bin"
-  "viu"
-  "xtitle"
+  # "visual-studio-code-bin"
+  "viu" # For NNN image viewing
   "zotero"
 )
 

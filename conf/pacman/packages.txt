@@ -42,7 +42,7 @@ zathura
 zathura-pdfk-poppler
 pcmanfm-gtk3
 nnn
-wireless_tools
+cmst
 dunst
 libnotify
 gnome-keyring
