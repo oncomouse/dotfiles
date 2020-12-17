@@ -58,3 +58,7 @@ Passphrase: secret
 
 1. systemctl enable systemd-networkd.service
 1. systemctl enable dhcpcd.service
+
+# AMD CPU Stuff
+
+[AMDGPU on Arch Wiki](https://wiki.archlinux.org/index.php/AMDGPU)
