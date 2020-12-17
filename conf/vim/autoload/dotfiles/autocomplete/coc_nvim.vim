@@ -99,11 +99,6 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
 endfunction
 
 function! dotfiles#autocomplete#coc_nvim#writing() abort
-  call coc#config('list.source.bibtex', {
-  \  'files': [
-  \    g:bibliography_file,
-  \  ]
-  \})
   augroup coc-bibtex
     autocmd!
     autocmd FileType markdown nnoremap <silent> <C-C> :execute 'CocList bibtex'<CR>

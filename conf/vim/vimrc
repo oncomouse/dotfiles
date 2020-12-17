@@ -278,7 +278,7 @@ endif
       " Load LSP + Completion:
       if g:complete_package =~# 'coc.nvim'
         Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-        let g:coc_config_home = expand('~/dotfiles/vim/lsp-settings/coc.nvim/')
+        let g:coc_config_home = expand('~/dotfiles/conf/vim/lsp-settings/coc.nvim/')
         let g:coc_global_extensions = [
         \   'coc-calc',
         \   'coc-css',

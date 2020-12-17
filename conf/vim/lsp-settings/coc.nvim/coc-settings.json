@@ -123,6 +123,9 @@
     "typescript",
     "json"
   ],
+  "list.source.bibtex.files": [
+    "/Users/apilsch/Seafile/My Library/Documents/Academic Stuff/library.bib"
+  ],
   "languageserver": {
     "citation": {
       "command": "/usr/bin/env citation-langserver",
