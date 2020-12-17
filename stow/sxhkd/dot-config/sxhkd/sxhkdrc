@@ -16,8 +16,11 @@ alt + Escape
 
 # Lock screen
 alt + shift + x
-	~/dotfiles/scripts/bspwm/lock.sh
+	~/dotfiles/scripts/bspwm/lock
 
+# Spawn powermenu
+ctrl + alt + q
+	~/dotfiles/scripts/polybar/powermenu
 #
 # bspwm hotkeys
 #
