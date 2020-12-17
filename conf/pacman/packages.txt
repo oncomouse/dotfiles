@@ -40,7 +40,6 @@ tex-gyre-fonts
 neofetch
 zathura
 zathura-pdfk-poppler
-pcmanfm-gtk3
 nnn
 cmst
 dunst
