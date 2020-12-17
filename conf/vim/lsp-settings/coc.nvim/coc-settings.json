@@ -125,7 +125,7 @@
   ],
   "languageserver": {
     "citation": {
-      "command": "/Users/apilsch/.npm-packages/bin/citation-langserver",
+      "command": "/usr/bin/env citation-langserver",
       "filetypes": ["markdown"],
       "settings": {
         "citation": {
