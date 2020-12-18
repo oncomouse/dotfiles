@@ -43,7 +43,7 @@ Passphrase: secret
 > [Match]
 > Name=en*
 > Name=eth*
->  
+>
 > [Network]
 > DHCP=yes
 
@@ -62,4 +62,3 @@ Passphrase: secret
 # AMD CPU Stuff
 
 [AMDGPU on Arch Wiki](https://wiki.archlinux.org/index.php/AMDGPU)
-
