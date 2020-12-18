@@ -9,7 +9,7 @@ function kp --description "Kill processes"
     else
       echo $__kp__pid | xargs kill
     end
-    exec kp
+    # exec kp
   end
 end
 
