@@ -6,10 +6,13 @@ Notes:
 1. `mkinitcpio -p linux` should be `mkinitcpio -p linux-zen`
 1. Always use `/dev/mapper/cryptswap`
 1. In example `refind` config, image name should be `initramfs-linux-zen.img`
+	* Add `initrd=boot\<amd|intel>-ucode.img` before `initramfs` line to load ucode
 
 Additional Packages to install, before reboot:
 
 `pacman -S refind base-devel vim git curl fish dhcpcd btrfs-progs iw gptfdisk iwd terminus-font`
+
+Install AMD or Intel Microcode: `pacman -S amd-ucode` or `pacman -S intel-ucode`
 
 Set `/etc/vconsole.conf` to:
 
