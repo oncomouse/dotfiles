@@ -7,6 +7,9 @@ if status is-interactive
   if test -d $HOME/.cache/wal
     source ~/.cache/wal/colors.fish
   end
+  # Tell sxhkd to not use fish:
+  setuvar SXHKD_SHELL sh
+  # NNN Theme
   setuvar NNN_FCOLORS "0603040200050E070D09abc4"
 # Configure FZF:
   setuvar FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
