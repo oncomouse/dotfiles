@@ -30,6 +30,9 @@ else
   git clone https://git.suckless.org/dwm
   cd dwm || exit
 fi
+if [[ -e config.h ]]; then
+  ln -sf "$HOME/dotfiles/conf/dwm/config.h" .
+fi
 git checkout -b build
 for patch in "${patches[@]}"; do
   branch=$(branch_name "$patch")
