@@ -732,7 +732,7 @@ static const char *termcmd[]  = { "kitty", NULL };
 
 #if BAR_STATUSCMD_PATCH && !BAR_DWMBLOCKS_PATCH
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
-static const char *statuscmds[] = { "notify-send Mouse$BUTTON" };
+static const char *statuscmds[] = { "$HOME/dotfiles/scripts/dwm/date" };
 static char *statuscmd[] = { "/bin/sh", "-c", NULL, NULL };
 #endif // BAR_STATUSCMD_PATCH | DWMBLOCKS_PATCH
 
