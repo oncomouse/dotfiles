@@ -5,6 +5,8 @@ bash=$(which bash)
 sudo pacman -S --noconfirm - < ~/dotfiles/conf/pacman/packages.txt
 
 $bash ~/dotfiles/bootstrap/scripts/common.sh
+# Install DWM:
+$bash ~/dotfiles/bootstrap/scripts/dwm.sh
 if [ -z "$SERVER" ]; then
   $bash ~/dotfiles/bootstrap/scripts/aur.sh
   # Enable Redshift:
@@ -14,7 +16,7 @@ if [ -z "$SERVER" ]; then
 fi
 
 # Use Rofi for dmenu:
-sudo ln -sf $(which rofi) /usr/bin/dmenu
+sudo ln -sf "$(which rofi)" /usr/bin/dmenu
 
 # Enable OpenSSH:
 sudo systemctl enable sshd.service

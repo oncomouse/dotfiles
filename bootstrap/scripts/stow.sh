@@ -25,11 +25,9 @@ if [ -z "$SERVER" ]; then
     dotfiles_stow mackup
   elif [ "$os" == "arch" ]; then
     # Other setup files:
+    dotfiles_stow dwm
     dotfiles_stow rofi
-    dotfiles_stow bspwm
-    dotfiles_stow sxhkd
     dotfiles_stow dunst
-    dotfiles_stow polybar
     dotfiles_stow xorg
     dotfiles_stow gtk-3.0
     dotfiles_stow gtk-2.0
