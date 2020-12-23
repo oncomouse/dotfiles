@@ -29,7 +29,7 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x5-5+47"
+    geometry = "300x5-5+35"
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
@@ -175,7 +175,7 @@
     max_icon_size = 32
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/Numix/16x16/status/:/usr/share/icons/Numix/16x16/devices/
+    icon_path = /usr/share/icons/Numix/24/status/:/usr/share/icons/Numix/24/devices/
 
     ### History ###
 
