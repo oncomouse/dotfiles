@@ -13,7 +13,10 @@ if [ -z "$SERVER" ]; then
   sudo systemctl enable lightdm
 fi
 
-arch# Enable OpenSSH:
+# Use Rofi for dmenu:
+sudo ln -sf $(which rofi) /usr/bin/dmenu
+
+# Enable OpenSSH:
 sudo systemctl enable sshd.service
 sudo systemctl start sshd.service
 

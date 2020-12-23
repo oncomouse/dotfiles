@@ -5,7 +5,9 @@
 # Launch sxhkd:
 pgrep -x sxhkd > /dev/null || sxhkd &
 # Launch polybar:
-"$HOME"/dotfiles/scripts/polybar/launch &
+# "$HOME"/dotfiles/scripts/polybar/launch &
+killall lemonbar
+"$HOME"/dotfiles/scripts/bspwm/panel &
 # Configure desktops:
 bspc monitor -d I II III IV V #VI VII VIII IX X
 

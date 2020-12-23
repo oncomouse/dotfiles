@@ -10,11 +10,8 @@ xclip
 lightdm
 lightdm-gtk-greeter
 accountsservice
-bspwm
-sxhkd
 rofi
 texlive-core
-xlockmore
 firefox
 kitty
 rustup
