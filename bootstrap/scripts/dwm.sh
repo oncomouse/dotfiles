@@ -14,4 +14,15 @@ fi
 # cp "$HOME/dotfiles/conf/dwm/*" "$HOME/Projects/dwm"
 make
 sudo make install
+if [[ ! -e "/usr/share/xsessions/dwm.desktop" ]]; then
+  sudo tee /usr/share/xsessions/dwm.desktop <<- EOF
+  [Desktop Entry]
+  Encoding=UTF-8
+  Name=Dwm
+  Comment=the dynamic window manager
+  Exec=dwm
+  Icon=dwm
+  Type=XSession
+EOF
+fi
 cd "$HOME/dotfiles" || exit
