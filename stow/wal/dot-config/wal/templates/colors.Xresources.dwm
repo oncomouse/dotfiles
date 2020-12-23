@@ -11,16 +11,16 @@ dwm.titlenormbgcolor: {color8}
 dwm.titlenormbordercolor: {color8}
 dwm.titlenormfloatcolor: {color4}
 dwm.titleselfgcolor: {color8}
-dwm.titleselbgcolor: {color4}
-dwm.titleselbordercolor: {color4}
+dwm.titleselbgcolor: {color6}
+dwm.titleselbordercolor: {color6}
 dwm.titleselfloatcolor: {color5}
 dwm.tagsnormfgcolor: {color7}
 dwm.tagsnormbgcolor: {color8}
 dwm.tagsnormbordercolor: {color8}
 dwm.tagsnormfloatcolor: {color5}
 dwm.tagsselfgcolor: {color8}
-dwm.tagsselbgcolor: {color4}
-dwm.tagsselbordercolor: {color4}
+dwm.tagsselbgcolor: {color2}
+dwm.tagsselbordercolor: {color2}
 dwm.tagsselfloatcolor: {color5}
 !dwm.hidfgcolor: 
 !dwm.hidbgcolor: 
