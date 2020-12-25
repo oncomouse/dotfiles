@@ -83,9 +83,9 @@ endif
     augroup my-tabstops
       autocmd!
       " Go, Lua
-      autocmd FileType markdown,go,lua,sxhkdrc setlocal tabstop=4
-      autocmd FileType markdown,go,lua,sxhkdrc setlocal shiftwidth=4
-      autocmd FileType markdown,go,lua,sxhkdrc setlocal noexpandtab
+      autocmd FileType markdown,c,go,lua,sxhkdrc setlocal tabstop=4
+      autocmd FileType markdown,c,go,lua,sxhkdrc setlocal shiftwidth=4
+      autocmd FileType markdown,c,go,lua,sxhkdrc setlocal noexpandtab
       " JavaScript
       autocmd FileType javascript,javascriptreact setlocal tabstop=2
       autocmd FileType javascript,javascriptreact setlocal shiftwidth=2
