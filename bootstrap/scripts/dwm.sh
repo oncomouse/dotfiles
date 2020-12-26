@@ -16,6 +16,8 @@ make
 sudo make install
 git checkout master
 git branch -D build
+git checkout -- .
+make clean
 if [[ ! -e "/usr/share/xsessions/dwm.desktop" ]]; then
   sudo tee /usr/share/xsessions/dwm.desktop <<- EOF
   [Desktop Entry]
