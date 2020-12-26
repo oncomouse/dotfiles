@@ -22,6 +22,9 @@ dwm.tagsselfgcolor: {color8}
 dwm.tagsselbgcolor: {color2}
 dwm.tagsselbordercolor: {color2}
 dwm.tagsselfloatcolor: {color5}
+dwm.statusfgcolor: {color7}
+dwm.statusbgcolor: {color8}
+dwm.statusbordercolor: {color8}
 !dwm.hidfgcolor: 
 !dwm.hidbgcolor: 
 !dwm.hidbordercolor: 
