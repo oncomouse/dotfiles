@@ -12,6 +12,8 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 5;       /* vertical padding of bar */
 static const int sidepad            = 5;       /* horizontal padding of bar */
+static const int horizpadbar        = 5;        /* horizontal padding for statusbar */
+static const int vertpadbar         = 0;        /* vertical padding for statusbar */
 static const char *fonts[]               = { "FiraCode Nerd Font Mono:style=Bold:size=14" };
 static const char dmenufont[]       = "monospace:size=10";
 static char normfgcolor[]                = "#bbbbbb";
