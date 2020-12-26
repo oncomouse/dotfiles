@@ -1,0 +1,145 @@
+From cd01ba8c1be9b0796eb50004a8c97593205093bc Mon Sep 17 00:00:00 2001
+From: oncomouse <oncomouse@gmail.com>
+Date: Sat, 26 Dec 2020 14:43:20 -0600
+Subject: [PATCH] colorbar
+
+---
+ config.def.h | 45 ++++++++++++++++++++++++++++++++++++---------
+ dwm.c        | 28 ++++++++++++++++++++++------
+ 2 files changed, 58 insertions(+), 15 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 5db7d05..c182ac7 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -7,16 +7,43 @@ static const int showbar            = 1;        /* 0 means no bar */
+ static const int topbar             = 1;        /* 0 means bottom bar */
+ static const char *fonts[]          = { "monospace:size=10" };
+ static const char dmenufont[]       = "monospace:size=10";
+-static char normbgcolor[]           = "#222222";
+-static char normbordercolor[]       = "#444444";
+-static char normfgcolor[]           = "#bbbbbb";
+-static char selfgcolor[]            = "#eeeeee";
+-static char selbordercolor[]        = "#005577";
+-static char selbgcolor[]            = "#005577";
++static char normfgcolor[]                = "#bbbbbb";
++static char normbgcolor[]                = "#222222";
++static char normbordercolor[]            = "#444444";
++
++static char selfgcolor[]                 = "#eeeeee";
++static char selbgcolor[]                 = "#005577";
++static char selbordercolor[]             = "#005577";
++
++static char titlenormfgcolor[]           = "#bbbbbb";
++static char titlenormbgcolor[]           = "#222222";
++static char titlenormbordercolor[]       = "#444444";
++
++static char titleselfgcolor[]            = "#eeeeee";
++static char titleselbgcolor[]            = "#005577";
++static char titleselbordercolor[]        = "#005577";
++
++static char tagsnormfgcolor[]            = "#bbbbbb";
++static char tagsnormbgcolor[]            = "#222222";
++static char tagsnormbordercolor[]        = "#444444";
++
++static char tagsselfgcolor[]             = "#eeeeee";
++static char tagsselbgcolor[]             = "#005577";
++static char tagsselbordercolor[]         = "#005577";
++
++static char statusfgcolor[]              = "#bbbbbb";
++static char statusbgcolor[]              = "#222222";
++static char statusbordercolor[]          = "#444444";
++
+ static char *colors[][3] = {
+-       /*               fg           bg           border   */
+-       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+-       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
++	/*               fg           bg           border   */
++	[SchemeNorm]     = { normfgcolor, normbgcolor, normbordercolor },
++	[SchemeSel]      = { selfgcolor,  selbgcolor,  selbordercolor  },
++	[SchemeStatus]   = { statusfgcolor, statusbgcolor,  statusbordercolor  }, // Statusbar right {text,background,not used but cannot be empty}
++	[SchemeTagsSel]  = { tagsselfgcolor, tagsselbgcolor, tagsselbordercolor }, // Tagbar left selected {text,background,not used but cannot be empty}
++	[SchemeTagsNorm] = { tagsnormfgcolor, tagsnormbgcolor, tagsnormbordercolor }, // Tagbar left unselected {text,background,not used but cannot be empty}
++	[SchemeInfoSel]  = { titleselfgcolor, titleselbgcolor, titleselbordercolor }, // infobar middle  selected {text,background,not used but cannot be empty}
++	[SchemeInfoNorm] = { titlenormfgcolor, titlenormbgcolor, titlenormbordercolor }, // infobar middle  unselected {text,background,not used but cannot be empty}
+ };
+ 
+ /* tagging */
+diff --git a/dwm.c b/dwm.c
+index dde2605..b51b822 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -75,7 +75,7 @@
+ 
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
+-enum { SchemeNorm, SchemeSel }; /* color schemes */
++enum { SchemeNorm, SchemeSel, SchemeStatus, SchemeTagsSel, SchemeTagsNorm, SchemeInfoSel, SchemeInfoNorm }; /* color schemes */
+ enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
+        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
+        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
+@@ -722,7 +722,7 @@ drawbar(Monitor *m)
+ 
+ 	/* draw status first so it can be overdrawn by tags later */
+ 	if (m == selmon) { /* status is only drawn on selected monitor */
+-		drw_setscheme(drw, scheme[SchemeNorm]);
++		drw_setscheme(drw, scheme[SchemeStatus]);
+ 		tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
+ 		drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0);
+ 	}
+@@ -735,7 +735,7 @@ drawbar(Monitor *m)
+ 	x = 0;
+ 	for (i = 0; i < LENGTH(tags); i++) {
+ 		w = TEXTW(tags[i]);
+-		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
++		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeTagsSel : SchemeTagsNorm]);
+ 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+ 		if (occ & 1 << i)
+ 			drw_rect(drw, x + boxs, boxs, boxw, boxw,
+@@ -744,17 +744,17 @@ drawbar(Monitor *m)
+ 		x += w;
+ 	}
+ 	w = blw = TEXTW(m->ltsymbol);
+-	drw_setscheme(drw, scheme[SchemeNorm]);
++	drw_setscheme(drw, scheme[SchemeTagsNorm]);
+ 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+ 
+ 	if ((w = m->ww - tw - x) > bh) {
+ 		if (m->sel) {
+-			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
++			drw_setscheme(drw, scheme[m == selmon ? SchemeInfoSel : SchemeInfoNorm]);
+ 			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
+ 			if (m->sel->isfloating)
+ 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
+ 		} else {
+-			drw_setscheme(drw, scheme[SchemeNorm]);
++			drw_setscheme(drw, scheme[SchemeInfoNorm]);
+ 			drw_rect(drw, x, 0, w, bh, 1, 1);
+ 		}
+ 	}
+@@ -1057,6 +1057,22 @@ loadxrdb()
+         XRDB_LOAD_COLOR("dwm.selbordercolor", selbordercolor);
+         XRDB_LOAD_COLOR("dwm.selbgcolor", selbgcolor);
+         XRDB_LOAD_COLOR("dwm.selfgcolor", selfgcolor);
++		XRDB_LOAD_COLOR("dwm.titlenormfgcolor", titlenormfgcolor);
++		XRDB_LOAD_COLOR("dwm.titlenormbgcolor", titlenormbgcolor);
++		XRDB_LOAD_COLOR("dwm.titlenormbordercolor", titlenormbordercolor);
++		XRDB_LOAD_COLOR("dwm.titleselfgcolor", titleselfgcolor);
++		XRDB_LOAD_COLOR("dwm.titleselbgcolor", titleselbgcolor);
++		XRDB_LOAD_COLOR("dwm.titleselbordercolor", titleselbordercolor);
++		XRDB_LOAD_COLOR("dwm.tagsnormfgcolor", tagsnormfgcolor);
++		XRDB_LOAD_COLOR("dwm.tagsnormbgcolor", tagsnormbgcolor);
++		XRDB_LOAD_COLOR("dwm.tagsnormbordercolor", tagsnormbordercolor);
++		XRDB_LOAD_COLOR("dwm.tagsselfgcolor", tagsselfgcolor);
++		XRDB_LOAD_COLOR("dwm.tagsselbgcolor", tagsselbgcolor);
++		XRDB_LOAD_COLOR("dwm.tagsselbordercolor", tagsselbordercolor);
++		XRDB_LOAD_COLOR("dwm.statusfgcolor", statusfgcolor);
++		XRDB_LOAD_COLOR("dwm.statusbgcolor", statusbgcolor);
++		XRDB_LOAD_COLOR("dwm.statusbordercolor", statusbordercolor);
++
+       }
+     }
+   }
+-- 
+2.29.2
+
