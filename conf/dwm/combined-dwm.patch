@@ -156,7 +156,7 @@ index 4bcd5ad..42b04ce 100644
  /* Cursor abstraction */
  Cur *drw_cur_create(Drw *drw, int shape);
 diff --git a/dwm.c b/dwm.c
-index 664c527..226e67d 100644
+index 664c527..5907263 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -35,6 +35,7 @@
@@ -420,10 +420,11 @@ index 664c527..226e67d 100644
  	/* draw status first so it can be overdrawn by tags later */
  	if (m == selmon) { /* status is only drawn on selected monitor */
 -		drw_setscheme(drw, scheme[SchemeNorm]);
-+		drw_setscheme(drw, scheme[SchemeStatus]);
- 		tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
+-		tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
 -		drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0);
-+		drw_text(drw, m->ww - tw - 2 * sp, 0, tw, bh, 0, stext, 0);
++		drw_setscheme(drw, scheme[SchemeStatus]);
++		tw = TEXTW(stext);
++		drw_text(drw, m->ww - tw, 0, tw, bh, lrpad / 2, stext, 0);
  	}
  
  	for (c = m->clients; c; c = c->next) {
