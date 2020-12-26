@@ -6,14 +6,16 @@ if [[ -d "$HOME/Projects/dwm" ]]; then
   make clean
 else
   mkdir -p "$HOME/Projects"
-  git clone https://github.com/bakkeby/dwm-flexipatch "$HOME/Projects/dwm"
-  ln -sf "$HOME/dotfiles/conf/dwm/patches.h" "$HOME/Projects/dwm/"
+  git clone https://git.suckless.org/dwm "$HOME/Projects/dwm"
   ln -sf "$HOME/dotfiles/conf/dwm/config.h" "$HOME/Projects/dwm/"
   cd "$HOME/Projects/dwm" || exit
 fi
-# cp "$HOME/dotfiles/conf/dwm/*" "$HOME/Projects/dwm"
+git checkout -b build
+git apply "$HOME/dotfiles/conf/dwm/combined-dwm.patch"
 make
 sudo make install
+git checkout master
+git branch -D build
 if [[ ! -e "/usr/share/xsessions/dwm.desktop" ]]; then
   sudo tee /usr/share/xsessions/dwm.desktop <<- EOF
   [Desktop Entry]
