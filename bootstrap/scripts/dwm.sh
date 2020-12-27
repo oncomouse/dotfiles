@@ -30,11 +30,12 @@ if [[ ! -d "$HOME/Projects/dwm" ]]; then
   git clone https://git.suckless.org/dwm "$HOME/Projects/dwm"
   cd "$HOME/Projects/dwm" || exit
 fi
-# Clean previous build stuff:
+# Setup the most recent DWM source:
 git checkout master --force
 cd "$HOME/Projects/dwm" || exit
 git pull
 make clean
+# Clean previous build stuff:
 git branch | grep -v "master" | xargs git branch -D --force
 git checkout -b build
 ln -sf "$HOME/dotfiles/conf/dwm/config.h" "$HOME/Projects/dwm"
