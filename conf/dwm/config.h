@@ -318,7 +318,7 @@ static char *statuscolors[][ColCount] = {
 
 #if COOL_AUTOSTART_PATCH
 static const char *const autostart[] = {
-	"st", NULL,
+	"bash", "-c", "$HOME/dotfiles/scripts/dwm/autostart.sh", NULL,
 	NULL /* terminate */
 };
 #endif // COOL_AUTOSTART_PATCH
