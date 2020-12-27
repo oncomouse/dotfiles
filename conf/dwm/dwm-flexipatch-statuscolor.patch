@@ -1,0 +1,124 @@
+diff --git a/config.def.h b/config.def.h
+index 4382560..a091998 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -103,6 +103,13 @@ static char selfgcolor[]                 = "#eeeeee";
+ static char selbgcolor[]                 = "#005577";
+ static char selbordercolor[]             = "#005577";
+ static char selfloatcolor[]              = "#005577";
++#if BAR_STATUSCOLOR_PATCH
++
++static char statusfgcolor[]              = "#bbbbbb";
++static char statusbgcolor[]              = "#222222";
++static char statusbordercolor[]          = "#444444";
++static char statusfloatcolor[]           = "#db8fd9";
++#endif
+ 
+ static char titlenormfgcolor[]           = "#bbbbbb";
+ static char titlenormbgcolor[]           = "#222222";
+@@ -177,6 +184,9 @@ static const unsigned int alphas[][3] = {
+ 	/*                       fg      bg        border     */
+ 	[SchemeNorm]         = { OPAQUE, baralpha, borderalpha },
+ 	[SchemeSel]          = { OPAQUE, baralpha, borderalpha },
++#if BAR_STATUSCOLOR_PATCH
++	[SchemeStatus]       = { OPAQUE, baralpha, borderalpha },
++#endif
+ 	[SchemeTitleNorm]    = { OPAQUE, baralpha, borderalpha },
+ 	[SchemeTitleSel]     = { OPAQUE, baralpha, borderalpha },
+ 	[SchemeTagsNorm]     = { OPAQUE, baralpha, borderalpha },
+@@ -227,6 +237,9 @@ static const int color_ptrs[][ColCount] = {
+ 	/*                       fg      bg      border  float */
+ 	[SchemeNorm]         = { -1,     -1,     5,      12 },
+ 	[SchemeSel]          = { -1,     -1,     11,     13 },
++#if BAR_STATUSCOLOR_PATCH
++	[SchemeStatus]       = { 6,      0, -1 -1 },
++#endif
+ 	[SchemeTitleNorm]    = { 6,      -1,     -1,     -1 },
+ 	[SchemeTitleSel]     = { 6,      -1,     -1,     -1 },
+ 	[SchemeTagsNorm]     = { 2,      0,      0,      -1 },
+@@ -240,6 +253,9 @@ static char *colors[][ColCount] = {
+ 	/*                       fg                bg                border                float */
+ 	[SchemeNorm]         = { normfgcolor,      normbgcolor,      normbordercolor,      normfloatcolor },
+ 	[SchemeSel]          = { selfgcolor,       selbgcolor,       selbordercolor,       selfloatcolor },
++#if BAR_STATUSCOLOR_PATCH
++	[SchemeStatus]	     = { statusfgcolor,    statusbgcolor,    statusbordercolor,    statusfloatcolor },
++#endif
+ 	[SchemeTitleNorm]    = { titlenormfgcolor, titlenormbgcolor, titlenormbordercolor, titlenormfloatcolor },
+ 	[SchemeTitleSel]     = { titleselfgcolor,  titleselbgcolor,  titleselbordercolor,  titleselfloatcolor },
+ 	[SchemeTagsNorm]     = { tagsnormfgcolor,  tagsnormbgcolor,  tagsnormbordercolor,  tagsnormfloatcolor },
+@@ -288,6 +304,9 @@ static char *statuscolors[][ColCount] = {
+ 	/*                       fg                bg                border                float */
+ 	[SchemeNorm]         = { normfgcolor,      normbgcolor,      normbordercolor,      normfloatcolor },
+ 	[SchemeSel]          = { selfgcolor,       selbgcolor,       selbordercolor,       selfloatcolor },
++#if BAR_STATUSCOLOR_PATCH
++	[SchemeStatus]	     = { statusfgcolor,    statusbgcolor,    statusbordercolor,    statusfloatcolor },
++#endif
+ 	[SchemeTitleNorm]    = { titlenormfgcolor, titlenormbgcolor, titlenormbordercolor, titlenormfloatcolor },
+ 	[SchemeTitleSel]     = { titleselfgcolor,  titleselbgcolor,  titleselbordercolor,  titleselfloatcolor },
+ 	[SchemeTagsNorm]     = { tagsnormfgcolor,  tagsnormbgcolor,  tagsnormbordercolor,  tagsnormfloatcolor },
+diff --git a/dwm.c b/dwm.c
+index 09db78e..2b13f69 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -130,6 +130,9 @@ enum {
+ enum {
+ 	SchemeNorm,
+ 	SchemeSel,
++#if BAR_STATUSCOLOR_PATCH
++	SchemeStatus,
++#endif
+ 	SchemeTitleNorm,
+ 	SchemeTitleSel,
+ 	SchemeTagsNorm,
+diff --git a/patch/bar_status.c b/patch/bar_status.c
+index d37424d..9d224d9 100644
+--- a/patch/bar_status.c
++++ b/patch/bar_status.c
+@@ -15,6 +15,9 @@ width_status_es(Bar *bar, BarArg *a)
+ int
+ draw_status(Bar *bar, BarArg *a)
+ {
++#if BAR_STATUSCOLOR_PATCH
++	drw_setscheme(drw, scheme[SchemeStatus]);
++#endif
+ 	return drw_text(drw, a->x, a->y, a->w, a->h, lrpad / 2, stext, 0, True);
+ }
+ 
+diff --git a/patch/xrdb.c b/patch/xrdb.c
+index e8633cd..d9bae1d 100644
+--- a/patch/xrdb.c
++++ b/patch/xrdb.c
+@@ -24,6 +24,12 @@ loadxrdb()
+ 				XRDB_LOAD_COLOR("dwm.selbgcolor", selbgcolor);
+ 				XRDB_LOAD_COLOR("dwm.selbordercolor", selbordercolor);
+ 				XRDB_LOAD_COLOR("dwm.selfloatcolor", selfloatcolor);
++#if BAR_STATUSCOLOR_PATCH
++				XRDB_LOAD_COLOR("dwm.statusfgcolor", statusfgcolor);
++				XRDB_LOAD_COLOR("dwm.statusbgcolor", statusbgcolor);
++				XRDB_LOAD_COLOR("dwm.statusbordercolor", statusbordercolor);
++				XRDB_LOAD_COLOR("dwm.statusfloatcolor", statusfloatcolor);
++#endif
+ 				XRDB_LOAD_COLOR("dwm.titlenormfgcolor", titlenormfgcolor);
+ 				XRDB_LOAD_COLOR("dwm.titlenormbgcolor", titlenormbgcolor);
+ 				XRDB_LOAD_COLOR("dwm.titlenormbordercolor", titlenormbordercolor);
+@@ -122,4 +128,4 @@ xrdb(const Arg *arg)
+ 		);
+ 	focus(NULL);
+ 	arrange(NULL);
+-}
+\ No newline at end of file
++}
+diff --git a/patches.def.h b/patches.def.h
+index df6f1c1..64d691d 100644
+--- a/patches.def.h
++++ b/patches.def.h
+@@ -95,6 +95,9 @@
+  */
+ #define BAR_STATUSCMD_PATCH 0
+ 
++/* Create color scheme for the status. */
++#define BAR_STATUSCOLOR_PATCH 1
++
+ /* Status2d allows colors and rectangle drawing in your dwm status bar.
+  * This patch is incompatible with the statuscolors patch which takes precedence.
+  * This patch is incompatible with the extrabar patch.

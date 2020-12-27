@@ -1,5 +1,5 @@
 /usr/bin/env picom &
 /usr/bin/env dunst &
-# $HOME/dotfiles/stow/dwm/dot-local/share/dwm/autostart.sh &
+$HOME/dotfiles/stow/dwm/dot-local/share/dwm/autostart.sh &
 /usr/bin/env xrdb ~/.Xresources
 /usr/bin/env feh --bg-scale ~/dotfiles/conf/wallpaper/wallhaven-453lo1.jpg
