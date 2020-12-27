@@ -57,3 +57,5 @@ done
 set +e
 make
 sudo make install
+make clean
+git checkout master
