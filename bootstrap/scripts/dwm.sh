@@ -12,6 +12,19 @@ branch_name() {
   echo "$1" | awk -F"/" '{print $NF}' | sed -e "s/\.diff//" | cut -d "-" -f2
 }
 
+# So far, all the merge coflicts this build generates are situations where we
+# want to keep everything, so we do this to "fix" merge conflicts
+merge_conflict() {
+  for file in $(git ls-files -u | cut -f 2 | sort -u); do
+    local tmpfile
+    tmpfile=$(mktemp)
+    grep -v -e'^<<<<<<<' -e '^>>>>>>>' -e'=======' "$file" > "$tmpfile"
+    mv "$tmpfile" "$file"
+  done
+  git add .
+  git commit -m "merged $1"
+}
+
 if [[ -d "$HOME/Projects/dwm" ]]; then
   cd "$HOME/Projects/dwm" || exit
   git pull
@@ -22,8 +35,8 @@ else
   cd "$HOME/Projects/dwm" || exit
 fi
 # Clean previous build stuff:
-git checkout master
-git branch | grep -v "master" | xargs git branch -D
+git checkout master --force
+git branch | grep -v "master" | xargs git branch -D --force
 git checkout -b build
 ln -sf "$HOME/dotfiles/conf/dwm/config.h" "$HOME/Projects/dwm"
 for patch in "${patches[@]}"; do
@@ -36,15 +49,11 @@ for patch in "${patches[@]}"; do
   git commit -m "Applied $branch"
   git checkout build
 done
-merging=1
+set -e
 for patch in "${patches[@]}"; do
   branch=$(branch_name "$patch")
-  if test "$merging" -eq 1; then
-    git merge -m "merging $branch" "$branch"
-  else
-    echo "Merge $branch later."
-  fi
-  if test $? -ne 0; then
-    merging=1
-  fi
+  git merge -m "merging $branch" "$branch" || merge_conflict "$branch"
 done
+set +e
+make
+sudo make install
