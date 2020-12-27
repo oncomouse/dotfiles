@@ -20,11 +20,12 @@ else
   mkdir -p "$HOME/Projects"
   git clone https://git.suckless.org/dwm "$HOME/Projects/dwm"
   cd "$HOME/Projects/dwm" || exit
-  ln -sf "$HOME/dotfiles/conf/dwm/config.h" "$HOME/Projects/dwm"
 fi
 # Clean previous build stuff:
+git checkout master
 git branch | grep -v "master" | xargs git branch -D
 git checkout -b build
+ln -sf "$HOME/dotfiles/conf/dwm/config.h" "$HOME/Projects/dwm"
 for patch in "${patches[@]}"; do
   branch=$(branch_name "$patch")
   git checkout -b "$branch"
