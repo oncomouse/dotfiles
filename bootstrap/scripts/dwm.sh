@@ -25,17 +25,16 @@ merge_conflict() {
   git commit -m "merged $1"
 }
 
-if [[ -d "$HOME/Projects/dwm" ]]; then
-  cd "$HOME/Projects/dwm" || exit
-  git pull
-  make clean
-else
+if [[ ! -d "$HOME/Projects/dwm" ]]; then
   mkdir -p "$HOME/Projects"
   git clone https://git.suckless.org/dwm "$HOME/Projects/dwm"
   cd "$HOME/Projects/dwm" || exit
 fi
 # Clean previous build stuff:
 git checkout master --force
+cd "$HOME/Projects/dwm" || exit
+git pull
+make clean
 git branch | grep -v "master" | xargs git branch -D --force
 git checkout -b build
 ln -sf "$HOME/dotfiles/conf/dwm/config.h" "$HOME/Projects/dwm"
