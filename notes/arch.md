@@ -10,7 +10,7 @@ Notes:
 
 Additional Packages to install, before reboot:
 
-`pacman -S refind base-devel vim git curl fish dhcpcd btrfs-progs iw gptfdisk iwd terminus-font`
+`pacman -S linux-zen linux-firmware refind base-devel vim git curl fish dhcpcd btrfs-progs iw gptfdisk iwd terminus-font`
 
 Install AMD or Intel Microcode: `pacman -S amd-ucode` or `pacman -S intel-ucode`
 
