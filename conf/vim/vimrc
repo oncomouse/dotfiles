@@ -335,7 +335,7 @@ endif
                 \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/scripts/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt'],
                 \ 'vim': ['/usr/bin/env', 'vim-language-server', '--stdio'],
                 \ 'markdown': ['/usr/bin/env', 'citation-langserver'],
-                \ 'bash': ['/usr/bin/env', 'bash-language-server'],
+                \ 'bash': ['/usr/bin/env', 'bash-language-server', 'start'],
                 \ 'sh': ['/usr/bin/env', 'bash-language-server'],
                 \}
         " }}}
