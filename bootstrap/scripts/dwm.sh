@@ -15,11 +15,30 @@ branch_name() {
 # So far, all the merge coflicts this build generates are situations where we
 # want to keep everything, so we do this to "fix" merge conflicts
 merge_conflict() {
+  echo "Merge Conflict in $1."
+  echo ""
   for file in $(git ls-files -u | cut -f 2 | sort -u); do
     local tmpfile
-    tmpfile=$(mktemp)
-    grep -v -e'^<<<<<<<' -e '^>>>>>>>' -e'=======' "$file" > "$tmpfile"
-    mv "$tmpfile" "$file"
+
+    echo "Fixing $file."
+    PS3='Please enter your choice: '
+    select opt in "Accept Both" "Edit ${file}"; do
+      case $opt in
+        "Accept Both")
+          tmpfile=$(mktemp)
+          grep -v -e'^<<<<<<<' -e '^>>>>>>>' -e'=======' "$file" > "$tmpfile"
+          mv "$tmpfile" "$file"
+          break
+          ;;
+        "Edit ${file}")
+          vim "$file"
+          break
+          ;;
+        "*")
+          echo "Invalid Reply"
+          ;;
+      esac
+    done
   done
   git add .
   git commit -m "merged $1"
@@ -28,15 +47,14 @@ merge_conflict() {
 if [[ ! -d "$HOME/Projects/dwm" ]]; then
   mkdir -p "$HOME/Projects"
   git clone https://git.suckless.org/dwm "$HOME/Projects/dwm"
-  cd "$HOME/Projects/dwm" || exit
 fi
+cd "$HOME/Projects/dwm" || exit
 # Setup the most recent DWM source:
 git checkout master --force
-cd "$HOME/Projects/dwm" || exit
-git pull
-make clean
 # Clean previous build stuff:
 git branch | grep -v "master" | xargs git branch -D --force
+git pull
+make clean
 git checkout -b build
 ln -sf "$HOME/dotfiles/conf/dwm/config.h" "$HOME/Projects/dwm"
 for patch in "${patches[@]}"; do
