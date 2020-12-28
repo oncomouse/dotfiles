@@ -1,5 +1,5 @@
 #!/bin/bash
-
+project=dwm
 patches=(
   "https://dwm.suckless.org/patches/vanitygaps/dwm-vanitygaps-20200610-f09418b.diff"
   "https://dwm.suckless.org/patches/attachbottom/dwm-attachbottom-6.2.diff"
@@ -44,11 +44,11 @@ merge_conflict() {
   git commit -m "merged $1"
 }
 
-if [[ ! -d "$HOME/Projects/dwm" ]]; then
+if [[ ! -d "$HOME/Projects/$project" ]]; then
   mkdir -p "$HOME/Projects"
-  git clone https://git.suckless.org/dwm "$HOME/Projects/dwm"
+  git clone https://git.suckless.org/$project "$HOME/Projects/$project"
 fi
-cd "$HOME/Projects/dwm" || exit
+cd "$HOME/Projects/$project" || exit
 # Setup the most recent DWM source:
 git checkout master --force
 # Clean previous build stuff:
@@ -56,7 +56,7 @@ git branch | grep -v "master" | xargs git branch -D --force
 git pull
 make clean
 git checkout -b build
-ln -sf "$HOME/dotfiles/conf/dwm/config.h" "$HOME/Projects/dwm"
+ln -sf "$HOME/dotfiles/conf/$project/config.h" "$HOME/Projects/$project"
 for patch in "${patches[@]}"; do
   branch=$(branch_name "$patch")
   git checkout -b "$branch"
