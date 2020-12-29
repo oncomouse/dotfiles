@@ -36,7 +36,7 @@ otf-fira-sans
 tex-gyre-fonts
 neofetch
 zathura
-zathura-pdfk-poppler
+zathura-pdf-poppler
 nnn
 cmst
 dunst

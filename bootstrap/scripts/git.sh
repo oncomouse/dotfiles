@@ -7,7 +7,7 @@ if [ $os == "macos" ]; then
 else
   git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
 fi
-git config --global rebase.pull false
+git config --global pull.rebase false
 if [ -z "$SERVER" ]; then
   git config --global core.editor "nvim"
 else

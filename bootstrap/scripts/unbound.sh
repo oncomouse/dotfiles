@@ -47,7 +47,7 @@ fi
 sudo unbound-anchor -4 -a "${root}/etc/unbound/root.key"
 sudo unbound-control-setup -d "${root}/etc/unbound"
 sudo curl --output "${root}/etc/unbound/root.hints" https://www.internic.net/domain/named.cache
-(curl --silent https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts | grep '^0\.0\.0\.0' | sort) | awk '{print "local-zone: \""$2"\" refuse"}' | sudo tee "${root}/etc/unbound/zone-block-general.conf"
+(curl --silent https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts | grep '^0\.0\.0\.0' | sort) | awk '{print "local-zone: \""$2"\" refuse"}' | sudo tee "${root}/etc/unbound/zone-block-general.conf" > /dev/null
 cat << EOF | sudo tee "${root}/etc/unbound/unbound.conf"
 server:
 	# log verbosity
@@ -133,6 +133,8 @@ elif [[ $os == "arch" ]]; then
 [Service]
 User=
 User=root
+Group=
+Group=wheel
 EOF
   sudo systemctl enable unbound
   sudo systemctl start unbound

@@ -77,3 +77,14 @@ make
 sudo make install
 make clean
 git checkout master
+if [[ ! -e /usr/share/xesssions/dwm.desktop ]]; then
+  cat << EOF | sudo tee "/usr/share/xsessions/dwm.desktop" > /dev/null
+  [Desktop Entry]
+  Encoding=UTF-8
+  Name=DWM
+  Comment=The Dynamic Window Manager
+  Exec=dwm
+  Icon=dwm
+  Type=XSession
+EOF
+fi

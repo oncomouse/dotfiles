@@ -2,7 +2,7 @@
 bash=$(which bash)
 
 # Assume "pacman -S grub base-devel vi git curl fish" run during install:
-sudo cat "$HOME/dotfiles/conf/pacman/packages.txt" | sudo pacman -S --noconfirm --needed -
+sudo pacman -S --noconfirm --needed - < "$HOME/dotfiles/conf/pacman/packages.txt"
 
 # Install Yay and any non-AUR packages:
 url_makepg() {
@@ -11,7 +11,7 @@ url_makepg() {
   mkdir -p "$HOME/aur"
   git clone "$1" "$HOME/aur/$pkg"
   cd "$HOME/aur/$pkg" || exit
-  makepkg -si
+  makepkg -si --noconfirm
   cd "$HOME/dotfiles" || exit
 }
 
@@ -24,22 +24,25 @@ for pkg in "${url_packages[@]}"; do
 done
 
 # Install AUR using Yay:
-grep -v -e "^#" < "$HOME"/dotfiles/conf/pacman/aur.txt | sed -e "s/\s*#.*\$//g" | sudo yay -S --noconfirm -
+grep -v -e "^#" < "$HOME"/dotfiles/conf/pacman/aur.txt | sed -e "s/\s*#.*\$//g" | yay -S --noconfirm -
 # Install Suckless Stuff:
 $bash ~/dotfiles/bootstrap/scripts/dwm.sh
 $bash ~/dotfiles/bootstrap/scripts/slock.sh
 
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 if [ -z "$SERVER" ]; then
-  $bash ~/dotfiles/bootstrap/scripts/aur.sh
+  # $bash ~/dotfiles/bootstrap/scripts/aur.sh
   # Enable Redshift:
   systemctl --user enable redshift
   # Enable LightDM:
   sudo systemctl enable lightdm
-fi
 
-# Use Rofi for dmenu:
-sudo ln -sf "$(which rofi)" /usr/bin/dmenu
+  # Use Rofi for dmenu:
+  sudo ln -sf "$(which rofi)" /usr/bin/dmenu
+
+  # Remove i3 startup scripts:
+  sudo rm /usr/share/xsessions/i3*.desktop
+fi
 
 # Enable OpenSSH:
 sudo systemctl enable sshd.service
