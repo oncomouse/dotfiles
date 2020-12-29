@@ -1,4 +1,4 @@
-i3lock-color-git
+# i3lock-color-git
 # ncspot
 numix-icon-theme-git
 otf-nerd-fonts-fira-code
