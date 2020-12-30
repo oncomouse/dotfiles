@@ -32,7 +32,7 @@ XF86Audio{Prev,Next}
 
 # Play / Pause Song
 XF86AudioPlay
-	playerctl play
+	playerctl play-pause
 
 # Raise or Lower Volume
 XF86Audio{Lower,Raise}Volume
@@ -48,7 +48,7 @@ XF86AudioMute
 
 # focus or send to the given desktop
 alt + {_,shift,ctrl,ctrl + shift} + {1-9}
-	dwm-msg run_command {view,tag,toggleview,toggletag} $((1<<{0-8}))
+	$HOME/dotfiles/scripts/dwm_tag.sh {view,tag,toggleview,toggletag} {0-8}
 
 alt + {j,k}
 	dwm-msg run_command focusstack {1,-1}
