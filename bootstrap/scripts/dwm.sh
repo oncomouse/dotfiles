@@ -7,6 +7,7 @@ patches=(
   "https://dwm.suckless.org/patches/anybar/dwm-anybar-20200810-bb2e722.diff"
   "https://dwm.suckless.org/patches/ipc/dwm-ipc-20201106-f04cac6.diff"
   "https://dwm.suckless.org/patches/autostart/dwm-autostart-20200610-cb3f58a.diff"
+  "https://dwm.suckless.org/patches/ewmhtags/dwm-ewmhtags-6.2.diff"
 )
 
 branch_name() {
