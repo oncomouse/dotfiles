@@ -1,6 +1,4 @@
-#
-# wm independent hotkeys
-#
+## WM Independent
 
 # terminal emulator
 alt + shift + Return
@@ -10,134 +8,85 @@ alt + shift + Return
 alt + p
 	rofi -show combi -show-icons
 
+# restart polybar
+alt + q
+	polybar-msg cmd restart
+
 # make sxhkd reload its configuration files:
 alt + Escape
 	pkill -USR1 -x sxhkd | notify-send "sxhkd Reloaded"
 
 # Lock screen
 alt + shift + x
-	~/dotfiles/scripts/bspwm/lock
+	~/dotfiles/scripts/lock
 
 # Spawn powermenu
 ctrl + alt + q
 	~/dotfiles/scripts/polybar/powermenu
-#
-# bspwm hotkeys
-#
 
-# quit/restart bspwm
-alt + {_, shift + } q
-	bspc {wm -r,quit}
+## Audio
 
-# close and kill
-alt + {_,shift + }w
-	bspc node -{c,k}
+# Previous / Next Song
+XF86Audio{Prev,Next}
+	playerctl {previous,next}
 
-# alternate between the tiled and monocle layout
+# Play / Pause Song
+XF86AudioPlay
+	playerctl play
+
+# Raise or Lower Volume
+XF86Audio{Lower,Raise}Volume
+	ponymix {decrease,increase} 5%
+
+# Mute
+XF86AudioMute
+	ponymix toggle
+
+## DWM
+
+# Tags:
+
+# focus or send to the given desktop
+alt + {_,shift + , ctrl + , ctrl + shift + }{1-9}
+	dwm-msg run_command {view,tag,toggleview,toggletag} {1-9}
+
+alt + {j,k}
+	dwm-msg run_command focusstack {1,-1}
+
+alt + {i,d}
+	dwm-msg run_command incnmaster {1,-1}
+
+alt + {h,l}
+	dwm-msg run_command setmfact {0.05, -0.05}
+
+# Monitor:
+
+alt + {_, shift} + {comma,period}
+	dwm-msg run_command {focus,tag}mon {-1,1}
+
+# Management:
+
+alt + shift + q
+	dwm-msg run_command quit
+
+# switch to master
+alt + Return
+	dwm-msg run_command zoom
+
+# switch to last view
+alt + Tab
+	dwm-msg run_command view 0
+
+# kill the current client
+alt + shift + c
+	dwm-msg run_command killcilent
+
+# Layouts:
+
+# tiled / floating / monocle
+alt + {t,f,m}
+	dwm-msg run_command setlayout {0,1,2}
+
+# toggle floating
 alt + shift + space
-	bspc desktop -l next
-
-# send the newest marked node to the newest preselected node
-alt + y
-	bspc node newest.marked.local -n newest.!automatic.local
-
-# swap the current node and the biggest window
-alt + g
-	bspc node -s biggest.window
-
-#
-# state/flags
-#
-
-# set the window state
-alt + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
-# set the node flags
-alt + ctrl + {m,x,y,z}
-	bspc node -g {marked,locked,sticky,private}
-
-#
-# focus/swap
-#
-
-# focus the node in the given direction
-alt + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
-
-# focus the node for the given path jump
-alt + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
-
-# focus the next/previous window in the current desktop
-alt + {_,shift + }c
-	bspc node -f {next,prev}.local.!hidden.window
-
-# focus the next/previous desktop in the current monitor
-alt + bracket{left,right}
-	bspc desktop -f {prev,next}.local
-
-# focus the last node/desktop
-alt + {grave,Tab}
-	bspc {node,desktop} -f last
-
-# focus or send to the given desktop
-alt + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
-# focus the older or newer node in the focus history
-alt + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
-
-# focus or send to the given desktop
-alt + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
-
-#
-# preselect
-#
-
-# preselect the direction
-alt + ctrl + {h,j,k,l}
-	bspc node -p {west,south,north,east}
-
-# preselect the ratio
-alt + ctrl + {1-9}
-	bspc node -o 0.{1-9}
-
-# cancel the preselection for the focused node
-alt + ctrl + space
-	bspc node -p cancel
-
-# cancel the preselection for the focused desktop
-alt + ctrl + shift + space
-	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
-
-#
-# move/resize
-#
-
-# expand a window by moving one of its side outward
-# super + alt + {h,j,k,l}
-# 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-
-# contract a window by moving one of its side inward
-# super + alt + shift + {h,j,k,l}
-# 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-
-# expand a window by moving one of its side outward
-# ctrl + alt + {Left,Down,Up,Right}
-# 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-
-# contract a window by moving one of its side inward
-# ctrl + alt + shift + {Left,Down,Up,Right}
-# 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-
-# modal resize:
-ctrl + alt + e : {_, shift + } {h,j,k,l}
-    ~/dotfiles/scripts/bspwm/resize {expand, contract} {west,south,north,east} 20
-
-# move a floating window
-alt + shift + {Left,Down,Up,Right}
-	bspc node -v {-20 0,0 20,0 -20,20 0}
+	dwm-msg run_command togglefloating
