@@ -9,6 +9,7 @@ patches=(
   "https://dwm.suckless.org/patches/autostart/dwm-autostart-20200610-cb3f58a.diff"
   "https://dwm.suckless.org/patches/ewmhtags/dwm-ewmhtags-6.2.diff"
   "https://dwm.suckless.org/patches/focusonnetactive/dwm-focusonnetactive-6.2.diff"
+  "https://dwm.suckless.org/patches/focusonclick/dwm-focusonclick-20171030-6aa8e37.diff"
 )
 
 branch_name() {

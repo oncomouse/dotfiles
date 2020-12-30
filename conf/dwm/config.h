@@ -20,6 +20,7 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const int usealtbar          = 1;        /* 1 means use non-dwm status bar */
 static const char *altbarclass      = "Polybar"; /* Alternate bar class name */
 static const char *altbarcmd        = "$HOME/dotfiles/scripts/polybar/launch"; /* Alternate bar launch command */
+static const int focusonwheel       = 0;
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 static char normbgcolor[]           = "#222222";
@@ -63,7 +64,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -88,35 +89,6 @@ static const char *dmenucmd[] = { "rofi","-show","combi","-show-icons" };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY|Mod4Mask,              XK_h,      incrgaps,       {.i = +1 } },
-	{ MODKEY|Mod4Mask,              XK_l,      incrgaps,       {.i = -1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_l,      incrogaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask|ControlMask,  XK_h,      incrigaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ControlMask,  XK_l,      incrigaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
-	{ MODKEY,                       XK_y,      incrihgaps,     {.i = +1 } },
-	{ MODKEY,                       XK_o,      incrihgaps,     {.i = -1 } },
-	{ MODKEY|ControlMask,           XK_y,      incrivgaps,     {.i = +1 } },
-	{ MODKEY|ControlMask,           XK_o,      incrivgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_y,      incrohgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask,              XK_o,      incrohgaps,     {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_y,      incrovgaps,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_o,      incrovgaps,     {.i = -1 } },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
-	/* { MODKEY, XK_q, spawn, {.v = polybar_restartcmd }}, */
-	/* { 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } }, */
-	/* { 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } }, */
-	/* { 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } }, */
-	/* { 0, XF86XK_AudioPlay, spawn, {.v = playpausencspot}}, */
-	/* { 0, XF86XK_AudioPrev, spawn, {.v = previousncspot}}, */
-	/* { 0, XF86XK_AudioNext, spawn, {.v = nextncspot}}, */
-	/* { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } }, */
-	/* { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } }, */
 	/* { MODKEY,                       XK_b,      togglebar,      {0} }, */
 	/* { MODKEY,                       XK_j,      focusstack,     {.i = +1 } }, */
 	/* { MODKEY,                       XK_k,      focusstack,     {.i = -1 } }, */
@@ -127,9 +99,6 @@ static Key keys[] = {
 	/* { MODKEY,                       XK_Return, zoom,           {0} }, */
 	/* { MODKEY,                       XK_Tab,    view,           {0} }, */
 	/* { MODKEY|ShiftMask,             XK_c,      killclient,     {0} }, */
-	/* { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, */
-	/* { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, */
-	/* { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, */
 	/* { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} }, */
 	/* { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } }, */
 	/* { MODKEY,                       XK_period, focusmon,       {.i = +1 } }, */
@@ -144,24 +113,56 @@ static Key keys[] = {
 	/* TAGKEYS(                        XK_7,                      6) */
 	/* TAGKEYS(                        XK_8,                      7) */
 	/* TAGKEYS(                        XK_9,                      8) */
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
 	/* { MODKEY|ShiftMask,             XK_q,      quit,           {0} }, */
+	/* { 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } }, */
+	/* { 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } }, */
+	/* { 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } }, */
+	/* { 0, XF86XK_AudioPlay, spawn, {.v = playpausencspot}}, */
+	/* { 0, XF86XK_AudioPrev, spawn, {.v = previousncspot}}, */
+	/* { 0, XF86XK_AudioNext, spawn, {.v = nextncspot}}, */
+	/* { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } }, */
+	/* { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } }, */
+	/* { MODKEY|Mod4Mask,              XK_h,      incrgaps,       {.i = +1 } }, */
+	/* { MODKEY|Mod4Mask,              XK_l,      incrgaps,       {.i = -1 } }, */
+	/* { MODKEY|Mod4Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } }, */
+	/* { MODKEY|Mod4Mask|ShiftMask,    XK_l,      incrogaps,      {.i = -1 } }, */
+	/* { MODKEY|Mod4Mask|ControlMask,  XK_h,      incrigaps,      {.i = +1 } }, */
+	/* { MODKEY|Mod4Mask|ControlMask,  XK_l,      incrigaps,      {.i = -1 } }, */
+	/* { MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} }, */
+	/* { MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} }, */
+	/* { MODKEY,                       XK_y,      incrihgaps,     {.i = +1 } }, */
+	/* { MODKEY,                       XK_o,      incrihgaps,     {.i = -1 } }, */
+	/* { MODKEY|ControlMask,           XK_y,      incrivgaps,     {.i = +1 } }, */
+	/* { MODKEY|ControlMask,           XK_o,      incrivgaps,     {.i = -1 } }, */
+	/* { MODKEY|Mod4Mask,              XK_y,      incrohgaps,     {.i = +1 } }, */
+	/* { MODKEY|Mod4Mask,              XK_o,      incrohgaps,     {.i = -1 } }, */
+	/* { MODKEY|ShiftMask,             XK_y,      incrovgaps,     {.i = +1 } }, */
+	/* { MODKEY|ShiftMask,             XK_o,      incrovgaps,     {.i = -1 } }, */
+	/* { MODKEY, XK_q, spawn, {.v = polybar_restartcmd }}, */
 };
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
+	/* { ClkLtSymbol,          0,              Button1,        setlayout,      {0} }, */
+	/* { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} }, */
+	/* { ClkWinTitle,          0,              Button2,        zoom,           {0} }, */
 	/* { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } }, */
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
-	{ ClkTagBar,            0,              Button1,        view,           {0} },
-	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
-	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	/* { ClkTagBar,            0,              Button1,        view,           {0} }, */
+	/* { ClkTagBar,            0,              Button3,        toggleview,     {0} }, */
+	/* { ClkTagBar,            MODKEY,         Button1,        tag,            {0} }, */
+	/* { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} }, */
 };
 
 static const char *ipcsockpath = "/tmp/dwm.sock";

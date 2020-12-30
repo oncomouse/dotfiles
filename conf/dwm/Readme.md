@@ -18,3 +18,5 @@
 	* Implement standard WM commands
 * [focusonnetactive](https://dwm.suckless.org/patches/focusonnetactive/dwm-focusonnetactive-6.2.diff)
 	* Used to support Rofi window switching
+* [focusonclick](https://dwm.suckless.org/patches/focusonclick/dwm-focusonclick-20171030-6aa8e37.diff)
+	* Turn off mouse following
