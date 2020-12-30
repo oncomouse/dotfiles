@@ -8,6 +8,7 @@ patches=(
   "https://dwm.suckless.org/patches/ipc/dwm-ipc-20201106-f04cac6.diff"
   "https://dwm.suckless.org/patches/autostart/dwm-autostart-20200610-cb3f58a.diff"
   "https://dwm.suckless.org/patches/ewmhtags/dwm-ewmhtags-6.2.diff"
+  "https://dwm.suckless.org/patches/focusonnetactive/dwm-focusonnetactive-6.2.diff"
 )
 
 branch_name() {
@@ -78,6 +79,7 @@ set +e
 make
 sudo make install
 make clean
+rm dwm-msg.o
 git checkout master
 if [[ ! -e /usr/share/xesssions/dwm.desktop ]]; then
   cat << EOF | sudo tee "/usr/share/xsessions/dwm.desktop" > /dev/null
