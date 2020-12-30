@@ -47,8 +47,8 @@ XF86AudioMute
 # Tags:
 
 # focus or send to the given desktop
-alt + {_,shift + , ctrl + , ctrl + shift + }{1-9}
-	dwm-msg run_command {view,tag,toggleview,toggletag} {1-9}
+alt + {_,shift,ctrl,ctrl + shift} + {1-9}
+	dwm-msg run_command {view,tag,toggleview,toggletag} $((1<<{0-8}))
 
 alt + {j,k}
 	dwm-msg run_command focusstack {1,-1}
@@ -85,7 +85,7 @@ alt + shift + c
 
 # tiled / floating / monocle
 alt + {t,f,m}
-	dwm-msg run_command setlayout {0,1,2}
+	dwm-msg run_command setlayoutsafe {0,1,2}
 
 # toggle floating
 alt + shift + space

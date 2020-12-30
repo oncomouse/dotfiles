@@ -1,3 +1,4 @@
+[Desktop Entry]
 Name=sxhkd
 Comment=Simple X hotkey daemon
 Exec=/usr/bin/sxhkd

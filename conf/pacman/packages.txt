@@ -47,3 +47,5 @@ unzip
 materia-gtk-theme
 redshift
 feh
+dex
+sxhkd
