@@ -1,27 +1,27 @@
 ## WM Independent
 
 # terminal emulator
-alt + shift + Return
+super + shift + Return
 	kitty
 
 # program launcher
-alt + p
+super + p
 	rofi -show combi -show-icons
 
 # restart polybar
-alt + q
+super + q
 	polybar-msg cmd restart
 
 # make sxhkd reload its configuration files:
-alt + Escape
+super + Escape
 	pkill -USR1 -x sxhkd | notify-send "sxhkd Reloaded"
 
 # Lock screen
-alt + shift + x
+super + shift + x
 	~/dotfiles/scripts/lock
 
 # Spawn powermenu
-ctrl + alt + q
+ctrl + super + q
 	~/dotfiles/scripts/polybar/powermenu
 
 ## Audio
@@ -47,46 +47,46 @@ XF86AudioMute
 # Tags:
 
 # focus or send to the given desktop
-alt + {_,shift,ctrl,ctrl + shift} + {1-9}
+super + {_,shift,ctrl,ctrl + shift} + {1-9}
 	$HOME/dotfiles/scripts/dwm_tag.sh {view,tag,toggleview,toggletag} {0-8}
 
-alt + {j,k}
+super + {j,k}
 	dwm-msg run_command focusstack {1,-1}
 
-alt + {i,d}
+super + {i,d}
 	dwm-msg run_command incnmaster {1,-1}
 
-alt + {h,l}
+super + {h,l}
 	dwm-msg run_command setmfact {0.05, -0.05}
 
 # Monitor:
 
-alt + {_, shift} + {comma,period}
+super + {_, shift} + {comma,period}
 	dwm-msg run_command {focus,tag}mon {-1,1}
 
 # Management:
 
-alt + shift + q
+super + shift + q
 	dwm-msg run_command quit
 
 # switch to master
-alt + Return
+super + Return
 	dwm-msg run_command zoom
 
 # switch to last view
-alt + Tab
+super + Tab
 	dwm-msg run_command view 0
 
 # kill the current client
-alt + shift + c
+super + shift + c
 	dwm-msg run_command killcilent
 
 # Layouts:
 
 # tiled / floating / monocle
-alt + {t,f,m}
+super + {t,f,m}
 	dwm-msg run_command setlayoutsafe {0,1,2}
 
 # toggle floating
-alt + shift + space
+super + shift + space
 	dwm-msg run_command togglefloating
