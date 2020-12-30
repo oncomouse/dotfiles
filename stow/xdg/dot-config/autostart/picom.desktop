@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=picom
+Comment=Picom Compositor
+Exec=/usr/bin/picom --experimental-backends -b
+Terminal=false
+Type=Application

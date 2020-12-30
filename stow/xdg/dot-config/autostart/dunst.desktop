@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=dunst
+Comment=Dunst Notification System
+Exec=/usr/bin/dunst
+Terminal=false
+Type=Application
+
