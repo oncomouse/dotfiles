@@ -81,6 +81,18 @@ super + Tab
 super + shift + c
 	dwm-msg run_command killcilent
 
+super + F5
+	dwm-msg run_command xrdb
+
+# Gaps:
+
+super + alt + {_,shift,ctrl} + {h,l}
+	dwm-msg run_command {incrgaps, incrogaps, incrigaps} {1,-1}
+super + alt + {_,shift} + 0
+	dwm-msg run_command {togglegaps, defaultgaps}
+super + {_,alt,ctrl,shift} + {y,o}
+	dwm-msg run_command {incrihgaps,incrivgaps,incrohgaps,incrovgaps} {1,-1}
+
 # Layouts:
 
 # tiled / floating / monocle
