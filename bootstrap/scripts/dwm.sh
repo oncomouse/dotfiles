@@ -1,7 +1,6 @@
 #!/bin/bash
 project=dwm
 patches=(
-  "https://dwm.suckless.org/patches/vanitygaps/dwm-vanitygaps-20200610-f09418b.diff"
   "https://dwm.suckless.org/patches/attachbottom/dwm-attachbottom-6.2.diff"
   "https://dwm.suckless.org/patches/xrdb/dwm-xrdb-6.2.diff"
   "https://dwm.suckless.org/patches/anybar/dwm-anybar-20200810-bb2e722.diff"
@@ -9,6 +8,7 @@ patches=(
   "https://dwm.suckless.org/patches/autostart/dwm-autostart-20200610-cb3f58a.diff"
   "https://dwm.suckless.org/patches/ewmhtags/dwm-ewmhtags-6.2.diff"
   "https://dwm.suckless.org/patches/focusonnetactive/dwm-focusonnetactive-6.2.diff"
+  "https://raw.githubusercontent.com/oncomouse/dotfiles/master/conf/dwm/dwm-vanitygaps.diff"
 )
 
 branch_name() {

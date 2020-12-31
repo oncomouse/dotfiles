@@ -21,7 +21,7 @@ super + shift + x
 	~/dotfiles/scripts/lock
 
 # Spawn powermenu
-ctrl + super + q
+super + shift + p
 	~/dotfiles/scripts/polybar/powermenu
 
 ## Audio
@@ -96,8 +96,8 @@ super + {_,alt,ctrl,shift} + {y,o}
 # Layouts:
 
 # tiled / floating / monocle
-super + {t,f,m}
-	/home/andrew/dotfiles/scripts/dwm_layout.sh {0,1,2}
+super + {t,f,m,o,u}
+	/home/andrew/dotfiles/scripts/dwm_layout.sh {0,1,2,3,4}
 super + space
 	dwm-msg run_command setlayoutsafe 0
 

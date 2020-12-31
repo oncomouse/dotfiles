@@ -1,7 +1,7 @@
 configuration {
  modi: "window,drun,ssh,combi";
  theme: "~/.cache/wal/colors-rofi-custom";
- font: "Fira Sans 14";
+ font: "Fira Sans 18";
  combi-modi: "window,drun";
  icon-theme: "Mate";
 }
