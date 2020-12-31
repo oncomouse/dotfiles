@@ -5,7 +5,7 @@ otf-nerd-fonts-fira-code
 otf-hasklig
 pandoc-bin
 perl-term-shellui
-picom-git
+picom-ibhagwan-git
 polybar-dwm-module
 # rofi-wifi-menu-git
 shellcheck-bin
