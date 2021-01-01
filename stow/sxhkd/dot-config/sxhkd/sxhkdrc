@@ -22,7 +22,7 @@ super + shift + x
 
 # Spawn powermenu
 super + shift + p
-	~/dotfiles/scripts/polybar/powermenu
+	~/dotfiles/scripts/rofi/powermenu/powermenu.sh
 
 ## Audio
 
