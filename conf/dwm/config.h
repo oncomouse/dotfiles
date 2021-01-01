@@ -1,6 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 
-#include <X11/XF86keysym.h>
+/* #include <X11/XF86keysym.h> */
 /* Add somewhere in your constants definition section */
 
 
@@ -17,6 +17,7 @@ static const unsigned int gappov    = 10;       /* vert outer gap between window
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const float cm_scale         = 0.70;     /* Centered Monocle scale */
 static const int usealtbar          = 1;        /* 1 means use non-dwm status bar */
 static const char *altbarclass      = "Polybar"; /* Alternate bar class name */
 static const char *altbarcmd        = "$HOME/dotfiles/scripts/polybar/launch"; /* Alternate bar launch command */
@@ -53,16 +54,14 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] 
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
-#define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
-#include "vanitygaps.c"
+/* #define FORCE_VSPLIT 1  /1* nrowgrid layout: force two clients to always split vertically *1/ */
+/* #include "vanitygaps.c" */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "", tile}, 
 	{ "", NULL}, 
-	{ "", monocle},
-	{ "", centeredmaster},
-	{ "", centeredfloatingmaster},
+	{ "", centeredmonocle},
 	/* { "[]=",      tile },   first entry is default */
 	/*{ "><>",      NULL },    no layout function means floating behavior */
 	/* { "[M]",      monocle }, */

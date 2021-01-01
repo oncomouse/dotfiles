@@ -18,3 +18,7 @@
 	* Implement standard WM commands
 * [focusonnetactive](https://dwm.suckless.org/patches/focusonnetactive/dwm-focusonnetactive-6.2.diff)
 	* Used to support Rofi window switching
+* [centeredmonocle](https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-centeredmonocle-vanitygaps-20210101-61bb8b2.diff)
+	* Center the window in monocle mode and add vanity gaps
+* [pertag](https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff)
+	* Allow layouts per tag instead of global

@@ -8,7 +8,8 @@ patches=(
   "https://dwm.suckless.org/patches/autostart/dwm-autostart-20200610-cb3f58a.diff"
   "https://dwm.suckless.org/patches/ewmhtags/dwm-ewmhtags-6.2.diff"
   "https://dwm.suckless.org/patches/focusonnetactive/dwm-focusonnetactive-6.2.diff"
-  "https://raw.githubusercontent.com/oncomouse/dotfiles/master/conf/dwm/dwm-vanitygaps.diff"
+  "https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff"
+  "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-centeredmonocle-vanitygaps-20210101-61bb8b2.diff"
 )
 
 branch_name() {

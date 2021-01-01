@@ -96,8 +96,8 @@ super + {_,alt,ctrl,shift} + {y,o}
 # Layouts:
 
 # tiled / floating / monocle
-super + {t,f,m,o,u}
-	/home/andrew/dotfiles/scripts/dwm_layout.sh {0,1,2,3,4}
+super + {t,f,m}
+	/home/andrew/dotfiles/scripts/dwm_layout.sh {0,1,2}
 super + space
 	dwm-msg run_command setlayoutsafe 0
 
