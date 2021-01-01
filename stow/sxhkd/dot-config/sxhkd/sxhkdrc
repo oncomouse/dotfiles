@@ -46,6 +46,9 @@ XF86AudioMute
 super + {_,shift,ctrl,ctrl + shift} + {1-9}
 	$HOME/dotfiles/scripts/dwm_tag.sh {view,tag,toggleview,toggletag} {0-8}
 
+super + {_,shift} + 0
+	dwm-msg run_command {view,tag} -1
+
 super + {j,k}
 	dwm-msg run_command focusstack {1,-1}
 
