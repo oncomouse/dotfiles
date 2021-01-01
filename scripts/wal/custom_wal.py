@@ -27,13 +27,12 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
         "{}/.cache/wal/vim/autoload/clap/themes/wal.vim".format(home),
     )
 
-    # Run oomox:
-    if which("oomox-cli") is not None:
-        system("oomox-cli -d True -o oomox-Wal {}/.cache/wal/colors-oomox".format(home))
     if which("kitty") is not None:
         system("kitty @ set-colors -a -c {}/.cache/wal/colors-kitty.conf".format(home))
     if which("fish") is not None:
         system('fish -c "source {}/.cache/wal/colors-fzf.fish"'.format(home))
+    if which("dwm-msg") is not None:
+        system("dwm-msg run_command xrdb")
     if which("bat") is not None:
         if not path.isdir("{}/.config/bat/themes/".format(home)):
             system("mkdir -p {}/.config/bat/themes".format(home))
@@ -44,3 +43,7 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
                 )
             )
         system("bat cache --build")
+
+    # Run oomox:
+    if which("oomox-cli") is not None:
+        system("oomox-cli -d True -o oomox-Wal {}/.cache/wal/colors-oomox".format(home))
