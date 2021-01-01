@@ -8,6 +8,7 @@ else
   git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
 fi
 git config --global pull.rebase false
+git config --global init.defaultBranch master
 if [ -z "$SERVER" ]; then
   git config --global core.editor "nvim"
 else
