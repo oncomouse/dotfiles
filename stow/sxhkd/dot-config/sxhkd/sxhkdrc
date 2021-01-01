@@ -26,13 +26,9 @@ super + shift + p
 
 ## Audio
 
-# Previous / Next Song
-XF86Audio{Prev,Next}
-	playerctl {previous,next}
-
-# Play / Pause Song
-XF86AudioPlay
-	playerctl play-pause
+# Previous / Next / Play-Pause / Stop
+XF86Audio{Prev,Next,Play,Stop}
+	playerctl {previous,next,play-pause,stop}
 
 # Raise or Lower Volume
 XF86Audio{Lower,Raise}Volume
