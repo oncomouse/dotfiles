@@ -22,6 +22,9 @@ grep -v -e "^#" < "$HOME"/dotfiles/conf/pacman/aur.txt | sed -e "s/\s*#.*\$//g" 
 $bash ~/dotfiles/bootstrap/scripts/dwm.sh
 $bash ~/dotfiles/bootstrap/scripts/slock.sh
 
+# Install non-AUR PKGBUILD stuff:
+$bash ~/dotfiles/bootstrap/scripts/aur.sh
+
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 if [ -z "$SERVER" ]; then
   # $bash ~/dotfiles/bootstrap/scripts/aur.sh
