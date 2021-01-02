@@ -1,23 +1,8 @@
 #!/usr/bin/env bash
 
 packages=(
-  "i3lock-color-git"
-  # "ncspot"
-  "numix-icon-theme-git"
-  "otf-nerd-fonts-fira-code"
-  "otf-hasklig"
-  "pandoc-bin"
-  "perl-term-shellui"
-  "picom-git"
-  "polybar-dwm-module"
-  # "rofi-wifi-menu-git"
-  "shellcheck-bin"
-  "tllocalmgr-git"
-  "themix-gui-git"
+  "https://github.com/oncomouse/pandoc-bin"
   "https://github.com/oncomouse/vale-bin"
-  # "visual-studio-code-bin"
-  "viu" # For NNN image viewing
-  "zotero"
 )
 
 mkdir -p ~/aur

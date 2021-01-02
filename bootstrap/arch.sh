@@ -4,8 +4,8 @@ bash=$(which bash)
 # Assume "pacman -S grub base-devel vi git curl fish" run during install:
 sudo pacman -S --noconfirm --needed - < "$HOME/dotfiles/conf/pacman/packages.txt"
 
-# Install Yay and any non-AUR packages:
-url_makepg() {
+# Install Yay:
+url_makepkg() {
   local pkg
   pkg=$(basename "$1")
   mkdir -p "$HOME/aur"
@@ -14,14 +14,7 @@ url_makepg() {
   makepkg -si --noconfirm
   cd "$HOME/dotfiles" || exit
 }
-
-url_packages=(
-  "https://aur.archlinux.org/yay"
-  "https://github.com/oncomouse/vale-bin"
-)
-for pkg in "${url_packages[@]}"; do
-  url_makepg "$pkg"
-done
+url_makepkg "https://aur.archlinux.org/yay"
 
 # Install AUR using Yay:
 grep -v -e "^#" < "$HOME"/dotfiles/conf/pacman/aur.txt | sed -e "s/\s*#.*\$//g" | yay -S --noconfirm -
