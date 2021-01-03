@@ -32,11 +32,11 @@ XF86Audio{Prev,Next,Play,Stop}
 
 # Raise or Lower Volume
 XF86Audio{Lower,Raise}Volume
-	ponymix {decrease,increase} 5%
+	~/dotfiles/scripts/volume.sh {down,up} 5%
 
 # Mute
 XF86AudioMute
-	ponymix toggle
+	~/dotfiles/scripts/volume.sh mute
 
 ## DWM
 

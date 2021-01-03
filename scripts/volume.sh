@@ -1,18 +1,19 @@
 #!/bin/bash
 
+vol_change=${2:-5%}
 case "$1" in
   "up")
     if ponymix is-muted; then
       ponymix unmute
     else
-      ponymix increase 5%
+      ponymix increase "$vol_change"
     fi
     ;;
   "down")
     if ponymix is-muted; then
       ponymix unmute
     else
-      ponymix decrease 5%
+      ponymix decrease "$vol_change"
     fi
     ;;
   "mute")
