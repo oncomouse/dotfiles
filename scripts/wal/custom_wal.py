@@ -29,6 +29,8 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
 
     if which("kitty") is not None:
         system("kitty @ set-colors -a -c {}/.cache/wal/colors-kitty.conf".format(home))
+    if which("dunst") is not None:
+        system('killall dunst; notify-send "dunst reloaded"')
     if which("fish") is not None:
         system('fish -c "source {}/.cache/wal/colors-fzf.fish"'.format(home))
     if which("dwm-msg") is not None:
