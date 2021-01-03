@@ -281,7 +281,7 @@ class Player:
             _cover      = _getProperty(self._metadata, 'xesam:artUrl', '') or _getProperty(self._metadata, 'mpris:artUrl', '')
             _duration   = _getDuration(_length_int)
             # Update metadata
-            self.metadata['artist']     = re.sub(SAFE_TAG_REGEX, """\1\1""", _firstIfList(_artist))
+            self.metadata['artist']     = re.sub(SAFE_TAG_REGEX, """\1\1""", _firstIfList('' if _artist == [] else _artist))
             self.metadata['album']      = re.sub(SAFE_TAG_REGEX, """\1\1""", _firstIfList(_album))
             self.metadata['title']      = re.sub(SAFE_TAG_REGEX, """\1\1""", _firstIfList(_title))
             self.metadata['track']      = _track
