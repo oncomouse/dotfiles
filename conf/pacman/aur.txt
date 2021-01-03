@@ -11,7 +11,7 @@ polybar-dwm-module
 shellcheck-bin
 spotify
 tllocalmgr-git
-themix-gui-git
+themix-theme-oomox-git
 # visual-studio-code-bin
 viu # For NNN image viewing
 zotero
