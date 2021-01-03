@@ -49,3 +49,4 @@ redshift
 feh
 dex
 sxhkd
+xss-lock
