@@ -24,6 +24,13 @@ super + shift + x
 super + shift + p
 	~/dotfiles/scripts/rofi/powermenu/powermenu.sh
 
+## Dunst
+
+super + grave
+	dunstctl history-pop
+super + ctrl + {_,shift} + space
+	dunstctl {close, close-all}
+
 ## Audio
 
 # Previous / Next / Play-Pause / Stop

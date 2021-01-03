@@ -47,5 +47,5 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
         system("bat cache --build")
 
     # Run oomox:
-    if which("oomox-cli") is not None:
-        system("oomox-cli -d True -o oomox-Wal {}/.cache/wal/colors-oomox".format(home))
+    # if which("oomox-cli") is not None:
+    #     system("oomox-cli -d True -o oomox-Wal {}/.cache/wal/colors-oomox".format(home))
