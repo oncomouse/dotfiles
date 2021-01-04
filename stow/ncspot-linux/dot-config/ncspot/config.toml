@@ -1,5 +1,5 @@
 use_nerdfont = true
-notify = true
+notify = false
 volnorm = true
 
 [theme]
