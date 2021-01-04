@@ -18,7 +18,7 @@ super + Escape
 
 # Lock screen
 super + shift + x
-	~/dotfiles/scripts/lock
+	~/dotfiles/scripts/lock.sh
 
 # Spawn powermenu
 super + shift + p
@@ -51,7 +51,7 @@ XF86AudioMute
 
 # focus or send to the given desktop
 super + {_,shift,ctrl,ctrl + shift} + {1-9}
-	$HOME/dotfiles/scripts/dwm_tag.sh {view,tag,toggleview,toggletag} {0-8}
+	$HOME/dotfiles/scripts/dwm/tag.sh {view,tag,toggleview,toggletag} {0-8}
 
 super + {_,shift} + 0
 	dwm-msg run_command {view,tag} -1
@@ -103,7 +103,7 @@ super + {_,alt,ctrl,shift} + {y,o}
 
 # tiled / floating / monocle
 super + {t,f,m}
-	/home/andrew/dotfiles/scripts/dwm_layout.sh {0,1,2}
+	$HOME/dotfiles/scripts/dwm/layout.sh {0,1,2}
 super + space
 	dwm-msg run_command setlayoutsafe 0
 

@@ -104,19 +104,9 @@ case $chosen in
     fi
     ;;
   "$lock")
-    if command -v slock; then
-      pause_music
-      mute
-      slock
-    elif command -v i3lock; then
-      pause_music
-      mute
-      i3lock
-    elif command -v betterlockscreen; then
-      pause_music
-      mute
-      betterlockscreen -l
-    fi
+    pause_music
+    mute
+    "$HOME/dotfiles/scripts/lock.sh"
     ;;
   "$suspend")
     ans=$(confirm_exit &)
