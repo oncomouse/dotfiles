@@ -85,7 +85,7 @@ super + Tab
 
 # kill the current client
 super + shift + c
-	dwm-msg run_command killcilent
+	dwm-msg run_command killclient 0
 
 super + F5
 	dwm-msg run_command xrdb
