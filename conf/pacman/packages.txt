@@ -50,3 +50,5 @@ feh
 dex
 sxhkd
 xss-lock
+thunar
+tumbler
