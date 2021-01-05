@@ -1,0 +1,28 @@
+diff --git a/Dribbblish/color.ini b/Dribbblish/color.ini
+index 44df3b6..a20656b 100644
+--- a/Dribbblish/color.ini
++++ b/Dribbblish/color.ini
+@@ -1,3 +1,23 @@
++[xrdb]
++main_fg                               = ${xrdb:color6}
++active_control_fg                     = ${xrdb:color6}
++secondary_fg                          = ${xrdb:color15}
++secondary_bg                          = ${xrdb:color6}
++main_bg                               = ${xrdb:color0}
++sidebar_and_player_bg                 = ${xrdb:color0}
++cover_overlay_and_shadow              = ${xrdb:color8}
++indicator_fg_and_button_bg            = ${xrdb:color8}
++pressing_fg                           = ${xrdb:color6}
++slider_bg                             = ${xrdb:color7}
++sidebar_indicator_and_hover_button_bg = ${xrdb:color6}
++scrollbar_fg_and_selected_row_bg      = ${xrdb:color8}
++pressing_button_fg                    = ${xrdb:color15}
++pressing_button_bg                    = ${xrdb:color15}
++selected_button                       = ${xrdb:color3}
++miscellaneous_bg                      = ${xrdb:color0}
++miscellaneous_hover_bg                = ${xrdb:color8}
++preserve_1                            = ${xrdb:color0}
++
+ [base]
+ main_fg                               = 1db954
+ active_control_fg                     = 1db954

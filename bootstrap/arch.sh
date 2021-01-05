@@ -38,6 +38,9 @@ if [ -z "$SERVER" ]; then
 
   # Remove i3 startup scripts:
   sudo rm /usr/share/xsessions/i3*.desktop
+
+  # Configure spicetify:
+  $bash ~/dotfiles/bootstrap/scripts/spicetify.sh
 fi
 
 # Enable OpenSSH:
