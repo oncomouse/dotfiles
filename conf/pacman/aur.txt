@@ -14,3 +14,4 @@ themix-theme-oomox-git
 viu # For NNN image viewing
 zotero
 spicetify-git
+spotifywm-git
