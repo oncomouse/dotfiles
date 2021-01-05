@@ -1,4 +1,6 @@
 /usr/bin/env xrdb ~/.Xresources
 /usr/bin/env feh --bg-scale ~/dotfiles/conf/wallpaper/wallhaven-453lo1.jpg
 /usr/bin/env xss-lock ~/dotfiles/scripts/lock.sh&
+# Set compose key (for unicode) to menu:
+/usr/bin/env setxkbmap -option compose:ralt
 # /usr/bin/env kitty -T=ncspot --session="$HOME/dotfiles/conf/kitty/sessions/ncspot"&

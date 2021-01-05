@@ -7,6 +7,8 @@ super + shift + Return
 # program launcher
 super + p
 	rofi -show combi -show-icons
+_ + menu
+	rofi -show combi -show-icons
 
 # restart polybar
 super + q
