@@ -113,7 +113,8 @@ case $chosen in
     if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
       pause_music
       mute
-      systemctl suspend
+      # systemctl suspend
+      xset dpms force off
     elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
       exit 0
     else
