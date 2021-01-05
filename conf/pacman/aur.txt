@@ -1,9 +1,6 @@
-ncspot
-numix-icon-theme-git
 ttf-material-wifi-icons-git
 otf-nerd-fonts-fira-code
 otf-hasklig
-pandoc-bin
 perl-term-shellui
 picom-ibhagwan-git
 polybar-dwm-module
@@ -11,6 +8,8 @@ polybar-dwm-module
 shellcheck-bin
 spotify
 tllocalmgr-git
+themix-gui-git
+themix-icons-numix-git
 themix-theme-oomox-git
 viu # For NNN image viewing
 zotero
