@@ -74,8 +74,9 @@ super + {_, shift} + {comma,period}
 
 # Management:
 
-super + shift + q
-	dwm-msg run_command quit
+# Quit or restart DWM:
+super + {shift, ctrl + shift} + q
+	dwm-msg run_command quit {0,1}
 
 # switch to master
 super + Return

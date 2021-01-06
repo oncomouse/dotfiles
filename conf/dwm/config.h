@@ -66,7 +66,7 @@ static const char *termcmd[]  = { "kitty", NULL };
 
 #define MODKEY Mod4Mask
 /* hotkeys are handled by sxhkd and dwm-ipc */
-static Key keys[] = { NULL };
+static Key keys[] = {NULL};
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
@@ -93,7 +93,7 @@ static IPCCommand ipccommands[] = {
 	IPCCOMMAND(  setmfact,            1,      {ARG_TYPE_FLOAT}  ),
 	IPCCOMMAND(  setlayoutsafe,       1,      {ARG_TYPE_PTR}    ),
 	IPCCOMMAND(  setlayout,           1,      {ARG_TYPE_UINT}   ),
-	IPCCOMMAND(  quit,                1,      {ARG_TYPE_NONE}   ),
+	IPCCOMMAND(  quit,                1,      {ARG_TYPE_UINT}   ),
 	IPCCOMMAND(  xrdb,                1,      {ARG_TYPE_NONE}   ),
 	IPCCOMMAND(  incrgaps,            1,      {ARG_TYPE_SINT}   ),
 	IPCCOMMAND(  incrigaps,           1,      {ARG_TYPE_SINT}   ),
