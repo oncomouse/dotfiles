@@ -49,7 +49,9 @@ sudo systemctl start sshd.service
 
 sudo systemctl enable ufw.service
 sudo systemctl start ufw.service
+sudo ufw deny in
 sudo ufw allow SSH
+sudo ufw allow out
 sudo ufw enable
 
 # Restrict su
