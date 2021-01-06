@@ -1,5 +1,6 @@
-[Alternate Install](https://wiki.archlinux.org/index.php/User:Altercation/Bullet_Proof_Arch_Install#Objectives)
-[IWD Wifi instructions](https://sudaraka.org/how-to/archlinux-installation-guide-2019/)
+* [Alternate Install](https://wiki.archlinux.org/index.php/User:Altercation/Bullet_Proof_Arch_Install#Objectives)
+* [IWD Wifi instructions](https://sudaraka.org/how-to/archlinux-installation-guide-2019/)
+* [Hardening Advice](https://vez.mrsk.me/linux-hardening.html#kern)
 
 Notes:
 1. Don't use systemd-start stuff, just use `arch-chroot /mnt`
