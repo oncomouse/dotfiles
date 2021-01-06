@@ -1,8 +1,18 @@
+# Load Xresources:
 /usr/bin/env xrdb ~/.Xresources
+# Set background:
 /usr/bin/env feh --bg-scale ~/dotfiles/conf/wallpaper/wallhaven-453lo1.jpg
+# Lock screen when monitor sleeps:
 /usr/bin/env xss-lock ~/dotfiles/scripts/lock.sh&
+
+# Key Bindings:
+#
 # Set compose key (for unicode) to menu:
 /usr/bin/env setxkbmap -option compose:menu
-xmodmap -e "keycode 108 = Super_L"  # reassign Alt_R to Super_L
-xmodmap -e "remove mod1 = Super_L"  # make sure X keeps it out of the mod1 group
+# reassign Alt_R to Super_L
+xmodmap -e "keycode 108 = Super_L"
+# make sure X keeps it out of the mod1 group
+xmodmap -e "remove mod1 = Super_L"
+
+# Start ncspot:
 # /usr/bin/env kitty -T=ncspot --session="$HOME/dotfiles/conf/kitty/sessions/ncspot"&
