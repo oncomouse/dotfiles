@@ -66,6 +66,12 @@ if ! echo "$SHELL" | grep fish > /dev/null 2>&1; then
   sudo chsh -s "$(which fish)" "$USER"
 fi
 
+# Enable firejail:
+sudo systemctl enable --now apparmor
+sudo apparmor_parser -r /etc/apparmor.d/firejail-default
+sudo firecfg
+sudo echo "$(whoami)" | sudo tee /etc/firejail/firejail.users > /dev/null
+
 if [ -z "$SERVER" ]; then
   # Configure xdg-utils
   xdg-settings set default-web-browser firefox.desktop
