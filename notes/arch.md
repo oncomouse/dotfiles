@@ -7,6 +7,7 @@ Notes:
 1. Always use `/dev/mapper/cryptswap`
 1. In example `refind` config, image name should be `initramfs-linux-zen.img`
 	* Add `initrd=boot\<amd|intel>-ucode.img` before `initramfs` line to load ucode
+	* Add " apparmor=1" after `initramfs`
 
 Additional Packages to install, before reboot:
 

@@ -54,6 +54,9 @@ sudo ufw allow SSH
 sudo ufw allow out
 sudo ufw enable
 
+# Set kernel flags:
+sudo sed -i ' 1 s/"$/ l1tf=full,force spec_store_bypass_disable=on spectre_v2=on lsm=lockdown,yama,apparmor lockdown=confidentiality init_on_alloc=1 init_on_free=1 page_alloc.shuffle=1 slab_nomerge vsyscall=none"/' /boot/refind_linux.conf
+
 # Restrict su
 sudo passwd -l root
 sudo chgrp -R wheel /usr/local
@@ -67,13 +70,13 @@ if [ -z "$SERVER" ]; then
   # Configure xdg-utils
   xdg-settings set default-web-browser firefox.desktop
   xdg-mime default org.pwmt.zathura.desktop application/pdf
-
-  # Fonts
-  # mkdir -p ~/Downloads
-  # curl -o "$HOME/Downloads/calvin-font.zip" "https://dl.dafont.com/dl/?f=calvin_and_hobbes"
-  # unzip -d ~/Downloads ~/Downloads/calvin-font.zip
-  # sudo mkdir -p /usr/share/fonts/misc/
-  # sudo mv ~/Downloads/*.TTF /usr/share/fonts/misc/
-  # rm ~/Downloads/calvin-font.zip
-  # fc-cache -r
+  if [[ -e /usr/local/bin/spotify ]]; then
+    sudo rm /usr/local/bin/spotify
+  fi
+  mkdir -p "$HOME/.local/bin/spotify"
+  cat << EOF > "$HOME/.local/bin/spotify"
+#!/bin/sh
+firejail --env="LD_PRELOAD=/usr/lib/spotifywm.so" spotify "$@"
+EOF
+  chmod +x "$HOME/.local/bin/spotify"
 fi
