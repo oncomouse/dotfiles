@@ -6,15 +6,16 @@
 /usr/bin/env xss-lock ~/dotfiles/scripts/lock.sh&
 
 # Key Bindings:
-#
+
 # Set compose key (for unicode) to menu:
 /usr/bin/env setxkbmap -option compose:menu
-# reassign Alt_R to Super_L
-xmodmap -e "keycode 108 = Super_L"
-# make sure X keeps it out of the mod1 group
-xmodmap -e "remove mod1 = Super_L"
 # Always turn on numlock:
-setxkbmap -option numpad:mac us
+/usr/bin/env setxkbmap -option numpad:mac us
+
+# reassign Alt_R to Super_L
+/usr/bin/env xmodmap -e "keycode 108 = Super_L"
+# make sure X keeps it out of the mod1 group
+/usr/bin/env xmodmap -e "remove mod1 = Super_L"
 
 # Start ncspot:
 # /usr/bin/env kitty -T=ncspot --session="$HOME/dotfiles/conf/kitty/sessions/ncspot"&
