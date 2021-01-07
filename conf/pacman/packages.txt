@@ -53,3 +53,4 @@ xss-lock
 thunar
 tumbler
 firejail
+fuse2
