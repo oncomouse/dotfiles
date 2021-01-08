@@ -71,6 +71,7 @@ sudo systemctl enable --now apparmor
 sudo apparmor_parser -r /etc/apparmor.d/firejail-default
 sudo firecfg
 sudo echo "$(whoami)" | sudo tee /etc/firejail/firejail.users > /dev/null
+$bash ~/dotfiles/bootstrap/scripts/firejail.sh
 
 if [ -z "$SERVER" ]; then
   # Configure xdg-utils
