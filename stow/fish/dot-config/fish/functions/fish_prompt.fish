@@ -92,7 +92,11 @@ function fish_prompt --description 'Write out the prompt'
     end
 
 	# Git
-    printf '%s ' (__fish_vcs_prompt)
+    if test (pwd | grep -c Seafile) -eq 0
+      printf '%s ' (__fish_vcs_prompt)
+    else
+      echo -n ' '
+    end
 
     if not test $last_status -eq 0
         set_color $fish_color_error
