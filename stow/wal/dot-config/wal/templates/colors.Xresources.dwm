@@ -2,7 +2,7 @@ dwm.normbordercolor: {color12}
 dwm.normbgcolor: {color8}
 dwm.normfgcolor: {color7}
 dwm.normfloatcolor: {color5}
-dwm.selbordercolor: {color4}
+dwm.selbordercolor: {color9}
 dwm.selbgcolor: {color4}
 dwm.selfgcolor: {foreground}
 dwm.selfloatcolor: {color4}

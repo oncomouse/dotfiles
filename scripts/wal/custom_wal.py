@@ -27,6 +27,8 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
         "{}/.cache/wal/vim/autoload/clap/themes/wal.vim".format(home),
     )
 
+    if which("xrdb") is not None:
+        system("xrdb {}/.Xresources".format(home))
     if which("kitty") is not None:
         system("kitty @ set-colors -a -c {}/.cache/wal/colors-kitty.conf".format(home))
     if which("dunst") is not None:

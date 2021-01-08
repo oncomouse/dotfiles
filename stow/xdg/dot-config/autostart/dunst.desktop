@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=dunst
 Comment=Dunst Notification System
-Exec=/usr/bin/dunst
+Exec=~/scripts/dunst.sh
 Terminal=false
 Type=Application
 
