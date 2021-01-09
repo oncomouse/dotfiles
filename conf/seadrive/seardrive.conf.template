@@ -1,0 +1,12 @@
+[account]
+server = SERVER
+username = USERNAME
+token = TOKEN
+is_pro = false
+
+[general]
+client_name = CLIENT
+
+[cache]
+size_limit = 10GB
+clean_cache_interval = 10

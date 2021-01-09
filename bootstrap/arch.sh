@@ -77,6 +77,8 @@ if [ -z "$SERVER" ]; then
   # Configure xdg-utils
   xdg-settings set default-web-browser firefox.desktop
   xdg-mime default org.pwmt.zathura.desktop application/pdf
+
+  # Get spotify to work with firejail:
   if [[ -e /usr/local/bin/spotify ]]; then
     sudo rm /usr/local/bin/spotify
   fi
@@ -86,4 +88,7 @@ if [ -z "$SERVER" ]; then
 firejail --env="LD_PRELOAD=/usr/lib/spotifywm.so" spotify "$@"
 EOF
   chmod +x "$HOME/.local/bin/spotify"
+
+  # Configure Seadrive:
+  $bash ~/dotfiles/bootstrap/scripts/seadrive.sh
 fi

@@ -1,0 +1,19 @@
+[Unit]
+Description=Seadrive mount of user files
+After=network-online.target
+
+[Service]
+Environment=SEADRIVE_CONFIG_FILE="%h/.config/seadrive/seadrive.conf"
+Environment=SEADRIVE_DATA_DIR="%h/.local/share/seadrive/data/"
+Environment=SEADRIVE_LOG_FILE="%h/.local/share/seadrive/logs/seadrive.log"
+Environment=SEADRIVE_MOUNT_DIR="%h/Seafile"
+ExecStart=/usr/local/bin/seadrive \
+  -f \
+  -c ${SEADRIVE_CONFIG_FILE} \
+  -d ${SEADRIVE_DATA_DIR} \
+  -l ${SEADRIVE_LOG_FILE} \
+  ${SEADRIVE_MOUNT_DIR}
+Restart=always
+
+[Install]
+WantedBy=default.target 
