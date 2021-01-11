@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
+# Install ASDF for Linux:
+if [[ $os != "macos" ]]; then
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+  . "$HOME/.asdf/asdf.sh"
+  mkdir -p "$HOME/.config/fish/completions"
+  ln -sf ~/.asdf/completions/asdf.fish ~/.config/fish/completions/
+fi
 asdf plugin add ruby
 asdf plugin add nodejs
 asdf install ruby 2.6.6
