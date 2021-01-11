@@ -70,8 +70,6 @@ super + {h,l}
 super + {_, shift} + {comma,period}
 	dwm-msg run_command {focus,tag}mon {-1,1}
 
-# Management:
-
 # Quit or restart DWM:
 super + {shift, ctrl + shift} + q
 	dwm-msg run_command quit {0,1}
