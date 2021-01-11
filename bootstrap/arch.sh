@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 bash=$(which bash)
 
-# Assume "pacman -S grub base-devel vi git curl fish" run during install:
+# Assume, at minium, "pacman -S base-devel vim git curl fish" run during install:
 sudo pacman -S --noconfirm --needed - < "$HOME/dotfiles/conf/pacman/packages.txt"
 
 # Install Yay:
@@ -27,7 +27,6 @@ $bash ~/dotfiles/bootstrap/scripts/aur.sh
 
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 if [ -z "$SERVER" ]; then
-  # $bash ~/dotfiles/bootstrap/scripts/aur.sh
   # Enable Redshift:
   systemctl --user enable redshift
   # Enable LightDM:
@@ -66,11 +65,7 @@ if ! echo "$SHELL" | grep fish > /dev/null 2>&1; then
   sudo chsh -s "$(which fish)" "$USER"
 fi
 
-# Enable firejail:
-sudo systemctl enable --now apparmor
-sudo apparmor_parser -r /etc/apparmor.d/firejail-default
-sudo firecfg
-sudo echo "$(whoami)" | sudo tee /etc/firejail/firejail.users > /dev/null
+# Configure Firejail:
 $bash ~/dotfiles/bootstrap/scripts/firejail.sh
 
 if [ -z "$SERVER" ]; then
