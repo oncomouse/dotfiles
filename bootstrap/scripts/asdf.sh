@@ -7,10 +7,12 @@ if [[ $os != "macos" ]]; then
   mkdir -p "$HOME/.config/fish/completions"
   ln -sf ~/.asdf/completions/asdf.fish ~/.config/fish/completions/
 fi
+ruby_env=$([ "$os" == "macos" ] && echo "--with-openssl-dir=/usr/local/opt/openssl/" || echo "")
 asdf plugin add ruby
 asdf plugin add nodejs
-asdf install ruby 2.6.6
-asdf install ruby latest
+env RUBY_CONFIGURE_OPTS="$ruby_env" asdf install ruby 2.6.6
+env RUBY_CONFIGURE_OPTS="$ruby_env" asdf install ruby 2.7.2
+env RUBY_CONFIGURE_OPTS="$ruby_env" asdf install ruby latest
 asdf global ruby "$(asdf latest ruby)"
 asdf global nodejs system
 # ## Setup Ruby
