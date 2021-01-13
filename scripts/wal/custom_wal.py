@@ -26,15 +26,20 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
         "{}/.cache/wal/colors-clap.vim".format(home),
         "{}/.cache/wal/vim/autoload/clap/themes/wal.vim".format(home),
     )
+    system("mkdir -p {}/.config/dunst".format(home))
+    copyfile(
+        "{}/.cache/wal/dunstrc".format(home),
+        "{}/.config/dunst/dunstrc".format(home),
+    )
 
     if which("xrdb") is not None:
         system("xrdb {}/.Xresources".format(home))
     if which("kitty") is not None:
         system("kitty @ set-colors -a -c {}/.cache/wal/colors-kitty.conf".format(home))
-    if which("dunst") is not None:
-        system('killall dunst; notify-send "dunst reloaded"')
     if which("fish") is not None:
         system('fish -c "source {}/.cache/wal/colors-fzf.fish"'.format(home))
+    if which("dunst") is not None:
+        system("killall dunst; notify-send 'Dunst Reloaded'")
     if which("dwm-msg") is not None:
         system("dwm-msg run_command xrdb")
     if which("bat") is not None:
