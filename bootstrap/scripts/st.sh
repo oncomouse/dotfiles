@@ -3,6 +3,7 @@ project=st
 patches=(
   "https://st.suckless.org/patches/anysize/st-anysize-20201003-407a3d0.diff"
   "https://st.suckless.org/patches/scrollback/st-scrollback-0.8.4.diff"
+  "https://st.suckless.org/patches/scrollback/st-scrollback-mouse-20191024-a2c479c.diff"
   "https://st.suckless.org/patches/clipboard/st-clipboard-0.8.3.diff"
   "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/st-ligatures-scrollback-20210114-4ef0cbd.diff"
   "https://st.suckless.org/patches/font2/st-font2-20190416-ba72400.diff"
@@ -60,7 +61,12 @@ git checkout -b build
 ln -sf "$HOME/dotfiles/conf/$project/config.h" "$HOME/Projects/$project"
 for patch in "${patches[@]}"; do
   branch=$(branch_name "$patch")
-  git checkout -b "$branch"
+  branch_count=$(git branch | grep -c "$branch")
+  if [[ "$branch_count" = 0 ]]; then
+    git checkout -b "$branch"
+  else
+    git checkout "$branch"
+  fi
   curl -so "$branch.diff" "$patch"
   git apply ./*.diff
   rm ./*.diff
