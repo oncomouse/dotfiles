@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "FiraCode Nerd Font:pixelsize=22;antialias=true:autohint=true";
+static char *font = "FiraCode Nerd Font:pixelsize=24;antialias=true:autohint=true";
 /* Spare fonts */
 static char *font2[] = {
 	"Hasklig:pixelsize=18:antialias=true:autohint=true",
