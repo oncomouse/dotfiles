@@ -78,3 +78,18 @@ make
 sudo make install
 make clean
 git checkout master
+# Add to application launchers:
+if [[ ! -e "$HOME/.local/share/applications/st.desktop" ]]; then
+  cat << EOF > "$HOME/.local/share/applications/st.desktop"
+[Desktop Entry]
+Version=0.8.4
+Type=Application
+Name=st
+GenericName=Terminal emulator
+Comment=The Suckless Terminal
+TryExec=st
+Exec=st
+Icon=st
+Categories=System;TerminalEmulator;
+EOF
+fi
