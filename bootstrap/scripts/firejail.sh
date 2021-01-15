@@ -14,4 +14,5 @@ EOF
 # Whitelist Firefox app defaults:
 cat << EOF | sudo tee /etc/firejail/firefox.local > /dev/null
 whitelist ${HOME}/.local/share/applications
+whitelist ${HOME}/Downloads
 EOF
