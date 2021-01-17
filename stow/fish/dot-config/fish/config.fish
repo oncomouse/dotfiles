@@ -18,9 +18,9 @@ if status is-interactive
     echo "Sourcing FZF_COLORS"
     source ~/.cache/wal/colors-fzf.fish
   end
-  setuvar FZF_DEFAULT_COMMAND "fd -t f --hidden --follow"
+  setuvar FZF_DEFAULT_COMMAND "fd -t f --follow"
   setuvar FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
-  setuvar FZF_ALT_C_COMMAND "fd --type d --hidden --follow"
+  setuvar FZF_ALT_C_COMMAND "fd --type d --follow"
 
   setuvar FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=wal --color=always --style=header,grid --line-range :300 {}'"
 
