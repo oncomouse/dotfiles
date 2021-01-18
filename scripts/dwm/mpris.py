@@ -10,11 +10,9 @@ players = []
 for name in session_bus.list_names():
     if name.startswith("org.mpris.MediaPlayer2"):
         players.append(name)
-if len(players) == 0:
-    print("")
-else:
+output = "栗"
+if len(players) != 0:
     active_player = ""
-    output = "栗"
     for player in players:
         player_bus = session_bus.get_object(player, "/org/mpris/MediaPlayer2")
         player_properties = dbus.Interface(
@@ -32,4 +30,4 @@ else:
             output += " {} - {}".format(
                 metadata["xesam:artist"][0], metadata["xesam:title"]
             )
-    print(truncate(output) + " ⁞ ")
+print(truncate(output) + " ⁞ ")
