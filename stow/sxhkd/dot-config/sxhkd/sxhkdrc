@@ -8,10 +8,6 @@ super + shift + Return
 super + p
 	rofi -show combi -show-icons
 
-# restart polybar
-super + q
-	polybar-msg cmd restart
-
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd | notify-send "sxhkd Reloaded"

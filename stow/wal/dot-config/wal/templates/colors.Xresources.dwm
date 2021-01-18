@@ -1,8 +1,8 @@
 dwm.normbordercolor: {color8}
-dwm.normbgcolor: {color8}
 dwm.normfgcolor: {color7}
+dwm.normbgcolor: {color8}
 dwm.normfloatcolor: {color5}
-dwm.selbordercolor: {color9}
+dwm.selbordercolor: {color7}
 dwm.selbgcolor: {color4}
 dwm.selfgcolor: {foreground}
 dwm.selfloatcolor: {color4}
@@ -11,19 +11,19 @@ dwm.titlenormbgcolor: {color8}
 dwm.titlenormbordercolor: {color8}
 dwm.titlenormfloatcolor: {color4}
 dwm.titleselfgcolor: {color8}
-dwm.titleselbgcolor: {color6}
-dwm.titleselbordercolor: {color6}
+dwm.titleselbgcolor: {color4}
+dwm.titleselbordercolor: {color4}
 dwm.titleselfloatcolor: {color5}
 dwm.tagsnormfgcolor: {color7}
 dwm.tagsnormbgcolor: {color8}
 dwm.tagsnormbordercolor: {color8}
 dwm.tagsnormfloatcolor: {color5}
 dwm.tagsselfgcolor: {color8}
-dwm.tagsselbgcolor: {color2}
-dwm.tagsselbordercolor: {color2}
+dwm.tagsselbgcolor: {color4}
+dwm.tagsselbordercolor: {color4}
 dwm.tagsselfloatcolor: {color5}
-dwm.statusfgcolor: {color8}
-dwm.statusbgcolor: {color4}
+dwm.statusfgcolor: {color7}
+dwm.statusbgcolor: {color8}
 dwm.statusbordercolor: {color4}
 dwm.statusfloatcolor: {color4}
 !dwm.hidfgcolor: 

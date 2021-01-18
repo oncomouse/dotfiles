@@ -3,7 +3,6 @@ otf-nerd-fonts-fira-code
 otf-hasklig
 perl-term-shellui
 picom-ibhagwan-git
-polybar-dwm-module
 # rofi-wifi-menu-git
 shellcheck-bin
 spotify

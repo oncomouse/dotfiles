@@ -21,6 +21,7 @@ grep -v -e "^#" < "$HOME"/dotfiles/conf/pacman/aur.txt | sed -e "s/\s*#.*\$//g" 
 # Install Suckless Stuff:
 $bash ~/dotfiles/bootstrap/scripts/dwm.sh
 $bash ~/dotfiles/bootstrap/scripts/slock.sh
+$bash ~/dotfiles/bootstrap/scripts/aslstatus.sh
 
 # Install non-AUR PKGBUILD stuff:
 $bash ~/dotfiles/bootstrap/scripts/aur.sh

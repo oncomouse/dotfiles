@@ -2,15 +2,15 @@
 project=dwm
 patches=(
   "https://dwm.suckless.org/patches/attachbottom/dwm-attachbottom-6.2.diff"
-  "https://dwm.suckless.org/patches/xrdb/dwm-xrdb-6.2.diff"
-  "https://dwm.suckless.org/patches/anybar/dwm-anybar-20200810-bb2e722.diff"
+  "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-xrdb_colorbar-20210117-61bb8b2.diff"
   "https://dwm.suckless.org/patches/ipc/dwm-ipc-20201106-f04cac6.diff"
   "https://dwm.suckless.org/patches/autostart/dwm-autostart-20200610-cb3f58a.diff"
   "https://dwm.suckless.org/patches/ewmhtags/dwm-ewmhtags-6.2.diff"
   "https://dwm.suckless.org/patches/focusonnetactive/dwm-focusonnetactive-6.2.diff"
   "https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff"
   "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-restartsig-20210106-61bb8b2.diff"
-  "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-centeredmonocle_vanitygaps_staticicon-20210103-61bb8b2.diff"
+  "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-centeredmonocle-20210101-61bb8b2.diff"
+  "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-statuscmd-20210118-61bb8b2.diff"
 )
 
 branch_name() {

@@ -28,7 +28,6 @@ if [ -z "$SERVER" ]; then
     dotfiles_stow dwm
     dotfiles_stow xdg
     dotfiles_stow sxhkd
-    dotfiles_stow polybar
     dotfiles_stow rofi
     dotfiles_stow xorg
     dotfiles_stow gtk-3.0

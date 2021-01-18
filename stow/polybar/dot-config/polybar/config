@@ -1,4 +1,0 @@
-include-file = ~/.cache/wal/colors.polybar.ini
-include-file = ~/dotfiles/conf/polybar/modules.ini
-include-file = ~/dotfiles/conf/polybar/bars.ini
-; vim:ft = dosini
