@@ -15,3 +15,4 @@ zotero
 spicetify-git
 spotifywm-git
 libsearpc
+nerd-fonts-fantasque-sans-mono
