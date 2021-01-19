@@ -2,14 +2,10 @@
 
 ## Active Patches:
 
-* [vanitygaps](https://dwm.suckless.org/patches/vanitygaps/dwm-vanitygaps-20200610-f09418b.diff)
-	* Gaps between windows
 * [attachbottom](https://dwm.suckless.org/patches/attachbottom/dwm-attachbottom-6.2.diff)
 	* New clients attach to the bottom of the stack on the current tag
 * [xrdb](https://dwm.suckless.org/patches/xrdb/dwm-xrdb-6.2.diff)
 	* Load colors from ~/.Xresources
-* [anybar](https://dwm.suckless.org/patches/anybar/dwm-anybar-20200810-bb2e722.diff)
-	* Used to support Polybar
 * [ipc](https://dwm.suckless.org/patches/ipc/dwm-ipc-20201106-f04cac6.diff)
 	* Used to implement Polybar and SXHKD support
 * [autostart](https://dwm.suckless.org/patches/autostart/dwm-autostart-20200610-cb3f58a.diff)
@@ -18,7 +14,15 @@
 	* Implement standard WM commands
 * [focusonnetactive](https://dwm.suckless.org/patches/focusonnetactive/dwm-focusonnetactive-6.2.diff)
 	* Used to support Rofi window switching
-* [centeredmonocle](https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-centeredmonocle-vanitygaps-20210101-61bb8b2.diff)
+* [centeredmonocle](https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-centeredmonocle_staticicon-20210119-61bb8b2.diff)
 	* Center the window in monocle mode and add vanity gaps
 * [pertag](https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff)
 	* Allow layouts per tag instead of global
+* [restartsig](https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-restartsig-20210106-61bb8b2.diff)
+	* Restart DWM
+* [statuscmd](https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-statuscmd-20210118-61bb8b2.diff)
+	* Clickable blocks in statusbar
+* [cfacts](https://dwm.suckless.org/patches/cfacts/dwm-cfacts-20200913-61bb8b2.diff)
+	* Vertically resize inside stacks
+* [noborder](https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-noborder-centeredmonocle-20210119-61bb8b2.diff)
+	* Remove border when only one window is visible
