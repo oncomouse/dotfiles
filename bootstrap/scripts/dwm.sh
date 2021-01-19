@@ -11,6 +11,7 @@ patches=(
   "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-restartsig-20210106-61bb8b2.diff"
   "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-centeredmonocle-20210101-61bb8b2.diff"
   "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-statuscmd-20210118-61bb8b2.diff"
+  "https://dwm.suckless.org/patches/cfacts/dwm-cfacts-20200913-61bb8b2.diff"
 )
 
 branch_name() {

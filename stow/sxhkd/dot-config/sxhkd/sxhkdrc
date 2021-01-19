@@ -58,8 +58,11 @@ super + {j,k}
 super + {i,d}
 	dwm-msg run_command incnmaster {1,-1}
 
-super + {h,l}
-	dwm-msg run_command setmfact {0.05, -0.05}
+super + {_,shift} + {h,l}
+	dwm-msg run_command {setmfact,setcfact} {0.05, -0.05}
+
+super + shift + o
+	dwm-msg run_command setcfact {0.00}
 
 # Monitor:
 
