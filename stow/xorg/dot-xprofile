@@ -2,6 +2,7 @@
 /usr/bin/env xrdb ~/.Xresources
 # Set background:
 # /usr/bin/env feh --bg-scale ~/dotfiles/conf/wallpaper/wallhaven-453lo1.jpg
+hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
 # Lock screen when monitor sleeps:
 /usr/bin/env xss-lock ~/dotfiles/scripts/lock.sh&
 
