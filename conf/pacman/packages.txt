@@ -61,3 +61,4 @@ pipewire-alsa
 yajl
 hsetroot
 inetutils
+deno
