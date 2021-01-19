@@ -321,10 +321,10 @@ endif
           " Root patterns:
           let g:LanguageClient_rootMarkers = g:rooter_patterns
           let g:LanguageClient_serverCommands = {
-                \ 'javascript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-                \ 'javascriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-                \ 'typescript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-                \ 'typescriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+                \ 'javascript': ['/usr/bin/env', 'deno', 'lsp'],
+                \ 'javascriptreact': ['/usr/bin/env', 'deno', 'lsp'],
+                \ 'typescript': ['/usr/bin/env', 'deno', 'lsp'],
+                \ 'typescriptreact': ['/usr/bin/env', 'deno', 'lsp'],
                 \ 'python': ['/usr/bin/env', 'jedi-language-server'],
                 \ 'haskell': ['/usr/bin/env', 'haskell-language-server-wrapper', '--lsp'],
                 \ 'ruby': ['/usr/bin/env', 'solargraph', 'stdio'],
