@@ -60,3 +60,4 @@ pipewire-jack
 pipewire-alsa
 yajl
 hsetroot
+inetutils
