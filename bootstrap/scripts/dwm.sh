@@ -13,6 +13,7 @@ patches=(
   "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-statuscmd-20210118-61bb8b2.diff"
   "https://dwm.suckless.org/patches/cfacts/dwm-cfacts-20200913-61bb8b2.diff"
   "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-noborder-centeredmonocle-20210119-61bb8b2.diff"
+  "https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-activetagindicatorbottombar-20210120-61bb8b2.diff"
 )
 
 branch_name() {
