@@ -54,10 +54,7 @@ thunar
 tumbler
 firejail
 fuse2
-pipewire
-pipewire-pulse
-pipewire-jack
-pipewire-alsa
+pulseaudio
 yajl
 hsetroot
 inetutils
