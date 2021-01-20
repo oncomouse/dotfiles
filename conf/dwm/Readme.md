@@ -26,3 +26,5 @@
 	* Vertically resize inside stacks
 * [noborder](https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-noborder-centeredmonocle-20210119-61bb8b2.diff)
 	* Remove border when only one window is visible
+* [activetagbarindicator](https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-activetagindicatorbottombar-20210120-61bb8b2.diff)
+	* Use a horizontal bar to indicate tags with clients (and draw the line below of the tag name)
