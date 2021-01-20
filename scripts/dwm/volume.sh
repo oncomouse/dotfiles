@@ -3,5 +3,5 @@
 if ponymix is-muted; then
   echo "x"
 else
-  ponymix get-volume
+  echo "$(ponymix get-volume)%"
 fi
