@@ -67,7 +67,7 @@ if ! echo "$SHELL" | grep fish > /dev/null 2>&1; then
 fi
 
 # Configure Firejail:
-$bash ~/dotfiles/bootstrap/scripts/firejail.sh
+# $bash ~/dotfiles/bootstrap/scripts/firejail.sh
 
 if [ -z "$SERVER" ]; then
   # Configure xdg-utils
