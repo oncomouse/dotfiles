@@ -9,7 +9,7 @@ function add_to_user_paths -a dir
   else
     if test -d $dir
       echo "Adding" $dir "to fish_user_paths"
-      set -Ux fish_user_paths $fish_user_paths $dir
+      set -U fish_user_paths $fish_user_paths $dir
     end
   end
 end
