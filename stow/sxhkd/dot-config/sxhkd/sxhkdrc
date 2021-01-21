@@ -20,6 +20,11 @@ super + shift + x
 super + shift + p
 	~/dotfiles/scripts/rofi/powermenu/powermenu.sh
 
+# Take screenshot or select a screen region
+{_, shift} + Print
+    sleep 0.2; \
+    scrot { ,-s} $HOME/'Seafile/My Library/Photos/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'
+
 ## Dunst
 
 super + grave
