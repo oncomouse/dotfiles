@@ -26,7 +26,7 @@ if len(players) != 0:
             metadata = player_properties.Get(
                 "org.mpris.MediaPlayer2.Player", "Metadata"
             )
-            output = "ﱘ" if s == "Playing" else ""
+            output = "契" if s == "Playing" else ""
             output += " {} - {}".format(
                 metadata["xesam:artist"][0], metadata["xesam:title"]
             )
