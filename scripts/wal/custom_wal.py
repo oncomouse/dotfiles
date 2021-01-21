@@ -26,12 +26,14 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
         "{}/.cache/wal/colors-clap.vim".format(home),
         "{}/.cache/wal/vim/autoload/clap/themes/wal.vim".format(home),
     )
-    system("mkdir -p {}/.config/dunst".format(home))
-    copyfile(
-        "{}/.cache/wal/dunstrc".format(home),
-        "{}/.config/dunst/dunstrc".format(home),
-    )
-
+    # reload running Neovim instances:
+    system('{}/dotfiles/scripts/vim/cmdnvim.sh "source \\$MYVIMRC"'.format(home))
+    if which("dunst") is not None:
+        system("mkdir -p {}/.config/dunst".format(home))
+        copyfile(
+            "{}/.cache/wal/dunstrc".format(home),
+            "{}/.config/dunst/dunstrc".format(home),
+        )
     if which("xrdb") is not None:
         system("xrdb {}/.Xresources".format(home))
     if which("kitty") is not None:
@@ -41,7 +43,7 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     if which("dunst") is not None:
         system("killall dunst; notify-send 'Dunst Reloaded'")
     if which("dwm-msg") is not None:
-        system("dwm-msg run_command xrdb")
+        system("dwm-msg run_command xrdb > /dev/null")
     if which("bat") is not None:
         if not path.isdir("{}/.config/bat/themes/".format(home)):
             system("mkdir -p {}/.config/bat/themes".format(home))
