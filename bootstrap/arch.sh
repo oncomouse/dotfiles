@@ -32,12 +32,11 @@ if [ -z "$SERVER" ]; then
   systemctl --user enable redshift
   # Enable LightDM:
   sudo systemctl enable lightdm
+  # Enable Pulseaudio:
+  systemctl --user enable pulseaudio
 
   # Use Rofi for dmenu:
   sudo ln -sf "$(which rofi)" /usr/bin/dmenu
-
-  # Remove i3 startup scripts:
-  sudo rm /usr/share/xsessions/i3*.desktop
 
   # Configure spicetify:
   $bash ~/dotfiles/bootstrap/scripts/spicetify.sh
