@@ -75,14 +75,14 @@ if [ -z "$SERVER" ]; then
   xdg-mime default org.pwmt.zathura.desktop application/pdf
 
   # Get spotify to work with firejail and spotifywm:
-  if [[ -e /usr/local/bin/spotify ]]; then
-    sudo rm /usr/local/bin/spotify
-  fi
-  cat << EOF | sudo tee /usr/local/bin/spotify > /dev/null
-#!/bin/sh
-firejail --env="LD_PRELOAD=/usr/lib/spotifywm.so" spotify "$@"
-EOF
-  sudo chmod +x "/usr/local/bin/spotify"
+  #if [[ -e /usr/local/bin/spotify ]]; then
+  #  sudo rm /usr/local/bin/spotify
+  #fi
+  #cat << EOF | sudo tee /usr/local/bin/spotify > /dev/null
+##!/bin/sh
+#firejail --env="LD_PRELOAD=/usr/lib/spotifywm.so" spotify "$@"
+#EOF
+  #sudo chmod +x "/usr/local/bin/spotify"
 
   # Configure Seadrive:
   $bash ~/dotfiles/bootstrap/scripts/seadrive.sh
