@@ -24,7 +24,7 @@ if status is-interactive
 
   setuvar FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=wal --color=always --style=header,grid --line-range :300 {}'"
 
-  setuvar XDG_DATA_DIRS /home/andrew/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+  setuvar XDG_DATA_DIRS ~/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
   # Configure ASDF:
   # if not contains $HOME/.asdf/shims $fish_user_paths
   #   and test (uname) = "Darwin"
