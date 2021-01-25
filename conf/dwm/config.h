@@ -56,6 +56,7 @@ static const Rule rules[] = {
 	{ "Zotero"  , NULL , NULL     , 1 << 7 , 0 , -1 } ,
 	{ "kitty"   , NULL , "ncspot" , 1 << 8 , 1 , -1 } ,
 	{ "Spotify" , NULL , NULL     , 1 << 8 , 0 , -1 } ,
+	{ "zoom"    , NULL , NULL     , 1 << 6 , 0 , -1 } ,
 };
 
 /* layout(s) */
