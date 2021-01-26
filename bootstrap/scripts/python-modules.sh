@@ -37,6 +37,7 @@ if [ -z "$SERVER" ];then
   pip3install 'pillow'
   # Pywal:
   pip3install 'pywal'
+  pip3install 'pywalfox'
   pip3install 'neovim-remote'
 fi
 pip3install 'pynvim'
