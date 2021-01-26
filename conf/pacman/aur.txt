@@ -7,9 +7,6 @@ picom-ibhagwan-git
 shellcheck-bin
 spotify
 tllocalmgr-git
-themix-gui-git
-themix-icons-numix-git
-themix-theme-oomox-git
 viu # For NNN image viewing
 zotero
 spicetify-git
