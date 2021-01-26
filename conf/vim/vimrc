@@ -313,8 +313,8 @@ endif
           " Turn off all diagnostic stuff (pump it all to ALE):
           let g:LanguageClient_diagnosticsEnable = 0
           " Debug:
-          let g:LanguageClient_loggingFile = expand('~/lc.log')
-          let g:LanguageClient_loggingLevel = 'DEBUG'
+          " let g:LanguageClient_loggingFile = expand('~/lc.log')
+          " let g:LanguageClient_loggingLevel = 'DEBUG'
           " Always use hover:
           let g:LanguageClient_useFloatingHover = 0
           let g:LanguageClient_hoverPreview = 'Auto'
