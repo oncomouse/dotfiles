@@ -57,5 +57,9 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     if which("pywalfox") is not None:
         system("pywalfox update")
     # Run oomox:
-    # if which("oomox-cli") is not None:
-    #     system("oomox-cli -d True -o oomox-Wal {}/.cache/wal/colors-oomox".format(home))
+    if which("oomox-cli") is not None:
+        system("oomox-cli /opt/oomox/scripted_colors/xresources/xresources-reverse")
+    if which("oomox-archdroid-icons-cli"):
+        system(
+            "oomox-archdroid-icons-cli /opt/oomox/scripted_colors/xresources/xresources-reverse"
+        )

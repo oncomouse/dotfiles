@@ -16,3 +16,6 @@ spicetify-git
 spotifywm-git
 libsearpc
 nerd-fonts-fantasque-sans-mono
+themix-icons-archdroid-git
+themix-gui-git
+themix-theme-oomox-git
