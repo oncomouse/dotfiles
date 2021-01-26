@@ -24,6 +24,8 @@ if which npm > /dev/null 2>&1; then
     npminstall 'js-beautify'
     npminstall 'htmlhint'
     npminstall 'vscode-langservers-extracted'
+    # Required by typescript-language-server:
+    npminstall 'typescript'
     npminstall 'typescript-language-server'
     npminstall 'vim-language-server'
     npminstall 'bash-language-server'
