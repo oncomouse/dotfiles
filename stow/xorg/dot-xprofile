@@ -1,12 +1,19 @@
+## Appareance:
+
 # Load Xresources:
 /usr/bin/env xrdb ~/.Xresources
 # Set background:
 # /usr/bin/env feh --bg-scale ~/dotfiles/conf/wallpaper/wallhaven-453lo1.jpg
-hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
+/usr/bin/env hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
+
+## Screensaver
+
 # Lock screen when monitor sleeps:
+/usr/bin/env xset s on
+/usr/bin/env xset s 300
 /usr/bin/env xss-lock ~/dotfiles/scripts/lock.sh&
 
-# Key Bindings:
+## Key Bindings:
 
 # Set compose key (for unicode) to menu:
 /usr/bin/env setxkbmap -option compose:menu
@@ -17,6 +24,3 @@ hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
 /usr/bin/env xmodmap -e "keycode 108 = Super_L"
 # make sure X keeps it out of the mod1 group
 /usr/bin/env xmodmap -e "remove mod1 = Super_L"
-
-# Start ncspot:
-# /usr/bin/env kitty -T=ncspot --session="$HOME/dotfiles/conf/kitty/sessions/ncspot"&
