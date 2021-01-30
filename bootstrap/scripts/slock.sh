@@ -3,6 +3,7 @@ project=slock
 patches=(
   "https://tools.suckless.org/slock/patches/blur-pixelated-screen/slock-blur_pixelated_screen-1.4.diff"
   "https://tools.suckless.org/slock/patches/terminalkeys/slock-terminalkeys-1.4.diff"
+  "https://tools.suckless.org/slock/patches/dpms/slock-dpms-1.4.diff"
   # "https://raw.githubusercontent.com/oncomouse/dotfiles/master/conf/slock/patches/capscolor.diff"
   # "https://raw.githubusercontent.com/oncomouse/dotfiles/master/conf/slock/patches/xresources.diff"
 )
