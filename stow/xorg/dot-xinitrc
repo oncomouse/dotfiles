@@ -1,0 +1,37 @@
+## Appareance:
+
+# Load Xresources:
+xrdb ~/.Xresources
+# Set background:
+# /usr/bin/env feh --bg-scale ~/dotfiles/conf/wallpaper/wallhaven-453lo1.jpg
+hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
+
+## Screensaver
+
+# Lock screen when monitor sleeps:
+xset s on
+xset s 300
+xss-lock ~/dotfiles/scripts/lock.sh&
+
+## Key Bindings:
+
+# Set compose key (for unicode) to menu:
+setxkbmap -option compose:menu
+# Always turn on numlock:
+setxkbmap -option numpad:mac us
+
+# reassign Alt_R to Super_L
+xmodmap -e "keycode 108 = Super_L"
+# make sure X keeps it out of the mod1 group
+xmodmap -e "remove mod1 = Super_L"
+
+## Security
+
+# Unlock keyring:
+eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
+export SSH_AUTH_SOCK
+
+## WM
+dwm
+
+# vim:ft=bash
