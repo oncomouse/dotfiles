@@ -2,7 +2,7 @@
 bash=$(which bash)
 
 # Assume, at minium, "pacman -S base-devel vim git curl fish" run during install:
-sudo pacman -S --noconfirm --needed - < "$HOME/dotfiles/conf/packages/pacman.txt"
+sudo pacman -S --noconfirm --needed - < "$HOME/dotfiles/conf/arch-packages/pacman.txt"
 
 # Install Yay:
 url_makepkg() {
@@ -17,11 +17,11 @@ url_makepkg() {
 url_makepkg "https://aur.archlinux.org/yay"
 
 # Install AUR using Yay:
-grep -v -e "^#" < "$HOME"/dotfiles/conf/packages/aur.txt | sed -e "s/\s*#.*\$//g" | yay -S --noconfirm -
+grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/aur.txt | sed -e "s/\s*#.*\$//g" | yay -S --noconfirm -
 # Setup flatpak:
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 # Install Flatpaks:
-grep -v -e "^#" < "$HOME"/dotfiles/conf/packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak install -
+grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak install -
 # Install Suckless Stuff:
 $bash ~/dotfiles/bootstrap/scripts/dwm.sh
 $bash ~/dotfiles/bootstrap/scripts/slock.sh
