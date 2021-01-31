@@ -3,7 +3,14 @@
 # Enable firejail:
 sudo systemctl enable --now apparmor
 sudo apparmor_parser -r /etc/apparmor.d/firejail-default
-sudo firecfg
+# sudo firecfg
+
+# Configure firejail for Firefox:
+cat << EOF | sudo tee /usr/local/bin/firefox > /dev/null
+#!/bin/sh
+firejail /usr/bin/firefox
+EOF
+
 whoami | sudo tee /etc/firejail/firejail.users > /dev/null
 
 # Whitelist dotfiles:

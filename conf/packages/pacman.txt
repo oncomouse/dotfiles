@@ -52,7 +52,7 @@ sxhkd
 xss-lock
 thunar
 tumbler
-# firejail
+firejail
 fuse2
 pulseaudio
 yajl
@@ -61,3 +61,4 @@ inetutils
 deno
 cups
 cups-pdf
+flatpak
