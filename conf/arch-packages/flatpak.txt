@@ -1,3 +1,4 @@
 com.spotify.Client
 us.zoom.Zoom
 com.valvesoftware.Steam
+com.valvesoftware.Steam.CompatibilityTool.Proton-Exp
