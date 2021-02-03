@@ -27,7 +27,10 @@ if len(players) != 0:
                 "org.mpris.MediaPlayer2.Player", "Metadata"
             )
             output = "契" if s == "Playing" else ""
-            output += " {} - {}".format(
-                metadata["xesam:artist"][0], metadata["xesam:title"]
+            artist = (
+                "{} - ".format(metadata["xesam:artist"][0])
+                if len(metadata["xesam:artist"][0]) > 0
+                else ""
             )
+            output += " {}{}".format(artist, metadata["xesam:title"])
 print(truncate(output) + " ⁞ ")
