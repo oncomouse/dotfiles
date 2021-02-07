@@ -2,10 +2,11 @@
 # ~/.bashrc
 #
 
+EDITOR="$(which nvim)"
+export EDITOR
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
+alias ls='exa --group-directories-first'
 PS1='[\u@\h \W]\$ '
-EDITOR="$(which nvim)"
-export EDITOR
