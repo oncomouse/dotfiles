@@ -11,6 +11,7 @@ dotfiles_stow () {
 # Basic Setup:
 mkdir -p ~/.config/fish
 dotfiles_stow fish
+dotfiles_stow bash
 if [ -z "$SERVER" ]; then
   dotfiles_stow kitty
   dotfiles_stow neovim
