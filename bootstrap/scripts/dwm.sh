@@ -39,7 +39,7 @@ merge_conflict() {
           break
           ;;
         "Edit ${file}")
-          "${EDITOR:-vi} $file"
+          eval "${EDITOR:-vi} $file"
           break
           ;;
         "*")
