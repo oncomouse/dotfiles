@@ -33,7 +33,7 @@ merge_conflict() {
           break
           ;;
         "Edit ${file}")
-          vim "$file"
+          "${EDITOR:-vi} $file"
           break
           ;;
         "*")
