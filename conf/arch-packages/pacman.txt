@@ -62,3 +62,4 @@ deno
 cups
 cups-pdf
 flatpak
+tmux

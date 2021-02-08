@@ -47,3 +47,4 @@ else
   dotfiles_stow neovim-server
 fi
 dotfiles_stow vim
+dotfiles_stow tmux
