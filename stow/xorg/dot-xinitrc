@@ -9,9 +9,7 @@ hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
 ## Screensaver
 
 # Lock screen when monitor sleeps:
-xset s on
-xset s 300
-xss-lock ~/dotfiles/scripts/lock.sh&
+xscreensaver -no-splash &
 
 ## Key Bindings:
 

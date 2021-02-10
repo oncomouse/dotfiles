@@ -63,3 +63,4 @@ cups
 cups-pdf
 flatpak
 tmux
+xscreensaver
