@@ -1,11 +1,11 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.44 for andrew on Wed Feb 10 16:17:02 2021.
+# Written by xscreensaver-demo 5.44 for andrew on Wed Feb 10 17:08:30 2021.
 # https://www.jwz.org/xscreensaver/
 
 timeout:	0:05:00
 cycle:		0:05:00
 lock:		True
-lockTimeout:	0:05:00
+lockTimeout:	0:00:00
 passwdTimeout:	0:00:30
 visualID:	default
 installColormap:    True
@@ -17,7 +17,7 @@ demoCommand:	xscreensaver-demo
 prefsCommand:	
 nice:		10
 memoryLimit:	0
-fade:		True
+fade:		False
 unfade:		False
 fadeSeconds:	0:00:01
 fadeTicks:	20
@@ -34,8 +34,8 @@ grabVideoFrames:    False
 chooseRandomImages: False
 imageDirectory:	
 
-mode:		random
-selected:	198
+mode:		one
+selected:	34
 
 textMode:	date
 textLiteral:	XScreenSaver
@@ -78,7 +78,7 @@ programs:								      \
 - GL: 				moebius -root				    \n\
 -				moire -root				    \n\
 - GL: 				morph3d -root				    \n\
-				mountain -root				    \n\
+				mountain -root -count 39 -ncolors 105	    \n\
 -				munch -root				    \n\
 				penrose -root				    \n\
 - GL: 				pipes -root				    \n\
@@ -98,7 +98,7 @@ programs:								      \
 - GL: 				bubble3d -root				    \n\
 - GL: 				cage -root				    \n\
 -				crystal -root				    \n\
-				cynosure -root				    \n\
+-				cynosure -root				    \n\
 -				discrete -root				    \n\
 -				distort -root				    \n\
 -				epicycle -root				    \n\
