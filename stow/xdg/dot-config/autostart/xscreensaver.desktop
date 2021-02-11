@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=xscreensaver
 Comment=Screensaver for X11
-Exec=xscreensaver
+Exec=xscreensaver -nosplash
 Terminal=false
 Type=Application
