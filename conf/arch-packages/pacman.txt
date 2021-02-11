@@ -7,8 +7,6 @@ xorg-server
 xorg-xsetroot
 xorg-xrdb
 xclip
-lightdm
-lightdm-gtk-greeter
 accountsservice
 rofi
 texlive-core
@@ -54,7 +52,6 @@ thunar
 tumbler
 firejail
 fuse2
-pulseaudio
 yajl
 hsetroot
 inetutils
@@ -64,3 +61,7 @@ cups-pdf
 flatpak
 tmux
 xscreensaver
+pipewire
+pipewire-alsa
+pipewire-pulse
+pipewire-jack

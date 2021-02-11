@@ -31,12 +31,13 @@ $bash ~/dotfiles/bootstrap/scripts/aur.sh
 
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 if [ -z "$SERVER" ]; then
-  # Enable Redshift:
+
+  ## User systemd services
   systemctl --user enable redshift
-  # Enable LightDM:
-  sudo systemctl enable lightdm
-  # Enable Pulseaudio:
-  systemctl --user enable pulseaudio
+  systemctl --user enable pipewire-pulse
+  systemctl --user enable seadrive
+  systemctl --user enable sxhkd
+  systemctl --user enable lightsonplus
 
   # Use Rofi for dmenu:
   sudo ln -sf "$(which rofi)" /usr/bin/dmenu
@@ -49,6 +50,7 @@ fi
 sudo systemctl enable sshd.service
 sudo systemctl start sshd.service
 
+# Enable UFW:
 sudo systemctl enable ufw.service
 sudo systemctl start ufw.service
 sudo ufw deny in

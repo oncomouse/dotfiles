@@ -1,7 +1,10 @@
-## Appareance:
+## Configuration
 
 # Needed to start Dunst:
 systemctl --user import-environment DISPLAY
+
+## Appareance:
+
 # Load Xresources:
 xrdb ~/.Xresources
 # Set background:
@@ -12,7 +15,7 @@ hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
 # Lock screen when monitor sleeps:
 xscreensaver -no-splash &
 
-## Key Bindings:
+## Key Bindings
 
 # Set compose key (for unicode) to menu:
 setxkbmap -option compose:menu
@@ -26,7 +29,7 @@ xmodmap -e "remove mod1 = Super_L"
 
 ## Security
 
-# Unlock keyring:
+# Unlock keyring
 eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
 export SSH_AUTH_SOCK
 

@@ -35,6 +35,7 @@ if [ -z "$SERVER" ]; then
     dotfiles_stow gtk-2.0
     dotfiles_stow redshift
     dotfiles_stow xscreensaver
+    dotfiles_stow systemd
   fi
   ## Configure NCSpot:
   if [ "$os" == "macos" ]; then
