@@ -1,9 +1,10 @@
 ## Appareance:
 
+# Needed to start Dunst:
+systemctl --user import-environment DISPLAY
 # Load Xresources:
 xrdb ~/.Xresources
 # Set background:
-# /usr/bin/env feh --bg-scale ~/dotfiles/conf/wallpaper/wallhaven-453lo1.jpg
 hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
 
 ## Screensaver
