@@ -86,6 +86,8 @@ endif
       autocmd FileType markdown,c,cpp,go,lua,sxhkdrc setlocal tabstop=4
       autocmd FileType markdown,c,cpp,go,lua,sxhkdrc setlocal shiftwidth=4
       autocmd FileType markdown,c,cpp,go,lua,sxhkdrc setlocal noexpandtab
+      " Python
+      autocmd FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
       " JavaScript
       autocmd FileType javascript,javascriptreact setlocal tabstop=2
       autocmd FileType javascript,javascriptreact setlocal shiftwidth=2
