@@ -1,56 +1,52 @@
-# XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.44 for andrew on Wed Feb 10 17:08:30 2021.
-# https://www.jwz.org/xscreensaver/
+xscreensaver.timeout:	0:05:00
+xscreensaver.cycle:		0:05:00
+xscreensaver.lock:		True
+xscreensaver.lockTimeout:	0:00:00
+xscreensaver.passwdTimeout:	0:00:30
+xscreensaver.visualID:	default
+xscreensaver.installColormap:    True
+xscreensaver.verbose:	False
+xscreensaver.timestamp:	True
+xscreensaver.splash:		True
+xscreensaver.splashDuration:	0:00:05
+xscreensaver.demoCommand:	xscreensaver-demo
+xscreensaver.prefsCommand:	
+xscreensaver.nice:		10
+xscreensaver.memoryLimit:	0
+xscreensaver.fade:		False
+xscreensaver.unfade:		False
+xscreensaver.fadeSeconds:	0:00:01
+xscreensaver.fadeTicks:	20
+xscreensaver.captureStderr:	True
+xscreensaver.ignoreUninstalledPrograms:False
+xscreensaver.font:		*-medium-r-*-140-*-m-*
+xscreensaver.dpmsEnabled:	True
+xscreensaver.dpmsQuickOff:	False
+xscreensaver.dpmsStandby:	0:30:00
+xscreensaver.dpmsSuspend:	0:30:00
+xscreensaver.dpmsOff:	4:00:00
+xscreensaver.grabDesktopImages:  False
+xscreensaver.grabVideoFrames:    False
+xscreensaver.chooseRandomImages: False
+xscreensaver.imageDirectory:	
 
-timeout:	0:05:00
-cycle:		0:05:00
-lock:		True
-lockTimeout:	0:00:00
-passwdTimeout:	0:00:30
-visualID:	default
-installColormap:    True
-verbose:	False
-timestamp:	True
-splash:		True
-splashDuration:	0:00:05
-demoCommand:	xscreensaver-demo
-prefsCommand:	
-nice:		10
-memoryLimit:	0
-fade:		False
-unfade:		False
-fadeSeconds:	0:00:01
-fadeTicks:	20
-captureStderr:	True
-ignoreUninstalledPrograms:False
-font:		*-medium-r-*-140-*-m-*
-dpmsEnabled:	True
-dpmsQuickOff:	False
-dpmsStandby:	0:30:00
-dpmsSuspend:	0:30:00
-dpmsOff:	4:00:00
-grabDesktopImages:  False
-grabVideoFrames:    False
-chooseRandomImages: False
-imageDirectory:	
+xscreensaver.mode:		one
+xscreensaver.selected:	34
 
-mode:		one
-selected:	34
+xscreensaver.textMode:	date
+xscreensaver.textLiteral:	XScreenSaver
+xscreensaver.textFile:	
+xscreensaver.textProgram:	fortune
+xscreensaver.textURL:	https://en.wikipedia.org/w/index.php?title=Special:NewPages&feed=rss
 
-textMode:	date
-textLiteral:	XScreenSaver
-textFile:	
-textProgram:	fortune
-textURL:	https://en.wikipedia.org/w/index.php?title=Special:NewPages&feed=rss
-
-programs:								      \
+xscreensaver.programs:								      \
 -				maze -root				    \n\
 - GL: 				superquadrics -root			    \n\
 -				attraction -root			    \n\
 -				blitspin -root				    \n\
 -				greynetic -root				    \n\
 -				helix -root				    \n\
-				hopalong -root				    \n\
+                                hopalong -root				    \n\
 -				imsmap -root				    \n\
 -				noseguy -root				    \n\
 -				pyro -root				    \n\
@@ -64,23 +60,23 @@ programs:								      \
 -				pedal -root				    \n\
 -				bouboule -root				    \n\
 -				braid -root				    \n\
-				coral -root				    \n\
+                                coral -root				    \n\
 -				deco -root				    \n\
-				drift -root				    \n\
+                                drift -root				    \n\
 -				fadeplot -root				    \n\
 -				galaxy -root				    \n\
-				goop -root				    \n\
-				grav -root				    \n\
+                                goop -root				    \n\
+                                grav -root				    \n\
 -				ifs -root				    \n\
 - GL: 				jigsaw -root				    \n\
-				julia -root				    \n\
+                                julia -root				    \n\
 -				kaleidescope -root			    \n\
 - GL: 				moebius -root				    \n\
 -				moire -root				    \n\
 - GL: 				morph3d -root				    \n\
-				mountain -root -count 39 -ncolors 105	    \n\
+                                mountain -root -count 39 -ncolors 105	    \n\
 -				munch -root				    \n\
-				penrose -root				    \n\
+                                penrose -root				    \n\
 - GL: 				pipes -root				    \n\
 -				rd-bomb -root				    \n\
 - GL: 				rubik -root				    \n\
@@ -114,14 +110,14 @@ programs:								      \
 -				vidwhacker -root			    \n\
 -				blaster -root				    \n\
 -				bumps -root				    \n\
-				ccurve -root				    \n\
+                                ccurve -root				    \n\
 -				compass -root				    \n\
 -				deluxe -root				    \n\
 -				demon -root				    \n\
 - GL: 				extrusion -root				    \n\
 -				loop -root				    \n\
 -				penetrate -root				    \n\
-				petri -root				    \n\
+                                petri -root				    \n\
 -				phosphor -root				    \n\
 - GL: 				pulsar -root				    \n\
 -				ripples -root				    \n\
@@ -158,8 +154,8 @@ programs:								      \
 - GL: 				boxed -root				    \n\
 - GL: 				cubenetic -root				    \n\
 - GL: 				endgame -root				    \n\
-				euler2d -root				    \n\
-				fluidballs -root			    \n\
+                                euler2d -root				    \n\
+                                fluidballs -root			    \n\
 - GL: 				flurry -root				    \n\
 - GL: 				glblur -root				    \n\
 - GL: 				glsnake -root				    \n\
@@ -179,7 +175,7 @@ programs:								      \
 - GL: 				blinkbox -root				    \n\
 - GL: 				blocktube -root				    \n\
 - GL: 				bouncingcow -root			    \n\
-				cloudlife -root				    \n\
+                                cloudlife -root				    \n\
 - GL: 				cubestorm -root				    \n\
 -				eruption -root				    \n\
 - GL: 				flipflop -root				    \n\
@@ -193,7 +189,7 @@ programs:								      \
 - GL: 				jigglypuff -root			    \n\
 -				metaballs -root				    \n\
 - GL: 				mirrorblob -root			    \n\
-				piecewise -root				    \n\
+                                piecewise -root				    \n\
   GL: 				polytopes -root				    \n\
 -				pong -root				    \n\
 -				popsquares -root			    \n\
@@ -208,12 +204,12 @@ programs:								      \
 -				intermomentary -root			    \n\
 -				memscroller -root			    \n\
 - GL: 				noof -root				    \n\
-				pacman -root				    \n\
+                                pacman -root				    \n\
 - GL: 				pinion -root				    \n\
 - GL: 				polyhedra -root				    \n\
 - GL: 				providence -root			    \n\
 -				substrate -root				    \n\
-				wormhole -root				    \n\
+                                wormhole -root				    \n\
 - GL: 				antmaze -root				    \n\
 - GL: 				boing -root				    \n\
 -				boxfit -root				    \n\
@@ -221,7 +217,7 @@ programs:								      \
 -				celtic -root				    \n\
   GL: 				crackberg -root				    \n\
   GL: 				cube21 -root				    \n\
-				fiberlamp -root				    \n\
+                                fiberlamp -root				    \n\
 - GL: 				fliptext -root				    \n\
 - GL: 				glhanoi -root				    \n\
 - GL: 				tangram -root				    \n\
@@ -284,13 +280,15 @@ programs:								      \
   GL: 				gibson -root				    \n\
 
 
-pointerPollTime:    0:00:05
-pointerHysteresis:  10
-windowCreationTimeout:0:00:30
-initialDelay:	0:00:00
-GetViewPortIsFullOfLies:False
-procInterrupts:	True
-xinputExtensionDev: False
-overlayStderr:	True
-authWarningSlack:   20
+xscreensaver.pointerPollTime:    0:00:05
+xscreensaver.pointerHysteresis:  10
+xscreensaver.windowCreationTimeout:0:00:30
+xscreensaver.initialDelay:	0:00:00
+xscreensaver.GetViewPortIsFullOfLies:False
+xscreensaver.procInterrupts:	True
+xscreensaver.xinputExtensionDev: False
+xscreensaver.overlayStderr:	True
+xscreensaver.authWarningSlack:   20
 
+
+! vim:ft=xdefaults
