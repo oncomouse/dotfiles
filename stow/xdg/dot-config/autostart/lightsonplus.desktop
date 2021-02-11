@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=lightson+
+Comment=Lights On Plus
+Exec=~/dotfiles/scripts/lightson+ -d 2
+Terminal=false
+Type=Application

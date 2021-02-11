@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=sxhkd
+Comment=Simple X hotkey daemon
+Exec=bash -c sxhkd
+Terminal=false
+Type=Application

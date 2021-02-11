@@ -1,7 +1,9 @@
-## Configuration
+## System Configuration
 
 # Needed to start Dunst:
 systemctl --user import-environment DISPLAY
+# Load XDG Autostart for WMs without it:
+dex -a
 
 ## Appareance:
 
@@ -34,6 +36,14 @@ eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
 export SSH_AUTH_SOCK
 
 ## WM
+
+# Terminate already running status instances
+killall -q aslstatus
+# Wait until the processes have been shut down
+while pgrep -u $UID -x aslstatus >/dev/null; do sleep 1; done
+aslstatus&
+
+# Start DWM
 dwm
 
 # vim:ft=bash
