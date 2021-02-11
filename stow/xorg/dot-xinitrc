@@ -12,11 +12,6 @@ xrdb ~/.Xresources
 # Set background:
 hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
 
-## Screensaver
-
-# Lock screen when monitor sleeps:
-xscreensaver -no-splash &
-
 ## Key Bindings
 
 # Set compose key (for unicode) to menu:
