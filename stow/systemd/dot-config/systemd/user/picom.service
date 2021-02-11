@@ -1,0 +1,12 @@
+[Unit]
+Description=A lightweight compositor for X11
+Requires=graphical-session.target
+After=dbus.service graphical-session.target xorg.target
+
+[Service]
+ExecStart=/usr/bin/picom --experimental-backends --dbus
+Restart=always
+Slice=session.slice
+
+[Install]
+WantedBy=desktop.target
