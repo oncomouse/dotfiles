@@ -1,0 +1,11 @@
+[Unit]
+Description=Simple X11 HotKey Daemon
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=bash -c sxhkd
+ExecReload=pkill -USR1 -x sxhkd
+Reload=always
+
+[Install]
+WantedBy=xsession.target
