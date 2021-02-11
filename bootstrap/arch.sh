@@ -31,13 +31,9 @@ $bash ~/dotfiles/bootstrap/scripts/aur.sh
 
 $bash ~/dotfiles/bootstrap/scripts/common.sh
 if [ -z "$SERVER" ]; then
-
   ## User systemd services
-  systemctl --user enable redshift
   systemctl --user enable pipewire-pulse
   systemctl --user enable seadrive
-  systemctl --user enable sxhkd
-  systemctl --user enable lightsonplus
 
   # Use Rofi for dmenu:
   sudo ln -sf "$(which rofi)" /usr/bin/dmenu
