@@ -3,7 +3,7 @@ Description=lightson+
 PartOf=graphical-session.target
 
 [Service]
-ExecStart=sh ${HOME}/dotfiles/scripts/lightson+ -d 2
+ExecStart=%h/dotfiles/scripts/lightson+ -d 2
 Restart=always
 
 [Install]
