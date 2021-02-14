@@ -374,8 +374,6 @@ endif
 call plug#end()
 " }}}
 " Maps: {{{
-  " Insert newline at end of line:
-  inoremap <silent> <M-CR> <END><CR>
   " Select whole file
   nnoremap <leader>vf ggVG
   " Clear currently highlighted regexp:
