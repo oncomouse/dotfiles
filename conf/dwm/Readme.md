@@ -8,8 +8,6 @@
 	* Load colors from ~/.Xresources
 * [ipc](https://dwm.suckless.org/patches/ipc/dwm-ipc-20201106-f04cac6.diff)
 	* Used to implement SXHKD support
-* [autostart](https://dwm.suckless.org/patches/autostart/dwm-autostart-20200610-cb3f58a.diff)
-	* Used to call "dex -a" to implement XDG Autostart
 * [ewmhtags](https://dwm.suckless.org/patches/ewmhtags/dwm-ewmhtags-6.2.diff)
 	* Implement standard WM commands
 * [focusonnetactive](https://dwm.suckless.org/patches/focusonnetactive/dwm-focusonnetactive-6.2.diff)
