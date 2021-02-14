@@ -1,6 +1,7 @@
 use_nerdfont = true
 notify = false
 volnorm = true
+repeat = "playlist"
 
 [theme]
 
