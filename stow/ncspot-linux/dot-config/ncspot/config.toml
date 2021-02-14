@@ -6,3 +6,10 @@ volnorm = true
 
 highlight = "light black"
 highlight_bg = "#aeadaf"
+
+[keybindings]
+"Space" = "playpause"
+"," = "previous"
+"." = "next"
+"Ctrl+q" = "quit"
+"q" = "move up 1"
