@@ -1,4 +1,0 @@
-# vim:fileencoding=utf-8:ft=conf:foldmethod=marker
-focus
-os_window_size 80c 24c
-launch fish -c choose_dir_with_fzf

@@ -1,9 +1,0 @@
-cd ~/Seafile/Todo
-title todo
-launch /usr/local/bin/fish -c "/usr/local/bin/nvim todo.txt"
-
-# new_tab
-# title spotify
-# launch ncspot
-
-new_tab
