@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-bash=$(which bash)
 
 # Assume, at minium, "pacman -S base-devel vim git curl fish" run during install:
 sudo pacman -S --noconfirm --needed - < "$HOME/dotfiles/conf/arch-packages/pacman.txt"
@@ -23,13 +22,13 @@ flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/fl
 # Install Flatpaks:
 grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
 # Install Suckless Stuff:
-$bash ~/dotfiles/bootstrap/scripts/dwm.sh
-$bash ~/dotfiles/bootstrap/scripts/aslstatus.sh
+~/dotfiles/bootstrap/scripts/dwm.sh
+~/dotfiles/bootstrap/scripts/aslstatus.sh
 
 # Install non-AUR PKGBUILD stuff:
-$bash ~/dotfiles/bootstrap/scripts/aur.sh
+~/dotfiles/bootstrap/scripts/aur.sh
 
-$bash ~/dotfiles/bootstrap/scripts/common.sh
+~/dotfiles/bootstrap/scripts/common.sh
 if [ -z "$SERVER" ]; then
   ## User systemd services
   systemctl --user enable pipewire-pulse
@@ -39,7 +38,7 @@ if [ -z "$SERVER" ]; then
   sudo ln -sf "$(which rofi)" /usr/bin/dmenu
 
   # Configure spicetify:
-  $bash ~/dotfiles/bootstrap/scripts/spicetify.sh
+  ~/dotfiles/bootstrap/scripts/spicetify.sh
 fi
 
 # Enable OpenSSH:
@@ -67,7 +66,7 @@ if ! echo "$SHELL" | grep fish > /dev/null 2>&1; then
 fi
 
 # Configure Firejail:
-# $bash ~/dotfiles/bootstrap/scripts/firejail.sh
+# ~/dotfiles/bootstrap/scripts/firejail.sh
 
 if [ -z "$SERVER" ]; then
   # Configure xdg-utils
@@ -85,5 +84,5 @@ if [ -z "$SERVER" ]; then
   #sudo chmod +x "/usr/local/bin/spotify"
 
   # Configure Seadrive:
-  $bash ~/dotfiles/bootstrap/scripts/seadrive.sh
+  ~/dotfiles/bootstrap/scripts/seadrive.sh
 fi

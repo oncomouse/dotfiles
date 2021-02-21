@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-bash="$(which bash)"
-
 sudo apt-get update
 sudo apt-get upgrade -y
 # Install Necessary Tools:
@@ -99,7 +97,7 @@ if [ -z "$SERVER" ]; then
   sudo apt-get install -y neovim
 fi
 
-$bash ~/dotfiles/bootstrap/scripts/common.sh
+~/dotfiles/bootstrap/scripts/common.sh
 
 # Setup Firewall:
 sudo ufw allow OpenSSH

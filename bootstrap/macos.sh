@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-bash="$(which bash)"
-
 ## Get ready for xcode/brew:
 if ! xcode-select --version > /dev/null 2>&1; then
   xcode-select --install
@@ -36,7 +34,7 @@ if test ! "/usr/local/bin/pip"; then
   ln -s "$(which pip3)" /usr/local/bin/pip
 fi
 
-$bash ~/dotfiles/bootstrap/scripts/common.sh
+~/dotfiles/bootstrap/scripts/common.sh
 
 ## Use Fish
 if ! echo "$SHELL" | ag fish > /dev/null 2>&1; then

@@ -1,25 +1,23 @@
 #!/usr/bin/env bash
 
-bash="$(which bash)"
-
-$bash ~/dotfiles/bootstrap/scripts/stow.sh
-$bash ~/dotfiles/bootstrap/scripts/git.sh
-$bash ~/dotfiles/bootstrap/scripts/vim.sh
-$bash ~/dotfiles/bootstrap/scripts/unbound.sh
-$bash ~/dotfiles/bootstrap/scripts/diff-so-fancy.sh
-$bash ~/dotfiles/bootstrap/scripts/node-modules.sh
-$bash ~/dotfiles/bootstrap/scripts/python-modules.sh
-$bash ~/dotfiles/bootstrap/scripts/ruby-gems.sh
-$bash ~/dotfiles/bootstrap/scripts/fisher.sh
-$bash ~/dotfiles/bootstrap/scripts/rustup.sh
-$bash ~/dotfiles/bootstrap/scripts/theme.sh
-$bash ~/dotfiles/bootstrap/scripts/tmux.sh
+~/dotfiles/bootstrap/scripts/stow.sh
+~/dotfiles/bootstrap/scripts/git.sh
+~/dotfiles/bootstrap/scripts/vim.sh
+~/dotfiles/bootstrap/scripts/unbound.sh
+~/dotfiles/bootstrap/scripts/diff-so-fancy.sh
+~/dotfiles/bootstrap/scripts/node-modules.sh
+~/dotfiles/bootstrap/scripts/python-modules.sh
+~/dotfiles/bootstrap/scripts/ruby-gems.sh
+~/dotfiles/bootstrap/scripts/fisher.sh
+~/dotfiles/bootstrap/scripts/rustup.sh
+~/dotfiles/bootstrap/scripts/theme.sh
+~/dotfiles/bootstrap/scripts/tmux.sh
 if [ -z "$SERVER" ]; then
-  $bash ~/dotfiles/bootstrap/scripts/vale.sh
-  $bash ~/dotfiles/bootstrap/scripts/asdf.sh
-  $bash ~/dotfiles/bootstrap/scripts/neovim.sh
-  # $bash ~/dotfiles/bootstrap/scripts/haskell.sh
-  $bash ~/dotfiles/bootstrap/scripts/csl.sh
-  $bash ~/dotfiles/bootstrap/scripts/tex.sh
-  $bash ~/dotfiles/bootstrap/scripts/nnn.sh
+  ~/dotfiles/bootstrap/scripts/vale.sh
+  ~/dotfiles/bootstrap/scripts/asdf.sh
+  ~/dotfiles/bootstrap/scripts/neovim.sh
+  # ~/dotfiles/bootstrap/scripts/haskell.sh
+  ~/dotfiles/bootstrap/scripts/csl.sh
+  ~/dotfiles/bootstrap/scripts/tex.sh
+  ~/dotfiles/bootstrap/scripts/nnn.sh
 fi
