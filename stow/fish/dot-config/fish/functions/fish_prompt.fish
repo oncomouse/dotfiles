@@ -78,7 +78,7 @@ function fish_prompt --description 'Write out the prompt'
     end
 
     # Are we in an SSH Connection?
-    if [ -n "$SSH_CLIENT" ]
+    if [ -n "$SSH_CONNECTION" -o -n "$SSH_CLIENT" ]
         echo -n -s (set_color --bold yellow) "SSH" (set_color normal) (set_color yellow) "@" (hostname) ":" (set_color normal)
     end
     # PWD
