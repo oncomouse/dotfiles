@@ -113,16 +113,34 @@ endif
 " }}}
 " Plugins: {{{
   " Install vim_plug if it is missing:
-  let g:neovim_plug_dir = ($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share/nvim/site')
-  let g:plug_autoload_dir = has('nvim') ? g:neovim_plug_dir.'/autoload' : '~/.vim/autoload'
-  if empty(glob(g:plug_autoload_dir.'/plug.vim'))
-    silent execute '!curl -fLo '.g:plug_autoload_dir.'/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  if has('nvim')
+    if has('win32')
+      let s:win_vimfiles = $HOME . '/AppData/Local/nvim/vimfiles'
+      let g:plug_dir = s:win_vimfiles . '/plugged/'
+      let g:plug_autoload_dir = s:win_vimfiles . '/autoload/'
+    else
+      let s:xdg_home = $XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share/nvim/site'
+      let g:plug_dir = s:xdg_home . '/plugged/'
+      let g:plug_autoload_dir = s:xdg_home . '/autoload/'
+    endif
+  else
+    if has('win32')
+      let s:win_vimfiles = $HOME . '/vimfiles'
+      let g:plug_dir = s:win_vimfiles . '/plugged/'
+      let g:plug_autoload_dir = s:win_vimfiles . '/autoload/'
+    else
+      let g:plug_dir = '~/.vim/plugged/'
+      let g:plug_autoload_dir = '~/.vim/autoload/'
+    endif
+  endif
+  if empty(glob(g:plug_autoload_dir.'plug.vim'))
+    silent execute '!curl -fLo '.g:plug_autoload_dir.'plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     augroup vim_plug
       autocmd!
       autocmd VimEnter * PlugInstall | source $MYVIMRC
     augroup END
   endif
-  call plug#begin(has('nvim') ? g:neovim_plug_dir . '/plugged/' : '~/.vim/plugged/' . g:dotfiles_mode)
+  call plug#begin(g:plug_dir)
   " Get Started: {{{
     Plug 'xero/securemodelines' " Secure modelines
     set nomodeline
