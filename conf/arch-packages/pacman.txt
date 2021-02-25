@@ -64,3 +64,5 @@ pipewire
 pipewire-alsa
 pipewire-pulse
 pipewire-jack
+lightdm
+lightdm-gtk-greeter

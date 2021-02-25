@@ -1,26 +1,39 @@
+## System Configuration
+
+# Needed to start Dunst:
+systemctl --user import-environment DISPLAY
+# Load XDG Autostart for WMs without it:
+dex -a
+
 ## Appareance:
 
 # Load Xresources:
-/usr/bin/env xrdb ~/.Xresources
+xrdb ~/.Xresources
 # Set background:
-# /usr/bin/env feh --bg-scale ~/dotfiles/conf/wallpaper/wallhaven-453lo1.jpg
-/usr/bin/env hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
+hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
 
-## Screensaver
-
-# Lock screen when monitor sleeps:
-/usr/bin/env xset s on
-/usr/bin/env xset s 300
-/usr/bin/env xss-lock ~/dotfiles/scripts/lock.sh&
-
-## Key Bindings:
+## Key Bindings
 
 # Set compose key (for unicode) to menu:
-/usr/bin/env setxkbmap -option compose:menu
+setxkbmap -option compose:menu
 # Always turn on numlock:
-/usr/bin/env setxkbmap -option numpad:mac us
+setxkbmap -option numpad:mac us
 
 # reassign Alt_R to Super_L
-/usr/bin/env xmodmap -e "keycode 108 = Super_L"
+xmodmap -e "keycode 108 = Super_L"
 # make sure X keeps it out of the mod1 group
-/usr/bin/env xmodmap -e "remove mod1 = Super_L"
+xmodmap -e "remove mod1 = Super_L"
+
+## Security
+
+# Unlock keyring
+# eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
+# export SSH_AUTH_SOCK
+
+## WM
+
+# Terminate already running status instances
+killall -q aslstatus
+# Wait until the processes have been shut down
+while pgrep -u $UID -x aslstatus >/dev/null; do sleep 1; done
+aslstatus&
