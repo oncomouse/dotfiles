@@ -39,6 +39,6 @@ while pgrep -u $UID -x aslstatus >/dev/null; do sleep 1; done
 aslstatus&
 
 # Start DWM
-dwm
+exec dbus-launch dwm
 
 # vim:ft=bash
