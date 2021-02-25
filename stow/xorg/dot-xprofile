@@ -24,12 +24,6 @@ xmodmap -e "keycode 108 = Super_L"
 # make sure X keeps it out of the mod1 group
 xmodmap -e "remove mod1 = Super_L"
 
-## Security
-
-# Unlock keyring
-# eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
-# export SSH_AUTH_SOCK
-
 ## WM
 
 # Terminate already running status instances
