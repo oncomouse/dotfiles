@@ -132,7 +132,7 @@ volume_widget = awful.widget.watch(VOLUME_CMD, 1, function(widget, stdout)
 	set_volume_text(widget, stdout)
 end)
 volume_widget:connect_signal("button::press", function(_, _, _, _)
-	awful.spawn("ponymix toggle")
+	awful.spawn.with_shell("~/dotfiles/scripts/volume.sh mute")
 	awful.spawn.easy_async(VOLUME_CMD, function(stdout, _, _, _)
 		set_volume_text(volume_widget, stdout)
 	end)
@@ -244,9 +244,11 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
+			spacing = 5,
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
+            -- mylauncher,
             s.mytaglist,
+			s.mylayoutbox,
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
@@ -262,7 +264,6 @@ awful.screen.connect_for_each_screen(function(s)
 			volume_widget,
 			mpris_widget,
             mytextclock,
-            s.mylayoutbox,
         },
     }
 end)
@@ -388,9 +389,9 @@ globalkeys = gears.table.join(
 	awful.key( {}, "XF86AudioStop", function () awful.spawn("playerctl stop") end),
 	awful.key( {}, "XF86AudioPrev", function () awful.spawn("playerctl prev") end),
 	awful.key( {}, "XF86AudioNext", function () awful.spawn("playerctl next") end),
-	awful.key( {}, "XF86AudioLowerVolume", function() awful.spawn(string.format("%s/dotfiles/scripts/volume.sh down 5%%", os.getenv("HOME"))) end),
-	awful.key( {}, "XF86AudioRaiseVolume", function() awful.spawn(string.format("%s/dotfiles/scripts/volume.sh up 5%%", os.getenv("HOME"))) end),
-	awful.key( {}, "XF86AudioMute", function() awful.spawn(string.format("%s/dotfiles/scripts/volume.sh mute", os.getenv("HOME"))) end)
+	awful.key( {}, "XF86AudioLowerVolume", function() awful.spawn.with_shell("~/dotfiles/scripts/volume.sh down 5%") end),
+	awful.key( {}, "XF86AudioRaiseVolume", function() awful.spawn.with_shell("~/dotfiles/scripts/volume.sh up 5%") end),
+	awful.key( {}, "XF86AudioMute", function() awful.spawn.with_shell("~/dotfiles/scripts/volume.sh mute") end)
 )
 
 clientkeys = gears.table.join(
