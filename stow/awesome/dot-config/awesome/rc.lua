@@ -47,6 +47,9 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
 beautiful.useless_gap = 0
+beautiful.border_normal = awesome.xrdb_get_value("", "color8")
+beautiful.border_focus = awesome.xrdb_get_value("", "color7")
+beautiful.font = "FantasqueSansMono Nerd Font Normal 16"
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -104,11 +107,47 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
+-- mykeyboardlayout = awful.widget.keyboardlayout()
+
+-- Mpris player status:
+MPRIS_CMD = 'bash -c "python ~/dotfiles/scripts/dwm/mpris.py"'
+mpris_widget = awful.widget.watch(MPRIS_CMD, 1)
+mpris_widget:connect_signal("button::press", function(_, _, _, button) 
+	if (button == 1) then
+		awful.spawn("playerctl play-pause")
+	elseif (button == 2) then
+		awful.spawn("playerctl previous")
+	elseif (button == 3) then
+		awful.spawn("playerctl next")
+	end
+	awful.spawn.easy_async(MPRIS_CMD, function(stdout, _, _, _)
+		mpris_widget:set_text(stdout)
+	end)
+end)
+VOLUME_CMD = 'bash -c "~/dotfiles/scripts/dwm/volume.sh"'
+local function set_volume_text(widget, volume)
+	widget:set_text(" 墳 " .. volume)
+end
+volume_widget = awful.widget.watch(VOLUME_CMD, 1, function(widget, stdout)
+	set_volume_text(widget, stdout)
+end)
+volume_widget:connect_signal("button::press", function(_, _, _, _)
+	awful.spawn("ponymix toggle")
+	awful.spawn.easy_async(VOLUME_CMD, function(stdout, _, _, _)
+		set_volume_text(volume_widget, stdout)
+	end)
+end)
+
+-- Volume Icon:
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock(" %a %l:%M %p ")
+mytextclock:connect_signal("button::press", function(_, _, _, _)
+	awful.spawn.easy_async('date +" %A, %B %d %Y"', function(stdout, _, _, _)
+		naughty.notify({ title="Today's Date", text = string.gsub(stdout, '^%s*(.-)%s*$', '%1') })
+	end)
+end)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -151,15 +190,16 @@ local tasklist_buttons = gears.table.join(
                                           end))
 
 local function set_wallpaper(s)
+	gears.wallpaper.set(awesome.xrdb_get_value("", "background"))
     -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
+    -- if beautiful.wallpaper then
+    --     local wallpaper = beautiful.wallpaper
+    --     -- If wallpaper is a function, call it with the screen
+    --     if type(wallpaper) == "function" then
+    --         wallpaper = wallpaper(s)
+    --     end
+    --     gears.wallpaper.maximized(wallpaper, s, true)
+    -- end
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
@@ -182,6 +222,7 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+	widget_space = " ⁞ " 
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
@@ -197,7 +238,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height="24" })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -211,8 +252,15 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
-            wibox.widget.systray(),
+			spacing_widget = {
+				text = widget_space,
+				widget = wibox.widget.textbox
+			},
+			spacing=20,
+            -- mykeyboardlayout,
+            -- wibox.widget.systray(),
+			volume_widget,
+			mpris_widget,
             mytextclock,
             s.mylayoutbox,
         },

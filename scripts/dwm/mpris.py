@@ -33,4 +33,4 @@ if len(players) != 0:
                 else ""
             )
             output += " {}{}".format(artist, metadata["xesam:title"])
-print(truncate(output) + " ⁞ ")
+print(truncate(output))
