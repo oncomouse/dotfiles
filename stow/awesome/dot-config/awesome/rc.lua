@@ -46,7 +46,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
--- beautiful.init(os.getenv("HOME") .. "dotfiles/conf/awesome/themes/default/theme.lua")
+beautiful.useless_gap = 0
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -62,19 +62,19 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.corner.nw,
+	awful.layout.suit.magnifier,
+	awful.layout.suit.floating,
+    -- awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.top,
+    -- awful.layout.suit.fair,
+    -- awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.spiral,
+    -- awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.max,
+    -- awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
@@ -131,7 +131,7 @@ local taglist_buttons = gears.table.join(
 local tasklist_buttons = gears.table.join(
                      awful.button({ }, 1, function (c)
                                               if c == client.focus then
-                                                  c.minimized = true
+                                                  -- c.minimized = true
                                               else
                                                   c:emit_signal(
                                                       "request::activate",
@@ -192,7 +192,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
         screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
+        filter  = awful.widget.tasklist.filter.focused,
         buttons = tasklist_buttons
     }
 
@@ -277,7 +277,7 @@ globalkeys = gears.table.join(
     -- Standard program
     awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey, "Control" }, "r", awesome.restart,
+    awful.key({ modkey,           }, "q", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
@@ -327,7 +327,22 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "show the menubar", group = "launcher"}),
+		  
+	-- Print Screen
+	awful.key( {}, "Print", function () awful.spawn.with_shell("sleep 0.2 && " ..
+		"scrot ~/'Seafile/My Library/Photos/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'")	end),
+	awful.key( { "Shift" }, "Print", function () awful.spawn.with_shell("sleep 0.2 && " ..
+		"scrot -s ~/'Seafile/My Library/Photos/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'")	end),
+		
+	-- Media Keys
+	awful.key( {}, "XF86AudioPlay", function () awful.spawn("playerctl play-pause") end),
+	awful.key( {}, "XF86AudioStop", function () awful.spawn("playerctl stop") end),
+	awful.key( {}, "XF86AudioPrev", function () awful.spawn("playerctl prev") end),
+	awful.key( {}, "XF86AudioNext", function () awful.spawn("playerctl next") end),
+	awful.key( {}, "XF86AudioLowerVolume", function() awful.spawn(string.format("%s/dotfiles/scripts/volume.sh down 5%%", os.getenv("HOME"))) end),
+	awful.key( {}, "XF86AudioRaiseVolume", function() awful.spawn(string.format("%s/dotfiles/scripts/volume.sh up 5%%", os.getenv("HOME"))) end),
+	awful.key( {}, "XF86AudioMute", function() awful.spawn(string.format("%s/dotfiles/scripts/volume.sh mute", os.getenv("HOME"))) end)
 )
 
 clientkeys = gears.table.join(
@@ -341,7 +356,7 @@ clientkeys = gears.table.join(
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+    awful.key({ modkey, "Shift"   }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"}),
@@ -491,7 +506,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -505,7 +520,7 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
-    -- if not awesome.startup then awful.client.setslave(c) end
+    if not awesome.startup then awful.client.setslave(c) end
 
     if awesome.startup
       and not c.size_hints.user_position
@@ -554,13 +569,7 @@ client.connect_signal("request::titlebars", function(c)
         layout = wibox.layout.align.horizontal
     }
 end)
--- XDG Autostart
-awful.spawn.with_shell(
-   'if (xrdb -query | grep -q "^awesome\\.started:\\s*true$"); then exit; fi;' ..
-   'xrdb -merge <<< "awesome.started:true";' ..
-   -- list each of your autostart commands, followed by ; inside single quotes, followed by ..
-   'dex --environment Awesome --autostart --search-paths "$XDG_CONFIG_DIRS/autostart:$XDG_CONFIG_HOME/autostart"' -- https://github.com/jceb/dex
-   )
+
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
