@@ -14,6 +14,10 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+-- Custom playerctl guts:
+local playerctl = require("signals.playerctl")
+playerctl.enable()
+local volume_widget_factory = require("volume")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -106,39 +110,68 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- Keyboard map indicator and switcher
--- mykeyboardlayout = awful.widget.keyboardlayout()
-
 -- Mpris player status:
-MPRIS_CMD = 'bash -c "python ~/dotfiles/scripts/dwm/mpris.py"'
-mpris_widget = awful.widget.watch(MPRIS_CMD, 1)
-mpris_widget:connect_signal("button::press", function(_, _, _, button) 
-	if (button == 1) then
-		awful.spawn("playerctl play-pause")
-	elseif (button == 2) then
-		awful.spawn("playerctl previous")
-	elseif (button == 3) then
-		awful.spawn("playerctl next")
+mpris_widget = wibox.widget {
+    {
+        {
+			id = "status",
+            text = "栗",
+            widget = wibox.widget.textbox
+        },
+        {
+			id = "title",
+            text = "",
+            widget = wibox.widget.textbox
+        },
+        layout = wibox.layout.fixed.horizontal
+    },
+    margin2 = 1,
+    widget = wibox.container.margin
+}
+mpris_widget:connect_signal("button::press",
+	function(_, _, _, button)
+		if button == 1 then
+			playerctl.play()
+		elseif button == 2 then
+			playerctl.previous_track()
+		elseif button == 3 then
+			playerctl.next_track()
+		end
+	end)
+function truncate(st,len)
+	if string.len(st) > len then
+		return string.sub(st, 0, len - 1) .. "…"
+	else
+		return st
 	end
-	awful.spawn.easy_async(MPRIS_CMD, function(stdout, _, _, _)
-		mpris_widget:set_text(stdout)
-	end)
-end)
-VOLUME_CMD = 'bash -c "~/dotfiles/scripts/dwm/volume.sh"'
-local function set_volume_text(widget, volume)
-	widget:set_text(" 墳 " .. volume)
 end
-volume_widget = awful.widget.watch(VOLUME_CMD, 1, function(widget, stdout)
-	set_volume_text(widget, stdout)
-end)
-volume_widget:connect_signal("button::press", function(_, _, _, _)
-	awful.spawn.with_shell("~/dotfiles/scripts/volume.sh mute")
-	awful.spawn.easy_async(VOLUME_CMD, function(stdout, _, _, _)
-		set_volume_text(volume_widget, stdout)
+awesome.connect_signal("dotfiles::playerctl::stopped",
+	function()
+		mpris_widget:get_children_by_id("status")[1]:set_text("栗")
+		mpris_widget:get_children_by_id("title")[1]:set_text("")
 	end)
-end)
-
+awesome.connect_signal("dotfiles::playerctl::status",
+	function(playing)
+		local status
+		if playing == "play" then
+			status = "契 "
+		elseif playing == "pause" then
+			status = " "
+		else
+			status = "栗 "
+		end
+		mpris_widget:get_children_by_id("status")[1]:set_text(status)
+	end)
+awesome.connect_signal("dotfiles::playerctl::title_artist_album",
+	function(title, artist, _)
+		mpris_widget:get_children_by_id("title")[1]:set_text(
+			truncate(string.format("%s - %s", artist, title), 30)
+		)
+	end)
+-- VOLUME_CMD = 'bash -c "~/dotfiles/scripts/dwm/volume.sh"'
 -- Volume Icon:
+volume_widget = volume_widget_factory()
+volume_widget:enable()
 
 -- {{{ Wibar
 -- Create a textclock widget
@@ -385,15 +418,14 @@ globalkeys = gears.table.join(
 		"scrot -s ~/'Seafile/My Library/Photos/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'")	end),
 		
 	-- Media Keys
-	awful.key( {}, "XF86AudioPlay", function () awful.spawn("playerctl play-pause") end),
-	awful.key( {}, "XF86AudioStop", function () awful.spawn("playerctl stop") end),
-	awful.key( {}, "XF86AudioPrev", function () awful.spawn("playerctl prev") end),
-	awful.key( {}, "XF86AudioNext", function () awful.spawn("playerctl next") end),
-	awful.key( {}, "XF86AudioLowerVolume", function() awful.spawn.with_shell("~/dotfiles/scripts/volume.sh down 5%") end),
-	awful.key( {}, "XF86AudioRaiseVolume", function() awful.spawn.with_shell("~/dotfiles/scripts/volume.sh up 5%") end),
-	awful.key( {}, "XF86AudioMute", function() awful.spawn.with_shell("~/dotfiles/scripts/volume.sh mute") end)
+	awful.key( {}, "XF86AudioPlay", playerctl.play),
+	awful.key( {}, "XF86AudioStop", playerctl.stop),
+	awful.key( {}, "XF86AudioPrev", playerctl.next_track),
+	awful.key( {}, "XF86AudioNext", playerctl.previous_track),
+	awful.key( {}, "XF86AudioLowerVolume", function() volume_widget:down() end),
+	awful.key( {}, "XF86AudioRaiseVolume", function() volume_widget:up() end),
+	awful.key( {}, "XF86AudioMute", function() volume_widget:mute() end)
 )
-
 clientkeys = gears.table.join(
     awful.key({ modkey,           }, "f",
         function (c)

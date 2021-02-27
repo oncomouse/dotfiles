@@ -39,7 +39,7 @@ xmodmap -e "remove mod1 = Super_L"
 # dwm
 
 # Start Awesome
-# exec dbus-launch --sh-syntax --exit-with-session awesome
+# exec dbus-launch --sh-syntax --exit-with-session awesome 1>~/awesome.log 2>&1
 exec awesome 1>~/awesome.log 2>&1
 
 # vim:ft=bash

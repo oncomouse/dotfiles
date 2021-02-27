@@ -17,6 +17,18 @@ case "$1" in
     fi
     ;;
   "mute")
-    ponymix toggle
+    ponymix toggle > /dev/null
+    if ponymix is-muted; then
+      echo "x"
+    else
+      echo "$(ponymix get-volume)"
+    fi
+    ;;
+  *)
+    if ponymix is-muted; then
+      echo "x"
+    else
+      ponymix get-volume
+    fi
     ;;
 esac
