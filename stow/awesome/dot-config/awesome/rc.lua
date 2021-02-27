@@ -168,16 +168,18 @@ awesome.connect_signal("dotfiles::playerctl::title_artist_album",
 			truncate(string.format("%s - %s", artist, title), 30)
 		)
 	end)
--- VOLUME_CMD = 'bash -c "~/dotfiles/scripts/dwm/volume.sh"'
 -- Volume Icon:
 volume_widget = volume_widget_factory()
 volume_widget:enable()
+volume_widget:connect_signal("button::press", function()
+	volume_widget:mute()
+end)
 
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock(" %a %l:%M %p ")
-mytextclock:connect_signal("button::press", function(_, _, _, _)
-	awful.spawn.easy_async('date +" %A, %B %d %Y"', function(stdout, _, _, _)
+mytextclock:connect_signal("button::press", function()
+	awful.spawn.easy_async('date +"  %A, %B %d %Y"', function(stdout)
 		naughty.notify({ title="Today's Date", text = string.gsub(stdout, '^%s*(.-)%s*$', '%1') })
 	end)
 end)
@@ -196,8 +198,8 @@ local taglist_buttons = gears.table.join(
                                                   client.focus:toggle_tag(t)
                                               end
                                           end),
-                    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-                    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+                    awful.button({ }, 4, function(t) awful.tag.viewprev(t.screen) end),
+					awful.button({ }, 5, function(t) awful.tag.viewnext(t.screen) end)
                 )
 
 local tasklist_buttons = gears.table.join(
@@ -224,15 +226,6 @@ local tasklist_buttons = gears.table.join(
 
 local function set_wallpaper(s)
 	gears.wallpaper.set(awesome.xrdb_get_value("", "background"))
-    -- Wallpaper
-    -- if beautiful.wallpaper then
-    --     local wallpaper = beautiful.wallpaper
-    --     -- If wallpaper is a function, call it with the screen
-    --     if type(wallpaper) == "function" then
-    --         wallpaper = wallpaper(s)
-    --     end
-    --     gears.wallpaper.maximized(wallpaper, s, true)
-    -- end
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
