@@ -46,7 +46,6 @@ materia-gtk-theme
 redshift
 feh
 dex
-sxhkd
 thunar
 tumbler
 firejail
@@ -64,5 +63,4 @@ pipewire
 pipewire-alsa
 pipewire-pulse
 pipewire-jack
-lightdm
-lightdm-gtk-greeter
+awesome

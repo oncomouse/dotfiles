@@ -1,4 +1,3 @@
 #include "/home/andrew/.cache/wal/colors.Xresources"
-#include "/home/andrew/.cache/wal/colors.Xresources.dwm"
 #include "/home/andrew/dotfiles/conf/xscreensaver/xscreensaver.Xresources"
 ! vim:ft=xdefaults

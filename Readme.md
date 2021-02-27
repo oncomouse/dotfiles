@@ -12,7 +12,7 @@ The organization is as follows:
 
 * `~/dotfiles/stow` -- Configuration files that should be stowed. This is the majority of the actual "dot" file in this dotfiles repository
 * `~/dotfiles/conf` -- Configuration files that do not need to be stowed. This is primarily used by files that need to be included into other configurations, where having a stable location, inside the dotfiles repository, is preferable. It was included to manage my (extremely complicated) Vim/Neovim configuration.
-* `~/dotfiles/scripts` -- Executables used in these configurations. This includes my implementation of [GNU Stow](https://www.gnu.org/software/stow/), but also things like the powermenu, scripts for controlling [DWM](https://dwm.suckless.org), a wrapper for PyWal, and more.
+* `~/dotfiles/scripts` -- Executables used in these configurations. This includes my implementation of [GNU Stow](https://www.gnu.org/software/stow/), but also things like the powermenu, a wrapper for PyWal, and more.
 * `~/dotfiles/bootstrap` -- Scripts used to install and configure the software used in these 
 * `~/dotfiles/notes` -- Things I'm always forgetting when installing systems (mostly Arch).
 

@@ -21,9 +21,6 @@ grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/aur.txt | sed -e "s/\s*#.*
 flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 # Install Flatpaks:
 grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
-# Install Suckless Stuff:
-~/dotfiles/bootstrap/scripts/dwm.sh
-~/dotfiles/bootstrap/scripts/aslstatus.sh
 
 # Install non-AUR PKGBUILD stuff:
 ~/dotfiles/bootstrap/scripts/aur.sh

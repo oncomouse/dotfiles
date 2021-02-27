@@ -31,15 +31,8 @@ xmodmap -e "remove mod1 = Super_L"
 # export SSH_AUTH_SOCK
 
 ## WM
-
-# Terminate already running status instances
-# killall -q aslstatus
-# while pgrep -u $UID -x aslstatus >/dev/null; do sleep 1; done
-# aslstatus&
-# dwm
-
 # Start Awesome
-# exec dbus-launch --sh-syntax --exit-with-session awesome 1>~/awesome.log 2>&1
-exec awesome 1>~/awesome.log 2>&1
+# exec awesome 1>~/awesome.log 2>&1
+awesome
 
 # vim:ft=bash

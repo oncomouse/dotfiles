@@ -80,9 +80,6 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     if which("fish") is not None:
         message("Configuring fish FZF colors")
         system('fish -c "source {}/.cache/wal/colors-fzf.fish"'.format(home))
-    if which("dwm-msg") is not None:
-        message("Reloading DWM")
-        system("dwm-msg run_command xrdb > /dev/null")
     if which("bat") is not None:
         message("Configuring bat")
         if not path.isdir("{}/.config/bat/themes/".format(home)):
