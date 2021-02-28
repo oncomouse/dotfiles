@@ -13,21 +13,8 @@ local poweroff_text_icon = "襤"
 local reboot_text_icon = "勒"
 local suspend_text_icon = "鈴"
 local exit_text_icon = ""
--- local exit_text_icon = ""
--- local poweroff_text_icon = ""
--- local reboot_text_icon = ""
--- local suspend_text_icon = ""
--- local exit_text_icon = ""
 local lock_text_icon = ""
 
-
--- Typicons symbols
--- local icon_font = "Typicons 90"
--- local poweroff_text_icon = ""
--- local reboot_text_icon = ""
--- local suspend_text_icon = ""
--- local exit_text_icon = ""
--- local lock_text_icon = ""
 
 local button_bg = x.color0
 local button_size = dpi(120)
