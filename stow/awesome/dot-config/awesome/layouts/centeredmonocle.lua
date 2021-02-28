@@ -34,7 +34,7 @@ local function fmax(p, fs)
 
 	for _, c in pairs(p.clients) do
 		local g = {
-			x = area.x + (1 - scale) / 2,
+			x = area.x + area.width * ((1 - scale) / 2),
 			y = area.y,
 			width = area.width * scale,
 			height = area.height,
