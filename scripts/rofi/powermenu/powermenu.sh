@@ -20,7 +20,7 @@
 # row_circle      row_square      row_rounded      row_alt
 
 theme="full_square"
-dir="$HOME/dotfiles/scripts/rofi/powermenu"
+dir="$HOME/.local/share/rofi/rofi-scripts/1080p/powermenu"
 
 color="\~\/.cache\/wal\/colors-powermenu"
 
