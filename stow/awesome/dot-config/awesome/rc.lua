@@ -657,6 +657,7 @@ end)
 client.connect_signal("mouse::enter", function(c)
 	c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
+-- Source: https://github.com/actionless/awesome_config/blob/master/actionless/util/tag.lua
 function get_tiled(t)
   local tiled_clients = {}
 
