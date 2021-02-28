@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-git clone https://github.com/adi1090x/rofi --create-dirs ~/.local/share/rofi/rofi-scripts
+mkdir -p ~/.local/share/rofi/rofi-scripts
+git clone https://github.com/adi1090x/rofi ~/.local/share/rofi/rofi-scripts
