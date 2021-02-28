@@ -21,22 +21,6 @@ local function volume_change(volume_widget, change)
 	end)
 end
 
-local function volume_mute()
-	volume_change("mute")
-end
-
-local function volume_up()
-	volume_change("up")
-end
-
-local function volume_down()
-	volume_change("down")
-end
-
-local function enable()
-	volume_change("init")
-end
-
 local function factory()
 	return wibox.widget {
 		widget = wibox.widget.textbox,
