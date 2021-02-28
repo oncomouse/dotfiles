@@ -6,6 +6,7 @@
 -- @module awful.layout
 ---------------------------------------------------------------------------
 local beautiful = require("beautiful")
+local gears = require("gears")
 
 local scale = beautiful.cm_scale or 0.70
 -- Grab environment we need
@@ -40,6 +41,7 @@ local function fmax(p, fs)
 			height = area.height,
 		}
 		p.geometries[c] = g
+		c.border_width = 0
 	end
 end
 

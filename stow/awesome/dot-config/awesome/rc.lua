@@ -37,7 +37,7 @@ x = {
 }
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
+-- local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Custom playerctl guts:
 local playerctl = require("signals.playerctl")
@@ -46,6 +46,7 @@ local volume_widget_factory = require("volume")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+local layout_cm = require("layouts.centeredmonocle")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -75,10 +76,13 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
+beautiful.layout_centeredmonocle = gears.color.recolor_image(gears.filesystem.get_themes_dir() .. "default/layouts/maxw.png", beautiful.fg_normal)
 beautiful.useless_gap = 0
 beautiful.border_normal = awesome.xrdb_get_value("", "color8")
 beautiful.border_focus = awesome.xrdb_get_value("", "color7")
 beautiful.font = "FantasqueSansMono Nerd Font Normal 16"
+
+-- naughty.notify({text = beautiful.layout_max })
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -96,8 +100,8 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
 	awful.layout.suit.tile,
+	layout_cm,
 	awful.layout.suit.max,
-	-- awful.layout.suit.magnifier,
 	awful.layout.suit.floating,
 	-- awful.layout.suit.tile.left,
 	-- awful.layout.suit.tile.bottom,
@@ -108,6 +112,7 @@ awful.layout.layouts = {
 	-- awful.layout.suit.spiral.dwindle,
 	-- awful.layout.suit.max,
 	-- awful.layout.suit.max.fullscreen,
+	-- awful.layout.suit.magnifier,
 	-- awful.layout.suit.corner.nw,
 	-- awful.layout.suit.corner.ne,
 	-- awful.layout.suit.corner.sw,
@@ -117,8 +122,8 @@ awful.layout.layouts = {
 
 -- {{{ Menu
 -- Menubar configuration
-menubar.show_categories = false
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+-- menubar.show_categories = false
+-- menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
 -- Mpris player status:
@@ -286,6 +291,7 @@ awful.screen.connect_for_each_screen(function(s)
 			layout = wibox.layout.fixed.horizontal,
 			s.mytaglist,
 			s.mylayoutbox,
+			s.mypromptbox
 		},
 		s.mytasklist, -- Middle widget
 		{ -- Right widgets
@@ -379,6 +385,13 @@ globalkeys = gears.table.join(
 			  {description = "select next", group = "layout"}),
 	awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)				end,
 			  {description = "select previous", group = "layout"}),
+	-- Switch layouts by name:
+	awful.key({ modkey       }, "m", function() awful.layout.set(layout_cm) end,
+			  {description = "select centered monocle layout", group = "layout"}),
+	awful.key({ modkey, "Shift"  }, "m", function() awful.layout.set(awful.layout.suit.max) end,
+			  {description = "select max layout", group = "layout"}),
+	awful.key({ modkey       }, "t", function() awful.layout.set(awful.layout.suit.tile) end,
+			  {description = "select tiled layout", group = "layout"}),
 
 	awful.key({ modkey, "Control" }, "n",
 			  function ()
@@ -409,6 +422,8 @@ globalkeys = gears.table.join(
 	-- Menubar
 	awful.key({ modkey }, "p", function() awful.spawn.with_shell("rofi -show combi -match fuzzy -show-icons") end,
 			  {description = "show the menubar", group = "launcher"}),
+	-- awful.key({ modkey, "Shift" }, "p", function () awful.spawn.with_shell("~/dotfiles/scripts/rofi/powermenu/powermenu.sh") end,
+	-- 		  {description = "show main menu", group = "launcher"}),
 	awful.key({ modkey, "Shift" }, "p", function () exit_screen_show() end,
 			  {description = "show main menu", group = "launcher"}),
 		  
@@ -438,37 +453,37 @@ clientkeys = gears.table.join(
 			  {description = "close", group = "client"}),
 	awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle					 ,
 			  {description = "toggle floating", group = "client"}),
-	awful.key({ modkey, "Shift"   }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+	awful.key({ modkey,           }, "Return", function (c) c:swap(awful.client.getmaster()) end,
 			  {description = "move to master", group = "client"}),
 	awful.key({ modkey,		   }, "o",	  function (c) c:move_to_screen()			   end,
 			  {description = "move to screen", group = "client"}),
-	awful.key({ modkey,		   }, "t",	  function (c) c.ontop = not c.ontop			end,
-			  {description = "toggle keep on top", group = "client"}),
+	-- awful.key({ modkey,		   }, "t",	  function (c) c.ontop = not c.ontop			end,
+	-- 		  {description = "toggle keep on top", group = "client"}),
 	awful.key({ modkey,		   }, "n",
 		function (c)
 			-- The client currently has the input focus, so it cannot be
 			-- minimized, since minimized clients can't have the focus.
 			c.minimized = true
 		end ,
-		{description = "minimize", group = "client"}),
-	awful.key({ modkey,		   }, "m",
-		function (c)
-			c.maximized = not c.maximized
-			c:raise()
-		end ,
-		{description = "(un)maximize", group = "client"}),
-	awful.key({ modkey, "Control" }, "m",
-		function (c)
-			c.maximized_vertical = not c.maximized_vertical
-			c:raise()
-		end ,
-		{description = "(un)maximize vertically", group = "client"}),
-	awful.key({ modkey, "Shift"   }, "m",
-		function (c)
-			c.maximized_horizontal = not c.maximized_horizontal
-			c:raise()
-		end ,
-		{description = "(un)maximize horizontally", group = "client"})
+		{description = "minimize", group = "client"})--,
+	-- awful.key({ modkey,		   }, "m",
+	-- 	function (c)
+	-- 		c.maximized = not c.maximized
+	-- 		c:raise()
+	-- 	end ,
+	-- 	{description = "(un)maximize", group = "client"}),
+	-- awful.key({ modkey, "Control" }, "m",
+	-- 	function (c)
+	-- 		c.maximized_vertical = not c.maximized_vertical
+	-- 		c:raise()
+	-- 	end ,
+	-- 	{description = "(un)maximize vertically", group = "client"}),
+	-- awful.key({ modkey, "Shift"   }, "m",
+	-- 	function (c)
+	-- 		c.maximized_horizontal = not c.maximized_horizontal
+	-- 		c:raise()
+	-- 	end ,
+	-- 	{description = "(un)maximize horizontally", group = "client"})
 )
 
 -- Bind all key numbers to tags.
@@ -563,15 +578,18 @@ awful.rules.rules = {
 		  "pinentry",
 		},
 		class = {
-		  "Arandr",
-		  "Blueman-manager",
-		  "Gpick",
-		  "Kruler",
-		  "MessageWin",  -- kalarm.
-		  "Sxiv",
-		  "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-		  "Wpa_gui",
-		  "veromix",
+		  -- "Arandr",
+		  -- "Blueman-manager",
+		  "feh",
+		  "Gimp",
+		  -- "Gpick",
+		  -- "Kruler",
+		  -- "MessageWin",  -- kalarm.
+		  -- "Sxiv",
+		  "Thunar",
+		  -- "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
+		  -- "Wpa_gui",
+		  -- "veromix",
 		  "xtightvncviewer"},
 
 		-- Note that the name property shown in xprop might be set slightly after creation of the client
@@ -590,6 +608,14 @@ awful.rules.rules = {
 	{ rule_any = {type = { "normal", "dialog" }
 	  }, properties = { titlebars_enabled = false }
 	},
+	{
+		rule = { class = "zoom" },
+		properties = { screen =1, tag = "7" }
+	},
+	{
+		rule = { class = "Zotero" },
+		properties = { screen =1, tag = "8" }
+	}
 
 	-- Set Firefox to always map on the tag named "2" on screen 1.
 	-- { rule = { class = "Firefox" },
@@ -626,30 +652,30 @@ client.connect_signal("request::titlebars", function(c)
 		end)
 	)
 
-	awful.titlebar(c) : setup {
-		{ -- Left
-			awful.titlebar.widget.iconwidget(c),
-			buttons = buttons,
-			layout  = wibox.layout.fixed.horizontal
-		},
-		{ -- Middle
-			{ -- Title
-				align  = "center",
-				widget = awful.titlebar.widget.titlewidget(c)
-			},
-			buttons = buttons,
-			layout  = wibox.layout.flex.horizontal
-		},
-		{ -- Right
-			awful.titlebar.widget.floatingbutton (c),
-			awful.titlebar.widget.maximizedbutton(c),
-			awful.titlebar.widget.stickybutton   (c),
-			awful.titlebar.widget.ontopbutton	(c),
-			awful.titlebar.widget.closebutton	(c),
-			layout = wibox.layout.fixed.horizontal()
-		},
-		layout = wibox.layout.align.horizontal
-	}
+	-- awful.titlebar(c) : setup {
+	-- 	{ -- Left
+	-- 		awful.titlebar.widget.iconwidget(c),
+	-- 		buttons = buttons,
+	-- 		layout  = wibox.layout.fixed.horizontal
+	-- 	},
+	-- 	{ -- Middle
+	-- 		{ -- Title
+	-- 			align  = "center",
+	-- 			widget = awful.titlebar.widget.titlewidget(c)
+	-- 		},
+	-- 		buttons = buttons,
+	-- 		layout  = wibox.layout.flex.horizontal
+	-- 	},
+	-- 	{ -- Right
+	-- 		awful.titlebar.widget.floatingbutton (c),
+	-- 		awful.titlebar.widget.maximizedbutton(c),
+	-- 		awful.titlebar.widget.stickybutton   (c),
+	-- 		awful.titlebar.widget.ontopbutton	(c),
+	-- 		awful.titlebar.widget.closebutton	(c),
+	-- 		layout = wibox.layout.fixed.horizontal()
+	-- 	},
+	-- 	layout = wibox.layout.align.horizontal
+	-- }
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
