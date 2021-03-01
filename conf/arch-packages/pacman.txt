@@ -37,7 +37,6 @@ zathura
 zathura-pdf-poppler
 nnn
 cmst
-dunst
 libnotify
 gnome-keyring
 libsecret
