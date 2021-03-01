@@ -21,23 +21,26 @@ local function volume_change(volume_widget, change)
 	end)
 end
 
-local function factory()
-	return wibox.widget {
-		widget = wibox.widget.textbox,
-		text = "",
-		enable = function(self)
-			volume_change(self, "enable")
-		end,
-		mute = function(self)
-			volume_change(self, "mute")
-		end,
-		up = function(self)
-			volume_change(self, "up")
-		end,
-		down = function(self)
-			volume_change(self, "down")
-		end
-	}
-end
+local volume_widget = wibox.widget {
+	widget = wibox.widget.textbox,
+	text = "",
+	enable = function(self)
+		volume_change(self, "enable")
+	end,
+	mute = function(self)
+		volume_change(self, "mute")
+	end,
+	up = function(self)
+		volume_change(self, "up")
+	end,
+	down = function(self)
+		volume_change(self, "down")
+	end
+}
 
-return factory
+volume_widget:enable()
+volume_widget:connect_signal("button::press", function()
+	volume_widget:mute()
+end)
+
+return volume_widget
