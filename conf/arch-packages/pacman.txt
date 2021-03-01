@@ -63,3 +63,4 @@ pipewire-alsa
 pipewire-pulse
 pipewire-jack
 awesome
+unclutter
