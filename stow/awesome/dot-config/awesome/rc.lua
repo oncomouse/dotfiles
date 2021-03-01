@@ -35,6 +35,7 @@ x = {
 }
 -- Notification library
 local naughty = require("naughty")
+-- Hotkeys
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -636,6 +637,13 @@ clientkeys = gears.table.join(
 			group = "client",
 		}
 	),
+	awful.key({ modkey }, "c", function(c)
+		if c.sticky then
+			c.sticky = false
+		else
+			c.sticky = true
+		end
+	end),
 	awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle, {
 		description = "toggle floating",
 		group = "client",
