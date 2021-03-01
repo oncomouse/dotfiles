@@ -1,3 +1,4 @@
+-- luacheck: globals awesome client root tag
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
@@ -100,8 +101,8 @@ beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
-editor = os.getenv("EDITOR") or "nvim"
-editor_cmd = terminal .. " -e " .. editor
+-- editor = os.getenv("EDITOR") or "nvim"
+-- editor_cmd = terminal .. " -e " .. editor
 -- require("widgets.exit_screen")
 
 -- Default modkey.
@@ -907,13 +908,18 @@ awful.rules.rules = { -- All clients will match this rule.
 	-- Floating clients.
 	rule_any = {
 		instance = { "DTA", "copyq", "pinentry" }, -- Firefox addon DownThemAll. -- Includes session name in class.
-		class = { -- "Arandr",
-		-- "Blueman-manager",
-		"feh", "Gimp", "Thunar", "xtightvncviewer" }, -- "Sxiv", -- "MessageWin",  -- kalarm. -- "Kruler", -- "Gpick", -- "veromix", -- "Wpa_gui", -- "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
+		class = {
+		"feh", "Gimp", "Thunar", "xtightvncviewer" },
 		-- Note that the name property shown in xprop might be set slightly after creation of the client
 		-- and the name shown there might not match defined rules here.
 		name = { "Event Tester" }, -- xev.
-		role = { "AlarmWindow", "ConfigManager", "pop-up" }, -- Thunderbird's calendar. -- Thunderbird's about:config. -- e.g. Google Chrome's (detached) Developer Tools.
+		role = {
+			-- Thunderbird's calendar.
+			"AlarmWindow",
+			-- Thunderbird's about:config.
+			"ConfigManager",
+			-- e.g. Google Chrome's (detached) Developer Tools.
+			"pop-up" },
 	},
 	properties = { floating = true },
 }, {
@@ -957,19 +963,19 @@ client.connect_signal("manage", function(c)
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
-client.connect_signal("request::titlebars", function(c)
-	-- buttons for the titlebar
-	local buttons = gears.table.join(
-		awful.button({}, 1, function()
-			c:emit_signal("request::activate", "titlebar", { raise = true })
-			awful.mouse.client.move(c)
-		end),
-		awful.button({}, 3, function()
-			c:emit_signal("request::activate", "titlebar", { raise = true })
-			awful.mouse.client.resize(c)
-		end)
-	)
-end)
+-- client.connect_signal("request::titlebars", function(c)
+-- 	-- buttons for the titlebar
+-- 	local buttons = gears.table.join(
+-- 		awful.button({}, 1, function()
+-- 			c:emit_signal("request::activate", "titlebar", { raise = true })
+-- 			awful.mouse.client.move(c)
+-- 		end),
+-- 		awful.button({}, 3, function()
+-- 			c:emit_signal("request::activate", "titlebar", { raise = true })
+-- 			awful.mouse.client.resize(c)
+-- 		end)
+-- 	)
+-- end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
@@ -996,7 +1002,13 @@ function get_tiled(t)
 		end
 	end
 	for _, c in pairs(clients_on_tag) do
-		if not c.floating and not c.fullscreen and not c.maximized_vertical and not c.maximized_horizontal and not c.minimized and not c.sticky then
+		if
+			not c.floating and
+			not c.fullscreen and
+			not c.maximized_vertical and
+			not c.maximized_horizontal and
+			not c.minimized and
+			not c.sticky then
 			table.insert(tiled_clients, c)
 		end
 	end
@@ -1012,7 +1024,7 @@ end)
 function update_borders(c)
 	update_tag_borders(c.first_tag or awful.screen.focused().selected_tag)
 end
-function update_tag_borders(t)
+function update_tag_borders(_)
 	local tags = awful.screen.focused().selected_tags
 	local clients = {}
 	for _, t in pairs(tags) do
