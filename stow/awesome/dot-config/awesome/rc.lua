@@ -14,27 +14,27 @@ local xrdb = beautiful.xresources.get_current_theme()
 -- Make dpi function global
 -- dpi = beautiful.xresources.apply_dpi
 -- Make xresources colors global
--- x = {
---     --           xrdb variable
---     background = xrdb.background,
---     foreground = xrdb.foreground,
---     color0     = xrdb.color0,
---     color1     = xrdb.color1,
---     color2     = xrdb.color2,
---     color3     = xrdb.color3,
---     color4     = xrdb.color4,
---     color5     = xrdb.color5,
---     color6     = xrdb.color6,
---     color7     = xrdb.color7,
---     color8     = xrdb.color8,
---     color9     = xrdb.color9,
---     color10    = xrdb.color10,
---     color11    = xrdb.color11,
---     color12    = xrdb.color12,
---     color13    = xrdb.color13,
---     color14    = xrdb.color14,
---     color15    = xrdb.color15,
--- }
+x = {
+    --           xrdb variable
+    background = xrdb.background,
+    foreground = xrdb.foreground,
+    color0     = xrdb.color0,
+    color1     = xrdb.color1,
+    color2     = xrdb.color2,
+    color3     = xrdb.color3,
+    color4     = xrdb.color4,
+    color5     = xrdb.color5,
+    color6     = xrdb.color6,
+    color7     = xrdb.color7,
+    color8     = xrdb.color8,
+    color9     = xrdb.color9,
+    color10    = xrdb.color10,
+    color11    = xrdb.color11,
+    color12    = xrdb.color12,
+    color13    = xrdb.color13,
+    color14    = xrdb.color14,
+    color15    = xrdb.color15,
+}
 -- Notification library
 local naughty = require("naughty")
 -- local menubar = require("menubar")
@@ -86,9 +86,17 @@ beautiful.layout_centeredmonocle =
 		beautiful.fg_normal
 	)
 beautiful.useless_gap = 0
-beautiful.border_normal = awesome.xrdb_get_value("", "color8")
-beautiful.border_focus = awesome.xrdb_get_value("", "color7")
+beautiful.border_normal = x.color8
+beautiful.border_focus = x.color7
 beautiful.font = "FantasqueSansMono Nerd Font Normal 16"
+beautiful.tasklist_disable_icon = true
+beautiful.widget_space = {
+	left = nil,
+	right = " ⁞ "
+}
+beautiful.hotkeys_modifiers_fg = x.color4
+beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
+beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -236,15 +244,11 @@ local taglist_buttons = gears.table.join(
 
 local tasklist_buttons = gears.table.join(
 	awful.button({}, 1, function(c)
-		-- if c == client.focus then
-		-- -- c.minimized = true
-		-- else
-		-- c:emit_signal(
-		-- "request::activate",
-		-- "tasklist",
-		-- {raise = true}
-		-- )
-		-- end
+		if c == awful.client.getmaster() then
+			awful.client.swap.byidx(1, c)
+		else
+			c:swap(awful.client.getmaster())
+		end
 	end),
 	awful.button({}, 3, function()
 		awful.menu.client_list({
@@ -259,37 +263,19 @@ local tasklist_buttons = gears.table.join(
 	end)
 )
 
-local function set_wallpaper(s)
-	gears.wallpaper.set(awesome.xrdb_get_value("", "background"))
-end
-
--- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
--- screen.connect_signal("property::geometry", set_wallpaper)
+gears.wallpaper.set(awesome.xrdb_get_value("", "background"))
 
 awful.screen.connect_for_each_screen(function(s)
--- Wallpaper
-
--- Each screen has its own tag table.
-
--- Create a promptbox for each screen
--- Create an imagebox widget which will contain an icon indicating which layout we're using.
--- We need one layoutbox per screen.
--- Create a taglist widget
-
--- Create a tasklist widget
-
--- Create the wibox
-
--- Add widgets to the wibox -- Left widgets -- Middle widget -- Right widgets
-	set_wallpaper(s)
-
+	-- Each screen has its own tag table.
 	awful.tag(
 		{ "1", "2", "3", "4", "5", "6", "7", "8", "9" },
 		s,
 		awful.layout.layouts[1]
 	)
-
+	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
+	-- Create an imagebox widget which will contain an icon indicating which layout we're using.
+	-- We need one layoutbox per screen.
 	s.mylayoutbox = awful.widget.layoutbox(s)
 	s.mylayoutbox:buttons(
 		gears.table.join(
@@ -307,30 +293,35 @@ awful.screen.connect_for_each_screen(function(s)
 			end)
 		)
 	)
-	widget_space = " ⁞ "
+	-- Create a taglist widget
 	s.mytaglist = awful.widget.taglist{
 		screen = s,
 		filter = awful.widget.taglist.filter.all,
 		buttons = taglist_buttons,
 	}
 
+	-- Create a tasklist widget
 	s.mytasklist = awful.widget.tasklist{
 		screen = s,
 		filter = awful.widget.tasklist.filter.focused,
 		buttons = tasklist_buttons,
 	}
-	beautiful.tasklist_disable_icon = true
-
+	-- Create the wibox
 	s.mywibox = awful.wibar({
 		position = "top",
 		screen = s,
 		height = "24",
 	})
 
+	-- Add widgets to the wibox -- Left widgets -- Middle widget -- Right widgets
 	s.mywibox:setup{
 		layout = wibox.layout.align.horizontal,
 		{
 			spacing = 5,
+			spacing_widget = beautiful.widget_space.left ~= nil and {
+				text = beautiful.widget_space.left,
+				widget = wibox.widget.textbox,
+			} or nil,
 			layout = wibox.layout.fixed.horizontal,
 			s.mytaglist,
 			s.mylayoutbox,
@@ -339,10 +330,10 @@ awful.screen.connect_for_each_screen(function(s)
 		s.mytasklist,
 		{
 			layout = wibox.layout.fixed.horizontal,
-			spacing_widget = {
-				text = widget_space,
+			spacing_widget = beautiful.widget_space.right ~= nil and {
+				text = beautiful.widget_space.right,
 				widget = wibox.widget.textbox,
-			},
+			} or nil,
 			spacing = 20,
 			volume_widget,
 			mpris_widget,
@@ -353,15 +344,15 @@ end)
 -- }}}
 
 -- {{{ Mouse bindings
-root.buttons(
-	gears.table.join(
-		awful.button({}, 3, function()
-			mymainmenu:toggle()
-		end),
-		awful.button({}, 4, awful.tag.viewnext),
-		awful.button({}, 5, awful.tag.viewprev)
-	)
-)
+-- root.buttons(
+-- 	gears.table.join(
+-- 		awful.button({}, 3, function()
+-- 			mymainmenu:toggle()
+-- 		end),
+-- 		awful.button({}, 4, awful.tag.viewnext),
+-- 		awful.button({}, 5, awful.tag.viewprev)
+-- 	)
+-- )
 -- }}}
 
 -- {{{ Key bindings
@@ -918,10 +909,7 @@ awful.rules.rules = { -- All clients will match this rule.
 		instance = { "DTA", "copyq", "pinentry" }, -- Firefox addon DownThemAll. -- Includes session name in class.
 		class = { -- "Arandr",
 		-- "Blueman-manager",
-		"feh", "Gimp", -- "MessageWin",  -- kalarm. -- "Kruler", -- "Gpick",
-		-- "Sxiv",
-		"Thunar", -- "veromix", -- "Wpa_gui", -- "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-		"xtightvncviewer" },
+		"feh", "Gimp", "Thunar", "xtightvncviewer" }, -- "Sxiv", -- "MessageWin",  -- kalarm. -- "Kruler", -- "Gpick", -- "veromix", -- "Wpa_gui", -- "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
 		-- Note that the name property shown in xprop might be set slightly after creation of the client
 		-- and the name shown there might not match defined rules here.
 		name = { "Event Tester" }, -- xev.
