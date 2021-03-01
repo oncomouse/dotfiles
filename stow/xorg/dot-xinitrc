@@ -10,7 +10,7 @@ dex -a
 # Load Xresources:
 xrdb ~/.Xresources
 # Set background:
-hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
+# hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
 
 ## Key Bindings
 
