@@ -12,17 +12,23 @@ local function volume_change(volume_widget, change)
 	elseif change == "down" then
 		argument = "down 5%"
 	end
-	awful.spawn.easy_async_with_shell(string.format("~/dotfiles/scripts/volume.sh %s", argument), function(stdout)
-		if stdout:find("x") then
-			set_volume_text(volume_widget, stdout)
-		else
-			set_volume_text(volume_widget, string.gsub(stdout, '^%s*(.-)%s*$', '%1').."%")
+	awful.spawn.easy_async_with_shell(
+		string.format("~/dotfiles/scripts/volume.sh %s", argument),
+		function(stdout)
+			if stdout:find("x") then
+				set_volume_text(volume_widget, stdout)
+			else
+				set_volume_text(
+					volume_widget,
+					string.gsub(stdout, "^%s*(.-)%s*$", "%1") .. "%"
+				)
+			end
 		end
-	end)
+	)
 end
 
-local volume_widget = wibox.widget {
-	widget = wibox.widget.textbox,
+local volume_widget = wibox.widget{
+	widget = awful.widget.watch("~/dotfiles/scripts/volume.sh", 5),
 	text = "",
 	enable = function(self)
 		volume_change(self, "enable")
@@ -35,7 +41,7 @@ local volume_widget = wibox.widget {
 	end,
 	down = function(self)
 		volume_change(self, "down")
-	end
+	end,
 }
 
 volume_widget:enable()

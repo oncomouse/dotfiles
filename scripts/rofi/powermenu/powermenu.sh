@@ -20,12 +20,12 @@
 # row_circle      row_square      row_rounded      row_alt
 
 theme="full_square"
-dir="$HOME/.local/share/rofi/rofi-scripts/1080p/powermenu"
+dir="$HOME/dotfiles/conf/rofi/powermenu"
 
 color="\~\/.cache\/wal\/colors-powermenu"
 
 # comment this line to disable random colors
-sed -i -e "s/@import .*/@import \"$color\"/g" "$dir"/styles/colors.rasi
+# sed -i -e "s/@import .*/@import \"$color\"/g" "$dir"/styles/colors.rasi
 
 uptime=$(uptime -p | sed -e 's/up //g')
 
@@ -70,7 +70,8 @@ confirm_exit() {
     -i\
     -no-fixed-num-lines\
     -p "Are You Sure? : "\
-    -theme "$dir"/confirm.rasi
+    -theme "$dir"/confirm.rasi \
+    -font "FiraCode Nerd Font 16"
 }
 
 # Message
@@ -106,7 +107,7 @@ case $chosen in
   "$lock")
     pause_music
     mute
-    "$HOME/dotfiles/scripts/lock.sh"
+    xscreensaver-command -lock
     ;;
   "$suspend")
     ans=$(confirm_exit &)
