@@ -74,6 +74,8 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     if which("xrdb") is not None:
         message("Reloading xrdb")
         system("xrdb {}/.Xresources".format(home))
+    if which("aweseome-client") is not None:
+        system('echo "awesome:restart()" | awesome-client')
     if re.match(r"kitty", environ["TERM"]) is not None:
         message("Reloading kitty")
         system("kitty @ set-colors -a -c {}/.cache/wal/colors-kitty.conf".format(home))
