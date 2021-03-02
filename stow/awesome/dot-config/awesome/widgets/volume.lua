@@ -4,6 +4,16 @@ local gears = require("gears")
 local function set_volume_text(widget, volume)
 	widget:set_text(" 墳 " .. volume)
 end
+local function process_script(widget, stdout)
+	if stdout:find("x") then
+		set_volume_text(widget, stdout)
+	else
+		set_volume_text(
+			widget,
+			string.gsub(stdout, "^%s*(.-)%s*$", "%1") .. "%"
+		)
+	end
+end
 local function volume_change(volume_widget, change)
 	local argument = ""
 	if change == "mute" then
@@ -16,14 +26,7 @@ local function volume_change(volume_widget, change)
 	awful.spawn.easy_async_with_shell(
 		string.format("~/dotfiles/scripts/volume.sh %s", argument),
 		function(stdout)
-			if stdout:find("x") then
-				set_volume_text(volume_widget, stdout)
-			else
-				set_volume_text(
-					volume_widget,
-					string.gsub(stdout, "^%s*(.-)%s*$", "%1") .. "%"
-				)
-			end
+			process_script(volume_widget, stdout)
 		end
 	)
 end
@@ -31,9 +34,6 @@ end
 local volume_widget = wibox.widget{
 	widget = wibox.widget.textbox,
 	text = "",
-	enable = function(self)
-		volume_change(self, "enable")
-	end,
 	mute = function(self)
 		volume_change(self, "mute")
 	end,
@@ -51,8 +51,8 @@ gears.timer{
 	callback = function()
 		awful.spawn.easy_async_with_shell(
 			"~/dotfiles/scripts/volume.sh",
-			function(out)
-				set_volume_text(volume_widget, out)
+			function(stdout)
+				process_script(volume_widget, stdout)
 			end
 		)
 	end,
