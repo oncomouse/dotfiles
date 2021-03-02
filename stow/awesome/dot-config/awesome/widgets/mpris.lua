@@ -1,5 +1,6 @@
 -- luacheck: globals awesome playerctl
 local wibox = require("wibox")
+local naughty = require("naughty")
 -- Custom playerctl guts:
 local playerctl = require("signals.playerctl")
 playerctl.enable()
@@ -31,7 +32,7 @@ local mpris_widget = wibox.widget{
 	end,
 	stop = function()
 		playerctl.stop()
-	end
+	end,
 }
 mpris_widget:connect_signal("button::press", function(_, _, _, button)
 	if button == 1 then

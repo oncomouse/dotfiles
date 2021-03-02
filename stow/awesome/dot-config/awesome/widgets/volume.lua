@@ -1,5 +1,6 @@
 local awful = require("awful")
 local wibox = require("wibox")
+local gears = require("gears")
 local function set_volume_text(widget, volume)
 	widget:set_text(" 墳 " .. volume)
 end
@@ -28,7 +29,7 @@ local function volume_change(volume_widget, change)
 end
 
 local volume_widget = wibox.widget{
-	widget = awful.widget.watch("~/dotfiles/scripts/volume.sh", 5),
+	widget = wibox.widget.textbox,
 	text = "",
 	enable = function(self)
 		volume_change(self, "enable")
@@ -43,8 +44,20 @@ local volume_widget = wibox.widget{
 		volume_change(self, "down")
 	end,
 }
+gears.timer{
+	timeout = 5,
+	call_now = true,
+	autostart = true,
+	callback = function()
+		awful.spawn.easy_async_with_shell(
+			"~/dotfiles/scripts/volume.sh",
+			function(out)
+				set_volume_text(volume_widget, out)
+			end
+		)
+	end,
+}
 
-volume_widget:enable()
 volume_widget:connect_signal("button::press", function()
 	volume_widget:mute()
 end)
