@@ -3,6 +3,7 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
+-- Includes {{{
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -46,6 +47,7 @@ local layout_cm = require("layouts.centeredmonocle")
 require("utils.solo-noborder")
 -- Swap with main client, or swap main client:
 local swap_main = require("utils.swap_main")
+-- }}}
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
