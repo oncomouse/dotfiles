@@ -1,4 +1,3 @@
--- luacheck: globals awesome playerctl
 local wibox = require("wibox")
 local awful = require("awful")
 -- Truncate:
