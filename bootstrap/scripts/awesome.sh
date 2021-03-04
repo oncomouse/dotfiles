@@ -11,6 +11,7 @@ else
   git clone https://github.com/adi1090x/rofi ~/.local/share/rofi/rofi-scripts
 fi
 
+# Clone Polybar Scripts for mpris_tail:
 if [ -d ~/.local/share/polybar-scripts ]; then
   lpwd="$(pwd)"
   cd ~/.local/share/polybar-scripts || exit
