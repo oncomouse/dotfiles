@@ -1,17 +1,32 @@
 -- luacheck: globals awesome playerctl
 local wibox = require("wibox")
-local naughty = require("naughty")
+local awful = require("awful")
+-- Truncate:
+function truncate(st, len)
+	if string.len(st) > len then
+		return string.sub(st, 0, len - 1) .. "…"
+	else
+		return st
+	end
+end
 -- Custom playerctl guts:
-local playerctl = require("signals.playerctl")
-playerctl.enable()
+local playerctl = {
+	play = function()
+		awful.spawn("playerctl play-pause")
+	end,
+	stop = function()
+		awful.spawn("playerctl stop")
+	end,
+	previous_track = function()
+		awful.spawn("playerctl previous")
+	end,
+	next_track = function()
+		awful.spawn("playerctl next")
+	end,
+}
 -- Mpris player status:
 local mpris_widget = wibox.widget{
 	{
-		{
-			id = "status",
-			text = "栗",
-			widget = wibox.widget.textbox,
-		},
 		{
 			id = "title",
 			text = "",
@@ -34,6 +49,14 @@ local mpris_widget = wibox.widget{
 		playerctl.stop()
 	end,
 }
+awful.spawn.with_line_callback(
+	"sh -c '~/Projects/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py --icon-playing 契 --icon-paused  --icon-stopped 栗'",
+	{ stdout = function(stdout)
+		mpris_widget:get_children_by_id("title")[1]:set_text(
+			truncate(stdout, 30)
+		)
+	end }
+)
 mpris_widget:connect_signal("button::press", function(_, _, _, button)
 	if button == 1 then
 		playerctl.play()
@@ -42,37 +65,6 @@ mpris_widget:connect_signal("button::press", function(_, _, _, button)
 	elseif button == 3 then
 		playerctl.next_track()
 	end
-end)
-function truncate(st, len)
-	if string.len(st) > len then
-		return string.sub(st, 0, len - 1) .. "…"
-	else
-		return st
-	end
-end
-awesome.connect_signal("dotfiles::playerctl::stopped", function()
-	mpris_widget:get_children_by_id("status")[1]:set_text("栗")
-	mpris_widget:get_children_by_id("title")[1]:set_text("")
-end)
-awesome.connect_signal("dotfiles::playerctl::status", function(playing)
-	local status
-	if playing == "play" then
-		status = "契 "
-	elseif playing == "pause" then
-		status = " "
-	else
-		status = "栗 "
-	end
-	mpris_widget:get_children_by_id("status")[1]:set_text(status)
-end)
-awesome.connect_signal("dotfiles::playerctl::title_artist_album", function(
-title,
-	artist,
-	_
-)
-	mpris_widget:get_children_by_id("title")[1]:set_text(
-		truncate(string.format("%s - %s", artist, title), 30)
-	)
 end)
 
 return mpris_widget
