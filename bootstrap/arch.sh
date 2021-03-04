@@ -70,8 +70,8 @@ if [ -z "$SERVER" ]; then
   xdg-settings set default-web-browser firefox.desktop
   xdg-mime default org.pwmt.zathura.desktop application/pdf
 
-  # Configure Rofi Scripts:
-  ~/dotfiles/bootstrap/scripts/rofi.sh
+  # Configure Awesome Support Scripts:
+  ~/dotfiles/bootstrap/scripts/awesome.sh
 
   # Get spotify to work with firejail and spotifywm:
   #if [[ -e /usr/local/bin/spotify ]]; then

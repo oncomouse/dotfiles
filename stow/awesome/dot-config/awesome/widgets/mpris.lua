@@ -49,7 +49,7 @@ local mpris_widget = wibox.widget{
 	end,
 }
 awful.spawn.with_line_callback(
-	"sh -c '~/Projects/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py --icon-playing 契 --icon-paused  --icon-stopped 栗'",
+	"sh -c '~/.local/share/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py --icon-playing 契 --icon-paused  --icon-stopped 栗'",
 	{ stdout = function(stdout)
 		mpris_widget:get_children_by_id("title")[1]:set_text(
 			truncate(stdout, 30)
