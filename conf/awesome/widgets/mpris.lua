@@ -1,3 +1,4 @@
+-- luacheck: globals awesome
 local wibox = require("wibox")
 local awful = require("awful")
 -- Truncate:
@@ -48,7 +49,7 @@ local mpris_widget = wibox.widget{
 		playerctl.stop()
 	end,
 }
-awful.spawn.with_line_callback(
+local mpris_status_pid = awful.spawn.with_line_callback(
 	"sh -c '~/.local/share/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py --icon-playing 契 --icon-paused  --icon-stopped 栗'",
 	{ stdout = function(stdout)
 		mpris_widget:get_children_by_id("title")[1]:set_text(
@@ -56,6 +57,11 @@ awful.spawn.with_line_callback(
 		)
 	end }
 )
+awesome.connect_signal("exit", function()
+	if mpris_status_pid ~= nil then
+		awesome.kill(mpris_status_pid, awesome.unix_signal.SIGTERM)
+	end
+end)
 mpris_widget:connect_signal("button::press", function(_, _, _, button)
 	if button == 1 then
 		playerctl.play()
