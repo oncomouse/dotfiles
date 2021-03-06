@@ -2,12 +2,9 @@
 local wibox = require("wibox")
 local awful = require("awful")
 -- Truncate:
+
 function truncate(st, len)
-	if string.len(st) > len then
-		return string.sub(st, 0, len - 1) .. "…"
-	else
-		return st
-	end
+	return string.len(st) > len and string.sub(st, 0, len - 1) .. "…" or st
 end
 -- Custom playerctl guts:
 local playerctl = {
