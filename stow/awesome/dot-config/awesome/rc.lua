@@ -140,13 +140,15 @@ terminal = "kitty"
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.layouts =
-	{
-		awful.layout.suit.tile,
-		layout_cm,
-		awful.layout.suit.max,
-		awful.layout.suit.floating,
-	}
+awesome.connect_signal("request::default_layouts", function()
+	awful.layout.layouts =
+		{
+			awful.layout.suit.tile,
+			layout_cm,
+			awful.layout.suit.max,
+			awful.layout.suit.floating,
+		}
+end)
 -- }}}
 
 -- ╻ ╻╻┏┓ ┏━┓┏━┓
