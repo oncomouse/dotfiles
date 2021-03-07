@@ -14,6 +14,9 @@ local logfile = io.open("/tmp/myawesome.log", "a")
 logfile:write("\n\n\nLoading Awesome\nPath: ", package.path, "\n\n")
 io.stderr = logfile
 
+-- ╻┏┓╻┏━╸╻  ╻ ╻╺┳┓┏━╸┏━┓
+-- ┃┃┗┫┃  ┃  ┃ ┃ ┃┃┣╸ ┗━┓
+-- ╹╹ ╹┗━╸┗━╸┗━┛╺┻┛┗━╸┗━┛
 -- Includes {{{
 -- Standard awesome library
 local gears = require("gears")
@@ -25,28 +28,6 @@ local ruled = require("ruled")
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
-local xrdb = beautiful.xresources.get_current_theme()
--- Make xresources colors global
-x = {
-	background = xrdb.background,
-	foreground = xrdb.foreground,
-	color0 = xrdb.color0,
-	color1 = xrdb.color1,
-	color2 = xrdb.color2,
-	color3 = xrdb.color3,
-	color4 = xrdb.color4,
-	color5 = xrdb.color5,
-	color6 = xrdb.color6,
-	color7 = xrdb.color7,
-	color8 = xrdb.color8,
-	color9 = xrdb.color9,
-	color10 = xrdb.color10,
-	color11 = xrdb.color11,
-	color12 = xrdb.color12,
-	color13 = xrdb.color13,
-	color14 = xrdb.color14,
-	color15 = xrdb.color15,
-}
 -- Notification library
 local naughty = require("naughty")
 -- Hotkeys
@@ -62,6 +43,9 @@ require("utils.solo-noborder")
 local swap_main = require("utils.swap_main")
 -- }}}
 
+-- ┏━╸┏━┓┏━┓┏━┓┏━┓   ╻ ╻┏━┓┏┓╻╺┳┓╻  ╻┏┓╻┏━╸
+-- ┣╸ ┣┳┛┣┳┛┃ ┃┣┳┛   ┣━┫┣━┫┃┗┫ ┃┃┃  ┃┃┗┫┃╺┓
+-- ┗━╸╹┗╸╹┗╸┗━┛╹┗╸   ╹ ╹╹ ╹╹ ╹╺┻┛┗━╸╹╹ ╹┗━┛
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -91,7 +75,33 @@ do
 end
 -- }}}
 
--- {{{ Variable definitions
+-- ┏━┓┏━┓┏━┓┏━╸┏━┓┏━┓┏━┓┏┓╻┏━╸┏━╸
+-- ┣━┫┣━┛┣━┛┣╸ ┣━┫┣┳┛┣━┫┃┗┫┃  ┣╸
+-- ╹ ╹╹  ╹  ┗━╸╹ ╹╹┗╸╹ ╹╹ ╹┗━╸┗━╸
+-- {{{ Appearance
+-- Load xrdb colors:
+local xrdb = beautiful.xresources.get_current_theme()
+-- Make xresources colors global
+x = {
+	background = xrdb.background,
+	foreground = xrdb.foreground,
+	color0 = xrdb.color0,
+	color1 = xrdb.color1,
+	color2 = xrdb.color2,
+	color3 = xrdb.color3,
+	color4 = xrdb.color4,
+	color5 = xrdb.color5,
+	color6 = xrdb.color6,
+	color7 = xrdb.color7,
+	color8 = xrdb.color8,
+	color9 = xrdb.color9,
+	color10 = xrdb.color10,
+	color11 = xrdb.color11,
+	color12 = xrdb.color12,
+	color13 = xrdb.color13,
+	color14 = xrdb.color14,
+	color15 = xrdb.color15,
+}
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
 beautiful.layout_centeredmonocle =
@@ -102,8 +112,7 @@ beautiful.layout_centeredmonocle =
 beautiful.useless_gap = 0 -- No gaps
 beautiful.border_normal = x.color8 -- Normal border color
 beautiful.border_focus = x.color7 -- Focused border color
-beautiful.font = "FantasqueSansMono Nerd Font Normal 16" -- Font
-beautiful.tasklist_disable_icon = true -- No icons in tasklist
+beautiful.font = "FiraCode Nerd Font Normal 15" -- Font
 -- Widget spacing in left and right wibox areas:
 beautiful.widget_space = {
 	left = nil,
@@ -113,6 +122,12 @@ beautiful.widget_space = {
 beautiful.hotkeys_modifiers_fg = x.color4
 beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
 beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
+-- Titlebar formatting:
+beautiful.titlebar_bg_focus = x.color7
+-- Tasklist formatting:
+beautiful.tasklist_disable_icon = true -- No icons in tasklist
+-- Set the background:
+gears.wallpaper.set(x.background)
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -125,46 +140,25 @@ terminal = "kitty"
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.layouts
-= {
-	awful.layout.suit.tile,
-	layout_cm,
-	awful.layout.suit.max,
-	awful.layout.suit.floating,
-	-- awful.layout.suit.tile.left,
-	-- awful.layout.suit.tile.bottom,
-	-- awful.layout.suit.tile.top,
-	-- awful.layout.suit.fair,
-	-- awful.layout.suit.fair.horizontal,
-	-- awful.layout.suit.spiral,
-	-- awful.layout.suit.spiral.dwindle,
-	-- awful.layout.suit.max,
-	-- awful.layout.suit.max.fullscreen,
-	-- awful.layout.suit.magnifier,
-	-- awful.layout.suit.corner.nw,
-	-- awful.layout.suit.corner.ne,
-	-- awful.layout.suit.corner.sw,
-	-- awful.layout.suit.corner.se,
-}
+awful.layout.layouts =
+	{
+		awful.layout.suit.tile,
+		layout_cm,
+		awful.layout.suit.max,
+		awful.layout.suit.floating,
+	}
 -- }}}
 
+-- ╻ ╻╻┏┓ ┏━┓┏━┓
+-- ┃╻┃┃┣┻┓┣━┫┣┳┛
+-- ┗┻┛╹┗━┛╹ ╹╹┗╸
 -- {{{ Wibar
-
 -- Mpris Player Status Widget:
 local mpris_widget = require("widgets.mpris")
 -- Volume Widget:
 local volume_widget = require("widgets.volume")
-
--- Create a textclock widget
-mytextclock = wibox.widget.textclock(" %a %l:%M %p ")
-mytextclock:connect_signal("button::press", function()
-	awful.spawn.easy_async('date +"  %A, %B %d %Y"', function(stdout)
-		naughty.notify({
-			title = "Today's Date",
-			text = string.gsub(stdout, "^%s*(.-)%s*$", "%1"),
-		})
-	end)
-end)
+-- Clock Widget:
+local clock_widget = require("widgets.clock")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -204,8 +198,6 @@ local tasklist_buttons = gears.table.join(
 		awful.client.focus.byidx(-1)
 	end)
 )
-
-gears.wallpaper.set(x.background)
 
 awful.screen.connect_for_each_screen(function(s)
 	awful.tag(
@@ -287,12 +279,15 @@ awful.screen.connect_for_each_screen(function(s)
 			spacing = 20,
 			volume_widget,
 			mpris_widget,
-			mytextclock,
+			clock_widget,
 		},
 	}
 end)
 -- }}}
 
+-- ╻┏ ┏━╸╻ ╻   ┏┓ ╻┏┓╻╺┳┓╻┏┓╻┏━╸┏━┓
+-- ┣┻┓┣╸ ┗┳┛   ┣┻┓┃┃┗┫ ┃┃┃┃┗┫┃╺┓┗━┓
+-- ╹ ╹┗━╸ ╹    ┗━┛╹╹ ╹╺┻┛╹╹ ╹┗━┛┗━┛
 -- {{{ Key bindings
 globalkeys = gears.table.join(
 	awful.key({ modkey }, "s", hotkeys_popup.show_help, {
@@ -790,6 +785,9 @@ clientbuttons = gears.table.join(
 root.keys(globalkeys)
 -- }}}
 
+-- ┏━┓╻ ╻╻  ┏━╸┏━┓
+-- ┣┳┛┃ ┃┃  ┣╸ ┗━┓
+-- ╹┗╸┗━┛┗━╸┗━╸┗━┛
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
 ruled.client.connect_signal("request::rules", function()
@@ -848,7 +846,6 @@ ruled.client.connect_signal("request::rules", function()
 		},
 	}
 end)
-beautiful.titlebar_bg_focus = x.color7
 client.connect_signal("request::titlebars", function(c)
 	-- buttons for the titlebar
 	local buttons = { awful.button({}, 1, function()
@@ -895,6 +892,9 @@ client.connect_signal("request::titlebars", function(c)
 end)
 -- }}}
 
+-- ┏━┓╻┏━╸┏┓╻┏━┓╻  ┏━┓
+-- ┗━┓┃┃╺┓┃┗┫┣━┫┃  ┗━┓
+-- ┗━┛╹┗━┛╹ ╹╹ ╹┗━╸┗━┛
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function(c)
