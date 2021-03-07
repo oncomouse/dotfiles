@@ -477,17 +477,6 @@ globalkeys = gears.table.join(
 			group = "layout",
 		}
 	),
-	awful.key(
-		{ modkey, "Shift" },
-		"space",
-		function()
-			awful.layout.inc(-1)
-		end,
-		{
-			description = "select previous",
-			group = "layout",
-		}
-	),
 	-- Switch layouts by name:
 	awful.key(
 		{ modkey },
@@ -657,7 +646,7 @@ clientkeys = gears.table.join(
 			c.sticky = true
 		end
 	end),
-	awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle, {
+	awful.key({ modkey, "Shift" }, "space", awful.client.floating.toggle, {
 		description = "toggle floating",
 		group = "client",
 	}),
