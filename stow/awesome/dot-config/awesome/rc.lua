@@ -239,6 +239,22 @@ awful.screen.connect_for_each_screen(function(s)
 		screen = s,
 		filter = awful.widget.tasklist.filter.focused,
 		buttons = tasklist_buttons,
+		widget_template = beautiful.tasklist_disable_icon and {
+			{
+				{
+					{
+						id = "text_role",
+						widget = wibox.widget.textbox,
+					},
+					layout = wibox.layout.fixed.horizontal,
+				},
+				left = 10,
+				right = 10,
+				widget = wibox.container.margin,
+			},
+			id = "background_role",
+			widget = wibox.container.background,
+		} or nil,
 	}
 	s.mywibox = awful.wibar({
 		position = "top",
