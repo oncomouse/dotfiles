@@ -19,6 +19,8 @@ io.stderr = logfile
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
+-- Rules
+local ruled = require("ruled")
 -- Widget and layout library
 local wibox = require("wibox")
 -- Theme handling library
@@ -790,47 +792,108 @@ root.keys(globalkeys)
 
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
-awful.rules.rules = { {
-	-- All clients will match this rule.
-	rule = {},
-	properties = {
-		border_width = beautiful.border_width,
-		border_color = beautiful.border_normal,
-		focus = awful.client.focus.filter,
-		raise = true,
-		keys = clientkeys,
-		buttons = clientbuttons,
-		screen = awful.screen.preferred,
-		placement = awful.placement.no_overlap + awful.placement.no_offscreen,
-	},
-}, { -- Floating clients.
-{
-	rule_any = {
-		class = { "feh", "Gimp", "Thunar" },
-		-- Note that the name property shown in xprop might be set slightly after creation of the client
-		-- and the name shown there might not match defined rules here.
-		name = { "Event Tester" }, -- xev.
-	},
-	properties = { floating = true },
-} }, {
-	-- Add titlebars to normal clients and dialogs
-	rule_any = {
-		type = { "normal", "dialog" },
-	},
-	properties = { titlebars_enabled = false },
-}, {
-	rule = { class = "zoom" },
-	properties = {
-		screen = 1,
-		tag = "7",
-	},
-}, {
-	rule = { class = "Zotero" },
-	properties = {
-		screen = 1,
-		tag = "8",
-	},
-} }
+ruled.client.connect_signal("request::rules", function()
+	ruled.client.append_rule{
+		-- All clients will match this rule.
+		rule = {},
+		properties = {
+			border_width = beautiful.border_width,
+			border_color = beautiful.border_normal,
+			focus = awful.client.focus.filter,
+			raise = true,
+			keys = clientkeys,
+			buttons = clientbuttons,
+			screen = awful.screen.preferred,
+			placement = awful.placement.no_overlap + awful.placement.no_offscreen,
+		},
+	}
+	ruled.client.append_rule{
+		rule_any = {
+			class = { "feh", "Gimp", "Thunar", "files", "Files" },
+		},
+		properties = {
+			floating = true,
+			titlebars_enabled = true,
+		},
+	}
+	ruled.client.append_rule{
+		rule_any = {
+			class = { "Thunar", "files", "Files" },
+		},
+		properties = {
+			placement = awful.placement.centered,
+			width = 1024,
+			height = 615,
+		},
+	}
+	ruled.client.append_rule{
+		-- Add titlebars to normal clients and dialogs
+		rule_any = {
+			type = { "dialog" },
+		},
+		properties = { titlebars_enabled = true },
+	}
+	ruled.client.append_rule{
+		rule = { class = "zoom" },
+		properties = {
+			screen = 1,
+			tag = "7",
+		},
+	}
+	ruled.client.append_rule{
+		rule = { class = "Zotero" },
+		properties = {
+			screen = 1,
+			tag = "8",
+		},
+	}
+end)
+beautiful.titlebar_bg_focus = x.color7
+client.connect_signal("request::titlebars", function(c)
+	-- buttons for the titlebar
+	local buttons = { awful.button({}, 1, function()
+		c:activate{
+			context = "titlebar",
+			action = "mouse_move",
+		}
+	end), awful.button({}, 3, function()
+		c:activate{
+			context = "titlebar",
+			action = "mouse_resize",
+		}
+	end) }
+
+	awful.titlebar(c).widget = {
+		{
+			-- Left
+			awful.titlebar.widget.iconwidget(c),
+			buttons = buttons,
+			layout = wibox.layout.fixed.horizontal,
+		},
+		{
+			-- Middle
+			{
+				-- Title
+				align = "center",
+				font = "FiraCode Nerd Font Bold 12",
+				widget = awful.titlebar.widget.titlewidget(c),
+			},
+			buttons = buttons,
+			layout = wibox.layout.flex.horizontal,
+		},
+		{
+			-- Right
+			-- awful.titlebar.widget.floatingbutton(c),
+			awful.titlebar.widget.maximizedbutton(c),
+			awful.titlebar.widget.stickybutton(c),
+			awful.titlebar.widget.ontopbutton(c),
+			awful.titlebar.widget.closebutton(c),
+			layout = wibox.layout.fixed.horizontal(),
+		},
+		layout = wibox.layout.align.horizontal,
+	}
+end)
+-- }}}
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
@@ -851,7 +914,6 @@ end)
 client.connect_signal("mouse::enter", function(c)
 	c:emit_signal("request::activate", "mouse_enter", { raise = false })
 end)
--- }}}
 -- }}}
 
 -- vim: fdl=0:fdm=marker
