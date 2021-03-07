@@ -41,6 +41,8 @@ local layout_cm = require("layouts.centeredmonocle")
 require("utils.solo-noborder")
 -- Swap with main client, or swap main client:
 local swap_main = require("utils.swap_main")
+-- What?
+local right_panel = require("widgets.right-panel")
 -- }}}
 
 -- ┏━╸┏━┓┏━┓┏━┓┏━┓   ╻ ╻┏━┓┏┓╻╺┳┓╻  ╻┏┓╻┏━╸
@@ -204,6 +206,7 @@ awful.screen.connect_for_each_screen(function(s)
 		s,
 		awful.layout.layouts[1]
 	)
+	s.right_panel = right_panel(s)
 	s.mypromptbox = awful.widget.prompt()
 	s.mylayoutbox = awful.widget.layoutbox(s)
 	s.mylayoutbox:buttons(
@@ -293,6 +296,17 @@ globalkeys = gears.table.join(
 		description = "show help",
 		group = "awesome",
 	}),
+	awful.key(
+		{ modkey, "Control" },
+		"d",
+		function()
+			awful.screen.focused().right_panel:toggle()
+		end,
+		{
+			description = "show/hide calendar",
+			group = "awesome",
+		}
+	),
 	awful.key({ modkey }, "Left", awful.tag.viewprev, {
 		description = "view previous",
 		group = "tag",
