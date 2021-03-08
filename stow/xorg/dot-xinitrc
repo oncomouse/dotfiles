@@ -39,7 +39,7 @@ xmodmap -e "remove mod1 = Super_L"
 case "$2" in
   sowm)
     export DESKTOP_SESSION="sowm"
-    hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
+    hsetroot -solid "#$(xrdb -query | grep color8 | head -1 | cut -d "#" -f2)"
     exec sowm
     ;;
   xmonad)
