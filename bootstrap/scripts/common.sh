@@ -5,6 +5,7 @@
 ~/dotfiles/bootstrap/scripts/vim.sh
 ~/dotfiles/bootstrap/scripts/unbound.sh
 ~/dotfiles/bootstrap/scripts/diff-so-fancy.sh
+~/dotfiles/bootstrap/scripts/luarocks.sh
 ~/dotfiles/bootstrap/scripts/node-modules.sh
 ~/dotfiles/bootstrap/scripts/python-modules.sh
 ~/dotfiles/bootstrap/scripts/ruby-gems.sh
