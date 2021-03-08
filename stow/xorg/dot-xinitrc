@@ -34,6 +34,6 @@ xmodmap -e "remove mod1 = Super_L"
 # Start Awesome
 # exec awesome 1>~/awesome.log 2>&1
 export DESKTOP_SESSION="awesome"
-awesome
+exec awesome
 
 # vim:ft=bash
