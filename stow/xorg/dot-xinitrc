@@ -37,10 +37,16 @@ xmodmap -e "remove mod1 = Super_L"
 # exec awesome
 
 case "$2" in
-  # sowm)
-  #   export DESKTOP_SESSION="sowm"
-  #   exec sowm
-  #   ;;
+  sowm)
+    export DESKTOP_SESSION="sowm"
+    hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
+    exec sowm
+    ;;
+  xmonad)
+    export DESKTOP_SESSION="xmonad"
+    hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
+    exec xmonad
+    ;;
   *)
     export DESKTOP_SESSION="awesome"
     exec awesome
