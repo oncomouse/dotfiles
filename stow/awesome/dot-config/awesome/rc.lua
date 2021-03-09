@@ -820,7 +820,7 @@ ruled.client.connect_signal("request::rules", function()
 	}
 	ruled.client.append_rule{
 		rule_any = {
-			class = { "feh", "Gimp", "Thunar", "files", "Files" },
+			class = { "feh", "Gimp", "Thunar", "files", "Files", "Pcmanfm" },
 		},
 		properties = {
 			floating = true,
@@ -829,7 +829,7 @@ ruled.client.connect_signal("request::rules", function()
 	}
 	ruled.client.append_rule{
 		rule_any = {
-			class = { "Thunar", "files", "Files" },
+			class = { "Thunar", "files", "Files", "Pcmanfm" },
 		},
 		properties = {
 			placement = awful.placement.centered,

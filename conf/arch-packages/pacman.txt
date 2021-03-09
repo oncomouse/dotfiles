@@ -45,9 +45,7 @@ materia-gtk-theme
 redshift
 feh
 dex
-thunar
-tumbler
-firejail
+pcmanfm-gtk3
 fuse2
 yajl
 hsetroot
