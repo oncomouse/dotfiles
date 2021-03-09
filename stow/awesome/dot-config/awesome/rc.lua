@@ -393,6 +393,21 @@ globalkeys = gears.table.join(
 		group = "client",
 	}),
 	awful.key(
+		{ modkey, "Control" },
+		"m",
+		function()
+			local c = client.focus
+			c.maximized_horizontal = false -- inserted
+			c.maximized_vertical = false -- inserted
+			c.maximized = not c.maximized
+			c:raise()
+		end,
+		{
+			description = "Maximize",
+			group = "client",
+		}
+	),
+	awful.key(
 		{ modkey },
 		"Tab",
 		function()
@@ -829,6 +844,12 @@ ruled.client.connect_signal("request::rules", function()
 	}
 	ruled.client.append_rule{
 		rule_any = {
+			class = { "libreoffice" },
+		},
+		properties = { titlebars_enabled = true },
+	}
+	ruled.client.append_rule{
+		rule_any = {
 			class = { "Thunar", "files", "Files", "Pcmanfm" },
 		},
 		properties = {
@@ -893,7 +914,7 @@ client.connect_signal("request::titlebars", function(c)
 		},
 		{
 			-- Right
-			-- awful.titlebar.widget.floatingbutton(c),
+			awful.titlebar.widget.floatingbutton(c),
 			awful.titlebar.widget.maximizedbutton(c),
 			awful.titlebar.widget.stickybutton(c),
 			awful.titlebar.widget.ontopbutton(c),
