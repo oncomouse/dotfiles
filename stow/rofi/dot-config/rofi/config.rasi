@@ -1,7 +1,9 @@
 configuration {
- modi: "window,drun,ssh,combi";
+ modi: "window,drun";
  theme: "~/.cache/wal/colors-rofi-custom";
  font: "Fira Sans 18";
  combi-modi: "window,drun";
  icon-theme: "Mate";
+ columns: 1;
+ sidebar-mode: true;
 }
