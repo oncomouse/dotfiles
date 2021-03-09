@@ -464,8 +464,8 @@ globalkeys = gears.table.join(
 		}
 	),
 	awful.key(
-		{ modkey, "Shift" },
-		"h",
+		{ modkey },
+		"i",
 		function()
 			awful.tag.incnmaster(1, nil, true)
 		end,
@@ -475,8 +475,8 @@ globalkeys = gears.table.join(
 		}
 	),
 	awful.key(
-		{ modkey, "Shift" },
-		"l",
+		{ modkey },
+		"d",
 		function()
 			awful.tag.incnmaster(-1, nil, true)
 		end,
@@ -486,8 +486,8 @@ globalkeys = gears.table.join(
 		}
 	),
 	awful.key(
-		{ modkey, "Control" },
-		"h",
+		{ modkey, "Shift" },
+		"i",
 		function()
 			awful.tag.incncol(1, nil, true)
 		end,
@@ -497,8 +497,8 @@ globalkeys = gears.table.join(
 		}
 	),
 	awful.key(
-		{ modkey, "Control" },
-		"l",
+		{ modkey, "Shift" },
+		"d",
 		function()
 			awful.tag.incncol(-1, nil, true)
 		end,
@@ -507,17 +507,17 @@ globalkeys = gears.table.join(
 			group = "layout",
 		}
 	),
-	awful.key(
-		{ modkey },
-		"space",
-		function()
-			awful.layout.inc(1)
-		end,
-		{
-			description = "select next",
-			group = "layout",
-		}
-	),
+	-- awful.key(
+	-- 	{ modkey },
+	-- 	"space",
+	-- 	function()
+	-- 		awful.layout.inc(1)
+	-- 	end,
+	-- 	{
+	-- 		description = "select next",
+	-- 		group = "layout",
+	-- 	}
+	-- ),
 	-- Switch layouts by name:
 	awful.key(
 		{ modkey },
@@ -545,7 +545,18 @@ globalkeys = gears.table.join(
 		{ modkey },
 		"t",
 		function()
-			awful.layout.set(awful.layout.suit.tile)
+			awful.layout.set(awful.layout.suit.tile.right)
+		end,
+		{
+			description = "select tiled layout",
+			group = "layout",
+		}
+	),
+	awful.key(
+		{ modkey, "Shift" },
+		"t",
+		function()
+			awful.layout.set(awful.layout.suit.tile.left)
 		end,
 		{
 			description = "select tiled layout",
