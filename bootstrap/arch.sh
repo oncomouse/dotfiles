@@ -3,27 +3,17 @@
 # Assume, at minium, "pacman -S base-devel vim git curl fish" run during install:
 sudo pacman -S --noconfirm --needed - < "$HOME/dotfiles/conf/arch-packages/pacman.txt"
 
-# Install Yay:
-url_makepkg() {
-  local pkg
-  pkg=$(basename "$1")
-  mkdir -p "$HOME/aur"
-  git clone "$1" "$HOME/aur/$pkg"
-  cd "$HOME/aur/$pkg" || exit
-  makepkg -si --noconfirm
-  cd "$HOME/dotfiles" || exit
-}
-url_makepkg "https://aur.archlinux.org/yay"
+mkdir -p "$HOME/aur"
 
-# Install AUR using Yay:
-grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/aur.txt | sed -e "s/\s*#.*\$//g" | yay -S --noconfirm -
+# Install some AUR packages (including paru):
+~/dotfiles/bootstrap/scripts/aur.sh
+
+# Install AUR using Paru:
+grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/aur.txt | sed -e "s/\s*#.*\$//g" | paru -S -
 # Setup flatpak:
 flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 # Install Flatpaks:
 grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
-
-# Install non-AUR PKGBUILD stuff:
-~/dotfiles/bootstrap/scripts/aur.sh
 
 ~/dotfiles/bootstrap/scripts/common.sh
 if [ -z "$SERVER" ]; then

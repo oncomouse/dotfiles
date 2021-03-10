@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 packages=(
+  "paru"
   "https://github.com/oncomouse/pandoc-bin"
   "https://github.com/oncomouse/vale-bin"
 )
