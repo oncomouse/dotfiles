@@ -660,7 +660,15 @@ globalkeys = gears.table.join(
 			awful.prompt.run{
 				prompt = "<b>Run Lua code</b>: ",
 				textbox = awful.screen.focused().mypromptbox.widget,
-				exe_callback = awful.util.eval,
+				exe_callback = function(s)
+					local code_string =
+						[[
+						local awful = require("awful")
+						local gears = require("gears")
+						local wibox = require("wibox")
+					]] .. s
+					awful.util.eval(code_string)
+				end,
 				history_path = awful.util.get_cache_dir() .. "/history_eval",
 			}
 		end,
