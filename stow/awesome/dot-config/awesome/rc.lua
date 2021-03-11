@@ -1,3 +1,6 @@
+-- ┏━┓╻ ╻┏━╸┏━┓┏━┓┏┳┓┏━╸╻ ╻┏┳┓
+-- ┣━┫┃╻┃┣╸ ┗━┓┃ ┃┃┃┃┣╸ ┃╻┃┃┃┃
+-- ╹ ╹┗┻┛┗━╸┗━┛┗━┛╹ ╹┗━╸┗┻┛╹ ╹
 -- luacheck: globals awesome client root tag io
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
@@ -201,13 +204,68 @@ local tasklist_buttons = gears.table.join(
 )
 
 awful.screen.connect_for_each_screen(function(s)
+-- Store a list of verbs characters in a hash
+-- Spawn in a terminal --luacheck: no unused args
+-- Spawn with a shell --luacheck: no unused args
+-- Quite dumb, don't do something like <num>+<adj>+<num>+<verb>
+-- awful.prompt.run -- adjs, count, command -- adjs, count, command
 	awful.tag(
 		{ "1", "2", "3", "4", "5", "6", "7", "8", "9" },
 		s,
 		awful.layout.layouts[1]
 	)
 	s.right_panel = right_panel(s)
-	s.mypromptbox = awful.widget.prompt()
+	local atextbox = wibox.widget.textbox()
+	local verbs = {
+		t = function(_, _, cmd)
+			return { terminal, "-e", cmd }
+		end,
+		s = function(_, _, cmd)
+			return { awful.util.shell, "-c", cmd }
+		end,
+	}
+	local function vi_parse(action, command)
+		local req, ret = {
+			count = {},
+			adjectives = {},
+		}
+		for char in action:gmatch("(.)") do
+			if tonumber(char) then
+				table.insert(req.count, char)
+			elseif verbs[char] then
+				req.verb = char
+			else
+				table.insert(ret.adjectives, char)
+			end
+			if req.verb then
+				req.count = tonumber(table.concat(req.count)) or 1
+				ret = ret or verbs[req.verb](req.adjectives, req.count, command)
+				req = {
+					count = {},
+					adjectives = {},
+				}
+			end
+		end
+		return ret
+	end
+	s.mypromptbox = awful.widget.prompt{
+		prompt = "<b>Run: </b>",
+		hooks = { { {}, "Return", function(cmd)
+			if not cmd or cmd:sub(1, 1) ~= ":" then
+				return cmd
+			end
+			local act, cmd2 = cmd:gmatch(":([a-zA-Z1-9]+)[ ]+(.*)")()
+			if not act then
+				return cmd
+			end
+			return vi_parse(act, cmd2)
+		end } },
+		textbox = atextbox,
+		history_path = gears.filesystem.get_cache_dir() .. "/history",
+		exe_callback = function(cmd)
+			awful.spawn(cmd)
+		end,
+	}
 	s.mylayoutbox = awful.widget.layoutbox(s)
 	s.mylayoutbox:buttons(
 		gears.table.join(
@@ -600,7 +658,7 @@ globalkeys = gears.table.join(
 		"x",
 		function()
 			awful.prompt.run{
-				prompt = "Run Lua code: ",
+				prompt = "<b>Run Lua code</b>: ",
 				textbox = awful.screen.focused().mypromptbox.widget,
 				exe_callback = awful.util.eval,
 				history_path = awful.util.get_cache_dir() .. "/history_eval",
