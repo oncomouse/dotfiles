@@ -355,7 +355,7 @@ globalkeys = gears.table.join(
 		{ modkey, "Control" },
 		"d",
 		function()
-			clock_widget.extend()
+			clock_widget.toggle()
 		end,
 		{
 			description = "show/hide calendar",
