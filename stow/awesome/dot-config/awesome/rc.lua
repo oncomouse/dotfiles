@@ -1,7 +1,12 @@
 -- ┏━┓╻ ╻┏━╸┏━┓┏━┓┏┳┓┏━╸╻ ╻┏┳┓
 -- ┣━┫┃╻┃┣╸ ┗━┓┃ ┃┃┃┃┣╸ ┃╻┃┃┃┃
 -- ╹ ╹┗┻┛┗━╸┗━┛┗━┛╹ ╹┗━╸┗┻┛╹ ╹
--- luacheck: globals awesome client root tag io
+-- luacheck: globals awesome client root io
+
+-- ┏━┓┏━┓╺┳╸╻ ╻
+-- ┣━┛┣━┫ ┃ ┣━┫
+-- ╹  ╹ ╹ ╹ ╹ ╹
+-- Path {{{
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
@@ -16,6 +21,7 @@ package.path = package.path .. addtional_path
 local logfile = io.open("/tmp/myawesome.log", "a")
 logfile:write("\n\n\nLoading Awesome\nPath: ", package.path, "\n\n")
 io.stderr = logfile
+-- }}}
 
 -- ╻┏┓╻┏━╸╻  ╻ ╻╺┳┓┏━╸┏━┓
 -- ┃┃┗┫┃  ┃  ┃ ┃ ┃┃┣╸ ┗━┓
@@ -1022,3 +1028,6 @@ end)
 client.connect_signal("mouse::enter", function(c)
 	c:emit_signal("request::activate", "mouse_enter", { raise = false })
 end)
+-- }}}
+
+-- vim: fdl=0:fdm=marker
