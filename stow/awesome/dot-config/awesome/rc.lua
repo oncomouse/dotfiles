@@ -115,7 +115,7 @@ x = {
 beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
 beautiful.layout_centeredmonocle =
 	gears.color.recolor_image(
-		gears.filesystem.get_themes_dir() .. "default/layouts/maxw.png",
+		gears.filesystem.get_themes_dir() .. "default/layouts/magnifierw.png",
 		beautiful.fg_normal
 	)
 beautiful.useless_gap = 0 -- No gaps
