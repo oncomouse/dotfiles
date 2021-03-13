@@ -1,7 +1,5 @@
 local wibox = require("wibox")
 local gt = require("gears.timer")
--- local awful = require("awful")
--- local naughty = require("naughty")
 
 local clock_extend_timeout = 5
 local clock_widget = wibox.widget.textclock(" %a %l:%M %p ")
