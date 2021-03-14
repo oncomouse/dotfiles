@@ -90,28 +90,7 @@ end
 -- {{{ Appearance
 -- Load xrdb colors:
 local xrdb = beautiful.xresources.get_current_theme()
--- Make xresources colors global
-x = {
-	background = xrdb.background,
-	foreground = xrdb.foreground,
-	color0 = xrdb.color0,
-	color1 = xrdb.color1,
-	color2 = xrdb.color2,
-	color3 = xrdb.color3,
-	color4 = xrdb.color4,
-	color5 = xrdb.color5,
-	color6 = xrdb.color6,
-	color7 = xrdb.color7,
-	color8 = xrdb.color8,
-	color9 = xrdb.color9,
-	color10 = xrdb.color10,
-	color11 = xrdb.color11,
-	color12 = xrdb.color12,
-	color13 = xrdb.color13,
-	color14 = xrdb.color14,
-	color15 = xrdb.color15,
-}
--- Themes define colours, icons, font and wallpapers.
+-- Themes define colours, icons, font and wallpapers. {{{
 beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
 beautiful.layout_centeredmonocle =
 	gears.color.recolor_image(
@@ -119,8 +98,8 @@ beautiful.layout_centeredmonocle =
 		beautiful.fg_normal
 	)
 beautiful.useless_gap = 0 -- No gaps
-beautiful.border_normal = x.color8 -- Normal border color
-beautiful.border_focus = x.color7 -- Focused border color
+beautiful.border_normal = xrdb.color8 -- Normal border color
+beautiful.border_focus = xrdb.color7 -- Focused border color
 beautiful.font = "FiraCode Nerd Font Normal 15" -- Font
 -- Widget spacing in left and right wibox areas:
 beautiful.widget_space = {
@@ -131,24 +110,21 @@ beautiful.widget_space = {
 beautiful.bar_height = 24
 beautiful.bar_position = "top"
 -- Hotkey formatting:
-beautiful.hotkeys_modifiers_fg = x.color4
+beautiful.hotkeys_modifiers_fg = xrdb.color4
 beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
 beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
 -- Titlebar formatting:
-beautiful.titlebar_bg_focus = x.color7
+beautiful.titlebar_bg_focus = xrdb.color7
 -- Tasklist formatting:
 beautiful.tasklist_disable_icon = true -- No icons in tasklist
+--- }}}
 -- Set the background:
-gears.wallpaper.set(x.background)
+gears.wallpaper.set(xrdb.background)
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
 
 -- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -687,7 +663,14 @@ globalkeys = gears.table.join(
 		{ modkey },
 		"p",
 		function()
-			awful.spawn.with_shell("rofi -show drun -match fuzzy -show-icons")
+			awful.spawn.with_shell(
+			-- "rofi -sidebar-mode -show drun -match fuzzy -show-icons"
+				string.format(
+					"rofi -theme %s/dotfiles/conf/rofi/barmenu.rasi -show drun -show-icons -yoffset %d -drun-display-format '{name}'",
+					os.getenv("HOME"),
+					beautiful.bar_height
+				)
+			)
 		end,
 		{
 			description = "show the menubar",
@@ -704,6 +687,23 @@ globalkeys = gears.table.join(
 		end,
 		{
 			description = "show main menu",
+			group = "launcher",
+		}
+	),
+	awful.key(
+		{ modkey },
+		"w",
+		function()
+			awful.spawn.with_shell(
+				string.format(
+					"rofi -theme %s/dotfiles/conf/rofi/barmenu.rasi -show window -show-icons -yoffset %d -window-format '{w} {c} {t:25}'",
+					os.getenv("HOME"),
+					beautiful.bar_height
+				)
+			)
+		end,
+		{
+			description = "show window menu",
 			group = "launcher",
 		}
 	), -- Print Screen

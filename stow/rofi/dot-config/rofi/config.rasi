@@ -5,5 +5,4 @@ configuration {
  combi-modi: "window,drun";
  icon-theme: "Mate";
  columns: 1;
- sidebar-mode: true;
 }
