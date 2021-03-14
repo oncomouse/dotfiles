@@ -10,7 +10,9 @@ bind to key:
 local spawn = require("awful.spawn")
 local beautiful = require("beautiful")
 
-rofi = {width = 300}
+rofi = {
+	width = 300
+}
 
 function rofi.drun()
 	spawn.with_shell(
