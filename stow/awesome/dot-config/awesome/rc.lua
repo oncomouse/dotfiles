@@ -50,6 +50,8 @@ local layout_cm = require("layouts.centeredmonocle")
 require("utils.solo-noborder")
 -- Swap with main client, or swap main client:
 local swap_main = require("utils.swap_main")
+-- Rofi utilities:
+local rofi = require("utils.rofi")
 -- }}}
 
 -- ┏━╸┏━┓┏━┓┏━┓┏━┓   ╻ ╻┏━┓┏┓╻╺┳┓╻  ╻┏┓╻┏━╸
@@ -662,16 +664,7 @@ globalkeys = gears.table.join(
 	awful.key(
 		{ modkey },
 		"p",
-		function()
-			awful.spawn.with_shell(
-			-- "rofi -sidebar-mode -show drun -match fuzzy -show-icons"
-				string.format(
-					"rofi -theme %s/dotfiles/conf/rofi/barmenu.rasi -show drun -show-icons -yoffset %d -drun-display-format '{name}'",
-					os.getenv("HOME"),
-					beautiful.bar_height
-				)
-			)
-		end,
+		rofi.drun,
 		{
 			description = "show the menubar",
 			group = "launcher",
@@ -680,11 +673,7 @@ globalkeys = gears.table.join(
 	awful.key(
 		{ modkey, "Shift" },
 		"p",
-		function()
-			awful.spawn.with_shell(
-				"~/dotfiles/scripts/rofi/powermenu/powermenu.sh"
-			)
-		end,
+		rofi.powermenu,
 		{
 			description = "show main menu",
 			group = "launcher",
@@ -693,15 +682,7 @@ globalkeys = gears.table.join(
 	awful.key(
 		{ modkey },
 		"w",
-		function()
-			awful.spawn.with_shell(
-				string.format(
-					"rofi -theme %s/dotfiles/conf/rofi/barmenu.rasi -show window -show-icons -yoffset %d -window-format '{w} {c} {t:25}'",
-					os.getenv("HOME"),
-					beautiful.bar_height
-				)
-			)
-		end,
+		rofi.window,
 		{
 			description = "show window menu",
 			group = "launcher",
@@ -743,12 +724,9 @@ clientkeys = gears.table.join(
 	awful.key(
 		{ modkey },
 		"f",
-		function(c)
-			c.fullscreen = not c.fullscreen
-			c:raise()
-		end,
+		rofi.client_flags,
 		{
-			description = "toggle fullscreen",
+			description = "client flag menu",
 			group = "client",
 		}
 	),
@@ -770,38 +748,10 @@ clientkeys = gears.table.join(
 			c.sticky = true
 		end
 	end),
-	awful.key({ modkey, "Shift" }, "space", awful.client.floating.toggle, {
-		description = "toggle floating",
-		group = "client",
-	}),
 	awful.key({ modkey }, "Return", swap_main, {
 		description = "move to master",
 		group = "client",
-	}),
-	awful.key(
-		{ modkey },
-		"o",
-		function(c)
-			c:move_to_screen()
-		end,
-		{
-			description = "move to screen",
-			group = "client",
-		}
-	),
-	awful.key(
-		{ modkey },
-		"n",
-		function(c)
-			-- The client currently has the input focus, so it cannot be
-			-- minimized, since minimized clients can't have the focus.
-			c.minimized = true
-		end,
-		{
-			description = "minimize",
-			group = "client",
-		}
-	)
+	})
 )
 
 -- Bind all key numbers to tags.
