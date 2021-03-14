@@ -35,6 +35,10 @@ entry {
     width:      5em;
 }
 
+prompt {
+  padding: 0 0.25em 0 0;
+}
+
 element {
     padding: 0px 2px;
 }
