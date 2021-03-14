@@ -127,6 +127,9 @@ beautiful.widget_space = {
 	left = nil,
 	right = " ⁞ ",
 }
+-- Wibar stuff:
+beautiful.bar_height = 24
+beautiful.bar_position = "top"
 -- Hotkey formatting:
 beautiful.hotkeys_modifiers_fg = x.color4
 beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
@@ -314,9 +317,9 @@ awful.screen.connect_for_each_screen(function(s)
 		} or nil,
 	}
 	s.mywibox = awful.wibar({
-		position = "top",
+		position = beautiful.bar_position,
 		screen = s,
-		height = "24",
+		height = beautiful.bar_height,
 	})
 
 	s.mywibox:setup{
