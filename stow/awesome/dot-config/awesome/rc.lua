@@ -1030,4 +1030,4 @@ client.connect_signal("mouse::enter", function(c)
 end)
 -- }}}
 
--- vim: fdl=0:fdm=marker
+-- vim: foldlevel=0:foldmethod=marker
