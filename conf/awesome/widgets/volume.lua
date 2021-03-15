@@ -52,7 +52,7 @@ gears.timer{
 }
 
 volume_widget:connect_signal("button::press", function()
-	volume_widget:mute()
+	change_volume(volume_widget, "mute")
 end)
 
 return volume_widget
