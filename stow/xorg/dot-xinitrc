@@ -33,5 +33,4 @@ xmodmap -e "remove mod1 = Super_L"
 ## WM
 # Start Awesome
 export DESKTOP_SESSION="awesome"
-# exec awesome 1>~/awesome.log 2>&1
-exec awesome
+exec awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
