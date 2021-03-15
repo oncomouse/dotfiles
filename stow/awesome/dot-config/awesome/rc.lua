@@ -1,7 +1,7 @@
 -- ┏━┓╻ ╻┏━╸┏━┓┏━┓┏┳┓┏━╸╻ ╻┏┳┓
 -- ┣━┫┃╻┃┣╸ ┗━┓┃ ┃┃┃┃┣╸ ┃╻┃┃┃┃
 -- ╹ ╹┗┻┛┗━╸┗━┛┗━┛╹ ╹┗━╸┗┻┛╹ ╹
--- luacheck: globals awesome client io
+-- luacheck: globals awesome client io tag screen
 
 -- ┏━┓┏━┓╺┳╸╻ ╻
 -- ┣━┛┣━┫ ┃ ┣━┫
@@ -62,30 +62,13 @@ local vi_parse = require("utils.vi_parse")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
-if awesome.startup_errors then
-	naughty.notify({
-		preset = naughty.config.presets.critical,
-		title = "Oops, there were errors during startup!",
-		text = awesome.startup_errors,
-	})
-end
-
--- Handle runtime errors after startup
-do
-	local in_error = false
-	awesome.connect_signal("debug::error", function(err)
-		-- Make sure we don't go into an endless error loop
-		if in_error then return end
-		in_error = true
-
-		naughty.notify({
-			preset = naughty.config.presets.critical,
-			title = "Oops, an error happened!",
-			text = tostring(err),
-		})
-		in_error = false
-	end)
-end
+naughty.connect_signal("request::display_error", function(message, startup)
+	naughty.notification {
+		urgency = "critical",
+		title   = "Oops, an error happened"..(startup and " during startup!" or "!"),
+		message = message
+	}
+end)
 -- }}}
 
 -- ┏━┓┏━┓┏━┓┏━╸┏━┓┏━┓┏━┓┏┓╻┏━╸┏━╸
@@ -130,11 +113,13 @@ terminal = "kitty"
 -- Default modkey.
 modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.append_default_layouts{
-	awful.layout.suit.tile.right,
-	awful.layout.suit.tile.left,
-	layout_cm,
-}
+tag.connect_signal("request::default_layouts", function()
+	awful.layout.append_default_layouts{
+		awful.layout.suit.tile.right,
+		awful.layout.suit.tile.left,
+		layout_cm,
+	}
+end)
 -- }}}
 
 -- ╻ ╻╻┏┓ ┏━┓┏━┓
@@ -147,7 +132,7 @@ local mpris_widget = require("widgets.mpris")
 local volume_widget = require("widgets.volume")
 -- Clock Widget:
 local clock_widget = require("widgets.clock")
-awful.screen.connect_for_each_screen(function(s)
+screen.connect_signal("request::desktop_decoration", function(s)
 	awful.tag(
 		{ "1", "2", "3", "4", "5", "6", "7", "8", "9" },
 		s,
@@ -680,17 +665,15 @@ end)
 
 client.connect_signal("request::default_mousebindings", function()
 	awful.mouse.append_client_mousebindings({
-		awful.button({}, 1, function(c)
-			c:emit_signal("request::activate", "mouse_click", { raise = true })
+		awful.button({ }, 1, function (c)
+			c:activate { context = "mouse_click" }
 		end),
-		awful.button({ modkey }, 1, function(c)
-			c:emit_signal("request::activate", "mouse_click", { raise = true })
-			awful.mouse.client.move(c)
+		awful.button({ modkey }, 1, function (c)
+			c:activate { context = "mouse_click", action = "mouse_move"  }
 		end),
-		awful.button({ modkey }, 3, function(c)
-			c:emit_signal("request::activate", "mouse_click", { raise = true })
-			awful.mouse.client.resize(c)
-		end)
+		awful.button({ modkey }, 3, function (c)
+			c:activate { context = "mouse_click", action = "mouse_resize"}
+		end),
 	})
 end)
 -- }}}
@@ -807,6 +790,28 @@ client.connect_signal("request::titlebars", function(c)
 		layout = wibox.layout.align.horizontal,
 	}
 end)
+-- }}}
+
+-- ┏┓╻┏━┓╺┳╸╻┏━╸╻┏━╸┏━┓╺┳╸╻┏━┓┏┓╻┏━┓
+-- ┃┗┫┃ ┃ ┃ ┃┣╸ ┃┃  ┣━┫ ┃ ┃┃ ┃┃┗┫┗━┓
+-- ╹ ╹┗━┛ ╹ ╹╹  ╹┗━╸╹ ╹ ╹ ╹┗━┛╹ ╹┗━┛
+-- {{{ Notifications
+
+ruled.notification.connect_signal('request::rules', function()
+	-- All notifications will match this rule.
+	ruled.notification.append_rule {
+		rule       = { },
+		properties = {
+			screen           = awful.screen.preferred,
+			implicit_timeout = 5,
+		}
+	}
+end)
+
+naughty.connect_signal("request::display", function(n)
+	naughty.layout.box { notification = n }
+end)
+
 -- }}}
 
 -- ┏━┓╻┏━╸┏┓╻┏━┓╻  ┏━┓
