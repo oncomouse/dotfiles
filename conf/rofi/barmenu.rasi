@@ -8,7 +8,7 @@
     background-color:      @background;
     border-color:          @border;
     text-color:           @foreground;
-    font:            "FiraCode Nerd Font 14";
+    font:            "FiraCode Nerd Font 13";
 }
 
 window {

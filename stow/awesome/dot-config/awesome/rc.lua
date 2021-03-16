@@ -83,10 +83,10 @@ beautiful.useless_gap = 0 -- No gaps
 beautiful.border_normal = xrdb.color8 -- Normal border color
 beautiful.border_focus = xrdb.color7 -- Focused border color
 -- Fonts
-beautiful.font = "BlexMono Nerd Font Normal 14"
-beautiful.hotkeys_font = "BlexMono Nerd Font Normal 16"
-beautiful.hotkeys_description_font = "BlexMono Nerd Font Normal 12"
-beautiful.titlebar_font = "BlexMono Nerd Font Bold 12"
+beautiful.font = "FiraCode Nerd Font Normal 14"
+beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
+beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
+beautiful.titlebar_font = "FiraCode Nerd Font Bold 12"
 -- Widget spacing in left and right wibox areas:
 beautiful.widget_space = {
 	left = nil,
