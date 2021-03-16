@@ -2,10 +2,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")
 local function set_volume(widget, stdout)
-	volume = stdout
-	if not stdout:find("x") then
-		volume = string.gsub(stdout, "^%s*(.-)%s*$", "%1") .. "%"
-	end
+	local volume = (not stdout:find("x")) and string.gsub(stdout, "^%s*(.-)%s*$", "%1") .. "%" or stdout
 	widget:set_text(" 墳 " .. volume)
 end
 local function run_script(widget, argument)
@@ -32,15 +29,6 @@ end
 local volume_widget = wibox.widget{
 	widget = wibox.widget.textbox,
 	text = "",
-	mute = function(self)
-		change_volume(self, "mute")
-	end,
-	up = function(self)
-		change_volume(self, "up")
-	end,
-	down = function(self)
-		change_volume(self, "down")
-	end,
 }
 gears.timer{
 	timeout = 5,
@@ -50,6 +38,15 @@ gears.timer{
 		run_script(volume_widget)
 	end,
 }
+volume_widget.mute = function()
+	change_volume(volume_widget, "mute")
+end
+volume_widget.up = function()
+	change_volume(volume_widget, "up")
+end
+volume_widget.down = function()
+	change_volume(volume_widget, "down")
+end
 
 volume_widget:connect_signal("button::press", function()
 	change_volume(volume_widget, "mute")
