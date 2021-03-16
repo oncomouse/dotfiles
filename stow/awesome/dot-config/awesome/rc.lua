@@ -680,8 +680,8 @@ end)
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
 ruled.client.connect_signal("request::rules", function()
+	-- All clients will match this rule.
 	ruled.client.append_rule{
-		-- All clients will match this rule.
 		rule = {},
 		properties = {
 			border_width = beautiful.border_width,
@@ -692,6 +692,7 @@ ruled.client.connect_signal("request::rules", function()
 			placement = awful.placement.no_overlap + awful.placement.no_offscreen,
 		},
 	}
+	-- Clients that float and have titlebars:
 	ruled.client.append_rule{
 		rule_any = {
 			class = { "feh", "Gimp", "Thunar", "files", "Files", "Pcmanfm" },
@@ -701,29 +702,32 @@ ruled.client.connect_signal("request::rules", function()
 			titlebars_enabled = true,
 		},
 	}
+	-- Clients that have titlebars only:
 	ruled.client.append_rule{
 		rule_any = {
 			class = { "libreoffice" },
 		},
 		properties = { titlebars_enabled = true },
 	}
+	-- Place file manager in the center of the screen:
 	ruled.client.append_rule{
 		rule_any = {
 			class = { "Thunar", "files", "Files", "Pcmanfm" },
 		},
 		properties = {
-			placement = awful.placement.centered,
+			placement = awful.placement.centered + awful.placement.center_vertically,
 			width = 1024,
 			height = 615,
 		},
 	}
+	-- Add titlebars to dialog clients
 	ruled.client.append_rule{
-		-- Add titlebars to normal clients and dialogs
 		rule_any = {
 			type = { "dialog" },
 		},
 		properties = { titlebars_enabled = true },
 	}
+	-- Attach Zoom to tag 7
 	ruled.client.append_rule{
 		rule = { class = "zoom" },
 		properties = {
@@ -731,6 +735,7 @@ ruled.client.connect_signal("request::rules", function()
 			tag = "7",
 		},
 	}
+	-- Attach Zotero to tag 8
 	ruled.client.append_rule{
 		rule = { class = "Zotero" },
 		properties = {
@@ -745,15 +750,16 @@ client.connect_signal("request::titlebars", function(c)
 		awful.button({}, 1, function() c:activate{
 			context = "titlebar",
 			action = "mouse_move",
-		}
-	end),
-	awful.button({modkey}, 3, function() rofi.client_flags(c) end),
-	awful.button({}, 3, function()
-		c:activate{
-			context = "titlebar",
-			action = "mouse_resize",
-		}
-	end) }
+		} end),
+		-- Mod+3rd mouse raises client flag menu:
+		awful.button({modkey}, 3, function() rofi.client_flags(c) end),
+		awful.button({}, 3, function()
+			c:activate{
+				context = "titlebar",
+				action = "mouse_resize",
+			}
+		end),
+	}
 
 	awful.titlebar(c).widget = {
 		{
@@ -775,6 +781,7 @@ client.connect_signal("request::titlebars", function(c)
 		},
 		{
 			-- Right
+			-- Handle flags with Rofi, so we don't need these:
 			-- awful.titlebar.widget.floatingbutton(c),
 			-- awful.titlebar.widget.maximizedbutton(c),
 			-- awful.titlebar.widget.stickybutton(c),
@@ -806,7 +813,6 @@ end)
 naughty.connect_signal("request::display", function(n)
 	naughty.layout.box { notification = n }
 end)
-
 -- }}}
 
 -- ┏━┓╻┏━╸┏┓╻┏━┓╻  ┏━┓
