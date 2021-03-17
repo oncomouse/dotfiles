@@ -49,6 +49,7 @@ local swap_main = require("utils.swap_main")
 local rofi = require("utils.rofi")
 -- Used for run menu:
 local vi_parse = require("utils.vi_parse")
+local revelation = require("utils.revelation")
 -- }}}
 
 -- ┏━╸┏━┓┏━┓┏━┓┏━┓   ╻ ╻┏━┓┏┓╻╺┳┓╻  ╻┏┓╻┏━╸
@@ -117,6 +118,7 @@ tag.connect_signal("request::default_layouts", function()
 		layout_cm,
 	}
 end)
+revelation.init()
 -- }}}
 
 -- ╻ ╻╻┏┓ ┏━┓┏━┓
@@ -475,6 +477,8 @@ awful.keyboard.append_global_keybindings({
 			group = "launcher",
 		}
 	),
+
+	awful.key({ modkey }, "e", revelation),
 
 	awful.key({ modkey }, "x",
 		function()
