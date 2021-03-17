@@ -316,6 +316,8 @@ endif
         let g:clap_insert_mode_only = v:true
         let g:clap_search_box_border_style = 'nil'
         let g:clap_theme = 'wal'
+        let g:clap_always_open_preview = v:false
+        let g:clap_preview_direction = 'UD'
       endif
       " Load LSP + Completion:
       if g:complete_package =~# 'coc.nvim'
