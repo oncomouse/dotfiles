@@ -20,6 +20,10 @@ clock_widget.toggle = function()
 		clock_widget.extend()
 	end
 end
-clock_widget:connect_signal("button::press", clock_widget.toggle)
+clock_widget:connect_signal("button::press", function(_, _, _, button)
+	if button == 1 then
+		clock_widget.toggle()
+	end
+end)
 
 return clock_widget
