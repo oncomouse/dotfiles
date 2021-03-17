@@ -123,6 +123,11 @@ keysym = "Q"
 action = "terminate"
 
 [[keybind]]
+keysym = "p"
+action = "do_exec"
+executable = "rofi-wl -theme /home/andrew/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -show drun -show-icons -yoffset 24 -drun-display-format '{name}' -modi drun"
+
+[[keybind]]
 modifiers = ["meta", "shift"]
 keysym = "Return"
 action = "do_exec"
