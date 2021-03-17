@@ -23,6 +23,8 @@ end
 clock_widget:connect_signal("button::press", function(_, _, _, button)
 	if button == 1 then
 		clock_widget.toggle()
+	-- elseif button == 3 then
+		-- Activate calendar widget
 	end
 end)
 
