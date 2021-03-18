@@ -358,43 +358,44 @@ endif
       else
         " LSP Support: {{{
           if has('nvim-0.5')
-            " Plug 'neovim/nvim-lspconfig'
+            Plug 'neovim/nvim-lspconfig'
             Plug 'nvim-treesitter/nvim-treesitter'
+          else
+            Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': 'bash install.sh',
+            \ }
+            let g:LanguageClient_settingsPath = expand('~/dotfiles/conf/vim/lsp-settings/LanguageClient-neovim/settings.json')
+            let g:LanguageClient_useVirtualText = 'CodeLens'
+            " Turn off all diagnostic stuff (pump it all to ALE):
+            let g:LanguageClient_diagnosticsEnable = 0
+            " Debug:
+            " let g:LanguageClient_loggingFile = expand('~/lc.log')
+            " let g:LanguageClient_loggingLevel = 'DEBUG'
+            " Always use hover:
+            let g:LanguageClient_useFloatingHover = 0
+            let g:LanguageClient_hoverPreview = 'Auto'
+            " Root patterns:
+            let g:LanguageClient_rootMarkers = g:rooter_patterns
+            let g:LanguageClient_serverCommands = {
+                  \ 'javascript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+                  \ 'javascriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+                  \ 'typescript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+                  \ 'typescriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+                  \ 'python': ['/usr/bin/env', 'jedi-language-server'],
+                  \ 'haskell': ['/usr/bin/env', 'haskell-language-server-wrapper', '--lsp'],
+                  \ 'ruby': ['/usr/bin/env', 'solargraph', 'stdio'],
+                  \ 'json': ['/usr/bin/env', 'vscode-json-languageserver', '--stdio'],
+                  \ 'html': ['/usr/bin/env', 'vscode-html-languageserver', '--stdio'],
+                  \ 'scss': ['/usr/bin/env', 'vscode-css-languageserver', '--stdio'],
+                  \ 'css': ['/usr/bin/env', 'vscode-css-languageserver', '--stdio'],
+                  \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/scripts/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt'],
+                  \ 'vim': ['/usr/bin/env', 'vim-language-server', '--stdio'],
+                  \ 'markdown': ['/usr/bin/env', 'citation-langserver'],
+                  \ 'bash': ['/usr/bin/env', 'bash-language-server', 'start'],
+                  \ 'sh': ['/usr/bin/env', 'bash-language-server', 'start'],
+                  \}
           endif
-          Plug 'autozimu/LanguageClient-neovim', {
-          \ 'branch': 'next',
-          \ 'do': 'bash install.sh',
-          \ }
-          let g:LanguageClient_settingsPath = expand('~/dotfiles/conf/vim/lsp-settings/LanguageClient-neovim/settings.json')
-          let g:LanguageClient_useVirtualText = 'CodeLens'
-          " Turn off all diagnostic stuff (pump it all to ALE):
-          let g:LanguageClient_diagnosticsEnable = 0
-          " Debug:
-          " let g:LanguageClient_loggingFile = expand('~/lc.log')
-          " let g:LanguageClient_loggingLevel = 'DEBUG'
-          " Always use hover:
-          let g:LanguageClient_useFloatingHover = 0
-          let g:LanguageClient_hoverPreview = 'Auto'
-          " Root patterns:
-          let g:LanguageClient_rootMarkers = g:rooter_patterns
-          let g:LanguageClient_serverCommands = {
-                \ 'javascript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-                \ 'javascriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-                \ 'typescript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-                \ 'typescriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-                \ 'python': ['/usr/bin/env', 'jedi-language-server'],
-                \ 'haskell': ['/usr/bin/env', 'haskell-language-server-wrapper', '--lsp'],
-                \ 'ruby': ['/usr/bin/env', 'solargraph', 'stdio'],
-                \ 'json': ['/usr/bin/env', 'vscode-json-languageserver', '--stdio'],
-                \ 'html': ['/usr/bin/env', 'vscode-html-languageserver', '--stdio'],
-                \ 'scss': ['/usr/bin/env', 'vscode-css-languageserver', '--stdio'],
-                \ 'css': ['/usr/bin/env', 'vscode-css-languageserver', '--stdio'],
-                \ 'lua': ['/usr/bin/java', '-cp', '~/dotfiles/scripts/lsp/EmmyLua-LS-all.jar', 'com.tang.vscode.MainKt'],
-                \ 'vim': ['/usr/bin/env', 'vim-language-server', '--stdio'],
-                \ 'markdown': ['/usr/bin/env', 'citation-langserver'],
-                \ 'bash': ['/usr/bin/env', 'bash-language-server', 'start'],
-                \ 'sh': ['/usr/bin/env', 'bash-language-server', 'start'],
-                \}
         " }}}
         " ALE For Linting: {{{
           Plug 'dense-analysis/ale'
@@ -471,16 +472,65 @@ call plug#end()
     " As with Fuzzy bindings (above), we set all the LSP commands to Plug
     " bindings and then rebind them here to the keys we actually want to use:
     if (g:dotfiles_mode ==# 'desktop')
-      nmap <silent> <F2> <Plug>(dotfiles-rename)
-      nmap <silent> <F5> <Plug>(dotfiles-commands)
-      vmap <silent> ga   <Plug>(dotfiles-codeaction-selected)
-      nmap <silent> ga   <Plug>(dotfiles-codeaction)
-      nmap <silent> gl   <Plug>(dotfiles-codelens)
-      nmap <silent> gd   <Plug>(dotfiles-definition)
-      nmap <silent> gy   <Plug>(dotfiles-type-definition)
-      nmap <silent> gi   <Plug>(dotfiles-implementation)
-      nmap <silent> gr   <Plug>(dotfiles-references)
-      nmap <silent> K    <Plug>(dotfiles-documentation)
+      if has('nvim-0.5')
+        :lua << EOF
+  local lspconfig = require('lspconfig')
+ 
+  local on_attach = function(_, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+ 
+    -- Mappings.
+    local opts = { noremap=true, silent=true }
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
+  end
+ 
+  local servers = {
+    'tsserver',
+    'vimls',
+    'jsonls',
+    'jedi_language_server',
+    'solargraph' ,
+    'html',
+    'cssls',
+    'bashls',
+    'emmy_lua',
+  }
+  for _, lsp in ipairs(servers) do
+    lspconfig[lsp].setup {
+      on_attach = on_attach,
+    }
+  end
+  lspconfig['citation_lsp'].setup{
+    on_attach = on_attach,
+    settings = {
+      citation = {
+        bibliographies = {
+          '~/Seafile/My Library/Documents/Academic Stuff/library.bib'
+        }
+      }
+    }
+  }
+EOF
+      else
+        nmap <silent> <F2> <Plug>(dotfiles-rename)
+        nmap <silent> <F5> <Plug>(dotfiles-commands)
+        vmap <silent> ga   <Plug>(dotfiles-codeaction-selected)
+        nmap <silent> ga   <Plug>(dotfiles-codeaction)
+        nmap <silent> gl   <Plug>(dotfiles-codelens)
+        nmap <silent> gd   <Plug>(dotfiles-definition)
+        nmap <silent> gy   <Plug>(dotfiles-type-definition)
+        nmap <silent> gi   <Plug>(dotfiles-implementation)
+        nmap <silent> gr   <Plug>(dotfiles-references)
+        nmap <silent> K    <Plug>(dotfiles-documentation)
+      endif
       nmap <silent> [d   <Plug>(dotfiles-diagnostic-previous)
       nmap <silent> ]d   <Plug>(dotfiles-diagnostic-next)
     endif
