@@ -115,7 +115,7 @@ endif
   endif
 " }}}
 " Plugins: {{{
-  " Install vim_plug if it is missing:
+  " Install vim_plug if it is missing: {{{
   if has('nvim')
     if has('win32')
       let s:win_vimfiles = $HOME . '/AppData/Local/nvim/vimfiles'
@@ -143,6 +143,7 @@ endif
       autocmd VimEnter * PlugInstall | source $MYVIMRC
     augroup END
   endif
+  " }}}
   call plug#begin(g:plug_dir)
   " Get Started: {{{
     Plug 'xero/securemodelines' " Secure modelines
