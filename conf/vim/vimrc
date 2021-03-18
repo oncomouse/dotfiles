@@ -209,7 +209,19 @@ endif
   " }}}
   " List Support: {{{
     if g:dotfiles_mode ==# 'server' || g:complete_package ==# 'fzf'
-      Plug (isdirectory('/usr/local/opt/fzf') ? '/usr/local/opt/fzf' : '~/.fzf')
+      " macOS Homebrew
+      if isdirectory('/usr/local/opt/fzf')
+        Plug '/usr/local/opt/fzf'
+      " Arch
+      elseif isdirectory('/usr/share/vim/vimfiles')
+        let &runtimepath .= ',/usr/share/vim/vimfiles'
+      " Local install
+      elseif isdirectory('~/.fzf')
+        Plug '~/.fzf'
+      " Fallback
+      else
+        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+      endif
       Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
     endif
   " }}}
