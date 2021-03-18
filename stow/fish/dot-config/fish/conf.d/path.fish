@@ -25,8 +25,8 @@ if status --is-login
   # Set Python stub location:
   set -gx MYPYPATH ~/dotfiles/conf/python-stubs
   # Set Luarocks PATH
-  if which lua5.3 > /dev/null
-    for i in (luarocks --lua-version 5.3 path | awk '{sub(/PATH=/, "PATH ", $2); print "set -gx "$2}'); eval $i; end
-  end
+  # if which lua5.3 > /dev/null
+  #   for i in (luarocks --lua-version 5.3 path | awk '{sub(/PATH=/, "PATH ", $2); print "set -gx "$2}'); eval $i; end
+  # end
 end
 
