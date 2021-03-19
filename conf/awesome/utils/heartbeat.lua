@@ -2,7 +2,7 @@
 local awful = require("awful")
 local gears = require("gears")
 
--- List of apps that should block screensaver if they are playing:
+-- List of apps that should block screensaver if they are playing audio:
 local apps = {
 	"zoom",
 	"vlc",
@@ -12,10 +12,10 @@ local apps = {
 local timeout = 120
 -- What command to run to stop screensaver:
 local delay_command = "xscreensaver-command -deactivate"
-local stop_now = false
+local forced_stop = false
 
 function check()
-	if stop_now then
+	if forced_stop then
 		awful.spawn(delay_command)
 		return
 	end
@@ -53,7 +53,16 @@ gears.timer{
 	callback = check
 }
 
-awesome.connect_signal("heartbeat::stop_now", function()
-	stop_now = not stop_now
+-- Use these three signals to build widgets and keyboard shortcuts that caffeinate or decaffeinate your system:
+-- Run awesome.emit_signal("heartbeat::toggle_forced_stop") to toggle forced stop
+awesome.connect_signal("heartbeat::toggle_forced_stop", function()
+	forced_stop = not forced_stop
 end)
-
+-- Run awesome.emit_signal("heartbeat::start_forced_stop") to start forced stop
+awesome.connect_signal("heartbeat::start_forced_stop", function()
+	forced_stop = true
+end)
+-- Run awesome.emit_signal("heartbeat::stop_forced_stop") to stop forced stop
+awesome.connect_signal("heartbeat::stop_forced_stop", function()
+	forced_stop = false
+end)
