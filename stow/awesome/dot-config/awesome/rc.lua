@@ -50,7 +50,8 @@ local rofi = require("utils.rofi")
 -- Used for run menu:
 local vi_parse = require("utils.vi_parse")
 local revelation = require("utils.revelation")
-require("utils.heartbeat")
+-- Heartbeat timer for caffeinating AwesomeWM:
+local heartbeat = require("utils.heartbeat")
 -- }}}
 
 -- ┏━╸┏━┓┏━┓┏━┓┏━┓   ╻ ╻┏━┓┏┓╻╺┳┓╻  ╻┏┓╻┏━╸
@@ -120,6 +121,7 @@ tag.connect_signal("request::default_layouts", function()
 	}
 end)
 revelation.init()
+heartbeat.init()
 -- }}}
 
 -- ╻ ╻╻┏┓ ┏━┓┏━┓
