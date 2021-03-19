@@ -1,3 +1,4 @@
+-- luacheck: globals awesome
 local awful = require("awful")
 local gears = require("gears")
 
@@ -11,8 +12,13 @@ local apps = {
 local timeout = 120
 -- What command to run to stop screensaver:
 local delay_command = "xscreensaver-command -deactivate"
+local stop_now = false
 
 function check()
+	if stop_now then
+		awful.spawn(delay_command)
+		return
+	end
 	awful.spawn.easy_async_with_shell("pactl list sink-inputs", function(out)
 		local playing = false
 		local stop = false
@@ -40,10 +46,14 @@ function check()
 	end)
 end
 
-local heartbeat_timer = gears.timer{
+gears.timer{
 	timeout = timeout,
 	autostart = true,
 	call_now = false,
 	callback = check
 }
+
+awesome.connect_signal("heartbeat::stop_now", function()
+	stop_now = not stop_now
+end)
 
