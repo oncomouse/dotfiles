@@ -50,6 +50,7 @@ local rofi = require("utils.rofi")
 -- Used for run menu:
 local vi_parse = require("utils.vi_parse")
 local revelation = require("utils.revelation")
+require("utils.heartbeat")
 -- }}}
 
 -- ┏━╸┏━┓┏━┓┏━┓┏━┓   ╻ ╻┏━┓┏┓╻╺┳┓╻  ╻┏┓╻┏━╸
