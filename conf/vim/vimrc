@@ -475,6 +475,7 @@ call plug#end()
       if has('nvim-0.5')
         :lua << EOF
   local lspconfig = require('lspconfig')
+  -- vim.lsp.set_log_level('debug')
  
   local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -519,25 +520,17 @@ call plug#end()
     }
   }
   -- VSCode LSPs need some fake settings to work:
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
   local vscode_lsps = {
     'cssls',
     'jsonls',
     'html',
   }
-  for _, lsp in ipairs(servers) do
+  for _, lsp in ipairs(vscode_lsps) do
     lspconfig[lsp].setup {
       on_attach = on_attach,
-      settings = {
-        capabilities = {
-          textDocument = {
-            completion = {
-              completionItem = {
-                 snippetSupport = true
-              }
-            }
-          }
-        }
-      }
+      capabilities = capabilities,
     }
   end
 EOF
