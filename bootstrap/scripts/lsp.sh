@@ -58,4 +58,5 @@ DIR="$dir/extension/server"
 \$DIR/bin/$platform/lua-language-server -E -e LANG=en \$DIR/main.lua \$*
 # vim:ft=bash
 EOF
+  chmod +x ~/.local/bin/sumneko-lua-language-server
 fi
