@@ -495,11 +495,8 @@ call plug#end()
   local servers = {
     'tsserver',
     'vimls',
-    'jsonls',
     'jedi_language_server',
     'solargraph' ,
-    'html',
-    'cssls',
     'bashls',
   }
   for _, lsp in ipairs(servers) do
@@ -521,6 +518,28 @@ call plug#end()
       }
     }
   }
+  -- VSCode LSPs need some fake settings to work:
+  local vscode_lsps = {
+    'cssls',
+    'jsonls',
+    'html',
+  }
+  for _, lsp in ipairs(servers) do
+    lspconfig[lsp].setup {
+      on_attach = on_attach,
+      settings = {
+        capabilities = {
+          textDocument = {
+            completion = {
+              completionItem = {
+                 snippetSupport = true
+              }
+            }
+          }
+        }
+      }
+    }
+  end
 EOF
       else
         nmap <silent> <F2> <Plug>(dotfiles-rename)
