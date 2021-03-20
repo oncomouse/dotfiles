@@ -19,21 +19,21 @@ mv vscode/resources/app/extensions/css-language-features "$dir"
 mv vscode/resources/app/extensions/json-language-features "$dir"
 rm -rf vscode
 mkdir -p ~/.local/bin
-cat <<EOF > ~/.local/bin/vscode-json-language-server
+cat <<EOF > ~/.local/bin/json-languageserver
 #!/usr/bin/env bash
 node $dir/json-language-features/server/dist/node/jsonServerMain.js \$*
 EOF
-chmod +x ~/.local/bin/vscode-json-language-server
-cat <<EOF > ~/.local/bin/vscode-html-language-server
+chmod +x ~/.local/bin/json-languageserver
+cat <<EOF > ~/.local/bin/html-languageserver
 #!/usr/bin/env bash
 node $dir/html-language-features/server/dist/node/htmlServerMain.js \$*
 EOF
-chmod +x ~/.local/bin/vscode-html-language-server
-cat <<EOF > ~/.local/bin/vscode-css-language-server
+chmod +x ~/.local/bin/html-languageserver
+cat <<EOF > ~/.local/bin/css-languageserver
 #!/usr/bin/env bash
 node $dir/css-language-features/server/dist/node/cssServerMain.js \$*
 EOF
-chmod +x ~/.local/bin/vscode-css-language-server
+chmod +x ~/.local/bin/css-languageserver
 
 # Install Sumneko LSP:
 platform="Linux"
