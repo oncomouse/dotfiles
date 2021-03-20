@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 ## Install Node.js Modules
 # Setup a local to user global npm path:
+os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 mkdir -p "${HOME}/.npm-packages/lib"
 npm config set prefix "${HOME}/.npm-packages"
 if which npm > /dev/null 2>&1; then
@@ -23,7 +24,6 @@ if which npm > /dev/null 2>&1; then
     npminstall 'prettier'
     npminstall 'js-beautify'
     npminstall 'htmlhint'
-    npminstall 'vscode-langservers-extracted'
     # Required by typescript-language-server:
     npminstall 'typescript'
     npminstall 'typescript-language-server'
