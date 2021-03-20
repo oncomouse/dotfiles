@@ -252,11 +252,17 @@ endif
       let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
       let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
       let g:fastfold_minlines = 0
-      Plug 'Yggdroot/indentLine' " Indent with characters
+      " if has('nvim-0.5')
+      "   Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
+      "   let g:indent_blankline_char_highlight_list = 'Comment'
+      "   let g:indent_blankline_space_char_highlight = 'Comment'
+      " else
+        Plug 'Yggdroot/indentLine' " Indent with characters
+      " endif
       let g:indentLine_setColors = 1
       let g:indentLine_char = "\u22EE"
       let g:indentLine_color_term = 11
-      let g:indentLine_fileTypeExclude = ['markdown', 'fzf']
+      let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
       Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
     " }}}
     " Syntax: {{{
