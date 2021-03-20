@@ -2,21 +2,29 @@
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 # Install VSCode LSPs:
 platform="linux-x64"
-if [[ $os == "mac" ]]; then
+if [[ $os == "macos" ]]; then
   platform="darwin-universal"
 fi
-curl -sLo vscode.tar.gz https://update.code.visualstudio.com/latest/"$platform"/stable
 rm -rf vscode
 mkdir vscode
-tar -xzf vscode.tar.gz -C vscode --strip-components 1
-rm vscode.tar.gz
+if [[ $os == "macos" ]]; then
+  curl -sLo vscode.zip https://update.code.visualstudio.com/latest/"$platform"/stable
+  unzip vscode.zip -d vscode > /dev/null
+  rm vscode.zip
+  vscode_dir="vscode/Visual Studio Code.app/Contents/Resources/"
+else
+  curl -sLo vscode.tar.gz https://update.code.visualstudio.com/latest/"$platform"/stable
+  tar -xzf vscode.tar.gz -C vscode --strip-components 1
+  rm vscode.tar.gz
+  vscode_dir="vscode/resources/"
+fi
 dir=~/.local/share/vscode-ls
 [ -d $dir ] && rm -rf $dir
 mkdir -p $dir
-mv vscode/resources/app/extensions/node_modules "$dir"
-mv vscode/resources/app/extensions/html-language-features "$dir"
-mv vscode/resources/app/extensions/css-language-features "$dir"
-mv vscode/resources/app/extensions/json-language-features "$dir"
+mv "$vscode_dir"app/extensions/node_modules "$dir"
+mv "$vscode_dir"app/extensions/html-language-features "$dir"
+mv "$vscode_dir"app/extensions/css-language-features "$dir"
+mv "$vscode_dir"app/extensions/json-language-features "$dir"
 rm -rf vscode
 mkdir -p ~/.local/bin
 cat <<EOF > ~/.local/bin/json-languageserver
@@ -37,7 +45,7 @@ chmod +x ~/.local/bin/css-languageserver
 
 # Install Sumneko LSP:
 platform="Linux"
-if [[ $os == "mac" ]]; then
+if [[ "$os" == "macos" ]]; then
   platform="macOS"
 fi
 version="1.19.0"
@@ -48,7 +56,7 @@ dir=~/.local/share/sumneko-lua-language-server-"$version"
 if [[ ! -d $dir ]]; then
   mkdir -p "$dir"
   curl -L "$url" -o "$dir/$asset"
-  unzip "$dir/$asset" -d "$dir"
+  unzip "$dir/$asset" -d "$dir" > /dev/null
   rm "$dir/$asset"
   chmod +x "$dir/extension/server/bin/$platform/lua-language-server"
   mkdir -p ~/.local/bin
