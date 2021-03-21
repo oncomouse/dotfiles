@@ -48,12 +48,12 @@ platform="Linux"
 if [[ "$os" == "macos" ]]; then
   platform="macOS"
 fi
-version="1.19.0"
-url="https://github.com/sumneko/vscode-lua/releases/download/v$version/lua-$version.vsix"
-asset="vscode-lua.vsix"
+version="$(curl https://api.github.com/repos/sumneko/vscode-lua/releases/latest -s | jq -r .tag_name | sed -e s/^v//)"
 
 dir=~/.local/share/sumneko-lua-language-server-"$version"
 if [[ ! -d $dir ]]; then
+  url="https://github.com/sumneko/vscode-lua/releases/download/v$version/lua-$version.vsix"
+  asset="vscode-lua.vsix"
   mkdir -p "$dir"
   curl -L "$url" -o "$dir/$asset"
   unzip "$dir/$asset" -d "$dir" > /dev/null
