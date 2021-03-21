@@ -374,7 +374,6 @@ endif
             Plug 'neovim/nvim-lspconfig'
             Plug 'nvim-treesitter/nvim-treesitter'
             Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-            Plug 'nvim-treesitter/playground'
           else
             Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
@@ -450,12 +449,6 @@ if has('nvim-0.5') && (g:dotfiles_mode ==# 'desktop')
 local ts_configs = require('nvim-treesitter.configs')
 ts_configs.setup{
   ensure_installed = "maintained",
-  playground = {
-    enable = true,
-    disable = {},
-    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-    persist_queries = false -- Whether the query persists across vim sessions
-  },
   highlight = {
     enable = true,
   },
