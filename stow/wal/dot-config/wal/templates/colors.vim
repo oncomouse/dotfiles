@@ -117,7 +117,7 @@ highlight! VimGroup guifg={color5} ctermfg=5
 highlight! Underlined gui=underline guifg={foreground} cterm=underline ctermfg=15
 highlight! Ignore guibg={color8} guifg={color7} ctermbg=8 ctermfg=7
 " hi Conceal guibg={color7} guifg={color8} ctermbg=7 ctermfg=8
-highlight! Conceal guifg=Grey30 ctermfg=239 guibg=NONE ctermbg=NONE
+highlight! Conceal guifg=Grey30 ctermfg=239 guibg=NONE ctermbg=NONE cterm=nocombine gui=nocombine
 
 highlight! SpellBad guibg={color1} guifg={background} ctermbg=1 ctermfg=0
 highlight! SpellCap guibg={color3} guifg={background} ctermbg=3 ctermfg=0
