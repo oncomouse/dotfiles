@@ -252,23 +252,31 @@ endif
       let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
       let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
       let g:fastfold_minlines = 0
-      " if has('nvim-0.5')
-      "   Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
-      "   let g:indent_blankline_char_highlight_list = 'Comment'
-      "   let g:indent_blankline_space_char_highlight = 'Comment'
-      " else
+      if has('nvim-0.5')
+        Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' } " Indent with characters and no conceal
+        let g:indent_blankline_char_highlight = 'Conceal'
+        let g:indent_blankline_space_char_highlight = 'Conceal'
+        let g:indent_blankline_use_treesitter = v:true
+        let g:indent_blankline_show_first_indent_level = v:false
+        let g:indent_blankline_char = "\u22EE"
+        let g:indent_blankline_filetype_exclude = ['markdown', 'fzf', 'help']
+        let g:indent_blankline_show_trailing_blankline_indent = v:false
+      else
         Plug 'Yggdroot/indentLine' " Indent with characters
-      " endif
-      let g:indentLine_setColors = 1
-      let g:indentLine_char = "\u22EE"
-      let g:indentLine_color_term = 11
-      let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
+        let g:indentLine_char = "\u22EE"
+        let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
+      endif
       Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
     " }}}
     " Syntax: {{{
       Plug 'baskerville/vim-sxhkdrc' " Sxhkd syntax
-      Plug 'cespare/vim-toml' " TOML syntax
-      Plug 'neoclide/vim-jsx-improve' " JSX (javascriptreact) Syntax
+      if !has('nvim-0.5')
+        Plug 'cespare/vim-toml' " TOML syntax
+        Plug 'neoclide/vim-jsx-improve' " JSX (javascriptreact) Syntax
+        Plug 'elzr/vim-json' " JSON Syntax
+        let g:vim_json_syntax_conceal = 0
+        Plug 'tbastos/vim-lua' " Lua Syntax
+      endif
       Plug 'plasticboy/vim-markdown' " Markdown Syntax
       let g:vim_markdown_frontmatter = 1 " Format YAML
       let g:vim_markdown_strikethrough = 0 " Don't format strikethrough
@@ -277,9 +285,6 @@ endif
       let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
       Plug 'cakebaker/scss-syntax.vim' " SCSS Syntax
       Plug 'oncomouse/vim-fish' " Fish Syntax & Async Completion
-      Plug 'elzr/vim-json' " JSON Syntax
-      let g:vim_json_syntax_conceal = 0
-      Plug 'tbastos/vim-lua' " Lua Syntax
       Plug 'neovimhaskell/haskell-vim' " Haskell Syntax
       " Plug 'janet-lang/janet.vim' " Janet Syntax
       " Plug 'bakpakin/fennel.vim' " Fennel Syntax
@@ -306,24 +311,26 @@ endif
       " Plug 'Olical/conjure', {'tag': 'v4.7.0'} " Conjure REPL Bridge
       " Plug 'Olical/aniseed' " Use Fennel in nvim
       " Plug 'tpope/vim-sexp-mappings-for-regular-people' " Better Sexp Mappings
-      Plug 'jpalardy/vim-slime' " <c-c><c-c> to send visual selection to REPL
-      let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
+      " Plug 'jpalardy/vim-slime' " <c-c><c-c> to send visual selection to REPL
+      " let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
       " Autorepl automatically starts a repl on language load and connects to
       " slime:
-      Plug 'oncomouse/vim-autorepl'
-      let g:autorepl_commands = {
-            \'haskell': '~/.ghcup/bin/ghci',
-            \'janet': '/usr/local/bin/janet -e "(import spork/netrepl) (netrepl/server)"',
-            \'javascript': {'command': '/usr/local/bin/node', 'auto': 0},
-            \'ruby': {'command': '~/.asdf/shims/irb', 'auto': 0},
-            \}
+      " Plug 'oncomouse/vim-autorepl'
+      " let g:autorepl_commands = {
+      "       \'haskell': '~/.ghcup/bin/ghci',
+      "       \'janet': '/usr/local/bin/janet -e "(import spork/netrepl) (netrepl/server)"',
+      "       \'javascript': {'command': '/usr/local/bin/node', 'auto': 0},
+      "       \'ruby': {'command': '~/.asdf/shims/irb', 'auto': 0},
+      "       \}
     " }}}
     " Text Object Plugins: {{{
       Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
-      Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
-      Plug 'rhysd/vim-textobj-ruby' " ar for ruby objects
-      Plug 'thinca/vim-textobj-function-javascript' " js function support
-      Plug 'bps/vim-textobj-python' " function and class support for Python
+      if !has('nvim-0.5')
+        Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
+        Plug 'rhysd/vim-textobj-ruby' " ar for ruby objects
+        Plug 'thinca/vim-textobj-function-javascript' " js function support
+        Plug 'bps/vim-textobj-python' " function and class support for Python
+      endif
     " }}}
     " Autocomplete: {{{
       " Need NeoYank for some lists to implement yank history:
@@ -366,6 +373,8 @@ endif
           if has('nvim-0.5')
             Plug 'neovim/nvim-lspconfig'
             Plug 'nvim-treesitter/nvim-treesitter'
+            Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+            Plug 'nvim-treesitter/playground'
           else
             Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
@@ -434,6 +443,66 @@ endif
     " }}}
   endif
 call plug#end()
+" }}}
+" Treesitter {{{
+if has('nvim-0.5') && (g:dotfiles_mode ==# 'desktop')
+:lua <<EOF
+local ts_configs = require('nvim-treesitter.configs')
+ts_configs.setup{
+  ensure_installed = "maintained",
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false -- Whether the query persists across vim sessions
+  },
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+  },
+  move = {
+    enable = true,
+    goto_next_start = {
+      ["]m"] = "@function.outer",
+      ["]]"] = "@class.outer",
+    },
+    goto_next_end = {
+      ["]M"] = "@function.outer",
+      ["]["] = "@class.outer",
+    },
+    goto_previous_start = {
+      ["[m"] = "@function.outer",
+      ["[["] = "@class.outer",
+    },
+    goto_previous_end = {
+      ["[M"] = "@function.outer",
+      ["[]"] = "@class.outer",
+    },
+  },
+  lsp_interop = {
+    enable = true,
+    peek_definition_code = {
+      ["df"] = "@function.outer",
+      ["dF"] = "@class.outer",
+    },
+  },
+}
+EOF
+endif
 " }}}
 " Maps: {{{
   " Select whole file
@@ -530,7 +599,6 @@ call plug#end()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   local vscode_lsps = {
     'cssls',
-    'jsonls',
     'html',
   }
   for _, lsp in ipairs(vscode_lsps) do
@@ -539,6 +607,11 @@ call plug#end()
       capabilities = capabilities,
     }
   end
+  lspconfig['jsonls'].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = {'json-languageserver', '--stdio'},
+  }
 EOF
       else
         nmap <silent> <F2> <Plug>(dotfiles-rename)
