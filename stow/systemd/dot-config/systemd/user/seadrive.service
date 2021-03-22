@@ -7,7 +7,6 @@ Environment=SEADRIVE_CONFIG_FILE="%h/.config/seadrive/seadrive.conf"
 Environment=SEADRIVE_DATA_DIR="%h/.local/share/seadrive/data/"
 Environment=SEADRIVE_LOG_FILE="%h/.local/share/seadrive/logs/seadrive.log"
 Environment=SEADRIVE_MOUNT_DIR="%h/Seadrive"
-; Environment=SEADRIVE_SHADOW_MOUNT_DIR="%h/.local/share/seadrive/Seafile"
 ExecStart=/usr/local/bin/seadrive \
   -f \
   -c ${SEADRIVE_CONFIG_FILE} \
@@ -15,7 +14,6 @@ ExecStart=/usr/local/bin/seadrive \
   -l ${SEADRIVE_LOG_FILE} \
   ${SEADRIVE_MOUNT_DIR}
 Restart=always
-; ExecStartPost=/bin/sh -c 'sleep 1; for f in "${SEADRIVE_SHADOW_MOUNT_DIR}/My Libraries"/*; do ln -sf "$f" "${SEADRIVE_MOUNT_DIR}/$(basename "$f")"; done; exit 0'
 ExecStopPost=/bin/sh -c 'fusermount -uz ${SEADRIVE_MOUNT_DIR}; exit 0'
 
 [Install]
