@@ -24,7 +24,7 @@ endif
   let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
   let g:complete_package = 'clap' " fzf, clap, or coc.nvim
   " Location of BiBLaTeX repo:
-  let g:bibliography_file = expand('~/Seafile/My Library/Documents/Academic Stuff/library.bib')
+  let g:bibliography_file = expand('~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib')
   " This avoids highlighting big files:
   let g:large_file = 20*1024*1024
   " Set RTP for Wal stuff:

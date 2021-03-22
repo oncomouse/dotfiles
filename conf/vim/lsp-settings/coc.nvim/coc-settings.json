@@ -124,7 +124,7 @@
     "json"
   ],
   "list.source.bibtex.files": [
-    "/Users/apilsch/Seafile/My Library/Documents/Academic Stuff/library.bib"
+    "/Users/apilsch/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
   ],
   "languageserver": {
     "citation": {
@@ -133,7 +133,7 @@
       "settings": {
         "citation": {
           "bibliographies": [
-            "/Users/apilsch/Seafile/My Library/Documents/Academic Stuff/library.bib"
+            "/Users/apilsch/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
           ]
         }
       }

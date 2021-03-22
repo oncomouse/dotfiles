@@ -18,7 +18,6 @@ cd "$oldpwd" || exit
 mkdir -p ~/.config/seadrive
 mkdir -p ~/.local/share/seadrive/data
 mkdir -p ~/.local/share/seadrive/logs
-mkdir -p ~/.local/share/seadrive/Seafile
 cp "$HOME/dotfiles/conf/seadrive/seadrive.conf.template" ~/.config/seadrive/seadrive.conf
 
 echo 'Run curl -d "username=USERNAME" -d "password=PASSWORD" -H "X-SEAFILE-OTP: 2FA_KEY" https://SEAFILE_SERVER/api2/auth-token/'

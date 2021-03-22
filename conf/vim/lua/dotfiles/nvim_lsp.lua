@@ -32,7 +32,7 @@ lspconfig['citation_lsp'].setup{
 	settings = {
 		citation = {
 			bibliographies = {
-			'~/Seafile/My Library/Documents/Academic Stuff/library.bib'
+			'~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib'
 			}
 		}
 	}

@@ -524,7 +524,7 @@ awful.keyboard.append_global_keybindings({
 awful.keyboard.append_global_keybindings({
 	awful.key({}, "Print", function()
 		awful.spawn.with_shell(
-			"sleep 0.2 && " .. "scrot ~/'Seafile/My Library/Photos/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'"
+			"sleep 0.2 && " .. "scrot ~/'Seadrive/My Libraries/My Library/Photos/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'"
 		)
 	end, {
 		description = "take a screenshot",
@@ -532,7 +532,7 @@ awful.keyboard.append_global_keybindings({
 	}),
 	awful.key({ "Shift" }, "Print", function()
 		awful.spawn.with_shell(
-			"sleep 0.2 && " .. "scrot -s ~/'Seafile/My Library/Photos/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'"
+			"sleep 0.2 && " .. "scrot -s ~/'Seadrive/My Libraries/My Library/Photos/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'"
 		)
 	end, {
 		description = "take a screenshot (select region)",
