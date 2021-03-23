@@ -22,7 +22,10 @@ endif
 " }}}
 " Dotfiles Settings: {{{
   let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
-  let g:complete_package = 'clap' " fzf, clap, or coc.nvim
+  let g:complete_package = 'clap' " fzf, telescope, clap, or coc.nvim
+  if has('nvim-0.5') && g:complete_package ==# 'clap'
+    let g:complete_package = 'telescope'
+  endif
   " Location of BiBLaTeX repo:
   let g:bibliography_file = expand('~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib')
   " This avoids highlighting big files:
@@ -351,6 +354,11 @@ endif
             Plug 'neovim/nvim-lspconfig'
             Plug 'nvim-treesitter/nvim-treesitter'
             Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+            if g:complete_package ==# 'telescope'
+              Plug 'nvim-lua/popup.nvim'
+              Plug 'nvim-lua/plenary.nvim'
+              Plug 'nvim-telescope/telescope.nvim'
+            endif
           else
             Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
