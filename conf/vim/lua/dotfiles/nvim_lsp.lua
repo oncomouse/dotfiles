@@ -2,6 +2,8 @@
 local lspconfig = require('lspconfig')
 -- vim.lsp.set_log_level('debug')
 
+-- Disable diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 
 local on_attach = function(_, bufnr)
 	-- Once codelens is setup:
