@@ -17,6 +17,8 @@ if status --is-login
   add_to_user_paths ~/.ghcup/bin
   # NPM Local:
   add_to_user_paths ~/.npm-packages/bin
+  # Luarocks:
+  add_to_user_paths ~/.luarocks/bin
 
   # NPM Local manpath:
   set -q MANPATH || set MANPATH ''
