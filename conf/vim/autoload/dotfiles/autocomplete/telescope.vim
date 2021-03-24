@@ -1,7 +1,7 @@
 function! dotfiles#autocomplete#telescope#init() abort
   " Old FZF Interface:
   command Files :exe 'Telescope find_files'
-  command Buffers :exe 'lua require("telescope.builtin").buffers({ sort_lastused = true, ignore_current_buffer = true })'
+  command Buffers :exe 'lua require("telescope.builtin").buffers({ sort_lastused = true, ignore_current_buffer = true, show_all_buffers = true })'
   " , sorter = require("telescope.sorters").get_substr_matcher()
   command! Windows :exe ''
   command! BLines :exe 'Telescope current_buffer_fuzzy_find'
