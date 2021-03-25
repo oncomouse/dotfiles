@@ -245,10 +245,10 @@ end)
 -- ┣┻┓┣╸ ┗┳┛   ┣┻┓┃┃┗┫ ┃┃┃┃┗┫┃╺┓┗━┓
 -- ╹ ╹┗━╸ ╹    ┗━┛╹╹ ╹╺┻┛╹╹ ╹┗━┛┗━┛
 -- Mouse bindings{{{
-awful.mouse.append_global_mousebindings({
-    awful.button({ }, 4, awful.tag.viewprev),
-    awful.button({ }, 5, awful.tag.viewnext),
-})
+-- awful.mouse.append_global_mousebindings({
+--     awful.button({ }, 4, awful.tag.viewprev),
+--     awful.button({ }, 5, awful.tag.viewnext),
+-- })
 -- }}}
 -- {{{ Key bindings
 awful.keyboard.append_global_keybindings({
