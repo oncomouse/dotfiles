@@ -11,8 +11,9 @@ require('lualine').setup{
 	lualine_x = {'encoding', 'filetype'}, -- 'fileformat',
 	lualine_y = {'progress'},
 	lualine_z = {'location', {
-	  'diagnostics',
-	  sources = { 'ale' },
+		'diagnostics',
+		sources = { 'ale' },
+		symbols = {error = ' ', warn = ' ', info = ' '}
 	},},
   },
 }
