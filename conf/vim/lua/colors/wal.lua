@@ -252,6 +252,9 @@ function wal.after_scheme()
 		xmlEndTag = { fg=wal.cyan },
 		Defx_filename_directory = { fg=wal.blue },
 
+		TelescopeBorder = { fg=wal.blue },
+		TelescopePromptBorder = { fg=wal.cyan },
+
 		CocErrorSign = { fg=wal.red },
 		CocWarningSign = { fg=wal.yellow },
 		CocInfoSign = { fg=wal.blue },
@@ -321,7 +324,7 @@ function wal.scheme()
 		SpecialKey = { fg=wal.base03 },
 		TooLong = { fg=wal.red },
 		Underlined = { fg=wal.red },
-		Visual = { bg=wal.base02 },
+		Visual = { bg=wal.base02, fg=wal.base00 },
 		VisualNOS = { fg=wal.red },
 		WarningMsg = { fg=wal.red },
 		WildMenu = { fg=wal.base05, bg=wal.blue },
