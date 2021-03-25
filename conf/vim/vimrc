@@ -30,10 +30,6 @@ endif
   let g:bibliography_file = expand('~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib')
   " This avoids highlighting big files:
   let g:large_file = 20*1024*1024
-  " Set RTP for Wal stuff:
-  if g:dotfiles_mode ==# 'desktop'
-    let &runtimepath .= ','.expand('~/.cache/wal/vim/')
-  endif
 " }}}
 " Basic Vim Settings: {{{
   set mouse=a " Mouse support
@@ -77,8 +73,6 @@ endif
   " prevent a condition where vim lags due to searching include files.
   set complete-=i
 
-  " Statusline:
-  set statusline=%!dotfiles#statusline#statusline()
 " }}}
 " Tabs: {{{
   set tabstop=8
@@ -174,6 +168,9 @@ endif
     \ ]
   " }}}
   " General Editing: {{{
+    if has('nvim')
+      Plug 'hoob3rt/lualine.nvim'
+    endif
     Plug 'sickill/vim-pasta' " Indentation-forward pasting
     Plug 'tpope/vim-repeat'
     Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
@@ -229,9 +226,13 @@ endif
       Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
     endif
   " }}}
+  " Mac Colors {{{
+  if has('mac') || g:dotfiles_mode ==# 'server'
+    Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
+  endif
+  " }}}
   " Server-Only {{{
     if g:dotfiles_mode ==# 'server'
-      Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
       Plug 'sheerun/vim-polyglot'
     endif
   " }}}
@@ -430,56 +431,14 @@ call plug#end()
 " }}}
 " Treesitter {{{
 if has('nvim-0.5') && (g:dotfiles_mode ==# 'desktop')
-:lua <<EOF
-local ts_configs = require('nvim-treesitter.configs')
-ts_configs.setup{
-  ensure_installed = "maintained",
-  highlight = {
-    enable = true,
-  },
-  indent = {
-    enable = true,
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-      },
-    },
-  },
-  move = {
-    enable = true,
-    goto_next_start = {
-      ["]m"] = "@function.outer",
-      ["]]"] = "@class.outer",
-    },
-    goto_next_end = {
-      ["]M"] = "@function.outer",
-      ["]["] = "@class.outer",
-    },
-    goto_previous_start = {
-      ["[m"] = "@function.outer",
-      ["[["] = "@class.outer",
-    },
-    goto_previous_end = {
-      ["[M"] = "@function.outer",
-      ["[]"] = "@class.outer",
-    },
-  },
-  lsp_interop = {
-    enable = true,
-    peek_definition_code = {
-      ["df"] = "@function.outer",
-      ["dF"] = "@class.outer",
-    },
-  },
-}
-EOF
+  lua require('dotfiles.treesitter')
+endif
+" }}}
+" Statusline: {{{
+if has('nvim')
+  lua require('dotfiles.lualine')
+else
+  set statusline=%!dotfiles#statusline#statusline()
 endif
 " }}}
 " Maps: {{{
@@ -542,7 +501,7 @@ endif
 " }}}
 " Theme: {{{
 set background=dark
-" Only use termguicolors if in desktop mode:
+" Fancy Colors for Desktop Mode:
 if g:dotfiles_mode ==# 'desktop'
   if exists('+termguicolors')
     let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"

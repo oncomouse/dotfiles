@@ -52,10 +52,6 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
         parents=True, exist_ok=True
     )
     copyfile(
-        "{}/.cache/wal/colors.vim".format(home),
-        "{}/.cache/wal/vim/colors/wal.vim".format(home),
-    )
-    copyfile(
         "{}/.cache/wal/colors-clap.vim".format(home),
         "{}/.cache/wal/vim/autoload/clap/themes/wal.vim".format(home),
     )
