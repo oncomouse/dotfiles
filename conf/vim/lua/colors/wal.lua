@@ -19,13 +19,13 @@ local wal = {
 	color14 = { c = 14, gui = json_scheme.colors.color14 and json_scheme.colors.color14 or "#00FFFF" },
 	color15 = { c = 15, gui = json_scheme.colors.color15 and json_scheme.colors.color15 or "#FFFFFF" },
 	base00 = { c = 235, gui = json_scheme.colors.base00 and json_scheme.colors.base00 or json_scheme.colors.color0 },
-	base01 = { c = 237, gui = json_scheme.colors.base01 and json_scheme.colors.base01 or json_scheme.colors.color0 },
-	base02 = { c = 240, gui = json_scheme.colors.base02 and json_scheme.colors.base02 or json_scheme.colors.color0 },
-	base03 = { c = 243, gui = json_scheme.colors.base03 and json_scheme.colors.base03 or json_scheme.colors.color0 },
-	base04 = { c = 145, gui = json_scheme.colors.base04 and json_scheme.colors.base04 or json_scheme.colors.color0 },
-	base05 = { c = 251, gui = json_scheme.colors.base05 and json_scheme.colors.base05 or json_scheme.colors.color0 },
-	base06 = { c = 252, gui = json_scheme.colors.base06 and json_scheme.colors.base06 or json_scheme.colors.color0 },
-	base07 = { c = 253, gui = json_scheme.colors.base07 and json_scheme.colors.base07 or json_scheme.colors.color0 },
+	base01 = { c = 237, gui = json_scheme.colors.base01 and json_scheme.colors.base01 or json_scheme.colors.color8 },
+	base02 = { c = 240, gui = json_scheme.colors.base02 and json_scheme.colors.base02 or "#585858" },
+	base03 = { c = 243, gui = json_scheme.colors.base03 and json_scheme.colors.base03 or "#767676" },
+	base04 = { c = 145, gui = json_scheme.colors.base04 and json_scheme.colors.base04 or json_scheme.colors.color7 },
+	base05 = { c = 251, gui = json_scheme.colors.base05 and json_scheme.colors.base05 or json_scheme.colors.color15 },
+	base06 = { c = 252, gui = json_scheme.colors.base06 and json_scheme.colors.base06 or "#d0d0d0" },
+	base07 = { c = 253, gui = json_scheme.colors.base07 and json_scheme.colors.base07 or "#dadada" },
 	red = { c = 5, gui = json_scheme.colors.base08 and json_scheme.colors.red or json_scheme.colors.color5 },
 	orange = { c = 1, gui = json_scheme.colors.base09 and json_scheme.colors.base09 or json_scheme.colors.color1 },
 	yellow = { c = 3, gui = json_scheme.colors.base0A and json_scheme.colors.base0A or json_scheme.colors.color3 },
@@ -38,14 +38,14 @@ local wal = {
 
 function wal.terminal_colors()
 	vim.g.terminal_color_0 = wal.color0.gui
-	vim.g.terminal_color_1 = wal.orange.gui
-	vim.g.terminal_color_2 = wal.green.gui
-	vim.g.terminal_color_3 = wal.yellow.gui
-	vim.g.terminal_color_4 = wal.blue.gui
-	vim.g.terminal_color_5 = wal.red.gui
-	vim.g.terminal_color_6 = wal.cyan.gui
-	vim.g.terminal_color_7 = wal.base04.gui
-	vim.g.terminal_color_8 = wal.base01.gui
+	vim.g.terminal_color_1 = wal.color1.gui
+	vim.g.terminal_color_2 = wal.color2.gui
+	vim.g.terminal_color_3 = wal.color3.gui
+	vim.g.terminal_color_4 = wal.color4.gui
+	vim.g.terminal_color_5 = wal.color5.gui
+	vim.g.terminal_color_6 = wal.color6.gui
+	vim.g.terminal_color_7 = wal.color7.gui
+	vim.g.terminal_color_8 = wal.color8.gui
 	vim.g.terminal_color_9 = wal.color9.gui
 	vim.g.terminal_color_10 = wal.color10.gui
 	vim.g.terminal_color_11 = wal.color11.gui
