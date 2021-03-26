@@ -1,7 +1,7 @@
 -- luacheck: globals vim
 local function wordcount()
 	local ft = vim.bo.filetype
-	if ft == 'markdown' or ft == 'vimwiki' or ft == 'txt' then
+	if ft == 'markdown' or ft == 'vimwiki' or ft == 'text' then
 		return vim.fn.wordcount().words .. ' words'
 	else
 		return ''
@@ -34,6 +34,7 @@ require('lualine').setup{
 				color = {
 					gui='none',
 				},
+				left_padding = 0,
 			},
 		},
 		lualine_y = {},
