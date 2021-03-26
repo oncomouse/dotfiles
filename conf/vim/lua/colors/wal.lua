@@ -134,7 +134,7 @@ function wal.after_scheme()
 		TSText = { fg = wal.green },
 		TSType = { fg = wal.blue },
 		TSTypeBuiltin = { fg = wal.blue },
-		TSURI = { link = "markdownUrl" },
+		TSURI = { style="underline", bg=wal.base01 },
 		TSUnderline = {style="underline"},
 		TSVariable = { fg = wal.yellow },
 		TSVariableBuiltin = { fg = wal.red },
