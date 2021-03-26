@@ -18,6 +18,7 @@ local wal = {
 	color13 = { c = 13, gui = json_scheme.colors.color13 and json_scheme.colors.color13 or "#FF00FF" },
 	color14 = { c = 14, gui = json_scheme.colors.color14 and json_scheme.colors.color14 or "#00FFFF" },
 	color15 = { c = 15, gui = json_scheme.colors.color15 and json_scheme.colors.color15 or "#FFFFFF" },
+	-- Base16 Colors are optional, so we guess for them:
 	base00 = { c = 235, gui = json_scheme.colors.base00 and json_scheme.colors.base00 or json_scheme.colors.color0 },
 	base01 = { c = 237, gui = json_scheme.colors.base01 and json_scheme.colors.base01 or json_scheme.colors.color8 },
 	base02 = { c = 240, gui = json_scheme.colors.base02 and json_scheme.colors.base02 or "#585858" },
