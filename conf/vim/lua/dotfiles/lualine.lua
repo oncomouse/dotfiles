@@ -7,6 +7,9 @@ local function wordcount()
 		return ''
 	end
 end
+local function custom_location()
+	return [[%l/%L:%c]]
+end
 require('lualine').setup{
 	options = {
 		section_separators = '',
@@ -40,14 +43,15 @@ require('lualine').setup{
 		lualine_y = {},
 		lualine_z = {
 			{
-				'location',
-				color = {
-					gui='none',
-				},
+				custom_location,
+				-- color = {
+				-- 	gui='none',
+				-- },
 				padding = 0,
-				left_padding = 0,
+				left_padding = 1,
 				right_padding = 1,
-			}, {
+			},
+			{
 				'diagnostics',
 				sources = { 'ale' },
 				symbols = {error = ' ', warn = ' ', info = ' '},
