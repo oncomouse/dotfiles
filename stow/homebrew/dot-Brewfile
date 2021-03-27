@@ -95,3 +95,4 @@ cask "keycast" # Visualize keystrokes on-screen, great for teaching
 cask "grandperspective" # Visualize disk usage
 cask "seadrive" # File sharing
 # vim: filetype=conf
+efm-langserver

@@ -62,3 +62,4 @@ pipewire-pulse
 pipewire-jack
 unclutter
 luarocks
+efm-langserver
