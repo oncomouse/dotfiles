@@ -3,7 +3,11 @@ local lspconfig = require('lspconfig')
 -- vim.lsp.set_log_level('debug')
 
 -- Disable diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+
+local no_diagnostics = {
+	["textDocument/publishDiagnostics"] = function() end
+}
 
 local on_attach = function(_, bufnr)
 	-- Once codelens is setup:
@@ -20,17 +24,20 @@ local servers = {
 }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
-	on_attach = on_attach,
+		on_attach = on_attach,
+		handlers = no_diagnostics,
 	}
 end
 
-lspconfig['sumneko_lua'].setup{
+lspconfig.sumneko_lua.setup{
 	on_attach = on_attach,
-	cmd = {'sumneko-lua-language-server'}
+	cmd = {'sumneko-lua-language-server'},
+	handlers = no_diagnostics,
 }
 
-lspconfig['citation_lsp'].setup{
+lspconfig.citation_lsp.setup{
 	on_attach = on_attach,
+	handlers = no_diagnostics,
 	settings = {
 		citation = {
 			bibliographies = {
@@ -48,12 +55,44 @@ local vscode_lsps = {
 }
 for _, lsp in ipairs(vscode_lsps) do
 	lspconfig[lsp].setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
+		on_attach = on_attach,
+		handlers = no_diagnostics,
+		capabilities = capabilities,
 	}
 end
-lspconfig['jsonls'].setup {
+lspconfig.jsonls.setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
+	handlers = no_diagnostics,
 	cmd = {'json-languageserver', '--stdio'},
 }
+
+-- local luafmt = require('dotfiles.efm-lsp.luafmt')
+-- local prettier = require('dotfiles.efm-lsp.prettier')
+-- local eslint = require('dotfiles.efm-lsp.eslint')
+-- local html_hint = require('dotfiles.efm-lsp.html-hint')
+-- local html_beautify = require('dotfiles.efm-lsp.html-beautify')
+-- local efm_languages = {
+-- 	-- lua = {luafmt},
+-- 	html = {html_hint, html_beautify},
+-- 	typescript = {prettier, eslint},
+-- 	javascript = {prettier, eslint},
+-- 	typescriptreact = {prettier, eslint},
+-- 	javascriptreact = {prettier, eslint},
+-- 	yaml = {prettier},
+-- 	json = {prettier},
+-- 	scss = {prettier},
+-- 	css = {prettier},
+-- 	markdown = {prettier}
+-- }
+-- lspconfig.efm.setup {
+--     root_dir = lspconfig.util.root_pattern(
+-- 		"yarn.lock",
+-- 		"lerna.json",
+-- 		".git"
+-- 	),
+--     filetypes = vim.tbl_keys(efm_languages),
+--     init_options = {documentFormatting = true, codeAction = true},
+--     settings = {languages = efm_languages, log_level = 1, log_file = '~/.cache/nvim/efm.log'},
+--     on_attach = on_attach
+-- }
