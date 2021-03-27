@@ -270,6 +270,7 @@ function wal.after_scheme()
 		CocDiagnosticsHint = { fg=wal.cyan },
 		CocSelectedText = { fg=wal.purple },
 		CocCodeLens = { fg=wal.base04 },
+
 		semshiLocal = { fg=wal.brown},
 		semshiGlobal = { fg=wal.orange},
 		semshiImported = { fg=wal.brown, style="bold"},
@@ -301,6 +302,8 @@ function wal.after_scheme()
 		lualine_z_diagnostics_info_replace = { fg=wal.base01, bg=wal.cyan },
 		lualine_z_diagnostics_info_terminal = { fg=wal.base01, bg=wal.cyan },
 		lualine_z_diagnostics_info_visual = { fg=wal.base01, bg=wal.cyan },
+
+		IndentBlanklineChar = { fg=wal.base01, bg=wal.base00, style="nocombine" },
 	}
 	return scheme
 end

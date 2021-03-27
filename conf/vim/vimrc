@@ -258,8 +258,8 @@ endif
       let g:fastfold_minlines = 0
       if has('nvim-0.5')
         Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' } " Indent with characters and no conceal
-        let g:indent_blankline_char_highlight = 'Conceal'
-        let g:indent_blankline_space_char_highlight = 'Conceal'
+        let g:indent_blankline_char_highlight = 'IndentBlanklineConceal'
+        let g:indent_blankline_space_char_highlight = 'IndentBlanklineConceal'
         let g:indent_blankline_use_treesitter = v:true
         let g:indent_blankline_show_first_indent_level = v:false
         let g:indent_blankline_char = "\u22EE"
