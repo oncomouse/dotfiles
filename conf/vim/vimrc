@@ -22,9 +22,9 @@ endif
 " }}}
 " Dotfiles Settings: {{{
   let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
-  let g:complete_package = 'clap' " fzf, telescope, clap, or coc.nvim
-  if has('nvim-0.5') && g:complete_package ==# 'clap'
-    let g:complete_package = 'telescope'
+  let g:complete_package = 'telescope' " fzf, telescope, or coc.nvim
+  if g:dotfiles_mode ==# 'server' || (g:complete_package ==# 'telescope' && !has('nvim-0.5'))
+    let g:complete_package = 'fzf'
   endif
   " Location of BiBLaTeX repo:
   let g:bibliography_file = expand('~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib')
@@ -168,8 +168,11 @@ endif
     \ ]
   " }}}
   " General Editing: {{{
+    if !has('nvim')
+      Plug 'noahfrederick/vim-neovim-defaults' " Neovim defaults for vim
+    endif
     if has('nvim')
-      Plug 'hoob3rt/lualine.nvim'
+      Plug 'hoob3rt/lualine.nvim' " Statusline for Neovim
     endif
     Plug 'sickill/vim-pasta' " Indentation-forward pasting
     Plug 'tpope/vim-repeat'
@@ -209,7 +212,7 @@ endif
     cnoreabbrev gina Gina
   " }}}
   " List Support: {{{
-    if g:dotfiles_mode ==# 'server' || g:complete_package ==# 'fzf'
+    if g:complete_package ==# 'fzf'
       " macOS Homebrew
       if isdirectory('/usr/local/opt/fzf')
         Plug '/usr/local/opt/fzf'
@@ -224,15 +227,15 @@ endif
         Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
       endif
       Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
+    elseif g:complete_package ==# 'telescope'
+      Plug 'nvim-lua/popup.nvim'
+      Plug 'nvim-lua/plenary.nvim'
+      Plug 'nvim-telescope/telescope.nvim'
     endif
   " }}}
-  " Mac Colors {{{
-  if has('mac') || g:dotfiles_mode ==# 'server'
-    Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
-  endif
-  " }}}
   " Server-Only {{{
-    if g:dotfiles_mode ==# 'server'
+    if !has('nvim') || g:dotfiles_mode ==# 'server'
+      Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
       Plug 'sheerun/vim-polyglot'
     endif
   " }}}
@@ -256,24 +259,14 @@ endif
       let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
       let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
       let g:fastfold_minlines = 0
-      if has('nvim-0.5')
-        Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' } " Indent with characters and no conceal
-        let g:indent_blankline_char_highlight = 'IndentBlanklineConceal'
-        let g:indent_blankline_space_char_highlight = 'IndentBlanklineConceal'
-        let g:indent_blankline_use_treesitter = v:true
-        let g:indent_blankline_show_first_indent_level = v:false
-        let g:indent_blankline_char = "\u22EE"
-        let g:indent_blankline_filetype_exclude = ['markdown', 'fzf', 'help']
-        let g:indent_blankline_show_trailing_blankline_indent = v:false
-      else
-        Plug 'Yggdroot/indentLine' " Indent with characters
-        let g:indentLine_char = "\u22EE"
-        let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
-      endif
+      Plug 'Yggdroot/indentLine' " Indent with characters
+      let g:indentLine_char = "\u22EE"
+      let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
+      let g:indentLine_setColors = 0
+      " endif
       Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
     " }}}
     " Syntax: {{{
-      Plug 'baskerville/vim-sxhkdrc' " Sxhkd syntax
       if !has('nvim-0.5')
         Plug 'cespare/vim-toml' " TOML syntax
         Plug 'neoclide/vim-jsx-improve' " JSX (javascriptreact) Syntax
@@ -291,19 +284,6 @@ endif
       Plug 'oncomouse/vim-fish' " Fish Syntax & Async Completion
       Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " Variable Highlighting for Python
     " }}}
-    " REPL: {{{
-      " Plug 'jpalardy/vim-slime' " <c-c><c-c> to send visual selection to REPL
-      " let g:slime_target = has('nvim') ? 'neovim' : 'vimterminal'
-      " Autorepl automatically starts a repl on language load and connects to
-      " slime:
-      " Plug 'oncomouse/vim-autorepl'
-      " let g:autorepl_commands = {
-      "       \'haskell': '~/.ghcup/bin/ghci',
-      "       \'janet': '/usr/local/bin/janet -e "(import spork/netrepl) (netrepl/server)"',
-      "       \'javascript': {'command': '/usr/local/bin/node', 'auto': 0},
-      "       \'ruby': {'command': '~/.asdf/shims/irb', 'auto': 0},
-      "       \}
-    " }}}
     " Text Object Plugins: {{{
       Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
       if !has('nvim-0.5')
@@ -318,13 +298,6 @@ endif
       if g:complete_package ==# 'fzf'
         Plug 'Shougo/neoyank.vim'
         Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
-      elseif g:complete_package ==# 'clap'
-        Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-        let g:clap_insert_mode_only = v:true
-        let g:clap_search_box_border_style = 'nil'
-        let g:clap_theme = 'wal'
-        let g:clap_always_open_preview = v:false
-        let g:clap_preview_direction = 'UD'
       endif
       " Load LSP + Completion:
       if g:complete_package =~# 'coc.nvim'
@@ -355,16 +328,11 @@ endif
             Plug 'neovim/nvim-lspconfig'
             Plug 'nvim-treesitter/nvim-treesitter'
             Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-            if g:complete_package ==# 'telescope'
-              Plug 'nvim-lua/popup.nvim'
-              Plug 'nvim-lua/plenary.nvim'
-              Plug 'nvim-telescope/telescope.nvim'
-            endif
           else
             Plug 'autozimu/LanguageClient-neovim', {
-            \ 'branch': 'next',
-            \ 'do': 'bash install.sh',
-            \ }
+              \ 'branch': 'next',
+              \ 'do': 'bash install.sh',
+              \ }
             let g:LanguageClient_settingsPath = expand('~/dotfiles/conf/vim/lsp-settings/LanguageClient-neovim/settings.json')
             let g:LanguageClient_useVirtualText = 'CodeLens'
             " Turn off all diagnostic stuff (pump it all to ALE):
@@ -378,23 +346,23 @@ endif
             " Root patterns:
             let g:LanguageClient_rootMarkers = g:rooter_patterns
             let g:LanguageClient_serverCommands = {
-                  \ 'javascript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-                  \ 'javascriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-                  \ 'typescript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-                  \ 'typescriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-                  \ 'python': ['/usr/bin/env', 'jedi-language-server'],
-                  \ 'haskell': ['/usr/bin/env', 'haskell-language-server-wrapper', '--lsp'],
-                  \ 'ruby': ['/usr/bin/env', 'solargraph', 'stdio'],
-                  \ 'json': ['/usr/bin/env', 'json-languageserver', '--stdio'],
-                  \ 'html': ['/usr/bin/env', 'html-languageserver', '--stdio'],
-                  \ 'scss': ['/usr/bin/env', 'css-languageserver', '--stdio'],
-                  \ 'css': ['/usr/bin/env', 'css-languageserver', '--stdio'],
-                  \ 'lua': ['sumneko-lua-language-server'],
-                  \ 'vim': ['/usr/bin/env', 'vim-language-server', '--stdio'],
-                  \ 'markdown': ['/usr/bin/env', 'citation-langserver'],
-                  \ 'bash': ['/usr/bin/env', 'bash-language-server', 'start'],
-                  \ 'sh': ['/usr/bin/env', 'bash-language-server', 'start'],
-                  \}
+              \ 'javascript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+              \ 'javascriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+              \ 'typescript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+              \ 'typescriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+              \ 'python': ['/usr/bin/env', 'jedi-language-server'],
+              \ 'haskell': ['/usr/bin/env', 'haskell-language-server-wrapper', '--lsp'],
+              \ 'ruby': ['/usr/bin/env', 'solargraph', 'stdio'],
+              \ 'json': ['/usr/bin/env', 'json-languageserver', '--stdio'],
+              \ 'html': ['/usr/bin/env', 'html-languageserver', '--stdio'],
+              \ 'scss': ['/usr/bin/env', 'css-languageserver', '--stdio'],
+              \ 'css': ['/usr/bin/env', 'css-languageserver', '--stdio'],
+              \ 'lua': ['sumneko-lua-language-server'],
+              \ 'vim': ['/usr/bin/env', 'vim-language-server', '--stdio'],
+              \ 'markdown': ['/usr/bin/env', 'citation-langserver'],
+              \ 'bash': ['/usr/bin/env', 'bash-language-server', 'start'],
+              \ 'sh': ['/usr/bin/env', 'bash-language-server', 'start'],
+              \}
           endif
         " }}}
         " ALE For Linting: {{{
@@ -512,6 +480,8 @@ if g:dotfiles_mode ==# 'desktop'
       lua require'colorizer'.setup{'*',markdown={names=false},text={names=false}}
     endif
   endif
+endif
+if has('nvim')
   colorscheme wal
 else
   augroup tempus_color_additions
@@ -533,10 +503,10 @@ endif
           \ endif 
   augroup END
   " Load Autocompletion: {{{
-  if g:dotfiles_mode ==# 'desktop'
-    call dotfiles#autocomplete#init()
-  elseif g:dotfiles_mode ==# 'server'
+  if g:complete_package ==# 'fzf'
     call dotfiles#autocomplete#fzf#init()
+  else
+    call dotfiles#autocomplete#init()
   endif
   " }}}
   " Update FASD For NeoVim: {{{
