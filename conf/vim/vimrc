@@ -194,7 +194,7 @@ endif
       let delimitMate_jump_expansion = 1
       let delimitMate_expand_cr = 0
       let delimitMate_expand_space = 1
-      inoremap <expr> <Plug>(dotfiles-autopairs-cr) "<Plug>delimitMateCR"
+      imap <Plug>(dotfiles-autopairs-cr) <Plug>delimitMateCR
       " Autopairs remapping for <CR>
       " Use <C-L> to exit parenthesis:
       imap <C-L> <Plug>delimitMateJumpMany
@@ -561,6 +561,8 @@ endif
       " Turn on CursorLine Highlighting on Insert:
       autocmd InsertEnter,InsertLeave * set cul!
     augroup END
+    " Minimal format, use with set formatprg
+    command! Format :exe "normal! gggqG<C-o>"
   endif
 " }}}
 " # vim:foldmethod=marker
