@@ -345,6 +345,7 @@ endif
               Plug 'neovim/nvim-lspconfig'
               Plug 'nvim-treesitter/nvim-treesitter'
               Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+              Plug 'nvim-treesitter/playground'
             else
               Plug 'autozimu/LanguageClient-neovim', {
                 \ 'branch': 'next',
@@ -451,6 +452,9 @@ endif
   map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+  " if has('nvim-0.5')
+  "   map <F10> :TSHighlightCapturesUnderCursor<CR>
+  " endif
   " Setup CR Mappings: {{{
   " If you ever use a completion plugin, you could remap it here:
   " inoremap <expr> <Plug>(dotfiles-comp-cr) pumvisible() ? 'foobar' :
