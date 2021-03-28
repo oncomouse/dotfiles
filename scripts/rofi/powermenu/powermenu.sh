@@ -115,6 +115,7 @@ case $chosen in
       pause_music
       mute
       # systemctl suspend
+      xscreensaver-command -lock
       xset dpms force off
     elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
       exit 0
