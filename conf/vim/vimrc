@@ -171,7 +171,7 @@ endif
     if !has('nvim')
       Plug 'noahfrederick/vim-neovim-defaults' " Neovim defaults for vim
     endif
-    if has('nvim')
+    if has('nvim-0.5')
       Plug 'hoob3rt/lualine.nvim' " Statusline for Neovim
     endif
     Plug 'sickill/vim-pasta' " Indentation-forward pasting
@@ -181,9 +181,26 @@ endif
     Plug 'airblade/vim-rooter' " Set project root
     let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile'
           \ , 'pyproject.toml', 'setup.py']
-    Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
     Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
-    Plug 'Raimondi/delimitMate' " Auto-pairing
+    " Autopairs and Endwise are the two plugins that remap <CR>, so we combine
+    " them:
+    inoremap <Plug>(dotfiles-autopairs-cr) <CR>
+    if has('nvim-0.5')
+      Plug 'windwp/nvim-autopairs'
+      " Autopairs remapping for <CR>
+      inoremap <expr> <Plug>(dotfiles-autopairs-cr) v:lua.DotUtils.completion_confirm()
+    else
+      Plug 'Raimondi/delimitMate' " Auto-pairing
+      let delimitMate_jump_expansion = 1
+      let delimitMate_expand_cr = 0
+      let delimitMate_expand_space = 1
+      inoremap <expr> <Plug>(dotfiles-autopairs-cr) "<Plug>delimitMateCR"
+      " Autopairs remapping for <CR>
+      " Use <C-L> to exit parenthesis:
+      imap <C-L> <Plug>delimitMateJumpMany
+    endif
+    Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
+    let g:endwise_no_mappings = v:true
     if has('nvim-0.5')
       augroup highlight_yank
         autocmd!
@@ -244,182 +261,185 @@ endif
       if has('nvim')
         Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
       endif
-      Plug 'alvan/vim-closetag' " Automatically close HTML tags
-      let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.js,*.erb'
-      let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
-      let g:closetag_filetypes = 'html,javascriptreact'
-      let g:closetag_close_shortcut = '<leader>>'
-      let g:closetag_regions = {
-        \ 'typescriptreact': 'jsxRegion,tsxRegion',
-        \ 'javascriptreact': 'jsxRegion',
-        \ 'javascript': 'jsxRegion',
-        \ }
-      Plug 'Konfekt/FastFold' " Better fold support
-      let g:fastfold_savehook = 1
-      let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
-      let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-      let g:fastfold_minlines = 0
-      Plug 'Yggdroot/indentLine' " Indent with characters
-      let g:indentLine_char = "\u22EE"
-      let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
-      let g:indentLine_setColors = 0
-      " endif
-      Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
-    " }}}
-    " Syntax: {{{
-      if !has('nvim-0.5')
-        Plug 'cespare/vim-toml' " TOML syntax
-        Plug 'neoclide/vim-jsx-improve' " JSX (javascriptreact) Syntax
-        Plug 'elzr/vim-json' " JSON Syntax
-        let g:vim_json_syntax_conceal = 0
-        Plug 'tbastos/vim-lua' " Lua Syntax
-      endif
-      Plug 'plasticboy/vim-markdown' " Markdown Syntax
-      let g:vim_markdown_frontmatter = 1 " Format YAML
-      let g:vim_markdown_strikethrough = 0 " Don't format strikethrough
-      let g:vim_markdown_conceal = 0 " Don't conceal
-      let g:vim_markdown_conceal_code_blocks = 0 " Don't conceal code blocks
-      let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
-      Plug 'cakebaker/scss-syntax.vim' " SCSS Syntax
-      Plug 'oncomouse/vim-fish' " Fish Syntax & Async Completion
-      Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " Variable Highlighting for Python
-    " }}}
-    " Text Object Plugins: {{{
-      Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
-      if !has('nvim-0.5')
-        Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
-        Plug 'rhysd/vim-textobj-ruby' " ar for ruby objects
-        Plug 'thinca/vim-textobj-function-javascript' " js function support
-        Plug 'bps/vim-textobj-python' " function and class support for Python
-      endif
-    " }}}
-    " Autocomplete: {{{
-      " Need NeoYank for some lists to implement yank history:
-      if g:complete_package ==# 'fzf'
-        Plug 'Shougo/neoyank.vim'
-        Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
-      endif
-      " Load LSP + Completion:
-      if g:complete_package =~# 'coc.nvim'
-        Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-        let g:coc_config_home = expand('~/dotfiles/conf/vim/lsp-settings/coc.nvim/')
-        let g:coc_global_extensions = [
-        \   'coc-calc',
-        \   'coc-css',
-        \   'coc-diagnostic',
-        \   'coc-eslint',
-        \   'coc-fish',
-        \   'coc-html',
-        \   'coc-json',
-        \   'coc-lists',
-        \   'coc-prettier',
-        \   'coc-python',
-        \   'coc-solargraph',
-        \   'coc-stylelintplus',
-        \   'coc-styled-components',
-        \   'coc-tsserver',
-        \   'coc-vimlsp',
-        \   'coc-yaml',
-        \   'coc-yank',
-        \]
-      else
-        " LSP Support: {{{
-          if has('nvim-0.5')
-            Plug 'neovim/nvim-lspconfig'
-            Plug 'nvim-treesitter/nvim-treesitter'
-            Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-          else
-            Plug 'autozimu/LanguageClient-neovim', {
-              \ 'branch': 'next',
-              \ 'do': 'bash install.sh',
-              \ }
-            let g:LanguageClient_settingsPath = expand('~/dotfiles/conf/vim/lsp-settings/LanguageClient-neovim/settings.json')
-            let g:LanguageClient_useVirtualText = 'CodeLens'
-            " Turn off all diagnostic stuff (pump it all to ALE):
-            let g:LanguageClient_diagnosticsEnable = 0
-            " Debug:
-            " let g:LanguageClient_loggingFile = expand('~/lc.log')
-            " let g:LanguageClient_loggingLevel = 'DEBUG'
-            " Always use hover:
-            let g:LanguageClient_useFloatingHover = 0
-            let g:LanguageClient_hoverPreview = 'Auto'
-            " Root patterns:
-            let g:LanguageClient_rootMarkers = g:rooter_patterns
-            let g:LanguageClient_serverCommands = {
-              \ 'javascript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-              \ 'javascriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-              \ 'typescript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-              \ 'typescriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-              \ 'python': ['/usr/bin/env', 'jedi-language-server'],
-              \ 'haskell': ['/usr/bin/env', 'haskell-language-server-wrapper', '--lsp'],
-              \ 'ruby': ['/usr/bin/env', 'solargraph', 'stdio'],
-              \ 'json': ['/usr/bin/env', 'json-languageserver', '--stdio'],
-              \ 'html': ['/usr/bin/env', 'html-languageserver', '--stdio'],
-              \ 'scss': ['/usr/bin/env', 'css-languageserver', '--stdio'],
-              \ 'css': ['/usr/bin/env', 'css-languageserver', '--stdio'],
-              \ 'lua': ['sumneko-lua-language-server'],
-              \ 'vim': ['/usr/bin/env', 'vim-language-server', '--stdio'],
-              \ 'markdown': ['/usr/bin/env', 'citation-langserver'],
-              \ 'bash': ['/usr/bin/env', 'bash-language-server', 'start'],
-              \ 'sh': ['/usr/bin/env', 'bash-language-server', 'start'],
+        Plug 'alvan/vim-closetag' " Automatically close HTML tags
+        let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.js,*.erb'
+        let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
+        let g:closetag_filetypes = 'html,javascriptreact'
+        let g:closetag_close_shortcut = '<leader>>'
+        let g:closetag_regions = {
+          \ 'typescriptreact': 'jsxRegion,tsxRegion',
+          \ 'javascriptreact': 'jsxRegion',
+          \ 'javascript': 'jsxRegion',
+          \ }
+        Plug 'Konfekt/FastFold' " Better fold support
+        let g:fastfold_savehook = 1
+        let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
+        let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+        let g:fastfold_minlines = 0
+        Plug 'Yggdroot/indentLine' " Indent with characters
+        let g:indentLine_char = "\u22EE"
+        let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
+        let g:indentLine_setColors = 0
+        " endif
+        Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
+      " }}}
+      " Syntax: {{{
+        if !has('nvim-0.5')
+          Plug 'cespare/vim-toml' " TOML syntax
+          Plug 'neoclide/vim-jsx-improve' " JSX (javascriptreact) Syntax
+          Plug 'elzr/vim-json' " JSON Syntax
+          let g:vim_json_syntax_conceal = 0
+          Plug 'tbastos/vim-lua' " Lua Syntax
+        endif
+        Plug 'plasticboy/vim-markdown' " Markdown Syntax
+        let g:vim_markdown_frontmatter = 1 " Format YAML
+        let g:vim_markdown_strikethrough = 0 " Don't format strikethrough
+        let g:vim_markdown_conceal = 0 " Don't conceal
+        let g:vim_markdown_conceal_code_blocks = 0 " Don't conceal code blocks
+        let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
+        Plug 'cakebaker/scss-syntax.vim' " SCSS Syntax
+        Plug 'oncomouse/vim-fish' " Fish Syntax & Async Completion
+        Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " Variable Highlighting for Python
+      " }}}
+      " Text Object Plugins: {{{
+        Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
+        if !has('nvim-0.5')
+          Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
+          Plug 'rhysd/vim-textobj-ruby' " ar for ruby objects
+          Plug 'thinca/vim-textobj-function-javascript' " js function support
+          Plug 'bps/vim-textobj-python' " function and class support for Python
+        endif
+      " }}}
+      " Autocomplete: {{{
+        " Need NeoYank for some lists to implement yank history:
+        if g:complete_package ==# 'fzf'
+          Plug 'Shougo/neoyank.vim'
+          Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
+        endif
+        " Load LSP + Completion:
+        if g:complete_package =~# 'coc.nvim'
+          Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+          let g:coc_config_home = expand('~/dotfiles/conf/vim/lsp-settings/coc.nvim/')
+          let g:coc_global_extensions = [
+          \   'coc-calc',
+          \   'coc-css',
+          \   'coc-diagnostic',
+          \   'coc-eslint',
+          \   'coc-fish',
+          \   'coc-html',
+          \   'coc-json',
+          \   'coc-lists',
+          \   'coc-prettier',
+          \   'coc-python',
+          \   'coc-solargraph',
+          \   'coc-stylelintplus',
+          \   'coc-styled-components',
+          \   'coc-tsserver',
+          \   'coc-vimlsp',
+          \   'coc-yaml',
+          \   'coc-yank',
+          \]
+        else
+          " LSP Support: {{{
+            if has('nvim-0.5')
+              Plug 'neovim/nvim-lspconfig'
+              Plug 'nvim-treesitter/nvim-treesitter'
+              Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+            else
+              Plug 'autozimu/LanguageClient-neovim', {
+                \ 'branch': 'next',
+                \ 'do': 'bash install.sh',
+                \ }
+              let g:LanguageClient_settingsPath = expand('~/dotfiles/conf/vim/lsp-settings/LanguageClient-neovim/settings.json')
+              let g:LanguageClient_useVirtualText = 'CodeLens'
+              " Turn off all diagnostic stuff (pump it all to ALE):
+              let g:LanguageClient_diagnosticsEnable = 0
+              " Debug:
+              " let g:LanguageClient_loggingFile = expand('~/lc.log')
+              " let g:LanguageClient_loggingLevel = 'DEBUG'
+              " Always use hover:
+              let g:LanguageClient_useFloatingHover = 0
+              let g:LanguageClient_hoverPreview = 'Auto'
+              " Root patterns:
+              let g:LanguageClient_rootMarkers = g:rooter_patterns
+              let g:LanguageClient_serverCommands = {
+                \ 'javascript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+                \ 'javascriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+                \ 'typescript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+                \ 'typescriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+                \ 'python': ['/usr/bin/env', 'jedi-language-server'],
+                \ 'haskell': ['/usr/bin/env', 'haskell-language-server-wrapper', '--lsp'],
+                \ 'ruby': ['/usr/bin/env', 'solargraph', 'stdio'],
+                \ 'json': ['/usr/bin/env', 'json-languageserver', '--stdio'],
+                \ 'html': ['/usr/bin/env', 'html-languageserver', '--stdio'],
+                \ 'scss': ['/usr/bin/env', 'css-languageserver', '--stdio'],
+                \ 'css': ['/usr/bin/env', 'css-languageserver', '--stdio'],
+                \ 'lua': ['sumneko-lua-language-server'],
+                \ 'vim': ['/usr/bin/env', 'vim-language-server', '--stdio'],
+                \ 'markdown': ['/usr/bin/env', 'citation-langserver'],
+                \ 'bash': ['/usr/bin/env', 'bash-language-server', 'start'],
+                \ 'sh': ['/usr/bin/env', 'bash-language-server', 'start'],
+                \}
+            endif
+          " }}}
+          " ALE For Linting: {{{
+            Plug 'dense-analysis/ale'
+            let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+            let g:ale_cursor_detail = 0
+            " Always use preview for hover (only used w/ JS languages):
+            " let g:ale_hover_to_preview = 1
+            " We let our LSP client handle LSPs:
+            let g:ale_disable_lsp = 1
+            let g:ale_fix_on_save = 1
+            let g:ale_pattern_options = {
+              \  '\.min.js$': {'ale_enabled': 0},
+              \  'build/.*$': {'ale_enabled': 0},
               \}
-          endif
-        " }}}
-        " ALE For Linting: {{{
-          Plug 'dense-analysis/ale'
-          let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-          let g:ale_cursor_detail = 0
-          " Always use preview for hover (only used w/ JS languages):
-          " let g:ale_hover_to_preview = 1
-          " We let our LSP client handle LSPs:
-          let g:ale_disable_lsp = 1
-          let g:ale_fix_on_save = 1
-          let g:ale_pattern_options = {
-            \  '\.min.js$': {'ale_enabled': 0},
-            \  'build/.*$': {'ale_enabled': 0},
-            \}
-          let g:ale_set_signs = 0 " Turn off sign column
-        " }}}
-      endif
-    " }}}
-    " Writing: {{{
-      Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
-      Plug 'reedes/vim-textobj-sentence', { 'for': ['markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
-      Plug 'reedes/vim-textobj-quote', { 'for': ['markdown', 'text'] } " Makes aq & iq for smart quotes
-      let g:textobj#quote#educate = 0
-      " Initialize the plugin when it is dynamically loaded:
-      augroup load-sentence
-        autocmd!
-        autocmd User vim-textobj-sentence call textobj#sentence#init()
-        autocmd User vim-textobj-quote call textobj#quote#init()
-      augroup END
-    " }}}
+            let g:ale_set_signs = 0 " Turn off sign column
+          " }}}
+        endif
+      " }}}
+      " Writing: {{{
+        Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
+        Plug 'reedes/vim-textobj-sentence', { 'for': ['markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
+        Plug 'reedes/vim-textobj-quote', { 'for': ['markdown', 'text'] } " Makes aq & iq for smart quotes
+        let g:textobj#quote#educate = 0
+        " Initialize the plugin when it is dynamically loaded:
+        augroup load-sentence
+          autocmd!
+          autocmd User vim-textobj-sentence call textobj#sentence#init()
+          autocmd User vim-textobj-quote call textobj#quote#init()
+        augroup END
+      " }}}
+    endif
+  call plug#end()
+  " }}}
+  " Treesitter {{{
+  if has('nvim-0.5') && (g:dotfiles_mode ==# 'desktop')
+    lua require('dotfiles.treesitter')
   endif
-call plug#end()
-" }}}
-" Treesitter {{{
-if has('nvim-0.5') && (g:dotfiles_mode ==# 'desktop')
-  lua require('dotfiles.treesitter')
-endif
-" }}}
-" Statusline: {{{
-if has('nvim')
-  lua require('dotfiles.lualine')
-else
-  set statusline=%!dotfiles#statusline#statusline()
-endif
-" }}}
-" Maps: {{{
-  " Select whole file
-  nnoremap <leader>vf ggVG
-  " Clear currently highlighted regexp:
-  nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
-  " Highlight a block and type "@" to run a macro on the block:
-  xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
-  " <F4> makes:
-  nnoremap <silent><buffer> <F4> :make!<CR>
-  " Update fast folds:
-  nmap zuz <Plug>(FastFoldUpdate)
+  if has('nvim-0.5')
+    lua require('dotfiles.autopairs')
+  endif
+  " }}}
+  " Statusline: {{{
+  if has('nvim-0.5')
+    lua require('dotfiles.lualine')
+  else
+    set statusline=%!dotfiles#statusline#statusline()
+  endif
+  " }}}
+  " Maps: {{{
+    " Select whole file
+    nnoremap <leader>vf ggVG
+    " Clear currently highlighted regexp:
+    nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
+    " Highlight a block and type "@" to run a macro on the block:
+    xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
+    " <F4> makes:
+    nnoremap <silent><buffer> <F4> :make!<CR>
+    " Update fast folds:
+    nmap zuz <Plug>(FastFoldUpdate)
   " Navigate quickfix:
   nnoremap <silent> ]q :cnext<CR>
   nnoremap <silent> [q :cprevious<CR>
@@ -431,6 +451,13 @@ endif
   map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+  " Setup CR Mappings: {{{
+  " If you ever use a completion plugin, you could remap it here:
+  " inoremap <expr> <Plug>(dotfiles-comp-cr) pumvisible() ? 'foobar' :
+  " "<Plug-autopairs-cr>"
+  imap <Plug>(dotfiles-cr) <Plug>(dotfiles-autopairs-cr)
+  imap <CR> <Plug>(dotfiles-cr)<Plug>DiscretionaryEnd
+  " }}}
   " Standard Fuzzy Bindings: {{{
     " Every list source we could implement (see g:complete_package) implements
     " these commmands, so I can use CoC and it implements the FZF
