@@ -391,7 +391,7 @@ endif
             " let g:ale_hover_to_preview = 1
             " We let our LSP client handle LSPs:
             let g:ale_disable_lsp = 1
-            let g:ale_fix_on_save = 1
+            let g:ale_fix_on_save = 0
             let g:ale_pattern_options = {
               \  '\.min.js$': {'ale_enabled': 0},
               \  'build/.*$': {'ale_enabled': 0},
