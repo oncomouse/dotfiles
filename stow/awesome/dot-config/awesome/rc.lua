@@ -84,7 +84,8 @@ beautiful.layout_centeredmonocle = gears.color.recolor_image(
 )
 beautiful.useless_gap = 0 -- No gaps
 beautiful.border_normal = xrdb.color8 -- Normal border color
-beautiful.border_focus = xrdb.color7 -- Focused border color
+beautiful.border_focus = xrdb.color1 -- Focused border color
+beautiful.border_width = 1
 -- Fonts
 beautiful.font = "FiraCode Nerd Font Normal 14"
 beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
