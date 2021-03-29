@@ -430,6 +430,10 @@ endif
     set statusline=%!dotfiles#statusline#statusline()
   endif
   " }}}
+  " Commands: {{{
+    " Format using built-in formatter:
+    command! Format :exe "normal! gggqG<C-o>"
+  "}}}
   " Maps: {{{
     " Select whole file
     nnoremap <leader>vf ggVG
@@ -561,8 +565,6 @@ endif
       " Turn on CursorLine Highlighting on Insert:
       autocmd InsertEnter,InsertLeave * set cul!
     augroup END
-    " Minimal format, use with set formatprg
-    command! Format :exe "normal! gggqG<C-o>"
   endif
 " }}}
 " # vim:foldmethod=marker
