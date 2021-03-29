@@ -20,6 +20,7 @@ if which npm > /dev/null 2>&1; then
     npminstall 'neovim' 
     npminstall 'jsonlint' 
     npminstall 'prettier'
+    npminstall 'prettier-semi-cli'
     npminstall 'js-beautify'
     npminstall 'htmlhint'
     # Required by typescript-language-server:
