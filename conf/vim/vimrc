@@ -432,7 +432,6 @@ endif
   " }}}
   " Commands: {{{
     " Format using built-in formatter:
-    command! Format :exe "normal! gggqG<C-o>"
   "}}}
   " Maps: {{{
     " Select whole file
@@ -560,6 +559,8 @@ endif
 " }}}
 " Server Only Settings: {{{
   if dotfiles_mode ==# 'server'
+    " Minimal format for server mode:
+    command! Format :exe "normal! gggqG<C-o>"
     augroup dotfiles-server-au
       autocmd!
       " Turn on CursorLine Highlighting on Insert:
