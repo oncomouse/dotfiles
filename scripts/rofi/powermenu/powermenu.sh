@@ -22,8 +22,7 @@
 theme="full_square"
 dir="$HOME/dotfiles/conf/rofi/powermenu"
 
-color="\~\/.cache\/wal\/colors-powermenu"
-
+# color="\~\/.cache\/wal\/colors-powermenu"
 # comment this line to disable random colors
 # sed -i -e "s/@import .*/@import \"$color\"/g" "$dir"/styles/colors.rasi
 

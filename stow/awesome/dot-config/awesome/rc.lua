@@ -32,6 +32,29 @@ local ruled = require("ruled")
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
+-- Load xrdb colors:
+local xrdb = beautiful.xresources.get_current_theme()
+x = {
+	background = xrdb.background,
+	foreground = xrdb.foreground,
+	color0 = xrdb.color0,
+	color1 = xrdb.color1,
+	color2 = xrdb.color2,
+	color3 = xrdb.color3,
+	color4 = xrdb.color4,
+	color5 = xrdb.color5,
+	color6 = xrdb.color6,
+	color7 = xrdb.color7,
+	color8 = xrdb.color8,
+	color9 = xrdb.color9,
+	color10 = xrdb.color10,
+	color11 = xrdb.color11,
+	color12 = xrdb.color12,
+	color13 = xrdb.color13,
+	color14 = xrdb.color14,
+	color15 = xrdb.color15,
+}
+
 -- Notification library
 local naughty = require("naughty")
 -- Hotkeys
@@ -52,6 +75,7 @@ local vi_parse = require("utils.vi_parse")
 local revelation = require("utils.revelation")
 -- Heartbeat timer for caffeinating AwesomeWM:
 local heartbeat = require("utils.heartbeat")
+require("widgets.powermenu")
 -- }}}
 
 -- ┏━╸┏━┓┏━┓┏━┓┏━┓   ╻ ╻┏━┓┏┓╻╺┳┓╻  ╻┏┓╻┏━╸
@@ -73,9 +97,6 @@ end)
 -- ┣━┫┣━┛┣━┛┣╸ ┣━┫┣┳┛┣━┫┃┗┫┃  ┣╸
 -- ╹ ╹╹  ╹  ┗━╸╹ ╹╹┗╸╹ ╹╹ ╹┗━╸┗━╸
 -- {{{ Appearance
--- Load xrdb colors:
-local xrdb = beautiful.xresources.get_current_theme()
-
 -- Themes define colours, icons, font and wallpapers. {{{
 beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
 beautiful.layout_centeredmonocle = gears.color.recolor_image(
@@ -83,8 +104,8 @@ beautiful.layout_centeredmonocle = gears.color.recolor_image(
 	beautiful.fg_normal
 )
 beautiful.useless_gap = 0 -- No gaps
-beautiful.border_normal = xrdb.color8 -- Normal border color
-beautiful.border_focus = xrdb.color1 -- Focused border color
+beautiful.border_normal = x.color8 -- Normal border color
+beautiful.border_focus = x.color1 -- Focused border color
 beautiful.border_width = 1
 -- Fonts
 beautiful.font = "FiraCode Nerd Font Normal 14"
@@ -100,15 +121,15 @@ beautiful.widget_space = {
 beautiful.bar_height = 24
 beautiful.bar_position = "top"
 -- Hotkey formatting:
-beautiful.hotkeys_modifiers_fg = xrdb.color4
+beautiful.hotkeys_modifiers_fg = x.color4
 -- Titlebar formatting:
-beautiful.titlebar_bg_focus = xrdb.color7
+beautiful.titlebar_bg_focus = x.color7
 -- Tasklist formatting:
 beautiful.tasklist_disable_icon = true -- No icons in tasklist
 --- }}}
 
 -- Set the background:
-gears.wallpaper.set(xrdb.background)
+gears.wallpaper.set(x.background)
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
 -- Default modkey.
@@ -517,7 +538,7 @@ awful.keyboard.append_global_keybindings({
 		description = "show the menubar",
 		group = "launcher",
 	}),
-	awful.key({ modkey, "Shift" }, "p", rofi.powermenu, {
+	awful.key({ modkey, "Shift" }, "p", function() awesome.emit_signal('module::exit_screen:show') end, {
 		description = "show main menu",
 		group = "launcher",
 	}),
