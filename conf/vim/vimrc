@@ -83,9 +83,9 @@ endif
     augroup my-tabstops
       autocmd!
       " Go, Lua
-      autocmd FileType markdown,c,cpp,go,lua,sxhkdrc setlocal tabstop=4
-      autocmd FileType markdown,c,cpp,go,lua,sxhkdrc setlocal shiftwidth=4
-      autocmd FileType markdown,c,cpp,go,lua,sxhkdrc setlocal noexpandtab
+      autocmd FileType markdown,c,cpp,go,lua setlocal tabstop=4
+      autocmd FileType markdown,c,cpp,go,lua setlocal shiftwidth=4
+      autocmd FileType markdown,c,cpp,go,lua setlocal noexpandtab
       " Python
       autocmd FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
       " JavaScript
@@ -182,25 +182,27 @@ endif
     let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile'
           \ , 'pyproject.toml', 'setup.py']
     Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
-    " Autopairs and Endwise are the two plugins that remap <CR>, so we combine
-    " them:
-    inoremap <Plug>(dotfiles-autopairs-cr) <CR>
-    if has('nvim-0.5')
-      Plug 'windwp/nvim-autopairs'
-      " Autopairs remapping for <CR>
-      inoremap <expr> <Plug>(dotfiles-autopairs-cr) v:lua.DotUtils.completion_confirm()
-    else
-      Plug 'Raimondi/delimitMate' " Auto-pairing
-      let delimitMate_jump_expansion = 1
-      let delimitMate_expand_cr = 0
-      let delimitMate_expand_space = 1
-      imap <Plug>(dotfiles-autopairs-cr) <Plug>delimitMateCR
-      " Autopairs remapping for <CR>
-      " Use <C-L> to exit parenthesis:
-      imap <C-L> <Plug>delimitMateJumpMany
-    endif
-    Plug 'tpope/vim-endwise' " Add 'end' to the end of functions
-    let g:endwise_no_mappings = v:true
+    Plug 'cohama/lexima.vim' " Autopairs + Endwise
+    function! s:make_rule(at, end, filetype, syntax)
+      return {
+      \ 'char': '<CR>',
+      \ 'input': '<CR>',
+      \ 'input_after': '<CR>' . a:end,
+      \ 'at': a:at,
+      \ 'except': '\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1' . a:end,
+      \ 'filetype': a:filetype,
+      \ 'syntax': a:syntax,
+      \ }
+    endfunction
+    function! s:extend_endwise() abort
+      " Lua endwise rules:
+      call lexima#add_rule(s:make_rule('^\s*\zs\%(\%(local\s\+\)\=function\)\>\%(.*\<end\>\)\@!\|\<\%(then\|do\)\ze\s*\%#', 'end', 'lua', []))
+    endfunction
+    augroup lexima-startup
+      autocmd!
+      autocmd VimEnter * call s:extend_endwise()
+    augroup END
+    inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
     if has('nvim-0.5')
       augroup highlight_yank
         autocmd!
@@ -419,9 +421,6 @@ endif
   if has('nvim-0.5') && (g:dotfiles_mode ==# 'desktop')
     lua require('dotfiles.treesitter')
   endif
-  if has('nvim-0.5')
-    lua require('dotfiles.autopairs')
-  endif
   " }}}
   " Statusline: {{{
   if has('nvim-0.5')
@@ -458,13 +457,6 @@ endif
   " if has('nvim-0.5')
   "   map <F10> :TSHighlightCapturesUnderCursor<CR>
   " endif
-  " Setup CR Mappings: {{{
-  " If you ever use a completion plugin, you could remap it here:
-  " inoremap <expr> <Plug>(dotfiles-comp-cr) pumvisible() ? 'foobar' :
-  " "<Plug-autopairs-cr>"
-  imap <Plug>(dotfiles-cr) <Plug>(dotfiles-autopairs-cr)
-  imap <CR> <Plug>(dotfiles-cr)<Plug>DiscretionaryEnd
-  " }}}
   " Standard Fuzzy Bindings: {{{
     " Every list source we could implement (see g:complete_package) implements
     " these commmands, so I can use CoC and it implements the FZF
