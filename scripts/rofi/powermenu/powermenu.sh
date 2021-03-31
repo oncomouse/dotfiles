@@ -113,9 +113,9 @@ case $chosen in
     if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
       pause_music
       mute
-      # systemctl suspend
-      xscreensaver-command -lock
-      xset dpms force off
+      systemctl suspend
+      # xscreensaver-command -lock
+      # xset dpms force off
     elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
       exit 0
     else

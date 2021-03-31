@@ -35,8 +35,8 @@ prompt {
 }
 
 textbox-prompt-colon {
-	expand: 						true;
-	str: 							"System |";
+	expand: 						false;
+	str: 							"";
 	background-color: 				@background-alt;
 	text-color: 					@foreground;
     padding:                        1% 0.5% 1% 0.5%;
