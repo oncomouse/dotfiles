@@ -75,7 +75,6 @@ local vi_parse = require("utils.vi_parse")
 local revelation = require("utils.revelation")
 -- Heartbeat timer for caffeinating AwesomeWM:
 local heartbeat = require("utils.heartbeat")
-require("widgets.powermenu")
 -- }}}
 
 -- ┏━╸┏━┓┏━┓┏━┓┏━┓   ╻ ╻┏━┓┏┓╻╺┳┓╻  ╻┏┓╻┏━╸
@@ -538,7 +537,7 @@ awful.keyboard.append_global_keybindings({
 		description = "show the menubar",
 		group = "launcher",
 	}),
-	awful.key({ modkey, "Shift" }, "p", function() awesome.emit_signal('module::exit_screen:show') end, {
+	awful.key({ modkey, "Shift" }, "p", rofi.powermenu, {
 		description = "show main menu",
 		group = "launcher",
 	}),
