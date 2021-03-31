@@ -453,7 +453,14 @@ endif
   nnoremap <silent> ]q :cnext<CR>
   nnoremap <silent> [q :cprevious<CR>
   " Grep project:
-  nnoremap <silent> <leader>/ :execute 'Grep ' . input('Grep/')<CR>
+  function s:grep_or_qfgrep()
+    if &buftype ==# 'quickfix'
+      call QFGrep#grep_QuickFix(0) 
+    else
+      execute 'Grep ' . input('Grep/')
+    endif 
+  endfunction
+  nnoremap <silent> <leader>/ <cmd>call <SID>grep_or_qfgrep()<CR>
   " Calculator (not sure how this works):
   inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
   " Shortcut to view current syntax highlighting group:
