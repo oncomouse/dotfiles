@@ -263,6 +263,9 @@ endif
       if has('nvim')
         Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
       endif
+      if has('nvim-0.5')
+        Plug 'windwp/nvim-ts-autotag', { 'branch': 'main' } " Auotmatically close HTML tags
+      else
         Plug 'alvan/vim-closetag' " Automatically close HTML tags
         let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.js,*.erb'
         let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
@@ -273,18 +276,19 @@ endif
           \ 'javascriptreact': 'jsxRegion',
           \ 'javascript': 'jsxRegion',
           \ }
-        Plug 'Konfekt/FastFold' " Better fold support
-        let g:fastfold_savehook = 1
-        let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
-        let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-        let g:fastfold_minlines = 0
-        Plug 'Yggdroot/indentLine' " Indent with characters
-        let g:indentLine_char = "\u22EE"
-        let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
-        let g:indentLine_setColors = 0
-        " endif
-        Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
-      " }}}
+      endif
+      Plug 'Konfekt/FastFold' " Better fold support
+      let g:fastfold_savehook = 1
+      let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
+      let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+      let g:fastfold_minlines = 0
+      Plug 'Yggdroot/indentLine' " Indent with characters
+      let g:indentLine_char = "\u22EE"
+      let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
+      let g:indentLine_setColors = 0
+      " endif
+      Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
+    " }}}
       " Syntax: {{{
         if !has('nvim-0.5')
           Plug 'cespare/vim-toml' " TOML syntax

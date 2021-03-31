@@ -46,4 +46,7 @@ ts_configs.setup{
 			["dF"] = "@class.outer",
 		},
 	},
+	autotag = {
+		enable = true,
+	}
 }
