@@ -26,6 +26,7 @@ package.path = package.path .. addtional_path
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
+awful.util.shell="/usr/bin/dash"
 -- Rules
 local ruled = require("ruled")
 -- Widget and layout library

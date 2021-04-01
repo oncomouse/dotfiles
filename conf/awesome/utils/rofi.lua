@@ -55,11 +55,11 @@ function rofi.client_flags(c)
 	local x = c.x
 	local y = c.y
 
-	local cmd = "echo -e \"" .. opts .. "\" | " ..
+	local cmd = "printf '%s' \"" .. opts .. "\" | " ..
 		" rofi -dmenu -matching fuzzy -auto-select" ..
 		" -p flags: -location 1 -width " .. w .. " -xoffset " .. x ..
 		" -yoffset " .. y
-	spawn.easy_async({"bash", "-c", cmd}, function(output)
+	spawn.easy_async_with_shell(cmd, function(output)
 		for k in string.gmatch(output, ". (%S+)") do
 			if k == "sticky" then
 				c.sticky = not c.sticky
