@@ -304,6 +304,34 @@ function wal.after_scheme()
 		lualine_z_diagnostics_info_visual = { fg=wal.base01, bg=wal.cyan },
 
 		IndentBlanklineChar = { fg=wal.base01, bg=wal.base00, style="nocombine" },
+		-- highlight! VisualMode guifg={background} ctermfg=0 guibg={color9} ctermbg=9 cterm=bold gui=bold
+		-- highlight! InsertMode guifg={background} ctermfg=0 guibg={color2} ctermbg=2 cterm=bold gui=bold
+		-- highlight! ReplaceMode guifg={background} ctermfg=0 guibg={color13} ctermbg=13 cterm=bold gui=bold
+		-- highlight! CommandMode guifg={background} ctermfg=0 guibg={color6} ctermbg=6 cterm=bold gui=bold
+		-- " #C594C5 182
+		-- highlight! TerminalMode guifg={background} ctermfg=0 guibg=#CC9CCF ctermbg=182 cterm=bold gui=bold
+		-- highlight! NormalMode guifg={background} ctermfg=0 guibg={color4} ctermbg=4 cterm=bold gui=bold
+		-- highlight! VisualModeInv guifg={color9} ctermfg=9 guibg={background} ctermbg=none cterm=NONE gui=NONE
+		-- highlight! InsertModeInv guifg={color2} ctermfg=2 guibg={background} ctermbg=none cterm=NONE gui=NONE
+		-- highlight! ReplaceModeInv guifg={color13} ctermfg=13 guibg={background} ctermbg=none cterm=NONE gui=NONE
+		-- highlight! CommandModeInv guifg={color6} ctermfg=6 guibg={background} ctermbg=none cterm=NONE gui=NONE
+		-- highlight! TerminalModeInv guifg={color12} ctermfg=12 guibg={background} ctermbg=none cterm=NONE gui=NONE
+		-- highlight! NormalModeInv guifg={color4} ctermfg=4 guibg={background} ctermbg=none cterm=NONE gui=NONE
+		-- highlight! StatusLine guifg={color8} ctermfg=8 guibg=NONE ctermbg=NONE cterm=NONE gui=NONE
+		-- highlight! StatusLineNC guifg={color11} ctermfg=11 guibg={color8} ctermbg=8 cterm=NONE gui=NONE
+		-- highlight! StatusLineTerm guifg={color10} ctermfg=10 guibg={color2} ctermbg=2 cterm=NONE gui=NONE
+		-- highlight! StatusLineTermNC guifg={color11} ctermfg=11 guibg={color8} ctermbg=8 cterm=NONE gui=NONE
+		-- highlight! User1 ctermfg=7 guifg={color7} ctermbg=8 guibg={color8} cterm=NONE gui=NONE
+		-- highlight! link User2 Normal
+		-- highlight! StatusWarning guifg={color8} ctermfg=8 guibg={color3} ctermbg=3 cterm=NONE gui=NONE
+		-- highlight! StatusError guifg={color8} ctermfg=8 guibg={color1} ctermbg=1 cterm=NONE gui=NONE
+		-- highlight! StatusOk guifg={foreground} ctermfg=15 guibg={color8} ctermbg=8 cterm=NONE gui=NONE
+		-- highlight! StatusWarningInv guibg={background} ctermfg=none guifg={color3} ctermfg=3 cterm=NONE gui=NONE
+		-- highlight! StatusErrorInv guibg={background} ctermfg=none guifg={color1} ctermfg=1 cterm=NONE gui=NONE
+		-- highlight! StatusOkInv guibg={background} ctermfg=none guifg={color8} ctermfg=8 cterm=NONE gui=NONE
+		-- highlight! StatusInfoInv ctermfg=8 guifg={color8} ctermbg=none guibg={background} cterm=NONE gui=NONE
+		-- highlight! StatusLineInfo guifg={foreground} ctermfg=15 guibg=#4a4a4b ctermbg=238 cterm=NONE gui=NONE
+		-- highlight! StatusLineInfoInv guifg=#4a4a4b ctermfg=238 ctermbg=1 guibg={background} cterm=NONE gui=NON
 	}
 	return scheme
 end

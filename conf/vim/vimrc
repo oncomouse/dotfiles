@@ -73,6 +73,8 @@ endif
   " prevent a condition where vim lags due to searching include files.
   set complete-=i
 
+  " Statusline:
+  set statusline=%!dotfiles#statusline#statusline()
 " }}}
 " Tabs: {{{
   set tabstop=8
@@ -429,11 +431,10 @@ endif
   endif
   " }}}
   " Statusline: {{{
-  if has('nvim-0.5')
-    lua require('dotfiles.lualine')
-  else
-    set statusline=%!dotfiles#statusline#statusline()
-  endif
+  " if has('nvim-0.5')
+  "   lua require('dotfiles.lualine')
+  " else
+  " endif
   " }}}
   " Commands: {{{
     " Format using built-in formatter:
