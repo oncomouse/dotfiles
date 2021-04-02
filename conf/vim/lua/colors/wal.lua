@@ -281,57 +281,40 @@ function wal.after_scheme()
 		semshiAttribute = { fg=wal.cyan},
 		semshiSelf = { fg=wal.base04},
 		semshiUnresolved = { fg=wal.yellow, style="underline"},
-		semshiSelected = { fg=wal.background, bg={ gui = "#ff875f", c=209 }},
-		semshiErrorSign = { fg=wal.foreground, bg={ gui = "#d70000", c=160 }},
-		semshiErrorChar = { fg=wal.foreground, bg={ gui = "#d70000", c=160 }},
-		lualine_z_diagnostics_error_command = { fg=wal.base01, bg=wal.red },
-		lualine_z_diagnostics_error_insert = { fg=wal.base01, bg=wal.red },
-		lualine_z_diagnostics_error_normal = { fg=wal.base01, bg=wal.red },
-		lualine_z_diagnostics_error_replace = { fg=wal.base01, bg=wal.red },
-		lualine_z_diagnostics_error_terminal = { fg=wal.base01, bg=wal.red },
-		lualine_z_diagnostics_error_visual = { fg=wal.base01, bg=wal.red },
-		lualine_z_diagnostics_warn_command = { fg=wal.base01, bg=wal.orange },
-		lualine_z_diagnostics_warn_insert = { fg=wal.base01, bg=wal.orange },
-		lualine_z_diagnostics_warn_normal = { fg=wal.base01, bg=wal.orange },
-		lualine_z_diagnostics_warn_replace = { fg=wal.base01, bg=wal.orange },
-		lualine_z_diagnostics_warn_terminal = { fg=wal.base01, bg=wal.orange },
-		lualine_z_diagnostics_warn_visual = { fg=wal.base01, bg=wal.orange },
-		lualine_z_diagnostics_info_command = { fg=wal.base01, bg=wal.cyan },
-		lualine_z_diagnostics_info_insert = { fg=wal.base01, bg=wal.cyan },
-		lualine_z_diagnostics_info_normal = { fg=wal.base01, bg=wal.cyan },
-		lualine_z_diagnostics_info_replace = { fg=wal.base01, bg=wal.cyan },
-		lualine_z_diagnostics_info_terminal = { fg=wal.base01, bg=wal.cyan },
-		lualine_z_diagnostics_info_visual = { fg=wal.base01, bg=wal.cyan },
+		semshiSelected = { fg=wal.base00, bg={ gui = "#ff875f", c=209 }},
+		semshiErrorSign = { fg=wal.base05, bg={ gui = "#d70000", c=160 }},
+		semshiErrorChar = { fg=wal.base05, bg={ gui = "#d70000", c=160 }},
 
 		IndentBlanklineChar = { fg=wal.base01, bg=wal.base00, style="nocombine" },
-		-- highlight! VisualMode guifg={background} ctermfg=0 guibg={color9} ctermbg=9 cterm=bold gui=bold
-		-- highlight! InsertMode guifg={background} ctermfg=0 guibg={color2} ctermbg=2 cterm=bold gui=bold
-		-- highlight! ReplaceMode guifg={background} ctermfg=0 guibg={color13} ctermbg=13 cterm=bold gui=bold
-		-- highlight! CommandMode guifg={background} ctermfg=0 guibg={color6} ctermbg=6 cterm=bold gui=bold
-		-- " #C594C5 182
-		-- highlight! TerminalMode guifg={background} ctermfg=0 guibg=#CC9CCF ctermbg=182 cterm=bold gui=bold
-		-- highlight! NormalMode guifg={background} ctermfg=0 guibg={color4} ctermbg=4 cterm=bold gui=bold
-		-- highlight! VisualModeInv guifg={color9} ctermfg=9 guibg={background} ctermbg=none cterm=NONE gui=NONE
-		-- highlight! InsertModeInv guifg={color2} ctermfg=2 guibg={background} ctermbg=none cterm=NONE gui=NONE
-		-- highlight! ReplaceModeInv guifg={color13} ctermfg=13 guibg={background} ctermbg=none cterm=NONE gui=NONE
-		-- highlight! CommandModeInv guifg={color6} ctermfg=6 guibg={background} ctermbg=none cterm=NONE gui=NONE
-		-- highlight! TerminalModeInv guifg={color12} ctermfg=12 guibg={background} ctermbg=none cterm=NONE gui=NONE
-		-- highlight! NormalModeInv guifg={color4} ctermfg=4 guibg={background} ctermbg=none cterm=NONE gui=NONE
-		-- highlight! StatusLine guifg={color8} ctermfg=8 guibg=NONE ctermbg=NONE cterm=NONE gui=NONE
-		-- highlight! StatusLineNC guifg={color11} ctermfg=11 guibg={color8} ctermbg=8 cterm=NONE gui=NONE
-		-- highlight! StatusLineTerm guifg={color10} ctermfg=10 guibg={color2} ctermbg=2 cterm=NONE gui=NONE
-		-- highlight! StatusLineTermNC guifg={color11} ctermfg=11 guibg={color8} ctermbg=8 cterm=NONE gui=NONE
-		-- highlight! User1 ctermfg=7 guifg={color7} ctermbg=8 guibg={color8} cterm=NONE gui=NONE
-		-- highlight! link User2 Normal
-		-- highlight! StatusWarning guifg={color8} ctermfg=8 guibg={color3} ctermbg=3 cterm=NONE gui=NONE
-		-- highlight! StatusError guifg={color8} ctermfg=8 guibg={color1} ctermbg=1 cterm=NONE gui=NONE
-		-- highlight! StatusOk guifg={foreground} ctermfg=15 guibg={color8} ctermbg=8 cterm=NONE gui=NONE
-		-- highlight! StatusWarningInv guibg={background} ctermfg=none guifg={color3} ctermfg=3 cterm=NONE gui=NONE
-		-- highlight! StatusErrorInv guibg={background} ctermfg=none guifg={color1} ctermfg=1 cterm=NONE gui=NONE
-		-- highlight! StatusOkInv guibg={background} ctermfg=none guifg={color8} ctermfg=8 cterm=NONE gui=NONE
-		-- highlight! StatusInfoInv ctermfg=8 guifg={color8} ctermbg=none guibg={background} cterm=NONE gui=NONE
-		-- highlight! StatusLineInfo guifg={foreground} ctermfg=15 guibg=#4a4a4b ctermbg=238 cterm=NONE gui=NONE
-		-- highlight! StatusLineInfoInv guifg=#4a4a4b ctermfg=238 ctermbg=1 guibg={background} cterm=NONE gui=NON
+
+		VisualMode = { fg=wal.base00, bg=wal.color9, style="bold",  },
+		InsertMode = { fg=wal.base00, bg=wal.green, style="bold",  },
+		ReplaceMode = { fg=wal.base00, bg=wal.color13, style="bold",  },
+		CommandMode = { fg=wal.base00, bg=wal.cyan, style="bold",  },
+		TerminalMode = { fg=wal.base00, bg=wal.purple, style="bold",  },
+		NormalMode = { fg=wal.base00, bg=wal.blue, style="bold",  },
+		VisualModeInv = { fg=wal.color9, bg=wal.base00, },
+		InsertModeInv = { fg=wal.green, bg=wal.base00, },
+		ReplaceModeInv = { fg=wal.color13, bg=wal.base00, },
+		CommandModeInv = { fg=wal.cyan, bg=wal.base00, },
+		TerminalModeInv = { fg=wal.purple, bg=wal.base00, },
+		NormalModeInv = { fg=wal.blue, bg=wal.base00, },
+		StatusLine = { fg=wal.base01, },
+		StatusLineNC = { fg=wal.color11, bg=wal.base01, },
+		StatusLineTerm = { fg=wal.color10, bg=wal.green, },
+		StatusLineTermNC = { fg=wal.color11, bg=wal.base01, },
+		User1 = { fg=wal.base04, bg=wal.base01, },
+		User = { link = "Normal" },
+		StatusWarning = { fg=wal.base01, bg=wal.yellow, },
+		StatusError = { fg=wal.base01, bg=wal.orange, },
+		StatusOk = { fg=wal.base05, bg=wal.base01, },
+		StatusWarningInv = { fg=wal.yellow, bg=wal.base00,  },
+		StatusErrorInv = { fg=wal.orange, bg=wal.base00,  },
+		StatusOkInv = { fg=wal.base01, bg=wal.base00,  },
+		StatusInfoInv = { fg=wal.base01, bg=wal.base00, },
+		StatusLineInfo = { fg=wal.base05, bg=wal.base02, },
+		StatusLineInfoInv = { fg=wal.base02, bg=wal.base00, },
+
 	}
 	return scheme
 end

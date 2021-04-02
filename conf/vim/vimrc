@@ -436,9 +436,6 @@ endif
   " else
   " endif
   " }}}
-  " Commands: {{{
-    " Format using built-in formatter:
-  "}}}
   " Maps: {{{
     " Select whole file
     nnoremap <leader>vf ggVG
