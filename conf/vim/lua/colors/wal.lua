@@ -2,6 +2,9 @@
 local get_wal_theme = require("dotfiles.utils.wal")
 local json_scheme = get_wal_theme()
 local wal = {
+	background = { c=0, gui = json_scheme.special.foreground and json_scheme.special.foreground or "#000000" },
+	foreground = { c=0, gui = json_scheme.special.foreground and json_scheme.special.foreground or "#FFFFFF" },
+	cursor = { c=0, gui = json_scheme.special.foreground and json_scheme.special.foreground or "#00FF00" },
 	color0 = { c = 0, gui = json_scheme.colors.color0 and json_scheme.colors.color0 or "#000000" },
 	color1 = { c = 1, gui = json_scheme.colors.color1 and json_scheme.colors.color1 or "#FF0000" },
 	color2 = { c = 2, gui = json_scheme.colors.color2 and json_scheme.colors.color2 or "#00FF00" },
