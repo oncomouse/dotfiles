@@ -1,5 +1,5 @@
 -- luacheck: globals vim
-local get_wal_theme = require('dotfiles.utils.wal')
+local get_wal_theme = require("dotfiles.utils.wal")
 local json_scheme = get_wal_theme()
 local wal = {
 	color0 = { c = 0, gui = json_scheme.colors.color0 and json_scheme.colors.color0 or "#000000" },
