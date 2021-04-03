@@ -33,7 +33,7 @@ local wal = {
 	green = { c = 2, gui = json_scheme.colors.base0B and json_scheme.colors.base0B or json_scheme.colors.color2 },
 	cyan = { c = 6, gui = json_scheme.colors.base0C and json_scheme.colors.base0C or json_scheme.colors.color6 },
 	blue = { c = 4, gui = json_scheme.colors.base0D and json_scheme.colors.base0D or json_scheme.colors.color4 },
-	purple = { c = 176, gui = json_scheme.colors.base0E and json_scheme.colors.base0E or '#D4BFFF' },
+	purple = { c = 176, gui = json_scheme.colors.base0E and json_scheme.colors.base0E or json_scheme.colors.color12 },
 	brown = { c = 9, gui = json_scheme.colors.base0F and json_scheme.colors.base0F or json_scheme.colors.color9 },
 }
 
