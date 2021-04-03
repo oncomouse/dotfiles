@@ -199,8 +199,8 @@ function wal.after_scheme()
 		NeomakeErrorSign = { fg=wal.red, bg=wal.base00 },
 		NeomakeWarningSign = { fg=wal.yellow, bg=wal.base00 },
 		NeomakeInfoSign = { fg=wal.white, bg=wal.base00 },
-		NeomakeError = { fg=wal.red, style='underline', sp=wal.red },
-		NeomakeWarning = { fg=wal.red, style='underline', sp=wal.red },
+		NeomakeError = { fg=wal.red, style="underline", sp=wal.red },
+		NeomakeWarning = { fg=wal.red, style="underline", sp=wal.red },
 		ALEErrorSign = { fg=wal.red, bg=wal.base00, style="bold" },
 		ALEWarningSign = { fg=wal.yellow, bg=wal.base00, style="bold" },
 		ALEInfoSign = { fg=wal.white, bg=wal.base00, style="bold" },
@@ -412,13 +412,13 @@ async_load_plugin = vim.loop.new_async(vim.schedule_wrap(function ()
 	async_load_plugin:close()
 end))
 function wal.colorscheme()
-	vim.cmd('hi clear')
-	if vim.fn.exists('syntax_on') then
-		vim.cmd('syntax reset')
+	vim.cmd("hi clear")
+	if vim.fn.exists("syntax_on") then
+		vim.cmd("syntax reset")
 	end
-	vim.o.background = 'dark'
+	vim.o.background = "dark"
 	vim.o.termguicolors = true
-	vim.g.colors_name = 'wal'
+	vim.g.colors_name = "wal"
 	local syntax = wal.scheme()
 	for group,colors in pairs(syntax) do
 		wal.highlight(group,colors)
