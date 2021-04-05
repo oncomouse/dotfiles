@@ -63,3 +63,4 @@ pipewire-jack
 unclutter
 luarocks
 shfmt
+ttf-liberation
