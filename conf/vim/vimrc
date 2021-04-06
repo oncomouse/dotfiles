@@ -22,7 +22,7 @@ endif
 " }}}
 " Dotfiles Settings: {{{
   let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
-  let g:complete_package = 'telescope' " fzf, telescope, or coc.nvim
+  let g:complete_package = 'fzf' " fzf, telescope, or coc.nvim
   if g:dotfiles_mode ==# 'server' || (g:complete_package ==# 'telescope' && !has('nvim-0.5'))
     let g:complete_package = 'fzf'
   endif

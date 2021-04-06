@@ -66,6 +66,7 @@ function! dotfiles#autocomplete#fzf#init()
     vnoremap <leader>y :FZFNeoyankSelection<cr>
   endif
   let $FZF_DEFAULT_OPTS .= ' --reverse'
+  let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'border': 'top' } }
   " let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden'
   " if has('nvim') && g:dotfiles_mode ==# 'desktop'
   "   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
