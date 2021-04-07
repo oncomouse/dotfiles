@@ -173,9 +173,6 @@ endif
     if !has('nvim')
       Plug 'noahfrederick/vim-neovim-defaults' " Neovim defaults for vim
     endif
-    if has('nvim-0.5')
-      Plug 'hoob3rt/lualine.nvim' " Statusline for Neovim
-    endif
     Plug 'sickill/vim-pasta' " Indentation-forward pasting
     Plug 'tpope/vim-repeat'
     Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
@@ -325,6 +322,9 @@ endif
         if g:complete_package ==# 'fzf'
           Plug 'Shougo/neoyank.vim'
           Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
+          if has('nvim-0.5')
+            Plug 'gfanto/fzf-lsp.nvim', { 'branch': 'main' }
+          endif
         endif
         " Load LSP + Completion:
         if g:complete_package =~# 'coc.nvim'
@@ -429,12 +429,6 @@ endif
   if has('nvim-0.5') && (g:dotfiles_mode ==# 'desktop')
     lua require('dotfiles.treesitter')
   endif
-  " }}}
-  " Statusline: {{{
-  " if has('nvim-0.5')
-  "   lua require('dotfiles.lualine')
-  " else
-  " endif
   " }}}
   " Maps: {{{
     " Select whole file
