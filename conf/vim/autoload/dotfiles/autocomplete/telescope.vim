@@ -1,12 +1,12 @@
 function! dotfiles#autocomplete#telescope#init() abort
   " Old FZF Interface:
-  command! Files :exe 'lua require("telescope.builtin").find_files({sorter=require("telescope.sorters").get_fzy_sorter()})'
-  command! Buffers :exe 'lua require("telescope.builtin").buffers({ sort_lastused = true, ignore_current_buffer = true, show_all_buffers = true, sorter=require("telescope.sorters").get_fzy_sorter() })'
-  command! Windows :exe ''
-  command! BLines :exe 'Telescope current_buffer_fuzzy_find'
-  command! Commands :exe 'Telescope command_history'
-  command! Yanks :exe ''
-  command! -nargs=+ -complete=custom,dotfiles#rg_args Rg exe 'Telescope gre_string search='.<q-args>
+  nmap <Plug>(dotfiles-files) :<C-u>lua require("telescope.builtin").find_files({sorter=require("telescope.sorters").get_fzy_sorter()})<CR>
+  nmap <Plug>(dotfiles-buffers) :<C-u>lua require("telescope.builtin").buffers({ sort_lastused = true, ignore_current_buffer = true, show_all_buffers = true, sorter=require("telescope.sorters").get_fzy_sorter() })<CR>
+  nmap <Plug>(dotfiles-bLines) :<C-u>Telescope current_buffer_fuzzy_find<CR>
+  nmap <Plug>(dotfiles-commands) :<C-u>Telescope command_history<CR>
+  nmap <Plug>(dotfiles-yanks) <nop>
+  nmap <Plug>(dotfiles-windows) <nop>
+  nmap <Plug>(dotfiles-home-files) <nop>
 lua <<EOF
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
