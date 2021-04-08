@@ -469,15 +469,12 @@ endif
   "}}}
 
   " Standard Fuzzy Bindings: {{{
-    " Every list source we could implement (see g:complete_package) implements
-    " these commmands, so I can use CoC and it implements the FZF
-    " interface. This unifies fuzzy list management:
-    nnoremap <silent> <c-p> <Plug>(dotfiles-files)
-    nnoremap <silent> <leader>F <Plug>(dotfiles-home-files)
-    nnoremap <silent> <leader>a <Plug>(dotfiles-buffers)
-    nnoremap <silent> <leader>A <Plug>(dotfiles-windows)
-    nnoremap <silent> <leader>l <Plug>(dotfiles-lines)
-    nnoremap <silent> <leader>? <Plug>(dotfiles-commands)
+    nmap <silent> <c-p> <Plug>(dotfiles-files)
+    nmap <silent> <leader>F <Plug>(dotfiles-home-files)
+    nmap <silent> <leader>a <Plug>(dotfiles-buffers)
+    nmap <silent> <leader>A <Plug>(dotfiles-windows)
+    nmap <silent> <leader>l <Plug>(dotfiles-lines)
+    nmap <silent> <leader>? <Plug>(dotfiles-commands)
     if g:dotfiles_mode ==# 'desktop'
       nnoremap <silent> <leader>y <Plug>(dotfiles-yanks)
     endif
