@@ -464,8 +464,8 @@ endif
   " endif
 
   " List Bindings: {{{
-  nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
-  nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
+    nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
+    nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
   "}}}
 
   " Standard Fuzzy Bindings: {{{
