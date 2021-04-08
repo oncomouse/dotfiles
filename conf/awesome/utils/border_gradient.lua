@@ -1,5 +1,5 @@
 -- luacheck: globals client
--- Animate active borders
+-- Animate active borders, modified from: https://www.reddit.com/r/awesomewm/comments/mmt4ms/colour_cycling_active_window_border_snippet/
 local gears = require("gears")
 -- Gradient generator, adapted from https://krazydad.com/tutorials/makecolors.php
 function make_color_gradient(frequency1, frequency2, frequency3, phase1, phase2, phase3, center, width, len)
