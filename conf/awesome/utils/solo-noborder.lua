@@ -34,12 +34,6 @@ local function get_tiled(t)
 	end
 	return tiled_clients
 end
-client.connect_signal("focus", function(c)
-	c.border_color = beautiful.border_focus
-end)
-client.connect_signal("unfocus", function(c)
-	c.border_color = beautiful.border_normal
-end)
 -- No borders if only client in tile mode:
 function update_borders(c)
 	update_tag_borders(c.first_tag or awful.screen.focused().selected_tag)
