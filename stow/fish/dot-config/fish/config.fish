@@ -23,6 +23,7 @@ if status is-interactive
   setuvar FZF_ALT_C_COMMAND "fd --type d --follow"
 
   setuvar FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=wal --color=always --style=header,grid --line-range :300 {}'"
+  setuvar FZF_ALT_C_OPTS "--preview 'ls --color=always {} | head -200'"
 
   setuvar XDG_DATA_DIRS ~/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
   # Configure ASDF:
