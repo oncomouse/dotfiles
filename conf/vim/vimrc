@@ -476,25 +476,25 @@ endif
     nnoremap <silent> <leader>? :Commands<CR>
     if g:dotfiles_mode ==# 'desktop'
       nnoremap <silent> <leader>y :Yanks<CR>
-      nnoremap <silent> <leader>s :Symbols<CR>
     endif
   " }}}
   " Standard LSP Bindings: {{{
     " As with Fuzzy bindings (above), we set all the LSP commands to Plug
     " bindings and then rebind them here to the keys we actually want to use:
     if (g:dotfiles_mode ==# 'desktop')
-      nmap <silent> <F2> <Plug>(dotfiles-rename)
-      nmap <silent> <F5> <Plug>(dotfiles-commands)
-      vmap <silent> ga   <Plug>(dotfiles-codeaction-selected)
-      nmap <silent> ga   <Plug>(dotfiles-codeaction)
-      nmap <silent> gl   <Plug>(dotfiles-codelens)
-      nmap <silent> gd   <Plug>(dotfiles-definition)
-      nmap <silent> gy   <Plug>(dotfiles-type-definition)
-      nmap <silent> gi   <Plug>(dotfiles-implementation)
-      nmap <silent> gr   <Plug>(dotfiles-references)
-      nmap <silent> K    <Plug>(dotfiles-documentation)
-      nmap <silent> [d   <Plug>(dotfiles-diagnostic-previous)
-      nmap <silent> ]d   <Plug>(dotfiles-diagnostic-next)
+      nmap <silent> <F2>      <Plug>(dotfiles-rename)
+      nmap <silent> <F5>      <Plug>(dotfiles-commands)
+      vmap <silent> ga        <Plug>(dotfiles-codeaction-selected)
+      nmap <silent> ga        <Plug>(dotfiles-codeaction)
+      nmap <silent> gl        <Plug>(dotfiles-codelens)
+      nmap <silent> gd        <Plug>(dotfiles-definition)
+      nmap <silent> gy        <Plug>(dotfiles-type-definition)
+      nmap <silent> gi        <Plug>(dotfiles-implementation)
+      nmap <silent> gr        <Plug>(dotfiles-references)
+      nmap <silent> <leader>s <Plug>(dotfiles-document-symbols)
+      nmap <silent> K         <Plug>(dotfiles-documentation)
+      nmap <silent> [d        <Plug>(dotfiles-diagnostic-previous)
+      nmap <silent> ]d        <Plug>(dotfiles-diagnostic-next)
     endif
   " }}}
 " }}}

@@ -6,8 +6,6 @@ function! dotfiles#autocomplete#fzf#init()
     nnoremap <leader>Y :FZFNeoyank " P<cr>
     vnoremap <leader>y :FZFNeoyankSelection<cr>
     let g:fzf_lsp_preview_window = ['right:40%', 'ctrl-/']
-    " fzf_lsp for Symbols
-    command! Symbols exe 'lua require"fzf_lsp".document_symbol_call()'
     " Load fzf_lsp handlers:
     lua require'fzf_lsp'.setup()
   endif

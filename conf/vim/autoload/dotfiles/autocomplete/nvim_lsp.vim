@@ -7,6 +7,7 @@ function! dotfiles#autocomplete#nvim_lsp#init()
       execute 'lua vim.lsp.buf.hover()'
     endif
   endfunction
+  nnoremap <silent><Plug>(dotfiles-document-symbols) :<C-u>lua vim.lsp.buf.document_symbol()<CR>
   nnoremap <silent><Plug>(dotfiles-rename) :<C-u>lua vim.lsp.buf.rename()<CR>
   nnoremap <silent><Plug>(dotfiles-definition) :<C-u>lua vim.lsp.buf.definition()<CR>
   nnoremap <silent><Plug>(dotfiles-type-definition) :<C-u>lua vim.lsp.buf.type_definition()<CR>

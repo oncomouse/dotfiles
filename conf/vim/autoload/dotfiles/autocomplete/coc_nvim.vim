@@ -48,6 +48,7 @@ function! dotfiles#autocomplete#coc_nvim#keyboard() abort
   nmap <Plug>(dotfiles-implementation) <Plug>(coc-implementation)
   nmap <Plug>(dotfiles-references) <Plug>(coc-references)
   nmap <Plug>(dotfiles-documentation) :<C-u>call <SID>show_documentation()<CR>
+  nmap <Plug>(dotfiles-document-symbols) :<C-u>CocList -I symbols<CR>
   nmap <Plug>(dotfiles-commands) :<C-u>CocList commands<CR>
   nmap <Plug>(dotfiles-codelens) <Plug>(coc-codelens-action)
   imap <expr><TAB> pumvisible() ? "\<C-n>" : "<TAB>"
@@ -91,9 +92,6 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
   command! Windows :exe 'CocList windows'
   command! BLines :exe 'CocList lines'
   command! Commands :exe 'CocList cmdhistory'
-  command! Symbols exe 'CocList -I symbols'
-  command! LocationList exe 'CocList location'
-  command! QuickfixList exe 'CocList quickfix'
   command! Yanks exe 'CocList -A --normal yank'
   command! -nargs=+ -complete=custom,dotfiles#coc#rg_args Rg exe 'CocList grep '.<q-args>
 endfunction
