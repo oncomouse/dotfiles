@@ -65,6 +65,7 @@ client.connect_signal("unfocus", function(_)
 	border_timer:stop()
 end)
 
+-- The solo no-border util emits a signal that will turn off gradient changing
 client.connect_signal("border_gradient::solo", function(_)
 	border_timer:stop()
 end)
