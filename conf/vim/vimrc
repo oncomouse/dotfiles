@@ -534,10 +534,10 @@ endif
           \ endif 
   augroup END
   " Load Autocompletion: {{{
-  if g:complete_package ==# 'fzf'
-    call dotfiles#autocomplete#fzf#init()
-  else
+  if g:dotfiles_mode ==# 'desktop'
     call dotfiles#autocomplete#init()
+  else
+    call dotfiles#autocomplete#fzf#init()
   endif
   " }}}
   " Update FASD For NeoVim: {{{
