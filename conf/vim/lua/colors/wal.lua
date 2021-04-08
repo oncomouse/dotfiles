@@ -360,7 +360,7 @@ function wal.scheme()
 		ColorColumn = { fg=wal.base02 },
 		CursorColumn = { fg=wal.base02 },
 		CursorLine = { fg=wal.base01, style="None" },
-		CursorLineNR = { fg=wal.base00, bg=wal.base00 },
+		-- CursorLineNR = { fg=wal.base00, bg=wal.base02 },
 		CursorLineNr = { fg=wal.base03, bg=wal.base01 },
 		PMenu = { fg=wal.base04, bg=wal.base01 },
 		PMenuSel = { fg=wal.base05, bg=wal.blue },
