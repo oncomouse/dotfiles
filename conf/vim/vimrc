@@ -462,20 +462,24 @@ endif
   " if has('nvim-0.5')
   "   map <F10> :TSHighlightCapturesUnderCursor<CR>
   " endif
+
+  " List Bindings: {{{
+  nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
+  nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
+  "}}}
+
   " Standard Fuzzy Bindings: {{{
     " Every list source we could implement (see g:complete_package) implements
     " these commmands, so I can use CoC and it implements the FZF
     " interface. This unifies fuzzy list management:
-    nnoremap <silent> <c-p> :Files<CR>
-    nnoremap <silent> <leader>F :Files ~<CR>
-    nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
-    nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
-    nnoremap <silent> <leader>a :Buffers<CR>
-    nnoremap <silent> <leader>A :Windows<CR>
-    nnoremap <silent> <leader>l :BLines<CR>
-    nnoremap <silent> <leader>? :Commands<CR>
+    nnoremap <silent> <c-p> <Plug>(dotfiles-files)
+    nnoremap <silent> <leader>F <Plug>(dotfiles-home-files)
+    nnoremap <silent> <leader>a <Plug>(dotfiles-buffers)
+    nnoremap <silent> <leader>A <Plug>(dotfiles-windows)
+    nnoremap <silent> <leader>l <Plug>(dotfiles-lines)
+    nnoremap <silent> <leader>? <Plug>(dotfiles-commands)
     if g:dotfiles_mode ==# 'desktop'
-      nnoremap <silent> <leader>y :Yanks<CR>
+      nnoremap <silent> <leader>y <Plug>(dotfiles-yanks)
     endif
   " }}}
   " Standard LSP Bindings: {{{

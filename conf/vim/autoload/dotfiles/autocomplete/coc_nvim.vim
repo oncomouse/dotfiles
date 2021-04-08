@@ -87,13 +87,14 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
       exe 'CocList files'
     endif
   endfunction
-  command! -bang -nargs=? -complete=dir Files call CocFiles(<q-args>, <bang>0)
-  command! Buffers :exe 'CocList buffers'
-  command! Windows :exe 'CocList windows'
-  command! BLines :exe 'CocList lines'
-  command! Commands :exe 'CocList cmdhistory'
-  command! Yanks exe 'CocList -A --normal yank'
-  command! -nargs=+ -complete=custom,dotfiles#coc#rg_args Rg exe 'CocList grep '.<q-args>
+  " command! -bang -nargs=? -complete=dir Files call CocFiles(<q-args>, <bang>0)
+  nmap <Plug>(dotfiles-files) :<C-u>CocList files<CR>
+  nmap <Plug>(dotfiles-home-files) :<C-u>call CocFiles('~')<CR>
+  nmap <Plug>(dotfiles-buffers) :<C-u>CocList buffers<CR>
+  nmap <Plug>(dotfiles-windows) :<C-u>CocList windows<CR>
+  nmap <Plug>(dotfiles-lines) :<C-u>CocList lines<CR>
+  nmap <Plug>(dotfiles-commands) :<C-u>CocList cmdhistory<CR>
+  nmap <Plug>(dotfiles-yanks) :<C-u>CocList -A --normal yank<CR>
 endfunction
 
 function! dotfiles#autocomplete#coc_nvim#writing() abort
