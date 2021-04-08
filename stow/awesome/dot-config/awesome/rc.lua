@@ -76,6 +76,7 @@ local vi_parse = require("utils.vi_parse")
 local revelation = require("utils.revelation")
 -- Heartbeat timer for caffeinating AwesomeWM:
 local heartbeat = require("utils.heartbeat")
+require("utils.border_gradient")
 -- }}}
 
 -- ┏━╸┏━┓┏━┓┏━┓┏━┓   ╻ ╻┏━┓┏┓╻╺┳┓╻  ╻┏┓╻┏━╸
