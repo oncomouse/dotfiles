@@ -55,6 +55,8 @@ function update_tag_borders(_)
 	local b = beautiful.border_width
 	if #clients == 1 then
 		b = 0
+		-- Turn off the border_gradient loop if it exists:
+		clients[1]:emit_signal("border_gradient::solo")
 	end
 	for _, c in pairs(clients) do
 		c.border_width = b

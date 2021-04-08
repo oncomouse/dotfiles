@@ -32,10 +32,10 @@ local border_animate_colours = make_color_gradient(red_frequency, grn_frequency,
 
 local border_loop = 1
 local border_loop_reverse = false
-gears.timer{
+local border_timer = gears.timer{
 	timeout = 0.03,
-	call_now = true,
-	autostart = true,
+	call_now = false,
+	autostart = false,
 	callback = function()
 		local c = client.focus
 		if c then
@@ -57,5 +57,14 @@ gears.timer{
 }
 
 client.connect_signal("focus", function(c)
+	border_timer:start()
 	c.border_color = border_animate_colours[border_loop]
+end)
+
+client.connect_signal("unfocus", function(_)
+	border_timer:stop()
+end)
+
+client.connect_signal("border_gradient::solo", function(_)
+	border_timer:stop()
 end)
