@@ -42,78 +42,74 @@ function rofi.window()
 end
 
 function rofi.powermenu()
-	-- local r = coroutine.create(function()
-	-- 	local theme = "full_square"
-	-- 	local dir = os.getenv('HOME') .. "/dotfiles/conf/rofi/powermenu"
-	-- 	local uptime = io.popen("uptime -p | sed -s 's/up //g'"):read("*all")
-	-- 	local rofi_command = "rofi -theme " .. dir .. "/" .. theme
-	-- 	local pause_command = "playerctl pause"
-	-- 	local mute_command = "ponymix mute"
-	-- 	local function base_command(command)
-	-- 		return io.popen("basename " .. gears.string.split(command, " ")):read("*all")
-	-- 	end
-	-- 	local function run_command_if_found(command)
-	-- 		cmd = base_command(command)
-	-- 		if #io.popen("command -v " .. cmd):read("*all") then
-	-- 			awful.spawn(command)
-	-- 		end
-	-- 	end
-	-- 	local function confirm_exit()
-	-- 		return trim(io.popen(string.format([[ rofi -dmenu\
-	-- 		-i \
-	-- 		-no-fixed-num-lines\
-	-- 		-p "Are You Sure? : "\
-	-- 		-theme %s/confirm.rasi \
-	-- 		-font "FiraCode Nerd Font 16"
-	-- 		]], dir)):read("*all"))
-	-- 	end
-	-- 	local function msg()
-	-- 		awful.spawn('rofi -theme "' .. dir .. '/message.rasi" -e "Available Options  -  yes / y / no / n"')
-	-- 	end
-	-- 	local function confirm_executation(cmd)
-	-- 		local answer = confirm_exit()
-	-- 		if answer == "yes" or answer == "YES" or answer == "y" or answer == "Y" then
-	-- 			awful.spawn(cmd)
-	-- 			return true
-	-- 		elseif answer == "no" or answer == "NO" or answer == "n" or answer == "NO" then
-	-- 			return false
-	-- 		else
-	-- 			msg()
-	-- 			return false
-	-- 		end
-	-- 	end
 
-	-- 	local shutdown="襤"
-	-- 	local reboot="勒"
-	-- 	local lock=""
-	-- 	local suspend="鈴"
-	-- 	local logout=""
-	-- 	local options = shutdown .. "\n" .. reboot .. "\n" .. lock .. "\n" .. suspend .. "\n" .. logout
-	-- 	local chosen = io.popen('echo -e "'..options..'" | '..rofi_command .. ' -p "Uptime :' .. uptime .. '" -dmenu -selected-row 2'):read("*all")
-	-- 	if gears.string.startswith(chosen, shutdown) then
-	-- 		confirm_executation("systemctl poweroff")
-	-- 	elseif gears.string.startswith(chosen, reboot) then
-	-- 		confirm_executation("systemctl reboot")
-	-- 	elseif gears.string.startswith(chosen, lock) then
-	-- 		naughty.notify({text=chosen .. tostring(gears.string.startswith(chosen, lock))})
-	-- 		-- run_command_if_found(pause_command)
-	-- 		-- run_command_if_found(mute_command)
-	-- 		awful.spawn("xscreensaver-command -lock")
-	-- 	elseif gears.string.startswith(chosen, suspend) then
-	-- 		if confirm_executation("xset dpms force off") then
-	-- 			run_command_if_found(pause_command)
-	-- 			run_command_if_found(mute_command)
-	-- 			awful.spawn("xscreensaver-command -lock")
-	-- 		end
-	-- 	elseif gears.string.startswith(chosen, logout) then
-	-- 		confirm_executation('echo "awesome.quit()" | awesome-command')
-	-- 	end
-	-- end)
-	-- coroutine.resume(r)
+	-- Rofi Setup:
+	local theme = "full_square"
+	local dir = os.getenv('HOME') .. "/dotfiles/conf/rofi/powermenu"
+	-- Commands:
+	local rofi_command = "rofi -theme " .. dir .. "/" .. theme
+	local pause_command = "playerctl pause"
+	local mute_command = "ponymix mute"
+	local shutdown_command = "systemctl shutdown"
+	local reboot_command = "systemctl reboot"
+	local lock_command = string.format([[
+		%s &&
+		%s &&
+		xscreensaver-command -lock
+	]], pause_command, mute_command)
+	local suspend_command = string.format([[
+		%s &&
+		xset dpms force off
+	]], lock_command)
+	local logout_command = "echo 'awesome.quit() | awesome-command'"
+	-- Icons:
+	local shutdown_icon="襤"
+	local reboot_icon="勒"
+	local lock_icon=""
+	local suspend_icon="鈴"
+	local logout_icon=""
 
-	spawn.with_shell(
-		"~/dotfiles/scripts/rofi/powermenu/powermenu.sh"
-	)
+	local function msg()
+		awful.spawn('rofi -theme "' .. dir .. '/message.rasi" -e "Available Options  -  yes / y / no / n"')
+	end
+
+	local function confirm_executation(cmd)
+		awful.spawn.easy_async_with_shell(string.format([[ rofi -dmenu\
+		-i \
+		-no-fixed-num-lines \
+		-p "Are You Sure? : " \
+		-theme %s/confirm.rasi \
+		-font "FiraCode Nerd Font 16"
+		]], dir), function(answer)
+			answer = trim(answer)
+			if answer == "yes" or answer == "YES" or answer == "y" or answer == "Y" then
+				awful.spawn.with_shell(cmd)
+				return true
+			elseif answer == "no" or answer == "NO" or answer == "n" or answer == "NO" then
+				return false
+			else
+				msg()
+				return false
+			end
+		end)
+	end
+
+	local options = shutdown_icon .. "\n" .. reboot_icon .. "\n" .. lock_icon .. "\n" .. suspend_icon .. "\n" .. logout_icon
+	awful.spawn.easy_async_with_shell("uptime -p | sed -s 's/up //g'", function(uptime)
+		awful.spawn.easy_async('bash -c \'echo -e "'..options..'" | '..rofi_command .. ' -p "Uptime :' .. uptime .. '" -dmenu -selected-row 2\'', function(chosen)
+			if gears.string.startswith(chosen, shutdown_icon) then
+				confirm_executation(shutdown_command)
+			elseif gears.string.startswith(chosen, reboot_icon) then
+				confirm_executation(reboot_command)
+			elseif gears.string.startswith(chosen, lock_icon) then
+				awful.spawn.with_shell(lock_command)
+			elseif gears.string.startswith(chosen, suspend_icon) then
+				confirm_executation(suspend_command)
+			elseif gears.string.startswith(chosen, logout_icon) then
+				confirm_executation(logout_command)
+			end
+		end)
+	end)
 end
 
 -- Source: https://gist.github.com/RobSis/7251f8eec0c63b32a1b0a7e37abd32d2
