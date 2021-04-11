@@ -1,7 +1,6 @@
 [Desktop Entry]
 Name=Unclutter
 Comment=Unclutter
-Exec=unclutter
+Exec=unclutter -root
 Terminal=false
 Type=Application
-Hidden=true
