@@ -48,8 +48,14 @@ volume_widget.down = function()
 	change_volume(volume_widget, "down")
 end
 
-volume_widget:connect_signal("button::press", function()
-	change_volume(volume_widget, "mute")
+volume_widget:connect_signal("button::press", function(_, _, _, button)
+	if button == 1 then
+		change_volume(volume_widget, "mute")
+	elseif button == 4 then
+		change_volume(volume_widget, "up")
+	elseif button == 5 then
+		change_volume(volume_widget, "down")
+	end
 end)
 
 return volume_widget
