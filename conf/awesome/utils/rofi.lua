@@ -95,8 +95,11 @@ function rofi.powermenu()
 	end
 
 	local options = shutdown_icon .. "\n" .. reboot_icon .. "\n" .. lock_icon .. "\n" .. suspend_icon .. "\n" .. logout_icon
+	-- Grab uptime for the prompt:
 	awful.spawn.easy_async_with_shell("uptime -p | sed -s 's/up //g'", function(uptime)
+		-- Run the main rofi menu:
 		awful.spawn.easy_async('bash -c \'echo -e "'..options..'" | '..rofi_command .. ' -p "Uptime :' .. uptime .. '" -dmenu -selected-row 2\'', function(chosen)
+			-- Parse output:
 			if gears.string.startswith(chosen, shutdown_icon) then
 				confirm_executation(shutdown_command)
 			elseif gears.string.startswith(chosen, reboot_icon) then
