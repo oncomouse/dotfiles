@@ -11,7 +11,6 @@ local spawn = require("awful.spawn")
 local beautiful = require("beautiful")
 local gears = require("gears")
 local awful = require("awful")
-local naughty = require("naughty")
 local trim = require("utils.trim")
 
 rofi = {
@@ -57,10 +56,7 @@ function rofi.powermenu()
 		%s &&
 		xscreensaver-command -lock
 	]], pause_command, mute_command)
-	local suspend_command = string.format([[
-		%s &&
-		xset dpms force off
-	]], lock_command)
+	local suspend_command = lock_command .. "&& xset dpms force off"
 	local logout_command = "echo 'awesome.quit() | awesome-command'"
 	-- Icons:
 	local shutdown_icon="襤"
