@@ -4,3 +4,4 @@ Comment=Screensaver for X11
 Exec=xscreensaver -nosplash
 Terminal=false
 Type=Application
+Hidden=true

@@ -4,3 +4,4 @@ Comment=Unclutter
 Exec=unclutter
 Terminal=false
 Type=Application
+Hidden=true

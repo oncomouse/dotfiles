@@ -4,3 +4,4 @@ Comment=Redshift
 Exec=/usr/bin/redshift
 Terminal=false
 Type=Application
+Hidden=true
