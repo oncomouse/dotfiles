@@ -53,7 +53,7 @@ function rofi.powermenu()
 	local reboot_command = "systemctl reboot"
 	local lock_command = string.format([[%s &&
 		%s &&
-		xscreensaver-command -lock ]], pause_command, mute_command)
+		xscreensaver-command -lock]], pause_command, mute_command)
 	local suspend_command = lock_command .. "&& xset dpms force off"
 	local logout_command = "echo 'awesome.quit() | awesome-command'"
 	-- Icons:
