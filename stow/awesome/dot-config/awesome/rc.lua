@@ -551,6 +551,10 @@ awful.keyboard.append_global_keybindings({
 			group = "launcher",
 		}
 	),
+	awful.key({ modkey, "Mod1" }, "r", rofi.drun, {
+		description = "show the menubar",
+		group = "launcher",
+	}),
 	awful.key({ modkey }, "p", rofi.drun, {
 		description = "show the menubar",
 		group = "launcher",
