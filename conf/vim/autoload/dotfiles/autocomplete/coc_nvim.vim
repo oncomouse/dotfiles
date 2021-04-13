@@ -94,7 +94,6 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
   nmap <Plug>(dotfiles-windows) :<C-u>CocList windows<CR>
   nmap <Plug>(dotfiles-lines) :<C-u>CocList lines<CR>
   nmap <Plug>(dotfiles-commands) :<C-u>CocList cmdhistory<CR>
-  nmap <Plug>(dotfiles-yanks) :<C-u>CocList -A --normal yank<CR>
 endfunction
 
 function! dotfiles#autocomplete#coc_nvim#writing() abort

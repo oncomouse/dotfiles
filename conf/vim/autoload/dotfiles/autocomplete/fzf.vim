@@ -2,7 +2,6 @@ function! dotfiles#autocomplete#fzf#init()
   command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
   if g:dotfiles_mode ==# 'desktop'
-    " command! Yanks exe 'FZFNeoyank'
     nnoremap <leader>Y :FZFNeoyank " P<cr>
     vnoremap <leader>y :FZFNeoyankSelection<cr>
     let g:fzf_lsp_preview_window = ['right:40%', 'ctrl-/']
@@ -26,7 +25,4 @@ function! dotfiles#autocomplete#fzf#init()
   nmap <Plug>(dotfiles-windows) :<C-u>Windows<CR>
   nmap <Plug>(dotfiles-lines) :<C-u>BLines<CR>
   nmap <Plug>(dotfiles-commands) :<C-u>Commands<CR>
-  if g:dotfiles_mode ==# 'desktop'
-    nmap <Plug>(dotfiles-yanks) :<C-u>FZFNeoyank<CR>
-  endif
 endfunction
