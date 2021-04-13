@@ -5,8 +5,21 @@ repeat = "playlist"
 
 [theme]
 
-highlight = "light black"
-highlight_bg = "#aeadaf"
+background = "black"
+primary = "light white"
+secondary = "light black"
+title = "yellow"
+playing = "yellow"
+playing_bg = "black"
+highlight = "light white"
+highlight_bg = "#484848"
+error = "light white"
+error_bg = "red"
+statusbar = "light yellow"
+statusbar_progress = "blue"
+statusbar_bg = "black"
+cmdline = "light white"
+cmdline_bg = "black"
 
 [keybindings]
 "Space" = "playpause"
