@@ -318,13 +318,8 @@ endif
         endif
       " }}}
       " Autocomplete: {{{
-        " Need NeoYank for some lists to implement yank history:
-        if g:complete_package ==# 'fzf'
-          Plug 'Shougo/neoyank.vim'
-          Plug 'oncomouse/fzf-neoyank' " Add Yank shortcut
-          if has('nvim-0.5')
-            Plug 'gfanto/fzf-lsp.nvim', { 'branch': 'main' }
-          endif
+        if g:complete_package ==# 'fzf' && has('nvim-0.5')
+          Plug 'gfanto/fzf-lsp.nvim', { 'branch': 'main' }
         endif
         " Load LSP + Completion:
         if g:complete_package =~# 'coc.nvim'
@@ -475,9 +470,6 @@ endif
     nmap <silent> <leader>A <Plug>(dotfiles-windows)
     nmap <silent> <leader>l <Plug>(dotfiles-lines)
     nmap <silent> <leader>? <Plug>(dotfiles-commands)
-    if g:dotfiles_mode ==# 'desktop'
-      nnoremap <silent> <leader>y <Plug>(dotfiles-yanks)
-    endif
   " }}}
   " Standard LSP Bindings: {{{
     " As with Fuzzy bindings (above), we set all the LSP commands to Plug

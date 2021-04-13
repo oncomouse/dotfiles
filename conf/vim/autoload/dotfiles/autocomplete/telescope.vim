@@ -4,7 +4,6 @@ function! dotfiles#autocomplete#telescope#init() abort
   nmap <Plug>(dotfiles-buffers) :<C-u>lua require("telescope.builtin").buffers({ sort_lastused = true, ignore_current_buffer = true, show_all_buffers = true, sorter=require("telescope.sorters").get_fzy_sorter() })<CR>
   nmap <Plug>(dotfiles-lines) :<C-u>Telescope current_buffer_fuzzy_find<CR>
   nmap <Plug>(dotfiles-commands) :<C-u>Telescope command_history<CR>
-  nmap <Plug>(dotfiles-yanks) <nop>
   nmap <Plug>(dotfiles-windows) <nop>
   nmap <Plug>(dotfiles-home-files) <nop>
 lua <<EOF
