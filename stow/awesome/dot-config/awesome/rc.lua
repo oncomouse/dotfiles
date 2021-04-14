@@ -128,7 +128,6 @@ beautiful.border_width = 1
 beautiful.font = "FiraCode Nerd Font Normal 14"
 beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
 beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
-beautiful.titlebar_font = "FiraCode Nerd Font Bold 12"
 -- Widget spacing in left and right wibox areas:
 beautiful.widget_space = {
 	left = nil,
@@ -140,7 +139,13 @@ beautiful.bar_position = "top"
 -- Hotkey formatting:
 beautiful.hotkeys_modifiers_fg = x.color4
 -- Titlebar formatting:
-beautiful.titlebar_bg_focus = x.color7
+beautiful.titlebar_font = "FiraCode Nerd Font Bold 12"
+beautiful.titlebar_bg_normal = x.color8
+beautiful.titlebar_fg_normal = x.color7
+beautiful.titlebar_close_button_focus = gears.filesystem.get_themes_dir().."default/titlebar/close_normal.png"
+beautiful.titlebar_close_button_focus  = gears.filesystem.get_themes_dir().."default/titlebar/close_focus.png"
+beautiful.titlebar_bg_focus = x.color0
+beautiful.titlebar_fg_focus = x.color15
 -- Tasklist formatting:
 beautiful.tasklist_disable_icon = true -- No icons in tasklist
 --- }}}
