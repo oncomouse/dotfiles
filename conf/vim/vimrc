@@ -203,7 +203,7 @@ endif
       autocmd!
       autocmd VimEnter * call s:extend_endwise()
     augroup END
-    inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
+    " inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
     if has('nvim-0.5')
       augroup highlight_yank
         autocmd!
