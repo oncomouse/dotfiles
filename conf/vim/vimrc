@@ -26,8 +26,6 @@ endif
   if g:dotfiles_mode ==# 'server' || (g:complete_package ==# 'telescope' && !has('nvim-0.5'))
     let g:complete_package = 'fzf'
   endif
-  " Location of BiBLaTeX repo:
-  let g:bibliography_file = expand('~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib')
   " This avoids highlighting big files:
   let g:large_file = 20*1024*1024
 " }}}
