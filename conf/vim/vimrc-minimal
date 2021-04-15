@@ -82,7 +82,7 @@ set number relativenumber
 if has('nvim')
   augroup line-numbers
     autocmd!
-      autocmd TermOpen * setlocal nonumber norelativenumber
+    autocmd TermOpen * setlocal nonumber norelativenumber
   augroup END
 endif
 
