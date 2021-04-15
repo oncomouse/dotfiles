@@ -255,8 +255,6 @@ endif
   " }}}
   " Server-Only {{{
     if !has('nvim') || g:dotfiles_mode ==# 'server'
-      Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
-      Plug 'sheerun/vim-polyglot'
     endif
   " }}}
   if g:dotfiles_mode ==# 'desktop'
@@ -306,7 +304,7 @@ endif
         let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
         Plug 'cakebaker/scss-syntax.vim' " SCSS Syntax
         Plug 'oncomouse/vim-fish' " Fish Syntax & Async Completion
-        Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " Variable Highlighting for Python
+        " Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' } " Variable Highlighting for Python
       " }}}
       " Text Object Plugins: {{{
         Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
@@ -350,7 +348,7 @@ endif
               Plug 'neovim/nvim-lspconfig'
               Plug 'nvim-treesitter/nvim-treesitter'
               Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-              Plug 'nvim-treesitter/playground'
+              " Plug 'nvim-treesitter/playground'
             else
               Plug 'autozimu/LanguageClient-neovim', {
                 \ 'branch': 'next',
@@ -417,6 +415,11 @@ endif
           autocmd User vim-textobj-quote call textobj#quote#init()
         augroup END
       " }}}
+    else " Server-only plugins
+      Plug 'sheerun/vim-polyglot'
+      if !has('nvim')
+        Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
+      endif
     endif
   call plug#end()
   " }}}
