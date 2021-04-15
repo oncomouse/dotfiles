@@ -1,3 +1,8 @@
+function! s:has_floating_window() abort
+  " MenuPopupChanged was renamed to CompleteChanged -> https://github.com/neovim/neovim/pull/9819
+  return (exists('##MenuPopupChanged') || exists('##CompleteChanged')) && exists('*nvim_open_win')
+endfunction
+
 function! dotfiles#autocomplete#coc_nvim#init() abort
 " Coc Diagnostic shortcuts: {{{
   nmap <Plug>(dotfiles-diagnostic-next) <Plug>(coc-diagnostic-next)
@@ -18,17 +23,17 @@ endfunction
 
 function! dotfiles#autocomplete#coc_nvim#configuration() abort
   call coc#config('coc.preferences', {
-      \ 'hoverTarget': dotfiles#coc#has_floating_window() ? 'float' : 'echo',
+      \ 'hoverTarget': s:has_floating_window() ? 'float' : 'echo',
       \ })
   call coc#config('suggest', {
       \ 'echodocSupport': 1,
-      \ 'floatEnable': dotfiles#coc#has_floating_window(),
+      \ 'floatEnable': s:has_floating_window(),
       \ })
   call coc#config('signature', {
-      \ 'target': dotfiles#coc#has_floating_window() ? 'float' : 'echo',
+      \ 'target': s:has_floating_window() ? 'float' : 'echo',
       \ })
   call coc#config('diagnostics', {
-      \ 'messageTarget': dotfiles#coc#has_floating_window() ? 'float' : 'echo',
+      \ 'messageTarget': s:has_floating_window() ? 'float' : 'echo',
       \ })
 endfunction
 
