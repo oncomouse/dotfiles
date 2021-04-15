@@ -78,8 +78,12 @@ set splitright
 
 " Line Numbering:
 set number relativenumber
-" Turn off line numbering in NeoVim terminal:
+
 if has('nvim')
+  " Preview Substitution Operations:
+  set inccommand=split
+
+  " Turn Off Line Numbering:
   augroup line-numbers
     autocmd!
     autocmd TermOpen * setlocal nonumber norelativenumber
@@ -94,3 +98,8 @@ if executable('rg')
   let &grepprg='rg --vimgrep'
   let &grepformat='%f:%l:%c:%m'
 endif
+
+" Line number colors:
+hi default LineNr ctermfg=9
+hi default LineNrAbove ctermfg=7
+hi default LineNrBelow ctermfg=7
