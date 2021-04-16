@@ -3,8 +3,8 @@
 " ┗┛ ╹╹ ╹╹┗╸┗━╸
 scriptencoding utf8
 " In case this was loaded without a wrapper:
-if !(&runtimepath =~# expand('~/dotfiles/vim/').',')
-  let &runtimepath .= ','.expand('~/dotfiles/vim/')
+if !(&runtimepath =~# expand('~/dotfiles/conf/vim/').',')
+  let &runtimepath .= ','.expand('~/dotfiles/conf/vim/')
 endif
 " Mac NeoVim Settings: {{{
   if has('mac') && has('nvim')
