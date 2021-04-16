@@ -100,6 +100,6 @@ if executable('rg')
 endif
 
 " Line number colors:
-hi default LineNr ctermfg=9
-hi default LineNrAbove ctermfg=7
-hi default LineNrBelow ctermfg=7
+hi LineNr ctermfg=9
+hi LineNrAbove ctermfg=7
+hi LineNrBelow ctermfg=7
