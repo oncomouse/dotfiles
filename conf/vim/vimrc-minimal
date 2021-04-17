@@ -1,6 +1,6 @@
 " Set our minimal package environment (vim-sensible):
 function! s:packpath(pack, opt) abort
-  return (has('nvim') ? stdpath('config') : expand('~/.vim')) . '/pack/minimal/'.(a:opt ? 'opt' : 'start').'/'.fnamemodify(a:pack, ':t')
+  return (has('nvim') ? stdpath('data') . '/site' : expand('~/.vim')) . '/pack/minimal/'.(a:opt ? 'opt' : 'start').'/'.fnamemodify(a:pack, ':t')
 endfunction
 
 function! s:download_pack(pack, ...) abort
