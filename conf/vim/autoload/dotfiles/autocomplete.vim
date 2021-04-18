@@ -28,15 +28,15 @@ function! dotfiles#autocomplete#snippets(findstart, base) abort
     return match(getline('.'), regex)
   endif
   let limit = 6
-  let buffers  = s:sort(s:buffer_source(a:base))[0:limit]
+  " let buffers  = s:sort(s:buffer_source(a:base))[0:limit]
   let snippets = s:sort(s:snippets_source(a:base))[0:limit]
   " let lsp      = s:sort(s:lsp_source(a:base))[0:limit]
-  let files    = s:sort(s:file_source(a:base))[0:2*limit]
+  " let files    = s:sort(s:file_source(a:base))[0:2*limit]
   let lists = [
-      \   { 'list': buffers,  'priority': 1  },
-      \   { 'list': files,    'priority': 2  },
       \   { 'list': snippets, 'priority': 3  },
       \ ]
+  " \   { 'list': buffers,  'priority': 1  },
+  " \   { 'list': files,    'priority': 2  },
   " \   { 'list': lsp,      'priority': 4  }
   return s:mix(lists)
 endfunction
