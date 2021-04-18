@@ -344,7 +344,7 @@ endif
           " Snippet Support: {{{
             Plug 'hrsh7th/vim-vsnip'
             Plug 'hrsh7th/vim-vsnip-integ'
-            Plug 'rafamadriz/friendly-snippets'
+            Plug 'rafamadriz/friendly-snippets', { 'branch': 'main' }
             set completefunc=dotfiles#autocomplete#snippets
           " }}}
           " LSP Support: {{{
