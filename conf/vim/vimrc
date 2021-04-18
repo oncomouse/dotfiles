@@ -346,21 +346,7 @@ endif
             Plug 'hrsh7th/vim-vsnip-integ'
             Plug 'rafamadriz/friendly-snippets'
             set completefunc=dotfiles#autocomplete#snippets
-            imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-            smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-            imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-            smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
-            " imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-            " smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-            imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-            smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-            imap <expr> <Tab>   pumvisible() ?
-                  \ (complete_info()["selected"] != "-1" ? '<C-y>' : '<C-n><C-y>') :
-                  \ (vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>')
-            smap <expr> <Tab>   pumvisible() ?
-                  \ (complete_info()["selected"] != "-1" ? '<C-y>' : '<C-n><C-y>') :
-                  \ (vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>')
-            " }}}
+          " }}}
           " LSP Support: {{{
             if has('nvim-0.5')
               Plug 'neovim/nvim-lspconfig'
@@ -492,6 +478,7 @@ endif
     nmap <silent> <leader>l <Plug>(dotfiles-lines)
     nmap <silent> <leader>? <Plug>(dotfiles-commands)
   " }}}
+  
   " Standard LSP Bindings: {{{
     " As with Fuzzy bindings (above), we set all the LSP commands to Plug
     " bindings and then rebind them here to the keys we actually want to use:
@@ -511,6 +498,21 @@ endif
       nmap <silent> ]d        <Plug>(dotfiles-diagnostic-next)
     endif
   " }}}
+
+  " Snippet Bindings: {{{
+    imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+    smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+    imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+    smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
+    imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+    smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+    smap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+    " Use <Tab> to trigger completion in menus:
+    imap <expr> <Tab>   pumvisible() ?
+          \ (complete_info()["selected"] != "-1" ? '<C-y>' : '<C-n><C-y>') :
+          \ (vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>')
+  " }}}
+
 " }}}
 " Theme: {{{
 set background=dark
