@@ -236,13 +236,13 @@ endif
   if g:complete_package ==# 'fzf'
     " macOS Homebrew
     if isdirectory('/usr/local/opt/fzf')
-      Plug '/usr/local/opt/fzf'
+      set runtimepath+=/usr/local/opt/fzf
     " Arch
     elseif isdirectory('/usr/share/vim/vimfiles')
-      let &runtimepath .= ',/usr/share/vim/vimfiles'
+      set runtimepath+=/usr/share/vim/vimfiles
     " Local install
     elseif isdirectory('~/.fzf')
-      Plug '~/.fzf'
+      exe 'set runtimepath+='.expand('~/.fzf')
     " Fallback
     else
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
