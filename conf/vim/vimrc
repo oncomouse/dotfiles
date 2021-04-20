@@ -288,7 +288,10 @@ if g:dotfiles_mode ==# 'desktop'
   Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
   " }}}
   " Syntax: {{{
-  if !has('nvim-0.5')
+  if has('nvim-0.5')
+    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+  else
     Plug 'cespare/vim-toml' " TOML syntax
     Plug 'neoclide/vim-jsx-improve' " JSX (javascriptreact) Syntax
     Plug 'elzr/vim-json' " JSON Syntax
@@ -349,8 +352,6 @@ if g:dotfiles_mode ==# 'desktop'
     " LSP Support: {{{
     if has('nvim-0.5')
       Plug 'neovim/nvim-lspconfig'
-      Plug 'nvim-treesitter/nvim-treesitter'
-      Plug 'nvim-treesitter/nvim-treesitter-textobjects'
     else
       Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
