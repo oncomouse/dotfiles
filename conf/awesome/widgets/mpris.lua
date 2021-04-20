@@ -1,8 +1,8 @@
 -- luacheck: globals awesome
 local wibox = require("wibox")
 local awful = require("awful")
+local gears = require("gears")
 -- Truncate:
-
 function truncate(st, len)
 	return string.len(st) > len and string.sub(st, 0, len - 1) .. "…" or st
 end
@@ -46,11 +46,22 @@ local mpris_widget = wibox.widget{
 		playerctl.stop()
 	end,
 }
+-- Metadata
+local icon
+local artist
+local album
+local title
+local parse_metadata = function(stdout)
+	local parts = gears.string.split(stdout, "::")
+	return table.unpack(parts)
+end
 local mpris_status_pid = awful.spawn.with_line_callback(
-	"sh -c '~/.local/share/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py --icon-playing 契 --icon-paused  --icon-stopped 栗'-b firefox -b vlc",
+
+	"sh -c '~/.local/share/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py --icon-playing 契 --icon-paused  --icon-stopped 栗 --format \"{icon}::{:artist:{artist}:::}{:title:{title}:}{:-title:{filename}:}{:album:::{album}:}\"' -b firefox -b vlc",
 	{ stdout = function(stdout)
+		icon, artist, title, album = parse_metadata(stdout)
 		mpris_widget:get_children_by_id("title")[1]:set_text(
-			truncate(stdout, 30)
+			truncate(string.format("%s %s - %s", icon, artist, title), 30)
 		)
 	end }
 )
@@ -68,5 +79,14 @@ mpris_widget:connect_signal("button::press", function(_, _, _, button)
 		playerctl.next_track()
 	end
 end)
-
+local mpris_tooltip = awful.tooltip {
+	mode = 'outside',
+	preferred_positions = {'bottom'},
+ }
+mpris_tooltip:add_to_object(mpris_widget)
+mpris_widget:connect_signal('mouse::enter', function()
+	mpris_tooltip.markup = '\n<b>Artist</b>: ' .. artist
+		.. '\n<b>Song</b>: ' .. title
+		.. '\n<b>Album</b>: ' .. album
+end)
 return mpris_widget
