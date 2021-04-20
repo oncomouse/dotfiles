@@ -85,7 +85,7 @@ local mpris_tooltip = awful.tooltip {
  }
 mpris_tooltip:add_to_object(mpris_widget)
 mpris_widget:connect_signal('mouse::enter', function()
-	mpris_tooltip.markup = '\n<b>Artist</b>: ' .. artist
+	mpris_tooltip.markup = '<b>Artist</b>: ' .. artist
 		.. '\n<b>Song</b>: ' .. title
 		.. '\n<b>Album</b>: ' .. album
 end)
