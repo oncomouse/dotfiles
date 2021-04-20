@@ -4,72 +4,72 @@ if !(&runtimepath =~# expand('~/dotfiles/conf/vim/').',')
   let &runtimepath .= ','.expand('~/dotfiles/conf/vim/')
 endif
 " Mac NeoVim Settings: {{{
-  if has('mac') && has('nvim')
-    let g:python_host_prog='/usr/bin/python2.7'
-    let g:python3_host_prog='/usr/local/bin/python3'
-    let g:ruby_host_prog=expand('~/.asdf/shims/neovim-ruby-host')
-    let g:node_host_prog='/usr/local/lib/node_modules/neovim/bin/cli.js'
-    " This is macOS only, I believe, but it fixes slow start-up for clipboard:
-    let g:clipboard = {
-          \'copy': {'+': 'pbcopy', '*': 'pbcopy'},
-          \'paste': {'+': 'pbpaste', '*': 'pbpaste'},
-          \'name': 'pbcopy', 'cache_enabled': 0
-          \}
-  endif
+if has('mac') && has('nvim')
+  let g:python_host_prog='/usr/bin/python2.7'
+  let g:python3_host_prog='/usr/local/bin/python3'
+  let g:ruby_host_prog=expand('~/.asdf/shims/neovim-ruby-host')
+  let g:node_host_prog='/usr/local/lib/node_modules/neovim/bin/cli.js'
+  " This is macOS only, I believe, but it fixes slow start-up for clipboard:
+  let g:clipboard = {
+  \ 'copy': {'+': 'pbcopy', '*': 'pbcopy'},
+  \ 'paste': {'+': 'pbpaste', '*': 'pbpaste'},
+  \ 'name': 'pbcopy', 'cache_enabled': 0
+  \ }
+endif
 " }}}
 " Dotfiles Settings: {{{
-  let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
-  let g:complete_package = 'fzf' " fzf, telescope, or coc.nvim
-  if g:dotfiles_mode ==# 'server' || (g:complete_package ==# 'telescope' && !has('nvim-0.5'))
-    let g:complete_package = 'fzf'
-  endif
-  " This avoids highlighting big files:
-  let g:large_file = 20*1024*1024
+let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
+let g:complete_package = 'fzf' " fzf, telescope, or coc.nvim
+if g:dotfiles_mode ==# 'server' || (g:complete_package ==# 'telescope' && !has('nvim-0.5'))
+  let g:complete_package = 'fzf'
+endif
+" This avoids highlighting big files:
+let g:large_file = 20*1024*1024
 " }}}
 " Basic Vim Settings: {{{
-  set mouse=a " Mouse support
-  if has('clipboard')
-    if has('unnamedplus')
-      set clipboard=unnamedplus,unnamed
-    else
-      set clipboard=unnamed
-    endif
+set mouse=a " Mouse support
+if has('clipboard')
+  if has('unnamedplus')
+    set clipboard=unnamedplus,unnamed
+  else
+    set clipboard=unnamed
   endif
+endif
 
-  " Load Basic Settings:
-  runtime vimrc-minimal
+" Load Basic Settings:
+runtime vimrc-minimal
 
-  " Set Leader:
-  let mapleader = "\<Space>"
-  let maplocalleader = ','
+" Set Leader:
+let mapleader = "\<Space>"
+let maplocalleader = ','
 
-  " Add Dotfiles After To RTP:
-  let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
+" Add Dotfiles After To RTP:
+let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
 
-  " Show Updates Of Commands:
-  if has('nvim')
-    set inccommand=split
-  endif
+" Show Updates Of Commands:
+if has('nvim')
+  set inccommand=split
+endif
 
-  " Set Spellfile Location:
-  set spellfile=~/dotfiles/conf/vim/spell/en.utf-8.add
+" Set Spellfile Location:
+set spellfile=~/dotfiles/conf/vim/spell/en.utf-8.add
 
-  " Grep:
-  if executable('rg')
-    set grepprg=rg\ --vimgrep
-  elseif executable('ag')
-    set grepprg=ag\ --vimgrep
-  endif
+" Grep:
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+elseif executable('ag')
+  set grepprg=ag\ --vimgrep
+endif
 
-  " Completion:
-  set completeopt=menuone,noselect,noinsert,preview
-  " Shut off completion messages
-  set shortmess+=c
-  " prevent a condition where vim lags due to searching include files.
-  set complete-=i
+" Completion:
+set completeopt=menuone,noselect,noinsert,preview
+" Shut off completion messages
+set shortmess+=c
+" prevent a condition where vim lags due to searching include files.
+set complete-=i
 
-  " Statusline:
-  set statusline=%!dotfiles#statusline#statusline()
+" Statusline:
+set statusline=%!dotfiles#statusline#statusline()
 " }}}
 " Tabs: {{{
   set tabstop=8
@@ -109,403 +109,401 @@ endif
   endif
 " }}}
 " Plugins: {{{
-  " Install vim_plug if it is missing: {{{
-  if has('nvim')
-    if has('win32')
-      let s:win_vimfiles = $HOME . '/AppData/Local/nvim/vimfiles'
-      let g:plug_dir = s:win_vimfiles . '/plugged/'
-      let g:plug_autoload_dir = s:win_vimfiles . '/autoload/'
-    else
-      let s:xdg_home = $XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share/nvim/site'
-      let g:plug_dir = s:xdg_home . '/plugged/'
-      let g:plug_autoload_dir = s:xdg_home . '/autoload/'
-    endif
+" Install vim_plug if it is missing: {{{
+if has('nvim')
+  if has('win32')
+    let s:win_vimfiles = $HOME . '/AppData/Local/nvim/vimfiles'
+    let g:plug_dir = s:win_vimfiles . '/plugged/'
+    let g:plug_autoload_dir = s:win_vimfiles . '/autoload/'
   else
-    if has('win32')
-      let s:win_vimfiles = $HOME . '/vimfiles'
-      let g:plug_dir = s:win_vimfiles . '/plugged/'
-      let g:plug_autoload_dir = s:win_vimfiles . '/autoload/'
-    else
-      let g:plug_dir = '~/.vim/plugged/'
-      let g:plug_autoload_dir = '~/.vim/autoload/'
-    endif
+    let s:xdg_home = $XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share/nvim/site'
+    let g:plug_dir = s:xdg_home . '/plugged/'
+    let g:plug_autoload_dir = s:xdg_home . '/autoload/'
   endif
-  if empty(glob(g:plug_autoload_dir.'plug.vim'))
-    silent execute '!curl -fLo '.g:plug_autoload_dir.'plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    augroup vim_plug
-      autocmd!
-      autocmd VimEnter * PlugInstall | source $MYVIMRC
-    augroup END
+else
+  if has('win32')
+    let s:win_vimfiles = $HOME . '/vimfiles'
+    let g:plug_dir = s:win_vimfiles . '/plugged/'
+    let g:plug_autoload_dir = s:win_vimfiles . '/autoload/'
+  else
+    let g:plug_dir = '~/.vim/plugged/'
+    let g:plug_autoload_dir = '~/.vim/autoload/'
   endif
-  " }}}
-  call plug#begin(g:plug_dir)
-  " Get Started: {{{
-  Plug 'xero/securemodelines' " Secure modelines
-  set nomodeline
-  let g:secure_modelines_verbose = 0
-  let g:secure_modelines_modelines = 15
-  let g:secure_modelines_allowed_items = [
-      \ 'textwidth',   'tw',
-      \ 'softtabstop', 'sts',
-      \ 'tabstop',     'ts',
-      \ 'shiftwidth',  'sw',
-      \ 'expandtab',   'et',   'noexpandtab', 'noet',
-      \ 'filetype',    'ft',
-      \ 'foldmethod',  'fdm',
-      \ 'foldlevel',   'fdl',
-      \ 'readonly',    'ro',   'noreadonly', 'noro',
-      \ 'rightleft',   'rl',   'norightleft', 'norl',
-      \ 'cindent',     'cin',  'nocindent', 'nocin',
-      \ 'smartindent', 'si',   'nosmartindent', 'nosi',
-      \ 'autoindent',  'ai',   'noautoindent', 'noai',
-      \ 'spell', 'nospell',
-      \ 'spelllang',
-      \ 'wrap', 'nowrap',
-      \ 'syntax'
-  \ ]
-  if !has('nvim')
-    Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git' " Non-neovim theme
+endif
+if empty(glob(g:plug_autoload_dir.'plug.vim'))
+  silent execute '!curl -fLo '.g:plug_autoload_dir.'plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  augroup vim_plug
+    autocmd!
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
+  augroup END
+endif
+" }}}
+call plug#begin(g:plug_dir)
+" Get Started: {{{
+Plug 'xero/securemodelines' " Secure modelines
+set nomodeline
+let g:secure_modelines_verbose = 0
+let g:secure_modelines_modelines = 15
+let g:secure_modelines_allowed_items = [
+\ 'textwidth',   'tw',
+\ 'softtabstop', 'sts',
+\ 'tabstop',     'ts',
+\ 'shiftwidth',  'sw',
+\ 'expandtab',   'et',   'noexpandtab', 'noet',
+\ 'filetype',    'ft',
+\ 'foldmethod',  'fdm',
+\ 'foldlevel',   'fdl',
+\ 'readonly',    'ro',   'noreadonly', 'noro',
+\ 'rightleft',   'rl',   'norightleft', 'norl',
+\ 'cindent',     'cin',  'nocindent', 'nocin',
+\ 'smartindent', 'si',   'nosmartindent', 'nosi',
+\ 'autoindent',  'ai',   'noautoindent', 'noai',
+\ 'spell', 'nospell',
+\ 'spelllang',
+\ 'wrap', 'nowrap',
+\ 'syntax'
+\ ]
+if !has('nvim')
+  Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git' " Non-neovim theme
+endif
+" }}}
+" General Editing: {{{
+if !has('nvim')
+  Plug 'noahfrederick/vim-neovim-defaults' " Neovim defaults for vim
+endif
+Plug 'sickill/vim-pasta' " Indentation-forward pasting
+Plug 'tpope/vim-repeat'
+Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
+Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
+Plug 'airblade/vim-rooter' " Set project root
+let g:rooter_patterns = [
+\ 'Rakefile',
+\ 'package.json',
+\ '.git/',
+\ 'Gemfile',
+\ 'pyproject.toml',
+\ 'setup.py',
+\ ]
+Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
+Plug 'cohama/lexima.vim' " Autopairs + Endwise
+function! s:make_rule(at, end, filetype, syntax)
+  return {
+  \ 'char': '<CR>',
+  \ 'input': '<CR>',
+  \ 'input_after': '<CR>' . a:end,
+  \ 'at': a:at,
+  \ 'except': '\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1' . a:end,
+  \ 'filetype': a:filetype,
+  \ 'syntax': a:syntax,
+  \ }
+endfunction
+function! s:extend_endwise() abort
+  " Lua endwise rules:
+  call lexima#add_rule(s:make_rule('^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
+  call lexima#add_rule(s:make_rule('^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
+  call lexima#add_rule(s:make_rule('^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
+endfunction
+augroup lexima-startup
+  autocmd!
+  autocmd VimEnter * call s:extend_endwise()
+augroup END
+" inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
+if has('nvim-0.5')
+  augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
+  augroup END
+else
+  Plug 'machakann/vim-highlightedyank' " Highlights yank
+endif
+" }}}
+" Git Support: {{{
+Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
+function! s:load_gina() abort
+  call gina#custom#command#option('status', '--opener', &previewheight . 'split')
+  call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
+  call gina#custom#command#option('diff', '--opener', &previewheight . 'split')
+  call gina#custom#command#option('status', '--group', 'short')
+  call gina#custom#command#option('commit', '--group', 'short')
+  call gina#custom#command#option('diff', '--group', 'short')
+  " Implement vim-fugitive commands in Gina:
+  call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
+endfunction
+augroup gina-startup
+  autocmd!
+  autocmd VimEnter * call s:load_gina()
+augroup END
+cnoreabbrev gina Gina
+" }}}
+" List Support: {{{
+if g:complete_package ==# 'fzf'
+  " macOS Homebrew
+  if isdirectory('/usr/local/opt/fzf')
+    set runtimepath+=/usr/local/opt/fzf
+  " Arch
+  elseif isdirectory('/usr/share/vim/vimfiles')
+    set runtimepath+=/usr/share/vim/vimfiles
+  " Local install
+  elseif isdirectory('~/.fzf')
+    exe 'set runtimepath+='.expand('~/.fzf')
+  " Fallback
+  else
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   endif
-  " }}}
+  Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
+elseif g:complete_package ==# 'telescope'
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+endif
+" }}}
+if g:dotfiles_mode ==# 'desktop'
   " General Editing: {{{
-  if !has('nvim')
-    Plug 'noahfrederick/vim-neovim-defaults' " Neovim defaults for vim
+  if has('nvim')
+    Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
   endif
-  Plug 'sickill/vim-pasta' " Indentation-forward pasting
-  Plug 'tpope/vim-repeat'
-  Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-  Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
-  Plug 'airblade/vim-rooter' " Set project root
-  let g:rooter_patterns = ['Rakefile', 'package.json', '.git/', 'Gemfile'
-        \ , 'pyproject.toml', 'setup.py']
-  Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
-  Plug 'cohama/lexima.vim' " Autopairs + Endwise
-  function! s:make_rule(at, end, filetype, syntax)
-    return {
-    \ 'char': '<CR>',
-    \ 'input': '<CR>',
-    \ 'input_after': '<CR>' . a:end,
-    \ 'at': a:at,
-    \ 'except': '\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1' . a:end,
-    \ 'filetype': a:filetype,
-    \ 'syntax': a:syntax,
-    \ }
-  endfunction
-  function! s:extend_endwise() abort
-    " Lua endwise rules:
-    call lexima#add_rule(s:make_rule('^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
-    call lexima#add_rule(s:make_rule('^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
-    call lexima#add_rule(s:make_rule('^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
-  endfunction
-  augroup lexima-startup
-    autocmd!
-    autocmd VimEnter * call s:extend_endwise()
-  augroup END
-  " inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
   if has('nvim-0.5')
-    augroup highlight_yank
-      autocmd!
-      autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
-    augroup END
+    Plug 'windwp/nvim-ts-autotag', { 'branch': 'main' } " Auotmatically close HTML tags
   else
-    Plug 'machakann/vim-highlightedyank' " Highlights yank
+    Plug 'alvan/vim-closetag' " Automatically close HTML tags
+    let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.js,*.erb'
+    let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
+    let g:closetag_filetypes = 'html,javascriptreact'
+    let g:closetag_close_shortcut = '<leader>>'
+    let g:closetag_regions = {
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
+    \ 'javascript': 'jsxRegion',
+    \ }
+  endif
+  Plug 'Konfekt/FastFold' " Better fold support
+  let g:fastfold_savehook = 1
+  let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
+  let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+  let g:fastfold_minlines = 0
+  Plug 'Yggdroot/indentLine' " Indent with characters
+  let g:indentLine_char = "\u22EE"
+  let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
+  let g:indentLine_setColors = 0
+  Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
+  " }}}
+  " Syntax: {{{
+  if !has('nvim-0.5')
+    Plug 'cespare/vim-toml' " TOML syntax
+    Plug 'neoclide/vim-jsx-improve' " JSX (javascriptreact) Syntax
+    Plug 'elzr/vim-json' " JSON Syntax
+    let g:vim_json_syntax_conceal = 0
+    Plug 'tbastos/vim-lua' " Lua Syntax
+  endif
+  Plug 'plasticboy/vim-markdown' " Markdown Syntax
+  let g:vim_markdown_frontmatter = 1 " Format YAML
+  let g:vim_markdown_strikethrough = 0 " Don't format strikethrough
+  let g:vim_markdown_conceal = 0 " Don't conceal
+  let g:vim_markdown_conceal_code_blocks = 0 " Don't conceal code blocks
+  let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
+  Plug 'cakebaker/scss-syntax.vim' " SCSS Syntax
+  Plug 'oncomouse/vim-fish' " Fish Syntax & Async Completion
+  " }}}
+  " Text Object Plugins: {{{
+  Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
+  if !has('nvim-0.5')
+    Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
+    Plug 'rhysd/vim-textobj-ruby' " ar for ruby objects
+    Plug 'thinca/vim-textobj-function-javascript' " js function support
+    Plug 'bps/vim-textobj-python' " function and class support for Python
   endif
   " }}}
-  " Git Support: {{{
-  Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
-  function! s:load_gina() abort
-    call gina#custom#command#option('status', '--opener', &previewheight . 'split')
-    call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
-    call gina#custom#command#option('diff', '--opener', &previewheight . 'split')
-    call gina#custom#command#option('status', '--group', 'short')
-    call gina#custom#command#option('commit', '--group', 'short')
-    call gina#custom#command#option('diff', '--group', 'short')
-    " Implement vim-fugitive commands in Gina:
-    call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
-  endfunction
-  augroup gina-startup
-    autocmd!
-    autocmd VimEnter * call s:load_gina()
-  augroup END
-  cnoreabbrev gina Gina
+  " Snippet Support: {{{
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'hrsh7th/vim-vsnip-integ'
+  Plug 'rafamadriz/friendly-snippets', { 'branch': 'main' }
   " }}}
-  " List Support: {{{
-  if g:complete_package ==# 'fzf'
-    " macOS Homebrew
-    if isdirectory('/usr/local/opt/fzf')
-      set runtimepath+=/usr/local/opt/fzf
-    " Arch
-    elseif isdirectory('/usr/share/vim/vimfiles')
-      set runtimepath+=/usr/share/vim/vimfiles
-    " Local install
-    elseif isdirectory('~/.fzf')
-      exe 'set runtimepath+='.expand('~/.fzf')
-    " Fallback
-    else
-      Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    endif
-    Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
-  elseif g:complete_package ==# 'telescope'
-    Plug 'nvim-lua/popup.nvim'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
+  " Autocomplete: {{{
+  if g:complete_package ==# 'fzf' && has('nvim-0.5')
+    Plug 'gfanto/fzf-lsp.nvim', { 'branch': 'main' }
   endif
-  " }}}
-  if g:dotfiles_mode ==# 'desktop'
-    " General Editing: {{{
-    if has('nvim')
-      Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
-    endif
+  " Load LSP + Completion:
+  if g:complete_package =~# 'coc.nvim'
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    let g:coc_config_home = expand('~/dotfiles/conf/vim/lsp-settings/coc.nvim/')
+    let g:coc_global_extensions = [
+    \   'coc-calc',
+    \   'coc-css',
+    \   'coc-diagnostic',
+    \   'coc-eslint',
+    \   'coc-fish',
+    \   'coc-html',
+    \   'coc-json',
+    \   'coc-lists',
+    \   'coc-prettier',
+    \   'coc-python',
+    \   'coc-solargraph',
+    \   'coc-stylelintplus',
+    \   'coc-styled-components',
+    \   'coc-tsserver',
+    \   'coc-vimlsp',
+    \   'coc-yaml',
+    \   'coc-yank',
+    \]
+  else
+    " LSP Support: {{{
     if has('nvim-0.5')
-      Plug 'windwp/nvim-ts-autotag', { 'branch': 'main' } " Auotmatically close HTML tags
+      Plug 'neovim/nvim-lspconfig'
+      Plug 'nvim-treesitter/nvim-treesitter'
+      Plug 'nvim-treesitter/nvim-treesitter-textobjects'
     else
-      Plug 'alvan/vim-closetag' " Automatically close HTML tags
-      let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.js,*.erb'
-      let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
-      let g:closetag_filetypes = 'html,javascriptreact'
-      let g:closetag_close_shortcut = '<leader>>'
-      let g:closetag_regions = {
-      \ 'typescriptreact': 'jsxRegion,tsxRegion',
-      \ 'javascriptreact': 'jsxRegion',
-      \ 'javascript': 'jsxRegion',
+      Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
       \ }
-    endif
-    Plug 'Konfekt/FastFold' " Better fold support
-    let g:fastfold_savehook = 1
-    let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
-    let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-    let g:fastfold_minlines = 0
-    Plug 'Yggdroot/indentLine' " Indent with characters
-    let g:indentLine_char = "\u22EE"
-    let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
-    let g:indentLine_setColors = 0
-    Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
-    " }}}
-    " Syntax: {{{
-    if !has('nvim-0.5')
-      Plug 'cespare/vim-toml' " TOML syntax
-      Plug 'neoclide/vim-jsx-improve' " JSX (javascriptreact) Syntax
-      Plug 'elzr/vim-json' " JSON Syntax
-      let g:vim_json_syntax_conceal = 0
-      Plug 'tbastos/vim-lua' " Lua Syntax
-    endif
-    Plug 'plasticboy/vim-markdown' " Markdown Syntax
-    let g:vim_markdown_frontmatter = 1 " Format YAML
-    let g:vim_markdown_strikethrough = 0 " Don't format strikethrough
-    let g:vim_markdown_conceal = 0 " Don't conceal
-    let g:vim_markdown_conceal_code_blocks = 0 " Don't conceal code blocks
-    let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
-    Plug 'cakebaker/scss-syntax.vim' " SCSS Syntax
-    Plug 'oncomouse/vim-fish' " Fish Syntax & Async Completion
-    " }}}
-    " Text Object Plugins: {{{
-    Plug 'kana/vim-textobj-user' " Allow custom textobj definitions
-    if !has('nvim-0.5')
-      Plug 'kana/vim-textobj-function' " af, if, aF, iF select function
-      Plug 'rhysd/vim-textobj-ruby' " ar for ruby objects
-      Plug 'thinca/vim-textobj-function-javascript' " js function support
-      Plug 'bps/vim-textobj-python' " function and class support for Python
+      let g:LanguageClient_settingsPath = expand('~/dotfiles/conf/vim/lsp-settings/LanguageClient-neovim/settings.json')
+      let g:LanguageClient_useVirtualText = 'CodeLens'
+      " Turn off all diagnostic stuff (pump it all to ALE):
+      let g:LanguageClient_diagnosticsEnable = 0
+      " Debug:
+      " let g:LanguageClient_loggingFile = expand('~/lc.log')
+      " let g:LanguageClient_loggingLevel = 'DEBUG'
+      " Always use hover:
+      let g:LanguageClient_useFloatingHover = 0
+      let g:LanguageClient_hoverPreview = 'Auto'
+      " Root patterns:
+      let g:LanguageClient_rootMarkers = g:rooter_patterns
+      let g:LanguageClient_serverCommands = {
+      \ 'javascript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+      \ 'javascriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+      \ 'typescript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+      \ 'typescriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
+      \ 'python': ['/usr/bin/env', 'jedi-language-server'],
+      \ 'haskell': ['/usr/bin/env', 'haskell-language-server-wrapper', '--lsp'],
+      \ 'ruby': ['/usr/bin/env', 'solargraph', 'stdio'],
+      \ 'json': ['/usr/bin/env', 'json-languageserver', '--stdio'],
+      \ 'html': ['/usr/bin/env', 'html-languageserver', '--stdio'],
+      \ 'scss': ['/usr/bin/env', 'css-languageserver', '--stdio'],
+      \ 'css': ['/usr/bin/env', 'css-languageserver', '--stdio'],
+      \ 'lua': ['sumneko-lua-language-server'],
+      \ 'vim': ['/usr/bin/env', 'vim-language-server', '--stdio'],
+      \ 'markdown': ['/usr/bin/env', 'citation-langserver'],
+      \ 'bash': ['/usr/bin/env', 'bash-language-server', 'start'],
+      \ 'sh': ['/usr/bin/env', 'bash-language-server', 'start'],
+      \}
     endif
     " }}}
-    " Snippet Support: {{{
-    Plug 'hrsh7th/vim-vsnip'
-    Plug 'hrsh7th/vim-vsnip-integ'
-    Plug 'rafamadriz/friendly-snippets', { 'branch': 'main' }
-    set completefunc=dotfiles#autocomplete#snippets
+    " ALE For Linting: {{{
+    Plug 'dense-analysis/ale'
+    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+    let g:ale_cursor_detail = 0
+    " Always use preview for hover (only used w/ JS languages):
+    " let g:ale_hover_to_preview = 1
+    " We let our LSP client handle LSPs:
+    let g:ale_disable_lsp = 1
+    let g:ale_fix_on_save = 0
+    let g:ale_pattern_options = {
+    \ '\.min.js$': {'ale_enabled': 0},
+    \ 'build/.*$': {'ale_enabled': 0},
+    \ }
+    let g:ale_set_signs = 0 " Turn off sign column
     " }}}
-    " Autocomplete: {{{
-    if g:complete_package ==# 'fzf' && has('nvim-0.5')
-      Plug 'gfanto/fzf-lsp.nvim', { 'branch': 'main' }
-    endif
-    " Load LSP + Completion:
-    if g:complete_package =~# 'coc.nvim'
-      Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-      let g:coc_config_home = expand('~/dotfiles/conf/vim/lsp-settings/coc.nvim/')
-      let g:coc_global_extensions = [
-      \   'coc-calc',
-      \   'coc-css',
-      \   'coc-diagnostic',
-      \   'coc-eslint',
-      \   'coc-fish',
-      \   'coc-html',
-      \   'coc-json',
-      \   'coc-lists',
-      \   'coc-prettier',
-      \   'coc-python',
-      \   'coc-solargraph',
-      \   'coc-stylelintplus',
-      \   'coc-styled-components',
-      \   'coc-tsserver',
-      \   'coc-vimlsp',
-      \   'coc-yaml',
-      \   'coc-yank',
-      \]
-    else
-      " LSP Support: {{{
-      if has('nvim-0.5')
-        Plug 'neovim/nvim-lspconfig'
-        Plug 'nvim-treesitter/nvim-treesitter'
-        Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-        " Plug 'nvim-treesitter/playground'
-      else
-        Plug 'autozimu/LanguageClient-neovim', {
-          \ 'branch': 'next',
-          \ 'do': 'bash install.sh',
-          \ }
-        let g:LanguageClient_settingsPath = expand('~/dotfiles/conf/vim/lsp-settings/LanguageClient-neovim/settings.json')
-        let g:LanguageClient_useVirtualText = 'CodeLens'
-        " Turn off all diagnostic stuff (pump it all to ALE):
-        let g:LanguageClient_diagnosticsEnable = 0
-        " Debug:
-        " let g:LanguageClient_loggingFile = expand('~/lc.log')
-        " let g:LanguageClient_loggingLevel = 'DEBUG'
-        " Always use hover:
-        let g:LanguageClient_useFloatingHover = 0
-        let g:LanguageClient_hoverPreview = 'Auto'
-        " Root patterns:
-        let g:LanguageClient_rootMarkers = g:rooter_patterns
-        let g:LanguageClient_serverCommands = {
-          \ 'javascript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-          \ 'javascriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-          \ 'typescript': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-          \ 'typescriptreact': ['/usr/bin/env', 'typescript-language-server', '--stdio'],
-          \ 'python': ['/usr/bin/env', 'jedi-language-server'],
-          \ 'haskell': ['/usr/bin/env', 'haskell-language-server-wrapper', '--lsp'],
-          \ 'ruby': ['/usr/bin/env', 'solargraph', 'stdio'],
-          \ 'json': ['/usr/bin/env', 'json-languageserver', '--stdio'],
-          \ 'html': ['/usr/bin/env', 'html-languageserver', '--stdio'],
-          \ 'scss': ['/usr/bin/env', 'css-languageserver', '--stdio'],
-          \ 'css': ['/usr/bin/env', 'css-languageserver', '--stdio'],
-          \ 'lua': ['sumneko-lua-language-server'],
-          \ 'vim': ['/usr/bin/env', 'vim-language-server', '--stdio'],
-          \ 'markdown': ['/usr/bin/env', 'citation-langserver'],
-          \ 'bash': ['/usr/bin/env', 'bash-language-server', 'start'],
-          \ 'sh': ['/usr/bin/env', 'bash-language-server', 'start'],
-          \}
-      endif
-      " }}}
-      " ALE For Linting: {{{
-      Plug 'dense-analysis/ale'
-      let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-      let g:ale_cursor_detail = 0
-      " Always use preview for hover (only used w/ JS languages):
-      " let g:ale_hover_to_preview = 1
-      " We let our LSP client handle LSPs:
-      let g:ale_disable_lsp = 1
-      let g:ale_fix_on_save = 0
-      let g:ale_pattern_options = {
-        \  '\.min.js$': {'ale_enabled': 0},
-        \  'build/.*$': {'ale_enabled': 0},
-        \}
-      let g:ale_set_signs = 0 " Turn off sign column
-      " }}}
-    endif
-    " }}}
-    " Writing: {{{
-    Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
-    Plug 'reedes/vim-textobj-sentence', { 'for': ['markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
-    Plug 'reedes/vim-textobj-quote', { 'for': ['markdown', 'text'] } " Makes aq & iq for smart quotes
-    let g:textobj#quote#educate = 0
-    " Initialize the plugin when it is dynamically loaded:
-    augroup load-sentence
-      autocmd!
-      autocmd User vim-textobj-sentence call textobj#sentence#init()
-      autocmd User vim-textobj-quote call textobj#quote#init()
-    augroup END
-    " }}}
-    " Server-only plugins: {{{
-    else " Server-only plugins
-      Plug 'sheerun/vim-polyglot'
-    endif
-    " }}}
-  call plug#end()
-  " }}}
-  " Treesitter {{{
-  if has('nvim-0.5') && (g:dotfiles_mode ==# 'desktop')
-    lua require('dotfiles.treesitter')
   endif
   " }}}
-  " Maps: {{{
-    " Select whole file
-    nnoremap <leader>vf ggVG
-    " Clear currently highlighted regexp:
-    nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
-    " Highlight a block and type "@" to run a macro on the block:
-    xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
-    " <F4> makes:
-    nnoremap <silent><buffer> <F4> :make!<CR>
-    " Update fast folds:
-    nmap zuz <Plug>(FastFoldUpdate)
-  " Navigate quickfix:
-  nnoremap <silent> ]q :cnext<CR>
-  nnoremap <silent> [q :cprevious<CR>
-  " Grep project:
-  function s:grep_or_qfgrep()
-    if &buftype ==# 'quickfix'
-      call QFGrep#grep_QuickFix(0) 
-    else
-      execute 'Grep ' . input('Grep/')
-    endif 
-  endfunction
-  nnoremap <silent> <leader>/ <cmd>call <SID>grep_or_qfgrep()<CR>
-  " Calculator (not sure how this works):
-  inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
-  " Shortcut to view current syntax highlighting group:
-  map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-    \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-  " if has('nvim-0.5')
-  "   map <F10> :TSHighlightCapturesUnderCursor<CR>
-  " endif
-
-  " List Bindings: {{{
-    nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
-    nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
-  "}}}
-
-  " Standard Fuzzy Bindings: {{{
-    nmap <silent> <c-p> <Plug>(dotfiles-files)
-    nmap <silent> <leader>F <Plug>(dotfiles-home-files)
-    nmap <silent> <leader>a <Plug>(dotfiles-buffers)
-    nmap <silent> <leader>A <Plug>(dotfiles-windows)
-    nmap <silent> <leader>l <Plug>(dotfiles-lines)
-    nmap <silent> <leader>? <Plug>(dotfiles-commands)
+  " Writing: {{{
+  Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
+  Plug 'reedes/vim-textobj-sentence', { 'for': ['markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
+  Plug 'reedes/vim-textobj-quote', { 'for': ['markdown', 'text'] } " Makes aq & iq for smart quotes
+  let g:textobj#quote#educate = 0
+  " Initialize the plugin when it is dynamically loaded:
+  augroup load-sentence
+    autocmd!
+    autocmd User vim-textobj-sentence call textobj#sentence#init()
+    autocmd User vim-textobj-quote call textobj#quote#init()
+  augroup END
   " }}}
-  
-  " Standard LSP Bindings: {{{
-    " As with Fuzzy bindings (above), we set all the LSP commands to Plug
-    " bindings and then rebind them here to the keys we actually want to use:
-    if (g:dotfiles_mode ==# 'desktop')
-      nmap <silent> <F2>      <Plug>(dotfiles-rename)
-      nmap <silent> <F5>      <Plug>(dotfiles-commands)
-      vmap <silent> ga        <Plug>(dotfiles-codeaction-selected)
-      nmap <silent> ga        <Plug>(dotfiles-codeaction)
-      nmap <silent> gl        <Plug>(dotfiles-codelens)
-      nmap <silent> gd        <Plug>(dotfiles-definition)
-      nmap <silent> gy        <Plug>(dotfiles-type-definition)
-      nmap <silent> gi        <Plug>(dotfiles-implementation)
-      nmap <silent> gr        <Plug>(dotfiles-references)
-      nmap <silent> <leader>s <Plug>(dotfiles-document-symbols)
-      nmap <silent> K         <Plug>(dotfiles-documentation)
-      nmap <silent> [d        <Plug>(dotfiles-diagnostic-previous)
-      nmap <silent> ]d        <Plug>(dotfiles-diagnostic-next)
-    endif
+  " Server-only plugins: {{{
+  else " Server-only plugins
+    Plug 'sheerun/vim-polyglot'
+  endif
   " }}}
-
-  " Snippet Bindings: {{{
-    imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-    smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-    imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-    smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
-    imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-    smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-    smap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'
-    " Use <Tab> to trigger completion in menus:
-    imap <expr> <Tab>   pumvisible() ?
-          \ (complete_info()["selected"] != "-1" ? '<C-y>' : '<C-n><C-y>') :
-          \ (vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>')
+call plug#end()
   " }}}
-
+" Treesitter: {{{
+if has('nvim-0.5') && (g:dotfiles_mode ==# 'desktop')
+  lua require('dotfiles.treesitter')
+endif
+" }}}
+" Maps: {{{
+" Select whole file
+nnoremap <leader>vf ggVG
+" Clear currently highlighted regexp:
+nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
+" Highlight a block and type "@" to run a macro on the block:
+xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
+" <F4> makes:
+nnoremap <silent><buffer> <F4> :make!<CR>
+" Update fast folds:
+nmap zuz <Plug>(FastFoldUpdate)
+" Navigate quickfix:
+nnoremap <silent> ]q :cnext<CR>
+nnoremap <silent> [q :cprevious<CR>
+" Grep project:
+function s:grep_or_qfgrep()
+  if &buftype ==# 'quickfix'
+    call QFGrep#grep_QuickFix(0) 
+  else
+    execute 'Grep ' . input('Grep/')
+  endif 
+endfunction
+nnoremap <silent> <leader>/ <cmd>call <SID>grep_or_qfgrep()<CR>
+" Calculator (not sure how this works):
+inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
+" Shortcut to view current syntax highlighting group:
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" List Bindings: {{{
+nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
+nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
+"}}}
+" Standard Fuzzy Bindings: {{{
+nmap <silent> <c-p> <Plug>(dotfiles-files)
+nmap <silent> <leader>F <Plug>(dotfiles-home-files)
+nmap <silent> <leader>a <Plug>(dotfiles-buffers)
+nmap <silent> <leader>A <Plug>(dotfiles-windows)
+nmap <silent> <leader>l <Plug>(dotfiles-lines)
+nmap <silent> <leader>? <Plug>(dotfiles-commands)
+" }}}
+" Standard LSP Bindings: {{{
+" As with Fuzzy bindings (above), we set all the LSP commands to Plug
+" bindings and then rebind them here to the keys we actually want to use:
+if (g:dotfiles_mode ==# 'desktop')
+  nmap <silent> <F2>      <Plug>(dotfiles-rename)
+  nmap <silent> <F5>      <Plug>(dotfiles-commands)
+  vmap <silent> ga        <Plug>(dotfiles-codeaction-selected)
+  nmap <silent> ga        <Plug>(dotfiles-codeaction)
+  nmap <silent> gl        <Plug>(dotfiles-codelens)
+  nmap <silent> gd        <Plug>(dotfiles-definition)
+  nmap <silent> gy        <Plug>(dotfiles-type-definition)
+  nmap <silent> gi        <Plug>(dotfiles-implementation)
+  nmap <silent> gr        <Plug>(dotfiles-references)
+  nmap <silent> <leader>s <Plug>(dotfiles-document-symbols)
+  nmap <silent> K         <Plug>(dotfiles-documentation)
+  nmap <silent> [d        <Plug>(dotfiles-diagnostic-previous)
+  nmap <silent> ]d        <Plug>(dotfiles-diagnostic-next)
+endif
+" }}}
+" Snippet Bindings: {{{
+" Ctrl_X + Ctrl_U, open snippets:
+set completefunc=dotfiles#snippets#completefunc
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+" Use <Tab> to trigger completion in menus:
+imap <expr> <Tab>   pumvisible() ?
+\ (complete_info()["selected"] != "-1" ? '<C-y>' : '<C-n><C-y>') :
+\ (vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>')
+" }}}
 " }}}
 " Theme: {{{
 set background=dark
@@ -532,46 +530,42 @@ else
 endif
 " }}}
 " Other Settings: {{{
-  augroup dotfile-autocmds
+augroup dotfile-autocmds
+  autocmd!
+  " Close preview window:
+  autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+  " On opening a file, jump to the last known cursor position (see :h line())
+  autocmd! BufReadPost *
+  \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
+  \   exe "normal! g`\"" |
+  \ endif 
+augroup END
+" Load Autocompletion: {{{
+call dotfiles#autocomplete#init()
+" }}}
+" Update FASD For NeoVim: {{{
+if has('nvim')
+  function! s:fasd_update() abort
+    if empty(&buftype)
+      call jobstart(['fasd', '-A', expand('%:p')])
+    endif
+  endfunction
+  augroup fasd
     autocmd!
-    " Close preview window:
-    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-    " On opening a file, jump to the last known cursor position (see :h line())
-    autocmd! BufReadPost *
-          \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
-          \   exe "normal! g`\"" |
-          \ endif 
+    autocmd BufWinEnter,BufFilePost * call s:fasd_update()
   augroup END
-  " Load Autocompletion: {{{
-  if g:dotfiles_mode ==# 'desktop'
-    call dotfiles#autocomplete#init()
-  else
-    call dotfiles#autocomplete#fzf#init()
-  endif
-  " }}}
-  " Update FASD For NeoVim: {{{
-  if has('nvim')
-    function! s:fasd_update() abort
-      if empty(&buftype)
-        call jobstart(['fasd', '-A', expand('%:p')])
-      endif
-    endfunction
-    augroup fasd
-      autocmd!
-      autocmd BufWinEnter,BufFilePost * call s:fasd_update()
-    augroup END
-  endif
-  " }}}
+endif
+" }}}
 " }}}
 " Server Only Settings: {{{
-  if dotfiles_mode ==# 'server'
-    " Minimal format for server mode:
-    command! Format :exe "normal! gggqG<C-o>"
-    augroup dotfiles-server-au
-      autocmd!
-      " Turn on CursorLine Highlighting on Insert:
-      autocmd InsertEnter,InsertLeave * set cul!
-    augroup END
-  endif
+if dotfiles_mode ==# 'server'
+  " Minimal format for server mode:
+  command! Format :exe "normal! gggqG<C-o>"
+  augroup dotfiles-server-au
+    autocmd!
+    " Turn on CursorLine Highlighting on Insert:
+    autocmd InsertEnter,InsertLeave * set cul!
+  augroup END
+endif
 " }}}
 " # vim:foldmethod=marker

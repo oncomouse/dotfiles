@@ -4,14 +4,13 @@ function! s:has_floating_window() abort
 endfunction
 
 function! dotfiles#autocomplete#coc_nvim#init() abort
-" Coc Diagnostic shortcuts: {{{
   nmap <Plug>(dotfiles-diagnostic-next) <Plug>(coc-diagnostic-next)
   nmap <Plug>(dotfiles-diagnostic-previous) <Plug>(coc-diagnostic-previous)
-" }}}
   call dotfiles#autocomplete#coc_nvim#configuration()
   call dotfiles#autocomplete#coc_nvim#keyboard()
   call dotfiles#autocomplete#coc_nvim#fuzzy()
   call dotfiles#autocomplete#coc_nvim#syntax()
+  call dotfiles#autocomplete#coc_nvim#writing()
 endfunction
 
 function! dotfiles#autocomplete#coc_nvim#syntax() abort
@@ -67,7 +66,7 @@ endfunction
 function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
   " (Implement fzf.vim lists for CocList)
   let s:is_win = has('win32') || has('win64')
-  function! s:shortpath()
+  function! s:shortpath() abort
     let short = fnamemodify(getcwd(), ':~:.')
     if !has('win32unix')
       let short = pathshorten(short)
@@ -76,7 +75,7 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
     return empty(short) ? '~'.slash : short . (short =~ escape(slash, '\').'$' ? '' : slash)
   endfunction
 
-  function! CocFiles(dir, ...)
+  function! CocFiles(dir, ...) abort
     let args = {}
     if !empty(a:dir)
       if !isdirectory(expand(a:dir))
@@ -92,7 +91,6 @@ function! dotfiles#autocomplete#coc_nvim#fuzzy() abort
       exe 'CocList files'
     endif
   endfunction
-  " command! -bang -nargs=? -complete=dir Files call CocFiles(<q-args>, <bang>0)
   nmap <Plug>(dotfiles-files) :<C-u>CocList files<CR>
   nmap <Plug>(dotfiles-home-files) :<C-u>call CocFiles('~')<CR>
   nmap <Plug>(dotfiles-buffers) :<C-u>CocList buffers<CR>
