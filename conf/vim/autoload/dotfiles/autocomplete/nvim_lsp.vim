@@ -1,6 +1,6 @@
 function! dotfiles#autocomplete#nvim_lsp#init()
   " Key bindings
-  function! s:show_documentation()
+  function! s:show_documentation() abort
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
     else

@@ -7,7 +7,7 @@ function! dotfiles#autocomplete#LanguageClient#init() abort
     let g:LanguageClient_selectionUI = function('MySelectionUI')
   endif
   " Documentation Function
-  function! s:show_documentation()
+  function! s:show_documentation() abort
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
     else

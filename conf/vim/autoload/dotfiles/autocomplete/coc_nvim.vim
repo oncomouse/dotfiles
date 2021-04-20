@@ -37,7 +37,7 @@ function! dotfiles#autocomplete#coc_nvim#configuration() abort
 endfunction
 
 function! dotfiles#autocomplete#coc_nvim#keyboard() abort
-  function! s:show_documentation()
+  function! s:show_documentation() abort
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
     else
