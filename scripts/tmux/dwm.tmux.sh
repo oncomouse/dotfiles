@@ -1,5 +1,5 @@
 #!/bin/sh
-# Original Source: https://github.com/saysjonathan/dwm.tmux/blob/master/bin/dwm.tmux
+# Original Source: https://github.com/saysjonathan/dwm.tmux/
 
 window_panes=
 killlast=
