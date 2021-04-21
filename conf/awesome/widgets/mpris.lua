@@ -61,7 +61,7 @@ local mpris_status_pid = awful.spawn.with_line_callback(
 	{ stdout = function(stdout)
 		icon, artist, title, album = parse_metadata(stdout)
 		mpris_widget:get_children_by_id("title")[1]:set_text(
-			artist == nil and truncate(string.format("%s %s - %s", icon, artist, title), 30) or ""
+			artist ~= nil and truncate(string.format("%s %s - %s", icon, artist, title), 30) or ""
 		)
 	end }
 )
