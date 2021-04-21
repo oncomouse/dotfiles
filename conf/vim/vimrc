@@ -444,6 +444,9 @@ nmap zuz <Plug>(FastFoldUpdate)
 " Navigate quickfix:
 nnoremap <silent> ]q :cnext<CR>
 nnoremap <silent> [q :cprevious<CR>
+" Navigate buffers:
+nnoremap <silent> ]b <cmd>bnext<CR>
+nnoremap <silent> [b <cmd>bprevious<CR>
 " Grep project:
 function s:grep_or_qfgrep()
   if &buftype ==# 'quickfix'
