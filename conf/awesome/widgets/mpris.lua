@@ -61,7 +61,7 @@ local mpris_status_pid = awful.spawn.with_line_callback(
 	{ stdout = function(stdout)
 		icon, artist, title, album = parse_metadata(stdout)
 		mpris_widget:get_children_by_id("title")[1]:set_text(
-			truncate(string.format("%s %s - %s", icon, artist, title), 30)
+			artist == nil and truncate(string.format("%s %s - %s", icon, artist, title), 30) or ""
 		)
 	end }
 )
@@ -85,8 +85,10 @@ local mpris_tooltip = awful.tooltip {
  }
 mpris_tooltip:add_to_object(mpris_widget)
 mpris_widget:connect_signal('mouse::enter', function()
-	mpris_tooltip.markup = '<b>Artist</b>: ' .. artist
-		.. '\n<b>Song</b>: ' .. title
-		.. '\n<b>Album</b>: ' .. album
+	if artist ~= nil then
+		mpris_tooltip.markup = '<b>Artist</b>: ' .. artist
+			.. '\n<b>Song</b>: ' .. title
+			.. '\n<b>Album</b>: ' .. album
+	end
 end)
 return mpris_widget
