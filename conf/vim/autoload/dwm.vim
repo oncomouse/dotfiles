@@ -1,6 +1,7 @@
 " Attach bottom:
 
 let s:window_count = 1
+let g:dwm_window_main = -1
 
 function! dwm#create() abort
   if winnr('$') == 1
@@ -38,7 +39,7 @@ function! dwm#zoom() abort
   exec l:curwin . 'wincmd w'
   wincmd H
   call dwm#resize_master()
-
+  let g:dwm_window_main = win_getid(1)
 endfunction
 
 function! dwm#resize_master() abort
@@ -46,41 +47,27 @@ function! dwm#resize_master() abort
 endfunction
 
 function! dwm#close() abort
-  if winnr() == 1
-    close
-    1wincmd H
-    call dwm#resize_master()
-  else
-    close
-  endif
-  let s:window_count -= 1
+  close
 endfunction
 
-function! dwm#auto_leave() abort
-  if winnr('$') < 2
-    return
+function! dwm#opened() abort
+  if winnr('$') == 1
+    let g:dwm_window_main = win_getid(1)
   endif
+  " if &l:filetype ==# 'help'
+  "   wincmd K
+  "   call dwm#zoom()
+  "   call dwm#zoom()
+  " endif
+endfunction
 
-  " To prevent vim crashes filetype is checked
-  " before any actual layout changes. So layout
-  " is updated only for regular buffers. Probably
-  " other buffer properties should be also checked.
-  if winnr() == 1
+function! dwm#closed(nr) abort
+  if a:nr == g:dwm_window_main
     wincmd K
     wincmd x
     wincmd H
     call dwm#resize_master()
-  endif
-endfunction
-
-function! dwm#check_layout() abort
-  if &l:buflisted && !exists('w:created')
-    let w:created = 1
-    call dwm#auto_enter()
-  endif
-  if s:window_count > winnr('$')
-    1wincmd H
-    let s:window_count = winnr('$')
+    let g:dwm_window_main = win_getid(1)
   endif
 endfunction
 

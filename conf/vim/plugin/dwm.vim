@@ -1,4 +1,4 @@
-let g:dwm_map_keys = 0
+" let g:dwm_map_keys = 0
 
 nnoremap <Plug>(dwm-create) <cmd>call dwm#create()<CR>
 nnoremap <Plug>(dwm-rotate-clockwise) <cmd>call dwm#rotate(1)<CR>
@@ -16,7 +16,9 @@ if get(g:, 'dwm_map_keys', 1)
   if has('autocmd')
     augroup dwm
       autocmd!
-      autocmd WinEnter * autocmd WinLeave * call dwm#check_layout()
+      autocmd VimEnter * call dwm#opened()
+      autocmd WinNew * call dwm#opened()
+      autocmd WinClosed * exe 'call dwm#closed(' . expand('<afile>') . ')'
     augroup end
   endif
 endif
