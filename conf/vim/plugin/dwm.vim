@@ -16,8 +16,8 @@ if get(g:, 'dwm_map_keys', 1)
   if has('autocmd')
     augroup dwm
       autocmd!
-      autocmd VimEnter * call dwm#opened()
-      autocmd WinNew * call dwm#opened()
+      autocmd VimEnter * call dwm#auto_enter()
+      autocmd WinNew * call dwm#auto_enter()
       autocmd WinClosed * exe 'call dwm#closed(' . expand('<afile>') . ')'
     augroup end
   endif

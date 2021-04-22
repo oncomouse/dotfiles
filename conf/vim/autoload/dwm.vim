@@ -66,13 +66,14 @@ function! dwm#closed(nr) abort
     wincmd K
     wincmd x
     wincmd H
-    call dwm#resize_master()
-    let g:dwm_window_main = win_getid(1)
   endif
+  call dwm#resize_master()
+  let g:dwm_window_main = win_getid(1)
 endfunction
 
 function! dwm#auto_enter() abort
   if winnr('$') == 1
+    let g:dwm_window_main = win_getid(1)
     return
   endif
 
