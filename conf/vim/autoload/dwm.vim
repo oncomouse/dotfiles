@@ -9,6 +9,7 @@ function! dwm#create() abort
   else
     exe ':'.winnr('$').'windo split'
   endif
+  wincmd b
   let s:window_count += 1
 endfunction
 
