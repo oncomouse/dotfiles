@@ -135,11 +135,6 @@ if empty(glob(g:plug_autoload_dir.'plug.vim'))
 endif
 " }}}
 call plug#begin(g:plug_dir)
-" Get Started: {{{
-if !has('nvim')
-  Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git' " Non-neovim theme
-endif
-" }}}
 " General Editing: {{{
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
 Plug 'tpope/vim-repeat'
@@ -224,6 +219,9 @@ elseif g:complete_package ==# 'telescope'
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
+endif
+if !has('nvim')
+  Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git' " Non-neovim theme
 endif
 " }}}
 if g:dotfiles_mode ==# 'desktop'
