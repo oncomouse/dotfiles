@@ -431,6 +431,8 @@ if has('nvim-0.5') && (g:dotfiles_mode ==# 'desktop')
 endif
 " }}}
 " Maps: {{{
+let g:dwm_map_keys = 0
+let g:dwm_load = 0
 " Select whole file
 nnoremap <leader>vf ggVG
 " Clear currently highlighted regexp:

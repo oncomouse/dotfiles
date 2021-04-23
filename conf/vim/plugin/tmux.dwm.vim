@@ -31,17 +31,19 @@ function s:rotate(clockwise)
   call dwm#rotate(a:clockwise)
 endfunction
 
-if empty($TMUX)
-  nmap <silent> <m-j> <Plug>(dwm-rotate-clockwise)
-  nmap <silent> <m-k> <Plug>(dwm-rotate-counterclockwise)
-else
-  nmap <silent> <m-j> <cmd>call <SID>rotate(1)<CR>
-  nmap <silent> <m-k> <cmd>call <SID>rotate(0)<CR>
-  " Leader + dwm.tmux binding calls the command in tmux:
-  nmap <silent> <leader><m-space> <cmd>call <SID>TmuxCommand('newpane')<CR>
-  nmap <silent> <leader><m-j> <cmd>call <SID>TmuxCommand('nextpane')<CR>
-  nmap <silent> <leader><m-k> <cmd>call <SID>TmuxCommand('prevpane')<CR>
+if g:dwm_load == 1
+  if empty($TMUX)
+    nmap <silent> <m-j> <Plug>(dwm-rotate-clockwise)
+    nmap <silent> <m-k> <Plug>(dwm-rotate-counterclockwise)
+  else
+    nmap <silent> <m-j> <cmd>call <SID>rotate(1)<CR>
+    nmap <silent> <m-k> <cmd>call <SID>rotate(0)<CR>
+    " Leader + dwm.tmux binding calls the command in tmux:
+    nmap <silent> <leader><m-space> <cmd>call <SID>TmuxCommand('newpane')<CR>
+    nmap <silent> <leader><m-j> <cmd>call <SID>TmuxCommand('nextpane')<CR>
+    nmap <silent> <leader><m-k> <cmd>call <SID>TmuxCommand('prevpane')<CR>
+  endif
+  nmap <silent> <m-space> <Plug>(dwm-create)
+  nmap <silent> <m-,> <Plug>(dwm-zoom)
+  nmap <silent> <m-c> <Plug>(dwm-close)
 endif
-nmap <silent> <m-space> <Plug>(dwm-create)
-nmap <silent> <m-,> <Plug>(dwm-zoom)
-nmap <silent> <m-c> <Plug>(dwm-close)
