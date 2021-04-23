@@ -140,29 +140,6 @@ endif
 " }}}
 call plug#begin(g:plug_dir)
 " Get Started: {{{
-Plug 'xero/securemodelines' " Secure modelines
-set nomodeline
-let g:secure_modelines_verbose = 0
-let g:secure_modelines_modelines = 15
-let g:secure_modelines_allowed_items = [
-\ 'textwidth',   'tw',
-\ 'softtabstop', 'sts',
-\ 'tabstop',     'ts',
-\ 'shiftwidth',  'sw',
-\ 'expandtab',   'et',   'noexpandtab', 'noet',
-\ 'filetype',    'ft',
-\ 'foldmethod',  'fdm',
-\ 'foldlevel',   'fdl',
-\ 'readonly',    'ro',   'noreadonly', 'noro',
-\ 'rightleft',   'rl',   'norightleft', 'norl',
-\ 'cindent',     'cin',  'nocindent', 'nocin',
-\ 'smartindent', 'si',   'nosmartindent', 'nosi',
-\ 'autoindent',  'ai',   'noautoindent', 'noai',
-\ 'spell', 'nospell',
-\ 'spelllang',
-\ 'wrap', 'nowrap',
-\ 'syntax'
-\ ]
 if !has('nvim')
   Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git' " Non-neovim theme
 endif
@@ -174,7 +151,6 @@ endif
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
 Plug 'tpope/vim-repeat'
 Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
 Plug 'airblade/vim-rooter' " Set project root
 let g:rooter_patterns = [
 \ 'Rakefile',
@@ -433,22 +409,12 @@ endif
 " Maps: {{{
 let g:dwm_map_keys = 0
 let g:dwm_load = 0
-" Select whole file
-nnoremap <leader>vf ggVG
-" Clear currently highlighted regexp:
-nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
 " Highlight a block and type "@" to run a macro on the block:
 xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
 " <F4> makes:
 nnoremap <silent><buffer> <F4> :make!<CR>
 " Update fast folds:
 nmap zuz <Plug>(FastFoldUpdate)
-" Navigate quickfix:
-nnoremap <silent> ]q :cnext<CR>
-nnoremap <silent> [q :cprevious<CR>
-" Navigate buffers:
-nnoremap <silent> ]b <cmd>bnext<CR>
-nnoremap <silent> [b <cmd>bprevious<CR>
 " Grep project:
 function s:grep_or_qfgrep()
   if &buftype ==# 'quickfix'

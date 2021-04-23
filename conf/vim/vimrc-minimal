@@ -1,23 +1,5 @@
-" Set our minimal package environment (vim-sensible):
-function! s:packpath(pack, opt) abort
-  return (has('nvim') ? stdpath('data') . '/site' : expand('~/.vim')) . '/pack/minimal/'.(a:opt ? 'opt' : 'start').'/'.fnamemodify(a:pack, ':t')
-endfunction
-
-function! s:download_pack(pack, ...) abort
-  let l:opt = get(a:, 001, 0)
-  let l:path = s:packpath(a:pack, l:opt)
-  if empty(glob(l:path))
-    if executable('git')
-      silent execute '!git clone --depth 1 https://github.com/'.a:pack.' "'.l:path.'"'
-    else
-      echom 'No git executable found.'
-    endif
-  endif
-endfunction
-
-call s:download_pack('tpope/vim-sensible')
 " ==============================================================================
-" My stuff:
+" Basic Settings:
 " ==============================================================================
 set visualbell t_vb= " Disable visual bell
 set autowrite " Autosave files
@@ -55,3 +37,75 @@ endif
 hi LineNr ctermfg=9
 hi LineNrAbove ctermfg=7
 hi LineNrBelow ctermfg=7
+
+" ==============================================================================
+" Basic Maps:
+" ==============================================================================
+" Select whole file
+nnoremap <leader>vf ggVG
+" Clear currently highlighted regexp:
+nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
+" Navigate quickfix:
+nnoremap <silent> ]q <cmd>cnext<CR>
+nnoremap <silent> [q <cmd>cprevious<CR>
+" Navigate buffers:
+nnoremap <silent> ]b <cmd>bnext<CR>
+nnoremap <silent> [b <cmd>bprevious<CR>
+
+" ==============================================================================
+" Minpac For Essentials:
+" ==============================================================================
+function! s:packpath() abort
+  return (has('nvim') ? stdpath('data') . '/site' : expand('~/.vim'))
+endfunction
+
+function! PackInit() abort
+  let l:minpac_dir = s:packpath()
+  if empty(glob(l:minpac_dir.'/pack/minpac/opt/minpac'))
+    if executable('git')
+      silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:minpac_dir.'/pack/minpac/opt/minpac"'
+    endif
+  endif
+  packadd minpac
+
+  if exists('g:loaded_minpac')
+    call minpac#init({'dir': l:minpac_dir})
+
+    call minpac#add('k-takata/minpac', {'type': 'opt'})
+    call minpac#add('tpope/vim-sensible') " Agreeable vim settings:
+    call minpac#add('xero/securemodelines') " Secure modelines
+    call minpac#add('tpope/vim-commentary') " Comment w/ gcc or gc (visual)
+    call minpac#add('noahfrederick/vim-neovim-defaults')
+  endif
+endfunction
+
+command! PackUpdate call PackInit() | call minpac#update()
+
+" ==============================================================================
+" Pack Settings:
+" ==============================================================================
+set nomodeline
+let g:secure_modelines_verbose = 0
+let g:secure_modelines_modelines = 15
+let g:secure_modelines_allowed_items = [
+\ 'textwidth',   'tw',
+\ 'softtabstop', 'sts',
+\ 'tabstop',     'ts',
+\ 'shiftwidth',  'sw',
+\ 'expandtab',   'et',   'noexpandtab', 'noet',
+\ 'filetype',    'ft',
+\ 'foldmethod',  'fdm',
+\ 'foldlevel',   'fdl',
+\ 'readonly',    'ro',   'noreadonly', 'noro',
+\ 'rightleft',   'rl',   'norightleft', 'norl',
+\ 'cindent',     'cin',  'nocindent', 'nocin',
+\ 'smartindent', 'si',   'nosmartindent', 'nosi',
+\ 'autoindent',  'ai',   'noautoindent', 'noai',
+\ 'spell', 'nospell',
+\ 'spelllang',
+\ 'wrap', 'nowrap',
+\ 'syntax'
+\ ]
+if has('nvim')
+  let g:loaded_neovim_defaults = 1
+endif
