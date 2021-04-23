@@ -1,2 +1,2 @@
-let &runtimepath .= ','.expand('~/dotfiles/conf/vim/')
+set runtimepath+=~/dotfiles/conf/vim/
 runtime vimrc

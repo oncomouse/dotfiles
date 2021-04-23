@@ -1,8 +1,4 @@
 scriptencoding utf8
-" In case this was loaded without a wrapper:
-if !(&runtimepath =~# expand('~/dotfiles/conf/vim/').',')
-  let &runtimepath .= ','.expand('~/dotfiles/conf/vim/')
-endif
 " Mac NeoVim Settings: {{{
 if has('mac') && has('nvim')
   let g:python_host_prog='/usr/bin/python2.7'
@@ -44,7 +40,7 @@ let mapleader = "\<Space>"
 let maplocalleader = ','
 
 " Add Dotfiles After To RTP:
-let &runtimepath .= ','.expand('~/dotfiles/vim/after/')
+set runtimepath+=~/dotfiles/vim/after/
 
 " Show Updates Of Commands:
 if has('nvim')
@@ -145,9 +141,6 @@ if !has('nvim')
 endif
 " }}}
 " General Editing: {{{
-if !has('nvim')
-  Plug 'noahfrederick/vim-neovim-defaults' " Neovim defaults for vim
-endif
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
 Plug 'tpope/vim-repeat'
 Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
@@ -221,7 +214,7 @@ if g:complete_package ==# 'fzf'
     set runtimepath+=/usr/share/vim/vimfiles
   " Local install
   elseif isdirectory('~/.fzf')
-    exe 'set runtimepath+='.expand('~/.fzf')
+    set runtimepath+=~/.fzf
   " Fallback
   else
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }

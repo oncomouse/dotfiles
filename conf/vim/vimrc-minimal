@@ -1,3 +1,7 @@
+" Make sure dotfiles are added to RTP, if not already added:
+if !empty(glob('~/dotfiles/conf/vim/')) && !(&runtimepath =~# expand('~/dotfiles/conf/vim/'))
+  set runtimepath+=~/dotfiles/conf/vim/
+endif
 " ==============================================================================
 " Basic Settings:
 " ==============================================================================

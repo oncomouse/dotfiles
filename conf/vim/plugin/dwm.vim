@@ -1,4 +1,4 @@
-let g:dwm_load = get(g:, 'dwm_load', 1)
+let g:dwm_load = get(g:, 'dwm_load', 0)
 
 nnoremap <Plug>(dwm-create) <cmd>call dwm#create()<CR>
 nnoremap <Plug>(dwm-rotate-clockwise) <cmd>call dwm#rotate(1)<CR>
