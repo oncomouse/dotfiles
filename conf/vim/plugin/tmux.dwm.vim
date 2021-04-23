@@ -37,6 +37,10 @@ if empty($TMUX)
 else
   nmap <silent> <m-j> <cmd>call <SID>rotate(1)<CR>
   nmap <silent> <m-k> <cmd>call <SID>rotate(0)<CR>
+  " Leader + dwm.tmux binding calls the command in tmux:
+  nmap <silent> <leader><m-space> <cmd>call <SID>TmuxCommand('newpane')<CR>
+  nmap <silent> <leader><m-j> <cmd>call <SID>TmuxCommand('nextpane')<CR>
+  nmap <silent> <leader><m-k> <cmd>call <SID>TmuxCommand('prevpane')<CR>
 endif
 nmap <silent> <m-space> <Plug>(dwm-create)
 nmap <silent> <m-,> <Plug>(dwm-zoom)
