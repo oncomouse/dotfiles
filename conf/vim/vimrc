@@ -252,7 +252,6 @@ if g:dotfiles_mode ==# 'desktop'
   let g:indentLine_char = "\u22EE"
   let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
   let g:indentLine_setColors = 0
-  Plug 'sk1418/QFGrep' " <leader>g to filter qf list, <leader>v to inverse filter, <leader>r to restore
   " }}}
   " Syntax: {{{
   if has('nvim-0.5')
@@ -407,11 +406,18 @@ nnoremap <silent><buffer> <F4> :make!<CR>
 " Update fast folds:
 nmap zuz <Plug>(FastFoldUpdate)
 " Grep project:
+packadd cfilter
 function s:grep_or_qfgrep()
   if &buftype ==# 'quickfix'
-    call QFGrep#grep_QuickFix(0) 
+    let l:input = input('QFGrep/')
+    if len(l:input) > 0
+      execute 'Cfilter /'.l:input.'/'
+    endif
   else
-    execute 'Grep ' . input('Grep/')
+    let l:input = input('Grep/')
+    if len(l:input) > 0
+      execute 'Grep ' . l:input
+    endif
   endif 
 endfunction
 nnoremap <silent> <leader>/ <cmd>call <SID>grep_or_qfgrep()<CR>

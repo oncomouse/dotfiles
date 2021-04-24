@@ -51,8 +51,9 @@ function! grep#grep(...) abort
           \'on_stdout': function('s:grep_output'),
           \'on_done': function('s:grep_done'),
           \})
+  else
+    return system(join([&grepprg] + [expand(fnameescape(join(a:000, ' ')))], ' '))
   endif
-  return system(join([&grepprg] + [expand(fnameescape(join(a:000, ' ')))], ' '))
 endfunction
 
 function! grep#open_list(qf) abort
