@@ -17,6 +17,13 @@ set splitright
 " Line Numbering:
 set number relativenumber
 
+" This avoids highlighting big files:
+let g:large_file = 20*1024*1024
+
+" Set Leader:
+let mapleader = "\<Space>"
+let maplocalleader = ','
+
 if has('nvim')
   " Preview Substitution Operations:
   set inccommand=split
@@ -33,11 +40,21 @@ let &previewheight = 14
 
 " Use RipGrep For Grep:
 if executable('rg')
-  let &grepprg='rg --vimgrep'
-  let &grepformat='%f:%l:%c:%m'
+  set grepprg=rg\ --vimgrep
+  set grepformat=%f:%l:%c:%m
+elseif executable('ag')
+  set grepprg=ag\ --vimgrep
+  set grepformat=%f:%l:%c:%m
 endif
 
-" Line number colors:
+" Completion:
+set completeopt=menuone,noselect,noinsert,preview
+" Shut off completion messages
+set shortmess+=c
+" prevent a condition where vim lags due to searching include files.
+set complete-=i
+
+" Line Number Colors:
 hi LineNr ctermfg=9
 hi LineNrAbove ctermfg=7
 hi LineNrBelow ctermfg=7
@@ -64,12 +81,15 @@ function! s:packpath() abort
 endfunction
 
 function! PackInit() abort
+  " Download Minpac:
   let l:minpac_dir = s:packpath()
   if empty(glob(l:minpac_dir.'/pack/minpac/opt/minpac'))
     if executable('git')
       silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:minpac_dir.'/pack/minpac/opt/minpac"'
     endif
   endif
+
+  " Load Minpac:
   packadd minpac
 
   if exists('g:loaded_minpac')
@@ -84,6 +104,8 @@ function! PackInit() abort
 endfunction
 
 command! PackUpdate call PackInit() | call minpac#update()
+command! PackClean call PackInit() | call minpac#clean()
+command! PackStatus call PackStatus() | call minpac#status()
 
 " ==============================================================================
 " Pack Settings:
@@ -112,4 +134,8 @@ let g:secure_modelines_allowed_items = [
 \ ]
 if has('nvim')
   let g:loaded_neovim_defaults = 1
+endif
+
+if !has_key(g:, 'dotfiles_mode')
+  colorscheme industry
 endif

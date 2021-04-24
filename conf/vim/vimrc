@@ -1,4 +1,34 @@
 scriptencoding utf8
+" Dotfiles Settings: {{{
+
+let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
+let g:complete_package = 'fzf' " fzf, telescope, or coc.nvim
+if g:dotfiles_mode ==# 'server' || (g:complete_package ==# 'telescope' && !has('nvim-0.5'))
+  let g:complete_package = 'fzf'
+endif
+
+" Load Basic Settings:
+runtime vimrc-minimal
+
+" Mouse And Clipboard:
+set mouse=a " Mouse support
+if has('clipboard')
+  if has('unnamedplus')
+    set clipboard=unnamedplus,unnamed
+  else
+    set clipboard=unnamed
+  endif
+endif
+
+" Add Dotfiles After To RTP:
+set runtimepath+=~/dotfiles/vim/after/
+
+" Set Spellfile Location:
+set spellfile=~/dotfiles/conf/vim/spell/en.utf-8.add
+
+" Statusline:
+set statusline=%!dotfiles#statusline#statusline()
+" }}}
 " Mac NeoVim Settings: {{{
 if has('mac') && has('nvim')
   let g:python_host_prog='/usr/bin/python2.7'
@@ -12,60 +42,6 @@ if has('mac') && has('nvim')
   \ 'name': 'pbcopy', 'cache_enabled': 0
   \ }
 endif
-" }}}
-" Dotfiles Settings: {{{
-let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
-let g:complete_package = 'fzf' " fzf, telescope, or coc.nvim
-if g:dotfiles_mode ==# 'server' || (g:complete_package ==# 'telescope' && !has('nvim-0.5'))
-  let g:complete_package = 'fzf'
-endif
-" This avoids highlighting big files:
-let g:large_file = 20*1024*1024
-" }}}
-" Basic Vim Settings: {{{
-set mouse=a " Mouse support
-if has('clipboard')
-  if has('unnamedplus')
-    set clipboard=unnamedplus,unnamed
-  else
-    set clipboard=unnamed
-  endif
-endif
-
-" Load Basic Settings:
-runtime vimrc-minimal
-
-" Set Leader:
-let mapleader = "\<Space>"
-let maplocalleader = ','
-
-" Add Dotfiles After To RTP:
-set runtimepath+=~/dotfiles/vim/after/
-
-" Show Updates Of Commands:
-if has('nvim')
-  set inccommand=split
-endif
-
-" Set Spellfile Location:
-set spellfile=~/dotfiles/conf/vim/spell/en.utf-8.add
-
-" Grep:
-if executable('rg')
-  set grepprg=rg\ --vimgrep
-elseif executable('ag')
-  set grepprg=ag\ --vimgrep
-endif
-
-" Completion:
-set completeopt=menuone,noselect,noinsert,preview
-" Shut off completion messages
-set shortmess+=c
-" prevent a condition where vim lags due to searching include files.
-set complete-=i
-
-" Statusline:
-set statusline=%!dotfiles#statusline#statusline()
 " }}}
 " Tabs: {{{
   set tabstop=8
@@ -112,7 +88,7 @@ if has('nvim')
     let g:plug_dir = s:win_vimfiles . '/plugged/'
     let g:plug_autoload_dir = s:win_vimfiles . '/autoload/'
   else
-    let s:xdg_home = $XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share/nvim/site'
+    let s:xdg_home = ($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share').'/nvim/site'
     let g:plug_dir = s:xdg_home . '/plugged/'
     let g:plug_autoload_dir = s:xdg_home . '/autoload/'
   endif
@@ -390,7 +366,7 @@ if g:dotfiles_mode ==# 'desktop'
   endif
   " }}}
 call plug#end()
-  " }}}
+" }}}
 " Treesitter: {{{
 if has('nvim-0.5') && (g:dotfiles_mode ==# 'desktop')
   lua require('dotfiles.treesitter')
