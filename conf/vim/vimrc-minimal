@@ -105,7 +105,7 @@ endfunction
 
 command! PackUpdate call PackInit() | call minpac#update()
 command! PackClean call PackInit() | call minpac#clean()
-command! PackStatus call PackStatus() | call minpac#status()
+command! PackStatus call PackInit() | call minpac#status()
 
 " ==============================================================================
 " Pack Settings:
