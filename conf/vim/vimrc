@@ -406,9 +406,9 @@ nnoremap <silent><buffer> <F4> :make!<CR>
 " Update fast folds:
 nmap zuz <Plug>(FastFoldUpdate)
 " Grep project:
-packadd cfilter
 function s:grep_or_qfgrep()
   if &buftype ==# 'quickfix'
+    packadd cfilter
     let l:input = input('QFGrep/')
     if len(l:input) > 0
       execute 'Cfilter /'.l:input.'/'
