@@ -1,6 +1,7 @@
-let g:grep_job = get(g:, 'grep_job', -1)
-let g:grep_output = get(g:, 'grep_output', 0)
-let g:grep_qf = get(g:, 'grep_qf', 0)
+let s:grep_job = get(s:, 'grep_job', -1)
+let s:grep_output = get(s:, 'grep_output', 0)
+let s:grep_qf = get(s:, 'grep_qf', 0)
+
 function! s:grep_error(job, data, ...) abort
   echoerr 'Err:' . string(a:data)
 endfunction
@@ -22,38 +23,51 @@ function! s:extract_qf(ln, line) abort
   endtry
 endfunction
 
-function grep#stop() abort
-  if g:grep_job >= 0
-    call jobstop(g:grep_job)
+function! grep#stop() abort
+  if s:grep_job >= 0
+    call dotfiles#job#stop(s:grep_job)
   endif
 endfunction
 
 function! s:grep_done(job, data, ...) abort
-  let g:grep_job = -1
-  let g:grep_output = 0
+  let s:grep_job = -1
+  let s:grep_output = 0
 endfunction
 
 function! s:grep_output(job, data, ...) abort
-  call setqflist(map(a:data, function('s:extract_qf')), g:grep_output ? 'a': 'r')
-  if g:grep_output == 0
-    call grep#open_list(1)
-    let g:grep_output = 1
+  if s:grep_qf
+    call setqflist(map(a:data, function('s:extract_qf')), s:grep_output ? 'a': 'r')
+  else
+    call setloclist(winnr(), map(a:data, function('s:extract_qf')), s:grep_output ? 'a': 'r')
+  endif
+  if s:grep_output == 0
+    call grep#open_list(s:grep_qf)
+    let s:grep_output = 1
   endif
 endfunction
 
-function! grep#grep(...) abort
+function! s:grep_launch(qf, query) abort
   if has('nvim')
-    let g:grep_output = 0
-    if g:grep_job < 0
+    let s:grep_qf = a:qf
+    let s:grep_output = 0
+    if s:grep_job < 0
       call grep#stop()
     endif
-    let g:grep_job = jobstart(join([&grepprg] + [expand(fnameescape(join(a:000, ' ')))], ' '), {
+    let s:grep_job = jobstart(join([&grepprg] + [expand(fnameescape(a:query))], ' '), {
           \'on_stdout': function('s:grep_output'),
-          \'on_done': function('s:grep_done'),
+          \'on_exit': function('s:grep_done'),
           \})
   else
-    return system(join([&grepprg] + [expand(fnameescape(join(a:000, ' ')))], ' '))
+    return system(join([&grepprg] + [expand(fnameescape(a:query))], ' '))
   endif
+endfunction
+
+function! grep#lgrep(...) abort
+  return s:grep_launch(0, join(a:000, ' '))
+endfunction
+
+function! grep#grep(...) abort
+  return s:grep_launch(1, join(a:000, ' '))
 endfunction
 
 function! grep#open_list(qf) abort
