@@ -17,11 +17,12 @@ function! s:map_todo() abort
   imap <buffer> <silent> <C-S-Right> <C-o>>>
 endfunction
 
-augroup todo
-  autocmd!
-  " Load For Any Todo Files:
-  autocmd BufRead,BufNewFile todo.* call s:map_todo()
-  " Load For VimWiki:
-  autocmd FileType vimwiki call s:map_todo()
-augroup END
-
+if has_key(g:, 'dotfiles_mode')
+  augroup todo
+    autocmd!
+    " Load For Any Todo Files:
+    autocmd BufRead,BufNewFile todo.* call s:map_todo()
+    " Load For VimWiki:
+    autocmd FileType vimwiki call s:map_todo()
+  augroup END
+endif
