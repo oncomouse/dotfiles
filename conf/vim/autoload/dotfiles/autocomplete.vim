@@ -1,4 +1,7 @@
 " Initialize Autocomplete:
+let g:dotfiles_mode = get(g:, 'dotfiles_mode', '')
+let g:complete_package = get(g:, 'complete_package', '')
+
 function! dotfiles#autocomplete#init() abort
   " List Management:
   call dotfiles#autocomplete#{substitute(g:complete_package, '[.-]', '_', 'g')}#init()

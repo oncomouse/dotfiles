@@ -1,5 +1,6 @@
 " Statusline:
 scriptencoding utf-8
+let g:dotfiles_mode = get(g:, 'dotfiles_mode', '')
 let g:nerdfonts = g:dotfiles_mode ==# 'desktop'
 let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
 " Linter Status {{{
