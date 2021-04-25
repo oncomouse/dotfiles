@@ -38,15 +38,6 @@ endif
 " Height Of The Preview Window:
 let &previewheight = 14
 
-" Use RipGrep For Grep:
-if executable('rg')
-  set grepprg=rg\ --vimgrep
-  set grepformat=%f:%l:%c:%m
-elseif executable('ag')
-  set grepprg=ag\ --vimgrep
-  set grepformat=%f:%l:%c:%m
-endif
-
 " Completion:
 set completeopt=menuone,noselect,noinsert,preview
 " Shut off completion messages
@@ -100,7 +91,9 @@ function! PackInit() abort
     call minpac#add('xero/securemodelines') " Secure modelines
     call minpac#add('tpope/vim-commentary') " Comment w/ gcc or gc (visual)
     call minpac#add('oncomouse/vim-grep') " :Grep and :LGrep
-    call minpac#add('noahfrederick/vim-neovim-defaults')
+    call minpac#add('noahfrederick/vim-neovim-defaults') " Set Vim with the same default as NeoVim
+  else
+    echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
   endif
 endfunction
 
@@ -137,6 +130,9 @@ if has('nvim')
   let g:loaded_neovim_defaults = 1
 endif
 
+" ==============================================================================
+" Minimal Only Settings:
+" ==============================================================================
 if !has_key(g:, 'dotfiles_mode')
   colorscheme industry
 endif
