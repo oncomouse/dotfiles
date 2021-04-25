@@ -99,7 +99,7 @@ function wal.after_scheme()
 		TSAttribute = { fg = wal.blue },
 		TSBoolean = { fg = wal.blue },
 		TSCharacter = { fg = wal.yellow },
-		TSComment = { fg = wal.base01 },
+		TSComment = { fg=wal.base04, style="italic" },
 		TSConditional = { fg = wal.red },
 		TSConstBuiltin = { fg = wal.orange },
 		TSConstMacro = { fg = wal.orange },
