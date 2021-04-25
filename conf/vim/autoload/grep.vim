@@ -47,18 +47,21 @@ function! s:grep_output(job, data, ...) abort
 endfunction
 
 function! s:grep_launch(qf, query) abort
+  " Treat additional parts of a:query as words to search for:
+  let l:query = shellescape(a:query)
+  let l:command = join([&grepprg] + [l:query], ' ')
   if has('nvim')
     let s:grep_qf = a:qf
     let s:grep_output = 0
     if s:grep_job < 0
       call grep#stop()
     endif
-    let s:grep_job = jobstart(join([&grepprg] + [expand(fnameescape(a:query))], ' '), {
+    let s:grep_job = jobstart(l:command, {
           \'on_stdout': function('s:grep_output'),
           \'on_exit': function('s:grep_done'),
           \})
   else
-    return system(join([&grepprg] + [expand(fnameescape(a:query))], ' '))
+    return system(l:command)
   endif
 endfunction
 
