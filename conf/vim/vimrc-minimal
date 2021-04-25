@@ -99,6 +99,7 @@ function! PackInit() abort
     call minpac#add('tpope/vim-sensible') " Agreeable vim settings:
     call minpac#add('xero/securemodelines') " Secure modelines
     call minpac#add('tpope/vim-commentary') " Comment w/ gcc or gc (visual)
+    call minpac#add('oncomouse/vim-grep') " :Grep and :LGrep
     call minpac#add('noahfrederick/vim-neovim-defaults')
   endif
 endfunction
