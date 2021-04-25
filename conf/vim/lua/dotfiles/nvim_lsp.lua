@@ -19,7 +19,7 @@ end
 local servers = {
 	'tsserver',
 	'vimls',
-	'jedi_language_server',
+	'pyls',
 	'solargraph' ,
 	'bashls',
 }

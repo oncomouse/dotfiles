@@ -31,7 +31,8 @@ if [ -z "$SERVER" ];then
   # pip3install 'bibtexparser'
   pip3install 'bibparse'
   # LSP
-  pip3install 'jedi-language-server'
+  # pip3install 'jedi-language-server'
+  pip3install 'python-language-server[rope]'
   pip3install 'citation-langserver'
   # Image support for Ranger:
   pip3install 'pillow'
