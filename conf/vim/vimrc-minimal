@@ -92,6 +92,7 @@ function! PackInit() abort
     call minpac#add('tpope/vim-commentary') " Comment w/ gcc or gc (visual)
     call minpac#add('oncomouse/vim-grep') " :Grep and :LGrep
     call minpac#add('noahfrederick/vim-neovim-defaults') " Set Vim with the same default as NeoVim
+    call minpac#add('jeffkreeftmeijer/vim-dim', {'type': 'opt'})
   else
     echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
   endif
@@ -134,5 +135,6 @@ endif
 " Minimal Only Settings:
 " ==============================================================================
 if !has_key(g:, 'dotfiles_mode')
-  colorscheme industry
+  packadd vim-dim
+  colorscheme dim
 endif
