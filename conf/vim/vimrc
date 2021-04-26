@@ -124,6 +124,8 @@ let g:rooter_patterns = [
 \ 'pyproject.toml',
 \ 'setup.py',
 \ ]
+" Set path expansion to pwd only, especially with vim-rooter running:
+set path=,,
 Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 Plug 'cohama/lexima.vim' " Autopairs + Endwise
 function! s:make_rule(at, end, filetype, syntax)

@@ -49,6 +49,8 @@ set complete-=i
 " <C-z> expands wildcards in command mode
 set wildcharm=<C-z>
 
+set path=.,,
+
 " Line Number Colors:
 autocmd minimal-vimrc ColorScheme * hi LineNr ctermfg=7
 autocmd minimal-vimrc ColorScheme * hi LineNrAbove ctermfg=7
@@ -76,6 +78,14 @@ nnoremap <localleader>v :vert sfind *
 " Minimal Buffer Jumping:
 nnoremap <localleader>b :buffer *
 nnoremap <localleader>B :sbuffer *
+
+" Completion Mappings:
+" Search previous words:
+inoremap <localleader>, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+" Search file names:
+inoremap <localleader>: <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+" Search previous lines:
+inoremap <localleader>= <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 
 " ==============================================================================
 " Minpac For Essentials:
