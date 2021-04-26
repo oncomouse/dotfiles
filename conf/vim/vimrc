@@ -43,42 +43,39 @@ if has('mac') && has('nvim')
   \ }
 endif
 " }}}
+" Autogroups {{{
+augroup dotfiles-settings
+  autocmd!
+augroup END
+augroup plug-settings
+  autocmd!
+augroup END
+" }}}
 " Tabs: {{{
-  set tabstop=8
-  set shiftwidth=2
-  set softtabstop=2
-  set expandtab
-  " Override Defaults: {{{
-    augroup my-tabstops
-      autocmd!
-      " Go, Lua
-      autocmd FileType markdown,c,cpp,go,lua setlocal tabstop=4
-      autocmd FileType markdown,c,cpp,go,lua setlocal shiftwidth=4
-      autocmd FileType markdown,c,cpp,go,lua setlocal noexpandtab
-      " Python
-      autocmd FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
-      " JavaScript
-      autocmd FileType javascript,javascriptreact setlocal tabstop=2
-      autocmd FileType javascript,javascriptreact setlocal shiftwidth=2
-      autocmd FileType javascript,javascriptreact setlocal softtabstop=2
-      autocmd FileType javascript,javascriptreact setlocal expandtab
-    augroup END
-  " }}}
+set tabstop=8
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+" Go, Lua
+autocmd dotfiles-settings FileType markdown,c,cpp,go,lua setlocal tabstop=4
+autocmd dotfiles-settings FileType markdown,c,cpp,go,lua setlocal shiftwidth=4
+autocmd dotfiles-settings FileType markdown,c,cpp,go,lua setlocal noexpandtab
+" Python
+autocmd dotfiles-settings FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
+" JavaScript
+autocmd dotfiles-settings FileType javascript,javascriptreact setlocal tabstop=2
+autocmd dotfiles-settings FileType javascript,javascriptreact setlocal shiftwidth=2
+autocmd dotfiles-settings FileType javascript,javascriptreact setlocal softtabstop=2
+autocmd dotfiles-settings FileType javascript,javascriptreact setlocal expandtab
 " }}}
 " Folds: {{{
-  if g:dotfiles_mode ==# 'server'
-    set nofoldenable " no folding in server mode
-  else
-    set foldmethod=syntax
-    set foldlevel=99
-    augroup custom-folds
-      autocmd!
-      autocmd FileType vim setlocal foldmethod=marker foldlevel=0
-      autocmd FileType css setlocal foldmethod=syntax foldlevel=0
-      autocmd FileType scss setlocal foldmethod=syntax foldlevel=0
-      autocmd FileType diff setlocal nofoldenable
-    augroup END
-  endif
+if g:dotfiles_mode ==# 'desktop'
+  set foldmethod=syntax
+  autocmd dotfiles-settings FileType vim setlocal foldmethod=marker foldlevel=0
+  autocmd dotfiles-settings FileType css setlocal foldmethod=syntax foldlevel=0
+  autocmd dotfiles-settings FileType scss setlocal foldmethod=syntax foldlevel=0
+  autocmd dotfiles-settings FileType diff setlocal nofoldenable
+endif
 " }}}
 " Plugins: {{{
 " Install vim_plug if it is missing: {{{
@@ -104,10 +101,7 @@ else
 endif
 if empty(glob(g:plug_autoload_dir.'plug.vim'))
   silent execute '!curl -fLo '.g:plug_autoload_dir.'plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  augroup vim_plug
-    autocmd!
-    autocmd VimEnter * PlugInstall | source $MYVIMRC
-  augroup END
+  autocmd dotfiles-settings VimEnter * PlugInstall | source $MYVIMRC
 endif
 " }}}
 call plug#begin(g:plug_dir)
@@ -145,16 +139,10 @@ function! s:extend_endwise() abort
   call lexima#add_rule(s:make_rule('^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
   call lexima#add_rule(s:make_rule('^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
 endfunction
-augroup lexima-startup
-  autocmd!
-  autocmd VimEnter * call s:extend_endwise()
-augroup END
+autocmd plug-settings VimEnter * call s:extend_endwise()
 " inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
 if has('nvim-0.5')
-  augroup highlight_yank
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
-  augroup END
+  autocmd plug-settings TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
 else
   Plug 'machakann/vim-highlightedyank' " Highlights yank
 endif
@@ -171,10 +159,7 @@ function! s:load_gina() abort
   " Implement vim-fugitive commands in Gina:
   call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
 endfunction
-augroup gina-startup
-  autocmd!
-  autocmd VimEnter * call s:load_gina()
-augroup END
+autocmd plug-settings VimEnter * call s:load_gina()
 cnoreabbrev gina Gina
 " }}}
 " List Support: {{{
@@ -221,11 +206,6 @@ if g:dotfiles_mode ==# 'desktop'
     \ 'javascript': 'jsxRegion',
     \ }
   endif
-  Plug 'Konfekt/FastFold' " Better fold support
-  let g:fastfold_savehook = 1
-  let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
-  let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-  let g:fastfold_minlines = 0
   Plug 'Yggdroot/indentLine' " Indent with characters
   let g:indentLine_char = "\u22EE"
   let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
@@ -356,11 +336,8 @@ if g:dotfiles_mode ==# 'desktop'
   Plug 'reedes/vim-textobj-quote', { 'for': ['markdown', 'text'] } " Makes aq & iq for smart quotes
   let g:textobj#quote#educate = 0
   " Initialize the plugin when it is dynamically loaded:
-  augroup load-sentence
-    autocmd!
-    autocmd User vim-textobj-sentence call textobj#sentence#init()
-    autocmd User vim-textobj-quote call textobj#quote#init()
-  augroup END
+  autocmd plug-settings User vim-textobj-sentence call textobj#sentence#init()
+  autocmd plug-settings User vim-textobj-quote call textobj#quote#init()
   " }}}
   " Server-only plugins: {{{
   else " Server-only plugins
@@ -468,24 +445,18 @@ endif
 if has('nvim')
   colorscheme wal
 else
-  augroup tempus_color_additions
-    autocmd!
-    autocmd ColorScheme tempus_classic call dotfiles#colors#tempus_color_additions()
-  augroup END
+  autocmd dotfiles-settings ColorScheme tempus_classic call dotfiles#colors#tempus_color_additions()
   colorscheme tempus_classic
 endif
 " }}}
 " Other Settings: {{{
-augroup dotfile-autocmds
-  autocmd!
-  " Close preview window:
-  autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-  " On opening a file, jump to the last known cursor position (see :h line())
-  autocmd! BufReadPost *
-  \ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
-  \   exe "normal! g`\"" |
-  \ endif 
-augroup END
+" Close preview window:
+autocmd dotfiles-settings CompleteDone * if pumvisible() == 0 | pclose | endif
+" On opening a file, jump to the last known cursor position (see :h line())
+autocmd dotfiles-settings BufReadPost *
+\ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
+\   exe "normal! g`\"" |
+\ endif 
 " Load Autocompletion: {{{
 call dotfiles#autocomplete#init()
 " }}}
@@ -496,10 +467,7 @@ if has('nvim')
       call jobstart(['fasd', '-A', expand('%:p')])
     endif
   endfunction
-  augroup fasd
-    autocmd!
-    autocmd BufWinEnter,BufFilePost * call s:fasd_update()
-  augroup END
+  autocmd dotfiles-settings BufWinEnter,BufFilePost * call s:fasd_update()
 endif
 " }}}
 " }}}
@@ -507,11 +475,8 @@ endif
 if dotfiles_mode ==# 'server'
   " Minimal format for server mode:
   command! Format :exe "normal! gggqG<C-o>"
-  augroup dotfiles-server-au
-    autocmd!
-    " Turn on CursorLine Highlighting on Insert:
-    autocmd InsertEnter,InsertLeave * set cul!
-  augroup END
+  " Turn on CursorLine Highlighting on Insert:
+  autocmd dotfiles-settings InsertEnter,InsertLeave * set cul!
 endif
 " }}}
 " # vim:foldmethod=marker
