@@ -24,15 +24,16 @@ let g:large_file = 20*1024*1024
 let mapleader = "\<Space>"
 let maplocalleader = ','
 
+augroup minimal-vimrc
+  autocmd!
+augroup END
+
 if has('nvim')
   " Preview Substitution Operations:
   set inccommand=split
 
   " Turn Off Line Numbering:
-  augroup line-numbers
-    autocmd!
-    autocmd TermOpen * setlocal nonumber norelativenumber
-  augroup END
+  autocmd minimal-vimrc TermOpen * setlocal nonumber norelativenumber
 endif
 
 " Height Of The Preview Window:
@@ -45,24 +46,36 @@ set shortmess+=c
 " prevent a condition where vim lags due to searching include files.
 set complete-=i
 
+" <C-z> expands wildcards in command mode
+set wildcharm=<C-z>
+
 " Line Number Colors:
-hi LineNr ctermfg=7
-hi LineNrAbove ctermfg=7
-hi LineNrBelow ctermfg=7
+autocmd minimal-vimrc ColorScheme * hi LineNr ctermfg=7
+autocmd minimal-vimrc ColorScheme * hi LineNrAbove ctermfg=7
+autocmd minimal-vimrc ColorScheme * hi LineNrBelow ctermfg=7
 
 " ==============================================================================
 " Basic Maps:
 " ==============================================================================
-" Select whole file
+" Select Whole File:
 nnoremap <leader>vf ggVG
-" Clear currently highlighted regexp:
+" Clear Currently Highlighted Regexp:
 nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
-" Navigate quickfix:
+" Navigate Quickfix:
 nnoremap <silent> ]q <cmd>cnext<CR>
 nnoremap <silent> [q <cmd>cprevious<CR>
-" Navigate buffers:
+" Navigate Buffers:
 nnoremap <silent> ]b <cmd>bnext<CR>
 nnoremap <silent> [b <cmd>bprevious<CR>
+
+" Source https://github.com/romainl/minivimrc/blob/master/vimrc
+" Minimal File Finding:
+nnoremap <localleader>f :find *
+nnoremap <localleader>s :sfind *
+nnoremap <localleader>v :vert sfind *
+" Minimal Buffer Jumping:
+nnoremap <localleader>b :buffer *
+nnoremap <localleader>B :sbuffer *
 
 " ==============================================================================
 " Minpac For Essentials:
