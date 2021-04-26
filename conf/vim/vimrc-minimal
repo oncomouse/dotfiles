@@ -48,7 +48,7 @@ set complete-=i
 
 " <C-z> expands wildcards in command mode
 set wildcharm=<C-z>
-
+" Set path to current file direction and pwd:
 set path=.,,
 
 " Line Number Colors:
@@ -81,7 +81,7 @@ nnoremap <localleader>B :sbuffer *
 
 " Completion Mappings:
 " Search previous words:
-inoremap <localleader>, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap <localleader>, <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 " Search file names:
 inoremap <localleader>: <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 " Search previous lines:
