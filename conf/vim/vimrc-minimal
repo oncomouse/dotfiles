@@ -78,7 +78,6 @@ nnoremap <localleader>v :vert sfind *
 " Minimal Buffer Jumping:
 nnoremap <localleader>b :buffer *
 nnoremap <localleader>B :sbuffer *
-
 " Completion Mappings:
 " Search previous words:
 inoremap <localleader>, <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
@@ -86,7 +85,6 @@ inoremap <localleader>, <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>
 inoremap <localleader>: <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 " Search previous lines:
 inoremap <localleader>= <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
-
 " Better Matching:
 nnoremap [I [I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
 nnoremap ]I ]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
