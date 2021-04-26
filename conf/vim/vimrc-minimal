@@ -87,6 +87,10 @@ inoremap <localleader>: <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>
 " Search previous lines:
 inoremap <localleader>= <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 
+" Better Matching:
+nnoremap [I [I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
+nnoremap ]I ]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
+
 " ==============================================================================
 " Minpac For Essentials:
 " ==============================================================================
