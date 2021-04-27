@@ -1,9 +1,7 @@
-function! dotfiles#autocomplete#fzf#init()
+function! dotfiles#autocomplete#fzf#init() abort
   command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
-  if g:dotfiles_mode ==# 'desktop'
-    nnoremap <leader>Y :FZFNeoyank " P<cr>
-    vnoremap <leader>y :FZFNeoyankSelection<cr>
+  if has('nvim-0.5') && exists('g:loaded_fzf_lsp')
     let g:fzf_lsp_preview_window = ['right:40%', 'ctrl-/']
     " Load fzf_lsp handlers:
     lua require'fzf_lsp'.setup()
