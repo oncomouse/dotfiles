@@ -84,6 +84,12 @@ inoremap <localleader>, <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>
 inoremap <localleader>: <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 " Search previous lines:
 inoremap <localleader>= <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+
+" <nop> those bindings for writing files:
+autocmd minimal-vimrc FileType markdown,text inoremap <localleader>, <nop>
+autocmd minimal-vimrc FileType markdown,text inoremap <localleader>: <nop>
+autocmd minimal-vimrc FileType markdown,text inoremap <localleader>= <nop>
+
 " Better Matching:
 nnoremap [I [I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
 nnoremap ]I ]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
