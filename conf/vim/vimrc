@@ -443,12 +443,8 @@ if g:dotfiles_mode ==# 'desktop'
     endif
   endif
 endif
-if has('nvim')
-  colorscheme wal
-else
-  autocmd dotfiles-settings ColorScheme tempus_classic call dotfiles#colors#tempus_color_additions()
-  colorscheme tempus_classic
-endif
+exe 'set runtimepath+='.expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : $HOME.'/.cache') . '/wal/vim')
+colorscheme wal
 " }}}
 " Other Settings: {{{
 " Close preview window:

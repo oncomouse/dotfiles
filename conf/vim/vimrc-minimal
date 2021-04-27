@@ -55,11 +55,6 @@ set wildcharm=<C-z>
 " Set path to current file direction and pwd:
 set path=.,,
 
-" Line Number Colors:
-autocmd minimal-vimrc ColorScheme * hi LineNr ctermfg=7
-autocmd minimal-vimrc ColorScheme * hi LineNrAbove ctermfg=7
-autocmd minimal-vimrc ColorScheme * hi LineNrBelow ctermfg=7
-
 " ==============================================================================
 " Basic Maps:
 " ==============================================================================
@@ -92,6 +87,11 @@ inoremap <localleader>= <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>
 " Better Matching:
 nnoremap [I [I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
 nnoremap ]I ]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
+"
+" Line Number Colors:
+autocmd minimal-vimrc ColorScheme default hi LineNr ctermfg=7
+autocmd minimal-vimrc ColorScheme default hi LineNrAbove ctermfg=7
+autocmd minimal-vimrc ColorScheme default hi LineNrBelow ctermfg=7
 
 " ==============================================================================
 " Minpac For Essentials:

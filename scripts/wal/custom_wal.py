@@ -48,16 +48,20 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     # Make a vim dir to add to &runtimepath:
     message("Configuring Vim")
     Path("{}/.cache/wal/vim/colors/".format(home)).mkdir(parents=True, exist_ok=True)
-    Path("{}/.cache/wal/vim/autoload/clap/themes/".format(home)).mkdir(
-        parents=True, exist_ok=True
-    )
+    # Path("{}/.cache/wal/vim/autoload/clap/themes/".format(home)).mkdir(
+    #     parents=True, exist_ok=True
+    # )
     copyfile(
-        "{}/.cache/wal/colors-clap.vim".format(home),
-        "{}/.cache/wal/vim/autoload/clap/themes/wal.vim".format(home),
+        "{}/.cache/wal/colors.vim".format(home),
+        "{}/.cache/wal/vim/colors/wal.vim".format(home),
     )
+    # copyfile(
+    #     "{}/.cache/wal/colors-clap.vim".format(home),
+    #     "{}/.cache/wal/vim/autoload/clap/themes/wal.vim".format(home),
+    # )
     # reload running Neovim instances:
-    message("Restarting Neovim")
-    system('{}/dotfiles/scripts/vim/cmdnvim.sh "source \\$MYVIMRC"'.format(home))
+    # message("Restarting Neovim")
+    # system('{}/dotfiles/scripts/vim/cmdnvim.sh "source \\$MYVIMRC"'.format(home))
     if which("dunst") is not None:
         message("Configuring Dunst")
         system("mkdir -p {}/.config/dunst > /dev/null".format(home))
