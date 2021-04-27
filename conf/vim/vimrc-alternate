@@ -1,0 +1,463 @@
+" Make sure dotfiles are added to RTP, if not already added:
+if !empty(glob('~/dotfiles/conf/vim/')) && !(&runtimepath =~# expand('~/dotfiles/conf/vim/'))
+  set runtimepath+=~/dotfiles/conf/vim/
+endif
+" ==============================================================================
+" Basic Settings:
+" ==============================================================================
+set visualbell t_vb= " Disable visual bell
+set autowrite " Autosave files
+set hidden " turn off buffer saving when switching
+set lazyredraw " Don't redraw between macro runs (may make terminal flicker)
+
+" Override Default Split Creation Locations:
+set splitbelow
+set splitright
+
+" Line Numbering:
+set number relativenumber
+
+" Folds:
+set foldlevel=99
+set foldmethod=indent
+
+" This avoids highlighting big files:
+let g:large_file = 20*1024*1024
+
+" Set Leader:
+let mapleader = "\<Space>"
+let maplocalleader = ','
+
+augroup minimal-vimrc
+  autocmd!
+augroup END
+augroup plug-settings
+  autocmd!
+augroup END
+augroup dotfiles-settings
+  autocmd!
+augroup END
+
+if has('nvim')
+  " Preview Substitution Operations:
+  set inccommand=split
+
+  " Turn Off Line Numbering:
+  autocmd minimal-vimrc TermOpen * setlocal nonumber norelativenumber
+endif
+
+" Height Of The Preview Window:
+let &previewheight = 14
+
+" Completion:
+set completeopt=menuone,noselect,noinsert,preview
+" Shut off completion messages
+set shortmess+=c
+" prevent a condition where vim lags due to searching include files.
+set complete-=i
+
+" <C-z> expands wildcards in command mode
+set wildcharm=<C-z>
+" Set path to current file direction and pwd:
+set path=.,,
+
+" ==============================================================================
+" Basic Maps:
+" ==============================================================================
+" Select Whole File:
+nnoremap <leader>vf ggVG
+" Clear Currently Highlighted Regexp:
+nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
+" Navigate Quickfix:
+nnoremap <silent> ]q <cmd>cnext<CR>
+nnoremap <silent> [q <cmd>cprevious<CR>
+" Navigate Buffers:
+nnoremap <silent> ]b <cmd>bnext<CR>
+nnoremap <silent> [b <cmd>bprevious<CR>
+
+" Source https://github.com/romainl/minivimrc/blob/master/vimrc
+" Minimal File Finding:
+nnoremap <localleader>f :find *
+nnoremap <localleader>s :sfind *
+nnoremap <localleader>v :vert sfind *
+" Minimal Buffer Jumping:
+nnoremap <localleader>b :buffer *
+nnoremap <localleader>B :sbuffer *
+" Completion Mappings:
+" Search previous words:
+inoremap <buffer> <localleader>, <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+" Search file names:
+inoremap <buffer> <localleader>: <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+" Search previous lines:
+inoremap <buffer> <localleader> <localleader>= <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+
+" <nop> those bindings for writing files:
+autocmd minimal-vimrc FileType markdown,text iunmap <buffer> <localleader>,
+autocmd minimal-vimrc FileType markdown,text iunmap <buffer> <localleader>:
+autocmd minimal-vimrc FileType markdown,text iunmap <buffer> <localleader>=
+
+" Better Matching:
+nnoremap [I [I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
+nnoremap ]I ]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
+"
+" Line Number Colors:
+autocmd minimal-vimrc ColorScheme default hi LineNr ctermfg=7
+autocmd minimal-vimrc ColorScheme default hi LineNrAbove ctermfg=7
+autocmd minimal-vimrc ColorScheme default hi LineNrBelow ctermfg=7
+
+" ==============================================================================
+" Minpac For Essentials:
+" ==============================================================================
+function! s:packpath() abort
+  " return (has('nvim') ? stdpath('data') . '/site' : expand('~/.vim'))
+  return ($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME . '/.local') . '/minpac'
+endfunction
+
+exe 'set packpath+='.s:packpath()
+
+function! PackInit() abort
+  " Download Minpac:
+  let l:minpac_dir = s:packpath()
+  if empty(glob(l:minpac_dir.'/pack/minpac/opt/minpac'))
+    if executable('git')
+      silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:minpac_dir.'/pack/minpac/opt/minpac"'
+    endif
+  endif
+
+  " Load Minpac:
+  packadd minpac
+
+  if exists('g:loaded_minpac')
+    call minpac#init({'dir': l:minpac_dir})
+
+    call minpac#add('k-takata/minpac', {'type': 'opt'})
+    call minpac#add('tpope/vim-sensible') " Agreeable vim settings:
+    call minpac#add('xero/securemodelines') " Secure modelines
+    call minpac#add('oncomouse/vim-grep') " :Grep and :LGrep
+    call minpac#add('noahfrederick/vim-neovim-defaults', {'type': 'opt'}) " Set Vim with the same default as NeoVim
+    call minpac#add('sickill/vim-pasta')
+    call minpac#add('tpope/vim-commentary')
+    call minpac#add('oncomouse/vim-surround')
+    call minpac#add('airblade/vim-rooter')
+    call minpac#add('wellle/targets.vim')
+    call minpac#add('cohama/lexima.vim')
+    call minpac#add('Konfekt/FastFold')
+    call minpac#add('machakann/vim-highlightedyank', {'type' : 'opt'})
+    call minpac#add('lambdalisue/gina.vim')
+    call minpac#add('junegunn/fzf.vim', {'type': 'opt'})
+    call minpac#add('windwp/nvim-ts-autotag', {'type': 'opt'})
+    call minpac#add('alvan/vim-closetag', {'type': 'opt'})
+    call minpac#add('Yggdroot/indentLine')
+    call minpac#add('nvim-treesitter/nvim-treesitter', {'type': 'opt'})
+    call minpac#add('nvim-treesitter/nvim-treesitter-textobjects', {'type': 'opt'})
+    call minpac#add('cespare/vim-toml', {'type': 'opt'}) " TOML syntax
+    call minpac#add('neoclide/vim-jsx-improve', {'type': 'opt'}) " JSX (javascriptreact) Syntax
+    call minpac#add('elzr/vim-json', {'type': 'opt'}) " JSON Syntax
+    call minpac#add('tbastos/vim-lua') " Lua Syntax
+    call minpac#add('cakebaker/scss-syntax.vim') " SCSS Syntax
+    call minpac#add('oncomouse/vim-fish') " Fish Syntax & Async Completion
+    call minpac#add('plasticboy/vim-markdown')
+    call minpac#add('kana/vim-textobj-user', {'type': 'opt'})
+    call minpac#add('hrsh7th/vim-vsnip')
+    call minpac#add('hrsh7th/vim-vsnip-integ')
+    call minpac#add('rafamadriz/friendly-snippets', { 'branch': 'main' }) 
+    call minpac#add('gfanto/fzf-lsp.nvim', {'type': 'opt'})
+    call minpac#add('neovim/nvim-lspconfig', {'type': 'opt'})
+    call minpac#add('dense-analysis/ale')
+    call minpac#add('godlygeek/tabular', {'type': 'opt'}) " :Tabular /| to auto-align tables (also :TableFormat in markdown)
+    call minpac#add('reedes/vim-textobj-sentence', {'type': 'opt'}) " Use as & is for selecting sentences; g) and g( for moving
+    call minpac#add('reedes/vim-textobj-quote', {'type': 'opt'}) " Makes aq & iq for smart quotes
+  else
+    echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
+  endif
+endfunction
+
+command! PackUpdate call PackInit() | call minpac#update()
+command! PackClean call PackInit() | call minpac#clean()
+command! PackStatus call PackInit() | call minpac#status()
+
+" ==============================================================================
+" Pack Settings:
+" ==============================================================================
+" xero/securemodelines
+set nomodeline
+let g:secure_modelines_verbose = 0
+let g:secure_modelines_modelines = 15
+let g:secure_modelines_allowed_items = [
+\ 'textwidth',   'tw',
+\ 'softtabstop', 'sts',
+\ 'tabstop',     'ts',
+\ 'shiftwidth',  'sw',
+\ 'expandtab',   'et',   'noexpandtab', 'noet',
+\ 'filetype',    'ft',
+\ 'foldmethod',  'fdm',
+\ 'foldlevel',   'fdl',
+\ 'readonly',    'ro',   'noreadonly', 'noro',
+\ 'rightleft',   'rl',   'norightleft', 'norl',
+\ 'cindent',     'cin',  'nocindent', 'nocin',
+\ 'smartindent', 'si',   'nosmartindent', 'nosi',
+\ 'autoindent',  'ai',   'noautoindent', 'noai',
+\ 'spell', 'nospell',
+\ 'spelllang',
+\ 'wrap', 'nowrap',
+\ 'syntax'
+\ ]
+" noahfrederick/vim-neovim-defaults
+if !has('nvim')
+  packadd! vim-neovim-defaults
+endif
+" airblade/vim-rooter
+let g:rooter_patterns = [
+\ 'Rakefile',
+\ 'package.json',
+\ '.git/',
+\ 'Gemfile',
+\ 'pyproject.toml',
+\ 'setup.py',
+\ ]
+" Set path expansion to pwd only, especially with vim-rooter running:
+set path=,,
+" cohama/lexima.vim
+function! s:make_rule(at, end, filetype, syntax)
+  return {
+  \ 'char': '<CR>',
+  \ 'input': '<CR>',
+  \ 'input_after': '<CR>' . a:end,
+  \ 'at': a:at,
+  \ 'except': '\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1' . a:end,
+  \ 'filetype': a:filetype,
+  \ 'syntax': a:syntax,
+  \ }
+endfunction
+function! s:extend_endwise() abort
+  " Lua endwise rules:
+  call lexima#add_rule(s:make_rule('^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
+  call lexima#add_rule(s:make_rule('^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
+  call lexima#add_rule(s:make_rule('^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
+endfunction
+autocmd plug-settings VimEnter * call s:extend_endwise()
+" inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
+" Konfekt/FastFold
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:fastfold_minlines = 0
+if has('nvim-0.5')
+  autocmd plug-settings TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
+else
+  packadd! vim-highlightedyank
+endif
+" lambdalisue/gina.vim
+function! s:load_gina() abort
+  call gina#custom#command#option('status', '--opener', &previewheight . 'split')
+  call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
+  call gina#custom#command#option('diff', '--opener', &previewheight . 'split')
+  call gina#custom#command#option('status', '--group', 'short')
+  call gina#custom#command#option('commit', '--group', 'short')
+  call gina#custom#command#option('diff', '--group', 'short')
+  " Implement vim-fugitive commands in Gina:
+  call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
+endfunction
+autocmd plug-settings VimEnter * call s:load_gina()
+cnoreabbrev gina Gina
+" junegunn/fzf
+if executable('fzf')
+  " macOS Homebrew
+  if isdirectory('/usr/local/opt/fzf')
+    set runtimepath+=/usr/local/opt/fzf
+  " Arch
+  elseif isdirectory('/usr/share/vim/vimfiles')
+    set runtimepath+=/usr/share/vim/vimfiles
+  " Local install
+  elseif isdirectory('~/.fzf')
+    set runtimepath+=~/.fzf
+  endif
+  packadd! fzf.vim
+  if has('nvim-0.5')
+    packadd fzf-lsp.nvim
+  endif
+  call dotfiles#autocomplete#fzf#init()
+endif
+" windwp/nvim-ts-autotag
+if has('nvim-0.5')
+  packadd! nvim-ts-autotag
+" alvan/vim-closetag
+else
+  packadd! vim-closetag
+  let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.js,*.erb'
+  let g:closetag_xhtml_filenames = '*.xhtml,*.js,*.erb'
+  let g:closetag_filetypes = 'html,javascriptreact'
+  let g:closetag_close_shortcut = '<leader>>'
+  let g:closetag_regions = {
+  \ 'typescriptreact': 'jsxRegion,tsxRegion',
+  \ 'javascriptreact': 'jsxRegion',
+  \ 'javascript': 'jsxRegion',
+  \ }
+endif
+" Yggdroot/indentLine
+let g:indentLine_char = "\u22EE"
+let g:indentLine_fileTypeExclude = ['markdown', 'fzf', 'help']
+let g:indentLine_setColors = 0
+" Syntax Support:
+if has('nvim-0.5')
+  packadd! nvim-treesitter
+  packadd! nvim-treesitter-textobjects
+else
+  packadd! vim-toml
+  packadd! vim-jsx-improve
+  packadd! vim-json
+  let g:vim_json_syntax_conceal = 0
+  packadd! vim-lua
+endif
+" plasticboy/vim-markdown
+let g:vim_markdown_frontmatter = 1 " Format YAML
+let g:vim_markdown_strikethrough = 0 " Don't format strikethrough
+let g:vim_markdown_conceal = 0 " Don't conceal
+let g:vim_markdown_conceal_code_blocks = 0 " Don't conceal code blocks
+let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
+" LSP Support:
+if has('nvim-0.5')
+  packadd! nvim-lspconfig
+  call dotfiles#autocomplete#nvim_lsp#init()
+endif
+" dense-analysis/ale
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_cursor_detail = 0
+" Always use preview for hover (only used w/ JS languages):
+" let g:ale_hover_to_preview = 1
+" We let our LSP client handle LSPs:
+let g:ale_disable_lsp = 1
+let g:ale_fix_on_save = 0
+let g:ale_pattern_options = {
+\ '\.min.js$': {'ale_enabled': 0},
+\ 'build/.*$': {'ale_enabled': 0},
+\ }
+let g:ale_set_signs = 0 " Turn off sign column
+call dotfiles#autocomplete#ale#init()
+let g:textobj#quote#educate = 0
+" Initialize the plugin when it is dynamically loaded:
+autocmd plug-settings FileType markdown,text packadd tabular | packadd vim-textobj-user | packadd vim-textobj-sentence | packadd vim-textobj-quote
+autocmd plug-settings User vim-textobj-sentence call textobj#sentence#init()
+autocmd plug-settings User vim-textobj-quote call textobj#quote#init()
+" ==============================================================================
+" Minimal Settings:
+" ==============================================================================
+if !exists('g:dotfiles_mode')
+  colorscheme default
+endif
+" ==============================================================================
+" Full Settings:
+" ==============================================================================
+" Treesitter: {{{
+if has('nvim-0.5')
+  lua require('dotfiles.treesitter')
+endif
+" }}}
+" Maps: {{{
+let g:dwm_map_keys = 0
+let g:dwm_load = 0
+" Highlight a block and type "@" to run a macro on the block:
+xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
+" <F4> makes:
+nnoremap <silent><buffer> <F4> :make!<CR>
+" Update fast folds:
+nmap zuz <Plug>(FastFoldUpdate)
+" Grep project:
+function s:grep_or_qfgrep()
+  if &buftype ==# 'quickfix'
+    let l:input = input('QFGrep/')
+    if len(l:input) > 0
+      execute 'Cfilter /'.l:input.'/'
+    endif
+  else
+    let l:input = input('Grep/')
+    if len(l:input) > 0
+      execute 'Grep ' . l:input
+    endif
+  endif 
+endfunction
+nnoremap <silent> <leader>/ <cmd>call <SID>grep_or_qfgrep()<CR>
+" Calculator (not sure how this works):
+inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
+" Shortcut to view current syntax highlighting group:
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" List Bindings: {{{
+nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
+nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
+"}}}
+" Standard Fuzzy Bindings: {{{
+nmap <silent> <c-p> <Plug>(dotfiles-files)
+nmap <silent> <leader>F <Plug>(dotfiles-home-files)
+nmap <silent> <leader>a <Plug>(dotfiles-buffers)
+nmap <silent> <leader>A <Plug>(dotfiles-windows)
+nmap <silent> <leader>l <Plug>(dotfiles-lines)
+nmap <silent> <leader>? <Plug>(dotfiles-commands)
+" }}}
+" Standard LSP Bindings: {{{
+" As with Fuzzy bindings (above), we set all the LSP commands to Plug
+" bindings and then rebind them here to the keys we actually want to use:
+nmap <silent> <F2>      <Plug>(dotfiles-rename)
+nmap <silent> <F5>      <Plug>(dotfiles-commands)
+vmap <silent> ga        <Plug>(dotfiles-codeaction-selected)
+nmap <silent> ga        <Plug>(dotfiles-codeaction)
+nmap <silent> gl        <Plug>(dotfiles-codelens)
+nmap <silent> gd        <Plug>(dotfiles-definition)
+nmap <silent> gy        <Plug>(dotfiles-type-definition)
+nmap <silent> gi        <Plug>(dotfiles-implementation)
+nmap <silent> gr        <Plug>(dotfiles-references)
+nmap <silent> <leader>s <Plug>(dotfiles-document-symbols)
+nmap <silent> K         <Plug>(dotfiles-documentation)
+nmap <silent> [d        <Plug>(dotfiles-diagnostic-previous)
+nmap <silent> ]d        <Plug>(dotfiles-diagnostic-next)
+" }}}
+" Snippet Bindings: {{{
+" Ctrl_X + Ctrl_U, open snippets:
+set completefunc=dotfiles#snippets#completefunc
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+" Use <Tab> to trigger completion in menus:
+imap <expr> <Tab>   pumvisible() ?
+\ (complete_info()["selected"] != "-1" ? '<C-y>' : '<C-n><C-y>') :
+\ (vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>')
+" }}}
+" }}}
+" Theme: {{{
+set background=dark
+" Fancy Colors for Desktop Mode:
+if exists('+termguicolors')
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+  exe 'set runtimepath+='.expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : $HOME.'/.cache') . '/wal/vim')
+  colorscheme wal
+else
+  colorscheme default
+endif
+" }}}
+" Other Settings: {{{
+" Close preview window:
+autocmd dotfiles-settings CompleteDone * if pumvisible() == 0 | pclose | endif
+" On opening a file, jump to the last known cursor position (see :h line())
+autocmd dotfiles-settings BufReadPost *
+\ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
+\   exe "normal! g`\"" |
+\ endif 
+" Update FASD For NeoVim: {{{
+if has('nvim')
+  function! s:fasd_update() abort
+    if empty(&buftype)
+      call jobstart(['fasd', '-A', expand('%:p')])
+    endif
+  endfunction
+  autocmd dotfiles-settings BufWinEnter,BufFilePost * call s:fasd_update()
+endif
+" }}}
+" }}}
+" # vim:foldmethod=marker
