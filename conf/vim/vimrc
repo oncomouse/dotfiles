@@ -109,6 +109,7 @@ call plug#begin(g:plug_dir)
 " General Editing: {{{
 Plug 'sickill/vim-pasta' " Indentation-forward pasting
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary' " Comment w/ gcc or gc (visual)
 Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 Plug 'airblade/vim-rooter' " Set project root
 let g:rooter_patterns = [
@@ -142,6 +143,11 @@ function! s:extend_endwise() abort
 endfunction
 autocmd plug-settings VimEnter * call s:extend_endwise()
 " inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
+Plug 'Konfekt/FastFold' " Better fold support
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:fastfold_minlines = 0
 if has('nvim-0.5')
   autocmd plug-settings TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
 else
@@ -183,9 +189,6 @@ elseif g:complete_package ==# 'telescope'
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
-endif
-if !has('nvim')
-  Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git' " Non-neovim theme
 endif
 " }}}
 if g:dotfiles_mode ==# 'desktop'

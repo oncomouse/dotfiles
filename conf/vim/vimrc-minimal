@@ -118,10 +118,8 @@ function! PackInit() abort
     call minpac#add('k-takata/minpac', {'type': 'opt'})
     call minpac#add('tpope/vim-sensible') " Agreeable vim settings:
     call minpac#add('xero/securemodelines') " Secure modelines
-    call minpac#add('tpope/vim-commentary') " Comment w/ gcc or gc (visual)
     call minpac#add('oncomouse/vim-grep') " :Grep and :LGrep
-    call minpac#add('Konfekt/FastFold') " Better fold support
-    call minpac#add('noahfrederick/vim-neovim-defaults') " Set Vim with the same default as NeoVim
+    call minpac#add('noahfrederick/vim-neovim-defaults', {'type': 'opt'}) " Set Vim with the same default as NeoVim
   else
     echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
   endif
@@ -156,10 +154,6 @@ let g:secure_modelines_allowed_items = [
 \ 'wrap', 'nowrap',
 \ 'syntax'
 \ ]
-if has('nvim')
-  let g:loaded_neovim_defaults = 1
+if !has('nvim')
+  packadd! vim-neovim-defaults
 endif
-let g:fastfold_savehook = 1
-let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
-let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-let g:fastfold_minlines = 0
