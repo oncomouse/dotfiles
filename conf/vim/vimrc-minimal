@@ -157,3 +157,6 @@ let g:secure_modelines_allowed_items = [
 if !has('nvim')
   packadd! vim-neovim-defaults
 endif
+if !exists('g:dotfiles_mode')
+  colorscheme default
+endif
