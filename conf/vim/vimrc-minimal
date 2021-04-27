@@ -79,16 +79,16 @@ nnoremap <localleader>b :buffer *
 nnoremap <localleader>B :sbuffer *
 " Completion Mappings:
 " Search previous words:
-inoremap <localleader>, <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap <buffer> <localleader>, <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 " Search file names:
-inoremap <localleader>: <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap <buffer> <localleader>: <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 " Search previous lines:
-inoremap <localleader>= <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap <buffer> <localleader> <localleader>= <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 
 " <nop> those bindings for writing files:
-autocmd minimal-vimrc FileType markdown,text inoremap <localleader>, <nop>
-autocmd minimal-vimrc FileType markdown,text inoremap <localleader>: <nop>
-autocmd minimal-vimrc FileType markdown,text inoremap <localleader>= <nop>
+autocmd minimal-vimrc FileType markdown,text iunmap <buffer> <localleader>,
+autocmd minimal-vimrc FileType markdown,text iunmap <buffer> <localleader>:
+autocmd minimal-vimrc FileType markdown,text iunmap <buffer> <localleader>=
 
 " Better Matching:
 nnoremap [I [I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
