@@ -326,6 +326,7 @@ if g:dotfiles_mode ==# 'desktop'
     " We let our LSP client handle LSPs:
     let g:ale_disable_lsp = 1
     let g:ale_fix_on_save = 0
+    let g:ale_lint_delay = 500
     let g:ale_pattern_options = {
     \ '\.min.js$': {'ale_enabled': 0},
     \ 'build/.*$': {'ale_enabled': 0},
