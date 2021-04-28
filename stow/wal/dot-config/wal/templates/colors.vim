@@ -82,19 +82,19 @@ hi Todo ctermfg=3 guifg={color3} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
 hi Type ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 hi Typedef ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 
-" hi LspDiagnosticsDefaultError  cterm=NONE gui=NONE
+" hi LspDiagnosticsDefaultError cterm=NONE gui=NONE
 hi LspDiagnosticsSignError ctermfg=5 guifg={color5} cterm=NONE gui=NONE
 hi LspDiagnosticsUnderlineError cterm=undercurl gui=undercurl 
 
-" hi LspDiagnosticsDefaultWarning  cterm=NONE gui=NONE
+" hi LspDiagnosticsDefaultWarning cterm=NONE gui=NONE
 hi LspDiagnosticsSignWarning ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 hi LspDiagnosticsUnderlineWarning cterm=undercurl gui=undercurl 
 
-" hi LspDiagnosticsDefaultInformation  cterm=NONE gui=NONE
+" hi LspDiagnosticsDefaultInformation cterm=NONE gui=NONE
 hi LspDiagnosticsSignInformation ctermfg=4 guifg={color4} cterm=NONE gui=NONE
 hi LspDiagnosticsUnderlineInformation cterm=undercurl gui=undercurl 
 
-" hi LspDiagnosticsDefaultHint  cterm=NONE gui=NONE
+" hi LspDiagnosticsDefaultHint cterm=NONE gui=NONE
 hi LspDiagnosticsSignHint ctermfg=6 guifg={color6} cterm=NONE gui=NONE
 hi LspDiagnosticsUnderlineHint cterm=undercurl gui=undercurl 
 
@@ -314,9 +314,9 @@ hi! link User Normal
 hi StatusWarning ctermfg=237 guifg={base01} ctermbg=3 guibg={color3} cterm=NONE gui=NONE
 hi StatusError ctermfg=237 guifg={base01} ctermbg=1 guibg={color1} cterm=NONE gui=NONE
 hi StatusOk ctermfg=251 guifg={base05} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
-hi StatusWarningInv ctermfg=3 guifg={color3} ctermbg=235 guibg={base00}  cterm=NONE gui=NONE
-hi StatusErrorInv ctermfg=1 guifg={color1} ctermbg=235 guibg={base00}  cterm=NONE gui=NONE
-hi StatusOkInv ctermfg=237 guifg={base01} ctermbg=235 guibg={base00}  cterm=NONE gui=NONE
+hi StatusWarningInv ctermfg=3 guifg={color3} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
+hi StatusErrorInv ctermfg=1 guifg={color1} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
+hi StatusOkInv ctermfg=237 guifg={base01} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
 hi StatusInfoInv ctermfg=237 guifg={base01} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
 hi StatusLineInfo ctermfg=251 guifg={base05} ctermbg=240 guibg={base02} cterm=NONE gui=NONE
 hi StatusLineInfoInv ctermfg=240 guifg={base02} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
