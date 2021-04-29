@@ -29,3 +29,5 @@ Patterns *
 Create Both
 # Save the synchronization state files in the relevant directory
 SyncState *
+
+# vim:ft=apachestyle
