@@ -1,0 +1,31 @@
+Create Both
+Expunge Both
+SyncState *
+
+IMAPAccount work
+# Address to connect to
+Host exchange.tamu.edu
+SSLType IMAPS
+AuthMechs LOGIN
+User apilsch@tamu.edu
+PassCmd "bw get password exchange.tamu.edu"
+
+IMAPStore work-remote
+Account work
+
+MaildirStore work-local
+# Copy folder hierarchy
+Subfolders Verbatim
+# The trailing "/" is important
+Path ~/.mail/work/
+Inbox ~/.mail/work/Inbox
+
+Channel work
+Far :work-remote:
+Near :work-local:
+# Include everything
+Patterns *
+# Automatically create missing mailboxes, both locally and on the server
+Create Both
+# Save the synchronization state files in the relevant directory
+SyncState *

@@ -1,0 +1,2 @@
+text/html; firefox -new-window %s &; test=test -n "$DISPLAY" -a -e "$(which firefox)"; needsterminal;
+text/html; w3m -I %{charset} -T text/html; copiousoutput;

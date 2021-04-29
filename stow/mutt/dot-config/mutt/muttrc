@@ -1,0 +1,31 @@
+set ssl_force_tls = yes
+set my_name="Andrew Pilsch"
+set sort=threads
+set imap_user=apilsch@tamu.edu
+set imap_pass=`bw get password exchange.tamu.edu`
+# set folder=imaps://exchange.tamu.edu/
+# set spoolfile=+INBOX
+# mailboxes +inbox
+
+folder-hook 'work' source ~/.config/mutt/work
+macro index 1 "<change-folder> =../work/inbox/<enter>"
+macro index G "!mbsync -a^M" "Update through mbsync"
+set move = no
+source ~/.config/mutt/work
+
+set editor='/usr/bin/env nvim'
+set realname='Andrew Pilsch'
+set from='apilsch@tamu.edu'
+set use_from = yes
+
+# SMTP Not Working:
+set smtp_url="smtp://$imap_user:$imap_pass@exchange.tamu.edu"
+set ssl_force_tls = yes
+set ssl_starttls = yes
+
+set query_command= "abook --mutt-query '%s'"
+macro index,pager A "<pipe-message>abook--datafile ~/Seadrive/My\ Libraries/My\ Library/addresses --add-email-quiet<return>" 
+
+set mailcap_path='~/.config/mutt/mailcap'
+alternative_order text/plain text/enriched text/html
+bind attach <return> view-mailcap

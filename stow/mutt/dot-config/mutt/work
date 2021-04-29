@@ -1,0 +1,9 @@
+set folder = "~/.mail/work"
+set spoolfile = "~/.mail/work/Inbox"
+set postponed = "~/.mail/work/Drafts"
+set trash = "+/trash"
+set record = ""
+
+set from = "apilsch@tamu.edu"
+set realname = "Andrew Pilsch"
+# vim:ft=muttrc
