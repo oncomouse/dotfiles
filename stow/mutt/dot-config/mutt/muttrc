@@ -6,6 +6,7 @@ set imap_pass=`bw get password exchange.tamu.edu`
 
 set folder=imaps://exchange.tamu.edu/
 set spoolfile=+INBOX
+set postpone=+Drafts
 mailboxes +Inbox +Archive
 
 # folder-hook 'work' source ~/.config/mutt/work
@@ -14,7 +15,6 @@ mailboxes +Inbox +Archive
 # macro index G "!mbsync -a^M" "Update through mbsync"
 # set move = no
 # source ~/.config/mutt/work
-#
 
 set editor='/usr/bin/env nvim'
 set realname='Andrew Pilsch'
@@ -22,7 +22,7 @@ set from='apilsch@tamu.edu'
 set use_from = yes
 
 # SMTP Not Working:
-set smtp_url="smtp://$imap_user:$imap_pass@smtp-relay.tamu.edu"
+set smtp_url="smtp://$imap_user:$imap_pass@exchange.tamu.edu:587"
 set ssl_force_tls = yes
 set ssl_starttls = yes
 save-hook . '=Archive'
