@@ -3,11 +3,13 @@ set my_name="Andrew Pilsch"
 set sort=reverse-threads
 set imap_user='apilsch@tamu.edu'
 set imap_pass=`bw get password exchange.tamu.edu`
+set smtp_pass=`bw get password "SMTP Server"`
 
 set folder=imaps://exchange.tamu.edu/
 set spoolfile=+INBOX
 set postponed=+Drafts
 mailboxes +Inbox +Archive
+save-hook . '=Archive'
 
 # folder-hook 'work' source ~/.config/mutt/work
 # macro index 1 "<change-folder> =../work/Inbox/<enter>"
@@ -22,10 +24,9 @@ set from='apilsch@tamu.edu'
 set use_from = yes
 
 # SMTP Not Working:
-set smtp_url="smtp://$imap_user:$imap_pass@exchange.tamu.edu:587"
+set smtp_url="smtp://$imap_user@mail.smtp2go.com:587"
 set ssl_force_tls = yes
 set ssl_starttls = yes
-save-hook . '=Archive'
 
 set query_command= "abook --mutt-query '%s'"
 macro index,pager A "<pipe-message>abook  --add-email-quiet<return>" 
