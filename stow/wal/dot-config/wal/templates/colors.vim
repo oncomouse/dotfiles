@@ -293,6 +293,9 @@ hi semshiErrorChar ctermfg=251 guifg={base05} guibg=#d70000 ctermbg=160 cterm=NO
 
 hi IndentBlanklineChar ctermfg=237 guifg={base01} ctermbg=235 guibg={base00} cterm=nocombine gui=nocombine 
 
+hi IndentGuidesOdd ctermbg=0 guibg={color0}
+hi IndentGuidesEven ctermbg=8 guibg={color8}
+
 hi VisualMode ctermfg=235 guifg={base00} ctermbg=9 guibg={color9} cterm=bold gui=bold  
 hi InsertMode ctermfg=235 guifg={base00} ctermbg=2 guibg={color2} cterm=bold gui=bold  
 hi ReplaceMode ctermfg=235 guifg={base00} ctermbg=13 guibg={color13} cterm=bold gui=bold  
