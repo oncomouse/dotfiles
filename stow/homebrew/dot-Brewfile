@@ -29,7 +29,6 @@ brew "jq"
 brew "lua@5.1", link: false
 brew "luarocks", link: false
 brew "neofetch"
-brew "neovim", args: ["HEAD"]
 brew "nnn"
 brew "node"
 brew "openssh"
