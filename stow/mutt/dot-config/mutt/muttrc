@@ -6,7 +6,7 @@ set imap_pass=`bw get password exchange.tamu.edu`
 
 set folder=imaps://exchange.tamu.edu/
 set spoolfile=+INBOX
-set postpone=+Drafts
+set postponed=+Drafts
 mailboxes +Inbox +Archive
 
 # folder-hook 'work' source ~/.config/mutt/work
