@@ -1,97 +1,66 @@
-cask_args appdir: '/Applications'
-
+tap "borkdude/brew"
+tap "heroku/brew"
 tap "homebrew/bundle"
 tap "homebrew/cask"
-tap "homebrew/core"
 tap "homebrew/cask-fonts"
-tap "heroku/brew"
-
-# System
+tap "homebrew/core"
+tap "homebrew/services"
+tap "oncomouse/repo"
 brew "coreutils"
-brew "git" # Always useful to have up-to-date versions
-brew "openssh" # More up-to-date version than system
-brew "unbound" # DNS
-
-# Shell
-brew "bat" # syntax highlighting cat
-brew "diff-so-fancy" # Fancy diffs for git
-brew "exa" # better ls
-brew "fasd" # Autcompletion for directory jumping, z and v (for editing)
-brew "fish" # shell
-brew "fzf" # fuzzy finder in shell, <C-t> to bring up completion
-brew "htop" # fancy top
-brew "jq" # streaming, inline JSON editor
-brew "shellcheck" # bash linter
-# brew "tmux" # terminal multiplexer, run multiple shells and save/restore sessions
-brew "httpie" # simplified http client
-brew "neofetch" # system info
-cask "kitty" # Terminal emulator
-brew "poppler" # Terminal PDF tools (needed for ranger preview)
+brew "readline"
+brew "asdf"
+brew "bat"
+brew "cmake"
+brew "deno"
+brew "diction"
+brew "diff-so-fancy"
+brew "exa"
+brew "fasd"
+brew "fd"
+brew "fish"
+brew "fzf"
+brew "git"
+brew "unbound", restart_service: true
+brew "grep"
+brew "htop"
+brew "python@3.8"
+brew "imagemagick"
+brew "jq"
+brew "lua@5.1", link: false
+brew "luarocks", link: false
+brew "neofetch"
+brew "neovim", args: ["HEAD"]
 brew "nnn"
-
-# Shell Search
-brew "grep" # the old standby
-brew "fd" # fast find command
-brew "the_silver_searcher" # ag for searching, fancy grep
-brew "ripgrep" # rg for searching, fancy and fast grep
-
-# Editor
-brew "neovim" # Text editor
-brew "vim" # Backup text editor
-brew "watchman" # Needed by CoC.nvim
-cask "visual-studio-code" # Code IDE
-cask "vimr"
-
-# Fonts
-cask "font-fira-code" # Terminal Font
-cask "font-firacode-nerd-font" # Install for VS Code & Kitty symbol_map
-cask "font-hasklig" # Alternate (italic) terminal font
-cask "font-tex-gyre-heros" # Used for CV on website
-
-# Programming
-brew "rustup" # Enough things I use use this
-brew "heroku/brew/heroku" # Build and install cloud apps
-brew "node" # Node.js
-brew "deno" # Deno (Next generation JS)
-brew "python" # Python 3
-brew "yarn" # Package manager for Node.js
-# brew "janet" # Janet programming language
-brew "lua" # Lua programming language
-brew "luarocks" # Lua package manager
-brew "asdf" # Unified Ruby / Node version managing
-# cask "virtualbox" # Virtual machine software
-
-# Writing
-brew "bib-tool" # Manage bibtex files
-brew "diction" # Analyze a document's word usage
-brew "pandoc" # Compile Markdown into .docx (and beyond!)
-brew "pandoc-citeproc" # Citation plugin for Pandoc
-brew "vale" # Markdown linter
-cask "zotero" # Bibliography management
-cask "basictex"
-
-# Automation
-cask "karabiner-elements" # Keyboard remapping
-cask "hammerspoon" # Automation
-cask "amethyst" # Tiling Window Manager
-
-# Online Teaching
-cask "licecap" # Animated GIF maker
-cask "obs" # Screencap
-cask "vlc" # Video playback
-cask "avidemux" # Simple editing
-
-# Music
-# brew "portaudio"
-# brew "dbus"
-
-# Pywal
+brew "node"
+brew "openssh"
+brew "pandoc"
+brew "pandoc-citeproc"
 brew "pidof"
-
-# Other GUI Applications
-cask "firefox" # Browser
-cask "flux" # Night-time screen mode
-cask "keycast" # Visualize keystrokes on-screen, great for teaching
-cask "grandperspective" # Visualize disk usage
-cask "seadrive" # File sharing
-# vim: filetype=conf
+brew "pinentry-mac"
+brew "poppler"
+brew "portaudio"
+brew "ripgrep"
+brew "rustup-init"
+brew "shellcheck"
+brew "tmux"
+brew "tree"
+brew "vale"
+brew "vim"
+brew "watchman"
+brew "wget"
+brew "yarn"
+cask "amethyst"
+cask "basictex"
+cask "firefox"
+cask "flux", args: { appdir: "/Applications" }
+cask "font-dejavusansmono-nerd-font-mono", args: { appdir: "/Applications" }
+cask "font-fira-code", args: { appdir: "/Applications" }
+cask "font-firacode-nerd-font"
+cask "font-tex-gyre-heros", args: { appdir: "/Applications" }
+cask "grandperspective", args: { appdir: "/Applications" }
+cask "karabiner-elements", args: { appdir: "/Applications" }
+cask "keycast"
+cask "kitty"
+cask "licecap", args: { appdir: "/Applications" }
+cask "slack", args: { appdir: "/Applications" }
+cask "zotero"
