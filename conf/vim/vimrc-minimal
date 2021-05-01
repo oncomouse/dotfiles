@@ -98,6 +98,14 @@ nnoremap ]I ]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
 autocmd minimal-vimrc ColorScheme default hi LineNr ctermfg=7
 autocmd minimal-vimrc ColorScheme default hi LineNrAbove ctermfg=7
 autocmd minimal-vimrc ColorScheme default hi LineNrBelow ctermfg=7
+autocmd minimal-vimrc ColorScheme default hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE
+autocmd minimal-vimrc ColorScheme default hi User1 ctermfg=14 ctermbg=8
+autocmd minimal-vimrc ColorScheme default hi User2 ctermfg=13 ctermbg=8
+autocmd minimal-vimrc ColorScheme default hi User3 ctermfg=11 ctermbg=8
+
+" Minimal Statusbar:
+set statusline=%F%h\ %=\ %1*LN\ %l\/%L\ %2*C\ %c%V\ %3*%P\ %1*\%m%r%h%w%y
+
 
 " ==============================================================================
 " Minpac For Essentials:
