@@ -52,7 +52,7 @@ cask "amethyst"
 cask "basictex"
 cask "firefox"
 cask "flux", args: { appdir: "/Applications" }
-cask "font-dejavusansmono-nerd-font-mono", args: { appdir: "/Applications" }
+cask "font-hasklig", args: { appdir: "/Applications" }
 cask "font-fira-code", args: { appdir: "/Applications" }
 cask "font-firacode-nerd-font"
 cask "font-tex-gyre-heros", args: { appdir: "/Applications" }
