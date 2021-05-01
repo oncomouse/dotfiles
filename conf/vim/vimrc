@@ -10,16 +10,6 @@ endif
 " Load Basic Settings:
 runtime vimrc-minimal
 
-" Mouse And Clipboard:
-set mouse=a " Mouse support
-if has('clipboard')
-  if has('unnamedplus')
-    set clipboard=unnamedplus,unnamed
-  else
-    set clipboard=unnamed
-  endif
-endif
-
 " Add Dotfiles After To RTP:
 set runtimepath+=~/dotfiles/vim/after/
 

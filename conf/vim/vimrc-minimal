@@ -55,6 +55,16 @@ set wildcharm=<C-z>
 " Set path to current file direction and pwd:
 set path=.,,
 
+" Mouse And Clipboard:
+set mouse=a " Mouse support
+if has('clipboard')
+  if has('unnamedplus')
+    set clipboard=unnamedplus,unnamed
+  else
+    set clipboard=unnamed
+  endif
+endif
+
 " ==============================================================================
 " Basic Maps:
 " ==============================================================================
@@ -104,6 +114,7 @@ autocmd minimal-vimrc ColorScheme default hi User2 ctermfg=13 ctermbg=8
 autocmd minimal-vimrc ColorScheme default hi User3 ctermfg=11 ctermbg=8
 
 " Minimal Statusbar:
+" source: https://github.com/darioisthebest/dotfiles/blob/master/nvim/init.vim#L126
 set statusline=%F%h\ %=\ %1*LN\ %l\/%L\ %2*C\ %c%V\ %3*%P\ %1*\%m%r%h%w%y
 
 
