@@ -20,6 +20,7 @@ brew "fd"
 brew "fish"
 brew "fzf"
 brew "git"
+brew "gmp" # For asdf and ruby
 brew "unbound", restart_service: true
 brew "grep"
 brew "htop"
