@@ -122,7 +122,7 @@ autocmd minimal-vimrc ColorScheme default hi StatusLineNC ctermbg=8 ctermfg=7 ct
 " Minimal Statusbar:
 " source: https://github.com/darioisthebest/dotfiles/blob/master/nvim/init.vim#L126
 " set statusline=%f%h\ %=\ %1*LN\ %l\/%L\ %2*C\ %c%V\ %3*%P\ %4*\%m%r%h%w%y
-set statusline=%f%h\ %=LN\ %l\/%L\ C\ %c%V\ %P\ \%m%r%h%w%y
+set statusline=%0.45f%m%r%h%w\ %=LN\ %l\/%L\ C\ %c%V\ %P\ \%y
 
 
 " ==============================================================================

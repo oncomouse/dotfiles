@@ -58,7 +58,7 @@ let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
 	function! dotfiles#statusline#statusline() abort
 		return '%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode()).'#'.
 			\"%{w:['lf_active'] ? dotfiles#statusline#componetize('dotfiles#statusline#mode()', '  ', ' ') : ''}
-			\%1* %f%m%h%w%r%=
+			\%1* %0.45f%m%h%w%r%=
 			\ %y 
 			\%#StatusLineInfo#
 			\%{dotfiles#statusline#componetize('dotfiles#statusline#wordcount()', ' ', g:statusline_soft_sep)}
