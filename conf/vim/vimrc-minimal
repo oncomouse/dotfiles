@@ -1,6 +1,6 @@
 " Make sure dotfiles are added to RTP, if not already added:
 if !empty(glob('~/dotfiles/conf/vim/')) && !(&runtimepath =~# expand('~/dotfiles/conf/vim/'))
-  set runtimepath+=~/dotfiles/conf/vim/
+	set runtimepath+=~/dotfiles/conf/vim/
 endif
 " ==============================================================================
 " Basic Settings:
@@ -29,15 +29,15 @@ let mapleader = "\<Space>"
 let maplocalleader = ','
 
 augroup minimal-vimrc
-  autocmd!
+	autocmd!
 augroup END
 
 if has('nvim')
-  " Preview Substitution Operations:
-  set inccommand=split
+	" Preview Substitution Operations:
+	set inccommand=split
 
-  " Turn Off Line Numbering:
-  autocmd minimal-vimrc TermOpen * setlocal nonumber norelativenumber
+	" Turn Off Line Numbering:
+	autocmd minimal-vimrc TermOpen * setlocal nonumber norelativenumber
 endif
 
 " Height Of The Preview Window:
@@ -58,11 +58,11 @@ set path=.,,
 " Mouse And Clipboard:
 set mouse=a " Mouse support
 if has('clipboard')
-  if has('unnamedplus')
-    set clipboard=unnamedplus,unnamed
-  else
-    set clipboard=unnamed
-  endif
+	if has('unnamedplus')
+		set clipboard=unnamedplus,unnamed
+	else
+		set clipboard=unnamed
+	endif
 endif
 
 " ==============================================================================
@@ -94,6 +94,10 @@ inoremap <buffer> <localleader>, <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>
 inoremap <buffer> <localleader>: <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 " Search previous lines:
 inoremap <buffer> <localleader>= <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+" commands for adjusting indentation rules manually
+command! -nargs=1 Spaces let b:wv = winsaveview() | execute "setlocal expandtab"   | silent execute "%!expand -it "	. <args> . ""  | call winrestview(b:wv) | setlocal ts? sw? sts? et?
+command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab" | silent execute "%!unexpand -t " . <args> . "" | call winrestview(b:wv) | setlocal ts? sw? sts? et?
+
 
 " <nop> those bindings for writing files:
 autocmd minimal-vimrc FileType markdown,text,mail silent! iunmap <buffer> <localleader>,
@@ -125,33 +129,33 @@ set statusline=%f%h\ %=LN\ %l\/%L\ C\ %c%V\ %P\ \%m%r%h%w%y
 " Minpac For Essentials:
 " ==============================================================================
 function! s:packpath() abort
-  return (has('nvim') ? stdpath('data') . '/site' : expand('~/.vim'))
+	return (has('nvim') ? stdpath('data') . '/site' : expand('~/.vim'))
 endfunction
 
 function! PackInit() abort
-  " Download Minpac:
-  let l:minpac_dir = s:packpath()
-  if empty(glob(l:minpac_dir.'/pack/minpac/opt/minpac'))
-    if executable('git')
-      silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:minpac_dir.'/pack/minpac/opt/minpac"'
-    endif
-  endif
+	" Download Minpac:
+	let l:minpac_dir = s:packpath()
+	if empty(glob(l:minpac_dir.'/pack/minpac/opt/minpac'))
+		if executable('git')
+			silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:minpac_dir.'/pack/minpac/opt/minpac"'
+		endif
+	endif
 
-  " Load Minpac:
-  packadd minpac
+	" Load Minpac:
+	packadd minpac
 
-  if exists('g:loaded_minpac')
-    call minpac#init({'dir': l:minpac_dir})
+	if exists('g:loaded_minpac')
+		call minpac#init({'dir': l:minpac_dir})
 
-    call minpac#add('k-takata/minpac', {'type': 'opt'})
-    call minpac#add('tpope/vim-sensible') " Agreeable vim settings:
-    call minpac#add('xero/securemodelines') " Secure modelines
-    call minpac#add('oncomouse/vim-grep') " :Grep and :LGrep
-    call minpac#add('tpope/vim-commentary')
-    call minpac#add('noahfrederick/vim-neovim-defaults', {'type': 'opt'}) " Set Vim with the same default as NeoVim
-  else
-    echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
-  endif
+		call minpac#add('k-takata/minpac', {'type': 'opt'})
+		call minpac#add('tpope/vim-sensible') " Agreeable vim settings:
+		call minpac#add('xero/securemodelines') " Secure modelines
+		call minpac#add('oncomouse/vim-grep') " :Grep and :LGrep
+		call minpac#add('tpope/vim-commentary')
+		call minpac#add('noahfrederick/vim-neovim-defaults', {'type': 'opt'}) " Set Vim with the same default as NeoVim
+	else
+		echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
+	endif
 endfunction
 
 command! PackUpdate call PackInit() | call minpac#update()
@@ -165,27 +169,27 @@ set nomodeline
 let g:secure_modelines_verbose = 0
 let g:secure_modelines_modelines = 15
 let g:secure_modelines_allowed_items = [
-\ 'textwidth',   'tw',
-\ 'softtabstop', 'sts',
-\ 'tabstop',     'ts',
-\ 'shiftwidth',  'sw',
-\ 'expandtab',   'et',   'noexpandtab', 'noet',
-\ 'filetype',    'ft',
-\ 'foldmethod',  'fdm',
-\ 'foldlevel',   'fdl',
-\ 'readonly',    'ro',   'noreadonly', 'noro',
-\ 'rightleft',   'rl',   'norightleft', 'norl',
-\ 'cindent',     'cin',  'nocindent', 'nocin',
-\ 'smartindent', 'si',   'nosmartindent', 'nosi',
-\ 'autoindent',  'ai',   'noautoindent', 'noai',
-\ 'spell', 'nospell',
-\ 'spelllang',
-\ 'wrap', 'nowrap',
-\ 'syntax'
-\ ]
+	\ 'textwidth',	 'tw',
+	\ 'softtabstop', 'sts',
+	\ 'tabstop',		 'ts',
+	\ 'shiftwidth',	 'sw',
+	\ 'expandtab',	 'et',	 'noexpandtab', 'noet',
+	\ 'filetype',		 'ft',
+	\ 'foldmethod',	 'fdm',
+	\ 'foldlevel',	 'fdl',
+	\ 'readonly',		 'ro',	 'noreadonly', 'noro',
+	\ 'rightleft',	 'rl',	 'norightleft', 'norl',
+	\ 'cindent',		 'cin',	 'nocindent', 'nocin',
+	\ 'smartindent', 'si',	 'nosmartindent', 'nosi',
+	\ 'autoindent',	 'ai',	 'noautoindent', 'noai',
+	\ 'spell', 'nospell',
+	\ 'spelllang',
+	\ 'wrap', 'nowrap',
+	\ 'syntax'
+	\ ]
 if !has('nvim')
-  packadd! vim-neovim-defaults
+	packadd! vim-neovim-defaults
 endif
 if !exists('g:dotfiles_mode')
-  colorscheme default
+	colorscheme default
 endif
