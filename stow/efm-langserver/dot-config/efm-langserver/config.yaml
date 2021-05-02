@@ -5,6 +5,10 @@ root-markers:
 log-file: /tmp/efm.log
 log-level: 1
 tools:
+  html-htmlhint: &html-htmlhint
+    lint-command: 'htmlhint --format=unix'
+    lint-formats:
+      - '%f:%l:%c: %m'
 
   markdown-proselint: &markdown-proselint
     lint-command: 'proselint --compact "${INPUT}"'
@@ -141,6 +145,7 @@ languages:
     - <<: *prettier
 
   html:
+    - <<: *html-htmlhint
     - <<: *prettier
 
   lua:

@@ -12,6 +12,7 @@ local on_attach = function(_, bufnr)
 	-- vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 	vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.lsp_formatexpr")
+	vim.api.nvim_command("call dotfiles#autocomplete#nvim_lsp#attach()")
 end
 
 -- 'tsserver',

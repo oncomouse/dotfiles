@@ -364,6 +364,10 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
 nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
 "}}}
+" Default Bindings: {{{
+nmap <silent> <Plug>(dotfiles-diagnostic-next) <cmd>cnext<CR>
+nmap <silent> <Plug>(dotfiles-diagnostic-previous) <cmd>cprev<CR>
+" }}}
 " Standard Fuzzy Bindings: {{{
 nmap <silent> <c-p> <Plug>(dotfiles-files)
 nmap <silent> <leader>F <Plug>(dotfiles-home-files)
@@ -386,7 +390,7 @@ if (g:dotfiles_mode ==# 'desktop')
 	nmap <silent> gi		<Plug>(dotfiles-implementation)
 	nmap <silent> gr		<Plug>(dotfiles-references)
 	nmap <silent> <leader>s <Plug>(dotfiles-document-symbols)
-	nmap <silent> K		<Plug>(dotfiles-documentation)
+	nmap <silent> K			<Plug>(dotfiles-documentation)
 	nmap <silent> [d		<Plug>(dotfiles-diagnostic-previous)
 	nmap <silent> ]d		<Plug>(dotfiles-diagnostic-next)
 endif
