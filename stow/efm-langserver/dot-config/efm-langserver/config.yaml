@@ -144,6 +144,9 @@ languages:
   css:
     - <<: *prettier
 
+  scss:
+    - <<: *prettier
+
   html:
     - <<: *html-htmlhint
     - <<: *prettier
