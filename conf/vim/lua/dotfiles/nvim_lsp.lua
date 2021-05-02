@@ -34,6 +34,25 @@ lspconfig.sumneko_lua.setup{
 	on_attach = on_attach,
 	cmd = {'sumneko-lua-language-server'},
 	handlers = no_diagnostics,
+	settings = {
+		Lua = {
+			-- diagnostics = {
+			-- 	enable = true,
+			-- 	globals = {'vim'},
+			-- 	disable = { 'lowercase-global' },
+			-- },
+			runtime = {
+				version = "LuaJIT",
+				path = vim.split(package.path, ";")
+			},
+			workspace = {
+				library = {
+					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+					[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+				}
+			},
+		}
+	}
 }
 
 lspconfig.citation_lsp.setup{
