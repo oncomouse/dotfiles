@@ -3,8 +3,6 @@ local lspconfig = require('lspconfig')
 -- vim.lsp.set_log_level('debug')
 
 -- Disable diagnostics
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
-
 local no_diagnostics = {
 	["textDocument/publishDiagnostics"] = function() end
 }
@@ -16,12 +14,11 @@ local on_attach = function(_, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.lsp_formatexpr")
 end
 
+-- 'tsserver',
 local servers = {
-	'tsserver',
 	'vimls',
-	'pyls',
-	'solargraph' ,
 	'bashls',
+	'solargraph',
 }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
@@ -66,6 +63,44 @@ lspconfig.citation_lsp.setup{
 		}
 	}
 }
+lspconfig.efm.setup {
+	root_dir = lspconfig.util.root_pattern("Rakefile", "yarn.lock", "lerna.json", ".git", "poetry.toml"),
+	filetypes = {
+		'css',
+		'html',
+		'javascript',
+		'json',
+		'lua',
+		'markdown',
+		'python',
+		'ruby',
+		'sh',
+		'vim',
+	},
+	handlers = {
+		["textDocument/publishDiagnostics"] = vim.lsp.with(
+			vim.lsp.diagnostic.on_publish_diagnostics, {
+			signs = false,
+			underline = true,
+			update_in_insert = false,
+			virtual_text = false,
+			}
+		)
+	},
+	init_options = {
+		documentFormatting = true,
+		hover = true,
+		documentSymbol = true,
+		codeAction = true,
+		completion = true
+	},
+	on_attach = function()
+		vim.o.updatetime = 300
+		vim.api.nvim_command [[autocmd! User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
+		vim.api.nvim_command [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
+		on_attach()
+	end,
+}
 -- VSCode LSPs need some fake settings to work:
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -86,41 +121,3 @@ lspconfig.jsonls.setup {
 	handlers = no_diagnostics,
 	cmd = {'json-languageserver', '--stdio'},
 }
-
--- setlocal formatexpr=v:lua.lsp_formatexpr
--- vim.api.nvim_buf_set_option("formatexpr", _G.lsp_formatexpr)
-_G.lsp_formatexpr = function(start_line, end_line, timeout_ms)
-	timeout_ms = timeout_ms or 500
-
-	if not start_line or not end_line then
-	  if vim.fn.mode() == 'i' or vim.fn.mode() == 'R' then
-		-- `formatexpr` is also called when exceeding `textwidth` in insert mode
-		-- fall back to internal formatting
-		return 1
-	  end
-	  start_line = vim.v.lnum
-	  end_line = start_line + vim.v.count - 1
-	end
-
-	if start_line > 0 and end_line > 0 then
-	  local params = {
-		textDocument = vim.lsp.util.make_text_document_params();
-		range = {
-		  start = { line = start_line - 1; character = 0; };
-		  ["end"] = { line = end_line - 1; character = 0; };
-		};
-	  };
-	  local client_results = vim.lsp.buf_request_sync(0, "textDocument/rangeFormatting", params, timeout_ms)
-
-	  -- Apply the text edits from one and only one of the clients.
-	  for _, response in pairs(client_results) do
-		if response.result then
-		  vim.lsp.util.apply_text_edits(response.result, 0)
-		  return 0
-		end
-	  end
-	end
-
-	-- do not run builtin formatter.
-	return 0
-end

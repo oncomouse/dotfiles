@@ -19,4 +19,7 @@ function! dotfiles#autocomplete#nvim_lsp#init()
   vnoremap <silent><Plug>(dotfiles-codeaction-selected) :<C-u>lua vim.lsp.buf.range_code_action()<CR>
   nnoremap <silent><Plug>(dotfiles-commands) :<CR>
   lua require('dotfiles.nvim_lsp') 
+  command! Format lua vim.lsp.buf.formatting()
+  nnoremap <silent> <Plug>(dotfiles-diagnostic-next) <cmd>lua vim.lsp.diagnostic.get_next()<CR>
+  nnoremap <silent> <Plug>(dotfiles-diagnostic-previous) <cmd>lua vim.lsp.diagnostic.get_prev()<CR>
 endfunction

@@ -1,0 +1,154 @@
+---
+version: 2
+root-markers:
+  - .git/
+log-file: /tmp/efm.log
+log-level: 1
+tools:
+
+  markdown-proselint: &markdown-proselint
+    lint-command: 'proselint --compact "${INPUT}"'
+    lint-stdin: false
+    lint-formats:
+      - '%t:%l:%c: %m'
+    lint-category-map:
+      "-": "W"
+
+  markdown-vale: &markdown-vale
+    lint-command: 'vale --relative --output line "${INPUT}"'
+    lint-stdin: false
+    lint-formats:
+      - '%f:%l:%c:%*[^:]:%m'
+
+  vim-vint: &vim-vint
+    lint-command: 'vint -'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c: %m'
+
+  json-jsonlint: &json-jsonlint
+    lint-command: 'jsonlint -c'
+    lint-stdin: true
+    lint-formats:
+      - 'line %l, col %c, found: %m'
+
+  lua-luacheck: &lua-luacheck
+    lint-command: >-
+      luacheck --formatter visual_studio - --globals vim -d
+      --read-globals after_each before_each it packer_plugins vimp
+    lint-stdin: true
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%f(%l,%c) : %tarning %m'
+      - '%f(%l,%c) : %trror %m'
+
+  yaml-yamllint: &yaml-yamllint
+    lint-command: 'yamllint -f auto -'
+    lint-stdin: true
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '  %l:%c       %tarning  %m'
+      - '  %l:%c       %trror    %m'
+
+  python-pylint: &python-pylint
+    lint-command: >-
+      pylint --disable=bad-continuation,invalid-name
+      --output-format=text --reports=no --score=no ${INPUT}
+    lint-stdin: false
+    lint-formats:
+      - '%f:%l:%c:%t:%m'
+    lint-offset-columns: 1
+    lint-category-map:
+      I: H
+      R: I
+      C: I
+      W: W
+      E: E
+      F: E
+    root-markers:
+      - setup.cfg
+      - .pylintrc
+      - project.toml
+
+  python-mypy: &python-mypy
+    lint-command: 'mypy --show-column-numbers'
+    lint-formats:
+      - '%f:%l:%c: %trror: %m'
+      - '%f:%l:%c: %tarning: %m'
+      - '%f:%l:%c: %tote: %m'
+
+  python-black: &python-black
+    format-command: 'black --quiet -'
+    format-stdin: true
+
+  ruby-rubocop: &ruby-rubocop
+    lint-command: 'rubocop --format emacs --force-exclusion --stdin ${INPUT}'
+    lint-ignore-exit-code: true
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c: %m'
+    root-markers:
+      - Gemfile
+      - Rakefile
+      - .rubocop.yml
+    commands:
+      - command: 'rubocop --auto-correct-all ${INPUT}'
+        title: 'rubocop fix'
+
+  sh-shellcheck: &sh-shellcheck
+    lint-command: 'shellcheck -f gcc -x - | sed -e s/note:/info:/'
+    lint-stdin: true
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%f:%l:%c: %trror: %m'
+      - '%f:%l:%c: %tarning: %m'
+      - '%f:%l:%c: %tnfo: %m'
+
+  sh-shfmt: &sh-shfmt
+    format-command: 'shfmt -ci -s -bn'
+    format-stdin: true
+
+  prettier: &prettier
+    format-command: 'prettier'
+
+languages:
+
+  markdown:
+    - <<: *markdown-vale
+    - <<: *markdown-proselint
+
+  vim:
+    - <<: *vim-vint
+
+  yaml:
+    - <<: *yaml-yamllint
+    - <<: *prettier
+
+  python:
+    - <<: *python-mypy
+    - <<: *python-pylint
+    - <<: *python-black
+
+  sh:
+    - <<: *sh-shellcheck
+    - <<: *sh-shfmt
+
+  json:
+    - <<: *json-jsonlint
+    - <<: *prettier
+
+  css:
+    - <<: *prettier
+
+  html:
+    - <<: *prettier
+
+  lua:
+    - <<: *lua-luacheck
+    - <<: *prettier
+
+  javascript:
+    - <<: *prettier
+
+  ruby:
+    - <<: *ruby-rubocop

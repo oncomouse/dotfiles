@@ -64,3 +64,4 @@ unclutter
 luarocks
 shfmt
 ttf-liberation
+efm-langserver
