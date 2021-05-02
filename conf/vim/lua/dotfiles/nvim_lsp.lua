@@ -11,7 +11,6 @@ local on_attach = function(_, bufnr)
 	-- Once codelens is setup:
 	-- vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-	vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.lsp_formatexpr")
 	vim.api.nvim_command("call dotfiles#autocomplete#nvim_lsp#attach()")
 end
 
@@ -103,8 +102,8 @@ lspconfig.efm.setup {
 	end,
 }
 -- VSCode LSPs need some fake settings to work:
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+local vscode_capabilities = vim.lsp.protocol.make_client_capabilities()
+vscode_capabilities.textDocument.completion.completionItem.snippetSupport = true
 local vscode_lsps = {
 	'cssls',
 	'html',
@@ -113,12 +112,12 @@ for _, lsp in ipairs(vscode_lsps) do
 	lspconfig[lsp].setup {
 		on_attach = on_attach,
 		handlers = no_diagnostics,
-		capabilities = capabilities,
+		capabilities = vscode_capabilities,
 	}
 end
 lspconfig.jsonls.setup {
 	on_attach = on_attach,
-	capabilities = capabilities,
+	capabilities = vscode_capabilities,
 	handlers = no_diagnostics,
 	cmd = {'json-languageserver', '--stdio'},
 }
