@@ -1,5 +1,3 @@
-let b:ale_fixers = []
-let b:ale_linters = ['vale', 'proselint']
 setlocal wrap linebreak nolist spell
 " Turn conceal on and off in a buffer:
 function! ToggleConcealLevel() abort
@@ -29,5 +27,5 @@ let &l:iskeyword=&iskeyword.",',-"
 
 call s:get_makeprg()
 
-let b:surround_{char2nr("b")} = '**\r**'
-let b:surround_{char2nr("l")} = '[\r](\1url: \1)'
+let b:surround_{char2nr('b')} = '**\r**'
+let b:surround_{char2nr('l')} = '[\r](\1url: \1)'
