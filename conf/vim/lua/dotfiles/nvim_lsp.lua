@@ -24,6 +24,11 @@ local on_attach = function(_, bufnr)
 	-- vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 	vim.api.nvim_command("call dotfiles#autocomplete#nvim_lsp#attach()")
+	-- Load fzf-lsp, if we have access to FZF:
+	if vim.fn.executable('fzf') then
+		vim.g.fzf_lsp_preview_window = {'right:40%', 'ctrl-/'}
+		require'fzf_lsp'.setup()
+	end
 end
 
 local diagnostics_on_attach = function(x, bufnr)
@@ -36,6 +41,7 @@ end
 local servers = {
 	'vimls',
 	'bashls',
+	'pyls',
 	'tsserver',
 }
 for _, lsp in ipairs(servers) do

@@ -1,11 +1,6 @@
 function! dotfiles#autocomplete#fzf#init() abort
   command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
-  if has('nvim-0.5') && exists('g:loaded_fzf_lsp')
-    let g:fzf_lsp_preview_window = ['right:40%', 'ctrl-/']
-    " Load fzf_lsp handlers:
-    lua require'fzf_lsp'.setup()
-  endif
   let $FZF_DEFAULT_OPTS .= ' --reverse'
   let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'border': 'top' } }
   " let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden'
