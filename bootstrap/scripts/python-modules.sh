@@ -17,7 +17,7 @@ if [ -z "$SERVER" ];then
   pip3install 'vim-vint'
   # Python Linters:
   pip3install 'jedi'
-  pip3install 'pylint'
+  pip3install 'flake8'
   pip3install 'bandit'
   pip3install 'autopep8'
   pip3install 'reorder-python-imports'
