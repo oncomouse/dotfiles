@@ -46,7 +46,6 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set noexpandtab
-autocmd! dotfiles-settings FileType yaml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 " }}}
 " Folds: {{{
 if g:dotfiles_mode ==# 'desktop'
