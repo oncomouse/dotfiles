@@ -99,7 +99,6 @@ vim.api.nvim_buf_set_keymap(0, "i", "<localleader>=", "<C-x><C-l><C-r>=pumvisibl
 vim.api.nvim_command("command! -nargs=1 Spaces let b:wv = winsaveview() | execute \"setlocal expandtab\"   | silent execute \"%!expand -it \"	. <args> . \"\"  | call winrestview(b:wv) | setlocal ts? sw? sts? et?")
 vim.api.nvim_command("command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute \"setlocal noexpandtab\" | silent execute \"%!unexpand -t \" . <args> . \"\" | call winrestview(b:wv) | setlocal ts? sw? sts? et?")
 
-
 -- <nop> those bindings for writing files:
 vim.api.nvim_command("autocmd minimal-vimrc FileType markdown,text,mail silent! iunmap <buffer> <localleader>,")
 vim.api.nvim_command("autocmd minimal-vimrc FileType markdown,text,mail silent! iunmap <buffer> <localleader>:")
