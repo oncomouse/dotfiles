@@ -130,14 +130,15 @@ end
 
 function _G.pack_init()
 	-- Download Minpac:
-	local paq_dir = pack_path()..'/pack/paq/opt/paq-nvim'
-	if not vim.fn.isdirectory(paq_dir) then
-		os.execute('git clone --depth 1 https://github.com/savq/paq-nvim "'..paq_dir..'"')
+	local paq_dir = pack_path()..'/pack/paq'
+	if vim.fn.isdirectory(paq_dir) == 0 then
+		vim.fn.system('git clone --depth 1 https://github.com/savq/paq-nvim "'..paq_dir..'/opt/paq-nvim"')
 	end
 
 	-- Load Minpac:
 	vim.api.nvim_command("packadd paq-nvim")
 	local paq = require'paq-nvim'.paq
+	require'paq-nvim'.setup({ path=paq_dir..'/' })
 	paq({'savq/paq-nvim', opt=true})
 	paq('tpope/vim-sensible') -- Agreeable vim settings:
 	paq('xero/securemodelines') -- Secure modelines
@@ -145,6 +146,7 @@ function _G.pack_init()
 	paq('tpope/vim-commentary')
 end
 
+vim.api.nvim_command("command! PackInstall call v:lua.pack_init() | lua require('paq-nvim').install()")
 vim.api.nvim_command("command! PackUpdate call v:lua.pack_init() | lua require('paq-nvim').update()")
 vim.api.nvim_command("command! PackClean call v:lua.pack_init() | lua require('paq-nvim').clean()")
 vim.api.nvim_command("command! PackStatus call v:lua.pack_init() | lua require('paq-nvim').list()")
