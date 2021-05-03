@@ -4,7 +4,19 @@ local lspconfig = require('lspconfig')
 
 -- Disable diagnostics
 local no_diagnostics = {
-	["textDocument/publishDiagnostics"] = function() end
+	["textDocument/publishDiagnostics"] = function() end,
+	["textDocument/formatting"] = function() end,
+}
+
+local diagnostics = {
+	["textDocument/publishDiagnostics"] = vim.lsp.with(
+		vim.lsp.diagnostic.on_publish_diagnostics, {
+		signs = false,
+		underline = true,
+		update_in_insert = false,
+		virtual_text = false,
+		}
+	)
 }
 
 local on_attach = function(_, bufnr)
@@ -14,18 +26,30 @@ local on_attach = function(_, bufnr)
 	vim.api.nvim_command("call dotfiles#autocomplete#nvim_lsp#attach()")
 end
 
--- 'tsserver',
+local diagnostics_on_attach = function(x, bufnr)
+	vim.o.updatetime = 300
+	vim.api.nvim_command [[autocmd! User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
+	vim.api.nvim_command [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
+	on_attach(x, bufnr)
+end
+
 local servers = {
 	'vimls',
 	'bashls',
-	'solargraph',
+	'tsserver',
 }
 for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup {
+	lspconfig[lsp].setup{
 		on_attach = on_attach,
 		handlers = no_diagnostics,
 	}
+
 end
+
+lspconfig.solargraph.setup{
+	on_attach = diagnostics_on_attach,
+	handlers = diagnostics,
+}
 
 lspconfig.sumneko_lua.setup{
 	on_attach = on_attach,
@@ -63,6 +87,7 @@ lspconfig.citation_lsp.setup{
 		}
 	}
 }
+
 lspconfig.efm.setup {
 	root_dir = lspconfig.util.root_pattern("Rakefile", "yarn.lock", "lerna.json", ".git", "poetry.toml"),
 	filetypes = {
@@ -73,20 +98,10 @@ lspconfig.efm.setup {
 		'lua',
 		'markdown',
 		'python',
-		'ruby',
 		'sh',
 		'vim',
 	},
-	handlers = {
-		["textDocument/publishDiagnostics"] = vim.lsp.with(
-			vim.lsp.diagnostic.on_publish_diagnostics, {
-			signs = false,
-			underline = true,
-			update_in_insert = false,
-			virtual_text = false,
-			}
-		)
-	},
+	handlers = diagnostics,
 	init_options = {
 		documentFormatting = true,
 		hover = true,
@@ -94,12 +109,7 @@ lspconfig.efm.setup {
 		codeAction = true,
 		completion = true
 	},
-	on_attach = function()
-		vim.o.updatetime = 300
-		vim.api.nvim_command [[autocmd! User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
-		vim.api.nvim_command [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
-		on_attach()
-	end,
+	on_attach = diagnostics_on_attach,
 }
 -- VSCode LSPs need some fake settings to work:
 local vscode_capabilities = vim.lsp.protocol.make_client_capabilities()

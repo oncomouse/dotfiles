@@ -112,8 +112,13 @@ tools:
     format-command: 'shfmt -ci -s -bn'
     format-stdin: true
 
-  prettier: &prettier
+  yaml-prettier: &yaml-prettier
     format-command: 'prettier'
+    format-stdin: true
+
+  prettier: &prettier
+    format-command: 'prettier --use-tabs'
+    format-stdin: true
 
 languages:
 
@@ -126,7 +131,7 @@ languages:
 
   yaml:
     - <<: *yaml-yamllint
-    - <<: *prettier
+    - <<: *yaml-prettier
 
   python:
     - <<: *python-mypy
