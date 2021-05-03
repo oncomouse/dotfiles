@@ -131,15 +131,13 @@ end
 
 function _G.pack_init()
 	-- Download Minpac:
-	local minpac_dir = pack_path
-	if not vim.fn.isdirectory(minpac_dir..'/pack/paq/opt/paq-nvim') then
-		if vim.fn.executable('git') then
-			os.execute('!git clone --depth 1 https://github.com/savq/paq-nvim "'..minpac_dir..'/pack/paq/opt/paq-nvim"')
-		end
+	local paq_dir = pack_path()..'/pack/paq/opt/paq-nvim'
+	if not vim.fn.isdirectory(paq_dir) then
+		os.execute('git clone --depth 1 https://github.com/savq/paq-nvim "'..paq_dir..'"')
 	end
 
 	-- Load Minpac:
-	vim.api.nvim_command("packadd minpac")
+	vim.api.nvim_command("packadd paq-nvim")
 	local paq = require'paq-nvim'.paq
 	paq({'savq/paq-nvim', opt=true})
 	paq('tpope/vim-sensible') -- Agreeable vim settings:
