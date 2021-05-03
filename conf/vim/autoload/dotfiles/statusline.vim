@@ -4,11 +4,11 @@ let g:dotfiles_mode = get(g:, 'dotfiles_mode', '')
 let g:nerdfonts = g:dotfiles_mode ==# 'desktop'
 let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
 " Linter Status {{{
-	let g:dotfiles#ale#indicator_checking = g:nerdfonts ? "\uf110" : '…'
-	let g:dotfiles#ale#indicator_warnings = g:nerdfonts ? "\uf071\u2003" : 'W: '
-	let g:dotfiles#ale#indicator_errors = g:nerdfonts ? "\uf05e\u2003" : 'E: '
-	let g:dotfiles#ale#indicator_information = g:nerdfonts ? "\uf7fc\u2003" : 'I: '
-	let g:dotfiles#ale#indicator_ok = ''
+	let g:dotfiles#diagnostics#indicator_checking = g:nerdfonts ? "\uf110" : '…'
+	let g:dotfiles#diagnostics#indicator_warnings = g:nerdfonts ? "\uf071\u2003" : 'W: '
+	let g:dotfiles#diagnostics#indicator_errors = g:nerdfonts ? "\uf05e\u2003" : 'E: '
+	let g:dotfiles#diagnostics#indicator_information = g:nerdfonts ? "\uf7fc\u2003" : 'I: '
+	let g:dotfiles#diagnostics#indicator_ok = ''
 " }}}
 " Statusline {{{
 	function! dotfiles#statusline#componetize(func,...) abort
@@ -63,10 +63,10 @@ let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
 			\%#StatusLineInfo#
 			\%{dotfiles#statusline#componetize('dotfiles#statusline#wordcount()', ' ', g:statusline_soft_sep)}
 			\ %l/%L:%c 
-			\%#StatusWarning#%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#warnings()') : ''}
-			\%#StatusError#%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#errors()', '  ') : ''}
-			\%#StatusOk#%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#ok()', '', '   ') : ''}
-			\%#StatusWarning#%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#ale#checking()', ' ', ' ') : ''}
+			\%#StatusWarning#%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#diagnostics#warnings()') : ''}
+			\%#StatusError#%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#diagnostics#errors()', '  ') : ''}
+			\%#StatusOk#%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#diagnostics#ok()', '', '   ') : ''}
+			\%#StatusWarning#%{(g:dotfiles_mode ==# 'desktop' && w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#diagnostics#checking()', ' ', ' ') : ''}
 			\%*"
 	endfunction
 " }}}
