@@ -20,8 +20,8 @@ vim.wo.number=true
 vim.wo.relativenumber=true
 
 -- Folds:
-vim.bo.foldlevel=99
-vim.bo.foldmethod="indent"
+vim.wo.foldlevel=99
+vim.wo.foldmethod="indent"
 
 -- This avoids highlighting big files:
 vim.g.large_file = 20*1024*1024
