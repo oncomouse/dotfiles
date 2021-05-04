@@ -117,20 +117,16 @@ vim.api.nvim_command("autocmd minimal-vimrc ColorScheme default hi StatusLineNC 
 
 -- Minimal Statusbar:
 -- source: https://github.com/darioisthebest/dotfiles/blob/master/nvim/init.vim#L126
--- vim.o.statusline=true=%f%h\ %=\ %1*LN\ %l\/%L\ %2*C\ %c%V\ %3*%P\ %4*\%m%r%h%w%y
 vim.o.statusline="%0.45f%m%r%h%w %=LN %l/%L C %c%V %P %y"
 
 
 -- ==============================================================================
 -- Minpac For Essentials:
 -- ==============================================================================
-local function pack_path()
-	return vim.fn.stdpath('data') .. '/site'
-end
 
 function _G.pack_init()
 	-- Download Minpac:
-	local paq_dir = pack_path()..'/pack/paq'
+	local paq_dir = vim.fn.stdpath('data') .. '/site/pack/paq'
 	if vim.fn.isdirectory(paq_dir) == 0 then
 		vim.fn.system('git clone --depth 1 https://github.com/savq/paq-nvim "'..paq_dir..'/opt/paq-nvim"')
 	end
