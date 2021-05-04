@@ -26,7 +26,28 @@ local on_attach = function(_, bufnr)
 	-- Once codelens is setup:
 	-- vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-	vim.api.nvim_command("call dotfiles#autocomplete#nvim_lsp#attach()")
+	function _G.show_documentation()
+		if (vim.fn.index({'vim','help'}, vim.bo.filetype) >= 0) then
+			vim.api.nvim_exec('h .expand("<cword>")')
+		else
+			vim.lsp.buf.hover()
+		end
+	end
+	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-document-symbols)', ':<C-u>lua vim.lsp.buf.document_symbol()<CR>', { silent = true, noremap = true })
+	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-rename)', ':<C-u>lua vim.lsp.buf.rename()<CR>', { silent = true, noremap = true })
+	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-definition)', ':<C-u>lua vim.lsp.buf.definition()<CR>', { silent = true, noremap = true })
+	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-type-definition)', ':<C-u>lua vim.lsp.buf.type_definition()<CR>', { silent = true, noremap = true })
+	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-implementation)', ':<C-u>lua vim.lsp.buf.implementation()<CR>', { silent = true, noremap = true })
+	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-references)', ':<C-u>lua vim.lsp.buf.references()<CR>', { silent = true, noremap = true })
+	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-documentation)', ':<C-u>call v:lua.show_documentation()<CR>', { silent = true, noremap = true })
+	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-codelens)', ':<C-u>lua vim.lsp.codelens.run()<CR>', { silent = true, noremap = true })
+	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-codeaction)', ':<C-u>lua vim.lsp.buf.code_action()<CR>', { silent = true, noremap = true })
+	vim.api.nvim_set_keymap('v', '<Plug>(dotfiles-codeaction-selected)', ':<C-u>lua vim.lsp.buf.range_code_action()<CR>', { silent = true, noremap = true })
+	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-commands)', ':<CR>', { silent = true, noremap = true })
+	vim.api.nvim_command [[command! Format lua vim.lsp.buf.formatting()]]
+	vim.o.wrapscan = true
+	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-diagnostic-next)', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', { silent = true, noremap = true })
+	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-diagnostic-previous)', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', { silent = true, noremap = true })
 	-- Load fzf-lsp, if we have access to FZF:
 	if vim.fn.executable('fzf') then
 		vim.g.fzf_lsp_preview_window = {'right:40%', 'ctrl-/'}
