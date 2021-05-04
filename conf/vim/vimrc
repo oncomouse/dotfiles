@@ -4,6 +4,8 @@ if !empty(glob('~/dotfiles/conf/vim/')) && !(&runtimepath =~# expand('~/dotfiles
 	set runtimepath+=~/dotfiles/conf/vim/
 endif
 
+let g:skip_minpac=1
+
 " Load Basic Settings:
 runtime vimrc-minimal
 
