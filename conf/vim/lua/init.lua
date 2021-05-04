@@ -311,9 +311,9 @@ require('dotfiles.nvim_lsp')
 -- Update FASD For NeoVim: {{{
 function _G.fasd_update()
 	if vim.fn.empty(vim.bo.buftype) == 1 then
-		vim.loop.spawn('fasd', {
+		handle = vim.loop.spawn('fasd', {
 			args={'-A', vim.fn.expand('%:p') },
-		})
+		}, function() handle:close() end)
 	end
 end
 vim.api.nvim_command[[ autocmd dotfiles-settings BufWinEnter,BufFilePost * call v:lua.fasd_update() ]]
