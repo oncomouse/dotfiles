@@ -1,6 +1,20 @@
 -- luacheck: globals vim
 local lspconfig = require('lspconfig')
--- vim.lsp.set_log_level('debug')
+local configs = require 'lspconfig/configs'
+local util = require 'lspconfig/util'
+
+-- Extend configs for citation-langserver:
+configs.citation_langserver = {
+  default_config = {
+	filetypes = {'markdown', 'pandoc'};
+	root_dir = function(fname)
+	  return util.find_git_ancestor(fname) or util.path.dirname(fname)
+	end;
+	log_level = vim.lsp.protocol.MessageType.Warning;
+	cmd = {'/usr/bin/env', 'citation-langserver'};
+	-- cmd = {'env', 'PYTHONPATH=~/Projects/citation-langserver', 'python3', '-m', 'citation_langserver'}
+  }
+}
 
 -- Disable diagnostics
 local handler_no_diagnostics = {
@@ -107,7 +121,7 @@ local servers = {
 			}
 		},
 	},
-	citation_lsp ={
+	citation_langserver ={
 		settings = {
 			citation = {
 				bibliographies = {
