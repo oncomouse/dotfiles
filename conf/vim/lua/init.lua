@@ -1,5 +1,5 @@
 -- Dotfiles Settings: {{{
-vim.o.runtimepath= vim.o.runtimepath .. ',~/dotfiles/conf/vim/'
+vim.o.runtimepath=vim.o.runtimepath .. ',~/dotfiles/conf/vim/'
 
 -- Load Basic Settings:
 require('minimal')
@@ -8,7 +8,7 @@ require('minimal')
 vim.o.runtimepath=vim.o.runtimepath..",~/dotfiles/conf/vim/after/"
 
 -- Set Spellfile Location:
-vim.o.spellfile="~/dotfiles/conf/vim/spell/en.utf-8.add"
+vim.bo.spellfile="~/dotfiles/conf/vim/spell/en.utf-8.add"
 
 -- Statusline:
 vim.o.statusline="%!dotfiles#statusline#statusline()"
@@ -52,13 +52,13 @@ vim.api.nvim_command[[autocmd!]]
 vim.api.nvim_command[[augroup END]]
 -- }}}
 -- Tabs: {{{
-vim.o.tabstop=4
-vim.o.shiftwidth=4
-vim.o.softtabstop=4
-vim.o.expandtab=false
+vim.bo.tabstop=4
+vim.bo.shiftwidth=4
+vim.bo.softtabstop=4
+vim.bo.expandtab=false
 -- }}}
 -- Folds: {{{
-vim.o.foldmethod="syntax"
+vim.wo.foldmethod="syntax"
 vim.api.nvim_command[[autocmd dotfiles-settings FileType vim setlocal foldmethod=marker foldlevel=0
 autocmd dotfiles-settings FileType css setlocal foldmethod=syntax foldlevel=0
 autocmd dotfiles-settings FileType scss setlocal foldmethod=syntax foldlevel=0
@@ -83,10 +83,10 @@ function _G.pack_init()
 	local paq = require'paq-nvim'.paq
 	require'paq-nvim'.setup({ path=paq_dir..'/' })
 	paq({'savq/paq-nvim', opt=true})
-	-- paq('tpope/vim-sensible') -- Agreeable vim settings:
-	-- paq('xero/securemodelines') -- Secure modelines
-	-- paq('oncomouse/vim-grep') -- :Grep and :LGrep
-	-- paq('tpope/vim-commentary')
+	paq('tpope/vim-sensible') -- Agreeable vim settings:
+	paq('xero/securemodelines') -- Secure modelines
+	paq('oncomouse/vim-grep') -- :Grep and :LGrep
+	paq('tpope/vim-commentary')
 	paq('sickill/vim-pasta') -- Indentation-forward pasting
 	paq('tpope/vim-repeat')
 	paq('oncomouse/vim-surround') -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag

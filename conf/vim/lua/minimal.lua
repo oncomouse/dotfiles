@@ -1,6 +1,6 @@
 -- Make sure dotfiles are added to RTP, if not already added:
-if vim.fn.isdirectory('~/dotfiles/conf/vim/') and string.find(vim.o.rtp, vim.fn.expand('~/dotfiles/conf/vim')) ~= nil then
-	vim.o.rtp = vim.o.rtp .. ',~/dotfiles/conf/vim'
+if vim.fn.isdirectory('~/dotfiles/conf/vim/') and string.find(vim.o.runtimepath, vim.fn.expand('~/dotfiles/conf/vim')) ~= nil then
+	vim.o.runtimepath = vim.o.runtimepath .. ',~/dotfiles/conf/vim'
 end
 -- ==============================================================================
 -- Basic Settings:
@@ -16,19 +16,19 @@ vim.o.splitbelow=true
 vim.o.splitright=true
 
 -- Line Numbering:
-vim.o.number=true
-vim.o.relativenumber=true
+vim.wo.number=true
+vim.wo.relativenumber=true
 
 -- Folds:
-vim.o.foldlevel=99
-vim.o.foldmethod="indent"
+vim.bo.foldlevel=99
+vim.bo.foldmethod="indent"
 
 -- This avoids highlighting big files:
 vim.g.large_file = 20*1024*1024
 
 -- Set Leader:
-vim.g.mapleader = "<Space>"
-vim.g.maplocalleader = ','
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 vim.api.nvim_command("augroup minimal-vimrc")
 vim.api.nvim_command("autocmd!")
@@ -51,8 +51,8 @@ vim.o.shortmess=vim.o.shortmess .. "c"
 -- vim.o.complete-=i
 
 -- <C-z> expands wildcards in command mode
--- vim.o.wildcharm="<C-z>"
-vim.api.nvim_command("set wildcharm=<C-z>")
+vim.o.wildcharm=26
+-- vim.api.nvim_command("set wildcharm=<C-z>")
 -- Set path to current file direction and pwd:
 vim.o.path=".,,"
 
@@ -118,58 +118,4 @@ vim.api.nvim_command("autocmd minimal-vimrc ColorScheme default hi StatusLineNC 
 -- Minimal Statusbar:
 -- source: https://github.com/darioisthebest/dotfiles/blob/master/nvim/init.vim#L126
 vim.o.statusline="%0.45f%m%r%h%w %=LN %l/%L C %c%V %P %y"
-
-
--- ==============================================================================
--- Minpac For Essentials:
--- ==============================================================================
-
-function _G.pack_init()
-	-- Download Minpac:
-	local paq_dir = vim.fn.stdpath('data') .. '/site/pack/paq'
-	if vim.fn.isdirectory(paq_dir) == 0 then
-		vim.fn.system('git clone --depth 1 https://github.com/savq/paq-nvim "'..paq_dir..'/opt/paq-nvim"')
-	end
-
-	-- Load Minpac:
-	vim.api.nvim_command("packadd paq-nvim")
-	local paq = require'paq-nvim'.paq
-	require'paq-nvim'.setup({ path=paq_dir..'/' })
-	paq({'savq/paq-nvim', opt=true})
-	paq('tpope/vim-sensible') -- Agreeable vim settings:
-	paq('xero/securemodelines') -- Secure modelines
-	paq('oncomouse/vim-grep') -- :Grep and :LGrep
-	paq('tpope/vim-commentary')
-end
-
-vim.api.nvim_command("command! PackInstall call v:lua.pack_init() | lua require('paq-nvim').install()")
-vim.api.nvim_command("command! PackUpdate call v:lua.pack_init() | lua require('paq-nvim').update()")
-vim.api.nvim_command("command! PackClean call v:lua.pack_init() | lua require('paq-nvim').clean()")
-vim.api.nvim_command("command! PackStatus call v:lua.pack_init() | lua require('paq-nvim').list()")
-
--- ==============================================================================
--- Pack Settings:
--- ==============================================================================
-vim.o.modeline=false
-vim.g.secure_modelines_verbose = 0
-vim.g.secure_modelines_modelines = 15
-vim.g.secure_modelines_allowed_items = {
-	'textwidth',	 'tw',
-	'softtabstop', 'sts',
-	'tabstop',		 'ts',
-	'shiftwidth',	 'sw',
-	'expandtab',	 'et',	 'noexpandtab', 'noet',
-	'filetype',		 'ft',
-	'foldmethod',	 'fdm',
-	'foldlevel',	 'fdl',
-	'readonly',		 'ro',	 'noreadonly', 'noro',
-	'rightleft',	 'rl',	 'norightleft', 'norl',
-	'cindent',		 'cin',	 'nocindent', 'nocin',
-	'smartindent', 'si',	 'nosmartindent', 'nosi',
-	'autoindent',	 'ai',	 'noautoindent', 'noai',
-	'spell', 'nospell',
-	'spelllang',
-	'wrap', 'nowrap',
-	'syntax'
-}
 vim.api.nvim_command("colorscheme default")

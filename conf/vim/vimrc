@@ -1,6 +1,8 @@
 scriptencoding utf8
 " Dotfiles Settings: {{{
-
+if !empty(glob('~/dotfiles/conf/vim/')) && !(&runtimepath =~# expand('~/dotfiles/conf/vim/'))
+	set runtimepath+=~/dotfiles/conf/vim/
+endif
 let g:dotfiles_mode = get(g:, 'dotfiles_mode', 'desktop')
 let g:complete_package = 'fzf' " fzf, telescope, or coc.nvim
 if g:dotfiles_mode ==# 'server' || (g:complete_package ==# 'telescope' && !has('nvim-0.5'))
