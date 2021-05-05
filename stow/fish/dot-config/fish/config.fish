@@ -16,7 +16,6 @@ if status is-interactive
 		set -gx FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
 		# Setup FZF themes:
 		if test -d "$HOME/.cache/wal" -a (echo $FZF_DEFAULT_OPTS | grep color -c) -eq 0
-			echo "Sourcing FZF_COLORS"
 			source ~/.cache/wal/colors-fzf.fish
 		end
 		set -gx FZF_DEFAULT_COMMAND "fd -t f --follow"
