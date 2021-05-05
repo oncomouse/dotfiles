@@ -3,7 +3,6 @@ function! dotfiles#autocomplete#fzf#init() abort
 		\ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
 	let $FZF_DEFAULT_OPTS .= ' --reverse'
 	let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'border': 'top' } }
-	" let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden'
 	let g:fzf_action = {
 		\ 'ctrl-s': 'split',
 		\ 'ctrl-v': 'vsplit',
