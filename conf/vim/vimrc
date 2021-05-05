@@ -60,10 +60,6 @@ call dotfiles#minpac#configuration()
 " Maps: {{{
 " Highlight a block and type "@" to run a macro on the block:
 xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
-" <F4> makes:
-nnoremap <silent><buffer> <F4> :make!<CR>
-" Update fast folds:
-nmap zuz <Plug>(FastFoldUpdate)
 " Grep project:
 function s:grep_or_qfgrep()
 	if &buftype ==# 'quickfix'

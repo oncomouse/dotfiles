@@ -21,10 +21,7 @@ function! dotfiles#minpac#init() abort
 		" Manage Minpac:
 		call minpac#add('k-takata/minpac', {'type': 'opt'})
 		" Basics:
-		call minpac#add('tpope/vim-sensible') " Agreeable vim settings:
-		call minpac#add('xero/securemodelines') " Secure modelines
-		call minpac#add('oncomouse/vim-grep') " :Grep and :LGrep
-		call minpac#add('tpope/vim-commentary') " Comment with gc<motion>
+		call MinimalMinPac()
 		" General Editing:
 		call minpac#add('sickill/vim-pasta') " Indentation-forward pasting
 		call minpac#add('tpope/vim-repeat')
