@@ -4,7 +4,7 @@ if !empty(glob('~/dotfiles/conf/vim/')) && !(&runtimepath =~# expand('~/dotfiles
 	set runtimepath+=~/dotfiles/conf/vim/
 endif
 
-let g:skip_minpac=1
+let g:skip_minimal_minpac = 1
 
 " Load Basic Settings:
 runtime vimrc-minimal
@@ -55,124 +55,7 @@ autocmd dotfiles-settings FileType python setlocal foldmethod=indent
 autocmd dotfiles-settings FileType diff setlocal nofoldenable
 " }}}
 " Plugins: {{{
-" Install vim_plug if it is missing: {{{
-if has('win32')
-	let s:win_vimfiles = $HOME . '/AppData/Local/nvim/vimfiles'
-	let g:plug_dir = s:win_vimfiles . '/plugged/'
-	let g:plug_autoload_dir = s:win_vimfiles . '/autoload/'
-else
-	let s:xdg_home = ($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share').'/nvim/site'
-	let g:plug_dir = s:xdg_home . '/plugged/'
-	let g:plug_autoload_dir = s:xdg_home . '/autoload/'
-endif
-if !isdirectory(g:plug_autoload_dir)
-	silent execute '!curl -fLo '.g:plug_autoload_dir.'plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-	autocmd dotfiles-settings VimEnter * PlugInstall | source $MYVIMRC
-endif
-" }}}
-call plug#begin(g:plug_dir)
-" General Editing: {{{
-Plug 'sickill/vim-pasta' " Indentation-forward pasting
-Plug 'tpope/vim-repeat'
-Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-Plug 'airblade/vim-rooter' " Set project root
-let g:rooter_patterns = [
-\ 'Rakefile',
-\ 'package.json',
-\ '.git/',
-\ 'Gemfile',
-\ 'pyproject.toml',
-\ 'setup.py',
-\ ]
-" Set path expansion to pwd only, especially with vim-rooter running:
-set path=,,
-Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
-Plug 'cohama/lexima.vim' " Autopairs + Endwise
-function! s:make_rule(at, end, filetype, syntax)
-	return {
-	\ 'char': '<CR>',
-	\ 'input': '<CR>',
-	\ 'input_after': '<CR>' . a:end,
-	\ 'at': a:at,
-	\ 'except': '\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1' . a:end,
-	\ 'filetype': a:filetype,
-	\ 'syntax': a:syntax,
-	\ }
-endfunction
-function! s:extend_endwise() abort
-	" Lua endwise rules:
-	call lexima#add_rule(s:make_rule('^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
-	call lexima#add_rule(s:make_rule('^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
-	call lexima#add_rule(s:make_rule('^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
-endfunction
-autocmd plug-settings VimEnter * call s:extend_endwise()
-" inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
-Plug 'Konfekt/FastFold' " Better fold support
-let g:fastfold_savehook = 1
-let g:fastfold_fold_command_suffixes =	['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
-let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-let g:fastfold_minlines = 0
-" }}}
-" Git Support: {{{
-Plug 'lambdalisue/gina.vim' " :Gina status to schedule; :Gina commit to commit
-function! s:load_gina() abort
-	call gina#custom#command#option('status', '--opener', &previewheight . 'split')
-	call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
-	call gina#custom#command#option('diff', '--opener', &previewheight . 'split')
-	call gina#custom#command#option('status', '--group', 'short')
-	call gina#custom#command#option('commit', '--group', 'short')
-	call gina#custom#command#option('diff', '--group', 'short')
-	" Implement vim-fugitive commands in Gina:
-	call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
-endfunction
-autocmd plug-settings VimEnter * call s:load_gina()
-cnoreabbrev gina Gina
-" }}}
-" FZF Support: {{{
-" macOS Homebrew
-if isdirectory('/usr/local/opt/fzf')
-	set runtimepath+=/usr/local/opt/fzf
-" Arch
-elseif isdirectory('/usr/share/vim/vimfiles')
-	set runtimepath+=/usr/share/vim/vimfiles
-" Local install
-elseif isdirectory('~/.fzf')
-	set runtimepath+=~/.fzf
-" Fallback
-else
-	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-endif
-Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
-Plug 'gfanto/fzf-lsp.nvim', { 'branch': 'main' }
-" }}}
-" General Editing: {{{
-Plug 'norcalli/nvim-colorizer.lua' " HTML codes and HTML color words to colors
-Plug 'windwp/nvim-ts-autotag', { 'branch': 'main' } " Auotmatically close HTML tags
-" }}}
-" Syntax: {{{
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-Plug 'plasticboy/vim-markdown' " Markdown Syntax
-let g:vim_markdown_frontmatter = 1 " Format YAML
-let g:vim_markdown_strikethrough = 0 " Don't format strikethrough
-let g:vim_markdown_conceal = 0 " Don't conceal
-let g:vim_markdown_conceal_code_blocks = 0 " Don't conceal code blocks
-let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
-Plug 'cakebaker/scss-syntax.vim' " SCSS Syntax
-Plug 'oncomouse/vim-fish' " Fish Syntax & Async Completion
-" }}}
-Plug 'neovim/nvim-lspconfig' " LSP Configuration
-" Writing: {{{
-Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
-" Plug 'kana/vim-textobj-user', { 'for': ['markdown', 'text'] } " Allow custom textobj definitions
-" Plug 'reedes/vim-textobj-sentence', { 'for': ['markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
-" Plug 'reedes/vim-textobj-quote', { 'for': ['markdown', 'text'] } " Makes aq & iq for smart quotes
-" let g:textobj#quote#educate = 0
-" Initialize the plugin when it is dynamically loaded:
-" autocmd plug-settings User vim-textobj-sentence call textobj#sentence#init()
-" autocmd plug-settings User vim-textobj-quote call textobj#quote#init()
-" }}}
-call plug#end()
+call dotfiles#minpac#configuration()
 " }}}
 " Maps: {{{
 " Highlight a block and type "@" to run a macro on the block:

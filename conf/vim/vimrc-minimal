@@ -123,38 +123,42 @@ set statusline=%0.45f%m%r%h%w\ %=LN\ %l\/%L\ C\ %c%V\ %P\ \%y
 " Minpac For Essentials:
 " ==============================================================================
 function! s:packpath() abort
-	return (has('nvim') ? stdpath('data') . '/site' : expand('~/.vim'))
+	return ($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share') . '/minpac/minimal'
+	" return (has('nvim') ? stdpath('data') . '/site' : expand('~/.vim'))
 endfunction
 
-function! PackInit() abort
-	" Download Minpac:
-	let l:minpac_dir = s:packpath()
-	if empty(glob(l:minpac_dir.'/pack/minpac/opt/minpac'))
-		if executable('git')
-			silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:minpac_dir.'/pack/minpac/opt/minpac"'
+if !get(g:, 'skip_minimal_minpac')
+	function! PackInit() abort
+		" Download Minpac:
+		let l:minpac_dir = s:packpath()
+		if empty(glob(l:minpac_dir.'/pack/minpac/opt/minpac'))
+			if executable('git')
+				silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:minpac_dir.'/pack/minpac/opt/minpac"'
+			endif
 		endif
-	endif
 
-	" Load Minpac:
-	packadd minpac
+		" Load Minpac:
+		packadd minpac
 
-	if exists('g:loaded_minpac')
-		call minpac#init({'dir': l:minpac_dir})
+		if exists('g:loaded_minpac')
+			call minpac#init({'dir': l:minpac_dir})
 
-		call minpac#add('k-takata/minpac', {'type': 'opt'})
-		call minpac#add('tpope/vim-sensible') " Agreeable vim settings:
-		call minpac#add('xero/securemodelines') " Secure modelines
-		call minpac#add('oncomouse/vim-grep') " :Grep and :LGrep
-		call minpac#add('tpope/vim-commentary')
-		call minpac#add('noahfrederick/vim-neovim-defaults', {'type': 'opt'}) " Set Vim with the same default as NeoVim
-	else
-		echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
-	endif
-endfunction
+			call minpac#add('k-takata/minpac', {'type': 'opt'})
+			call minpac#add('tpope/vim-sensible') " Agreeable vim settings:
+			call minpac#add('xero/securemodelines') " Secure modelines
+			call minpac#add('oncomouse/vim-grep') " :Grep and :LGrep
+			call minpac#add('tpope/vim-commentary')
+			call minpac#add('noahfrederick/vim-neovim-defaults', {'type': 'opt'}) " Set Vim with the same default as NeoVim
+		else
+			echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
+		endif
+	endfunction
 
-command! PackUpdate call PackInit() | call minpac#update()
-command! PackClean call PackInit() | call minpac#clean()
-command! PackStatus call PackInit() | call minpac#status()
+	exe 'set packpath+='.s:packpath()
+	command! PackUpdate call PackInit() | call minpac#update()
+	command! PackClean call PackInit() | call minpac#clean()
+	command! PackStatus call PackInit() | call minpac#status()
+end
 
 " ==============================================================================
 " Pack Settings:
