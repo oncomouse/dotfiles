@@ -12,10 +12,10 @@ function! dotfiles#autocomplete#fzf#init() abort
 		\ }
 	let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 	" Standard dotfiles bindings:
-	nmap <Plug>(dotfiles-files) :<C-u>Files<CR>
-	nmap <Plug>(dotfiles-home-files) :<C-u>Files ~<CR>
-	nmap <Plug>(dotfiles-buffers) :<C-u>Buffers<CR>
-	nmap <Plug>(dotfiles-windows) :<C-u>Windows<CR>
-	nmap <Plug>(dotfiles-lines) :<C-u>BLines<CR>
-	nmap <Plug>(dotfiles-commands) :<C-u>Commands<CR>
+	nmap <Plug>(dotfiles-files) <cmd>Files<CR>
+	nmap <Plug>(dotfiles-home-files) <cmd>Files ~<CR>
+	nmap <Plug>(dotfiles-buffers) <cmd>Buffers<CR>
+	nmap <Plug>(dotfiles-windows) <cmd>Windows<CR>
+	nmap <Plug>(dotfiles-lines) <cmd>BLines<CR>
+	nmap <Plug>(dotfiles-commands) <cmd>Commands<CR>
 endfunction
