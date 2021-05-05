@@ -21,8 +21,7 @@ if which npm > /dev/null 2>&1; then
     npminstall 'jsonlint' 
     npminstall 'prettier'
     npminstall 'prettier-semi-cli'
-    npminstall 'js-beautify'
-    npminstall 'htmlhint'
+	npminstall 'pyright'
     # Required by typescript-language-server:
     npminstall 'typescript'
     npminstall 'typescript-language-server'

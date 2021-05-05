@@ -145,7 +145,7 @@ local servers = {
 	},
 	vimls = {},
 	bashls ={},
-	pyls ={},
+	pyright ={},
 	tsserver ={},
 }
 for lsp, settings in pairs(servers) do
