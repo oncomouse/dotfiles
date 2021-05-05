@@ -1,24 +1,24 @@
 if status --is-login
   # Custom paths:
-  add_to_user_paths ~/bin
-  add_to_user_paths ~/.local/bin
+  fish_add_path ~/bin
+  fish_add_path ~/.local/bin
   # Set up Cargo:
-  add_to_user_paths ~/.cargo/bin
+  fish_add_path ~/.cargo/bin
   # Set up FZF (if local):
-  add_to_user_paths ~/.fzf/bin
+  fish_add_path ~/.fzf/bin
   # Set up Poetry:
-  add_to_user_paths ~/.poetry/bin
+  fish_add_path ~/.poetry/bin
   # Set up ASDF:
-  add_to_user_paths ~/.asdf/shims
-  add_to_user_paths /usr/local/opt/asdf/bin
-  add_to_user_paths ~/.asdf/bin
+  fish_add_path ~/.asdf/shims
+  fish_add_path /usr/local/opt/asdf/bin
+  fish_add_path ~/.asdf/bin
   # Sbin:
-  add_to_user_paths /usr/local/sbin
-  add_to_user_paths ~/.ghcup/bin
+  fish_add_path /usr/local/sbin
+  fish_add_path ~/.ghcup/bin
   # NPM Local:
-  add_to_user_paths ~/.npm-packages/bin
+  fish_add_path ~/.npm-packages/bin
   # Luarocks:
-  add_to_user_paths ~/.luarocks/bin
+  fish_add_path ~/.luarocks/bin
 
   # NPM Local manpath:
   set -q MANPATH || set MANPATH ''

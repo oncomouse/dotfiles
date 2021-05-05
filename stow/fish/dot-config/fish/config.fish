@@ -42,7 +42,7 @@ if status is-interactive
 	#		for x in $asdf_bin_dirs
 	#			if test -d $x
 	#				and not contains $x $fish_user_paths
-	#				add_to_user_paths $x
+	#				fish_add_path $x
 	#			end
 	#		end
 	# end
