@@ -55,7 +55,7 @@ autocmd dotfiles-settings FileType python setlocal foldmethod=indent
 autocmd dotfiles-settings FileType diff setlocal nofoldenable
 " }}}
 " Plugins: {{{
-call dotfiles#minpac#configuration()
+call dotfiles#plugins#configuration()
 " }}}
 " Maps: {{{
 " Highlight a block and type "@" to run a macro on the block:

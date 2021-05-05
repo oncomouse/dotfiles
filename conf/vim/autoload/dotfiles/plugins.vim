@@ -2,7 +2,7 @@ function! s:packpath() abort
 	return ($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share') . '/minpac/desktop'
 endfunction
 
-function! dotfiles#minpac#init() abort
+function! dotfiles#plugins#init() abort
 	let l:minpac_dir = s:packpath()
 
 	" Download Minpac:
@@ -52,14 +52,14 @@ function! dotfiles#minpac#init() abort
 endfunction
 
 
-function! dotfiles#minpac#configuration() abort
+function! dotfiles#plugins#configuration() abort
 	" Add Install Dir To Path:
 	exe 'set packpath+='.s:packpath()
 
 	" Minpac Commands:
-	command! PackUpdate call dotfiles#minpac#init() | call minpac#update()
-	command! PackClean call dotfiles#minpac#init() | call minpac#clean()
-	command! PackStatus call dotfiles#minpac#init() | call minpac#status()
+	command! PackUpdate call dotfiles#plugins#init() | call minpac#update()
+	command! PackClean call dotfiles#plugins#init() | call minpac#clean()
+	command! PackStatus call dotfiles#plugins#init() | call minpac#status()
 
 	" Load Plugins:
 	packloadall
