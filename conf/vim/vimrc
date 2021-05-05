@@ -161,22 +161,20 @@ let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
 Plug 'cakebaker/scss-syntax.vim' " SCSS Syntax
 Plug 'oncomouse/vim-fish' " Fish Syntax & Async Completion
 " }}}
-Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig' " LSP Configuration
 " Writing: {{{
 Plug 'godlygeek/tabular' " :Tabular /| to auto-align tables (also :TableFormat in markdown)
-Plug 'kana/vim-textobj-user', { 'for': ['markdown', 'text'] } " Allow custom textobj definitions
-Plug 'reedes/vim-textobj-sentence', { 'for': ['markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
-Plug 'reedes/vim-textobj-quote', { 'for': ['markdown', 'text'] } " Makes aq & iq for smart quotes
-let g:textobj#quote#educate = 0
+" Plug 'kana/vim-textobj-user', { 'for': ['markdown', 'text'] } " Allow custom textobj definitions
+" Plug 'reedes/vim-textobj-sentence', { 'for': ['markdown', 'text'] } " Use as & is for selecting sentences; g) and g( for moving
+" Plug 'reedes/vim-textobj-quote', { 'for': ['markdown', 'text'] } " Makes aq & iq for smart quotes
+" let g:textobj#quote#educate = 0
 " Initialize the plugin when it is dynamically loaded:
-autocmd plug-settings User vim-textobj-sentence call textobj#sentence#init()
-autocmd plug-settings User vim-textobj-quote call textobj#quote#init()
+" autocmd plug-settings User vim-textobj-sentence call textobj#sentence#init()
+" autocmd plug-settings User vim-textobj-quote call textobj#quote#init()
 " }}}
 call plug#end()
 " }}}
 " Maps: {{{
-let g:dwm_map_keys = 0
-let g:dwm_load = 0
 " Highlight a block and type "@" to run a macro on the block:
 xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
 " <F4> makes:
