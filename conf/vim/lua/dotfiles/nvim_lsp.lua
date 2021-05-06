@@ -62,11 +62,6 @@ local on_attach = function(_, bufnr)
 	vim.o.wrapscan = true
 	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-diagnostic-next)', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', { silent = true, noremap = true })
 	vim.api.nvim_set_keymap('n', '<Plug>(dotfiles-diagnostic-previous)', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', { silent = true, noremap = true })
-	-- Load fzf-lsp, if we have access to FZF:
-	if vim.fn.executable('fzf') then
-		vim.g.fzf_lsp_preview_window = {'right:40%', 'ctrl-/'}
-		require'fzf_lsp'.setup()
-	end
 end
 
 local on_attach_diagnostics = function(x, bufnr)

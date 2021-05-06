@@ -36,7 +36,6 @@ function _G.pack_init()
 	paq'lambdalisue/gina.vim' -- :Gina status to schedule; :Gina commit to commit
 	-- FZF Support:
 	paq{ 'junegunn/fzf.vim', opt = true }  -- Add shorcuts for FZF
-	paq{ 'gfanto/fzf-lsp.nvim', opt = true } 
 	-- Syntax:
 	paq'nvim-treesitter/nvim-treesitter'
 	paq'nvim-treesitter/nvim-treesitter-textobjects'
