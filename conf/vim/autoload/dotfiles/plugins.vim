@@ -1,65 +1,63 @@
 function! s:packpath() abort
-	return ($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share') . '/minpac/desktop'
+	return ($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share') . '/paq/desktop'
 endfunction
 
-function! dotfiles#plugins#init() abort
-	let l:minpac_dir = s:packpath()
+lua << EOF
+function _G.pack_init()
+	-- Download Paq:
+	local paq_dir = vim.fn["s:packpath"]() .. '/pack/paq'
+	if vim.fn.isdirectory(paq_dir) == 0 then
+		vim.fn.system('git clone --depth 1 https://github.com/savq/paq-nvim "'..paq_dir..'/opt/paq-nvim"')
+	end
 
-	" Download Minpac:
-	if empty(glob(l:minpac_dir.'/pack/minpac/opt/minpac'))
-		if executable('git')
-			silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:minpac_dir.'/pack/minpac/opt/minpac"'
-		endif
-	endif
+	-- Load Minpac:
+	vim.api.nvim_command("packadd paq-nvim")
+	local paq = require'paq-nvim'.paq
+	require'paq-nvim'.setup({ path=paq_dir..'/' })
 
-	" Load Minpac:
-	packadd minpac
-
-	if exists('g:loaded_minpac')
-		call minpac#init({'dir': l:minpac_dir})
-
-		" Manage Minpac:
-		call minpac#add('k-takata/minpac', {'type': 'opt'})
-		" Basics:
-		call MinimalMinPac()
-		" General Editing:
-		call minpac#add('sickill/vim-pasta') " Indentation-forward pasting
-		call minpac#add('tpope/vim-repeat')
-		call minpac#add('oncomouse/vim-surround') " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-		call minpac#add('airblade/vim-rooter') " Set project root
-		call minpac#add('Konfekt/FastFold') " Better fold support
-		call minpac#add('wellle/targets.vim') " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
-		call minpac#add('cohama/lexima.vim') " Autopairs + Endwise
-		call minpac#add('norcalli/nvim-colorizer.lua') " HTML codes and HTML color words to colors
-		call minpac#add('windwp/nvim-ts-autotag', { 'type': 'opt', 'branch': 'main' }) " Automatically close HTML tags
-		" Git Support:
-		call minpac#add('lambdalisue/gina.vim') " :Gina status to schedule; :Gina commit to commit
-		" FZF Support:
-		call minpac#add('junegunn/fzf.vim', { 'type': 'opt' }) " Add shorcuts for FZF
-		call minpac#add('gfanto/fzf-lsp.nvim', {  'type': 'opt', 'branch': 'main' })
-		" Syntax:
-		call minpac#add('nvim-treesitter/nvim-treesitter')
-		call minpac#add('nvim-treesitter/nvim-treesitter-textobjects')
-		call minpac#add('plasticboy/vim-markdown') " Markdown Syntax
-		call minpac#add('godlygeek/tabular') " :Tabular /| to auto-align tables (also :TableFormat in markdown)
-		call minpac#add('cakebaker/scss-syntax.vim') " SCSS Syntax
-		call minpac#add('oncomouse/vim-fish') " Fish Syntax & Async Completion
-		" LSP:
-		call minpac#add('neovim/nvim-lspconfig') " LSP Configuration
-	else
-		echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
-	endif
-endfunction
-
+	-- Manage Paq:
+	paq({'savq/paq-nvim', opt=true})
+	-- Getting Started:
+	paq'tpope/vim-sensible' -- Agreeable vim settings:
+	paq'xero/securemodelines' -- Secure modelines
+	paq'oncomouse/vim-grep' -- :Grep and :LGrep
+	paq'tpope/vim-commentary' -- gc<motion> to (un)comment
+	-- General Editing:
+	paq'sickill/vim-pasta' -- Indentation-forward pasting
+	paq'tpope/vim-repeat'
+	paq'oncomouse/vim-surround' -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
+	paq'airblade/vim-rooter' -- Set project root
+	paq'Konfekt/FastFold' -- Better fold support
+	paq'wellle/targets.vim' -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
+	paq'cohama/lexima.vim' -- Autopairs + Endwise
+	paq'norcalli/nvim-colorizer.lua' -- HTML codes and HTML color words to colors
+	paq{ 'windwp/nvim-ts-autotag', opt = true }  -- Automatically close HTML tags
+	-- Git Support:
+	paq'lambdalisue/gina.vim' -- :Gina status to schedule; :Gina commit to commit
+	-- FZF Support:
+	paq{ 'junegunn/fzf.vim', opt = true }  -- Add shorcuts for FZF
+	paq{ 'gfanto/fzf-lsp.nvim', opt = true } 
+	-- Syntax:
+	paq'nvim-treesitter/nvim-treesitter'
+	paq'nvim-treesitter/nvim-treesitter-textobjects'
+	paq'plasticboy/vim-markdown' -- Markdown Syntax
+	paq'godlygeek/tabular' -- :Tabular /| to auto-align tables (also :TableFormat in markdown)
+	paq'cakebaker/scss-syntax.vim' -- SCSS Syntax
+	paq'oncomouse/vim-fish' -- Fish Syntax & Async Completion
+	-- LSP:
+	paq'neovim/nvim-lspconfig' -- LSP Configuration
+end
+EOF
 
 function! dotfiles#plugins#configuration() abort
 	" Add Install Dir To Path:
 	exe 'set packpath+='.s:packpath()
 
 	" Minpac Commands:
-	command! PackUpdate call dotfiles#plugins#init() | call minpac#update()
-	command! PackClean call dotfiles#plugins#init() | call minpac#clean()
-	command! PackStatus call dotfiles#plugins#init() | call minpac#status()
+	command! PackInstall call v:lua.pack_init() | lua require('paq-nvim').install()
+	command! PackUpdate call v:lua.pack_init() | lua require('paq-nvim').update()
+	command! PackClean call v:lua.pack_init() | lua require('paq-nvim').clean()
+	command! PackStatus call v:lua.pack_init() | lua require('paq-nvim').list()
 
 	" Load Plugins:
 	packloadall
