@@ -62,28 +62,29 @@ function! dotfiles#plugins#configuration() abort
 	packloadall
 
 	" Plugin Settings: {{{
-	" airblade/vim-rooter 
+	" airblade/vim-rooter {{{ 
 	let g:rooter_patterns = [
-	\ 'Rakefile',
-	\ 'package.json',
-	\ '.git/',
-	\ 'Gemfile',
-	\ 'pyproject.toml',
-	\ 'setup.py',
-	\ ]
+				\ 'Rakefile',
+				\ 'package.json',
+				\ '.git/',
+				\ 'Gemfile',
+				\ 'pyproject.toml',
+				\ 'setup.py',
+				\ ]
 	" Set path expansion to pwd only, especially with vim-rooter running:
 	set path=,,
-	" cohama/lexima.vim 
+	" }}}
+	" cohama/lexima.vim{{{ 
 	function! s:make_rule(at, end, filetype, syntax)
 		return {
-		\ 'char': '<CR>',
-		\ 'input': '<CR>',
-		\ 'input_after': '<CR>' . a:end,
-		\ 'at': a:at,
-		\ 'except': '\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1' . a:end,
-		\ 'filetype': a:filetype,
-		\ 'syntax': a:syntax,
-		\ }
+					\ 'char': '<CR>',
+					\ 'input': '<CR>',
+					\ 'input_after': '<CR>' . a:end,
+					\ 'at': a:at,
+					\ 'except': '\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1' . a:end,
+					\ 'filetype': a:filetype,
+					\ 'syntax': a:syntax,
+					\ }
 	endfunction
 	function! s:extend_endwise() abort
 		" Lua endwise rules:
@@ -93,13 +94,17 @@ function! dotfiles#plugins#configuration() abort
 	endfunction
 	autocmd plug-settings VimEnter * call s:extend_endwise()
 	" inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
+	" }}}
+	" Konfekt/FastFold {{{
 	let g:fastfold_savehook = 1
 	let g:fastfold_fold_command_suffixes =	['x','X','a','A','o','O','c','C', 'r', 'R', 'm', 'M']
 	let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 	let g:fastfold_minlines = 0
-	" windwp/nvim-ts-autotag 
+	" }}}
+	" windwp/nvim-ts-autotag{{{ 
 	autocmd plug-settings FileType html,javascript,javascriptreact packadd nvim-ts-autotag
-	" lambdalisue/gina.vim 
+	" }}}
+	" lambdalisue/gina.vim {{{
 	function! s:load_gina() abort
 		call gina#custom#command#option('status', '--opener', &previewheight . 'split')
 		call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
@@ -111,8 +116,8 @@ function! dotfiles#plugins#configuration() abort
 		call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
 	endfunction
 	autocmd plug-settings VimEnter * call s:load_gina()
-	cnoreabbrev gina Gina
-	" junegunn/fzf 
+	" }}}
+	" junegunn/fzf {{{
 	if executable('fzf')
 		" macOS Homebrew
 		if isdirectory('/usr/local/opt/fzf')
@@ -127,11 +132,13 @@ function! dotfiles#plugins#configuration() abort
 		packadd fzf.vim
 		packadd fzf-lsp.nvim
 	endif
-	" plasticboy/vim-markdown 
+	" }}}
+	" plasticboy/vim-markdown {{{
 	let g:vim_markdown_frontmatter = 1 " Format YAML
 	let g:vim_markdown_strikethrough = 0 " Don't format strikethrough
 	let g:vim_markdown_conceal = 0 " Don't conceal
 	let g:vim_markdown_conceal_code_blocks = 0 " Don't conceal code blocks
 	let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
+	" }}}
 	" }}}
 endfunction
