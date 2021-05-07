@@ -13,10 +13,10 @@ function _G.pack_init()
 	-- Load Minpac:
 	vim.api.nvim_command("packadd paq-nvim")
 	local paq = require'paq-nvim'.paq
-	require'paq-nvim'.setup({ path=paq_dir..'/' })
+	require'paq-nvim'.setup{ path=paq_dir..'/' }
 
 	-- Manage Paq:
-	paq({'savq/paq-nvim', opt=true})
+	paq{ 'savq/paq-nvim', opt=true }
 	-- Getting Started:
 	paq'tpope/vim-sensible' -- Agreeable vim settings:
 	paq'xero/securemodelines' -- Secure modelines
@@ -30,7 +30,7 @@ function _G.pack_init()
 	paq'Konfekt/FastFold' -- Better fold support
 	paq'wellle/targets.vim' -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 	paq'cohama/lexima.vim' -- Autopairs + Endwise
-	paq'norcalli/nvim-colorizer.lua' -- HTML codes and HTML color words to colors
+	paq{ 'norcalli/nvim-colorizer.lua', opt = true } -- HTML codes and HTML color words to colors
 	paq{ 'windwp/nvim-ts-autotag', opt = true }  -- Automatically close HTML tags
 	-- Git Support:
 	paq'lambdalisue/gina.vim' -- :Gina status to schedule; :Gina commit to commit

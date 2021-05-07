@@ -1,4 +1,4 @@
-function! dotfiles#autocomplete#fzf#init() abort
+function! dotfiles#fzf#init() abort
 	command! -bang -nargs=? -complete=dir Files
 		\ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
 	let $FZF_DEFAULT_OPTS .= ' --reverse'

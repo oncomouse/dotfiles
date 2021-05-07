@@ -117,16 +117,23 @@ nmap <silent> ]d		<Plug>(dotfiles-diagnostic-next)
 " }}}
 " Theme: {{{
 set background=dark
-" Fancy Colors for Desktop Mode:
+
 if exists('+termguicolors')
 	let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 	let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 	set termguicolors
 	" nvim-colorizer:
+	packadd nvim-colorizer
 	lua require'colorizer'.setup{'*',markdown={names=false},text={names=false}}
 endif
-exe 'set runtimepath+='.expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : $HOME.'/.cache') . '/wal/vim')
-colorscheme wal
+
+let s:wal_cache = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : $HOME.'/.cache') . '/wal/vim')
+if isdirectory(s:wal_cache)
+	exe 'set runtimepath+='.s:wal_cache
+	colorscheme wal
+else
+	colorscheme default
+endif
 " }}}
 " Other Settings: {{{
 
@@ -146,7 +153,7 @@ autocmd dotfiles-settings BufReadPost *
 \ endif 
 
 " Load Autocompletion:
-call dotfiles#autocomplete#fzf#init()
+call dotfiles#fzf#init()
 lua require('dotfiles.nvim_lsp')
 
 " Update FASD For NeoVim: {{{
