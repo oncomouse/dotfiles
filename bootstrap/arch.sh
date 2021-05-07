@@ -52,9 +52,6 @@ if ! echo "$SHELL" | grep fish > /dev/null 2>&1; then
   sudo chsh -s "$(which fish)" "$USER"
 fi
 
-# Configure Firejail:
-# ~/dotfiles/bootstrap/scripts/firejail.sh
-
 if [ -z "$SERVER" ]; then
   # Configure xdg-utils
   xdg-settings set default-web-browser firefox.desktop
@@ -62,16 +59,6 @@ if [ -z "$SERVER" ]; then
 
   # Configure Awesome Support Scripts:
   ~/dotfiles/bootstrap/scripts/awesome.sh
-
-  # Get spotify to work with firejail and spotifywm:
-  #if [[ -e /usr/local/bin/spotify ]]; then
-  #  sudo rm /usr/local/bin/spotify
-  #fi
-  #cat << EOF | sudo tee /usr/local/bin/spotify > /dev/null
-##!/bin/sh
-#firejail --env="LD_PRELOAD=/usr/lib/spotifywm.so" spotify "$@"
-#EOF
-  #sudo chmod +x "/usr/local/bin/spotify"
 
   # Configure Seadrive:
   ~/dotfiles/bootstrap/scripts/seadrive.sh
