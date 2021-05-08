@@ -22,6 +22,7 @@ if [ -z "$SERVER" ]; then
 	if [ "$os" == "macos" ]; then
 		dotfiles_stow homebrew
 		dotfiles_stow mackup
+		dotfiles_stow karabiner
 	elif [ "$os" == "arch" ]; then
 		# Other setup files:
 		dotfiles_stow awesome
