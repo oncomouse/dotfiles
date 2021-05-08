@@ -152,6 +152,9 @@ autocmd dotfiles-settings BufReadPost *
 \	 exe "normal! g`\"" |
 \ endif 
 
+" Fix window resizing
+autocmd dotfiles-settings VimEnter * silent exec "!kill -s SIGWINCH $PPID"
+
 " Load Autocompletion:
 call dotfiles#fzf#init()
 lua require('dotfiles.nvim_lsp')
