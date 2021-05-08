@@ -63,5 +63,6 @@ cask "karabiner-elements", args: { appdir: "/Applications" }
 cask "keycast"
 cask "kitty"
 cask "licecap", args: { appdir: "/Applications" }
+cask "seadrive"
 cask "slack", args: { appdir: "/Applications" }
 cask "zotero"
