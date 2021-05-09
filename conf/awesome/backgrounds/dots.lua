@@ -28,4 +28,4 @@ local function make_background()
 	return img
 end
 
-return make_background
+return function() gears.wallpaper.tiled(make_background()) end

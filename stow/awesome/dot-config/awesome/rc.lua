@@ -168,9 +168,8 @@ beautiful.tasklist_disable_icon = true -- No icons in tasklist
 --- }}}
 
 -- Set the background:
--- gears.wallpaper.set(x.background)
-local make_tiled_background = require('widgets.background')
-gears.wallpaper.tiled(make_tiled_background())
+local apply_background = require('background.dots')
+apply_background()
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
 -- Default modkey.
