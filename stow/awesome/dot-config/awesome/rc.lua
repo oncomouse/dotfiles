@@ -168,7 +168,7 @@ beautiful.tasklist_disable_icon = true -- No icons in tasklist
 --- }}}
 
 -- Set the background:
-local apply_background = require('background.dots')
+local apply_background = require('backgrounds.dots')
 apply_background()
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
