@@ -2,17 +2,30 @@
 local wibox = require("wibox")
 local awful = require("awful")
 local gears = require("gears")
+local naughty = require("naughty")
+
+-- Track current player, for multi-player support:
+local current_player = nil
+local get_current_player = function()
+	awful.spawn.easy_async('bash -c \'for p in $(playerctl -l); do if [ "$(playerctl -p $p status)" == "Playing" ]; then echo $p; fi; done\'', function(player)
+		if player == '' then
+			current_player = nil
+		else
+			current_player = player
+		end
+	end)
+end
+gears.timer {
+	timeout   = 500,
+	call_now  = true,
+	autostart = true,
+	callback  = get_current_player,
+}
 -- Truncate:
 function truncate(st, len)
 	return string.len(st) > len and string.sub(st, 0, len - 1) .. "…" or st
 end
-local current_player = nil
 -- Custom playerctl guts:
-local get_current_player = function()
-	awful.spawn.easy_async('bash -c \'for p in $(playerctl -l); do if [ "$(playerctl -p $p status)" == "Playing" ]; then echo $p; fi; done\'', function(player)
-		current_player = player
-	end)
-end
 local playerctl = {
 	play = function()
 		local switch = ""
@@ -67,7 +80,6 @@ local parse_metadata = function(stdout)
 	local parts = gears.string.split(stdout, "::")
 	return table.unpack(parts)
 end
-get_current_player()
 local mpris_status_pid = awful.spawn.with_line_callback(
 
 	"sh -c '~/.local/share/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py --icon-playing 契 --icon-paused  --icon-stopped 栗 --format \"{icon}::{:artist:{artist}:::}{:title:{title}:}{:-title:{filename}:}{:album:::{album}:}\"' -b firefox -b vlc",
