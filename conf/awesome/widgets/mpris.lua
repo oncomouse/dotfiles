@@ -6,13 +6,25 @@ local gears = require("gears")
 function truncate(st, len)
 	return string.len(st) > len and string.sub(st, 0, len - 1) .. "…" or st
 end
+local current_player = nil
 -- Custom playerctl guts:
+local get_current_player = function()
+	awful.spawn.easy_async('bash -c \'for p in $(playerctl -l); do if [ "$(playerctl -p $p status)" == "Playing" ]; then echo $p; fi; done\'', function(player)
+		current_player = player
+	end)
+end
 local playerctl = {
 	play = function()
-		awful.spawn("playerctl play-pause")
+		local switch = ""
+		if current_player ~= nil then
+			switch = " -p " .. current_player
+		end
+		awful.spawn.easy_async("playerctl " .. switch .. " play-pause", get_current_player)
 	end,
 	stop = function()
-		awful.spawn("playerctl stop")
+		awful.spawn.easy_async("playerctl stop", function()
+			current_player = nil
+		end)
 	end,
 	previous_track = function()
 		awful.spawn("playerctl previous")
@@ -55,6 +67,7 @@ local parse_metadata = function(stdout)
 	local parts = gears.string.split(stdout, "::")
 	return table.unpack(parts)
 end
+get_current_player()
 local mpris_status_pid = awful.spawn.with_line_callback(
 
 	"sh -c '~/.local/share/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py --icon-playing 契 --icon-paused  --icon-stopped 栗 --format \"{icon}::{:artist:{artist}:::}{:title:{title}:}{:-title:{filename}:}{:album:::{album}:}\"' -b firefox -b vlc",
