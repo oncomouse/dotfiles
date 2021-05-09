@@ -18,6 +18,8 @@ xrdb ~/.Xresources
 setxkbmap -option compose:menu
 # Always turn on numlock:
 setxkbmap -option numpad:mac us
+# Convert capslock to escape:
+setxkbmap -option caps:swapescape
 
 # reassign Alt_R to Super_L
 xmodmap -e "keycode 108 = Super_L"
