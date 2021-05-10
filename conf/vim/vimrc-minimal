@@ -134,7 +134,7 @@ function! MinimalMinPac() abort
 	call minpac#add('tpope/vim-commentary')
 endfunction
 
-if !get(g:, 'skip_minimal_minpac')
+if !get(g:, 'skip_minimal_minpac', !has('patch-7.4.1384'))
 	function! PackInit() abort
 		" Download Minpac:
 		let l:minpac_dir = s:packpath()
@@ -166,31 +166,33 @@ end
 " ==============================================================================
 " Pack Settings:
 " ==============================================================================
-set nomodeline
-let g:secure_modelines_verbose = 0
-let g:secure_modelines_modelines = 15
-let g:secure_modelines_allowed_items = [
-	\ 'textwidth',	 'tw',
-	\ 'softtabstop', 'sts',
-	\ 'tabstop',		 'ts',
-	\ 'shiftwidth',	 'sw',
-	\ 'expandtab',	 'et',	 'noexpandtab', 'noet',
-	\ 'filetype',		 'ft',
-	\ 'foldmethod',	 'fdm',
-	\ 'foldlevel',	 'fdl',
-	\ 'readonly',		 'ro',	 'noreadonly', 'noro',
-	\ 'rightleft',	 'rl',	 'norightleft', 'norl',
-	\ 'cindent',		 'cin',	 'nocindent', 'nocin',
-	\ 'smartindent', 'si',	 'nosmartindent', 'nosi',
-	\ 'autoindent',	 'ai',	 'noautoindent', 'noai',
-	\ 'spell', 'nospell',
-	\ 'spelllang',
-	\ 'wrap', 'nowrap',
-	\ 'syntax'
-	\ ]
-if !has('nvim')
-	packadd! vim-neovim-defaults
-endif
-if !exists('g:dotfiles_mode')
-	colorscheme default
+if has('patch-7.4.1384')
+	set nomodeline
+	let g:secure_modelines_verbose = 0
+	let g:secure_modelines_modelines = 15
+	let g:secure_modelines_allowed_items = [
+		\ 'textwidth',	 'tw',
+		\ 'softtabstop', 'sts',
+		\ 'tabstop',		 'ts',
+		\ 'shiftwidth',	 'sw',
+		\ 'expandtab',	 'et',	 'noexpandtab', 'noet',
+		\ 'filetype',		 'ft',
+		\ 'foldmethod',	 'fdm',
+		\ 'foldlevel',	 'fdl',
+		\ 'readonly',		 'ro',	 'noreadonly', 'noro',
+		\ 'rightleft',	 'rl',	 'norightleft', 'norl',
+		\ 'cindent',		 'cin',	 'nocindent', 'nocin',
+		\ 'smartindent', 'si',	 'nosmartindent', 'nosi',
+		\ 'autoindent',	 'ai',	 'noautoindent', 'noai',
+		\ 'spell', 'nospell',
+		\ 'spelllang',
+		\ 'wrap', 'nowrap',
+		\ 'syntax'
+		\ ]
+	if !has('nvim')
+		packadd! vim-neovim-defaults
+	endif
+	if !exists('g:dotfiles_mode')
+		colorscheme default
+	endif
 endif
