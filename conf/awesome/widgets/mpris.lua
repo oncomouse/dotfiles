@@ -8,9 +8,7 @@ local naughty = require("naughty")
 local current_player = nil
 local get_current_player = function()
 	awful.spawn.easy_async('bash -c \'for p in $(playerctl -l); do if [ "$(playerctl -p $p status)" == "Playing" ]; then echo $p; fi; done\'', function(player)
-		if player == '' then
-			current_player = nil
-		else
+		if player ~= '' then
 			current_player = player
 		end
 	end)
