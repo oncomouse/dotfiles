@@ -30,7 +30,7 @@ local playerctl = {
 		if current_player ~= nil then
 			switch = " -p " .. current_player
 		end
-		awful.spawn.easy_async("playerctl " .. switch .. " play-pause", get_current_player)
+		awful.spawn.easy_async("playerctl" .. switch .. " play-pause", get_current_player)
 	end,
 	stop = function()
 		awful.spawn.easy_async("playerctl stop", function()
