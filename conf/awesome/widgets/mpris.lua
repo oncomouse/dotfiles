@@ -14,7 +14,7 @@ local get_current_player = function()
 	end)
 end
 gears.timer {
-	timeout   = 500,
+	timeout   = 0.5,
 	call_now  = true,
 	autostart = true,
 	callback  = get_current_player,
@@ -33,15 +33,27 @@ local playerctl = {
 		awful.spawn.easy_async("playerctl" .. switch .. " play-pause", get_current_player)
 	end,
 	stop = function()
-		awful.spawn.easy_async("playerctl stop", function()
+		local switch = ""
+		if current_player ~= nil then
+			switch = " -p " .. current_player
+		end
+		awful.spawn.easy_async("playerctl" .. switch .. " stop", function()
 			current_player = nil
 		end)
 	end,
 	previous_track = function()
-		awful.spawn("playerctl previous")
+		local switch = ""
+		if current_player ~= nil then
+			switch = " -p " .. current_player
+		end
+		awful.spawn("playerctl" .. switch .. " previous")
 	end,
 	next_track = function()
-		awful.spawn("playerctl next")
+		local switch = ""
+		if current_player ~= nil then
+			switch = " -p " .. current_player
+		end
+		awful.spawn("playerctl" .. switch .. " next")
 	end,
 }
 -- Mpris player status:
@@ -74,25 +86,40 @@ local icon
 local artist
 local album
 local title
+local artUrl
 local parse_metadata = function(stdout)
 	local parts = gears.string.split(stdout, "::")
 	return table.unpack(parts)
 end
-local mpris_status_pid = awful.spawn.with_line_callback(
-
-	"sh -c '~/.local/share/polybar-scripts/polybar-scripts/player-mpris-tail/player-mpris-tail.py --icon-playing 契 --icon-paused  --icon-stopped 栗 --format \"{icon}::{:artist:{artist}:::}{:title:{title}:}{:-title:{filename}:}{:album:::{album}:}\"' -b firefox -b vlc",
-	{ stdout = function(stdout)
-		icon, artist, title, album = parse_metadata(stdout)
-		mpris_widget:get_children_by_id("title")[1]:set_text(
-			artist ~= nil and truncate(string.format("%s %s - %s", icon, artist, title), 30) or ""
+gears.timer{
+	timeout   = 0.25,
+	call_now  = true,
+	autostart = true,
+	callback  = function()
+		local switch = ""
+		if current_player ~= nil then
+			switch = " -p " .. current_player
+		end
+		awful.spawn.easy_async(
+			"playerctl" ..
+			switch ..
+			" -f '{{status}}::{{artist}}::{{title}}::{{album}}::{{mpris:artUrl}}' metadata",
+			function(metadata)
+				status, artist, title, album, artUrl = parse_metadata(metadata)
+				if status == "Playing" then
+					icon = "契"
+				elseif status == "Paused" then
+					icon = ""
+				else
+					icon = "栗"
+				end
+				mpris_widget:get_children_by_id("title")[1]:set_text(
+					artist ~= nil and truncate(string.format("%s %s - %s", icon, artist, title), 30) or ""
+				)
+			end
 		)
-	end }
-)
-awesome.connect_signal("exit", function()
-	if mpris_status_pid ~= nil then
-		awesome.kill(mpris_status_pid, awesome.unix_signal.SIGTERM)
-	end
-end)
+	end,
+}
 mpris_widget:connect_signal("button::press", function(_, _, _, button)
 	if button == 1 then
 		playerctl.play()
