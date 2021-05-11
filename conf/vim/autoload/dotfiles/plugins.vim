@@ -130,7 +130,6 @@ function! dotfiles#plugins#configuration() abort
 			set runtimepath+=~/.fzf
 		endif
 		packadd fzf.vim
-		packadd fzf-lsp.nvim
 	endif
 	" }}}
 	" plasticboy/vim-markdown {{{
