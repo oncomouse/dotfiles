@@ -60,6 +60,7 @@ call dotfiles#plugins#configuration()
 " Maps: {{{
 " Highlight a block and type "@" to run a macro on the block:
 xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
+
 " Grep project:
 function s:grep_or_qfgrep()
 	if &buftype ==# 'quickfix'
@@ -75,12 +76,18 @@ function s:grep_or_qfgrep()
 	endif 
 endfunction
 nnoremap <silent> <leader>/ <cmd>call <SID>grep_or_qfgrep()<CR>
+
 " Calculator (not sure how this works):
 inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
+
 " Shortcut to view current syntax highlighting group:
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" Jump out of a lexima pair with <C-l>:
+inoremap <C-l> <C-r>=lexima#insmode#leave(1, "")<CR>
+
 " List Bindings: {{{
 nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
 nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
