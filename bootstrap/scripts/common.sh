@@ -13,10 +13,10 @@
 ~/dotfiles/bootstrap/scripts/rustup.sh
 ~/dotfiles/bootstrap/scripts/theme.sh
 ~/dotfiles/bootstrap/scripts/tmux.sh
+~/dotfiles/bootstrap/scripts/neovim.sh
 if [ -z "$SERVER" ]; then
   ~/dotfiles/bootstrap/scripts/vale.sh
   ~/dotfiles/bootstrap/scripts/asdf.sh
-  ~/dotfiles/bootstrap/scripts/neovim.sh
   ~/dotfiles/bootstrap/scripts/lsp.sh
   ~/dotfiles/bootstrap/scripts/csl.sh
   ~/dotfiles/bootstrap/scripts/tex.sh
