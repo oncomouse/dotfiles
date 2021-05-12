@@ -4,12 +4,37 @@ local awful = require("awful")
 local gears = require("gears")
 local naughty = require("naughty")
 
+local block_list = {
+	'firefox',
+	'vlc'
+}
+
+function trim(s)
+   local a = s:match('^%s*()')
+   local b = s:match('()%s*$', a)
+   return s:sub(a,b-1)
+end
 -- Track current player, for multi-player support:
 local current_player = nil
 local get_current_player = function()
 	awful.spawn.easy_async('bash -c \'for p in $(playerctl -l); do if [ "$(playerctl -p $p status)" == "Playing" ]; then echo $p; fi; done\'', function(player)
-		if player ~= '' then
-			current_player = player
+		player = trim(player)
+		if gears.string.linecount(player) > 1 then
+			local players = {}
+			for _, p in ipairs(gears.string.split(player, "\n")) do
+				if not gears.table.hasitem(block_list, gears.string.split(p, ".")[1] ) then
+					table.insert(players, p)
+				end
+			end
+			if #players > 0 then
+				current_player = players[1]
+			else
+				current_player = nil
+			end
+		else
+			if player ~= '' then
+				current_player = player
+			end
 		end
 	end)
 end
