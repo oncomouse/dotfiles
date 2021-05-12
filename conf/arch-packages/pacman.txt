@@ -19,7 +19,6 @@ python
 python-pip
 lua
 luarocks
-neovim
 vim
 fasd
 ripgrep
@@ -66,3 +65,5 @@ shfmt
 ttf-liberation
 efm-langserver
 mpd
+ponymix
+playerctl

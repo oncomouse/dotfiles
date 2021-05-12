@@ -17,15 +17,20 @@ grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s
 
 ~/dotfiles/bootstrap/scripts/common.sh
 if [ -z "$SERVER" ]; then
-  ## User systemd services
-  systemctl --user enable pipewire-pulse
-  systemctl --user enable seadrive
+	## User systemd services
+	systemctl --user enable pipewire-pulse
+	systemctl --user enable seadrive.service
+	systemctl --user enable kmonad.service
+	systemctl --user enable mpd.service
+	systecmtl --user enable mpDris2.service
+	systemctl --user enable tmux.service
+	systemctl --user enable redshift.service
 
-  # Use Rofi for dmenu:
-  sudo ln -sf "$(which rofi)" /usr/bin/dmenu
+	# Use Rofi for dmenu:
+	sudo ln -sf "$(which rofi)" /usr/bin/dmenu
 
-  # Configure spicetify:
-  ~/dotfiles/bootstrap/scripts/spicetify.sh
+	# Configure spicetify:
+	~/dotfiles/bootstrap/scripts/spicetify.sh
 fi
 
 # Enable OpenSSH:
@@ -49,17 +54,17 @@ sudo chgrp -R wheel /usr/local
 
 # Set Shell to Fish:
 if ! echo "$SHELL" | grep fish > /dev/null 2>&1; then
-  sudo chsh -s "$(which fish)" "$USER"
+	sudo chsh -s "$(which fish)" "$USER"
 fi
 
 if [ -z "$SERVER" ]; then
-  # Configure xdg-utils
-  xdg-settings set default-web-browser firefox.desktop
-  xdg-mime default org.pwmt.zathura.desktop application/pdf
+	# Configure xdg-utils
+	xdg-settings set default-web-browser firefox.desktop
+	xdg-mime default org.pwmt.zathura.desktop application/pdf
 
-  # Configure Awesome Support Scripts:
-  ~/dotfiles/bootstrap/scripts/awesome.sh
+	# Configure Awesome Support Scripts:
+	~/dotfiles/bootstrap/scripts/awesome.sh
 
-  # Configure Seadrive:
-  ~/dotfiles/bootstrap/scripts/seadrive.sh
+	# Configure Seadrive:
+	~/dotfiles/bootstrap/scripts/seadrive.sh
 fi

@@ -18,5 +18,4 @@ themix-gui-git
 themix-theme-oomox-git
 awesome-git
 cava
-dash-static-musl
 mpdris2
