@@ -4,32 +4,27 @@ local awful = require("awful")
 local gears = require("gears")
 local naughty = require("naughty")
 
-local block_list = {
-	'firefox',
-	'vlc'
+local supported_players = {
+	'mpd',
+	'ncspot'
 }
-
+local DEFAULT_SWITCH = "'" .. table.concat(supported_players, ",") .. "'"
 function trim(s)
    local a = s:match('^%s*()')
    local b = s:match('()%s*$', a)
    return s:sub(a,b-1)
 end
 -- Track current player, for multi-player support:
-local current_player = nil
+local current_player = DEFAULT_SWITCH
 local get_current_player = function()
 	awful.spawn.easy_async('bash -c \'for p in $(playerctl -l); do if [ "$(playerctl -p $p status)" == "Playing" ]; then echo $p; fi; done\'', function(player)
 		player = trim(player)
 		if gears.string.linecount(player) > 1 then
-			local players = {}
-			for _, p in ipairs(gears.string.split(player, "\n")) do
-				if not gears.table.hasitem(block_list, gears.string.split(p, ".")[1] ) then
-					table.insert(players, p)
-				end
-			end
+			local players = gears.string.split(player, "\n")
 			if #players > 0 then
 				current_player = players[1]
 			else
-				current_player = nil
+				current_player = DEFAULT_SWITCH
 			end
 		else
 			if player ~= '' then
@@ -51,33 +46,21 @@ end
 -- Custom playerctl guts:
 local playerctl = {
 	play = function()
-		local switch = ""
-		if current_player ~= nil then
-			switch = " -p " .. current_player
-		end
+		local switch = " -p " .. current_player
 		awful.spawn.easy_async("playerctl" .. switch .. " play-pause", get_current_player)
 	end,
 	stop = function()
-		local switch = ""
-		if current_player ~= nil then
-			switch = " -p " .. current_player
-		end
+		local switch = " -p " .. current_player
 		awful.spawn.easy_async("playerctl" .. switch .. " stop", function()
-			current_player = nil
+			current_player = DEFAULT_SWITCH
 		end)
 	end,
 	previous_track = function()
-		local switch = ""
-		if current_player ~= nil then
-			switch = " -p " .. current_player
-		end
+		local switch = " -p " .. current_player
 		awful.spawn("playerctl" .. switch .. " previous")
 	end,
 	next_track = function()
-		local switch = ""
-		if current_player ~= nil then
-			switch = " -p " .. current_player
-		end
+		local switch = " -p " .. current_player
 		awful.spawn("playerctl" .. switch .. " next")
 	end,
 }
@@ -121,10 +104,7 @@ gears.timer{
 	call_now  = true,
 	autostart = true,
 	callback  = function()
-		local switch = ""
-		if current_player ~= nil then
-			switch = " -p " .. current_player
-		end
+		local switch = " -p " .. current_player
 		awful.spawn.easy_async(
 			"playerctl" ..
 			switch ..
