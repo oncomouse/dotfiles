@@ -20,14 +20,17 @@ local get_current_player = function()
 	awful.spawn.easy_async('bash -c \'for p in $(playerctl -l); do if [ "$(playerctl -p $p status)" == "Playing" ]; then echo $p; fi; done\'', function(player)
 		player = trim(player)
 		if gears.string.linecount(player) > 1 then
-			local players = gears.string.split(player, "\n")
+			local players = {}
+			for _, p in pairs(gears.string.split(player, "\n")) do
+				if gears.table.hasitem(supported_players, p) then
+					table.insert(players, p)
+				end
+			end
 			if #players > 0 then
 				current_player = players[1]
-			else
-				current_player = DEFAULT_SWITCH
 			end
 		else
-			if player ~= '' then
+			if player ~= '' and gears.table.hasitem(supported_players, player) then
 				current_player = player
 			end
 		end
