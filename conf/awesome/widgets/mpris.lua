@@ -36,12 +36,6 @@ local get_current_player = function()
 		end
 	end)
 end
-gears.timer {
-	timeout   = 0.5,
-	call_now  = true,
-	autostart = true,
-	callback  = get_current_player,
-}
 -- Truncate:
 function truncate(st, len)
 	return string.len(st) > len and string.sub(st, 0, len - 1) .. "…" or st
@@ -103,7 +97,7 @@ local parse_metadata = function(stdout)
 	return table.unpack(parts)
 end
 gears.timer{
-	timeout   = 0.25,
+	timeout   = 0.5,
 	call_now  = true,
 	autostart = true,
 	callback  = function()
@@ -113,6 +107,7 @@ gears.timer{
 			switch ..
 			" -f '{{status}}::{{artist}}::{{title}}::{{album}}::{{mpris:artUrl}}' metadata",
 			function(metadata)
+				get_current_player()
 				status, artist, title, album, artUrl = parse_metadata(metadata)
 				if status == "Playing" then
 					icon = "契"
