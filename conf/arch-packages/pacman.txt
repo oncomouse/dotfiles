@@ -1,3 +1,4 @@
+man-db
 openssh
 unbound
 expat
@@ -6,12 +7,14 @@ xdg-utils
 xorg-server
 xorg-xsetroot
 xorg-xrdb
+xorg-xinit
 xclip
 accountsservice
 rofi
 texlive-core
 firefox
 kitty
+cmake
 rustup
 nodejs
 npm
@@ -35,7 +38,6 @@ neofetch
 zathura
 zathura-pdf-poppler
 nnn
-cmst
 libnotify
 gnome-keyring
 libsecret
@@ -65,5 +67,7 @@ shfmt
 ttf-liberation
 efm-langserver
 mpd
-ponymix
 playerctl
+lua53-penlight
+lua53-argparse
+lua53-lgi

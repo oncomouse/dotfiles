@@ -1,16 +1,12 @@
-ttf-material-wifi-icons-git
 otf-nerd-fonts-fira-code
 otf-hasklig
 perl-term-shellui
 picom-ibhagwan-git
 # rofi-wifi-menu-git
 shellcheck-bin
-spotify
 tllocalmgr-git
 viu # For NNN image viewing
 zotero
-spicetify-git
-spotifywm-git
 libsearpc
 nerd-fonts-fantasque-sans-mono
 themix-icons-archdroid-git
@@ -19,3 +15,4 @@ themix-theme-oomox-git
 awesome-git
 cava
 mpdris2
+ncspot

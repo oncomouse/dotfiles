@@ -10,19 +10,19 @@ fi
 ruby_env=$([ "$os" == "macos" ] && echo "--with-openssl-dir=/usr/local/opt/openssl/" || echo "")
 asdf plugin add ruby
 asdf plugin add nodejs
-asdf plugin add lua https://github.com/Stratus3D/asdf-lua.git
+# asdf plugin add lua https://github.com/Stratus3D/asdf-lua.git
 env RUBY_CONFIGURE_OPTS="$ruby_env" asdf install ruby 2.6.6
 env RUBY_CONFIGURE_OPTS="$ruby_env" asdf install ruby 2.7.2
 env RUBY_CONFIGURE_OPTS="$ruby_env" asdf install ruby latest
 asdf global ruby "$(asdf latest ruby)"
 asdf global nodejs system
-asdf install lua 5.1.5
-asdf install lua 5.3.5
-if [[ $os == "arch" ]]; then
-  asdf global lua 5.3.5
-elif [[ $os == "macos" ]]; then
-  asdf global lua 5.1.5
-fi
+# asdf install lua 5.1.5
+# asdf install lua 5.3.5
+# if [[ $os == "arch" ]]; then
+#   asdf global lua 5.3.5
+# elif [[ $os == "macos" ]]; then
+#   asdf global lua 5.1.5
+# fi
 # ## Setup Ruby
 # if test ! "$(rbenv root)/plugins" ; then
 #   mkdir -p "$(rbenv root)"/plugins

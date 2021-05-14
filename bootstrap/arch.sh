@@ -1,36 +1,35 @@
 #!/usr/bin/env bash
 
-# Assume, at minium, "pacman -S base-devel vim git curl fish" run during install:
+# Assume, at minimum, "pacman -S base-devel vim git curl fish" run during install:
 sudo pacman -S --noconfirm --needed - < "$HOME/dotfiles/conf/arch-packages/pacman.txt"
 
-mkdir -p "$HOME/aur"
+~/dotfiles/bootstrap/scripts/common.sh
 
+mkdir -p "$HOME/aur"
 # Install some AUR packages (including paru):
 ~/dotfiles/bootstrap/scripts/aur.sh
 
 # Install AUR using Paru:
-grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/aur.txt | sed -e "s/\s*#.*\$//g" | paru -S -
+ for pkg in "$(grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/aur.txt | sed -e "s/\s*#.*\$//g")"; do
+	paru --needed -S --skipreview $pkg
+ done
 # Setup flatpak:
 flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 # Install Flatpaks:
 grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
 
-~/dotfiles/bootstrap/scripts/common.sh
 if [ -z "$SERVER" ]; then
 	## User systemd services
 	systemctl --user enable pipewire-pulse
 	systemctl --user enable seadrive.service
 	systemctl --user enable kmonad.service
 	systemctl --user enable mpd.service
-	systecmtl --user enable mpDris2.service
+	systemctl --user enable mpDris2.service
 	systemctl --user enable tmux.service
 	systemctl --user enable redshift.service
 
 	# Use Rofi for dmenu:
 	sudo ln -sf "$(which rofi)" /usr/bin/dmenu
-
-	# Configure spicetify:
-	~/dotfiles/bootstrap/scripts/spicetify.sh
 fi
 
 # Enable OpenSSH:
