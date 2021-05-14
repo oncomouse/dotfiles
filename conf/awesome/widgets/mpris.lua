@@ -6,7 +6,7 @@ local lgi = require("lgi")
 
 local Playerctl = lgi.Playerctl
 local manager = lgi.Playerctl.PlayerManager()
--- local naughty = require("naughty")
+local naughty = require("naughty")
 
 -- Mpris player status:
 local current_player = nil
@@ -104,13 +104,13 @@ for i, name in ipairs(Playerctl.list_players()) do
 	follow_player(name)
 end
 
--- redraw when player is opened
 function manager:on_name_appeared(name)
+	naughty.notify({text=name.name})
 	follow_player(name)
 end
 
--- cant figure out these signals
 manager.on_name_appeared:connect("name-appeared")
+
 -- Metadata
 mpris_widget:connect_signal("button::press", function(_, _, _, button)
 	if button == 1 then
