@@ -6,7 +6,6 @@ local lgi = require("lgi")
 
 local Playerctl = lgi.Playerctl
 local manager = lgi.Playerctl.PlayerManager()
-local naughty = require("naughty")
 
 -- Mpris player status:
 local current_player = nil
@@ -105,7 +104,6 @@ for i, name in ipairs(Playerctl.list_players()) do
 end
 
 function manager:on_name_appeared(name)
-	naughty.notify({text=name.name})
 	follow_player(name)
 end
 
