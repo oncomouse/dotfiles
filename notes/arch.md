@@ -2,6 +2,7 @@
 * [IWD Wifi instructions](https://sudaraka.org/how-to/archlinux-installation-guide-2019/)
 * [Hardening Advice](https://vez.mrsk.me/linux-hardening.html#kern)
 * [Macbook Wifi](https://sylvaindurand.org/installing-arch-linux-on-macbook-pro-late-2013/)
+* [Macbook Trackpad](https://howchoo.com/linux/the-perfect-almost-touchpad-settings-on-linux-2)
 
 Notes:
 1. Don't use systemd-start stuff, just use `arch-chroot /mnt`
