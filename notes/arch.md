@@ -70,3 +70,6 @@ Passphrase: secret
 
 [AMDGPU on Arch Wiki](https://wiki.archlinux.org/index.php/AMDGPU)
  
+# Keyring
+
+1. [Keyring PAM Configuration](https://wiki.archlinux.org/title/GNOME/Keyring#PAM_method)
