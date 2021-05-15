@@ -103,7 +103,6 @@ beautiful.border_normal = x.color8 -- Normal border color
 beautiful.border_focus = x.color1 -- Focused border color
 beautiful.border_width = 1
 -- Fonts
-beautiful.font = "FiraCode Nerd Font Normal 14"
 beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
 beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
 -- Widget spacing in left and right wibox areas:

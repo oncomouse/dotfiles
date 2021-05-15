@@ -17,6 +17,7 @@ end
 
 -- inherit default theme
 local theme = dofile(themes_path.."xresources/theme.lua")
+theme.font = "FiraCode Nerd Font Normal 14"
 theme.wibar_right = {
 			layout = wibox.layout.fixed.horizontal,
 			spacing_widget = {
