@@ -3,15 +3,16 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
--- Mpris Player Status Widget:
-local mpris_widget = require("widgets.mpris")
 -- Volume Widget:
-local volume_widget = require("widgets.volume")
 -- Clock Widget:
 local clock_widget = require("widgets.clock")
 -- Setup Weather Widget:
+local volume_widget = nil
 local weather_widget = nil
+local battery_widget = nil
 if not gfs.file_readable(os.getenv("HOME").."/.config/awesome/json.lua") then
+	volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+	battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 	weather_widget = require("awesome-wm-widgets.weather-widget.weather")
 end
 
@@ -24,15 +25,14 @@ theme.wibar_right = {
 				widget = wibox.widget.textbox,
 			},
 			spacing = 20,
-			volume_widget,
-			mpris_widget,
+			volume_widget == nil and nil or volume_widget(),
+			battery_widget == nil and nil or battery_widget(),
 			weather_widget == nil and nil or weather_widget({
 				api_key='7092b2d31fe650e586336bc51e657814',
 				coordinates = {30.663606864996588, -96.34546254147835},
 				units = 'imperial',
 				time_format_12h = true,
 				both_units_widget = false,
-				-- font_name = 'Carter One',
 				icons = 'VitalyGorbachev',
 				icons_extension = '.svg',
 				show_hourly_forecast = true,

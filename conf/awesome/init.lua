@@ -1,7 +1,9 @@
+-- luacheck: globals awesome client io tag screen
 -- Includes {{{
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
+local beautiful = require("beautiful")
 require("awful.autofocus")
 -- Rules
 local ruled = require("ruled")
@@ -55,6 +57,17 @@ local revelation = require("utils.revelation")
 -- Heartbeat timer for caffeinating AwesomeWM:
 local heartbeat = require("utils.heartbeat")
 require("utils.border_gradient")
+if not gears.filesystem.file_readable(os.getenv("HOME").."/.config/awesome/json.lua") then
+	awful.spawn.with_line_callback("sh -c \"curl -Lso ~/.config/awesome/json.lua https://raw.githubusercontent.com/rxi/json.lua/master/json.lua\"", {
+		exit=function()
+			awful.spawn.with_line_callback("sh -c \"git clone https://github.com/streetturtle/awesome-wm-widgets.git ~/.config/awesome/awesome-wm-widgets \"", {
+				exit=function()
+					awesome.restart()
+				end
+			})
+		end
+	})
+end
 -- }}}
 -- Startup {{{
 
