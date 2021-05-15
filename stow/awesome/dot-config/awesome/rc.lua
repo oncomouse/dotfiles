@@ -248,7 +248,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	s.mywibox.widget = {
 		layout = wibox.layout.align.horizontal,
 		{
-			spacing = 5,
+			spacing = 10,
 			spacing_widget = beautiful.widget_space.left ~= nil and {
 				text = beautiful.widget_space.left,
 				widget = wibox.widget.textbox,
