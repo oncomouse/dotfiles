@@ -1,11 +1,4 @@
--- ┏━┓╻ ╻┏━╸┏━┓┏━┓┏┳┓┏━╸╻ ╻┏┳┓
--- ┣━┫┃╻┃┣╸ ┗━┓┃ ┃┃┃┃┣╸ ┃╻┃┃┃┃
--- ╹ ╹┗┻┛┗━╸┗━┛┗━┛╹ ╹┗━╸┗┻┛╹ ╹
 -- luacheck: globals awesome client io tag screen
-
--- ┏━┓┏━┓╺┳╸╻ ╻
--- ┣━┛┣━┫ ┃ ┣━┫
--- ╹  ╹ ╹ ╹ ╹ ╹
 -- Path {{{
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
@@ -17,10 +10,6 @@ local addtional_path =
 	";" .. addtional_path_prefix .. "?/init.lua;" .. addtional_path_prefix .. "?.lua"
 package.path = package.path .. addtional_path
 -- }}}
-
--- ╻┏┓╻┏━╸╻  ╻ ╻╺┳┓┏━╸┏━┓
--- ┃┃┗┫┃  ┃  ┃ ┃ ┃┃┣╸ ┗━┓
--- ╹╹ ╹┗━╸┗━╸┗━┛╺┻┛┗━╸┗━┛
 -- Includes {{{
 -- Standard awesome library
 local gears = require("gears")
@@ -78,10 +67,6 @@ local revelation = require("utils.revelation")
 local heartbeat = require("utils.heartbeat")
 require("utils.border_gradient")
 -- }}}
-
--- ┏━┓╻ ╻╺┳╸┏━┓┏━┓╺┳╸┏━┓┏━┓┏━┓╺┳╸
--- ┣━┫┃ ┃ ┃ ┃ ┃┗━┓ ┃ ┣━┫┣┳┛┣┳┛ ┃
--- ╹ ╹┗━┛ ╹ ┗━┛┗━┛ ╹ ╹ ╹╹┗╸╹┗╸ ╹
 -- Startup {{{
 
 -- Setup Weather Widget:
@@ -106,15 +91,10 @@ local function run_once(cmd_arr)
 		awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
 	end
 end
-run_once({
-	"xscreensaver -nosplash",
+run_once{
 	"picom --experimental-backends -b"
-})
+}
 -- }}}
-
--- ┏━╸┏━┓┏━┓┏━┓┏━┓   ╻ ╻┏━┓┏┓╻╺┳┓╻  ╻┏┓╻┏━╸
--- ┣╸ ┣┳┛┣┳┛┃ ┃┣┳┛   ┣━┫┣━┫┃┗┫ ┃┃┃  ┃┃┗┫┃╺┓
--- ┗━╸╹┗╸╹┗╸┗━┛╹┗╸   ╹ ╹╹ ╹╹ ╹╺┻┛┗━╸╹╹ ╹┗━┛
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -126,10 +106,6 @@ naughty.connect_signal("request::display_error", function(message, startup)
 	}
 end)
 -- }}}
-
--- ┏━┓┏━┓┏━┓┏━╸┏━┓┏━┓┏━┓┏┓╻┏━╸┏━╸
--- ┣━┫┣━┛┣━┛┣╸ ┣━┫┣┳┛┣━┫┃┗┫┃  ┣╸
--- ╹ ╹╹  ╹  ┗━╸╹ ╹╹┗╸╹ ╹╹ ╹┗━╸┗━╸
 -- {{{ Appearance
 -- Themes define colours, icons, font and wallpapers. {{{
 beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
@@ -185,10 +161,6 @@ end)
 revelation.init()
 heartbeat.init()
 -- }}}
-
--- ╻ ╻╻┏┓ ┏━┓┏━┓
--- ┃╻┃┃┣┻┓┣━┫┣┳┛
--- ┗┻┛╹┗━┛╹ ╹╹┗╸
 -- {{{ Wibar
 -- Mpris Player Status Widget:
 local mpris_widget = require("widgets.mpris")
@@ -314,10 +286,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	}
 end)
 -- }}}
-
--- ╻┏ ┏━╸╻ ╻   ┏┓ ╻┏┓╻╺┳┓╻┏┓╻┏━╸┏━┓
--- ┣┻┓┣╸ ┗┳┛   ┣┻┓┃┃┗┫ ┃┃┃┃┗┫┃╺┓┗━┓
--- ╹ ╹┗━╸ ╹    ┗━┛╹╹ ╹╺┻┛╹╹ ╹┗━┛┗━┛
 -- Mouse bindings{{{
 -- awful.mouse.append_global_mousebindings({
 --     awful.button({ }, 4, awful.tag.viewprev),
@@ -766,10 +734,6 @@ client.connect_signal("request::default_mousebindings", function()
 end)
 -- }}}
 -- }}}
-
--- ┏━┓╻ ╻╻  ┏━╸┏━┓
--- ┣┳┛┃ ┃┃  ┣╸ ┗━┓
--- ╹┗╸┗━┛┗━╸┗━╸┗━┛
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
 ruled.client.connect_signal("request::rules", function()
@@ -886,10 +850,6 @@ client.connect_signal("request::titlebars", function(c)
 	}
 end)
 -- }}}
-
--- ┏┓╻┏━┓╺┳╸╻┏━╸╻┏━╸┏━┓╺┳╸╻┏━┓┏┓╻┏━┓
--- ┃┗┫┃ ┃ ┃ ┃┣╸ ┃┃  ┣━┫ ┃ ┃┃ ┃┃┗┫┗━┓
--- ╹ ╹┗━┛ ╹ ╹╹  ╹┗━╸╹ ╹ ╹ ╹┗━┛╹ ╹┗━┛
 -- {{{ Notifications
 
 ruled.notification.connect_signal('request::rules', function()
@@ -907,10 +867,6 @@ naughty.connect_signal("request::display", function(n)
 	naughty.layout.box { notification = n }
 end)
 -- }}}
-
--- ┏━┓╻┏━╸┏┓╻┏━┓╻  ┏━┓
--- ┗━┓┃┃╺┓┃┗┫┣━┫┃  ┗━┓
--- ┗━┛╹┗━┛╹ ╹╹ ╹┗━╸┗━┛
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function(c)
@@ -939,5 +895,4 @@ client.connect_signal("unfocus", function(c)
 	c.border_color = beautiful.border_normal
 end)
 -- }}}
-
 -- vim: foldlevel=0:foldmethod=marker
