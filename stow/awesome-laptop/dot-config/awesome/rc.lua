@@ -11,5 +11,5 @@ local addtional_path =
 package.path = package.path .. addtional_path
 -- }}}
 local beautiful = require("beautiful")
-beautiful.init(addtional_path_prefix .. "themes/desktop.lua")
+beautiful.init(addtional_path_prefix .. "themes/laptop.lua")
 require("init")
