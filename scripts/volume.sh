@@ -1,34 +1,34 @@
 #!/bin/bash
 
-vol_change=${2:-5%}
+vol_change=${2:-5}
 case "$1" in
   "up")
-    if ponymix is-muted; then
-      ponymix unmute
+    if pamixer --get-mute > /dev/null; then
+      pamixer -u
     else
-      ponymix increase "$vol_change"
+      pamixer -i "$vol_change"
     fi
     ;;
   "down")
-    if ponymix is-muted; then
-      ponymix unmute
+    if pamixer --get-mute; then
+      pamixer -u
     else
-      ponymix decrease "$vol_change"
+      pamixer -d "$vol_change"
     fi
     ;;
   "mute")
-    ponymix toggle > /dev/null
-    if ponymix is-muted; then
+    pamixer -t > /dev/null
+    if pamixer --get-mute > /dev/null; then
       echo "x"
     else
-      echo "$(ponymix get-volume)"
+      echo "$(pamixer --get-volume)"
     fi
     ;;
   *)
-    if ponymix is-muted; then
+    if pamixer --get-mute > /dev/null; then
       echo "x"
     else
-      ponymix get-volume
+      pamixer --get-volume
     fi
     ;;
 esac

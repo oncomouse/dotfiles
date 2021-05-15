@@ -15,7 +15,6 @@ package.path = package.path .. addtional_path
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
-awful.util.shell="/usr/bin/dash"
 -- Rules
 local ruled = require("ruled")
 -- Widget and layout library
@@ -124,7 +123,7 @@ beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
 -- Widget spacing in left and right wibox areas:
 beautiful.widget_space = {
 	left = nil,
-	right = " ⁞ ",
+	right = "⁞",
 }
 -- Wibar stuff:
 beautiful.bar_height = 24
@@ -262,10 +261,10 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		s.mytasklist,
 		{
 			layout = wibox.layout.fixed.horizontal,
-			spacing_widget = beautiful.widget_space.right ~= nil and {
+			spacing_widget = {
 				text = beautiful.widget_space.right,
 				widget = wibox.widget.textbox,
-			} or nil,
+			},
 			spacing = 20,
 			volume_widget,
 			mpris_widget,
