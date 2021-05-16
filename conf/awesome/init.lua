@@ -106,10 +106,6 @@ beautiful.border_width = 1
 beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
 beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
 -- Widget spacing in left and right wibox areas:
-beautiful.widget_space = {
-	left = nil,
-	right = "⁞",
-}
 -- Wibar stuff:
 beautiful.bar_height = 24
 beautiful.bar_position = "top"
@@ -238,7 +234,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			s.mypromptbox,
 		},
 		s.mytasklist,
-		beautiful.wibar_right,
+		beautiful.wibar_right(),
 	}
 end)
 -- }}}
@@ -852,4 +848,3 @@ client.connect_signal("unfocus", function(c)
 end)
 -- }}}
 -- vim: foldlevel=0:foldmethod=marker
-

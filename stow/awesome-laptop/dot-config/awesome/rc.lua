@@ -1,4 +1,4 @@
--- luacheck: globals awesome client io tag screen
+local theme = "laptop"
 -- Path {{{
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
@@ -11,5 +11,8 @@ local addtional_path =
 package.path = package.path .. addtional_path
 -- }}}
 local beautiful = require("beautiful")
-beautiful.init(addtional_path_prefix .. "themes/laptop.lua")
+if not beautiful.init("~/dotfiles/conf/awesome/themes/" .. theme .. ".lua") then
+	beautiful.init(require("gears").filesystem.get_themes_dir() .. "xresources/theme.lua")
+end
 require("init")
+-- vim: foldlevel=0:foldmethod=marker
