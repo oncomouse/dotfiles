@@ -13,14 +13,17 @@ theme.wibar_right = function()
 	local volume_widget = nil
 	local weather_widget = nil
 	local battery_widget = nil
+	local brightness_widget = nil
 	if not gfs.file_readable(os.getenv("HOME").."/.config/awesome/json.lua") then
 		volume_widget = require('awesome-wm-widgets.volume-widget.volume')
 		battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 		weather_widget = require("awesome-wm-widgets.weather-widget.weather")
+		brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 	end
 	return {
 		layout = wibox.layout.fixed.horizontal,
 		spacing = 20,
+		brightness_widget == nil and nil or brightness_widget({program="xbacklight"}),
 		volume_widget == nil and nil or volume_widget(),
 		battery_widget == nil and nil or battery_widget(),
 		weather_widget == nil and nil or weather_widget({
