@@ -10,7 +10,7 @@ case "$1" in
     fi
     ;;
   "down")
-    if pamixer --get-mute; then
+    if pamixer --get-mute > /dev/null; then
       pamixer -u
     else
       pamixer -d "$vol_change"
@@ -25,10 +25,10 @@ case "$1" in
     fi
     ;;
   *)
-    if pamixer --get-mute > /dev/null; then
-      echo "x"
-    else
-      pamixer --get-volume
-    fi
     ;;
 esac
+if pamixer --get-mute > /dev/null; then
+  echo "x"
+else
+  pamixer --get-volume
+fi

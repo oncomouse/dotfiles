@@ -8,7 +8,7 @@ end
 local function run_script(widget, argument)
 	argument = argument or ""
 	awful.spawn.easy_async_with_shell(
-		string.format("~/dotfiles/scripts/volume.sh %s", argument),
+		"~/dotfiles/scripts/volume.sh " .. argument,
 		function(stdout)
 			set_volume(widget, stdout)
 		end
@@ -19,9 +19,9 @@ local function change_volume(volume_widget, change)
 	if change == "mute" then
 		argument = "mute"
 	elseif change == "up" then
-		argument = "up 5%"
+		argument = "up 5"
 	elseif change == "down" then
-		argument = "down 5%"
+		argument = "down 5"
 	end
 	run_script(volume_widget, argument)
 end
