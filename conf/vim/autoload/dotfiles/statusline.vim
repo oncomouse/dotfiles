@@ -3,9 +3,9 @@ scriptencoding utf-8
 let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
 " Linter Status {{{
 	let g:dotfiles#diagnostics#indicator_checking = ''
-	let g:dotfiles#diagnostics#indicator_warnings = ''
-	let g:dotfiles#diagnostics#indicator_errors = ''
-	let g:dotfiles#diagnostics#indicator_information = ''
+	let g:dotfiles#diagnostics#indicator_warnings = ' W:'
+	let g:dotfiles#diagnostics#indicator_errors = ' E:'
+	let g:dotfiles#diagnostics#indicator_information = ' I:'
 	let g:dotfiles#diagnostics#indicator_ok = ''
 " }}}
 " Statusline {{{
@@ -39,7 +39,7 @@ let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
 	" winnr() may be different from a:curwin. We use this fact to detect
 	" whether we are drawing in the active window or in an inactive window.
 	function! dotfiles#statusline#wordcount() abort
-		return &filetype =~# '\v^(markdown|txt|vimwiki)' ? wordcount().words . ' words ' : ''
+		return &filetype =~# '\v^(markdown|txt|vimwiki)' ? ' W:' . wordcount().words : ''
 	endfunction
 	function! dotfiles#statusline#mode() abort
 		if &filetype ==# 'gina-status'
@@ -51,21 +51,11 @@ let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
 		return get(g:lf_stlm, mode())
 	endfunction
 	function! dotfiles#statusline#statusline() abort
-		if g:statusline_winid == win_getid(winnr())
-			return '%#'.get(g:lf_stlh, mode()).'#'.
-				\"%{dotfiles#statusline#componetize('dotfiles#statusline#mode()', '  ', ' ')}
-				\%1* %0.45f%m%h%w%r%=
-				\ %y 
-				\%#StatusLineInfo#
-				\%{dotfiles#statusline#componetize('dotfiles#statusline#wordcount()', ' ', g:statusline_soft_sep)}
-				\ %l/%L:%c 
-				\%#StatusWarning#%{dotfiles#statusline#componetize('dotfiles#diagnostics#warnings()') }
-				\%#StatusError#%{dotfiles#statusline#componetize('dotfiles#diagnostics#errors()') }
-				\%#StatusOk#%{dotfiles#statusline#componetize('dotfiles#diagnostics#ok()') }
-				\%#StatusWarning#%{dotfiles#statusline#componetize('dotfiles#diagnostics#checking()') }
-				\%*"
-		else
-			return '%1* %0.45f%m%h%w%r%='
-		endif
+		return ' %0.45f%m%h%w%r%= %y
+			\%{dotfiles#statusline#wordcount()}
+			\ %l/%L:%c
+			\%{dotfiles#diagnostics#warnings() }
+			\%{dotfiles#diagnostics#errors() }
+			\%* '
 	endfunction
 " }}}

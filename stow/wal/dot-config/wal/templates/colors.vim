@@ -35,8 +35,6 @@ hi Normal ctermfg=251 guifg={base05} ctermbg=235 guibg={base00} cterm=NONE gui=N
 hi EndOfBuffer ctermfg=251 guifg={base05} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
 hi LineNr ctermfg=243 guifg={base03} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
 hi SignColumn ctermfg=240 guifg={base02} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
-hi StatusLine ctermfg=237 guifg={base01} ctermbg=243 guibg={base03} cterm=NONE gui=NONE
-hi StatusLineNC ctermfg=243 guifg={base03} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
 hi VertSplit ctermfg=235 guifg={base00} ctermbg=240 guibg={base02} cterm=NONE gui=NONE
 hi ColorColumn ctermfg=240 guifg={base02} cterm=NONE gui=NONE
 hi CursorColumn ctermfg=240 guifg={base02} cterm=NONE gui=NONE
@@ -308,8 +306,8 @@ hi ReplaceModeInv ctermfg=13 guifg={color13} ctermbg=235 guibg={base00} cterm=NO
 hi CommandModeInv ctermfg=6 guifg={color6} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
 hi TerminalModeInv ctermfg=176 guifg={base0E} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
 hi NormalModeInv ctermfg=4 guifg={color4} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
-hi StatusLine ctermfg=237 guifg={base01} cterm=NONE gui=NONE
-hi StatusLineNC ctermfg=11 guifg={color11} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
+hi StatusLine ctermfg=7 guifg={color7} ctermbg=8 guibg={color8} cterm=NONE gui=NONE
+hi StatusLineNC ctermfg=8 guifg={color8} ctermbg=0 guibg={color0} cterm=NONE gui=NONE
 hi StatusLineTerm ctermfg=10 guifg={color10} ctermbg=2 guibg={color2} cterm=NONE gui=NONE
 hi StatusLineTermNC ctermfg=11 guifg={color11} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
 hi User1 ctermfg=145 guifg={base04} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
