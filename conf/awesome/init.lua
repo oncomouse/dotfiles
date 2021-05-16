@@ -77,9 +77,9 @@ local function run_once(cmd_arr)
 		awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
 	end
 end
-run_once{
-	"picom --experimental-backends -b"
-}
+-- run_once{
+-- 	"picom --experimental-backends -b"
+-- }
 -- }}}
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -224,10 +224,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		layout = wibox.layout.align.horizontal,
 		{
 			spacing = 10,
-			spacing_widget = beautiful.widget_space.left ~= nil and {
-				text = beautiful.widget_space.left,
-				widget = wibox.widget.textbox,
-			} or nil,
 			layout = wibox.layout.fixed.horizontal,
 			s.mytaglist,
 			s.mylayoutbox,
