@@ -70,7 +70,7 @@ if not gears.filesystem.file_readable(os.getenv("HOME").."/.config/awesome/json.
 end
 -- }}}
 -- Startup {{{
-
+awful.util.shell = "/usr/bin/bash"
 -- Autostart things that Awesome specifically does not provide (screensaver and compositing, in this case):
 local function run_once(cmd_arr)
 	for _, cmd in ipairs(cmd_arr) do
