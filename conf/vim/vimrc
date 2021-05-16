@@ -22,7 +22,9 @@ endfunction
 function! SL_DG() abort
 	let e = v:lua.vim.lsp.diagnostic.get_count(0, 'Error')
 	let w = v:lua.vim.lsp.diagnostic.get_count(0, 'Warning')
-	return (e == 0 ? '' : printf(' E:%d', e)) . (w == 0 ? '' : printf(' W:%d', w))
+	let i = v:lua.vim.lsp.diagnostic.get_count(0, 'Information')
+	let h = v:lua.vim.lsp.diagnostic.get_count(0, 'Hint')
+	return (e == 0 ? '' : printf(' E:%d', e)) . (w == 0 ? '' : printf(' W:%d', w)) . (i == 0 ? '' : printf(' I:%d', i)) . (h == 0 ? '' : printf(' H:%d', h))
 endfunction
 let s:statusline = ' %0.45f%m%h%w%r%= %y%{SL_WC()} %l:%c%{SL_DG()} '
 let s:statusline_nc = ' %0.45f%m%h%w%r%='

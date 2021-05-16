@@ -80,21 +80,14 @@ hi Todo ctermfg=3 guifg={color3} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
 hi Type ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 hi Typedef ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 
-" hi LspDiagnosticsDefaultError cterm=NONE gui=NONE
 hi LspDiagnosticsSignError ctermfg=5 guifg={color5} cterm=NONE gui=NONE
-hi LspDiagnosticsUnderlineError cterm=undercurl gui=undercurl 
-
-" hi LspDiagnosticsDefaultWarning cterm=NONE gui=NONE
+hi LspDiagnosticsUnderlineError ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color5}
 hi LspDiagnosticsSignWarning ctermfg=3 guifg={color3} cterm=NONE gui=NONE
-hi LspDiagnosticsUnderlineWarning cterm=undercurl gui=undercurl 
-
-" hi LspDiagnosticsDefaultInformation cterm=NONE gui=NONE
+hi LspDiagnosticsUnderlineWarning ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color3}
 hi LspDiagnosticsSignInformation ctermfg=4 guifg={color4} cterm=NONE gui=NONE
-hi LspDiagnosticsUnderlineInformation cterm=undercurl gui=undercurl 
-
-" hi LspDiagnosticsDefaultHint cterm=NONE gui=NONE
+hi LspDiagnosticsUnderlineInformation ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color4}
 hi LspDiagnosticsSignHint ctermfg=6 guifg={color6} cterm=NONE gui=NONE
-hi LspDiagnosticsUnderlineHint cterm=undercurl gui=undercurl 
+hi LspDiagnosticsUnderlineHint ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color6}
 
 hi TSAnnotation ctermfg=4 guifg={color4} cterm=NONE gui=NONE
 hi TSAttribute ctermfg=4 guifg={color4} cterm=NONE gui=NONE
