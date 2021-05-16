@@ -6,10 +6,6 @@ local themes_path = gfs.get_themes_dir()
 -- inherit default theme
 local theme = dofile(themes_path.."xresources/theme.lua")
 theme.font = "FiraCode Nerd Font Normal 12"
-theme.widget_space = {
-	left = nil,
-	right = "⁞",
-}
 theme.wibar_right = function()
 	-- Clock Widget:
 	local clock_widget = require("widgets.clock")
@@ -24,10 +20,6 @@ theme.wibar_right = function()
 	end
 	return {
 		layout = wibox.layout.fixed.horizontal,
-		spacing_widget = {
-			text = theme.widget_space.right,
-			widget = wibox.widget.textbox,
-		},
 		spacing = 20,
 		volume_widget == nil and nil or volume_widget(),
 		battery_widget == nil and nil or battery_widget(),

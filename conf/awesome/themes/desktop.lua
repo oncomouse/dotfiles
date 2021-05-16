@@ -6,10 +6,6 @@ local gfs = require("gears").filesystem
 local theme = dofile(gfs.get_themes_dir().."xresources/theme.lua")
 theme.name = "desktop"
 theme.font = "FiraCode Nerd Font Normal 14"
-theme.widget_space = {
-	left = nil,
-	right = "⁞",
-}
 theme.wibar_right = function()
 	-- Mpris Player Status Widget:
 	local mpris_widget = require("widgets.mpris")
@@ -22,10 +18,6 @@ theme.wibar_right = function()
 
 	return {
 		layout = wibox.layout.fixed.horizontal,
-		spacing_widget = {
-			text = theme.widget_space.right,
-			widget = wibox.widget.textbox,
-		},
 		spacing = 20,
 		volume_widget,
 		mpris_widget,
