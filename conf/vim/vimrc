@@ -16,7 +16,18 @@ set runtimepath+=~/dotfiles/conf/vim/after/
 set spellfile=~/dotfiles/conf/vim/spell/en.utf-8.add
 
 " Statusline:
-set statusline=%!dotfiles#statusline#statusline()
+function! WordCount() abort
+	return &filetype =~# '\v^(markdown|txt|vimwiki)' ? ' W:' . wordcount().words : ''
+endfunction
+function! DiagnosticErrors() abort
+	let l:count = v:lua.vim.lsp.diagnostic.get_count(0, 'Error')
+	return l:count == 0 ? '' : printf(' E:%d', l:count)
+endfunction
+function! DiagnosticWarnings() abort
+	let l:count = v:lua.vim.lsp.diagnostic.get_count(0, 'Warning')
+	return l:count == 0 ? '' : printf(' W:%d', l:count)
+endfunction
+set statusline=\ %0.45f%m%h%w%r%=\ %y%{WordCount()}\ %l:%c%{DiagnosticWarnings()}%{DiagnosticErrors()}\ 
 " }}}
 " Mac NeoVim Settings: {{{
 if has('mac') && has('nvim')

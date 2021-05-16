@@ -289,35 +289,8 @@ hi semshiSelected ctermfg=235 guifg={base00} guibg=#ff875f ctermbg=209 cterm=NON
 hi semshiErrorSign ctermfg=251 guifg={base05} guibg=#d70000 ctermbg=160 cterm=NONE gui=NONE
 hi semshiErrorChar ctermfg=251 guifg={base05} guibg=#d70000 ctermbg=160 cterm=NONE gui=NONE
 
-hi IndentBlanklineChar ctermfg=237 guifg={base01} ctermbg=235 guibg={base00} cterm=nocombine gui=nocombine 
-
-hi IndentGuidesOdd ctermbg=0 guibg={color0}
-hi IndentGuidesEven ctermbg=8 guibg={color8}
-
-hi VisualMode ctermfg=235 guifg={base00} ctermbg=9 guibg={color9} cterm=bold gui=bold  
-hi InsertMode ctermfg=235 guifg={base00} ctermbg=2 guibg={color2} cterm=bold gui=bold  
-hi ReplaceMode ctermfg=235 guifg={base00} ctermbg=13 guibg={color13} cterm=bold gui=bold  
-hi CommandMode ctermfg=235 guifg={base00} ctermbg=6 guibg={color6} cterm=bold gui=bold  
-hi TerminalMode ctermfg=235 guifg={base00} ctermbg=176 guibg={base0E} cterm=bold gui=bold  
-hi NormalMode ctermfg=235 guifg={base00} ctermbg=4 guibg={color4} cterm=bold gui=bold  
-hi VisualModeInv ctermfg=9 guifg={color9} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
-hi InsertModeInv ctermfg=2 guifg={color2} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
-hi ReplaceModeInv ctermfg=13 guifg={color13} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
-hi CommandModeInv ctermfg=6 guifg={color6} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
-hi TerminalModeInv ctermfg=176 guifg={base0E} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
-hi NormalModeInv ctermfg=4 guifg={color4} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
 hi StatusLine ctermfg=7 guifg={color7} ctermbg=8 guibg={color8} cterm=NONE gui=NONE
 hi StatusLineNC ctermfg=8 guifg={color8} ctermbg=0 guibg={color0} cterm=NONE gui=NONE
 hi StatusLineTerm ctermfg=10 guifg={color10} ctermbg=2 guibg={color2} cterm=NONE gui=NONE
 hi StatusLineTermNC ctermfg=11 guifg={color11} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
-hi User1 ctermfg=145 guifg={base04} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
 hi! link User Normal
-hi StatusWarning ctermfg=237 guifg={base01} ctermbg=3 guibg={color3} cterm=NONE gui=NONE
-hi StatusError ctermfg=237 guifg={base01} ctermbg=1 guibg={color1} cterm=NONE gui=NONE
-hi StatusOk ctermfg=251 guifg={base05} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
-hi StatusWarningInv ctermfg=3 guifg={color3} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
-hi StatusErrorInv ctermfg=1 guifg={color1} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
-hi StatusOkInv ctermfg=237 guifg={base01} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
-hi StatusInfoInv ctermfg=237 guifg={base01} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
-hi StatusLineInfo ctermfg=251 guifg={base05} ctermbg=240 guibg={base02} cterm=NONE gui=NONE
-hi StatusLineInfoInv ctermfg=240 guifg={base02} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
