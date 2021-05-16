@@ -290,7 +290,7 @@ hi semshiErrorSign ctermfg=251 guifg={base05} guibg=#d70000 ctermbg=160 cterm=NO
 hi semshiErrorChar ctermfg=251 guifg={base05} guibg=#d70000 ctermbg=160 cterm=NONE gui=NONE
 
 hi StatusLine ctermfg=7 guifg={color7} ctermbg=8 guibg={color8} cterm=NONE gui=NONE
-hi StatusLineNC ctermfg=8 guifg={color8} ctermbg=0 guibg={color0} cterm=NONE gui=NONE
+hi StatusLineNC ctermfg=240 guifg={base02} ctermbg=8 guibg={color8} cterm=NONE gui=NONE
 hi StatusLineTerm ctermfg=10 guifg={color10} ctermbg=2 guibg={color2} cterm=NONE gui=NONE
 hi StatusLineTermNC ctermfg=11 guifg={color11} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
 hi! link User Normal

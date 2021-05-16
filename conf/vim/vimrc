@@ -24,7 +24,12 @@ function! SL_DG() abort
 	let w = v:lua.vim.lsp.diagnostic.get_count(0, 'Warning')
 	return (e == 0 ? '' : printf(' E:%d', e)) . (w == 0 ? '' : printf(' W:%d', w))
 endfunction
-set statusline=\ %0.45f%m%h%w%r%=\ %y%{SL_WC()}\ %l:%c%{SL_DG()}\ 
+let s:statusline = ' %0.45f%m%h%w%r%= %y%{SL_WC()} %l:%c%{SL_DG()} '
+let s:statusline_nc = ' %0.45f%m%h%w%r%='
+function! SL_STL() abort
+	return g:statusline_winid ==# win_getid() ? s:statusline : s:statusline_nc
+endfunction
+set statusline=%!SL_STL()
 " }}}
 " Mac NeoVim Settings: {{{
 if has('mac') && has('nvim')
