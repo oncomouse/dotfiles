@@ -114,9 +114,9 @@ mpris_widget:connect_signal("button::press", function(_, _, _, button)
 	if button == 1 then
 		current_player:play()
 	elseif button == 2 then
-		current_player:previous_track()
+		current_player:previous()
 	elseif button == 3 then
-		current_player:next_track()
+		current_player:next()
 	end
 end)
 local mpris_tooltip = awful.tooltip {
