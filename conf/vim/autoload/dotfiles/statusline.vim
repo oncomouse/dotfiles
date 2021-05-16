@@ -38,9 +38,6 @@ let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
 	" being drawn belongs. Since this function is invoked in a %{} context,
 	" winnr() may be different from a:curwin. We use this fact to detect
 	" whether we are drawing in the active window or in an inactive window.
-	function! dotfiles#statusline#setup(curwin) abort
-		return get(extend(w:, { 'lf_active': winnr() ==# a:curwin }), '', '')
-	endfunction
 	function! dotfiles#statusline#wordcount() abort
 		return &filetype =~# '\v^(markdown|txt|vimwiki)' ? wordcount().words . ' words ' : ''
 	endfunction
@@ -54,17 +51,21 @@ let g:statusline_soft_sep = get(g:, 'statusline_soft_sep', '⋮')
 		return get(g:lf_stlm, mode())
 	endfunction
 	function! dotfiles#statusline#statusline() abort
-		return '%{dotfiles#statusline#setup('.winnr().')}%#'.get(g:lf_stlh, mode()).'#'.
-			\"%{w:['lf_active'] ? dotfiles#statusline#componetize('dotfiles#statusline#mode()', '  ', ' ') : ''}
-			\%1* %0.45f%m%h%w%r%=
-			\ %y 
-			\%#StatusLineInfo#
-			\%{dotfiles#statusline#componetize('dotfiles#statusline#wordcount()', ' ', g:statusline_soft_sep)}
-			\ %l/%L:%c 
-			\%#StatusWarning#%{(w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#diagnostics#warnings()') : ''}
-			\%#StatusError#%{(w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#diagnostics#errors()') : ''}
-			\%#StatusOk#%{(w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#diagnostics#ok()') : ''}
-			\%#StatusWarning#%{(w:['lf_active']) ? dotfiles#statusline#componetize('dotfiles#diagnostics#checking()') : ''}
-			\%*"
+		if g:statusline_winid == win_getid(winnr())
+			return '%#'.get(g:lf_stlh, mode()).'#'.
+				\"%{dotfiles#statusline#componetize('dotfiles#statusline#mode()', '  ', ' ')}
+				\%1* %0.45f%m%h%w%r%=
+				\ %y 
+				\%#StatusLineInfo#
+				\%{dotfiles#statusline#componetize('dotfiles#statusline#wordcount()', ' ', g:statusline_soft_sep)}
+				\ %l/%L:%c 
+				\%#StatusWarning#%{dotfiles#statusline#componetize('dotfiles#diagnostics#warnings()') }
+				\%#StatusError#%{dotfiles#statusline#componetize('dotfiles#diagnostics#errors()') }
+				\%#StatusOk#%{dotfiles#statusline#componetize('dotfiles#diagnostics#ok()') }
+				\%#StatusWarning#%{dotfiles#statusline#componetize('dotfiles#diagnostics#checking()') }
+				\%*"
+		else
+			return '%1* %0.45f%m%h%w%r%='
+		endif
 	endfunction
 " }}}
