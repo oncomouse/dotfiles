@@ -4,6 +4,7 @@ if !empty(glob('~/dotfiles/conf/vim/')) && !(&runtimepath =~# expand('~/dotfiles
 	set runtimepath+=~/dotfiles/conf/vim/
 endif
 
+" Don't use the minimal minpac install in vimrc-minimal
 let g:skip_minimal_minpac = 1
 
 " Load Basic Settings:
@@ -112,7 +113,7 @@ inoremap <C-l> <C-r>=lexima#insmode#leave(1, "")<CR>
 nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
 nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
 "}}}
-" Default Bindings: {{{
+" Default Diagnostic Bindings: {{{
 nmap <silent> <Plug>(dotfiles-diagnostic-next) <cmd>cnext<CR>
 nmap <silent> <Plug>(dotfiles-diagnostic-previous) <cmd>cprev<CR>
 " }}}
@@ -149,7 +150,6 @@ if exists('+termguicolors')
 	let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 	let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 	set termguicolors
-	" nvim-colorizer:
 	packadd nvim-colorizer.lua
 	lua require'colorizer'.setup{'*',markdown={names=false},text={names=false}}
 endif
@@ -187,14 +187,12 @@ call dotfiles#fzf#init()
 lua require('dotfiles.nvim_lsp')
 
 " Update FASD For NeoVim: {{{
-if has('nvim')
-	function! s:fasd_update() abort
-		if empty(&buftype)
-			call jobstart(['fasd', '-A', expand('%:p')])
-		endif
-	endfunction
-	autocmd dotfiles-settings BufWinEnter,BufFilePost * call s:fasd_update()
-endif
+function! s:fasd_update() abort
+	if empty(&buftype)
+		call jobstart(['fasd', '-A', expand('%:p')])
+	endif
+endfunction
+autocmd dotfiles-settings BufWinEnter,BufFilePost * call s:fasd_update()
 " }}}
 " }}}
 " # vim:foldmethod=marker
