@@ -19,14 +19,19 @@ set spellfile=~/dotfiles/conf/vim/spell/en.utf-8.add
 function! SL_WC() abort
 	return &filetype =~# '\v^(markdown|txt|vimwiki)' ? ' W:' . wordcount().words : ''
 endfunction
-function! SL_DG() abort
-	let e = v:lua.vim.lsp.diagnostic.get_count(0, 'Error')
-	let w = v:lua.vim.lsp.diagnostic.get_count(0, 'Warning')
-	let i = v:lua.vim.lsp.diagnostic.get_count(0, 'Information')
-	let h = v:lua.vim.lsp.diagnostic.get_count(0, 'Hint')
-	return (e == 0 ? '' : printf(' E:%d', e)) . (w == 0 ? '' : printf(' W:%d', w)) . (i == 0 ? '' : printf(' I:%d', i)) . (h == 0 ? '' : printf(' H:%d', h))
-endfunction
-let s:statusline = ' %0.45f%m%h%w%r%= %y%{SL_WC()} %l:%c%{SL_DG()} '
+lua << EOF
+function sl_dg()
+	local d = ''
+	for kind,marker in pairs({ Error = " E:", Warning = " W:", Information = " I:", Hint = " H:" }) do
+		local c = vim.lsp.diagnostic.get_count(0, kind)
+		if c ~= 0 then
+			d = d .. marker .. tostring(c)
+		end
+	end
+	return d
+end
+EOF
+let s:statusline = ' %0.45f%m%h%w%r%= %y%{SL_WC()} %l:%c%{luaeval("sl_dg()")} '
 let s:statusline_nc = ' %0.45f%m%h%w%r%='
 function! SL_STL() abort
 	return g:statusline_winid ==# win_getid() ? s:statusline : s:statusline_nc
