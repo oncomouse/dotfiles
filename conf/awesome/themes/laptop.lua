@@ -17,7 +17,7 @@ theme.wibar_right = function()
 	return {
 		layout = wibox.layout.fixed.horizontal,
 		spacing = 0,
-		brightness_widget == nil and nil or brightness_widget({program="xbacklight"}),
+		brightness_widget == nil and nil or brightness_widget({program="xbacklight", type="icon_and_text"}),
 		volume_widget,
 		battery_widget == nil and nil or battery_widget({
 			show_current_level=true,

@@ -542,6 +542,18 @@ awful.keyboard.append_global_keybindings({
 --- }}}
 -- Media Keys {{{
 awful.keyboard.append_global_keybindings({
+	awful.key({}, "XF86MonBrightnessDown", function()
+		require("awesome-wm-widgets.brightness-widget.brightness"):dec()
+	end, {
+		description = "lower monitor brightness",
+		group = "media",
+	}),
+	awful.key({}, "XF86MonBrightnessUp", function()
+		require("awesome-wm-widgets.brightness-widget.brightness"):inc()
+	end, {
+		description = "raise monitor brightness",
+		group = "media",
+	}),
 	awful.key({}, "XF86AudioPlay", mpris_widget.play, {
 		description = "play/pause audio",
 		group = "media",
