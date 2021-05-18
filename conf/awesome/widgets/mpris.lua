@@ -1,4 +1,4 @@
--- luacheck: globals awesome
+-- luacheck: globals awesome mouse
 local wibox = require("wibox")
 local awful = require("awful")
 local gears = require("gears")
@@ -70,6 +70,12 @@ function on_metadata(player, _, _)
 		icon = "栗"
 	end
 	for k, v in player.metadata:pairs() do
+		if k:match(".*:artUrl") and v.value:sub(1,8) == 'https://' then
+			if artUrl ~= v.value then
+				artUrl = v.value
+				awful.spawn.with_shell("curl " .. artUrl .." | convert - ~/.cache/awesome/mpris.png ")
+			end
+		end
 		if k:match(".*:artUrl") and v.value:sub(1, 8) == "file:///" then
 			artUrl = v.value:sub(7)
 		end
@@ -124,11 +130,57 @@ local mpris_tooltip = awful.tooltip {
 	preferred_positions = {'bottom'},
  }
 mpris_tooltip:add_to_object(mpris_widget)
+
+local mpris_popup = awful.popup{
+	ontop = true,
+	visible = false,
+	shape = gears.shape.rect,
+	-- border_width = 1,
+	-- border_color = beautiful.bg_focus,
+	maximum_width = 400,
+	offset = {y = 5},
+	widget = {},
+	set_text = function(self, text)
+		self:get_children_by_id("text")[1]:set_markup(text)
+	end
+}
+
+local function get_image()
+	if artUrl == nil then
+		return ''
+	end
+	if artUrl:sub(1,8) == 'https://' then
+		return os.getenv('HOME') .. '/.cache/awesome/mpris.png'
+	end
+	return artUrl
+end
 mpris_widget:connect_signal('mouse::enter', function()
 	if artist ~= nil then
-		mpris_tooltip.markup = '<b>Artist</b>: ' .. artist
-			.. '\n<b>Song</b>: ' .. title
-			.. '\n<b>Album</b>: ' .. album
+		-- mpris_tooltip.markup = '<b>Artist</b>: ' .. artist
+		-- 	.. '\n<b>Song</b>: ' .. title
+		-- 	.. '\n<b>Album</b>: ' .. album
+		mpris_popup:setup{
+			{
+				widget=wibox.widget.imagebox,
+				id="image",
+				image= get_image(),
+				forced_width=50,
+			},
+			{
+				widget=wibox.widget.textbox,
+				id="text",
+				markup='<b>Artist</b>: ' .. artist
+				.. '\n<b>Song</b>: ' .. title
+				.. '\n<b>Album</b>: ' .. album,
+			},
+			layout  = wibox.layout.fixed.horizontal,
+		}
 	end
+	mpris_popup.visible = true
+	mpris_popup:move_next_to(mouse.current_widget_geometry)
 end)
+mpris_widget:connect_signal('mouse::leave', function()
+	mpris_popup.visible = false
+end)
+
 return mpris_widget
