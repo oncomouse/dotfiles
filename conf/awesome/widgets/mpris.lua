@@ -7,6 +7,8 @@ local lgi = require("lgi")
 local Playerctl = lgi.Playerctl
 local manager = lgi.Playerctl.PlayerManager()
 
+local dpi = require("beautiful").xresources.apply_dpi
+
 -- Mpris player status:
 local current_player = nil
 local mpris_widget = wibox.widget{
@@ -137,7 +139,7 @@ local mpris_popup = awful.popup{
 	shape = gears.shape.rect,
 	-- border_width = 1,
 	-- border_color = beautiful.bg_focus,
-	maximum_width = 400,
+	maximum_width = dpi(400),
 	offset = {y = 5},
 	widget = {},
 	set_text = function(self, text)
@@ -159,21 +161,29 @@ mpris_widget:connect_signal('mouse::enter', function()
 		-- mpris_tooltip.markup = '<b>Artist</b>: ' .. artist
 		-- 	.. '\n<b>Song</b>: ' .. title
 		-- 	.. '\n<b>Album</b>: ' .. album
+		local f = wibox.widget{
+			homogeneous = true,
+			spacing = 5,
+			min_cols_size = 10,
+			min_rows_size = 10,
+			layout  = wibox.layout.grid,
+		}
+		f:add_widget_at(wibox.widget{
+			widget=wibox.widget.imagebox,
+			id="image",
+			image= get_image(),
+			forced_width=dpi(75),
+			forced_height=dpi(75),
+		}, 1, 1)
+		f:add_widget_at(wibox.widget{
+			widget=wibox.widget.textbox,
+			id="text",
+			markup='<b>Artist</b>: ' .. artist
+			.. '\n<b>Song</b>: ' .. title
+			.. '\n<b>Album</b>: ' .. album,
+		}, 1, 2, 1, 3)
 		mpris_popup:setup{
-			{
-				widget=wibox.widget.imagebox,
-				id="image",
-				image= get_image(),
-				forced_width=50,
-			},
-			{
-				widget=wibox.widget.textbox,
-				id="text",
-				markup='<b>Artist</b>: ' .. artist
-				.. '\n<b>Song</b>: ' .. title
-				.. '\n<b>Album</b>: ' .. album,
-			},
-			layout  = wibox.layout.fixed.horizontal,
+			widget=f
 		}
 	end
 	mpris_popup.visible = true
