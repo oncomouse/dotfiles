@@ -11,7 +11,7 @@ if status is-interactive
 	setuvar SXHKD_SHELL sh
 	# NNN Theme
 	setuvar NNN_FCOLORS "0603040200050E070D09abc4"
-	setuvar OW_KEY (cat .ow_credentials.json | jq .key | sed -e s/\"//g)
+	setuvar OW_KEY (cat .ow_credentials.json | jq -r .key)
 	setuvar OW_LAT (cat .ow_credentials.json | jq .coordinates[0])
 	setuvar OW_LONG (cat .ow_credentials.json | jq .coordinates[1])
 # Configure FZF:
