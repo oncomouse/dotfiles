@@ -92,8 +92,8 @@ Echinus*resizeincx: WS + d = 0 0 5 0
 Echinus*resizeincy: WS + w = 0 0 0 5
 
 Echinus*spawn0: WS + Return = kitty
-Echinus*spawn1: WA + r = rofi -theme ~/dotfiles/conf/rofi/barmenu_small.rasi -match fuzzy -auto-select -show drun -show-icons -yoffset 15 -drun-display-format '{name}'
-Echinus*spawn2: WS + w = rofi -theme ~/dotfiles/conf/rofi/barmenu_small.rasi -show window -show-icons -yoffset 15 -window-format '{w} {c} {t:25}'
+Echinus*spawn1: WA + r = rofi -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -show drun -show-icons -yoffset 15 -drun-display-format '{name}' -font "FiraCode Nerd Font Normal 10"
+Echinus*spawn2: WS + w = rofi -theme ~/dotfiles/conf/rofi/barmenu.rasi -show window -show-icons -yoffset 15 -window-format '{w} {c} {t:25}' -font "FiraCode Nerd Font Normal 10"
 Echinus*spawn3: WS + n = networkmanager_dmenu
 Echinus*spawn4: XF86MonBrightnessDown = xbacklight -dec 5
 Echinus*spawn5: XF86MonBrightnessUp = xbacklight -inc 5
