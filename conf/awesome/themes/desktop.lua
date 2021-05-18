@@ -1,9 +1,7 @@
--- luacheck: globals awesome
 local wibox = require("wibox")
-local gfs = require("gears").filesystem
 
 -- inherit default theme
-local theme = dofile(gfs.get_themes_dir().."xresources/theme.lua")
+local theme = dofile(os.getenv("HOME") .. "/dotfiles/conf/awesome/themes/common.lua")
 theme.name = "desktop"
 theme.font = "FiraCode Nerd Font Normal 14"
 theme.wibar_right = function()

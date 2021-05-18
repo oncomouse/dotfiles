@@ -1,10 +1,7 @@
--- luacheck: globals awesome
 local wibox = require("wibox")
-local gfs = require("gears.filesystem")
-local themes_path = gfs.get_themes_dir()
 
 -- inherit default theme
-local theme = dofile(themes_path.."xresources/theme.lua")
+local theme = dofile(os.getenv("HOME") .. "/dotfiles/conf/awesome/themes/common.lua")
 theme.font = "FiraCode Nerd Font Normal 10"
 theme.wibar_right = function()
 	-- Clock Widget:
