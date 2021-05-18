@@ -38,7 +38,7 @@ require("utils.border_gradient")
 -- Clone Required Git Repos:
 local download_libraries = require("utils.download_libraries")
 download_libraries{
-	-- "rxi/json.lua",
+	"rxi/json.lua",
 	"streetturtle/awesome-wm-widgets",
 	"guotsuan/awesome-revelation",
 }

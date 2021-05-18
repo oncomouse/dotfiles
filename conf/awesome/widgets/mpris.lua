@@ -110,13 +110,13 @@ end
 manager.on_name_appeared:connect("name-appeared")
 
 -- Metadata
-mpris_widget:connect_signal("button::press", function(_, _, _, button)
+mpris_widget:connect_signal("button::press", function(self, _, _, button)
 	if button == 1 then
-		current_player:play()
+		self:play()
 	elseif button == 2 then
-		current_player:previous()
+		self:previous()
 	elseif button == 3 then
-		current_player:next()
+		self:next()
 	end
 end)
 local mpris_tooltip = awful.tooltip {

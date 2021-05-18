@@ -1,3 +1,5 @@
+-- luacheck: globals awesome
+local awful = require("awful")
 local gears = require("gears")
 local function download_libraries(libraries)
 	local run_count = 0
@@ -23,4 +25,4 @@ local function download_libraries(libraries)
 	end
 end
 
-return download_libraries 
+return download_libraries

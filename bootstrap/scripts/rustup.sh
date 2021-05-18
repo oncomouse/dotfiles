@@ -3,6 +3,7 @@ os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 if [ "$os" = "arch" ]; then
   rustup install stable
   rustup default stable
+  rustup toolchain install nightly-x86_64-unknown-linux-gnu
 else
   if rustup -v COMMAND > /dev/null 2>&1; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh

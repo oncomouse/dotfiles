@@ -59,7 +59,9 @@ local border_timer = gears.timer{
 -- Start timer if a floating window appears and has focus:
 client.connect_signal("manage", function(c)
 	if c == client.focus then
-		border_timer:start()
+		if not border_timer.started then
+			border_timer:start()
+		end
 	end
 end)
 

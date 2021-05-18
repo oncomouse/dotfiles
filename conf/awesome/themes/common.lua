@@ -34,9 +34,9 @@ theme.titlebar_fg_focus = xrdb.color15
 theme.tasklist_disable_icon = true -- No icons in tasklist
 theme.ow = {
 	key=os.getenv("OW_KEY"),
-	coordiantes={
-		os.getenv("OW_LAT"),
-		os.getenv("OW_LONG"),
+	coordinates={
+		tonumber(os.getenv("OW_LAT")),
+		tonumber(os.getenv("OW_LONG")),
 	}
 }
 return theme
