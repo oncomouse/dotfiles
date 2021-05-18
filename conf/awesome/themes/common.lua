@@ -12,7 +12,7 @@ theme.layout_centeredmonocle = gears.color.recolor_image(
 theme.useless_gap = 0 -- No gaps
 theme.border_normal = xrdb.color8 -- Normal border color
 theme.border_focus = xrdb.color1 -- Focused border color
-theme.border_width = 1
+theme.border_width = 2
 -- Fonts
 theme.hotkeys_font = "FiraCode Nerd Font Normal 16"
 theme.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
@@ -32,4 +32,11 @@ theme.titlebar_bg_focus = xrdb.color0
 theme.titlebar_fg_focus = xrdb.color15
 -- Tasklist formatting:
 theme.tasklist_disable_icon = true -- No icons in tasklist
+theme.ow = {
+	key=os.getenv("OW_KEY"),
+	coordiantes={
+		os.getenv("OW_LAT"),
+		os.getenv("OW_LONG"),
+	}
+}
 return theme

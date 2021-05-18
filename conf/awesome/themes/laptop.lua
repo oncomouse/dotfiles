@@ -20,8 +20,8 @@ theme.wibar_right = function()
 			show_current_level=true,
 		}),
 		weather_widget == nil and nil or weather_widget({
-			api_key='7092b2d31fe650e586336bc51e657814',
-			coordinates = {30.663606864996588, -96.34546254147835},
+			api_key=theme.ow.key,
+			coordinates = theme.ow.coordinates,
 			units = 'imperial',
 			time_format_12h = true,
 			both_units_widget = false,
