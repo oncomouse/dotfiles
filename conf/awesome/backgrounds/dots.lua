@@ -1,10 +1,10 @@
--- luacheck: globals x
 local cairo = require('lgi').cairo
 local gears = require('gears')
+local xrdb = require("beautiful").xresources.get_current_theme()
 
 local function make_background()
-	local tile_color = gears.color(x.color0)
-	local box_color = gears.color(x.color8)
+	local tile_color = gears.color(xrdb.color0)
+	local box_color = gears.color(xrdb.color8)
 	local tile_width = 125
 	local box_width = 4
 

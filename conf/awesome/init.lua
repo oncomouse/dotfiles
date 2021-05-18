@@ -13,29 +13,7 @@ local wibox = require("wibox")
 local mpris_widget = require("widgets.mpris")
 local volume_widget = require("widgets.volume")
 local clock_widget = require("widgets.clock")
--- Load xrdb colors:
-local xrdb = beautiful.xresources.get_current_theme()
-x = {
-	background = xrdb.background,
-	foreground = xrdb.foreground,
-	color0 = xrdb.color0,
-	color1 = xrdb.color1,
-	color2 = xrdb.color2,
-	color3 = xrdb.color3,
-	color4 = xrdb.color4,
-	color5 = xrdb.color5,
-	color6 = xrdb.color6,
-	color7 = xrdb.color7,
-	color8 = xrdb.color8,
-	color9 = xrdb.color9,
-	color10 = xrdb.color10,
-	color11 = xrdb.color11,
-	color12 = xrdb.color12,
-	color13 = xrdb.color13,
-	color14 = xrdb.color14,
-	color15 = xrdb.color15,
-}
-
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 -- Notification library
 local naughty = require("naughty")
 -- Hotkeys
@@ -53,33 +31,22 @@ local swap_main = require("utils.swap_main")
 local rofi = require("utils.rofi")
 -- Used for run menu:
 local vi_parse = require("utils.vi_parse")
-local revelation = require("utils.revelation")
+local revelation = require("awesome-revelation")
 -- Heartbeat timer for caffeinating AwesomeWM:
 local heartbeat = require("utils.heartbeat")
 require("utils.border_gradient")
-if not gears.filesystem.file_readable(os.getenv("HOME").."/.config/awesome/json.lua") then
-	awful.spawn.with_line_callback("sh -c \"curl -Lso ~/.config/awesome/json.lua https://raw.githubusercontent.com/rxi/json.lua/master/json.lua\"", {
-		exit=function()
-			awful.spawn.with_line_callback("sh -c \"git clone https://github.com/streetturtle/awesome-wm-widgets.git ~/.config/awesome/awesome-wm-widgets \"", {
-				exit=function()
-					awesome.restart()
-				end
-			})
-		end
-	})
-end
+-- Clone Required Git Repos:
+local download_libraries = require("utils.download_libraries")
+download_libraries{
+	-- "rxi/json.lua",
+	"streetturtle/awesome-wm-widgets",
+	"guotsuan/awesome-revelation",
+}
 -- }}}
 -- Startup {{{
 awful.util.shell = "/usr/bin/bash"
--- Autostart things that Awesome specifically does not provide (screensaver and compositing, in this case):
-local function run_once(cmd_arr)
-	for _, cmd in ipairs(cmd_arr) do
-		awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
-	end
-end
--- run_once{
--- 	"picom --experimental-backends -b"
--- }
+revelation.init()
+heartbeat.init()
 -- }}}
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -93,9 +60,6 @@ naughty.connect_signal("request::display_error", function(message, startup)
 end)
 -- }}}
 -- {{{ Appearance
--- Themes define colours, icons, font and wallpapers. {{{
---- }}}
-
 -- Set the background:
 local apply_background = require('backgrounds.dots')
 apply_background()
@@ -111,8 +75,6 @@ tag.connect_signal("request::default_layouts", function()
 		layout_cm,
 	}
 end)
-revelation.init()
-heartbeat.init()
 -- }}}
 -- {{{ Wibar
 screen.connect_signal("request::desktop_decoration", function(s)
@@ -206,12 +168,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		beautiful.wibar_right(),
 	}
 end)
--- }}}
--- Mouse bindings{{{
--- awful.mouse.append_global_mousebindings({
---     awful.button({ }, 4, awful.tag.viewprev),
---     awful.button({ }, 5, awful.tag.viewnext),
--- })
 -- }}}
 -- {{{ Key bindings
 awful.keyboard.append_global_keybindings({
@@ -450,7 +406,10 @@ awful.keyboard.append_global_keybindings({
 		}
 	),
 
-	awful.key({ modkey }, "e", revelation),
+	awful.key({}, "F12", revelation, {
+		description = "run revelation (exposé-like behavior)",
+		group = "layout",
+	}),
 
 	awful.key({ modkey }, "x",
 		function()
@@ -516,13 +475,13 @@ awful.keyboard.append_global_keybindings({
 -- Media Keys {{{
 awful.keyboard.append_global_keybindings({
 	awful.key({}, "XF86MonBrightnessDown", function()
-		require("awesome-wm-widgets.brightness-widget.brightness"):dec()
+		brightness_widget:dec()
 	end, {
 		description = "lower monitor brightness",
 		group = "media",
 	}),
 	awful.key({}, "XF86MonBrightnessUp", function()
-		require("awesome-wm-widgets.brightness-widget.brightness"):inc()
+		brightness_widget:inc()
 	end, {
 		description = "raise monitor brightness",
 		group = "media",
@@ -734,6 +693,8 @@ ruled.client.connect_signal("request::rules", function()
 		},
 	}
 end)
+-- }}}
+-- Titlebars {{{
 client.connect_signal("request::titlebars", function(c)
 	-- buttons for the titlebar
 	local buttons = {
@@ -784,7 +745,6 @@ client.connect_signal("request::titlebars", function(c)
 end)
 -- }}}
 -- {{{ Notifications
-
 ruled.notification.connect_signal('request::rules', function()
 	-- All notifications will match this rule.
 	ruled.notification.append_rule {
