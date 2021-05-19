@@ -31,6 +31,7 @@ theme.wibar_right = function()
 			show_hourly_forecast = true,
 			show_daily_forecast = true,
 		}),
+		wibox.widget.systray(),
 		clock_widget,
 	}
 end

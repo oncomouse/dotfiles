@@ -72,3 +72,5 @@ lua53-penlight
 lua53-argparse
 lua53-lgi
 pamixer
+networkmanager
+network-manager-applet
