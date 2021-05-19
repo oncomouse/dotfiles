@@ -60,6 +60,11 @@ naughty.connect_signal("request::display_error", function(message, startup)
 end)
 -- }}}
 -- {{{ Appearance
+-- Beautiful
+local beautiful = require("beautiful")
+if not beautiful.init("~/dotfiles/conf/awesome/themes/custom_xresources.lua") then
+	beautiful.init(require("gears").filesystem.get_themes_dir() .. "xresources/theme.lua")
+end
 -- Set the background:
 local apply_background = require('backgrounds.dots')
 apply_background()
