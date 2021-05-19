@@ -2,11 +2,11 @@ local wibox = require("wibox")
 local gt = require("gears.timer")
 
 local clock_extend_timeout = 5
-local clock_widget = wibox.widget.textclock(" %a %l:%M %p ")
+local clock_widget = wibox.widget.textclock(" %a%l:%M %p ")
 clock_widget.extended = false
 clock_widget.restore = function()
 	clock_widget.extended = false
-	clock_widget.format = " %a %l:%M %p "
+	clock_widget.format = " %a%l:%M %p "
 end
 clock_widget.extend = function()
 	clock_widget.extended = true
