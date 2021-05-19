@@ -1,5 +1,12 @@
 -- luacheck: globals awesome client io tag screen
 -- Includes {{{
+-- Clone Required Git Repos:
+local download_libraries = require("utils.download_libraries")
+download_libraries{
+	"https://raw.githubusercontent.com/rxi/json.lua/master/json.lua",
+	"streetturtle/awesome-wm-widgets",
+	"guotsuan/awesome-revelation",
+}
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -35,13 +42,6 @@ local revelation = require("awesome-revelation")
 -- Heartbeat timer for caffeinating AwesomeWM:
 local heartbeat = require("utils.heartbeat")
 require("utils.border_gradient")
--- Clone Required Git Repos:
-local download_libraries = require("utils.download_libraries")
-download_libraries{
-	"https://raw.githubusercontent.com/rxi/json.lua/master/json.lua",
-	"streetturtle/awesome-wm-widgets",
-	"guotsuan/awesome-revelation",
-}
 -- }}}
 -- Startup {{{
 awful.util.shell = "/usr/bin/bash"
