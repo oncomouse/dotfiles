@@ -5,6 +5,11 @@
 EDITOR="$(which nvim)"
 export EDITOR
 
+OW_KEY="$(cat ~/.ow_credentials.json | jq -r .key)"
+OW_LAT="$(cat ~/.ow_credentials.json | jq .coordinates[0])"
+OW_LONG="$(cat ~/.ow_credentials.json | jq .coordinates[1])"
+export OW_KEY OW_LAT OW_LONG
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
