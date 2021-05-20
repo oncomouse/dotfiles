@@ -12,9 +12,9 @@ if status is-interactive
 	# NNN Theme
 	setuvar NNN_FCOLORS "0603040200050E070D09abc4"
 	if test -e $HOME/.ow_credentials.json
-		setuvar OW_KEY (cat .ow_credentials.json | jq -r .key)
-		setuvar OW_LAT (cat .ow_credentials.json | jq .coordinates[0])
-		setuvar OW_LONG (cat .ow_credentials.json | jq .coordinates[1])
+		setuvar OW_KEY (cat ~/.ow_credentials.json | jq -r .key)
+		setuvar OW_LAT (cat ~/.ow_credentials.json | jq .coordinates[0])
+		setuvar OW_LONG (cat ~/.ow_credentials.json | jq .coordinates[1])
 	end
 # Configure FZF:
 	if status is-login

@@ -17,10 +17,11 @@ local ruled = require("ruled")
 -- Widget and layout library
 local wibox = require("wibox")
 -- Theme handling library
-local mpris_widget = require("widgets.mpris")
 local volume_widget = require("widgets.volume")
 local clock_widget = require("widgets.clock")
 local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
+local weather_widget = require("awesome-wm-widgets.weather-widget.weather")
 -- Notification library
 local naughty = require("naughty")
 -- Hotkeys
@@ -61,10 +62,48 @@ end)
 -- }}}
 -- {{{ Appearance
 -- Beautiful
-local beautiful = require("beautiful")
-if not beautiful.init("~/dotfiles/conf/awesome/themes/custom_xresources.lua") then
-	beautiful.init(require("gears").filesystem.get_themes_dir() .. "xresources/theme.lua")
+beautiful.init(gears.filesystem.get_themes_dir().."xresources/theme.lua")
+local xrdb = beautiful.xresources.get_current_theme()
+
+beautiful.layout_centeredmonocle = gears.color.recolor_image(
+	gears.filesystem.get_themes_dir() .. "default/layouts/magnifierw.png",
+	beautiful.fg_normal
+)
+beautiful.useless_gap = 0 -- No gaps
+beautiful.border_normal = xrdb.color8 -- Normal border color
+beautiful.border_focus = xrdb.color1 -- Focused border color
+beautiful.border_width = 2
+-- Fonts
+beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
+beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
+-- Widget spacing in left and right wibox areas:
+-- Wibar stuff:
+beautiful.bar_height = 24
+beautiful.bar_position = "top"
+-- Hotkey formatting:
+beautiful.hotkeys_modifiers_fg = xrdb.color4
+-- Titlebar formatting:
+beautiful.titlebar_font = "FiraCode Nerd Font Bold 12"
+beautiful.titlebar_bg_normal = xrdb.color8
+beautiful.titlebar_fg_normal = xrdb.color7
+beautiful.titlebar_close_button_focus = gears.filesystem.get_themes_dir().."default/titlebar/close_normal.png"
+beautiful.titlebar_close_button_focus  = gears.filesystem.get_themes_dir().."default/titlebar/close_focus.png"
+beautiful.titlebar_bg_focus = xrdb.color0
+beautiful.titlebar_fg_focus = xrdb.color15
+-- Tasklist formatting:
+beautiful.tasklist_disable_icon = true -- No icons in tasklist
+beautiful.ow = {
+	key=os.getenv("OW_KEY"),
+	coordinates={
+		tonumber(os.getenv("OW_LAT")),
+		tonumber(os.getenv("OW_LONG")),
+	}
+}
+beautiful.font = "FiraCode Nerd Font Normal 14"
+if screen[1].geometry.width <= 1280 then
+	beautiful.font = "FiraCode Nerd Font Normal 10"
 end
+local mpris_widget = require("widgets.mpris")
 -- Set the background:
 local apply_background = require('backgrounds.dots')
 apply_background()
@@ -170,7 +209,39 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			s.mypromptbox,
 		},
 		s.mytasklist,
-		beautiful.wibar_right(),
+		screen[1].geometry.width <= 1280 and
+			-- Clock Widget:
+			{
+				layout = wibox.layout.fixed.horizontal,
+				spacing = 0,
+				brightness_widget({program="xbacklight", type="icon_and_text"}),
+				volume_widget(),
+				battery_widget({
+					show_current_level=true,
+				}),
+				wibox.widget.systray(),
+				clock_widget(),
+			}
+		or {
+			layout = wibox.layout.fixed.horizontal,
+			spacing = 20,
+			volume_widget(),
+			mpris_widget,
+			weather_widget({
+				api_key=beautiful.ow.key,
+				coordinates = beautiful.ow.coordinates,
+				units = 'imperial',
+				time_format_12h = true,
+				both_units_widget = false,
+				-- font_name = 'Carter One',
+				icons = 'VitalyGorbachev',
+				icons_extension = '.svg',
+				show_hourly_forecast = true,
+				show_daily_forecast = true,
+			}),
+			wibox.widget.systray(),
+			clock_widget(),
+		}
 	}
 end)
 -- }}}
@@ -491,31 +562,31 @@ awful.keyboard.append_global_keybindings({
 		description = "raise monitor brightness",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioPlay", mpris_widget.play, {
+	awful.key({}, "XF86AudioPlay", function() mpris_widget.play() end, {
 		description = "play/pause audio",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioStop", mpris_widget.stop, {
+	awful.key({}, "XF86AudioStop", function() mpris_widget.stop() end, {
 		description = "stop audio",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioPrev", mpris_widget.previous_track, {
+	awful.key({}, "XF86AudioPrev", function() mpris_widget.previous_track() end, {
 		description = "previous track",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioNext", mpris_widget.next_track, {
+	awful.key({}, "XF86AudioNext", function() mpris_widget.next_track() end, {
 		description = "next track",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioLowerVolume", volume_widget.down, {
+	awful.key({}, "XF86AudioLowerVolume", function() volume_widget:down() end, {
 		description = "lower volume by 5%",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioRaiseVolume", volume_widget.up, {
+	awful.key({}, "XF86AudioRaiseVolume", function() volume_widget:up() end, {
 		description = "raise volume by 5%",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioMute", volume_widget.mute, {
+	awful.key({}, "XF86AudioMute", function() volume_widget:mute() end, {
 		description = "mute audio",
 		group = "media",
 	}),

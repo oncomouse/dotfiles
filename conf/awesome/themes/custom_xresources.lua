@@ -1,4 +1,4 @@
--- luacheck: globals x
+-- luacheck: globals x screen
 local gears = require("gears")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
@@ -40,10 +40,6 @@ theme.ow = {
 		tonumber(os.getenv("OW_LONG")),
 	}
 }
-theme.font = "FiraCode Nerd Font Normal 14"
-if screen[1].geometry.width <= 1280 then
-	theme.font = "FiraCode Nerd Font Normal 10"
-end
 theme.wibar_right = function()
 	if screen[1].geometry.width <= 1280 then
 		-- Clock Widget:
