@@ -31,6 +31,8 @@ if [ -z "$SERVER" ]; then
 	# Use Rofi for dmenu:
 	sudo ln -sf "$(which rofi)" /usr/bin/dmenu
 fi
+sudo systemctl enable NetworkManager.service
+sudo systemctl start NetworkManager.service
 
 # Enable OpenSSH:
 sudo systemctl enable sshd.service

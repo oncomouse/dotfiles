@@ -37,3 +37,4 @@ for package in "${packages[@]}"; do
   fi
 done
 cd ~/dotfiles || exit
+networkmanager-dmenu-git
