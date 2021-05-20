@@ -3,7 +3,7 @@ local gt = require("gears.timer")
 
 local clock_widget = {}
 
-function create()
+local function create()
 	local clock_extend_timeout = 5
 	clock_widget = wibox.widget.textclock(" %a%l:%M %p ")
 	clock_widget.extended = false

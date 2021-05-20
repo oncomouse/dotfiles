@@ -19,6 +19,7 @@ local wibox = require("wibox")
 -- Theme handling library
 local volume_widget = require("widgets.volume")
 local clock_widget = require("widgets.clock")
+local mpris_widget = require("widgets.mpris")
 local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 local weather_widget = require("awesome-wm-widgets.weather-widget.weather")
@@ -43,11 +44,13 @@ local revelation = require("awesome-revelation")
 -- Heartbeat timer for caffeinating AwesomeWM:
 local heartbeat = require("utils.heartbeat")
 require("utils.border_gradient")
+local evil_init = require("evil")
 -- }}}
 -- Startup {{{
 awful.util.shell = "/usr/bin/bash"
 revelation.init()
 heartbeat.init()
+evil_init()
 -- }}}
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -92,6 +95,8 @@ beautiful.titlebar_bg_focus = xrdb.color0
 beautiful.titlebar_fg_focus = xrdb.color15
 -- Tasklist formatting:
 beautiful.tasklist_disable_icon = true -- No icons in tasklist
+beautiful.tasklist_bg_focus = xrdb.color0
+beautiful.tasklist_fg_focus = xrdb.color7
 beautiful.ow = {
 	key=os.getenv("OW_KEY"),
 	coordinates={
@@ -103,7 +108,6 @@ beautiful.font = "FiraCode Nerd Font Normal 14"
 if screen[1].geometry.width <= 1280 then
 	beautiful.font = "FiraCode Nerd Font Normal 10"
 end
-local mpris_widget = require("widgets.mpris")
 -- Set the background:
 local apply_background = require('backgrounds.dots')
 apply_background()
@@ -226,7 +230,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			layout = wibox.layout.fixed.horizontal,
 			spacing = 20,
 			volume_widget(),
-			mpris_widget,
+			mpris_widget(),
 			weather_widget({
 				api_key=beautiful.ow.key,
 				coordinates = beautiful.ow.coordinates,
@@ -562,19 +566,19 @@ awful.keyboard.append_global_keybindings({
 		description = "raise monitor brightness",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioPlay", function() mpris_widget.play() end, {
+	awful.key({}, "XF86AudioPlay", function() mpris_widget:play() end, {
 		description = "play/pause audio",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioStop", function() mpris_widget.stop() end, {
+	awful.key({}, "XF86AudioStop", function() mpris_widget:stop() end, {
 		description = "stop audio",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioPrev", function() mpris_widget.previous_track() end, {
+	awful.key({}, "XF86AudioPrev", function() mpris_widget:previous_track() end, {
 		description = "previous track",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioNext", function() mpris_widget.next_track() end, {
+	awful.key({}, "XF86AudioNext", function() mpris_widget:next_track() end, {
 		description = "next track",
 		group = "media",
 	}),
