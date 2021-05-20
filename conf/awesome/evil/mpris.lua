@@ -15,21 +15,13 @@ local function evil_init()
 		'ncspot'
 	}
 	local status = "STOPPED"
-	function on_playback_status(player, new_status, _)
-		status = new_status
-		if status == "STOPPED" then
-			current_player = manager.players[1]
-		elseif status == "PLAYING" then
-			current_player = player
-		end
-	end
+	local icon
+	local artist
+	local album
+	local title
+	local artUrl
 
-	function on_metadata(player, _, _)
-		local artist = player:get_artist()
-		local album = player:get_album()
-		local title = player:get_title()
-		local icon
-		local artUrl
+	function status_to_icon()
 		if status == "PLAYING" then
 			icon = "契"
 		elseif status == "PAUSED" then
@@ -37,6 +29,27 @@ local function evil_init()
 		else
 			icon = "栗"
 		end
+	end
+
+	function signal_update()
+		status_to_icon()
+		awesome.emit_signal("evil::mpris_widget::metadata", icon, artist, title, album, artUrl)
+	end
+
+	function on_playback_status(player, new_status, _)
+		status = new_status
+		if status == "STOPPED" then
+			current_player = manager.players[1]
+		elseif status == "PLAYING" then
+			current_player = player
+		end
+		signal_update()
+	end
+
+	function on_metadata(player, _, _)
+		artist = player:get_artist()
+		album = player:get_album()
+		title = player:get_title()
 		for k, v in player.metadata:pairs() do
 			if k:match(".*:artUrl") and v.value:sub(1,8) == 'https://' then
 				if artUrl ~= v.value then
@@ -48,8 +61,7 @@ local function evil_init()
 				artUrl = v.value:sub(7)
 			end
 		end
-
-		awesome.emit_signal("evil::mpris_widget::metadata", icon, artist, title, album, artUrl)
+		signal_update()
 	end
 
 	function follow_player(name)

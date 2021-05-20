@@ -52,13 +52,13 @@ local function create()
 			self:get_children_by_id("title")[1]:set_markup(output)
 		end
 	}
-	mpris_widget.widget:connect_signal("button::press", function(self, _, _, button)
+	mpris_widget.widget:connect_signal("button::press", function(_, _, _, button)
 		if button == 1 then
-			self:play()
+			mpris_widget:play()
 		elseif button == 2 then
-			self:previous()
+			mpris_widget:previous()
 		elseif button == 3 then
-			self:next()
+			mpris_widget:next()
 		end
 	end)
 	local mpris_tooltip = awful.tooltip {

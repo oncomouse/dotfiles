@@ -16,13 +16,6 @@ require("awful.autofocus")
 local ruled = require("ruled")
 -- Widget and layout library
 local wibox = require("wibox")
--- Theme handling library
-local volume_widget = require("widgets.volume")
-local clock_widget = require("widgets.clock")
-local mpris_widget = require("widgets.mpris")
-local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
-local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
-local weather_widget = require("awesome-wm-widgets.weather-widget.weather")
 -- Notification library
 local naughty = require("naughty")
 -- Hotkeys
@@ -30,6 +23,13 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+-- Widgets
+local volume_widget = require("widgets.volume")
+local clock_widget = require("widgets.clock")
+local mpris_widget = require("widgets.mpris")
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
+local weather_widget = require("awesome-wm-widgets.weather-widget.weather")
 -- Centered monocle mode:
 local layout_cm = require("layouts.centeredmonocle")
 -- Only show borders on tags with more than two clients:
