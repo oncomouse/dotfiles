@@ -24,6 +24,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 -- Widgets
+local wifi_widget = require("widgets.wifi")
 local volume_widget = require("widgets.volume")
 local clock_widget = require("widgets.clock")
 local mpris_widget = require("widgets.mpris")
@@ -223,7 +224,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 				battery_widget({
 					show_current_level=true,
 				}),
-				wibox.widget.systray(),
+				wifi_widget(),
 				clock_widget(),
 			}
 		or {
@@ -243,7 +244,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 				show_hourly_forecast = true,
 				show_daily_forecast = true,
 			}),
-			wibox.widget.systray(),
+			wifi_widget(),
 			clock_widget(),
 		}
 	}
@@ -528,6 +529,10 @@ awful.keyboard.append_global_keybindings({
 	}),
 	awful.key({ modkey }, "w", rofi.window, {
 		description = "show window menu",
+		group = "launcher",
+	}),
+	awful.key({ modkey, "Shift" }, "n", rofi.networkmanager, {
+		description = "show network-manager menu",
 		group = "launcher",
 	}),
 })

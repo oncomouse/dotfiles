@@ -146,4 +146,8 @@ function rofi.client_flags(c)
 	end)
 end
 
+function rofi.networkmanager()
+	awful.spawn("networkmanager_dmenu")
+end
+
 return rofi
