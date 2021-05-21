@@ -6,6 +6,7 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local xrdb = beautiful.xresources.get_current_theme()
 local rofi = require("utils.rofi").networkmanager
+local recolor_icons = require("widgets.utils.recolor-icons")
 
 local wifi_widget = {}
 local strength = ""
@@ -21,7 +22,6 @@ awesome.connect_signal("evil::wifi::ssid", function(str)
 end)
 
 local function create()
-	local icons = {}
 	local strengths = {
 		"excellent",
 		"good",
@@ -29,10 +29,8 @@ local function create()
 		"weak",
 		"none"
 	}
-	local icon_dir = "/usr/share/icons/Arc/status/symbolic/"
-	for _,st in ipairs(strengths) do
-		icons[st] = gears.color.recolor_image(icon_dir .. "network-wireless-signal-" .. st .. "-symbolic.svg", xrdb.color7)
-	end
+	local template_func = function(st) return "network-wireless-signal-" .. st .. "-symbolic.svg" end
+	local icons = recolor_icons(strengths, template_func)
 	wifi_widget.widget = wibox.widget{
 		image = strength == "" and nil or icons[strength],
 		widget = wibox.widget.imagebox,

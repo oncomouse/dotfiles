@@ -1,5 +1,9 @@
 -- luacheck: globals awesome
 local wibox = require("wibox")
+local beautiful = require("beautiful")
+local trim = require("utils.trim")
+local recolor_icons = require("widgets.utils.recolor-icons")
+local awful = require("awful")
 
 local volume_widget = {}
 
@@ -12,11 +16,32 @@ awesome.connect_signal("evil::volume::update", function(volume)
 end)
 
 local function create()
+	local icons = recolor_icons({
+		"muted",
+		"low",
+		"medium",
+		"high",
+	}, function(x) return "audio-volume-" .. x .. "-symbolic.svg" end)
+	local tt = {}
 	volume_widget.widget = wibox.widget{
-		widget = wibox.widget.textbox,
-		text = current_volume,
+		widget = wibox.widget.imagebox,
+		image = icons["muted"],
 		set_value = function(self, volume)
-			self:set_text(" 墳 " .. volume)
+			if volume == "x" then
+				self:set_image(icons["muted"])
+				tt:set_text("muted")
+			else
+				tt:set_text(volume)
+				volume = string.gsub(trim(volume), "%%", "")
+				local v = tonumber(volume)
+				local icon = "low"
+				if v >= 75 then
+					icon = "high"
+				elseif v >= 50 then
+					icon = "medium"
+				end
+				self:set_image(icons[icon])
+			end
 		end
 	}
 	local function change_volume(command)
@@ -31,6 +56,12 @@ local function create()
 	function volume_widget:down()
 		change_volume("down")
 	end
+
+	tt = awful.tooltip {
+		objects = { volume_widget.widget },
+		mode = 'outside',
+		preferred_positions = {'bottom'},
+	}
 
 	volume_widget.widget:connect_signal("button::press", function(_, _, _, button)
 		if button == 1 then
