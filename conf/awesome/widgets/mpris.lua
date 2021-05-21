@@ -2,13 +2,15 @@
 local wibox = require("wibox")
 local awful = require("awful")
 local gears = require("gears")
+local beautiful = require("beautiful")
+local recolor_icons = require("widgets.utils.recolor-icons")
 
 -- Setup
 local mpris_widget = {}
-local dpi = require("beautiful").xresources.apply_dpi
+local dpi = beautiful.xresources.apply_dpi
 
 -- Metadata
-local icon
+local status
 local artist
 local album
 local title
@@ -20,35 +22,58 @@ function truncate(st, len)
 end
 
 function make_output()
-	return artist ~= nil and truncate(string.format("%s %s - %s", icon, artist, title), 30) or ""
+	return artist ~= nil and truncate(string.format("%s - %s", artist, title), 30) or ""
 end
 
 -- We set this signal connection first, so that if a player is playing when
 -- we start Awesome, it will already have metadata ready:
-awesome.connect_signal("evil::mpris_widget::metadata", function(ic, ar, tt, al, au)
-	icon = ic
+awesome.connect_signal("evil::mpris_widget::metadata", function(st, ar, tt, al, au)
+	status = st
 	artist = ar
 	album = al
 	title = tt
 	artUrl = au
+	if st == "STOPPED" then
+		status = "stop"
+	elseif st == "PLAYING" then
+		status = "start"
+	elseif st == "PAUSED" then
+		status = "pause"
+	end
 	if mpris_widget.widget ~= nil then
 		mpris_widget.widget:set_value(make_output())
 	end
 end)
 
 local function create()
+	local icons = recolor_icons({
+		"pause",
+		"start",
+		"stop",
+	}, function(x) return "actions/scalable/media-playback-"..x.."-symbolic.svg" end)
 	mpris_widget.widget = wibox.widget{
 		{
+			{
+				{
+					id = "image",
+					image = status == nil and icons["stop"] or icons[status],
+					widget = wibox.widget.imagebox,
+					forced_width = beautiful.icon_size,
+					forced_height = beautiful.icon_size,
+				},
+				widget = wibox.container.place,
+			},
 			{
 				id = "title",
 				text = make_output(),
 				widget = wibox.widget.textbox,
 			},
 			layout = wibox.layout.fixed.horizontal,
+			spacing = 5,
 		},
-		margin2 = 1,
 		widget = wibox.container.margin,
 		set_value = function(self, output)
+			self:get_children_by_id("image")[1]:set_image(icons[status])
 			self:get_children_by_id("title")[1]:set_markup(output)
 		end
 	}

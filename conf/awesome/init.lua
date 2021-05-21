@@ -71,7 +71,7 @@ end)
 -- Beautiful
 beautiful.init(gears.filesystem.get_themes_dir().."xresources/theme.lua")
 local xrdb = beautiful.xresources.get_current_theme()
-beautiful.icon_dir = os.getenv("HOME") .. "/.icons/oomox-xresources-reverse-flat/status/scalable/"
+beautiful.icon_dir = os.getenv("HOME") .. "/.icons/oomox-xresources-reverse-flat/"
 beautiful.fg_icon = xrdb.color7
 beautiful.icon_size = 16
 beautiful.layout_centeredmonocle = gears.color.recolor_image(

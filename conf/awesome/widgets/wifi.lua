@@ -1,6 +1,5 @@
 -- luacheck: globals awesome
 local wibox = require("wibox")
-local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
 local rofi = require("utils.rofi").networkmanager
@@ -27,7 +26,7 @@ local function create()
 		"weak",
 		"none"
 	}
-	local template_func = function(st) return "network-wireless-signal-" .. st .. "-symbolic.svg" end
+	local template_func = function(st) return "status/scalable/network-wireless-signal-" .. st .. "-symbolic.svg" end
 	local icons = recolor_icons(strengths, template_func)
 	wifi_widget.widget = wibox.widget{
 		{

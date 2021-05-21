@@ -33,7 +33,7 @@ local function evil_init()
 
 	function signal_update()
 		status_to_icon()
-		awesome.emit_signal("evil::mpris_widget::metadata", icon, artist, title, album, artUrl)
+		awesome.emit_signal("evil::mpris_widget::metadata", status, artist, title, album, artUrl)
 	end
 
 	function on_playback_status(player, new_status, _)

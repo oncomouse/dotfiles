@@ -21,7 +21,7 @@ local function create()
 		"low",
 		"medium",
 		"high",
-	}, function(x) return "audio-volume-" .. x .. "-symbolic.svg" end)
+	}, function(x) return "status/scalable/audio-volume-" .. x .. "-symbolic.svg" end)
 	local tt = {}
 	volume_widget.widget = wibox.widget{
 		{

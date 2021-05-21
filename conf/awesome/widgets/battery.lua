@@ -1,6 +1,5 @@
 -- luacheck: globals awesome
 local wibox = require("wibox")
-local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
 local recolor_icons = require("widgets.utils.recolor-icons")
@@ -29,7 +28,7 @@ local function create()
 		"caution-charging",
 		"empty-charging",
 	}
-	local template_func = function(chrg) return "battery-" .. chrg .. "-symbolic.svg" end
+	local template_func = function(chrg) return "status/scalable/battery-" .. chrg .. "-symbolic.svg" end
 	local icons = recolor_icons(levels, template_func)
 	local tt = {}
 	battery_widget.widget = wibox.widget{

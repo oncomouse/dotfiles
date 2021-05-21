@@ -1,15 +1,11 @@
 -- luacheck: globals awesome
 local wibox = require("wibox")
-local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
 local recolor_icons = require("widgets.utils.recolor-icons")
 
 local brightness_widget = {}
-local brightness = ""
-local ssid = ""
 awesome.connect_signal("evil::brightness::status", function(brght)
-	brightness = brght
 	if brightness_widget.widget ~= nil then
 		brightness_widget.widget:set_brightness(brght)
 	end
@@ -21,7 +17,7 @@ local function create()
 		"medium",
 		"low",
 	}
-	local template_func = function(brght) return "display-brightness-" .. brght .. "-symbolic.svg" end
+	local template_func = function(brght) return "status/scalable/display-brightness-" .. brght .. "-symbolic.svg" end
 	local icons = recolor_icons(levels, template_func)
 	local tt = {}
 	brightness_widget.widget = wibox.widget{
