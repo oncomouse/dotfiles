@@ -7,7 +7,10 @@ local function init()
 	local function check_strength()
 		awful.spawn.easy_async_with_shell("nmcli -t -f IN-USE,SIGNAL dev wifi list | grep \"^\\*\" | cut -d : -f 2", function(stdout)
 			strength = tonumber(trim(stdout))
-			if strength > 80 then
+			local status = nil
+			if strength == nil then
+				awesome.emit_signal("evil::wifi::strength", "none")
+			elseif strength > 80 then
 				awesome.emit_signal("evil::wifi::strength", "excellent")
 			elseif strength > 50 then
 				awesome.emit_signal("evil::wifi::strength", "good")

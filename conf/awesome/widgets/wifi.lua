@@ -21,12 +21,18 @@ awesome.connect_signal("evil::wifi::ssid", function(str)
 end)
 
 local function create()
-	local icons = {
-		excellent = gears.color.recolor_image("/usr/share/icons/Adwaita/scalable/status/network-wireless-signal-excellent-symbolic.svg", xrdb.color7),
-		good = gears.color.recolor_image("/usr/share/icons/Adwaita/scalable/status/network-wireless-signal-good-symbolic.svg", xrdb.color7),
-		ok = gears.color.recolor_image("/usr/share/icons/Adwaita/scalable/status/network-wireless-signal-ok-symbolic.svg", xrdb.color7),
-		weak = gears.color.recolor_image("/usr/share/icons/Adwaita/scalable/status/network-wireless-signal-weak-symbolic.svg", xrdb.color7),
+	local icons = {}
+	local strengths = {
+		"excellent",
+		"good",
+		"ok",
+		"weak",
+		"none"
 	}
+	local icon_dir = "/usr/share/icons/Arc/status/symbolic/"
+	for _,st in ipairs(strengths) do
+		icons[st] = gears.color.recolor_image(icon_dir .. "network-wireless-signal-" .. st .. "-symbolic.svg", xrdb.color7)
+	end
 	wifi_widget.widget = wibox.widget{
 		image = strength == "" and nil or icons[strength],
 		widget = wibox.widget.imagebox,
