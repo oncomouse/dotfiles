@@ -1,3 +1,4 @@
+-- luacheck: globals screen
 --[[
 rofi.lua - rofi-powered menus for awesome wm
 Usage:
@@ -24,7 +25,7 @@ function rofi.drun()
 			"rofi -theme %s/dotfiles/conf/rofi/barmenu.rasi " ..
 			"-match fuzzy -auto-select " ..
 			"-show drun -show-icons -yoffset %d -drun-display-format '{name}'",
-			os.getenv("HOME"), beautiful.bar_height
+			os.getenv("HOME"), screen[1].mywibox.visible and beautiful.bar_height or 0
 		)
 	)
 end
@@ -35,7 +36,7 @@ function rofi.window()
 			"rofi -theme %s/dotfiles/conf/rofi/barmenu.rasi " ..
 			"-show window -show-icons " ..
 			"-yoffset %d -window-format '{w} {c} {t:25}'",
-			os.getenv("HOME"), beautiful.bar_height
+			os.getenv("HOME"), screen[1].mywibox.visible and beautiful.bar_height or 0
 		)
 	)
 end
