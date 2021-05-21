@@ -1,10 +1,8 @@
 -- luacheck: globals awesome
--- local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
-local xrdb = beautiful.xresources.get_current_theme()
 local rofi = require("utils.rofi").networkmanager
 local recolor_icons = require("widgets.utils.recolor-icons")
 
@@ -32,10 +30,17 @@ local function create()
 	local template_func = function(st) return "network-wireless-signal-" .. st .. "-symbolic.svg" end
 	local icons = recolor_icons(strengths, template_func)
 	wifi_widget.widget = wibox.widget{
+		{
+			image = strength == "" and nil or icons[strength],
+			forced_height = beautiful.icon_size,
+			forced_width = beautiful.icon_size,
+			widget = wibox.widget.imagebox,
+			id = "image",
+		},
+		widget = wibox.container.place,
 		image = strength == "" and nil or icons[strength],
-		widget = wibox.widget.imagebox,
 		set_strength = function(self, str)
-			self:set_image(icons[str])
+			self:get_children_by_id("image")[1]:set_image(icons[str])
 		end
 	}
 

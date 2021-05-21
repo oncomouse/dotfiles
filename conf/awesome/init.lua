@@ -28,8 +28,8 @@ local wifi_widget = require("widgets.wifi")
 local volume_widget = require("widgets.volume")
 local clock_widget = require("widgets.clock")
 local mpris_widget = require("widgets.mpris")
-local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
-local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
+local brightness_widget = require("widgets.brightness")
+local battery_widget = require("widgets.battery")
 local weather_widget = require("awesome-wm-widgets.weather-widget.weather")
 -- Centered monocle mode:
 local layout_cm = require("layouts.centeredmonocle")
@@ -41,9 +41,12 @@ local swap_main = require("utils.swap_main")
 local rofi = require("utils.rofi")
 -- Used for run menu:
 local vi_parse = require("utils.vi_parse")
+-- Expose like behavior
 local revelation = require("awesome-revelation")
 -- Heartbeat timer for caffeinating AwesomeWM:
 local heartbeat = require("utils.heartbeat")
+-- Is this the laptop?
+local is_laptop = require("utils.is_laptop")
 require("utils.border_gradient")
 local evil_init = require("evil")
 -- }}}
@@ -70,6 +73,7 @@ beautiful.init(gears.filesystem.get_themes_dir().."xresources/theme.lua")
 local xrdb = beautiful.xresources.get_current_theme()
 beautiful.icon_dir = os.getenv("HOME") .. "/.icons/oomox-xresources-reverse-flat/status/scalable/"
 beautiful.fg_icon = xrdb.color7
+beautiful.icon_size = 16
 beautiful.layout_centeredmonocle = gears.color.recolor_image(
 	gears.filesystem.get_themes_dir() .. "default/layouts/magnifierw.png",
 	beautiful.fg_normal
@@ -107,7 +111,7 @@ beautiful.ow = {
 	}
 }
 beautiful.font = "FiraCode Nerd Font Normal 14"
-if screen[1].geometry.width <= 1280 then
+if is_laptop() then
 	beautiful.font = "FiraCode Nerd Font Normal 10"
 end
 -- Set the background:
@@ -216,16 +220,14 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			s.mypromptbox,
 		},
 		s.mytasklist,
-		screen[1].geometry.width <= 1280 and
+		is_laptop() and
 			-- Clock Widget:
 			{
 				layout = wibox.layout.fixed.horizontal,
-				spacing = 0,
-				brightness_widget({program="xbacklight", type="icon_and_text"}),
+				spacing = 5,
+				brightness_widget(),
 				volume_widget(),
-				battery_widget({
-					show_current_level=true,
-				}),
+				battery_widget(),
 				wifi_widget(),
 				clock_widget(),
 			}
@@ -570,13 +572,13 @@ awful.keyboard.append_global_keybindings({
 -- Media Keys {{{
 awful.keyboard.append_global_keybindings({
 	awful.key({}, "XF86MonBrightnessDown", function()
-		brightness_widget:dec()
+		brightness_widget:down()
 	end, {
 		description = "lower monitor brightness",
 		group = "media",
 	}),
 	awful.key({}, "XF86MonBrightnessUp", function()
-		brightness_widget:inc()
+		brightness_widget:up()
 	end, {
 		description = "raise monitor brightness",
 		group = "media",

@@ -24,8 +24,14 @@ local function create()
 	}, function(x) return "audio-volume-" .. x .. "-symbolic.svg" end)
 	local tt = {}
 	volume_widget.widget = wibox.widget{
-		widget = wibox.widget.imagebox,
-		image = icons["muted"],
+		{
+			image = icons["muted"],
+			forced_height = beautiful.icon_size,
+			forced_width = beautiful.icon_size,
+			widget = wibox.widget.imagebox,
+			id = "image",
+		},
+		widget = wibox.container.place,
 		set_value = function(self, volume)
 			if volume == "x" then
 				self:set_image(icons["muted"])
@@ -40,7 +46,7 @@ local function create()
 				elseif v >= 50 then
 					icon = "medium"
 				end
-				self:set_image(icons[icon])
+				self:get_children_by_id("image")[1]:set_image(icons[icon])
 			end
 		end
 	}
