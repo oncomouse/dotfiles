@@ -202,6 +202,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		position = beautiful.bar_position,
 		screen = s,
 		height = beautiful.bar_height,
+		visible = false,
 	})
 
 	s.mywibox.widget = {
@@ -269,6 +270,14 @@ awful.keyboard.append_global_keybindings({
 		description = "quit awesome",
 		group = "awesome",
 	}),
+	awful.key({ modkey, "Shift" }, "b", function()
+		for s in screen do
+			s.mywibox.visible = not s.mywibox.visible
+		end
+	end, {
+		description = "toggle bar visibility",
+		group = "awesome",
+	})
 })
 -- Tag Manipulation {{{
 awful.keyboard.append_global_keybindings({
