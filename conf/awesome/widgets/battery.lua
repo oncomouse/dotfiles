@@ -41,7 +41,7 @@ local function create()
 		},
 		widget = wibox.container.place,
 		set_battery = function(self, chrg)
-			tt:set_text("Battery Status: " .. tostring(chrg) .. "%" .. (charging and ", Charging"))
+			tt:set_text("Battery Status: " .. tostring(chrg) .. "%" .. (charging and ", Charging" or ""))
 			icon = "empty"
 			if chrg >= 15 and chrg < 40 then
 				icon = "caution"

@@ -33,12 +33,12 @@ local function create()
 		},
 		widget = wibox.container.place,
 		set_value = function(self, volume)
-			if volume == "x" then
-				self:set_image(icons["muted"])
+			volume = string.gsub(trim(volume), "%%", "")
+			if volume == nil or volume == "x" then
+				self:get_children_by_id("image")[1]:set_image(icons["muted"])
 				tt:set_text("muted")
 			else
 				tt:set_text(volume)
-				volume = string.gsub(trim(volume), "%%", "")
 				local v = tonumber(volume)
 				local icon = "low"
 				if v >= 75 then
