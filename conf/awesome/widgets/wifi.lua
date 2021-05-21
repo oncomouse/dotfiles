@@ -54,7 +54,7 @@ local function create()
 		preferred_positions = {'bottom'},
 	}
 	wifi_widget.widget:connect_signal('mouse::enter', function()
-		tt.text = ssid
+		tt.markup = "<b>SSID</b>: " .. ssid .. "\n<b>Strength</b>: " .. strength
 	end)
 	wifi_widget.widget:connect_signal("button::press", function(_, _, _, button)
 		if button == 1 then
