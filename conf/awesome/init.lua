@@ -149,6 +149,7 @@ end)
 -- }}}
 -- {{{ Wibar
 screen.connect_signal("request::desktop_decoration", function(s)
+	-- Create tags:
 	for _,t in ipairs({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }) do
 		awful.tag.add(t, {
 			screen = s,
@@ -156,11 +157,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			master_width_factor = is_laptop() and 0.6 or 0.5,
 		})
 	end
-	local screen = awful.screen.focused()
-	local tag = screen.tags[1]
-	if tag then
-		tag:view_only()
-	end
+	-- Focus on first tag:
+	awful.screen.focused().tags[1]:view_only()
+
 	local atextbox = wibox.widget.textbox()
 	s.mypromptbox = awful.widget.prompt{
 		prompt = "<b>Run: </b>",
