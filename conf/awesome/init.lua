@@ -6,6 +6,7 @@ download_libraries{
 	"https://raw.githubusercontent.com/rxi/json.lua/master/json.lua",
 	"streetturtle/awesome-wm-widgets",
 	"guotsuan/awesome-revelation",
+	"BlingCorp/bling",
 }
 -- Standard awesome library
 local gears = require("gears")
@@ -23,7 +24,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
--- Widgets
+-- Widgets:
 local wifi_widget = require("widgets.wifi")
 local volume_widget = require("widgets.volume")
 local clock_widget = require("widgets.clock")
@@ -47,8 +48,12 @@ local revelation = require("awesome-revelation")
 local heartbeat = require("utils.heartbeat")
 -- Is this the laptop?
 local is_laptop = require("utils.is_laptop")
+-- Animated Border Gradients:
 require("utils.border_gradient")
+-- Start our signal services:
 local evil_init = require("evil")
+-- Utilities:
+local bling = require("bling")
 -- }}}
 -- Startup {{{
 awful.util.shell = "/usr/bin/bash"
@@ -115,8 +120,20 @@ if is_laptop() then
 	beautiful.font = "FiraCode Nerd Font Normal 10"
 end
 -- Set the background:
-local apply_background = require('backgrounds.dots')
-apply_background()
+-- local apply_background = require('backgrounds.dots')
+-- apply_background()
+awful.screen.connect_for_each_screen(function(s)  -- that way the wallpaper is applied to every screen
+    bling.module.tiled_wallpaper("", s, {        -- call the actual function ("x" is the string that will be tiled)
+        fg = xrdb.color8,  -- define the foreground color
+        bg = xrdb.color0,  -- define the background color
+        offset_y = 12,   -- set a y offset
+        offset_x = 12,   -- set a x offset
+        font = "FiraCode Nerd Font",   -- set the font (without the size)
+        font_size = is_laptop() and 8 or 12,  -- set the font size
+        padding = 100,   -- set padding (default is 100)
+        zickzack = true  -- rectangular pattern or criss cross
+    })
+end)
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
 -- Default modkey.
