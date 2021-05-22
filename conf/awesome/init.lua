@@ -150,7 +150,7 @@ end)
 -- {{{ Wibar
 screen.connect_signal("request::desktop_decoration", function(s)
 	for _,t in ipairs({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }) do
-		awful.tag.add("t", {
+		awful.tag.add(t, {
 			screen = s,
 			layout = awful.layout.layouts[1],
 			master_width_factor = is_laptop() and 0.6 or 0.5,
