@@ -119,6 +119,7 @@ beautiful.font = "FiraCode Nerd Font Normal 14"
 if is_laptop() then
 	beautiful.font = "FiraCode Nerd Font Normal 10"
 end
+beautiful.notification_font = "FiraCode Nerd Font Normal 10"
 -- Set the background:
 -- local apply_background = require('backgrounds.dots')
 -- apply_background()
