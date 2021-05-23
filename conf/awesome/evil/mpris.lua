@@ -88,11 +88,11 @@ local function evil_init()
 		follow_player(name)
 	end
 
-	function manager.on_name_appeared(name)
+	function manager:on_name_appeared(name)
 		follow_player(name)
 	end
 
-	manager.on_name_appeared:connect("name-appeared")
+	-- manager.on_name_appeared:connect("name-appeared")
 
 	awesome.connect_signal("evil::mpris_widget::change", function(action)
 		if action == "play_pause" then
