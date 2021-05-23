@@ -122,7 +122,6 @@ set statusline=\ %0.45f%m%h%w%r%=\ %y\ %l:%c\
 " ==============================================================================
 function! s:packpath() abort
 	return ($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share') . '/minpac/minimal'
-	" return (has('nvim') ? stdpath('data') . '/site' : expand('~/.vim'))
 endfunction
 
 function! MinimalMinPac() abort
