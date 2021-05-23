@@ -19,6 +19,9 @@ local function evil_init()
 	local album
 	local title
 	local artUrl
+
+	-- Compare player names for sorting.
+	-- Source: https://github.com/BlingCorp/bling/blob/master/signal/playerctl/playerctl_lib.lua
 	local function player_compare_name(name_a, name_b)
 		local any_index = math.huge
 		local a_match_index = nil
