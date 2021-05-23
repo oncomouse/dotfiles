@@ -11,14 +11,54 @@ local function evil_init()
 	local current_player = nil
 
 	local supported_players = {
+		'ncspot',
 		'mpd',
-		'ncspot'
 	}
 	local status = "STOPPED"
 	local artist
 	local album
 	local title
 	local artUrl
+	local function player_compare_name(name_a, name_b)
+		local any_index = math.huge
+		local a_match_index = nil
+		local b_match_index = nil
+
+		if name_a == name_b then
+			return 0
+		end
+
+		for index, name in ipairs(supported_players) do
+			if name == "%any" then
+				any_index = (any_index == math.huge) and index or any_index
+			elseif name == name_a then
+				a_match_index = a_match_index or index
+			elseif name == name_b then
+				b_match_index = b_match_index or index
+			end
+		end
+
+		if not a_match_index and not b_match_index then
+			return 0
+		elseif not a_match_index then
+			return (b_match_index < any_index) and 1 or -1
+		elseif not b_match_index then
+			return (a_match_index < any_index) and -1 or 1
+		elseif a_match_index == b_match_index then
+			return 0
+		else
+			return (a_match_index < b_match_index) and -1 or 1
+		end
+	end
+
+	-- Sorting function used by manager if a priority order is specified
+	local function player_compare(a, b)
+		local player_a = Playerctl.Player(a)
+		local player_b = Playerctl.Player(b)
+		return player_compare_name(player_a.player_name, player_b.player_name)
+	end
+
+	manager:set_sort_func(player_compare)
 
 	function signal_update()
 		awesome.emit_signal("evil::mpris::metadata", status, artist, title, album, artUrl)
