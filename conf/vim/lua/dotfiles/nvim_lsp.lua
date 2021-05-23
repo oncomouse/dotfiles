@@ -42,7 +42,7 @@ local on_attach = function(_, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 	function _G.show_documentation()
 		if (vim.fn.index({'vim','help'}, vim.bo.filetype) >= 0) then
-			vim.api.nvim_exec('h .expand("<cword>")')
+			vim.api.nvim_command("h " .. vim.fn.expand("<cword>"))
 		else
 			vim.lsp.buf.hover()
 		end
