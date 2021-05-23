@@ -116,7 +116,6 @@ autocmd minimal-vimrc ColorScheme default hi StatusLine ctermbg=8 ctermfg=7 cter
 autocmd minimal-vimrc ColorScheme default hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE
 
 " Minimal Statusbar:
-" source: https://github.com/darioisthebest/dotfiles/blob/master/nvim/init.vim#L126
 set statusline=\ %0.45f%m%h%w%r%=\ %y\ %l:%c\ 
 " ==============================================================================
 " Minpac For Essentials:
