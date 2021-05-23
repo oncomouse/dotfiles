@@ -64,13 +64,13 @@ function! dotfiles#plugins#configuration() abort
 	" Plugin Settings: {{{
 	" airblade/vim-rooter {{{ 
 	let g:rooter_patterns = [
-				\ 'Rakefile',
-				\ 'package.json',
-				\ '.git/',
-				\ 'Gemfile',
-				\ 'pyproject.toml',
-				\ 'setup.py',
-				\ ]
+	\ 'Rakefile',
+	\ 'package.json',
+	\ '.git/',
+	\ 'Gemfile',
+	\ 'pyproject.toml',
+	\ 'setup.py',
+	\ ]
 	" Set path expansion to pwd only, especially with vim-rooter running:
 	set path=,,
 	" }}}
