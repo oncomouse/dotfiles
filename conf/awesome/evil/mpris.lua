@@ -15,25 +15,13 @@ local function evil_init()
 		'ncspot'
 	}
 	local status = "STOPPED"
-	local icon
 	local artist
 	local album
 	local title
 	local artUrl
 
-	function status_to_icon()
-		if status == "PLAYING" then
-			icon = "契"
-		elseif status == "PAUSED" then
-			icon = ""
-		else
-			icon = "栗"
-		end
-	end
-
 	function signal_update()
-		status_to_icon()
-		awesome.emit_signal("evil::mpris_widget::metadata", status, artist, title, album, artUrl)
+		awesome.emit_signal("evil::mpris::metadata", status, artist, title, album, artUrl)
 	end
 
 	function on_playback_status(player, new_status, _)
@@ -92,9 +80,18 @@ local function evil_init()
 		follow_player(name)
 	end
 
-	-- manager.on_name_appeared:connect("name-appeared")
+	function manager:on_name_vanished()
+		if #self.players == 0 then
+			status = "STOPPED"
+			artist = nil
+			album = nil
+			artUrl = nil
+			title = nil
+			signal_update()
+		end
+	end
 
-	awesome.connect_signal("evil::mpris_widget::change", function(action)
+	awesome.connect_signal("evil::mpris::change", function(action)
 		if action == "play_pause" then
 			current_player:play_pause()
 		elseif action == "previous" then

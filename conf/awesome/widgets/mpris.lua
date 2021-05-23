@@ -27,7 +27,7 @@ end
 
 -- We set this signal connection first, so that if a player is playing when
 -- we start Awesome, it will already have metadata ready:
-awesome.connect_signal("evil::mpris_widget::metadata", function(st, ar, tt, al, au)
+awesome.connect_signal("evil::mpris::metadata", function(st, ar, tt, al, au)
 	status = st
 	artist = ar
 	album = al
@@ -153,16 +153,16 @@ local function create()
 	end)
 
 	function mpris_widget:play()
-		awesome.emit_signal("evil::mpris_widget::change", "play_pause")
+		awesome.emit_signal("evil::mpris::change", "play_pause")
 	end
 	function mpris_widget:previous_track()
-		awesome.emit_signal("evil::mpris_widget::change", "previous")
+		awesome.emit_signal("evil::mpris::change", "previous")
 	end
 	function mpris_widget:next_track()
-		awesome.emit_signal("evil::mpris_widget::change", "next")
+		awesome.emit_signal("evil::mpris::change", "next")
 	end
 	function mpris_widget:stop()
-		awesome.emit_signal("evil::mpris_widget::change", "stop")
+		awesome.emit_signal("evil::mpris::change", "stop")
 	end
 
 	return mpris_widget.widget
