@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=XScreensaver
 Comment=Screensaver for Xorg
-Exec=/usr/bin/xscreensaver
+Exec=/usr/bin/xscreensaver -no-splash
 Terminal=false
 Type=Application
