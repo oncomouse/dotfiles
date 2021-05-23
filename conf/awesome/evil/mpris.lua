@@ -60,7 +60,7 @@ local function evil_init()
 			manager:manage_player(player)
 
 			-- If a player is current player, it is our current player:
-			if player.playback_status == "PLAYING" then
+			if status == "STOPPED" and player.playback_status == "PLAYING" then
 				current_player = player
 				status = "PLAYING"
 				on_metadata(current_player)
