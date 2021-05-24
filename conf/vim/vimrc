@@ -82,6 +82,7 @@ autocmd dotfiles-settings FileType diff setlocal nofoldenable
 call dotfiles#plugins#configuration()
 " }}}
 " Maps: {{{
+let g:enable_todo = v:true
 " Highlight a block and type "@" to run a macro on the block:
 xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
 

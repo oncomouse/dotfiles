@@ -17,7 +17,7 @@ function! s:map_todo() abort
   imap <buffer> <silent> <C-S-Right> <C-o>>>
 endfunction
 
-if has_key(g:, 'dotfiles_mode')
+if has_key(g:, 'enable_todo')
   augroup todo
     autocmd!
     " Load For Any Todo Files:
