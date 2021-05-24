@@ -137,13 +137,6 @@ function! s:packpath() abort
 	return ($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share') . '/minpac/minimal'
 endfunction
 
-function! MinimalMinPac() abort
-	call minpac#add('tpope/vim-sensible') " Agreeable vim settings:
-	call minpac#add('xero/securemodelines') " Secure modelines
-	call minpac#add('oncomouse/vim-grep') " :Grep and :LGrep
-	call minpac#add('tpope/vim-commentary')
-endfunction
-
 if !get(g:, 'skip_minimal_minpac', !has('patch-7.4.1384'))
 	function! PackInit() abort
 		" Download Minpac:
@@ -159,7 +152,10 @@ if !get(g:, 'skip_minimal_minpac', !has('patch-7.4.1384'))
 
 		if exists('g:loaded_minpac')
 			call minpac#init({'dir': l:minpac_dir})
-			call MinimalMinPac()
+			call minpac#add('tpope/vim-sensible') " Agreeable vim settings:
+			call minpac#add('xero/securemodelines') " Secure modelines
+			call minpac#add('oncomouse/vim-grep') " :Grep and :LGrep
+			call minpac#add('tpope/vim-commentary')
 			call minpac#add('k-takata/minpac', {'type': 'opt'})
 			call minpac#add('noahfrederick/vim-neovim-defaults', {'type': 'opt'}) " Set Vim with the same default as NeoVim
 		else
