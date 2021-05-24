@@ -189,7 +189,7 @@ if has('patch-7.4.1384')
 	if !has('nvim')
 		packadd! vim-neovim-defaults
 	endif
-	if !exists('g:dotfiles_mode')
+	if !exists('g:skip_minimal_minpac')
 		colorscheme default
 	endif
 endif
