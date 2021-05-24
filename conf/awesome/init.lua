@@ -7,7 +7,6 @@ download_libraries{
 	"streetturtle/awesome-wm-widgets",
 	"guotsuan/awesome-revelation",
 	"BlingCorp/bling",
-	"guotsuan/awesome-treetile",
 }
 -- Standard awesome library
 local gears = require("gears")
@@ -55,9 +54,6 @@ require("utils.border_gradient")
 local evil_init = require("evil")
 -- Utilities:
 local bling = require("bling")
--- Treetile:
-local treetile = require("treetile")
-treetile.focusnew = true
 -- }}}
 -- Startup {{{
 awful.util.shell = "/usr/bin/bash"
@@ -83,6 +79,7 @@ local xrdb = beautiful.xresources.get_current_theme()
 beautiful.icon_dir = os.getenv("HOME") .. "/.icons/oomox-xresources-reverse-flat/"
 beautiful.fg_icon = xrdb.color7
 beautiful.icon_size = 16
+beautiful.notification_icon_size = 16
 beautiful.layout_centeredmonocle = gears.color.recolor_image(
 	gears.filesystem.get_themes_dir() .. "default/layouts/magnifierw.png",
 	beautiful.fg_normal
@@ -145,14 +142,11 @@ terminal = "kitty"
 modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 tag.connect_signal("request::default_layouts", function()
-	local layouts = {
+	awful.layout.append_default_layouts{
 		awful.layout.suit.tile.right,
 		awful.layout.suit.tile.left,
 		layout_cm,
 	}
-	if is_laptop() then
-		table.insert(layouts, 1, treetile)
-	end
 end)
 -- }}}
 -- {{{ Wibar

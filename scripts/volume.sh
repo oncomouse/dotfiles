@@ -18,11 +18,6 @@ case "$1" in
     ;;
   "mute")
     pamixer -t > /dev/null
-    if pamixer --get-mute > /dev/null; then
-      echo "x"
-    else
-      echo "$(pamixer --get-volume)"
-    fi
     ;;
   *)
     ;;

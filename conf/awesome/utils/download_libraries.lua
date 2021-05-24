@@ -15,9 +15,17 @@ local function download_libraries(libraries)
 		return parts[#parts]
 	end
 	for _,gh_url in ipairs(libraries) do
+		local opts = {}
+		if type(gh_url) == "table" then
+			local u = gh_url[1]
+			table.remove(gh_url, 1)
+			opts = gears.table.clone(gh_url)
+			gh_url = u
+		end
 		local is_url = string.find(gh_url, 'http%l*:')
 		if is_url == nil then
-			local dir = os.getenv("HOME") .. "/.config/awesome/" .. string.gsub(tail(gh_url), "%.", "_")
+			local base_dir = opts.as == nil and string.gsub(tail(gh_url), "%.", "_") or opts.as
+			local dir = os.getenv("HOME") .. "/.config/awesome/" .. base_dir
 			if not gears.filesystem.is_dir(dir) then
 				run_count = run_count + 1
 				awful.spawn.with_line_callback("git clone https://github.com/" .. gh_url .. " " .. dir, {

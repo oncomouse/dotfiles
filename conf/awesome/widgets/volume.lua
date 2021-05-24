@@ -1,9 +1,10 @@
 -- luacheck: globals awesome
+local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local trim = require("utils.trim")
 local recolor_icons = require("widgets.utils.recolor-icons")
-local awful = require("awful")
+local notify_if_no_bar = require("widgets.utils.notify_if_no_bar")
 
 local volume_widget = {}
 
@@ -23,6 +24,7 @@ local function create()
 		"high",
 	}, function(x) return "status/scalable/audio-volume-" .. x .. "-symbolic.svg" end)
 	local tt = {}
+	local change = false
 	volume_widget.widget = wibox.widget{
 		{
 			image = icons["muted"],
@@ -37,6 +39,10 @@ local function create()
 			if volume == nil or volume == "x" then
 				self:get_children_by_id("image")[1]:set_image(icons["muted"])
 				tt:set_text("muted")
+				if change then
+					notify_if_no_bar({icon=icons["muted"], text="Volume is muted"})
+					change = false
+				end
 			else
 				tt:set_text(volume)
 				local v = tonumber(volume)
@@ -46,11 +52,16 @@ local function create()
 				elseif v >= 50 then
 					icon = "medium"
 				end
+				if change then
+					notify_if_no_bar({icon=icons[icon], text="Volume is " .. volume .. "%"})
+					change = false
+				end
 				self:get_children_by_id("image")[1]:set_image(icons[icon])
 			end
 		end
 	}
 	local function change_volume(command)
+		change = true
 		awesome.emit_signal("evil::volume::change", command)
 	end
 	function volume_widget:mute()

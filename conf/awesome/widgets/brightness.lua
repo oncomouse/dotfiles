@@ -3,6 +3,7 @@ local wibox = require("wibox")
 local awful = require("awful")
 local beautiful = require("beautiful")
 local recolor_icons = require("widgets.utils.recolor-icons")
+local notify_if_no_bar = require("widgets.utils.notify_if_no_bar")
 
 local brightness_widget = {}
 awesome.connect_signal("evil::brightness::status", function(brght)
@@ -20,6 +21,8 @@ local function create()
 	local template_func = function(brght) return "status/scalable/display-brightness-" .. brght .. "-symbolic.svg" end
 	local icons = recolor_icons(levels, template_func)
 	local tt = {}
+	local change = false
+
 	brightness_widget.widget = wibox.widget{
 		{
 			image = levels["high"],
@@ -30,18 +33,24 @@ local function create()
 		},
 		widget = wibox.container.place,
 		set_brightness = function(self, brght)
-			tt:set_text("Brightness: " .. tostring(brght))
+			local msg = "Brightness: " .. tostring(brght)
+			tt:set_text(msg)
 			local icon = "low"
 			if brght >= 75 then
 				icon = "high"
 			elseif brght >= 50 then
 				icon = "medium"
 			end
+			if change then
+				notify_if_no_bar({text=msg, icon=icons[icon]})
+				change = false
+			end
 			self:get_children_by_id("image")[1]:set_image(icons[icon])
 		end
 	}
 
 	local function change_brightness(command)
+		change = true
 		awesome.emit_signal("evil::brightness::change", command)
 	end
 	function brightness_widget:up()

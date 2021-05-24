@@ -1,8 +1,10 @@
 -- luacheck: globals awesome
 local awful = require("awful")
 local gears = require("gears")
+
 local function init()
 	local function run_script(argument)
+
 		argument = argument or ""
 		awful.spawn.easy_async_with_shell(
 			"~/dotfiles/scripts/volume.sh " .. argument,
