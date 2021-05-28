@@ -1,4 +1,7 @@
 " This is many of the commands from taskpaper.vim but set to load on my
+if !exists('g:enable_todo')
+	finish
+endif
 " todo.txt file and using my done notation:
 function! s:map_todo() abort
   " Mark A Task As Done:
@@ -17,12 +20,10 @@ function! s:map_todo() abort
   imap <buffer> <silent> <C-S-Right> <C-o>>>
 endfunction
 
-if has_key(g:, 'enable_todo')
-  augroup todo
-    autocmd!
-    " Load For Any Todo Files:
-    autocmd BufRead,BufNewFile todo.* call s:map_todo()
-    " Load For VimWiki:
-    autocmd FileType vimwiki call s:map_todo()
-  augroup END
-endif
+augroup todo
+autocmd!
+" Load For Any Todo Files:
+autocmd BufRead,BufNewFile todo.* call s:map_todo()
+" Load For VimWiki:
+autocmd FileType vimwiki call s:map_todo()
+augroup END

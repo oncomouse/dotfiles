@@ -79,7 +79,7 @@ autocmd dotfiles-settings FileType python setlocal foldmethod=indent
 autocmd dotfiles-settings FileType diff setlocal nofoldenable
 " }}}
 " Plugins: {{{
-call dotfiles#plugins#configuration()
+lua require("dotfiles.packer")
 " }}}
 " Maps: {{{
 let g:enable_todo = v:true
@@ -172,7 +172,6 @@ endif
 autocmd plug-settings TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
 
 " Treesitter:
-lua require('dotfiles.treesitter')
 
 " Close Preview Window:
 autocmd dotfiles-settings CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -185,10 +184,6 @@ autocmd dotfiles-settings BufReadPost *
 
 " Fix window resizing
 autocmd dotfiles-settings VimEnter * silent exec "!kill -s SIGWINCH $PPID"
-
-" Load Autocompletion:
-call dotfiles#fzf#init()
-lua require('dotfiles.nvim_lsp')
 
 " Update FASD For NeoVim: {{{
 function! s:fasd_update() abort
