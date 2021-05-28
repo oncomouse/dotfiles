@@ -66,7 +66,7 @@ return require("packer").startup({
 					vim.fn["lexima#add_rule"](make_rule("^\\s*\\%(local\\)\\=.*function\\>\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {}))
 				end
 				extend_endwise()
-				-- inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
+				-- vim.api.nvim_set_keymap("i", "<C-l>", "<C-r>=lexima#insmode#leave_till_eol("")<CR>", { noremap = true })
 			end
 		} -- Autopairs + Endwise
 		use { "norcalli/nvim-colorizer.lua", opt = true } -- HTML codes and HTML color words to colors
@@ -86,7 +86,7 @@ return require("packer").startup({
 		-- Arch
 		use { "/usr/share/vim/vimfiles", cond = function() return vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 end }
 		-- Local install
-		use { "~/.fzf", cond = function() return vim.fn.isdirectory("~/.fzf") == 1 end }
+		use { os.getenv("HOME") .. "/.fzf", cond = function() return vim.fn.isdirectory("~/.fzf") == 1 end }
 		use { "junegunn/fzf.vim", cond = function() return vim.fn.executable("fzf") == 1 end, config = function()
 			vim.cmd[[command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)]]
 			vim.g.fzf_layout = { window = { width = 1, height = 0.4, yoffset = 1, border = 'top' } }
