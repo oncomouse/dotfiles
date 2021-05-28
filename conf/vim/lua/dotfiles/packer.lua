@@ -27,24 +27,22 @@ return require("packer").startup({
 		use "sickill/vim-pasta" -- Indentation-forward pasting
 		use "tpope/vim-repeat"
 		use "oncomouse/vim-surround" -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-		use { "airblade/vim-rooter",  setup = function()
-			vim.g.rooter_patterns = {
-				"Rakefile",
-				 "package.json",
-				 ".git/",
-				 "Gemfile",
-				 "pyproject.toml",
-				 "setup.py",
-			}
-			-- Set path expansion to pwd only, especially with vim-rooter running:
-			vim.o.path=",,"
-		end} -- Set project root
-		use { "Konfekt/FastFold", setup = function()
-			vim.g.fastfold_savehook = 1
-			vim.g.fastfold_fold_command_suffixes =	{"x","X","a","A","o","O","c","C", "r", "R", "m", "M"}
-			vim.g.fastfold_fold_movement_commands = {"]z", "[z", "zj", "zk"}
-			vim.g.fastfold_minlines = 0
-		end } -- Better fold support
+		vim.g.rooter_patterns = {
+			"Rakefile",
+			 "package.json",
+			 ".git/",
+			 "Gemfile",
+			 "pyproject.toml",
+			 "setup.py",
+		}
+		-- Set path expansion to pwd only, especially with vim-rooter running:
+		vim.o.path=",,"
+		use "airblade/vim-rooter" -- Set project root
+		vim.g.fastfold_savehook = 1
+		vim.g.fastfold_fold_command_suffixes =	{"x","X","a","A","o","O","c","C", "r", "R", "m", "M"}
+		vim.g.fastfold_fold_movement_commands = {"]z", "[z", "zj", "zk"}
+		vim.g.fastfold_minlines = 0
+		use "Konfekt/FastFold" -- Better fold support
 		use "wellle/targets.vim" -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 		use { "cohama/lexima.vim",
 			config = function()
@@ -82,11 +80,17 @@ return require("packer").startup({
 			vim.fn["gina#custom#mapping#nmap"]("status", "cc", ":<C-u>Gina commit<CR>", {noremap = 1, silent = 1})
 		end} -- :Gina status to schedule; :Gina commit to commit
 		-- FZF Support:
-		use { "/usr/local/opt/fzf", cond = function() return vim.fn.isdirectory("/usr/local/opt/fzf") == 1 end }
+		if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then
+			use "/usr/local/opt/fzf"
 		-- Arch
-		use { "/usr/share/vim/vimfiles", cond = function() return vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 end }
+		elseif vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 then
+			use "/usr/share/vim/vimfiles"
 		-- Local install
-		use { os.getenv("HOME") .. "/.fzf", cond = function() return vim.fn.isdirectory("~/.fzf") == 1 end }
+		elseif vim.fn.isdirectory("~/.fzf") == 1 then
+			use "~/.fzf"
+		else
+			use { "junegunn/fzf", run = "./install --all" }
+		end
 		use { "junegunn/fzf.vim", cond = function() return vim.fn.executable("fzf") == 1 end, config = function()
 			vim.cmd[[command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)]]
 			vim.g.fzf_layout = { window = { width = 1, height = 0.4, yoffset = 1, border = 'top' } }
