@@ -67,7 +67,20 @@ return require("packer").startup({
 				-- vim.api.nvim_set_keymap("i", "<C-l>", "<C-r>=lexima#insmode#leave_till_eol("")<CR>", { noremap = true })
 			end
 		} -- Autopairs + Endwise
-		use { "norcalli/nvim-colorizer.lua", opt = true } -- HTML codes and HTML color words to colors
+		use { "norcalli/nvim-colorizer.lua", cond = function() return vim.fn.exists("+termguicolors") == 1 end, config = function()
+			vim.cmd("let &t_8f=\""..vim.api.nvim_replace_termcodes('<Esc>', true, true, true) .. "[38;2;%lu;%lu;%lum\"")
+			vim.cmd("let &t_8b=\"" .. vim.api.nvim_replace_termcodes('<Esc>', true, true, true) .. "[48;2;%lu;%lu;%lum\"")
+			vim.o.termguicolors = true
+			require('colorizer').setup{
+				'*',
+				markdown = {
+					names=false
+				},
+				text={
+					names=false
+				}
+			}
+		end } -- HTML codes and HTML color words to colors
 		-- Git Support:
 		use { "lambdalisue/gina.vim", config = function()
 			vim.fn["gina#custom#command#option"]("status", "--opener", vim.o.previewheight .. "split")
