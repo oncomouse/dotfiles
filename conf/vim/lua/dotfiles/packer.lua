@@ -118,13 +118,12 @@ return require("packer").startup({
 		}
 		use { "windwp/nvim-ts-autotag", ft={"html", "javascript", "javascriptreact"} }  -- Automatically close HTML tags
 		use { "nvim-treesitter/nvim-treesitter-textobjects" }
-		use { "plasticboy/vim-markdown", ft={ "markdown" }, setup = function()
-			vim.g.vim_markdown_frontmatter = 1 -- Format YAML
-			vim.g.vim_markdown_strikethrough = 0 -- Don"t format strikethrough
-			vim.g.vim_markdown_conceal = 0 -- Don"t conceal
-			vim.g.vim_markdown_conceal_code_blocks = 0 -- Don"t conceal code blocks
-			vim.g.vim_markdown_math = 1 -- Do process MathJaX and LaTeX math
-		end } -- Markdown Syntax
+		vim.g.vim_markdown_frontmatter = 1 -- Format YAML
+		vim.g.vim_markdown_strikethrough = 0 -- Don"t format strikethrough
+		vim.g.vim_markdown_conceal = 0 -- Don"t conceal
+		vim.g.vim_markdown_conceal_code_blocks = 0 -- Don"t conceal code blocks
+		vim.g.vim_markdown_math = 1 -- Do process MathJaX and LaTeX math
+		use "plasticboy/vim-markdown" -- Markdown Syntax
 		use { "godlygeek/tabular", cmd={ "Tabular", "TableFormat" } } -- :Tabular /| to auto-align tables (also :TableFormat in markdown)
 		-- LSP:
 		use { "neovim/nvim-lspconfig", config = function()
