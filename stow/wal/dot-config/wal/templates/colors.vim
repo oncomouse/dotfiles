@@ -80,14 +80,18 @@ hi Todo ctermfg=3 guifg={color3} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
 hi Type ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 hi Typedef ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 
-hi LspDiagnosticsSignError ctermfg=5 guifg={color5} cterm=NONE gui=NONE
-hi LspDiagnosticsUnderlineError ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color5}
-hi LspDiagnosticsSignWarning ctermfg=3 guifg={color3} cterm=NONE gui=NONE
-hi LspDiagnosticsUnderlineWarning ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color3}
-hi LspDiagnosticsSignInformation ctermfg=4 guifg={color4} cterm=NONE gui=NONE
-hi LspDiagnosticsUnderlineInformation ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color4}
-hi LspDiagnosticsSignHint ctermfg=6 guifg={color6} cterm=NONE gui=NONE
-hi LspDiagnosticsUnderlineHint ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color6}
+hi LspDiagnosticsDefaultError ctermfg=5 guifg={color5} cterm=NONE gui=NONE
+hi link LspDiagnosticsSignError LspDiagnosticsDefaultError
+hi LspDiagnosticsUnderlineError ctermfg=5 guifg={color5} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color5}
+hi LspDiagnosticsDefaultWarning ctermfg=3 guifg={color3} cterm=NONE gui=NONE
+hi link LspDiagnosticsSignWarning LspDiagnosticsDefaultWarning
+hi LspDiagnosticsUnderlineWarning ctermfg=3 guifg={color3} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color3}
+hi LspDiagnosticsDefaultInformation ctermfg=4 guifg={color4} cterm=NONE gui=NONE
+hi link LspDiagnosticsSignInformation LspDiagnosticsDefaultInformation
+hi LspDiagnosticsUnderlineInformation ctermfg=4 guifg={color4} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color4}
+hi LspDiagnosticsDefaultHint ctermfg=6 guifg={color6} cterm=NONE gui=NONE
+hi link LspDiagnosticsSignHint LspDiagnosticsDefaultHint
+hi LspDiagnosticsUnderlineHint ctermfg=6 guifg={color6} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color6}
 
 hi TSAnnotation ctermfg=4 guifg={color4} cterm=NONE gui=NONE
 hi TSAttribute ctermfg=4 guifg={color4} cterm=NONE gui=NONE
