@@ -68,8 +68,8 @@ return require("packer").startup({
 			end
 		} -- Autopairs + Endwise
 		use { "norcalli/nvim-colorizer.lua", cond = function() return vim.fn.exists("+termguicolors") == 1 end, config = function()
-			vim.cmd("let &t_8f=\""..vim.api.nvim_replace_termcodes('<Esc>', true, true, true) .. "[38;2;%lu;%lu;%lum\"")
-			vim.cmd("let &t_8b=\"" .. vim.api.nvim_replace_termcodes('<Esc>', true, true, true) .. "[48;2;%lu;%lu;%lum\"")
+			-- vim.cmd("let &t_8f=\""..vim.api.nvim_replace_termcodes('<Esc>', true, true, true) .. "[38;2;%lu;%lu;%lum\"")
+			-- vim.cmd("let &t_8b=\"" .. vim.api.nvim_replace_termcodes('<Esc>', true, true, true) .. "[48;2;%lu;%lu;%lum\"")
 			vim.o.termguicolors = true
 			require('colorizer').setup{
 				'*',
