@@ -50,7 +50,6 @@ if vim.fn.has('mac') == 1 then
 	vim.g.python3_host_prog='/usr/local/bin/python3'
 	vim.g.ruby_host_prog=vim.fn.expand('~/.asdf/shims/neovim-ruby-host')
 	vim.g.node_host_prog='/usr/local/lib/node_modules/neovim/bin/cli.js'
-	-- This is macOS only, I believe, but it fixes slow start-up for clipboard:
 	vim.g.clipboard = {
 		copy = {["+"] = 'pbcopy', ["*"] = 'pbcopy'},
 		paste = {["+"] = 'pbpaste', ["*"] = 'pbpaste'},
