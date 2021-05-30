@@ -46,10 +46,10 @@ local handler_diagnostics = {
 local vscode_capabilities = vim.lsp.protocol.make_client_capabilities()
 vscode_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local on_attach = function(_, bufnr)
+local on_attach = function()
 	-- Once codelens is setup:
 	-- vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+	vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
 	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-document-symbols)", ":<C-u>lua vim.lsp.buf.document_symbol()<CR>")
 	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-rename)", ":<C-u>lua vim.lsp.buf.rename()<CR>")
 	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-definition)", ":<C-u>lua vim.lsp.buf.definition()<CR>")
@@ -66,11 +66,25 @@ local on_attach = function(_, bufnr)
 	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-diagnostic-previous)", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
 end
 
-local on_attach_diagnostics = function(x, bufnr)
+-- Show diagnostics works like LanguageClient-neovim now:
+-- Cache the default function:
+local diag = loadstring(string.dump(vim.lsp.diagnostic.show_line_diagnostics))
+vim.lsp.diagnostic.show_line_diagnostics = function()
+	local d = vim.lsp.diagnostic.get_line_diagnostics(vim.fn.bufnr("."), vim.fn.line(".") -1 )
+	if #d == 0 then
+		vim.cmd("echo ''")
+	elseif #d == 1 and string.len(d[1].message) < vim.fn.winwidth(".") then
+		vim.cmd("echo \"" .. d[1].message .. "\"")
+	else
+		diag()
+	end
+end
+
+local on_attach_diagnostics = function(...)
 	vim.opt.updatetime = 300
 	vim.api.nvim_command("autocmd! User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist = false})")
 	vim.api.nvim_command("autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()")
-	on_attach(x, bufnr)
+	on_attach(...)
 end
 
 local servers = {
