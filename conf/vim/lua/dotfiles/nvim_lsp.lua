@@ -73,7 +73,7 @@ vim.lsp.diagnostic.show_line_diagnostics = function()
 	local d = vim.lsp.diagnostic.get_line_diagnostics(vim.fn.bufnr("."), vim.fn.line(".") -1 )
 	if #d == 0 then
 		vim.cmd("echo ''")
-	elseif #d == 1 and string.len(d[1].message) < vim.fn.winwidth(".") then
+	elseif #d == 1 and string.len(d[1].message) < vim.fn.winwidth(".") and string.find(d[1].message, "\n") == nil then
 		vim.cmd("echo \"" .. d[1].message .. "\"")
 	else
 		diag()
