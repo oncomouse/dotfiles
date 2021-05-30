@@ -4,8 +4,8 @@ local function packpath()
 end
 
 local pp = packpath()
-vim.o.packpath = vim.o.packpath .. "," .. pp
-vim.o.runtimepath = vim.o.runtimepath .. "," .. pp
+vim.opt.packpath:append({ pp })
+vim.opt.runtimepath:append({ pp })
 -- Download Packer.nvim:
 local packer_dir = pp .. '/pack'
 local packer_compile_dir = pp .. '/plugin'
@@ -36,7 +36,7 @@ return require("packer").startup({
 			 "setup.py",
 		}
 		-- Set path expansion to pwd only, especially with vim-rooter running:
-		vim.o.path=",,"
+		vim.opt.path=",,"
 		use "airblade/vim-rooter" -- Set project root
 		vim.g.fastfold_savehook = 1
 		vim.g.fastfold_fold_command_suffixes =	{"x","X","a","A","o","O","c","C", "r", "R", "m", "M"}
@@ -70,7 +70,7 @@ return require("packer").startup({
 		use { "norcalli/nvim-colorizer.lua", cond = function() return vim.fn.exists("+termguicolors") == 1 end, config = function()
 			-- vim.cmd("let &t_8f=\""..vim.api.nvim_replace_termcodes('<Esc>', true, true, true) .. "[38;2;%lu;%lu;%lum\"")
 			-- vim.cmd("let &t_8b=\"" .. vim.api.nvim_replace_termcodes('<Esc>', true, true, true) .. "[48;2;%lu;%lu;%lum\"")
-			vim.o.termguicolors = true
+			vim.opt.termguicolors = true
 			require('colorizer').setup{
 				'*',
 				markdown = {
