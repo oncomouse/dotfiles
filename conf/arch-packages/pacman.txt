@@ -33,6 +33,7 @@ bat
 jq
 ttf-fira-code
 otf-fira-sans
+otf-fira-mono
 tex-gyre-fonts
 neofetch
 zathura
