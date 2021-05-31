@@ -1,6 +1,7 @@
 --luacheck: globals vim use
 local function packpath()
-	return (os.getenv("XDG_DATA_HOME") and os.getenv("XDG_DATA_HOME") or os.getenv("HOME")..'/.local/share') .. '/packer/desktop'
+	return (os.getenv("XDG_DATA_HOME") and os.getenv("XDG_DATA_HOME") or os.getenv("HOME") .. '/.local/share') ..
+		'/packer/desktop'
 end
 
 local pp = packpath()
@@ -10,10 +11,14 @@ vim.opt.runtimepath:append({ pp })
 local packer_dir = pp .. '/pack'
 local packer_compile_dir = pp .. '/plugin'
 if vim.fn.isdirectory(packer_dir) == 0 then
-	vim.fn.system('git clone --depth 1 https://github.com/wbthomason/packer.nvim "'..packer_dir..'/packer/opt/packer.nvim"')
+	vim.fn.system(
+		'git clone --depth 1 https://github.com/wbthomason/packer.nvim "' ..
+		packer_dir ..
+		'/packer/opt/packer.nvim"'
+	)
 end
 
--- Load Minpac:
+-- Load Packer.nvim:
 vim.cmd("packadd packer.nvim")
 return require("packer").startup({
 	function()
