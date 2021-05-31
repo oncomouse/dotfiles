@@ -72,32 +72,45 @@ local function in_range(range, line, col)
 	return in_start and in_end
 end
 
--- local function clone_function(fn)
--- 	local dumped = string.dump(fn)
--- 	local cloned = loadstring(dumped)
--- 	local i = 1
--- 	while true do
--- 		local name = debug.getupvalue(fn, i)
--- 		if not name then
--- 			break
--- 		end
--- 		debug.upvaluejoin(cloned, i, fn, i)
--- 		i = i + 1
--- 	end
--- 	return cloned
--- end
+local function clone_function(fn)
+	local dumped = string.dump(fn)
+	local cloned = loadstring(dumped)
+	local i = 1
+	while true do
+		local name = debug.getupvalue(fn, i)
+		if not name then
+			break
+		end
+		debug.upvaluejoin(cloned, i, fn, i)
+		i = i + 1
+	end
+	return cloned
+end
+
+local function truncate(st, len)
+	return string.len(st) > len and string.sub(st, 0, len - 1) .. "…" or st
+end
 
 local echoed = false
 
+local function filter_line_diagnostics(bufnr, line_nr, col_nr, opts, client_id)
+	return vim.tbl_filter(
+		function(x) return in_range(x.range, line_nr, col_nr) end,
+		vim.lsp.diagnostic.get_line_diagnostics(bufnr, line_nr, opts, client_id)
+	)
+end
+
 -- Overwrite the original show_line_diagnostics to output in modeline and to be cursor aware:
-vim.lsp.diagnostic.show_line_diagnostics = function(opts, bufnr, line_nr, client_id)
+_G.hover_diagnostics = clone_function(vim.lsp.diagnostic.show_line_diagnostics)
+vim.lsp.diagnostic.show_line_diagnostics = function() end
+function _G.modeline_diagnostics(opts, bufnr, line_nr, client_id)
 	opts = opts or {}
 
 	local show_header = vim.F.if_nil(opts.show_header, true)
 
 	bufnr = bufnr or 0
 	line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
-	col_nr = vim.fn.col(".")
+	local col_nr = vim.fn.col(".")
 
 	local lines = {}
 	local highlights = {}
@@ -106,25 +119,67 @@ vim.lsp.diagnostic.show_line_diagnostics = function(opts, bufnr, line_nr, client
 		table.insert(highlights, {0, "Bold"})
 	end
 
-	local line_diagnostics = vim.tbl_filter(
-		function(x) return in_range(x.range, line_nr, col_nr) end,
-		vim.lsp.diagnostic.get_line_diagnostics(bufnr, line_nr, opts, client_id)
-	)
+	local line_diagnostics = filter_line_diagnostics(bufnr, line_nr, col_nr, opts, client_id)
 	if vim.tbl_isempty(line_diagnostics) then
 		if echoed then
 			vim.cmd("echo ''")
 			echoed = false
 		end
-		return
+	else
+		echoed = true
+		vim.cmd("echo \"" ..
+			string.format(
+				"%d Error%s: %s",
+				#line_diagnostics,
+				(#line_diagnostics == 1 and "" or "s"),
+				truncate(line_diagnostics[1].message, vim.fn.winwidth(".") - 2)
+			)
+			.. "\"")
 	end
 
-	-- Echo if only one diagnostic message and it's short:
-	if #line_diagnostics == 1 and
-	#vim.split(line_diagnostics[1].message, '\n', true) == 1 and
-	string.len(line_diagnostics[1].message) < vim.fn.winwidth(".") then
-		echoed = true
-		vim.cmd("echo \"" .. line_diagnostics[1].message .. "\"")
-		return
+	-- for i, diagnostic in ipairs(line_diagnostics) do
+	-- 	local prefix = string.format("%d. ", i)
+	-- 	local hiname = vim.lsp.diagnostic._get_floating_severity_highlight_name(diagnostic.severity)
+	-- 	assert(hiname, 'unknown severity: ' .. tostring(diagnostic.severity))
+
+	-- 	local message_lines = vim.split(diagnostic.message, '\n', true)
+	-- 	table.insert(lines, prefix..message_lines[1])
+	-- 	table.insert(highlights, {#prefix, hiname})
+	-- 	for j = 2, #message_lines do
+	-- 		table.insert(lines, message_lines[j])
+	-- 		table.insert(highlights, {0, hiname})
+	-- 	end
+	-- end
+
+	-- if #lines > 0 then
+	-- 	local popup_bufnr, winnr = vim.lsp.util.open_floating_preview(lines, 'plaintext', opts)
+	-- 	for i, hi in ipairs(highlights) do
+	-- 		local prefixlen, hiname = unpack(hi)
+	-- 		-- Start highlight after the prefix
+	-- 		vim.api.nvim_buf_add_highlight(popup_bufnr, -1, hiname, i-1, prefixlen, -1)
+	-- 	end
+	-- 	return popup_bufnr, winnr
+	-- end
+end
+
+function _G.preview_diagnostics(opts, bufnr, line_nr, client_id)
+	opts = opts or {}
+
+	local show_header = vim.F.if_nil(opts.show_header, true)
+
+	bufnr = bufnr or 0
+	line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
+	local col_nr = vim.fn.col(".")
+
+	local line_diagnostics = filter_line_diagnostics(bufnr, line_nr, col_nr, opts, client_id)
+
+	if vim.tbl_isempty(line_diagnostics) then return end
+
+	local lines = {}
+	local highlights = {}
+	if show_header then
+		table.insert(lines, "Diagnostics:")
+		table.insert(highlights, {0, "Bold"})
 	end
 
 	for i, diagnostic in ipairs(line_diagnostics) do
@@ -141,21 +196,20 @@ vim.lsp.diagnostic.show_line_diagnostics = function(opts, bufnr, line_nr, client
 		end
 	end
 
-	if #lines > 0 then
-		local popup_bufnr, winnr = vim.lsp.util.open_floating_preview(lines, 'plaintext', opts)
-		for i, hi in ipairs(highlights) do
-			local prefixlen, hiname = unpack(hi)
-			-- Start highlight after the prefix
-			vim.api.nvim_buf_add_highlight(popup_bufnr, -1, hiname, i-1, prefixlen, -1)
-		end
-		return popup_bufnr, winnr
+	local popup_bufnr, winnr = vim.lsp.util.open_floating_preview(lines, 'plaintext', opts)
+	for i, hi in ipairs(highlights) do
+		local prefixlen, hiname = unpack(hi)
+		-- Start highlight after the prefix
+		vim.api.nvim_buf_add_highlight(popup_bufnr, -1, hiname, i-1, prefixlen, -1)
 	end
+	return popup_bufnr, winnr
 end
 
 local on_attach_diagnostics = function(...)
 	vim.opt.updatetime = 300
-	vim.api.nvim_command("autocmd! User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist = false})")
-	vim.api.nvim_command("autocmd CursorMoved,CursorMovedI * lua vim.lsp.diagnostic.show_line_diagnostics()")
+	vim.cmd[[autocmd! User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
+	vim.cmd[[autocmd! CursorMoved,CursorMovedI,CursorHold,InsertLeave * call v:lua.modeline_diagnostics()]]
+	vim.cmd[[command! LspDetail call v:lua.preview_diagnostics()]]
 	on_attach(...)
 end
 
