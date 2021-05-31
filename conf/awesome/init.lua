@@ -106,6 +106,8 @@ beautiful.titlebar_close_button_focus = gears.filesystem.get_themes_dir().."defa
 beautiful.titlebar_close_button_focus  = gears.filesystem.get_themes_dir().."default/titlebar/close_focus.png"
 beautiful.titlebar_bg_focus = xrdb.color0
 beautiful.titlebar_fg_focus = xrdb.color15
+-- beautiful.taglist_bg_focus = xrdb.color8
+-- beautiful.taglist_fg_focus = xrdb.color15
 -- Tasklist formatting:
 beautiful.tasklist_disable_icon = true -- No icons in tasklist
 beautiful.tasklist_bg_focus = xrdb.color0
@@ -234,7 +236,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		position = beautiful.bar_position,
 		screen = s,
 		height = beautiful.bar_height,
-		visible = false,
+		visible = true,
 	})
 
 	s.mywibox.widget = {
