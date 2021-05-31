@@ -141,10 +141,10 @@ hi TSUnderline cterm=underline gui=underline
 hi TSVariable ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 hi TSVariableBuiltin ctermfg=5 guifg={color5} cterm=NONE gui=NONE
 
-hi SpellBad cterm=underline gui=underline ctermbg=237 guibg={base01} guisp={color5} 
-hi SpellLocal cterm=underline gui=underline ctermbg=237 guibg={base01} guisp={color6} 
-hi SpellCap cterm=underline gui=underline ctermbg=237 guibg={base01} guisp={color3} 
-hi SpellRare cterm=underline gui=underline ctermbg=237 guibg={base01} guisp={base0E} 
+hi SpellBad cterm=underline gui=underline ctermbg=237 guibg={base01} guifg={color5} guisp=NONE 
+hi SpellLocal cterm=underline gui=underline ctermbg=237 guibg={base01} guifg={color6} guisp=NONE 
+hi SpellCap cterm=underline gui=underline ctermbg=237 guibg={base01} guifg={color3} guisp=NONE 
+hi SpellRare cterm=underline gui=underline ctermbg=237 guibg={base01} guifg={base0E} guisp=NONE 
 
 hi csClass ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 hi csAttribute ctermfg=3 guifg={color3} cterm=NONE gui=NONE
