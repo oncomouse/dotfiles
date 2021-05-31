@@ -15,15 +15,15 @@ map.nnoremap("<silent>", "<Plug>(dotfiles-documentation)", ":<C-u>call v:lua.sho
 
 -- Extend configs for citation-langserver:
 configs.citation_langserver = {
-  default_config = {
+	default_config = {
 	filetypes = {"markdown", "pandoc"};
 	root_dir = function(fname)
-	  return util.find_git_ancestor(fname) or util.path.dirname(fname)
+		return util.find_git_ancestor(fname) or util.path.dirname(fname)
 	end;
 	log_level = vim.lsp.protocol.MessageType.Warning;
 	cmd = {"/usr/bin/env", "citation-langserver"};
 	-- cmd = {"env", "PYTHONPATH=~/Projects/citation-langserver", "python3", "-m", "citation_langserver"}
-  }
+	}
 }
 
 -- Disable diagnostics
@@ -35,10 +35,10 @@ local handler_no_diagnostics = {
 local handler_diagnostics = {
 	["textDocument/publishDiagnostics"] = vim.lsp.with(
 		vim.lsp.diagnostic.on_publish_diagnostics, {
-		signs = false,
-		underline = true,
-		update_in_insert = false,
-		virtual_text = false,
+			signs = false,
+			underline = true,
+			update_in_insert = true,
+			virtual_text = false,
 		}
 	)
 }
@@ -66,90 +66,102 @@ local on_attach = function()
 	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-diagnostic-previous)", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
 end
 
--- Show diagnostics works like LanguageClient-neovim now:
--- Cache the default function:
-local function clone_function(fn)
-  local dumped = string.dump(fn)
-  local cloned = loadstring(dumped)
-  local i = 1
-  while true do
-    local name = debug.getupvalue(fn, i)
-    if not name then
-      break
-    end
-    debug.upvaluejoin(cloned, i, fn, i)
-    i = i + 1
-  end
-  return cloned
-end
-local diag = clone_function(vim.lsp.diagnostic.show_line_diagnostics)
-vim.lsp.diagnostic.show_line_diagnostics = function(...)
-	local args = {...}
-	local bufnr = #args > 2 and args[2] or vim.fn.bufnr(".")
-	local line = #args > 3 and args[3] or vim.fn.line(".") - 1
-	local d = vim.lsp.diagnostic.get_line_diagnostics(bufnr, line)
-	if #d == 0 then
-		vim.cmd("echo ''")
-	elseif #d == 1 and string.len(d[1].message) < vim.fn.winwidth(".") and string.find(d[1].message, "\n") == nil then
-		vim.cmd("echo \"" .. d[1].message .. "\"")
-	else
-		diag(...)
-	end
+local function in_range(range, line, col)
+	local in_start = range.start.line < line or (range.start.line == line and range.start.character < col)
+	local in_end = range["end"].line > line or (range["end"].line == line and range["end"].character >= col)
+	return in_start and in_end
 end
 
-function _G.hover_diagnostic(opts, bufnr, line_nr, client_id)
-  opts = opts or {}
+-- local function clone_function(fn)
+-- 	local dumped = string.dump(fn)
+-- 	local cloned = loadstring(dumped)
+-- 	local i = 1
+-- 	while true do
+-- 		local name = debug.getupvalue(fn, i)
+-- 		if not name then
+-- 			break
+-- 		end
+-- 		debug.upvaluejoin(cloned, i, fn, i)
+-- 		i = i + 1
+-- 	end
+-- 	return cloned
+-- end
 
-  local show_header = vim.F.if_nil(opts.show_header, true)
+local echoed = false
 
-  bufnr = bufnr or 0
-  line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
-  col_nr = col_nr or (vim.api.nvim_win_get_cursor(0)[2])
+-- Overwrite the original show_line_diagnostics to output in modeline and to be cursor aware:
+vim.lsp.diagnostic.show_line_diagnostics = function(opts, bufnr, line_nr, client_id)
+	opts = opts or {}
 
-  local lines = {}
-  local highlights = {}
-  if show_header then
-	table.insert(lines, "Diagnostics:")
-	table.insert(highlights, {0, "Bold"})
-  end
+	local show_header = vim.F.if_nil(opts.show_header, true)
 
-  local line_diagnostics = vim.lsp.diagnostic.get_line_diagnostics(bufnr, line_nr, opts, client_id)
-  if vim.tbl_isempty(line_diagnostics) then return end
+	bufnr = bufnr or 0
+	line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
+	col_nr = vim.fn.col(".")
 
-  for i, diagnostic in ipairs(line_diagnostics) do
-	local prefix = string.format("%d. ", i)
-	local hiname = vim.lsp.diagnostic._get_floating_severity_highlight_name(diagnostic.severity)
-	assert(hiname, 'unknown severity: ' .. tostring(diagnostic.severity))
-
-	local message_lines = vim.split(diagnostic.message, '\n', true)
-	table.insert(lines, prefix..message_lines[1])
-	table.insert(highlights, {#prefix, hiname})
-	for j = 2, #message_lines do
-	  table.insert(lines, message_lines[j])
-	  table.insert(highlights, {0, hiname})
+	local lines = {}
+	local highlights = {}
+	if show_header then
+		table.insert(lines, "Diagnostics:")
+		table.insert(highlights, {0, "Bold"})
 	end
-  end
 
-  local popup_bufnr, winnr = vim.lsp.util.open_floating_preview(lines, 'plaintext', opts)
-  for i, hi in ipairs(highlights) do
-	local prefixlen, hiname = unpack(hi)
-	-- Start highlight after the prefix
-	vim.api.nvim_buf_add_highlight(popup_bufnr, -1, hiname, i-1, prefixlen, -1)
-  end
+	local line_diagnostics = vim.tbl_filter(
+		function(x) return in_range(x.range, line_nr, col_nr) end,
+		vim.lsp.diagnostic.get_line_diagnostics(bufnr, line_nr, opts, client_id)
+	)
+	if vim.tbl_isempty(line_diagnostics) then
+		if echoed then
+			vim.cmd("echo ''")
+			echoed = false
+		end
+		return
+	end
 
-  return popup_bufnr, winnr
+	-- Echo if only one diagnostic message and it's short:
+	if #line_diagnostics == 1 and
+	#vim.split(line_diagnostics[1].message, '\n', true) == 1 and
+	string.len(line_diagnostics[1].message) < vim.fn.winwidth(".") then
+		echoed = true
+		vim.cmd("echo \"" .. line_diagnostics[1].message .. "\"")
+		return
+	end
+
+	for i, diagnostic in ipairs(line_diagnostics) do
+		local prefix = string.format("%d. ", i)
+		local hiname = vim.lsp.diagnostic._get_floating_severity_highlight_name(diagnostic.severity)
+		assert(hiname, 'unknown severity: ' .. tostring(diagnostic.severity))
+
+		local message_lines = vim.split(diagnostic.message, '\n', true)
+		table.insert(lines, prefix..message_lines[1])
+		table.insert(highlights, {#prefix, hiname})
+		for j = 2, #message_lines do
+			table.insert(lines, message_lines[j])
+			table.insert(highlights, {0, hiname})
+		end
+	end
+
+	if #lines > 0 then
+		local popup_bufnr, winnr = vim.lsp.util.open_floating_preview(lines, 'plaintext', opts)
+		for i, hi in ipairs(highlights) do
+			local prefixlen, hiname = unpack(hi)
+			-- Start highlight after the prefix
+			vim.api.nvim_buf_add_highlight(popup_bufnr, -1, hiname, i-1, prefixlen, -1)
+		end
+		return popup_bufnr, winnr
+	end
 end
 
 local on_attach_diagnostics = function(...)
 	vim.opt.updatetime = 300
 	vim.api.nvim_command("autocmd! User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist = false})")
-	vim.api.nvim_command("autocmd CursorMoved * call v:lua.hover_diagnostic()")
+	vim.api.nvim_command("autocmd CursorMoved,CursorMovedI * lua vim.lsp.diagnostic.show_line_diagnostics()")
 	on_attach(...)
 end
 
 local servers = {
 	efm = {
-		root_dir =  lspconfig.util.root_pattern("Rakefile", "yarn.lock", "lerna.json", ".git", "poetry.toml"),
+		root_dir =	lspconfig.util.root_pattern("Rakefile", "yarn.lock", "lerna.json", ".git", "poetry.toml"),
 		filetypes = {
 			"css",
 			"html",
@@ -175,9 +187,9 @@ local servers = {
 		settings ={
 			Lua = {
 				-- diagnostics = {
-				-- 	enable = true,
-				-- 	globals = {"vim"},
-				-- 	disable = { "lowercase-global" },
+				--	enable = true,
+				--	globals = {"vim"},
+				--	disable = { "lowercase-global" },
 				-- },
 				runtime = {
 					version = "LuaJIT",
