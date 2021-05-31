@@ -91,7 +91,8 @@ function s:grep_or_qfgrep()
 	if &buftype ==# 'quickfix'
 		let l:input = input('QFGrep/')
 		if len(l:input) > 0
-			execute 'Cfilter /'.l:input.'/'
+			let l:prefix = getwininfo(win_getid())[0].loclist ? 'L' : 'C'
+			execute l:prefix . 'filter /'.l:input.'/'
 		endif
 	else
 		let l:input = input('Grep/')
