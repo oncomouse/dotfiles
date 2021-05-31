@@ -117,10 +117,10 @@ beautiful.ow = {
 		tonumber(os.getenv("OW_LONG")),
 	}
 }
-beautiful.font = "FiraCode Nerd Font Normal 11"
-if is_laptop() then
-	beautiful.font = "FiraCode Nerd Font Normal 10"
-end
+-- beautiful.font = "FiraCode Nerd Font Normal 11"
+-- if is_laptop() then
+beautiful.font = "FiraCode Nerd Font Normal 10"
+-- end
 beautiful.notification_font = "FiraCode Nerd Font Normal 10"
 -- Set the background:
 -- local apply_background = require('backgrounds.dots')
@@ -263,7 +263,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			}
 		or {
 			layout = wibox.layout.fixed.horizontal,
-			spacing = 0,
+			spacing = 2,
 			volume_widget(),
 			mpris_widget(),
 			weather_widget({
