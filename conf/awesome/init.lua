@@ -54,6 +54,7 @@ require("utils.border_gradient")
 local evil_init = require("evil")
 -- Utilities:
 local bling = require("bling")
+local function last(xs) return xs[#xs] end -- last element in a table
 -- }}}
 -- Startup {{{
 awful.util.shell = "/usr/bin/bash"
@@ -116,7 +117,7 @@ beautiful.ow = {
 		tonumber(os.getenv("OW_LONG")),
 	}
 }
-beautiful.font = "FiraCode Nerd Font Normal 14"
+beautiful.font = "FiraCode Nerd Font Normal 11"
 if is_laptop() then
 	beautiful.font = "FiraCode Nerd Font Normal 10"
 end
@@ -189,6 +190,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		awful.button({}, 4, function() awful.layout.inc(1) end),
 		awful.button({}, 5, function() awful.layout.inc(-1) end)
 	})
+	s.mylayoutbox.forced_width = tonumber(last(gears.string.split(beautiful.font, " "))) + 4
 	s.mytaglist = awful.widget.taglist{
 		screen = s,
 		filter = awful.widget.taglist.filter.all,
@@ -238,10 +240,13 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	s.mywibox.widget = {
 		layout = wibox.layout.align.horizontal,
 		{
-			spacing = 10,
+			spacing = 0,
 			layout = wibox.layout.fixed.horizontal,
 			s.mytaglist,
-			s.mylayoutbox,
+			{
+				{ widget = s.mylayoutbox },
+				widget = wibox.container.place,
+			},
 			s.mypromptbox,
 		},
 		s.mytasklist,
@@ -258,7 +263,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			}
 		or {
 			layout = wibox.layout.fixed.horizontal,
-			spacing = 20,
+			spacing = 0,
 			volume_widget(),
 			mpris_widget(),
 			weather_widget({
