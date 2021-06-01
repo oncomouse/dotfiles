@@ -86,7 +86,11 @@ require("dotfiles.packer")
 require("dotfiles.maps")
 -- }}}
 -- Theme: {{{
-vim.opt.background="dark"
+local t = require("dotfiles.utils.termcode")
+vim.cmd("let &t_8f='" .. t"<Esc>" .. "[38;2;%lu;%lu;%lum'")
+vim.cmd("let &t_8b='" .. t"<Esc>" .. "[48;2;%lu;%lu;%lum'")
+vim.opt.termguicolors = true
+vim.opt.background = "dark"
 
 local wal_cache = vim.fn.expand((os.getenv("XDG_CACHE_HOME") and os.getenv("XDG_CACHE_HOME") or os.getenv("HOME") .. '/.cache') .. '/wal/vim')
 if vim.fn.isdirectory(wal_cache) == 1 then
