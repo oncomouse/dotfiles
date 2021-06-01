@@ -46,7 +46,7 @@ local revelation = require("awesome-revelation")
 -- Heartbeat timer for caffeinating AwesomeWM:
 local heartbeat = require("utils.heartbeat")
 -- Is this the laptop?
-local is_laptop = require("utils.is_laptop")
+local is_laptop = require("utils.is_laptop")()
 -- Animated Border Gradients:
 require("utils.border_gradient")
 -- Start our signal services:
@@ -79,7 +79,7 @@ local xrdb = beautiful.xresources.get_current_theme()
 local dpi = beautiful.xresources.apply_dpi
 beautiful.icon_dir = os.getenv("HOME") .. "/.icons/oomox-xresources-reverse-flat/"
 -- beautiful.font = "FiraCode Nerd Font Normal 11"
--- if is_laptop() then
+-- if is_laptop then
 beautiful.font = "FiraCode Nerd Font Normal 10"
 -- end
 beautiful.notification_font = "FiraCode Nerd Font Normal 10"
@@ -176,7 +176,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		awful.tag.add(t, {
 			screen = s,
 			layout = awful.layout.layouts[1],
-			master_width_factor = is_laptop() and 0.6 or 0.5,
+			master_width_factor = is_laptop and 0.6 or 0.5,
 		})
 	end
 	-- Focus on first tag:
@@ -259,7 +259,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	s.mywibox.widget = {
 		layout = wibox.layout.align.horizontal,
 		{
-			spacing = 0,
+			spacing = 1,
 			layout = wibox.layout.fixed.horizontal,
 			s.mytaglist,
 			{
@@ -269,36 +269,30 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			s.mypromptbox,
 		},
 		s.mytasklist,
-		is_laptop() and
-			-- Clock Widget:
-			{
-				layout = wibox.layout.fixed.horizontal,
-				spacing = 5,
-				brightness_widget(),
-				volume_widget(),
-				battery_widget(),
-				wifi_widget(),
-				clock_widget(),
-			}
-		or {
+		{
 			layout = wibox.layout.fixed.horizontal,
-			spacing = 2,
+			spacing = 1,
+			is_laptop and brightness_widget() or nil,
 			volume_widget(),
-			mpris_widget(),
-			weather_widget({
+			is_laptop and battery_widget() or nil,
+			is_laptop and nil or mpris_widget(),
+			is_laptop and nil or weather_widget({
 				api_key=beautiful.ow.key,
 				coordinates = beautiful.ow.coordinates,
 				units = 'imperial',
 				time_format_12h = true,
 				both_units_widget = false,
-				-- font_name = 'Carter One',
 				icons = 'VitalyGorbachev',
 				icons_extension = '.svg',
 				show_hourly_forecast = true,
 				show_daily_forecast = true,
 			}),
-			wifi_widget(),
+			is_laptop and wifi_widget() or nil,
 			clock_widget(),
+			-- Add some space after the clock:
+			wibox.widget.base.make_widget_declarative({
+				forced_width = 6
+			})
 		}
 	}
 end)
