@@ -1,5 +1,6 @@
 -- Dotfiles Settings: {{{
-if vim.fn.isdirectory('~/dotfiles/conf/vim/') == 0 and not vim.tbl_contains(vim.opt.runtimepath:get(), vim.fn.expand("~/dotfiles/conf/vim/")) then
+if vim.fn.isdirectory('~/dotfiles/conf/vim/') == 0 and
+not vim.tbl_contains(vim.opt.runtimepath:get(), vim.fn.expand("~/dotfiles/conf/vim/")) then
 	vim.opt.runtimepath:append("~/dotfiles/conf/vim/")
 end
 
@@ -92,13 +93,21 @@ vim.cmd("let &t_8b='" .. t"<Esc>" .. "[48;2;%lu;%lu;%lum'")
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 
-local wal_cache = vim.fn.expand((os.getenv("XDG_CACHE_HOME") and os.getenv("XDG_CACHE_HOME") or os.getenv("HOME") .. '/.cache') .. '/wal/vim')
+local xdg = function(var_name)
+	if var_name == "XDG_CACHE_HOME" then
+		return os.getenv("XDG_CACHE_HOME") and os.getenv("XDG_CACHE_HOME") or os.getenv("HOME") .. '/.cache'
+	end
+	return nil
+end
+
+local wal_cache = xdg("XDG_CACHE_HOME") .. '/wal/vim'
 if vim.fn.isdirectory(wal_cache) == 1 then
 	vim.opt.runtimepath:append({ wal_cache })
 	vim.cmd("colorscheme wal")
 else
 	vim.cmd("colorscheme default")
 end
+
 -- }}}
 -- Other Settings: {{{
 
