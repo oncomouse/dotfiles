@@ -6,7 +6,6 @@ download_libraries{
 	"https://raw.githubusercontent.com/rxi/json.lua/master/json.lua",
 	"streetturtle/awesome-wm-widgets",
 	"guotsuan/awesome-revelation",
-	"BlingCorp/bling",
 }
 -- Standard awesome library
 local gears = require("gears")
@@ -53,7 +52,7 @@ require("utils.border_gradient")
 -- Start our signal services:
 local evil_init = require("evil")
 -- Utilities:
-local bling = require("bling")
+local cairo = require("lgi").cairo
 local function last(xs) return xs[#xs] end -- last element in a table
 -- }}}
 -- Startup {{{
@@ -77,7 +76,13 @@ end)
 -- Beautiful
 beautiful.init(gears.filesystem.get_themes_dir().."xresources/theme.lua")
 local xrdb = beautiful.xresources.get_current_theme()
+local dpi = beautiful.xresources.apply_dpi
 beautiful.icon_dir = os.getenv("HOME") .. "/.icons/oomox-xresources-reverse-flat/"
+-- beautiful.font = "FiraCode Nerd Font Normal 11"
+-- if is_laptop() then
+beautiful.font = "FiraCode Nerd Font Normal 10"
+-- end
+beautiful.notification_font = "FiraCode Nerd Font Normal 10"
 beautiful.fg_icon = xrdb.color7
 beautiful.icon_size = 16
 beautiful.notification_icon_size = 16
@@ -92,12 +97,39 @@ beautiful.border_width = 2
 -- Fonts
 beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
 beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
--- Widget spacing in left and right wibox areas:
 -- Wibar stuff:
 beautiful.bar_height = 24
 beautiful.bar_position = "top"
 -- Hotkey formatting:
 beautiful.hotkeys_modifiers_fg = xrdb.color4
+beautiful.taglist_shape_border_color_focus = xrdb.color5
+-- Taglist Formatting:
+local tag_width = dpi(tonumber(last(gears.string.split(beautiful.font, " "))) + 5)
+local tag_bar_height = dpi(3)
+local function taglist_squares_sel(w, h, fg)
+	local img = cairo.ImageSurface(cairo.Format.ARGB32, w, h)
+	local cr = cairo.Context(img)
+	cr:set_source(gears.color(fg))
+	cr:paint()
+	return img
+end
+local function taglist_squares_unsel(w, h, fg)
+    local img = cairo.ImageSurface(cairo.Format.ARGB32, w, h)
+    local cr = cairo.Context(img)
+    cr:set_source(gears.color(fg))
+    cr:set_line_width(h/4)
+    cr:rectangle(0, 0, w, h)
+    cr:stroke()
+    return img
+end
+beautiful.taglist_squares_sel = taglist_squares_sel(
+	tag_width, tag_bar_height, xrdb.color15
+)
+beautiful.taglist_squares_unsel = taglist_squares_unsel(
+	tag_width, tag_bar_height, xrdb.color15
+)
+beautiful.taglist_bg_focus = xrdb.color8
+beautiful.taglist_fg_focus = xrdb.color15
 -- Titlebar formatting:
 beautiful.titlebar_font = "FiraCode Nerd Font Bold 12"
 beautiful.titlebar_bg_normal = xrdb.color8
@@ -106,8 +138,6 @@ beautiful.titlebar_close_button_focus = gears.filesystem.get_themes_dir().."defa
 beautiful.titlebar_close_button_focus  = gears.filesystem.get_themes_dir().."default/titlebar/close_focus.png"
 beautiful.titlebar_bg_focus = xrdb.color0
 beautiful.titlebar_fg_focus = xrdb.color15
--- beautiful.taglist_bg_focus = xrdb.color8
--- beautiful.taglist_fg_focus = xrdb.color15
 -- Tasklist formatting:
 beautiful.tasklist_disable_icon = true -- No icons in tasklist
 beautiful.tasklist_bg_focus = xrdb.color0
@@ -119,25 +149,12 @@ beautiful.ow = {
 		tonumber(os.getenv("OW_LONG")),
 	}
 }
--- beautiful.font = "FiraCode Nerd Font Normal 11"
--- if is_laptop() then
-beautiful.font = "FiraCode Nerd Font Normal 10"
--- end
-beautiful.notification_font = "FiraCode Nerd Font Normal 10"
 -- Set the background:
--- local apply_background = require('backgrounds.dots')
--- apply_background()
-awful.screen.connect_for_each_screen(function(s)  -- that way the wallpaper is applied to every screen
-    bling.module.tiled_wallpaper("", s, {        -- call the actual function ("x" is the string that will be tiled)
-        fg = xrdb.color8,  -- define the foreground color
-        bg = xrdb.color0,  -- define the background color
-        offset_y = 12,   -- set a y offset
-        offset_x = 12,   -- set a x offset
-        font = "FiraCode Nerd Font",   -- set the font (without the size)
-        font_size = is_laptop() and 8 or 12,  -- set the font size
-        padding = 100,   -- set padding (default is 100)
-        zickzack = true  -- rectangular pattern or criss cross
-    })
+beautiful.background_dot_tile_size = dpi(100)
+beautiful.background_dot_width = dpi(6)
+local apply_background = require('backgrounds.dots')
+awful.screen.connect_for_each_screen(function(s)
+	apply_background(s)
 end)
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"

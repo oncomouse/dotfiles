@@ -1,12 +1,13 @@
 local cairo = require('lgi').cairo
 local gears = require('gears')
-local xrdb = require("beautiful").xresources.get_current_theme()
+local beautiful = require("beautiful")
+local xrdb = beautiful.xresources.get_current_theme()
 
 local function make_background()
 	local tile_color = gears.color(xrdb.color0)
 	local box_color = gears.color(xrdb.color8)
-	local tile_width = 125
-	local box_width = 4
+	local tile_width = beautiful.background_dot_tile_size
+	local box_width = beautiful.background_dot_width
 
 	-- Create the image:
 	local img = cairo.ImageSurface.create(cairo.Format.ARGB32, tile_width, tile_width)
@@ -28,4 +29,4 @@ local function make_background()
 	return img
 end
 
-return function() gears.wallpaper.tiled(make_background()) end
+return function(s) gears.wallpaper.tiled(make_background(), s) end
