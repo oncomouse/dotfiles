@@ -119,7 +119,9 @@ vim.cmd("autocmd dotfiles-settings CompleteDone * if pumvisible() == 0 | pclose 
 
 -- On opening a file, jump to the last known cursor position (see :h line())
 function _G.buf_jump_to_last()
-	if vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") and string.find(vim.opt.filetype:get(), "commit") == nil then
+	if vim.fn.line("'\"") > 1
+	and vim.fn.line("'\"") <= vim.fn.line("$")
+	and string.find(vim.opt.filetype:get(), "commit") == nil then
 		vim.cmd[[exe "normal! g`\""]]
 	end
 end
