@@ -8,7 +8,7 @@ local clock_widget = {}
 local function create()
 	local clock_extend_timeout = 5
 	local formats = {
-		regular = "%a%l:%M %p",
+		regular = "%a %l:%M %p",
 		extended = "%A, %B %d %Y",
 	}
 	local icons = recolor_icons({
