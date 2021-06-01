@@ -123,7 +123,7 @@ local function taglist_squares_unsel(w, h, fg)
     return img
 end
 beautiful.taglist_squares_sel = taglist_squares_sel(
-	tag_width, tag_bar_height, xrdb.color15
+	tag_width, tag_bar_height, xrdb.color6
 )
 beautiful.taglist_squares_unsel = taglist_squares_unsel(
 	tag_width, tag_bar_height, xrdb.color15
