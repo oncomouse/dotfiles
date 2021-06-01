@@ -73,17 +73,20 @@ return require("packer").startup({
 			end
 		} -- Autopairs + Endwise
 		use { "norcalli/nvim-colorizer.lua", cond = function() return vim.fn.exists("+termguicolors") == 1 end, config = function()
-			-- vim.cmd("let &t_8f=\""..vim.api.nvim_replace_termcodes('<Esc>', true, true, true) .. "[38;2;%lu;%lu;%lum\"")
-			-- vim.cmd("let &t_8b=\"" .. vim.api.nvim_replace_termcodes('<Esc>', true, true, true) .. "[48;2;%lu;%lu;%lum\"")
+			vim.cmd("let &t_8f=\""..vim.api.nvim_replace_termcodes('<Esc>', true, true, true) .. "[38;2;%lu;%lu;%lum\"")
+			vim.cmd("let &t_8b=\"" .. vim.api.nvim_replace_termcodes('<Esc>', true, true, true) .. "[48;2;%lu;%lu;%lum\"")
 			vim.opt.termguicolors = true
 			require('colorizer').setup{
 				'*',
 				markdown = {
-					names=false
+					names = false
 				},
 				text={
-					names=false
-				}
+					names = false
+				},
+				["gina-commit"] = {
+					names = false
+				},
 			}
 		end } -- HTML codes and HTML color words to colors
 		-- Git Support:
