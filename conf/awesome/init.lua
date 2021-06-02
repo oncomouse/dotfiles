@@ -272,11 +272,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		{
 			layout = wibox.layout.fixed.horizontal,
 			spacing = 1,
-			is_laptop and brightness_widget() or nil,
+			is_laptop and brightness_widget() or wibox.widget.base.empty_widget(),
 			volume_widget(),
-			is_laptop and battery_widget() or nil,
-			is_laptop and nil or mpris_widget(),
-			is_laptop and nil or weather_widget({
+			is_laptop and battery_widget() or wibox.widget.base.empty_widget(),
+			is_laptop and wibox.widget.base.empty_widget() or mpris_widget(),
+			is_laptop and wibox.widget.base.empty_widget() or weather_widget({
 				api_key=beautiful.ow.key,
 				coordinates = beautiful.ow.coordinates,
 				units = 'imperial',
@@ -287,7 +287,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 				show_hourly_forecast = true,
 				show_daily_forecast = true,
 			}),
-			is_laptop and wifi_widget() or nil,
+			is_laptop and wifi_widget() or wibox.widget.base.empty_widget(),
 			clock_widget(),
 			-- Add some space after the clock:
 			wibox.widget.base.make_widget_declarative({
