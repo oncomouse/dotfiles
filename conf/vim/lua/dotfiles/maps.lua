@@ -28,7 +28,7 @@ map.nnoremap("<silent>", "<leader>/", t"<cmd>call v:lua.grep_or_qfgrep()<CR>")
 map.inoremap("<C-A>", t"<C-O>yiW<End>=<C-R>=<C-R>0<CR>")
 
 -- Jump out of a lexima pair with <C-l>:
-map.inoremap("<C-l>", t"<C-r>=lexima#insmode#leave(1, \"\")<CR>")
+-- map.inoremap("<C-l>", t"<C-r>=lexima#insmode#leave(1, \"\")<CR>")
 --- }}}
 -- List Bindings: {{{
 map.nnoremap("<silent>", "<leader>d", t":call dotfiles#lists#toggle('Location List', 'l')<CR>")

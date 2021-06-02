@@ -49,29 +49,35 @@ return require("packer").startup({
 		vim.g.fastfold_minlines = 0
 		use "Konfekt/FastFold" -- Better fold support
 		use "wellle/targets.vim" -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
-		use { "cohama/lexima.vim",
-			config = function()
-				local function make_rule(at, e, filetype, syntax)
-					return {
-						char = "<CR>",
-						input = "<CR>",
-						input_after = "<CR>" .. e,
-						at = at,
-						except = "\\C\\v^(\\s*)\\S.*%#\\n%(%(\\s*|\\1\\s.+)\\n)*\\1" .. e,
-						filetype = filetype,
-						syntax = syntax,
-					}
-				end
-				local function extend_endwise()
-					-- Lua endwise rules:
-					vim.fn["lexima#add_rule"](make_rule("^\\s*if\\>.*then\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {}))
-					vim.fn["lexima#add_rule"](make_rule("^\\s*\\%(for\\|while\\)\\>.*do\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {}))
-					vim.fn["lexima#add_rule"](make_rule("^\\s*\\%(local\\)\\=.*function\\>\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {}))
-				end
-				extend_endwise()
-				-- vim.api.nvim_set_keymap("i", "<C-l>", "<C-r>=lexima#insmode#leave_till_eol("")<CR>", { noremap = true })
-			end
-		} -- Autopairs + Endwise
+		-- use { "cohama/lexima.vim",
+		-- 	config = function()
+		-- 		local function make_rule(at, e, filetype, syntax)
+		-- 			return {
+		-- 				char = "<CR>",
+		-- 				input = "<CR>",
+		-- 				input_after = "<CR>" .. e,
+		-- 				at = at,
+		-- 				except = "\\C\\v^(\\s*)\\S.*%#\\n%(%(\\s*|\\1\\s.+)\\n)*\\1" .. e,
+		-- 				filetype = filetype,
+		-- 				syntax = syntax,
+		-- 			}
+		-- 		end
+		-- 		function _G.extend_endwise_for_lua()
+		-- 			-- Lua endwise rules:
+		-- 			vim.fn["lexima#add_rule"](make_rule("^\\s*if\\>.*then\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {}))
+		-- 			vim.fn["lexima#add_rule"](make_rule("^\\s*\\%(for\\|while\\)\\>.*do\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {}))
+		-- 			vim.fn["lexima#add_rule"](make_rule("^\\s*\\%(local\\)\\=.*function\\>\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {}))
+		-- 		end
+		-- 		vim.cmd[[autocmd! dotfiles-settings FileType lua lua extend_endwise_for_lua()]]
+		-- 		-- extend_endwise()
+		-- 		-- vim.api.nvim_set_keymap("i", "<C-l>", "<C-r>=lexima#insmode#leave_till_eol("")<CR>", { noremap = true })
+		-- 	end
+		-- } -- Autopairs + Endwise
+
+		use { "windwp/nvim-autopairs", config = function()
+			require('nvim-autopairs').setup()
+		end }
+
 		use { "norcalli/nvim-colorizer.lua", cond = function() return vim.fn.exists("+termguicolors") == 1 end, config = function()
 			require('colorizer').setup{
 				'*',

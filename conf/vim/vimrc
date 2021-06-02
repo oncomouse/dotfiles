@@ -112,7 +112,7 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Jump out of a lexima pair with <C-l>:
-inoremap <C-l> <C-r>=lexima#insmode#leave(1, "")<CR>
+" inoremap <C-l> <C-r>=lexima#insmode#leave(1, "")<CR>
 
 " List Bindings: {{{
 nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
