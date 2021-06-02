@@ -208,7 +208,7 @@ end
 local on_attach_diagnostics = function(...)
 	vim.opt.updatetime = 300
 	vim.cmd[[autocmd! User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
-	vim.cmd[[autocmd! CursorMoved,CursorMovedI,CursorHold,InsertLeave * call v:lua.modeline_diagnostics()]]
+	vim.cmd[[autocmd! CursorMoved,CursorHold,InsertLeave * call v:lua.modeline_diagnostics()]]
 	vim.cmd[[command! LspDetail call v:lua.preview_diagnostics()]]
 	on_attach(...)
 end
