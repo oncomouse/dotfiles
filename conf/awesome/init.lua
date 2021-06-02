@@ -634,11 +634,11 @@ awful.keyboard.append_global_keybindings({
 		description = "stop audio",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioPrev", function() mpris_widget:previous_track() end, {
+	awful.key({}, "XF86AudioPrev", function() mpris_widget:previous() end, {
 		description = "previous track",
 		group = "media",
 	}),
-	awful.key({}, "XF86AudioNext", function() mpris_widget:next_track() end, {
+	awful.key({}, "XF86AudioNext", function() mpris_widget:next() end, {
 		description = "next track",
 		group = "media",
 	}),

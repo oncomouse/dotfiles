@@ -155,10 +155,10 @@ local function create()
 	function mpris_widget:play()
 		awesome.emit_signal("evil::mpris::change", "play_pause")
 	end
-	function mpris_widget:previous_track()
+	function mpris_widget:previous()
 		awesome.emit_signal("evil::mpris::change", "previous")
 	end
-	function mpris_widget:next_track()
+	function mpris_widget:next()
 		awesome.emit_signal("evil::mpris::change", "next")
 	end
 	function mpris_widget:stop()
