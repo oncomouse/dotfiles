@@ -31,7 +31,6 @@ brew "jq"
 brew "lua@5.1", link: false
 brew "luarocks", link: false
 brew "ncspot"
-brew "nnn"
 brew "node"
 brew "openssh"
 brew "pandoc"
