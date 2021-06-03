@@ -125,7 +125,7 @@ function _G.buf_jump_to_last()
 		vim.cmd[[exe "normal! g`\""]]
 	end
 end
-vim.cmd("autocmd dotfiles-settings BufReadPost * call v:lua.buf_jump_to_last()")
+vim.cmd("autocmd dotfiles-settings BufReadPost * lua buf_jump_to_last()")
 
 -- Fix window resizing
 vim.cmd("autocmd dotfiles-settings VimEnter * silent exec \"!kill -s SIGWINCH $PPID\"")
@@ -141,7 +141,7 @@ function _G.fasd_update()
 		}, function() handle:close() end)
 	end
 end
-vim.cmd("autocmd dotfiles-settings BufWinEnter,BufFilePost * call v:lua.fasd_update()")
+vim.cmd("autocmd dotfiles-settings BufWinEnter,BufFilePost * lua fasd_update()")
 -- }}}
 -- }}}
 -- # vim:foldmethod=marker

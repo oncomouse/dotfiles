@@ -11,7 +11,7 @@ function _G.show_documentation()
 		vim.lsp.buf.hover()
 	end
 end
-map.nnoremap("<silent>", "<Plug>(dotfiles-documentation)", ":<C-u>call v:lua.show_documentation()<CR>")
+map.nnoremap("<silent>", "<Plug>(dotfiles-documentation)", ":<C-u>lua show_documentation()<CR>")
 
 -- Extend configs for citation-langserver:
 configs.citation_langserver = {

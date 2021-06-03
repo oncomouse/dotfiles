@@ -22,7 +22,7 @@ function _G.grep_or_qfgrep()
 		end
 	end
 end
-map.nnoremap("<silent>", "<leader>/", t"<cmd>call v:lua.grep_or_qfgrep()<CR>")
+map.nnoremap("<silent>", "<leader>/", t"<cmd>lua grep_or_qfgrep()<CR>")
 
 -- Calculator (not sure how this works):
 map.inoremap("<C-A>", t"<C-O>yiW<End>=<C-R>=<C-R>0<CR>")
