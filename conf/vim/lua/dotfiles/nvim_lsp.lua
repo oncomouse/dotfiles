@@ -163,7 +163,7 @@ function _G.modeline_diagnostics(opts, bufnr, line_nr, client_id)
 end
 
 function _G.preview_diagnostics(opts, bufnr, line_nr, client_id)
-	opts = opts or {}
+	opts = opts or {focusable = false}
 
 	local show_header = vim.F.if_nil(opts.show_header, true)
 
@@ -208,8 +208,9 @@ end
 local on_attach_diagnostics = function(...)
 	vim.opt.updatetime = 300
 	vim.cmd[[autocmd! User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
-	vim.cmd[[autocmd! CursorMoved,CursorHold,InsertLeave * call v:lua.modeline_diagnostics()]]
-	vim.cmd[[command! LspDetail call v:lua.preview_diagnostics()]]
+	vim.cmd[[autocmd! CursorMoved,CursorHold,InsertLeave * lua modeline_diagnostics()]]
+	vim.cmd[[command! LspDetail lua preview_diagnostics()]]
+	-- vim.cmd[[autocmd CursorHold * lua hover_diagnostics({focusable = false})]]
 	on_attach(...)
 end
 
