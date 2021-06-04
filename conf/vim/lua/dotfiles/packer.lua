@@ -1,7 +1,7 @@
 --luacheck: globals vim use
+local xdg = require("dotfiles.utils.xdg")
 local function packpath()
-	return (os.getenv("XDG_DATA_HOME") and os.getenv("XDG_DATA_HOME") or os.getenv("HOME") .. '/.local/share') ..
-		'/packer/desktop'
+	return xdg("XDG_DATA_HOME") .. "/packer/desktop"
 end
 
 local pp = packpath()

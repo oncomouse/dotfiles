@@ -93,13 +93,7 @@ vim.cmd("let &t_8b='" .. t"<Esc>" .. "[48;2;%lu;%lu;%lum'")
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 
-local xdg = function(var_name)
-	if var_name == "XDG_CACHE_HOME" then
-		return os.getenv("XDG_CACHE_HOME") and os.getenv("XDG_CACHE_HOME") or os.getenv("HOME") .. '/.cache'
-	end
-	return nil
-end
-
+local xdg = require("dotfiles.utils.lua")
 local wal_cache = xdg("XDG_CACHE_HOME") .. '/wal/vim'
 if vim.fn.isdirectory(wal_cache) == 1 then
 	vim.opt.runtimepath:append({ wal_cache })
