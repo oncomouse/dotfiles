@@ -136,30 +136,6 @@ function _G.modeline_diagnostics(opts, bufnr, line_nr, client_id)
 			)
 			.. "\"")
 	end
-
-	-- for i, diagnostic in ipairs(line_diagnostics) do
-	-- 	local prefix = string.format("%d. ", i)
-	-- 	local hiname = vim.lsp.diagnostic._get_floating_severity_highlight_name(diagnostic.severity)
-	-- 	assert(hiname, 'unknown severity: ' .. tostring(diagnostic.severity))
-
-	-- 	local message_lines = vim.split(diagnostic.message, '\n', true)
-	-- 	table.insert(lines, prefix..message_lines[1])
-	-- 	table.insert(highlights, {#prefix, hiname})
-	-- 	for j = 2, #message_lines do
-	-- 		table.insert(lines, message_lines[j])
-	-- 		table.insert(highlights, {0, hiname})
-	-- 	end
-	-- end
-
-	-- if #lines > 0 then
-	-- 	local popup_bufnr, winnr = vim.lsp.util.open_floating_preview(lines, 'plaintext', opts)
-	-- 	for i, hi in ipairs(highlights) do
-	-- 		local prefixlen, hiname = unpack(hi)
-	-- 		-- Start highlight after the prefix
-	-- 		vim.api.nvim_buf_add_highlight(popup_bufnr, -1, hiname, i-1, prefixlen, -1)
-	-- 	end
-	-- 	return popup_bufnr, winnr
-	-- end
 end
 
 function _G.preview_diagnostics(opts, bufnr, line_nr, client_id)
@@ -216,7 +192,13 @@ end
 
 local servers = {
 	efm = {
-		root_dir =	lspconfig.util.root_pattern("Rakefile", "yarn.lock", "lerna.json", ".git", "poetry.toml"),
+		root_dir =	lspconfig.util.root_pattern(
+			"Rakefile",
+			"yarn.lock",
+			"lerna.json",
+			".git",
+			"poetry.toml"
+		),
 		filetypes = {
 			"css",
 			"html",
