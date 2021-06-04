@@ -13,12 +13,13 @@ function _G.grep_or_qfgrep()
 	if vim.opt.buftype:get() == 'quickfix' then
 		local input = vim.fn.input('QFGrep/')
 		if #input > 0 then
-			vim.cmd("execute 'Cfilter /'.l:input.'/'")
+			local prefix = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist and 'L' or 'C'
+			vim.cmd("execute '" .. prefix .. "filter /'.l:input.'/'")
 		end
 	else
 		local input = vim.fn.input('Grep/')
 		if #input > 0 then
-			vim.cmd("execute 'Grep ' . l:input")
+			vim.cmd("Grep " .. input)
 		end
 	end
 end
