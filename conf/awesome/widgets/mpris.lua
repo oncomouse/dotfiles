@@ -115,6 +115,7 @@ local function create()
 		end
 		return artUrl
 	end
+	local last_artUrl = nil
 	mpris_widget.widget:connect_signal('mouse::enter', function()
 		if artist ~= nil then
 			-- mpris_tooltip.markup = '<b>Artist</b>: ' .. artist
@@ -130,7 +131,7 @@ local function create()
 			f:add_widget_at(wibox.widget{
 				widget=wibox.widget.imagebox,
 				id="image",
-				image= get_image(),
+				image= last_artUrl == artUrl and get_image() or gears.surface.load_uncached(get_image()),
 				forced_width=dpi(75),
 				forced_height=dpi(75),
 			}, 1, 1)
@@ -144,6 +145,7 @@ local function create()
 			mpris_popup:setup{
 				widget=f
 			}
+			last_artUrl = artUrl
 		end
 		mpris_popup.visible = true
 		mpris_popup:move_next_to(mouse.current_widget_geometry)
