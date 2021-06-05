@@ -626,6 +626,18 @@ awful.keyboard.append_global_keybindings({
 		description = "raise monitor brightness",
 		group = "media",
 	}),
+	awful.key({}, "XF86KbdBrightnessDown", function()
+		awful.spawn("sudo /usr/local/bin/keyboard-backlight down")
+	end, {
+		description = "lower keyboard backlight brightness",
+		group = "media",
+	}),
+	awful.key({}, "XF86KbdBrightnessUp", function()
+		awful.spawn("sudo /usr/local/bin/keyboard-backlight up")
+	end, {
+		description = "raise keyboard backlight brightness",
+		group = "media",
+	}),
 	awful.key({}, "XF86AudioPlay", function() mpris_widget:play() end, {
 		description = "play/pause audio",
 		group = "media",
