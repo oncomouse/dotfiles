@@ -76,7 +76,6 @@ return require("packer").startup({
 				vim.api.nvim_set_keymap("i", "<C-l>", "<C-r>=lexima#insmode#leave_till_eol(\"\")<CR>", { noremap = true })
 			end
 		} -- Autopairs + Endwise
-
 		use {
 			"norcalli/nvim-colorizer.lua",
 			ft = { "html", "css", "scss", "markdown" },
@@ -97,7 +96,6 @@ return require("packer").startup({
 				end
 			end
 		} -- HTML codes and HTML color words to colors
-		-- Git Support:
 		use {
 			"lambdalisue/gina.vim",
 			cmd = { "Gina" },
