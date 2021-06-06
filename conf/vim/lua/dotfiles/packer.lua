@@ -112,9 +112,10 @@ return require("packer").startup({
 				vim.fn["gina#custom#mapping#nmap"]("status", "cc", ":<C-u>Gina commit<CR>", {noremap = 1, silent = 1})
 			end
 		} -- :Gina status to schedule; :Gina commit to commit
-		-- FZF Support:
+		-- FZF Add to RTP or Install:
+		-- Macos
 		if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then
-			use "/usr/local/opt/fzf"
+			use  "/usr/local/opt/fzf"
 		-- Arch
 		elseif vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 then
 			use "/usr/share/vim/vimfiles"
@@ -125,7 +126,7 @@ return require("packer").startup({
 			use {
 				"junegunn/fzf",
 				run = "./install --all",
-			}
+			} -- Fallback FZF install
 		end
 		use {
 			"junegunn/fzf.vim",
@@ -140,18 +141,73 @@ return require("packer").startup({
 					["ctrl-e"] = 'edit',
 				}
 				vim.g.fzf_nvim_statusline = 0 -- disable statusline overwriting
-				-- Standard dotfiles bindings:
-				vim.api.nvim_set_keymap("n", "<Plug>(dotfiles-files)", "<cmd>Files<CR>", {})
-				vim.api.nvim_set_keymap("n", "<Plug>(dotfiles-home-files)", "<cmd>Files ~<CR>", {})
-				vim.api.nvim_set_keymap("n", "<Plug>(dotfiles-buffers)", "<cmd>Buffers<CR>", {})
-				vim.api.nvim_set_keymap("n", "<Plug>(dotfiles-windows)", "<cmd>Windows<CR>", {})
-				vim.api.nvim_set_keymap("n", "<Plug>(dotfiles-lines)", "<cmd>BLines<CR>", {})
-				vim.api.nvim_set_keymap("n", "<Plug>(dotfiles-commands)", "<cmd>Commands<CR>", {})
 			end
 		}  -- Add shorcuts for FZF
 		-- Syntax:
 		use {
 			"nvim-treesitter/nvim-treesitter",
+			ft = {
+				"bash",
+				"beancount",
+				"bibtex",
+				"c",
+				"c_sharp",
+				"clojure",
+				"comment",
+				"commonlisp",
+				"cpp",
+				"css",
+				"dart",
+				"devicetree",
+				"dockerfile",
+				"elixir",
+				"erlang",
+				"fennel",
+				"fish",
+				"gdscript",
+				"glimmer",
+				"go",
+				"gomod",
+				"graphql",
+				"html",
+				"java",
+				"javascript",
+				"javascriptreact",
+				"jsdoc",
+				"json",
+				"jsonc",
+				"julia",
+				"kotlin",
+				"latex",
+				"ledger",
+				"lua",
+				"nix",
+				"ocaml",
+				"ocaml_interface",
+				"ocamllex",
+				"php",
+				"python",
+				"ql",
+				"query",
+				"r",
+				"regex",
+				"rst",
+				"ruby",
+				"rust",
+				"scss",
+				"sparql",
+				"supercollider",
+				"svelte",
+				"teal",
+				"toml",
+				"tsx",
+				"turtle",
+				"typescript",
+				"verilog",
+				"vue",
+				"yaml",
+				"zig",
+			},
 			run = ":TSUpdate",
 			config = function()
 				require('nvim-treesitter.configs').setup{

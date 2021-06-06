@@ -50,20 +50,20 @@ local on_attach = function()
 	-- Once codelens is setup:
 	-- vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
 	vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-document-symbols)", ":<C-u>lua vim.lsp.buf.document_symbol()<CR>")
-	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-rename)", ":<C-u>lua vim.lsp.buf.rename()<CR>")
-	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-definition)", ":<C-u>lua vim.lsp.buf.definition()<CR>")
-	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-type-definition)", ":<C-u>lua vim.lsp.buf.type_definition()<CR>")
-	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-implementation)", ":<C-u>lua vim.lsp.buf.implementation()<CR>")
-	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-references)", ":<C-u>lua vim.lsp.buf.references()<CR>")
-	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-codelens)", ":<C-u>lua vim.lsp.codelens.run()<CR>")
-	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-codeaction)", ":<C-u>lua vim.lsp.buf.code_action()<CR>")
-	map.vnoremap("<silent><buffer>", "<Plug>(dotfiles-codeaction-selected)", ":<C-u>lua vim.lsp.buf.range_code_action()<CR>")
-	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-commands)", ":<CR>")
+	map.nnoremap("<silent><buffer>", "<leader>s", ":<C-u>lua vim.lsp.buf.document_symbol()<CR>")
+	map.nnoremap("<silent><buffer>", "<F2>", ":<C-u>lua vim.lsp.buf.rename()<CR>")
+	map.nnoremap("<silent><buffer>", "gd", ":<C-u>lua vim.lsp.buf.definition()<CR>")
+	map.nnoremap("<silent><buffer>", "gy", ":<C-u>lua vim.lsp.buf.type_definition()<CR>")
+	map.nnoremap("<silent><buffer>", "gi", ":<C-u>lua vim.lsp.buf.implementation()<CR>")
+	map.nnoremap("<silent><buffer>", "gr", ":<C-u>lua vim.lsp.buf.references()<CR>")
+	map.nnoremap("<silent><buffer>", "gl", ":<C-u>lua vim.lsp.codelens.run()<CR>")
+	map.nnoremap("<silent><buffer>", "ga", ":<C-u>lua vim.lsp.buf.code_action()<CR>")
+	map.vnoremap("<silent><buffer>", "ga", ":<C-u>lua vim.lsp.buf.range_code_action()<CR>")
+	map.nnoremap("<silent><buffer>", "<F5>", ":<CR>")
 	vim.api.nvim_command("command! Format lua vim.lsp.buf.formatting()")
 	vim.opt.wrapscan = true
-	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-diagnostic-next)", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
-	map.nnoremap("<silent><buffer>", "<Plug>(dotfiles-diagnostic-previous)", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
+	map.nnoremap("<silent><buffer>", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
+	map.nnoremap("<silent><buffer>", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
 end
 
 local function in_range(range, line, col)

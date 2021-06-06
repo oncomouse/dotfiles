@@ -15,3 +15,5 @@ export OW_KEY OW_LAT OW_LONG
 
 alias ls='exa --group-directories-first'
 PS1='[\u@\h \W]\$ '
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
