@@ -100,6 +100,7 @@ return require("packer").startup({
 		-- Git Support:
 		use {
 			"lambdalisue/gina.vim",
+			cmd = { "Gina" },
 			config = function()
 				vim.fn["gina#custom#command#option"]("status", "--opener", vim.o.previewheight .. "split")
 				vim.fn["gina#custom#command#option"]("commit", "--opener", vim.o.previewheight .. "split")
@@ -128,7 +129,7 @@ return require("packer").startup({
 		end
 		use {
 			"junegunn/fzf.vim",
-			on = { "Files", "Buffers", "Windows", "BLines", "Commands" },
+			cmd = { "Files", "Buffers", "Windows", "BLines", "Commands" },
 			config = function()
 				vim.cmd[[command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)]]
 				vim.g.fzf_layout = { window = { width = 1, height = 0.4, yoffset = 1, border = 'top' } }
@@ -169,15 +170,14 @@ return require("packer").startup({
 		}
 		use {
 			"windwp/nvim-ts-autotag",
-			ft={"html", "javascript", "javascriptreact"},
-			after="nvim-treesitter"
+			ft={"html", "javascript", "javascriptreact"}
 		}  -- Automatically close HTML tags
 		vim.g.vim_markdown_frontmatter = 1 -- Format YAML
 		vim.g.vim_markdown_strikethrough = 0 -- Don"t format strikethrough
 		vim.g.vim_markdown_conceal = 0 -- Don"t conceal
 		vim.g.vim_markdown_conceal_code_blocks = 0 -- Don"t conceal code blocks
 		vim.g.vim_markdown_math = 1 -- Do process MathJaX and LaTeX math
-		use "plasticboy/vim-markdown" -- Markdown Syntax
+		use { "plasticboy/vim-markdown", ft = { "markdown" } } -- Markdown Syntax
 		use {
 			"godlygeek/tabular",
 			cmd={ "Tabular", "TableFormat" }
@@ -187,7 +187,20 @@ return require("packer").startup({
 			"neovim/nvim-lspconfig",
 			config = function()
 				require('dotfiles.nvim_lsp')
-			end
+			end,
+			ft = {
+				"css",
+				"html",
+				"javascript",
+				"json",
+				"lua",
+				"markdown",
+				"python",
+				"ruby",
+				"sh",
+				"vim",
+
+			}
 		} -- LSP Configuration
 	end,
 	config = {
