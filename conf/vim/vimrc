@@ -111,41 +111,17 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-" Jump out of a lexima pair with <C-l>:
-" inoremap <C-l> <C-r>=lexima#insmode#leave(1, "")<CR>
-
 " List Bindings: {{{
 nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
 nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
 "}}}
-" Default Diagnostic Bindings: {{{
-nmap <silent> <Plug>(dotfiles-diagnostic-next) <cmd>cnext<CR>
-nmap <silent> <Plug>(dotfiles-diagnostic-previous) <cmd>cprev<CR>
-" }}}
-" Standard Fuzzy Bindings: {{{
-nmap <silent> <c-p> <Plug>(dotfiles-files)
-nmap <silent> <leader>F <Plug>(dotfiles-home-files)
-nmap <silent> <leader>a <Plug>(dotfiles-buffers)
-nmap <silent> <leader>A <Plug>(dotfiles-windows)
-nmap <silent> <leader>l <Plug>(dotfiles-lines)
-nmap <silent> <leader>? <Plug>(dotfiles-commands)
-" }}}
-" Standard LSP Bindings: {{{
-" As with Fuzzy bindings (above), we set all the LSP commands to Plug
-" bindings and then rebind them here to the keys we actually want to use:
-nmap <silent> <F2>		<Plug>(dotfiles-rename)
-nmap <silent> <F5>		<Plug>(dotfiles-commands)
-vmap <silent> ga		<Plug>(dotfiles-codeaction-selected)
-nmap <silent> ga		<Plug>(dotfiles-codeaction)
-nmap <silent> gl		<Plug>(dotfiles-codelens)
-nmap <silent> gd		<Plug>(dotfiles-definition)
-nmap <silent> gy		<Plug>(dotfiles-type-definition)
-nmap <silent> gi		<Plug>(dotfiles-implementation)
-nmap <silent> gr		<Plug>(dotfiles-references)
-nmap <silent> <leader>s <Plug>(dotfiles-document-symbols)
-nmap <silent> K			<Plug>(dotfiles-documentation)
-nmap <silent> [d		<Plug>(dotfiles-diagnostic-previous)
-nmap <silent> ]d		<Plug>(dotfiles-diagnostic-next)
+" FZF Bindings: {{{
+nmap <silent> <c-p> <cmd>Files<CR>
+nmap <silent> <leader>F <cmd>Files ~<CR>
+nmap <silent> <leader>a <cmd>Buffers<CR>
+nmap <silent> <leader>A <cmd>Windows<CR>
+nmap <silent> <leader>l <cmd>Blines<CR>
+nmap <silent> <leader>? <cmd>Commands<CR>
 " }}}
 " }}}
 " Theme: {{{

@@ -76,7 +76,6 @@ return require("packer").startup({
 				vim.api.nvim_set_keymap("i", "<C-l>", "<C-r>=lexima#insmode#leave_till_eol(\"\")<CR>", { noremap = true })
 			end
 		} -- Autopairs + Endwise
-
 		use {
 			"norcalli/nvim-colorizer.lua",
 			ft = { "html", "css", "scss", "markdown" },
@@ -97,9 +96,9 @@ return require("packer").startup({
 				end
 			end
 		} -- HTML codes and HTML color words to colors
-		-- Git Support:
 		use {
 			"lambdalisue/gina.vim",
+			cmd = { "Gina" },
 			config = function()
 				vim.fn["gina#custom#command#option"]("status", "--opener", vim.o.previewheight .. "split")
 				vim.fn["gina#custom#command#option"]("commit", "--opener", vim.o.previewheight .. "split")
@@ -111,9 +110,10 @@ return require("packer").startup({
 				vim.fn["gina#custom#mapping#nmap"]("status", "cc", ":<C-u>Gina commit<CR>", {noremap = 1, silent = 1})
 			end
 		} -- :Gina status to schedule; :Gina commit to commit
-		-- FZF Support:
+		-- FZF Add to RTP or Install:
+		-- Macos
 		if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then
-			use "/usr/local/opt/fzf"
+			use  "/usr/local/opt/fzf"
 		-- Arch
 		elseif vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 then
 			use "/usr/share/vim/vimfiles"
@@ -124,11 +124,11 @@ return require("packer").startup({
 			use {
 				"junegunn/fzf",
 				run = "./install --all",
-			}
+			} -- Fallback FZF install
 		end
 		use {
 			"junegunn/fzf.vim",
-			on = { "Files", "Buffers", "Windows", "BLines", "Commands" },
+			cmd = { "Files", "Buffers", "Windows", "BLines", "Commands" },
 			config = function()
 				vim.cmd[[command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)]]
 				vim.g.fzf_layout = { window = { width = 1, height = 0.4, yoffset = 1, border = 'top' } }
@@ -139,18 +139,73 @@ return require("packer").startup({
 					["ctrl-e"] = 'edit',
 				}
 				vim.g.fzf_nvim_statusline = 0 -- disable statusline overwriting
-				-- Standard dotfiles bindings:
-				vim.api.nvim_set_keymap("n", "<Plug>(dotfiles-files)", "<cmd>Files<CR>", {})
-				vim.api.nvim_set_keymap("n", "<Plug>(dotfiles-home-files)", "<cmd>Files ~<CR>", {})
-				vim.api.nvim_set_keymap("n", "<Plug>(dotfiles-buffers)", "<cmd>Buffers<CR>", {})
-				vim.api.nvim_set_keymap("n", "<Plug>(dotfiles-windows)", "<cmd>Windows<CR>", {})
-				vim.api.nvim_set_keymap("n", "<Plug>(dotfiles-lines)", "<cmd>BLines<CR>", {})
-				vim.api.nvim_set_keymap("n", "<Plug>(dotfiles-commands)", "<cmd>Commands<CR>", {})
 			end
 		}  -- Add shorcuts for FZF
 		-- Syntax:
 		use {
 			"nvim-treesitter/nvim-treesitter",
+			ft = {
+				"bash",
+				"beancount",
+				"bibtex",
+				"c",
+				"c_sharp",
+				"clojure",
+				"comment",
+				"commonlisp",
+				"cpp",
+				"css",
+				"dart",
+				"devicetree",
+				"dockerfile",
+				"elixir",
+				"erlang",
+				"fennel",
+				"fish",
+				"gdscript",
+				"glimmer",
+				"go",
+				"gomod",
+				"graphql",
+				"html",
+				"java",
+				"javascript",
+				"javascriptreact",
+				"jsdoc",
+				"json",
+				"jsonc",
+				"julia",
+				"kotlin",
+				"latex",
+				"ledger",
+				"lua",
+				"nix",
+				"ocaml",
+				"ocaml_interface",
+				"ocamllex",
+				"php",
+				"python",
+				"ql",
+				"query",
+				"r",
+				"regex",
+				"rst",
+				"ruby",
+				"rust",
+				"scss",
+				"sparql",
+				"supercollider",
+				"svelte",
+				"teal",
+				"toml",
+				"tsx",
+				"turtle",
+				"typescript",
+				"verilog",
+				"vue",
+				"yaml",
+				"zig",
+			},
 			run = ":TSUpdate",
 			config = function()
 				require('nvim-treesitter.configs').setup{
@@ -169,15 +224,14 @@ return require("packer").startup({
 		}
 		use {
 			"windwp/nvim-ts-autotag",
-			ft={"html", "javascript", "javascriptreact"},
-			after="nvim-treesitter"
+			ft={"html", "javascript", "javascriptreact"}
 		}  -- Automatically close HTML tags
 		vim.g.vim_markdown_frontmatter = 1 -- Format YAML
 		vim.g.vim_markdown_strikethrough = 0 -- Don"t format strikethrough
 		vim.g.vim_markdown_conceal = 0 -- Don"t conceal
 		vim.g.vim_markdown_conceal_code_blocks = 0 -- Don"t conceal code blocks
 		vim.g.vim_markdown_math = 1 -- Do process MathJaX and LaTeX math
-		use "plasticboy/vim-markdown" -- Markdown Syntax
+		use { "plasticboy/vim-markdown", ft = { "markdown" } } -- Markdown Syntax
 		use {
 			"godlygeek/tabular",
 			cmd={ "Tabular", "TableFormat" }
@@ -187,7 +241,20 @@ return require("packer").startup({
 			"neovim/nvim-lspconfig",
 			config = function()
 				require('dotfiles.nvim_lsp')
-			end
+			end,
+			ft = {
+				"css",
+				"html",
+				"javascript",
+				"json",
+				"lua",
+				"markdown",
+				"python",
+				"ruby",
+				"sh",
+				"vim",
+
+			}
 		} -- LSP Configuration
 	end,
 	config = {
