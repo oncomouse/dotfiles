@@ -17,9 +17,22 @@ while read -r line; do
 	case $line in
 		focus_changed*)
 			title="${line:25}"
+			id="${line:15:8}"
+			;;
+		title_changed*)
+			l_id="${line:15:8}"
+			if [ "$l_id" == "$id" ]; then
+				id="$l_id"
+				title="${line:25}"
+			fi
 			;;
 		initial_focus*)
 			title="${line:25}"
+			id="${line:15:8}"
+			;;
+		removed_*)
+			;;
+		new_window*)
 			;;
 		initial*)
 			;;
