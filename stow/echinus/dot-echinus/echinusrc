@@ -1,14 +1,6 @@
-Echinus*selected.border: #262626
-Echinus*selected.button: #d3d7cf
-Echinus*selected.bg: #262626
-Echinus*selected.fg: #d3d7cf
+#include "/home/andrew/.cache/wal/echinus.Xresources"
 
-Echinus*normal.border: #262626
-Echinus*normal.button: #262626
-Echinus*normal.bg: #262626
-Echinus*normal.fg: #b0b4ac
-
-Echinus*border: 2
+Echinus*border: 1
 
 Echinus*button.iconify.pixmap: iconify.xbm
 Echinus*button.maximize.pixmap: max.xbm
@@ -38,8 +30,8 @@ Echinus*tags.name4: scr
 Echinus*tags.name5: gfx
 Echinus*tags.name6: misc
 
-Echinus*tags.layout1: m
-Echinus*tags.layout3: b
+! Echinus*tags.layout1: m
+! Echinus*tags.layout3: b
 
 Echinus*togglestruts: W + b
 Echinus*togglemonitor: W + grave
@@ -101,17 +93,18 @@ Echinus*resizeincy: WS + w = 0 0 0 5
 
 Echinus*spawn0: WS + Return = kitty
 Echinus*spawn1: WA + r = rofi -show drun
-Echinus*spawn2: XF86MonBrightnessDown = xbacklight -dec 5
-Echinus*spawn3: XF86MonBrightnessUp = xbacklight -inc 5
-Echinus*spawn4: XF86KbdBrightnessDown = sudo /usr/local/bin/keyboard-backlight down
-Echinus*spawn5: XF86KbdBrightnessUp = sudo /usr/local/bin/keyboard-backlight up
-Echinus*spawn6: XF86AudioPlay = playerctl play-pause
-Echinus*spawn7: XF86AudioStop = playerctl stop
-Echinus*spawn8: XF86AudioNext = playerctl next
-Echinus*spawn9: XF86AudioPrevious = playerctl previous
-Echinus*spawn10: XF86AudioLowerVolume = pamixer -d 5
-Echinus*spawn11: XF86AudioRaiseVolume = pamixer -i 5
-Echinus*spawn12: XF86AudioMute = pamixer -t
+Echinus*spawn2: WS + n = networkmanager_dmenu
+Echinus*spawn3: XF86MonBrightnessDown = xbacklight -dec 5
+Echinus*spawn4: XF86MonBrightnessUp = xbacklight -inc 5
+Echinus*spawn5: XF86KbdBrightnessDown = sudo /usr/local/bin/keyboard-backlight down
+Echinus*spawn6: XF86KbdBrightnessUp = sudo /usr/local/bin/keyboard-backlight up
+Echinus*spawn7: XF86AudioPlay = playerctl play-pause
+Echinus*spawn8: XF86AudioStop = playerctl stop
+Echinus*spawn9: XF86AudioNext = playerctl next
+Echinus*spawn10: XF86AudioPrevious = playerctl previous
+Echinus*spawn11: XF86AudioLowerVolume = pamixer -d 5
+Echinus*spawn12: XF86AudioRaiseVolume = pamixer -i 5
+Echinus*spawn13: XF86AudioMute = pamixer -t
 
 Echinus*decmwfact: W + h = -0.05
 Echinus*incmwfact: W + l = +0.05
@@ -120,7 +113,7 @@ Echinus*incnmaster: WS + k = +1
 
 Echinus*command: kitty
 
-Echinus*rule0: Firefox.* web 0 1
+! Echinus*rule0: Firefox.* web 0 1
 Echinus*rule4: Mplayer.* NULL 1 1
 Echinus*rule5: Gimp.* gfx 1 1
 
