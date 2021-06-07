@@ -1,7 +1,7 @@
 source ~/dotfiles/conf/xorg/xinitrc-common
 source ~/.cache/wal/colors.sh
 
-xsetroot -solid "$color0"
+hsetroot -solid "$color0"
 
 killall -q lemonbar
 killall -q conky

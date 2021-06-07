@@ -79,7 +79,7 @@ Echinus*focusview6: W + s
 Echinus*setlayoutm: W + m
 Echinus*setlayoutf: W + f
 Echinus*setlayouti: W + i
-Echinus*setlayoutt: W + r
+Echinus*setlayoutt: W + t
 Echinus*setlayoutb: W + w
 
 Echinus*moveright: W + d = 5
@@ -92,7 +92,7 @@ Echinus*resizeincx: WS + d = 0 0 5 0
 Echinus*resizeincy: WS + w = 0 0 0 5
 
 Echinus*spawn0: WS + Return = kitty
-Echinus*spawn1: WA + r = rofi -show drun
+Echinus*spawn1: WA + r = rofi -theme ~/dotfiles/conf/rofi/barmenu_small.rasi -match fuzzy -auto-select -show drun -show-icons -yoffset 15 -drun-display-format '{name}'
 Echinus*spawn2: WS + n = networkmanager_dmenu
 Echinus*spawn3: XF86MonBrightnessDown = xbacklight -dec 5
 Echinus*spawn4: XF86MonBrightnessUp = xbacklight -inc 5
