@@ -1,0 +1,2 @@
+source ~/dotfiles/conf/xorg/xinitrc-common
+exec echinus
