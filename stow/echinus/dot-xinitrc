@@ -3,9 +3,5 @@ source ~/.cache/wal/colors.sh
 
 hsetroot -solid "$color0"
 
-killall -q lemonbar
-killall -q conky
-# Wait until the processes have been shut down
-while pgrep -u $UID -x lemonbar >/dev/null; do sleep 1; done
-conky | lemonbar -f "FiraCode Nerd Font:size=9" -B "$color0" -F "$color7"&
+~/dotfiles/scripts/lemonbar.sh &
 exec echinus
