@@ -40,5 +40,9 @@ while read -r line; do
 			conky="$line"
 			;;
 	esac
-	echo "$conky %{c}$title"
+	if [ "${#title}" -ge 80  ]; then
+		echo "$conky %{c}${title:0:79}…"
+	else
+		echo "$conky %{c}$title"
+	fi
 done < "$fifo" | lemonbar -f "FiraCode Nerd Font:size=9" -B "$color0" -F "$color7" | sh
