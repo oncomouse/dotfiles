@@ -327,7 +327,7 @@ awful.keyboard.append_global_keybindings({
 })
 -- Tag Manipulation {{{
 awful.keyboard.append_global_keybindings({
-	awful.key({ modkey }, "s", hotkeys_popup.show_help, {
+	awful.key({ modkey, "Shift" }, "/", hotkeys_popup.show_help, { -- Mod4 + ?
 		description = "show help",
 		group = "awesome",
 	}),
