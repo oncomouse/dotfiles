@@ -35,7 +35,7 @@ if [ -z "$SERVER" ]; then
 		dotfiles_stow redshift
 		dotfiles_stow xscreensaver
 		dotfiles_stow systemd
-		dotfiles_stow redshift
+		dotfiles_stow unclutter
 		dotfiles_stow xorg
 	fi
 	## Configure NCSpot:
