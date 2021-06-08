@@ -1,2 +1,7 @@
 source ~/dotfiles/conf/xorg/xinitrc-common
+source ~/.cache/wal/colors.sh
+
+hsetroot -solid "$color0"
+
+~/dotfiles/scripts/lemonbar.sh &
 exec echinus
