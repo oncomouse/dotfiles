@@ -127,13 +127,13 @@ function _G.modeline_diagnostics(opts, bufnr, line_nr, client_id)
 		end
 	else
 		echoed = true
-		vim.cmd("echo \"" ..
-			string.format(
+		vim.cmd("echon \"" ..
+			truncate(string.format(
 				"%d Error%s: %s",
 				#line_diagnostics,
 				(#line_diagnostics == 1 and "" or "s"),
-				truncate(line_diagnostics[1].message, vim.fn.winwidth(".") - 2)
-			)
+				line_diagnostics[1].message
+			), vim.fn.winwidth(".") - 12)
 			.. "\"")
 	end
 end
