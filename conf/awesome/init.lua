@@ -176,7 +176,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		awful.tag.add(t, {
 			screen = s,
 			layout = awful.layout.layouts[1],
-			master_width_factor = is_laptop and 0.6 or 0.5,
+			master_width_factor = is_laptop and 0.6 or 0.55,
 		})
 	end
 	-- Focus on first tag:
