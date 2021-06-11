@@ -4,9 +4,6 @@ function! ToggleConcealLevel() abort
   setlocal conceallevel= &conceallevel == 0 ? 2 : 0
 endfunction
 nnoremap <buffer> <silent> <leader>cc :call ToggleConcealLevel()<CR>
-" Ctrl+Shift+<-/-> indents
-imap <buffer> <silent> <C-S-Left> <C-o><<
-imap <buffer> <silent> <C-S-Right> <C-o>>>
 
 function! s:get_makeprg() abort
   " Included with vim-rooter:
@@ -23,7 +20,7 @@ function! s:get_makeprg() abort
   endif
 endfunction
 
-let &l:iskeyword=&iskeyword.",',-"
+setlocal iskeyword+=',-
 
 call s:get_makeprg()
 

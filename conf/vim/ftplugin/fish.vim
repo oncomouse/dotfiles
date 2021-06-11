@@ -1,1 +1,0 @@
-setlocal omnifunc=fish#Complete
