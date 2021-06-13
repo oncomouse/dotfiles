@@ -24,6 +24,7 @@ function rofi.drun()
 		string.format(
 			"rofi -theme %s/dotfiles/conf/rofi/barmenu.rasi " ..
 			"-match fuzzy -auto-select " ..
+			"-font '" .. beautiful.font .. "' " ..
 			"-show drun -show-icons -yoffset %d -drun-display-format '{name}'",
 			os.getenv("HOME"), screen[1].mywibox.visible and beautiful.bar_height or 0
 		)
@@ -35,6 +36,7 @@ function rofi.window()
 		string.format(
 			"rofi -theme %s/dotfiles/conf/rofi/barmenu.rasi " ..
 			"-show window -show-icons " ..
+			"-font '" .. beautiful.font .. "' " ..
 			"-yoffset %d -window-format '{w} {c} {t:25}'",
 			os.getenv("HOME"), screen[1].mywibox.visible and beautiful.bar_height or 0
 		)
