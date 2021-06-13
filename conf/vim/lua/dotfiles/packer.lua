@@ -22,7 +22,7 @@ end
 vim.cmd("packadd packer.nvim")
 return require("packer").startup({
 	function()
-		use { 'wbthomason/packer.nvim', opt = true }
+		use { "wbthomason/packer.nvim", opt = true }
 		-- Getting Started:
 		use "tpope/vim-sensible" -- Agreeable vim settings:
 		use "xero/securemodelines" -- Secure modelines
