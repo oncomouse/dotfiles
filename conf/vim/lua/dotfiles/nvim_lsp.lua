@@ -46,9 +46,11 @@ local handler_diagnostics = {
 local vscode_capabilities = vim.lsp.protocol.make_client_capabilities()
 vscode_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local on_attach = function()
+local on_attach = function(client, _)
 	-- Once codelens is setup:
-	-- vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
+	if client.resolved_capabilities.code_lens then
+		vim.api.nvim_command [[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
+	end
 	vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
 	map.nnoremap("<silent><buffer>", "<leader>s", ":<C-u>lua vim.lsp.buf.document_symbol()<CR>")
 	map.nnoremap("<silent><buffer>", "<F2>", ":<C-u>lua vim.lsp.buf.rename()<CR>")
