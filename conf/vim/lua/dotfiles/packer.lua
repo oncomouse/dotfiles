@@ -30,6 +30,7 @@ return require("packer").startup({
 			"oncomouse/vim-grep",
 			cmd = { "Grep", "LGrep" }
 		} -- :Grep and :LGrep
+		use "lambdalisue/pastefix.vim" -- fix block paste for Neovim
 		use "tpope/vim-commentary" -- gc<motion> to (un)comment
 		-- General Editing:
 		use "sickill/vim-pasta" -- Indentation-forward pasting
