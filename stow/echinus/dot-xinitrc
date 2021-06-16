@@ -5,3 +5,5 @@ hsetroot -solid "$color0"
 
 ~/dotfiles/scripts/lemonbar.sh &
 exec echinus
+
+# vim:ft=bash
