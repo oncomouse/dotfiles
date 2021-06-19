@@ -1,9 +1,8 @@
--- luacheck: globals screen client
 local naughty = require("naughty")
-
+local awful = require("awful")
 
 function notify_if_no_bar(opts)
-	if not client.focus.screen.mywibox.visible then
+	if not awful.screen.focused().mywibox.visible then
 		naughty.notify(opts)
 	end
 end
