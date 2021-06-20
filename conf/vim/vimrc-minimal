@@ -5,6 +5,7 @@ endif
 " ==============================================================================
 " Basic Settings:
 " ==============================================================================
+set shell=/bin/sh
 set visualbell t_vb= " Disable visual bell
 set autowrite " Autosave files
 set hidden " turn off buffer saving when switching
@@ -54,6 +55,8 @@ set complete-=i
 set wildcharm=<C-z>
 " Set path to current file direction and pwd:
 set path=.,,
+
+set grepprg=grep\ -rn
 
 " Mouse And Clipboard:
 set mouse=a " Mouse support
