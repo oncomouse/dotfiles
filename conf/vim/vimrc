@@ -41,6 +41,12 @@ set statusline=%!SL_STL()
 
 " Use g@ to capitalize words:
 set operatorfunc=dotfiles#titlecase
+
+" Override busted ripgrep:
+let g:grep_guess_my_grepprg = 0
+set grepprg=ag\ --vimgrep
+set grepformat=%f:%l:%c:%m
+
 " }}}
 " Mac NeoVim Settings: {{{
 if has('mac') && has('nvim')
