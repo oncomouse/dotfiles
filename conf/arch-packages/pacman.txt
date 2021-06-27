@@ -78,3 +78,4 @@ noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
 gnu-free-fonts
+xplr
