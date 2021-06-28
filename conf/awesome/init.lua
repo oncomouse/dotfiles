@@ -590,7 +590,7 @@ awful.keyboard.append_global_keybindings({
 		description = "show network-manager menu",
 		group = "launcher",
 	}),
-	awful.key({ modkey, "Control" }, "Spacebar", rofi.emoji, {
+	awful.key({ modkey, "Control" }, "space", rofi.emoji, {
 		description = "show emoji menu",
 		group = "launcher",
 	}),
