@@ -154,7 +154,7 @@ function rofi.networkmanager()
 end
 
 function rofi.emoji()
-	spawn.with_shell("rofi -show emoji -modi emoji")
+	spawn.with_shell(string.format("rofi -show emoji -modi emoji -font '" .. beautiful.font .. "'"))
 end
 
 return rofi
