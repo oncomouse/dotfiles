@@ -16,3 +16,4 @@ awesome-git
 cava
 mpdris2
 ncspot
+rofi-emoji

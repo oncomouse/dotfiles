@@ -150,7 +150,11 @@ function rofi.client_flags(c)
 end
 
 function rofi.networkmanager()
-	awful.spawn("networkmanager_dmenu")
+	spawn("networkmanager_dmenu")
+end
+
+function rofi.emoji()
+	spawn.with_shell("rofi -show emoji -modi emoji")
 end
 
 return rofi
