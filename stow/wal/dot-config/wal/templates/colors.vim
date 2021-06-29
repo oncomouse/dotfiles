@@ -162,13 +162,14 @@ hi cssClassName ctermfg=176 guifg={base0E} cterm=NONE gui=NONE
 
 hi DiffAdd ctermfg=2 guifg={color2} ctermbg=237 guibg={base01} cterm=bold gui=bold 
 hi DiffChange ctermfg=243 guifg={base03} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
-hi DiffDelete ctermfg=5 guifg={color5} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
+hi DiffDelete ctermfg=5 guifg={color5} ctermbg=237 guibg={base01} cterm=bold gui=bold
 hi DiffText ctermfg=4 guifg={color4} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
-hi DiffAdded ctermfg=251 guifg={base05} ctermbg=2 guibg={color2} cterm=bold gui=bold cterm=NONE gui=NONE
 hi DiffFile ctermfg=5 guifg={color5} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
 hi DiffNewFile ctermfg=2 guifg={color2} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
 hi DiffLine ctermfg=4 guifg={color4} ctermbg=235 guibg={base00} cterm=NONE gui=NONE
-hi DiffRemoved ctermfg=251 guifg={base05} ctermbg=5 guibg={color5} cterm=bold gui=bold 
+hi! link DiffAdded DiffAdd
+hi! link DiffRemoved DiffDelete
+hi! link diffRemoved DiffDelete
 
 hi gitCommitOverflow ctermfg=5 guifg={color5} cterm=NONE gui=NONE
 hi gitCommitSummary ctermfg=2 guifg={color2} cterm=NONE gui=NONE
