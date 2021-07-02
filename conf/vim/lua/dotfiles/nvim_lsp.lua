@@ -244,6 +244,7 @@ local servers = {
 		},
 	},
 	citation_langserver ={
+		autostart = false,
 		settings = {
 			citation = {
 				bibliographies = {
