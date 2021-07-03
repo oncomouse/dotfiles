@@ -1,6 +1,0 @@
-source ~/dotfiles/conf/xorg/xinitrc-common
-source ~/.cache/wal/colors.sh
-
-hsetroot -solid "$color0"
-
-exec spectrwm
