@@ -2,10 +2,8 @@ otf-nerd-fonts-fira-code
 otf-hasklig
 perl-term-shellui
 picom-ibhagwan-git
-# rofi-wifi-menu-git
 shellcheck-bin
 tllocalmgr-git
-viu # For NNN image viewing
 zotero
 libsearpc
 nerd-fonts-fantasque-sans-mono
