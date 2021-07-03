@@ -73,7 +73,6 @@ lua53-argparse
 lua53-lgi
 pamixer
 networkmanager
-network-manager-applet
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
