@@ -7,6 +7,7 @@ function! edit_mode#toggle() abort
 		vunmap k
 		iunmap <Down>
 		iunmap <Up>
+		echom 'Edit Mode Off'
 	else
 		nnoremap <silent> j gj
 		nnoremap <silent> k gk
@@ -14,6 +15,7 @@ function! edit_mode#toggle() abort
 		vnoremap <silent> k gk
 		inoremap <silent> <Down> <C-O>gj
 		inoremap <silent> <Up> <C-O>gk
+		echom 'Edit Mode On'
 	endif
 	let g:edit_mode = !g:edit_mode
 endfunction
