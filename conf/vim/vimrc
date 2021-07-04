@@ -124,13 +124,8 @@ nmap <silent> <leader>A <cmd>Windows<CR>
 nmap <silent> <leader>l <cmd>Blines<CR>
 nmap <silent> <leader>? <cmd>Commands<CR>
 " }}}
-" Uniform Visual Motion: {{{
-nnoremap <silent> j gj
-nnoremap <silent> k gk
-vnoremap <silent> j gj
-vnoremap <silent> k gk
-inoremap <silent> <Down> <C-O>gj
-inoremap <silent> <Up> <C-O>gk
+" Uniform Visual Motion Toggle: {{{
+map <leader>w <cmd>call edit_mode#toggle()<CR>
 " }}}
 " }}}
 " Theme: {{{
