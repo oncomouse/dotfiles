@@ -542,7 +542,7 @@ awful.keyboard.append_global_keybindings({
 		}
 	),
 
-	awful.key({}, "F12", revelation, {
+	awful.key({ modkey }, "F12", revelation, {
 		description = "run revelation (exposé-like behavior)",
 		group = "layout",
 	}),
