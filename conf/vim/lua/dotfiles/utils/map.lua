@@ -3,6 +3,7 @@
 -- map.inoremap("<buffer><silent>", "<Up>", "<C-o>gk")
 -- map.iunmap("<buffer>", "<Up>")
 -- map.map("j", "gj")
+-- map.unmap("j")
 local map = {}
 -- Types of maps we will match against (does not need to contain :map and :map!):
 map.__allowed_maps = {
@@ -31,6 +32,7 @@ setmetatable(map, {
 			-- Match :map! and :noremap!
 			elseif map_call:match'^.*()!' then
 				type = "!"
+			-- Otherwise, map against __allowed_maps (defined above):
 			else
 				type = string.sub(map_call, 1, 1)
 				if not vim.tbl_contains(map.__allowed_maps, type) then
