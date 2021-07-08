@@ -100,9 +100,9 @@ nnoremap <localleader>f :find *
 nnoremap <localleader>s :sfind *
 nnoremap <localleader>v :vert sfind *
 " Minimal Buffer Jumping:
-nnoremap <localleader>b :buffer *
-nnoremap <localleader>B :sbuffer *
-nnoremap <leader>a :buffers<CR>:buffer<Space>
+nnoremap <leader>a :buffers<CR>:buffer<Space> 
+nnoremap <localleader>a :buffer *
+nnoremap <localleader>A :sbuffer *
 " Completion Mappings:
 " Search previous words:
 inoremap <buffer> <localleader>, <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
