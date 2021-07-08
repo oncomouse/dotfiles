@@ -1,4 +1,5 @@
---luacheck: globals vim use
+--luacheck: globals vim use dotfiles
+dotfiles = _G.dotfiles or {}
 local xdg = require("dotfiles.utils.xdg")
 local function packpath()
 	return xdg("XDG_DATA_HOME") .. "/packer/desktop"
@@ -67,13 +68,13 @@ return require("packer").startup({
 						syntax = syntax,
 					}
 				end
-				function _G.extend_endwise_for_lua()
+				function dotfiles.extend_endwise_for_lua()
 					-- Lua endwise rules:
 					vim.fn["lexima#add_rule"](make_rule("^\\s*if\\>.*then\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {}))
 					vim.fn["lexima#add_rule"](make_rule("^\\s*\\%(for\\|while\\)\\>.*do\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {}))
 					vim.fn["lexima#add_rule"](make_rule("^\\s*\\%(local\\)\\=.*function\\>\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {}))
 				end
-				vim.cmd[[autocmd! dotfiles-settings FileType lua lua extend_endwise_for_lua()]]
+				vim.cmd[[autocmd! dotfiles-settings FileType lua lua dotfiles.extend_endwise_for_lua()]]
 				vim.api.nvim_set_keymap("i", "<C-l>", "<C-r>=lexima#insmode#leave_till_eol(\"\")<CR>", { noremap = true })
 			end
 		} -- Autopairs + Endwise

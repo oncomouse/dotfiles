@@ -53,7 +53,7 @@ setmetatable(map, {
 			local mapping
 			if type(rhs) == "function" then
 				local func_id = map.__create(rhs)
-				mapping = string.format([[<cmd>lua _dotfiles_map_exec(%s)<CR>]], func_id)
+				mapping = "<cmd>lua _dotfiles_map_exec(" .. func_id .. ")<CR>"
 			else
 				mapping = rhs
 			end

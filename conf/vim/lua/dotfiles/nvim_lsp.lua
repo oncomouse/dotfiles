@@ -1,11 +1,12 @@
--- luacheck: globals vim
+-- luacheck: globals vim dotfiles
+dotfiles = _G.dotfiles or {}
 local lspconfig = require("lspconfig")
 local configs = require("lspconfig/configs")
 local util = require("lspconfig/util")
 local map = require("dotfiles.utils.map")
 
 local function show_documentation()
-	if vim.tbl_contains({"vim", "help"}, vim.bo.filetype) then
+	if vim.tbl_contains({"vim", "help"}, vim.opt.filetype:get()) then
 		vim.api.nvim_command("h " .. vim.fn.expand("<cword>"))
 	else
 		vim.lsp.buf.hover()
@@ -103,9 +104,9 @@ local function filter_line_diagnostics(bufnr, line_nr, col_nr, opts, client_id)
 end
 
 -- Overwrite the original show_line_diagnostics to output in modeline and to be cursor aware:
-_G.hover_diagnostics = clone_function(vim.lsp.diagnostic.show_line_diagnostics)
+dotfiles.hover_diagnostics = clone_function(vim.lsp.diagnostic.show_line_diagnostics)
 vim.lsp.diagnostic.show_line_diagnostics = function() end
-function _G.modeline_diagnostics(opts, bufnr, line_nr, client_id)
+function dotfiles.modeline_diagnostics(opts, bufnr, line_nr, client_id)
 	opts = opts or {}
 
 	local show_header = vim.F.if_nil(opts.show_header, true)
@@ -140,7 +141,7 @@ function _G.modeline_diagnostics(opts, bufnr, line_nr, client_id)
 	end
 end
 
-function _G.preview_diagnostics(opts, bufnr, line_nr, client_id)
+function dotfiles.preview_diagnostics(opts, bufnr, line_nr, client_id)
 	opts = opts or {focusable = false}
 
 	local show_header = vim.F.if_nil(opts.show_header, true)
@@ -186,9 +187,9 @@ end
 local on_attach_diagnostics = function(...)
 	vim.opt.updatetime = 300
 	vim.cmd[[autocmd! User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
-	vim.cmd[[autocmd! CursorMoved,CursorHold,InsertLeave * lua modeline_diagnostics()]]
-	vim.cmd[[command! LspDetail lua preview_diagnostics()]]
-	-- vim.cmd[[autocmd CursorHold * lua hover_diagnostics({focusable = false})]]
+	vim.cmd[[autocmd! CursorMoved,CursorHold,InsertLeave * lua dotfiles.modeline_diagnostics()]]
+	vim.cmd[[command! LspDetail lua dotfiles.preview_diagnostics()]]
+	-- vim.cmd[[autocmd CursorHold * lua dotfiles.hover_diagnostics({focusable = false})]]
 	on_attach(...)
 end
 

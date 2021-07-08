@@ -1,4 +1,6 @@
 -- Dotfiles Settings: {{{
+dotfiles = _G.dotfiles or {}
+
 if vim.fn.isdirectory('~/dotfiles/conf/vim/') == 0 and
 not vim.tbl_contains(vim.opt.runtimepath:get(), vim.fn.expand("~/dotfiles/conf/vim/")) then
 	vim.opt.runtimepath:append("~/dotfiles/conf/vim/")
@@ -17,14 +19,14 @@ vim.opt.runtimepath:append("~/dotfiles/conf/vim/after/")
 vim.opt.spellfile="~/dotfiles/conf/vim/spell/en.utf-8.add"
 
 -- Statusline:
-function _G.SL_WC()
+function dotfiles.sl_wc()
 	if vim.fn.matchstr(vim.opt.filetype:get(), "\\v^(markdown|text|vimwiki)") ~= 0 then
 		return ' W:' .. vim.fn.wordcount().words
 	end
 	return ''
 end
 
-function _G.sl_dg()
+function dotfiles.sl_dg()
 	local d = ''
 	for kind,marker in pairs({ Error = " E:", Warning = " W:", Information = " I:", Hint = " H:" }) do
 		local c = vim.lsp.diagnostic.get_count(0, kind)
@@ -35,12 +37,12 @@ function _G.sl_dg()
 	return d
 end
 
-local statusline = ' %0.45f%m%h%w%r%= %y%{v:lua.SL_WC()} %l:%c%{v:lua.sl_dg()} '
+local statusline = ' %0.45f%m%h%w%r%= %y%{v:lua.dotfiles.sl_wc()} %l:%c%{v:lua.dotfiles.sl_dg()} '
 local statusline_nc = ' %0.45f%m%h%w%r%='
-function _G.SL_STL()
+function dotfiles.sl()
 	return vim.g.statusline_winid == vim.fn.win_getid() and statusline or statusline_nc
 end
-vim.opt.statusline="%!v:lua.SL_STL()"
+vim.opt.statusline="%!v:lua.dotfiles.sl()"
 
 -- Use g@ to capitalize words:
 vim.opt.operatorfunc="dotfiles#titlecase"
@@ -93,7 +95,7 @@ vim.cmd("let &t_8b='" .. t"<Esc>" .. "[48;2;%lu;%lu;%lum'")
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 
-local xdg = require("dotfiles.utils.lua")
+local xdg = require("dotfiles.utils.xdg")
 local wal_cache = xdg("XDG_CACHE_HOME") .. '/wal/vim'
 if vim.fn.isdirectory(wal_cache) == 1 then
 	vim.opt.runtimepath:append({ wal_cache })
@@ -112,20 +114,20 @@ vim.cmd("autocmd plug-settings TextYankPost * silent! lua vim.highlight.on_yank 
 vim.cmd("autocmd dotfiles-settings CompleteDone * if pumvisible() == 0 | pclose | end")
 
 -- On opening a file, jump to the last known cursor position (see :h line())
-function _G.buf_jump_to_last()
+function dotfiles.buf_jump_to_last()
 	if vim.fn.line("'\"") > 1
 	and vim.fn.line("'\"") <= vim.fn.line("$")
 	and string.find(vim.opt.filetype:get(), "commit") == nil then
 		vim.cmd[[exe "normal! g`\""]]
 	end
 end
-vim.cmd("autocmd dotfiles-settings BufReadPost * lua buf_jump_to_last()")
+vim.cmd("autocmd dotfiles-settings BufReadPost * lua dotfiles.buf_jump_to_last()")
 
 -- Fix window resizing
 vim.cmd("autocmd dotfiles-settings VimEnter * silent exec \"!kill -s SIGWINCH $PPID\"")
 
 -- Update FASD For NeoVim: {{{
-function _G.fasd_update()
+function dotfiles.fasd_update()
 	if #vim.opt.buftype:get() == 0 then
 		local handle
 		handle = vim.loop.spawn('fasd', {
@@ -135,7 +137,7 @@ function _G.fasd_update()
 		}, function() handle:close() end)
 	end
 end
-vim.cmd("autocmd dotfiles-settings BufWinEnter,BufFilePost * lua fasd_update()")
+vim.cmd("autocmd dotfiles-settings BufWinEnter,BufFilePost * lua dotfiles.fasd_update()")
 -- }}}
 -- }}}
 -- # vim:foldmethod=marker
