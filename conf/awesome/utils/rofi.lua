@@ -51,7 +51,7 @@ function rofi.powermenu()
 	-- Commands:
 	local rofi_command = "rofi -theme " .. dir .. "/" .. theme
 	local pause_command = "playerctl pause"
-	local mute_command = "ponymix mute"
+	local mute_command = "pamixer -m"
 	local shutdown_command = "systemctl shutdown"
 	local reboot_command = "systemctl reboot"
 	local lock_command = string.format([[%s &&
