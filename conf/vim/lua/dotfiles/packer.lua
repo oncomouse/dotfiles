@@ -233,6 +233,7 @@ return require("packer").startup({
 		vim.g.vim_markdown_conceal = 0 -- Don"t conceal
 		vim.g.vim_markdown_conceal_code_blocks = 0 -- Don"t conceal code blocks
 		vim.g.vim_markdown_math = 1 -- Do process MathJaX and LaTeX math
+		use "oncomouse/vim-fish"
 		use { "plasticboy/vim-markdown", ft = { "markdown" } } -- Markdown Syntax
 		use {
 			"godlygeek/tabular",
