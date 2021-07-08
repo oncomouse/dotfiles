@@ -108,12 +108,33 @@ tools:
     format-stdin: true
 
   yaml-prettier: &yaml-prettier
-    format-command: 'prettier'
+    format-command: 'prettier --parser yaml'
     format-stdin: true
 
-  prettier: &prettier
-    format-command: 'prettier --use-tabs'
+  json-prettier: &json-prettier
+    format-command: 'prettier --use-tabs --parser json'
     format-stdin: true
+
+  html-prettier: &html-prettier
+    format-command: 'prettier --use-tabs --parser html'
+    format-stdin: true
+
+  css-prettier: &css-prettier
+    format-command: 'prettier --use-tabs --parser css'
+    format-stdin: true
+
+  scss-prettier: &scss-prettier
+    format-command: 'prettier --use-tabs --parser scss'
+    format-stdin: true
+
+  lua-prettier: &lua-prettier
+    format-command: 'prettier --use-tabs --parser lua'
+    format-stdin: true
+
+  babel-prettier: &babel-prettier
+    format-command: 'prettier --use-tabs --parser babel'
+    format-stdin: true
+
 
 languages:
 
@@ -140,24 +161,24 @@ languages:
 
   json:
     - <<: *json-jsonlint
-    - <<: *prettier
+    - <<: *json-prettier
 
   css:
-    - <<: *prettier
+    - <<: *css-prettier
 
   scss:
-    - <<: *prettier
+    - <<: *scss-prettier
 
   html:
     - <<: *html-htmlhint
-    - <<: *prettier
+    - <<: *html-prettier
 
   lua:
     - <<: *lua-luacheck
-    - <<: *prettier
+    - <<: *lua-prettier
 
   javascript:
-    - <<: *prettier
+    - <<: *babel-prettier
 
   ruby:
     - <<: *ruby-rubocop
