@@ -15,7 +15,7 @@ setmetatable(map, {
 			end
 			local type
 			if map_call == "map" or map_call == "noremap" then
-				type = "n"
+				type = ""
 			else
 				type = string.sub(map_call, 1, 1)
 				if not vim.tbl_contains(map.__allowed_maps, type) then
