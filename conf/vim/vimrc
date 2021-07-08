@@ -129,15 +129,20 @@ map <leader>w <cmd>call edit_mode#toggle()<CR>
 " }}}
 " }}}
 " Theme: {{{
-let &t_8f='<Esc>[38;2;%lu;%lu;%lum'
-let &t_8b='<Esc>[48;2;%lu;%lu;%lum'
-set termguicolors
-set background=dark
+" Fancy color for macs and X11 sessions:
+if has('mac') || exists('$XAUTHORITY')
+	let &t_8f='<Esc>[38;2;%lu;%lu;%lum'
+	let &t_8b='<Esc>[48;2;%lu;%lu;%lum'
+	set termguicolors
+	set background=dark
 
-let s:wal_cache = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : $HOME.'/.cache') . '/wal/vim')
-if isdirectory(s:wal_cache)
-	exe 'set runtimepath+='.s:wal_cache
-	colorscheme wal
+	let s:wal_cache = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : $HOME.'/.cache') . '/wal/vim')
+	if isdirectory(s:wal_cache)
+		exe 'set runtimepath+='.s:wal_cache
+		colorscheme wal
+	else
+		colorscheme default
+	endif
 else
 	colorscheme default
 endif

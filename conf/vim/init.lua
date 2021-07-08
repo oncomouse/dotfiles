@@ -26,7 +26,7 @@ function dotfiles.sl_wc()
 	return ''
 end
 
-function dotfiles.sl_dg()
+function dotfiles.sl_diag()
 	local d = ''
 	for kind,marker in pairs({ Error = " E:", Warning = " W:", Information = " I:", Hint = " H:" }) do
 		local c = vim.lsp.diagnostic.get_count(0, kind)
@@ -37,7 +37,7 @@ function dotfiles.sl_dg()
 	return d
 end
 
-local statusline = ' %0.45f%m%h%w%r%= %y%{v:lua.dotfiles.sl_wc()} %l:%c%{v:lua.dotfiles.sl_dg()} '
+local statusline = ' %0.45f%m%h%w%r%= %y%{v:lua.dotfiles.sl_wc()} %l:%c%{v:lua.dotfiles.sl_diag()} '
 local statusline_nc = ' %0.45f%m%h%w%r%='
 function dotfiles.sl()
 	return vim.g.statusline_winid == vim.fn.win_getid() and statusline or statusline_nc
@@ -89,21 +89,25 @@ require("dotfiles.packer")
 require("dotfiles.maps")
 -- }}}
 -- Theme: {{{
-local t = require("dotfiles.utils.termcode")
-vim.cmd("let &t_8f='" .. t"<Esc>" .. "[38;2;%lu;%lu;%lum'")
-vim.cmd("let &t_8b='" .. t"<Esc>" .. "[48;2;%lu;%lu;%lum'")
-vim.opt.termguicolors = true
-vim.opt.background = "dark"
+--  Fancy color for macs and X11 sessions:
+if vim.fn.has("mac") == 1 or vim.fn.exists("$XAUTHORITY") == 1 then
+	local t = require("dotfiles.utils.termcode")
+	vim.cmd("let &t_8f='" .. t"<Esc>" .. "[38;2;%lu;%lu;%lum'")
+	vim.cmd("let &t_8b='" .. t"<Esc>" .. "[48;2;%lu;%lu;%lum'")
+	vim.opt.termguicolors = true
+	vim.opt.background = "dark"
 
-local xdg = require("dotfiles.utils.xdg")
-local wal_cache = xdg("XDG_CACHE_HOME") .. '/wal/vim'
-if vim.fn.isdirectory(wal_cache) == 1 then
-	vim.opt.runtimepath:append({ wal_cache })
-	vim.cmd("colorscheme wal")
+	local xdg = require("dotfiles.utils.xdg")
+	local wal_cache = xdg("XDG_CACHE_HOME") .. '/wal/vim'
+	if vim.fn.isdirectory(wal_cache) == 1 then
+		vim.opt.runtimepath:append({ wal_cache })
+		vim.cmd("colorscheme wal")
+	else
+		vim.cmd("colorscheme default")
+	end
 else
 	vim.cmd("colorscheme default")
 end
-
 -- }}}
 -- Other Settings: {{{
 
