@@ -144,4 +144,4 @@ end
 vim.cmd("autocmd dotfiles-settings BufWinEnter,BufFilePost * lua dotfiles.fasd_update()")
 -- }}}
 -- }}}
--- # vim:foldmethod=marker
+-- # vim:foldmethod=marker:foldlevel=0
