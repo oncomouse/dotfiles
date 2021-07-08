@@ -27,7 +27,7 @@ map.nnoremap("<silent>", "<leader>/", grep_or_qfgrep)
 
 -- Calculator (not sure how this works):
 map.inoremap("<C-A>", t"<C-O>yiW<End>=<C-R>=<C-R>0<CR>")
-
+-- }}}
 -- List Bindings: {{{
 map.nnoremap("<silent>", "<leader>d", function() vim.fn["dotfiles#lists#toggle"]("Location List", "l") end)
 map.nnoremap("<silent>", "<leader>q", function() vim.fn["dotfiles#lists#toggle"]("Quickfix List", "c") end)
@@ -43,4 +43,4 @@ map.nmap("<silent>", "<leader>?", "<cmd>Commands<CR>")
 -- Uniform Visual Motion Toggle: {{{
 map.map("<leader>w", vim.fn["edit_mode#toggle"])
 -- }}}
--- # vim:foldmethod=marker
+-- # vim:foldmethod=marker:foldlevel=0
