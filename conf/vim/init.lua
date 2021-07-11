@@ -95,7 +95,6 @@ if vim.fn.has("mac") == 1 or vim.fn.exists("$XAUTHORITY") == 1 then
 	vim.cmd("let &t_8f='" .. t"<Esc>" .. "[38;2;%lu;%lu;%lum'")
 	vim.cmd("let &t_8b='" .. t"<Esc>" .. "[48;2;%lu;%lu;%lum'")
 	vim.opt.termguicolors = true
-	vim.opt.background = "dark"
 
 	local xdg = require("dotfiles.utils.xdg")
 	local wal_cache = xdg("XDG_CACHE_HOME") .. '/wal/vim'
