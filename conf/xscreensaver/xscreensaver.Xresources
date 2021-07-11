@@ -19,7 +19,14 @@ xscreensaver.fadeSeconds:	0:00:01
 xscreensaver.fadeTicks:	20
 xscreensaver.captureStderr:	True
 xscreensaver.ignoreUninstalledPrograms:False
-xscreensaver.font:		*-medium-r-*-140-*-m-*
+xscreensaver.dialogTheme: darkgray
+xscreensaver.Dialog.headingFont:	Fira Sans bold 16
+xscreensaver.Dialog.bodyFont:	Fira Sans 14
+xscreensaver.Dialog.errorFont:	Fira Sans bold 14
+xscreensaver.Dialog.labelFont:	Fira Sans bold 14
+xscreensaver.Dialog.unameFont:	Fira Sans 12
+xscreensaver.Dialog.buttonFont:	Fira Sans bold 14
+xscreensaver.Dialog.dateFont:	Fira Sans 9
 xscreensaver.dpmsEnabled:	True
 xscreensaver.dpmsQuickOff:	False
 xscreensaver.dpmsStandby:	0:30:00
