@@ -81,3 +81,6 @@ xplr
 neovim
 qutebrowser
 python-tldextract
+python-pygments
+pdfjs
+python-adblock

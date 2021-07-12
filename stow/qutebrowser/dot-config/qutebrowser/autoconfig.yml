@@ -25,6 +25,29 @@ settings:
     global: webengine
   bindings.commands:
     global: null
+  content.blocking.hosts.lists:
+    global:
+    - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+  content.blocking.method:
+    global: auto
+  content.blocking.whitelist:
+    global: null
+  content.cookies.accept:
+    global: no-unknown-3rdparty
+  content.headers.user_agent:
+    global: Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0
+  content.hyperlink_auditing:
+    global: false
+  content.pdfjs:
+    global: false
+  content.webgl:
+    global: false
+  content.webrtc_ip_handling_policy:
+    global: default-public-interface-only
+  content.xss_auditing:
+    global: false
+  downloads.location.directory:
+    global: null
   fonts.default_family:
     global: Terminus
   fonts.default_size:
