@@ -79,3 +79,4 @@ noto-fonts-emoji
 gnu-free-fonts
 xplr
 neovim
+qutebrowser
