@@ -9,14 +9,14 @@ settings:
   aliases:
     global:
       Zotero: hint links userscript zotero
+      bitwarden: spawn --userscript bitwarden
+      bw: bitwarden
       q: close
       qa: quit
       w: session-save
       wq: quit --save
       wqa: quit --save
       zotero: spawn --userscript zotero
-      bitwarden: spawn --userscript bitwarden
-      bw: bitwarden
   auto_save.interval:
     global: 15000
   auto_save.session:
@@ -25,6 +25,17 @@ settings:
     global: webengine
   bindings.commands:
     global: null
+  content.blocking.hosts.lists:
+    global:
+    - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+  content.blocking.method:
+    global: auto
+  content.blocking.whitelist:
+    global: null
+  content.cookies.accept:
+    global: no-unknown-3rdparty
+  content.pdfjs:
+    global: false
   fonts.default_family:
     global: Terminus
   fonts.default_size:
