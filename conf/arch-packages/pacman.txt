@@ -80,3 +80,4 @@ gnu-free-fonts
 xplr
 neovim
 qutebrowser
+python-tldextract

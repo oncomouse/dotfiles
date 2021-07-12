@@ -15,6 +15,8 @@ settings:
       wq: quit --save
       wqa: quit --save
       zotero: spawn --userscript zotero
+      bitwarden: spawn --userscript bitwarden
+      bw: bitwarden
   auto_save.interval:
     global: 15000
   auto_save.session:
