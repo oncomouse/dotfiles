@@ -24,7 +24,10 @@ settings:
   backend:
     global: webengine
   bindings.commands:
-    global: null
+    global:
+      normal:
+        J: tab-prev
+        K: tab-next
   content.blocking.hosts.lists:
     global:
     - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
