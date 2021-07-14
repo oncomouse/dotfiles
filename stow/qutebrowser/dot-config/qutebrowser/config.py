@@ -52,7 +52,6 @@ c.colors.statusbar.caret.selection.fg = colors["colors"]["color0"]
 c.colors.statusbar.caret.selection.bg = colors["colors"]["base09"]
 # Hints
 c.colors.hints.bg = colors["colors"]["color5"]
-c.colors.hints.fg = colors["colors"]["color8"]
 c.colors.hints.match.fg = colors["colors"]["color9"]
 c.hints.border = "0"
 c.hints.radius = 0
@@ -60,7 +59,9 @@ c.hints.radius = 0
 # Font Configuration
 if screeninfo.get_monitors()[0].width > 1280:
     c.fonts.default_family = "Fira Code"
+    c.colors.hints.fg = colors["colors"]["color8"]
     c.fonts.default_size = "10pt"
 else:
     c.fonts.default_family = "Terminus"
+    c.colors.hints.fg = colors["colors"]["color15"]
     c.fonts.default_size = "8pt"
