@@ -51,9 +51,3 @@ settings:
     global: false
   downloads.location.directory:
     global: null
-  fonts.default_family:
-    global: Terminus
-  fonts.default_size:
-    global: 8pt
-  fonts.downloads:
-    global: default_size default_family

@@ -1,6 +1,7 @@
 import json
 from os import environ
 from pathlib import Path
+import screeninfo
 
 config.load_autoconfig()
 
@@ -11,9 +12,15 @@ except KeyError:
 
 colors = json.load(open("{}/wal/colors.json".format(cache)))
 
+# Completion menu style bindings:
+c.bindings.commands['command'] = {
+    '<ctrl-p>': 'completion-item-focus prev',
+    '<ctrl-n>': 'completion-item-focus next'
+}
+
 # Set dark them for website default
-c.colors.webpage.preferred_color_scheme = "dark"
-c.colors.webpage.darkmode.enabled = True
+# c.colors.webpage.preferred_color_scheme = "dark"
+# c.colors.webpage.darkmode.enabled = True
 # Tabs
 # Tab Selection
 c.colors.tabs.even.bg = colors["colors"]["base03"]
@@ -43,3 +50,17 @@ c.colors.statusbar.caret.fg = colors["colors"]["base09"]
 c.colors.statusbar.caret.bg = colors["colors"]["color0"]
 c.colors.statusbar.caret.selection.fg = colors["colors"]["color0"]
 c.colors.statusbar.caret.selection.bg = colors["colors"]["base09"]
+# Hints
+c.colors.hints.bg = colors["colors"]["color5"]
+c.colors.hints.fg = colors["colors"]["color8"]
+c.colors.hints.match.fg = colors["colors"]["color9"]
+c.hints.border = "0"
+c.hints.radius = 0
+
+# Font Configuration
+if screeninfo.get_monitors()[0].width > 1280:
+    c.fonts.default_family = "Fira Code"
+    c.fonts.default_size = "10pt"
+else:
+    c.fonts.default_family = "Terminus"
+    c.fonts.default_size = "8pt"
