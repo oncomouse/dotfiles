@@ -16,10 +16,10 @@ c.colors.webpage.preferred_color_scheme = "dark"
 c.colors.webpage.darkmode.enabled = True
 # Tabs
 # Tab Selection
-c.colors.tabs.even.bg = colors["colors"]["base01"]
-c.colors.tabs.odd.bg = colors["colors"]["base02"]
-c.colors.tabs.selected.odd.bg = colors["colors"]["base03"]
-c.colors.tabs.selected.even.bg = colors["colors"]["base03"]
+c.colors.tabs.even.bg = colors["colors"]["base03"]
+c.colors.tabs.odd.bg = colors["colors"]["base03"]
+c.colors.tabs.selected.odd.bg = colors["colors"]["base01"]
+c.colors.tabs.selected.even.bg = colors["colors"]["base01"]
 # Tab State
 c.colors.tabs.indicator.error = colors["colors"]["color9"]
 c.colors.tabs.indicator.start = colors["colors"]["base04"]
