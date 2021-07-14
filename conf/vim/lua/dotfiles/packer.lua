@@ -80,7 +80,6 @@ return require("packer").startup({
 		} -- Autopairs + Endwise
 		use {
 			"norcalli/nvim-colorizer.lua",
-			ft = { "html", "css", "scss", "markdown", "vim", "lua" },
 			config = function()
 				if vim.fn.exists("+termguicolors") == 1 then
 					require('colorizer').setup{
