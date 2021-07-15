@@ -111,37 +111,61 @@ return require("packer").startup({
 				vim.fn["gina#custom#mapping#nmap"]("status", "cc", ":<C-u>Gina commit<CR>", {noremap = 1, silent = 1})
 			end
 		} -- :Gina status to schedule; :Gina commit to commit
-		-- FZF Add to RTP or Install:
-		-- Macos
-		if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then
-			use  "/usr/local/opt/fzf"
-		-- Arch
-		elseif vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 then
-			use "/usr/share/vim/vimfiles"
-		-- Local install
-		elseif vim.fn.isdirectory("~/.fzf") == 1 then
-			use "~/.fzf"
-		else
-			use {
-				"junegunn/fzf",
-				run = "./install --all",
-			} -- Fallback FZF install
-		end
 		use {
-			"junegunn/fzf.vim",
-			cmd = { "Files", "Buffers", "Windows", "BLines", "Commands" },
+			"vijaymarupudi/nvim-fzf-commands",
+			requires="vijaymarupudi/nvim-fzf",
 			config = function()
-				vim.cmd[[command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)]]
-				vim.g.fzf_layout = { window = { width = 1, height = 0.4, yoffset = 1, border = 'top' } }
-				vim.g.fzf_action = {
-					["ctrl-s"] = 'split',
-					["ctrl-v"] = 'vsplit',
-					["ctrl-t"] = 'tabnew',
-					["ctrl-e"] = 'edit',
-				}
-				vim.g.fzf_nvim_statusline = 0 -- disable statusline overwriting
+				dotfiles.files = function()
+					require("fzf-commands").files({ fzf = function(contents, options)
+						local h = vim.fn.winheight(0)
+						local w = vim.fn.winwidth(0)
+						local wh = math.floor(h * .4)
+						return require("fzf").fzf(contents, options, { height = wh, width = w, row = h - wh, border = false, })
+					end })
+				end
+				dotfiles.buffers = function()
+					require("fzf-commands").bufferpicker({ fzf = function(contents, options)
+						local h = vim.fn.winheight(0)
+						local w = vim.fn.winwidth(0)
+						local wh = math.floor(h * .4)
+						return require("fzf").fzf(contents, options, { height = wh, width = w, row = h - wh, border = false, })
+					end })
+				end
+				vim.cmd[[command! Files lua dotfiles.files()]]
+				vim.cmd[[command! Buffers lua dotfiles.buffers()]]
 			end
-		}  -- Add shorcuts for FZF
+		}
+		-- -- FZF Add to RTP or Install:
+		-- -- Macos
+		-- if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then
+		-- 	use  "/usr/local/opt/fzf"
+		-- -- Arch
+		-- elseif vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 then
+		-- 	use "/usr/share/vim/vimfiles"
+		-- -- Local install
+		-- elseif vim.fn.isdirectory("~/.fzf") == 1 then
+		-- 	use "~/.fzf"
+		-- else
+		-- 	use {
+		-- 		"junegunn/fzf",
+		-- 		run = "./install --all",
+		-- 	} -- Fallback FZF install
+		-- end
+		-- use {
+		-- 	"junegunn/fzf.vim",
+		-- 	cmd = { "Files", "Buffers", "Windows", "BLines", "Commands" },
+		-- 	config = function()
+		-- 		vim.cmd[[command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)]]
+		-- 		vim.g.fzf_layout = { window = { width = 1, height = 0.4, yoffset = 1, border = 'top' } }
+		-- 		vim.g.fzf_action = {
+		-- 			["ctrl-s"] = 'split',
+		-- 			["ctrl-v"] = 'vsplit',
+		-- 			["ctrl-t"] = 'tabnew',
+		-- 			["ctrl-e"] = 'edit',
+		-- 		}
+		-- 		vim.g.fzf_nvim_statusline = 0 -- disable statusline overwriting
+		-- 	end
+		-- }  -- Add shorcuts for FZF
 		-- Syntax:
 		use {
 			"nvim-treesitter/nvim-treesitter",
