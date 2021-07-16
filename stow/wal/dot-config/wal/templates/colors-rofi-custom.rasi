@@ -1,4 +1,6 @@
 * {{
+  background: {background};
+  foreground: {foreground};
   active-background: {color12};
   active-foreground: {color8};
   normal-background: @background;
