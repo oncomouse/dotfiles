@@ -58,3 +58,6 @@
 [submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/nvim-lspconfig"]
 	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/vim-markdown"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/vim-markdown
+	url = https://github.com/plasticboy/vim-markdown
