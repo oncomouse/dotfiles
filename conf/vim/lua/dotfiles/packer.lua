@@ -1,11 +1,8 @@
 --luacheck: globals vim use dotfiles
 dotfiles = _G.dotfiles or {}
 local xdg = require("dotfiles.utils.xdg")
-local function packpath()
-	return xdg("XDG_DATA_HOME") .. "/packer/desktop"
-end
 
-local pp = packpath()
+local pp = xdg("XDG_DATA_HOME") .. "/packer/desktop"
 vim.opt.packpath:append({ pp })
 vim.opt.runtimepath:append({ pp })
 -- Download Packer.nvim:

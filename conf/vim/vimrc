@@ -119,10 +119,6 @@ nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR
 " FZF Bindings: {{{
 nmap <silent> <c-p> <cmd>Files<CR>
 nmap <silent> <leader>a <cmd>Buffers<CR>
-" nmap <silent> <leader>F <cmd>Files ~<CR>
-" nmap <silent> <leader>A <cmd>Windows<CR>
-" nmap <silent> <leader>l <cmd>Blines<CR>
-" nmap <silent> <leader>? <cmd>Commands<CR>
 " }}}
 " Uniform Visual Motion Toggle: {{{
 map <leader>w <cmd>call edit_mode#toggle()<CR>
