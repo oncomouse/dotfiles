@@ -16,29 +16,6 @@ set runtimepath+=~/dotfiles/conf/vim/after/
 " Set Spellfile Location:
 set spellfile=~/dotfiles/conf/vim/spell/en.utf-8.add
 
-" Statusline:
-function! SL_WC() abort
-	return &filetype =~# '\v^(markdown|txt|vimwiki)' ? ' W:' . wordcount().words : ''
-endfunction
-lua << EOF
-function sl_dg()
-	local d = ''
-	for kind,marker in pairs({ Error = " E:", Warning = " W:", Information = " I:", Hint = " H:" }) do
-		local c = vim.lsp.diagnostic.get_count(0, kind)
-		if c ~= 0 then
-			d = d .. marker .. tostring(c)
-		end
-	end
-	return d
-end
-EOF
-let s:statusline = ' %0.45f%m%h%w%r%= %y%{SL_WC()} %l:%c%{luaeval("sl_dg()")} '
-let s:statusline_nc = ' %0.45f%m%h%w%r%='
-function! SL_STL() abort
-	return g:statusline_winid ==# win_getid() ? s:statusline : s:statusline_nc
-endfunction
-set statusline=%!SL_STL()
-
 " Use g@ to capitalize words:
 set operatorfunc=dotfiles#titlecase
 
@@ -61,9 +38,6 @@ endif
 augroup dotfiles-settings
 	autocmd!
 augroup END
-augroup plug-settings
-	autocmd!
-augroup END
 " }}}
 " Tabs: {{{
 set tabstop=4
@@ -80,49 +54,18 @@ autocmd dotfiles-settings FileType python setlocal foldmethod=indent
 autocmd dotfiles-settings FileType diff setlocal nofoldenable
 " }}}
 " Plugins: {{{
-lua require("dotfiles.packer")
-" }}}
-" Maps: {{{
-let g:enable_todo = v:true
-" Highlight a block and type "@" to run a macro on the block:
-xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
-
-" Grep project:
-function s:grep_or_qfgrep()
-	if &buftype ==# 'quickfix'
-		let l:input = input('QFGrep/')
-		if len(l:input) > 0
-			let l:prefix = getwininfo(win_getid())[0].loclist ? 'L' : 'C'
-			execute l:prefix . 'filter /'.l:input.'/'
-		endif
-	else
-		let l:input = input('Grep/')
-		if len(l:input) > 0
-			execute 'Grep ' . l:input
-		endif
-	endif 
-endfunction
-nnoremap <silent> <leader>/ <cmd>call <SID>grep_or_qfgrep()<CR>
-
-" Calculator (not sure how this works):
-inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
-
-" Shortcut to view current syntax highlighting group:
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-" List Bindings: {{{
-nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
-nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
-"}}}
-" FZF Bindings: {{{
-nmap <silent> <c-p> <cmd>Files<CR>
-nmap <silent> <leader>a <cmd>Buffers<CR>
-" }}}
-" Uniform Visual Motion Toggle: {{{
-map <leader>w <cmd>call edit_mode#toggle()<CR>
-" }}}
+if isdirectory('/usr/local/opt/fzf')
+	set runtimepath+=/usr/local/opt/fzf
+elseif isdirectory('/usr/share/vim/vimfiles')
+	set runtimepath+=/usr/share/vim/vimfiles
+elseif isdirectory('~/.fzf')
+	set runtimepath+=~/.fzf
+endif
+let s:stow_packpath = expand(($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share') . '/dotfiles/neovim')
+if isdirectory(s:stow_packpath)
+	exe 'set packpath+='.s:stow_packpath
+	let g:dotfiles_loaded_pack = 1
+endif
 " }}}
 " Theme: {{{
 " Fancy color for macs and X11 sessions:
@@ -145,7 +88,7 @@ endif
 " Other Settings: {{{
 
 " Highlighted Yank:
-autocmd plug-settings TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
+autocmd dotfiles-settings TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
 
 " Treesitter:
 

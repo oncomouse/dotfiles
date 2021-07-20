@@ -1,0 +1,60 @@
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-sensible"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-sensible
+	url = https://github.com/tpope/vim-sensible
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/securemodelines"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/securemodelines
+	url = https://github.com/xero/securemodelines
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-grep"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-grep
+	url = https://github.com/oncomouse/vim-grep
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/pastefix.vim"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/pastefix.vim
+	url = https://github.com/lambdalisue/pastefix.vim
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-commentary"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-pasta"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-pasta
+	url = https://github.com/sickill/vim-pasta
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-repeat"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-surround"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-surround
+	url = https://github.com/oncomouse/vim-surround
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-rooter"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-rooter
+	url = https://github.com/airblade/vim-rooter
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/FastFold"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/FastFold
+	url = https://github.com/Konfekt/FastFold
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/targets.vim"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/targets.vim
+	url = https://github.com/wellle/targets.vim
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/lexima.vim"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/lexima.vim
+	url = https://github.com/cohama/lexima.vim
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/nvim-colorizer.lua"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/nvim-colorizer.lua
+	url = https://github.com/norcalli/nvim-colorizer.lua
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/gina.vim"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/gina.vim
+	url = https://github.com/lambdalisue/gina.vim
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/fzf.vim"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/nvim-treesitter"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/nvim-ts-autotag"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/nvim-ts-autotag
+	url = https://github.com/windwp/nvim-ts-autotag
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-fish"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/vim-fish
+	url = https://github.com/oncomouse/vim-fish
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/tabular"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/tabular
+	url = https://github.com/godlygeek/tabular
+[submodule "stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/nvim-lspconfig"]
+	path = stow/neovim/dot-local/share/dotfiles/neovim/pack/dotfiles/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
