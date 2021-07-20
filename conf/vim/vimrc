@@ -4,6 +4,16 @@ if !empty(glob('~/dotfiles/conf/vim/')) && !(&runtimepath =~# expand('~/dotfiles
 	set runtimepath+=~/dotfiles/conf/vim/
 endif
 
+lua <<EOF
+vim.g.loaded_man = false
+vim.g.loaded_gzip = false
+vim.g.loaded_netrwPlugin = false
+vim.g.loaded_tarPlugin = false
+vim.g.loaded_zipPlugin = false
+vim.g.loaded_2html_plugin = false
+vim.g.loaded_remote_plugins = false
+EOF
+
 " Don't use the minimal minpac install in vimrc-minimal
 let g:skip_minimal_minpac = 1
 
@@ -39,23 +49,6 @@ augroup dotfiles-settings
 	autocmd!
 augroup END
 " }}}
-" Tabs: {{{
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set noexpandtab
-" }}}
-" Plugins {{{
-let g:dotfiles_loaded_pack = 1
-" }}}
-" Folds: {{{
-set foldmethod=syntax
-autocmd dotfiles-settings FileType vim setlocal foldmethod=marker foldlevel=0
-autocmd dotfiles-settings FileType css setlocal foldmethod=syntax foldlevel=0
-autocmd dotfiles-settings FileType scss setlocal foldmethod=syntax foldlevel=0
-autocmd dotfiles-settings FileType python setlocal foldmethod=indent
-autocmd dotfiles-settings FileType diff setlocal nofoldenable
-" }}}
 " Theme: {{{
 " Fancy color for macs and X11 sessions:
 if has('mac') || exists('$DISPLAY')
@@ -74,32 +67,7 @@ else
 	colorscheme default
 endif
 " }}}
-" Other Settings: {{{
-
-" Highlighted Yank:
-autocmd dotfiles-settings TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
-
-" Treesitter:
-
-" Close Preview Window:
-autocmd dotfiles-settings CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" On opening a file, jump to the last known cursor position (see :h line())
-autocmd dotfiles-settings BufReadPost *
-\ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
-\	 exe "normal! g`\"" |
-\ endif 
-
-" Fix window resizing
-autocmd dotfiles-settings VimEnter * silent exec "!kill -s SIGWINCH $PPID"
-
-" Update FASD For NeoVim: {{{
-function! s:fasd_update() abort
-	if empty(&buftype)
-		call jobstart(['fasd', '-A', expand('%:p')])
-	endif
-endfunction
-autocmd dotfiles-settings BufWinEnter,BufFilePost * call s:fasd_update()
-" }}}
+" Plugins {{{
+lua require("dotfiles.packer")
 " }}}
 " # vim:foldmethod=marker
