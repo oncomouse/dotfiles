@@ -45,6 +45,9 @@ set shiftwidth=4
 set softtabstop=4
 set noexpandtab
 " }}}
+" Plugins {{{
+let g:dotfiles_loaded_pack = 1
+" }}}
 " Folds: {{{
 set foldmethod=syntax
 autocmd dotfiles-settings FileType vim setlocal foldmethod=marker foldlevel=0
@@ -52,20 +55,6 @@ autocmd dotfiles-settings FileType css setlocal foldmethod=syntax foldlevel=0
 autocmd dotfiles-settings FileType scss setlocal foldmethod=syntax foldlevel=0
 autocmd dotfiles-settings FileType python setlocal foldmethod=indent
 autocmd dotfiles-settings FileType diff setlocal nofoldenable
-" }}}
-" Plugins: {{{
-if isdirectory('/usr/local/opt/fzf')
-	set runtimepath+=/usr/local/opt/fzf
-elseif isdirectory('/usr/share/vim/vimfiles')
-	set runtimepath+=/usr/share/vim/vimfiles
-elseif isdirectory('~/.fzf')
-	set runtimepath+=~/.fzf
-endif
-let s:stow_packpath = expand(($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share') . '/dotfiles/neovim')
-if isdirectory(s:stow_packpath)
-	exe 'set packpath+='.s:stow_packpath
-	let g:dotfiles_loaded_pack = 1
-endif
 " }}}
 " Theme: {{{
 " Fancy color for macs and X11 sessions:
