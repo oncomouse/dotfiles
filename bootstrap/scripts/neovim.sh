@@ -6,6 +6,7 @@ if (( $(git submodule status -- ~/dotfiles | wc -l) == 0 )); then
 else
 	echo "Updaing plugins…"
 	git submodule update --remote
+	nvim +TSUpdate +qall
 fi
 
 # Source Install:
