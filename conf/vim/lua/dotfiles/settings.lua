@@ -102,4 +102,3 @@ if vim.g.dotfiles_loaded_pack == 1 then
 	vim.cmd[[ packadd nvim-lspconfig ]]
 	require('dotfiles.nvim_lsp')
 end
-
