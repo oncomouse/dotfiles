@@ -1,1 +1,2 @@
 setlocal iskeyword+=-
+compiler csslint

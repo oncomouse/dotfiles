@@ -49,6 +49,90 @@ augroup dotfiles-settings
 	autocmd!
 augroup END
 " }}}
+" Statusline {{{
+lua << EOF
+dotfiles = _G.dotfiles or {}
+function dotfiles.sl_wc()
+	return vim.tbl_contains({
+		"markdown",
+		"txt",
+		"vimwiki"
+	}, vim.opt.filetype:get()) and " W:L" .. vim.fn.wordcount().words or ""
+end
+function dotfiles.sl_dg()
+	local d = ''
+	for kind,marker in pairs({ Error = " E:", Warning = " W:", Information = " I:", Hint = " H:" }) do
+		local c = vim.lsp.diagnostic.get_count(0, kind)
+		if c ~= 0 then
+			d = d .. marker .. tostring(c)
+		end
+	end
+	return d
+end
+local statusline = " %0.45f%m%h%w%r%= %y%{v:lua.dotfiles.sl_wc()} %l:%c%{v:lua.dotfiles.sl_dg()} "
+local statusline_nc = " %0.45f%m%h%w%r%="
+function dotfiles.sl_stl()
+	return vim.g.statusline_winid == vim.fn.win_getid() and statusline or statusline_nc
+end
+vim.opt.statusline="%!v:lua.dotfiles.sl_stl()"
+EOF
+" }}}
+" Tabs {{{
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set noexpandtab
+" }}}
+" Folds {{{
+set foldmethod=syntax
+autocmd dotfiles-settings FileType vim setlocal foldmethod=marker foldlevel=0
+autocmd dotfiles-settings FileType css setlocal foldmethod=syntax foldlevel=0
+autocmd dotfiles-settings FileType scss setlocal foldmethod=syntax foldlevel=0
+autocmd dotfiles-settings FileType python setlocal foldmethod=indent
+autocmd dotfiles-settings FileType diff setlocal nofoldenable
+" }}}
+" Maps {{{
+let g:enable_todo = 1
+" Highlight a block and type "@" to run a macro on the block:
+xnoremap <silent> @ :<C-u>call visualat#execute_macro_over_visual_range()<CR>
+
+" Grep project:
+function s:grep_or_qfgrep()
+	if &buftype ==# 'quickfix'
+		let l:input = input('QFGrep/')
+		if len(l:input) > 0
+			let l:prefix = getwininfo(win_getid())[0].loclist ? 'L' : 'C'
+			execute l:prefix . 'filter /'.l:input.'/'
+		endif
+	else
+		let l:input = input('Grep/')
+		if len(l:input) > 0
+			execute 'Grep ' . l:input
+		endif
+	endif 
+endfunction
+nnoremap <silent> <leader>/ <cmd>call <SID>grep_or_qfgrep()<CR>
+
+" Calculator (not sure how this works):
+inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
+
+" Shortcut to view current syntax highlighting group:
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" List Bindings: {{{
+nnoremap <silent> <leader>d :call dotfiles#lists#toggle('Location List', 'l')<CR>
+nnoremap <silent> <leader>q :call dotfiles#lists#toggle('Quickfix List', 'c')<CR>
+"}}}
+" Uniform Visual Motion Toggle: {{{
+map <leader>w <cmd>call edit_mode#toggle()<CR>
+" }}}
+" FZF Bindings: {{{
+nmap <silent> <c-p> <cmd>Files<CR>
+nmap <silent> <leader>a <cmd>Buffers<CR>
+" }}}
+" }}}
 " Theme: {{{
 " Fancy color for macs and X11 sessions:
 if has('mac') || exists('$DISPLAY')
@@ -66,6 +150,32 @@ if has('mac') || exists('$DISPLAY')
 else
 	colorscheme default
 endif
+" }}}
+" Other Settings {{{
+" Highlighted Yank:
+autocmd dotfiles-settings TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
+
+" Close Preview Window:
+autocmd dotfiles-settings CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" On opening a file, jump to the last known cursor position (see :h line())
+autocmd dotfiles-settings BufReadPost *
+\ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
+\	 exe "normal! g`\"" |
+\ endif 
+
+" Fix window resizing
+autocmd dotfiles-settings VimEnter * silent exec "!kill -s SIGWINCH $PPID"
+
+" Update FASD For NeoVim: {{{
+function! s:fasd_update() abort
+	if empty(&buftype)
+		call jobstart(['fasd', '-A', expand('%:p')])
+	endif
+endfunction
+autocmd dotfiles-settings BufWinEnter,BufFilePost * call s:fasd_update()
+" }}}
+" # vim:foldmethod=marker
 " }}}
 " Plugins {{{
 lua require("dotfiles.packer")

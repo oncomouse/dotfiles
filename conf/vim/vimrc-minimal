@@ -70,15 +70,15 @@ endif
 " ==============================================================================
 " Disable Plugins:
 " ==============================================================================
-let g:loaded_gzip               =  1
-let g:loaded_tarPlugin          =  1
-let g:loaded_zipPlugin          =  1
-let g:loaded_2html_plugin       =  1
+let g:loaded_gzip								=	 1
+let g:loaded_tarPlugin					=	 1
+let g:loaded_zipPlugin					=	 1
+let g:loaded_2html_plugin				=	 1
 "don't use any remote plugins so no need to load them
-let g:loaded_rrhelper           =  1
-let g:loaded_remote_plugins     =  1
-let g:loaded_netrw              =  1
-let g:loaded_netrwPlugin        =  1
+let g:loaded_rrhelper						=	 1
+let g:loaded_remote_plugins			=	 1
+let g:loaded_netrw							=	 1
+let g:loaded_netrwPlugin				=	 1
 
 " ==============================================================================
 " Basic Maps:
@@ -93,6 +93,20 @@ nnoremap <silent> [q <cmd>cprevious<CR>
 " Navigate Buffers:
 nnoremap <silent> ]b <cmd>bnext<CR>
 nnoremap <silent> [b <cmd>bprevious<CR>
+
+" Minimal Diagnostics:
+set wrapscan
+function! DiagnosticsOpenLL() abort
+	if len(getloclist(winnr())) == 0
+		redraw
+		echo 'No Errors Found'
+	else
+		lwindow
+	endif
+endfunction
+command! Diagnostics execute 'silent lmake!' | call DiagnosticsOpenLL()
+nnoremap <silent> ]d <cmd>lnext<CR>
+nnoremap <silent> [d <cmd>lprev<CR>
 
 " Source https://github.com/romainl/minivimrc/blob/master/vimrc
 " Minimal File Finding:
@@ -111,7 +125,7 @@ inoremap <buffer> <localleader>: <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>
 " Search previous lines:
 inoremap <buffer> <localleader>= <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 " commands for adjusting indentation rules manually
-command! -nargs=1 Spaces let b:wv = winsaveview() | execute "setlocal expandtab"   | silent execute "%!expand -it "	. <args> . ""  | call winrestview(b:wv) | setlocal ts? sw? sts? et?
+command! -nargs=1 Spaces let b:wv = winsaveview() | execute "setlocal expandtab"	 | silent execute "%!expand -it "	. <args> . ""	 | call winrestview(b:wv) | setlocal ts? sw? sts? et?
 command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab" | silent execute "%!unexpand -t " . <args> . "" | call winrestview(b:wv) | setlocal ts? sw? sts? et?
 
 

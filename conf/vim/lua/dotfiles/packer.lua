@@ -111,7 +111,7 @@ return require("packer").startup({
 		-- FZF Add to RTP or Install:
 		-- Macos
 		if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then
-			use  "/usr/local/opt/fzf"
+			use	"/usr/local/opt/fzf"
 		-- Arch
 		elseif vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 then
 			use "/usr/share/vim/vimfiles"
@@ -138,7 +138,7 @@ return require("packer").startup({
 				}
 				vim.g.fzf_nvim_statusline = 0 -- disable statusline overwriting
 			end
-		}  -- Add shorcuts for FZF
+		}	-- Add shorcuts for FZF
 		-- Syntax:
 		use {
 			"nvim-treesitter/nvim-treesitter",
@@ -223,7 +223,7 @@ return require("packer").startup({
 		use {
 			"windwp/nvim-ts-autotag",
 			ft={"html", "javascript", "javascriptreact"}
-		}  -- Automatically close HTML tags
+		}	-- Automatically close HTML tags
 		vim.g.vim_markdown_frontmatter = 1 -- Format YAML
 		vim.g.vim_markdown_strikethrough = 0 -- Don"t format strikethrough
 		vim.g.vim_markdown_conceal = 0 -- Don"t conceal
@@ -250,9 +250,10 @@ return require("packer").startup({
 				"markdown",
 				"python",
 				"ruby",
+				"scss",
 				"sh",
 				"vim",
-
+				"yaml",
 			}
 		} -- LSP Configuration
 	end,

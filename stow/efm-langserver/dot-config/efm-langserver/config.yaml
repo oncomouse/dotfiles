@@ -10,19 +10,19 @@ tools:
     lint-formats:
       - '%f:%l:%c: %m'
 
-  markdown-proselint: &markdown-proselint
-    lint-command: 'proselint --compact "${INPUT}"'
-    lint-stdin: false
-    lint-formats:
-      - '%t:%l:%c: %m'
-    lint-category-map:
-      "-": "W"
+  # markdown-proselint: &markdown-proselint
+  #   lint-command: 'proselint --compact "${INPUT}"'
+  #   lint-stdin: false
+  #   lint-formats:
+  #     - '%t:%l:%c: %m'
+  #   lint-category-map:
+  #     "-": "W"
 
-  markdown-vale: &markdown-vale
-    lint-command: 'vale --relative --output line "${INPUT}"'
-    lint-stdin: false
-    lint-formats:
-      - '%f:%l:%c:%*[^:]:%m'
+  # markdown-vale: &markdown-vale
+  #   lint-command: 'vale --relative --output line "${INPUT}"'
+  #   lint-stdin: false
+  #   lint-formats:
+  #     - '%f:%l:%c:%*[^:]:%m'
 
   vim-vint: &vim-vint
     lint-command: 'vint -'
@@ -138,9 +138,9 @@ tools:
 
 languages:
 
-  markdown:
-    - <<: *markdown-vale
-    - <<: *markdown-proselint
+  # markdown:
+  #   - <<: *markdown-vale
+  #   - <<: *markdown-proselint
 
   vim:
     - <<: *vim-vint
