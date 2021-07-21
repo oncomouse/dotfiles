@@ -12,7 +12,7 @@ local function show_documentation()
 		vim.lsp.buf.hover()
 	end
 end
-map.nnoremap("<silent>", "<Plug>(dotfiles-documentation)", function() show_documentation() end)
+map.nnoremap("<silent>", "K", function() show_documentation() end)
 
 -- Extend configs for citation-langserver:
 configs.citation_langserver = {
