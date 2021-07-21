@@ -205,6 +205,7 @@ return require("packer").startup({
 				"zig",
 			},
 			run = ":TSUpdate",
+			branch = "0.5-compat",
 			config = function()
 				require('nvim-treesitter.configs').setup{
 					ensure_installed = "maintained",
@@ -219,7 +220,6 @@ return require("packer").startup({
 					}
 				}
 				vim.cmd[[
-				" Treesitter Folds {{{
 				set foldexpr=nvim_treesitter#foldexpr()
 				autocmd dotfiles-settings Filetype bash setlocal foldmethod=expr
 				autocmd dotfiles-settings Filetype bibtex setlocal foldmethod=expr
@@ -259,7 +259,6 @@ return require("packer").startup({
 				autocmd dotfiles-settings Filetype ocaml_interface setlocal foldmethod=expr
 				autocmd dotfiles-settings Filetype ocamllex setlocal foldmethod=expr
 				autocmd dotfiles-settings Filetype php setlocal foldmethod=expr
-				" autocmd dotfiles-settings Filetype python setlocal foldmethod=expr
 				autocmd dotfiles-settings Filetype ql setlocal foldmethod=expr
 				autocmd dotfiles-settings Filetype query setlocal foldmethod=expr
 				autocmd dotfiles-settings Filetype r setlocal foldmethod=expr
@@ -280,7 +279,6 @@ return require("packer").startup({
 				autocmd dotfiles-settings Filetype vue setlocal foldmethod=expr
 				autocmd dotfiles-settings Filetype yaml setlocal foldmethod=expr
 				autocmd dotfiles-settings Filetype zig setlocal foldmethod=expr
-				" }}}
 				]]
 			end
 		}
