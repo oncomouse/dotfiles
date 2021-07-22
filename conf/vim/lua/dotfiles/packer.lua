@@ -3,12 +3,12 @@ dotfiles = _G.dotfiles or {}
 local xdg = require("dotfiles.utils.xdg")
 local map = require("dotfiles.utils.map")
 
-local pp = xdg("XDG_DATA_HOME") .. "/packer/desktop"
-vim.opt.packpath:append({ pp })
-vim.opt.runtimepath:append({ pp })
+local packer_path = xdg("XDG_DATA_HOME") .. "/packer/desktop"
+vim.opt.packpath:append({ packer_path })
+vim.opt.runtimepath:append({ packer_path })
 -- Download Packer.nvim:
-local packer_dir = pp .. '/pack'
-local packer_compile_dir = pp .. '/plugin'
+local packer_dir = packer_path .. '/pack'
+-- local packer_compile_dir = 
 -- Source: https://github.com/datwaft/nvim/blob/master/init.lua
 local function ensure (user, repo, opt)
 	opt = false or opt
@@ -223,6 +223,6 @@ return require("packer").startup({
 	end,
 	config = {
 		package_root = packer_dir,
-		compile_path = packer_compile_dir .. "/packer_compiled.vim",
+		compile_path = packer_path .. "/plugin/packer_compiled.vim",
 	}
 })

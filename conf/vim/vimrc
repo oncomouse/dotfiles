@@ -172,7 +172,6 @@ function! s:fasd_update() abort
 endfunction
 autocmd dotfiles-settings BufWinEnter,BufFilePost * call s:fasd_update()
 " }}}
-" # vim:foldmethod=marker
 " }}}
 " Plugins {{{
 lua require("dotfiles.packer")
