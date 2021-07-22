@@ -140,75 +140,13 @@ return require("packer").startup({
 			end
 		}	-- Add shorcuts for FZF
 		-- Syntax:
-		local ts_types = {
-			"bash",
-			"beancount",
-			"bibtex",
-			"c",
-			"c_sharp",
-			"clojure",
-			"comment",
-			"commonlisp",
-			"cpp",
-			"css",
-			"dart",
-			"devicetree",
-			"dockerfile",
-			"elixir",
-			"erlang",
-			"fennel",
-			"fish",
-			"gdscript",
-			"glimmer",
-			"go",
-			"gomod",
-			"graphql",
-			"html",
-			"java",
-			"javascript",
-			"javascriptreact",
-			"jsdoc",
-			"json",
-			"jsonc",
-			"julia",
-			"kotlin",
-			"latex",
-			"ledger",
-			"lua",
-			"nix",
-			"ocaml",
-			"ocaml_interface",
-			"ocamllex",
-			"php",
-			"python",
-			"ql",
-			"query",
-			"r",
-			"regex",
-			"rst",
-			"ruby",
-			"rust",
-			"scss",
-			"sparql",
-			"supercollider",
-			"svelte",
-			"teal",
-			"toml",
-			"tsx",
-			"turtle",
-			"typescript",
-			"verilog",
-			"vue",
-			"yaml",
-			"zig",
-		}
 		use {
 			"nvim-treesitter/nvim-treesitter",
 			requires = {
 				{ "windwp/nvim-ts-autotag", ft = { "html", "javascript", "javascriptreact" } },
-				{ "nvim-treesitter/nvim-treesitter-textobjects", ft = ts_types },
+				{ "nvim-treesitter/nvim-treesitter-textobjects", ft = require("dotfiles.utils.ts_filetypes").ts_types },
 			},
-			ft = ts_types,
+			ft = require("dotfiles.utils.ts_filetypes").ts_types,
 			run = ":TSUpdate",
 			branch = "0.5-compat",
 			config = function()
@@ -240,68 +178,7 @@ return require("packer").startup({
 						}
 					},
 				}
-				-- This looks terrible, but, for some reason, generating these with a loop is incompatible with FastFold:
-				vim.cmd[[
-				set foldexpr=nvim_treesitter#foldexpr()
-				autocmd dotfiles-settings Filetype bash setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype bibtex setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype c setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype c_sharp setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype clojure setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype comment setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype commonlisp setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype cpp setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype css setlocal foldmethod=expr foldlevel=0
-				autocmd dotfiles-settings Filetype dart setlocal foldmethod=expr foldlevel=0
-				autocmd dotfiles-settings Filetype devicetree setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype dockerfile setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype elixir setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype erlang setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype fennel setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype fish setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype gdscript setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype glimmer setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype go setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype gomod setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype graphql setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype html setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype java setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype javascript setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype javascriptreact setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype jsdoc setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype json setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype jsonc setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype julia setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype kotlin setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype latex setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype ledger setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype lua setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype nix setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype ocaml setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype ocaml_interface setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype ocamllex setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype php setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype ql setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype query setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype r setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype regex setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype rst setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype ruby setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype rust setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype scss setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype sparql setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype supercollider setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype svelte setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype teal setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype toml setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype tsx setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype turtle setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype typescript setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype verilog setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype vue setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype yaml setlocal foldmethod=expr
-				autocmd dotfiles-settings Filetype zig setlocal foldmethod=expr
-				]]
+				require("dotfiles.utils.ts_filetypes").ts_type_autocmds()
 			end
 		}
 		vim.g.vim_markdown_frontmatter = 1 -- Format YAML
