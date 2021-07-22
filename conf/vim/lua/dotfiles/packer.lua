@@ -8,7 +8,6 @@ vim.opt.packpath:append({ packer_path })
 vim.opt.runtimepath:append({ packer_path })
 -- Download Packer.nvim:
 local packer_dir = packer_path .. '/pack'
--- local packer_compile_dir = 
 -- Source: https://github.com/datwaft/nvim/blob/master/init.lua
 local function ensure (user, repo, opt)
 	opt = false or opt
