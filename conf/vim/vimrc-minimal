@@ -107,7 +107,7 @@ endfunction
 command! Diagnostics execute 'silent lmake!' | call DiagnosticsOpenLL()
 nnoremap <silent> ]d <cmd>lnext<CR>
 nnoremap <silent> [d <cmd>lprev<CR>
-command! Format <cmd>normal! mxgggqG`x<CR>
+command! Format silent normal! mxgggqG`x<CR>
 
 " Source https://github.com/romainl/minivimrc/blob/master/vimrc
 " Minimal File Finding:
