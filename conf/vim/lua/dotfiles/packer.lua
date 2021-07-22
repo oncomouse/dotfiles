@@ -219,6 +219,7 @@ return require("packer").startup({
 						enable = true,
 					}
 				}
+				-- This looks terrible, but, for some reason, generating these with a loop is incompatible with FastFold:
 				vim.cmd[[
 				set foldexpr=nvim_treesitter#foldexpr()
 				autocmd dotfiles-settings Filetype bash setlocal foldmethod=expr
