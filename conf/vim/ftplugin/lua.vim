@@ -1,2 +1,2 @@
 compiler luacheck
-set formatprg=prettier\ --use-tabs\ --parser\ lua
+set formatprg=stylua\ -

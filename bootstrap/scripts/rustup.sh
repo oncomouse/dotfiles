@@ -12,4 +12,4 @@ else
     source "$HOME/.cargo/env"
   fi
 fi
-
+cargo install stylua
