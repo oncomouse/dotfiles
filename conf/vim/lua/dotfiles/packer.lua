@@ -1,6 +1,7 @@
 --luacheck: globals vim use dotfiles
 dotfiles = _G.dotfiles or {}
 local xdg = require("dotfiles.utils.xdg")
+local map = require("dotfiles.utils.map")
 
 local pp = xdg("XDG_DATA_HOME") .. "/packer/desktop"
 vim.opt.packpath:append({ pp })
@@ -8,13 +9,19 @@ vim.opt.runtimepath:append({ pp })
 -- Download Packer.nvim:
 local packer_dir = pp .. '/pack'
 local packer_compile_dir = pp .. '/plugin'
-if vim.fn.isdirectory(packer_dir) == 0 then
-	vim.fn.system(
-		'git clone --depth 1 https://github.com/wbthomason/packer.nvim "' ..
-		packer_dir ..
-		'/packer/opt/packer.nvim"'
-	)
+-- Source: https://github.com/datwaft/nvim/blob/master/init.lua
+local function ensure (user, repo, opt)
+	opt = false or opt
+	-- Ensures a given github.com/USER/REPO is cloned int the pack directory.
+	local install_path = string.format("%s/packer/%s/%s", packer_dir, opt and "opt" or "start", repo)
+	if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+		vim.fn.execute(string.format("!git clone https://github.com/%s/%s %s", user, repo, install_path))
+		if opt then
+			vim.fn.execute(string.format("packadd %s", repo))
+		end
+	end
 end
+ensure("wbthomason", "packer.nvim", true)
 
 -- Load Packer.nvim:
 vim.cmd("packadd packer.nvim")
@@ -72,7 +79,7 @@ return require("packer").startup({
 					vim.fn["lexima#add_rule"](make_rule("^\\s*\\%(local\\)\\=.*function\\>\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {}))
 				end
 				vim.cmd[[autocmd! dotfiles-settings FileType lua lua dotfiles.extend_endwise_for_lua()]]
-				vim.api.nvim_set_keymap("i", "<C-l>", "<C-r>=lexima#insmode#leave_till_eol(\"\")<CR>", { noremap = true })
+				map.inoremap("<C-l>", "<C-r>=lexima#insmode#leave_till_eol(\"\")<CR>")
 			end
 		} -- Autopairs + Endwise
 		use {
@@ -143,7 +150,7 @@ return require("packer").startup({
 		use {
 			"nvim-treesitter/nvim-treesitter",
 			requires = {
-				{ "windwp/nvim-ts-autotag", ft = { "html", "javascript", "javascriptreact" } },
+				{ "windwp/nvim-ts-autotag", ft = { "html", "javascript", "javascriptreact", "xml" } },
 				{ "nvim-treesitter/nvim-treesitter-textobjects", ft = require("dotfiles.utils.ts_filetypes").ts_types },
 			},
 			ft = require("dotfiles.utils.ts_filetypes").ts_types,
@@ -165,7 +172,7 @@ return require("packer").startup({
 						select = {
 							enable = true,
 
-							-- Automatically jump forward to textobj, similar to targets.vim 
+							-- Automatically jump forward to textobj, similar to targets.vim
 							lookahead = true,
 
 							keymaps = {
@@ -180,7 +187,7 @@ return require("packer").startup({
 				}
 				require("dotfiles.utils.ts_filetypes").ts_type_autocmds()
 			end
-		}
+		} -- Treesiter with highlighting, folding, textobjects, and tag-closing for HTML-like languages
 		vim.g.vim_markdown_frontmatter = 1 -- Format YAML
 		vim.g.vim_markdown_strikethrough = 0 -- Don"t format strikethrough
 		vim.g.vim_markdown_conceal = 0 -- Don"t conceal

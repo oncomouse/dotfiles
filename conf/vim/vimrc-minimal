@@ -129,7 +129,6 @@ inoremap <buffer> <localleader>= <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>
 command! -nargs=1 Spaces let b:wv = winsaveview() | execute "setlocal expandtab"	 | silent execute "%!expand -it "	. <args> . ""	 | call winrestview(b:wv) | setlocal ts? sw? sts? et?
 command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab" | silent execute "%!unexpand -t " . <args> . "" | call winrestview(b:wv) | setlocal ts? sw? sts? et?
 
-
 " <nop> those bindings for writing files:
 autocmd minimal-vimrc FileType markdown,text,mail silent! iunmap <buffer> <localleader>,
 autocmd minimal-vimrc FileType markdown,text,mail silent! iunmap <buffer> <localleader>:
