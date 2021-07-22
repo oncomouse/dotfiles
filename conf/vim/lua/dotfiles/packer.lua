@@ -140,70 +140,75 @@ return require("packer").startup({
 			end
 		}	-- Add shorcuts for FZF
 		-- Syntax:
+		local ts_types = {
+			"bash",
+			"beancount",
+			"bibtex",
+			"c",
+			"c_sharp",
+			"clojure",
+			"comment",
+			"commonlisp",
+			"cpp",
+			"css",
+			"dart",
+			"devicetree",
+			"dockerfile",
+			"elixir",
+			"erlang",
+			"fennel",
+			"fish",
+			"gdscript",
+			"glimmer",
+			"go",
+			"gomod",
+			"graphql",
+			"html",
+			"java",
+			"javascript",
+			"javascriptreact",
+			"jsdoc",
+			"json",
+			"jsonc",
+			"julia",
+			"kotlin",
+			"latex",
+			"ledger",
+			"lua",
+			"nix",
+			"ocaml",
+			"ocaml_interface",
+			"ocamllex",
+			"php",
+			"python",
+			"ql",
+			"query",
+			"r",
+			"regex",
+			"rst",
+			"ruby",
+			"rust",
+			"scss",
+			"sparql",
+			"supercollider",
+			"svelte",
+			"teal",
+			"toml",
+			"tsx",
+			"turtle",
+			"typescript",
+			"verilog",
+			"vue",
+			"yaml",
+			"zig",
+		}
 		use {
 			"nvim-treesitter/nvim-treesitter",
-			ft = {
-				"bash",
-				"beancount",
-				"bibtex",
-				"c",
-				"c_sharp",
-				"clojure",
-				"comment",
-				"commonlisp",
-				"cpp",
-				"css",
-				"dart",
-				"devicetree",
-				"dockerfile",
-				"elixir",
-				"erlang",
-				"fennel",
-				"fish",
-				"gdscript",
-				"glimmer",
-				"go",
-				"gomod",
-				"graphql",
-				"html",
-				"java",
-				"javascript",
-				"javascriptreact",
-				"jsdoc",
-				"json",
-				"jsonc",
-				"julia",
-				"kotlin",
-				"latex",
-				"ledger",
-				"lua",
-				"nix",
-				"ocaml",
-				"ocaml_interface",
-				"ocamllex",
-				"php",
-				"python",
-				"ql",
-				"query",
-				"r",
-				"regex",
-				"rst",
-				"ruby",
-				"rust",
-				"scss",
-				"sparql",
-				"supercollider",
-				"svelte",
-				"teal",
-				"toml",
-				"tsx",
-				"turtle",
-				"typescript",
-				"verilog",
-				"vue",
-				"yaml",
-				"zig",
+			requires = {
+				{ "windwp/nvim-ts-autotag", ft = { "html", "javascript", "javascriptreact" } },
+				{ "nvim-treesitter/nvim-treesitter-textobjects", ft = ts_types },
 			},
+			ft = ts_types,
 			run = ":TSUpdate",
 			branch = "0.5-compat",
 			config = function()
@@ -217,7 +222,23 @@ return require("packer").startup({
 					},
 					autotag = {
 						enable = true,
-					}
+					},
+					textobjects = {
+						select = {
+							enable = true,
+
+							-- Automatically jump forward to textobj, similar to targets.vim 
+							lookahead = true,
+
+							keymaps = {
+								-- You can use the capture groups defined in textobjects.scm
+								["af"] = "@function.outer",
+								["if"] = "@function.inner",
+								["ac"] = "@class.outer",
+								["ic"] = "@class.inner",
+							}
+						}
+					},
 				}
 				-- This looks terrible, but, for some reason, generating these with a loop is incompatible with FastFold:
 				vim.cmd[[
@@ -283,10 +304,6 @@ return require("packer").startup({
 				]]
 			end
 		}
-		use {
-			"windwp/nvim-ts-autotag",
-			ft={"html", "javascript", "javascriptreact"}
-		}	-- Automatically close HTML tags
 		vim.g.vim_markdown_frontmatter = 1 -- Format YAML
 		vim.g.vim_markdown_strikethrough = 0 -- Don"t format strikethrough
 		vim.g.vim_markdown_conceal = 0 -- Don"t conceal
