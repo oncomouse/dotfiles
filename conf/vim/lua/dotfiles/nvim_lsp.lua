@@ -63,49 +63,49 @@ local on_attach = function(client, _)
 	map.nnoremap("<silent><buffer>", "ga", function() vim.lsp.buf.code_action() end)
 	map.vnoremap("<silent><buffer>", "ga", function() vim.lsp.buf.range_code_action() end)
 	map.nnoremap("<silent><buffer>", "<F5>", ":<CR>")
-	vim.api.nvim_command("command! Format lua vim.lsp.buf.formatting()")
-	vim.opt.wrapscan = true
-	map.nnoremap("<silent><buffer>", "]d", function() vim.lsp.diagnostic.goto_next() end)
-	map.nnoremap("<silent><buffer>", "[d", function() vim.lsp.diagnostic.goto_prev() end)
+	-- vim.api.nvim_command("command! Format lua vim.lsp.buf.formatting()")
+	-- vim.opt.wrapscan = true
+	-- map.nnoremap("<silent><buffer>", "]d", function() vim.lsp.diagnostic.goto_next() end)
+	-- map.nnoremap("<silent><buffer>", "[d", function() vim.lsp.diagnostic.goto_prev() end)
 end
 
-local on_attach_diagnostics = function(...)
-	vim.opt.updatetime = 300
-	vim.cmd[[autocmd! User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
-	vim.cmd[[autocmd! CursorMoved,CursorHold,InsertLeave * lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false, show_header = false, })]]
-	on_attach(...)
-end
+-- local on_attach_diagnostics = function(...)
+-- 	vim.opt.updatetime = 300
+-- 	vim.cmd[[autocmd! User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({open_loclist = false})]]
+-- 	vim.cmd[[autocmd! CursorMoved,CursorHold,InsertLeave * lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false, show_header = false, })]]
+-- 	on_attach(...)
+-- end
 
 local servers = {
-	efm = {
-		root_dir =	lspconfig.util.root_pattern(
-			"Rakefile",
-			"yarn.lock",
-			"lerna.json",
-			".git",
-			"poetry.toml"
-		),
-		filetypes = {
-			"css",
-			"html",
-			"javascript",
-			"json",
-			"lua",
-			"python",
-			"scss",
-			"sh",
-			"vim",
-			"yaml",
-		},
-		init_options = {
-			documentFormatting = true,
-			hover = true,
-			documentSymbol = true,
-			codeAction = true,
-			completion = true
-		},
-		diagnostics = true,
-	},
+	-- efm = {
+	-- 	root_dir =	lspconfig.util.root_pattern(
+	-- 		"Rakefile",
+	-- 		"yarn.lock",
+	-- 		"lerna.json",
+	-- 		".git",
+	-- 		"poetry.toml"
+	-- 	),
+	-- 	filetypes = {
+	-- 		"css",
+	-- 		"html",
+	-- 		"javascript",
+	-- 		"json",
+	-- 		"lua",
+	-- 		"python",
+	-- 		"scss",
+	-- 		"sh",
+	-- 		"vim",
+	-- 		"yaml",
+	-- 	},
+	-- 	init_options = {
+	-- 		documentFormatting = true,
+	-- 		hover = true,
+	-- 		documentSymbol = true,
+	-- 		codeAction = true,
+	-- 		completion = true
+	-- 	},
+	-- 	diagnostics = true,
+	-- },
 	sumneko_lua ={
 		cmd = {"sumneko-lua-language-server"},
 		settings ={
@@ -144,7 +144,7 @@ local servers = {
 		cmd = {"json-languageserver", "--stdio"},
 	},
 	solargraph = {
-		diagnostics = true
+		diagnostics = false
 	},
 	vimls = {},
 	bashls = {},
