@@ -129,6 +129,12 @@ map <leader>w <cmd>call edit_mode#toggle()<CR>
 nmap <silent> <c-p> <cmd>Files<CR>
 nmap <silent> <leader>a <cmd>Buffers<CR>
 " }}}
+" Fold Maps: {{{
+onoremap iz <cmd>normal [zjv]zk$<cr>
+xnoremap iz <cmd>normal [zjo]zk$<cr>
+onoremap az <cmd>normal [zv]z$<cr>
+xnoremap az <cmd>normal [zo]z$<cr>
+" }}}
 " }}}
 " Theme: {{{
 " Fancy color for macs and X11 sessions:
