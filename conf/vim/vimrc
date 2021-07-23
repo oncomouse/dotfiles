@@ -130,10 +130,10 @@ nmap <silent> <c-p> <cmd>Files<CR>
 nmap <silent> <leader>a <cmd>Buffers<CR>
 " }}}
 " Fold Maps: {{{
-onoremap iz <cmd>normal [zjv]zk$<cr>
-xnoremap iz <cmd>normal [zjo]zk$<cr>
-onoremap az <cmd>normal [zv]z$<cr>
-xnoremap az <cmd>normal [zo]z$<cr>
+onoremap iz <cmd>normal! [zj0v]zk$<cr>
+xnoremap iz <cmd>normal! [zj0o]zk$<cr>
+onoremap az <cmd>normal! [zv]z$<cr>
+xnoremap az <cmd>normal! [zo]z$<cr>
 " }}}
 " }}}
 " Theme: {{{
