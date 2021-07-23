@@ -57,6 +57,17 @@ return require("packer").startup({
 		use "Konfekt/FastFold" -- Better fold support
 		use "wellle/targets.vim" -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 		use {
+			"ggandor/lightspeed.nvim",
+			config = function()
+				vim.cmd [[
+				nmap <expr> f reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_f" : "f"
+				nmap <expr> F reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_F" : "F"
+				nmap <expr> t reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_t" : "t"
+				nmap <expr> T reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_T" : "T"
+				]]
+			end
+		}
+		use {
 			"cohama/lexima.vim",
 			config = function()
 				local function make_rule(at, e, filetype, syntax)
@@ -191,7 +202,7 @@ return require("packer").startup({
 		vim.g.vim_markdown_conceal = 0 -- Don"t conceal
 		vim.g.vim_markdown_conceal_code_blocks = 0 -- Don"t conceal code blocks
 		vim.g.vim_markdown_math = 1 -- Do process MathJaX and LaTeX math
-		use "oncomouse/vim-fish"
+		use { "oncomouse/vim-fish", ft = { "fish" } } -- Fish Syntax
 		use { "plasticboy/vim-markdown", ft = { "markdown" } } -- Markdown Syntax
 		use {
 			"godlygeek/tabular",
