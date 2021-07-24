@@ -39,6 +39,8 @@ return require("packer").startup({
 		use "sickill/vim-pasta" -- Indentation-forward pasting
 		use "tpope/vim-repeat"
 		use "oncomouse/vim-surround" -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
+		-- Additionally supports csf and dsf for functions
+		-- Using 'matchpairs' for substituting
 		vim.g.rooter_patterns = {
 			"Rakefile",
 			 "package.json",
@@ -56,17 +58,6 @@ return require("packer").startup({
 		vim.g.fastfold_minlines = 0
 		use "Konfekt/FastFold" -- Better fold support
 		use "wellle/targets.vim" -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
-		use {
-			"ggandor/lightspeed.nvim",
-			config = function()
-				vim.cmd [[
-				nmap <expr> f reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_f" : "f"
-				nmap <expr> F reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_F" : "F"
-				nmap <expr> t reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_t" : "t"
-				nmap <expr> T reg_recording() . reg_executing() == "" ? "<Plug>Lightspeed_T" : "T"
-				]]
-			end
-		}
 		use {
 			"cohama/lexima.vim",
 			config = function()
