@@ -36,7 +36,7 @@ return require("packer").startup({
 		use "lambdalisue/pastefix.vim" -- fix block paste for Neovim
 		use "tpope/vim-commentary" -- gc<motion> to (un)comment
 		-- General Editing:
-		use "sickill/vim-pasta" -- Indentation-forward pasting
+		-- use "sickill/vim-pasta" -- Indentation-forward pasting
 		use "tpope/vim-repeat"
 		use "oncomouse/vim-surround" -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 		-- Additionally supports csf and dsf for functions
@@ -52,11 +52,6 @@ return require("packer").startup({
 		-- Set path expansion to pwd only, especially with vim-rooter running:
 		vim.opt.path=",,"
 		use "airblade/vim-rooter" -- Set project root
-		vim.g.fastfold_savehook = 1
-		vim.g.fastfold_fold_command_suffixes =	{"x","X","a","A","o","O","c","C", "r", "R", "m", "M"}
-		vim.g.fastfold_fold_movement_commands = {"]z", "[z", "zj", "zk"}
-		vim.g.fastfold_minlines = 0
-		use "Konfekt/FastFold" -- Better fold support
 		use "wellle/targets.vim" -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 		use {
 			"cohama/lexima.vim",
@@ -146,7 +141,7 @@ return require("packer").startup({
 				vim.g.fzf_nvim_statusline = 0 -- disable statusline overwriting
 			end
 		}	-- Add shorcuts for FZF
-		-- Syntax:
+		-- Treesitter:
 		use {
 			"nvim-treesitter/nvim-treesitter",
 			requires = {
@@ -188,6 +183,7 @@ return require("packer").startup({
 				require("dotfiles.utils.ts_filetypes").ts_type_autocmds()
 			end
 		} -- Treesiter with highlighting, folding, textobjects, and tag-closing for HTML-like languages
+		-- Syntax:
 		vim.g.vim_markdown_frontmatter = 1 -- Format YAML
 		vim.g.vim_markdown_strikethrough = 0 -- Don"t format strikethrough
 		vim.g.vim_markdown_conceal = 0 -- Don"t conceal
