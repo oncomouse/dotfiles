@@ -57,7 +57,7 @@ function dotfiles.sl_wc()
 		"markdown",
 		"txt",
 		"vimwiki"
-	}, vim.opt.filetype:get()) and " W:L" .. vim.fn.wordcount().words or ""
+	}, vim.opt.filetype:get()) and " W:" .. vim.fn.wordcount().words or ""
 end
 function dotfiles.sl_dg()
 	local d = ''
