@@ -104,7 +104,7 @@ function! DiagnosticsOpenLL() abort
 		lwindow
 	endif
 endfunction
-command! Diagnostics execute 'silent lmake!' | call DiagnosticsOpenLL()
+command! Diagnostics execute 'silent lmake! %' | call DiagnosticsOpenLL()
 nnoremap <silent> ]d <cmd>lnext<CR>
 nnoremap <silent> [d <cmd>lprev<CR>
 command! Format silent normal! mxgggqG`x<CR>
