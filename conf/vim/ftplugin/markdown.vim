@@ -5,7 +5,7 @@ function! ToggleConcealLevel() abort
 endfunction
 nnoremap <buffer> <silent> <leader>cc :call ToggleConcealLevel()<CR>
 
-compiler vale
+compiler markdown_combo
 
 setlocal iskeyword+=',-
 
