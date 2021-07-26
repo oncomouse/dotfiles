@@ -19,25 +19,18 @@ set number relativenumber
 
 " Folds:
 set foldlevel=99
-set foldmethod=indent
+set foldmethod=manual
 
-" This avoids highlighting big files:
+" Avoid Highlighting Large Files:
 let g:large_file = 20*1024*1024
 
 " Set Leader:
 let mapleader = "\<Space>"
 let maplocalleader = ','
 
-augroup minimal-vimrc
-	autocmd!
-augroup END
-
 if has('nvim')
 	" Preview Substitution Operations:
 	set inccommand=split
-
-	" Turn Off Line Numbering:
-	autocmd minimal-vimrc TermOpen * setlocal nonumber norelativenumber
 endif
 
 " Height Of The Preview Window:
@@ -45,7 +38,6 @@ let &previewheight = 14
 
 " Completion:
 set completeopt=menuone,noselect,noinsert,preview
-" Shut off completion messages
 set shortmess+=c
 " prevent a condition where vim lags due to searching include files.
 set complete-=i
@@ -57,6 +49,11 @@ set path=.,,
 
 set grepprg=grep\ -rn
 
+" Minimal Statusbar:
+set statusline=\ %0.45f%m%h%w%r%=\ %y\ %l:%c\ 
+
+set wrapscan
+
 " Mouse And Clipboard:
 set mouse=a " Mouse support
 if has('clipboard')
@@ -66,7 +63,6 @@ if has('clipboard')
 		set clipboard=unnamed
 	endif
 endif
-
 " ==============================================================================
 " Disable Plugins:
 " ==============================================================================
@@ -78,35 +74,36 @@ let g:loaded_rrhelper = 1
 let g:loaded_remote_plugins = 1
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
+" ==============================================================================
+" Autocommands:
+" ==============================================================================
+augroup minimal-vimrc
+	autocmd!
+augroup END
 
+" Line Number Colors:
+autocmd minimal-vimrc ColorScheme default hi LineNr ctermfg=7
+autocmd minimal-vimrc ColorScheme default hi LineNrAbove ctermfg=7
+autocmd minimal-vimrc ColorScheme default hi LineNrBelow ctermfg=7
+autocmd minimal-vimrc ColorScheme default hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE
+autocmd minimal-vimrc ColorScheme default hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE
+
+" Turn Off Line Numbering:
+if has('nvim')
+	autocmd minimal-vimrc TermOpen * setlocal nonumber norelativenumber
+endif
 " ==============================================================================
 " Basic Maps:
 " ==============================================================================
 " Select Whole File:
 nnoremap <leader>vf ggVG
+
 " Clear Currently Highlighted Regexp:
 nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
-" Navigate Quickfix:
-nnoremap <silent> ]q <cmd>cnext<CR>
-nnoremap <silent> [q <cmd>cprevious<CR>
+
 " Navigate Buffers:
 nnoremap <silent> ]b <cmd>bnext<CR>
 nnoremap <silent> [b <cmd>bprevious<CR>
-
-" Minimal Diagnostics:
-set wrapscan
-function! DiagnosticsOpenLL() abort
-	if len(getloclist(winnr())) == 0
-		redraw
-		echo 'No Errors Found'
-	else
-		lwindow
-	endif
-endfunction
-command! Diagnostics execute 'silent lmake! %' | call DiagnosticsOpenLL()
-nnoremap <silent> ]d <cmd>lnext<CR>
-nnoremap <silent> [d <cmd>lprev<CR>
-command! Format silent normal! mxgggqG`x<CR>
 
 " Source https://github.com/romainl/minivimrc/blob/master/vimrc
 " Minimal File Finding:
@@ -117,35 +114,81 @@ nnoremap <localleader>v :vert sfind *
 nnoremap <leader>a :buffers<CR>:buffer<Space> 
 nnoremap <localleader>a :buffer *
 nnoremap <localleader>A :sbuffer *
-" Completion Mappings:
-" Search previous words:
-inoremap <buffer> <localleader>, <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
-" Search file names:
-inoremap <buffer> <localleader>: <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
-" Search previous lines:
-inoremap <buffer> <localleader>= <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
-" commands for adjusting indentation rules manually
-command! -nargs=1 Spaces let b:wv = winsaveview() | execute "setlocal expandtab"	 | silent execute "%!expand -it "	. <args> . ""	 | call winrestview(b:wv) | setlocal ts? sw? sts? et?
-command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab" | silent execute "%!unexpand -t " . <args> . "" | call winrestview(b:wv) | setlocal ts? sw? sts? et?
-
-" <nop> those bindings for writing files:
-autocmd minimal-vimrc FileType markdown,text,mail silent! iunmap <buffer> <localleader>,
-autocmd minimal-vimrc FileType markdown,text,mail silent! iunmap <buffer> <localleader>:
-autocmd minimal-vimrc FileType markdown,text,mail silent! iunmap <buffer> <localleader>=
 
 " Better Matching:
 nnoremap [I [I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
 nnoremap ]I ]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
-"
-" Line Number Colors:
-autocmd minimal-vimrc ColorScheme default hi LineNr ctermfg=7
-autocmd minimal-vimrc ColorScheme default hi LineNrAbove ctermfg=7
-autocmd minimal-vimrc ColorScheme default hi LineNrBelow ctermfg=7
-autocmd minimal-vimrc ColorScheme default hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE
-autocmd minimal-vimrc ColorScheme default hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE
 
-" Minimal Statusbar:
-set statusline=\ %0.45f%m%h%w%r%=\ %y\ %l:%c\ 
+" Navigate Quickfix:
+nnoremap <silent> ]q <cmd>cnext<CR>
+nnoremap <silent> [q <cmd>cprevious<CR>
+
+" Navigate Location List:
+nnoremap <silent> ]d <cmd>lnext<CR>
+nnoremap <silent> [d <cmd>lprev<CR>
+
+" Toggle Quickfix:
+nnoremap <silent> <leader>q <cmd>call ListToggle('Quickfix List', 'c')<CR>
+nnoremap <silent> <leader>d <cmd>call ListToggle('Location List', 'l')<CR>
+
+" Project Grep:
+nnoremap <silent> <leader>/ <cmd>call GrepOrQfGrep()<CR>
+" ==============================================================================
+" Commands:
+" ==============================================================================
+command! Diagnostics execute 'silent lmake! %' | call ListToggle('Location List', 'l')
+command! Format silent normal! mxgggqG`x<CR>
+
+" Adjust Spacing:
+command! -nargs=1 Spaces let b:wv = winsaveview() | execute "setlocal expandtab"	 | silent execute "%!expand -it "	. <args> . ""	 | call winrestview(b:wv) | setlocal ts? sw? sts? et?
+command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab" | silent execute "%!unexpand -t " . <args> . "" | call winrestview(b:wv) | setlocal ts? sw? sts? et?
+" ==============================================================================
+" Functions:
+" ==============================================================================
+function! s:get_buffer_list()
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
+endfunction
+
+function! ListToggle(bufname, pfx)
+  let buflist = s:get_buffer_list()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx ==# 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo 'Location List is Empty.'
+      echohl NONE
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  " if winnr() != winnr
+  "   wincmd p
+  " endif
+endfunction
+
+function GrepOrQfGrep()
+	if &buftype ==# 'quickfix'
+		" Load cfilter in quickfix view:
+		packadd cfilter
+		let l:input = input('QFGrep/')
+		if len(l:input) > 0
+			let l:prefix = getwininfo(win_getid())[0].loclist ? 'L' : 'C'
+			execute l:prefix . 'filter /'.l:input.'/'
+		endif
+	else
+		let l:input = input('Grep/')
+		if len(l:input) > 0
+			execute 'Grep ' . l:input
+		endif
+	endif 
+endfunction
 " ==============================================================================
 " Minpac For Essentials:
 " ==============================================================================
@@ -217,4 +260,45 @@ if has('patch-7.4.1384')
 	if !exists('g:skip_minimal_minpac')
 		colorscheme default
 	endif
+endif
+
+" ==============================================================================
+" FZF:
+" ==============================================================================
+if isdirectory('/usr/local/opt/fzf') " Homebrew
+	set runtimepath+=/usr/local/opt/fzf
+	let g:has_fzf = 1
+elseif isdirectory('/usr/share/vim/vimfiles') " Arch, btw
+	set runtimepath+=/usr/share/vim/vimfiles
+	let g:has_fzf = 1
+elseif isdirectory('~/.fzf') " Local install
+	set runtimepath+=~/.fzf
+	let g:has_fzf = 1
+end
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'border': 'top' } }
+let g:fzf_action = {
+	\ 'ctrl-s': 'split',
+	\ 'ctrl-v': 'vsplit',
+	\ 'ctrl-t': 'tabnew',
+	\ 'ctrl-e': 'edit',
+	\ }
+let g:fzf_nvim_statusline = 0
+if !exists('g:skip_minimal_minpac')
+	let g:fzf_colors =
+	\ { 'fg':      ['fg', 'Normal'],
+	  \ 'bg':      ['bg', 'Normal'],
+	  \ 'hl':      ['fg', 'Comment'],
+	  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+	  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+	  \ 'hl+':     ['fg', 'Statement'],
+	  \ 'info':    ['fg', 'PreProc'],
+	  \ 'border':  ['fg', 'Ignore'],
+	  \ 'prompt':  ['fg', 'Conditional'],
+	  \ 'pointer': ['fg', 'Exception'],
+	  \ 'marker':  ['fg', 'Keyword'],
+	  \ 'spinner': ['fg', 'Label'],
+	  \ 'header':  ['fg', 'Comment'] }
+endif
+if get(g:, 'has_fzf', 0)
+	nmap <silent> <C-P> <cmd>FZF --reverse --info=inline<cr>
 endif

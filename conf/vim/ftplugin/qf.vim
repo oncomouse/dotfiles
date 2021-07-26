@@ -1,5 +1,3 @@
-" Load cfilter in quickfix view:
-packadd cfilter
 " Turn off FZF trigger for easier QF navigation:
 nmap <buffer> <C-P> <C-P>
 

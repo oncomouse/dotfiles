@@ -123,22 +123,6 @@ return require("packer").startup({
 				vim.fn["gina#custom#mapping#nmap"]("status", "cc", ":<C-u>Gina commit<CR>", {noremap = 1, silent = 1})
 			end
 		} -- :Gina status to schedule; :Gina commit to commit
-		-- FZF Add to RTP or Install:
-		-- Macos
-		if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then
-			use	"/usr/local/opt/fzf"
-		-- Arch
-		elseif vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 then
-			use "/usr/share/vim/vimfiles"
-		-- Local install
-		elseif vim.fn.isdirectory("~/.fzf") == 1 then
-			use "~/.fzf"
-		else
-			use {
-				"junegunn/fzf",
-				run = "./install --all",
-			} -- Fallback FZF install
-		end
 		use {
 			"junegunn/fzf.vim",
 			cmd = { "Files", "Buffers", "Windows", "BLines", "Commands" },
