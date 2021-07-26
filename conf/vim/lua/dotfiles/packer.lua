@@ -33,6 +33,19 @@ return require("packer").startup({
 			"oncomouse/vim-grep",
 			cmd = { "Grep", "LGrep" }
 		} -- :Grep and :LGrep
+		use {
+			"stevearc/qf_helper.nvim",
+			config = function()
+				require'qf_helper'.setup({
+					quickfix = {
+						default_bindings = false,
+					},
+					loclist = {
+						default_bindings = false,
+					},
+				})
+			end
+		}
 		use "lambdalisue/pastefix.vim" -- fix block paste for Neovim
 		use "tpope/vim-commentary" -- gc<motion> to (un)comment
 		-- General Editing:
