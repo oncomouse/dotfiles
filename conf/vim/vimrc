@@ -4,16 +4,6 @@ if !empty(glob('~/dotfiles/conf/vim/')) && !(&runtimepath =~# expand('~/dotfiles
 	set runtimepath+=~/dotfiles/conf/vim/
 endif
 
-lua <<EOF
-vim.g.loaded_man = false
-vim.g.loaded_gzip = false
-vim.g.loaded_netrwPlugin = false
-vim.g.loaded_tarPlugin = false
-vim.g.loaded_zipPlugin = false
-vim.g.loaded_2html_plugin = false
-vim.g.loaded_remote_plugins = false
-EOF
-
 " Don't use the minimal minpac install in vimrc-minimal
 let g:skip_minimal_minpac = 1
 
@@ -109,7 +99,7 @@ function s:grep_or_qfgrep()
 endfunction
 nnoremap <silent> <leader>/ <cmd>call <SID>grep_or_qfgrep()<CR>
 
-" Calculator (not sure how this works):
+" Calculator:
 inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
 " Shortcut to view current syntax highlighting group:
