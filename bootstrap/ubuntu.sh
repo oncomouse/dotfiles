@@ -3,19 +3,19 @@
 sudo apt-get update
 sudo apt-get upgrade -y
 # Install Necessary Tools:
-sudo apt-get install -y vim fish python3-pip silversearcher-ag htop
+sudo apt-get install -y vim fish python3-pip htop
 sudo apt-get install -y caca-utils highlight atool w3m poppler-utils mediainfo
 
-# Install Node.js
-if ! which node > /dev/null 2>&1; then
-  sudo apt-get install -y curl python-software-properties
-  curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-  sudo apt-get update
-  sudo apt-get install -y nodejs
-  sudo apt-get install -y yarn
-fi
+# # Install Node.js
+# if ! which node > /dev/null 2>&1; then
+#   sudo apt-get install -y curl python-software-properties
+#   curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+#   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+#   echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+#   sudo apt-get update
+#   sudo apt-get install -y nodejs
+#   sudo apt-get install -y yarn
+# fi
 
 # Install FZF (configured in fish ctrl+r & ctrl+t):
 if test ! ~/.fzf; then
