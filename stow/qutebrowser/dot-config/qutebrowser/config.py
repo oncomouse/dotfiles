@@ -10,7 +10,9 @@ try:
 except KeyError:
     cache = "{}/.cache".format(Path.home())
 
-colors = json.load(open("{}/wal/colors.json".format(cache)))
+f = open("{}/wal/colors.json".format(cache))
+colors = json.load(f)
+f.close()
 
 # Completion menu style bindings:
 c.bindings.commands['command'] = {
