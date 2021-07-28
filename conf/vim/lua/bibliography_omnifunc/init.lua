@@ -1,5 +1,5 @@
-local parse_bibfiles = require("bibrefomni.bibtex").parse_bibfiles
-local parse_bibtex = require("bibrefomni.bibtex").parse_bibtex
+local parse_bibfiles = require("bibliography_omnifunc.bibtex").parse_bibfiles
+local parse_bibtex = require("bibliography_omnifunc.bibtex").parse_bibtex
 local function omnifunc(findstart, base)
     if findstart == 1 then
         local line_string = vim.fn.getline('.')
