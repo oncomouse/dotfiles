@@ -56,7 +56,7 @@ function dotfiles.sl_dg()
 	end
 	return d
 end
-local statusline = " %0.45f%m%h%w%r%= %y%{v:lua.dotfiles.sl_wc()} %l:%c%{v:lua.dotfiles.sl_dg()} "
+local statusline = " %0.45f%m%h%w%r%= %y%{v:lua.dotfiles.sl_wc()} %l:%c %p%%%{v:lua.dotfiles.sl_dg()} "
 local statusline_nc = " %0.45f%m%h%w%r%="
 function dotfiles.sl_stl()
 	return vim.g.statusline_winid == vim.fn.win_getid() and statusline or statusline_nc
