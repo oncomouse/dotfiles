@@ -63,6 +63,8 @@ if has('clipboard')
 		set clipboard=unnamed
 	endif
 endif
+
+set dictionary=/usr/share/dict/words
 " ==============================================================================
 " Disable Plugins:
 " ==============================================================================

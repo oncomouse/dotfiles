@@ -84,3 +84,4 @@ python-tldextract
 python-pygments
 pdfjs
 python-adblock
+words
