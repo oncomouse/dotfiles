@@ -144,6 +144,9 @@ endfunction
 autocmd dotfiles-settings BufWinEnter,BufFilePost * call s:fasd_update()
 " }}}
 " }}}
+" Writing: {{{
+let g:bibfiles = '~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib'
+" }}}
 " Plugins {{{
 lua require("dotfiles.packer")
 " }}}

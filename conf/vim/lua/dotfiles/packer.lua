@@ -204,7 +204,7 @@ return require("packer").startup({
 				"javascript",
 				"json",
 				"lua",
-				"markdown",
+				-- "markdown",
 				"python",
 				"ruby",
 				"scss",

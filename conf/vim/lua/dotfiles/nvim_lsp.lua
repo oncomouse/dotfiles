@@ -15,17 +15,17 @@ end
 map.nnoremap("<silent>", "K", function() show_documentation() end)
 
 -- Extend configs for citation-langserver:
-configs.citation_langserver = {
-	default_config = {
-	filetypes = {"markdown", "pandoc"};
-	root_dir = function(fname)
-		return util.find_git_ancestor(fname) or util.path.dirname(fname)
-	end;
-	log_level = vim.lsp.protocol.MessageType.Warning;
-	cmd = {"/usr/bin/env", "citation-langserver"};
-	-- cmd = {"env", "PYTHONPATH=~/Projects/citation-langserver", "python3", "-m", "citation_langserver"}
-	}
-}
+-- configs.citation_langserver = {
+-- 	default_config = {
+-- 	filetypes = {"markdown", "pandoc"};
+-- 	root_dir = function(fname)
+-- 		return util.find_git_ancestor(fname) or util.path.dirname(fname)
+-- 	end;
+-- 	log_level = vim.lsp.protocol.MessageType.Warning;
+-- 	cmd = {"/usr/bin/env", "citation-langserver"};
+-- 	-- cmd = {"env", "PYTHONPATH=~/Projects/citation-langserver", "python3", "-m", "citation_langserver"}
+-- 	}
+-- }
 
 -- Disable diagnostics
 local handler_no_diagnostics = {
@@ -123,16 +123,16 @@ local servers = {
 			}
 		},
 	},
-	citation_langserver ={
-		autostart = false,
-		settings = {
-			citation = {
-				bibliographies = {
-					"~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
-				}
-			}
-		}
-	},
+	-- citation_langserver ={
+	-- 	autostart = false,
+	-- 	settings = {
+	-- 		citation = {
+	-- 			bibliographies = {
+	-- 				"~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
+	-- 			}
+	-- 		}
+	-- 	}
+	-- },
 	cssls = {
 		capabilities = vscode_capabilities,
 	},
