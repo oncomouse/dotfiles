@@ -64,6 +64,6 @@ if screeninfo.get_monitors()[0].width > 1280:
     c.colors.hints.fg = colors["colors"]["color8"]
     c.fonts.default_size = "10pt"
 else:
-    c.fonts.default_family = "Terminus"
+    c.fonts.default_family = "Hack"
     c.colors.hints.fg = colors["colors"]["color15"]
     c.fonts.default_size = "8pt"
