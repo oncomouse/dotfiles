@@ -231,7 +231,11 @@ function! PackInit(...) abort
 	call dynapac#delay('windwp/nvim-ts-autotag', { 'ft': [ 'html', 'javascript', 'javascriptreact' ] })
 	let g:ts_types = luaeval('require("dotfiles.utils.ts_filetypes").ts_types')
 	call dynapac#delay('nvim-treesitter/nvim-treesitter-textobjects', { 'ft': g:ts_types })
-	call dynapac#delay('nvim-treesitter/nvim-treesitter', { 'ft': g:ts_types, 'do': 'packadd nvim-treesitter | TSUPdate' })
+	function! UpdateTreesitter(...) abort
+		packadd nvim-treesitter
+		TSUpdate
+	endfunction
+	call dynapac#delay('nvim-treesitter/nvim-treesitter', { 'ft': g:ts_types, 'do': function('UpdateTreesitter') })
 	function! s:nvim_treesitter() abort
 		call luaeval('require("nvim-treesitter.config").setup(_A)', {
 			\ 'ensure_installed': 'maintained',
