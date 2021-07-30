@@ -148,6 +148,141 @@ autocmd dotfiles-settings BufWinEnter,BufFilePost * call s:fasd_update()
 let g:bibfiles = '~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib'
 " }}}
 " Plugins {{{
-lua require("dotfiles.packer")
+let s:xdg_home = luaeval('require("dotfiles.utils.xdg")("XDG_DATA_HOME")')
+let g:plug_dir = s:xdg_home . '/plugged'
+let g:plug_autoload_dir = s:xdg_home . '/autoload'
+if empty(glob(g:plug_autoload_dir))
+	silent execute '!curl -fLo '.g:plug_autoload_dir.'/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	augroup vim_plug
+		autocmd!
+		autocmd VimEnter * PlugInstall | source $MYVIMRC
+	augroup END
+endif
+call plug#begin(g:plug_dir)
+Plug 'tpope/vim-sensible'
+Plug 'xero/securemodelines'
+Plug 'oncomouse/vim-grep', { 'on': ['Grep', 'LGrep'] }
+Plug 'stevearc/qf_helper.nvim'
+function s:qf_helper()
+	call luaeval('require("qf_helper").setup(_A)', {
+		\ 'quickfix': {
+		\		'default_bindings': v:false,
+		\ },
+		\ 'loclist' : {
+		\		'default_bindings': v:false,
+		\ }
+		\ })
+endfunction
+autocmd dotfiles-settings VimEnter * call s:qf_helper()
+Plug 'lambdalisue/pastefix.vim' " fix block paste for Neovim
+Plug 'tpope/vim-commentary' " gc<motion> to (un)comment
+" General Editing:
+" use "sickill/vim-pasta" " Indentation-forward pasting
+Plug 'tpope/vim-repeat'
+Plug 'oncomouse/vim-surround' " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
+" Additionally supports csf and dsf for functions
+" Using 'matchpairs' for substituting
+let g:rooter_patterns = [
+	\'Rakefile',
+	\'package.json',
+	\'.git/',
+	\'Gemfile',
+	\'pyproject.toml',
+	\'setup.py',
+	\]
+" Set path expansion to pwd only, especially with vim-rooter running:
+set path=,,
+Plug 'airblade/vim-rooter' " Set project root
+Plug 'wellle/targets.vim' " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
+Plug 'cohama/lexima.vim' " Autopairs + Endwise
+function! s:make_rule(at, end, filetype, syntax)
+	return {
+	\ 'char': '<CR>',
+	\ 'input': '<CR>',
+	\ 'input_after': '<CR>' . a:end,
+	\ 'at': a:at,
+	\ 'except': '\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1' . a:end,
+	\ 'filetype': a:filetype,
+	\ 'syntax': a:syntax,
+	\ }
+endfunction
+function! s:extend_endwise() abort
+	" Lua endwise rules:
+	call lexima#add_rule(s:make_rule('^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
+	call lexima#add_rule(s:make_rule('^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
+	call lexima#add_rule(s:make_rule('^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
+endfunction
+autocmd! dotfiles-settings FileType lua s:extend_endwise()
+inoremap <silent> <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'lambdalisue/gina.vim', { 'on': 'Gina' }
+function! s:gina() abort
+	call gina#custom#command#option('status', '--opener', &previewheight .. 'split')
+	call gina#custom#command#option('commit', '--opener', &previewheight .. 'split')
+	call gina#custom#command#option('diff', '--opener', &previewheight .. 'split')
+	call gina#custom#command#option('status', '--group', 'short')
+	call gina#custom#command#option('commit', '--group', 'short')
+	call gina#custom#command#option('diff', '--group', 'short')
+	" Implement vim-fugitive commands in Gina:
+	call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
+endfunction
+autocmd dotfiles-settings User gina.vim call s:gina()
+Plug 'junegunn/fzf.vim' " Add shorcuts for FZF
+command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'border': 'top' } }
+let g:fzf_action = {
+\'ctrl-s': 'split',
+\'ctrl-v': 'vsplit',
+\'ctrl-t': 'tabnew',
+\'ctrl-e': 'edit',
+\}
+let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+" Treesitter:
+Plug 'windwp/nvim-ts-autotag', { 'for': [ 'html', 'javascript', 'javascriptreact' ] }
+let g:ts_types = luaeval('require("dotfiles.utils.ts_filetypes").ts_types')
+Plug 'nvim-treesitter/nvim-treesitter-textobjects', { 'for': g:ts_types }
+Plug 'nvim-treesitter/nvim-treesitter',	 { 'for': g:ts_types, 'do': { -> :TSUpdate } }
+function! s:nvim_treesitter() abort
+	luaeval('require("nvim-treesitter.config").setup(_A)', {
+		\ 'ensure_installed': 'maintained',
+		\ 'highlight': { 'enable': v:true },
+		\ 'indent': { 'enable': v:true },
+		\ 'autotag': { 'enable': v:true },
+		\ 'textobjects': { 'select': {
+			\ 'enable': v:true,
+			\ 'lookahead': v:true,
+			\ 'keymaps': {
+				\ 'af': '@function.outer',
+				\ 'if': '@function.inner',
+				\ 'ac': '@class.outer',
+				\ 'ic': '@class.inner',
+			\ }
+		\ } }
+		\ })
+endfunction
+autocmd dotfiles-settings User nvim-treesiter call s:nvim_treesitter()
+" Syntax:
+let g:vim_markdown_frontmatter = 1 " Format YAML
+let g:vim_markdown_strikethrough = 0 " Don"t format strikethrough
+let g:vim_markdown_conceal = 0 " Don"t conceal
+let g:vim_markdown_conceal_code_blocks = 0 " Don"t conceal code blocks
+let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
+Plug 'oncomouse/vim-fish', { 'for': 'fish' } " Fish Syntax
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' } " Markdown Syntax
+Plug 'godlygeek/tabular', { 'on': [ 'Tabular', 'TableFormat' ] }
+" LSP:
+Plug 'neovim/nvim-lspconfig', { 'for': [ 'css', 'html', 'javascript', 'json', 'lua', 'markdown', 'python', 'ruby', 'scss', 'sh', 'vim', 'yaml' ] }
+autocmd dotfiles-settings User nvim-lspconfig lua require('dotfiles.nvim_lsp')
+call plug#end()
+if exists('+termguicolors')
+	call luaeval('require("colorizer").setup(_A)', {
+		\ '*': {},
+		\ 'markdown': { 'names': v:false },
+		\ 'text': { 'names': v:false },
+		\ 'gina-commit': { 'names': v:false },
+		\ 'css': { 'css': v:true },
+		\ 'scss': { 'css': v:true },
+		\})
+endif
 " }}}
 " # vim:foldmethod=marker
