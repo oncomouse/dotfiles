@@ -1,5 +1,5 @@
 let s:loaded = []
-let s:dynapac_running = 0
+let s:running = 0
 
 augroup dynapac
 	autocmd!
@@ -16,8 +16,8 @@ function! s:lod_cmd(cmd, bang, l1, l2, args, plug) abort
 endfunction
 
 function! dynapac#load(plug) abort
-	let l:pack = split(a:plug, "/")[-1]
 	if index(s:loaded, a:plug) < 0
+		let l:pack = split(a:plug, "/")[-1]
 		execute 'packadd ' . l:pack 
 		execute 'doautocmd User ' . l:pack
 		call insert(s:loaded, a:plug)
@@ -25,7 +25,7 @@ function! dynapac#load(plug) abort
 endfunction
 
 function! dynapac#delay(plug, opts) abort
-	if s:dynapac_running
+	if s:running
 		call minpac#add(a:plug, extend(a:opts, { 'type': 'opt' }))
 	endif
 	if has_key(a:opts, 'cmd')
@@ -42,24 +42,27 @@ function! dynapac#delay(plug, opts) abort
 endfunction
 
 function! dynapac#add(...) abort
-	if s:dynapac_running
+	if s:running
 		call minpac#add(a:1, get(a:, 2, {}))
 	endif
 endfunction
 
 function! dynapac#init(r, path) abort
-	let s:dynapac_running = a:r
+	let s:running = a:r
 	" Download Minpac:
-	if s:dynapac_running
-		let l:minpac_dir = a:path
-		if empty(glob(l:minpac_dir.'/pack/minpac/opt/minpac'))
+	if s:running
+		if empty(glob(a:path.'/pack/minpac/opt/minpac'))
 			if executable('git')
-				silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:minpac_dir.'/pack/minpac/opt/minpac"'
+				silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.a:path.'/pack/minpac/opt/minpac"'
 			endif
 		endif
 
 		" Load Minpac:
 		packadd minpac
-		call minpac#init({'dir': l:minpac_dir})
+		if exists("g:loaded_minpac")
+			call minpac#init({'dir': a:path})
+		else
+			echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
+		endif
 	endif
 endfunction
