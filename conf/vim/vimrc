@@ -153,8 +153,8 @@ function! s:packpath() abort
 endfunction
 
 function! PackInit(...) abort
+	echom 'PackInit is called.'
 	call dynapac#init(get(a:, 0, 0), s:packpath())
-	call dynapac#add('k-takata/minpac', { 'type': 'opt' })
 	call dynapac#add('tpope/vim-sensible')
 	call dynapac#add('xero/securemodelines')
 	call dynapac#add('stevearc/qf_helper.nvim')
@@ -205,6 +205,17 @@ function! PackInit(...) abort
 	autocmd! dotfiles-settings FileType lua s:extend_endwise()
 	inoremap <silent> <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
 	call dynapac#add('norcalli/nvim-colorizer.lua')
+	if exists('+termguicolors')
+		packadd nvim-colorizer.lua
+		call luaeval('require("colorizer").setup(_A)', {
+			\ '*': {},
+			\ 'markdown': { 'names': v:false },
+			\ 'text': { 'names': v:false },
+			\ 'gina-commit': { 'names': v:false },
+			\ 'css': { 'css': v:true },
+			\ 'scss': { 'css': v:true },
+			\})
+	endif
 	call dynapac#add('junegunn/fzf.vim') " Add shorcuts for FZF
 	command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
 	let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'border': 'top' } }
@@ -217,9 +228,9 @@ function! PackInit(...) abort
 	let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 	call dynapac#delay('lambdalisue/gina.vim', { 'cmd': 'Gina' })
 	function! s:gina() abort
-		call gina#custom#command#option('status', '--opener', &previewheight .. 'split')
-		call gina#custom#command#option('commit', '--opener', &previewheight .. 'split')
-		call gina#custom#command#option('diff', '--opener', &previewheight .. 'split')
+		call gina#custom#command#option('status', '--opener', &previewheight . 'split')
+		call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
+		call gina#custom#command#option('diff', '--opener', &previewheight . 'split')
 		call gina#custom#command#option('status', '--group', 'short')
 		call gina#custom#command#option('commit', '--group', 'short')
 		call gina#custom#command#option('diff', '--group', 'short')
@@ -271,17 +282,16 @@ exe 'set packpath+='.s:packpath()
 command! PackUpdate call PackInit(1) | call minpac#update()
 command! PackClean call PackInit(1) | call minpac#clean()
 command! PackStatus call PackInit(1) | call minpac#status()
+" lua << EOF
+" local async
+" async = vim.loop.new_async(vim.schedule_wrap(function()
+" 	vim.defer_fn(function()
+" 		vim.fn.PackInit()
+" 	end, 15)
+" 	async:close()
+" end))
+" async:send()
+" EOF
 call PackInit()
-if exists('+termguicolors')
-	packadd nvim-colorizer.lua
-	call luaeval('require("colorizer").setup(_A)', {
-		\ '*': {},
-		\ 'markdown': { 'names': v:false },
-		\ 'text': { 'names': v:false },
-		\ 'gina-commit': { 'names': v:false },
-		\ 'css': { 'css': v:true },
-		\ 'scss': { 'css': v:true },
-		\})
-endif
 " }}}
 " # vim:foldmethod=marker

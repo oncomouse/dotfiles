@@ -43,7 +43,10 @@ endfunction
 
 function! dynapac#add(...) abort
 	if s:running
-		call minpac#add(a:1, get(a:, 2, {}))
+		let l:opts = get(a:, 2, {})
+		call minpac#add(a:1, extend(l:opts, { 'type': 'opt' }))
+	else
+		execute 'packadd ' . split(a:1, "/")[-1]
 	endif
 endfunction
 
@@ -61,6 +64,7 @@ function! dynapac#init(r, path) abort
 		packadd minpac
 		if exists("g:loaded_minpac")
 			call minpac#init({'dir': a:path})
+			call minpac#add('k-takata/minpac', { 'type': 'opt' })
 		else
 			echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
 		endif
