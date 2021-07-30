@@ -10,9 +10,9 @@ function! s:to_a(v) abort
 endfunction
 
 function! s:lod_cmd(cmd, bang, l1, l2, args, plug) abort
+	execute 'delcommand ' . a:cmd
 	call dynapac#load(a:plug)
 	execute printf('%s%s%s %s', (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
-	execute 'delcommand ' . a:cmd
 endfunction
 
 function! dynapac#load(plug) abort
