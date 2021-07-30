@@ -138,7 +138,7 @@ nnoremap <silent> <leader>/ <cmd>call GrepOrQfGrep()<CR>
 " ==============================================================================
 " Commands:
 " ==============================================================================
-command! Diagnostics execute 'silent lmake! %' | call ListToggle('Location List', 'l')
+command! Diagnostics execute 'silent lmake! %' | if len(getloclist(0)) != 0 | execute 'lopen' | else | execute 'lclose' | endif
 command! Format silent normal! mxgggqG`x<CR>
 
 " Adjust Spacing:
