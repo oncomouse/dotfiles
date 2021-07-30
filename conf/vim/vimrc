@@ -153,7 +153,6 @@ function! s:packpath() abort
 endfunction
 
 function! PackInit(...) abort
-	echom 'PackInit is called.'
 	call dynapac#init(get(a:, 0, 0), s:packpath())
 	call dynapac#add('tpope/vim-sensible')
 	call dynapac#add('xero/securemodelines')
@@ -282,16 +281,16 @@ exe 'set packpath+='.s:packpath()
 command! PackUpdate call PackInit(1) | call minpac#update()
 command! PackClean call PackInit(1) | call minpac#clean()
 command! PackStatus call PackInit(1) | call minpac#status()
-" lua << EOF
-" local async
-" async = vim.loop.new_async(vim.schedule_wrap(function()
-" 	vim.defer_fn(function()
-" 		vim.fn.PackInit()
-" 	end, 15)
-" 	async:close()
-" end))
-" async:send()
-" EOF
-call PackInit()
+lua << EOF
+local async
+async = vim.loop.new_async(vim.schedule_wrap(function()
+	vim.defer_fn(function()
+		vim.fn.PackInit()
+	end, 15)
+	async:close()
+end))
+async:send()
+EOF
+" call PackInit()
 " }}}
 " # vim:foldmethod=marker
