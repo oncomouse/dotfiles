@@ -143,11 +143,10 @@ return require("packer").startup({
 			"nvim-treesitter/nvim-treesitter",
 			requires = {
 				{ "windwp/nvim-ts-autotag", ft = { "html", "javascript", "javascriptreact", "xml" } },
-				{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "0.5-compat", ft = require("dotfiles.utils.ts_filetypes").ts_types },
+				{ "nvim-treesitter/nvim-treesitter-textobjects", ft = require("dotfiles.utils.ts_filetypes").ts_types },
 			},
 			ft = require("dotfiles.utils.ts_filetypes").ts_types,
 			run = ":TSUpdate",
-			branch = "0.5-compat",
 			config = function()
 				require('nvim-treesitter.configs').setup{
 					ensure_installed = "maintained",
