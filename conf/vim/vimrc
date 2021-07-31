@@ -203,7 +203,7 @@ function! PackInit(...) abort
 		call lexima#add_rule(s:make_rule('^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
 		call lexima#add_rule(s:make_rule('^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
 	endfunction
-	autocmd! dotfiles-settings FileType lua s:extend_endwise()
+	autocmd! dotfiles-settings FileType lua call s:extend_endwise()
 	inoremap <silent> <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
 	call dynapac#add('norcalli/nvim-colorizer.lua')
 	call dynapac#add('junegunn/fzf.vim') " Add shorcuts for FZF
@@ -237,6 +237,7 @@ function! PackInit(...) abort
 		TSUpdate
 	endfunction
 	call dynapac#add('nvim-treesitter/nvim-treesitter', { 'ft': g:ts_types, 'do': function('UpdateTreesitter') })
+	lua require("dotfiles.utils.ts_filetypes").ts_type_autocmds() 
 	function! s:nvim_treesitter() abort
 		call luaeval('require("nvim-treesitter.config").setup(_A)', {
 			\ 'ensure_installed': 'maintained',

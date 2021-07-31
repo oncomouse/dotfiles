@@ -22,28 +22,32 @@ function! s:remove_cmds(plug) abort
 	endif
 endfunction
 
-" Catch any FileType groups triggered by a dynamically loaded plugin:
-function! s:trigger_ft(ft) abort
-	if a:ft !=# ''
+function! s:lod_cmd(cmd, bang, l1, l2, args, plug) abort
+	call s:load(a:plug)
+	execute printf('%s%s%s %s', (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
+endfunction
+
+function! s:ft(ft) abort
+	let l:trigger = 0
+	for f in s:fts[a:ft]
+		if index(s:loaded, f) < 0
+			call remove(s:fts[a:ft], 0)
+			let l:trigger = 1
+		endif
+		call s:load(f)
+	endfor
+	if l:trigger
 		execute 'doautocmd FileType ' . a:ft
 	endif
 endfunction
 
-function! s:lod_cmd(cmd, bang, l1, l2, args, plug) abort
-	call dynapac#load(a:plug)
-	execute printf('%s%s%s %s', (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
-endfunction
-
-function! dynapac#load(...) abort
-	let l:plug = get(a:000, 0, '')
-	let l:ft = get(a:000, 1, '')
-	if index(s:loaded, l:plug) < 0
-		call insert(s:loaded, l:plug)
-		call s:remove_cmds(l:plug)
-		let l:pack = split(l:plug, '/')[-1]
+function! s:load(plug) abort
+	if index(s:loaded, a:plug) < 0
+		call insert(s:loaded, a:plug)
+		call s:remove_cmds(a:plug)
+		let l:pack = split(a:plug, '/')[-1]
 		execute 'packadd ' . l:pack 
 		execute 'doautocmd User ' . l:pack
-		call s:trigger_ft(l:ft)
 	endif
 endfunction
 
@@ -61,12 +65,16 @@ function! dynapac#add(...) abort
 					\ cmd, string(cmd), string(l:plug))
 			endfor
 		elseif has_key(l:opts, 'ft')
-			let s:fts[l:plug] = s:to_a(l:opts.ft)
-			for ft in s:fts[l:plug]
-				execute 'autocmd! dynapac FileType ' . ft . ' call dynapac#load("' . l:plug . '", "' . ft . '")'
+			for ft in s:to_a(l:opts.ft)
+				if has_key(s:fts, ft)
+					call insert(s:fts[ft], l:plug)
+				 else
+					let s:fts[ft] = [l:plug]
+					execute 'autocmd! dynapac FileType ' . ft . ' call s:ft("' . ft . '")'
+				endif
 			endfor
 		elseif get(l:opts, 'type', '') !=# 'opt'
-			execute 'packadd ' . split(l:plug, '/')[-1]
+			call s:load(l:plug)
 		endif
 	endif
 endfunction
