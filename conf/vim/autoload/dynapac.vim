@@ -50,20 +50,23 @@ function! dynapac#add(...) abort
 	endif
 endfunction
 
-function! dynapac#init(r, path) abort
-	let s:running = a:r
+function! dynapac#init(...) abort
+	let s:running = get(a:000, 0, 0)
+	let l:opts = get(a:000, 1, {})
+	let l:path = get(l:opts, 'dir', split(&packpath, ',')[0])
+	l:opts['dir'] = l:path
 	" Download Minpac:
 	if s:running
-		if empty(glob(a:path.'/pack/minpac/opt/minpac'))
+		if empty(glob(l:path.'/pack/minpac/opt/minpac'))
 			if executable('git')
-				silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.a:path.'/pack/minpac/opt/minpac"'
+				silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:path.'/pack/minpac/opt/minpac"'
 			endif
 		endif
 
 		" Load Minpac:
 		packadd minpac
 		if exists("g:loaded_minpac")
-			call minpac#init({'dir': a:path})
+			call minpac#init(l:opts)
 			call minpac#add('k-takata/minpac', { 'type': 'opt' })
 		else
 			echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"

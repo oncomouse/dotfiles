@@ -153,7 +153,7 @@ function! s:packpath() abort
 endfunction
 
 function! PackInit(...) abort
-	call dynapac#init(get(a:, 0, 0), s:packpath())
+	call dynapac#init(get(a:, 0, 0), { 'dir': s:packpath() })
 	call dynapac#add('tpope/vim-sensible')
 	call dynapac#add('xero/securemodelines')
 	call dynapac#add('stevearc/qf_helper.nvim')
