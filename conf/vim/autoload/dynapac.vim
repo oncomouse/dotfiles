@@ -1,5 +1,6 @@
-let s:loaded = []
+" Set to true if we are installing (which means we actually call minpac):
 let s:running = 0
+let s:loaded = []
 let s:cmds = {}
 let s:fts = {}
 let s:list_type = type([])
@@ -22,6 +23,7 @@ function! s:remove_cmds(plug) abort
 	endif
 endfunction
 
+" This function is from vim-plug:
 function! s:lod_cmd(cmd, bang, l1, l2, args, plug) abort
 	call s:load(a:plug)
 	execute printf('%s%s%s %s', (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
