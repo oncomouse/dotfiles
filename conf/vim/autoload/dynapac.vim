@@ -34,30 +34,26 @@ function! dynapac#load(plug) abort
 	endif
 endfunction
 
-function! dynapac#delay(plug, opts) abort
-	if s:running
-		call minpac#add(a:plug, extend(a:opts, { 'type': 'opt' }))
-	endif
-	if has_key(a:opts, 'cmd')
-		let s:autocmd[a:plug] = s:to_a(a:opts.cmd)
-		for cmd in s:autocmd[a:plug]
-			execute printf(
-				\ 'command! -nargs=* -range -bang -complete=file %s call s:lod_cmd(%s, "<bang>", <line1>, <line2>, <q-args>, %s)',
-				\ cmd, string(cmd), string(a:plug))
-		endfor
-	elseif has_key(a:opts, 'ft')
-		for ft in s:to_a(a:opts.ft)
-			execute 'autocmd! dynapac FileType ' . ft . ' call dynapac#load("' . a:plug . '")'
-		endfor
-	endif
-endfunction
-
 function! dynapac#add(...) abort
+	let l:plug = get(a:, 1, '')
+	let l:opts = get(a:, 2, {})
 	if s:running
-		let l:opts = get(a:, 2, {})
-		call minpac#add(a:1, extend(l:opts, { 'type': 'opt' }))
+		call minpac#add(l:plug, extend(l:opts, { 'type': 'opt' }))
 	else
-		execute 'packadd ' . split(a:1, '/')[-1]
+		if has_key(l:opts, 'cmd')
+			let s:autocmd[l:plug] = s:to_a(l:opts.cmd)
+			for cmd in s:autocmd[l:plug]
+				execute printf(
+					\ 'command! -nargs=* -range -bang -complete=file %s call s:lod_cmd(%s, "<bang>", <line1>, <line2>, <q-args>, %s)',
+					\ cmd, string(cmd), string(l:plug))
+			endfor
+		elseif has_key(l:opts, 'ft')
+			for ft in s:to_a(l:opts.ft)
+				execute 'autocmd! dynapac FileType ' . ft . ' call dynapac#load("' . l:plug . '")'
+			endfor
+		elseif get(l:opts, 'type', '') !=# 'opt'
+			execute 'packadd ' . split(l:plug, '/')[-1]
+		endif
 	endif
 endfunction
 
@@ -78,7 +74,6 @@ function! dynapac#init(...) abort
 		packadd minpac
 		if exists('g:loaded_minpac')
 			call minpac#init(l:opts)
-			call minpac#add('k-takata/minpac', { 'type': 'opt' })
 		else
 			echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
 		endif

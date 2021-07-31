@@ -154,6 +154,7 @@ endfunction
 
 function! PackInit(...) abort
 	call dynapac#init(get(a:, 0, 0), { 'dir': s:packpath() })
+	call dynapac#add('k-takata/minpac', { 'type': 'opt' })
 	call dynapac#add('tpope/vim-sensible')
 	call dynapac#add('xero/securemodelines')
 	call dynapac#add('stevearc/qf_helper.nvim')
@@ -225,7 +226,7 @@ function! PackInit(...) abort
 	\'ctrl-e': 'edit',
 	\}
 	let g:fzf_nvim_statusline = 0 " disable statusline overwriting
-	call dynapac#delay('lambdalisue/gina.vim', { 'cmd': 'Gina' })
+	call dynapac#add('lambdalisue/gina.vim', { 'cmd': 'Gina' })
 	function! s:gina() abort
 		call gina#custom#command#option('status', '--opener', &previewheight . 'split')
 		call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
@@ -237,15 +238,15 @@ function! PackInit(...) abort
 		call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
 	endfunction
 	autocmd! dotfiles-settings User gina.vim call s:gina()
-	call dynapac#delay('oncomouse/vim-grep', { 'cmd': ['Grep', 'LGrep'] })
-	call dynapac#delay('windwp/nvim-ts-autotag', { 'ft': [ 'html', 'javascript', 'javascriptreact' ] })
+	call dynapac#add('oncomouse/vim-grep', { 'cmd': ['Grep', 'LGrep'] })
+	call dynapac#add('windwp/nvim-ts-autotag', { 'ft': [ 'html', 'javascript', 'javascriptreact' ] })
 	let g:ts_types = luaeval('require("dotfiles.utils.ts_filetypes").ts_types')
-	call dynapac#delay('nvim-treesitter/nvim-treesitter-textobjects', { 'ft': g:ts_types })
+	call dynapac#add('nvim-treesitter/nvim-treesitter-textobjects', { 'ft': g:ts_types })
 	function! UpdateTreesitter(...) abort
 		packadd nvim-treesitter
 		TSUpdate
 	endfunction
-	call dynapac#delay('nvim-treesitter/nvim-treesitter', { 'ft': g:ts_types, 'do': function('UpdateTreesitter') })
+	call dynapac#add('nvim-treesitter/nvim-treesitter', { 'ft': g:ts_types, 'do': function('UpdateTreesitter') })
 	function! s:nvim_treesitter() abort
 		call luaeval('require("nvim-treesitter.config").setup(_A)', {
 			\ 'ensure_installed': 'maintained',
@@ -265,15 +266,15 @@ function! PackInit(...) abort
 			\ })
 	endfunction
 	autocmd! dotfiles-settings User nvim-treesiter call s:nvim_treesitter()
-	call dynapac#delay('oncomouse/vim-fish', { 'ft': 'fish' }) " Fish Syntax
-	call dynapac#delay('plasticboy/vim-markdown', { 'ft': 'markdown' }) " Markdown Syntax
+	call dynapac#add('oncomouse/vim-fish', { 'ft': 'fish' }) " Fish Syntax
+	call dynapac#add('plasticboy/vim-markdown', { 'ft': 'markdown' }) " Markdown Syntax
 	let g:vim_markdown_frontmatter = 1 " Format YAML
 	let g:vim_markdown_strikethrough = 0 " Don"t format strikethrough
 	let g:vim_markdown_conceal = 0 " Don"t conceal
 	let g:vim_markdown_conceal_code_blocks = 0 " Don"t conceal code blocks
 	let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
-	call dynapac#delay('godlygeek/tabular', { 'cmd': [ 'Tabular', 'TableFormat' ] })
-	call dynapac#delay('neovim/nvim-lspconfig', { 'ft': [ 'css', 'html', 'javascript', 'json', 'lua', 'markdown', 'python', 'ruby', 'scss', 'sh', 'vim', 'yaml' ] })
+	call dynapac#add('godlygeek/tabular', { 'cmd': [ 'Tabular', 'TableFormat' ] })
+	call dynapac#add('neovim/nvim-lspconfig', { 'ft': [ 'css', 'html', 'javascript', 'json', 'lua', 'markdown', 'python', 'ruby', 'scss', 'sh', 'vim', 'yaml' ] })
 	autocmd! dotfiles-settings User nvim-lspconfig lua require('dotfiles.nvim_lsp')
 endfunction
 
