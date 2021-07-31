@@ -135,9 +135,11 @@ local servers = {
 	-- },
 	cssls = {
 		capabilities = vscode_capabilities,
+		cmd = {"css-languageserver", "--stdio"},
 	},
 	html = {
 		capabilities = vscode_capabilities,
+		cmd = {"html-languageserver", "--stdio"},
 	},
 	jsonls = {
 		capabilities = vscode_capabilities,
