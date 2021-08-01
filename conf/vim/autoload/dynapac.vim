@@ -30,17 +30,11 @@ function! s:lod_cmd(cmd, bang, l1, l2, args, plug) abort
 endfunction
 
 function! s:ft(ft) abort
-	let l:trigger = 0
 	for f in s:fts[a:ft]
-		if index(s:loaded, f) < 0
-			let l:trigger = 1
-		endif
 		call s:load(f)
 	endfor
-	if l:trigger
-		execute 'autocmd! dynapac FileType ' . a:ft
-		execute 'doautocmd FileType ' . a:ft
-	endif
+	execute 'autocmd! dynapac FileType ' . a:ft
+	execute 'doautocmd FileType ' . a:ft
 endfunction
 
 function! s:load(plug) abort
@@ -56,8 +50,10 @@ endfunction
 function! dynapac#add(...) abort
 	let l:plug = get(a:, 1, '')
 	let l:opts = get(a:, 2, {})
+	if has_key(l:opts, 'cmd') || has_key(l:opts, 'ft')
+		call extend(l:opts, { 'type': 'opt' })
+	endif
 	if s:running
-		" call minpac#add(l:plug, extend(l:opts, { 'type': 'opt' }))
 		call minpac#add(l:plug, l:opts)
 	else
 		if has_key(l:opts, 'cmd')
@@ -76,8 +72,6 @@ function! dynapac#add(...) abort
 					execute 'autocmd! dynapac FileType ' . ft . ' call s:ft("' . ft . '")'
 				endif
 			endfor
-		" elseif get(l:opts, 'type', '') !=# 'opt'
-		" 	call s:load(l:plug)
 		endif
 	endif
 endfunction
