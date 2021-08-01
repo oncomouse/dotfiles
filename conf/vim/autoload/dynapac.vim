@@ -57,7 +57,8 @@ function! dynapac#add(...) abort
 	let l:plug = get(a:, 1, '')
 	let l:opts = get(a:, 2, {})
 	if s:running
-		call minpac#add(l:plug, extend(l:opts, { 'type': 'opt' }))
+		" call minpac#add(l:plug, extend(l:opts, { 'type': 'opt' }))
+		call minpac#add(l:plug, l:opts)
 	else
 		if has_key(l:opts, 'cmd')
 			let s:cmds[l:plug] = s:to_a(l:opts.cmd)
@@ -75,8 +76,8 @@ function! dynapac#add(...) abort
 					execute 'autocmd! dynapac FileType ' . ft . ' call s:ft("' . ft . '")'
 				endif
 			endfor
-		elseif get(l:opts, 'type', '') !=# 'opt'
-			call s:load(l:plug)
+		" elseif get(l:opts, 'type', '') !=# 'opt'
+		" 	call s:load(l:plug)
 		endif
 	endif
 endfunction
