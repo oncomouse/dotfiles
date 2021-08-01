@@ -37,12 +37,14 @@ local on_attach = function(client, _)
 	map.nnoremap("<silent><buffer>", "K", function() show_documentation() end)
 	map.nnoremap("<silent><buffer>", "<F5>", ":<CR>")
 	-- Set snippet integration:
-	vim.cmd[[
-		packadd vim-vsnip
-		packadd vim-vsnip-integ
-	]]
-	map.imap("<expr>", "<C-l>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'")
-	map.smap("<expr>", "<C-l>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'")
+	if vim.tbl_contains({'html', 'jsonls', 'cssls'}, client.name) then
+		vim.cmd[[
+			packadd vim-vsnip
+			packadd vim-vsnip-integ
+		]]
+		map.imap("<expr><buffer>", "<C-l>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'")
+		map.smap("<expr><buffer>", "<C-l>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'")
+	end
 end
 
 local servers = {
