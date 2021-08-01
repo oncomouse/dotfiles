@@ -266,6 +266,8 @@ function! PackInit(...) abort
 	let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
 	call dynapac#add('godlygeek/tabular', { 'cmd': [ 'Tabular', 'TableFormat' ] })
 	call dynapac#add('neovim/nvim-lspconfig', { 'ft': [ 'css', 'html', 'javascript', 'json', 'lua', 'markdown', 'python', 'ruby', 'scss', 'sh', 'vim', 'yaml' ] })
+	call dynapac#add('hrsh7th/vim-vsnip', { 'type': 'opt', })
+	call dynapac#add('hrsh7th/vim-vsnip-integ', { 'type': 'opt', })
 	autocmd! dotfiles-settings User nvim-lspconfig lua require('dotfiles.nvim_lsp')
 endfunction
 
