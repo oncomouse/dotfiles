@@ -33,12 +33,12 @@ function! s:ft(ft) abort
 	let l:trigger = 0
 	for f in s:fts[a:ft]
 		if index(s:loaded, f) < 0
-			call remove(s:fts[a:ft], 0)
 			let l:trigger = 1
 		endif
 		call s:load(f)
 	endfor
 	if l:trigger
+		execute 'autocmd! dynapac FileType ' . a:ft
 		execute 'doautocmd FileType ' . a:ft
 	endif
 endfunction
