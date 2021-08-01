@@ -273,7 +273,7 @@ exe 'set packpath+='.s:packpath()
 command! PackUpdate call PackInit(1) | call minpac#update()
 command! PackClean call PackInit(1) | call minpac#clean()
 command! PackStatus call PackInit(1) | call minpac#status()
-if exists('+termguicolors')
+if &termguicolors
 	packadd! nvim-colorizer.lua
 	call luaeval('require("colorizer").setup(_A)', {
 		\ '*': {},
