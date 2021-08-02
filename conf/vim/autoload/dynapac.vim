@@ -2,7 +2,6 @@
 let s:running = 0
 let s:loaded = []
 let s:cmds = {}
-let s:fts = {}
 let s:events = {}
 let s:list_type = type([])
 
@@ -30,20 +29,12 @@ function! s:lod_cmd(cmd, bang, l1, l2, args, plug) abort
 	execute printf('%s%s%s %s', (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
 endfunction
 
-function! s:ft(ft) abort
-	for f in s:fts[a:ft]
-		call s:load(f)
-	endfor
-	execute 'autocmd! dynapac FileType ' . a:ft
-	execute 'doautocmd FileType ' . a:ft
-endfunction
-
 function! s:ev(ev) abort
 	for f in s:events[a:ev]
 		call s:load(f)
 	endfor
 	execute 'autocmd! dynapac ' . a:ev
-	execute 'duoautocmd ' . a:ev
+	execute 'doautocmd ' . a:ev
 endfunction
 
 function! s:load(plug) abort
@@ -53,6 +44,18 @@ function! s:load(plug) abort
 		let l:pack = split(a:plug, '/')[-1]
 		execute 'packadd ' . l:pack 
 		execute 'doautocmd User ' . l:pack
+	endif
+endfunction
+
+function! s:add_event(ev, plug) abort
+	if stridx(a:ev, ' ') < 0
+		let a:ev = a:ev . ' *'
+	endif
+	if has_key(s:events, a:ev)
+		call insert(s:events[a:ev], a:plug)
+	else
+		let s:events[a:ev] = [a:plug]
+		execute 'autocmd! dynapac ' . a:ev . ' call s:ev("' . a:ev . '")'
 	endif
 endfunction
 
@@ -74,23 +77,13 @@ function! dynapac#add(...) abort
 			endfor
 		endif
 		if has_key(l:opts, 'ft')
-			for ft in s:to_a(l:opts.ft)
-				if has_key(s:fts, ft)
-					call insert(s:fts[ft], l:plug)
-				 else
-					let s:fts[ft] = [l:plug]
-					execute 'autocmd! dynapac FileType ' . ft . ' call s:ft("' . ft . '")'
-				endif
+			for ev in s:to_a(l:opts.ft)
+				call s:add_event('FileType ' . ev, l:plug)
 			endfor
 		endif
 		if has_key(l:opts, 'event')
 			for ev in s:to_a(l:opts.event)
-				if has_key(s:events, ev)
-					call insert(s:events[ev], l:plug)
-				else
-					let s:events[ev] = [l:plug]
-					execute 'autocmd! dynapac ' . ev . ' * call s:ev("' . ev . '")'
-				endif
+				call s:add_event(ev, l:plug)
 			endfor
 		endif
 	endif
