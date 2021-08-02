@@ -206,7 +206,20 @@ function! PackInit(...) abort
 	autocmd! dotfiles-settings FileType lua call s:extend_endwise()
 	inoremap <silent> <Plug>(dotfiles-lexima) <C-r>=lexima#insmode#leave_till_eol("")<CR>
 	imap <silent> <C-l> <Plug>(dotfiles-lexima)
-	call dynapac#add('norcalli/nvim-colorizer.lua')
+	call dynapac#add('norcalli/nvim-colorizer.lua', { 'event': 'BufRead' })
+	function! s:nvim_colorizer() abort
+		if &termguicolors
+			call luaeval('require("colorizer").setup(_A)', {
+				\ '*': {},
+				\ 'markdown': { 'names': v:false },
+				\ 'text': { 'names': v:false },
+				\ 'gina-commit': { 'names': v:false },
+				\ 'css': { 'css': v:true },
+				\ 'scss': { 'css': v:true },
+				\})
+		endif
+	endfunction
+	autocmd! dotfiles-settings User nvim-colorizer.lua call s:nvim_colorizer()
 	call dynapac#add('junegunn/fzf.vim') " Add shorcuts for FZF
 	command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
 	let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'border': 'top' } }
@@ -277,17 +290,6 @@ exe 'set packpath+='.s:packpath()
 command! PackUpdate call PackInit(1) | call minpac#update()
 command! PackClean call PackInit(1) | call minpac#clean()
 command! PackStatus call PackInit(1) | call minpac#status()
-if &termguicolors
-	packadd! nvim-colorizer.lua
-	call luaeval('require("colorizer").setup(_A)', {
-		\ '*': {},
-		\ 'markdown': { 'names': v:false },
-		\ 'text': { 'names': v:false },
-		\ 'gina-commit': { 'names': v:false },
-		\ 'css': { 'css': v:true },
-		\ 'scss': { 'css': v:true },
-		\})
-endif
 call PackInit()
 " }}}
 " # vim:foldmethod=marker

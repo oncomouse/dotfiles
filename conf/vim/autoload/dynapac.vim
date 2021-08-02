@@ -48,21 +48,19 @@ function! s:load(plug) abort
 endfunction
 
 function! s:add_event(ev, plug) abort
-	if stridx(a:ev, ' ') < 0
-		let a:ev = a:ev . ' *'
-	endif
-	if has_key(s:events, a:ev)
-		call insert(s:events[a:ev], a:plug)
+	let l:ev = stridx(a:ev, ' ') < 0 ? a:ev . ' *' : a:ev
+	if has_key(s:events, l:ev)
+		call insert(s:events[l:ev], a:plug)
 	else
-		let s:events[a:ev] = [a:plug]
-		execute 'autocmd! dynapac ' . a:ev . ' call s:ev("' . a:ev . '")'
+		let s:events[l:ev] = [a:plug]
+		execute 'autocmd! dynapac ' . l:ev . ' call s:ev("' . l:ev . '")'
 	endif
 endfunction
 
 function! dynapac#add(...) abort
 	let l:plug = get(a:, 1, '')
 	let l:opts = get(a:, 2, {})
-	if has_key(l:opts, 'cmd') || has_key(l:opts, 'ft')
+	if has_key(l:opts, 'cmd') || has_key(l:opts, 'ft') || has_key(l:opts, 'event')
 		call extend(l:opts, { 'type': 'opt' })
 	endif
 	if s:running
