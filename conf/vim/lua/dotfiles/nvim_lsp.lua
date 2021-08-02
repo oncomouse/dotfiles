@@ -42,8 +42,8 @@ local on_attach = function(client, _)
 			packadd vim-vsnip
 			packadd vim-vsnip-integ
 		]]
-		map.imap("<expr><buffer>", "<C-l>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'")
-		map.smap("<expr><buffer>", "<C-l>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'")
+		map.imap("<expr><buffer>", "<C-l>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<Plug>(dotfiles-lexima)'")
+		map.smap("<expr><buffer>", "<C-l>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<Plug>(dotfiles-lexima)'")
 	end
 end
 

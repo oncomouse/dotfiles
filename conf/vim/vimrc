@@ -205,7 +205,7 @@ function! PackInit(...) abort
 	endfunction
 	autocmd! dotfiles-settings FileType lua call s:extend_endwise()
 	inoremap <silent> <Plug>(dotfiles-lexima) <C-r>=lexima#insmode#leave_till_eol("")<CR>
-	inoremap <silent> <C-l> <Plug>(dotfiles-lexima)
+	imap <silent> <C-l> <Plug>(dotfiles-lexima)
 	call dynapac#add('norcalli/nvim-colorizer.lua')
 	call dynapac#add('junegunn/fzf.vim') " Add shorcuts for FZF
 	command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)
