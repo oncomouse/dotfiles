@@ -172,7 +172,7 @@ end)
 -- {{{ Wibar
 screen.connect_signal("request::desktop_decoration", function(s)
 	-- Create tags:
-	for _,t in ipairs({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }) do
+	for _,t in ipairs({ "1", "2", "3", "4", "5", "6" }) do
 		awful.tag.add(t, {
 			screen = s,
 			layout = awful.layout.layouts[1],
