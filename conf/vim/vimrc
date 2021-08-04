@@ -283,7 +283,10 @@ function! PackInit(...) abort
 	" Loaded with LSP, for when they are needed:
 	call dynapac#add('hrsh7th/vim-vsnip', { 'type': 'opt', })
 	call dynapac#add('hrsh7th/vim-vsnip-integ', { 'type': 'opt', })
+	call dynapac#add('nvim-lua/plenary.nvim', { 'type': 'opt', })
+	call dynapac#add('jose-elias-alvarez/null-ls.nvim', { 'type': 'opt', })
 	autocmd! dotfiles-settings User nvim-lspconfig lua require('dotfiles.nvim_lsp')
+
 endfunction
 
 exe 'set packpath+='.s:packpath()
