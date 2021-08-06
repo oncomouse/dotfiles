@@ -13,6 +13,7 @@ local function evil_init()
 	local supported_players = {
 		'ncspot',
 		'mpd',
+		'mopidy',
 	}
 	local status = "STOPPED"
 	local artist
