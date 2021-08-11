@@ -14,14 +14,16 @@ require("dotfiles.null_ls")
 
 local vscode_capabilities = vim.lsp.protocol.make_client_capabilities()
 vscode_capabilities.textDocument.completion.completionItem.snippetSupport = true
+local handler_no_diagnostics = {
+	["textDocument/publishDiagnostics"] = function() end,
+	["textDocument/formatting"] = function() end,
+}
 
 local on_attach = function(client, _)
 	-- Once codelens is setup:
 	if client.resolved_capabilities.code_lens then
 		vim.api.nvim_command([[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]])
 	end
-	-- Disable diagnostics
-	client.resolved_capabilities.diagnostics = false
 	vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
 	map.nnoremap("<silent><buffer>", "<leader>s", function()
 		vim.lsp.buf.document_symbol()
@@ -119,6 +121,7 @@ local servers = {
 for lsp, settings in pairs(servers) do
 	local tbl = {
 		on_attach = on_attach,
+		handlers = handler_no_diagnostics,
 	}
 	if #vim.tbl_keys(settings) > 0 then
 		tbl = vim.tbl_extend("keep", tbl, settings)
