@@ -7,4 +7,4 @@
 	1. `sudo systemctl enable --now avahi-daemon.service`
 1. UFW Settings:
 	1. `sudo ufw allow 3689`
-	1. `sudo ufw allow 5353`
+	1. `sudo ufw allow mdns comment 'mDNS'`
