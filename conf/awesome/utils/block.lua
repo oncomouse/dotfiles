@@ -54,13 +54,7 @@ local function block(command, timeout)
 			update(widget, stdout)
 		end)
 	end)
-	local function trigger(...)
-		local arg = {...}
-		local callback = table.remove(arg)
-		require("naughty").notify({ text = command .. " " .. table.concat(arg, " ") })
-		awful.spawn.easy_async_with_shell(command .. " " .. table.concat(arg, " "), callback)
-	end
-	return widget, signal, trigger
+	return widget, signal
 end
 
 return block
