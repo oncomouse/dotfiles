@@ -5,47 +5,10 @@ local block = require("utils.block")
 local volume_widget = {}
 
 local function create()
-	local widget, signal = block([[
-	/bin/sh -c '
-	function change {
-		local vol_change=${2:-5}
-		case "$1" in
-		  "up")
-			if pamixer --get-mute > /dev/null; then
-			  pamixer -u
-			else
-			  pamixer -i "$vol_change"
-			fi
-			;;
-		  "down")
-			if pamixer --get-mute > /dev/null; then
-			  pamixer -u
-			else
-			  pamixer -d "$vol_change"
-			fi
-			;;
-		  "mute")
-			pamixer -t > /dev/null
-			;;
-		  *)
-			;;
-		esac
-	}
-	case $BUTTON in
-		1) change mute ;;
-		4) change down ;;
-		5) change up ;;
-	esac
-	icon="墳"
-	output="$(pamixer --get-volume-human | sed s/muted/x/g)"
-	if [ ${#output} -gt 0 ]; then
-		echo "$icon $output"
-	fi
-	'
-	]])
+	local widget, signal = block("/usr/bin/env bash -c ~/dotfiles/scripts/volume.sh")
 
 	awesome.connect_signal("dotfiles::volume", function(direction)
-		awful.spawn.easy_async_with_shell("~/Projects/dwm-config/scripts/volume.sh ".. direction, function()
+		awful.spawn.easy_async_with_shell("~/dotfiles/scripts/volume.sh ".. direction, function()
 			awesome.emit_signal(signal)
 		end)
 	end)
