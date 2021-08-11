@@ -1,7 +1,28 @@
 --luacheck: globals awesome
 local awful = require("awful")
 local gears = require("gears")
+local wibox = require("wibox")
 local blocks = 1
+
+function block_watch(command, timeout, callback, base_widget)
+	timeout = timeout or 5
+	base_widget = base_widget or wibox.widget.textbox()
+	callback = callback or function(widget, stdout, stderr, exitreason, exitcode) -- luacheck: no unused args
+		widget:set_text(stdout)
+	end
+	local t = timer { timeout = timeout }
+	t:connect_signal("timeout", function()
+		t:stop()
+		awful.spawn.easy_async_with_shell(command, function(stdout, stderr, exitreason, exitcode)
+			callback(base_widget, stdout, stderr, exitreason, exitcode)
+			t:again()
+		end)
+	end)
+	t:start()
+	t:emit_signal("timeout")
+	return base_widget, t
+end
+
 local function block(command, timeout)
 	-- Update:
 	local function update(widget, output)
@@ -12,7 +33,7 @@ local function block(command, timeout)
 	blocks = blocks + 1
 	local signal = "dotfiles::block::" .. signal_name
 	-- Widget and Click Handler:
-	local widget,_ = awful.widget.watch(command, timeout, function(widget, stdout)
+	local widget,_ = block_watch(command, timeout, function(widget, stdout)
 		update(widget, stdout)
 	end)
 	-- Attach click handlers for each button:
@@ -33,7 +54,13 @@ local function block(command, timeout)
 			update(widget, stdout)
 		end)
 	end)
-	return widget, signal
+	local function trigger(...)
+		local arg = {...}
+		local callback = table.remove(arg)
+		require("naughty").notify({ text = command .. " " .. table.concat(arg, " ") })
+		awful.spawn.easy_async_with_shell(command .. " " .. table.concat(arg, " "), callback)
+	end
+	return widget, signal, trigger
 end
 
 return block

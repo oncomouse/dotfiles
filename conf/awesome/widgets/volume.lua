@@ -5,10 +5,10 @@ local block = require("utils.block")
 local volume_widget = {}
 
 local function create()
-	local widget, signal = block("/usr/bin/env bash -c ~/dotfiles/scripts/volume.sh")
+	local widget, signal, trigger = block("~/dotfiles/scripts/volume.sh")
 
 	awesome.connect_signal("dotfiles::volume", function(direction)
-		awful.spawn.easy_async_with_shell("~/dotfiles/scripts/volume.sh ".. direction, function()
+		trigger(direction, function()
 			awesome.emit_signal(signal)
 		end)
 	end)
