@@ -28,9 +28,10 @@ local wifi_widget = require("widgets.wifi")
 local volume_widget = require("widgets.volume")
 local clock_widget = require("widgets.clock")
 local mpris_widget = require("widgets.mpris")
+local weather_widget = require("widgets.weather")
 local brightness_widget = require("widgets.brightness")
 local battery_widget = require("widgets.battery")
-local weather_widget = require("awesome-wm-widgets.weather-widget.weather")
+-- local weather_widget = require("awesome-wm-widgets.weather-widget.weather")
 -- Centered monocle mode:
 local layout_cm = require("layouts.centeredmonocle")
 -- Only show borders on tags with more than two clients:
@@ -271,28 +272,28 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		s.mytasklist,
 		{
 			layout = wibox.layout.fixed.horizontal,
-			spacing = 1,
+			spacing = 4,
 			is_laptop and brightness_widget() or wibox.widget.base.empty_widget(),
 			volume_widget(),
-			wifi_widget(),
 			is_laptop and battery_widget() or wibox.widget.base.empty_widget(),
 			is_laptop and wibox.widget.base.empty_widget() or mpris_widget(),
-			is_laptop and wibox.widget.base.empty_widget() or weather_widget({
-				api_key=beautiful.ow.key,
-				coordinates = beautiful.ow.coordinates,
-				units = 'imperial',
-				time_format_12h = true,
-				both_units_widget = false,
-				icons = 'VitalyGorbachev',
-				icons_extension = '.svg',
-				show_hourly_forecast = true,
-				show_daily_forecast = true,
-			}),
+			is_laptop and wibox.widget.base.empty_widget() or weather_widget(),
+			-- is_laptop and wibox.widget.base.empty_widget() or weather_widget({
+			-- 	api_key=beautiful.ow.key,
+			-- 	coordinates = beautiful.ow.coordinates,
+			-- 	units = 'imperial',
+			-- 	time_format_12h = true,
+			-- 	both_units_widget = false,
+			-- 	icons = 'VitalyGorbachev',
+			-- 	icons_extension = '.svg',
+			-- 	show_hourly_forecast = true,
+			-- 	show_daily_forecast = true,
+			-- }),
 			is_laptop and wifi_widget() or wibox.widget.base.empty_widget(),
 			clock_widget(),
 			-- Add some space after the clock:
 			wibox.widget.base.make_widget_declarative({
-				forced_width = 6
+				forced_width = 2
 			})
 		}
 	}
