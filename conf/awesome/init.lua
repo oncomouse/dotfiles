@@ -274,6 +274,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			spacing = 1,
 			is_laptop and brightness_widget() or wibox.widget.base.empty_widget(),
 			volume_widget(),
+			wifi_widget(),
 			is_laptop and battery_widget() or wibox.widget.base.empty_widget(),
 			is_laptop and wibox.widget.base.empty_widget() or mpris_widget(),
 			is_laptop and wibox.widget.base.empty_widget() or weather_widget({
