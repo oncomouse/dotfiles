@@ -6,7 +6,7 @@ print_mpris() {
 }
 
 print_and_exit() {
-	local line="$(playerctl -p mpd,mopidy,ncspot --format "{{status}}::{{artist}} - {{title}}" metadata 2> /dev/null)"
+	local line="$(playerctl -p mpd,mopidy,ncspot,mpv --format "{{status}}::{{artist}} - {{title}}" metadata 2> /dev/null)"
 	print_mpris "$line"
 	exit
 }
