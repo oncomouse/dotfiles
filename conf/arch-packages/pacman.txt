@@ -85,3 +85,5 @@ python-pygments
 pdfjs
 python-adblock
 words
+mpv
+youtube-dl

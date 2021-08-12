@@ -16,3 +16,4 @@ mpdris2
 ncspot
 rofi-emoji
 bibtool
+mpv-mpris
