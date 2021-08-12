@@ -6,7 +6,7 @@ local volume_widget = {}
 
 local function create()
 	local command = "~/dotfiles/scripts/volume.sh"
-	local widget, signal = block(command)
+	local widget, signal = block(command, 0.5)
 
 	awesome.connect_signal("dotfiles::volume", function(direction)
 		awful.spawn.easy_async_with_shell(command .. " " .. direction, function()

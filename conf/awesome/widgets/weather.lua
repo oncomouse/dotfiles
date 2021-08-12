@@ -9,7 +9,7 @@ local function create()
 	}
 	[[ "$BUTTON" = 1 ]] && full_weather
 	curl -s "https://wttr.in/?format=1" | sed -e "s/\s\+//g" -e "s/+//g"
-	']===],20)
+	']===], 20)
 end
 return setmetatable(weather_widget, { __call = function(_, ...)
 	return create(...)
