@@ -29,7 +29,7 @@ playerctlfifo="/tmp/playerctl"
 [ -e "$playerctlfifo" ] && rm "$playerctlfifo"
 mkfifo "$playerctlfifo"
 
-playerctl -p mpd,mopidy,ncspot --follow --format "{{status}}::{{artist}} - {{title}}" metadata 2> /dev/null > "$playerctlfifo" &
+playerctl -p mpd,mopidy,ncspot,mpv --follow --format "{{status}}::{{artist}} - {{title}}" metadata 2> /dev/null > "$playerctlfifo" &
 
 while read -r line ; do
 	print_mpris "$line"
