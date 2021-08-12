@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
+players="mpd,mopidy,ncspot,mpv"
+
 print_mpris() {
 	local line="$1"
 	echo "$line" | sed -e "s/Playing::/契 /" -e "s/Paused::/ /" -e "s/Stopped::/栗 /" 
 }
 
 print_and_exit() {
-	local line="$(playerctl -p mpd,mopidy,ncspot,mpv --format "{{status}}::{{artist}} - {{title}}" metadata 2> /dev/null)"
+	local line="$(playerctl -p "$players" --format "{{status}}::{{artist}} - {{title}}" metadata 2> /dev/null)"
 	print_mpris "$line"
 	exit
 }
@@ -29,7 +31,7 @@ playerctlfifo="/tmp/playerctl"
 [ -e "$playerctlfifo" ] && rm "$playerctlfifo"
 mkfifo "$playerctlfifo"
 
-playerctl -p mpd,mopidy,ncspot,mpv --follow --format "{{status}}::{{artist}} - {{title}}" metadata 2> /dev/null > "$playerctlfifo" &
+playerctl -p "$players" --follow --format "{{status}}::{{artist}} - {{title}}" metadata 2> /dev/null > "$playerctlfifo" &
 
 while read -r line ; do
 	print_mpris "$line"
