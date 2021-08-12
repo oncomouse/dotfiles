@@ -32,7 +32,7 @@ settings:
     global:
     - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
   content.blocking.method:
-    global: auto
+    global: both
   content.blocking.whitelist:
     global: null
   content.cookies.accept:
