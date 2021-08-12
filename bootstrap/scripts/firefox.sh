@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 if [ "$os" = "macos" ]; then
-	moz_dir="$HOME/Library/Application Support/Firefox"
+	moz_dir="$HOME/Library/Application Support/Firefox/Profiles"
 else
 	moz_dir="$HOME/.mozilla/firefox/"
 fi
