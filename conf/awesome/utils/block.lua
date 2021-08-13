@@ -32,6 +32,9 @@ local function run(command, widget)
 		update(widget, stdout)
 	end)
 end
+local function wrap_shell(command)
+	return "sh -c '" .. string.gsub(command, "'", "\\'") .. "'"
+end
 
 local function block(command, timeout)
 	-- Signal:
@@ -39,7 +42,17 @@ local function block(command, timeout)
 	blocks = blocks + 1
 	local signal = "dotfiles::block::" .. signal_name
 	-- Widget and Click Handler:
-	local widget = watch(command, timeout, update)
+	local widget
+	if timeout == 0 then
+		widget = wibox.widget.textbox()
+		awful.spawn.with_line_callback(wrap_shell(command), {
+			stdout = function(line)
+				widget:set_markup(line)
+			end
+		})
+	else
+		widget = watch(command, timeout, update)
+	end
 	-- Attach click handlers for each button:
 	for i,key in ipairs(gears.table.keys(awful.button.names)) do
 		widget:add_button(awful.button({
