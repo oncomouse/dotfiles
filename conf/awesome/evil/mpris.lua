@@ -14,6 +14,7 @@ local function evil_init()
 		'ncspot',
 		'mpd',
 		'mopidy',
+		'mpv',
 	}
 	local status = "STOPPED"
 	local artist
