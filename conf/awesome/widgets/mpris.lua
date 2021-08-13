@@ -173,3 +173,39 @@ end
 return setmetatable(mpris_widget, { __call = function(_, ...)
 	return create(...)
 end })
+-- local awful = require("awful")
+-- local block = require("utils.block")
+
+-- local mpris_widget = {}
+-- local function run(command, widget)
+-- 	awful.spawn.easy_async_with_shell(command, function(stdout)
+-- 		widget:set_markup(stdout)
+-- 	end)
+-- end
+-- local function create()
+-- 	local command = "~/dotfiles/scripts/playerctl.sh"
+-- 	local widget = block(command, 0)
+
+-- 	-- Custom control commands
+-- 	awesome.connect_signal("dotfiles::mpris", function(cmd)
+-- 		run(command .. " " .. cmd, widget)
+-- 	end)
+-- 	return widget
+-- end
+
+-- function mpris_widget:play()
+-- 	awesome.emit_signal("dotfiles::mpris", "play")
+-- end
+-- function mpris_widget:next()
+-- 	awesome.emit_signal("dotfiles::mpris", "next")
+-- end
+-- function mpris_widget:previous()
+-- 	awesome.emit_signal("dotfiles::mpris", "previous")
+-- end
+-- function mpris_widget:stop()
+-- 	awesome.emit_signal("dotfiles::mpris", "stop")
+-- end
+
+-- return setmetatable(mpris_widget, { __call = function(_, ...)
+-- 	return create(...)
+-- end })
