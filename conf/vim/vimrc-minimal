@@ -65,6 +65,9 @@ if has('clipboard')
 endif
 
 set dictionary=/usr/share/dict/words
+
+" Default to hashtag-style comments, by default:
+set commentstring=#\ %s
 " ==============================================================================
 " Disable Plugins:
 " ==============================================================================
