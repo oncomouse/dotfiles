@@ -59,8 +59,7 @@ local on_attach = function(client, _)
 	-- Set snippet integration:
 	if vim.tbl_contains({ "html", "jsonls", "cssls" }, client.name) then
 		vim.cmd([[
-			packadd vim-vsnip
-			packadd vim-vsnip-integ
+			packadd LuaSnip
 		]])
 		map.imap(
 			"<expr><buffer>",
