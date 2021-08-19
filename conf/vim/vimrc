@@ -209,7 +209,7 @@ function! PackInit(...) abort
 	autocmd! dotfiles-settings FileType lua call s:extend_endwise()
 	inoremap <silent> <Plug>(dotfiles-lexima) <C-r>=lexima#insmode#leave_till_eol("")<CR>
 	imap <silent> <C-l> <Plug>(dotfiles-lexima)
-	call dynapac#add('norcalli/nvim-colorizer.lua', { 'event': 'BufRead' })
+	call dynapac#add('norcalli/nvim-colorizer.lua', { 'event': 'BufReadPre' })
 	function! s:nvim_colorizer() abort
 		if &termguicolors
 			call luaeval('require("colorizer").setup(_A)', {
