@@ -174,7 +174,7 @@ function! PackInit(...) abort
 	call dynapac#add('tpope/vim-commentary') " gc<motion> to (un)comment
 	call dynapac#add('tpope/vim-repeat')
 	call dynapac#add('oncomouse/vim-surround') " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-	call dynapac#add('airblade/vim-rooter') " Set project root
+	" call dynapac#add('airblade/vim-rooter') " Set project root
 	let g:rooter_patterns = [
 		\'Rakefile',
 		\'package.json',
@@ -184,6 +184,10 @@ function! PackInit(...) abort
 		\'setup.py',
 		\]
 	set path=,,
+	function! LoadProjectNvim() abort
+		lua require("project_nvim").setup({ patterns = vim.g.rooter_patterns })
+	endfunction
+	call dynapac#add('ahmedkhalf/project.nvim', { 'config': function('LoadProjectNvim') })
 	call dynapac#add('wellle/targets.vim') " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 	call dynapac#add('cohama/lexima.vim') " Autopairs + Endwise
 	function! s:make_rule(at, end, filetype, syntax)
@@ -232,6 +236,7 @@ function! PackInit(...) abort
 	let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 	call dynapac#add('lambdalisue/gina.vim', { 'cmd': 'Gina' })
 	function! s:gina() abort
+		echom 'CHAOS REIGNS'
 		call gina#custom#command#option('status', '--opener', &previewheight . 'split')
 		call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
 		call gina#custom#command#option('diff', '--opener', &previewheight . 'split')

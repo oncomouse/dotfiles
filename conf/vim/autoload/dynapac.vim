@@ -4,6 +4,8 @@ let s:loaded = []
 let s:cmds = {}
 let s:events = {}
 let s:list_type = type([])
+let s:func_type = type(function('has'))
+let s:configs = {}
 
 augroup dynapac
 	autocmd!
@@ -37,6 +39,12 @@ function! s:ev(ev) abort
 	execute 'doautocmd ' . a:ev
 endfunction
 
+function! s:cnf() abort
+	for f in keys(s:configs)
+		call function(s:configs[f])()
+	endfor
+endfunction
+
 function! s:load(plug) abort
 	if index(s:loaded, a:plug) < 0
 		call insert(s:loaded, a:plug)
@@ -60,6 +68,7 @@ endfunction
 function! dynapac#add(...) abort
 	let l:plug = get(a:, 1, '')
 	let l:opts = get(a:, 2, {})
+	let l:optional = 0
 	if has_key(l:opts, 'cmd') || has_key(l:opts, 'ft') || has_key(l:opts, 'event')
 		call extend(l:opts, { 'type': 'opt' })
 	endif
@@ -68,6 +77,7 @@ function! dynapac#add(...) abort
 	else
 		if has_key(l:opts, 'cmd')
 			let s:cmds[l:plug] = s:to_a(l:opts.cmd)
+			let l:optional = 1
 			for cmd in s:cmds[l:plug]
 				execute printf(
 					\ 'command! -nargs=* -range -bang -complete=file %s call s:lod_cmd(%s, "<bang>", <line1>, <line2>, <q-args>, %s)',
@@ -75,14 +85,29 @@ function! dynapac#add(...) abort
 			endfor
 		endif
 		if has_key(l:opts, 'ft')
+			let l:optional = 1
 			for ev in s:to_a(l:opts.ft)
 				call s:add_event('FileType ' . ev, l:plug)
 			endfor
 		endif
 		if has_key(l:opts, 'event')
+			let l:optional = 1
 			for ev in s:to_a(l:opts.event)
 				call s:add_event(ev, l:plug)
 			endfor
+		endif
+		if get(l:opts, 'type', 'start') ==# 'opt'
+			let l:optional = 1
+		endif
+		if has_key(l:opts, 'config')
+			if type(l:opts['config']) == s:func_type
+				if !l:optional
+					if len(keys(s:configs)) == 0
+						autocmd! dynapac VimEnter * call s:cnf()
+					endif
+					let s:configs[l:plug] = l:opts['config']
+				endif
+			endif
 		endif
 	endif
 endfunction
