@@ -31,6 +31,7 @@ function! s:lod_cmd(cmd, bang, l1, l2, args, plug) abort
 	execute printf('%s%s%s %s', (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
 endfunction
 
+" Handle events with plugin loads attached (can also be used for function):
 function! s:ev(ev) abort
 	for F in s:events[a:ev]
 		if type(F) == s:func_type
@@ -42,12 +43,14 @@ function! s:ev(ev) abort
 	execute 'autocmd! dynapac ' . a:ev
 endfunction
 
+" Trigger VimEnter events for all start packs:
 function! s:load_start() abort
 	for plug in s:start_plugs
 		call s:load(plug, 1)
 	endfor
 endfunction
 
+" Trigger various things for packs at load time:
 function! s:load(plug, ...) abort
 	let l:start = get(a:, 1, 0)
 	if index(s:loaded, a:plug) < 0
@@ -61,16 +64,24 @@ function! s:load(plug, ...) abort
 	endif
 endfunction
 
-function! s:add_event(ev, Plug) abort
+" Attach an event for dynapac loading, can also be passed a function instead
+" of a plug name:
+function! s:add_event(ev, plug) abort
 	let l:ev = stridx(a:ev, ' ') < 0 ? a:ev . ' *' : a:ev
 	if has_key(s:events, l:ev)
-		call insert(s:events[l:ev], a:Plug)
+		call insert(s:events[l:ev], a:plug)
 	else
-		let s:events[l:ev] = [a:Plug]
+		let s:events[l:ev] = [a:plug]
 		execute 'autocmd! dynapac ' . l:ev . ' call s:ev("' . l:ev . '")'
 	endif
 endfunction
 
+" Add a plugin.
+" Options can include:
+"  - cmd: a list of commands to trigger plugin loading
+"  - ft: a list of filetypes to trigger plugin loading
+"  - event: a list of events to trigger plugin loading
+"  - Any other options that can be passed to minpac
 function! dynapac#add(plug, ...) abort
 	let l:opts = get(a:, 1, {})
 	if has_key(l:opts, 'cmd') || has_key(l:opts, 'ft') || has_key(l:opts, 'event')
@@ -106,25 +117,26 @@ function! dynapac#add(plug, ...) abort
 	endif
 endfunction
 
+" Start the process of loading plugins. Set the first option to 1 when we are
+" actually installing plugins (when PackUpdate or PackClean are being run).
+" This will also automatically install minpac if it is not found.
 function! dynapac#init(...) abort
 	let s:running = get(a:000, 0, 0)
 	let l:opts = get(a:000, 1, {})
 	let l:path = get(l:opts, 'dir', split(&packpath, ',')[0])
 	let l:opts['dir'] = l:path
-	" Download Minpac:
+	" Load / Download Minpac:
 	if s:running
-		if empty(glob(l:path.'/pack/minpac/opt/minpac'))
-			if executable('git')
-				silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:path.'/pack/minpac/opt/minpac"'
-			endif
-		endif
-
-		" Load Minpac:
 		packadd minpac
 		if exists('g:loaded_minpac')
 			call minpac#init(l:opts)
 		else
-			echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
+			if executable('git')
+				silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:path.'/pack/minpac/opt/minpac"'
+				call function('dynapac#init', a:000)()
+			else
+				echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
+			endif
 		endif
 	endif
 endfunction
