@@ -105,46 +105,39 @@ function! dynapac#add(plug, ...) abort
 	endif
 endfunction
 
-" Start the process of loading plugins. Set the first option to 1 when we are
-" actually installing plugins (when PackUpdate or PackClean are being run).
-" This will also automatically install minpac if it is not found.
+" Start the process of loading plugins and setup any events.
 function! dynapac#init(...) abort
 	let l:opts = get(a:000, 0, {})
-	let l:running = 0
-	if type(l:opts) == s:num_type
-		let l:running = 1
-	endif
-	if l:running == 0 && len(keys(l:opts)) > 0
+	if len(keys(l:opts)) > 0
 		let s:dynapac_opts = l:opts
 	endif
 	let l:path = get(s:dynapac_opts, 'dir', split(&packpath, ',')[0])
 	let s:dynapac_opts['dir'] = l:path
-	" Load / Download Minpac:
-	if l:running
-		packadd minpac
-		if exists('g:loaded_minpac')
-			call minpac#init(s:dynapac_opts)
-			" Manage minpac behind the scenes
-			call minpac#add('k-takata/minpac', { 'type': 'opt' })
-			for [pack, opts] in items(s:packs)
-				call minpac#add(pack, opts)
-			endfor
-		else
-			if executable('git')
-				silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:path.'/pack/minpac/opt/minpac"'
-				call function('dynapac#init', a:000)()
-			else
-				echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
-			endif
-		endif
+	call s:add_event('VimEnter', function('s:load_start'))
+endfunction
+
+function! s:run_minpac() abort
+	packadd minpac
+	if exists('g:loaded_minpac')
+		call minpac#init(s:dynapac_opts)
+		" Manage minpac behind the scenes
+		call minpac#add('k-takata/minpac', { 'type': 'opt' })
+		for [pack, opts] in items(s:packs)
+			call minpac#add(pack, opts)
+		endfor
 	else
-		call s:add_event('VimEnter', function('s:load_start'))
+		if executable('git')
+			silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:path.'/pack/minpac/opt/minpac"'
+			call s:run_minpac() " Run again, now that minpac has been installed.
+		else
+			echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
+		endif
 	endif
 endfunction
 
 function s:minpac_wrapper(...) abort
 	if !exists('g:loaded_minpac')
-		call dynapac#init(1)
+		call s:run_minpac()
 	endif
 	return function(get(a:000, 0, ''), get(a:000, 1, []))()
 endfunction
