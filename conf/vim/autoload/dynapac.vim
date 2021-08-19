@@ -107,12 +107,8 @@ endfunction
 
 " Start the process of loading plugins and setup any events.
 function! dynapac#init(...) abort
-	let l:opts = get(a:000, 0, {})
-	if len(keys(l:opts)) > 0
-		let s:dynapac_opts = l:opts
-	endif
-	let l:path = get(s:dynapac_opts, 'dir', split(&packpath, ',')[0])
-	let s:dynapac_opts['dir'] = l:path
+	" Unlike minpac, dynapac has to have 'dir' set in the options dictionary
+	let s:dynapac_opts = extend({ 'dir': split(&packpath, ',')[0] }, get(a:000, 0, {}))
 	call s:add_event('VimEnter', function('s:load_start'))
 endfunction
 
@@ -127,7 +123,7 @@ function! s:run_minpac() abort
 		endfor
 	else
 		if executable('git')
-			silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:path.'/pack/minpac/opt/minpac"'
+			silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.s:dynapac_opts['dir'].'/pack/minpac/opt/minpac"'
 			call s:run_minpac() " Run again, now that minpac has been installed.
 		else
 			echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
