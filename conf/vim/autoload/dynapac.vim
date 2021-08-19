@@ -40,9 +40,6 @@ function! s:ev(ev) abort
 		endif
 	endfor
 	execute 'autocmd! dynapac ' . a:ev
-	if a:ev !=# 'VimEnter'
-		execute 'doautocmd ' . a:ev
-	endif
 endfunction
 
 function! s:load_start() abort
