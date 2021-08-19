@@ -1,11 +1,11 @@
 " Set to true if we are installing (which means we actually call minpac):
 let s:running = 0
-let s:loaded = []
-let s:cmds = {}
+let s:packs = []
+" Despite the above data structure, it's actually easier to have a collection
+" of events ordered by type:
 let s:events = {}
 let s:list_type = type([])
 let s:func_type = type(function('has'))
-let s:start_plugs = []
 
 augroup dynapac
 	autocmd!
@@ -18,11 +18,9 @@ endfunction
 
 " Remove all autocmds associated with this plugin:
 function! s:remove_cmds(plug) abort
-	if has_key(s:cmds, a:plug)
-		for cmd in s:cmds[a:plug]
-			execute 'delcommand ' . cmd
-		endfor
-	endif
+	for cmd in get(s:packs[a:plug][1], 'cmd', [])
+		execute 'delcommand ' . cmd
+	endfor
 endfunction
 
 " This function is from vim-plug:
@@ -45,16 +43,16 @@ endfunction
 
 " Trigger VimEnter events for all start packs:
 function! s:load_start() abort
-	for plug in s:start_plugs
-		call s:load(plug, 1)
+	for plug in filter(copy(s:packs), 'get(v:val[1], "type", "start") == "start"')
+		call s:load(plug[0], 1)
 	endfor
 endfunction
 
 " Trigger various things for packs at load time:
 function! s:load(plug, ...) abort
 	let l:start = get(a:, 1, 0)
-	if index(s:loaded, a:plug) < 0
-		call insert(s:loaded, a:plug)
+	if get(s:packs[a:plug][1], 'loaded', 0)
+		let s:packs[a:plug][1]['loaded'] = 1
 		let l:pack = split(a:plug, '/')[-1]
 		if !l:start
 			call s:remove_cmds(a:plug)
@@ -87,12 +85,10 @@ function! dynapac#add(plug, ...) abort
 	if has_key(l:opts, 'cmd') || has_key(l:opts, 'ft') || has_key(l:opts, 'event')
 		call extend(l:opts, { 'type': 'opt' })
 	endif
-	if s:running
-		call minpac#add(a:plug, l:opts)
-	else
+	if !s:running
+		call insert(s:packs, [a:plug, l:opts])
 		if has_key(l:opts, 'cmd')
-			let s:cmds[a:plug] = s:to_a(l:opts.cmd)
-			for cmd in s:cmds[a:plug]
+			for cmd in s:to_a(l:opts.cmd)
 				execute printf(
 					\ 'command! -nargs=* -range -bang -complete=file %s call s:lod_cmd(%s, "<bang>", <line1>, <line2>, <q-args>, %s)',
 					\ cmd, string(cmd), string(a:plug))
@@ -107,12 +103,6 @@ function! dynapac#add(plug, ...) abort
 			for ev in s:to_a(l:opts.event)
 				call s:add_event(ev, a:plug)
 			endfor
-		endif
-		if get(l:opts, 'type', 'start') ==# 'start'
-			if len(s:start_plugs) == 0
-				call s:add_event('VimEnter', function('s:load_start'))
-			endif
-			call insert(s:start_plugs, a:plug)
 		endif
 	endif
 endfunction
@@ -130,6 +120,9 @@ function! dynapac#init(...) abort
 		packadd minpac
 		if exists('g:loaded_minpac')
 			call minpac#init(l:opts)
+			for pack in s:packs
+				call minpac#add(pack[0], pack[1])
+			endfor
 		else
 			if executable('git')
 				silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:path.'/pack/minpac/opt/minpac"'
@@ -138,5 +131,7 @@ function! dynapac#init(...) abort
 				echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
 			endif
 		endif
+	else
+		call s:add_event('VimEnter', function('s:load_start'))
 	endif
 endfunction
