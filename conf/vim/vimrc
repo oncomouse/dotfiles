@@ -169,25 +169,24 @@ function! PackInit(...) abort
 			\ }
 			\ })
 	endfunction
-	autocmd! dotfiles-settings VimEnter * call s:qf_helper()
+	autocmd! dotfiles-settings User qf_helper.nvim call s:qf_helper()
 	call dynapac#add('sickill/vim-pasta') " fix block paste for Neovim
 	call dynapac#add('tpope/vim-commentary') " gc<motion> to (un)comment
 	call dynapac#add('tpope/vim-repeat')
 	call dynapac#add('oncomouse/vim-surround') " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-	" call dynapac#add('airblade/vim-rooter') " Set project root
-	let g:rooter_patterns = [
+	set path=,,
+	call dynapac#add('ahmedkhalf/project.nvim')
+	function! s:project_nvim() abort
+		call luaeval('require("project_nvim").setup({ patterns = _A })', [
 		\'Rakefile',
 		\'package.json',
 		\'.git/',
 		\'Gemfile',
 		\'pyproject.toml',
 		\'setup.py',
-		\]
-	set path=,,
-	function! LoadProjectNvim() abort
-		lua require("project_nvim").setup({ patterns = vim.g.rooter_patterns })
+		\])
 	endfunction
-	call dynapac#add('ahmedkhalf/project.nvim', { 'config': function('LoadProjectNvim') })
+	autocmd! dotfiles-settings User project.nvim call s:project_nvim()
 	call dynapac#add('wellle/targets.vim') " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 	call dynapac#add('cohama/lexima.vim') " Autopairs + Endwise
 	function! s:make_rule(at, end, filetype, syntax)
@@ -236,7 +235,6 @@ function! PackInit(...) abort
 	let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 	call dynapac#add('lambdalisue/gina.vim', { 'cmd': 'Gina' })
 	function! s:gina() abort
-		echom 'CHAOS REIGNS'
 		call gina#custom#command#option('status', '--opener', &previewheight . 'split')
 		call gina#custom#command#option('commit', '--opener', &previewheight . 'split')
 		call gina#custom#command#option('diff', '--opener', &previewheight . 'split')
@@ -286,8 +284,6 @@ function! PackInit(...) abort
 	call dynapac#add('godlygeek/tabular', { 'cmd': [ 'Tabular', 'TableFormat' ] })
 	call dynapac#add('neovim/nvim-lspconfig', { 'ft': [ 'fish', 'css', 'html', 'javascript', 'json', 'lua', 'markdown', 'python', 'ruby', 'scss', 'sh', 'vim', 'yaml' ] })
 	" Loaded with LSP, for when they are needed:
-	" call dynapac#add('hrsh7th/vim-vsnip', { 'type': 'opt', })
-	" call dynapac#add('hrsh7th/vim-vsnip-integ', { 'type': 'opt', })
 	call dynapac#add('L3MON4D3/LuaSnip', { 'type': 'opt', })
 	call dynapac#add('nvim-lua/plenary.nvim', { 'type': 'opt', })
 	call dynapac#add('jose-elias-alvarez/null-ls.nvim', { 'type': 'opt', })
