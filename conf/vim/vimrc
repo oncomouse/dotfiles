@@ -152,14 +152,14 @@ function! s:packpath() abort
 	return luaeval('require("dotfiles.utils.xdg")("XDG_DATA_HOME")') . '/minpac/full'
 endfunction
 
-let g:dynapac_opts = { 'dir': s:packpath() }
-exe 'set packpath+=' . g:dynapac_opts.dir
-command! PackUpdate call dynapac#init(1, g:dynapac_opts) | call minpac#update()
-command! PackClean  call dynapac#init(1, g:dynapac_opts) | call minpac#clean()
-command! PackStatus call dynapac#init(1, g:dynapac_opts) | call minpac#status()
+" Dynapac configuration:
+let s:dynapac_opts = { 'dir': s:packpath() }
+exe 'set packpath+=' . s:dynapac_opts.dir
+command! PackUpdate call dynapac#update()
+command! PackClean  call dynapac#clean()
+command! PackStatus call dynapac#status()
+call dynapac#init(s:dynapac_opts)
 
-call dynapac#init(0, g:dynapac_opts)
-call dynapac#add('k-takata/minpac', { 'type': 'opt' })
 call dynapac#add('tpope/vim-sensible')
 call dynapac#add('xero/securemodelines')
 call dynapac#add('stevearc/qf_helper.nvim')
