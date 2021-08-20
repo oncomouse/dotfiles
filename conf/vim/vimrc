@@ -179,18 +179,15 @@ call dynapac#add('tpope/vim-commentary') " gc<motion> to (un)comment
 call dynapac#add('tpope/vim-repeat')
 call dynapac#add('oncomouse/vim-surround') " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 set path=,,
-call dynapac#add('ahmedkhalf/project.nvim')
-function! s:project_nvim() abort
-	call luaeval('require("project_nvim").setup({ patterns = _A })', [
-	\'Rakefile',
-	\'package.json',
-	\'.git/',
-	\'Gemfile',
-	\'pyproject.toml',
-	\'setup.py',
-	\])
-endfunction
-autocmd! dotfiles-settings User project.nvim call s:project_nvim()
+let g:rooter_patterns = [
+\'Rakefile',
+\'package.json',
+\'.git/',
+\'Gemfile',
+\'pyproject.toml',
+\'setup.py',
+\]
+call dynapac#add('airblade/vim-rooter')
 call dynapac#add('wellle/targets.vim') " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 call dynapac#add('cohama/lexima.vim') " Autopairs + Endwise
 function! s:make_rule(at, end, filetype, syntax)
