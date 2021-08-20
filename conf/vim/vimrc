@@ -177,6 +177,14 @@ autocmd! dotfiles-settings User qf_helper.nvim call s:qf_helper()
 call dynapac#add('sickill/vim-pasta') " fix block paste for Neovim
 call dynapac#add('tpope/vim-commentary') " gc<motion> to (un)comment
 call dynapac#add('tpope/vim-repeat')
+" call dynapac#add('ironhouzi/starlite-nvim')
+" function! s:starlite_nvim() abort
+" 	nnoremap <silent> * :lua require'starlite'.star()<cr>
+" 	nnoremap <silent> g* :lua require'starlite'.g_star()<cr>
+" 	nnoremap <silent> # :lua require'starlite'.hash()<cr>
+" 	nnoremap <silent> g# :lua require'starlite'.g_hash()<cr>
+" endfunction
+" autocmd! dotfiles-settings User starlite-nvim call s:starlite_nvim()
 call dynapac#add('oncomouse/vim-surround') " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 set path=,,
 let g:rooter_patterns = [
