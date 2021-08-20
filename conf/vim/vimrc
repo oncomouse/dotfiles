@@ -177,7 +177,7 @@ autocmd! dotfiles-settings User qf_helper.nvim call s:qf_helper()
 call dynapac#add('sickill/vim-pasta') " fix block paste for Neovim
 call dynapac#add('tpope/vim-commentary') " gc<motion> to (un)comment
 call dynapac#add('tpope/vim-repeat')
-" call dynapac#add('ironhouzi/starlite-nvim')
+" call dynapac#add('ironhouzi/starlite-nvim') " * and # that highlights without first jumping
 " function! s:starlite_nvim() abort
 " 	nnoremap <silent> * :lua require'starlite'.star()<cr>
 " 	nnoremap <silent> g* :lua require'starlite'.g_star()<cr>
