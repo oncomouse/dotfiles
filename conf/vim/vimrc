@@ -194,6 +194,7 @@ let g:rooter_patterns = [
 \'Gemfile',
 \'pyproject.toml',
 \'setup.py',
+\'Makefile',
 \]
 call dynapac#add('airblade/vim-rooter')
 call dynapac#add('wellle/targets.vim') " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
