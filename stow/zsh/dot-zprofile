@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+
+export EDITOR="nvim"
+# Setup FZF themes:
+if [[ -d "$HOME/.cache/wal" ]]; then
+	source ~/.cache/wal/colors.sh
+	FZF_COLORS=" --color=bg+:${color8},bg:${color0},spinner:${color14},hl:${color12} --color=fg:${color15},header:${color12},info:${color0},pointer:${color14} --color=marker:${color14},fg+:${color15},prompt:${cursor},hl+:${color12}"
+fi
+export FZF_DEFAULT_OPTS="${FZF_COLORS} --ansi --bind='ctrl-o:execute(open {})+abort'"
+export FZF_DEFAULT_COMMAND="fd -t f --follow --hidden"
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+export FZF_ALT_C_COMMAND="fd --type d --follow"
+export FZF_CTRL_T_OPTS="--preview-window 'right:60%' --preview 'bat --theme=wal --color=always --style=header,grid --line-range :300 {}'"
+export FZF_ALT_C_OPTS="--preview 'ls --color=always {} | head -200'"
+
+export XDG_DATA_DIRS="~/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share"
+
+# vim:ft=sh
