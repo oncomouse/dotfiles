@@ -291,7 +291,7 @@ let g:vim_markdown_strikethrough = 0 " Don"t format strikethrough
 let g:vim_markdown_conceal = 0 " Don"t conceal
 let g:vim_markdown_conceal_code_blocks = 0 " Don"t conceal code blocks
 let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
-call dynapac#add('godlygeek/tabular', { 'cmd': [ 'Tabular', 'TableFormat' ] })
+call dynapac#add('godlygeek/tabular', { 'cmd': [ 'Tabularize', 'Tabular' ] })
 call dynapac#add('neovim/nvim-lspconfig', { 'ft': [ 'fish', 'css', 'html', 'javascript', 'json', 'lua', 'markdown', 'python', 'ruby', 'scss', 'sh', 'vim', 'yaml' ] })
 " Loaded with LSP, for when they are needed:
 call dynapac#add('L3MON4D3/LuaSnip', { 'type': 'opt', })
