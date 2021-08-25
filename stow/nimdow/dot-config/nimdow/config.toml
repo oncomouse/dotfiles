@@ -1,0 +1,196 @@
+# App Rules
+# Example:
+# [[appRule]]
+# class = "st"
+# instance = "st"
+# title = "st"
+# monitor = 1
+# tags = [ 1, 4, 7 ]
+# state = "floating" # normal, floating, and fullscreen are all valid.
+
+# Start external programs
+[[startProcess]]
+command = "pkill nimdow"
+keys = [ "q" ]
+modifiers = [ "super", "shift" ]
+
+# [[startProcess]]
+# command = "$BROWSER"
+# keys = [ "i" ]
+# modifiers = [ "super" ]
+
+[[startProcess]]
+command = "dmenu_run"
+keys = [ "p" ]
+modifiers = [ "super" ]
+
+[[startProcess]]
+command = "kitty"
+keys = [ "Return" ]
+modifiers = [ "super", "shift" ]
+
+# Start process when region is clicked, see documentation for what constitutes a region
+[[startProcess]]
+command = "notify-send \"Id: %1, rx: %2, cx: %4, w: %6\""
+clickRegion = 0
+
+[[startProcess]]
+command = "notify-send \"Id: %1, rx: %2, cx: %4, w: %6\""
+clickRegion = 1
+
+[[startProcess]]
+command = "notify-send \"Id: %1, rx: %2, cx: %4, w: %6\""
+clickRegion = 2
+
+[autostart]
+exec = [
+  "xsetroot -cursor_name left_ptr",
+  #"firefox",
+  #"st",
+]
+
+# Window manager controls
+[controls]
+  [controls.reloadConfig]
+  keys = [ "r" ]
+  modifiers = [ "super", "shift" ]
+
+  [controls.focusPrevious]
+  keys = [ "k" ]
+  modifiers = [ "super" ]
+
+  [controls.focusNext]
+  keys = [ "j" ]
+  modifiers = [ "super" ]
+
+  [controls.moveWindowPrevious]
+  keys = [ "k" ]
+  modifiers = [ "super", "shift" ]
+
+  [controls.moveWindowNext]
+  keys = [ "j" ]
+  modifiers = [ "super", "shift" ]
+
+  [controls.toggleFullscreen]
+  keys = [ "f" ]
+  modifiers = [ "super" ]
+
+  [controls.destroySelectedWindow]
+  keys = [ "q" ]
+  modifiers = [ "super", "shift" ]
+
+  [controls.goToPreviousTag]
+  keys = [ "w" ]
+  modifiers = [ "super" ]
+
+  [controls.moveWindowToPreviousTag]
+  keys = [ "w" ]
+  modifiers = [ "super", "shift" ]
+
+  [controls.focusPreviousMonitor]
+  keys = [ "comma" ]
+  modifiers = [ "super" ]
+
+  [controls.focusNextMonitor]
+  keys = [ "period" ]
+  modifiers = [ "super" ]
+
+  [controls.moveWindowToPreviousMonitor]
+  keys = [ "comma" ]
+  modifiers = [ "super", "shift" ]
+
+  [controls.moveWindowToNextMonitor]
+  keys = [ "period" ]
+  modifiers = [ "super", "shift" ]
+
+  [controls.increaseMasterCount]
+  keys = [ "z" ]
+  modifiers = [ "super" ]
+
+  [controls.decreaseMasterCount]
+  keys = [ "x" ]
+  modifiers = [ "super" ]
+
+  [controls.toggleFloating]
+  keys = [ "space" ]
+  modifiers = [ "super" ]
+
+  [controls.jumpToUrgentWindow]
+  keys = [ "u" ]
+  modifiers = [ "super" ]
+
+  [controls.goToTag]
+  keys = [ "1", "2", "3", "4", "5", "6", "7", "8", "9" ]
+  modifiers = [ "super" ]
+
+  [controls.moveWindowToTag]
+  keys = [ "1", "2", "3", "4", "5", "6", "7", "8", "9" ]
+  modifiers = [ "super", "shift" ]
+
+  [controls.toggleTagView]
+  keys = [ "1", "2", "3", "4", "5", "6", "7", "8", "9" ]
+  modifiers = [ "super", "control" ]
+
+  [controls.toggleWindowTag]
+  keys = [ "1", "2", "3", "4", "5", "6", "7", "8", "9" ]
+  modifiers = [ "super", "shift", "control" ]
+
+	[controls.increaseMasterWidth]
+	keys = [ "l" ]
+	modifiers = [ "super" ]
+
+	[controls.decreaseMasterWidth]
+	keys = [ "h" ]
+	modifiers = [ "super" ]
+
+  [controls.moveWindowToScratchpad]
+  keys = [ "s" ]
+  modifiers = [ "super", "shift" ]
+
+  [controls.popScratchpad]
+  keys = [ "s" ]
+  modifiers = [ "super" ]
+
+# Example monitor settings:
+# [monitors]
+  # [monitors.default.tags]
+  # 1.displayString = "one"
+  # 2.displayString = "foobar"
+  # Set the number of master windows for ALL monitors.
+  # all.numMasterWindows = 2
+
+  # [monitors.1.tags]
+  # 2.displayString = "two"
+  # Set the number of master windows per-monitor.
+  # all.numMasterWindows = 3
+  # Set the number of master windows per-tag.
+  # 2.numMasterWindows = 1
+
+  # [monitors.2.tags]
+  # 2.displayString = "too"
+
+[settings]
+  # Window settings
+  borderWidth = 1
+  borderColorUnfocused = "#282a36"
+  borderColorFocused = "#50fa7b"
+  borderColorUrgent = "#ff5555"
+  barBackgroundColor = "#282a36"
+  barForegroundColor = "#f8f8f2"
+  barSelectionColor = "#50fa7b"
+  barUrgentColor = "#ff5555"
+  # Bar settings
+  barHeight = 20
+  windowTitlePosition = "center"
+  barFonts = [
+  "monospace:size=10:antialias=true",
+  "NotoColorEmoji:size=10:antialias=true"
+  ]
+  # Layout settings
+  gapSize = 12
+  resizeStep = 10
+  # General settings
+  loggingEnabled = false
+
+
+# vim:tabstop=2 shiftwidth=2 softtabstop=2 expandtab
