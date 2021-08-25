@@ -20,9 +20,20 @@ modifiers = [ "super", "shift" ]
 # modifiers = [ "super" ]
 
 [[startProcess]]
-command = "dmenu_run"
-keys = [ "p" ]
-modifiers = [ "super" ]
+command = "rofi -theme ~/Projects/dwm-config/conf/rofi/barmenu-dwm.rasi -match fuzzy -auto-select -font Fira Code 11 -show drun -show-icons -drun-display-format {name}"
+# command = "dmenu_run"
+keys = [ "r" ]
+modifiers = [ "super", "alt" ]
+
+[[startProcess]]
+command = "rofi -theme ~/Projects/dwm-config/conf/rofi/barmenu-dwm.rasi -match fuzzy -auto-select -font Fira Code 11 -show window -show-icons -window-format {w} {c} {t:25}"
+keys = [ "w" ]
+modifiers = [ "super", "shift" ]
+
+[[startProcess]]
+command = "rofi -show emoji -modi emoji -font Fira Code 11"
+keys = [ "space" ]
+modifiers = [ "control", "super" ]
 
 [[startProcess]]
 command = "kitty"
@@ -183,14 +194,14 @@ exec = [
   barHeight = 20
   windowTitlePosition = "center"
   barFonts = [
-  "monospace:size=10:antialias=true",
-  "NotoColorEmoji:size=10:antialias=true"
+  "Fira Mono:size=10",
+  "JoyPixels:size=10",
+  "FiraCode Nerd Font:size=10"
   ]
   # Layout settings
-  gapSize = 12
+  gapSize = 0
   resizeStep = 10
   # General settings
   loggingEnabled = false
-
 
 # vim:tabstop=2 shiftwidth=2 softtabstop=2 expandtab
