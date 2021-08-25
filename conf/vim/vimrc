@@ -286,6 +286,7 @@ endfunction
 autocmd! dotfiles-settings User nvim-treesiter call s:nvim_treesitter()
 call dynapac#add('oncomouse/vim-fish', { 'ft': 'fish' }) " Fish Syntax
 call dynapac#add('plasticboy/vim-markdown', { 'ft': 'markdown' }) " Markdown Syntax
+call dynapac#add('cespare/vim-toml', { 'ft': 'toml' }) " TOML Syntax
 let g:vim_markdown_frontmatter = 1 " Format YAML
 let g:vim_markdown_strikethrough = 0 " Don"t format strikethrough
 let g:vim_markdown_conceal = 0 " Don"t conceal
