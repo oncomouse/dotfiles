@@ -18,6 +18,7 @@ if status is-interactive
 	end
 # Configure FZF:
 	if status is-login
+		set -gx DOTFILES_TARGET (/bin/cat $HOME/.local/share/dotfiles/target)
 		setuvar FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
 		# Setup FZF themes:
 		if test -d "$HOME/.cache/wal" -a (echo $FZF_DEFAULT_OPTS | grep color -c) -eq 0
