@@ -196,7 +196,7 @@ let g:rooter_patterns = [
 \'setup.py',
 \'Makefile',
 \]
-call dynapac#add('airblade/vim-rooter')
+call dynapac#add('airblade/vim-rooter') " Set CWD for projects
 call dynapac#add('wellle/targets.vim') " add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 call dynapac#add('cohama/lexima.vim') " Autopairs + Endwise
 function! s:make_rule(at, end, filetype, syntax)
@@ -256,11 +256,11 @@ function! s:gina() abort
 endfunction
 autocmd! dotfiles-settings User gina.vim call s:gina()
 call dynapac#add('oncomouse/vim-grep', { 'cmd': ['Grep', 'LGrep'] })
-call dynapac#add('windwp/nvim-ts-autotag', { 'ft': [ 'html', 'javascript', 'javascriptreact' ] })
+
+" Treesitter: {{{
 let g:ts_types = luaeval('require("dotfiles.utils.ts_filetypes").ts_types')
 call dynapac#add('nvim-treesitter/nvim-treesitter-textobjects', { 'ft': g:ts_types })
-" call dynapac#add('nvim-treesitter/nvim-ts-autotag', { 'type': 'opt' })
-" call dynapac#add('nvim-treesitter/nvim-treesitter-textobjects', { 'type': 'opt' })
+call dynapac#add('windwp/nvim-ts-autotag', { 'ft': [ 'html', 'javascript', 'javascriptreact' ] })
 function! UpdateTreesitter(...) abort
 	packadd nvim-treesitter
 	TSUpdate
@@ -268,8 +268,6 @@ endfunction
 call dynapac#add('nvim-treesitter/nvim-treesitter', { 'ft': g:ts_types, 'do': function('UpdateTreesitter') })
 lua require("dotfiles.utils.ts_filetypes").ts_type_autocmds() 
 function! s:nvim_treesitter() abort
-	packadd nvim-treesitter-textobjects
-	packadd nvim-ts-autotag
 	call luaeval('require("nvim-treesitter.configs").setup(_A)', {
 		\ 'ensure_installed': 'maintained',
 		\ 'highlight': { 'enable': v:true },
@@ -288,7 +286,9 @@ function! s:nvim_treesitter() abort
 		\ })
 endfunction
 autocmd! dotfiles-settings User nvim-treesitter call s:nvim_treesitter()
-call dynapac#add('oncomouse/vim-fish', { 'ft': 'fish' }) " Fish Syntax
+" }}}
+
+" Non-Treesitter Syntax: {{{
 call dynapac#add('plasticboy/vim-markdown', { 'ft': 'markdown' }) " Markdown Syntax
 let g:vim_markdown_frontmatter = 1 " Format YAML
 let g:vim_markdown_strikethrough = 0 " Don"t format strikethrough
@@ -296,11 +296,15 @@ let g:vim_markdown_conceal = 0 " Don"t conceal
 let g:vim_markdown_conceal_code_blocks = 0 " Don"t conceal code blocks
 let g:vim_markdown_math = 1 " Do process MathJaX and LaTeX math
 call dynapac#add('godlygeek/tabular', { 'cmd': [ 'Tabularize', 'Tabular' ] })
+" }}}
+
+" LSP: {{{
 call dynapac#add('neovim/nvim-lspconfig', { 'ft': [ 'fish', 'css', 'html', 'javascript', 'json', 'lua', 'markdown', 'python', 'ruby', 'scss', 'sh', 'vim', 'yaml' ] })
 " Loaded with LSP, for when they are needed:
 call dynapac#add('L3MON4D3/LuaSnip', { 'type': 'opt', })
 call dynapac#add('nvim-lua/plenary.nvim', { 'type': 'opt', })
 call dynapac#add('jose-elias-alvarez/null-ls.nvim', { 'type': 'opt', })
 autocmd! dotfiles-settings User nvim-lspconfig lua require('dotfiles.nvim_lsp')
+" }}}
 " }}}
 " # vim:foldmethod=marker
