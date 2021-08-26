@@ -256,9 +256,9 @@ function! s:gina() abort
 endfunction
 autocmd! dotfiles-settings User gina.vim call s:gina()
 call dynapac#add('oncomouse/vim-grep', { 'cmd': ['Grep', 'LGrep'] })
-call dynapac#add('windwp/nvim-ts-autotag', { 'ft': [ 'html', 'javascript', 'javascriptreact' ] })
 let g:ts_types = luaeval('require("dotfiles.utils.ts_filetypes").ts_types')
-call dynapac#add('nvim-treesitter/nvim-treesitter-textobjects', { 'ft': g:ts_types })
+call dynapac#add('nvim-treesitter/nvim-ts-autotag', { 'type': 'opt' })
+call dynapac#add('nvim-treesitter/nvim-treesitter-textobjects', { 'type': 'opt' })
 function! UpdateTreesitter(...) abort
 	packadd nvim-treesitter
 	TSUpdate
@@ -266,11 +266,12 @@ endfunction
 call dynapac#add('nvim-treesitter/nvim-treesitter', { 'ft': g:ts_types, 'do': function('UpdateTreesitter') })
 lua require("dotfiles.utils.ts_filetypes").ts_type_autocmds() 
 function! s:nvim_treesitter() abort
-	call luaeval('require("nvim-treesitter.config").setup(_A)', {
+	packadd nvim-treesitter-textobjects
+	packadd nvim-ts-autotag
+	call luaeval('require("nvim-treesitter.configs").setup(_A)', {
 		\ 'ensure_installed': 'maintained',
 		\ 'highlight': { 'enable': v:true },
 		\ 'indent': { 'enable': v:true },
-		\ 'autotag': { 'enable': v:true },
 		\ 'textobjects': { 'select': {
 			\ 'enable': v:true,
 			\ 'lookahead': v:true,
@@ -282,8 +283,9 @@ function! s:nvim_treesitter() abort
 			\ }
 		\ } }
 		\ })
+	lua require('nvim-ts-autotag').setup()
 endfunction
-autocmd! dotfiles-settings User nvim-treesiter call s:nvim_treesitter()
+autocmd! dotfiles-settings User nvim-treesitter call s:nvim_treesitter()
 call dynapac#add('oncomouse/vim-fish', { 'ft': 'fish' }) " Fish Syntax
 call dynapac#add('plasticboy/vim-markdown', { 'ft': 'markdown' }) " Markdown Syntax
 call dynapac#add('cespare/vim-toml', { 'ft': 'toml' }) " TOML Syntax

@@ -61,16 +61,6 @@ local on_attach = function(client, _)
 		vim.cmd([[
 			packadd LuaSnip
 		]])
-		map.imap(
-			"<expr><buffer>",
-			"<C-l>",
-			"vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<Plug>(dotfiles-lexima)'"
-		)
-		map.smap(
-			"<expr><buffer>",
-			"<C-l>",
-			"vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<Plug>(dotfiles-lexima)'"
-		)
 	end
 	-- Formatting:
 	if client.name == "null-ls" then
