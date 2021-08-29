@@ -155,6 +155,7 @@ endfunction
 " Dynapac configuration:
 let s:dynapac_opts = { 'dir': s:packpath() }
 exe 'set packpath+=' . s:dynapac_opts.dir
+
 command! PackUpdate call dynapac#update()
 command! PackClean  call dynapac#clean()
 command! PackStatus call dynapac#status()
@@ -177,6 +178,7 @@ autocmd! dotfiles-settings User qf_helper.nvim call s:qf_helper()
 call dynapac#add('sickill/vim-pasta') " fix block paste for Neovim
 call dynapac#add('tpope/vim-commentary') " gc<motion> to (un)comment
 call dynapac#add('tpope/vim-repeat')
+call dynapac#add('justinmk/vim-dirvish') " File browser
 " call dynapac#add('ironhouzi/starlite-nvim') " * and # that highlights without first jumping
 " function! s:starlite_nvim() abort
 " 	nnoremap <silent> * :lua require'starlite'.star()<cr>
@@ -255,7 +257,6 @@ function! s:gina() abort
 	call gina#custom#mapping#nmap('status', 'cc', ':<C-u>Gina commit<CR>', {'noremap': 1, 'silent': 1})
 endfunction
 autocmd! dotfiles-settings User gina.vim call s:gina()
-call dynapac#add('oncomouse/vim-grep', { 'cmd': ['Grep', 'LGrep'] })
 
 " Treesitter: {{{
 let g:ts_types = luaeval('require("dotfiles.utils.ts_filetypes").ts_types')
