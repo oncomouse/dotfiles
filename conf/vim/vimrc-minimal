@@ -105,9 +105,10 @@ autocmd minimal-vimrc ColorScheme default hi StatusLineNC ctermbg=8 ctermfg=240 
 if has('nvim')
 	autocmd minimal-vimrc TermOpen * setlocal nonumber norelativenumber
 endif
+
 " Start QuickFix:
 autocmd minimal-vimrc QuickFixCmdPost [^l]* call ListToggle('Quickfix List', 'c')
-autocmd minimal-vimrc QuickFixCmdPost l*		call ListToggle('Location List', 'l')
+autocmd minimal-vimrc QuickFixCmdPost l*    call ListToggle('Location List', 'l')
 " ==============================================================================
 " Basic Maps:
 " ==============================================================================
