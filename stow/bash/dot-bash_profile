@@ -2,7 +2,6 @@
 # ~/.bash_profile
 #
 
-export DOTFILES_TARGET="$(/bin/cat ~/.local/share/dotfiles/target)"
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 #vim:ft=sh

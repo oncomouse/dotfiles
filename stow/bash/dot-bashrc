@@ -1,6 +1,8 @@
 #
 # ~/.bashrc
 #
+DOTFILES_TARGET="$(/bin/cat ~/.local/share/dotfiles/target)"
+export DOTFILES_TARGET
 
 EDITOR="$(which nvim)"
 export EDITOR
