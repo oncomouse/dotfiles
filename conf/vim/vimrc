@@ -133,7 +133,7 @@ autocmd dotfiles-settings BufReadPost *
 \ endif 
 
 " Fix window resizing
-autocmd dotfiles-settings VimEnter * silent exec "!kill -s SIGWINCH $PPID"
+" autocmd dotfiles-settings VimEnter * silent exec "!kill -s SIGWINCH $PPID"
 
 " Update FASD For NeoVim: {{{
 function! s:fasd_update() abort
@@ -161,6 +161,7 @@ command! PackClean  call dynapac#clean()
 command! PackStatus call dynapac#status()
 call dynapac#init(s:dynapac_opts)
 
+" call dynapac#add('dstein64/vim-startuptime', { 'cmd': 'StartupTime' })
 call dynapac#add('tpope/vim-sensible')
 call dynapac#add('xero/securemodelines')
 call dynapac#add('stevearc/qf_helper.nvim')
