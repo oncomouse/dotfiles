@@ -1,5 +1,9 @@
 source ~/dotfiles/conf/xorg/xinitrc-common
 
+pkill -f liskin-media
+liskin-media mpris-daemon &
+
+start-lemonbar.sh &
 sxhkd &
 exec berry
 # vim:ft=bash

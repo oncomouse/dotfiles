@@ -1,0 +1,146 @@
+#!/usr/bin/env bash
+# Original source: https://github.com/liskin/dotfiles/blob/home/bin/liskin-media
+# Modified to add
+#  - MPRIS currently playing
+#  - Filter only preferred players
+
+set -eu
+shopt -s lastpipe
+
+export LANG=C
+
+# Stop from controlling things like Firefox
+players=(ncspot
+	mpd
+	mopidy
+	mpv)
+
+function volume-bluetooth {
+	local method
+	[[ $1 == up ]] && method=VolumeUp || method=VolumeDown
+	dbus-send \
+		--print-reply --type=method_call \
+		--system --dest=org.bluez \
+		/org/bluez/hci0/dev_"$2" org.bluez.MediaControl1."$method" >/dev/null
+}
+
+function volume-pulseaudio {
+	local switch
+	if [[ $(pamixer --get-volume-human) == muted ]]; then
+		pamixer -t
+	fi
+	[[ $1 == up ]] && switch="-i" || switch="-d"
+	pamixer $switch 5
+}
+
+# Volume up/down via:
+#  - bluetooth AVRCP (if avilable and default sink)
+#  - pulseaudio (otherwise)
+#
+# Motivation: lowering volume in software degrades quality as the upper
+# bits are unused.
+function action-volume {
+	if [[ ${1-} != @(up|down) ]]; then
+		echo 'up|down expected'
+		exit 1
+	fi
+
+	if [[ $(pactl info) =~ "Default Sink: bluez_sink."([0-9A-F_]*)".a2dp_sink" ]]; then
+		bt_addr="${BASH_REMATCH[1]}"
+		volume-bluetooth "$1" "$bt_addr" && exit 0
+	fi
+
+	volume-pulseaudio "$1"
+	kill -37 "$(pidof dwmblocks)"
+}
+
+function action-mute     { pactl set-sink-mute   @DEFAULT_SINK@   toggle; kill -37 "$(pidof dwmblocks)"; }
+function action-mic-mute { pactl set-source-mute @DEFAULT_SOURCE@ toggle; }
+
+STATUS="/tmp/dwmblocks.mpris"
+function action-mpris-daemon {
+	[[ -e "$STATUS" ]] && rm "$STATUS"
+	playerctl --all-players --follow --format "{{playerName}}::{{status}}::{{artist}} - {{title}}" metadata 2> /dev/null \
+	| while read -r line; do
+		block=1
+		while read -r input; do
+			if [ $block -eq 1 ]; then
+				player=$input
+			elif [ $block -eq 2 ]; then
+				status=$input
+			else
+				info=$input
+			fi
+			((++block))
+		done <<< "$(echo "$line" | awk '{ gsub(/::/, "\n" ); print;}')"
+		for p in "${players[@]}"; do
+			if [ "$p" = "$player" ]; then
+				if [[ $status == @(Paused|Playing) ]]; then
+					printf "%s\n" "$player" >"${XDG_RUNTIME_DIR}/liskin-media-last"
+				fi
+				if [ "$status" = "Playing" ]; then
+					status="契 "
+				elif [ "$status" = "Paused" ]; then
+					status=" "
+				elif [ "$status" = "Stopped" ]; then
+					status="栗"
+				fi
+				echo "$status$info" > "$STATUS" && kill -44 "$(pidof dwmblocks)"
+			fi
+		done
+	done
+}
+
+function get-mpris-playing {
+	playerctl --all-players --format '{{playerName}} {{status}}' status \
+	| while read -r player status; do
+		if [[ $status == Playing ]]; then
+			printf "%s\n" "$player"
+			return
+		fi
+	done
+
+	return 1
+}
+
+function get-mpris-one-playing-or-paused {
+	local -a players=()
+
+	playerctl --all-players --format '{{playerName}} {{status}}' status \
+	| while read -r player status; do
+		if [[ $status == @(Paused|Playing) ]]; then
+			players+=("$player")
+		fi
+	done
+
+	if (( "$(( ${players[@]+${#players[@]}} ))" == 1 )); then
+		echo "${players[0]}"
+	else
+		return 1
+	fi
+}
+
+function get-mpris-last {
+	if [[ -f "${XDG_RUNTIME_DIR}/liskin-media-last" ]]; then
+		echo "$(< "${XDG_RUNTIME_DIR}/liskin-media-last")"
+	else
+		return 1
+	fi
+}
+
+function get-mpris-smart {
+	get-mpris-playing || get-mpris-one-playing-or-paused || get-mpris-last
+}
+
+function action-play { p=$(get-mpris-smart); playerctl -p "$p" play-pause; }
+function action-stop { playerctl -a stop; }
+function action-next { p=$(get-mpris-smart); playerctl -p "$p" next; }
+function action-prev { p=$(get-mpris-smart); playerctl -p "$p" previous; }
+function action-status { if [ -e "$STATUS" ]; then cat "$STATUS"; else echo "栗"; fi }
+
+if [[ $(type -t "action-${1-}") == function ]]; then
+	"action-$1" "${@:2}"
+else
+	echo "unexpected action: ${1-}"
+fi
+# vim:ft=bash
