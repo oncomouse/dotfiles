@@ -38,7 +38,14 @@ merge_conflict() {
 					;;
 				"Accept Patch")
 					tmpfile=$(mktemp)
-					sed -e '/^<<<<<<</,/^=======/d' -e '/^>>>>>>>/d' "$file" > "$tmpfile"; mv "$tmpfile" "$file"
+					sed -e '/^<<<<<<</,/^=======/d' -e '/^>>>>>>>/d' "$file" > "$tmpfile"
+					mv "$tmpfile" "$file"
+					break
+					;;
+				"Accept Master")
+					tmpfile=$(mktemp)
+					sed -e '/^=======/,/^>>>>>>>/d' -e '/^<<<<<<</d' "$file" > "$tmpfile"
+					mv "$tmpfile" "$file"
 					break
 					;;
 				"Edit ${file}")
