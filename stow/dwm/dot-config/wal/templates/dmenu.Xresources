@@ -1,0 +1,5 @@
+dmenu.foreground: {color7}
+dmenu.background: {color0}
+dmenu.selforeground: {color0}
+dmenu.selbackground: {color6}
+! vim:ft=xdefaults

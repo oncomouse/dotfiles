@@ -1,0 +1,48 @@
+@import "~/.cache/wal/dmenu"
+
+* {
+  background-color: @background;
+  border-color: @border;
+  text-color: @foreground;
+}
+
+window {
+  anchor: north;
+  location: north;
+  width: 100%;
+  /* padding: 4px; */
+  children: [ horibox ];
+}
+
+horibox {
+  orientation: horizontal;
+  children: [ prompt, entry, listview ];
+}
+
+listview {
+  layout: horizontal;
+  spacing: 5px;
+  padding: 1px;
+  lines: 100;
+}
+
+entry {
+  expand: false;
+  width: 5em;
+  padding: 0.25em 1px 1px 1px;
+}
+
+prompt {
+  padding: 1px 0.25em 1px 1px;
+  background-color: @active-background;
+  color: @active-foreground;
+}
+
+element {
+    padding: 0px 2px;
+}
+
+element selected {
+    background-color: @selected;
+}
+
