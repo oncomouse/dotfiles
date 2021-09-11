@@ -85,12 +85,12 @@ static const char *termcmd[]     = { "kitty", NULL };
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 /* static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", tagsselbgcolor, "-sf", tagsselfgcolor, NULL }; */
 static const char *dmenucmd[] = {
-	"rofi", "-theme", "~/Projects/dwm-config/conf/rofi/barmenu-dwm.rasi",
+	"rofi", "-theme", "~/.config/rofi/barmenu-dwm.rasi",
 	"-match", "fuzzy", "-auto-select", "-font", rofifont,
 	"-show", "drun", "-show-icons", "-drun-display-format", "{name}", NULL
 };
 static const char *rofiwincmd[] = {
-	"rofi", "-theme", "~/Projects/dwm-config/conf/rofi/barmenu-dwm.rasi",
+	"rofi", "-theme", "~/.config/rofi/barmenu-dwm.rasi",
 	"-match", "fuzzy", "-auto-select", "-font", rofifont,
 	"-show", "window", "-show-icons", "-window-format", "{w} {c} {t:25}", NULL
 };
