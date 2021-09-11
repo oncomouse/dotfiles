@@ -28,12 +28,17 @@ merge_conflict() {
 
 		echo "Fixing $file."
 		PS3='Please enter your choice: '
-		select opt in "Accept Both" "Edit ${file}"; do
+		select opt in "Accept Both" "Accept Patch" "Edit ${file}"; do
 			case $opt in
 				"Accept Both")
 					tmpfile=$(mktemp)
 					grep -v -e'^<<<<<<<' -e '^>>>>>>>' -e'=======' "$file" > "$tmpfile"
 					mv "$tmpfile" "$file"
+					break
+					;;
+				"Accept Patch")
+					tmpfile=$(mktemp)
+					sed -e '/^<<<<<<</,/^=======/d' -e '/^>>>>>>>/d' "$file" > "$tmpfile"; mv "$tmpfile" "$file"
 					break
 					;;
 				"Edit ${file}")
