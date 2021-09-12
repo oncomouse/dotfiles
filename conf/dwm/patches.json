@@ -1,4 +1,5 @@
 [
+	"https://dwm.suckless.org/patches/moveresize/dwm-moveresize-20201206-cce77d8.diff",
 	"https://dwm.suckless.org/patches/hide_vacant_tags/dwm-hide_vacant_tags-6.2.diff",
 	"https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-color_emoji-20210821-138b405.diff",
 	"https://raw.githubusercontent.com/oncomouse/dwm-patches/master/dwm-xrdb_colorbar-20210117-61bb8b2.diff",
