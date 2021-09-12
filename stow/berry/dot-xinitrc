@@ -1,8 +1,0 @@
-source ~/dotfiles/conf/xorg/xinitrc-common
-
-pkill -f liskin-media && liskin-media mpris-daemon &
-
-pkill -f yabar && yabar &
-sxhkd &
-exec berry
-# vim:ft=bash
