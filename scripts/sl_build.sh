@@ -28,7 +28,7 @@ merge_conflict() {
 
 		echo "Fixing $file."
 		PS3='Please enter your choice: '
-		select opt in "Accept Both" "Accept Patch" "Edit ${file}"; do
+		select opt in "Accept Both" "Accept Patch" "Accept Head" "Edit ${file}"; do
 			case $opt in
 				"Accept Both")
 					tmpfile=$(mktemp)
@@ -42,7 +42,7 @@ merge_conflict() {
 					mv "$tmpfile" "$file"
 					break
 					;;
-				"Accept Master")
+				"Accept Head")
 					tmpfile=$(mktemp)
 					sed -e '/^=======/,/^>>>>>>>/d' -e '/^<<<<<<</d' "$file" > "$tmpfile"
 					mv "$tmpfile" "$file"
