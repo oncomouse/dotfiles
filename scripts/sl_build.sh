@@ -107,15 +107,15 @@ make clean
 git checkout -b build
 # aslstatus doesn't use the config.def.h convention, so delete the default:
 if [ "$project" = "aslstatus" ]; then
-	rm "$HOME/Projects/dwm-config/conf/$project/$conf_file"
+	rm "$HOME/dotfiles/conf/$project/$conf_file"
 fi
 # Link the configuration file from our repository:
-ln -sf "$HOME/Projects/dwm-config/conf/$project/$conf_file" "$HOME/.local/share/dwm-config/$project"
+ln -sf "$HOME/dotfiles/conf/$project/$conf_file" "$HOME/.local/share/dwm-config/$project"
 
 # Check if there is a target file:
 TARGET="${DOTFILES_TARGET:-laptop}"
-if [ -e "$HOME/Projects/dwm-config/conf/$project/targets/$TARGET/target.h" ]; then
-	ln -sf "$HOME/Projects/dwm-config/conf/$project/targets/$TARGET/target.h" "$HOME/.local/share/dwm-config/$project"
+if [ -e "$HOME/dotfiles/conf/$project/targets/$TARGET/target.h" ]; then
+	ln -sf "$HOME/dotfiles/conf/$project/targets/$TARGET/target.h" "$HOME/.local/share/dwm-config/$project"
 fi
 
 # Apply any patches:
