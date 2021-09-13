@@ -1,25 +1,40 @@
 #!/bin/bash
 
-# Get information:
+# Where are all the configuration and target files stored:
+ROOT_CONFIGURATION_PATH="$HOME/dotfiles/conf"
+# Directory structure will be:
+# - Main configuration file at:
+#   - /$ROOT_CONFIGURATION_PATH/$project/config.h (or blocks.h for dwmblocks)
+# - Optional target files for different configurations per machine:
+#   - /$ROOT_CONFIGURATION_PATH/$project/targets/$TARGET/target.h ($TARGET should be set in shell by user)
+
+# We default to ~/.local/share/dwm-config for building the projects, but set
+# to whatever you would like here:
+BUILD_LOCATION=${XDG_DATA_HOME:-$HOME/.local/share}/dwm-config
+
+# Determine which Suckless project is being used:
 project=${1:-dwm}
+
+# Get the name of the configuration file, if it is different:
 conf_file="config.h"
 if [ "$project" = "dwmblocks" ]; then
 	conf_file="blocks.h"
 fi
 
-# Read in a list of patches:
+# Read in a list of patches to apply:
 if [ -e "conf/$project/patches.json" ]; then
 	mapfile -t patches < <(jq -r .[] "conf/$project/patches.json")
 else
 	patches=()
 fi
 
+# Determine branch name from patch file name:
 branch_name() {
 	echo "$1" | awk -F"/" '{print $NF}' | sed -e "s/\.diff//" | cut -d "-" -f2
 }
 
-# So far, all the merge coflicts this build generates are situations where we
-# want to keep everything, so we do this to "fix" merge conflicts
+# Resolve merge conflicts. Either, accept both the patch and head, accept the
+# patch, accept head, or open an editor to combine patch and head.
 merge_conflict() {
 	echo "Merge Conflict in $1."
 	echo ""
@@ -66,7 +81,7 @@ merge_conflict() {
 # patching everything again. Use this for updating config files, etc.
 rebuild() {
 	owd="$(pwd)"
-	cd "$HOME/.local/share/dwm-config/$project" || exit
+	cd "$BUILD_LOCATION/$project" || exit
 	git checkout build
 	make
 	sudo make install
@@ -79,8 +94,8 @@ if [ "$2" = "rebuild" ]; then
 fi
 
 # Clone the project repository if it doesn't exist:
-if [[ ! -d "$HOME/.local/share/dwm-config/$project" ]]; then
-	mkdir -p "$HOME/.local/share/dwm-config"
+if [[ ! -d "$BUILD_LOCATION/$project" ]]; then
+	mkdir -p "$BUILD_LOCATION"
 	project_repo="git://git.suckless.org/$project"
 
 	# Non-suckless projects that have different Git URLs:
@@ -90,10 +105,10 @@ if [[ ! -d "$HOME/.local/share/dwm-config/$project" ]]; then
 		project_repo=https://notabug.org/dm9pZCAq/aslstatus
 	fi
 
-	git clone "$HOME/.local/share/dwm-config/$project"
+	git clone "$BUILD_LOCATION/$project"
 fi
 
-cd "$HOME/.local/share/dwm-config/$project" || exit
+cd "$BUILD_LOCATION/$project" || exit
 # Reset project to default state, so we can pull changes into the repo:
 git checkout master --force
 # Clean previous build stuff:
@@ -107,15 +122,15 @@ make clean
 git checkout -b build
 # aslstatus doesn't use the config.def.h convention, so delete the default:
 if [ "$project" = "aslstatus" ]; then
-	rm "$HOME/dotfiles/conf/$project/$conf_file"
+	rm "/$project/$conf_file"
 fi
 # Link the configuration file from our repository:
-ln -sf "$HOME/dotfiles/conf/$project/$conf_file" "$HOME/.local/share/dwm-config/$project"
+ln -sf "$ROOT_CONFIGURATION_PATH/$project/$conf_file" "$BUILD_LOCATION/$project"
 
 # Check if there is a target file:
 TARGET="${DOTFILES_TARGET:-laptop}"
-if [ -e "$HOME/dotfiles/conf/$project/targets/$TARGET/target.h" ]; then
-	ln -sf "$HOME/dotfiles/conf/$project/targets/$TARGET/target.h" "$HOME/.local/share/dwm-config/$project"
+if [ -e "$ROOT_CONFIGURATION_PATH/$project/targets/$TARGET/target.h" ]; then
+	ln -sf "$ROOT_CONFIGURATION_PATH/$project/targets/$TARGET/target.h" "$BUILD_LOCATION/$project"
 fi
 
 # Apply any patches:
