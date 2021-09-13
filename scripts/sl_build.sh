@@ -4,9 +4,11 @@
 ROOT_CONFIGURATION_PATH="$HOME/dotfiles/conf"
 # Directory structure will be:
 # - Main configuration file at:
-#   - /$ROOT_CONFIGURATION_PATH/$project/config.h (or blocks.h for dwmblocks)
+#   - $ROOT_CONFIGURATION_PATH/$project/config.h (or blocks.h for dwmblocks)
+# - Optional list of patches as a JSON array (requires jq):
+#   - $ROOT_CONFIGURATION_PATH/$project/patches.json
 # - Optional target files for different configurations per machine:
-#   - /$ROOT_CONFIGURATION_PATH/$project/targets/$TARGET/target.h ($TARGET should be set in shell by user)
+#   - $ROOT_CONFIGURATION_PATH/$project/targets/$TARGET/target.h ($TARGET should be set in shell by user)
 
 # We default to ~/.local/share/dwm-config for building the projects, but set
 # to whatever you would like here:
