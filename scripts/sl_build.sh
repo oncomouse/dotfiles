@@ -105,7 +105,7 @@ if [[ ! -d "$BUILD_LOCATION/$project" ]]; then
 		project_repo=https://notabug.org/dm9pZCAq/aslstatus
 	fi
 
-	git clone "$BUILD_LOCATION/$project"
+	git clone "$project_repo" "$BUILD_LOCATION/$project"
 fi
 
 cd "$BUILD_LOCATION/$project" || exit
