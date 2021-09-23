@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+source ~/dotfiles/conf/sx/sxrc-common
+source ~/.cache/wal/colors.sh
+xrdb -merge ~/.cache/wal/dwm.Xresources
+xrdb -merge ~/.cache/wal/dmenu.Xresources
+
+convert ~/.cache/wal/background.svg ~/.cache/wal/background.png
+hsetroot -tile ~/.cache/wal/background.png
+
+pkill -f liskin-media
+liskin-media mpris-daemon &
+
+pkill dwmblocks
+dwmblocks&
+mkdir -p ~/.cache/dwm
+exec dwm 2> ~/.cache/dwm/stderr
+
+# vim:ft=sh

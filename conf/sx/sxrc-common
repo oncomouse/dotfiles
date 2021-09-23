@@ -1,0 +1,34 @@
+## System Configuration
+
+# Needed to start Dunst:
+systemctl --user import-environment DISPLAY
+# Load XDG Autostart for WMs without it:
+dex -a
+
+## Appareance:
+
+# Load Xresources:
+xrdb ~/.Xresources
+# Set background:
+# hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
+
+## Key Bindings
+
+# Set compose key (for unicode) to menu:
+setxkbmap -option compose:menu
+# Always turn on numlock:
+setxkbmap -option numpad:mac us
+# Convert capslock to escape:
+setxkbmap -option caps:escape
+
+# reassign Alt_R to Super_L
+xmodmap -e "keycode 108 = Super_L"
+# make sure X keeps it out of the mod1 group
+xmodmap -e "remove mod1 = Super_L"
+
+## Security
+
+# Unlock keyring
+# eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
+# export SSH_AUTH_SOCK
+# vim:ft=bash

@@ -87,3 +87,4 @@ python-adblock
 words
 mpv
 youtube-dl
+sx
