@@ -5,6 +5,11 @@ systemctl --user import-environment DISPLAY
 # Load XDG Autostart for WMs without it:
 dex -a
 
+# Don't start picom on the laptop:
+if [ "$DOTFILES_TARGET" != "laptop" ]; then
+	/usr/bin/picom --experimental-backends -b
+fi
+
 ## Appareance:
 
 # Load Xresources:
