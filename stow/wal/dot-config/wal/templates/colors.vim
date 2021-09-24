@@ -95,6 +95,19 @@ hi LspDiagnosticsDefaultHint ctermfg=6 guifg={color6} cterm=NONE gui=NONE
 hi link LspDiagnosticsSignHint LspDiagnosticsDefaultHint
 hi LspDiagnosticsUnderlineHint ctermfg=6 guifg={color6} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color6}
 
+hi DiagnosticsDefaultError ctermfg=5 guifg={color5} cterm=NONE gui=NONE
+hi link DiagnosticsSignError DiagnosticsDefaultError
+hi DiagnosticsUnderlineError ctermfg=5 guifg={color5} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color5}
+hi DiagnosticsDefaultWarn ctermfg=3 guifg={color3} cterm=NONE gui=NONE
+hi link DiagnosticsSignWarn DiagnosticsDefaultWarn
+hi DiagnosticsUnderlineWarn ctermfg=3 guifg={color3} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color3}
+hi DiagnosticsDefaultInfo ctermfg=4 guifg={color4} cterm=NONE gui=NONE
+hi link DiagnosticsSignInfo DiagnosticsDefaultInfo
+hi DiagnosticsUnderlineInfo ctermfg=4 guifg={color4} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color4}
+hi DiagnosticsDefaultHint ctermfg=6 guifg={color6} cterm=NONE gui=NONE
+hi link DiagnosticsSignHint DiagnosticsDefaultHint
+hi DiagnosticsUnderlineHint ctermfg=6 guifg={color6} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color6}
+
 hi TSAnnotation ctermfg=4 guifg={color4} cterm=NONE gui=NONE
 hi TSAttribute ctermfg=4 guifg={color4} cterm=NONE gui=NONE
 hi TSBoolean ctermfg=4 guifg={color4} cterm=NONE gui=NONE
