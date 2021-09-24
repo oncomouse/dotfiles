@@ -1,5 +1,0 @@
-source ~/dotfiles/conf/xorg/xinitrc-common
-## WM
-# Start Awesome
-export DESKTOP_SESSION="awesome"
-exec awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
