@@ -1,7 +1,3 @@
-vim.cmd([[
-	packadd plenary.nvim
-	packadd null-ls.nvim
-]])
 require("null-ls").config({
 	sources = {
 		require("null-ls").builtins.formatting.prettier.with({
