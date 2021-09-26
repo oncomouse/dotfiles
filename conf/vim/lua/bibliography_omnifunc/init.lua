@@ -1,3 +1,4 @@
+-- luacheck: globals vim
 local parse_bibfiles = require("bibliography_omnifunc.bibtex").parse_bibfiles
 local parse_bibtex = require("bibliography_omnifunc.bibtex").parse_bibtex
 local function omnifunc(findstart, base)

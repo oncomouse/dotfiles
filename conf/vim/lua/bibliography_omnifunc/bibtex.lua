@@ -1,3 +1,4 @@
+-- luacheck: globals vim
 -- Portions of this function are based on code from: https://github.com/nvim-telescope/telescope-bibtex.nvim
 local function parse_bibtex(data)
 	local entries = {}
@@ -16,7 +17,7 @@ local function parse_bibtex(data)
 		label = vim.trim(label:gsub("\n", ""):sub(2, -2))
 		local content = vim.split(entry, "\n")
 		local entry_contents = {}
-		local author, title
+		local author, title, date
 		for _, line in pairs(content) do
 			author = line:match("%s*Author%s*=%s*{(.*)$")
 			if author then
