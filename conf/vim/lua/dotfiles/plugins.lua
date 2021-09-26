@@ -8,7 +8,21 @@ return require('packer').startup(function(use)
 	use 'tpope/vim-commentary' -- gc<motion> to (un)comment
 	use 'tpope/vim-repeat'
 	use 'justinmk/vim-dirvish' -- File browser
-	use 'oncomouse/vim-surround' -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
+	use { 'oncomouse/vim-surround', keys = {
+		{'n', 'ds'},
+		{'n', 'cs'},
+		{'n', 'cS'},
+		{'n', 'ys'},
+		{'n', 'yS'},
+		{'n', 'yss'},
+		{'n', 'ySs'},
+		{'n', 'ySS'},
+		{'x', 'S'},
+		{'x', 'gS'},
+		{'i', '<C-S>'},
+		{'i', '<C-G>s'},
+		{'i', '<C-G>S'},
+	} } -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 	vim.opt.path=",,"
 	vim.g.rooter_patterns = {
 		'Rakefile',
