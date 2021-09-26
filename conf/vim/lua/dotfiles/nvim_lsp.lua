@@ -16,6 +16,10 @@ local formatting_providers = {
 	"solargraph",
 }
 
+local handler_no_diagnostics = {
+	["textDocument/publishDiagnostics"] = function() end,
+}
+
 local function show_documentation()
 	if vim.tbl_contains({ "vim", "help" }, vim.opt.filetype:get()) then
 		vim.api.nvim_command("h " .. vim.fn.expand("<cword>"))
@@ -94,15 +98,13 @@ local on_attach = function(client, _)
 				vim.lsp.diagnostic.goto_prev()
 			end)
 		end
-	else
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
 	end
 	-- Formatting:
 	if vim.tbl_contains(formatting_providers, client.name) then
 		vim.cmd([[command! -buffer Format lua vim.lsp.buf.formatting()]])
 	else
 		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
 	end
 end
 
@@ -149,6 +151,9 @@ for lsp, settings in pairs(servers) do
 	}
 	if #vim.tbl_keys(settings) > 0 then
 		tbl = vim.tbl_extend("keep", tbl, settings)
+	end
+	if not vim.tbl_contains(diagnostics_providers, lsp) then
+		tbl.handlers = handler_no_diagnostics
 	end
 	lspconfig[lsp].setup(tbl)
 end
