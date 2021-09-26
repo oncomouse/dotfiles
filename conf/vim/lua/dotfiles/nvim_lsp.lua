@@ -4,16 +4,16 @@ local map = require("dotfiles.utils.map")
 
 -- LSPs that provide diagnostics:
 local diagnostics_providers = {
-	'null-ls',
-	'cssls',
-	'jsonls',
-	'solargraph',
+	"null-ls",
+	"cssls",
+	"jsonls",
+	"solargraph",
 }
 
 -- LSPs that provide formatting:
 local formatting_providers = {
-	'null-ls',
-	'solargraph',
+	"null-ls",
+	"solargraph",
 }
 
 local function show_documentation()
@@ -77,18 +77,26 @@ local on_attach = function(client, _)
 			vim.cmd([[
 				autocmd! dotfiles-settings User DiagnosticsChanged lua vim.diagnostic.setloclist({ open = false })
 			]])
-			map.nnoremap("<silent><buffer>", "]d", function() vim.diagnostic.goto_next() end)
-			map.nnoremap("<silent><buffer>", "[d", function() vim.diagnostic.goto_prev() end)
+			map.nnoremap("<silent><buffer>", "]d", function()
+				vim.diagnostic.goto_next()
+			end)
+			map.nnoremap("<silent><buffer>", "[d", function()
+				vim.diagnostic.goto_prev()
+			end)
 		else -- Neovim 0.5:
 			vim.cmd([[
 				autocmd! dotfiles-settings User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({ open = false })
 			]])
-			map.nnoremap("<silent><buffer>", "]d", function() vim.lsp.diagnostic.goto_next() end)
-			map.nnoremap("<silent><buffer>", "[d", function() vim.lsp.diagnostic.goto_prev() end)
+			map.nnoremap("<silent><buffer>", "]d", function()
+				vim.lsp.diagnostic.goto_next()
+			end)
+			map.nnoremap("<silent><buffer>", "[d", function()
+				vim.lsp.diagnostic.goto_prev()
+			end)
 		end
 	else
 		client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
 	end
 	-- Formatting:
 	if vim.tbl_contains(formatting_providers, client.name) then
@@ -133,7 +141,7 @@ local servers = {
 	bashls = {},
 	pyright = {},
 	tsserver = {},
-	['null-ls'] = {},
+	["null-ls"] = {},
 }
 for lsp, settings in pairs(servers) do
 	local tbl = {
@@ -144,6 +152,6 @@ for lsp, settings in pairs(servers) do
 	end
 	lspconfig[lsp].setup(tbl)
 end
-lspconfig['null-ls'].setup({
+lspconfig["null-ls"].setup({
 	on_attach = on_attach,
 })
