@@ -6,6 +6,7 @@ local diagnostics_providers = {
 	'null-ls',
 	'cssls',
 	'jsonls',
+	'solargraph',
 }
 
 local function show_documentation()
@@ -84,7 +85,7 @@ local on_attach = function(client, _)
 		end
 		end
 	-- Formatting:
-	if client.name == "null-ls" then
+	if vim.tbl_contains({ 'null-ls', 'solargraph' }, client.name) then
 		vim.cmd([[command! Format lua vim.lsp.buf.formatting()]])
 	else
 		client.resolved_capabilities.document_formatting = false

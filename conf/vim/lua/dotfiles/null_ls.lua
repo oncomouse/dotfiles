@@ -17,7 +17,6 @@ require("null-ls").config({
 		require("null-ls").builtins.formatting.black,
 		require("null-ls").builtins.formatting.fish_indent,
 		require("null-ls").builtins.formatting.shfmt,
-		require("null-ls").builtins.formatting.rufo,
 		require("null-ls").builtins.diagnostics.shellcheck,
 		require("null-ls").builtins.diagnostics.luacheck,
 		require("null-ls").builtins.diagnostics.eslint,
@@ -83,7 +82,6 @@ require("null-ls").config({
 				end,
 			},
 			factory = h.generator_factory,
-		})
-		-- rubocop
+		}),
 	},
 })
