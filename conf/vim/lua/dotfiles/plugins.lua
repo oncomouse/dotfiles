@@ -130,7 +130,6 @@ return require('packer').startup(function(use)
 		'javascript',
 		'json',
 		'lua',
-		'markdown',
 		'python',
 		'ruby',
 		'scss',
