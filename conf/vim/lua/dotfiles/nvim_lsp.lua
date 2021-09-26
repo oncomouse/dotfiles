@@ -2,6 +2,12 @@
 local lspconfig = require("lspconfig")
 local map = require("dotfiles.utils.map")
 
+local diagnostics_providers = {
+	'null-ls',
+	'cssls',
+	'jsonls',
+}
+
 local function show_documentation()
 	if vim.tbl_contains({ "vim", "help" }, vim.opt.filetype:get()) then
 		vim.api.nvim_command("h " .. vim.fn.expand("<cword>"))
@@ -62,6 +68,27 @@ local on_attach = function(client, _)
 			packadd LuaSnip
 		]])
 	end
+	if vim.tbl_contains(diagnostics_providers, client.name) then
+		if vim.diagnostic ~= nil then -- Neovim 0.6:
+			vim.cmd([[
+				autocmd dotfiles-settings CursorHold * lua vim.diagnostic.show_line_diagnostics({focusable = false})
+			]])
+			vim.cmd([[
+				autocmd! dotfiles-settings User DiagnosticsChanged lua vim.diagnostic.setloclist({open = false })
+			]])
+			map.nnoremap("]d", function() vim.diagnostic.goto_next() end)
+			map.nnoremap("[d", function() vim.diagnostic.goto_prev() end)
+		else -- Neovim 0.5:
+			vim.cmd([[
+				autocmd dotfiles-settings CursorHold * lua vim.lsp.util.show_line_diagnostics({focusable = false})
+			]])
+			vim.cmd([[
+				autocmd! dotfiles-settings User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist()
+			]])
+			map.nnoremap("]d", function() vim.lsp.diagnostic.goto_next() end)
+			map.nnoremap("[d", function() vim.lsp.diagnostic.goto_prev() end)
+		end
+		end
 	-- Formatting:
 	if client.name == "null-ls" then
 		vim.cmd([[command! Format lua vim.lsp.buf.formatting()]])
@@ -106,11 +133,6 @@ local servers = {
 	pyright = {},
 	tsserver = {},
 	['null-ls'] = {},
-}
-local diagnostics_providers = {
-	'null-ls',
-	'cssls',
-	'jsonls',
 }
 for lsp, settings in pairs(servers) do
 	local tbl = {
