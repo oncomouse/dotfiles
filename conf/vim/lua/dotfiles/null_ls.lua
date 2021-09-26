@@ -84,6 +84,6 @@ require("null-ls").config({
 			},
 			factory = h.generator_factory,
 		})
-		-- rubocop, yamllint
+		-- rubocop
 	},
 })
