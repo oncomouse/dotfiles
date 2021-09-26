@@ -5,7 +5,14 @@ return require('packer').startup(function(use)
 	use 'tpope/vim-sensible'
 	use 'xero/securemodelines'
 	use 'sickill/vim-pasta' -- fix block paste for Neovim
-	use 'tpope/vim-commentary' -- gc<motion> to (un)comment
+	use { 'tpope/vim-commentary', keys ={
+		{ 'x', 'gc' },
+		{ 'n', 'gc' },
+		{ 'o', 'gc' },
+		{ 'n', 'gcc' },
+		{ 'n', 'cgc' },
+		{ 'n', 'gcu' },
+	} } -- gc<motion> to (un)comment
 	use 'tpope/vim-repeat'
 	use 'justinmk/vim-dirvish' -- File browser
 	use { 'oncomouse/vim-surround', keys = {
