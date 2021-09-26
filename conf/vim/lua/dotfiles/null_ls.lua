@@ -29,7 +29,9 @@ require("null-ls").config({
 				command = "yamllint",
 				to_stdin = true,
 				args = {
-					"-f", "parsable", "-"
+					"-f",
+					"parsable",
+					"-",
 				},
 				format = "line",
 				check_exit_code = function(code)
@@ -55,7 +57,9 @@ require("null-ls").config({
 				command = "htmlhint",
 				to_stdin = true,
 				args = {
-					"-f", "json", "stdin"
+					"-f",
+					"json",
+					"stdin",
 				},
 				format = "json",
 				check_exit_code = function(code)
@@ -69,7 +73,7 @@ require("null-ls").config({
 						["hint"] = 4,
 					}
 					local diagnostics = {}
-					for _,diagnostic in ipairs(params.output[1].messages) do
+					for _, diagnostic in ipairs(params.output[1].messages) do
 						table.insert(diagnostics, {
 							row = diagnostic.line,
 							col = diagnostic.col,
