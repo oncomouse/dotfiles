@@ -71,22 +71,16 @@ local on_attach = function(client, _)
 	if vim.tbl_contains(diagnostics_providers, client.name) then
 		if vim.diagnostic ~= nil then -- Neovim 0.6:
 			vim.cmd([[
-				autocmd dotfiles-settings CursorHold * lua vim.diagnostic.show_line_diagnostics({focusable = false})
+				autocmd! dotfiles-settings User DiagnosticsChanged lua vim.diagnostic.setloclist({ open = false })
 			]])
-			vim.cmd([[
-				autocmd! dotfiles-settings User DiagnosticsChanged lua vim.diagnostic.setloclist({open = false })
-			]])
-			map.nnoremap("]d", function() vim.diagnostic.goto_next() end)
-			map.nnoremap("[d", function() vim.diagnostic.goto_prev() end)
+			map.nnoremap("<silent><buffer>", "]d", function() vim.diagnostic.goto_next() end)
+			map.nnoremap("<silent><buffer>", "[d", function() vim.diagnostic.goto_prev() end)
 		else -- Neovim 0.5:
 			vim.cmd([[
-				autocmd dotfiles-settings CursorHold * lua vim.lsp.util.show_line_diagnostics({focusable = false})
+				autocmd! dotfiles-settings User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({ open = false })
 			]])
-			vim.cmd([[
-				autocmd! dotfiles-settings User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist()
-			]])
-			map.nnoremap("]d", function() vim.lsp.diagnostic.goto_next() end)
-			map.nnoremap("[d", function() vim.lsp.diagnostic.goto_prev() end)
+			map.nnoremap("<silent><buffer>", "]d", function() vim.lsp.diagnostic.goto_next() end)
+			map.nnoremap("<silent><buffer>", "[d", function() vim.lsp.diagnostic.goto_prev() end)
 		end
 		end
 	-- Formatting:
