@@ -1,3 +1,8 @@
+--luacheck: globals vim
+vim.cmd([[
+	packadd plenary.nvim
+	packadd null-ls.nvim
+]])
 local h = require("null-ls.helpers")
 local methods = require("null-ls.methods")
 

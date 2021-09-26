@@ -1,10 +1,4 @@
 --luacheck: globals vim
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-end
-
-vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
 	use { 'wbthomason/packer.nvim', opt = true }
 	-- use { 'dstein64/vim-startuptime', cmd = 'StartupTime' }
@@ -72,33 +66,33 @@ return require('packer').startup(function(use)
 	end }
 
 	-- Treesitter: {{{
-	local ts_types = require('dotfiles.utils.ts_filetypes').ts_types
-	use { 'nvim-treesitter/nvim-treesitter-textobjects',  ft = ts_types }
+	use { 'nvim-treesitter/nvim-treesitter-textobjects', opt = true }
 	use { 'windwp/nvim-ts-autotag', ft = { 'html', 'javascript', 'javascriptreact' } }
-	use { 'nvim-treesitter/nvim-treesitter', ft = ts_types, run = function()
-		vim.cmd [[
-			packadd nvim-treesitter
-			TSUpdate
-		]]
+	use { 'nvim-treesitter/nvim-treesitter', run = function()
+		vim.cmd [[ TSUpdate ]]
 	end, config = function()
+		vim.opt_local.foldexpr = 'nvim_treesitter#foldexpr()'
+		vim.opt_local.foldmethod = 'expr'
+		vim.cmd [[ packadd nvim-treesitter-textobjects ]]
 		require('nvim-treesitter.configs').setup({
 			ensure_installed = 'maintained',
 			highlight = { enable = true },
 			indent = { enable = true },
 			autotag = { enable = true },
-			textobjects = { select = {
-				enable = true,
-				lookahead = true,
-				keymaps = {
-					['af'] = '@function.outer',
-					['if'] = '@function.inner',
-					['ac'] = '@class.outer',
-					['ic'] = '@class.inner',
+			textobjects = {
+				select = {
+					enable = true,
+					lookahead = true,
+					keymaps = {
+						['af'] = '@function.outer',
+						['if'] = '@function.inner',
+						['ac'] = '@class.outer',
+						['ic'] = '@class.inner',
+					}
 				}
-			} }
+			}
 		})
 	end}
-	require('dotfiles.utils.ts_filetypes').ts_type_autocmds()
 	-- }}}
 
 	-- Non-Treesitter Syntax: {{{
@@ -129,9 +123,9 @@ return require('packer').startup(function(use)
 	use {
 		'neovim/nvim-lspconfig',
 		requires ={
-			'L3MON4D3/LuaSnip',
-			'nvim-lua/plenary.nvim',
-			'jose-elias-alvarez/null-ls.nvim'
+			{ 'L3MON4D3/LuaSnip', opt = true },
+			{ 'nvim-lua/plenary.nvim', opt = true },
+			{ 'jose-elias-alvarez/null-ls.nvim', opt = true }
 		},
 		ft = lsp_types,
 		config = function()

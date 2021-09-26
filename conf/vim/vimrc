@@ -145,6 +145,21 @@ inoremap <silent> <Plug>(dotfiles-lexima) <C-r>=lexima#insmode#leave_till_eol(""
 imap <silent> <C-l> <Plug>(dotfiles-lexima)
 " }}}
 " Plugins {{{
-lua require('dotfiles.plugins')
+" Lazy-load packer commands:
+command! PackerInstall packadd packer.nvim | lua require('dotfiles.plugins').install()
+command! PackerUpdate packadd packer.nvim | lua require('dotfiles.plugins').update()
+command! PackerSync packadd packer.nvim | lua require('dotfiles.plugins').sync()
+command! PackerClean packadd packer.nvim | lua require('dotfiles.plugins').clean()
+command! PackerCompile packadd packer.nvim | lua require('dotfiles.plugins').compile()
+
+" Refresh packer lazy-loading when plugins.lua changes:
+autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | PackerCompile
+
+" Install packer.nvim, if it isn't present:
+let g:install_path = stdpath('data') . '/site/pack/packer/opt/packer.nvim'
+if empty(glob(install_path))
+	call system(['git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', g:install_path])
+	PackerSync
+endif
 " }}}
 " # vim:foldmethod=marker
