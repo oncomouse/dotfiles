@@ -4,19 +4,6 @@ return require('packer').startup(function(use)
 	-- use { 'dstein64/vim-startuptime', cmd = 'StartupTime' }
 	use 'tpope/vim-sensible'
 	use 'xero/securemodelines'
-	use {
-		'stevearc/qf_helper.nvim',
-		config = function()
-			require("qf_helper").setup({
-				quickfix = {
-					default_bindings = false,
-				},
-				loclist = {
-					default_bindings = false,
-				}
-			})
-		end
-	}
 	use 'sickill/vim-pasta' -- fix block paste for Neovim
 	use 'tpope/vim-commentary' -- gc<motion> to (un)comment
 	use 'tpope/vim-repeat'
