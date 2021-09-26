@@ -1,3 +1,4 @@
+-- luacheck: globals vim
 local ts_types = {
 	"bash",
 	"beancount",
@@ -62,9 +63,9 @@ local ts_types = {
 }
 
 -- For reasons I don't understand, if this is in the packer config, it breaks FastFold
-function ts_type_autocmds()
+local function ts_type_autocmds()
 	vim.cmd[[
-	set foldexpr=nvim_treesitter#foldexpr()
+		set foldexpr=nvim_treesitter#foldexpr()
 	]]
 	for _,v in pairs(ts_types) do
 		vim.cmd("autocmd FileType " .. v .. " setlocal foldmethod=expr")
