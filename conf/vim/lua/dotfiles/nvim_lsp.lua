@@ -105,15 +105,25 @@ local servers = {
 	bashls = {},
 	pyright = {},
 	tsserver = {},
-	["null-ls"] = {},
+	['null-ls'] = {},
+}
+local diagnostics_providers = {
+	'null-ls',
+	'cssls',
+	'jsonls',
 }
 for lsp, settings in pairs(servers) do
 	local tbl = {
 		on_attach = on_attach,
-		handlers = handler_no_diagnostics,
 	}
 	if #vim.tbl_keys(settings) > 0 then
 		tbl = vim.tbl_extend("keep", tbl, settings)
 	end
+	if not vim.tbl_contains(diagnostics_providers, lsp) then
+		tbl.handlers = handler_no_diagnostics
+	end
 	lspconfig[lsp].setup(tbl)
 end
+lspconfig['null-ls'].setup({
+	on_attach = on_attach,
+})
