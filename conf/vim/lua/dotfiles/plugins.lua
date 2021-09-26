@@ -121,6 +121,7 @@ return require('packer').startup(function(use)
 		'godlygeek/tabular',
 		cmd = { 'Tabularize' }
 	}
+
 	-- LSP:
 	local lsp_types = {
 		'fish',
