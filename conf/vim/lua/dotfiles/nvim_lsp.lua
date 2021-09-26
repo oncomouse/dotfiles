@@ -2,10 +2,17 @@
 local lspconfig = require("lspconfig")
 local map = require("dotfiles.utils.map")
 
+-- LSPs that provide diagnostics:
 local diagnostics_providers = {
 	'null-ls',
 	'cssls',
 	'jsonls',
+	'solargraph',
+}
+
+-- LSPs that provide formatting:
+local formatting_providers = {
+	'null-ls',
 	'solargraph',
 }
 
@@ -21,10 +28,6 @@ require("dotfiles.null_ls")
 
 local vscode_capabilities = vim.lsp.protocol.make_client_capabilities()
 vscode_capabilities.textDocument.completion.completionItem.snippetSupport = true
-local handler_no_diagnostics = {
-	["textDocument/publishDiagnostics"] = function() end,
-	["textDocument/formatting"] = function() end,
-}
 
 local on_attach = function(client, _)
 	-- Once codelens is setup:
@@ -83,10 +86,13 @@ local on_attach = function(client, _)
 			map.nnoremap("<silent><buffer>", "]d", function() vim.lsp.diagnostic.goto_next() end)
 			map.nnoremap("<silent><buffer>", "[d", function() vim.lsp.diagnostic.goto_prev() end)
 		end
-		end
+	else
+		client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false
+	end
 	-- Formatting:
-	if vim.tbl_contains({ 'null-ls', 'solargraph' }, client.name) then
-		vim.cmd([[command! Format lua vim.lsp.buf.formatting()]])
+	if vim.tbl_contains(formatting_providers, client.name) then
+		vim.cmd([[command! -buffer Format lua vim.lsp.buf.formatting()]])
 	else
 		client.resolved_capabilities.document_formatting = false
 	end
@@ -135,9 +141,6 @@ for lsp, settings in pairs(servers) do
 	}
 	if #vim.tbl_keys(settings) > 0 then
 		tbl = vim.tbl_extend("keep", tbl, settings)
-	end
-	if not vim.tbl_contains(diagnostics_providers, lsp) then
-		tbl.handlers = handler_no_diagnostics
 	end
 	lspconfig[lsp].setup(tbl)
 end
