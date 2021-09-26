@@ -1,8 +1,7 @@
 --luacheck: globals vim
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+local install_path = vim.fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
 vim.cmd [[packadd packer.nvim]]
@@ -99,7 +98,7 @@ return require('packer').startup(function(use)
 			} }
 		})
 	end}
-	require('dotfiles.utils.ts_filetypes').ts_type_autocmds() 
+	require('dotfiles.utils.ts_filetypes').ts_type_autocmds()
 	-- }}}
 
 	-- Non-Treesitter Syntax: {{{
@@ -127,13 +126,18 @@ return require('packer').startup(function(use)
 		'vim',
 		'yaml'
 	}
-	use { 'neovim/nvim-lspconfig', requires ={
-		'L3MON4D3/LuaSnip',
-		'nvim-lua/plenary.nvim',
-		'jose-elias-alvarez/null-ls.nvim'
-	}, config = function() 
-		require('dotfiles.nvim_lsp')
-	end}
+	use {
+		'neovim/nvim-lspconfig',
+		requires ={
+			'L3MON4D3/LuaSnip',
+			'nvim-lua/plenary.nvim',
+			'jose-elias-alvarez/null-ls.nvim'
+		},
+		ft = lsp_types,
+		config = function()
+			require('dotfiles.nvim_lsp')
+		end
+	}
 -- }}}
 end)
 -- }}}
