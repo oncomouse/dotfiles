@@ -1,2 +1,2 @@
-set runtimepath+=~/dotfiles/conf/vim/
+set runtimepath+=~/dotfiles/conf/vim
 runtime vimrc-minimal

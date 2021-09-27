@@ -1,7 +1,7 @@
 scriptencoding utf8
 " Dotfiles Settings: {{{
-if !empty(glob('~/dotfiles/conf/vim/')) && !(&runtimepath =~# expand('~/dotfiles/conf/vim/'))
-	set runtimepath+=~/dotfiles/conf/vim/
+if !empty(glob('~/dotfiles/conf/vim')) && !(&runtimepath =~# expand('~/dotfiles/conf/vim'))
+	set runtimepath+=~/dotfiles/conf/vim
 endif
 
 " Don't use the minimal minpac install in vimrc-minimal
@@ -11,7 +11,7 @@ let g:skip_minimal_minpac = 1
 runtime vimrc-minimal
 
 " Add Dotfiles After To RTP:
-set runtimepath+=~/dotfiles/conf/vim/after/
+set runtimepath+=~/dotfiles/conf/vim/after
 
 " Set Spellfile Location:
 set spellfile=~/dotfiles/conf/vim/spell/en.utf-8.add
