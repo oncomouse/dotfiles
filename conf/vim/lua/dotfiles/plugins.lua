@@ -1,4 +1,5 @@
---luacheck: globals vim
+--luacheck: globals vim dotfiles
+dotfiles = _G.dotfiles or {}
 return require("packer").startup(function(use)
 	use({ "wbthomason/packer.nvim", opt = true })
 	-- use { 'dstein64/vim-startuptime', cmd = 'StartupTime' }
@@ -68,10 +69,35 @@ return require("packer").startup(function(use)
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { "nvim-lua/plenary.nvim", opt = true },
-		cmd = { 'Files', 'Buffers' },
+		cmd = { "Files", "Buffers" },
 		config = function()
-			vim.cmd([[command! -nargs=? -complete=dir Files Telescope find_files theme=ivy]])
-			vim.cmd([[command! Buffers Telescope buffers theme=ivy]])
+			dotfiles.telescope = {}
+			-- Run any telescope builtin through our theme presets (Ivy w/ &previewheight number of lines):
+			dotfiles.telescope.__runner = function(builtin, opts)
+				opts = opts or {}
+				require("telescope.builtin")[builtin](
+					vim.tbl_deep_extend(
+						"keep",
+						require("telescope.themes").get_ivy({ layout_config = { height = vim.opt.previewheight:get() } }),
+						opts
+					)
+				)
+			end
+			-- Metatable that checks if a accessed member is a telescope builtin and passes it to the runner:
+			setmetatable(dotfiles.telescope, {
+				__index = function(_, builtin)
+					assert(
+						vim.tbl_contains(vim.tbl_keys(require("telescope.builtin")), builtin),
+						"You called, " .. builtin .. ", which is not available in Telescope."
+					)
+					return function(opts)
+						opts = opts or {}
+						dotfiles.telescope.__runner(builtin, opts)
+					end
+				end,
+			})
+			vim.cmd([[command! -nargs=? -complete=dir Files call v:lua.dotfiles.telescope.find_files()]])
+			vim.cmd([[command! Buffers call v:lua.dotfiles.telescope.buffers()]])
 			vim.cmd([[ packadd plenary.nvim ]])
 		end,
 	})
