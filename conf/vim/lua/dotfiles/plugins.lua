@@ -96,8 +96,8 @@ return require("packer").startup(function(use)
 					end
 				end,
 			})
-			vim.cmd([[command! -nargs=? -complete=dir Files call v:lua.dotfiles.telescope.find_files()]])
-			vim.cmd([[command! Buffers call v:lua.dotfiles.telescope.buffers()]])
+			vim.cmd([[command! -nargs=? -complete=dir Files lua dotfiles.telescope.find_files()]])
+			vim.cmd([[command! Buffers lua dotfiles.telescope.buffers()]])
 			vim.cmd([[ packadd plenary.nvim ]])
 		end,
 	})
