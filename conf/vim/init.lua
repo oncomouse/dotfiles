@@ -174,4 +174,4 @@ if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
 	vim.cmd([[PackerSync]])
 end
 -- }}}
--- # vim:foldmethod=marker
+-- # vim:foldmethod=marker:foldlevel=0

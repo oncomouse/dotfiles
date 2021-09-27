@@ -1,2 +1,1 @@
-set runtimepath+=~/dotfiles/conf/vim
-runtime vimrc
+/home/andrew/dotfiles/conf/vim/vimrc
