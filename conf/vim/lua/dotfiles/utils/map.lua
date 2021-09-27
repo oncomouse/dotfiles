@@ -1,3 +1,4 @@
+-- luacheck: globals vim
 -- Works like this:
 -- local map = require("dotfiles.utils.map")
 -- map.inoremap("<buffer><silent>", "<Up>", "<C-o>gk")
