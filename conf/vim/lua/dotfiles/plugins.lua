@@ -70,8 +70,8 @@ return require("packer").startup(function(use)
 		requires = { "nvim-lua/plenary.nvim", opt = true },
 		cmd = { 'Files', 'Buffers' },
 		config = function()
-			vim.cmd([[command! -nargs=? -complete=dir Files Telescope find_files]])
-			vim.cmd([[command! Buffers Telescope buffers]])
+			vim.cmd([[command! -nargs=? -complete=dir Files Telescope find_files theme=ivy]])
+			vim.cmd([[command! Buffers Telescope buffers theme=ivy]])
 			vim.cmd([[ packadd plenary.nvim ]])
 		end,
 	})
