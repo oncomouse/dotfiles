@@ -62,7 +62,7 @@ map.xnoremap("<silent>", "@", ":<C-u>call visualat#execute_macro_over_visual_ran
 map.inoremap("<silent>", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>")
 
 -- Shortcut to view current syntax highlighting group:
-vim.cmd[[map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+vim.cmd[[map <F10> <cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]]
 
