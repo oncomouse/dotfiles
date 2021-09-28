@@ -96,9 +96,9 @@ return require("packer").startup(function(use)
 					end
 				end,
 			})
-			vim.cmd([[ command! -nargs=? -complete=dir Files lua dotfiles.telescope.find_files() ]])
-			vim.cmd([[ command! Buffers lua dotfiles.telescope.buffers() ]])
-			vim.cmd([[ packadd plenary.nvim ]])
+			vim.cmd([[command! -nargs=? -complete=dir Files lua dotfiles.telescope.find_files()]])
+			vim.cmd([[command! Buffers lua dotfiles.telescope.buffers()]])
+			vim.cmd([[packadd plenary.nvim]])
 		end,
 	})
 	use({
@@ -122,12 +122,12 @@ return require("packer").startup(function(use)
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
-			vim.cmd([[ TSUpdate ]])
+			vim.cmd([[TSUpdate]])
 		end,
 		config = function()
 			vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
 			vim.opt_local.foldmethod = "expr"
-			vim.cmd([[ packadd nvim-treesitter-textobjects ]])
+			vim.cmd([[packadd nvim-treesitter-textobjects]])
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = "maintained",
 				highlight = { enable = true },
