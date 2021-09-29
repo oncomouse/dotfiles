@@ -157,7 +157,7 @@ autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | PackerCompi
 
 " Install packer.nvim, if it isn't present:
 let g:install_path = stdpath('data') . '/site/pack/packer/opt/packer.nvim'
-if empty(glob(install_path))
+if empty(glob(g:install_path))
 	call system(['git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', g:install_path])
 	PackerSync
 endif
