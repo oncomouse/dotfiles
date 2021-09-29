@@ -129,13 +129,13 @@ vim.cmd([[autocmd dotfiles-settings BufWinEnter,BufFilePost * call v:lua.dotfile
 vim.g.bibfiles = "~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
 -- }}}
 -- Lexima Configuration {{{
-local function make_rule(at, ed, filetype, syntax)
+local function make_rule(char_at, char_end, filetype, syntax)
 	return {
 		char = "<CR>",
 		input = "<CR>",
-		input_after = "<CR>" .. ed,
-		at = at,
-		except = "\\C\\v^(\\s*)\\S.*%#\\n%(%(\\s*|\\1\\s.+)\\n)*\\1" .. ed,
+		input_after = "<CR>" .. char_end,
+		at = char_at,
+		except = "\\C\\v^(\\s*)\\S.*%#\\n%(%(\\s*|\\1\\s.+)\\n)*\\1" .. char_end,
 		filetype = filetype,
 		syntax = syntax,
 	}
