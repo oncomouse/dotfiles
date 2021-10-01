@@ -7,13 +7,11 @@ local diagnostics_providers = {
 	"null-ls",
 	"cssls",
 	"jsonls",
-	"solargraph",
 }
 
 -- LSPs that provide formatting:
 local formatting_providers = {
 	"null-ls",
-	"solargraph",
 }
 
 local handler_no_diagnostics = {

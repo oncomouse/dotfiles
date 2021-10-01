@@ -17,11 +17,13 @@ require("null-ls").config({
 		require("null-ls").builtins.formatting.black,
 		require("null-ls").builtins.formatting.fish_indent,
 		require("null-ls").builtins.formatting.shfmt,
+		require("null-ls").builtins.formatting.rubocop,
 		require("null-ls").builtins.diagnostics.shellcheck,
 		require("null-ls").builtins.diagnostics.luacheck,
 		require("null-ls").builtins.diagnostics.eslint,
 		require("null-ls").builtins.diagnostics.flake8,
 		require("null-ls").builtins.diagnostics.vint,
+		require("null-ls").builtins.diagnostics.rubocop,
 		h.make_builtin({
 			method = DIAGNOSTICS,
 			filetypes = { "yaml" },
