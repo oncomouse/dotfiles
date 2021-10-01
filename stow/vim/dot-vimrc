@@ -1,1 +1,1 @@
-/home/andrew/dotfiles/conf/vim/vimrc-minimal
+../../../../conf/vim/vimrc-minimal
