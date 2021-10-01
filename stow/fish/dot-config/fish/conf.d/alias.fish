@@ -25,7 +25,6 @@ function vi
     eval (which vi) $argv
   end
 end
-function standard;~/.npm-packages/bin/semistandard $argv | ~/.npm-packages/bin/snazzy;end
 function janet-repl;/usr/local/bin/janet -e "(import spork/netrepl) (netrepl/server)";end
 function nvim5;$HOME/.local/bin/nvim-osx64/bin/nvim $argv;end
 # SSH to Dreamhost:
