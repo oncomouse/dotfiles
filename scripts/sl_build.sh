@@ -21,6 +21,8 @@ project=${1:-dwm}
 conf_file="config.h"
 if [ "$project" = "dwmblocks" ]; then
 	conf_file="blocks.h"
+elif [ "$project" = "neatvi" ] || [ "$project" = "nextvi" ]; then
+	conf_file="conf.c"
 fi
 
 # Read in a list of patches to apply:
@@ -79,6 +81,14 @@ merge_conflict() {
 	git commit -m "merged $1"
 }
 
+install_software() {
+	if [ "$project" = "neatvi" ]; then
+		sudo cp vi /usr/local/bin
+	else
+		sudo make install
+	fi
+}
+
 # Appending "rebuild" as a second argument will recompile the project without
 # patching everything again. Use this for updating config files, etc.
 rebuild() {
@@ -86,7 +96,7 @@ rebuild() {
 	cd "$BUILD_LOCATION/$project" || exit
 	git checkout build
 	make
-	sudo make install
+	install_software
 	git checkout master
 	cd "$owd" || exit
 }
@@ -105,7 +115,11 @@ if [[ ! -d "$BUILD_LOCATION/$project" ]]; then
 		project_repo=https://github.com/torrinfail/dwmblocks
 	elif [ "$project" = "aslstatus" ]; then
 		project_repo=https://notabug.org/dm9pZCAq/aslstatus
-	fi
+	elif [ "$project" = "neatvi" ]; then
+		project_repo=https://github.com/aligrudi/neatvi
+	elif [ "$project" = "nextvi" ]; then
+		project_repo=https://github.com/kyx0r/nextvi
+fi
 
 	git clone "$project_repo" "$BUILD_LOCATION/$project"
 fi
@@ -123,7 +137,7 @@ make clean
 # Generate our separate build branch:
 git checkout -b build
 # aslstatus doesn't use the config.def.h convention, so delete the default:
-if [ "$project" = "aslstatus" ]; then
+if [ "$project" = "aslstatus" ] || [ "$project" = "neatvi" ] || [ "$project" = "nextvi" ]; then
 	rm "/$project/$conf_file"
 fi
 # Link the configuration file from our repository:
@@ -157,7 +171,7 @@ set +e
 
 # Build and install the software:
 make
-sudo make install
+install_software
 
 # Reset to the default state:
 make clean
