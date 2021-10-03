@@ -66,41 +66,16 @@ return require("packer").startup(function(use)
 			end
 		end,
 	})
-	use({
-		"nvim-telescope/telescope.nvim",
-		requires = { "nvim-lua/plenary.nvim", opt = true },
-		cmd = { "Files", "Buffers" },
-		config = function()
-			dotfiles.telescope = {}
-			-- Run any telescope builtin through our theme presets (Ivy w/ &previewheight number of lines):
-			dotfiles.telescope.__runner = function(builtin, opts)
-				opts = opts or {}
-				require("telescope.builtin")[builtin](
-					vim.tbl_deep_extend(
-						"keep",
-						require("telescope.themes").get_ivy({ layout_config = { height = vim.opt.previewheight:get() } }),
-						opts
-					)
-				)
-			end
-			-- Metatable that checks if a accessed member is a telescope builtin and passes it to the runner:
-			setmetatable(dotfiles.telescope, {
-				__index = function(_, builtin)
-					assert(
-						vim.tbl_contains(vim.tbl_keys(require("telescope.builtin")), builtin),
-						"You called, " .. builtin .. ", which is not available in Telescope."
-					)
-					return function(opts)
-						opts = opts or {}
-						dotfiles.telescope.__runner(builtin, opts)
-					end
-				end,
-			})
-			vim.cmd([[command! -nargs=? -complete=dir Files lua dotfiles.telescope.find_files()]])
-			vim.cmd([[command! Buffers lua dotfiles.telescope.buffers()]])
-			vim.cmd([[packadd plenary.nvim]])
-		end,
-	})
+	use("junegunn/fzf.vim") -- Add shorcuts for FZF
+	vim.cmd([[command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)]])
+	vim.g.fzf_layout = { window = { width = 1, height = 0.4, yoffset = 1, border = "top" } }
+	vim.g.fzf_action = {
+		["ctrl-s"] = "split",
+		["ctrl-v"] = "vsplit",
+		["ctrl-t"] = "tabnew",
+		["ctrl-e"] = "edit",
+	}
+	vim.g.fzf_nvim_statusline = 0 -- disable statusline overwriting
 	use({
 		"lambdalisue/gina.vim",
 		cmd = "Gina",
