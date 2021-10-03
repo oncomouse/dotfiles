@@ -13,6 +13,8 @@ if [ "$DOTFILES_TARGET" != "laptop" ]; then
 	liskin-media mpris-daemon &
 fi
 
+dunst&
+
 pkill dwmblocks
 dwmblocks&
 mkdir -p ~/.cache/dwm
