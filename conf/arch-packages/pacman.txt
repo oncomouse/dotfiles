@@ -8,7 +8,7 @@ xorg-server
 xorg-xsetroot
 xorg-xrdb
 xorg-xmodmap
-sx
+xorg-xinit
 xclip
 accountsservice
 rofi

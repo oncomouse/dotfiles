@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ~/dotfiles/conf/sx/sxrc-common
+source ~/dotfiles/conf/xorg/xinit-common
 source ~/.cache/wal/colors.sh
 xrdb -merge ~/.cache/wal/dwm.Xresources
 xrdb -merge ~/.cache/wal/dmenu.Xresources
