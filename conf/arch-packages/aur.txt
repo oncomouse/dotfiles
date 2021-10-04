@@ -17,3 +17,4 @@ ncspot
 rofi-emoji
 bibtool
 mpv-mpris
+c-lolcat
