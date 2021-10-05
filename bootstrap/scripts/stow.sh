@@ -13,6 +13,8 @@ mkdir -p ~/.config/fish
 dotfiles_stow fish
 dotfiles_stow bash
 dotfiles_stow wal
+dotfiles_stow xplr
+dotfiles_stow vim
 if [ -z "$SERVER" ]; then
 	dotfiles_stow kitty
 	dotfiles_stow neovim
@@ -41,6 +43,7 @@ if [ -z "$SERVER" ]; then
 		dotfiles_stow mpv
 		dotfiles_stow networkmanager-dmenu
 		dotfiles_stow pulse
+		dotfiles_stow yt
 	fi
 	## Configure NCSpot:
 	if [ "$os" == "macos" ]; then
