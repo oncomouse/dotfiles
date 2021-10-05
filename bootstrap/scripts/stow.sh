@@ -19,13 +19,14 @@ if [ -z "$SERVER" ]; then
 	dotfiles_stow proselint
 	dotfiles_stow rubocop
 	dotfiles_stow vale
+	dotfiles_stow mpd
 	if [ "$os" == "macos" ]; then
 		dotfiles_stow homebrew
 		dotfiles_stow mackup
 		dotfiles_stow karabiner
 	elif [ "$os" == "arch" ]; then
 		# Other setup files:
-		dotfiles_stow awesome
+		dotfiles_stow dwm
 		dotfiles_stow picom
 		dotfiles_stow xdg
 		dotfiles_stow rofi
@@ -36,7 +37,10 @@ if [ -z "$SERVER" ]; then
 		dotfiles_stow xscreensaver
 		dotfiles_stow systemd
 		dotfiles_stow unclutter
-		dotfiles_stow xorg
+		dotfiles_stow mpDris2
+		dotfiles_stow mpv
+		dotfiles_stow networkmanager-dmenu
+		dotfiles_stow pulse
 	fi
 	## Configure NCSpot:
 	if [ "$os" == "macos" ]; then

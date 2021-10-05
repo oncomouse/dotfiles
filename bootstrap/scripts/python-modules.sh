@@ -38,7 +38,6 @@ if [ -z "$SERVER" ];then
   pip3install 'pywal'
   pip3install 'pywalfox'
   pip3install 'neovim-remote'
-  pip3install 'screeninfo' # For qutebrowser
 fi
 pip3install 'pynvim'
 pip3install 'virtualfish'

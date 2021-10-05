@@ -80,7 +80,6 @@ noto-fonts-emoji
 gnu-free-fonts
 xplr
 neovim
-qutebrowser
 python-tldextract
 python-pygments
 pdfjs
