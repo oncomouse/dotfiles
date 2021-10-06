@@ -61,7 +61,7 @@ beautiful.layout_centeredmonocle = gears.color.recolor_image(
 beautiful.useless_gap = 0 -- No gaps
 beautiful.border_color_active = beautiful.bg_focus -- Normal border color
 beautiful.border_focus = beautiful.bg_focus -- Focused border color
-beautiful.border_width = 2
+beautiful.border_width = 1
 -- Fonts
 beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
 beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
@@ -132,6 +132,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			awful.layout.inc(-1)
 		end),
 	})
+	s.layoutbox = wibox.container.margin(s.layoutbox, 4, 4, 4, 4)
 	-- s.mylayoutbox.forced_width = tonumber(last(gears.string.split(beautiful.font, " "))) + 4
 	s.taglist = awful.widget.taglist({
 		screen = s,
@@ -217,7 +218,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
 				text = " ",
 				widget = wibox.widget.textbox,
 			},
-			-- Add some space after the clock:
 			widget = wibox.container.place,
 		},
 	}
@@ -551,7 +551,91 @@ awful.keyboard.append_global_keybindings({
 	awful.key({}, "XF86AudioStop", sh_cmd("liskin-media stop")),
 })
 
+-- Sloppy focus:
 client.connect_signal("mouse::enter", function(c)
 	c:emit_signal("request::activate", "mouse_enter", { raise = false })
 end)
+
+-- Smartborders https://gist.github.com/ndgnuh/3cd462c634b6ac87ccfa6204127ac3bf
+local function make_border_dwim(t)
+	-- use this because there might be multiple tag selected
+	local cs = t.screen.clients
+	local border = {}
+
+	-- because maximized and fullscreen client
+	-- are considered floating
+	local function truefloat(c)
+		return c.floating and (not c.maximized) and (not c.fullscreen)
+	end
+
+	-- TODO: look up table instead of ifelse
+	if t.layout.name == "max" then
+		for _, c in ipairs(cs) do
+			if truefloat(c) then
+				border[c] = true
+			else
+				border[c] = false
+			end
+		end
+	elseif t.layout.name == "floating" then
+		for _, c in ipairs(cs) do
+			if c.maximized or c.fullscreen then
+				border[c] = false
+			else
+				border[c] = true
+			end
+		end
+	else
+		local count = 0
+		local only = nil
+		for _, c in ipairs(cs) do
+			if truefloat(c) then
+				border[c] = true
+			elseif c.maximized or c.fullscreen or c.minimized then
+				border[c] = false
+			else
+				count = count + 1
+				only = c
+				border[c] = true
+			end
+		end
+		if count == 1 then
+			border[only] = false
+		end
+	end
+
+	for c, bd in pairs(border) do
+		if bd then
+			c.border_width = beautiful.border_width
+		else
+			c.border_width = 0
+		end
+	end
+end
+
+
+local function make_border_dwim_screen_wrapper(s)
+	local t = s.selected_tag
+	-- no tag selected
+	if t == nil then return end
+	make_border_dwim(t)
+end
+
+local function make_border_dwim_client_wrapper(c)
+	-- don't use c.first_tag or c.tags because unmanaged client have no tag
+	-- so if either of those used, in a tile layout
+	-- when a client is killed and there is one left, the border will still be there
+	local s = c.screen
+	if s then make_border_dwim_screen_wrapper(s) end
+end
+
+client.connect_signal("tagged", make_border_dwim_client_wrapper)
+client.connect_signal("untagged", make_border_dwim_client_wrapper)
+client.connect_signal("unmanage", make_border_dwim_client_wrapper)
+client.connect_signal("property::floating", make_border_dwim_client_wrapper)
+client.connect_signal("property::maximized", make_border_dwim_client_wrapper)
+client.connect_signal("property::fullscreen", make_border_dwim_client_wrapper)
+client.connect_signal("property::minimized", make_border_dwim_client_wrapper)
+tag.connect_signal("property::layout", make_border_dwim)
+screen.connect_signal("tag::history::update", make_border_dwim_screen_wrapper)
 -- }}}
