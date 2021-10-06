@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 source ~/dotfiles/conf/xorg/xinit-common
+xrdb -merge ~/.cache/wal/dmenu.Xresources
+
+if [ "$DOTFILES_TARGET" != "laptop" ]; then
+	pkill -f liskin-media
+	liskin-media mpris-daemon &
+fi
+
 export DESKTOP_SESSION="awesome"
 exec awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
 # vim:ft=sh
