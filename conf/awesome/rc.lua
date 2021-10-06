@@ -45,6 +45,7 @@ end -- last element in a table
 beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
 local xrdb = beautiful.xresources.get_current_theme()
 local dpi = beautiful.xresources.apply_dpi
+beautiful.bg_focus = xrdb.color6
 beautiful.mfact = 0.55
 beautiful.tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 beautiful.icon_dir = os.getenv("HOME") .. "/.icons/oomox-xresources-reverse-flat/"
@@ -58,8 +59,8 @@ beautiful.layout_centeredmonocle = gears.color.recolor_image(
 	beautiful.fg_normal
 )
 beautiful.useless_gap = 0 -- No gaps
-beautiful.border_normal = xrdb.color8 -- Normal border color
-beautiful.border_focus = xrdb.color1 -- Focused border color
+beautiful.border_color_active = beautiful.bg_focus -- Normal border color
+beautiful.border_focus = beautiful.bg_focus -- Focused border color
 beautiful.border_width = 2
 -- Fonts
 beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
@@ -392,10 +393,10 @@ awful.keyboard.append_global_keybindings({
 	}),
 })
 
-local function move_resize(c, move)
-	return function()
+local function move_resize( move)
+	return function(c)
 		if c.floating then
-			c:relative_move(move)
+			c:relative_move(move.x or 0, move.y or 0, move.w or 0, move.h or 0)
 		end
 	end
 end
