@@ -21,6 +21,8 @@ if status --is-login
 	fish_add_path ~/.luarocks/bin
 	# Gems:
 	fish_add_path (ruby -e 'puts Gem.user_dir')/bin
+	# Lua5.3 for macOS:
+	fish_add_path /usr/local/opt/lua@5.3/bin/
 
 	# NPM Local manpath:
 	set -q MANPATH || set MANPATH ''
