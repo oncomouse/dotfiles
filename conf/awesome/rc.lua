@@ -71,8 +71,9 @@ beautiful.bar_position = "top"
 beautiful.hotkeys_modifiers_fg = xrdb.color4
 beautiful.taglist_shape_border_color_focus = xrdb.color5
 -- Taglist Formatting:
-local tag_width = dpi(tonumber(last(gears.string.split(beautiful.font, " "))) + 5)
-local tag_bar_height = dpi(3)
+-- local tag_width = dpi(tonumber(last(gears.string.split(beautiful.font, " "))) + 5)
+beautiful.taglist_squares_sel = nil
+beautiful.taglist_squares_unsel = nil
 -- Titlebar formatting:
 beautiful.titlebar_font = "FiraCode Nerd Font Bold 12"
 beautiful.titlebar_bg_normal = xrdb.color8
@@ -133,7 +134,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	-- s.mylayoutbox.forced_width = tonumber(last(gears.string.split(beautiful.font, " "))) + 4
 	s.taglist = awful.widget.taglist({
 		screen = s,
-		filter = awful.widget.taglist.filter.all,
+		filter = awful.widget.taglist.filter.noempty,
 		buttons = {
 			awful.button({}, 1, function(t)
 				t:view_only()
@@ -225,7 +226,7 @@ end)
 local dmenucmd = {
 	"rofi",
 	"-theme",
-	"~/.config/rofi/barmenu-dwm.rasi",
+	"~/dotfiles/conf/rofi/barmenu.rasi",
 	"-match",
 	"fuzzy",
 	"-auto-select",
@@ -240,7 +241,7 @@ local dmenucmd = {
 local rofiwincmd = {
 	"rofi",
 	"-theme",
-	"~/.config/rofi/barmenu-dwm.rasi",
+	"~/dotfiles/conf/rofi/barmenu.rasi",
 	"-match",
 	"fuzzy",
 	"-auto-select",
@@ -266,7 +267,7 @@ local rofinetworkcmd = {
 	"-m",
 	"1",
 	"-fn",
-	string.sub(beautiful.font, "%s(%d+)", ":size=%1"),
+	string.gsub(beautiful.font, "%s(%d+)", ":size=%1"),
 	"-nb",
 	xrdb.color0,
 	"-nf",
@@ -295,7 +296,7 @@ awful.keyboard.append_global_keybindings({
 		description = "Networkmanager menu",
 		group = "Rofi",
 	}),
-	awful.key({ modkey, "Control" }, "Space", function()
+	awful.key({ modkey, "Control" }, "space", function()
 		awful.spawn(rofiemojicmd)
 	end, {
 		description = "Emoji menu",
@@ -412,8 +413,8 @@ client.connect_signal("request::default_keybindings", function()
 			group = "Client",
 		}),
 		awful.key(
-			{ modkey, "Shift" },
-			"Space",
+			{ modkey },
+			"space",
 			awful.client.floating.toggle,
 			{ description = "Toggle Floating", group = "Client" }
 		),
@@ -535,5 +536,21 @@ awful.keyboard.append_global_keybindings({
 		end,
 	}),
 })
-awful.keyboard.append_global_keybindings({})
+awful.keyboard.append_global_keybindings({
+	awful.key({}, "XF86KbdBrightnessDown", sh_cmd("sudo /usr/local/bin/keyboard-backlight down")),
+	awful.key({}, "XF86KbdBrightnessUp", sh_cmd("sudo /usr/local/bin/keyboard-backlight up")),
+	awful.key({}, "XF86MonBrightnessUp", sh_cmd("dwm-brightness.sh up")),
+	awful.key({}, "XF86MonBrightnessDown", sh_cmd("dwm-brightness.sh down")),
+	awful.key({}, "XF86AudioMute", sh_cmd("liskin-media mute")),
+	awful.key({}, "XF86AudioLowerVolume", sh_cmd("liskin-media volume down")),
+	awful.key({}, "XF86AudioRaiseVolume", sh_cmd("liskin-media volume up")),
+	awful.key({}, "XF86AudioPlay", sh_cmd("liskin-media play")),
+	awful.key({}, "XF86AudioPrev", sh_cmd("liskin-media prev")),
+	awful.key({}, "XF86AudioNext", sh_cmd("liskin-media next")),
+	awful.key({}, "XF86AudioStop", sh_cmd("liskin-media stop")),
+})
+
+client.connect_signal("mouse::enter", function(c)
+	c:emit_signal("request::activate", "mouse_enter", { raise = false })
+end)
 -- }}}
