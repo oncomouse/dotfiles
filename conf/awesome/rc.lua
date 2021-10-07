@@ -149,7 +149,10 @@ local battery_widget = nil
 if is_laptop then
 	battery_widget = block_watcher("dwmblocks-battery.sh", 30)
 end
-local weather_widget = block_watcher("dwmblocks-weather.sh", 600)
+local weather_widget = nil
+if not is_laptop then
+	weather_widget = block_watcher("dwmblocks-weather.sh", 600)
+end
 local date_widget = block_watcher("dwmblocks-date.sh", 5)
 -- }}}
 -- Wibar {{{
