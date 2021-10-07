@@ -606,13 +606,26 @@ awful.keyboard.append_global_keybindings({
 	awful.key({}, "XF86AudioNext", media_key_press("liskin-media next", mpris_widget or nil)),
 	awful.key({}, "XF86AudioStop", media_key_press("liskin-media stop", mpris_widget or nil)),
 })
-
--- Sloppy focus:
-client.connect_signal("mouse::enter", function(c)
+-- }}}
+-- Mouse: {{{
+client.connect_signal("mouse::enter", function(c) -- Sloppy focus
 	c:emit_signal("request::activate", "mouse_enter", { raise = false })
 end)
-
--- Smartborders https://gist.github.com/ndgnuh/3cd462c634b6ac87ccfa6204127ac3bf
+client.connect_signal("request::default_mousebindings", function()
+	awful.mouse.append_client_mousebindings({
+		awful.button({}, 1, function(c)
+			c:activate({ context = "mouse_click" })
+		end),
+		awful.button({ modkey }, 1, function(c)
+			c:activate({ context = "mouse_click", action = "mouse_move" })
+		end),
+		awful.button({ modkey }, 3, function(c)
+			c:activate({ context = "mouse_click", action = "mouse_resize" })
+		end),
+	})
+end)
+-- }}}
+-- Smartborders https://gist.github.com/ndgnuh/3cd462c634b6ac87ccfa6204127ac3bf {{{
 local function make_border_dwim(t)
 	-- use this because there might be multiple tag selected
 	local cs = t.screen.clients
