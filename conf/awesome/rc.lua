@@ -324,7 +324,7 @@ local rofinetworkcmd = {
 	"-m",
 	"1",
 	"-fn",
-	string.gsub(beautiful.font, "%s(%d+)", ":size=%1"),
+	beautiful.font:gsub("%s(%d+)", ":size=%1"):gsub("%sNormal","-Normal"),
 	"-nb",
 	xrdb.color0,
 	"-nf",
