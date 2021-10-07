@@ -136,6 +136,27 @@ end
 local dotfiles_target = os.getenv("DOTFILES_TARGET") or "desktop"
 local is_laptop = (dotfiles_target == "laptop")
 
+local function make_wibar_widgets(widget_definitions)
+	local widgets = {}
+	for _,widget in ipairs(widget_definitions) do
+		widgets.insert(block_watcher(widget[1], widget[2]))
+	end
+	return widgets
+end
+local wibar_widgets = make_wibar_widgets(is_laptop
+	and {
+	{ "dwmblocks-volume.sh", 30 },
+	{ "dwmblocks-brightness.sh", 30 },
+	{ "dwmblocks-battery.sh", 30 },
+	{ "dwmblocks-date.sh", 5 },
+	}
+	or {
+	{ "dwmblocks-volume.sh", 30 },
+	{ "dwmblocks-mpris.sh", 30 },
+	{ "dwmblocks-weather.sh", 600 },
+	{ "dwmblocks-date.sh", 5 },
+})
+
 local volume_widget = block_watcher("dwmblocks-volume.sh", 30)
 -- local wifi_widget = block_watcher("dwmblocks-essid.sh", 30)
 local mpris_widget = nil
@@ -324,7 +345,7 @@ local rofinetworkcmd = {
 	"-m",
 	"1",
 	"-fn",
-	beautiful.font:gsub("%s(%d+)", ":size=%1"):gsub("%sNormal","-Normal"),
+	beautiful.font:gsub("%s(%d+)", ":size=%1"):gsub("%sNormal", "-Normal"),
 	"-nb",
 	xrdb.color0,
 	"-nf",
