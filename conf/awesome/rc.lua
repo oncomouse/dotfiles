@@ -100,6 +100,7 @@ tag.connect_signal("request::default_layouts", function()
 		awful.layout.suit.tile.right,
 		awful.layout.suit.tile.left,
 		layout_cm,
+		awful.layout.suit.floating,
 	})
 end)
 -- }}}
@@ -344,29 +345,29 @@ awful.keyboard.append_global_keybindings({
 		awful.spawn(dmenucmd)
 	end, {
 		description = "Drun menu",
-		group = "Rofi",
+		group = "Launcher",
 	}),
 	awful.key({ modkey, "Shift" }, "n", function()
 		awful.spawn(rofinetworkcmd)
 	end, {
 		description = "Networkmanager menu",
-		group = "Rofi",
+		group = "Launcher",
 	}),
 	awful.key({ modkey, "Control" }, "space", function()
 		awful.spawn(rofiemojicmd)
 	end, {
 		description = "Emoji menu",
-		group = "Rofi",
+		group = "Launcher",
 	}),
 	awful.key({ modkey, "Shift" }, "w", function()
 		awful.spawn(rofiwincmd)
 	end, {
 		description = "Window menu",
-		group = "Rofi",
+		group = "Launcher",
 	}),
 	awful.key({ modkey, "Shift" }, "p", sh_cmd("dwm-powermenu.sh"), {
 		description = "Powermenu",
-		group = "Rofi",
+		group = "Launcher",
 	}),
 })
 
