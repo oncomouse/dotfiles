@@ -13,4 +13,4 @@ case "$1" in
 	*)
 		;;
 esac
-kill -38 "$(pidof dwmblocks)"
+kill -38 "$(pidof dwmblocks)" 2> /dev/null

@@ -22,4 +22,4 @@ case "$1" in
   *)
 	;;
 esac
-kill -37 $(pidof dwmblocks)
+kill -37 "$(pidof dwmblocks)" 2> /dev/null

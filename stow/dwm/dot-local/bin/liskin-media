@@ -51,10 +51,10 @@ function action-volume {
 	fi
 
 	volume-pulseaudio "$1"
-	kill -37 "$(pidof dwmblocks)"
+	kill -37 "$(pidof dwmblocks)" 2> /dev/null
 }
 
-function action-mute     { pactl set-sink-mute   @DEFAULT_SINK@   toggle; kill -37 "$(pidof dwmblocks)"; }
+function action-mute     { pactl set-sink-mute   @DEFAULT_SINK@   toggle; kill -37 "$(pidof dwmblocks)" 2> /dev/null; }
 function action-mic-mute { pactl set-source-mute @DEFAULT_SOURCE@ toggle; }
 
 STATUS="/tmp/dwmblocks.mpris"
@@ -85,7 +85,7 @@ function action-mpris-daemon {
 				elif [ "$status" = "Stopped" ]; then
 					status="栗"
 				fi
-				echo "$status$info" > "$STATUS" && kill -44 "$(pidof dwmblocks)"
+				echo "$status$info" > "$STATUS" && kill -44 "$(pidof dwmblocks)" 2> /dev/null
 			fi
 		done
 	done
