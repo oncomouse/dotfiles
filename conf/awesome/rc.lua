@@ -139,7 +139,7 @@ local volume_widget = block_watcher("dwmblocks-volume.sh", 30)
 -- local wifi_widget = block_watcher("dwmblocks-essid.sh", 30)
 local mpris_widget = nil
 if not is_laptop then
-	block_watcher("dwmblocks-mpris.sh", 30)
+	mpris_widget = block_watcher("dwmblocks-mpris.sh", 30)
 end
 local brightness_widget = nil
 if is_laptop then
@@ -596,15 +596,15 @@ awful.keyboard.append_global_keybindings({
 awful.keyboard.append_global_keybindings({
 	awful.key({}, "XF86KbdBrightnessDown", sh_cmd("sudo /usr/local/bin/keyboard-backlight down")),
 	awful.key({}, "XF86KbdBrightnessUp", sh_cmd("sudo /usr/local/bin/keyboard-backlight up")),
-	awful.key({}, "XF86MonBrightnessUp", media_key_press("dwm-brightness.sh up", brightness_widget or nil)),
-	awful.key({}, "XF86MonBrightnessDown", media_key_press("dwm-brightness.sh down", brightness_widget or nil)),
-	awful.key({}, "XF86AudioMute", media_key_press("liskin-media mute", volume_widget or nil)),
-	awful.key({}, "XF86AudioLowerVolume", media_key_press("liskin-media volume down", volume_widget or nil)),
-	awful.key({}, "XF86AudioRaiseVolume", media_key_press("liskin-media volume up", volume_widget or nil)),
-	awful.key({}, "XF86AudioPlay", media_key_press("liskin-media play", mpris_widget or nil)),
-	awful.key({}, "XF86AudioPrev", media_key_press("liskin-media prev", mpris_widget or nil)),
-	awful.key({}, "XF86AudioNext", media_key_press("liskin-media next", mpris_widget or nil)),
-	awful.key({}, "XF86AudioStop", media_key_press("liskin-media stop", mpris_widget or nil)),
+	awful.key({}, "XF86MonBrightnessUp", media_key_press("dwm-brightness.sh up", brightness_widget)),
+	awful.key({}, "XF86MonBrightnessDown", media_key_press("dwm-brightness.sh down", brightness_widget)),
+	awful.key({}, "XF86AudioMute", media_key_press("liskin-media mute", volume_widget)),
+	awful.key({}, "XF86AudioLowerVolume", media_key_press("liskin-media volume down", volume_widget)),
+	awful.key({}, "XF86AudioRaiseVolume", media_key_press("liskin-media volume up", volume_widget)),
+	awful.key({}, "XF86AudioPlay", media_key_press("liskin-media play", mpris_widget)),
+	awful.key({}, "XF86AudioPrev", media_key_press("liskin-media prev", mpris_widget)),
+	awful.key({}, "XF86AudioNext", media_key_press("liskin-media next", mpris_widget)),
+	awful.key({}, "XF86AudioStop", media_key_press("liskin-media stop", mpris_widget)),
 })
 -- }}}
 -- Mouse: {{{
