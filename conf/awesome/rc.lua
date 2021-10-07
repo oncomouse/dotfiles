@@ -10,16 +10,16 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 require("awful.autofocus")
 -- Rules
-local ruled = require("ruled")
+-- local ruled = require("ruled")
 -- Widget and layout library
 local wibox = require("wibox")
 -- Notification library
 local naughty = require("naughty")
 -- Hotkeys
-local hotkeys_popup = require("awful.hotkeys_popup")
+-- local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
-require("awful.hotkeys_popup.keys")
+-- require("awful.hotkeys_popup.keys")
 local layout_cm = require("layouts.centeredmonocle")
 -- }}}
 -- {{{ Error handling
