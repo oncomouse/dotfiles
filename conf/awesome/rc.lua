@@ -33,12 +33,8 @@ naughty.connect_signal("request::display_error", function(message, startup)
 	})
 end)
 -- }}}
--- Utilities:
-local cairo = require("lgi").cairo
+-- Utilities: {{{
 local swap_main = require("utils.swap_main")
-local function last(xs)
-	return xs[#xs]
-end -- last element in a table
 -- }}}
 -- {{{ Appearance
 -- Beautiful
@@ -106,6 +102,55 @@ tag.connect_signal("request::default_layouts", function()
 		layout_cm,
 	})
 end)
+-- }}}
+-- Widgets: {{{
+local function block_watcher(cmd, delay)
+	local widget = awful.widget.watch(cmd, delay)
+	-- Trigger for button presses
+	widget:connect_signal("button::press", function(_, _, _, button)
+		awful.spawn.easy_async_with_shell("env BUTTON=" .. button .. " " .. cmd, function(stdout)
+			widget:set_text(stdout)
+		end)
+	end)
+	-- Trigger for key presses
+	widget:connect_signal("widget::update", function()
+		awful.spawn.easy_async_with_shell(cmd, function(stdout)
+			widget:set_text(stdout)
+		end)
+	end)
+	return widget
+end
+
+-- Handler for key presses
+local function media_key_press(cmd, widget)
+	return function()
+		awful.spawn.easy_async_with_shell(cmd, function()
+			if widget then
+				widget:emit_signal("widget::update")
+			end
+		end)
+	end
+end
+
+local dotfiles_target = os.getenv("DOTFILES_TARGET") or "desktop"
+local is_laptop = (dotfiles_target == "laptop")
+
+local volume_widget = block_watcher("dwmblocks-volume.sh", 30)
+-- local wifi_widget = block_watcher("dwmblocks-essid.sh", 30)
+local mpris_widget = nil
+if not is_laptop then
+	block_watcher("dwmblocks-mpris.sh", 30)
+end
+local brightness_widget = nil
+if is_laptop then
+	brightness_widget = block_watcher("dwmblocks-brightness.sh", 30)
+end
+local battery_widget = nil
+if is_laptop then
+	battery_widget = block_watcher("dwmblocks-battery.sh", 30)
+end
+local weather_widget = block_watcher("dwmblocks-weather.sh", 600)
+local date_widget = block_watcher("dwmblocks-date.sh", 5)
 -- }}}
 -- Wibar {{{
 screen.connect_signal("request::desktop_decoration", function(s)
@@ -192,6 +237,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			widget = wibox.container.background,
 		},
 	})
+
 	s.wibar = awful.wibar({
 		position = beautiful.bar_position,
 		screen = s,
@@ -218,6 +264,12 @@ screen.connect_signal("request::desktop_decoration", function(s)
 				text = " ",
 				widget = wibox.widget.textbox,
 			},
+			volume_widget,
+			mpris_widget,
+			brightness_widget,
+			weather_widget,
+			battery_widget,
+			date_widget,
 			widget = wibox.container.place,
 		},
 	}
@@ -323,7 +375,7 @@ awful.keyboard.append_global_keybindings({
 		group = "Awesome",
 	}),
 
-	awful.key({ modkey, "Shift" }, "b", sh_cmd("dwm-brightness.sh default"), {
+	awful.key({ modkey, "Shift" }, "b", media_key_press("dwm-brightness.sh default", brightness_widget or nil), {
 		description = "Set Default Brightness",
 		group = "Awesome",
 	}),
@@ -393,7 +445,7 @@ awful.keyboard.append_global_keybindings({
 	}),
 })
 
-local function move_resize( move)
+local function move_resize(move)
 	return function(c)
 		if c.floating then
 			c:relative_move(move.x or 0, move.y or 0, move.w or 0, move.h or 0)
@@ -537,18 +589,19 @@ awful.keyboard.append_global_keybindings({
 		end,
 	}),
 })
+
 awful.keyboard.append_global_keybindings({
 	awful.key({}, "XF86KbdBrightnessDown", sh_cmd("sudo /usr/local/bin/keyboard-backlight down")),
 	awful.key({}, "XF86KbdBrightnessUp", sh_cmd("sudo /usr/local/bin/keyboard-backlight up")),
-	awful.key({}, "XF86MonBrightnessUp", sh_cmd("dwm-brightness.sh up")),
-	awful.key({}, "XF86MonBrightnessDown", sh_cmd("dwm-brightness.sh down")),
-	awful.key({}, "XF86AudioMute", sh_cmd("liskin-media mute")),
-	awful.key({}, "XF86AudioLowerVolume", sh_cmd("liskin-media volume down")),
-	awful.key({}, "XF86AudioRaiseVolume", sh_cmd("liskin-media volume up")),
-	awful.key({}, "XF86AudioPlay", sh_cmd("liskin-media play")),
-	awful.key({}, "XF86AudioPrev", sh_cmd("liskin-media prev")),
-	awful.key({}, "XF86AudioNext", sh_cmd("liskin-media next")),
-	awful.key({}, "XF86AudioStop", sh_cmd("liskin-media stop")),
+	awful.key({}, "XF86MonBrightnessUp", media_key_press("dwm-brightness.sh up", brightness_widget or nil)),
+	awful.key({}, "XF86MonBrightnessDown", media_key_press("dwm-brightness.sh down", brightness_widget or nil)),
+	awful.key({}, "XF86AudioMute", media_key_press("liskin-media mute", volume_widget or nil)),
+	awful.key({}, "XF86AudioLowerVolume", media_key_press("liskin-media volume down", volume_widget or nil)),
+	awful.key({}, "XF86AudioRaiseVolume", media_key_press("liskin-media volume up", volume_widget or nil)),
+	awful.key({}, "XF86AudioPlay", media_key_press("liskin-media play", mpris_widget or nil)),
+	awful.key({}, "XF86AudioPrev", media_key_press("liskin-media prev", mpris_widget or nil)),
+	awful.key({}, "XF86AudioNext", media_key_press("liskin-media next", mpris_widget or nil)),
+	awful.key({}, "XF86AudioStop", media_key_press("liskin-media stop", mpris_widget or nil)),
 })
 
 -- Sloppy focus:
@@ -565,7 +618,7 @@ local function make_border_dwim(t)
 	-- because maximized and fullscreen client
 	-- are considered floating
 	local function truefloat(c)
-		return c.floating and (not c.maximized) and (not c.fullscreen)
+		return c.floating and not c.maximized and not c.fullscreen
 	end
 
 	-- TODO: look up table instead of ifelse
@@ -613,11 +666,12 @@ local function make_border_dwim(t)
 	end
 end
 
-
 local function make_border_dwim_screen_wrapper(s)
 	local t = s.selected_tag
 	-- no tag selected
-	if t == nil then return end
+	if t == nil then
+		return
+	end
 	make_border_dwim(t)
 end
 
@@ -626,7 +680,9 @@ local function make_border_dwim_client_wrapper(c)
 	-- so if either of those used, in a tile layout
 	-- when a client is killed and there is one left, the border will still be there
 	local s = c.screen
-	if s then make_border_dwim_screen_wrapper(s) end
+	if s then
+		make_border_dwim_screen_wrapper(s)
+	end
 end
 
 client.connect_signal("tagged", make_border_dwim_client_wrapper)
@@ -639,3 +695,4 @@ client.connect_signal("property::minimized", make_border_dwim_client_wrapper)
 tag.connect_signal("property::layout", make_border_dwim)
 screen.connect_signal("tag::history::update", make_border_dwim_screen_wrapper)
 -- }}}
+-- vim: foldlevel=0:foldmethod=marker
