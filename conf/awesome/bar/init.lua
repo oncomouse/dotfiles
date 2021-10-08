@@ -2,6 +2,7 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
+require("widgets")
 screen.connect_signal("request::desktop_decoration", function(s)
 	for _, t in ipairs(beautiful.tags) do
 		awful.tag.add(t, {
