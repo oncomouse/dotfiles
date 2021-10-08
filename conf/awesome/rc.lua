@@ -105,7 +105,9 @@ tag.connect_signal("request::default_layouts", function()
 end)
 -- }}}
 -- Widgets: {{{
-local function block_watcher(cmd, delay)
+-- Track named widgets for key press events
+local widget_signals = {}
+local function block_watcher(cmd, delay, name)
 	local widget = awful.widget.watch(cmd, delay)
 	-- Trigger for button presses
 	widget:connect_signal("button::press", function(_, _, _, button)
@@ -113,22 +115,31 @@ local function block_watcher(cmd, delay)
 			widget:set_text(stdout)
 		end)
 	end)
-	-- Trigger for key presses
-	widget:connect_signal("widget::update", function()
-		awful.spawn.easy_async_with_shell(cmd, function(stdout)
-			widget:set_text(stdout)
+	if name then
+		widget_signals[name] = widget
+		-- Internal keypress handler:
+		widget:connect_signal("widget::update", function()
+			awful.spawn.easy_async_with_shell(cmd, function(stdout)
+				widget:set_text(stdout)
+			end)
 		end)
-	end)
+	end
 	return widget
 end
 
+-- System-wide signal dispersal for key presses
+awesome.connect_signal("widget::update", function(name)
+	if widget_signals[name] then
+		local widget = widget_signals[name]
+		widget:emit_signal("widget::update")
+	end
+end)
+
 -- Handler for key presses
-local function media_key_press(cmd, widget)
+local function media_key_press(cmd, signal)
 	return function()
 		awful.spawn.easy_async_with_shell(cmd, function()
-			if widget then
-				widget:emit_signal("widget::update")
-			end
+			awesome.emit_signal("widget::update", signal)
 		end)
 	end
 end
@@ -149,20 +160,20 @@ local function make_wibar_widgets(widget_definitions)
 	})
 
 	for _, widget in ipairs(widget_definitions) do
-		table.insert(widgets.children, block_watcher(widget[1], widget[2]))
+		table.insert(widgets.children, block_watcher(widget[1], widget[2], widget[3]))
 	end
 	return widgets
 end
 beautiful.wibar_widgets = make_wibar_widgets(is_laptop and {
-	{ "dwmblocks-volume.sh", 30 },
-	{ "dwmblocks-brightness.sh", 30 },
-	{ "dwmblocks-battery.sh", 30 },
-	{ "dwmblocks-date.sh", 5 },
+	{ "dwmblocks-volume.sh", 30, "volume" },
+	{ "dwmblocks-brightness.sh", 30, "brightness" },
+	{ "dwmblocks-battery.sh", 30, "battery" },
+	{ "dwmblocks-date.sh", 5, "date" },
 } or {
-	{ "dwmblocks-volume.sh", 30 },
-	{ "dwmblocks-mpris.sh", 30 },
-	{ "dwmblocks-weather.sh", 600 },
-	{ "dwmblocks-date.sh", 5 },
+	{ "dwmblocks-volume.sh", 30, "volume" },
+	{ "dwmblocks-mpris.sh", 30, "mpris" },
+	{ "dwmblocks-weather.sh", 600, "weather" },
+	{ "dwmblocks-date.sh", 5, "date" },
 })
 -- }}}
 -- Wibar {{{
@@ -373,7 +384,7 @@ awful.keyboard.append_global_keybindings({
 		group = "Awesome",
 	}),
 
-	awful.key({ modkey, "Shift" }, "b", media_key_press("dwm-brightness.sh default", brightness_widget or nil), {
+	awful.key({ modkey, "Shift" }, "b", media_key_press("dwm-brightness.sh default", "brightness"), {
 		description = "Set Default Brightness",
 		group = "Awesome",
 	}),
@@ -591,15 +602,15 @@ awful.keyboard.append_global_keybindings({
 awful.keyboard.append_global_keybindings({
 	awful.key({}, "XF86KbdBrightnessDown", sh_cmd("sudo /usr/local/bin/keyboard-backlight down")),
 	awful.key({}, "XF86KbdBrightnessUp", sh_cmd("sudo /usr/local/bin/keyboard-backlight up")),
-	awful.key({}, "XF86MonBrightnessUp", media_key_press("dwm-brightness.sh up", brightness_widget)),
-	awful.key({}, "XF86MonBrightnessDown", media_key_press("dwm-brightness.sh down", brightness_widget)),
-	awful.key({}, "XF86AudioMute", media_key_press("liskin-media mute", volume_widget)),
-	awful.key({}, "XF86AudioLowerVolume", media_key_press("liskin-media volume down", volume_widget)),
-	awful.key({}, "XF86AudioRaiseVolume", media_key_press("liskin-media volume up", volume_widget)),
-	awful.key({}, "XF86AudioPlay", media_key_press("liskin-media play", mpris_widget)),
-	awful.key({}, "XF86AudioPrev", media_key_press("liskin-media prev", mpris_widget)),
-	awful.key({}, "XF86AudioNext", media_key_press("liskin-media next", mpris_widget)),
-	awful.key({}, "XF86AudioStop", media_key_press("liskin-media stop", mpris_widget)),
+	awful.key({}, "XF86MonBrightnessUp", media_key_press("dwm-brightness.sh up", "brightness")),
+	awful.key({}, "XF86MonBrightnessDown", media_key_press("dwm-brightness.sh down", "brightness")),
+	awful.key({}, "XF86AudioMute", media_key_press("liskin-media mute", "volume")),
+	awful.key({}, "XF86AudioLowerVolume", media_key_press("liskin-media volume down", "volume")),
+	awful.key({}, "XF86AudioRaiseVolume", media_key_press("liskin-media volume up", "volume")),
+	awful.key({}, "XF86AudioPlay", media_key_press("liskin-media play", "mpris")),
+	awful.key({}, "XF86AudioPrev", media_key_press("liskin-media prev", "mpris")),
+	awful.key({}, "XF86AudioNext", media_key_press("liskin-media next", "mpris")),
+	awful.key({}, "XF86AudioStop", media_key_press("liskin-media stop", "mpris")),
 })
 -- }}}
 -- Mouse: {{{
