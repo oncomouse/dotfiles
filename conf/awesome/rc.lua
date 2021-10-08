@@ -114,7 +114,7 @@ beautiful.wibar_widgets = is_laptop
 		{ "dwmblocks-date.sh", 5, "date" },
 	}
 -- }}}
--- Wibar {{{
+-- Mouse {{{
 -- Mouse behavior for layoutbox:
 beautiful.layoutbox_mousebuttons = {
 	awful.button({}, 1, function()
@@ -234,13 +234,7 @@ local rofinetworkcmd = {
 	"-sf",
 	xrdb.color0,
 }
-local function sh_cmd(cmd)
-	return function()
-		awful.spawn({ awful.util.shell, "-c", cmd })
-	end
-end
-
-awful.keyboard.append_global_keybindings({
+beautiful.global_keybindings = {
 	awful.key({ beautiful.modkey, "Mod1" }, "r", function()
 		awful.spawn(dmenucmd)
 	end, {
@@ -265,13 +259,11 @@ awful.keyboard.append_global_keybindings({
 		description = "Window menu",
 		group = "Launcher",
 	}),
-	awful.key({ beautiful.modkey, "Shift" }, "p", sh_cmd("dwm-powermenu.sh"), {
+	awful.key({ beautiful.modkey, "Shift" }, "p", require("keybindings.utils.sh_cmd")("dwm-powermenu.sh"), {
 		description = "Powermenu",
 		group = "Launcher",
 	}),
-})
 
-awful.keyboard.append_global_keybindings({
 	awful.key({ beautiful.modkey, "Shift" }, "Return", function()
 		awful.spawn(beautiful.terminal)
 	end, {
@@ -304,9 +296,7 @@ awful.keyboard.append_global_keybindings({
 		description = "Quit Awesome",
 		group = "Awesome",
 	}),
-})
 
-awful.keyboard.append_global_keybindings({
 	awful.key({ beautiful.modkey }, "j", function()
 		awful.client.focus.byidx(1)
 	end, {
@@ -352,70 +342,6 @@ awful.keyboard.append_global_keybindings({
 		description = "View Last Tag",
 		group = "Client",
 	}),
-})
-
-local function move_resize(move)
-	return function(c)
-		if c.floating then
-			c:relative_move(move.x or 0, move.y or 0, move.w or 0, move.h or 0)
-		end
-	end
-end
-
-client.connect_signal("request::default_keybindings", function()
-	awful.keyboard.append_client_keybindings({
-		awful.key({ beautiful.modkey }, "Return", require("utils.swap_main"), {
-			description = "Zoom",
-			group = "Client",
-		}),
-		awful.key({ beautiful.modkey, "Shift" }, "c", function(c)
-			c:kill()
-		end, {
-			description = "Close Client",
-			group = "Client",
-		}),
-		awful.key(
-			{ beautiful.modkey },
-			"space",
-			awful.client.floating.toggle,
-			{ description = "Toggle Floating", group = "Client" }
-		),
-		awful.key({ beautiful.modkey }, "Up", move_resize({ y = -25 }), {
-			description = "Move Up",
-			group = "Client",
-		}),
-		awful.key({ beautiful.modkey }, "Down", move_resize({ y = 25 }), {
-			description = "Move Down",
-			group = "Client",
-		}),
-		awful.key({ beautiful.modkey }, "Right", move_resize({ x = 25 }), {
-			description = "Move Right",
-			group = "Client",
-		}),
-		awful.key({ beautiful.modkey }, "Left", move_resize({ x = -25 }), {
-			description = "Move Left",
-			group = "Client",
-		}),
-		awful.key({ beautiful.modkey, "Shift" }, "Up", move_resize({ h = -25 }), {
-			description = "Grow Height",
-			group = "Client",
-		}),
-		awful.key({ beautiful.modkey, "Shift" }, "Down", move_resize({ h = 25 }), {
-			description = "Grow Height",
-			group = "Client",
-		}),
-		awful.key({ beautiful.modkey, "Shift" }, "Right", move_resize({ w = 25 }), {
-			description = "Grow Width",
-			group = "Client",
-		}),
-		awful.key({ beautiful.modkey, "Shift" }, "Left", move_resize({ w = -25 }), {
-			description = "Shrink Width",
-			group = "Client",
-		}),
-	})
-end)
-
-awful.keyboard.append_global_keybindings({
 	awful.key({ beautiful.modkey }, "m", function()
 		awful.layout.set(require("layouts.centeredmonocle"))
 	end, {
@@ -440,9 +366,6 @@ awful.keyboard.append_global_keybindings({
 		description = "select tiled layout",
 		group = "Layout",
 	}),
-})
-
-awful.keyboard.append_global_keybindings({
 	awful.key({
 		modifiers = { beautiful.modkey },
 		keygroup = "numrow",
@@ -497,11 +420,8 @@ awful.keyboard.append_global_keybindings({
 			end
 		end,
 	}),
-})
-
-awful.keyboard.append_global_keybindings({
-	awful.key({}, "XF86KbdBrightnessDown", sh_cmd("sudo /usr/local/bin/keyboard-backlight down")),
-	awful.key({}, "XF86KbdBrightnessUp", sh_cmd("sudo /usr/local/bin/keyboard-backlight up")),
+	awful.key({}, "XF86KbdBrightnessDown", require("keybindings.utils.sh_cmd")("sudo /usr/local/bin/keyboard-backlight down")),
+	awful.key({}, "XF86KbdBrightnessUp", require("keybindings.utils.sh_cmd")("sudo /usr/local/bin/keyboard-backlight up")),
 	awful.key({}, "XF86MonBrightnessUp", require("widgets.make").keypress("dwm-brightness.sh up", "brightness")),
 	awful.key({}, "XF86MonBrightnessDown", require("widgets.make").keypress("dwm-brightness.sh down", "brightness")),
 	awful.key({}, "XF86AudioMute", require("widgets.make").keypress("liskin-media mute", "volume")),
@@ -511,9 +431,58 @@ awful.keyboard.append_global_keybindings({
 	awful.key({}, "XF86AudioPrev", require("widgets.make").keypress("liskin-media prev", "mpris")),
 	awful.key({}, "XF86AudioNext", require("widgets.make").keypress("liskin-media next", "mpris")),
 	awful.key({}, "XF86AudioStop", require("widgets.make").keypress("liskin-media stop", "mpris")),
-})
--- }}}
--- Mouse: {{{
+}
+
+beautiful.client_keybindings = {
+	awful.key({ beautiful.modkey }, "Return", require("utils.swap_main"), {
+		description = "Zoom",
+		group = "Client",
+	}),
+	awful.key({ beautiful.modkey, "Shift" }, "c", function(c)
+		c:kill()
+	end, {
+		description = "Close Client",
+		group = "Client",
+	}),
+	awful.key(
+		{ beautiful.modkey },
+		"space",
+		awful.client.floating.toggle,
+		{ description = "Toggle Floating", group = "Client" }
+	),
+	awful.key({ beautiful.modkey }, "Up", require("keybindings.utils.moveresize")({ y = -25 }), {
+		description = "Move Up",
+		group = "Client",
+	}),
+	awful.key({ beautiful.modkey }, "Down", require("keybindings.utils.moveresize")({ y = 25 }), {
+		description = "Move Down",
+		group = "Client",
+	}),
+	awful.key({ beautiful.modkey }, "Right", require("keybindings.utils.moveresize")({ x = 25 }), {
+		description = "Move Right",
+		group = "Client",
+	}),
+	awful.key({ beautiful.modkey }, "Left", require("keybindings.utils.moveresize")({ x = -25 }), {
+		description = "Move Left",
+		group = "Client",
+	}),
+	awful.key({ beautiful.modkey, "Shift" }, "Up", require("keybindings.utils.moveresize")({ h = -25 }), {
+		description = "Grow Height",
+		group = "Client",
+	}),
+	awful.key({ beautiful.modkey, "Shift" }, "Down", require("keybindings.utils.moveresize")({ h = 25 }), {
+		description = "Grow Height",
+		group = "Client",
+	}),
+	awful.key({ beautiful.modkey, "Shift" }, "Right", require("keybindings.utils.moveresize")({ w = 25 }), {
+		description = "Grow Width",
+		group = "Client",
+	}),
+	awful.key({ beautiful.modkey, "Shift" }, "Left", require("keybindings.utils.moveresize")({ w = -25 }), {
+		description = "Shrink Width",
+		group = "Client",
+	}),
+}
 -- }}}
 require("smartborders")
 -- Attach default layouts
@@ -522,10 +491,18 @@ tag.connect_signal("request::default_layouts", function()
 end)
 -- Client mouse behavior
 client.connect_signal("mouse::enter", function(c) -- Sloppy focus
-	c:emit_signal("request::activate", "mouse_enter", { raise = not beautiful.sloppy_focus })
+	if beautiful.sloppy_focus then
+		c:emit_signal("request::activate", "mouse_enter", { raise = false })
+	end
 end)
 client.connect_signal("request::default_mousebindings", function()
 	awful.mouse.append_client_mousebindings(beautiful.client_mousebuttons)
 end)
 require("bar")
+-- Keybindings:
+client.connect_signal("request::default_keybindings", function()
+	awful.keyboard.append_client_keybindings(beautiful.client_keybindings)
+end)
+
+awful.keyboard.append_global_keybindings(beautiful.global_keybindings)
 -- vim: foldlevel=0:foldmethod=marker
