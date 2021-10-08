@@ -137,45 +137,33 @@ local dotfiles_target = os.getenv("DOTFILES_TARGET") or "desktop"
 local is_laptop = (dotfiles_target == "laptop")
 
 local function make_wibar_widgets(widget_definitions)
-	local widgets = {}
-	for _,widget in ipairs(widget_definitions) do
-		widgets.insert(block_watcher(widget[1], widget[2]))
+	local widgets = wibox.widget({
+		layout = wibox.layout.fixed.horizontal,
+		spacing = 10,
+		spacing_widget = {
+			color = xrdb.color15,
+			text = " ",
+			widget = wibox.widget.textbox,
+		},
+		widget = wibox.container.place,
+	})
+
+	for _, widget in ipairs(widget_definitions) do
+		table.insert(widgets.children, block_watcher(widget[1], widget[2]))
 	end
 	return widgets
 end
-local wibar_widgets = make_wibar_widgets(is_laptop
-	and {
+beautiful.wibar_widgets = make_wibar_widgets(is_laptop and {
 	{ "dwmblocks-volume.sh", 30 },
 	{ "dwmblocks-brightness.sh", 30 },
 	{ "dwmblocks-battery.sh", 30 },
 	{ "dwmblocks-date.sh", 5 },
-	}
-	or {
+} or {
 	{ "dwmblocks-volume.sh", 30 },
 	{ "dwmblocks-mpris.sh", 30 },
 	{ "dwmblocks-weather.sh", 600 },
 	{ "dwmblocks-date.sh", 5 },
 })
-
-local volume_widget = block_watcher("dwmblocks-volume.sh", 30)
--- local wifi_widget = block_watcher("dwmblocks-essid.sh", 30)
-local mpris_widget = nil
-if not is_laptop then
-	mpris_widget = block_watcher("dwmblocks-mpris.sh", 30)
-end
-local brightness_widget = nil
-if is_laptop then
-	brightness_widget = block_watcher("dwmblocks-brightness.sh", 30)
-end
-local battery_widget = nil
-if is_laptop then
-	battery_widget = block_watcher("dwmblocks-battery.sh", 30)
-end
-local weather_widget = nil
-if not is_laptop then
-	weather_widget = block_watcher("dwmblocks-weather.sh", 600)
-end
-local date_widget = block_watcher("dwmblocks-date.sh", 5)
 -- }}}
 -- Wibar {{{
 screen.connect_signal("request::desktop_decoration", function(s)
@@ -281,22 +269,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			},
 		},
 		s.tasklist,
-		{
-			layout = wibox.layout.fixed.horizontal,
-			spacing = 10,
-			spacing_widget = {
-				color = xrdb.color15,
-				text = " ",
-				widget = wibox.widget.textbox,
-			},
-			volume_widget,
-			mpris_widget,
-			brightness_widget,
-			weather_widget,
-			battery_widget,
-			date_widget,
-			widget = wibox.container.place,
-		},
+		beautiful.wibar_widgets,
 	}
 end)
 -- }}}
