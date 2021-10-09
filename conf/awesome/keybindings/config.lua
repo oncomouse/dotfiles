@@ -65,11 +65,6 @@ local rofinetworkcmd = {
 	"-font",
 	beautiful.font,
 }
-local powermenucmd = {
-	"awesome-powermenu.sh",
-	"-font",
-	beautiful.font,
-}
 beautiful.global_keybindings = {
 	awful.key({
 		modifiers = { beautiful.modkey, "Mod1" },
@@ -110,7 +105,7 @@ beautiful.global_keybindings = {
 	awful.key({
 		modifiers = { beautiful.modkey, "Shift" },
 		key = "p",
-		on_press = function() awful.spawn(powermenucmd) end,
+		on_press = require("utils.powermenu"),
 		description = "Powermenu",
 		group = "Launcher",
 	}),
@@ -434,7 +429,7 @@ beautiful.client_keybindings = {
 				Right = { x = 25 },
 			}
 			require("keybindings.utils.moveresize")(direction_to_move[direction])(client)
-		end
+		end,
 	}),
 	awful.key({
 		modifiers = { beautiful.modkey, "Shift" },
@@ -447,9 +442,7 @@ beautiful.client_keybindings = {
 				Right = { w = 25 },
 			}
 			require("keybindings.utils.moveresize")(direction_to_move[direction])(client)
-		end
+		end,
 	}),
 }
 -- }}}
-
-
