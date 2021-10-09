@@ -4,14 +4,14 @@ local gears = require("gears")
 local commands = {
 	Lock = "xscreensaver-command -lock",
 	Suspend = "xscreensaver-command -lock && xset dpms force off",
-	Logoff = "echo 'awesome:quit()' | awesome-client",
+	Logoff = "echo 'awesome.quit()' | awesome-client",
 	Reboot = "reboot",
 	Shutdown = "poweroff",
 }
 local powermenu_cmd = 'echo "'
 	.. table.concat(gears.table.keys(commands), "\n")
 	.. '" | '
-	.. 'rofi -dmenu -theme ~/dotfiles/conf/rofi/barmenu.rasi -n -F -i -p Powermenu -font "'
+	.. 'rofi -dmenu -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -i -p Powermenu -font "'
 	.. beautiful.font
 	.. '"'
 local function powermenu()
