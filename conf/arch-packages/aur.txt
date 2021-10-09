@@ -18,3 +18,4 @@ rofi-emoji
 bibtool
 mpv-mpris
 c-lolcat
+rofi-dmenu

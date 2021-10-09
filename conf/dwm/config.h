@@ -105,7 +105,15 @@ static const char *rofiemojicmd[] = {
 	"rofi", "-theme", "~/dotfiles/conf/rofi/menu.rasi", "-show", "emoji", "-modi", "emoji", "-font", rofifont, NULL
 };
 static const char *rofinetworkcmd[] = {
-	"networkmanager_dmenu", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", tagsselbgcolor, "-sf", tagsselfgcolor, NULL 
+	"networkmanager_dmenu",
+	"-theme",
+	"~/dotfiles/conf/rofi/menu.rasi",
+	"-location",
+	"1",
+	"-theme-str",
+	"window { width: 100%; }",
+	"-font",
+	rofifont, NULL
 };
 
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */

@@ -53,21 +53,17 @@ local rofiemojicmd = {
 	"-font",
 	beautiful.font,
 }
-local dmenu_font = 	beautiful.font:gsub("%s(%d+)", ":size=%1"):gsub("%sNormal", "-Normal")
+-- local dmenu_font = 	beautiful.font:gsub("%s(%d+)", ":size=%1"):gsub("%sNormal", "-Normal")
 local rofinetworkcmd = {
 	"networkmanager_dmenu",
-	"-m",
+	"-theme",
+	"~/dotfiles/conf/rofi/menu.rasi",
+	"-location",
 	"1",
-	"-fn",
-	dmenu_font,
-	"-nb",
-	xrdb.color0,
-	"-nf",
-	xrdb.color7,
-	"-sb",
-	xrdb.color6,
-	"-sf",
-	xrdb.color0,
+	"-theme-str",
+	"window { width: 100%; }",
+	"-font",
+	beautiful.font,
 }
 local powermenucmd = {
 	"awesome-powermenu.sh",
