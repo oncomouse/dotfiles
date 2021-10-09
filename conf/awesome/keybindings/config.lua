@@ -44,6 +44,8 @@ local rofiwincmd = {
 }
 local rofiemojicmd = {
 	"rofi",
+	"-theme",
+	"~/dotfiles/conf/rofi/menu.rasi",
 	"-show",
 	"emoji",
 	"-modi",
@@ -233,12 +235,21 @@ beautiful.global_keybindings = {
 		group = "Client",
 	}),
 	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		key = "t",
+		on_press = function()
+			awful.layout.set(awful.layout.suit.tile.left)
+		end,
+		description = "Select Tiled Layout",
+		group = "Layout",
+	}),
+	awful.key({
 		modifiers = { beautiful.modkey },
 		key = "m",
 		on_press = function()
 			awful.layout.set(require("layouts.centeredmonocle"))
 		end,
-		description = "select centered monocle layout",
+		description = "Select Centered Monocle Layout",
 		group = "Layout",
 	}),
 	awful.key({
@@ -247,7 +258,7 @@ beautiful.global_keybindings = {
 		on_press = function()
 			awful.layout.set(awful.layout.suit.max)
 		end,
-		description = "select max layout",
+		description = "Select Monocle Layout",
 		group = "Layout",
 	}),
 	awful.key({
@@ -256,16 +267,7 @@ beautiful.global_keybindings = {
 		on_press = function()
 			awful.layout.set(awful.layout.suit.tile.right)
 		end,
-		description = "select tiled layout",
-		group = "Layout",
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey, "Shift" },
-		key = "t",
-		on_press = function()
-			awful.layout.set(awful.layout.suit.tile.left)
-		end,
-		description = "select tiled layout",
+		description = "Select Right Tile Layout",
 		group = "Layout",
 	}),
 	awful.key({
