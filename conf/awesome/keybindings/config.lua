@@ -46,12 +46,13 @@ local rofiemojicmd = {
 	"-font",
 	beautiful.font,
 }
+local dmenu_font = 	beautiful.font:gsub("%s(%d+)", ":size=%1"):gsub("%sNormal", "-Normal")
 local rofinetworkcmd = {
 	"networkmanager_dmenu",
 	"-m",
 	"1",
 	"-fn",
-	beautiful.font:gsub("%s(%d+)", ":size=%1"):gsub("%sNormal", "-Normal"),
+	dmenu_font,
 	"-nb",
 	xrdb.color0,
 	"-nf",
@@ -60,6 +61,11 @@ local rofinetworkcmd = {
 	xrdb.color6,
 	"-sf",
 	xrdb.color0,
+}
+local powermenucmd = {
+	"awesome-powermenu.sh",
+	"-font",
+	beautiful.font,
 }
 beautiful.global_keybindings = {
 	awful.key({
@@ -101,7 +107,7 @@ beautiful.global_keybindings = {
 	awful.key({
 		modifiers = { beautiful.modkey, "Shift" },
 		key = "p",
-		on_press = require("keybindings.utils.sh_cmd")("dwm-powermenu.sh"),
+		on_press = function() awful.spawn(powermenucmd) end,
 		description = "Powermenu",
 		group = "Launcher",
 	}),
