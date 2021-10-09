@@ -56,7 +56,6 @@ local rofiemojicmd = {
 	"-font",
 	beautiful.font,
 }
--- local dmenu_font = 	beautiful.font:gsub("%s(%d+)", ":size=%1"):gsub("%sNormal", "-Normal")
 local rofinetworkcmd = {
 	"networkmanager_dmenu",
 	"-location",
