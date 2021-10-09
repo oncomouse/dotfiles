@@ -71,10 +71,10 @@
     text-color:       @active-foreground;
 }
 #scrollbar {
-    width:        4px;
+    width:        0px;
     border:       0;
     handle-color: @normal-foreground;
-    handle-width: 8px;
+    handle-width: 0px;
     padding:      0;
 }
 #mode-switcher {
