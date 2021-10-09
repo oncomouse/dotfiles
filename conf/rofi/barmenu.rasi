@@ -27,7 +27,7 @@ listview {
 
 entry {
   expand: false;
-  width: 5em;
+  width: 3em;
 }
 
 prompt {
