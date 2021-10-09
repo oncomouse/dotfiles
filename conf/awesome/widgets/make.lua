@@ -30,15 +30,6 @@ awesome.connect_signal("widget::update", function(name)
 	end
 end)
 
--- Handler for key presses
-local function media_key_press(cmd, signal)
-	return function()
-		awful.spawn.easy_async_with_shell(cmd, function()
-			awesome.emit_signal("widget::update", signal)
-		end)
-	end
-end
-
 local function make_wibar_widgets(widget_definitions)
 	local widgets = wibox.widget({
 		layout = wibox.layout.fixed.horizontal,
@@ -56,7 +47,4 @@ local function make_wibar_widgets(widget_definitions)
 	return widgets
 end
 
-return {
-	make = make_wibar_widgets,
-	keypress = media_key_press,
-}
+return make_wibar_widgets

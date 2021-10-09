@@ -20,7 +20,7 @@ beautiful.border_color_active = beautiful.bg_focus -- Normal border color
 beautiful.border_focus = beautiful.bg_focus -- Focused border color
 beautiful.border_width = 1
 -- Fonts
-beautiful.hotkeys_font = "FiraCode Nerd Font Normal 16"
+beautiful.hotkeys_font = "FiraCode Nerd Font Normal 12"
 beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
 -- Wibar stuff:
 beautiful.bar_height = 24
@@ -51,3 +51,6 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 awful.util.shell = "/bin/bash"
 -- }}}
+-- Load Additional Resources:
+require("layouts") -- Layouts
+require("smartborders") -- Smartborder patch

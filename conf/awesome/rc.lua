@@ -16,10 +16,20 @@ naughty.connect_signal("request::display_error", function(message, startup)
 		message = message,
 	})
 end)
-require("layouts")
-require("smartborders")
-require("bar")
+-- Setup the screen:
+local awful = require("awful")
+local beautiful = require("beautiful")
+screen.connect_signal("request::desktop_decoration", function(s)
+	for _, t in ipairs(beautiful.tags) do
+		awful.tag.add(t, {
+			screen = s,
+			layout = awful.layout.layouts[1],
+			master_width_factor = beautiful.mfact,
+		})
+	end
+	awful.screen.focused().tags[1]:view_only()
+	require("bar")(s)
+end)
 require("keybindings")
 require("mousebindings")
 require("rules")
--- vim: foldlevel=0:foldmethod=marker

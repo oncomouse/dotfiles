@@ -2,16 +2,7 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
-require("widgets")
-screen.connect_signal("request::desktop_decoration", function(s)
-	for _, t in ipairs(beautiful.tags) do
-		awful.tag.add(t, {
-			screen = s,
-			layout = awful.layout.layouts[1],
-			master_width_factor = beautiful.mfact,
-		})
-	end
-	awful.screen.focused().tags[1]:view_only()
+local function configure_bar(s)
 	s.layoutbox = awful.widget.layoutbox(s)
 	s.layoutbox:buttons(beautiful.layoutbox_mousebuttons)
 	s.layoutbox = wibox.container.margin(s.layoutbox, 4, 4, 4, 4)
@@ -51,6 +42,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	})
 	s.wibar.widget = {
 		layout = wibox.layout.align.horizontal,
+		-- Left Bar:
 		{
 			spacing = 1,
 			layout = wibox.layout.fixed.horizontal,
@@ -60,7 +52,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
 				widget = wibox.container.place,
 			},
 		},
+		-- Center Bar:
 		s.tasklist,
-		require("widgets.make").make(beautiful.wibar_widgets),
+		-- Right Bar:
+		require("widgets"),
 	}
-end)
+end
+
+return configure_bar

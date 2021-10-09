@@ -1,6 +1,5 @@
 -- luacheck: globals awesome screen client
 local beautiful = require("beautiful")
-local xrdb = beautiful.xresources.get_current_theme()
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
@@ -123,7 +122,7 @@ beautiful.global_keybindings = {
 	awful.key({
 		modifiers = { beautiful.modkey, "Shift" },
 		key = "b",
-		on_press = require("widgets.make").keypress("dwm-brightness.sh default", "brightness"),
+		on_press = require("widgets.keypress")("dwm-brightness.sh default", "brightness"),
 		description = "Set Default Brightness",
 		group = "Awesome",
 	}),
@@ -332,63 +331,63 @@ beautiful.global_keybindings = {
 	awful.key({
 		modifiers = {},
 		key = "XF86MonBrightnessUp",
-		on_press = require("widgets.make").keypress("dwm-brightness.sh up", "brightness"),
+		on_press = require("widgets.keypress")("dwm-brightness.sh up", "brightness"),
 		description = "Raise Brightness by 5%",
 		group = "Media",
 	}),
 	awful.key({
 		modifiers = {},
 		key = "XF86MonBrightnessDown",
-		on_press = require("widgets.make").keypress("dwm-brightness.sh down", "brightness"),
+		on_press = require("widgets.keypress")("dwm-brightness.sh down", "brightness"),
 		description = "Lower Brightness by 5%",
 		group = "Media",
 	}),
 	awful.key({
 		modifiers = {},
 		key = "XF86AudioMute",
-		on_press = require("widgets.make").keypress("liskin-media mute", "volume"),
+		on_press = require("widgets.keypress")("liskin-media mute", "volume"),
 		description = "Toggle Mute",
 		group = "Media",
 	}),
 	awful.key({
 		modifiers = {},
 		key = "XF86AudioLowerVolume",
-		on_press = require("widgets.make").keypress("liskin-media volume down", "volume"),
+		on_press = require("widgets.keypress")("liskin-media volume down", "volume"),
 		description = "Lower Volume by 5%",
 		group = "Media",
 	}),
 	awful.key({
 		modifiers = {},
 		key = "XF86AudioRaiseVolume",
-		on_press = require("widgets.make").keypress("liskin-media volume up", "volume"),
+		on_press = require("widgets.keypress")("liskin-media volume up", "volume"),
 		description = "Raise Volume by 5%",
 		group = "Media",
 	}),
 	awful.key({
 		modifiers = {},
 		key = "XF86AudioPlay",
-		on_press = require("widgets.make").keypress("liskin-media play", "mpris"),
+		on_press = require("widgets.keypress")("liskin-media play", "mpris"),
 		description = "Play/pause Audio",
 		group = "Media",
 	}),
 	awful.key({
 		modifiers = {},
 		key = "XF86AudioPrev",
-		on_press = require("widgets.make").keypress("liskin-media prev", "mpris"),
+		on_press = require("widgets.keypress")("liskin-media prev", "mpris"),
 		description = "Previous Track",
 		group = "Media",
 	}),
 	awful.key({
 		modifiers = {},
 		key = "XF86AudioNext",
-		on_press = require("widgets.make").keypress("liskin-media next", "mpris"),
+		on_press = require("widgets.keypress")("liskin-media next", "mpris"),
 		description = "Next Track",
 		group = "Media",
 	}),
 	awful.key({
 		modifiers = {},
 		key = "XF86AudioStop",
-		on_press = require("widgets.make").keypress("liskin-media stop", "mpris"),
+		on_press = require("widgets.keypress")("liskin-media stop", "mpris"),
 		descriptino = "Stop Audio from Playing",
 		group = "Media",
 	}),
