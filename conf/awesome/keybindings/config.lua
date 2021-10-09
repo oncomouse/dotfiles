@@ -154,13 +154,13 @@ beautiful.global_keybindings = {
 		description = "Quit Awesome",
 		group = "Awesome",
 	}),
-	-- awful.key({
-	-- 	modifiers = { beautiful.modky, },
-	-- 	key = "?",
-	-- 	on_press = hotkeys_popup.show_help,
-	-- 	description = "Show Hotkeys",
-	-- 	group = "Awesome",
-	-- }),
+	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		key = "/",
+		on_press = hotkeys_popup.show_help,
+		description = "Show Hotkeys",
+		group = "Awesome",
+	}),
 	awful.key({
 		modifiers = { beautiful.modkey },
 		key = "j",
@@ -422,59 +422,29 @@ beautiful.client_keybindings = {
 	}),
 	awful.key({
 		modifiers = { beautiful.modkey },
-		key = "Up",
-		on_press = require("keybindings.utils.moveresize")({ y = -25 }),
-		description = "Move Up",
-		group = "Client",
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey },
-		key = "Down",
-		on_press = require("keybindings.utils.moveresize")({ y = 25 }),
-		description = "Move Down",
-		group = "Client",
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey },
-		key = "Right",
-		on_press = require("keybindings.utils.moveresize")({ x = 25 }),
-		description = "Move Right",
-		group = "Client",
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey },
-		key = "Left",
-		on_press = require("keybindings.utils.moveresize")({ x = -25 }),
-		description = "Move Left",
-		group = "Client",
+		keygroup = "arrows",
+		on_press = function(direction, client)
+			local direction_to_move = {
+				Up = { y = -25 },
+				Down = { y = 25 },
+				Left = { x = -25 },
+				Right = { x = 25 },
+			}
+			require("keybindings.utils.moveresize")(direction_to_move[direction])(client)
+		end
 	}),
 	awful.key({
 		modifiers = { beautiful.modkey, "Shift" },
-		key = "Up",
-		on_press = require("keybindings.utils.moveresize")({ h = -25 }),
-		description = "Grow Height",
-		group = "Client",
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey, "Shift" },
-		key = "Down",
-		on_press = require("keybindings.utils.moveresize")({ h = 25 }),
-		description = "Grow Height",
-		group = "Client",
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey, "Shift" },
-		key = "Right",
-		on_press = require("keybindings.utils.moveresize")({ w = 25 }),
-		description = "Grow Width",
-		group = "Client",
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey, "Shift" },
-		key = "Left",
-		on_press = require("keybindings.utils.moveresize")({ w = -25 }),
-		description = "Shrink Width",
-		group = "Client",
+		keygroup = "arrows",
+		on_press = function(direction, client)
+			local direction_to_move = {
+				Up = { h = -25 },
+				Down = { h = 25 },
+				Left = { w = -25 },
+				Right = { w = 25 },
+			}
+			require("keybindings.utils.moveresize")(direction_to_move[direction])(client)
+		end
 	}),
 }
 -- }}}
