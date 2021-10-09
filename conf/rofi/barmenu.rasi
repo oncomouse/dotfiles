@@ -1,4 +1,4 @@
-@import "~/.cache/wal/dmenu.rasi"
+@import "~/.cache/wal/colors.rasi"
 
 * {
   background-color: @background;
@@ -32,8 +32,8 @@ entry {
 
 prompt {
   padding: 0 0.25em 0 0;
-  background-color: @active-background;
-  text-color: @active-foreground;
+  background-color: @selected-normal-background;
+  text-color: @selected-normal-foreground;
 }
 
 element {
@@ -42,12 +42,12 @@ element {
 
 
 element-icon selected {
-	background-color: @active-background;
+	background-color: @selected-normal-background;
 }
 element-text selected {
-	background-color: @active-background;
-	text-color: @active-foreground;
+	background-color: @selected-normal-background;
+	text-color: @selected-normal-foreground;
 	}
 element selected {
-    background-color: @active-background;
+    background-color: @selected-normal-background;
 }

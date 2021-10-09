@@ -57,8 +57,8 @@ local rofiemojicmd = {
 -- local dmenu_font = 	beautiful.font:gsub("%s(%d+)", ":size=%1"):gsub("%sNormal", "-Normal")
 local rofinetworkcmd = {
 	"networkmanager_dmenu",
-	"-theme",
-	"~/dotfiles/conf/rofi/menu.rasi",
+	-- "-theme",
+	-- "~/dotfiles/conf/rofi/menu.rasi",
 	"-location",
 	"1",
 	"-theme-str",

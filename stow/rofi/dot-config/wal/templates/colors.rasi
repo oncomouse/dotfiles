@@ -1,14 +1,3 @@
-/** {{
-  background: {background};
-  foreground: {foreground};
-  active-background: {color6};
-  active-foreground: {background};
-  background-alt: {color8};
-  border: {color4};
-  border-alt: {color12};
-  selected: {color8};
-  urgent: {color1};
-}}*/
 * {{
     selected-normal-foreground:  {background};
     foreground:                  {foreground};
@@ -39,3 +28,4 @@
     active-background:           {color6};
     selected-active-background:  {background};
 }}
+
