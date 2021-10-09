@@ -45,20 +45,20 @@ local rofiwincmd = {
 }
 local rofiemojicmd = {
 	"rofi",
-	"-theme",
-	"~/dotfiles/conf/rofi/menu.rasi",
 	"-show",
 	"emoji",
 	"-modi",
 	"emoji",
+	"-location",
+	"1",
+	"-theme-str",
+	"window { width: 100%; }",
 	"-font",
 	beautiful.font,
 }
 -- local dmenu_font = 	beautiful.font:gsub("%s(%d+)", ":size=%1"):gsub("%sNormal", "-Normal")
 local rofinetworkcmd = {
 	"networkmanager_dmenu",
-	-- "-theme",
-	-- "~/dotfiles/conf/rofi/menu.rasi",
 	"-location",
 	"1",
 	"-theme-str",
