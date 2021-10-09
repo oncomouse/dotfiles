@@ -6,6 +6,11 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
+-- This is used later as the default terminal and editor to run.
+beautiful.terminal = "kitty"
+-- Default modkey.
+beautiful.modkey = "Mod4"
+
 -- Keybindings {{{
 local dmenucmd = {
 	"rofi",

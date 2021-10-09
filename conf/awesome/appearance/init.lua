@@ -15,10 +15,6 @@ beautiful.notification_font = "FiraCode Nerd Font Normal 10"
 beautiful.fg_icon = xrdb.color7
 beautiful.icon_size = 16
 beautiful.notification_icon_size = 16
-beautiful.layout_centeredmonocle = gears.color.recolor_image(
-	gears.filesystem.get_themes_dir() .. "default/layouts/magnifierw.png",
-	beautiful.fg_normal
-)
 beautiful.useless_gap = 0 -- No gaps
 beautiful.border_color_active = beautiful.bg_focus -- Normal border color
 beautiful.border_focus = beautiful.bg_focus -- Focused border color
@@ -54,15 +50,4 @@ awful.screen.connect_for_each_screen(function(s)
 	require("backgrounds.dots")(s)
 end)
 awful.util.shell = "/bin/bash"
--- This is used later as the default terminal and editor to run.
-beautiful.terminal = "kitty"
--- Default modkey.
-beautiful.modkey = "Mod4"
--- Table of layouts to cover with awful.layout.inc, order matters.
-beautiful.default_layouts = {
-	awful.layout.suit.tile.right,
-	awful.layout.suit.tile.left,
-	require("layouts.centeredmonocle"),
-	awful.layout.suit.floating,
-}
 -- }}}
