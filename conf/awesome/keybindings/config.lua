@@ -1,6 +1,7 @@
 -- luacheck: globals awesome screen client
 local beautiful = require("beautiful")
 local awful = require("awful")
+local gears = require("gears")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -9,8 +10,9 @@ require("awful.hotkeys_popup.keys")
 beautiful.terminal = "kitty"
 -- Default modkey.
 beautiful.modkey = "Mod4"
+beautiful.global_keybindings = {}
+-- Launcher Commands {{{
 
--- Keybindings {{{
 local dmenucmd = {
 	"rofi",
 	"-theme",
@@ -64,7 +66,9 @@ local rofinetworkcmd = {
 	"-font",
 	beautiful.font,
 }
-beautiful.global_keybindings = {
+-- }}}
+-- Launcher Keybinding Group {{{
+beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 	awful.key({
 		modifiers = { beautiful.modkey, "Mod1" },
 		key = "r",
@@ -108,7 +112,10 @@ beautiful.global_keybindings = {
 		description = "Powermenu",
 		group = "Launcher",
 	}),
-
+})
+-- }}}
+-- Awesome Keybinding Group {{{
+beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 	awful.key({
 		modifiers = { beautiful.modkey, "Shift" },
 		key = "Return",
@@ -158,6 +165,10 @@ beautiful.global_keybindings = {
 		description = "Show Hotkeys",
 		group = "Awesome",
 	}),
+})
+-- }}}
+-- Client Keybinding Group {{{
+beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 	awful.key({
 		modifiers = { beautiful.modkey },
 		key = "j",
@@ -224,6 +235,116 @@ beautiful.global_keybindings = {
 		description = "View Last Tag",
 		group = "Client",
 	}),
+})
+beautiful.client_keybindings = {
+	awful.key({
+		modifiers = { beautiful.modkey },
+		key = "Return",
+		on_press = require("utils.swap_main"),
+		description = "Zoom",
+		group = "Client",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		key = "c",
+		on_press = function(c)
+			c:kill()
+		end,
+		description = "Close Client",
+		group = "Client",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey },
+		key = "space",
+		on_press = awful.client.floating.toggle,
+		description = "Toggle Floating",
+		group = "Client",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey },
+		keygroup = "arrows",
+		on_press = function(direction, client)
+			local direction_to_move = {
+				Up = { y = -25 },
+				Down = { y = 25 },
+				Left = { x = -25 },
+				Right = { x = 25 },
+			}
+			require("keybindings.utils.moveresize")(direction_to_move[direction])(client)
+		end,
+		description = "Move Client by 25px",
+		group = "Client",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		keygroup = "arrows",
+		on_press = function(direction, client)
+			local direction_to_move = {
+				Up = { h = -25 },
+				Down = { h = 25 },
+				Left = { w = -25 },
+				Right = { w = 25 },
+			}
+			require("keybindings.utils.moveresize")(direction_to_move[direction])(client)
+		end,
+		description = "Resize Client by 25px",
+		group = "Client",
+	}),
+}
+beautiful.client_keybindings = {
+	awful.key({
+		modifiers = { beautiful.modkey },
+		key = "Return",
+		on_press = require("utils.swap_main"),
+		description = "Zoom",
+		group = "Client",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		key = "c",
+		on_press = function(c)
+			c:kill()
+		end,
+		description = "Close Client",
+		group = "Client",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey },
+		key = "space",
+		on_press = awful.client.floating.toggle,
+		description = "Toggle Floating",
+		group = "Client",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey },
+		keygroup = "arrows",
+		on_press = function(direction, client)
+			local direction_to_move = {
+				Up = { y = -25 },
+				Down = { y = 25 },
+				Left = { x = -25 },
+				Right = { x = 25 },
+			}
+			require("keybindings.utils.moveresize")(direction_to_move[direction])(client)
+		end,
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		keygroup = "arrows",
+		on_press = function(direction, client)
+			local direction_to_move = {
+				Up = { h = -25 },
+				Down = { h = 25 },
+				Left = { w = -25 },
+				Right = { w = 25 },
+			}
+			require("keybindings.utils.moveresize")(direction_to_move[direction])(client)
+		end,
+	}),
+}
+-- }}}
+-- Layout Keybinding Group {{{
+beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 	awful.key({
 		modifiers = { beautiful.modkey, "Shift" },
 		key = "t",
@@ -260,6 +381,10 @@ beautiful.global_keybindings = {
 		description = "Select Right Tile Layout",
 		group = "Layout",
 	}),
+})
+-- }}}
+-- Tag Keybinding Group {{{
+beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 	awful.key({
 		modifiers = { beautiful.modkey },
 		keygroup = "numrow",
@@ -314,6 +439,10 @@ beautiful.global_keybindings = {
 			end
 		end,
 	}),
+})
+-- }}}
+-- Media Keybindings Group {{{
+beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 	awful.key({
 		modifiers = {},
 		key = "XF86KbdBrightnessDown",
@@ -391,57 +520,6 @@ beautiful.global_keybindings = {
 		descriptino = "Stop Audio from Playing",
 		group = "Media",
 	}),
-}
-
-beautiful.client_keybindings = {
-	awful.key({
-		modifiers = { beautiful.modkey },
-		key = "Return",
-		on_press = require("utils.swap_main"),
-		description = "Zoom",
-		group = "Client",
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey, "Shift" },
-		key = "c",
-		on_press = function(c)
-			c:kill()
-		end,
-		description = "Close Client",
-		group = "Client",
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey },
-		key = "space",
-		on_press = awful.client.floating.toggle,
-		description = "Toggle Floating",
-		group = "Client",
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey },
-		keygroup = "arrows",
-		on_press = function(direction, client)
-			local direction_to_move = {
-				Up = { y = -25 },
-				Down = { y = 25 },
-				Left = { x = -25 },
-				Right = { x = 25 },
-			}
-			require("keybindings.utils.moveresize")(direction_to_move[direction])(client)
-		end,
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey, "Shift" },
-		keygroup = "arrows",
-		on_press = function(direction, client)
-			local direction_to_move = {
-				Up = { h = -25 },
-				Down = { h = 25 },
-				Left = { w = -25 },
-				Right = { w = 25 },
-			}
-			require("keybindings.utils.moveresize")(direction_to_move[direction])(client)
-		end,
-	}),
-}
+})
 -- }}}
+-- # vim:foldmethod=marker;foldlevel=0
