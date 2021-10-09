@@ -7,7 +7,7 @@ Environment=SEADRIVE_CONFIG_FILE="%h/.config/seadrive/seadrive.conf"
 Environment=SEADRIVE_DATA_DIR="%h/.local/share/seadrive/data/"
 Environment=SEADRIVE_LOG_FILE="%h/.local/share/seadrive/logs/seadrive.log"
 Environment=SEADRIVE_MOUNT_DIR="%h/Seadrive"
-ExecStart=/usr/local/bin/seadrive \
+ExecStart=/usr/bin/seadrive \
   -f \
   -c ${SEADRIVE_CONFIG_FILE} \
   -d ${SEADRIVE_DATA_DIR} \
