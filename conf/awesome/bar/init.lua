@@ -2,7 +2,7 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
-local function configure_bar(s)
+screen.connect_signal("request::desktop_decoration", function(s)
 	s.layoutbox = awful.widget.layoutbox(s)
 	s.layoutbox:buttons(beautiful.layoutbox_mousebuttons)
 	s.layoutbox = wibox.container.margin(s.layoutbox, 4, 4, 4, 4)
@@ -57,6 +57,4 @@ local function configure_bar(s)
 		-- Right Bar:
 		require("widgets"),
 	}
-end
-
-return configure_bar
+end)
