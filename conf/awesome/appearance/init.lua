@@ -12,8 +12,6 @@ beautiful.bg_focus = xrdb.color6
 beautiful.mfact = 0.55
 beautiful.tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 beautiful.icon_dir = os.getenv("HOME") .. "/.icons/oomox-xresources-reverse-flat/"
-beautiful.font = "FiraCode Nerd Font Normal 10"
-beautiful.notification_font = "FiraCode Nerd Font Normal 10"
 beautiful.fg_icon = xrdb.color7
 beautiful.icon_size = 16
 beautiful.notification_icon_size = 16
@@ -25,8 +23,11 @@ beautiful.border_color_floating_normal = xrdb.color0
 beautiful.border_color_floating_active = beautiful.border_color_active
 beautiful.border_width = 1
 -- Fonts:
-beautiful.hotkeys_font = "FiraCode Nerd Font Normal 12"
-beautiful.hotkeys_description_font = "FiraCode Nerd Font Normal 12"
+local is_laptop = require("utils.is_laptop")
+beautiful.font = is_laptop and "Hack Nerd Font Normal 9" or "FiraCode Nerd Font Normal 10"
+beautiful.notification_font = is_laptop and "Hack Nerd Font Normal 9" or "FiraCode Nerd Font Normal 10"
+beautiful.hotkeys_font = is_laptop and "Hack Nerd Font Normal 12" or "FiraCode Nerd Font Normal 14"
+beautiful.hotkeys_description_font = is_laptop and "Hack Nerd Font Normal 12" or "FiraCode Nerd Font Normal 14"
 -- Wibar stuff:
 beautiful.bar_height = 24
 beautiful.bar_position = "top"
