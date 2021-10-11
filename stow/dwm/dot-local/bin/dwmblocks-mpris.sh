@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-STATUS="/tmp/dwmblocks.mpris"
-
 case $BUTTON in
 	1) liskin-media play ;;
 	2) liskin-media prev ;;
