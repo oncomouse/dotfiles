@@ -28,7 +28,7 @@ if [ -z "$SERVER" ]; then
 		dotfiles_stow karabiner
 	elif [ "$os" == "arch" ]; then
 		# Other setup files:
-		dotfiles_stow dwm
+		dotfiles_stow awesome
 		dotfiles_stow picom
 		dotfiles_stow xdg
 		dotfiles_stow rofi
