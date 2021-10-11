@@ -60,7 +60,6 @@ naughty.connect_signal("request::display_error", function(message, startup)
 	})
 end)
 require("layouts") -- Layouts
-require("smartborders") -- Smartborder patch
 -- Screen decoration settings
 screen.connect_signal("request::desktop_decoration", function(s)
 	-- Attach tags:
@@ -74,3 +73,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	-- Highlight first tag to start:
 	awful.screen.focused().tags[1]:view_only()
 end)
+if beautiful.sloppyfocus then
+	require("appearance.behaviors.sloppyfocus")
+end
+require("appearance.behaviors.attachbelow") -- attachbelow patch
+require("appearance.behaviors.smartborders") -- smartborder patch

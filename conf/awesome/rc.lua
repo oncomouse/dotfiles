@@ -1,4 +1,3 @@
--- luacheck: globals awesome client io tag screen
 pcall(require, "luarocks.loader")
 -- Update package.path
 local addtional_path_prefix = os.getenv("HOME") .. "/dotfiles/conf/awesome/"
@@ -9,6 +8,3 @@ require("keybindings")
 require("mousebindings")
 require("bar")
 require("rules")
-client.connect_signal("manage", function (c)
-    if not awesome.startup then awful.client.setslave(c) end
-end)
