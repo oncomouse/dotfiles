@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 source ~/dotfiles/conf/xorg/xinit-common
-xrdb -merge ~/.cache/wal/dwm.Xresources
-xrdb -merge ~/.cache/wal/dmenu.Xresources
 
 if [ "$DOTFILES_TARGET" != "laptop" ]; then
 	pkill -f liskin-media
