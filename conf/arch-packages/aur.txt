@@ -5,7 +5,7 @@ libsearpc
 mpdris2
 mpv-mpris
 ncspot
-nerd-fonts-fantasque-sans-mono
+nerd-fonts-hack
 otf-hasklig
 otf-nerd-fonts-fira-code
 perl-term-shellui
