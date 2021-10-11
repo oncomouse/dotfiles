@@ -63,5 +63,4 @@ beautiful.client_mousebuttons = {
 		c:activate({ context = "mouse_click", action = "mouse_resize" })
 	end),
 }
-beautiful.sloppy_focus = true
 
