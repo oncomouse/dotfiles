@@ -289,6 +289,24 @@ beautiful.client_keybindings = {
 		description = "Resize Client by 25px",
 		group = "Client",
 	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Control" },
+		keygroup = "arrows",
+		on_press = function(direction, client)
+			require("keybindings.utils.moveresizeedge")(direction)(client)
+		end,
+		description = "Move Client to Edge",
+		group = "Client",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Control", "Shift" },
+		keygroup = "arrows",
+		on_press = function(direction, client)
+			require("keybindings.utils.moveresizeedge")(direction, true)(client)
+		end,
+		description = "Resize Client to Edge",
+		group = "Client",
+	}),
 }
 -- }}}
 -- Layout Keybinding Group {{{
