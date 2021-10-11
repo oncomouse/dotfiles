@@ -1,5 +1,5 @@
 local awful = require("awful")
-local function move_resize(move)
+local function moveresize(move)
 	return function(c)
 		if not c.floating then
 			awful.client.floating.toggle(c)
@@ -8,4 +8,4 @@ local function move_resize(move)
 	end
 end
 
-return move_resize
+return moveresize
