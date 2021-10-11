@@ -74,5 +74,5 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	awful.screen.focused().tags[1]:view_only()
 end)
 require("appearance.behaviors.sloppyfocus")
-require("appearance.behaviors.attachbelow") -- attachbelow patch
+-- require("appearance.behaviors.attachbelow") -- attachbelow patch
 require("appearance.behaviors.smartborders") -- smartborder patch
