@@ -2,8 +2,11 @@ local beautiful = require("beautiful")
 local function moveresizeedge(direction, resize)
 	return function(c)
 		if not c.floating then
-			return
-			-- require("awful").client.floating.toggle(c)
+			if beautiful.toggle_floating_on_moveresize then
+				require("awful").client.floating.toggle(c)
+			else
+				return
+			end
 		end
 		local move = {
 			x = 0,
