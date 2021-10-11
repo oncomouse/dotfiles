@@ -236,6 +236,13 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		description = "View Last Tag",
 		group = "Client",
 	}),
+	awful.key({
+		modifiers = { beautiful.modkey },
+		key = "u",
+		on_press = awful.client.urgent.jumpto,
+		description = "Jump to Urgent Client",
+		group = "Client",
+	}),
 })
 beautiful.client_keybindings = {
 	awful.key({
