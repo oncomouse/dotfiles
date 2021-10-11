@@ -63,9 +63,6 @@ if [ -z "$SERVER" ]; then
 	xdg-settings set default-web-browser firefox.desktop
 	xdg-mime default org.pwmt.zathura.desktop application/pdf
 
-	# Configure Awesome Support Scripts:
-	~/dotfiles/bootstrap/scripts/awesome.sh
-
 	# Configure Seadrive:
 	~/dotfiles/bootstrap/scripts/seadrive.sh
 fi
