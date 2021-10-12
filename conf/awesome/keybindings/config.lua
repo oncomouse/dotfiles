@@ -316,6 +316,13 @@ beautiful.client_keybindings = {
 		description = "Resize Client to Edge",
 		group = "Client",
 	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Control" },
+		key = "c",
+		on_press = require("keybindings.utils.centerclient"),
+		description = "Center Floating Client",
+		group = "Client",
+	}),
 }
 -- }}}
 -- Layout Keybinding Group {{{
