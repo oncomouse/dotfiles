@@ -8,3 +8,4 @@ require("keybindings")
 require("mousebindings")
 require("bar")
 require("rules")
+require("utils.heartbeat") -- Prevent screensaver when designated apps are running

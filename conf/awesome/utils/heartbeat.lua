@@ -8,7 +8,7 @@ local init = function()
 	local apps = beautiful.heartbeat_apps or {
 		"zoom",
 		"vlc",
-		"firefox"
+		"firefox",
 	}
 	-- How frequently to check:
 	local timeout = beautiful.heartbeat_timeout or 120
@@ -18,7 +18,7 @@ local init = function()
 	local forced_only = beautiful.heartbeat_forced_only or false
 	local forced_stop = false
 
-	function check()
+	local function check()
 		if forced_stop then
 			awful.spawn(delay_command)
 			return
@@ -37,7 +37,7 @@ local init = function()
 					if not stop then
 						local app = string.match(line, 'application.name.*"([^"]+)')
 						if playing and app ~= nil then
-							for _,needle in pairs(apps) do
+							for _, needle in pairs(apps) do
 								if string.match(app:upper(), needle:upper()) then
 									stop = true
 								end
@@ -52,12 +52,12 @@ local init = function()
 		end
 	end
 
-	gears.timer{
+	gears.timer({
 		timeout = timeout,
 		autostart = true,
 		call_now = false,
-		callback = check
-	}
+		callback = check,
+	})
 
 	-- Use these three signals to build widgets and keyboard shortcuts that caffeinate or decaffeinate your system:
 	-- Run awesome.emit_signal("heartbeat::toggle_forced_stop") to toggle forced stop
@@ -75,5 +75,5 @@ local init = function()
 end
 
 return {
-	init = init
+	init = init,
 }
