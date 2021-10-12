@@ -6,7 +6,6 @@
 -- @module awful.layout
 ---------------------------------------------------------------------------
 local beautiful = require("beautiful")
-local gears = require("gears")
 
 local scale = beautiful.cm_scale or 0.70
 -- Grab environment we need
@@ -51,10 +50,7 @@ cm.name = "centeredmonocle"
 function cm.arrange(p)
 	return fmax(p, false)
 end
-function cm.skip_gap(
-nclients,
-	t -- luacheck: no unused args
-)
+function cm.skip_gap(nclients, t) -- luacheck: no unused args
 	return true
 end
 
