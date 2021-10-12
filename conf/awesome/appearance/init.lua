@@ -3,6 +3,7 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
+local is_laptop = require("utils.is_laptop")
 -- {{{ Appearance
 -- Beautiful
 beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
@@ -16,6 +17,7 @@ beautiful.fg_icon = xrdb.color7
 beautiful.icon_size = 16
 beautiful.notification_icon_size = 16
 beautiful.useless_gap = 0 -- No gaps
+beautiful.cm_scale = is_laptop and 0.85 or 0.75
 -- Border Colors:
 beautiful.border_color_normal = xrdb.color0
 beautiful.border_color_active = beautiful.bg_focus
@@ -23,7 +25,6 @@ beautiful.border_color_floating_normal = xrdb.color0
 beautiful.border_color_floating_active = beautiful.border_color_active
 beautiful.border_width = 1
 -- Fonts:
-local is_laptop = require("utils.is_laptop")
 beautiful.font = is_laptop and "Hack Nerd Font Normal 9" or "FiraCode Nerd Font Normal 10"
 beautiful.notification_font = is_laptop and "Hack Nerd Font Normal 9" or "FiraCode Nerd Font Normal 10"
 beautiful.hotkeys_font = is_laptop and "Hack Nerd Font Normal 12" or "FiraCode Nerd Font Normal 14"
