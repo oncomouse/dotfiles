@@ -72,7 +72,7 @@ local on_attach = function(client, _)
 	-- Set snippet integration:
 	if vim.tbl_contains({ "html", "jsonls", "cssls" }, client.name) then
 		vim.cmd([[
-			packadd LuaSnip
+			packadd vim-vsnip
 		]])
 	end
 	if vim.tbl_contains(diagnostics_providers, client.name) then

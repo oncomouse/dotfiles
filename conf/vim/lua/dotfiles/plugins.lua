@@ -40,7 +40,9 @@ return require("packer").startup(function(use)
 		end,
 	})
 	use("junegunn/fzf.vim") -- Add shorcuts for FZF
-	vim.cmd([[command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)]])
+	vim.cmd(
+		[[command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--reverse', '--info=inline']}), <bang>0)]]
+	)
 	vim.g.fzf_layout = { window = { width = 1, height = 0.4, yoffset = 1, border = "top" } }
 	vim.g.fzf_action = {
 		["ctrl-s"] = "split",
@@ -130,7 +132,39 @@ return require("packer").startup(function(use)
 	use({
 		"neovim/nvim-lspconfig",
 		requires = {
-			{ "L3MON4D3/LuaSnip", opt = true },
+			{
+				"hrsh7th/vim-vsnip",
+				opt = true,
+				config = function()
+					vim.api.buf_set_keymap(
+						"i",
+						"<Tab>",
+						"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
+						{ expr = true }
+					)
+					vim.api.buf_set_keymap(
+						"s",
+						"<Tab>",
+						"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
+						{ expr = true }
+					)
+					vim.api.buf_set_keymap(
+						"i",
+						"<S-Tab>",
+						"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
+						{ expr = true }
+					)
+					vim.api.buf_set_keymap(
+						"s",
+						"<S-Tab>",
+						"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
+						{ expr = true }
+					)
+				end,
+				requires = {
+					{ "hrsh7th/vim-vsnip-integ", after = { "vim-vsnip" } },
+				},
+			},
 			{ "nvim-lua/plenary.nvim", opt = true },
 			{ "jose-elias-alvarez/null-ls.nvim", opt = true },
 		},
