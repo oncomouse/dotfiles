@@ -8,6 +8,6 @@ require("keybindings")
 require("mousebindings")
 require("bar")
 require("rules")
-if not require("utils.is_laptop") then
-	require("utils.heartbeat") -- Prevent screensaver when designated apps are running
-end
+-- if not require("utils.is_laptop") then
+-- 	require("utils.heartbeat") -- Prevent screensaver when designated apps are running
+-- end
