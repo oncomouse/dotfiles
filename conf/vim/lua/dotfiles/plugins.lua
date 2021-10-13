@@ -191,6 +191,7 @@ return require("packer").startup(function(use)
 					-- For luasnip user.
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
+					{ name = "pandoc_references" }
 				},
 				completion = {
 					autocomplete = false,
