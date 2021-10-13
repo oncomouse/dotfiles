@@ -2,7 +2,7 @@
 dotfiles = _G.dotfiles or {}
 return require("packer").startup(function(use)
 	use({ "wbthomason/packer.nvim", opt = true })
-	-- use { 'dstein64/vim-startuptime', cmd = 'StartupTime' }
+	use({ "dstein64/vim-startuptime", cmd = "StartupTime" })
 	use("tpope/vim-sensible")
 	use("xero/securemodelines")
 	use("sickill/vim-pasta") -- fix block paste for Neovim
@@ -119,7 +119,9 @@ return require("packer").startup(function(use)
 		"L3MON4D3/LuaSnip",
 		config = function()
 			local luasnip = require("luasnip")
-			require("luasnip.loaders.from_vscode").load()
+			require("luasnip.loaders.from_vscode").load({
+				"~/dotfiles/conf/vim/snippets/",
+			})
 
 			local t = function(str)
 				return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -136,7 +138,7 @@ return require("packer").startup(function(use)
 
 			_G.tab_complete = function()
 				if luasnip and luasnip.expand_or_jumpable() then
-					luasnip.expand_or_jump()
+					return t("<Plug>luasnip-expand-or-jump")
 				elseif check_back_space() then
 					return t("<Tab>")
 				end
@@ -144,11 +146,10 @@ return require("packer").startup(function(use)
 			end
 			_G.s_tab_complete = function()
 				if luasnip and luasnip.jumpable(-1) then
-					luasnip.jump(-1)
+					return t("<Plug>luasnip-jump-prev")
 				else
 					return t("<S-Tab>")
 				end
-				return ""
 			end
 
 			vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", { expr = true })
@@ -160,9 +161,37 @@ return require("packer").startup(function(use)
 		end,
 		requires = {
 			"rafamadriz/friendly-snippets",
+			"Shougo/pum.vim",
 		},
 	})
+	-- use({
+	-- 	"hrsh7th/vim-vsnip",
+	-- 	requires = {
+	-- 		{ "hrsh7th/vim-vsnip-integ", after = "vim-vsnip" },
+	-- 		{ "rafamadriz/friendly-snippets", after = "vim-vsnip" },
+	-- 	},
+	-- 	config = function()
+	-- 		vim.api.nvim_set_keymap("i", "<C-j>", "vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'", { expr = true })
+	-- 		vim.api.nvim_set_keymap("s", "<C-j>", "vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'", { expr = true })
 
+	-- 		-- Expand or jump
+	-- 		vim.api.nvim_set_keymap("i", "<C-l>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'", { expr = true })
+	-- 		vim.api.nvim_set_keymap("s", "<C-l>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'", { expr = true })
+
+	-- 		-- Jump forward or backward
+	-- 		vim.api.nvim_set_keymap("i", "<Tab>", "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'", { expr = true })
+	-- 		vim.api.nvim_set_keymap("s", "<Tab>", "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'", { expr = true })
+	-- 		vim.api.nvim_set_keymap("i", "<S-Tab>", "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", { expr = true })
+	-- 		vim.api.nvim_set_keymap("s", "<S-Tab>", "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'", { expr = true })
+
+	-- 		-- Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+	-- 		-- See https://github.com/hrsh7th/vim-vsnip/pull/50
+	-- 		vim.api.nvim_set_keymap("n", "s", "<Plug>(vsnip-select-text)", {})
+	-- 		vim.api.nvim_set_keymap("x", "s", "<Plug>(vsnip-select-text)", {})
+	-- 		vim.api.nvim_set_keymap("n", "S", "<Plug>(vsnip-cut-text)", {})
+	-- 		vim.api.nvim_set_keymap("x", "S", "<Plug>(vsnip-cut-text)", {})
+	-- 	end
+	-- })
 	-- LSP:
 	local lsp_types = {
 		"css",

@@ -1,0 +1,19 @@
+{
+	"name": "dotfiles-snippets",
+	"contributes": {
+		"snippets": [
+			{
+				"language": "html",
+				"path": "./snippets/html.json"
+			},
+			{
+				"language": [
+					"jekyll",
+					"html",
+					"markdown"
+				],
+				"path": "./snippets/jekyll.json"
+			}
+		]
+	}
+}
