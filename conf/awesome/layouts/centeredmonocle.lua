@@ -7,7 +7,6 @@
 ---------------------------------------------------------------------------
 local beautiful = require("beautiful")
 
-local scale = beautiful.cm_scale or 0.70
 -- Grab environment we need
 local pairs = pairs
 
@@ -26,6 +25,7 @@ local cm = {}
 local function fmax(p, fs)
 	-- Fullscreen?
 	local area
+	local scale = beautiful.cm_scale or 0.70
 	if fs then
 		area = p.geometry
 	else
