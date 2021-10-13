@@ -163,6 +163,8 @@ return require("packer").startup(function(use)
 			"rafamadriz/friendly-snippets",
 		},
 	})
+
+	-- Completion
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
@@ -191,12 +193,17 @@ return require("packer").startup(function(use)
 					-- For luasnip user.
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
-					{ name = "pandoc_references" }
 				},
 				completion = {
 					autocomplete = false,
 				},
 			})
+			vim.cmd([[autocmd FileType markdown lua require'cmp'.setup.buffer {
+			\   sources = {
+			\     { name = 'omni' },
+			\     { name = 'luasnip' },
+			\   },
+			\ }]])
 		end,
 	})
 
