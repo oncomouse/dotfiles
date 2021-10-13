@@ -126,15 +126,12 @@ local servers = {
 		},
 	},
 	cssls = {
-		capabilities = vscode_capabilities,
 		cmd = { "css-languageserver", "--stdio" },
 	},
 	html = {
-		capabilities = vscode_capabilities,
 		cmd = { "html-languageserver", "--stdio" },
 	},
 	jsonls = {
-		capabilities = vscode_capabilities,
 		cmd = { "json-languageserver", "--stdio" },
 	},
 	solargraph = {},
@@ -147,6 +144,7 @@ local servers = {
 for lsp, settings in pairs(servers) do
 	local tbl = {
 		on_attach = on_attach,
+		require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 	}
 	if #vim.tbl_keys(settings) > 0 then
 		tbl = vim.tbl_extend("keep", tbl, settings)
