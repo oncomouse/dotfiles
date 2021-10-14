@@ -9,6 +9,13 @@ local diagnostics_providers = {
 	"jsonls",
 }
 
+-- LSPs that provide snippets
+local snippet_providers = {
+	"html",
+	"cssls",
+	"jsonls",
+}
+
 -- LSPs that provide formatting:
 local formatting_providers = {
 	"null-ls",
@@ -69,6 +76,10 @@ local on_attach = function(client, _)
 		show_documentation()
 	end)
 	map.nnoremap("<silent><buffer>", "<F5>", ":<CR>")
+	if vim.tbl_contains(snippet_providers, client.name) then
+		vim.cmd([[packadd vim-vsnip
+		packadd vim-vsnip-integ]])
+	end
 	if vim.tbl_contains(diagnostics_providers, client.name) then
 		if vim.diagnostic ~= nil then -- Neovim 0.6:
 			vim.cmd([[
@@ -120,15 +131,12 @@ local servers = {
 		},
 	},
 	cssls = {
-		capabilities = vscode_capabilities,
 		cmd = { "css-languageserver", "--stdio" },
 	},
 	html = {
-		capabilities = vscode_capabilities,
 		cmd = { "html-languageserver", "--stdio" },
 	},
 	jsonls = {
-		capabilities = vscode_capabilities,
 		cmd = { "json-languageserver", "--stdio" },
 	},
 	solargraph = {},
@@ -144,6 +152,9 @@ for lsp, settings in pairs(servers) do
 	}
 	if #vim.tbl_keys(settings) > 0 then
 		tbl = vim.tbl_extend("keep", tbl, settings)
+	end
+	if vim.tbl_contains(snippet_providers, lsp) then
+		tbl.capabilities = vscode_capabilities
 	end
 	if not vim.tbl_contains(diagnostics_providers, lsp) then
 		tbl.handlers = handler_no_diagnostics

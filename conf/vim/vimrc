@@ -150,7 +150,10 @@ command! PackerInstall packadd packer.nvim | lua require('dotfiles.plugins').ins
 command! PackerUpdate packadd packer.nvim | lua require('dotfiles.plugins').update()
 command! PackerSync packadd packer.nvim | lua require('dotfiles.plugins').sync()
 command! PackerClean packadd packer.nvim | lua require('dotfiles.plugins').clean()
-command! PackerCompile packadd packer.nvim | lua require('dotfiles.plugins').compile()
+command! PackerStatus packadd packer.nvim | lua require('dotfiles.plugins').status()
+
+" Command to automatically load snippets
+command! Snippets PackerLoad packadd packer.nvim | lua require('packer').loader('vim-vsnip')
 
 " Refresh packer lazy-loading when plugins.lua changes:
 autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | PackerCompile

@@ -117,6 +117,7 @@ return require("packer").startup(function(use)
 	-- Snippets:
 	use({
 		"hrsh7th/vim-vsnip",
+		opt = true,
 		config = function()
 			vim.g.vsnip_snippet_dir = os.getenv("HOME") .. "/dotfiles/conf/vim/snippets"
 			vim.opt.completefunc = "vsnip_completefunc#completefunc"
@@ -169,7 +170,7 @@ return require("packer").startup(function(use)
 	use({
 		"neovim/nvim-lspconfig",
 		requires = {
-			{ "hrsh7th/vim-vsnip-integ", after = { "vim-vsnip" } },
+			{ "hrsh7th/vim-vsnip-integ", opt = true, },
 			{ "nvim-lua/plenary.nvim", opt = true },
 			{ "jose-elias-alvarez/null-ls.nvim", opt = true },
 		},
