@@ -67,8 +67,6 @@ return require("packer").startup(function(use)
 	})
 
 	-- Treesitter:
-	use({ "nvim-treesitter/nvim-treesitter-textobjects", opt = true })
-	use({ "windwp/nvim-ts-autotag", ft = { "html", "javascript", "javascriptreact" } })
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
@@ -97,6 +95,10 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
+		requires = {
+			{ "nvim-treesitter/nvim-treesitter-textobjects" },
+			{ "windwp/nvim-ts-autotag", ft = { "html", "javascript", "javascriptreact" } }
+		}
 	})
 
 	-- Non-Treesitter Syntax:
