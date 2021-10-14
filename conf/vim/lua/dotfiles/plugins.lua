@@ -113,6 +113,41 @@ return require("packer").startup(function(use)
 		"godlygeek/tabular",
 		cmd = { "Tabularize" },
 	})
+	-- Snippets:
+	use({
+		"hrsh7th/vim-vsnip",
+		config = function()
+			vim.opt.completefunc = "vsnip_completefunc#completefunc"
+			vim.api.nvim_set_keymap(
+				"i",
+				"<Tab>",
+				"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
+				{ expr = true }
+			)
+			vim.api.nvim_set_keymap(
+				"s",
+				"<Tab>",
+				"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
+				{ expr = true }
+			)
+			vim.api.nvim_set_keymap(
+				"i",
+				"<S-Tab>",
+				"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
+				{ expr = true }
+			)
+			vim.api.nvim_set_keymap(
+				"s",
+				"<S-Tab>",
+				"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
+				{ expr = true }
+			)
+		end,
+		requires = {
+			{ "hrsh7th/vim-vsnip-integ", after = { "vim-vsnip" } },
+			{ "rafamadriz/friendly-snippets", after = { "vim-vsnip" } },
+		},
+	})
 
 	-- LSP:
 	local lsp_types = {
@@ -132,39 +167,6 @@ return require("packer").startup(function(use)
 	use({
 		"neovim/nvim-lspconfig",
 		requires = {
-			{
-				"hrsh7th/vim-vsnip",
-				opt = true,
-				config = function()
-					vim.api.buf_set_keymap(
-						"i",
-						"<Tab>",
-						"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
-						{ expr = true }
-					)
-					vim.api.buf_set_keymap(
-						"s",
-						"<Tab>",
-						"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
-						{ expr = true }
-					)
-					vim.api.buf_set_keymap(
-						"i",
-						"<S-Tab>",
-						"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
-						{ expr = true }
-					)
-					vim.api.buf_set_keymap(
-						"s",
-						"<S-Tab>",
-						"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
-						{ expr = true }
-					)
-				end,
-				requires = {
-					{ "hrsh7th/vim-vsnip-integ", after = { "vim-vsnip" } },
-				},
-			},
 			{ "nvim-lua/plenary.nvim", opt = true },
 			{ "jose-elias-alvarez/null-ls.nvim", opt = true },
 		},
