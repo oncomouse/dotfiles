@@ -77,7 +77,7 @@ local on_attach = function(client, _)
 	end)
 	map.nnoremap("<silent><buffer>", "<F5>", ":<CR>")
 	if vim.tbl_contains(snippet_providers, client.name) then
-		vim.cmd([[packadd vim-vsnip
+		vim.cmd([[Snippets
 		packadd vim-vsnip-integ]])
 	end
 	if vim.tbl_contains(diagnostics_providers, client.name) then
