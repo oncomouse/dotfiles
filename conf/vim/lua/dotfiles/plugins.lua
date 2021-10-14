@@ -116,51 +116,38 @@ return require("packer").startup(function(use)
 
 	-- Snippets:
 	use({
-		"L3MON4D3/LuaSnip",
+		"hrsh7th/vim-vsnip",
 		config = function()
-			local luasnip = require("luasnip")
-			require("luasnip.loaders.from_vscode").load({
-				"~/dotfiles/conf/vim/snippets/",
-			})
-
-			local t = function(str)
-				return vim.api.nvim_replace_termcodes(str, true, true, true)
-			end
-
-			local check_back_space = function()
-				local col = vim.fn.col(".") - 1
-				if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
-					return true
-				else
-					return false
-				end
-			end
-
-			_G.tab_complete = function()
-				if luasnip and luasnip.expand_or_jumpable() then
-					return t("<Plug>luasnip-expand-or-jump")
-				elseif check_back_space() then
-					return t("<Tab>")
-				end
-				return ""
-			end
-			_G.s_tab_complete = function()
-				if luasnip and luasnip.jumpable(-1) then
-					return t("<Plug>luasnip-jump-prev")
-				else
-					return t("<S-Tab>")
-				end
-			end
-
-			vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", { expr = true })
-			vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", { expr = true })
-			vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
-			vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
-			vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
-			vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
+			vim.g.vsnip_snippet_dir = os.getenv("HOME") .. "/dotfiles/conf/vim/snippets"
+			vim.opt.completefunc = "vsnip_completefunc#completefunc"
+			vim.api.nvim_set_keymap(
+				"i",
+				"<Tab>",
+				"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
+				{ expr = true }
+			)
+			vim.api.nvim_set_keymap(
+				"s",
+				"<Tab>",
+				"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
+				{ expr = true }
+			)
+			vim.api.nvim_set_keymap(
+				"i",
+				"<S-Tab>",
+				"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
+				{ expr = true }
+			)
+			vim.api.nvim_set_keymap(
+				"s",
+				"<S-Tab>",
+				"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
+				{ expr = true }
+			)
 		end,
 		requires = {
-			"rafamadriz/friendly-snippets",
+			{ "rafamadriz/friendly-snippets", after = { "vim-vsnip" } }, -- Base Snippets
+			{ "edheltzel/vscode-jekyll-snippets", after = { "vim-vsnip" }, ft = { "markdown", "html" } }, -- Jekyll Snippets
 		},
 	})
 
@@ -169,14 +156,14 @@ return require("packer").startup(function(use)
 		"hrsh7th/nvim-cmp",
 		requires = {
 			"hrsh7th/cmp-nvim-lsp",
-			{ "saadparwaiz1/cmp_luasnip", after = { "nvim-cmp", "LuaSnip" } },
+			"hrsh7th/cmp-vsnip",
 		},
 		config = function()
 			local cmp = require("cmp")
 			cmp.setup({
 				snippet = {
 					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
+						vim.fn["vsnip#anonymous"](args.body)
 					end,
 				},
 				mapping = {
@@ -192,7 +179,7 @@ return require("packer").startup(function(use)
 				sources = {
 					-- For luasnip user.
 					{ name = "nvim_lsp" },
-					{ name = "luasnip" },
+					{ name = "vsnip" },
 				},
 				completion = {
 					autocomplete = false,
@@ -200,8 +187,8 @@ return require("packer").startup(function(use)
 			})
 			vim.cmd([[autocmd FileType markdown lua require'cmp'.setup.buffer {
 			\   sources = {
+			\     { name = 'vsnip' },
 			\     { name = 'omni' },
-			\     { name = 'luasnip' },
 			\   },
 			\ }]])
 		end,
@@ -225,6 +212,7 @@ return require("packer").startup(function(use)
 	use({
 		"neovim/nvim-lspconfig",
 		requires = {
+			{ "hrsh7th/vim-vsnip-integ", after = { "vim-vsnip" } },
 			{ "nvim-lua/plenary.nvim", opt = true },
 			{ "jose-elias-alvarez/null-ls.nvim", opt = true },
 		},

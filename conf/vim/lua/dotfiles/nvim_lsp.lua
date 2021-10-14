@@ -28,8 +28,9 @@ end
 
 require("dotfiles.null_ls")
 
-local vscode_capabilities = vim.lsp.protocol.make_client_capabilities()
-vscode_capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- Make sure snippets are supported in LSP results:
+local cmp_capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+cmp_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = function(client, _)
 	-- Update codeLens:
@@ -69,12 +70,6 @@ local on_attach = function(client, _)
 		show_documentation()
 	end)
 	map.nnoremap("<silent><buffer>", "<F5>", ":<CR>")
-	-- Set snippet integration:
-	if vim.tbl_contains({ "html", "jsonls", "cssls" }, client.name) then
-		vim.cmd([[
-			packadd LuaSnip
-		]])
-	end
 	if vim.tbl_contains(diagnostics_providers, client.name) then
 		if vim.diagnostic ~= nil then -- Neovim 0.6:
 			vim.cmd([[
@@ -144,7 +139,7 @@ local servers = {
 for lsp, settings in pairs(servers) do
 	local tbl = {
 		on_attach = on_attach,
-		require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+		capabilities = cmp_capabilities,
 	}
 	if #vim.tbl_keys(settings) > 0 then
 		tbl = vim.tbl_extend("keep", tbl, settings)
