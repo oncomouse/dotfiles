@@ -184,7 +184,7 @@ return require("packer").startup(function(use)
 					["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 					["<C-d>"] = cmp.mapping.scroll_docs(-4),
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
-					["<C-x><C-o>"] = cmp.mapping.complete(),
+					["<C-x><C-u>"] = cmp.mapping.complete(),
 					["<C-c>"] = cmp.mapping.abort(),
 					["<C-e>"] = cmp.mapping.close(),
 					["<C-y>"] = cmp.mapping.confirm({ select = true }),
