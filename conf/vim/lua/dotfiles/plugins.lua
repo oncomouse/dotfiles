@@ -113,10 +113,12 @@ return require("packer").startup(function(use)
 		"godlygeek/tabular",
 		cmd = { "Tabularize" },
 	})
+
 	-- Snippets:
 	use({
 		"hrsh7th/vim-vsnip",
 		config = function()
+			vim.g.vsnip_snippet_dir = os.getenv("HOME") .. "/dotfiles/conf/vim/snippets"
 			vim.opt.completefunc = "vsnip_completefunc#completefunc"
 			vim.api.nvim_set_keymap(
 				"i",
@@ -144,8 +146,8 @@ return require("packer").startup(function(use)
 			)
 		end,
 		requires = {
-			{ "hrsh7th/vim-vsnip-integ", after = { "vim-vsnip" } },
-			{ "rafamadriz/friendly-snippets", after = { "vim-vsnip" } },
+			{ "rafamadriz/friendly-snippets", after = { "vim-vsnip" } }, -- Base Snippets
+			{ "edheltzel/vscode-jekyll-snippets", after = { "vim-vsnip" }, ft = { "markdown", "html" } }, -- Jekyll Snippets
 		},
 	})
 
@@ -167,6 +169,7 @@ return require("packer").startup(function(use)
 	use({
 		"neovim/nvim-lspconfig",
 		requires = {
+			{ "hrsh7th/vim-vsnip-integ", after = { "vim-vsnip" } },
 			{ "nvim-lua/plenary.nvim", opt = true },
 			{ "jose-elias-alvarez/null-ls.nvim", opt = true },
 		},

@@ -69,12 +69,6 @@ local on_attach = function(client, _)
 		show_documentation()
 	end)
 	map.nnoremap("<silent><buffer>", "<F5>", ":<CR>")
-	-- Set snippet integration:
-	if vim.tbl_contains({ "html", "jsonls", "cssls" }, client.name) then
-		vim.cmd([[
-			packadd vim-vsnip
-		]])
-	end
 	if vim.tbl_contains(diagnostics_providers, client.name) then
 		if vim.diagnostic ~= nil then -- Neovim 0.6:
 			vim.cmd([[
