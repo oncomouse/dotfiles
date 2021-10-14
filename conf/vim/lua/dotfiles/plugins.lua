@@ -2,7 +2,7 @@
 dotfiles = _G.dotfiles or {}
 return require("packer").startup(function(use)
 	use({ "wbthomason/packer.nvim", opt = true })
-	-- use { 'dstein64/vim-startuptime', cmd = 'StartupTime' }
+	use { 'dstein64/vim-startuptime', cmd = 'StartupTime' }
 	use("tpope/vim-sensible")
 	use("xero/securemodelines")
 	use("sickill/vim-pasta") -- fix block paste for Neovim
