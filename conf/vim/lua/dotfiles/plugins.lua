@@ -76,7 +76,6 @@ return require("packer").startup({
 			config = function()
 				vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
 				vim.opt_local.foldmethod = "expr"
-				vim.cmd([[packadd nvim-treesitter-textobjects]])
 				require("nvim-treesitter.configs").setup({
 					ensure_installed = "maintained",
 					highlight = { enable = true },
