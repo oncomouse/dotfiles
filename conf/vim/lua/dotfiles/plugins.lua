@@ -119,7 +119,7 @@ return require("packer").startup({
 		-- Snippets:
 		use({
 			"hrsh7th/vim-vsnip",
-			opt = true,
+			event = "VimEnter",
 			config = function()
 				local map = require("dotfiles.utils.map")
 				vim.g.vsnip_snippet_dir = os.getenv("HOME") .. "/dotfiles/conf/vim/snippets"
@@ -154,7 +154,7 @@ return require("packer").startup({
 			"williamboman/nvim-lsp-installer",
 			requires = {
 				{ "neovim/nvim-lspconfig" },
-				{ "hrsh7th/vim-vsnip-integ", opt = true },
+				{ "hrsh7th/vim-vsnip-integ", opt = true, requires = { "vim-vsnip" } },
 				{ "nvim-lua/plenary.nvim", opt = true },
 				{ "jose-elias-alvarez/null-ls.nvim", opt = true },
 			},

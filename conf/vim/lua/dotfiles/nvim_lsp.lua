@@ -78,8 +78,7 @@ local on_attach = function(client, _)
 	end)
 	map.nnoremap("<silent><buffer>", "<F5>", ":<CR>")
 	if vim.tbl_contains(snippet_providers, client.name) then
-		vim.cmd([[Snippets
-		packadd vim-vsnip-integ]])
+		vim.cmd([[packadd packer.nvim | lua require("packer").loader("vim-vsnip-integ")]])
 	end
 	if vim.tbl_contains(diagnostics_providers, client.name) then
 		if vim.diagnostic ~= nil then -- Neovim 0.6:
