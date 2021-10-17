@@ -1,11 +1,13 @@
 -- luacheck: globals vim dotfiles
 local lspconfig = require("lspconfig")
+local lsp_installer_servers = require("nvim-lsp-installer.servers")
 local map = require("dotfiles.utils.map")
 
 -- LSPs that provide diagnostics:
 local diagnostics_providers = {
 	"null-ls",
 	"cssls",
+	"emmet_ls",
 	"jsonls",
 }
 
@@ -28,9 +30,8 @@ end
 
 require("dotfiles.null_ls")
 
--- Make sure snippets are supported in LSP results:
-local cmp_capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-cmp_capabilities.textDocument.completion.completionItem.snippetSupport = true
+local cmp_capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- cmp_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = function(client, _)
 	-- Update codeLens:
@@ -38,7 +39,6 @@ local on_attach = function(client, _)
 		vim.api.nvim_command([[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]])
 	end
 	-- Use C+x C+o for completion:
-	-- vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
 	map.nnoremap("<silent><buffer>", "<leader>s", function()
 		vim.lsp.buf.document_symbol()
 	end)
@@ -123,6 +123,7 @@ local servers = {
 	cssls = {
 		cmd = { "css-languageserver", "--stdio" },
 	},
+	emmet_ls = {},
 	html = {
 		cmd = { "html-languageserver", "--stdio" },
 	},
@@ -137,18 +138,23 @@ local servers = {
 	["null-ls"] = {},
 }
 for lsp, settings in pairs(servers) do
-	local tbl = {
+	local opts = {
 		on_attach = on_attach,
 		capabilities = cmp_capabilities,
 	}
 	if #vim.tbl_keys(settings) > 0 then
-		tbl = vim.tbl_extend("keep", tbl, settings)
+		opts = vim.tbl_extend("keep", opts, settings)
 	end
 	if not vim.tbl_contains(diagnostics_providers, lsp) then
-		tbl.handlers = handler_no_diagnostics
+		opts.handlers = handler_no_diagnostics
 	end
-	lspconfig[lsp].setup(tbl)
+	local ok, lsp_server = lsp_installer_servers.get_server(lsp)
+	if ok then
+		if not lsp_server:is_installed() then
+			lsp_server:install()
+		end
+		lsp_server:setup(opts)
+	else -- Handler for null-ls and anything else that isn't supported in nvim-lsp-installer
+		lspconfig[lsp].setup(opts)
+	end
 end
-lspconfig["null-ls"].setup({
-	on_attach = on_attach,
-})
