@@ -6,8 +6,8 @@ local function block_watcher(cmd, delay, name)
 	local widget = awful.widget.watch(cmd, delay)
 	-- Trigger for button presses
 	widget:connect_signal("button::press", function(_, _, _, button)
-		awful.spawn.easy_async_with_shell("env BUTTON=" .. button .. " " .. cmd, function(stdout)
-			widget:set_text(stdout)
+		awful.spawn.easy_async_with_shell("env BUTTON=" .. button .. " " .. cmd, function()
+			widget:emit_signal("widget::update")
 		end)
 	end)
 	if name then

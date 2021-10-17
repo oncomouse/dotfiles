@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 case $BUTTON in
-	1) liskin-media play && liskin-media status ;;
-	2) liskin-media prev && liskin-media status ;;
-	3) liskin-media next && liskin-media status ;;
+	1) liskin-media play ;;
+	2) liskin-media prev ;;
+	3) liskin-media next ;;
 	*) liskin-media status
 esac
