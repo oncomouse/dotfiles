@@ -1,6 +1,6 @@
 -- luacheck: globals vim dotfiles
 local lspconfig = require("lspconfig")
-local lsp_installer_servers = require'nvim-lsp-installer.servers'
+local lsp_installer_servers = require("nvim-lsp-installer.servers")
 local map = require("dotfiles.utils.map")
 
 -- LSPs that provide diagnostics:
@@ -166,7 +166,7 @@ for lsp, settings in pairs(servers) do
 			lsp_server:install()
 		end
 		lsp_server:setup(opts)
-	else
+	else -- Handler for null-ls and anything else that isn't supported in nvim-lsp-installer
 		lspconfig[lsp].setup(opts)
 	end
 end
