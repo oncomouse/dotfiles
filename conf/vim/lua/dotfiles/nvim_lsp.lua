@@ -1,5 +1,6 @@
 -- luacheck: globals vim dotfiles
 local lspconfig = require("lspconfig")
+local lsp_installer_servers = require'nvim-lsp-installer.servers'
 local map = require("dotfiles.utils.map")
 
 -- LSPs that provide diagnostics:
@@ -147,20 +148,25 @@ local servers = {
 	["null-ls"] = {},
 }
 for lsp, settings in pairs(servers) do
-	local tbl = {
+	local opts = {
 		on_attach = on_attach,
 	}
 	if #vim.tbl_keys(settings) > 0 then
-		tbl = vim.tbl_extend("keep", tbl, settings)
+		opts = vim.tbl_extend("keep", opts, settings)
 	end
 	if vim.tbl_contains(snippet_providers, lsp) then
-		tbl.capabilities = vscode_capabilities
+		opts.capabilities = vscode_capabilities
 	end
 	if not vim.tbl_contains(diagnostics_providers, lsp) then
-		tbl.handlers = handler_no_diagnostics
+		opts.handlers = handler_no_diagnostics
 	end
-	lspconfig[lsp].setup(tbl)
+	local ok, lsp_server = lsp_installer_servers.get_server(lsp)
+	if ok then
+		if not lsp_server:is_installed() then
+			lsp_server:install()
+		end
+		lsp_server:setup(opts)
+	else
+		lspconfig[lsp].setup(opts)
+	end
 end
-lspconfig["null-ls"].setup({
-	on_attach = on_attach,
-})

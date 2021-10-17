@@ -151,8 +151,9 @@ return require("packer").startup({
 			"yaml",
 		}
 		use({
-			"neovim/nvim-lspconfig",
+			"williamboman/nvim-lsp-installer",
 			requires = {
+				{ "neovim/nvim-lspconfig" },
 				{ "hrsh7th/vim-vsnip-integ", opt = true },
 				{ "nvim-lua/plenary.nvim", opt = true },
 				{ "jose-elias-alvarez/null-ls.nvim", opt = true },
