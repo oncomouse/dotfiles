@@ -94,7 +94,7 @@ local on_attach = function(client, _)
 			end)
 		else -- Neovim 0.5:
 			vim.cmd([[
-				autocmd! dotfiles-settings User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({ open = false })
+				autocmd! dotfiles-settings User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({ open_loclist = false })
 			]])
 			map.nnoremap("<silent><buffer>", "]d", function()
 				vim.lsp.diagnostic.goto_next()
