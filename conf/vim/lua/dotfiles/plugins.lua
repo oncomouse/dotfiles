@@ -76,7 +76,6 @@ return require("packer").startup({
 			config = function()
 				vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
 				vim.opt_local.foldmethod = "expr"
-				vim.cmd([[packadd nvim-treesitter-textobjects]])
 				require("nvim-treesitter.configs").setup({
 					ensure_installed = "maintained",
 					highlight = { enable = true },
@@ -120,34 +119,15 @@ return require("packer").startup({
 		-- Snippets:
 		use({
 			"hrsh7th/vim-vsnip",
-			opt = true,
+			event = "VimEnter",
 			config = function()
+				local map = require("dotfiles.utils.map")
 				vim.g.vsnip_snippet_dir = os.getenv("HOME") .. "/dotfiles/conf/vim/snippets"
 				vim.opt.completefunc = "vsnip_completefunc#completefunc"
-				vim.api.nvim_set_keymap(
-					"i",
-					"<Tab>",
-					"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
-					{ expr = true }
-				)
-				vim.api.nvim_set_keymap(
-					"s",
-					"<Tab>",
-					"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
-					{ expr = true }
-				)
-				vim.api.nvim_set_keymap(
-					"i",
-					"<S-Tab>",
-					"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
-					{ expr = true }
-				)
-				vim.api.nvim_set_keymap(
-					"s",
-					"<S-Tab>",
-					"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
-					{ expr = true }
-				)
+				map.imap("<expr>", "<Tab>", "vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'")
+				map.smap("<expr>", "<Tab>", "vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'")
+				map.imap("<expr>", "<S-Tab>", "vsnip#jumpable(-11) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'")
+				map.smap("<expr>", "<S-Tab>", "vsnip#jumpable(-(1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'")
 			end,
 			requires = {
 				{ "rafamadriz/friendly-snippets", after = { "vim-vsnip" } }, -- Base Snippets
@@ -171,9 +151,10 @@ return require("packer").startup({
 			"yaml",
 		}
 		use({
-			"neovim/nvim-lspconfig",
+			"williamboman/nvim-lsp-installer",
 			requires = {
-				{ "hrsh7th/vim-vsnip-integ", opt = true },
+				{ "neovim/nvim-lspconfig" },
+				{ "hrsh7th/vim-vsnip-integ", opt = true, requires = { "vim-vsnip" } },
 				{ "nvim-lua/plenary.nvim", opt = true },
 				{ "jose-elias-alvarez/null-ls.nvim", opt = true },
 			},
@@ -183,9 +164,4 @@ return require("packer").startup({
 			end,
 		})
 	end,
-	config = {
-		display = {
-			open_fn = require("packer.util").float,
-		},
-	},
 })

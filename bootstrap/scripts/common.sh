@@ -17,7 +17,6 @@
 if [ -z "$SERVER" ]; then
   ~/dotfiles/bootstrap/scripts/vale.sh
   ~/dotfiles/bootstrap/scripts/asdf.sh
-  ~/dotfiles/bootstrap/scripts/lsp.sh
   ~/dotfiles/bootstrap/scripts/csl.sh
   ~/dotfiles/bootstrap/scripts/tex.sh
   ~/dotfiles/bootstrap/scripts/nnn.sh
