@@ -9,7 +9,6 @@ return require("packer").startup({
 		use("sickill/vim-pasta") -- fix block paste for Neovim
 		use("tpope/vim-commentary") -- gc<motion> to (un)comment
 		use("tpope/vim-repeat")
-		use("justinmk/vim-dirvish") -- File browser
 		use("oncomouse/vim-surround") -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 		vim.opt.path = ",,"
 		vim.g.rooter_patterns = {
@@ -131,7 +130,7 @@ return require("packer").startup({
 			end,
 			requires = {
 				{ "rafamadriz/friendly-snippets", after = { "vim-vsnip" } }, -- Base Snippets
-				{ "edheltzel/vscode-jekyll-snippets", after = { "vim-vsnip" }, ft = { "markdown", "html" } }, -- Jekyll Snippets
+				{ "edheltzel/vscode-jekyll-snippets", ft = { "markdown", "html" } }, -- Jekyll Snippets
 			},
 		})
 
