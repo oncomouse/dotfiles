@@ -225,6 +225,24 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		group = "Client",
 	}),
 	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		key = "j",
+		on_press = function()
+			awful.client.swap.byidx(1)
+		end,
+		description = "Swap Client with Next by Index",
+		group = "Client",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		key = "k",
+		on_press = function()
+			awful.client.swap.byidx(-1)
+		end,
+		description = "Swap Client with Previous by Index",
+		group = "Client",
+	}),
+	awful.key({
 		modifiers = { beautiful.modkey },
 		key = "Tab",
 		on_press = function()
