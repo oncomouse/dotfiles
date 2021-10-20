@@ -114,6 +114,9 @@ return require("packer").startup({
 			"godlygeek/tabular",
 			cmd = { "Tabularize" },
 		})
+		use({
+			"elkowar/yuck.vim",
+		})
 
 		-- Snippets:
 		use({

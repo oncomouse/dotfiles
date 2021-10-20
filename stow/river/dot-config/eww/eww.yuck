@@ -103,11 +103,11 @@
     (metric :label " "
             :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
             :onchange ""))
-    (box
-        :class "battery"
-    (metric :label " "
-        :value  {EWW_BATTERY.BAT1.capacity}
-        :onchange ""))
+    ; (box
+    ;     :class "battery"
+    ; (metric :label " "
+    ;     :value  {EWW_BATTERY.BAT1.capacity}
+    ;     :onchange ""))
 	(box
 		:class "cpu"
 		:halign "end"
