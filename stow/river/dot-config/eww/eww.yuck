@@ -1,0 +1,202 @@
+(deflisten tags `while true; do ristate -t | jq '.tags[][\"ChimeiInnoluxCorporation\"][]' -r --unbuffered; sleep 1s; done`)
+(deflisten title `while true; do ristate -w | jq '.title' -r --unbuffered; sleep 1s; done`)
+(defpoll network :interval "5s" "./scripts/get_network.sh")
+(defpoll time :interval "1s" `date "+%H:%M:%S"`)
+(defpoll day :interval "3600s" "date +%d")
+(defpoll month :interval "3600s" "date +%b")
+(defpoll spotify-status :interval "1s" `./scripts/get_media.sh`)
+(defpoll zypper-updates :interval "3600s" `./scripts/get_updates.sh`)
+(defpoll vol-info :interval "1s" `pamixer --get-volume`)
+(defpoll current-brightness :interval "1s" "light -G")
+(defpoll ping :interval "1s" "./scripts/get_ping.sh")
+(deflisten cpu-avg "./scripts/get_cpu.sh 3")
+
+(defwidget brightness[]
+  (box
+    :class "brightness"
+    :space-evenly false
+	(metric :label  "☀︁"
+            :value current-brightness
+            :onchange "light -S {}")))
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+(defwidget volume[]
+	(box
+		:halign "end"
+		:class "volume-box"
+	(metric :label " "
+		:value vol-info
+		:onchange "pamixer --set-volume {}")))
+
+(defwidget zypper[]
+	(box
+		:halign "fill"
+		:space-evenly false
+		:class "zypper-box"
+	(label :text " " :class "opensuse-logo")
+	(metric :label ""
+        :value zypper-updates
+        :onchange "")))
+
+(defwidget spotify[]
+	(box
+		:halign "center"
+	(eventbox
+		:onscroll "./scripts/spotify-next-previous.sh {}" 
+	(button
+		:onclick "./scripts/spotify-open.sh && playerctl -p spotify play-pause" :class "spotify-button"
+	(label :limit-width 80 :text {spotify-status ?: ""} :class "spotify-text" )))))
+
+(defwidget date[]
+	(box
+		:orientation "h"
+		:class "daily-date"
+		:halign "center"
+		:space-evenly "false"
+		:spacing 5
+  	(box
+    	:orientation "v"
+    	month
+		day)
+	time))
+
+(defwidget start[]
+	(box
+		:halign "start"
+		(tag-indicator)))
+
+(defwidget center[]
+	(box
+		:halign "center"
+		(spotify)))
+
+(defwidget side[]
+	(box
+		:halign "end"
+		:space-evenly "false"
+		:class "side-box"
+		:spacing 8
+	(box
+		:class "network-text"
+	(metric :label "${network}"
+            :value ping
+            :onchange ""))
+	(volume)
+	(brightness)
+	(box
+		:class "ram"
+	(metric :label " "
+            :value {EWW_RAM.used_mem_perc}
+            :onchange ""))
+	(box
+		:class "storage"
+    (metric :label " "
+            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+            :onchange ""))
+    (box
+        :class "battery"
+    (metric :label " "
+        :value  {EWW_BATTERY.BAT1.capacity}
+        :onchange ""))
+	(box
+		:class "cpu"
+		:halign "end"
+	(metric :label " " 
+		:value cpu-avg
+		:onchange ""))
+	(zypper)
+	(date)
+	))
+
+(defwidget curwindow[]
+	(box
+		:class "current-window"
+		:halign "start"
+		:space-evenly "false"
+	(label :limit-width "40" :text {title ?: " "})))
+
+
+(defwidget tag-indicator[]
+	(box 
+		:orientation "h"
+		:halign "start"
+		:class "tag-indicator-box"
+	(eventbox
+		:onscroll "./scripts/river-scroll.sh {} ${tags}"
+	(box
+		:space-evenly "true"
+		:spacing 15
+	(button
+		:onclick "riverctl set-focused-tags 1"
+		:class {tags == "1" ? "tag-active" : "tag-inactive"}
+	(label :text {tags != "1" ? "" : ""}))
+	(button
+		:onclick "riverctl set-focused-tags 2"
+		:class {tags == "2" ? "tag-active" : "tag-inactive"}
+	(label :text {tags != "2" ? "" : ""}))
+	(button
+		:onclick "riverctl set-focused-tags 4"
+		:class {tags == "3" ? "tag-active" : "tag-inactive"}
+	(label :text {tags != "3" ? "" : ""}))
+	(button
+		:onclick "riverctl set-focused-tags 8"
+		:class {tags == "4" ? "tag-active" : "tag-inactive"}
+	(label :text {tags != "4" ? "" : ""}))
+	(button
+		:onclick "riverctl set-focused-tags 16"
+		:class {tags == "5" ? "tag-active" : "tag-inactive"}
+	(label :text {tags != "5" ? "" : ""}))
+	(button
+		:onclick "riverctl set-focused-tags 32"
+		:class {tags == "6" ? "tag-active" : "tag-inactive"}
+	(label :text {tags != "6" ? "" : ""}))
+	(button
+		:onclick "riverctl set-focused-tags 64"
+		:class {tags == "7" ? "tag-active" : "tag-inactive"}
+	(label :text {tags != "7" ? "" : ""}))
+	(button
+		:onclick "riverctl set-focused-tags 128"
+		:class {tags == "8" ? "tag-active" : "tag-inactive"}
+	(label :text {tags != "8" ? "" : ""}))
+	(button
+		:onclick "riverctl set-focused-tags 256"
+		:class {tags == "9" ? "tag-active" : "tag-inactive"}
+	(label :text {tags != "9" ? "" : ""}))
+	(button
+		:onclick "riverctl set-focused-tags 512"
+		:class {tags == "10" ? "tag-active" : "tag-inactive"}
+	(label :text "ﴬ"))
+	(button
+		:onclick "riverctl set-focused-tags 1024"
+		:class {tags == "11" ? "tag-active" : "tag-inactive"}
+	(label :text ""))))))
+
+
+
+(defwidget river-bar[]
+	(centerbox :orientation "h"
+	(start)
+	(center)
+	(side)))
+
+(defwindow river-bar
+	:monitor 0
+	:exclusive "true"
+	:focusable "false"
+	:stacking "bottom"
+	:geometry (geometry :x "0%"
+				  :y "0"
+				  :width "100%"
+				  :height "15px"
+				  :anchor "top center")
+	(river-bar))

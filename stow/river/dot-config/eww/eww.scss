@@ -1,0 +1,115 @@
+* {
+    all: unset;
+}
+
+.river-bar {
+    font-family: "Hack Nerd Font";
+	padding: 2px 0px 2px 10px;
+    background: #202020;
+}
+
+
+.tag-inactive {
+    font-size: 18px;
+    margin-right: 10px;
+    color: #94C255;
+}
+
+.tag-active{
+    font-size: 12px;
+    margin-right: 10px;
+    color: #E78A4E;
+}
+
+.current-window {
+	all: unset;
+    //margin-right: 10px;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 2px 3px;
+	//background: #303030;
+	color: #fc7216;
+	//border: 1px solid #D2C26A;
+	//border-radius: 8px;
+}
+
+.daily-date {
+    color: #303030;
+	padding: 5px;
+	background-color: #779414;
+	font-size: 12px;
+}
+
+.zypper-box {
+	color: #81c13b;
+	font-size: 12px;
+}
+
+.spotify-text {
+	color: #1DB954;
+	font-size: 12px;
+	padding-right: 300px;
+}
+
+.opensuse-logo {
+	font-size: 18px;
+	padding-right: 2px;
+}
+.volume-box {
+	color: #acce31;
+	padding: 0px;
+	font-size: 12px;
+}
+.network-text {
+	color:  #708ff4;
+	font-size: 12px;
+}
+
+.brightness {
+	color: #e8de5c;
+	font-size: 12px;
+}
+
+.metric scale trough highlight {
+  all: unset;
+  background-color: #edece1;
+  color: #000000;
+  border-radius: 10px;
+}
+.metric scale trough {
+  all: unset;
+  background-color: #4e4e4e;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+}
+.metric scale trough highlight {
+  all: unset;
+  background-color: #edece1;
+  color: #000000;
+  border-radius: 10px;
+}
+.metric scale trough {
+  all: unset;
+  background-color: #4e4e4e;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 3px;
+}
+
+.ram {
+ 	color: #e2a936;
+}
+
+.storage {
+	color: #d55ce8;
+}
+
+.battery {
+	color: #53c12e;
+}
+
+.cpu {
+	color: #ba9377;
+}
