@@ -19,10 +19,10 @@ riverctl map normal "$mod" Print spawn '$HOME/.local/bin/mygrimshot.sh area'
 riverctl map normal $mod+Shift Return spawn $term
 
 # Mod+Q to close the focused view
-riverctl map normal $mod+Shift Q close
+riverctl map normal $mod+Shift C close
 
 # Mod+E to exit river
-riverctl map normal $mod+Shift E exit
+riverctl map normal $mod+Shift Q exit
 
 # Mod+J and Mod+K to focus the next/previous view in the layout stack
 riverctl map normal $mod J focus-view next
@@ -150,7 +150,6 @@ riverctl map normal $mod Space toggle-float
 
 # Mod+F to toggle fullscreen
 riverctl map normal $mod F toggle-fullscreen
-
 
 # Declare a passthrough mode. This mode has only a single mapping to return to
 # normal mode. This makes it useful for testing a nested wayland compositor
