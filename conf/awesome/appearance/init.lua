@@ -61,6 +61,9 @@ naughty.connect_signal("request::display_error", function(message, startup)
 		message = message,
 	})
 end)
+naughty.connect_signal('request::display', function(n)
+   naughty.layout.box{notification = n}
+end)
 require("layouts") -- Layouts
 -- Screen decoration settings
 screen.connect_signal("request::desktop_decoration", function(s)

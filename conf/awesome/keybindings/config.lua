@@ -268,6 +268,16 @@ beautiful.client_keybindings = {
 		description = "Toggle Floating",
 		group = "Client",
 	}),
+	awful.key{
+         modifiers   = { beautiful.modkey },
+         key         = "f",
+         description = "Toggle Fullscreen",
+         group       = "Client",
+         on_press    = function(c)
+            c.fullscreen = not c.fullscreen
+            c:raise()
+         end,
+      },
 	awful.key({
 		modifiers = { beautiful.modkey },
 		keygroup = "arrows",
