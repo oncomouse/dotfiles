@@ -1,9 +1,7 @@
-(deflisten tags `while true; do ristate -t | jq '.tags[][\"ChimeiInnoluxCorporation\"][]' -r --unbuffered; sleep 1s; done`)
+(deflisten tags `while true; do ristate -t | jq '.tags[][\"Unknown\"][]' -r --unbuffered; sleep 1s; done`)
 (deflisten title `while true; do ristate -w | jq '.title' -r --unbuffered; sleep 1s; done`)
 (defpoll network :interval "5s" "./scripts/get_network.sh")
-(defpoll time :interval "1s" `date "+%H:%M:%S"`)
-(defpoll day :interval "3600s" "date +%d")
-(defpoll month :interval "3600s" "date +%b")
+(defpoll time :interval "1s" `date +"%a %m/%d %-I:%M %p "`)
 (defpoll spotify-status :interval "1s" `./scripts/get_media.sh`)
 (defpoll zypper-updates :interval "3600s" `./scripts/get_updates.sh`)
 (defpoll vol-info :interval "1s" `pamixer --get-volume`)
@@ -64,10 +62,6 @@
 		:halign "center"
 		:space-evenly "false"
 		:spacing 5
-  	(box
-    	:orientation "v"
-    	month
-		day)
 	time))
 
 (defwidget start[]
@@ -135,51 +129,44 @@
 		:onscroll "./scripts/river-scroll.sh {} ${tags}"
 	(box
 		:space-evenly "true"
-		:spacing 15
+		:spacing 0
 	(button
 		:onclick "riverctl set-focused-tags 1"
 		:class {tags == "1" ? "tag-active" : "tag-inactive"}
-	(label :text {tags != "1" ? "" : ""}))
+	(label :text "1"))
 	(button
 		:onclick "riverctl set-focused-tags 2"
 		:class {tags == "2" ? "tag-active" : "tag-inactive"}
-	(label :text {tags != "2" ? "" : ""}))
+	(label :text "2"))
 	(button
 		:onclick "riverctl set-focused-tags 4"
 		:class {tags == "3" ? "tag-active" : "tag-inactive"}
-	(label :text {tags != "3" ? "" : ""}))
+	(label :text "3"))
 	(button
 		:onclick "riverctl set-focused-tags 8"
 		:class {tags == "4" ? "tag-active" : "tag-inactive"}
-	(label :text {tags != "4" ? "" : ""}))
+	(label :text "4"))
 	(button
 		:onclick "riverctl set-focused-tags 16"
 		:class {tags == "5" ? "tag-active" : "tag-inactive"}
-	(label :text {tags != "5" ? "" : ""}))
+	(label :text "5"))
 	(button
 		:onclick "riverctl set-focused-tags 32"
 		:class {tags == "6" ? "tag-active" : "tag-inactive"}
-	(label :text {tags != "6" ? "" : ""}))
+	(label :text "6"))
 	(button
 		:onclick "riverctl set-focused-tags 64"
 		:class {tags == "7" ? "tag-active" : "tag-inactive"}
-	(label :text {tags != "7" ? "" : ""}))
+	(label :text "7"))
 	(button
 		:onclick "riverctl set-focused-tags 128"
 		:class {tags == "8" ? "tag-active" : "tag-inactive"}
-	(label :text {tags != "8" ? "" : ""}))
+	(label :text "8"))
 	(button
 		:onclick "riverctl set-focused-tags 256"
 		:class {tags == "9" ? "tag-active" : "tag-inactive"}
-	(label :text {tags != "9" ? "" : ""}))
-	(button
-		:onclick "riverctl set-focused-tags 512"
-		:class {tags == "10" ? "tag-active" : "tag-inactive"}
-	(label :text "ﴬ"))
-	(button
-		:onclick "riverctl set-focused-tags 1024"
-		:class {tags == "11" ? "tag-active" : "tag-inactive"}
-	(label :text ""))))))
+	(label :text "9"))
+	))))
 
 
 

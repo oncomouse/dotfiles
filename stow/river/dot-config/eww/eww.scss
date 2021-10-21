@@ -1,31 +1,35 @@
+@import "/home/andrew/.cache/wal/colors.scss";
+$bar-font-size: 14px;
+
 * {
     all: unset;
 }
 
 .river-bar {
     font-family: "FiraCode Nerd Font";
-	padding: 2px 0px 2px 10px;
-    background: #202020;
+	padding: 0;
+    background: $color0;
 }
 
 
 .tag-inactive {
-    font-size: 18px;
-    margin-right: 10px;
-    color: #94C255;
+    font-size: $bar-font-size;
+	padding: 0 0.5em;
+    color: $color7;
 }
 
 .tag-active{
-    font-size: 12px;
-    margin-right: 10px;
-    color: #E78A4E;
+    font-size: $bar-font-size;
+	padding: 0 0.5em;
+    color: $color8;
+	background: $color6;
 }
 
 .current-window {
 	all: unset;
     //margin-right: 10px;
 	font-weight: bold;
-	font-size: 12px;
+	font-size: $bar-font-size;
 	padding: 2px 3px;
 	//background: #303030;
 	color: #fc7216;
@@ -34,20 +38,18 @@
 }
 
 .daily-date {
-    color: #303030;
-	padding: 5px;
-	background-color: #779414;
-	font-size: 12px;
+	padding-right: 0.5em;
+	font-size: $bar-font-size;
 }
 
 .zypper-box {
 	color: #81c13b;
-	font-size: 12px;
+	font-size: $bar-font-size;
 }
 
 .spotify-text {
 	color: #1DB954;
-	font-size: 12px;
+	font-size: $bar-font-size;
 	padding-right: 300px;
 }
 
@@ -58,16 +60,16 @@
 .volume-box {
 	color: #acce31;
 	padding: 0px;
-	font-size: 12px;
+	font-size: $bar-font-size;
 }
 .network-text {
 	color:  #708ff4;
-	font-size: 12px;
+	font-size: $bar-font-size;
 }
 
 .brightness {
 	color: #e8de5c;
-	font-size: 12px;
+	font-size: $bar-font-size;
 }
 
 .metric scale trough highlight {

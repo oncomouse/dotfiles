@@ -17,15 +17,16 @@ riverctl map normal "Mod4" R spawn $HOME/.config/river/init
 # Setting some startup stuff
 riverctl spawn "river-tag-overlay --background-colour 0x1d2021 --border-colour 0xa9b665 --square-active-occupied-colour 0xd79921 --square-active-background-colour 0xa9b665 --square-active-border-colour 0xd4be98 --tag-amount 11"
 riverctl spawn "wlsunset -l 8.17 -L 123.80"
-riverctl spawn $HOME/.config/river/wlsunset.sh
-riverctl spawn $HOME/.config/mako/mako.sh
-riverctl spawn $HOME/.config/river/swaybg.sh
-riverctl spawn $HOME/.config/river/bindings.sh
-riverctl spawn $HOME/.config/eww/eww.sh
-riverctl spawn $HOME/.local/share/bin/gtk.sh
+riverctl spawn "$HOME/.config/river/wlsunset.sh"
+riverctl spawn "$HOME/.config/mako/mako.sh"
+# riverctl spawn "$HOME/.config/river/swaybg.sh"
+riverctl spawn "$HOME/.config/river/bindings.sh"
+riverctl spawn "$HOME/.config/eww/eww.sh"
+riverctl spawn "$HOME/.local/share/bin/gtk.sh"
 
 # Borders
-riverctl border-color-focused 0xfc7216
-riverctl border-color-unfocused 0x92a58b
-riverctl border-width 2
-riverctl background-color 0x282828
+source ~/.cache/wal/colors.sh
+riverctl border-color-focused "$(echo "$color6" | sed -e "s/#/0x/")"
+riverctl border-color-unfocused "$(echo "$color0" | sed -e "s/#/0x/")"
+riverctl border-width 1
+riverctl background-color "$(echo "$color0" | sed -e "s/#/0x/")"

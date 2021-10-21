@@ -34,6 +34,7 @@ riverctl map normal $mod Tab focus-previous-tags
 riverctl map normal $mod Return zoom # Zoom
 riverctl map normal $mod+Shift C close # Close Client
 riverctl map normal $mod Space toggle-float # Toggle Floating
+riverctl map normal $mod F toggle-fullscreen
 riverctl map normal $mod Left move left 25
 riverctl map normal $mod Down move down 25
 riverctl map normal $mod Up move up 25
@@ -103,7 +104,6 @@ riverctl map normal $mod+Shift Period send-to-output next
 riverctl map normal $mod+Shift Comma send-to-output previous
 
 # Mod+F to toggle fullscreen
-riverctl map normal $mod F toggle-fullscreen
 
 # Declare a passthrough mode. This mode has only a single mapping to return to
 # normal mode. This makes it useful for testing a nested wayland compositor
@@ -131,7 +131,7 @@ riverctl float-filter-add "mpv"
 
 riverctl default-layout stacktile
 
-riverctl spawn "stacktile --per-tag-config --primary-count 1  --secondary-count 0 --primary-sublayout rows --primary-position left --primary-ratio 0.65 --outer-padding 0 --inner-padding 0 --secondary-sublayout rows --secondary-ratio 0.5 --remainder-sublayout rows" 
+riverctl spawn "stacktile --per-tag-config --primary-count 1  --secondary-count 0 --primary-sublayout rows --primary-position left --primary-ratio 0.55 --outer-padding 0 --inner-padding 0 --secondary-sublayout rows --secondary-ratio 0.5 --remainder-sublayout rows" 
 riverctl default-layout stacktile
 # River will send the process group of the init executable SIGTERM on exit.
 
