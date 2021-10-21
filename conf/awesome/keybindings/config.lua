@@ -517,9 +517,16 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		modifiers = {},
 		key = "XF86AudioStop",
 		on_press = require("widgets.keypress")("liskin-media stop", "mpris"),
-		descriptino = "Stop Audio from Playing",
+		description = "Stop Audio from Playing",
 		group = "Media",
 	}),
+	awful.key({
+		modifiers = {},
+		key = "XF86Eject",
+		on_press = function() awful.spawn("eject -T") end,
+		description = "Eject CD-ROM",
+		group = "Media",
+	})
 })
 -- }}}
 -- vim:foldmethod=marker:foldlevel=0
