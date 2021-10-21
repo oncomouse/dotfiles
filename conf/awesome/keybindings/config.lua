@@ -522,4 +522,4 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 	}),
 })
 -- }}}
--- # vim:foldmethod=marker;foldlevel=0
+-- vim:foldmethod=marker:foldlevel=0
