@@ -1,5 +1,6 @@
-(deflisten tags `while true; do ristate -t | jq '.tags[][\"Unknown\"][]' -r --unbuffered; sleep 1s; done`)
+(deflisten tags `while true; do ristate -t | jq '.tags[0] | to_entries[].value[]' -r --unbuffered; sleep 1s; done`)
 (deflisten title `while true; do ristate -w | jq '.title' -r --unbuffered; sleep 1s; done`)
+(defpoll volume :interval "30s" `dwmblocks-volume.sh`)
 ; (defpoll network :interval "5s" "./scripts/get_network.sh")
 (defpoll time :interval "1s" `date +"%a %m/%d %-I:%M %p "`)
 ; (defpoll spotify-status :interval "1s" `./scripts/get_media.sh`)
@@ -59,6 +60,11 @@
 ;         :value zypper-updates
 ;         :onchange "")))
 
+(defwidget volume_block[]
+  (block
+    :poll volume
+    :cmd "dwmblocks-volume.sh"))
+
 (defwidget date[]
   (box
     :orientation "h"
@@ -82,6 +88,7 @@
     :space-evenly "false"
     :class "side-box"
     :spacing 8
+  (volume_block)
   (date)
   ))
 
@@ -90,7 +97,7 @@
     :class "current-window"
     :halign "start"
     :space-evenly "false"
-  (label :limit-width "40" :text {title ?: " "})))
+  (label :limit-width "40" :text {title ?: ""})))
 
 
 (defwidget tag-indicator[]
