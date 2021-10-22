@@ -1,59 +1,63 @@
 (deflisten tags `while true; do ristate -t | jq '.tags[][\"Unknown\"][]' -r --unbuffered; sleep 1s; done`)
 (deflisten title `while true; do ristate -w | jq '.title' -r --unbuffered; sleep 1s; done`)
-(defpoll network :interval "5s" "./scripts/get_network.sh")
+; (defpoll network :interval "5s" "./scripts/get_network.sh")
 (defpoll time :interval "1s" `date +"%a %m/%d %-I:%M %p "`)
-(defpoll spotify-status :interval "1s" `./scripts/get_media.sh`)
-(defpoll zypper-updates :interval "3600s" `./scripts/get_updates.sh`)
-(defpoll vol-info :interval "1s" `pamixer --get-volume`)
-(defpoll current-brightness :interval "1s" "light -G")
-(defpoll ping :interval "1s" "./scripts/get_ping.sh")
-(deflisten cpu-avg "./scripts/get_cpu.sh 3")
+; (defpoll spotify-status :interval "1s" `./scripts/get_media.sh`)
+; (defpoll zypper-updates :interval "3600s" `./scripts/get_updates.sh`)
+; (defpoll vol-info :interval "1s" `pamixer --get-volume`)
+; (defpoll current-brightness :interval "1s" "light -G")
+; (defpoll ping :interval "1s" "./scripts/get_ping.sh")
+; (deflisten cpu-avg "./scripts/get_cpu.sh 3")
 
-(defwidget metric [label value onchange]
-  (box :orientation "h"
-       :class "metric"
+; (defwidget metric [label value onchange]
+;   (box :orientation "h"
+;        :class "metric"
+;        :space-evenly false
+;     (box :class "label" label)
+;     (scale :min 0
+;            :max 101
+;            :active {onchange != ""}
+;            :value value
+;            :onchange onchange)))
+
+(defwidget block [poll cmd]
+  (box :class "block"
        :space-evenly false
-    (box :class "label" label)
-    (scale :min 0
-           :max 101
-           :active {onchange != ""}
-           :value value
-           :onchange onchange)))
-
-(defwidget brightness[]
-  (box
-    :class "brightness"
-    :space-evenly false
-  (metric :label  "☀︁"
-            :value current-brightness
-            :onchange "light -S {}")))
-
-(defwidget volume[]
-  (box
-    :halign "end"
-    :class "volume-box"
-  (metric :label " "
-    :value vol-info
-    :onchange "pamixer --set-volume {}")))
-
-(defwidget zypper[]
-  (box
-    :halign "fill"
-    :space-evenly false
-    :class "zypper-box"
-  (label :text " " :class "opensuse-logo")
-  (metric :label ""
-        :value zypper-updates
-        :onchange "")))
-
-(defwidget spotify[]
-  (box
-    :halign "center"
+       :orientation "h"
   (eventbox
-    :onscroll "./scripts/spotify-next-previous.sh {}" 
+    :onscroll "bash -c 'BUTTON=${{} == "up" ? 4 : 5} ${cmd}'" 
   (button
-    :onclick "./scripts/spotify-open.sh && playerctl -p spotify play-pause" :class "spotify-button"
-  (label :limit-width 80 :text {spotify-status ?: ""} :class "spotify-text" )))))
+    :onclick "bash -c 'BUTTON=1 ${cmd}'"
+    :onmiddleclick "bash -c 'BUTTON=2 ${cmd}'"
+    :onrightclick "bash -c 'BUTTON=3 ${cmd}'"
+  (label :limit-width 80 :text {poll})))))
+
+
+; (defwidget brightness[]
+;   (box
+;     :class "brightness"
+;     :space-evenly false
+;   (metric :label  "☀︁"
+;             :value current-brightness
+;             :onchange "light -S {}")))
+
+; (defwidget volume[]
+;   (box
+;     :halign "end"
+;     :class "volume-box"
+;   (metric :label " "
+;     :value vol-info
+;     :onchange "pamixer --set-volume {}")))
+
+; (defwidget zypper[]
+;   (box
+;     :halign "fill"
+;     :space-evenly false
+;     :class "zypper-box"
+;   (label :text " " :class "opensuse-logo")
+;   (metric :label ""
+;         :value zypper-updates
+;         :onchange "")))
 
 (defwidget date[]
   (box
@@ -70,9 +74,7 @@
     (tag-indicator)))
 
 (defwidget center[]
-  (box
-    :halign "center"
-    (spotify)))
+    (curwindow))
 
 (defwidget side[]
   (box
@@ -80,35 +82,6 @@
     :space-evenly "false"
     :class "side-box"
     :spacing 8
-  (box
-    :class "network-text"
-  (metric :label "${network}"
-            :value ping
-            :onchange ""))
-  (volume)
-  (brightness)
-  (box
-    :class "ram"
-  (metric :label " "
-            :value {EWW_RAM.used_mem_perc}
-            :onchange ""))
-  (box
-    :class "storage"
-    (metric :label " "
-            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
-            :onchange ""))
-    ; (box
-    ;     :class "battery"
-    ; (metric :label " "
-    ;     :value  {EWW_BATTERY.BAT1.capacity}
-    ;     :onchange ""))
-  (box
-    :class "cpu"
-    :halign "end"
-  (metric :label " " 
-    :value cpu-avg
-    :onchange ""))
-  (zypper)
   (date)
   ))
 

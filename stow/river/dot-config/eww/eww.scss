@@ -9,6 +9,7 @@ $bar-font-size: 14px;
     font-family: "FiraCode Nerd Font";
 	padding: 0;
     background: $color0;
+	color: $color7;
 }
 
 
@@ -28,11 +29,12 @@ $bar-font-size: 14px;
 .current-window {
 	all: unset;
     //margin-right: 10px;
-	font-weight: bold;
+	// font-weight: bold;
 	font-size: $bar-font-size;
 	padding: 2px 3px;
+	color: $color7;
 	//background: #303030;
-	color: #fc7216;
+	// color: #fc7216;
 	//border: 1px solid #D2C26A;
 	//border-radius: 8px;
 }
