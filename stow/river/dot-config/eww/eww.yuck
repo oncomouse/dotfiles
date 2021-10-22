@@ -1,8 +1,9 @@
-(deflisten tags `while true; do ristate -t | jq '.tags[0] | to_entries[].value[]' -r --unbuffered; sleep 1s; done`)
-(deflisten title `while true; do ristate -w | jq '.title' -r --unbuffered; sleep 1s; done`)
+(deflisten tags `while true; do ristate -t | jq '.tags[0] | to_entries[].value[]' -rcM --unbuffered; sleep 1s; done`)
+(deflisten title `while true; do ristate -w | jq '.title' -rcM --unbuffered; sleep 1s; done`)
+(deflisten viewstag `while true; do ristate -vt | jq '.viewstag[0] | to_entries[].value' -rc --unbuffered; sleep 1s; done`)
 (defpoll volume :interval "30s" `dwmblocks-volume.sh`)
-; (defpoll network :interval "5s" "./scripts/get_network.sh")
 (defpoll time :interval "1s" `date +"%a %m/%d %-I:%M %p "`)
+; (defpoll network :interval "5s" "./scripts/get_network.sh")
 ; (defpoll spotify-status :interval "1s" `./scripts/get_media.sh`)
 ; (defpoll zypper-updates :interval "3600s" `./scripts/get_updates.sh`)
 ; (defpoll vol-info :interval "1s" `pamixer --get-volume`)
@@ -113,38 +114,47 @@
   (button
     :onclick "riverctl set-focused-tags 1"
     :class {tags == "1" ? "tag-active" : "tag-inactive"}
+    :visible { viewstag[0] == "1" || viewstag[1] == "1" || viewstag[2] == "1" || viewstag[3] == "1" || viewstag[4] == "1" || viewstag[5] == "1" || viewstag[6] == "1" || viewstag[7] == "1" || viewstag[8] == 1 }
   (label :text "1"))
   (button
     :onclick "riverctl set-focused-tags 2"
     :class {tags == "2" ? "tag-active" : "tag-inactive"}
+    :visible { viewstag[0] == "2" || viewstag[1] == "2" || viewstag[2] == "2" || viewstag[3] == "2" || viewstag[4] == "2" || viewstag[5] == "2" || viewstag[6] == "2" || viewstag[7] == "2" || viewstag[8] == 1 }
   (label :text "2"))
   (button
     :onclick "riverctl set-focused-tags 4"
     :class {tags == "3" ? "tag-active" : "tag-inactive"}
+    :visible { viewstag[0] == "3" || viewstag[1] == "3" || viewstag[2] == "3" || viewstag[3] == "3" || viewstag[4] == "3" || viewstag[5] == "3" || viewstag[6] == "3" || viewstag[7] == "3" || viewstag[8] == 1 }
   (label :text "3"))
   (button
     :onclick "riverctl set-focused-tags 8"
     :class {tags == "4" ? "tag-active" : "tag-inactive"}
+    :visible { viewstag[0] == "4" || viewstag[1] == "4" || viewstag[2] == "4" || viewstag[3] == "4" || viewstag[4] == "4" || viewstag[5] == "4" || viewstag[6] == "4" || viewstag[7] == "4" || viewstag[8] == 1 }
   (label :text "4"))
   (button
     :onclick "riverctl set-focused-tags 16"
     :class {tags == "5" ? "tag-active" : "tag-inactive"}
+    :visible { viewstag[0] == "5" || viewstag[1] == "5" || viewstag[2] == "5" || viewstag[3] == "5" || viewstag[4] == "5" || viewstag[5] == "5" || viewstag[6] == "5" || viewstag[7] == "5" || viewstag[8] == 1 }
   (label :text "5"))
   (button
     :onclick "riverctl set-focused-tags 32"
     :class {tags == "6" ? "tag-active" : "tag-inactive"}
+    :visible { viewstag[0] == "6" || viewstag[1] == "6" || viewstag[2] == "6" || viewstag[3] == "6" || viewstag[4] == "6" || viewstag[5] == "6" || viewstag[6] == "6" || viewstag[7] == "6" || viewstag[8] == 1 }
   (label :text "6"))
   (button
     :onclick "riverctl set-focused-tags 64"
     :class {tags == "7" ? "tag-active" : "tag-inactive"}
+    :visible { viewstag[0] == "7" || viewstag[1] == "7" || viewstag[2] == "7" || viewstag[3] == "7" || viewstag[4] == "7" || viewstag[5] == "7" || viewstag[6] == "7" || viewstag[7] == "7" || viewstag[8] == 1 }
   (label :text "7"))
   (button
     :onclick "riverctl set-focused-tags 128"
     :class {tags == "8" ? "tag-active" : "tag-inactive"}
+    :visible { viewstag[0] == "8" || viewstag[1] == "8" || viewstag[2] == "8" || viewstag[3] == "8" || viewstag[4] == "8" || viewstag[5] == "8" || viewstag[6] == "8" || viewstag[7] == "8" || viewstag[8] == 1 }
   (label :text "8"))
   (button
     :onclick "riverctl set-focused-tags 256"
     :class {tags == "9" ? "tag-active" : "tag-inactive"}
+    :visible { viewstag[0] == "9" || viewstag[1] == "9" || viewstag[2] == "9" || viewstag[3] == "9" || viewstag[4] == "9" || viewstag[5] == "9" || viewstag[6] == "9" || viewstag[7] == "9" || viewstag[8] == 1 }
   (label :text "9"))
   ))))
 
