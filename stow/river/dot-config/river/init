@@ -14,12 +14,14 @@ riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG
 killall -q wlsunset
 while pgrep -x wlsunset >/dev/null; do sleep 1; done
 riverctl spawn "wlsunset -l 30.6 -L -96.3"
-riverctl spawn "$HOME/.config/mako/mako.sh"
-riverctl spawn "$HOME/.config/river/bindings.sh"
+killall -q mako
+while pgrep -x mako >/dev/null; do sleep 1; done
+riverctl spawn "mako"
 pkill -f liskin-media
 riverctl spawn "liskin-media mpris-daemon"
 pkill -f waybar
 riverctl spawn "waybar"
+riverctl spawn "$HOME/.config/river/bindings.sh"
 # riverctl spawn "$HOME/.local/share/bin/gtk.sh"
 
 # Borders
