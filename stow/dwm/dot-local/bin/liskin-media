@@ -9,6 +9,13 @@ shopt -s lastpipe
 
 export LANG=C
 
+function killbar {
+	local switch
+	switch="-$1"
+	[[ $(pgrep dwmblocks) ]] && pkill $switch dwmblocks
+	[[ $(pgrep waybar) ]] && pkill $switch waybar
+}
+
 # Stop from controlling things like Firefox
 players=(ncspot
 	mpd
@@ -51,10 +58,10 @@ function action-volume {
 	fi
 
 	volume-pulseaudio "$1"
-	[[ $(pgrep dwmblocks) ]] && pkill -37 dwmblocks
+	killbar 37
 }
 
-function action-mute     { pactl set-sink-mute   @DEFAULT_SINK@   toggle; [[ $(pgrep dwmblocks) ]] && pkill -37 dwmblocks; }
+function action-mute     { pactl set-sink-mute   @DEFAULT_SINK@   toggle; killbar 37; }
 function action-mic-mute { pactl set-source-mute @DEFAULT_SOURCE@ toggle; }
 
 STATUS="/tmp/dwmblocks.mpris"
@@ -86,7 +93,7 @@ function action-mpris-daemon {
 					status="栗"
 				fi
 				echo "$status$info" > "$STATUS"
-				[[ $(pgrep dwmblocks) ]] && pkill -44 dwmblocks
+				killbar 44
 			fi
 		done
 	done
