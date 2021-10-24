@@ -1,28 +1,35 @@
+@import "/home/andrew/.cache/wal/river-colors.css";
+
 window {
-margin: 10px;
-border: 2px solid #94c255;
-padding: 10px;
-background-color: #303030;
-border-radius: 6px;
+	margin: 10px;
+	border: 2px solid @color6;
+	padding: 10px;
+	background-color: @color0;
+	border-radius: 6px;
 }
 
 #input {
-margin: 5px;
+	margin: 5px;
+	border: 1px solid @color6;
+	background-color: @color0;
 }
 
 #inner-box {
-margin: 5px;
+	margin: 5px;
 }
 
 #outer-box {
-margin: 15px;
+	margin: 15px;
 }
 
 #scroll {
-margin: 5px;
+	margin: 5px;
 }
 
 #text {
-margin: 5px;
+	margin: 5px;
 }
 
+#entry:selected {
+	background-color: @color6;
+}
