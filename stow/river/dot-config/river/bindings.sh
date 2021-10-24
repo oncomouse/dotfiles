@@ -21,11 +21,11 @@ riverctl map normal $mod+Mod1 R spawn "$rofidruncmd"
 riverctl map normal $mod+Shift N spawn "$rofinetworkcmd"
 riverctl map normal $mod+Control Space "$rofiemojicmd"
 # riverctl map normal $mod+Shift W spawn "$rofiwincmd"
-# riverctl map normal $mod+Shift P spawn $powermenu
+riverctl map normal $mod+Shift P spawn "river-powermenu.sh"
 # }}}
 # River Group {{{
 riverctl map normal $mod+Shift Return spawn $term # Open a Terminal
-# riverctl map normal $mod+SHift B spawn "dwm-brightness.sh default; eww update" # Set Default Brightness
+riverctl map normal $mod+SHift B spawn "river-brightness.sh default; eww update" # Set Default Brightness
 #riverctl map normal $mod B # Toggle Bar Visibility
 riverctl map normal "Mod4" Q spawn "$HOME/.config/river/init" # Reload River
 riverctl map normal $mod+Shift Q exit # Quit River
@@ -86,8 +86,8 @@ done
 # Media Group {{{
 riverctl map normal None XF86KbdBrightnessUp spawn "sudo /usr/local/bin/keyboard-backlight up"
 riverctl map normal None XF86KbdBrightnessDown spawn "sudo /usr/local/bin/keyboard-backlight down"
-riverctl map normal None XF86MonBrightnessUp   spawn "dwm-brightness up"
-riverctl map normal None XF86MonBrightnessDown spawn "dwm-brightness down"
+riverctl map normal None XF86MonBrightnessUp   spawn "river-brightness.sh up"
+riverctl map normal None XF86MonBrightnessDown spawn "river-brightness.sh down"
 riverctl map normal None XF86AudioRaiseVolume  spawn "liskin-media up"
 riverctl map normal None XF86AudioLowerVolume  spawn "liskin-media down"
 riverctl map normal None XF86AudioMute         spawn "liskin-media mute"

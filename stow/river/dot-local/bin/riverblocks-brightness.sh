@@ -5,7 +5,7 @@ case $BUTTON in
 	5) dwm-brightness.sh up ;;
 esac
 icon=""
-output="$(xbacklight 2> /dev/null | cut -d . -f 1)"
+output="$(light 2> /dev/null | cut -d . -f 1)"
 if [ ${#output} -gt 0 ]; then
 	echo "$icon $output%"
 fi

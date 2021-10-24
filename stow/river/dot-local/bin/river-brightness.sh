@@ -2,13 +2,13 @@
 
 case "$1" in
 	"up")
-		xbacklight -inc 5
+		sudo light -A 5
 		;;
 	"down")
-		xbacklight -dec 5
+		sudo light -U 5
 		;;
 	"default")
-		xbacklight -set 50
+		sudo light -S 50
 		;;
 	*)
 		;;

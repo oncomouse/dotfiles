@@ -29,7 +29,7 @@
 	"custom/battery": {
 		"exec": "riverblocks-battery.sh | sed -e 's/&/&amp;/g'",
 		"interval": 30,
-		"signal": 10,
+		"signal": 5,
 		"on-click": "bash -c 'env BUTTON=1 riverblocks-battery.sh'",
 		"on-click-middle": "bash -c 'env BUTTON=2 riverblocks-battery.sh'",
 		"on-click-right": "bash -c 'env BUTTON=3 riverblocks-battery.sh'",
@@ -39,7 +39,7 @@
 	"custom/brightness": {
 		"exec": "riverblocks-brightness.sh | sed -e 's/&/&amp;/g'",
 		"interval": 600,
-		"signal": 9,
+		"signal": 4,
 		"on-click": "bash -c 'env BUTTON=1 riverblocks-brightness.sh'",
 		"on-click-middle": "bash -c 'env BUTTON=2 riverblocks-brightness.sh'",
 		"on-click-right": "bash -c 'env BUTTON=3 riverblocks-brightness.sh'",
