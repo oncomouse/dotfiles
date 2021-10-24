@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
+DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
+if [ "$DOTFILES_TARGET" == "laptop" ]; then
+	font="Hack Nerd Font 9"
+else
+	font="FiraCode Nerd Font 10"
+fi
 
 source ~/.cache/wal/colors.sh
 
 killall -q mako
 while pgrep -x mako >/dev/null; do sleep 1; done
 exec mako \
-	--font 'FiraCode Nerd Font 10' \
+	--font "$font" \
 	--default-timeout 5000 \
 	--layer overlay \
 	--anchor top-right \

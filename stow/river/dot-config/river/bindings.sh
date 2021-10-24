@@ -1,4 +1,10 @@
-#!/bin/sh
+#!/bin/bash
+DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
+if [ "$DOTFILES_TARGET" == "laptop" ]; then
+	rofifont="Hack Nerd Font 9"
+else
+	rofifont="FiraCode Nerd Font 10"
+fi
 
 # Use the "logo" key as the primary modifier
 mod="Mod4"
@@ -6,7 +12,6 @@ mod="Mod4"
 # Set your terminal emulator - foot
 term=kitty
 
-rofifont="FiraCode Nerd Font Normal 10"
 rofidruncmd="rofi -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -font \"$rofifont\" -show drun -show-icons -drun-display-format {name}"
 # rofiwincmd="rofi -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -font \"$rofifont\" -show window -show-icons -window-format {w} {c} {t:25}"
 rofiemojicmd="rofi -show emoji -modi emoji -location 1 -theme-str 'window { width: 100%; }' -font \"$rofifont\""

@@ -8,7 +8,6 @@
 # See the river(1), riverctl(1), and rivertile(1) man pages for complete
 # documentation.
 # Setting some startup stuff
-DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
 
 riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
 riverctl spawn "river-init-mako.sh"
