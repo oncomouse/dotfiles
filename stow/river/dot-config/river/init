@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # This is the example configuration file for river.
 #
@@ -9,16 +9,13 @@
 # documentation.
 # Setting some startup stuff
 riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
+riverctl spawn "river-init-mako.sh"
+riverctl spawn "river-init-wlsunset.sh"
+riverctl spawn "river-init-swaybg.sh"
+riverctl spawn "river-init-media.sh"
+riverctl spawn "river-init-waybar.sh"
 
-# Setting some startup stuff
-killall -q wlsunset
-while pgrep -x wlsunset >/dev/null; do sleep 1; done
-riverctl spawn "wlsunset -l 30.6 -L -96.3"
-riverctl spawn "$HOME/.config/mako/mako.sh"
-pkill -f liskin-media
-riverctl spawn "liskin-media mpris-daemon"
-pkill -f waybar
-riverctl spawn "waybar"
+# Load Keybindings:
 riverctl spawn "$HOME/.config/river/bindings.sh"
 
 # Borders
@@ -28,4 +25,4 @@ riverctl border-color-unfocused "$(echo "$color0" | sed -e "s/#/0x/")"
 riverctl border-width 1
 riverctl background-color "$(echo "$color0" | sed -e "s/#/0x/")"
 pkill -f swayidle
-riverctl spawn "swayidle -w timeout 300 'swaylock -c $(echo "$color0" | sed -e "s/#//")' before-sleep 'swaylock -c $(echo "$color0" | sed -e "s/#//")'"
+riverctl spawn "swayidle -w timeout 300 'swaylock -c ${color0//#/}' before-sleep 'swaylock -c $(echo "$color0" | sed -e "s/#//")'"
