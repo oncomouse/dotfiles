@@ -6,18 +6,23 @@ mod="Mod4"
 # Set your terminal emulator - foot
 term=kitty
 
+rofifont="FiraCode Nerd Font Normal 10"
+rofidruncmd="rofi -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -font \"$rofifont\" -show drun -show-icons -drun-display-format {name}"
+# rofiwincmd="rofi -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -font \"$rofifont\" -show window -show-icons -window-format {w} {c} {t:25}"
+rofiemojicmd="rofi -show emoji -modi emoji -location 1 -theme-str 'window { width: 100%; }' -font \"$rofifont\""
+rofinetworkcmd="networkmanager_dmenu -location 1 -theme-str 'window { width: 100%; }' -font \"$rofifont\""
 # Launcher Group {{{
-riverctl map normal $mod+Mod1 R spawn "wofi -I --show drun --prompt=Applications --height=750 --width=600 --term=$term"
-# riverctl map normal $mod+Shift N spawn $rofinetworkcmd
-# riverctl map normal $mod+Control Space $rofiemojicmd
-riverctl map normal $mod+Shift W spawn "wofi -I --show windows"
+riverctl map normal $mod+Mod1 R spawn "$rofidruncmd"
+riverctl map normal $mod+Shift N spawn "$rofinetworkcmd"
+riverctl map normal $mod+Control Space "$rofiemojicmd"
+# riverctl map normal $mod+Shift W spawn "$rofiwincmd"
 # riverctl map normal $mod+Shift P spawn $powermenu
 # }}}
 # River Group {{{
 riverctl map normal $mod+Shift Return spawn $term # Open a Terminal
 # riverctl map normal $mod+SHift B spawn "dwm-brightness.sh default; eww update" # Set Default Brightness
 #riverctl map normal $mod B # Toggle Bar Visibility
-#riverctl map normal $mod Q # Reload River
+riverctl map normal "Mod4" Q spawn "$HOME/.config/river/init" # Reload River
 riverctl map normal $mod+Shift Q exit # Quit River
 # }}}
 # Client Group {{{

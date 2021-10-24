@@ -1,0 +1,41 @@
+diff --git a/src/modules/river/tags.cpp b/src/modules/river/tags.cpp
+index 2628af2..85540ef 100644
+--- a/src/modules/river/tags.cpp
++++ b/src/modules/river/tags.cpp
+@@ -112,8 +112,16 @@ Tags::~Tags() {
+ void Tags::handle_focused_tags(uint32_t tags) {
+   uint32_t i = 0;
+   for (auto &button : buttons_) {
++    if(config_["hide-empty"].isBool() ? config_["hide-empty"].asBool() : false) {
++      if(!button.get_style_context()->has_class("occupied")) {
++        button.hide();
++      }
++    }
+     if ((1 << i) & tags) {
+       button.get_style_context()->add_class("focused");
++      if(config_["hide-empty"].isBool() ? config_["hide-empty"].asBool() : false) {
++        button.show();
++      }
+     } else {
+       button.get_style_context()->remove_class("focused");
+     }
+@@ -125,6 +133,9 @@ void Tags::handle_view_tags(struct wl_array *view_tags) {
+   // First clear all occupied state
+   for (auto &button : buttons_) {
+     button.get_style_context()->remove_class("occupied");
++    if(config_["hide-empty"].isBool() ? config_["hide-empty"].asBool() : false) {
++      button.hide();
++    }
+   }
+ 
+   // Set tags with a view to occupied
+@@ -134,6 +145,9 @@ void Tags::handle_view_tags(struct wl_array *view_tags) {
+     for (auto &button : buttons_) {
+       if (*tags & (1 << i)) {
+         button.get_style_context()->add_class("occupied");
++    if(config_["hide-empty"].isBool() ? config_["hide-empty"].asBool() : false) {
++      button.show();
++    }
+       }
+       ++i;
+     }

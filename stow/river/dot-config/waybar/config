@@ -1,11 +1,12 @@
 {
-	"height": 26,
+	"height": 24,
 	"spacing": 6,
 	"modules-left": ["river/tags", "custom/river_title"],
 	"modules-center": [],
 	"modules-right": ["custom/volume", "custom/mpris", "custom/weather", "custom/clock"],
 	"river/tags": {
-		"num-tags": 9
+		"num-tags": 9,
+		"hide-empty": true
 	},
 	"custom/river_title": {
 		"exec": "ristate -w | jq -r --unbuffered \".title | @html\""

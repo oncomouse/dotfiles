@@ -11,7 +11,6 @@ xorg-xmodmap
 xorg-xinit
 xclip
 accountsservice
-rofi
 texlive-core
 firefox
 kitty
@@ -87,5 +86,4 @@ python-adblock
 words
 mpv
 youtube-dl
-wofi
 mako

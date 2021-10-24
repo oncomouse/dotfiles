@@ -10,8 +10,6 @@ otf-hasklig
 otf-nerd-fonts-fira-code
 perl-term-shellui
 picom-ibhagwan-git
-rofi-dmenu
-rofi-emoji
 seadrive-daemon
 shellcheck-bin
 themix-gui-git
@@ -19,7 +17,9 @@ themix-icons-archdroid-git
 themix-theme-oomox-git
 tllocalmgr-git
 zotero
-waybar-git
 river-git
 stacktile
 ristate
+rofi-lbonn-wayland-git
+rofi-dmenu
+rofi-emoji
