@@ -4,8 +4,8 @@
     border: none;
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "FiraCode Nerd Font", monspace;
-    font-size: 10pt;
+    font-family: "Hack Nerd Font", monspace;
+    font-size: 9pt;
     min-height: 0;
 }
 
