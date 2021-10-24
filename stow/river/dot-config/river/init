@@ -11,9 +11,9 @@
 riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
 
 # Setting some startup stuff
-riverctl spawn "river-tag-overlay --background-colour 0x1d2021 --border-colour 0xa9b665 --square-active-occupied-colour 0xd79921 --square-active-background-colour 0xa9b665 --square-active-border-colour 0xd4be98 --tag-amount 11"
-riverctl spawn "wlsunset -l 8.17 -L 123.80"
-riverctl spawn "$HOME/.config/river/wlsunset.sh"
+killall -q wlsunset
+while pgrep -x wlsunset >/dev/null; do sleep 1; done
+riverctl spawn "wlsunset -l 30.6 -L -96.3"
 riverctl spawn "$HOME/.config/mako/mako.sh"
 riverctl spawn "$HOME/.config/river/bindings.sh"
 pkill -f liskin-media

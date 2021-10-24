@@ -23,3 +23,4 @@ ristate
 rofi-lbonn-wayland-git
 rofi-dmenu
 rofi-emoji
+wlsunset
