@@ -25,7 +25,7 @@ riverctl map normal $mod+Shift P spawn "river-powermenu.sh"
 # }}}
 # River Group {{{
 riverctl map normal $mod+Shift Return spawn $term # Open a Terminal
-riverctl map normal $mod+SHift B spawn "river-brightness.sh default; eww update" # Set Default Brightness
+riverctl map normal $mod+Shift B spawn "river-brightness.sh default" # Set Default Brightness
 #riverctl map normal $mod B # Toggle Bar Visibility
 riverctl map normal "Mod4" Q spawn "$HOME/.config/river/init" # Reload River
 riverctl map normal $mod+Shift Q exit # Quit River
