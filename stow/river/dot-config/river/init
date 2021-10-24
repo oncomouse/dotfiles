@@ -28,3 +28,5 @@ riverctl border-color-focused "$(echo "$color6" | sed -e "s/#/0x/")"
 riverctl border-color-unfocused "$(echo "$color0" | sed -e "s/#/0x/")"
 riverctl border-width 1
 riverctl background-color "$(echo "$color0" | sed -e "s/#/0x/")"
+pkill -f swayidle
+riverctl spawn "swayidle -w timeout 300 'swaylock -c $(echo "$color0" | sed -e "s/#//")' before-sleep 'swaylock -c $(echo "$color0" | sed -e "s/#//")'"
