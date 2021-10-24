@@ -89,3 +89,4 @@ youtube-dl
 mako
 swayidle
 swaylock
+gtkmm3
