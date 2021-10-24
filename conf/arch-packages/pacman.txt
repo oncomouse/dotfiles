@@ -87,3 +87,5 @@ python-adblock
 words
 mpv
 youtube-dl
+wofi
+mako
