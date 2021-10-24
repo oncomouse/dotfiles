@@ -225,6 +225,24 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		group = "Client",
 	}),
 	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		key = "j",
+		on_press = function()
+			awful.client.swap.byidx(1)
+		end,
+		description = "Swap Client with Next by Index",
+		group = "Client",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		key = "k",
+		on_press = function()
+			awful.client.swap.byidx(-1)
+		end,
+		description = "Swap Client with Previous by Index",
+		group = "Client",
+	}),
+	awful.key({
 		modifiers = { beautiful.modkey },
 		key = "Tab",
 		on_press = function()
@@ -509,9 +527,16 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		modifiers = {},
 		key = "XF86AudioStop",
 		on_press = require("widgets.keypress")("liskin-media stop", "mpris"),
-		descriptino = "Stop Audio from Playing",
+		description = "Stop Audio from Playing",
 		group = "Media",
 	}),
+	awful.key({
+		modifiers = {},
+		key = "XF86Eject",
+		on_press = function() awful.spawn("eject -T") end,
+		description = "Eject CD-ROM",
+		group = "Media",
+	})
 })
 -- }}}
--- # vim:foldmethod=marker;foldlevel=0
+-- vim:foldmethod=marker:foldlevel=0

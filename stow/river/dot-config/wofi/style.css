@@ -1,0 +1,28 @@
+window {
+margin: 10px;
+border: 2px solid #94c255;
+padding: 10px;
+background-color: #303030;
+border-radius: 6px;
+}
+
+#input {
+margin: 5px;
+}
+
+#inner-box {
+margin: 5px;
+}
+
+#outer-box {
+margin: 15px;
+}
+
+#scroll {
+margin: 5px;
+}
+
+#text {
+margin: 5px;
+}
+

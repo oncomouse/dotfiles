@@ -141,6 +141,7 @@ return require("packer").startup({
 			"html",
 			"javascript",
 			"json",
+			"jsonc",
 			"lua",
 			"python",
 			"ruby",

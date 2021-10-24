@@ -19,3 +19,7 @@ themix-icons-archdroid-git
 themix-theme-oomox-git
 tllocalmgr-git
 zotero
+waybar-git
+river-git
+stacktile
+ristate

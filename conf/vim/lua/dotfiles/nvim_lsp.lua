@@ -143,6 +143,7 @@ local servers = {
 		cmd = { "html-languageserver", "--stdio" },
 	},
 	jsonls = {
+		filetypes = { "json", "jsonc" },
 		cmd = { "json-languageserver", "--stdio" },
 	},
 	solargraph = {},
