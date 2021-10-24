@@ -87,3 +87,5 @@ words
 mpv
 youtube-dl
 mako
+swayidle
+swaylock
