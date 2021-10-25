@@ -59,10 +59,10 @@ riverctl map normal $mod+Control Up snap up
 riverctl map normal $mod+Control Right snap right
 # }}}
 # Layout Group {{{
-riverctl map normal $mod T spawn "$HOME/.config/river/master_stack.sh" # Select Tile Layout
+riverctl map normal $mod T spawn "$HOME/.config/river/tile.sh" # Select Tile Layout
 riverctl map normal $mod+Shift M spawn "$HOME/.config/river/monocle.sh" # Select Monocle Layout
 # riverctl map normal $mod M "$HOME/.config/river/centered_monocle.sh" # Select Centered Monocle Layout
-# riverctl map normal $mod+Shift T "$HOME/.config/river/rtile.sh" # Select Right Tile Layout
+riverctl map normal $mod+Shift T "$HOME/.config/river/rtile.sh" # Select Right Tile Layout
 # }}}
 # Tag Group {{{
 for i in $(seq 1 9)
@@ -141,7 +141,7 @@ riverctl float-filter-add "mpv"
 
 riverctl default-layout stacktile
 
-riverctl spawn "stacktile --per-tag-config --primary-count 1  --secondary-count 0 --primary-sublayout rows --primary-position left --primary-ratio 0.55 --outer-padding 0 --inner-padding 0 --secondary-sublayout rows --secondary-ratio 0.5 --remainder-sublayout rows" 
+riverctl spawn "$HOME/.config/river/tile.sh" 
 riverctl default-layout stacktile
 # River will send the process group of the init executable SIGTERM on exit.
 
