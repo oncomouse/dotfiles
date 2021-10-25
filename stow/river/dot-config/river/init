@@ -15,15 +15,14 @@ riverctl spawn "river-init-wlsunset.sh"
 riverctl spawn "river-init-swaybg.sh"
 riverctl spawn "river-init-media.sh"
 riverctl spawn "river-init-waybar.sh"
+riverctl spawn "river-init-swaylock.sh"
 
 # Load Keybindings:
 riverctl spawn "$HOME/.config/river/bindings.sh"
 
 # Borders
 source ~/.cache/wal/colors.sh
-riverctl border-color-focused "$(echo "$color6" | sed -e "s/#/0x/")"
-riverctl border-color-unfocused "$(echo "$color0" | sed -e "s/#/0x/")"
+riverctl border-color-focused "${color6//#/}"
+riverctl border-color-unfocused "${color0//#/}"
 riverctl border-width 1
-riverctl background-color "$(echo "$color0" | sed -e "s/#/0x/")"
-pkill -f swayidle
-riverctl spawn "swayidle -w timeout 300 'swaylock -c ${color0//#/}' before-sleep 'swaylock -c $(echo "$color0" | sed -e "s/#//")'"
+riverctl background-color "${color0//#/}"
