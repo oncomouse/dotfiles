@@ -62,7 +62,10 @@ return require("packer").startup({
 				vim.fn["gina#custom#command#option"]("commit", "--group", "short")
 				vim.fn["gina#custom#command#option"]("diff", "--group", "short")
 				-- Implement vim-fugitive commands in Gina:
-				vim.fn["gina#custom#mapping#nmap"]("status", "cc", ":<C-u>Gina commit<CR>", { noremap = 1, silent = 1 })
+				vim.fn["gina#custom#mapping#nmap"]("status", "cc", ":<C-u>Gina commit<CR>", {
+					noremap = 1,
+					silent = 1,
+				})
 			end,
 		})
 
@@ -92,11 +95,27 @@ return require("packer").startup({
 							},
 						},
 					},
+					context_commentstring = {
+						enable = true,
+					},
 				})
 			end,
 			requires = {
 				{ "nvim-treesitter/nvim-treesitter-textobjects" },
 				{ "windwp/nvim-ts-autotag", ft = { "html", "javascript", "javascriptreact" } },
+				{
+					"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
+					ft = {
+						"javascript",
+						"javascriptreact",
+						"typescript",
+						"typescriptreact",
+						"css",
+						"scss",
+						"html",
+						"lua",
+					},
+				},
 			},
 		})
 
@@ -140,6 +159,7 @@ return require("packer").startup({
 			"fish",
 			"html",
 			"javascript",
+			"javascript",
 			"json",
 			"jsonc",
 			"lua",
@@ -147,6 +167,8 @@ return require("packer").startup({
 			"ruby",
 			"scss",
 			"sh",
+			"typescript",
+			"typescriptreact",
 			"vim",
 			"yaml",
 		}
@@ -157,6 +179,10 @@ return require("packer").startup({
 				{ "hrsh7th/vim-vsnip-integ", opt = true, requires = { "vim-vsnip" } },
 				{ "nvim-lua/plenary.nvim", opt = true },
 				{ "jose-elias-alvarez/null-ls.nvim", opt = true },
+				{
+					"jose-elias-alvarez/nvim-lsp-ts-utils",
+					ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+				},
 			},
 			ft = lsp_types,
 			config = function()
