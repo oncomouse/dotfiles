@@ -141,7 +141,7 @@ riverctl float-filter-add "mpv"
 
 riverctl default-layout stacktile
 
-riverctl spawn "$HOME/.config/river/tile.sh" 
+riverctl spawn "stacktile --per-tag-config --primary-count 1  --secondary-count 0 --primary-sublayout rows --primary-position left --primary-ratio 0.55 --outer-padding 0 --inner-padding 0 --secondary-sublayout rows --secondary-ratio 0.5 --remainder-sublayout rows" 
 riverctl default-layout stacktile
 # River will send the process group of the init executable SIGTERM on exit.
 

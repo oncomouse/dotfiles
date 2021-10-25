@@ -22,7 +22,7 @@ riverctl spawn "$HOME/.config/river/bindings.sh"
 
 # Borders
 source ~/.cache/wal/colors.sh
-riverctl border-color-focused "${color6//#/}"
-riverctl border-color-unfocused "${color0//#/}"
+riverctl border-color-focused "${color6//#/0x}"
+riverctl border-color-unfocused "${color0//#/0x}"
 riverctl border-width 1
-riverctl background-color "${color0//#/}"
+riverctl background-color "${color0//#/0x}"
