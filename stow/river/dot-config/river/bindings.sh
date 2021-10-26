@@ -87,9 +87,9 @@ riverctl map normal None XF86KbdBrightnessUp spawn "sudo /usr/local/bin/keyboard
 riverctl map normal None XF86KbdBrightnessDown spawn "sudo /usr/local/bin/keyboard-backlight down"
 riverctl map normal None XF86MonBrightnessUp   spawn "river-brightness.sh up"
 riverctl map normal None XF86MonBrightnessDown spawn "river-brightness.sh down"
-riverctl map normal None XF86AudioRaiseVolume  spawn "liskin-media up"
-riverctl map normal None XF86AudioLowerVolume  spawn "liskin-media down"
-riverctl map normal None XF86AudioMute         spawn "liskin-media mute"
+riverctl map normal None XF86AudioRaiseVolume  spawn "liskin-media volume up"
+riverctl map normal None XF86AudioLowerVolume  spawn "liskin-media volume down"
+riverctl map normal None XF86AudioMute         spawn "liskin-media volume mute"
 riverctl map normal None XF86AudioPlay  spawn "liskin-media play"
 riverctl map normal None XF86AudioPrev  spawn "liskin-media prev"
 riverctl map normal None XF86AudioNext  spawn "liskin-media next"
@@ -131,7 +131,9 @@ riverctl map passthrough $mod F11 enter-mode normal
 riverctl set-repeat 50 300
 
 # Set app-ids of views which should float
-riverctl float-filter-add "mpv"
+riverctl float-filter-add app-id "float"
+riverctl float-filter-add app-id "popup"
+riverctl float-filter-add app-id "mpv"
 # Set app-ids of views which should use client side decorations
 # riverctl csd-filter-add "gedit"
 
