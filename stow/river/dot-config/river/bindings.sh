@@ -59,24 +59,28 @@ riverctl map normal $mod+Control Up snap up
 riverctl map normal $mod+Control Right snap right
 # }}}
 # Layout Group {{{
-riverctl map normal $mod T spawn "$HOME/.config/river/tile.sh" # Select Tile Layout
-riverctl map normal $mod+Shift M spawn "$HOME/.config/river/monocle.sh" # Select Monocle Layout
-# riverctl map normal $mod M "$HOME/.config/river/centered_monocle.sh" # Select Centered Monocle Layout
-riverctl map normal $mod+Shift T "$HOME/.config/river/rtile.sh" # Select Right Tile Layout
+
+riverctl map normal $mod T spawn "$HOME/.config/river/update_layout.sh []=; $HOME/.config/river/tile.sh" # Select Tile Layout
+riverctl map normal $mod+Shift M spawn "$HOME/.config/river/update_layout.sh [M]; $HOME/.config/river/monocle.sh" # Select Monocle Layout
+# riverctl map normal $mod M "$HOME/.config/river/update_layout.sh <C>; $HOME/.config/river/centered_monocle.sh" # Select Centered Monocle Layout
+riverctl map normal $mod+Shift T spawn "$HOME/.config/river/update_layout.sh =[]; $HOME/.config/river/rtile.sh" # Select Right Tile Layout
 # }}}
 # Tag Group {{{
+echo "[1]" > /tmp/river_tag.json
+echo "[]" > /tmp/river_layout.json
+inplace=$(mktemp)
 for i in $(seq 1 9)
 do
-	tags=$((1 << ($i - 1))) # Ask ifreund why he does this. It makes sense though.
+	tags=$((1 << (i - 1))) # Ask ifreund why he does this. It makes sense though.
 
 	# Mod+[1-9] to focus tag [0-8]
-	riverctl map normal $mod "$i" set-focused-tags $tags
+	riverctl map normal $mod "$i" spawn "riverctl set-focused-tags $tags; echo '[$tags]' > /tmp/river_tag.json; killall -35 waybar"
 
 	# Mod+Shift+[1-9] to tag focused view with tag and also move window with it. [0-8]
 	riverctl map normal $mod+Shift "$i" set-view-tags $tags  
 
 	# Mod+Ctrl+[1-9] to toggle focus of tag [0-8]
-	riverctl map normal $mod+Control "$i" toggle-focused-tags $tags
+	riverctl map normal $mod+Control "$i" spawn "riverctl toggle-focused-tags $tags; cat /tmp/river_tag.json | jq 'if contains([$tags]) and length > 1 then . - [$tags] else . + [$tags] end | unique' > $inplace && mv $inplace /tmp/river_tag.json; killall -35 waybar"
 
 	# Mod+Shift+Ctrl+[1-9] to toggle tag [0-8] of focused view
 	riverctl map normal $mod+Shift+Control "$i" toggle-view-tags $tags

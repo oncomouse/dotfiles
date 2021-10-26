@@ -1,12 +1,17 @@
 {
 	"height": 24,
 	"spacing": 6,
-	"modules-left": ["river/tags", "custom/river_title"],
+	"modules-left": ["river/tags", "custom/river_layout", "custom/river_title"],
 	"modules-center": [],
 	"modules-right": ["custom/volume", "custom/mpris", "custom/weather", "custom/clock"],
 	"river/tags": {
 		"num-tags": 9,
 		"hide-empty": true
+	},
+	"custom/river_layout": {
+		"exec": "riverblocks-layout.sh",
+		"signal": 1,
+		"interval": 600
 	},
 	"custom/river_title": {
 		"exec": "ristate -w | jq -r --unbuffered \".title | @html\""
