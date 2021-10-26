@@ -10,15 +10,12 @@
 # Setting some startup stuff
 
 riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
-riverctl spawn "river-init-mako.sh"
-riverctl spawn "river-init-wlsunset.sh"
-riverctl spawn "river-init-swaybg.sh"
-riverctl spawn "river-init-media.sh"
-riverctl spawn "river-init-waybar.sh"
-riverctl spawn "river-init-swaylock.sh"
+for file in "$HOME"/.config/river/init.d/*; do
+	riverctl spawn "$file"
+done
 
 # Load Keybindings:
-riverctl spawn "$HOME/.config/river/bindings.sh"
+riverctl spawn "$HOME/.config/river/config/bindings.sh"
 
 # Borders
 source ~/.cache/wal/colors.sh

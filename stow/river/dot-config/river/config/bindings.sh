@@ -60,10 +60,10 @@ riverctl map normal $mod+Control Right snap right
 # }}}
 # Layout Group {{{
 
-riverctl map normal $mod T spawn "$HOME/.config/river/update_layout.sh tile" # Select Tile Layout
-riverctl map normal $mod+Shift M spawn "$HOME/.config/river/update_layout.sh monocle" # Select Monocle Layout
-# riverctl map normal $mod M "$HOME/.config/river/update_layout.sh centered_monocle" # Select Centered Monocle Layout
-riverctl map normal $mod+Shift T spawn "$HOME/.config/river/update_layout.sh rtile" # Select Right Tile Layout
+riverctl map normal $mod T spawn "$HOME/.config/river/utils/update_layout.sh tile" # Select Tile Layout
+riverctl map normal $mod+Shift M spawn "$HOME/.config/river/utils/update_layout.sh monocle" # Select Monocle Layout
+# riverctl map normal $mod M "$HOME/.config/river/utils/update_layout.sh centered_monocle" # Select Centered Monocle Layout
+riverctl map normal $mod+Shift T spawn "$HOME/.config/river/utils/update_layout.sh rtile" # Select Right Tile Layout
 # }}}
 # Tag Group {{{
 echo "[1]" > /tmp/river_tag.json
@@ -73,13 +73,13 @@ do
 	tags=$((1 << (i - 1)))
 
 	# Mod+[1-9] to focus tag [0-8]
-	riverctl map normal $mod "$i" spawn "$HOME/.config/river/focus_tag.sh $tags"
+	riverctl map normal $mod "$i" spawn "$HOME/.config/river/utils/focus_tag.sh $tags"
 
 	# Mod+Shift+[1-9] to tag focused view with tag and also move window with it. [0-8]
 	riverctl map normal $mod+Shift "$i" set-view-tags $tags  
 
 	# Mod+Ctrl+[1-9] to toggle focus of tag [0-8]
-	riverctl map normal $mod+Control "$i" spawn "$HOME/.config/river/toggle_focus_tag.sh $tags"
+	riverctl map normal $mod+Control "$i" spawn "$HOME/.config/river/utils/toggle_focus_tag.sh $tags"
 
 	# Mod+Shift+Ctrl+[1-9] to toggle tag [0-8] of focused view
 	riverctl map normal $mod+Shift+Control "$i" toggle-view-tags $tags
@@ -97,8 +97,8 @@ riverctl map normal None XF86AudioPlay  spawn "liskin-media play"
 riverctl map normal None XF86AudioPrev  spawn "liskin-media prev"
 riverctl map normal None XF86AudioNext  spawn "liskin-media next"
 riverctl map normal None XF86AudioStop  spawn "liskin-media stop"
-riverctl map normal "None" Print spawn "$HOME/.local/bin/mygrimshot.sh"
-riverctl map normal "$mod" Print spawn "$HOME/.local/bin/mygrimshot.sh area"
+# riverctl map normal "None" Print spawn "$HOME/.local/bin/mygrimshot.sh"
+# riverctl map normal "$mod" Print spawn "$HOME/.local/bin/mygrimshot.sh area"
 for mode in normal locked; do
 	riverctl map $mode None XF86Eject spawn eject -T # Eject CD-ROM
 done
