@@ -71,7 +71,7 @@ echo "[]" > /tmp/river_layout.json
 inplace=$(mktemp)
 for i in $(seq 1 9)
 do
-	tags=$((1 << (i - 1))) # Ask ifreund why he does this. It makes sense though.
+	tags=$((1 << (i - 1)))
 
 	# Mod+[1-9] to focus tag [0-8]
 	riverctl map normal $mod "$i" spawn "riverctl set-focused-tags $tags; echo '[$tags]' > /tmp/river_tag.json; killall -35 waybar"
