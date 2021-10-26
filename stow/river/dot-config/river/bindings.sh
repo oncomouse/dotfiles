@@ -73,8 +73,7 @@ do
 	riverctl map normal $mod "$i" set-focused-tags $tags
 
 	# Mod+Shift+[1-9] to tag focused view with tag and also move window with it. [0-8]
-	# I made it like this because I want to move the stuff and the views at the same time. weird hack
-	riverctl map normal $mod+Shift "$i" spawn "riverctl set-view-tags $tags; riverctl set-focused-tags $tags"  
+	riverctl map normal $mod+Shift "$i" set-view-tags $tags  
 
 	# Mod+Ctrl+[1-9] to toggle focus of tag [0-8]
 	riverctl map normal $mod+Control "$i" toggle-focused-tags $tags
