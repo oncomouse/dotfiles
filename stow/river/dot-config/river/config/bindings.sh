@@ -12,10 +12,12 @@ mod="Mod4"
 # Set your terminal emulator - foot
 term=kitty
 
+# Launcher Commands {{{
 rofidruncmd="rofi -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -font \"$rofifont\" -show drun -show-icons -drun-display-format {name}"
 # rofiwincmd="rofi -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -font \"$rofifont\" -show window -show-icons -window-format {w} {c} {t:25}"
 rofiemojicmd="rofi -show emoji -modi emoji -location 1 -theme-str 'window { width: 100%; }' -font \"$rofifont\""
 rofinetworkcmd="networkmanager_dmenu -location 1 -theme-str 'window { width: 100%; }' -font \"$rofifont\""
+# }}}
 # Launcher Group {{{
 riverctl map normal $mod+Mod1 R spawn "$rofidruncmd"
 riverctl map normal $mod+Shift N spawn "$rofinetworkcmd"
@@ -133,21 +135,10 @@ riverctl map passthrough $mod F11 enter-mode normal
 # Set repeat rate
 riverctl set-repeat 50 300
 
-# Set app-ids of views which should float
-riverctl float-filter-add app-id "float"
-riverctl float-filter-add app-id "popup"
-riverctl float-filter-add app-id "pop-up"
-riverctl float-filter-add app-id "mpv"
-# Set app-ids of views which should use client side decorations
-# riverctl csd-filter-add "gedit"
 
 # Set opacity and fade effect
 # riverctl opacity 1.0 1.0 0.50 0.3 20
 
-riverctl default-layout stacktile
-
-riverctl spawn "stacktile --per-tag-config --primary-count 1  --secondary-count 0 --primary-sublayout rows --primary-position left --primary-ratio 0.55 --outer-padding 0 --inner-padding 0 --secondary-sublayout rows --secondary-ratio 0.5 --remainder-sublayout rows" 
-riverctl default-layout stacktile
 # River will send the process group of the init executable SIGTERM on exit.
 
 # vim:foldmethod=marker:foldlevel=0

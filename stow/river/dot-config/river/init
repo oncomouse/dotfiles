@@ -1,25 +1,13 @@
 #!/usr/bin/env bash
 
-# This is the example configuration file for river.
-#
-# If you wish to edit this, you will probably want to copy it to
-# $XDG_CONFIG_HOME/river/init or $HOME/.config/river/init first.
-#
-# See the river(1), riverctl(1), and rivertile(1) man pages for complete
-# documentation.
-# Setting some startup stuff
-
 riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
+# Startup:
 for file in "$HOME"/.config/river/init.d/*; do
 	riverctl spawn "$file"
 done
-
-# Load Keybindings:
-riverctl spawn "$HOME/.config/river/config/bindings.sh"
-
-# Borders
-source ~/.cache/wal/colors.sh
-riverctl border-color-focused "${color6//#/0x}"
-riverctl border-color-unfocused "${color0//#/0x}"
-riverctl border-width 1
-riverctl background-color "${color0//#/0x}"
+# Configuration Files:
+for file in "$HOME"/.config/river/config/*.sh; do
+	riverctl spawn "$file"
+done
+# Load default layout:
+riverctl spawn "$HOME/.config/river/utils/update_layout.sh tile"
