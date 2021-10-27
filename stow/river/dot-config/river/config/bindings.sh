@@ -62,7 +62,7 @@ riverctl map normal $mod+Control Right snap right
 
 riverctl map normal $mod T spawn "$HOME/.config/river/utils/update_layout.sh tile" # Select Tile Layout
 riverctl map normal $mod+Shift M spawn "$HOME/.config/river/utils/update_layout.sh monocle" # Select Monocle Layout
-# riverctl map normal $mod M "$HOME/.config/river/utils/update_layout.sh centered_monocle" # Select Centered Monocle Layout
+riverctl map normal $mod M spawn "$HOME/.config/river/utils/update_layout.sh centered_monocle" # Select Centered Monocle Layout
 riverctl map normal $mod+Shift T spawn "$HOME/.config/river/utils/update_layout.sh rtile" # Select Right Tile Layout
 # }}}
 # Tag Group {{{
