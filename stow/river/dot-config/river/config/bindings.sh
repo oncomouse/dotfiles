@@ -35,10 +35,10 @@ riverctl map normal $mod+Shift Q exit # Quit River
 # Client Group {{{
 riverctl map normal $mod J focus-view next # Focus Next by Index
 riverctl map normal $mod K focus-view previous # Focus Previous by Index
-riverctl map normal $mod H send-layout-cmd stacktile "primary_ratio -0.05" # Increase Primary Width Factor
-riverctl map normal $mod L send-layout-cmd stacktile "primary_ratio +0.05" # Decrease Primary Width Factor
-riverctl map normal $mod I send-layout-cmd stacktile "primary_count -1" # Increase the Number of Primary Clients
-riverctl map normal $mod D send-layout-cmd stacktile "primary_count +1" # Decrease the Number of Primary Clients
+riverctl map normal $mod H send-layout-cmd kile "mod_main_ratio -0.05" # Increase Primary Width Factor
+riverctl map normal $mod L send-layout-cmd kile "mod_main_ratio +0.05" # Decrease Primary Width Factor
+riverctl map normal $mod I send-layout-cmd kile "mod_main_amount +1" # Increase the Number of Primary Clients
+riverctl map normal $mod D send-layout-cmd kile "mod_main_amount -1" # Decrease the Number of Primary Clients
 riverctl map normal $mod+Shift J swap next # Swap Client with Next by Index
 riverctl map normal $mod+Shift K swap previous # Swap Client with Previous by Index
 riverctl map normal $mod Tab focus-previous-tags

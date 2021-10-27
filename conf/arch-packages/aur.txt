@@ -18,7 +18,7 @@ themix-theme-oomox-git
 tllocalmgr-git
 zotero
 river-git
-stacktile
+kile-wl
 ristate
 rofi-lbonn-wayland-git
 rofi-dmenu
