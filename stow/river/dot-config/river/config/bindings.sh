@@ -99,8 +99,8 @@ riverctl map normal None XF86AudioPlay  spawn "liskin-media play"
 riverctl map normal None XF86AudioPrev  spawn "liskin-media prev"
 riverctl map normal None XF86AudioNext  spawn "liskin-media next"
 riverctl map normal None XF86AudioStop  spawn "liskin-media stop"
-# riverctl map normal "None" Print spawn "$HOME/.local/bin/mygrimshot.sh"
-# riverctl map normal "$mod" Print spawn "$HOME/.local/bin/mygrimshot.sh area"
+riverctl map normal "None" Print spawn "river-shot.sh full"
+riverctl map normal "$mod" Print spawn "river-shot.sh area"
 for mode in normal locked; do
 	riverctl map $mode None XF86Eject spawn eject -T # Eject CD-ROM
 done
