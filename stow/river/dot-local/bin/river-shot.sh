@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
+mkdir -p "$HOME/Pictures"
 if [ "$1" == "full" ] || [ "$1" == "" ]; then
-	grim "$(xdg-user-dir PICTURES)/$(date +'%s_grim.png')"
+	grim "$HOME/Pictures/$(date +'Screenshot-%s.png')"
 else
-	grim -g "$(slurp)" "$(xdg-user-dir PICTURES)/$(date +'%s_grim.png')"
+	grim -g "$(slurp)" "$HOME/Pictures/$(date +'Screenshot-%s.png')"
 fi
