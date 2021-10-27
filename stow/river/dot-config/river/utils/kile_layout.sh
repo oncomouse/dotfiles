@@ -8,4 +8,5 @@ function kile_layout {
 	else
 		riverctl send-layout-cmd kile "focused $layout"
 	fi
+	riverctl send-layout-cmd kile "outer_padding 0"
 }

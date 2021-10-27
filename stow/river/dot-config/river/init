@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
 # Startup:
 for file in "$HOME"/.config/river/init.d/*; do
