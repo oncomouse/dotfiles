@@ -1,3 +1,4 @@
-gtk-theme-name = "adwaita"
-gtk-font-fname = "Fira Sans 14"
-gtk-icon-theme-name = "adwaita"
+gtk-font-name="Liberation Sans 10"
+gtk-theme-name="oomox-xresources-reverse"
+gtk-icon-theme-name="oomox-xresources-reverse"
+gtk-cursor-theme-name="adwaita"
