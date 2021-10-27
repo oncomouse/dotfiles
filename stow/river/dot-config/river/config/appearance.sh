@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Sloppy Focus
+riverctl focus-follows-cursor normal
 
 # Borders
 source ~/.cache/wal/colors.sh
