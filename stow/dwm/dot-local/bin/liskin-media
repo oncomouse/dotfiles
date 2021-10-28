@@ -12,8 +12,15 @@ export LANG=C
 function killbar {
 	local switch
 	switch="-$1"
-	[[ $(pgrep dwmblocks) ]] && pkill $switch dwmblocks
-	[[ $(pgrep waybar) ]] && pkill $switch waybar
+	if [ "$(pgrep -c dwmblocks)" -gt 0 ]; then
+		pkill "$switch" dwmblocks
+	fi
+	if [ "$(pgrep -c waybar)" -gt 0 ]; then
+		pkill "$switch" waybar
+	fi
+	if [ "$(pgrep -c awesome)" -gt 0 ]; then
+		echo "awesome.emit_signal(\"widget::update\", \"mpris\")" | awesome-client
+	fi
 }
 
 # Stop from controlling things like Firefox
@@ -151,4 +158,4 @@ if [[ $(type -t "action-${1-}") == function ]]; then
 else
 	echo "unexpected action: ${1-}"
 fi
-# vim:ft=bash
+# vim:ft=sh
