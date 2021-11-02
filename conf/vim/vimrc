@@ -62,6 +62,30 @@ map <F10> <cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 	\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
+" Sourced from jessarcher/dotfiles {{{
+" https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
+
+" Allow gf to open non-existent files
+map gf :edit <cfile><cr>
+
+" Quicker switching between windows
+nmap <silent> <C-h> <C-w>h
+nmap <silent> <C-j> <C-w>j
+nmap <silent> <C-k> <C-w>k
+nmap <silent> <C-l> <C-w>l
+
+" Reselect visual selection after indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" When text is wrapped, move by terminal rows, not lines, unless a count is provided
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+
+" Paste replace visual selection without copying it
+vnoremap <leader>p "_dP
+
+" }}}
 " Uniform Visual Motion Toggle: {{{
 map <leader>w <cmd>call edit_mode#toggle()<CR>
 " }}}
