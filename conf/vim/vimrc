@@ -122,28 +122,6 @@ autocmd dotfiles-settings BufWinEnter,BufFilePost * call s:fasd_update()
 " Writing: {{{
 let g:bibfiles = '~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib'
 " }}}
-" Lexima Configuration {{{
-function! s:make_rule(at, end, filetype, syntax)
-	return {
-	\ 'char': '<CR>',
-	\ 'input': '<CR>',
-	\ 'input_after': '<CR>' . a:end,
-	\ 'at': a:at,
-	\ 'except': '\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1' . a:end,
-	\ 'filetype': a:filetype,
-	\ 'syntax': a:syntax,
-	\ }
-endfunction
-function! s:extend_endwise() abort
-	" Lua endwise rules:
-	call lexima#add_rule(s:make_rule('^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
-	call lexima#add_rule(s:make_rule('^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
-	call lexima#add_rule(s:make_rule('^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#', 'end', 'lua', []))
-endfunction
-autocmd! dotfiles-settings FileType lua call s:extend_endwise()
-inoremap <silent> <Plug>(dotfiles-lexima) <C-r>=lexima#insmode#leave_till_eol("")<CR>
-imap <silent> <C-l> <Plug>(dotfiles-lexima)
-" }}}
 " Plugins {{{
 " Lazy-load packer commands:
 command! PackerInstall packadd packer.nvim | lua require('dotfiles.plugins').install()
