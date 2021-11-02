@@ -45,10 +45,6 @@ set shiftwidth=4
 set softtabstop=4
 set noexpandtab
 " }}}
-" Folds {{{
-autocmd dotfiles-settings FileType vim setlocal foldmethod=marker foldlevel=0
-autocmd dotfiles-settings FileType diff setlocal nofoldenable
-" }}}
 " Maps {{{
 let g:enable_todo = 1
 " Highlight a block and type "@" to run a macro on the block:
@@ -63,7 +59,7 @@ map <F10> <cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 	\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Sourced from jessarcher/dotfiles {{{
-" https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
+"  \ https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
 
 " Allow gf to open non-existent files
 map gf :edit <cfile><cr>
@@ -84,7 +80,6 @@ noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 " Paste replace visual selection without copying it
 vnoremap <leader>p "_dP
-
 " }}}
 " FZF Bindings: {{{
 nmap <silent> <c-p> <cmd>Files<CR>
@@ -161,4 +156,4 @@ if empty(glob(g:install_path))
 	PackerSync
 endif
 " }}}
-" # vim:foldmethod=marker
+" vim:foldmethod=marker
