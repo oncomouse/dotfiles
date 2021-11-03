@@ -218,10 +218,12 @@ for lsp, settings in pairs(servers) do
 	end
 	local ok, lsp_server = lsp_installer_servers.get_server(lsp)
 	if ok then
+		lsp_server:on_ready(function()
+			lsp_server:setup(opts)
+		end)
 		if not lsp_server:is_installed() then
 			lsp_server:install()
 		end
-		lsp_server:setup(opts)
 	else -- Handler for null-ls and anything else that isn't supported in nvim-lsp-installer
 		lspconfig[lsp].setup(opts)
 	end
