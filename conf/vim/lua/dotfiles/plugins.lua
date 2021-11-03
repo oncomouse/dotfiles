@@ -183,10 +183,10 @@ return require("packer").startup({
 		use({
 			"williamboman/nvim-lsp-installer",
 			requires = {
-				{ "neovim/nvim-lspconfig" },
+				{ "neovim/nvim-lspconfig", ft = lsp_types },
 				{ "hrsh7th/vim-vsnip-integ", opt = true, requires = { "vim-vsnip" } },
-				{ "nvim-lua/plenary.nvim", opt = true },
-				{ "jose-elias-alvarez/null-ls.nvim", opt = true },
+				{ "nvim-lua/plenary.nvim", ft = lsp_types },
+				{ "jose-elias-alvarez/null-ls.nvim", ft = lsp_types },
 				{
 					"jose-elias-alvarez/nvim-lsp-ts-utils",
 					ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },

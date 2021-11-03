@@ -201,8 +201,10 @@ local servers = {
 	bashls = {},
 	pyright = {},
 	tsserver = {},
-	["null-ls"] = {},
 }
+lspconfig["null-ls"].setup({
+	on_attach = on_attach,
+})
 for lsp, settings in pairs(servers) do
 	local opts = {
 		on_attach = on_attach,
@@ -224,7 +226,5 @@ for lsp, settings in pairs(servers) do
 		if not lsp_server:is_installed() then
 			lsp_server:install()
 		end
-	else -- Handler for null-ls and anything else that isn't supported in nvim-lsp-installer
-		lspconfig[lsp].setup(opts)
 	end
 end
