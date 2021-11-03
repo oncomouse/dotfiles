@@ -11,6 +11,7 @@ require("null-ls").config({
 		}),
 		require("null-ls").builtins.formatting.stylua,
 		require("null-ls").builtins.formatting.black,
+		require("null-ls").builtins.formatting.reorder_python_imports,
 		require("null-ls").builtins.formatting.fish_indent,
 		require("null-ls").builtins.formatting.shfmt,
 		require("null-ls").builtins.formatting.rubocop,
