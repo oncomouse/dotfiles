@@ -173,6 +173,7 @@ return require("packer").startup({
 			"lua",
 			"python",
 			"ruby",
+			"rust",
 			"scss",
 			"sh",
 			"typescript",

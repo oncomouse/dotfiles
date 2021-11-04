@@ -8,6 +8,7 @@ local diagnostics_providers = {
 	"null-ls",
 	"cssls",
 	"jsonls",
+	"rust_analyzer",
 }
 
 -- LSPs that provide snippets
@@ -20,6 +21,7 @@ local snippet_providers = {
 -- LSPs that provide formatting:
 local formatting_providers = {
 	"null-ls",
+	"rust_analyzer",
 }
 
 local handler_no_diagnostics = {
@@ -195,6 +197,7 @@ local servers = {
 	bashls = {},
 	pyright = {},
 	tsserver = {},
+	["rust_analyzer"] = {},
 }
 lspconfig["null-ls"].setup({
 	on_attach = on_attach,
