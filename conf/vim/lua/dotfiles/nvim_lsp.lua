@@ -170,7 +170,6 @@ end
 
 local servers = {
 	sumneko_lua = {
-		cmd = { "sumneko-lua-language-server" },
 		settings = {
 			Lua = {
 				runtime = {
@@ -186,15 +185,10 @@ local servers = {
 			},
 		},
 	},
-	cssls = {
-		cmd = { "css-languageserver", "--stdio" },
-	},
-	html = {
-		cmd = { "html-languageserver", "--stdio" },
-	},
+	cssls = {},
+	html = {},
 	jsonls = {
 		filetypes = { "json", "jsonc" },
-		cmd = { "json-languageserver", "--stdio" },
 	},
 	solargraph = {},
 	vimls = {},
