@@ -10,8 +10,7 @@ function pip3install() {
 }
 if [ "$os" == 'macos' ]; then
 	pip3install 'mackup'
-fi
-if [ "$os" == "arch" ]; then
+elif [ "$os" == "arch" ]; then
 	if [ -z "$SERVER" ];then
 		sudo pacman -S vint
 		sudo pacman -S flake8
