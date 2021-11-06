@@ -15,16 +15,16 @@ choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next" | \
 	"window { width: 100%; }" \
 )
 case "$choice" in
-	*Play)
+	*Play*)
 		liskin-media play
 		;;
-	*Stop)
+	*Stop*)
 		liskin-media stop
 		;;
-	*Previous)
+	*Previous*)
 		liskin-media prev
 		;;
-	*Next)
+	*Next*)
 		liskin-media next
 		;;
 esac
