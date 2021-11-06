@@ -17,9 +17,11 @@ rofidruncmd="rofi -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-se
 # rofiwincmd="rofi -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -font \"$rofifont\" -show window -show-icons -window-format {w} {c} {t:25}"
 rofiemojicmd="rofi -show emoji -modi emoji -location 1 -theme-str 'window { width: 100%; }' -font \"$rofifont\""
 rofinetworkcmd="networkmanager_dmenu -location 1 -theme-str 'window { width: 100%; }' -font \"$rofifont\""
+rofimusiccmd="rofimusic.sh \"$rofifont\""
 # }}}
 # Launcher Group {{{
 riverctl map normal $mod+Mod1 R spawn "$rofidruncmd"
+riverctl map normal $mod+Mod1 P spawn "$rofimusiccmd"
 riverctl map normal $mod+Shift N spawn "$rofinetworkcmd"
 riverctl map normal $mod+Control Space "$rofiemojicmd"
 # riverctl map normal $mod+Shift W spawn "$rofiwincmd"
