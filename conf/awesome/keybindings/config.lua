@@ -102,6 +102,16 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		group = "Launcher",
 	}),
 	awful.key({
+		modifiers = { beautiful.modkey, "Mod1" },
+		key = "c",
+		on_press = function()
+			local cp = require("widgets.clock_popup")
+			cp:toggle()
+		end,
+		description = "Display Clock",
+		group = "Launcher",
+	}),
+	awful.key({
 		modifiers = { beautiful.modkey, "Control" },
 		key = "space",
 		on_press = function()
