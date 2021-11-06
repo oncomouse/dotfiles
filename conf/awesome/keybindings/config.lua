@@ -67,6 +67,10 @@ local rofinetworkcmd = {
 	"-font",
 	beautiful.font,
 }
+local rofimusiccmd = {
+	"rofimusic.sh",
+	beautiful.font,
+}
 -- }}}
 -- Launcher Keybinding Group {{{
 beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
@@ -86,6 +90,15 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 			awful.spawn(rofinetworkcmd)
 		end,
 		description = "Networkmanager menu",
+		group = "Launcher",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Mod1" },
+		key = "p",
+		on_press = function()
+			awful.spawn(rofimusiccmd)
+		end,
+		description = "Music menu",
 		group = "Launcher",
 	}),
 	awful.key({
