@@ -117,6 +117,8 @@ nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
 " Navigate Buffers:
 nnoremap <silent> ]b <cmd>bnext<CR>
 nnoremap <silent> [b <cmd>bprevious<CR>
+" Jump to the alternate buffer:
+nnoremap <silent> `` <cmd>e #<CR>
 
 " Source https://github.com/romainl/minivimrc/blob/master/vimrc
 " Minimal File Finding:
