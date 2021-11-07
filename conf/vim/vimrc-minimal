@@ -197,7 +197,7 @@ function GrepOrQfGrep()
 	else
 		let l:input = input('Grep/')
 		if len(l:input) > 0
-			execute 'silent! grep! ' . l:input
+			execute 'silent! grep! "' . l:input . '"'
 		endif
 	endif 
 endfunction
