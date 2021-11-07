@@ -182,11 +182,7 @@ function! ListToggle(bufname, pfx, ...)
 				return
 		endif
 	endif
-	let winnr = winnr()
 	exec(a:pfx.'open')
-	if winnr() != winnr
-		wincmd p
-	endif
 endfunction
 
 function GrepOrQfGrep()
@@ -201,7 +197,7 @@ function GrepOrQfGrep()
 	else
 		let l:input = input('Grep/')
 		if len(l:input) > 0
-			execute 'silent! grep ' . l:input
+			execute 'silent! grep! ' . l:input
 		endif
 	endif 
 endfunction
