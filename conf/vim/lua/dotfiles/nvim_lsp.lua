@@ -9,6 +9,7 @@ local diagnostics_providers = {
 	"cssls",
 	"jsonls",
 	"eslint",
+	"tsserver",
 	"rust_analyzer",
 }
 
