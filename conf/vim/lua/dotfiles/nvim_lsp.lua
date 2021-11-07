@@ -8,7 +8,6 @@ local diagnostics_providers = {
 	"null-ls",
 	"cssls",
 	"jsonls",
-	"eslint",
 	"tsserver",
 	"rust_analyzer",
 }
@@ -190,7 +189,6 @@ local servers = {
 		},
 	},
 	cssls = {},
-	eslint = {},
 	html = {},
 	jsonls = {
 		filetypes = { "json", "jsonc" },
