@@ -37,12 +37,11 @@ return require("packer").startup({
 			config = function()
 				if vim.opt.termguicolors:get() then
 					require("colorizer").setup({
-						["*"] = {},
-						markdown = { names = false },
-						text = { names = false },
-						["gina-commit"] = { names = false },
-						css = { css = true },
-						scss = { css = true },
+						["*"] = { names = false, RRGGBBAA = true },
+						packer = { RGB = false },
+						html = { names = true, RRGGBBAA = false },
+						css = { css = true, RRGGBBAA = false },
+						scss = { css = true, RRGGBBAA = false },
 					})
 				end
 			end,
