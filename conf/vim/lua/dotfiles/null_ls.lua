@@ -17,7 +17,6 @@ require("null-ls").config({
 				"less",
 				"html",
 				"json",
-				"yaml",
 				"markdown",
 				"graphql",
 			},
