@@ -36,8 +36,10 @@ local function parse_bibtex(data)
 				entry_contents.date = date
 			end
 		end
+
 		table.insert(matches, {
 			label = label,
+			detail = (entry_contents.title or ""),
 			documentation = {
 				kind = vim.lsp.protocol.MarkupKind.Markdown,
 				value = "*Author*: "
