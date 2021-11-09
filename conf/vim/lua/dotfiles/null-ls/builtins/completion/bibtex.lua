@@ -3,6 +3,7 @@ local h = require("null-ls.helpers")
 local methods = require("null-ls.methods")
 
 local COMPLETION = methods.internal.COMPLETION
+
 local function parse_bibtex(data)
 	local entries = {}
 	local matches = {}
