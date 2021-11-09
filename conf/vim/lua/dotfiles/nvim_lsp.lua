@@ -1,4 +1,5 @@
 -- luacheck: globals vim dotfiles
+vim.cmd([[packadd nvim-lsp-installer]])
 local lspconfig = require("lspconfig")
 local lsp_installer_servers = require("nvim-lsp-installer.servers")
 local map = require("dotfiles.utils.map")
