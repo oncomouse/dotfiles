@@ -170,6 +170,7 @@ return require("packer").startup({
 			"json",
 			"jsonc",
 			"lua",
+			"markdown",
 			"python",
 			"ruby",
 			"rust",

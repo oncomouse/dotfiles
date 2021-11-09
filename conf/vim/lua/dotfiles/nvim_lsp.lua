@@ -4,6 +4,9 @@ local lspconfig = require("lspconfig")
 local lsp_installer_servers = require("nvim-lsp-installer.servers")
 local map = require("dotfiles.utils.map")
 
+-- LSP Logging:
+-- vim.lsp.set_log_level("trace")
+
 -- LSPs that provide diagnostics:
 local diagnostics_providers = {
 	"null-ls",
