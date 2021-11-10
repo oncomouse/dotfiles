@@ -75,6 +75,12 @@ return h.make_builtin({
 	method = COMPLETION,
 	filetypes = { "markdown", "latex" },
 	name = "bibtex",
+	generator_opts = {
+		runtime_condition = function(params)
+			params.bibfiles = vim.g.bibfiles
+			return true
+		end,
+	},
 	generator = {
 		fn = function(params, done)
 			if not string.find(params.word_to_complete, "@", 1, true) then
@@ -86,7 +92,7 @@ return h.make_builtin({
 				"bash -c 'bibtool -r biblatex -X \"^"
 					.. string.gsub(params.word_to_complete, "@", "")
 					.. '" '
-					.. parse_bibfiles(vim.g.bibfiles)
+					.. parse_bibfiles(params.bibfiles)
 					.. ' -- "keep.field {title}" -- "keep.field {author}" -- "keep.field {date}" -- "print.line.length {400}"\''
 			)
 			local results = handle:read("*a")
