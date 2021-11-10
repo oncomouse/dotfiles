@@ -1,32 +1,68 @@
 -- luacheck: globals vim dotfiles
+local servers = {
+	["null-ls"] = {
+		provides = {
+			"diagnostics",
+			"formatting",
+		},
+	},
+	sumneko_lua = {
+		settings = {
+			Lua = {
+				runtime = {
+					version = "LuaJIT",
+					path = vim.split(package.path, ";"),
+				},
+				workspace = {
+					library = {
+						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+					},
+				},
+			},
+		},
+	},
+	cssls = {
+		provides = {
+			"snippets",
+			"diagnostics",
+		},
+	},
+	html = {
+		provides = {
+			"snippets",
+		},
+	},
+	jsonls = {
+		filetypes = { "json", "jsonc" },
+		provides = {
+			"snippets",
+			"diagnostics",
+		},
+	},
+	solargraph = {},
+	vimls = {},
+	bashls = {},
+	pyright = {},
+	tsserver = {
+		provides = {
+			"diagnostics",
+		},
+	},
+	["rust_analyzer"] = {
+		provides = {
+			"diagnostics",
+			"formatting",
+		},
+	},
+}
+
 local lspconfig = require("lspconfig")
 local lsp_installer_servers = require("nvim-lsp-installer.servers")
 local map = require("dotfiles.utils.map")
 
 -- LSP Logging:
 -- vim.lsp.set_log_level("trace")
-
--- LSPs that provide diagnostics:
-local diagnostics_providers = {
-	"null-ls",
-	"cssls",
-	"jsonls",
-	"tsserver",
-	"rust_analyzer",
-}
-
--- LSPs that provide snippets
-local snippet_providers = {
-	"html",
-	"cssls",
-	"jsonls",
-}
-
--- LSPs that provide formatting:
-local formatting_providers = {
-	"null-ls",
-	"rust_analyzer",
-}
 
 local handler_no_diagnostics = {
 	["textDocument/publishDiagnostics"] = function() end,
@@ -40,7 +76,7 @@ local function show_documentation()
 	end
 end
 
-require("dotfiles.null_ls")
+require("dotfiles.null-ls")
 
 local vscode_capabilities = vim.lsp.protocol.make_client_capabilities()
 vscode_capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -89,14 +125,17 @@ local on_attach = function(client, _)
 		vim.lsp.buf.signature_help()
 	end)
 	map.nnoremap("<silent><buffer>", "<F5>", ":<CR>")
-	if vim.tbl_contains(snippet_providers, client.name) then
+	local snippet_provider = vim.tbl_contains(servers[client.name].provides or {}, "snippets")
+	local diagnostic_provider = vim.tbl_contains(servers[client.name].provides or {}, "diagnostics")
+	local formatting_provider = vim.tbl_contains(servers[client.name].provides or {}, "formatting")
+	if snippet_provider then
 		vim.cmd([[packadd packer.nvim | lua require("packer").loader("vim-vsnip-integ")]])
 	end
-	if vim.tbl_contains(diagnostics_providers, client.name) then
+	if diagnostic_provider then
 		if vim.diagnostic ~= nil then -- Neovim 0.6:
 			vim.cmd([[
-				autocmd! dotfiles-settings User DiagnosticsChanged lua vim.diagnostic.setloclist({ open = false })
-			]])
+					autocmd! dotfiles-settings User DiagnosticsChanged lua vim.diagnostic.setloclist({ open = false })
+				]])
 			map.nnoremap("<silent><buffer>", "]d", function()
 				vim.diagnostic.goto_next()
 			end)
@@ -105,8 +144,8 @@ local on_attach = function(client, _)
 			end)
 		else -- Neovim 0.5:
 			vim.cmd([[
-				autocmd! dotfiles-settings User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({ open_loclist = false })
-			]])
+					autocmd! dotfiles-settings User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({ open_loclist = false })
+				]])
 			map.nnoremap("<silent><buffer>", "]d", function()
 				vim.lsp.diagnostic.goto_next()
 			end)
@@ -116,7 +155,7 @@ local on_attach = function(client, _)
 		end
 	end
 	-- Formatting:
-	if vim.tbl_contains(formatting_providers, client.name) then
+	if formatting_provider then
 		vim.cmd([[command! -buffer Format lua vim.lsp.buf.formatting()]])
 	else
 		client.resolved_capabilities.document_formatting = false
@@ -174,35 +213,6 @@ local on_attach = function(client, _)
 	end
 end
 
-local servers = {
-	sumneko_lua = {
-		settings = {
-			Lua = {
-				runtime = {
-					version = "LuaJIT",
-					path = vim.split(package.path, ";"),
-				},
-				workspace = {
-					library = {
-						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-					},
-				},
-			},
-		},
-	},
-	cssls = {},
-	html = {},
-	jsonls = {
-		filetypes = { "json", "jsonc" },
-	},
-	solargraph = {},
-	vimls = {},
-	bashls = {},
-	pyright = {},
-	tsserver = {},
-	["rust_analyzer"] = {},
-}
 lspconfig["null-ls"].setup({
 	on_attach = on_attach,
 })
@@ -213,10 +223,12 @@ for lsp, settings in pairs(servers) do
 	if #vim.tbl_keys(settings) > 0 then
 		opts = vim.tbl_extend("keep", opts, settings)
 	end
-	if vim.tbl_contains(snippet_providers, lsp) then
+	local snippet_provider = vim.tbl_contains(servers[lsp].provides or {}, "snippets")
+	local diagnostic_provider = vim.tbl_contains(servers[lsp].provides or {}, "diagnostics")
+	if snippet_provider then
 		opts.capabilities = vscode_capabilities
 	end
-	if not vim.tbl_contains(diagnostics_providers, lsp) then
+	if not diagnostic_provider then
 		opts.handlers = handler_no_diagnostics
 	end
 	local ok, lsp_server = lsp_installer_servers.get_server(lsp)
