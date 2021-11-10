@@ -148,7 +148,6 @@ return require("packer").startup({
 			config = function()
 				local map = require("dotfiles.utils.map")
 				vim.g.vsnip_snippet_dir = os.getenv("HOME") .. "/dotfiles/conf/vim/snippets"
-				vim.opt.completefunc = "vsnip_completefunc#completefunc"
 				map.imap("<expr>", "<Tab>", "vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'")
 				map.smap("<expr>", "<Tab>", "vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'")
 				map.imap("<expr>", "<S-Tab>", "vsnip#jumpable(-11) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'")
