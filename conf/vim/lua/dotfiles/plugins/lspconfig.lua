@@ -3,7 +3,7 @@ local lsp_types = {
 	"fish",
 	"html",
 	"javascript",
-	"javascript",
+	"javascriptreact",
 	"json",
 	"jsonc",
 	"lua",
