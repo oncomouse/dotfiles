@@ -1,4 +1,9 @@
 -- luacheck: globals vim
+-- BibTeX citation completion. This needs iskeyword to match "@", so you have to set
+--   vim.opt_local.iskeyword = vim.opt_local.iskeyword + "@-@"
+-- or
+--   setlocal iskeyword += @-@
+-- Somewhere in an ftplugin/markdown.vim file (or with an autocmd)
 local h = require("null-ls.helpers")
 local methods = require("null-ls.methods")
 
@@ -38,7 +43,7 @@ local function parse_bibtex(data)
 		end
 
 		table.insert(matches, {
-			label = label,
+			label = "@" .. label,
 			detail = (entry_contents.title or ""),
 			documentation = {
 				kind = vim.lsp.protocol.MarkupKind.Markdown,
@@ -72,18 +77,14 @@ return h.make_builtin({
 	name = "bibtex",
 	generator = {
 		fn = function(params, done)
-			local line = vim.api.nvim_get_current_line()
-			local line_to_cursor = line:sub(1, params.col)
-			local regex = vim.regex("@\\k\\+$")
-			local match = regex:match_str(line_to_cursor)
-			if match == nil then
+			if not string.find(params.word_to_complete, "@", 1, true) then
 				done({ { items = {}, isIncomplete = false } })
 				return
 			end
-			local key = line:sub(match, params.col)
+
 			local handle = io.popen(
 				"bash -c 'bibtool -r biblatex -X \"^"
-					.. string.gsub(key, "@", "")
+					.. string.gsub(params.word_to_complete, "@", "")
 					.. '" '
 					.. parse_bibfiles(vim.g.bibfiles)
 					.. ' -- "keep.field {title}" -- "keep.field {author}" -- "keep.field {date}" -- "print.line.length {400}"\''
