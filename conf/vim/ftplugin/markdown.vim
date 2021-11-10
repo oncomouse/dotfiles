@@ -10,4 +10,4 @@ compiler markdown_combo
 setlocal iskeyword+=',-,@-@
 
 " Pandoc <format> to compile documents quickly and easily:
-command! -nargs=1 Pandoc !pandoc -i % -o %:r.<args>
+command! -nargs=1 Pandoc exe '!pandoc -i ' . fnameescape(expand('%')) . ' -o ' . fnameescape(expand('%:r')) . '.<args>'
