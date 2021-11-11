@@ -58,6 +58,7 @@ local servers = {
 }
 
 local lspconfig = require("lspconfig")
+require("dotfiles.null-ls") -- Has to be loaded before nvim-lsp-installer (for reasons?)
 local lsp_installer_servers = require("nvim-lsp-installer.servers")
 local map = require("dotfiles.utils.map")
 
@@ -75,8 +76,6 @@ local function show_documentation()
 		vim.lsp.buf.hover()
 	end
 end
-
-require("dotfiles.null-ls")
 
 local vscode_capabilities = vim.lsp.protocol.make_client_capabilities()
 vscode_capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -213,9 +212,6 @@ local on_attach = function(client, _)
 	end
 end
 
-lspconfig["null-ls"].setup({
-	on_attach = on_attach,
-})
 for lsp, settings in pairs(servers) do
 	local opts = {
 		on_attach = on_attach,
@@ -239,5 +235,7 @@ for lsp, settings in pairs(servers) do
 		if not lsp_server:is_installed() then
 			lsp_server:install()
 		end
+	else
+		lspconfig[lsp].setup(opts)
 	end
 end
