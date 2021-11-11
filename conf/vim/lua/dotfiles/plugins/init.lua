@@ -11,8 +11,8 @@ return require("packer").startup({
 			"tpope/vim-commentary", -- gc<motion> to (un)comment
 			"tpope/vim-repeat",
 			"oncomouse/vim-surround", -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-			require("dotfiles.plugins.vim-rooter"), -- Set CWD for projects
 			"wellle/targets.vim", -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
+			require("dotfiles.plugins.vim-rooter"), -- Set CWD for projects
 			require("dotfiles.plugins.lexima-vim"), -- Autopairs + Endwise
 			require("dotfiles.plugins.nvim-colorizer-lua"),
 			require("dotfiles.plugins.fzf-vim"), -- Add shorcuts for FZF
