@@ -212,6 +212,9 @@ local on_attach = function(client, _)
 	end
 end
 
+lspconfig["null-ls"].setup({
+	on_attach = on_attach,
+})
 for lsp, settings in pairs(servers) do
 	local opts = {
 		on_attach = on_attach,
@@ -235,7 +238,5 @@ for lsp, settings in pairs(servers) do
 		if not lsp_server:is_installed() then
 			lsp_server:install()
 		end
-	else
-		lspconfig[lsp].setup(opts)
 	end
 end
