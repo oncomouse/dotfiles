@@ -66,8 +66,28 @@ vim.cmd[[map <F10> <cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]]
 
--- Uniform Visual Motion Toggle: {{{
-map.map("<leader>w", "<cmd>call edit_mode#toggle()<CR>")
+-- Sourced from jessarcher/dotfiles {{{
+--  \ https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
+
+-- Allow gf to open non-existent files
+map.map("gf", ":edit <cfile><cr>")
+
+-- Quicker switching between windows
+map.nmap("<silent>", "<C-h>", "<C-w>h")
+map.nmap("<silent>", "<C-j>", "<C-w>j")
+map.nmap("<silent>", "<C-k>", "<C-w>k")
+map.nmap("<silent>", "<C-l>", "<C-w>l")
+
+-- Reselect visual selection after indenting
+map.vnoremap("<", "<gv")
+map.vnoremap(">", ">gv")
+
+-- When text is wrapped, move by terminal rows, not lines, unless a count is provided
+map.noremap("<silent> <expr>", "j", "(v:count == 0 ? 'gj' : 'j')")
+map.noremap("<silent> <expr>", "k", "(v:count == 0 ? 'gk' : 'k')")
+
+-- Paste replace visual selection without copying it
+map.vnoremap("<leader>p", '"_dP')
 -- }}}
 -- FZF Bindings: {{{
 map.nmap("<silent>", "<c-p>", "<cmd>Files<CR>")
@@ -128,44 +148,14 @@ vim.cmd([[autocmd dotfiles-settings BufWinEnter,BufFilePost * call v:lua.dotfile
 -- Writing: {{{
 vim.g.bibfiles = "~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
 -- }}}
--- Lexima Configuration {{{
-local function make_rule(char_at, char_end, filetype, syntax)
-	return {
-		char = "<CR>",
-		input = "<CR>",
-		input_after = "<CR>" .. char_end,
-		at = char_at,
-		except = "\\C\\v^(\\s*)\\S.*%#\\n%(%(\\s*|\\1\\s.+)\\n)*\\1" .. char_end,
-		filetype = filetype,
-		syntax = syntax,
-	}
-end
-function dotfiles.lexima_extend()
-	-- Lua end rules:
-	vim.fn["lexima#add_rule"](
-		make_rule("^\\s*if\\>.*then\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {})
-	)
-	vim.fn["lexima#add_rule"](
-		make_rule("^\\s*\\%(for\\|while\\)\\>.*do\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {})
-	)
-	vim.fn["lexima#add_rule"](
-		make_rule("^\\s*\\%(local\\)\\=.*function\\>\\%(.*[^.:@$]\\<end\\>\\)\\@!.*\\%#", "end", "lua", {})
-	)
-end
-vim.cmd([[autocmd! dotfiles-settings FileType lua lua dotfiles.lexima_extend()]])
-map.inoremap("<silent>", "<Plug>(dotfiles-lexima)", [[<C-r>=lexima#insmode#leave_till_eol("")<CR>]])
-map.imap("<silent>", "<C-l>", "<Plug>(dotfiles-lexima)")
--- }}}
 -- Plugins {{{
 -- Lazy-load packer commands:
 vim.cmd([[command! PackerInstall packadd packer.nvim | lua require('dotfiles.plugins').install()]])
 vim.cmd([[command! PackerUpdate packadd packer.nvim | lua require('dotfiles.plugins').update()]])
 vim.cmd([[command! PackerSync packadd packer.nvim | lua require('dotfiles.plugins').sync()]])
 vim.cmd([[command! PackerClean packadd packer.nvim | lua require('dotfiles.plugins').clean()]])
+vim.cmd([[command! PackerStatus packadd packer.nvim | lua require('dotfiles.plugins').status()]])
 vim.cmd([[command! PackerCompile packadd packer.nvim | lua require('dotfiles.plugins').compile()]])
-
--- Refresh packer lazy-loading when plugins.lua changes:
-vim.cmd([[autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | PackerCompile]])
 
 -- Install packer.nvim, if it isn't present:
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"

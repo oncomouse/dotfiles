@@ -145,6 +145,7 @@ command! PackerUpdate packadd packer.nvim | lua require('dotfiles.plugins').upda
 command! PackerSync packadd packer.nvim | lua require('dotfiles.plugins').sync()
 command! PackerClean packadd packer.nvim | lua require('dotfiles.plugins').clean()
 command! PackerStatus packadd packer.nvim | lua require('dotfiles.plugins').status()
+command! PackerCompile packadd packer.nvim | lua require('dotfiles.plugins').compile()
 
 " Refresh packer lazy-loading when plugins.lua changes:
 autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | PackerCompile
