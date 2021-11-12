@@ -49,10 +49,6 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = false
 -- }}}
--- Folds {{{
-vim.cmd([[autocmd dotfiles-settings FileType vim setlocal foldmethod=marker foldlevel=0]])
-vim.cmd([[autocmd dotfiles-settings FileType diff setlocal nofoldenable]])
--- }}}
 -- Maps {{{
 vim.g.enable_todo = 1
 -- Highlight a block and type "@" to run a macro on the block:
@@ -62,9 +58,9 @@ map.xnoremap("<silent>", "@", ":<C-u>call visualat#execute_macro_over_visual_ran
 map.inoremap("<silent>", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>")
 
 -- Shortcut to view current syntax highlighting group:
-vim.cmd[[map <F10> <cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+vim.cmd([[map <F10> <cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]]
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]])
 
 -- Sourced from jessarcher/dotfiles {{{
 --  \ https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
@@ -156,6 +152,8 @@ vim.cmd([[command! PackerSync packadd packer.nvim | lua require('dotfiles.plugin
 vim.cmd([[command! PackerClean packadd packer.nvim | lua require('dotfiles.plugins').clean()]])
 vim.cmd([[command! PackerStatus packadd packer.nvim | lua require('dotfiles.plugins').status()]])
 vim.cmd([[command! PackerCompile packadd packer.nvim | lua require('dotfiles.plugins').compile()]])
+
+vim.cmd([[autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | PackerCompile]])
 
 -- Install packer.nvim, if it isn't present:
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
