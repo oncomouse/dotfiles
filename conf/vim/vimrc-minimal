@@ -178,10 +178,10 @@ function! ListToggle(bufname, pfx, ...)
 			endif
 		endfor
 		if a:pfx ==# 'l' && len(getloclist(0)) == 0
-				echohl ErrorMsg
-				echo 'Location List is Empty.'
-				echohl NONE
-				return
+			echohl ErrorMsg
+			echo 'Location List is Empty.'
+			echohl NONE
+			return
 		endif
 	endif
 	exec(a:pfx.'open')

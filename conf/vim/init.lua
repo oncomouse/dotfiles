@@ -155,8 +155,8 @@ map.nnoremap("<silent>", "]d", "<cmd>lnext<CR>")
 map.nnoremap("<silent>", "[d", "<cmd>lprev<CR>")
 
 -- Toggle Quickfix:
-map.nnoremap("<silent>", "<leader>q", "<cmd>lua dotfiles.ListToggle('Quickfix List', 'c')<CR>")
-map.nnoremap("<silent>", "<leader>d", "<cmd>lua dotfiles.ListToggle('Location List', 'l')<CR>")
+map.nnoremap("<silent>", "<leader>q", "<cmd>lua dotfiles.list_toggle('c')<CR>")
+map.nnoremap("<silent>", "<leader>d", "<cmd>lua dotfiles.list_toggle('l')<CR>")
 
 -- Project Grep:
 map.nnoremap("<silent>", "<leader>/", "<cmd>lua dotfiles.GrepOrQfGrep()<CR>")
@@ -246,8 +246,8 @@ if vim.fn.has("nvim") == 1 then
 end
 
 -- Start QuickFix:
-vim.cmd([[autocmd dotfiles-settings QuickFixCmdPost [^l]* lua dotfiles.ListToggle('Quickfix List', 'c', 1)]])
-vim.cmd([[autocmd dotfiles-settings QuickFixCmdPost l*    lua dotfiles.ListToggle('Location List', 'l', 1)]])
+vim.cmd([[autocmd dotfiles-settings QuickFixCmdPost [^l]* lua dotfiles.list_toggle('c', 1)]])
+vim.cmd([[autocmd dotfiles-settings QuickFixCmdPost l*    lua dotfiles.list_toggle('l', 1)]])
 
 -- Highlighted Yank:
 vim.cmd(
@@ -285,19 +285,14 @@ vim.cmd(
 -- }}}
 -- Functions {{{
 -- Hide or display a quickfix or location list:
-dotfiles.ListToggle = function(bufname, pfx, force_open)
+dotfiles.list_toggle = function(pfx, force_open)
 	if not force_open then
 		-- Get a list of buffer display names and numbers:
-		local buflist = vim.split(vim.api.nvim_exec("silent! ls!", true), "\n")
+		local buflist = vim.api.nvim_list_bufs()
 		-- We filter the list to leave only matching lists, then we map to get the buffer number:
-		for _, bufnum in ipairs(vim.tbl_map(
-			function(x)
-				return tonumber(string.match(x, "%d+"))
-			end,
-			vim.tbl_filter(function(x)
-				return string.find(x, bufname)
-			end, buflist)
-		)) do
+		for _, bufnum in ipairs(vim.tbl_filter(function(x)
+			return vim.api.nvim_buf_get_option(x, "filetype") == "qf"
+		end, buflist)) do
 			if vim.fn.bufwinnr(bufnum) ~= -1 then
 				vim.cmd(pfx .. "close")
 				return
