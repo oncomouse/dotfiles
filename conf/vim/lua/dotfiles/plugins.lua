@@ -241,17 +241,17 @@ return require("packer").startup({
 							.. " gui=nocombine"
 					)
 					-- Start of context underline color:
-					-- vim.cmd(
-					-- 	"highlight IndentBlanklineContextStart guisp="
-					-- 		.. require("dotfiles.wal-colors").color6
-					-- 		.. " gui=underline"
-					-- )
+					vim.cmd(
+						"highlight IndentBlanklineContextStart guisp="
+							.. require("dotfiles.wal-colors").color6
+							.. " gui=underline"
+					)
 					require("indent_blankline").setup({
 						buftype_exclude = { "terminal" },
-						filetype_exclude = { "diff", "gina-status" },
+						filetype_exclude = { "diff", "gina-status", "qf", "markdown", },
 						show_current_context = true,
 						context_patterns = { "class", "function", "method", "^if", "table", },
-						-- show_current_context_start = false,
+						show_current_context_start = true,
 					})
 				end,
 			},
