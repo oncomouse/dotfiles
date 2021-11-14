@@ -5,8 +5,6 @@ return require("packer").startup({
 		use({
 			{ "wbthomason/packer.nvim", opt = true },
 			{ "dstein64/vim-startuptime", cmd = "StartupTime" },
-			"tpope/vim-sensible",
-			"xero/securemodelines",
 			"sickill/vim-pasta", -- fix block paste for Neovim
 			"tpope/vim-commentary", -- gc<motion> to (un)comment
 			"tpope/vim-repeat",

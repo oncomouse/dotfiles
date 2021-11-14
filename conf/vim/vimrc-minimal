@@ -229,8 +229,8 @@ if !get(g:, 'skip_minimal_minpac', !has('patch-7.4.1384'))
 
 		if exists('g:loaded_minpac')
 			call minpac#init({'dir': l:minpac_dir})
-			call minpac#add('tpope/vim-sensible') " Agreeable vim settings:
-			call minpac#add('xero/securemodelines') " Secure modelines
+			call minpac#add('tpope/vim-sensible', {'type': 'opt'}) " Agreeable vim settings:
+			call minpac#add('xero/securemodelines', {'type': 'opt'}) " Secure modelines
 			call minpac#add('tpope/vim-commentary')
 			call minpac#add('k-takata/minpac', {'type': 'opt'})
 			call minpac#add('noahfrederick/vim-neovim-defaults', {'type': 'opt'}) " Set Vim with the same default as NeoVim
@@ -248,30 +248,34 @@ end
 " ==============================================================================
 " Pack Settings:
 " ==============================================================================
-if has('patch-7.4.1384')
-	set nomodeline
-	let g:secure_modelines_verbose = 0
-	let g:secure_modelines_modelines = 15
-	let g:secure_modelines_allowed_items = [
-		\ 'textwidth',	 'tw',
-		\ 'softtabstop', 'sts',
-		\ 'tabstop',     'ts',
-		\ 'shiftwidth',	 'sw',
-		\ 'expandtab',	 'et',	 'noexpandtab', 'noet',
-		\ 'filetype',    'ft',
-		\ 'foldmethod',	 'fdm',
-		\ 'foldlevel',	 'fdl',
-		\ 'readonly',    'ro',	 'noreadonly', 'noro',
-		\ 'rightleft',	 'rl',	 'norightleft', 'norl',
-		\ 'cindent',     'cin',	 'nocindent', 'nocin',
-		\ 'smartindent', 'si',	 'nosmartindent', 'nosi',
-		\ 'autoindent',	 'ai',	 'noautoindent', 'noai',
-		\ 'spell',       'nospell',
-		\ 'spelllang',
-		\ 'wrap',        'nowrap',
-		\ 'syntax'
-		\ ]
-	if !has('nvim')
+if has('patch-7.4.1384') " packadd available
+	if !has('patch-8.1.1365') && !has('nvim-0.4') " Securemodelines is needed:
+		set nomodeline
+		let g:secure_modelines_verbose = 0
+		let g:secure_modelines_modelines = 15
+		let g:secure_modelines_allowed_items = [
+			\ 'textwidth',	 'tw',
+			\ 'softtabstop', 'sts',
+			\ 'tabstop',     'ts',
+			\ 'shiftwidth',	 'sw',
+			\ 'expandtab',	 'et',	 'noexpandtab', 'noet',
+			\ 'filetype',    'ft',
+			\ 'foldmethod',	 'fdm',
+			\ 'foldlevel',	 'fdl',
+			\ 'readonly',    'ro',	 'noreadonly', 'noro',
+			\ 'rightleft',	 'rl',	 'norightleft', 'norl',
+			\ 'cindent',     'cin',	 'nocindent', 'nocin',
+			\ 'smartindent', 'si',	 'nosmartindent', 'nosi',
+			\ 'autoindent',	 'ai',	 'noautoindent', 'noai',
+			\ 'spell',       'nospell',
+			\ 'spelllang',
+			\ 'wrap',        'nowrap',
+			\ 'syntax'
+			\ ]
+		packadd! securemodelines
+	endif
+	if !has('nvim') " Not using Neovim:
+		packadd! vim-sensible
 		packadd! vim-neovim-defaults
 	endif
 	if !exists('g:skip_minimal_minpac')
@@ -319,3 +323,4 @@ endif
 if get(g:, 'has_fzf', 0)
 	nmap <silent> <C-P> <cmd>FZF --reverse --info=inline<cr>
 endif
+" vim:ft=vim
