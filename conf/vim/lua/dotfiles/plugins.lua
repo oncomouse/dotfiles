@@ -248,9 +248,9 @@ return require("packer").startup({
 					)
 					require("indent_blankline").setup({
 						buftype_exclude = { "terminal" },
-						filetype_exclude = { "diff", "gina-status", "qf", "markdown", "packer" },
+						filetype_exclude = { "diff", "gina-status", "help", "markdown", "packer", "qf" },
 						show_current_context = true,
-						context_patterns = { "class", "function", "method", "^if", "table", "^for", "^while", },
+						context_patterns = { "class", "function", "method", "^if", "table", "^for", "^while" },
 						show_current_context_start = true,
 					})
 				end,
