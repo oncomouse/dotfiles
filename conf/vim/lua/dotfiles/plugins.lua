@@ -237,20 +237,20 @@ return require("packer").startup({
 					-- Context indent character color:
 					vim.cmd(
 						"highlight IndentBlanklineContextChar guifg="
-							.. require("dotfiles.wal-colors").color6
+							.. require("dotfiles.wal-colors").color7
 							.. " gui=nocombine"
 					)
 					-- Start of context underline color:
 					vim.cmd(
 						"highlight IndentBlanklineContextStart guisp="
-							.. require("dotfiles.wal-colors").color6
+							.. require("dotfiles.wal-colors").color7
 							.. " gui=underline"
 					)
 					require("indent_blankline").setup({
 						buftype_exclude = { "terminal" },
 						filetype_exclude = { "diff", "gina-status", "qf", "markdown", "packer" },
 						show_current_context = true,
-						context_patterns = { "class", "function", "method", "^if", "table" },
+						context_patterns = { "class", "function", "method", "^if", "table", "^for", "^while", },
 						show_current_context_start = true,
 					})
 				end,
