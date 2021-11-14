@@ -1,5 +1,5 @@
 -- luacheck: globals vim dotfiles
--- Dotfiles Settings: {{{
+-- Dotfiles Settings {{{
 if not vim.tbl_contains(vim.opt.runtimepath:get(), vim.fn.expand("~/dotfiles/conf/vim")) then
 	vim.opt.runtimepath:append("~/dotfiles/conf/vim")
 end
@@ -7,20 +7,95 @@ local map = require("dotfiles.utils.map")
 local xdg = require("dotfiles.utils.xdg")
 dotfiles = _G.dotfiles or {}
 
--- Don't use the minimal minpac install in vimrc-minimal
-vim.g.skip_minimal_minpac = 1
-
--- Load Basic Settings:
-vim.cmd([[runtime vimrc-minimal]])
-
 -- Add Dotfiles After To RTP:
 vim.opt.runtimepath:append("~/dotfiles/conf/vim/after")
 
 -- Set Spellfile Location:
 vim.opt.spellfile = "~/dotfiles/conf/vim/spell/en.utf-8.add"
-
 -- }}}
--- Mac NeoVim Settings: {{{
+-- Basic Settings {{{
+vim.cmd([[set visualbell t_vb=]]) -- Disable visual bell
+vim.opt.autowrite = true --  Autosave files
+vim.opt.hidden = true --  turn off buffer saving when switching
+vim.opt.lazyredraw = true --  Don't redraw between macro runs (may make terminal flicker)
+
+-- Override Default Split Creation Locations:
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+-- Line Numbering:
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+-- Folds:
+vim.opt.foldlevel = 99
+vim.opt.foldmethod = "manual"
+
+-- Avoid Highlighting Large Files:
+vim.g.large_file = 20 * 1024 * 1024
+
+-- Set Leader:
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
+if vim.fn.has("nvim") == 1 then
+	-- Preview Substitution Operations:
+	vim.opt.inccommand = "split"
+end
+
+-- Height Of The Preview Window:
+vim.opt.previewheight = 14
+
+-- Completion:
+vim.opt.completeopt = "menuone,noselect,noinsert,preview"
+vim.opt.shortmess = vim.opt.shortmess + "c"
+-- prevent a condition where vim lags due to searching include files.
+vim.opt.complete = vim.opt.complete - "i"
+
+-- <C-z> expands wildcards in command mode
+vim.opt.wildcharm = 94 -- char2nr("^Z")
+-- Set path to current file direction and pwd:
+vim.opt.path = ".,,"
+
+if vim.fn.executable("rg") == 1 then
+	vim.opt.grepprg = "rg --vimgrep"
+	vim.opt.grepformat = "%f:%l:%c:%m"
+elseif vim.fn.executable("ag") == 1 then
+	vim.opt.grepprg = "ag --vimgrep"
+	vim.opt.grepformat = "%f:%l:%c:%m"
+else
+	vim.opt.grepprg = "grep -rn"
+end
+
+vim.opt.wrapscan = true
+
+-- Mouse And Clipboard:
+vim.opt.mouse = "a" -- Mouse support
+if vim.fn.has("clipboard") == 1 then
+	if vim.fn.has("unnamedplus") == 1 then
+		vim.opt.clipboard = "unnamedplus,unnamed"
+	else
+		vim.opt.clipboard = "unnamed"
+	end
+end
+
+vim.opt.dictionary = "/usr/share/dict/words"
+
+-- Default to hashtag-style comments, by default:
+vim.opt.commentstring = "# %s"
+
+-- Disable Plugins {{{
+vim.g.loaded_gzip = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_2html_plugin = 1
+vim.g.loaded_rrhelper = 1
+vim.g.loaded_remote_plugins = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
+-- }}}
+-- }}}
+-- Mac NeoVim Settings {{{
 if vim.fn.has("mac") == 1 and vim.fn.has("nvim") == 1 then
 	vim.g.python_host_prog = "/usr/bin/python2.7"
 	vim.g.python3_host_prog = "/usr/local/bin/python3"
@@ -35,11 +110,6 @@ if vim.fn.has("mac") == 1 and vim.fn.has("nvim") == 1 then
 	}
 end
 -- }}}
--- Autogroups {{{
-vim.cmd([[augroup dotfiles-settings
-	autocmd!
-augroup END]])
--- }}}
 -- Statusline {{{
 require("dotfiles.statusline")
 -- }}}
@@ -50,7 +120,50 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = false
 -- }}}
 -- Maps {{{
+-- Select Whole File:
+map.nnoremap("<leader>vf", "ggVG")
+
+-- Clear Currently Highlighted Regexp:
+map.nnoremap("<silent>", "<leader>cr", ':let<C-u>let @/=""<CR>')
+
+-- Navigate Buffers:
+map.nnoremap("<silent>", "]b", "<cmd>bnext<CR>")
+map.nnoremap("<silent>", "[b", "<cmd>bprevious<CR>")
+-- Jump to the alternate buffer:
+map.nnoremap("<silent>", "``", "<cmd>e #<CR>")
+
+-- Source https://github.com/romainl/minivimrc/blob/master/vimrc
+-- Minimal File Finding:
+map.nnoremap("<localleader>f", ":find *")
+map.nnoremap("<localleader>s", ":sfind *")
+map.nnoremap("<localleader>v", ":vert sfind *")
+-- Minimal Buffer Jumping:
+map.nnoremap("<leader>a", ":buffers<CR>:buffer<Space> ")
+map.nnoremap("<localleader>a", ":buffer *")
+map.nnoremap("<localleader>A", ":sbuffer *")
+
+-- Better Matching:
+map.nnoremap("[I", "[I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>")
+map.nnoremap("]I", "]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>")
+
+-- Navigate Quickfix:
+map.nnoremap("<silent>", "]q", "<cmd>cnext<CR>")
+map.nnoremap("<silent>", "[q", "<cmd>cprevious<CR>")
+
+-- Navigate Location List:
+map.nnoremap("<silent>", "]d", "<cmd>lnext<CR>")
+map.nnoremap("<silent>", "[d", "<cmd>lprev<CR>")
+
+-- Toggle Quickfix:
+map.nnoremap("<silent>", "<leader>q", "<cmd>lua dotfiles.ListToggle('Quickfix List', 'c')<CR>")
+map.nnoremap("<silent>", "<leader>d", "<cmd>lua dotfiles.ListToggle('Location List', 'l')<CR>")
+
+-- Project Grep:
+map.nnoremap("<silent>", "<leader>/", "<cmd>lua dotfiles.GrepOrQfGrep()<CR>")
+
+-- Enable Todo:
 vim.g.enable_todo = 1
+
 -- Highlight a block and type "@" to run a macro on the block:
 map.xnoremap("<silent>", "@", ":<C-u>call visualat#execute_macro_over_visual_range()<CR>")
 
@@ -96,7 +209,7 @@ map.onoremap("<silent>", "az", "<cmd>normal! [zv]z$<cr>")
 map.xnoremap("<silent>", "az", "<cmd>normal! [zo]z$<cr>")
 -- }}}
 -- }}}
--- Theme: {{{
+-- Theme {{{
 -- Fancy color for macs and X11 sessions:
 if vim.fn.has("mac") == 1 or vim.fn.exists("$DISPLAY") == 1 then
 	-- let &t_8f='<Esc>[38;2;%lu;%lu;%lum'
@@ -114,7 +227,28 @@ else
 	vim.cmd([[colorscheme default]])
 end
 -- }}}
--- Other Settings {{{
+-- Autogroups {{{
+vim.cmd([[augroup dotfiles-settings
+	autocmd!
+augroup END]])
+-- }}}
+-- Autocommands {{{
+-- Line Number Colors:
+vim.cmd([[autocmd dotfiles-settings ColorScheme default hi LineNr ctermfg=7]])
+vim.cmd([[autocmd dotfiles-settings ColorScheme default hi LineNrAbove ctermfg=7]])
+vim.cmd([[autocmd dotfiles-settings ColorScheme default hi LineNrBelow ctermfg=7]])
+vim.cmd([[autocmd dotfiles-settings ColorScheme default hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE]])
+vim.cmd([[autocmd dotfiles-settings ColorScheme default hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE]])
+
+-- Turn Off Line Numbering:
+if vim.fn.has("nvim") == 1 then
+	vim.cmd([[autocmd dotfiles-settings TermOpen * setlocal nonumber norelativenumber]])
+end
+
+-- Start QuickFix:
+vim.cmd([[autocmd dotfiles-settings QuickFixCmdPost [^l]* lua dotfiles.ListToggle('Quickfix List', 'c', 1)]])
+vim.cmd([[autocmd dotfiles-settings QuickFixCmdPost l*    lua dotfiles.ListToggle('Location List', 'l', 1)]])
+
 -- Highlighted Yank:
 vim.cmd(
 	[[autocmd dotfiles-settings TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}]]
@@ -132,16 +266,79 @@ vim.cmd([[autocmd dotfiles-settings BufReadPost *
 -- Fix window resizing
 -- vim.cmd([[autocmd dotfiles-settings VimEnter * silent exec "!kill -s SIGWINCH $PPID"]])
 
--- Update FASD For NeoVim: {{{
+-- Update FASD For NeoVim
+vim.cmd([[autocmd dotfiles-settings BufWinEnter,BufFilePost * lua dotfiles.fasd_update()]])
+-- }}}
+-- Commands {{{
+vim.cmd(
+	[[command! Diagnostics execute 'silent lmake! %' | if len(getloclist(0)) != 0 | execute 'lopen' | else | execute 'lclose' | endif]]
+)
+vim.cmd([[command! Format silent normal! mxgggqG`x<CR>]])
+
+-- Adjust Spacing:
+vim.cmd(
+	[[command! -nargs=1 Spaces let b:wv = winsaveview() | execute "setlocal expandtab"	 | silent execute "%!expand -it "	. <args> . ""	 | call winrestview(b:wv) | setlocal ts? sw? sts? et?]]
+)
+vim.cmd(
+	[[command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab" | silent execute "%!unexpand -t " . <args> . "" | call winrestview(b:wv) | setlocal ts? sw? sts? et?]]
+)
+-- }}}
+-- Functions {{{
+-- Hide or display a quickfix or location list:
+dotfiles.ListToggle = function(bufname, pfx, force_open)
+	if not force_open then
+		-- Get a list of buffer display names and numbers:
+		local buflist = vim.split(vim.api.nvim_exec("silent! ls!", true), "\n")
+		-- We filter the list to leave only matching lists, then we map to get the buffer number:
+		for _, bufnum in ipairs(vim.tbl_map(
+			function(x)
+				return tonumber(string.match(x, "%d+"))
+			end,
+			vim.tbl_filter(function(x)
+				return string.find(x, bufname)
+			end, buflist)
+		)) do
+			if vim.fn.bufwinnr(bufnum) ~= -1 then
+				vim.cmd(pfx .. "close")
+				return
+			end
+		end
+		if pfx == "l" and vim.fn.len(vim.fn.getloclist(0)) == 0 then
+			vim.cmd([[echohl ErrorMsg
+			echo 'Location List is Empty.'
+			echohl NONE]])
+			return
+		end
+	end
+	vim.cmd(pfx .. "open")
+end
+
+-- Search project directory or, if we are in a quickfix buffer, search there:
+dotfiles.GrepOrQfGrep = function()
+	if vim.opt.buftype == "quickfix" then
+		-- Load cfilter in quickfix view:
+		vim.cmd([[packadd cfilter]])
+		local input = vim.fn.input("QFGrep/")
+		if #input > 0 then
+			local prefix = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist and "L" or "C"
+			vim.cmd(prefix .. "filter /" .. input .. "/")
+		end
+	else
+		local input = vim.fn.input("Grep/")
+		if #input > 0 then
+			vim.cmd('silent! grep! "' .. input .. '"')
+		end
+	end
+end
+
+-- Update FASD for Neovim:
 dotfiles.fasd_update = function()
 	if vim.fn.empty(vim.opt.buftype:get()) == 1 then
 		vim.fn.jobstart({ "fasd", "-A", vim.fn.expand("%:p") })
 	end
 end
-vim.cmd([[autocmd dotfiles-settings BufWinEnter,BufFilePost * call v:lua.dotfiles.fasd_update()]])
 -- }}}
--- }}}
--- Writing: {{{
+-- Writing {{{
 vim.g.bibfiles = "~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
 -- }}}
 -- Plugins {{{
@@ -153,6 +350,7 @@ vim.cmd([[command! PackerClean packadd packer.nvim | lua require('dotfiles.plugi
 vim.cmd([[command! PackerStatus packadd packer.nvim | lua require('dotfiles.plugins').status()]])
 vim.cmd([[command! PackerCompile packadd packer.nvim | lua require('dotfiles.plugins').compile()]])
 
+-- Update Packer.nvim automatically:
 vim.cmd([[autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | PackerCompile]])
 
 -- Install packer.nvim, if it isn't present:
