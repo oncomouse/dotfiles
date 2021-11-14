@@ -30,7 +30,7 @@ if has('nvim')
 endif
 
 " Height Of The Preview Window:
-let &previewheight = 14
+set previewheight=14
 
 " Completion:
 set completeopt=menuone,noselect,noinsert,preview
