@@ -21,7 +21,9 @@ require("null-ls").config({
 			},
 		}),
 		require("null-ls").builtins.formatting.stylua,
-		require("null-ls").builtins.formatting.black,
+		require("null-ls").builtins.formatting.black.with({
+			extra_args = { "-l", "79", }, -- PEP8 line lengths
+		}),
 		require("null-ls").builtins.formatting.reorder_python_imports,
 		require("null-ls").builtins.formatting.fish_indent,
 		require("null-ls").builtins.formatting.shfmt,

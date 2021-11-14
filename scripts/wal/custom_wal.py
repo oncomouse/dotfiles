@@ -7,7 +7,6 @@ from pathlib import Path
 from shutil import copyfile
 from shutil import which
 
-from colorama import Back
 from colorama import Fore
 from colorama import init
 from colorama import Style
@@ -47,7 +46,9 @@ def message(msg, output="info"):
 if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     # Make a vim dir to add to &runtimepath:
     message("Configuring Vim")
-    Path("{}/.cache/wal/vim/colors/".format(home)).mkdir(parents=True, exist_ok=True)
+    Path("{}/.cache/wal/vim/colors/".format(home)).mkdir(
+        parents=True, exist_ok=True
+    )
     # Path("{}/.cache/wal/vim/autoload/clap/themes/".format(home)).mkdir(
     #     parents=True, exist_ok=True
     # )
@@ -55,13 +56,13 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
         "{}/.cache/wal/colors.vim".format(home),
         "{}/.cache/wal/vim/colors/wal.vim".format(home),
     )
-    # copyfile(
-    #     "{}/.cache/wal/colors-clap.vim".format(home),
-    #     "{}/.cache/wal/vim/autoload/clap/themes/wal.vim".format(home),
-    # )
-    # reload running Neovim instances:
-    # message("Restarting Neovim")
-    # system('{}/dotfiles/scripts/vim/cmdnvim.sh "source \\$MYVIMRC"'.format(home))
+    Path("{}/.cache/wal/vim/lua/dotfiles/".format(home)).mkdir(
+        parents=True, exist_ok=True
+    )
+    copyfile(
+        "{}/.cache/wal/wal-colors.lua".format(home),
+        "{}/.cache/wal/vim/lua/dotfiles/wal-colors.lua".format(home),
+    )
     if which("dunst") is not None:
         message("Configuring Dunst")
         system("mkdir -p {}/.config/dunst > /dev/null".format(home))
@@ -70,7 +71,9 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
             "{}/.config/dunst/dunstrc".format(home),
         )
         message("Restarting Dunst")
-        system("killall dunst > /dev/null 2>&1 && notify-send 'Dunst Reloaded'")
+        system(
+            "killall dunst > /dev/null 2>&1 && notify-send 'Dunst Reloaded'"
+        )
     if which("xrdb") is not None:
         message("Reloading xrdb")
         system("xrdb {}/.Xresources".format(home))
@@ -79,7 +82,11 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
         system('echo "awesome:restart()" | awesome-client')
     if re.match(r"kitty", environ["TERM"]) is not None:
         message("Reloading kitty")
-        system("kitty @ set-colors -a -c {}/.cache/wal/colors-kitty.conf".format(home))
+        system(
+            "kitty @ set-colors -a -c {}/.cache/wal/colors-kitty.conf".format(
+                home
+            )
+        )
     if which("fish") is not None:
         message("Configuring fish FZF colors")
         system(
