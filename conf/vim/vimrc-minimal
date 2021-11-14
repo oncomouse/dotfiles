@@ -103,8 +103,8 @@ if has('nvim')
 endif
 
 " Start QuickFix:
-autocmd minimal-vimrc QuickFixCmdPost [^l]* call ListToggle('Quickfix List', 'c', 1)
-autocmd minimal-vimrc QuickFixCmdPost l*    call ListToggle('Location List', 'l', 1)
+autocmd minimal-vimrc QuickFixCmdPost [^l]* call ListToggle('c', 1)
+autocmd minimal-vimrc QuickFixCmdPost l*    call ListToggle('l', 1)
 " ==============================================================================
 " Basic Maps:
 " ==============================================================================
@@ -143,8 +143,8 @@ nnoremap <silent> ]d <cmd>lnext<CR>
 nnoremap <silent> [d <cmd>lprev<CR>
 
 " Toggle Quickfix:
-nnoremap <silent> <leader>q <cmd>call ListToggle('Quickfix List', 'c')<CR>
-nnoremap <silent> <leader>d <cmd>call ListToggle('Location List', 'l')<CR>
+nnoremap <silent> <leader>q <cmd>call ListToggle('c')<CR>
+nnoremap <silent> <leader>d <cmd>call ListToggle('l')<CR>
 
 " Project Grep:
 nnoremap <silent> <leader>/ <cmd>call GrepOrQfGrep()<CR>
@@ -167,11 +167,15 @@ function! s:get_buffer_list()
 	return buflist
 endfunction
 
-function! ListToggle(bufname, pfx, ...)
+function! ListToggle(pfx, ...)
 	let force_open = get(a:, 0, 0)
+	let bufname = get({
+				\'l': 'Location List',
+				\'c': 'Quickfix List',
+				\}, a:pfx)
 	if !force_open
 		let buflist = s:get_buffer_list()
-		for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+		for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
 			if bufwinnr(bufnum) != -1
 				exec(a:pfx.'close')
 				return
