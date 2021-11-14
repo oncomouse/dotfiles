@@ -157,7 +157,7 @@ if empty(glob(g:install_path))
 	PackerSync
 endif
 " }}}
-" Lua ListToggle override {{
+" Lua ListToggle override {{{
 " This is more efficient, but I don't think it's possible in VimL:
 lua <<EOF
 dotfiles.list_toggle = function(pfx, force_open)
@@ -187,5 +187,5 @@ autocmd! minimal-vimrc QuickFixCmdPost [^l]* lua dotfiles.list_toggle('c', 1)
 autocmd! minimal-vimrc QuickFixCmdPost l*    lua dotfiles.list_toggle('l', 1)
 nnoremap <silent> <leader>q <cmd>lua dotfiles.list_toggle('c')<CR>
 nnoremap <silent> <leader>d <cmd>lua dotfiles.list_toggle('l')<CR>
-" }}
+" }}}
 " vim:foldmethod=marker
