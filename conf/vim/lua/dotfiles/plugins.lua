@@ -40,18 +40,24 @@ return require("packer").startup({
 				config = function()
 					local npairs = require("nvim-autopairs")
 					local endwise = require("nvim-autopairs.ts-rule").endwise
-					npairs.setup({
-						fast_wrap = {},
-					})
-					npairs.add_rules(require("nvim-autopairs.rules.endwise-lua"))
-					npairs.add_rules(require("nvim-autopairs.rules.endwise-ruby"))
+					local lua_rules = require("nvim-autopairs.rules.endwise-lua")
 					-- Why no loops in nvim-autopairs builtins?
-					npairs.add_rules({
+					table.insert(
+						lua_rules,
 						endwise("do$", "end", "lua", {
 							"for_in_statement",
 							"while_statement",
-						}),
+						})
+					)
+					npairs.setup({
+						fast_wrap = {},
 					})
+					npairs.add_rules(lua_rules)
+					-- Embedded endwise rules for lua:
+					npairs.add_rules(vim.tbl_map(function(rule)
+						return endwise(rule.start_pair, rule.end_pair, "vim", { "lua_statement" })
+					end, lua_rules))
+					npairs.add_rules(require("nvim-autopairs.rules.endwise-ruby"))
 					-- VimL rules from lexima.vim
 					local vim_rules = {}
 					for _, at in ipairs({
