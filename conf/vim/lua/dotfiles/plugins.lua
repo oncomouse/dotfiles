@@ -226,23 +226,30 @@ return require("packer").startup({
 			{
 				"lukas-reineke/indent-blankline.nvim",
 				config = function()
+					local status, wal_colors = pcall(require, "dotfiles.wal-colors")
+					if not status then
+						wal_colors = {
+							color8 = "#000000",
+							color7 = "#FFFFFF",
+						}
+					end
 					-- Indent character color:
 					vim.cmd(
 						"highlight IndentBlanklineChar guifg="
-							.. require("dotfiles.wal-colors").color8
-							.. " gui=nocombine"
+							.. wal_colors.color8
+							.. " gui=nocombine ctermfg=8 cterm=nocombine"
 					)
 					-- Context indent character color:
 					vim.cmd(
 						"highlight IndentBlanklineContextChar guifg="
-							.. require("dotfiles.wal-colors").color7
-							.. " gui=nocombine"
+							.. wal_colors.color7
+							.. " gui=nocombine ctermfg=7 cterm=nocombine"
 					)
 					-- Start of context underline color:
 					vim.cmd(
 						"highlight IndentBlanklineContextStart guisp="
-							.. require("dotfiles.wal-colors").color7
-							.. " gui=underline"
+							.. wal_colors.color7
+							.. " gui=underline cterm=underline"
 					)
 					require("indent_blankline").setup({
 						buftype_exclude = { "terminal" },
