@@ -60,6 +60,10 @@ return require("packer").startup({
 					npairs.add_rules(require("nvim-autopairs.rules.endwise-ruby"))
 					-- VimL rules from lexima.vim
 					local vim_rules = {}
+
+					local Rule = require("nvim-autopairs.rule")
+					local cond = require("nvim-autopairs.conds")
+					local ts_conds = require("nvim-autopairs.ts-conds")
 					for _, at in ipairs({
 						"fu",
 						"fun",
@@ -76,7 +80,13 @@ return require("packer").startup({
 						"for",
 						"try",
 					}) do
-						table.insert(vim_rules, endwise("^%s*" .. at .. ".*$", "end" .. at, "vim", {}))
+						table.insert(
+							vim_rules,
+							Rule("^%s*" .. at .. ".*$", "end" .. at, "vim")
+								:use_regex(true)
+								:end_wise(cond.is_end_line())
+								:with_cr(ts_conds.is_not_ts_node({'lua_statement'}))
+						)
 					end
 					for _, at in ipairs({ "aug", "augroup" }) do
 						table.insert(vim_rules, endwise("^%s*" .. at .. "%s+.+$", at .. " END", "vim", {}))
