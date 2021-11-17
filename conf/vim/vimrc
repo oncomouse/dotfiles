@@ -183,6 +183,7 @@ dotfiles.list_toggle = function(pfx, force_open)
 	vim.cmd(pfx .. "open")
 end
 EOF
+
 autocmd! minimal-vimrc QuickFixCmdPost [^l]* lua dotfiles.list_toggle('c', 1)
 autocmd! minimal-vimrc QuickFixCmdPost l*    lua dotfiles.list_toggle('l', 1)
 nnoremap <silent> <leader>q <cmd>lua dotfiles.list_toggle('c')<CR>
