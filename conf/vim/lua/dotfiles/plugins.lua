@@ -26,15 +26,65 @@ return require("packer").startup({
 					}
 				end,
 			}, -- Set CWD for projects
+			-- {
+			-- 	"cohama/lexima.vim",
+			-- 	config = function()
+			-- 		vim.cmd([[autocmd! dotfiles-settings FileType lua call dotfiles#lexima#extend_endwise()]])
+			-- 		local map = require("dotfiles.utils.map")
+			-- 		map.inoremap("<silent>", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>')
+			-- 		map.imap("<silent>", "<C-l>", "<Plug>(dotfiles-lexima)")
+			-- 	end,
+			-- }, -- Autopairs + Endwise
 			{
-				"cohama/lexima.vim",
+				"windwp/nvim-autopairs",
 				config = function()
-					vim.cmd([[autocmd! dotfiles-settings FileType lua call dotfiles#lexima#extend_endwise()]])
-					local map = require("dotfiles.utils.map")
-					map.inoremap("<silent>", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>')
-					map.imap("<silent>", "<C-l>", "<Plug>(dotfiles-lexima)")
+					local npairs = require("nvim-autopairs")
+					local endwise = require("nvim-autopairs.ts-rule").endwise
+					npairs.setup({
+						fast_wrap = {},
+					})
+					npairs.add_rules(require("nvim-autopairs.rules.endwise-lua"))
+					npairs.add_rules(require("nvim-autopairs.rules.endwise-ruby"))
+					-- Why no loops in nvim-autopairs builtins?
+					npairs.add_rules({
+						endwise("do$", "end", "lua", {
+							"for_in_statement",
+							"while_statement",
+						}),
+					})
+					-- VimL rules from lexima.vim
+					local vim_rules = {}
+					for _, at in ipairs({
+						"fu",
+						"fun",
+						"func",
+						"funct",
+						"functi",
+						"functio",
+						"function",
+						"if",
+						"wh",
+						"whi",
+						"whil",
+						"while",
+						"for",
+						"try",
+					}) do
+						table.insert(vim_rules, endwise("^%s*" .. at .. ".*$", "end" .. at, "vim", {}))
+					end
+					for _, at in ipairs({ "aug", "augroup" }) do
+						table.insert(vim_rules, endwise("^%s*" .. at .. "%s+.+$", at .. " END", "vim", {}))
+					end
+					npairs.add_rules(vim_rules)
+					-- Shell rules:
+					npairs.add_rules({
+						endwise("^%s*if.*$", "fi", { "sh", "zsh" }, {}),
+						endwise("^%s*case.*$", "esac", { "sh", "zsh" }, {}),
+						endwise("^%s*if.*$", "fi", { "sh", "zsh" }, {}),
+						endwise("%sdo$", "done", { "sh", "zsh" }, {}),
+					})
 				end,
-			}, -- Autopairs + Endwise
+			},
 			{
 				"norcalli/nvim-colorizer.lua",
 				config = function()
@@ -167,7 +217,7 @@ return require("packer").startup({
 							enable = true,
 							config = {
 								vim = {
-									__default = "\" %s",
+									__default = '" %s',
 									lua_statement = "-- %s",
 								},
 							},
