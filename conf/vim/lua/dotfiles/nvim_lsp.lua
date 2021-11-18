@@ -167,7 +167,7 @@ local on_attach = function(client, _)
 		ts_utils.setup({
 			debug = false,
 			disable_commands = false,
-			enable_import_on_completion = false,
+			enable_import_on_completion = true,
 
 			-- import all
 			import_all_timeout = 5000, -- ms
@@ -180,26 +180,10 @@ local on_attach = function(client, _)
 			import_all_scan_buffers = 100,
 			import_all_select_source = false,
 
-			-- eslint
-			eslint_enable_code_actions = true,
-			eslint_enable_disable_comments = true,
-			eslint_bin = "eslint",
-			eslint_enable_diagnostics = false,
-			eslint_opts = {},
-
-			-- formatting
-			enable_formatting = false,
-			formatter = "prettier",
-			formatter_opts = {},
-
 			-- update imports on file move
-			update_imports_on_move = false,
+			update_imports_on_move = true,
 			require_confirmation_on_move = false,
 			watch_dir = nil,
-
-			-- filter diagnostics
-			filter_out_diagnostics_by_severity = {},
-			filter_out_diagnostics_by_code = {},
 		})
 
 		-- required to fix code action ranges and filter diagnostics
