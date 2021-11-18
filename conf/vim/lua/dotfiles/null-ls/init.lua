@@ -14,11 +14,13 @@ require("null-ls").config({
 				"markdown",
 				"graphql",
 			},
+			prefer_local = "node_modules/.bin",
 		}),
 		require("null-ls").builtins.formatting.prettier.with({
 			filetypes = {
 				"yaml",
 			},
+			prefer_local = "node_modules/.bin",
 		}),
 		require("null-ls").builtins.formatting.stylua,
 		require("null-ls").builtins.formatting.black.with({
