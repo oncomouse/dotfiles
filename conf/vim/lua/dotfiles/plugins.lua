@@ -38,71 +38,12 @@ return require("packer").startup({
 			{
 				"windwp/nvim-autopairs",
 				config = function()
-					local npairs = require("nvim-autopairs")
-					local endwise = require("nvim-autopairs.ts-rule").endwise
-					local Rule = require("nvim-autopairs.rule")
-					local cond = require("nvim-autopairs.conds")
-
-					npairs.setup({
-						fast_wrap = {
-							map = "<C-e>",
-							chars = { '{', '[', '(', '"', "'", "*", "_" },
-						},
-					})
-					local lua_rules = require("nvim-autopairs.rules.endwise-lua")
-					-- Why no loops in nvim-autopairs builtins?
-					table.insert(
-						lua_rules,
-						endwise("do$", "end", "lua", {
-							"for_in_statement",
-							"while_statement",
-						})
-					)
-					npairs.add_rules(lua_rules)
-					npairs.add_rules(require("nvim-autopairs.rules.endwise-ruby"))
-					-- VimL rules from lexima.vim
-					local vim_rules = {}
-					for _, at in ipairs({
-						"fu",
-						"fun",
-						"func",
-						"funct",
-						"functi",
-						"functio",
-						"function",
-						"if",
-						"wh",
-						"whi",
-						"whil",
-						"while",
-						"for",
-						"try",
-					}) do
-						table.insert(vim_rules, endwise("^%s*" .. at .. "%W.*$", "end" .. at, "vim", {}))
-					end
-					for _, at in ipairs({ "aug", "augroup" }) do
-						table.insert(vim_rules, endwise("^%s*" .. at .. "%s+.+$", at .. " END", "vim", {}))
-					end
-					npairs.add_rules(vim_rules)
-					-- Shell rules:
-					npairs.add_rules({
-						endwise("^%s*if%W.*$", "fi", { "sh", "zsh" }, {}),
-						endwise("^%s*case%W.*$", "esac", { "sh", "zsh" }, {}),
-						endwise("^%s*if%W.*$", "fi", { "sh", "zsh" }, {}),
-						endwise("%sdo$", "done", { "sh", "zsh" }, {}),
-					})
-					local basic = function(...)
-						local move_func = cond.move_right or cond.none
-						return Rule(...)
-							:with_move(move_func())
-							:use_undo(true)
-							:with_pair(cond.not_after_regex_check("[%w]"))
-					end
-					--Markdown Rules:
-					npairs.add_rules({
-						basic("*", "*", { "markdown", "vimwiki", "rmarkdown", "rmd", "pandoc" }),
-						basic("_", "_", { "markdown", "vimwiki", "rmarkdown", "rmd", "pandoc" }),
-					})
+					require("dotfiles.autopairs.fast-wrap")
+					require("dotfiles.autopairs.endwise-ruby")
+					require("dotfiles.autopairs.endwise-lua")
+					require("dotfiles.autopairs.endwise-vim")
+					require("dotfiles.autopairs.endwise-sh")
+					require("dotfiles.autopairs.rules-markdown")
 				end,
 			},
 			{
