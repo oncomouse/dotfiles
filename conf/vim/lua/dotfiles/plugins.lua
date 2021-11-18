@@ -40,6 +40,15 @@ return require("packer").startup({
 				config = function()
 					local npairs = require("nvim-autopairs")
 					local endwise = require("nvim-autopairs.ts-rule").endwise
+					local Rule = require("nvim-autopairs.rule")
+					local cond = require("nvim-autopairs.conds")
+
+					npairs.setup({
+						fast_wrap = {
+							map = "<C-e>",
+							chars = { '{', '[', '(', '"', "'", "*", "_" },
+						},
+					})
 					local lua_rules = require("nvim-autopairs.rules.endwise-lua")
 					-- Why no loops in nvim-autopairs builtins?
 					table.insert(
@@ -49,14 +58,7 @@ return require("packer").startup({
 							"while_statement",
 						})
 					)
-					npairs.setup({
-						fast_wrap = {},
-					})
 					npairs.add_rules(lua_rules)
-					-- Embedded endwise rules for lua:
-					-- npairs.add_rules(vim.tbl_map(function(rule)
-					-- 	return endwise(rule.start_pair, rule.end_pair, "vim", { "lua_statement" })
-					-- end, lua_rules))
 					npairs.add_rules(require("nvim-autopairs.rules.endwise-ruby"))
 					-- VimL rules from lexima.vim
 					local vim_rules = {}
@@ -76,7 +78,7 @@ return require("packer").startup({
 						"for",
 						"try",
 					}) do
-						table.insert(vim_rules, endwise("^%s*" .. at .. ".*$", "end" .. at, "vim", {}))
+						table.insert(vim_rules, endwise("^%s*" .. at .. "%W.*$", "end" .. at, "vim", {}))
 					end
 					for _, at in ipairs({ "aug", "augroup" }) do
 						table.insert(vim_rules, endwise("^%s*" .. at .. "%s+.+$", at .. " END", "vim", {}))
@@ -84,10 +86,22 @@ return require("packer").startup({
 					npairs.add_rules(vim_rules)
 					-- Shell rules:
 					npairs.add_rules({
-						endwise("^%s*if.*$", "fi", { "sh", "zsh" }, {}),
-						endwise("^%s*case.*$", "esac", { "sh", "zsh" }, {}),
-						endwise("^%s*if.*$", "fi", { "sh", "zsh" }, {}),
+						endwise("^%s*if%W.*$", "fi", { "sh", "zsh" }, {}),
+						endwise("^%s*case%W.*$", "esac", { "sh", "zsh" }, {}),
+						endwise("^%s*if%W.*$", "fi", { "sh", "zsh" }, {}),
 						endwise("%sdo$", "done", { "sh", "zsh" }, {}),
+					})
+					local basic = function(...)
+						local move_func = cond.move_right or cond.none
+						return Rule(...)
+							:with_move(move_func())
+							:use_undo(true)
+							:with_pair(cond.not_after_regex_check("[%w]"))
+					end
+					--Markdown Rules:
+					npairs.add_rules({
+						basic("*", "*", { "markdown", "vimwiki", "rmarkdown", "rmd", "pandoc" }),
+						basic("_", "_", { "markdown", "vimwiki", "rmarkdown", "rmd", "pandoc" }),
 					})
 				end,
 			},
