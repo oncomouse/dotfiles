@@ -10,6 +10,7 @@ local function end_regex()
 					return rule ~= -1
 				end,
 				vim.tbl_map(function(rule)
+					-- Remove endwise rules, which we filter above:
 					if rule.is_endwise == true then
 						return -1
 					end
