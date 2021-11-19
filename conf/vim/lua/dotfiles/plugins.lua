@@ -44,6 +44,10 @@ return require("packer").startup({
 					require("dotfiles.autopairs.endwise-vim")
 					require("dotfiles.autopairs.endwise-sh")
 					require("dotfiles.autopairs.rules-markdown")
+
+					-- Jump closed autopairs:
+					local map = require("dotfiles.utils.map")
+					map.imap("<C-L>", require("dotfiles.jump-autopairs"))
 				end,
 			},
 			{
