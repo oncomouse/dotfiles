@@ -161,7 +161,7 @@ command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab
 " Functions:
 " ==============================================================================
 function! s:get_buffer_list()
-	return range(1, bufnr('$'))
+	return has('nvim') ? luaeval('vim.api.nvim_list_bufs()') : range(1, bufnr('$'))
 endfunction
 
 function! ListToggle(pfx, ...)
@@ -172,7 +172,7 @@ function! ListToggle(pfx, ...)
 				\}, a:pfx)
 	if !force_open
 		let buflist = s:get_buffer_list()
-		for bufnum in filter(buflist, 'buflisted(v:val) && getbufvar(v:val, "&filetype") ==# "qf"')
+		for bufnum in filter(buflist, (!has('nvim') ? 'buflisted(v:val) && ' : '') . 'getbufvar(v:val, "&filetype") ==# "qf"')
 			if bufwinnr(bufnum) != -1
 				exec(a:pfx.'close')
 				return
