@@ -161,10 +161,7 @@ command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab
 " Functions:
 " ==============================================================================
 function! s:get_buffer_list()
-	redir => buflist
-	silent! ls!
-	redir END
-	return buflist
+	return range(1, bufnr('$'))
 endfunction
 
 function! ListToggle(pfx, ...)
@@ -175,7 +172,7 @@ function! ListToggle(pfx, ...)
 				\}, a:pfx)
 	if !force_open
 		let buflist = s:get_buffer_list()
-		for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+		for bufnum in filter(buflist, 'buflisted(v:val) && getbufvar(v:val, "&filetype") ==# "qf"')
 			if bufwinnr(bufnum) != -1
 				exec(a:pfx.'close')
 				return

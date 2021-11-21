@@ -157,36 +157,4 @@ if empty(glob(g:install_path))
 	PackerSync
 endif
 " }}}
-" Lua ListToggle override {{{
-" This is more efficient, but I don't think it's possible in VimL:
-lua <<EOF
-dotfiles.list_toggle = function(pfx, force_open)
-	if not force_open then
-		-- Get a list of buffer display names and numbers:
-		local buflist = vim.api.nvim_list_bufs()
-		-- We filter the list to leave only matching lists, then we map to get the buffer number:
-		for _, bufnum in ipairs(vim.tbl_filter(function(x)
-			return vim.api.nvim_buf_get_option(x, "filetype") == "qf"
-		end, buflist)) do
-			if vim.fn.bufwinnr(bufnum) ~= -1 then
-				vim.cmd(pfx .. "close")
-				return
-			end
-		end
-		if pfx == "l" and vim.fn.len(vim.fn.getloclist(0)) == 0 then
-			vim.cmd([[echohl ErrorMsg
-			echo 'Location List is Empty.'
-			echohl NONE]])
-			return
-		end
-	end
-	vim.cmd(pfx .. "open")
-end
-EOF
-
-autocmd! minimal-vimrc QuickFixCmdPost [^l]* lua dotfiles.list_toggle('c', 1)
-autocmd! minimal-vimrc QuickFixCmdPost l*    lua dotfiles.list_toggle('l', 1)
-nnoremap <silent> <leader>q <cmd>lua dotfiles.list_toggle('c')<CR>
-nnoremap <silent> <leader>d <cmd>lua dotfiles.list_toggle('l')<CR>
-" }}}
 " vim:foldmethod=marker
