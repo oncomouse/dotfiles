@@ -134,8 +134,6 @@ function! s:fasd_update() abort
 endfunction
 autocmd dotfiles-settings BufWinEnter,BufFilePost * call s:fasd_update()
 
-" Quit if padding, help, or quickfix is the only buffer left open:
-lua require('dotfiles.quit_if_only_window')
 " }}}
 " }}}
 " Writing: {{{
