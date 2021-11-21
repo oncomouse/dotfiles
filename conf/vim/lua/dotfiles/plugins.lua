@@ -27,13 +27,13 @@ return require("packer").startup({
 				end,
 			}, -- Set CWD for projects
 			-- {
-			-- 	"cohama/lexima.vim",
-			-- 	config = function()
-			-- 		vim.cmd([[autocmd! dotfiles-settings FileType lua call dotfiles#lexima#extend_endwise()]])
-			-- 		local map = require("dotfiles.utils.map")
-			-- 		map.inoremap("<silent>", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>')
-			-- 		map.imap("<silent>", "<C-l>", "<Plug>(dotfiles-lexima)")
-			-- 	end,
+			--	"cohama/lexima.vim",
+			--	config = function()
+			--		vim.cmd([[autocmd! dotfiles-settings FileType lua call dotfiles#lexima#extend_endwise()]])
+			--		local map = require("dotfiles.utils.map")
+			--		map.inoremap("<silent>", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>')
+			--		map.imap("<silent>", "<C-l>", "<Plug>(dotfiles-lexima)")
+			--	end,
 			-- }, -- Autopairs + Endwise
 			{
 				"windwp/nvim-autopairs",
@@ -182,22 +182,22 @@ return require("packer").startup({
 							enable = true,
 						},
 						-- playground = {
-						-- 	enable = true,
-						-- 	disable = {},
-						-- 	updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-						-- 	persist_queries = false, -- Whether the query persists across vim sessions
-						-- 	keybindings = {
-						-- 		toggle_query_editor = "o",
-						-- 		toggle_hl_groups = "i",
-						-- 		toggle_injected_languages = "t",
-						-- 		toggle_anonymous_nodes = "a",
-						-- 		toggle_language_display = "I",
-						-- 		focus_language = "f",
-						-- 		unfocus_language = "F",
-						-- 		update = "R",
-						-- 		goto_node = "<cr>",
-						-- 		show_help = "?",
-						-- 	},
+						--	enable = true,
+						--	disable = {},
+						--	updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+						--	persist_queries = false, -- Whether the query persists across vim sessions
+						--	keybindings = {
+						--		toggle_query_editor = "o",
+						--		toggle_hl_groups = "i",
+						--		toggle_injected_languages = "t",
+						--		toggle_anonymous_nodes = "a",
+						--		toggle_language_display = "I",
+						--		focus_language = "f",
+						--		unfocus_language = "F",
+						--		update = "R",
+						--		goto_node = "<cr>",
+						--		show_help = "?",
+						--	},
 						-- },
 					})
 				end,
@@ -275,6 +275,22 @@ return require("packer").startup({
 						show_current_context_start = true,
 					})
 				end,
+			},
+			-- Writing Plugins:
+			{
+				"folke/zen-mode.nvim",
+				config = function()
+					require("zen-mode").setup({})
+					local map = require("dotfiles.utils.map")
+					map.nmap("<leader>z", function()
+						require("zen-mode").toggle({
+							window = {
+								width = 0.75,
+							},
+						})
+					end)
+				end,
+				ft = { "markdown" },
 			},
 		})
 	end,
