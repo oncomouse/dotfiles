@@ -160,24 +160,15 @@ command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab
 " ==============================================================================
 " Functions:
 " ==============================================================================
-function! s:get_buffer_list()
-	return has('nvim') ? luaeval('vim.api.nvim_list_bufs()') : range(1, bufnr('$'))
-endfunction
 
 function! ListToggle(pfx, ...)
 	let force_open = get(a:, 0, 0)
-	let bufname = get({
-				\'l': 'Location List',
-				\'c': 'Quickfix List',
-				\}, a:pfx)
 	if !force_open
-		let buflist = s:get_buffer_list()
-		for bufnum in filter(buflist, (!has('nvim') ? 'buflisted(v:val) && ' : '') . 'getbufvar(v:val, "&filetype") ==# "qf"')
-			if bufwinnr(bufnum) != -1
-				exec(a:pfx.'close')
-				return
-			endif
-		endfor
+		if get(g:, 'dotfiles_' . a:pfx . 'open', 0)
+			let g:['dotfiles_' . a:pfx . 'open'] = 0
+			exec(a:pfx.'close')
+			return
+		end
 		if a:pfx ==# 'l' && len(getloclist(0)) == 0
 			echohl ErrorMsg
 			echo 'Location List is Empty.'
@@ -185,6 +176,7 @@ function! ListToggle(pfx, ...)
 			return
 		endif
 	endif
+	let g:['dotfiles_' . a:pfx . 'open'] = 1
 	exec(a:pfx.'open')
 endfunction
 
