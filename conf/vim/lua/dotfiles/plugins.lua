@@ -51,17 +51,26 @@ return require("packer").startup({
 				end,
 			},
 			{
-				"norcalli/nvim-colorizer.lua",
+				"oncomouse/nvim-colorizer.lua",
 				config = function()
 					if vim.opt.termguicolors:get() then
 						require("colorizer").setup({
-							["*"] = { names = false, RRGGBBAA = true },
-							packer = { RGB = false },
+							"*",
+							"!packer",
 							html = { names = true, RRGGBBAA = false },
 							css = { css = true, RRGGBBAA = false },
-							scss = { css = true, RRGGBBAA = false },
+							scss = {
+								css = true,
+								RRGGBBAA = false,
+								custom_matcher = require("colorizer/sass").variable_matcher,
+							},
+						}, {
+							names = false,
+							RRGGBBAA = true,
+							mode = "background", -- Could be background, foreground, or virtualtext
 						})
 					end
+					vim.cmd([[autocmd dotfiles-settings FileType scss lua require'colorizer/sass'.attach_to_buffer()]])
 				end,
 			},
 			{
