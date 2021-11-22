@@ -23,7 +23,7 @@ beautiful.border_color_normal = xrdb.color0
 beautiful.border_color_active = beautiful.bg_focus
 beautiful.border_color_floating_normal = xrdb.color0
 beautiful.border_color_floating_active = beautiful.border_color_active
-beautiful.border_width = 1
+beautiful.border_width = 0
 -- Fonts:
 beautiful.font = is_laptop and "Hack Nerd Font Normal 9" or "FiraCode Nerd Font Normal 10"
 beautiful.notification_font = is_laptop and "Hack Nerd Font Normal 9" or "FiraCode Nerd Font Normal 10"

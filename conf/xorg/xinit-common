@@ -6,9 +6,9 @@ systemctl --user import-environment DISPLAY
 dex -a
 
 # Don't start picom on the laptop:
-if [ "$DOTFILES_TARGET" != "laptop" ]; then
-	/usr/bin/picom --experimental-backends -b
-fi
+# if [ "$DOTFILES_TARGET" != "laptop" ]; then
+/usr/bin/picom --experimental-backends -b
+# fi
 
 ## Appareance:
 
