@@ -26,15 +26,6 @@ return require("packer").startup({
 					}
 				end,
 			}, -- Set CWD for projects
-			-- {
-			--	"cohama/lexima.vim",
-			--	config = function()
-			--		vim.cmd([[autocmd! dotfiles-settings FileType lua call dotfiles#lexima#extend_endwise()]])
-			--		local map = require("dotfiles.utils.map")
-			--		map.inoremap("<silent>", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>')
-			--		map.imap("<silent>", "<C-l>", "<Plug>(dotfiles-lexima)")
-			--	end,
-			-- }, -- Autopairs + Endwise
 			{
 				"windwp/nvim-autopairs",
 				config = function()
@@ -49,7 +40,7 @@ return require("packer").startup({
 					local map = require("dotfiles.utils.map")
 					map.imap("<C-L>", require("dotfiles.jump-autopairs"))
 				end,
-			},
+			}, -- Autopairs + Endwise
 			{
 				"oncomouse/nvim-colorizer.lua",
 				config = function()
