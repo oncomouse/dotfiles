@@ -9,7 +9,7 @@ nerd-fonts-hack
 otf-hasklig
 otf-nerd-fonts-fira-code
 perl-term-shellui
-picom-ibhagwan-git
+pacman-git
 seadrive-daemon
 shellcheck-bin
 themix-gui-git
