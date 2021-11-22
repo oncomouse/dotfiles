@@ -1,10 +1,10 @@
 --luacheck: globals vim dotfiles
 dotfiles = _G.dotfiles or {}
+vim.g.dotfiles_ts_playground = false -- Load playground
 return require("packer").startup({
 	function(use)
 		use({
 			{ "wbthomason/packer.nvim", opt = true },
-			{ "dstein64/vim-startuptime", cmd = "StartupTime" },
 			"sickill/vim-pasta", -- fix block paste for Neovim
 			"tpope/vim-commentary", -- gc<motion> to (un)comment
 			"tpope/vim-repeat",
@@ -181,28 +181,33 @@ return require("packer").startup({
 						context_commentstring = {
 							enable = true,
 						},
-						-- playground = {
-						--	enable = true,
-						--	disable = {},
-						--	updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-						--	persist_queries = false, -- Whether the query persists across vim sessions
-						--	keybindings = {
-						--		toggle_query_editor = "o",
-						--		toggle_hl_groups = "i",
-						--		toggle_injected_languages = "t",
-						--		toggle_anonymous_nodes = "a",
-						--		toggle_language_display = "I",
-						--		focus_language = "f",
-						--		unfocus_language = "F",
-						--		update = "R",
-						--		goto_node = "<cr>",
-						--		show_help = "?",
-						--	},
-						-- },
+						playground = {
+							enable = true,
+							disable = {},
+							updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+							persist_queries = false, -- Whether the query persists across vim sessions
+							keybindings = {
+								toggle_query_editor = "o",
+								toggle_hl_groups = "i",
+								toggle_injected_languages = "t",
+								toggle_anonymous_nodes = "a",
+								toggle_language_display = "I",
+								focus_language = "f",
+								unfocus_language = "F",
+								update = "R",
+								goto_node = "<cr>",
+								show_help = "?",
+							},
+						},
 					})
 				end,
 				requires = {
-					-- "nvim-treesitter/playground",
+					{
+						"nvim-treesitter/playground",
+						cond = function()
+							return vim.g.dotfiles_ts_playground or false
+						end,
+					},
 					{ "nvim-treesitter/nvim-treesitter-textobjects" },
 					{ "windwp/nvim-ts-autotag", ft = { "html", "javascript", "javascriptreact" } },
 					{
