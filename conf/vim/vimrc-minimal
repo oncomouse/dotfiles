@@ -168,7 +168,7 @@ function! ListToggle(pfx, ...)
 			let g:['dotfiles_' . a:pfx . 'open'] = 0
 			exec(a:pfx.'close')
 			return
-		end
+		endif
 		if a:pfx ==# 'l' && len(getloclist(0)) == 0
 			echohl ErrorMsg
 			echo 'Location List is Empty.'
