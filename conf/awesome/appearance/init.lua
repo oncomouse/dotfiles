@@ -25,10 +25,12 @@ beautiful.border_color_floating_normal = xrdb.color0
 beautiful.border_color_floating_active = beautiful.border_color_active
 beautiful.border_width = 0
 -- Fonts:
-beautiful.font = is_laptop and "Hack Nerd Font Normal 9" or "FiraCode Nerd Font Normal 10"
-beautiful.notification_font = is_laptop and "Hack Nerd Font Normal 9" or "FiraCode Nerd Font Normal 10"
-beautiful.hotkeys_font = is_laptop and "Hack Nerd Font Normal 12" or "FiraCode Nerd Font Normal 14"
-beautiful.hotkeys_description_font = is_laptop and "Hack Nerd Font Normal 12" or "FiraCode Nerd Font Normal 14"
+local laptop_font = "JetBrainsMono Nerd Font"
+local desktop_font = "FiraCode Nerd Font"
+beautiful.font = is_laptop and laptop_font .. " Normal 9" or desktop_font .. " Normal 10"
+beautiful.notification_font = is_laptop and laptop_font .. " Normal 9" or desktop_font .. " Normal 10"
+beautiful.hotkeys_font = is_laptop and laptop_font .. " Normal 12" or desktop_font .. " Normal 14"
+beautiful.hotkeys_description_font = is_laptop and laptop_font .. " Normal 12" or desktop_font .. " Normal 14"
 -- Wibar stuff:
 beautiful.bar_height = 24
 beautiful.bar_position = "top"
