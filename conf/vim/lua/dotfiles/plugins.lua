@@ -164,7 +164,7 @@ return require("packer").startup({
 					require("nvim-treesitter.configs").setup({
 						ensure_installed = "maintained",
 						highlight = { enable = true },
-						indent = { enable = true },
+						-- indent = { enable = true },
 						autotag = { enable = true },
 						textobjects = {
 							select = {
