@@ -1,1 +1,1 @@
-paru -S mako river-git stacktile ristate gtk-layer-shell swaylock swayidle swaybg
+paru -S mako river-git ristate gtk-layer-shell swaylock swayidle swaybg
