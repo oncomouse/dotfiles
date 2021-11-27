@@ -133,7 +133,7 @@ local on_attach = function(client, _)
 	if diagnostic_provider then
 		if vim.diagnostic ~= nil then -- Neovim 0.6:
 			vim.cmd([[
-					autocmd! dotfiles-settings User DiagnosticsChanged lua vim.diagnostic.setloclist({ open = false })
+					autocmd! dotfiles-settings DiagnosticChanged <buffer> lua vim.diagnostic.setloclist({ open = false })
 				]])
 			map.nnoremap("<silent><buffer>", "]d", function()
 				vim.diagnostic.goto_next()
