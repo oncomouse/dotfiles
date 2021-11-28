@@ -309,16 +309,16 @@ beautiful.client_keybindings = {
 		description = "Toggle Floating",
 		group = "Client",
 	}),
-	awful.key{
-         modifiers   = { beautiful.modkey },
-         key         = "f",
-         description = "Toggle Fullscreen",
-         group       = "Client",
-         on_press    = function(c)
-            c.fullscreen = not c.fullscreen
-            c:raise()
-         end,
-      },
+	awful.key({
+		modifiers = { beautiful.modkey },
+		key = "f",
+		description = "Toggle Fullscreen",
+		group = "Client",
+		on_press = function(c)
+			c.fullscreen = not c.fullscreen
+			c:raise()
+		end,
+	}),
 	awful.key({
 		modifiers = { beautiful.modkey },
 		keygroup = "arrows",
@@ -556,10 +556,23 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 	awful.key({
 		modifiers = {},
 		key = "XF86Eject",
-		on_press = function() awful.spawn("eject -T") end,
+		on_press = function()
+			awful.spawn("eject -T")
+		end,
 		description = "Eject CD-ROM",
 		group = "Media",
-	})
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey },
+		key = "Print",
+		on_press = function()
+			awful.spawn.with_shell(
+				"scrot ~/Seadrive/My\\ Libraries/My\\ Library/Photos/Screenshots/'%Y-%m-%d-%H%M%S_$wx$h.png'"
+			)
+		end,
+		description = "Take a Screenshot",
+		group = "Media",
+	}),
 })
 -- }}}
 -- vim:foldmethod=marker:foldlevel=0
