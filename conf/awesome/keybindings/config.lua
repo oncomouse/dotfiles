@@ -573,6 +573,17 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		description = "Take a Screenshot",
 		group = "Media",
 	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		key = "Print",
+		on_press = function()
+			awful.spawn.with_shell(
+				"scrot -s ~/Seadrive/My\\ Libraries/My\\ Library/Photos/Screenshots/'%Y-%m-%d-%H%M%S_$wx$h.png'"
+			)
+		end,
+		description = "Take an Interactive Screenshot",
+		group = "Media",
+	}),
 })
 -- }}}
 -- vim:foldmethod=marker:foldlevel=0
