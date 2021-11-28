@@ -14,7 +14,7 @@ local clock_popup = wibox({
 	shape = gears.shape.rounded_rect,
 })
 clock_popup.height = 75
-clock_popup.width = 700
+clock_popup.width = 720
 clock_popup.bg = xrdb.color0 .. "CC"
 clock_popup.fg = xrdb.color15
 awful.placement.centered(clock_popup)
