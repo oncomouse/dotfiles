@@ -17,7 +17,7 @@ update_chrome() {
 	dir="$(find "$moz_dir" -maxdepth 1 -iname "*default-release*")"
 	if [ -d "$dir" ]; then
 		mkdir -p "$dir/chrome"
-		curl -so "$dir/chrome/userChrome.css" https://raw.githubusercontent.com/migueravila/SimplerentFox/master/Linux/userChrome__OneLine.css
+		ln -sf ~/dotfiles/conf/firefox/userChrome.css "$dir/chrome"
 		curl -so "$dir/chrome/userContent.css" https://raw.githubusercontent.com/migueravila/SimplerentFox/master/Linux/userContent.css
 		cat << EOF > "$dir/user.js"
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);

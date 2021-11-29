@@ -15,9 +15,9 @@
 ~/dotfiles/bootstrap/scripts/tmux.sh
 ~/dotfiles/bootstrap/scripts/neovim.sh
 if [ -z "$SERVER" ]; then
-  ~/dotfiles/bootstrap/scripts/vale.sh
-  ~/dotfiles/bootstrap/scripts/asdf.sh
-  ~/dotfiles/bootstrap/scripts/csl.sh
-  ~/dotfiles/bootstrap/scripts/tex.sh
-  ~/dotfiles/bootstrap/scripts/nnn.sh
+	~/dotfiles/bootstrap/scripts/vale.sh
+	~/dotfiles/bootstrap/scripts/firefox.sh
+	~/dotfiles/bootstrap/scripts/asdf.sh
+	~/dotfiles/bootstrap/scripts/csl.sh
+	~/dotfiles/bootstrap/scripts/tex.sh
 fi
