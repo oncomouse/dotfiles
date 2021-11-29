@@ -72,9 +72,11 @@ T A B S
 
 .tab-background {
     border: none !important;
+	border-radius: 0 !important;
 }
 
 .tab-background[selected='true'] {
+	border: 1px solid FieldText !important;
     -moz-appearance: none !important;
     background-image: none !important;
 }
@@ -281,12 +283,12 @@ U R L - B A R
 }
 
 #searchbar {
-    background: var(--bf-bg) !important;
+    /* background: var(--bf-bg) !important; */
     border: none !important;
 }
 
 .searchbar-textbox {
-    color: var(--bf-focus-fg) !important;
+    /* color: var(--bf-focus-fg) !important; */
     font-weight: 700 !important;
 }
 
