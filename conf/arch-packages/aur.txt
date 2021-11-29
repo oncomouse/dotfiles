@@ -1,6 +1,5 @@
 awesome-git
 bibtool
-cava
 libsearpc
 mpdris2
 mpv-mpris
@@ -17,10 +16,5 @@ themix-icons-archdroid-git
 themix-theme-oomox-git
 tllocalmgr-git
 zotero
-river-git
-kile-wl
-ristate
-rofi-lbonn-wayland-git
 rofi-dmenu
 rofi-emoji
-wlsunset
