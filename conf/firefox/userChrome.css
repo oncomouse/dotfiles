@@ -79,6 +79,7 @@ T A B S
 	border: 1px solid FieldText !important;
     -moz-appearance: none !important;
     background-image: none !important;
+	box-shadow: none !important;
 }
 
 .tabbrowser-tabs {
@@ -185,6 +186,9 @@ N A V B A R
     height: 32px !important;
 }
 
+.browser-toolbar:not(.titlebar-color) {
+    background: var(--toolbar-field-background-color) !important;
+}
 /* 
 S I D E - B A R
 */
