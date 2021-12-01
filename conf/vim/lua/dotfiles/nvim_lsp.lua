@@ -27,16 +27,25 @@ local servers = {
 				},
 			},
 		},
+		flags = {
+			debounce_text_changes = 500,
+		},
 	},
 	cssls = {
 		provides = {
 			"snippets",
 			"diagnostics",
 		},
+		flags = {
+			debounce_text_changes = 500,
+		},
 	},
 	html = {
 		provides = {
 			"snippets",
+		},
+		flags = {
+			debounce_text_changes = 500,
 		},
 	},
 	jsonls = {
@@ -45,20 +54,41 @@ local servers = {
 			"snippets",
 			"diagnostics",
 		},
+		flags = {
+			debounce_text_changes = 500,
+		},
 	},
 	solargraph = {},
-	vimls = {},
-	bashls = {},
-	pyright = {},
+	vimls = {
+		flags = {
+			debounce_text_changes = 500,
+		},
+	},
+	bashls = {
+		flags = {
+			debounce_text_changes = 500,
+		},
+	},
+	pyright = {
+		flags = {
+			debounce_text_changes = 500,
+		},
+	},
 	tsserver = {
 		provides = {
 			"diagnostics",
+		},
+		flags = {
+			debounce_text_changes = 500,
 		},
 	},
 	["rust_analyzer"] = {
 		provides = {
 			"diagnostics",
 			"formatting",
+		},
+		flags = {
+			debounce_text_changes = 500,
 		},
 	},
 }
