@@ -83,16 +83,12 @@ hi Type ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 hi Typedef ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 
 hi DiagnosticError ctermfg=5 guifg={color5} cterm=NONE gui=NONE
-hi link DiagnosticSignError DiagnosticsError
-hi DiagnosticUnderlineError ctermfg=5 guifg={color5} cterm=underline gui=underline guisp={color5}
 hi DiagnosticWarn ctermfg=3 guifg={color3} cterm=NONE gui=NONE
-hi link DiagnosticSignWarn DiagnosticsWarn
-hi DiagnosticUnderlineWarn ctermfg=3 guifg={color3} cterm=underline gui=underline guisp={color3}
 hi DiagnosticInfo ctermfg=4 guifg={color4} cterm=NONE gui=NONE
-hi link DiagnosticSignInfo DiagnosticsInfo
-hi DiagnosticUnderlineInfo ctermfg=4 guifg={color4} cterm=underline gui=underline guisp={color4}
 hi DiagnosticHint ctermfg=6 guifg={color6} cterm=NONE gui=NONE
-hi link DiagnosticSignHint DiagnosticsHint
+hi DiagnosticUnderlineError ctermfg=5 guifg={color5} cterm=underline gui=underline guisp={color5}
+hi DiagnosticUnderlineWarn ctermfg=3 guifg={color3} cterm=underline gui=underline guisp={color3}
+hi DiagnosticUnderlineInfo ctermfg=4 guifg={color4} cterm=underline gui=underline guisp={color4}
 hi DiagnosticUnderlineHint ctermfg=6 guifg={color6} cterm=underline gui=underline guisp={color6}
 
 hi TSAnnotation ctermfg=4 guifg={color4} cterm=NONE gui=NONE
@@ -104,7 +100,7 @@ hi TSConditional ctermfg=5 guifg={color5} cterm=NONE gui=NONE
 hi TSConstBuiltin ctermfg=1 guifg={color1} cterm=NONE gui=NONE
 hi TSConstMacro ctermfg=1 guifg={color1} cterm=NONE gui=NONE
 hi TSConstant ctermfg=1 guifg={color1} cterm=NONE gui=NONE
-hi TSConstructor ctermfg=05 guifg={base05} cterm=NONE gui=NONE
+hi TSConstructor ctermfg=252 guifg={base05} cterm=NONE gui=NONE
 hi TSEmphasis cterm=bold gui=bold 
 hi TSError ctermfg=5 guifg={color5} cterm=NONE gui=NONE
 hi TSException ctermfg=5 guifg={color5} cterm=NONE gui=NONE
@@ -114,20 +110,20 @@ hi TSFuncBuiltin ctermfg=1 guifg={color1} cterm=NONE gui=NONE
 hi TSFuncMacro ctermfg=1 guifg={color1} cterm=NONE gui=NONE
 hi TSFunction ctermfg=4 guifg={color4} cterm=NONE gui=NONE
 hi TSInclude ctermfg=6 guifg={color6} cterm=NONE gui=NONE
-hi TSKeyword ctermfg=0E guifg={base0E} cterm=NONE gui=NONE
+hi TSKeyword ctermfg=98 guifg={base0E} cterm=NONE gui=NONE
 hi TSKeywordFunction ctermfg=6 guifg={color6} cterm=NONE gui=NONE
-hi TSKeywordOperator ctermfg=0E guifg={base0E} cterm=NONE gui=NONE
+hi TSKeywordOperator ctermfg=98 guifg={base0E} cterm=NONE gui=NONE
 hi TSLabel ctermfg=6 guifg={color6} 
 hi TSMethod ctermfg=4 guifg={color4} cterm=NONE gui=NONE
 hi TSNamespace ctermfg=4 guifg={color4} cterm=NONE gui=NONE
 hi TSNumber ctermfg=4 guifg={color4} cterm=NONE gui=NONE
-hi TSOperator ctermfg=05 guifg={base05} cterm=NONE gui=NONE
+hi TSOperator ctermfg=252 guifg={base05} cterm=NONE gui=NONE
 hi TSParameter ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 hi TSParameterReference ctermfg=1 guifg={color1} cterm=NONE gui=NONE
 hi TSProperty ctermfg=3 guifg={color3} cterm=NONE gui=NONE
-hi TSPunctBracket ctermfg=05 guifg={base05} cterm=NONE gui=NONE
-hi TSPunctDelimiter ctermfg=05 guifg={base05} cterm=NONE gui=NONE
-hi TSPunctSpecial ctermfg=05 guifg={base05} cterm=NONE gui=NONE
+hi TSPunctBracket ctermfg=252 guifg={base05} cterm=NONE gui=NONE
+hi TSPunctDelimiter ctermfg=252 guifg={base05} cterm=NONE gui=NONE
+hi TSPunctSpecial ctermfg=252 guifg={base05} cterm=NONE gui=NONE
 hi TSRepeat ctermfg=5 guifg={color5} cterm=NONE gui=NONE
 hi TSString ctermfg=4 guifg={color4} cterm=NONE gui=NONE
 hi TSStringEscape ctermfg=2 guifg={color2} cterm=NONE gui=NONE
