@@ -1,4 +1,10 @@
 -- luacheck: globals vim dotfiles
+vim.diagnostic.config({
+	underline = true,
+	virtual_text = true,
+	signs = false,
+	severity_sort = true,
+})
 local servers = {
 	["null-ls"] = {
 		provides = {
@@ -131,27 +137,15 @@ local on_attach = function(client, _)
 		vim.cmd([[packadd packer.nvim | lua require("packer").loader("vim-vsnip-integ")]])
 	end
 	if diagnostic_provider then
-		if vim.diagnostic ~= nil then -- Neovim 0.6:
-			vim.cmd([[
-					autocmd! dotfiles-settings DiagnosticChanged <buffer> lua vim.diagnostic.setloclist({ open = false })
-				]])
-			map.nnoremap("<silent><buffer>", "]d", function()
-				vim.diagnostic.goto_next()
-			end)
-			map.nnoremap("<silent><buffer>", "[d", function()
-				vim.diagnostic.goto_prev()
-			end)
-		else -- Neovim 0.5:
-			vim.cmd([[
-					autocmd! dotfiles-settings User LspDiagnosticsChanged lua vim.lsp.diagnostic.set_loclist({ open_loclist = false })
-				]])
-			map.nnoremap("<silent><buffer>", "]d", function()
-				vim.lsp.diagnostic.goto_next()
-			end)
-			map.nnoremap("<silent><buffer>", "[d", function()
-				vim.lsp.diagnostic.goto_prev()
-			end)
-		end
+		vim.cmd(
+			[[ autocmd! dotfiles-settings DiagnosticChanged <buffer> lua vim.diagnostic.setloclist({ open = false }) ]]
+		)
+		map.nnoremap("<silent><buffer>", "]d", function()
+			vim.diagnostic.goto_next()
+		end)
+		map.nnoremap("<silent><buffer>", "[d", function()
+			vim.diagnostic.goto_prev()
+		end)
 	end
 	-- Formatting:
 	if formatting_provider then
