@@ -82,31 +82,18 @@ hi Todo ctermfg=3 guifg={color3} ctermbg=237 guibg={base01} cterm=NONE gui=NONE
 hi Type ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 hi Typedef ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 
-hi LspDiagnosticsDefaultError ctermfg=5 guifg={color5} cterm=NONE gui=NONE
-hi link LspDiagnosticsSignError LspDiagnosticsDefaultError
-hi LspDiagnosticsUnderlineError ctermfg=5 guifg={color5} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color5}
-hi LspDiagnosticsDefaultWarning ctermfg=3 guifg={color3} cterm=NONE gui=NONE
-hi link LspDiagnosticsSignWarning LspDiagnosticsDefaultWarning
-hi LspDiagnosticsUnderlineWarning ctermfg=3 guifg={color3} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color3}
-hi LspDiagnosticsDefaultInformation ctermfg=4 guifg={color4} cterm=NONE gui=NONE
-hi link LspDiagnosticsSignInformation LspDiagnosticsDefaultInformation
-hi LspDiagnosticsUnderlineInformation ctermfg=4 guifg={color4} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color4}
-hi LspDiagnosticsDefaultHint ctermfg=6 guifg={color6} cterm=NONE gui=NONE
-hi link LspDiagnosticsSignHint LspDiagnosticsDefaultHint
-hi LspDiagnosticsUnderlineHint ctermfg=6 guifg={color6} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color6}
-
-hi DiagnosticsDefaultError ctermfg=5 guifg={color5} cterm=NONE gui=NONE
-hi link DiagnosticsSignError DiagnosticsDefaultError
-hi DiagnosticsUnderlineError ctermfg=5 guifg={color5} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color5}
-hi DiagnosticsDefaultWarn ctermfg=3 guifg={color3} cterm=NONE gui=NONE
-hi link DiagnosticsSignWarn DiagnosticsDefaultWarn
-hi DiagnosticsUnderlineWarn ctermfg=3 guifg={color3} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color3}
-hi DiagnosticsDefaultInfo ctermfg=4 guifg={color4} cterm=NONE gui=NONE
-hi link DiagnosticsSignInfo DiagnosticsDefaultInfo
-hi DiagnosticsUnderlineInfo ctermfg=4 guifg={color4} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color4}
-hi DiagnosticsDefaultHint ctermfg=6 guifg={color6} cterm=NONE gui=NONE
-hi link DiagnosticsSignHint DiagnosticsDefaultHint
-hi DiagnosticsUnderlineHint ctermfg=6 guifg={color6} ctermbg=237 guibg={base01} cterm=undercurl gui=undercurl guisp={color6}
+hi DiagnosticError ctermfg=5 guifg={color5} cterm=NONE gui=NONE
+hi link DiagnosticSignError DiagnosticsError
+hi DiagnosticUnderlineError ctermfg=5 guifg={color5} cterm=underline gui=underline guisp={color5}
+hi DiagnosticWarn ctermfg=3 guifg={color3} cterm=NONE gui=NONE
+hi link DiagnosticSignWarn DiagnosticsWarn
+hi DiagnosticUnderlineWarn ctermfg=3 guifg={color3} cterm=underline gui=underline guisp={color3}
+hi DiagnosticInfo ctermfg=4 guifg={color4} cterm=NONE gui=NONE
+hi link DiagnosticSignInfo DiagnosticsInfo
+hi DiagnosticUnderlineInfo ctermfg=4 guifg={color4} cterm=underline gui=underline guisp={color4}
+hi DiagnosticHint ctermfg=6 guifg={color6} cterm=NONE gui=NONE
+hi link DiagnosticSignHint DiagnosticsHint
+hi DiagnosticUnderlineHint ctermfg=6 guifg={color6} cterm=underline gui=underline guisp={color6}
 
 hi TSAnnotation ctermfg=4 guifg={color4} cterm=NONE gui=NONE
 hi TSAttribute ctermfg=4 guifg={color4} cterm=NONE gui=NONE
@@ -156,10 +143,10 @@ hi TSUnderline cterm=underline gui=underline
 hi TSVariable ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 hi TSVariableBuiltin ctermfg=5 guifg={color5} cterm=NONE gui=NONE
 
-hi SpellBad cterm=underline gui=underline ctermbg=237 guibg={base01} guifg={color5} guisp={color5}
-hi SpellLocal cterm=underline gui=underline ctermbg=237 guibg={base01} guifg={color6} guisp={color6}
-hi SpellCap cterm=underline gui=underline ctermbg=237 guibg={base01} guifg={color3} guisp={color3}
-hi SpellRare cterm=underline gui=underline ctermbg=237 guibg={base01} guifg={base0E} guisp={base0E}
+hi SpellBad cterm=underline gui=underline guifg={color5} guisp={color5}
+hi SpellLocal cterm=underline gui=underline guifg={color6} guisp={color6}
+hi SpellCap cterm=underline gui=underline guifg={color3} guisp={color3}
+hi SpellRare cterm=underline gui=underline guifg={base0E} guisp={base0E}
 
 hi csClass ctermfg=3 guifg={color3} cterm=NONE gui=NONE
 hi csAttribute ctermfg=3 guifg={color3} cterm=NONE gui=NONE
