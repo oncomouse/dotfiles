@@ -8,9 +8,6 @@ return require("packer").startup({
 			{
 				"oncomouse/lushwal",
 				requires = { "rktjmp/lush.nvim" },
-				config = function()
-					-- vim.cmd([[colorscheme lushwal]])
-				end,
 			},
 			{ "wbthomason/packer.nvim", opt = true },
 			"sickill/vim-pasta", -- fix block paste for Neovim
@@ -263,31 +260,6 @@ return require("packer").startup({
 			{
 				"lukas-reineke/indent-blankline.nvim",
 				config = function()
-					local status, wal_colors = pcall(require, "dotfiles.wal-colors")
-					if not status then
-						wal_colors = {
-							color8 = "#000000",
-							color7 = "#FFFFFF",
-						}
-					end
-					-- Indent character color:
-					vim.cmd(
-						"highlight IndentBlanklineChar guifg="
-							.. wal_colors.color8
-							.. " gui=nocombine ctermfg=8 cterm=nocombine"
-					)
-					-- Context indent character color:
-					vim.cmd(
-						"highlight IndentBlanklineContextChar guifg="
-							.. wal_colors.color7
-							.. " gui=nocombine ctermfg=7 cterm=nocombine"
-					)
-					-- Start of context underline color:
-					vim.cmd(
-						"highlight IndentBlanklineContextStart guisp="
-							.. wal_colors.color7
-							.. " gui=underline cterm=underline"
-					)
 					require("indent_blankline").setup({
 						buftype_exclude = { "terminal" },
 						filetype_exclude = { "diff", "gina-status", "help", "markdown", "packer", "qf" },

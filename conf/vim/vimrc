@@ -99,14 +99,7 @@ if has('mac') || exists('$DISPLAY') || exists('$WAYLAND-DISPLAY')
 	let &t_8b='<Esc>[48;2;%lu;%lu;%lum'
 	set termguicolors
 
-	" colorscheme lushwal
-	let s:wal_cache = expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : $HOME.'/.cache') . '/wal/vim')
-	if isdirectory(s:wal_cache)
-		exe 'set runtimepath+='.s:wal_cache
-		colorscheme wal
-	else
-		colorscheme default
-	endif
+	colorscheme lushwal
 else
 	colorscheme default
 endif
