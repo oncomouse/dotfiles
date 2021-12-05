@@ -7,7 +7,7 @@ return require("packer").startup({
 			-- Colorschemes:
 			{
 				"oncomouse/lushwal",
-				requires = { "rktjmp/lush.nvim" },
+				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 			},
 			{ "wbthomason/packer.nvim", opt = true },
 			"sickill/vim-pasta", -- fix block paste for Neovim
