@@ -4,6 +4,14 @@ vim.g.dotfiles_ts_playground = false -- Load playground
 return require("packer").startup({
 	function(use)
 		use({
+			-- Colorschemes:
+			{
+				"oncomouse/lushwal",
+				requires = { "rktjmp/lush.nvim" },
+				config = function()
+					-- vim.cmd([[colorscheme lushwal]])
+				end,
+			},
 			{ "wbthomason/packer.nvim", opt = true },
 			"sickill/vim-pasta", -- fix block paste for Neovim
 			"tpope/vim-commentary", -- gc<motion> to (un)comment
