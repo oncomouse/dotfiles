@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=liskin-media
+Comment=Liskin Media MPRIS Status Server
+Exec=/bin/sh -c "~/.local/bin/lm-autostart.sh"
+Terminal=false
+Type=Application

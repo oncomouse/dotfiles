@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=redshift
 Comment=Redshift
-Exec=/usr/bin/redshift
+TryExec=/usr/bin/redshift
+Exec=/bin/sh -c "/usr/bin/pkill redshift; /usr/bin/redshift"
 Terminal=false
 Type=Application

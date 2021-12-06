@@ -8,11 +8,6 @@ xrdb -merge ~/.cache/wal/dmenu.Xresources
 convert ~/.cache/wal/background.svg ~/.cache/wal/background.png
 hsetroot -tile ~/.cache/wal/background.png
 
-if [ "$DOTFILES_TARGET" != "laptop" ]; then
-	pkill -f liskin-media
-	liskin-media mpris-daemon &
-fi
-
 dunst&
 
 pkill dwmblocks
