@@ -46,7 +46,7 @@ def message(msg, output="info"):
 if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     # Make a vim dir to add to &runtimepath:
     message("Configuring Vim")
-    lushwal_path = Path("{}/.config/nvim/lua/lushwal/cached.lua".format(home))
+    lushwal_path = Path("{}/.config/nvim/lua/lushwal/cached.vim".format(home))
     if lushwal_path.exists():
         lushwal_path.unlink()
     if which("dunst") is not None:
