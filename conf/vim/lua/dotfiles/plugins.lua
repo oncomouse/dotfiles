@@ -12,9 +12,9 @@ return require("packer").startup({
 					vim.g.lushwal_configuration = {
 						addons = {
 							indent_blankline_nvim = true,
-						}
+						},
 					}
-				end
+				end,
 			},
 			{ "wbthomason/packer.nvim", opt = true },
 			"sickill/vim-pasta", -- fix block paste for Neovim
@@ -269,7 +269,7 @@ return require("packer").startup({
 				config = function()
 					require("indent_blankline").setup({
 						buftype_exclude = { "terminal" },
-						filetype_exclude = { "diff", "gina-status", "help", "markdown", "packer", "qf", "lsp-installer", },
+						filetype_exclude = { "diff", "gina-status", "help", "markdown", "packer", "qf", "lsp-installer" },
 						show_current_context = true,
 						context_patterns = { "class", "function", "method", "^if", "table", "^for", "^while" },
 						show_current_context_start = true,
