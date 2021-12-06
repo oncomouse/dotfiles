@@ -193,13 +193,6 @@ return require("packer").startup({
 						context_commentstring = {
 							enable = true,
 						},
-						textsubjects = {
-							enable = true,
-							keymaps = {
-								["."] = "textsubjects-smart",
-								[";"] = "textsubjects-container-outer",
-							},
-						},
 						playground = {
 							enable = true,
 							disable = {},
@@ -243,7 +236,6 @@ return require("packer").startup({
 							"vim",
 						},
 					},
-					"RRethy/nvim-treesitter-textsubjects",
 				},
 			}, -- Treesitter-based Syntax
 			-- Non-Treesitter Syntax:
