@@ -6,7 +6,7 @@ return require("packer").startup({
 		use({
 			-- Colorschemes:
 			{
-				"oncomouse/lushwal",
+				"oncomouse/lushwal.nvim",
 				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 				config = function()
 					vim.g.lushwal_configuration = {
