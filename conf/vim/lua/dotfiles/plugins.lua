@@ -8,6 +8,13 @@ return require("packer").startup({
 			{
 				"oncomouse/lushwal",
 				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
+				config = function()
+					vim.g.lushwal_configuration = {
+						addons = {
+							indent_blankline_nvim = true,
+						}
+					}
+				end
 			},
 			{ "wbthomason/packer.nvim", opt = true },
 			"sickill/vim-pasta", -- fix block paste for Neovim
