@@ -4,18 +4,6 @@ vim.g.dotfiles_ts_playground = false -- Load playground
 return require("packer").startup({
 	function(use)
 		use({
-			-- Colorschemes:
-			{
-				"oncomouse/lushwal.nvim",
-				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
-				config = function()
-					vim.g.lushwal_configuration = {
-						addons = {
-							indent_blankline_nvim = true,
-						},
-					}
-				end,
-			},
 			{ "wbthomason/packer.nvim", opt = true },
 			"sickill/vim-pasta", -- fix block paste for Neovim
 			"tpope/vim-commentary", -- gc<motion> to (un)comment
@@ -283,6 +271,18 @@ return require("packer").startup({
 					end)
 				end,
 				ft = { "markdown" },
+			},
+			-- Colorschemes:
+			{
+				"oncomouse/lushwal.nvim",
+				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
+				config = function()
+					vim.g.lushwal_configuration = {
+						addons = {
+							indent_blankline_nvim = true,
+						},
+					}
+				end,
 			},
 		})
 	end,
