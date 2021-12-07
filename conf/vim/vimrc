@@ -99,7 +99,7 @@ if has('mac') || exists('$DISPLAY') || exists('$WAYLAND-DISPLAY')
 	let &t_8b='<Esc>[48;2;%lu;%lu;%lum'
 	set termguicolors
 
-	lua << EOF
+	lua<<EOF
 	vim.g.lushwal_configuration = {
 		addons = {
 			indent_blankline_nvim = true,

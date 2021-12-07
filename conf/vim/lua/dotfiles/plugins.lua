@@ -274,7 +274,7 @@ return require("packer").startup({
 			},
 			-- Colorschemes:
 			{
-				"~/Projects/lushwal.nvim",
+				"oncomouse/lushwal.vim",
 				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 			},
 		})
