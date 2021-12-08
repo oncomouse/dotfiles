@@ -318,6 +318,15 @@ return require("packer").startup({
 				end,
 				ft = { "markdown" },
 			},
+			{
+				"phaazon/hop.nvim",
+				branch = "v1", -- optional but strongly recommended
+				config = function()
+					-- you can configure Hop the way you like here; see :h hop-config
+					-- require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+				end,
+			},
+			'ggandor/lightspeed.nvim',
 			-- Colorschemes:
 			{
 				"oncomouse/lushwal.nvim",
@@ -325,10 +334,12 @@ return require("packer").startup({
 				config = function()
 					vim.g.lushwal_configuration = {
 						addons = {
-							nvim_cmp = true,
+							hop_nvim = true, -- Check
+							lightspeed_nvim = true, -- Check
+							nvim_cmp = true, -- Check
 							indent_blankline_nvim = true,
 							markdown = true,
-							telescope_nvim = true,
+							telescope_nvim = true, -- Check
 						},
 					}
 				end,
