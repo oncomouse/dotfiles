@@ -99,6 +99,10 @@ return require("packer").startup({
 				end,
 			}, -- Git support
 			{
+				"nvim-telescope/telescope.nvim",
+				requires = { { "nvim-lua/plenary.nvim" } },
+			},
+			{
 				"hrsh7th/vim-vsnip",
 				event = "VimEnter",
 				config = function()
@@ -321,9 +325,10 @@ return require("packer").startup({
 				config = function()
 					vim.g.lushwal_configuration = {
 						addons = {
-							cmp_nvim = true,
+							nvim_cmp = true,
 							indent_blankline_nvim = true,
 							markdown = true,
+							telescope_nvim = true,
 						},
 					}
 				end,
