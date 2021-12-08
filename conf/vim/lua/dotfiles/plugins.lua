@@ -326,7 +326,11 @@ return require("packer").startup({
 					-- require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 				end,
 			},
-			'ggandor/lightspeed.nvim',
+			"ggandor/lightspeed.nvim",
+			{
+				"romgrk/barbar.nvim",
+				requires = { "kyazdani42/nvim-web-devicons" },
+			},
 			-- Colorschemes:
 			{
 				"oncomouse/lushwal.nvim",
