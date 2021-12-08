@@ -143,12 +143,11 @@ return require("packer").startup({
 							["<C-y>"] = cmp.mapping.confirm({ select = true }),
 						},
 						sources = {
-							-- For luasnip user.
 							{ name = "nvim_lsp" },
 							{ name = "vsnip" },
 						},
 						completion = {
-							autocomplete = false,
+							autocomplete = true,
 						},
 					})
 					vim.cmd([[autocmd FileType markdown lua require'cmp'.setup.buffer {
@@ -199,6 +198,17 @@ return require("packer").startup({
 					require("dotfiles.nvim_lsp")
 				end,
 			}, -- LSP
+			{
+				"folke/trouble.nvim",
+				requires = "kyazdani42/nvim-web-devicons",
+				config = function()
+					require("trouble").setup({
+						-- your configuration comes here
+						-- or leave it empty to use the default settings
+						-- refer to the configuration section below
+					})
+				end,
+			},
 			{
 				"nvim-treesitter/nvim-treesitter",
 				run = function()
@@ -338,10 +348,12 @@ return require("packer").startup({
 				config = function()
 					vim.g.lushwal_configuration = {
 						addons = {
+							barbar = true, -- Check
 							hop_nvim = true, -- Check
 							lightspeed_nvim = true, -- Check
 							nvim_cmp = true, -- Check
 							indent_blankline_nvim = true,
+							lsp_trouble_nvim = true, -- Check
 							markdown = true,
 							telescope_nvim = true, -- Check
 						},
