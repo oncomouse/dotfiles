@@ -274,8 +274,16 @@ return require("packer").startup({
 			},
 			-- Colorschemes:
 			{
-				"oncomouse/lushwal.vim",
+				"oncomouse/lushwal.nvim",
 				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
+				config = function()
+					vim.g.lushwal_configuration = {
+						addons = {
+							indent_blankline_nvim = true,
+							markdown = true,
+						},
+					}
+				end,
 			},
 		})
 	end,
