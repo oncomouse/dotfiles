@@ -115,6 +115,47 @@ return require("packer").startup({
 				},
 			}, -- Snippets
 			{
+				"hrsh7th/nvim-cmp",
+				requires = {
+					"hrsh7th/cmp-nvim-lsp",
+					"hrsh7th/cmp-vsnip",
+				},
+				config = function()
+					local cmp = require("cmp")
+					cmp.setup({
+						snippet = {
+							expand = function(args)
+								vim.fn["vsnip#anonymous"](args.body)
+							end,
+						},
+						mapping = {
+							["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+							["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+							["<C-d>"] = cmp.mapping.scroll_docs(-4),
+							["<C-f>"] = cmp.mapping.scroll_docs(4),
+							["<C-x><C-u>"] = cmp.mapping.complete(),
+							["<C-c>"] = cmp.mapping.abort(),
+							["<C-e>"] = cmp.mapping.close(),
+							["<C-y>"] = cmp.mapping.confirm({ select = true }),
+						},
+						sources = {
+							-- For luasnip user.
+							{ name = "nvim_lsp" },
+							{ name = "vsnip" },
+						},
+						completion = {
+							autocomplete = false,
+						},
+					})
+					vim.cmd([[autocmd FileType markdown lua require'cmp'.setup.buffer {
+				\   sources = {
+				\     { name = 'vsnip' },
+				\     { name = 'omni' },
+				\   },
+				\ }]])
+				end,
+			}, -- Completion
+			{
 				"neovim/nvim-lspconfig",
 				requires = {
 					{ "williamboman/nvim-lsp-installer", module = "nvim-lsp-installer" },
@@ -129,6 +170,7 @@ return require("packer").startup({
 						ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 					},
 				},
+				after = { "nvim-cmp" },
 				ft = {
 					"css",
 					"fish",
