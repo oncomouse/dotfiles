@@ -358,6 +358,7 @@ return require("packer").startup({
 							gitsigns_nvim = true,
 							hop_nvim = true,
 							indent_blankline_nvim = true,
+							lightline = true,
 							lightspeed_nvim = true,
 							lspsaga_nvim = true,
 							lsp_trouble_nvim = true,
