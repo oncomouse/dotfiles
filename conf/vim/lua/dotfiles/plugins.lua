@@ -338,9 +338,12 @@ return require("packer").startup({
 			},
 			"ggandor/lightspeed.nvim",
 			{
-				"romgrk/barbar.nvim",
-				requires = { "kyazdani42/nvim-web-devicons" },
+				"itchyny/lightline.vim",
 			},
+			-- {
+			-- 	"romgrk/barbar.nvim",
+			-- 	requires = { "kyazdani42/nvim-web-devicons" },
+			-- },
 			-- Colorschemes:
 			{
 				"~/Projects/lushwal.nvim",
