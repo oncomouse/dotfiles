@@ -343,19 +343,40 @@ return require("packer").startup({
 			},
 			-- Colorschemes:
 			{
-				"oncomouse/lushwal.nvim",
+				"~/Projects/lushwal.nvim",
 				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 				config = function()
 					vim.g.lushwal_configuration = {
+						compile_to_vimscript = false,
 						addons = {
-							barbar = true, -- Check
-							hop_nvim = true, -- Check
-							lightspeed_nvim = true, -- Check
-							nvim_cmp = true, -- Check
+							ale = true,
+							barbar = true,
+							bufferline_nvim = true,
+							coc_nvim = true,
+							dashboard_nvim = true,
+							fern_vim = true,
+							gitsigns_nvim = true,
+							hop_nvim = true,
 							indent_blankline_nvim = true,
-							lsp_trouble_nvim = true, -- Check
+							lightspeed_nvim = true,
+							lspsaga_nvim = true,
+							lsp_trouble_nvim = true,
 							markdown = true,
-							telescope_nvim = true, -- Check
+							native_lsp = true,
+							neogit = true,
+							neomake = true,
+							nerdtree = true,
+							nvim_cmp = true,
+							nvim_tree_lua = true,
+							nvim_ts_rainbow = true,
+							semshi = true,
+							telescope_nvim = true,
+							treesitter = true,
+							vim_dirvish = true,
+							vim_gitgutter = true,
+							vim_signify = true,
+							vim_sneak = true,
+							which_key_nvim = true,
 						},
 					}
 				end,
