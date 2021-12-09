@@ -339,6 +339,11 @@ return require("packer").startup({
 			"ggandor/lightspeed.nvim",
 			{
 				"itchyny/lightline.vim",
+				config = function()
+					vim.g.lightline = {
+						colorscheme = "lushwal",
+					}
+				end
 			},
 			-- {
 			-- 	"romgrk/barbar.nvim",
@@ -350,7 +355,7 @@ return require("packer").startup({
 				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 				config = function()
 					vim.g.lushwal_configuration = {
-						compile_to_vimscript = false,
+						compile_to_vimscript = true,
 						addons = {
 							ale = true,
 							barbar = true,
