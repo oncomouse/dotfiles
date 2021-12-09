@@ -338,11 +338,9 @@ return require("packer").startup({
 			},
 			"ggandor/lightspeed.nvim",
 			{
-				"itchyny/lightline.vim",
+				"nvim-lualine/lualine.nvim",
 				config = function()
-					vim.g.lightline = {
-						colorscheme = "lushwal",
-					}
+					require('lualine').setup()
 				end
 			},
 			-- {
@@ -366,10 +364,11 @@ return require("packer").startup({
 							gitsigns_nvim = true,
 							hop_nvim = true,
 							indent_blankline_nvim = true,
-							lightline = true,
+							lightline = false,
 							lightspeed_nvim = true,
 							lspsaga_nvim = true,
 							lsp_trouble_nvim = true,
+							lualine_nvim = true,
 							markdown = true,
 							native_lsp = true,
 							neogit = true,
