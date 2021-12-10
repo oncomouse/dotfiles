@@ -99,10 +99,6 @@ return require("packer").startup({
 				end,
 			}, -- Git support
 			{
-				"nvim-telescope/telescope.nvim",
-				requires = { { "nvim-lua/plenary.nvim" } },
-			},
-			{
 				"hrsh7th/vim-vsnip",
 				event = "VimEnter",
 				config = function()
@@ -118,46 +114,46 @@ return require("packer").startup({
 					{ "edheltzel/vscode-jekyll-snippets", ft = { "markdown", "html" } }, -- Jekyll Snippets
 				},
 			}, -- Snippets
-			{
-				"hrsh7th/nvim-cmp",
-				requires = {
-					"hrsh7th/cmp-nvim-lsp",
-					"hrsh7th/cmp-vsnip",
-				},
-				config = function()
-					local cmp = require("cmp")
-					cmp.setup({
-						snippet = {
-							expand = function(args)
-								vim.fn["vsnip#anonymous"](args.body)
-							end,
-						},
-						mapping = {
-							["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-							["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-							["<C-d>"] = cmp.mapping.scroll_docs(-4),
-							["<C-f>"] = cmp.mapping.scroll_docs(4),
-							["<C-x><C-u>"] = cmp.mapping.complete(),
-							["<C-c>"] = cmp.mapping.abort(),
-							["<C-e>"] = cmp.mapping.close(),
-							["<C-y>"] = cmp.mapping.confirm({ select = true }),
-						},
-						sources = {
-							{ name = "nvim_lsp" },
-							{ name = "vsnip" },
-						},
-						completion = {
-							autocomplete = true,
-						},
-					})
-					vim.cmd([[autocmd FileType markdown lua require'cmp'.setup.buffer {
-				\   sources = {
-				\     { name = 'vsnip' },
-				\     { name = 'omni' },
-				\   },
-				\ }]])
-				end,
-			}, -- Completion
+			-- {
+			-- 	"hrsh7th/nvim-cmp",
+			-- 	requires = {
+			-- 		"hrsh7th/cmp-nvim-lsp",
+			-- 		"hrsh7th/cmp-vsnip",
+			-- 	},
+			-- 	config = function()
+			-- 		local cmp = require("cmp")
+			-- 		cmp.setup({
+			-- 			snippet = {
+			-- 				expand = function(args)
+			-- 					vim.fn["vsnip#anonymous"](args.body)
+			-- 				end,
+			-- 			},
+			-- 			mapping = {
+			-- 				["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+			-- 				["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+			-- 				["<C-d>"] = cmp.mapping.scroll_docs(-4),
+			-- 				["<C-f>"] = cmp.mapping.scroll_docs(4),
+			-- 				["<C-x><C-u>"] = cmp.mapping.complete(),
+			-- 				["<C-c>"] = cmp.mapping.abort(),
+			-- 				["<C-e>"] = cmp.mapping.close(),
+			-- 				["<C-y>"] = cmp.mapping.confirm({ select = true }),
+			-- 			},
+			-- 			sources = {
+			-- 				{ name = "nvim_lsp" },
+			-- 				{ name = "vsnip" },
+			-- 			},
+			-- 			completion = {
+			-- 				autocomplete = true,
+			-- 			},
+			-- 		})
+			-- 		vim.cmd([[autocmd FileType markdown lua require'cmp'.setup.buffer {
+			-- 	\   sources = {
+			-- 	\     { name = 'vsnip' },
+			-- 	\     { name = 'omni' },
+			-- 	\   },
+			-- 	\ }]])
+			-- 	end,
+			-- }, -- Completion
 			{
 				"neovim/nvim-lspconfig",
 				requires = {
@@ -173,7 +169,7 @@ return require("packer").startup({
 						ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 					},
 				},
-				after = { "nvim-cmp" },
+				-- after = { "nvim-cmp" },
 				ft = {
 					"css",
 					"fish",
@@ -199,17 +195,6 @@ return require("packer").startup({
 				end,
 			}, -- LSP
 			{
-				"folke/trouble.nvim",
-				requires = "kyazdani42/nvim-web-devicons",
-				config = function()
-					require("trouble").setup({
-						-- your configuration comes here
-						-- or leave it empty to use the default settings
-						-- refer to the configuration section below
-					})
-				end,
-			},
-			{
 				"nvim-treesitter/nvim-treesitter",
 				run = function()
 					vim.cmd([[TSUpdate]])
@@ -222,6 +207,7 @@ return require("packer").startup({
 						highlight = { enable = true },
 						-- indent = { enable = true },
 						autotag = { enable = true },
+						rainbow = { enable = true },
 						textobjects = {
 							select = {
 								enable = true,
@@ -264,6 +250,7 @@ return require("packer").startup({
 							return vim.g.dotfiles_ts_playground or false
 						end,
 					},
+					{ "p00f/nvim-ts-rainbow" },
 					{ "nvim-treesitter/nvim-treesitter-textobjects" },
 					{ "windwp/nvim-ts-autotag", ft = { "html", "javascript", "javascriptreact" } },
 					{
@@ -305,7 +292,16 @@ return require("packer").startup({
 				config = function()
 					require("indent_blankline").setup({
 						buftype_exclude = { "terminal" },
-						filetype_exclude = { "diff", "gina-status", "help", "markdown", "packer", "qf", "lsp-installer" },
+						filetype_exclude = {
+							"dashboard",
+							"diff",
+							"gina-status",
+							"help",
+							"lsp-installer",
+							"markdown",
+							"packer",
+							"qf",
+						},
 						show_current_context = true,
 						context_patterns = { "class", "function", "method", "^if", "table", "^for", "^while" },
 						show_current_context_start = true,
@@ -328,25 +324,55 @@ return require("packer").startup({
 				end,
 				ft = { "markdown" },
 			},
-			{
-				"phaazon/hop.nvim",
-				branch = "v1", -- optional but strongly recommended
-				config = function()
-					-- you can configure Hop the way you like here; see :h hop-config
-					-- require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-				end,
-			},
-			"ggandor/lightspeed.nvim",
-			{
-				"nvim-lualine/lualine.nvim",
-				config = function()
-					require('lualine').setup()
-				end
-			},
+			-- {
+			-- 	"phaazon/hop.nvim",
+			-- 	branch = "v1", -- optional but strongly recommended
+			-- 	config = function()
+			-- 		-- you can configure Hop the way you like here; see :h hop-config
+			-- 		-- require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+			-- 	end,
+			-- },
+			-- "ggandor/lightspeed.nvim",
+			-- {
+			-- 	"nvim-lualine/lualine.nvim",
+			-- 	config = function()
+			-- 		require('lualine').setup()
+			-- 	end
+			-- },
 			-- {
 			-- 	"romgrk/barbar.nvim",
 			-- 	requires = { "kyazdani42/nvim-web-devicons" },
 			-- },
+			-- {
+			-- 	"folke/trouble.nvim",
+			-- 	requires = "kyazdani42/nvim-web-devicons",
+			-- 	config = function()
+			-- 		require("trouble").setup({
+			-- 			-- your configuration comes here
+			-- 			-- or leave it empty to use the default settings
+			-- 			-- refer to the configuration section below
+			-- 		})
+			-- 	end,
+			-- },
+			{
+				"nvim-telescope/telescope.nvim",
+				requires = { { "nvim-lua/plenary.nvim" } },
+			},
+			{
+				"glepnir/dashboard-nvim",
+				config = function()
+					vim.g.dashboard_default_executive = "telescope"
+				end,
+			},
+			{
+				"kyazdani42/nvim-tree.lua",
+				requires = {
+					"kyazdani42/nvim-web-devicons", -- optional, for file icon
+				},
+				config = function()
+					require("nvim-tree").setup({})
+				end,
+			},
 			-- Colorschemes:
 			{
 				"~/Projects/lushwal.nvim",
@@ -355,36 +381,37 @@ return require("packer").startup({
 					vim.g.lushwal_configuration = {
 						compile_to_vimscript = true,
 						addons = {
-							ale = true,
-							barbar = true,
 							bufferline_nvim = true,
-							coc_nvim = true,
-							dashboard_nvim = true,
 							fern_vim = true,
 							gitsigns_nvim = true,
-							hop_nvim = true,
-							indent_blankline_nvim = true,
-							lightline = false,
-							lightspeed_nvim = true,
 							lspsaga_nvim = true,
-							lsp_trouble_nvim = true,
-							lualine_nvim = true,
-							markdown = true,
-							native_lsp = true,
 							neogit = true,
 							neomake = true,
 							nerdtree = true,
-							nvim_cmp = true,
-							nvim_tree_lua = true,
-							nvim_ts_rainbow = true,
-							semshi = true,
-							telescope_nvim = true,
-							treesitter = true,
 							vim_dirvish = true,
 							vim_gitgutter = true,
 							vim_signify = true,
 							vim_sneak = true,
 							which_key_nvim = true,
+
+							ale = true, -- Check
+							barbar = true, -- Check
+							dashboard_nvim = true, -- Check
+							coc_nvim = true, -- Check
+							hop_nvim = true, -- Check
+							indent_blankline_nvim = true, -- Check
+							lightline = false, -- Check
+							lightspeed_nvim = true, -- Check
+							lsp_trouble_nvim = true, -- Check
+							lualine = true, -- Check
+							markdown = true, -- Check
+							native_lsp = true, -- Check
+							nvim_cmp = true, -- Check
+							nvim_tree_lua = true, -- Check
+							nvim_ts_rainbow = true, -- Check
+							semshi = true, -- Check
+							telescope_nvim = true, -- Check
+							treesitter = true, -- Check
 						},
 					}
 				end,

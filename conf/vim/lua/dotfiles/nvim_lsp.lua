@@ -113,7 +113,8 @@ local function show_documentation()
 	end
 end
 
-local cmp_capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local vscode_capabilities = vim.lsp.protocol.make_client_capabilities()
+vscode_capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = function(client, _)
 	-- Update codeLens:
@@ -221,17 +222,19 @@ end
 
 lspconfig["null-ls"].setup({
 	on_attach = on_attach,
-	capabilities = cmp_capabilities,
 })
 for lsp, settings in pairs(servers) do
 	local opts = {
 		on_attach = on_attach,
-		capabilities = cmp_capabilities,
 	}
 	if #vim.tbl_keys(settings) > 0 then
 		opts = vim.tbl_extend("keep", opts, settings)
 	end
+	local snippet_provider = vim.tbl_contains(servers[lsp].provides or {}, "snippets")
 	local diagnostic_provider = vim.tbl_contains(servers[lsp].provides or {}, "diagnostics")
+	if snippet_provider then
+		opts.capabilities = vscode_capabilities
+	end
 	if not diagnostic_provider then
 		opts.handlers = handler_no_diagnostics
 	end
