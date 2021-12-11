@@ -13,6 +13,9 @@ local servers = {
 		},
 	},
 	sumneko_lua = {
+		provides = {
+			"snippets",
+		},
 		settings = {
 			Lua = {
 				runtime = {
