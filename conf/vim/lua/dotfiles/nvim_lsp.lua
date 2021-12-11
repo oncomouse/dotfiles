@@ -225,6 +225,7 @@ end
 
 lspconfig["null-ls"].setup({
 	on_attach = on_attach,
+	capabilities = vscode_capabilities,
 })
 for lsp, settings in pairs(servers) do
 	local opts = {

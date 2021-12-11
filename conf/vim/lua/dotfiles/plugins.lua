@@ -108,9 +108,6 @@ return require("packer").startup({
 					map.smap("<expr>", "<Tab>", "vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'")
 					map.imap("<expr>", "<S-Tab>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'")
 					map.smap("<expr>", "<S-Tab>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'")
-
-					-- Expand snippets that come from the omnifunc:
-					vim.cmd("autocmd dotfiles-settings CompleteDone * call vsnip#expand()")
 				end,
 				requires = {
 					{ "rafamadriz/friendly-snippets", after = { "vim-vsnip" } }, -- Base Snippets

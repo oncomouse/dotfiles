@@ -9,10 +9,27 @@ return h.make_builtin({
 	name = "vsnip",
 	generator = {
 		fn = function(params, done)
+			print(vim.inspect(params))
 			local items = {}
 			local snips = vim.fn["vsnip#get_complete_items"](params.bufnr)
 			for _, item in ipairs(snips) do
 				local user_data = vim.fn.json_decode(item.user_data)
+
+				local snippet = table.concat(user_data.vsnip.snippet, "\n")
+				local textEdit = {
+					range = {
+						start = {
+							line = params.row,
+							character = params.col,
+						},
+						["end"] = {
+							line = params.row,
+							character = params.col,
+						},
+					},
+					newText = snippet,
+				}
+				print(vim.inspect(textEdit))
 
 				-- Extract snippet description (adapted from cmp-vsnip):
 				local documentation = {}
@@ -28,6 +45,8 @@ return h.make_builtin({
 					label = item.abbr,
 					detail = item.menu,
 					kind = vim.lsp.protocol.CompletionItemKind.Snippet,
+					textEdit = textEdit,
+					insertTextFormat = vim.lsp.protocol.InsertTextFormat.Snippet,
 					documentation = {
 						value = documentation,
 						kind = vim.lsp.protocol.MarkupKind.Markdown,
