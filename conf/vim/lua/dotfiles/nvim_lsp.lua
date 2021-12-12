@@ -66,6 +66,15 @@ local servers = {
 		flags = {
 			debounce_text_changes = 500,
 		},
+		init_options = {
+			isNeovim = true,
+			diagnostic = {
+				enable = false,
+			},
+		},
+		provides = {
+			"snippets",
+		}
 	},
 	bashls = {
 		flags = {
