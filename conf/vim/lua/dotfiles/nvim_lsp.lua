@@ -166,6 +166,9 @@ local on_attach = function(client, _)
 	-- local snippet_provider = vim.tbl_contains(servers[client.name].provides or {}, "snippets")
 	local diagnostic_provider = vim.tbl_contains(servers[client.name].provides or {}, "diagnostics")
 	local formatting_provider = vim.tbl_contains(servers[client.name].provides or {}, "formatting")
+	-- if snippet_provider then
+	-- 	vim.cmd([[packadd packer.nvim | lua require("packer").loader("vim-vsnip-integ")]])
+	-- end
 	if diagnostic_provider then
 		vim.cmd(
 			[[ autocmd! dotfiles-settings DiagnosticChanged <buffer> lua vim.diagnostic.setloclist({ open = false }) ]]
