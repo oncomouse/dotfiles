@@ -94,15 +94,6 @@ local servers = {
 			debounce_text_changes = 500,
 		},
 	},
-	["rust_analyzer"] = {
-		provides = {
-			"diagnostics",
-			"formatting",
-		},
-		flags = {
-			debounce_text_changes = 500,
-		},
-	},
 }
 
 local lspconfig = require("lspconfig")

@@ -178,7 +178,6 @@ return require("packer").startup({
 					"markdown",
 					"python",
 					"ruby",
-					"rust",
 					"scss",
 					"sh",
 					"typescript",
