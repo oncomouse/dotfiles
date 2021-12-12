@@ -8,6 +8,7 @@ nnoremap <buffer> <silent> <leader>cc :call ToggleConcealLevel()<CR>
 compiler markdown_combo
 
 setlocal iskeyword+=',-,@-@
+setlocal omnifunc=bibliography_omnifunc#omnifunc
 
 " Pandoc <format> to compile documents quickly and easily:
 command! -nargs=1 Pandoc exe '!pandoc -i ' . fnameescape(expand('%')) . ' -o ' . fnameescape(expand('%:r')) . '.<args>'

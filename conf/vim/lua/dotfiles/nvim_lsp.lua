@@ -125,7 +125,7 @@ local on_attach = function(client, _)
 		vim.api.nvim_command([[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]])
 	end
 	-- Use C+x C+o for completion:
-	vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
+	-- vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
 	map.nnoremap("<silent><buffer>", "<leader>s", function()
 		vim.lsp.buf.document_symbol()
 	end)
@@ -163,12 +163,9 @@ local on_attach = function(client, _)
 		vim.lsp.buf.signature_help()
 	end)
 	map.nnoremap("<silent><buffer>", "<F5>", ":<CR>")
-	local snippet_provider = vim.tbl_contains(servers[client.name].provides or {}, "snippets")
+	-- local snippet_provider = vim.tbl_contains(servers[client.name].provides or {}, "snippets")
 	local diagnostic_provider = vim.tbl_contains(servers[client.name].provides or {}, "diagnostics")
 	local formatting_provider = vim.tbl_contains(servers[client.name].provides or {}, "formatting")
-	if snippet_provider then
-		vim.cmd([[packadd packer.nvim | lua require("packer").loader("vim-vsnip-integ")]])
-	end
 	if diagnostic_provider then
 		vim.cmd(
 			[[ autocmd! dotfiles-settings DiagnosticChanged <buffer> lua vim.diagnostic.setloclist({ open = false }) ]]

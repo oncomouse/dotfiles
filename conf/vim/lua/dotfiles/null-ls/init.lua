@@ -41,8 +41,6 @@ require("null-ls").config({
 		require("dotfiles.null-ls.builtins.diagnostics.semistandard"),
 		require("dotfiles.null-ls.builtins.diagnostics.yamllint"),
 		require("dotfiles.null-ls.builtins.completion.bibtex"),
-		-- require("null-ls").builtins.completion.vsnip,
-		require("dotfiles.null-ls.builtins.completion.vsnip"),
 		require("dotfiles.null-ls.builtins.hover.bibtex"),
 		require("dotfiles.null-ls.builtins.hover.dictionary"),
 	},

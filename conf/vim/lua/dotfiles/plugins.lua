@@ -108,6 +108,9 @@ return require("packer").startup({
 					map.smap("<expr>", "<Tab>", "vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'")
 					map.imap("<expr>", "<S-Tab>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'")
 					map.smap("<expr>", "<S-Tab>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'")
+					vim.cmd(
+						"autocmd dotfiles-settings CompleteDone * if vsnip#available(1) | call vsnip#expand() | endif"
+					)
 				end,
 				requires = {
 					{ "rafamadriz/friendly-snippets", after = { "vim-vsnip" } }, -- Base Snippets
@@ -115,10 +118,44 @@ return require("packer").startup({
 				},
 			}, -- Snippets
 			{
+				"hrsh7th/nvim-cmp",
+				requires = {
+					"hrsh7th/cmp-nvim-lsp",
+					"hrsh7th/cmp-vsnip",
+				},
+				config = function()
+					local cmp = require("cmp")
+					cmp.setup({
+						snippet = {
+							expand = function(args)
+								vim.fn["vsnip#anonymous"](args.body)
+							end,
+						},
+						mapping = {
+							["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+							["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+							["<C-d>"] = cmp.mapping.scroll_docs(-4),
+							["<C-f>"] = cmp.mapping.scroll_docs(4),
+							["<C-x><C-o>"] = cmp.mapping.complete(),
+							["<C-c>"] = cmp.mapping.abort(),
+							["<C-e>"] = cmp.mapping.close(),
+							["<C-y>"] = cmp.mapping.confirm({ select = true }),
+						},
+						sources = {
+							{ name = "nvim_lsp" },
+							{ name = "vsnip" },
+						},
+						completion = {
+							autocomplete = false,
+						},
+					})
+				end,
+			}, -- Completion
+			{
 				"neovim/nvim-lspconfig",
 				requires = {
 					{ "williamboman/nvim-lsp-installer", module = "nvim-lsp-installer" },
-					{ "hrsh7th/vim-vsnip-integ", opt = true, requires = { "vim-vsnip" } },
+					-- { "hrsh7th/vim-vsnip-integ", opt = true, requires = { "vim-vsnip" } },
 					{
 						"jose-elias-alvarez/null-ls.nvim",
 						module = "null-ls",
