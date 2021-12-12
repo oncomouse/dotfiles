@@ -140,6 +140,7 @@ return require("packer").startup({
 							["<C-c>"] = cmp.mapping.abort(),
 							["<C-e>"] = cmp.mapping.close(),
 							["<C-y>"] = cmp.mapping.confirm({ select = true }),
+							["<Tab>"] = cmp.mapping.confirm({ select = true }),
 						},
 						sources = {
 							{ name = "nvim_lsp" },
