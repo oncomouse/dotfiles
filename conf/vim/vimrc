@@ -75,8 +75,8 @@ vnoremap < <gv
 vnoremap > >gv
 
 " When text is wrapped, move by terminal rows, not lines, unless a count is provided
-" noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-" noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+nnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 " Paste replace visual selection without copying it
 vnoremap <leader>p "_dP
