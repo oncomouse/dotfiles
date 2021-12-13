@@ -74,7 +74,7 @@ local servers = {
 		},
 		provides = {
 			"snippets",
-		}
+		},
 	},
 	bashls = {
 		flags = {
@@ -96,8 +96,6 @@ local servers = {
 	},
 }
 
-local lspconfig = require("lspconfig")
-require("dotfiles.null-ls") -- Has to be loaded before nvim-lsp-installer (for reasons?)
 local lsp_installer_servers = require("nvim-lsp-installer.servers")
 local map = require("dotfiles.utils.map")
 
@@ -223,27 +221,71 @@ local on_attach = function(client, _)
 	end
 end
 
-lspconfig["null-ls"].setup({
+require("null-ls").setup({
 	on_attach = on_attach,
-	capabilities = vscode_capabilities,
+	sources = {
+		require("null-ls").builtins.formatting.prettier.with({
+			extra_args = { "--use-tabs" },
+			filetypes = {
+				"vue",
+				"svelte",
+				"css",
+				"scss",
+				"less",
+				"html",
+				"json",
+				"markdown",
+				"graphql",
+			},
+			prefer_local = "node_modules/.bin",
+		}),
+		require("null-ls").builtins.formatting.prettier.with({
+			filetypes = {
+				"yaml",
+			},
+			prefer_local = "node_modules/.bin",
+		}),
+		require("null-ls").builtins.formatting.stylua,
+		require("null-ls").builtins.formatting.black.with({
+			extra_args = { "-l", "79" }, -- PEP8 line lengths
+		}),
+		require("null-ls").builtins.formatting.reorder_python_imports,
+		require("null-ls").builtins.formatting.fish_indent,
+		require("null-ls").builtins.formatting.shfmt,
+		require("null-ls").builtins.formatting.rubocop,
+		require("null-ls").builtins.formatting.standardrb,
+		require("dotfiles.null-ls.builtins.formatting.semistandard"),
+		require("null-ls").builtins.diagnostics.shellcheck,
+		require("null-ls").builtins.diagnostics.luacheck,
+		require("null-ls").builtins.diagnostics.flake8,
+		require("null-ls").builtins.diagnostics.vint,
+		require("null-ls").builtins.diagnostics.rubocop,
+		require("null-ls").builtins.diagnostics.standardrb,
+		require("dotfiles.null-ls.builtins.diagnostics.semistandard"),
+		require("dotfiles.null-ls.builtins.diagnostics.yamllint"),
+		-- require("null-ls").builtins.completion.vsnip,
+		require("dotfiles.null-ls.builtins.completion.bibtex"),
+		require("dotfiles.null-ls.builtins.hover.bibtex"),
+		require("dotfiles.null-ls.builtins.hover.dictionary"),
+	},
 })
 for lsp, settings in pairs(servers) do
-	local opts = {
-		on_attach = on_attach,
-	}
-	if #vim.tbl_keys(settings) > 0 then
-		opts = vim.tbl_extend("keep", opts, settings)
-	end
-	local snippet_provider = vim.tbl_contains(servers[lsp].provides or {}, "snippets")
-	local diagnostic_provider = vim.tbl_contains(servers[lsp].provides or {}, "diagnostics")
-	if snippet_provider then
-		opts.capabilities = vscode_capabilities
-	end
-	if not diagnostic_provider then
-		opts.handlers = handler_no_diagnostics
-	end
 	local ok, lsp_server = lsp_installer_servers.get_server(lsp)
 	if ok then
+		local opts = {
+			on_attach = on_attach,
+		}
+		if #vim.tbl_keys(settings) > 0 then
+			opts = vim.tbl_extend("keep", opts, settings)
+		end
+		local snippet_provider = vim.tbl_contains(servers[lsp].provides or {}, "snippets")
+		local diagnostic_provider = vim.tbl_contains(servers[lsp].provides or {}, "diagnostics")
+		if snippet_provider then
+			opts.capabilities = vscode_capabilities
+		end
+		if not diagnostic_provider then
+			opts.handlers = handler_no_diagnostics
+		end
 		lsp_server:on_ready(function()
 			lsp_server:setup(opts)
 		end)
