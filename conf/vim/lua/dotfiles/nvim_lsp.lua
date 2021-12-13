@@ -225,6 +225,7 @@ require("null-ls").setup({
 	on_attach = on_attach,
 	sources = {
 		require("null-ls").builtins.formatting.prettier.with({
+			update_on_insert = false,
 			extra_args = { "--use-tabs" },
 			filetypes = {
 				"vue",
