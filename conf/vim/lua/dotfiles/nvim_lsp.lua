@@ -263,10 +263,10 @@ require("null-ls").setup({
 		require("null-ls").builtins.diagnostics.standardrb,
 		require("dotfiles.null-ls.builtins.diagnostics.semistandard"),
 		require("dotfiles.null-ls.builtins.diagnostics.yamllint"),
-		-- require("null-ls").builtins.completion.vsnip,
 		require("dotfiles.null-ls.builtins.completion.bibtex"),
 		require("dotfiles.null-ls.builtins.hover.bibtex"),
-		require("dotfiles.null-ls.builtins.hover.dictionary"),
+		-- require("null-ls").builtins.completion.vsnip,
+		-- require("dotfiles.null-ls.builtins.hover.dictionary"),
 	},
 })
 for lsp, settings in pairs(servers) do
