@@ -114,9 +114,6 @@ local function show_documentation()
 	end
 end
 
-local vscode_capabilities = vim.lsp.protocol.make_client_capabilities()
-vscode_capabilities.textDocument.completion.completionItem.snippetSupport = true
-
 local on_attach = function(client, _)
 	-- Update codeLens:
 	if client.resolved_capabilities.code_lens then
@@ -270,20 +267,25 @@ require("null-ls").setup({
 		-- require("dotfiles.null-ls.builtins.hover.dictionary"),
 	},
 })
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 for lsp, settings in pairs(servers) do
 	local ok, lsp_server = lsp_installer_servers.get_server(lsp)
 	if ok then
 		local opts = {
 			on_attach = on_attach,
+			capabilities = capabilities,
 		}
 		if #vim.tbl_keys(settings) > 0 then
 			opts = vim.tbl_extend("keep", opts, settings)
 		end
-		local snippet_provider = vim.tbl_contains(servers[lsp].provides or {}, "snippets")
+		-- local snippet_provider = vim.tbl_contains(servers[lsp].provides or {}, "snippets")
+		-- if snippet_provider then
+		-- 	opts.capabilities = vscode_capabilities
+		-- end
 		local diagnostic_provider = vim.tbl_contains(servers[lsp].provides or {}, "diagnostics")
-		if snippet_provider then
-			opts.capabilities = vscode_capabilities
-		end
 		if not diagnostic_provider then
 			opts.handlers = handler_no_diagnostics
 		end

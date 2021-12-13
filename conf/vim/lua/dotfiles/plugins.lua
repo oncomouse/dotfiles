@@ -7,9 +7,14 @@ return require("packer").startup({
 			{ "wbthomason/packer.nvim", opt = true },
 			"sickill/vim-pasta", -- fix block paste for Neovim
 			"tpope/vim-commentary", -- gc<motion> to (un)comment
-			"tpope/vim-repeat",
-			"oncomouse/vim-surround", -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-			"wellle/targets.vim", -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
+			{ "oncomouse/vim-surround", requires = { "tpope/vim-repeat" } }, -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
+			{ "wellle/targets.vim", requires = { "tpope/vim-repeat" } }, -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
+			{
+				"monkoose/matchparen.nvim", -- Faster matchparen for Neovim
+				config = function()
+					require("matchparen").setup()
+				end,
+			},
 			{
 				"airblade/vim-rooter",
 				event = "VimEnter",
