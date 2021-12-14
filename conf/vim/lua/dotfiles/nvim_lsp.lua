@@ -262,6 +262,7 @@ require("null-ls").setup({
 		require("dotfiles.null-ls.builtins.diagnostics.semistandard"),
 		require("null-ls").builtins.diagnostics.yamllint,
 		require("dotfiles.null-ls.builtins.completion.bibtex"),
+		require("null-ls").builtins.code_actions.shellcheck,
 		require("dotfiles.null-ls.builtins.hover.bibtex"),
 	},
 })
