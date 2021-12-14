@@ -260,7 +260,7 @@ require("null-ls").setup({
 		require("null-ls").builtins.diagnostics.rubocop,
 		require("null-ls").builtins.diagnostics.standardrb,
 		require("dotfiles.null-ls.builtins.diagnostics.semistandard"),
-		require("dotfiles.null-ls.builtins.diagnostics.yamllint"),
+		require("null-ls").builtins.diagnostics.yamllint,
 		require("dotfiles.null-ls.builtins.completion.bibtex"),
 		require("dotfiles.null-ls.builtins.hover.bibtex"),
 		-- require("null-ls").builtins.completion.vsnip,
