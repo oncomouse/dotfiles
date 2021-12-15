@@ -37,6 +37,10 @@ bindkey '^[q' push-line-or-edit
 # Alt-V: Show the next key combo's terminal code and state what it does.
 bindkey '^[v' describe-key-briefly
 
+# Fish-like UP and DOWN history searching
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 # Alt-Shift-S: Prefix the current or previous command line with `sudo`.
 () {
   bindkey '^[S' $1  # Bind Alt-Shift-S to the widget below.
