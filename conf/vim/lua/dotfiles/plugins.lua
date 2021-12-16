@@ -77,11 +77,11 @@ return require("packer").startup({
 					local ph = vim.opt.previewheight:get()
 					require("fzf-lua").setup({
 						winopts = {
-							height = ph/wh,
+							height = ph / wh,
 							width = 1.0,
 							row = 0.99,
 							col = 0,
-							border = 'none',
+							border = "none",
 						},
 					})
 					vim.cmd([[
@@ -293,7 +293,16 @@ return require("packer").startup({
 				config = function()
 					require("indent_blankline").setup({
 						buftype_exclude = { "terminal" },
-						filetype_exclude = { "diff", "gina-status", "help", "markdown", "packer", "qf", "lsp-installer" },
+						filetype_exclude = {
+							"diff",
+							"fzf",
+							"gina-status",
+							"help",
+							"lsp-installer",
+							"markdown",
+							"packer",
+							"qf",
+						},
 						show_current_context = true,
 						context_patterns = { "class", "function", "method", "^if", "table", "^for", "^while" },
 						show_current_context_start = true,
