@@ -320,6 +320,24 @@ beautiful.client_keybindings = {
 		end,
 	}),
 	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		key = "l",
+		on_press = function(c)
+			awful.client.incwfact(0.05, c)
+		end,
+		description = "increase window factor",
+		group = "Client",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
+		key = "h",
+		on_press = function(c)
+			awful.client.incwfact(-0.05, c)
+		end,
+		description = "decrease window factor",
+		group = "Client",
+	}),
+	awful.key({
 		modifiers = { beautiful.modkey },
 		keygroup = "arrows",
 		on_press = function(direction, client)
