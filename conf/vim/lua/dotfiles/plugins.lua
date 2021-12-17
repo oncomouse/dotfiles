@@ -83,6 +83,11 @@ return require("packer").startup({
 							col = 0,
 							border = "none",
 						},
+						files = {
+							actions = {
+								["default"] = require("fzf-lua.actions").file_edit,
+							},
+						},
 					})
 					vim.cmd([[
 						command! -nargs=? -complete=dir Files lua require('fzf-lua').files({ fzf_opts = {['--layout'] = 'reverse-list', ['--info'] = 'inline'}, cwd = <q-args> == "" and "." or <q-args> })
