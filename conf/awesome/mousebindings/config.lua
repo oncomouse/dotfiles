@@ -7,7 +7,8 @@ beautiful.layoutbox_mousebuttons = {
 		awful.layout.inc(1)
 	end),
 	awful.button({}, 3, function()
-		awful.layout.inc(-1)
+		-- awful.layout.inc(-1)
+		require("layouts.menu")()
 	end),
 	awful.button({}, 4, function()
 		awful.layout.inc(1)

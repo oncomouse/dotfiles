@@ -13,6 +13,5 @@ beautiful.default_layouts = {
 	awful.layout.suit.tile.left,
 	require("layouts.centeredmonocle"),
 	awful.layout.suit.floating,
-	awful.layout.suit.tile.bottom,
 }
 
