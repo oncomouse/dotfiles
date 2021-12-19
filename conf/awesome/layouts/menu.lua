@@ -2,7 +2,15 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local gears = require("gears")
 
-local layouts = {
+local layouts = awful.menu(gears.table.map(function(layout)
+		return {
+			layout.name,
+			function()
+				awful.layout.set(layout)
+			end,
+			beautiful["layout_" .. layout.name],
+		}
+	end, {
 	awful.layout.suit.corner.nw,
 	awful.layout.suit.corner.ne,
 	awful.layout.suit.corner.sw,
@@ -20,18 +28,10 @@ local layouts = {
 	awful.layout.suit.tile.left,
 	awful.layout.suit.tile.bottom,
 	awful.layout.suit.tile.top,
-}
+}))
 
 local function layout_menu()
-	awful.menu(gears.table.map(function(layout)
-		return {
-			layout.name,
-			function()
-				awful.layout.set(layout)
-			end,
-			beautiful["layout_" .. layout.name],
-		}
-	end, layouts)):show()
+	layouts:toggle()
 end
 
 return layout_menu
