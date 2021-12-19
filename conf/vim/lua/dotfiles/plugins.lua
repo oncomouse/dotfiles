@@ -95,6 +95,7 @@ return require("packer").startup({
 					vim.cmd("command! Buffers lua require('fzf-lua').buffers()")
 					vim.cmd("command! GitStatus lua require('fzf-lua').git_status()")
 				end,
+				requires = { "kyazdani42/nvim-web-devicons" },
 			},
 			{
 				"lambdalisue/gina.vim",
