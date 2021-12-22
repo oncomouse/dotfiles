@@ -30,7 +30,7 @@ return function()
 	local rofi_cmd = "printf '" .. layout_names .. "' | " .. rofi_call .. " -dmenu"
 	awful.spawn.easy_async_with_shell(rofi_cmd, function(stdout)
 		stdout = stdout:gsub("^%s*(.-)%s*$", "%1")
-		for layout, _ in gears.table.iterate(layouts, function(layout)
+		for layout in gears.table.iterate(layouts, function(layout)
 			return layout.name == stdout
 		end) do
 			awful.layout.set(layout)
