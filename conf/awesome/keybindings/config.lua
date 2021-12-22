@@ -122,6 +122,13 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 	}),
 	awful.key({
 		modifiers = { beautiful.modkey, "Shift" },
+		key = "l",
+		on_press = require("layouts.launcher"),
+		description = "Layout menu",
+		group = "Launcher",
+	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Shift" },
 		key = "w",
 		on_press = function()
 			awful.spawn(rofiwincmd)
