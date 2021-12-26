@@ -43,6 +43,12 @@ local servers = {
 			debounce_text_changes = 500,
 		},
 	},
+	eslint = {
+		provides = {
+			"diagnostics",
+			"formatting",
+		},
+	},
 	html = {
 		provides = {
 			"snippets",
@@ -225,15 +231,17 @@ require("null-ls").setup({
 			update_on_insert = false,
 			extra_args = { "--use-tabs" },
 			filetypes = {
-				"vue",
-				"svelte",
 				"css",
-				"scss",
-				"less",
-				"html",
-				"json",
-				"markdown",
 				"graphql",
+				"html",
+				"javascript",
+				"javascriptreact",
+				"json",
+				"less",
+				"markdown",
+				"scss",
+				"svelte",
+				"vue",
 			},
 			prefer_local = "node_modules/.bin",
 		}),
@@ -252,14 +260,36 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.shfmt,
 		require("null-ls").builtins.formatting.rubocop,
 		require("null-ls").builtins.formatting.standardrb,
-		require("dotfiles.null-ls.builtins.formatting.semistandard"),
+		require("dotfiles.null-ls.builtins.formatting.semistandard").with({
+			condition = function(utils)
+				return not utils.root_has_file({
+					'.eslintrc',
+					'.eslintrc.js',
+					'.eslintrc.cjs',
+					'.eslintrc.yaml',
+					'.eslintrc.yml',
+					'.eslintrc.json',
+				})
+			end
+		}),
 		require("null-ls").builtins.diagnostics.shellcheck,
 		require("null-ls").builtins.diagnostics.luacheck,
 		require("null-ls").builtins.diagnostics.flake8,
 		require("null-ls").builtins.diagnostics.vint,
 		require("null-ls").builtins.diagnostics.rubocop,
 		require("null-ls").builtins.diagnostics.standardrb,
-		require("dotfiles.null-ls.builtins.diagnostics.semistandard"),
+		require("dotfiles.null-ls.builtins.diagnostics.semistandard").with({
+			condition = function(utils)
+				return not utils.root_has_file({
+					'.eslintrc',
+					'.eslintrc.js',
+					'.eslintrc.cjs',
+					'.eslintrc.yaml',
+					'.eslintrc.yml',
+					'.eslintrc.json',
+				})
+			end
+		}),
 		require("null-ls").builtins.diagnostics.yamllint,
 		require("dotfiles.null-ls.builtins.completion.bibtex"),
 		require("null-ls").builtins.code_actions.shellcheck,
