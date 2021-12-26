@@ -1,0 +1,14 @@
+{
+	"house": {
+		"prefix": "house",
+		"body": [
+			"{",
+			"\thouse: '$1',",
+			"\tclue: '$2',",
+			"},"
+		],
+		"description": "Defines a new House Call entry",
+		"scope": "text.javascript"
+	}
+}
+
