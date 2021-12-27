@@ -20,10 +20,13 @@ local layouts = {
 	awful.layout.suit.tile.bottom,
 	awful.layout.suit.tile.top,
 }
-local layout_names = table.concat(gears.table.map(function(x)
-	return x.name
-end, layouts), "\n")
-local rofi_call = "rofi -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -p Layouts -font '"
+local layout_names = table.concat(
+	gears.table.map(function(x)
+		return x.name
+	end, layouts),
+	"\n"
+)
+local rofi_call = "rofi -location 1 -theme-str 'window {width: 100%;} listview {columns: 3;}' -match fuzzy -auto-select -p Layouts -font '"
 	.. beautiful.font
 	.. "'"
 return function()
