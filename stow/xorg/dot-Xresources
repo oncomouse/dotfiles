@@ -1,3 +1,7 @@
 #include "/home/andrew/.cache/wal/colors.Xresources"
 #include "/home/andrew/dotfiles/conf/xscreensaver/xscreensaver.Xresources"
+
+! Need these for wezterm to get proper cursors:
+Xcursor.theme: Adwaita
+Xcursor.size: 32
 ! vim:ft=xdefaults
