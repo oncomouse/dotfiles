@@ -17,6 +17,9 @@ local function on_attach(client, _)
 	map.nnoremap("<silent><buffer>", "gd", function()
 		vim.lsp.buf.definition()
 	end)
+	if client.resolved_capabilities.goto_definition == true then
+		vim.opt_local.tagfunc = "v:lua.vim.lsp.tagfunc"
+	end
 	map.nnoremap("<silent><buffer>", "gD", function()
 		vim.lsp.buf.declaration()
 	end)
@@ -64,6 +67,7 @@ local function on_attach(client, _)
 	end
 	-- Formatting:
 	if formatting_provider then
+		vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr()"
 		vim.cmd([[command! -buffer Format lua vim.lsp.buf.formatting()]])
 	else
 		client.resolved_capabilities.document_formatting = false
