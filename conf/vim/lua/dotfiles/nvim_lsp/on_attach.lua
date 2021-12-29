@@ -4,7 +4,9 @@ local servers = require("dotfiles.nvim_lsp.servers")
 local function on_attach(client, _)
 	-- Update codeLens:
 	if client.resolved_capabilities.code_lens then
-		vim.api.nvim_command([[autocmd CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]])
+		vim.api.nvim_command(
+			[[autocmd! dotfiles-settings CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
+		)
 	end
 	-- Use C+x C+o for completion:
 	-- vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
@@ -68,7 +70,9 @@ local function on_attach(client, _)
 	-- Formatting:
 	if formatting_provider then
 		vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr()"
-		vim.cmd([[command! -buffer Format lua vim.lsp.buf.formatting()]])
+		vim.api.nvim_add_user_command("Format", function()
+			vim.lsp.buf.formatting()
+		end, { buffer = true })
 	else
 		client.resolved_capabilities.document_formatting = false
 		client.resolved_capabilities.document_range_formatting = false

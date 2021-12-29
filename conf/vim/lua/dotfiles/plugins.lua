@@ -89,11 +89,21 @@ return require("packer").startup({
 							},
 						},
 					})
-					vim.cmd([[
-						command! -nargs=? -complete=dir Files lua require('fzf-lua').files({ fzf_opts = {['--layout'] = 'reverse-list', ['--info'] = 'inline'}, cwd = <q-args> == "" and "." or <q-args> })
-					]])
-					vim.cmd("command! Buffers lua require('fzf-lua').buffers()")
-					vim.cmd("command! GitStatus lua require('fzf-lua').git_status()")
+					vim.api.nvim_add_user_command("Files", function(args)
+						require("fzf-lua").files({
+							fzf_opts = { ["--layout"] = "reverse-list", ["--info"] = "inline" },
+							cwd = args.args == "" and "." or args.args,
+						})
+					end, {
+						complete = "dir",
+						nargs = "?",
+					})
+					vim.api.nvim_add_user_command("Buffers", function()
+						require("fzf-lua").buffers()
+					end, {})
+					vim.api.nvim_add_user_command("GitStatus", function()
+						require("fzf-lua").git_status()
+					end, {})
 				end,
 				requires = { "kyazdani42/nvim-web-devicons" },
 			},
