@@ -41,10 +41,16 @@ return require("packer").startup({
 					require("dotfiles.autopairs.endwise-sh")
 					require("dotfiles.autopairs.rules-markdown")
 
+					-- Configuration for cmp:
+					local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+					local cmp = require("cmp")
+					cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
 					-- Jump closed autopairs:
 					local map = require("dotfiles.utils.map")
 					map.imap("<C-L>", require("dotfiles.jump-autopairs"))
 				end,
+				after = "nvim-cmp",
 			}, -- Autopairs + Endwise
 			{
 				"oncomouse/nvim-colorizer.lua",
@@ -176,8 +182,6 @@ return require("packer").startup({
 							autocomplete = false,
 						},
 					})
-					local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-					cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 				end,
 			}, -- Completion
 			{
