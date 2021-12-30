@@ -14,5 +14,4 @@ else
 fi
 if [ "$os" != "arch" ]; then
 	cargo install stylua
-	cargo install taplo-cli
 fi

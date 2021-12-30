@@ -18,6 +18,5 @@ tllocalmgr-git
 zotero
 rofi-dmenu
 rofi-emoji
-taplo-cli
 wezterm-nightly-bin
 stylua
