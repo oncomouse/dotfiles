@@ -16,21 +16,21 @@ return require("packer").startup({
 				end,
 			},
 			{
-				"airblade/vim-rooter",
-				event = "VimEnter",
-				setup = function()
-					vim.opt.path = ",,"
-					vim.g.rooter_patterns = {
-						"Rakefile",
-						"package.json",
-						".git/",
-						"Gemfile",
-						"pyproject.toml",
-						"setup.py",
-						"Makefile",
-					}
+				"ahmedkhalf/project.nvim",
+				config = function()
+					require("project_nvim").setup({
+						patterns = {
+							"Rakefile",
+							"package.json",
+							".git/",
+							"Gemfile",
+							"pyproject.toml",
+							"setup.py",
+							"Makefile",
+						},
+					})
 				end,
-			}, -- Set CWD for projects
+			},
 			{
 				"windwp/nvim-autopairs",
 				config = function()
