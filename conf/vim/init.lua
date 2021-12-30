@@ -4,7 +4,6 @@ if not vim.tbl_contains(vim.opt.runtimepath:get(), vim.fn.expand("~/dotfiles/con
 	vim.opt.runtimepath:append("~/dotfiles/conf/vim")
 end
 local map = require("dotfiles.utils.map")
-local xdg = require("dotfiles.utils.xdg")
 dotfiles = _G.dotfiles or {}
 
 -- Add Dotfiles After To RTP:
@@ -91,6 +90,7 @@ vim.g.loaded_zipPlugin = 1
 vim.g.loaded_2html_plugin = 1
 vim.g.loaded_rrhelper = 1
 vim.g.loaded_remote_plugins = 1
+vim.g.loaded_matchparen = 1
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 -- }}}
@@ -159,7 +159,7 @@ map.nnoremap("<silent>", "<leader>q", "<cmd>lua dotfiles.list_toggle('c')<CR>")
 map.nnoremap("<silent>", "<leader>d", "<cmd>lua dotfiles.list_toggle('l')<CR>")
 
 -- Project Grep:
-map.nnoremap("<silent>", "<leader>/", "<cmd>lua dotfiles.GrepOrQfGrep()<CR>")
+map.nnoremap("<silent>", "<leader>/", "<cmd>lua dotfiles.grep_or_qfgrep()<CR>")
 
 -- Enable Todo:
 vim.g.enable_todo = 1
@@ -192,8 +192,8 @@ map.vnoremap("<", "<gv")
 map.vnoremap(">", ">gv")
 
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
-map.noremap("<silent> <expr>", "j", "(v:count == 0 ? 'gj' : 'j')")
-map.noremap("<silent> <expr>", "k", "(v:count == 0 ? 'gk' : 'k')")
+map.nnoremap("<silent> <expr>", "j", "(v:count == 0 ? 'gj' : 'j')")
+map.nnoremap("<silent> <expr>", "k", "(v:count == 0 ? 'gk' : 'k')")
 
 -- Paste replace visual selection without copying it
 map.vnoremap("<leader>p", '"_dP')
@@ -212,17 +212,11 @@ map.xnoremap("<silent>", "az", "<cmd>normal! [zo]z$<cr>")
 -- Theme {{{
 -- Fancy color for macs and X11 sessions:
 if vim.fn.has("mac") == 1 or vim.fn.exists("$DISPLAY") == 1 then
-	-- let &t_8f='<Esc>[38;2;%lu;%lu;%lum'
-	-- let &t_8b='<Esc>[48;2;%lu;%lu;%lum'
+	vim.cmd([[let &t_8f='<Esc>[38;2;%lu;%lu;%lum']])
+	vim.cmd([[let &t_8b='<Esc>[48;2;%lu;%lu;%lum']])
 	vim.opt.termguicolors = true
 
-	local wal_cache = vim.fn.expand(xdg("XDG_CACHE_HOME") .. "/wal/vim")
-	if vim.fn.isdirectory(wal_cache) == 1 then
-		vim.opt.runtimepath:append(wal_cache)
-		vim.cmd([[colorscheme wal]])
-	else
-		vim.cmd([[colorscheme default]])
-	end
+	vim.cmd([[colorscheme lushwal]])
 else
 	vim.cmd([[colorscheme default]])
 end
@@ -233,7 +227,7 @@ vim.cmd([[augroup dotfiles-settings
 augroup END]])
 -- }}}
 -- Autocommands {{{
--- Line Number Colors:
+-- Line Number Colors in default:
 vim.cmd([[autocmd dotfiles-settings ColorScheme default hi LineNr ctermfg=7]])
 vim.cmd([[autocmd dotfiles-settings ColorScheme default hi LineNrAbove ctermfg=7]])
 vim.cmd([[autocmd dotfiles-settings ColorScheme default hi LineNrBelow ctermfg=7]])
@@ -270,33 +264,45 @@ vim.cmd([[autocmd dotfiles-settings BufReadPost *
 vim.cmd([[autocmd dotfiles-settings BufWinEnter,BufFilePost * lua dotfiles.fasd_update()]])
 -- }}}
 -- Commands {{{
-vim.cmd(
-	[[command! Diagnostics execute 'silent lmake! %' | if len(getloclist(0)) != 0 | execute 'lopen' | else | execute 'lclose' | endif]]
-)
-vim.cmd([[command! Format silent normal! mxgggqG`x<CR>]])
+vim.api.nvim_add_user_command("Diagnostics", function()
+	vim.cmd("silent lmake! %")
+	if #vim.fn.getloclist(0) == 0 then
+		vim.cmd("lopen")
+	else
+		vim.cmd("lclose")
+	end
+end, {})
+vim.api.nvim_add_user_command("Format", "silent normal! mxgggqG`x<CR>", {})
 
 -- Adjust Spacing:
-vim.cmd(
-	[[command! -nargs=1 Spaces let b:wv = winsaveview() | execute "setlocal expandtab"	 | silent execute "%!expand -it "	. <args> . ""	 | call winrestview(b:wv) | setlocal ts? sw? sts? et?]]
-)
-vim.cmd(
-	[[command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab" | silent execute "%!unexpand -t " . <args> . "" | call winrestview(b:wv) | setlocal ts? sw? sts? et?]]
-)
+vim.api.nvim_add_user_command("Spaces", function(args)
+	local wv = vim.fn.winsaveview()
+	vim.opt_local.expandtab = true
+	vim.cmd("silent execute '%!expand -it" .. args.args .. "'")
+	vim.fn.winrestview(wv)
+	vim.cmd("setlocal ts? sw? sts? et?")
+end, {
+	nargs = 1,
+})
+vim.api.nvim_add_user_command("Tabs", function(args)
+	local wv = vim.fn.winsaveview()
+	vim.opt_local.expandtab = false
+	vim.cmd("silent execute '%!unexpand -t" .. args.args .. "'")
+	vim.fn.winrestview(wv)
+	vim.cmd("setlocal ts? sw? sts? et?")
+end, {
+	nargs = 1,
+})
 -- }}}
 -- Functions {{{
 -- Hide or display a quickfix or location list:
 dotfiles.list_toggle = function(pfx, force_open)
 	if not force_open then
-		-- Get a list of buffer display names and numbers:
-		local buflist = vim.api.nvim_list_bufs()
-		-- We filter the list to leave only matching lists, then we map to get the buffer number:
-		for _, bufnum in ipairs(vim.tbl_filter(function(x)
-			return vim.api.nvim_buf_get_option(x, "filetype") == "qf"
-		end, buflist)) do
-			if vim.fn.bufwinnr(bufnum) ~= -1 then
-				vim.cmd(pfx .. "close")
-				return
-			end
+		local status = vim.g["dotfiles_" .. pfx .. "open"] or 0
+		if status ~= 0 then
+			vim.g["dotfiles_" .. pfx .. "open"]	= 0
+			vim.cmd(pfx .. "close")
+			return
 		end
 		if pfx == "l" and vim.fn.len(vim.fn.getloclist(0)) == 0 then
 			vim.cmd([[echohl ErrorMsg
@@ -305,11 +311,12 @@ dotfiles.list_toggle = function(pfx, force_open)
 			return
 		end
 	end
+	vim.g["dotfiles_" .. pfx .. "open"]	= 1
 	vim.cmd(pfx .. "open")
 end
 
 -- Search project directory or, if we are in a quickfix buffer, search there:
-dotfiles.GrepOrQfGrep = function()
+dotfiles.grep_or_qfgrep = function()
 	if vim.opt.buftype == "quickfix" then
 		-- Load cfilter in quickfix view:
 		vim.cmd([[packadd cfilter]])
@@ -338,12 +345,30 @@ vim.g.bibfiles = "~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/li
 -- }}}
 -- Plugins {{{
 -- Lazy-load packer commands:
-vim.cmd([[command! PackerInstall packadd packer.nvim | lua require('dotfiles.plugins').install()]])
-vim.cmd([[command! PackerUpdate packadd packer.nvim | lua require('dotfiles.plugins').update()]])
-vim.cmd([[command! PackerSync packadd packer.nvim | lua require('dotfiles.plugins').sync()]])
-vim.cmd([[command! PackerClean packadd packer.nvim | lua require('dotfiles.plugins').clean()]])
-vim.cmd([[command! PackerStatus packadd packer.nvim | lua require('dotfiles.plugins').status()]])
-vim.cmd([[command! PackerCompile packadd packer.nvim | lua require('dotfiles.plugins').compile()]])
+vim.api.nvim_add_user_command("PackerInstall", function()
+	vim.cmd("packadd packer.nvim")
+	require('dotfiles.plugins').install()
+end, {})
+vim.api.nvim_add_user_command("PackerUpdate", function()
+	vim.cmd("packadd packer.nvim")
+	require('dotfiles.plugins').update()
+end, {})
+vim.api.nvim_add_user_command("PackerSync", function()
+	vim.cmd("packadd packer.nvim")
+	require('dotfiles.plugins').sync()
+end, {})
+vim.api.nvim_add_user_command("PackerClean", function()
+	vim.cmd("packadd packer.nvim")
+	require('dotfiles.plugins').clean()
+end, {})
+vim.api.nvim_add_user_command("PackerStatus", function()
+	vim.cmd("packadd packer.nvim")
+	require('dotfiles.plugins').status()
+end, {})
+vim.api.nvim_add_user_command("PackerCompile", function()
+	vim.cmd("packadd packer.nvim")
+	require('dotfiles.plugins').compile()
+end, {})
 
 -- Update Packer.nvim automatically:
 vim.cmd([[autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | PackerCompile]])
