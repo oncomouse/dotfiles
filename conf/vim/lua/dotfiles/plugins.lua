@@ -30,7 +30,7 @@ return require("packer").startup({
 						},
 					})
 				end,
-			},
+			}, -- Set project root
 			{
 				"windwp/nvim-autopairs",
 				config = function()
@@ -271,10 +271,10 @@ return require("packer").startup({
 					})
 				end,
 				requires = {
-					{
-						"nvim-treesitter/playground",
-						command = "TSPlaygroundToggle",
-					},
+					-- {
+					-- 	"nvim-treesitter/playground",
+					-- 	command = "TSPlaygroundToggle",
+					-- },
 					{ "nvim-treesitter/nvim-treesitter-textobjects" },
 					{ "windwp/nvim-ts-autotag", ft = { "html", "javascript", "javascriptreact" } },
 					{
@@ -311,6 +311,10 @@ return require("packer").startup({
 					},
 				},
 			}, -- Markdown Syntax
+			{
+				"Fymyte/rasi.vim",
+				ft = "rasi",
+			},
 			{
 				"lukas-reineke/indent-blankline.nvim",
 				config = function()
