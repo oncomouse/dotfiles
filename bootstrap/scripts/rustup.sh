@@ -12,4 +12,7 @@ else
     source "$HOME/.cargo/env"
   fi
 fi
-cargo install stylua
+if [ "$os" != "arch" ]; then
+	cargo install stylua
+	cargo install taplo-cli
+fi

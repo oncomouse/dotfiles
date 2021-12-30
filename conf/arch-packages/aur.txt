@@ -20,3 +20,4 @@ rofi-dmenu
 rofi-emoji
 taplo-cli
 wezterm-nightly-bin
+stylua
