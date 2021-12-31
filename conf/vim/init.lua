@@ -37,10 +37,8 @@ vim.g.large_file = 20 * 1024 * 1024
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-if vim.fn.has("nvim") == 1 then
-	-- Preview Substitution Operations:
-	vim.opt.inccommand = "split"
-end
+-- Use split for search/replace preview:
+vim.opt.inccommand = "split"
 
 -- Height Of The Preview Window:
 vim.opt.previewheight = 14
@@ -52,7 +50,7 @@ vim.opt.shortmess = vim.opt.shortmess + "c"
 vim.opt.complete = vim.opt.complete - "i"
 
 -- <C-z> expands wildcards in command mode
-vim.opt.wildcharm = 94 -- char2nr("^Z")
+vim.opt.wildcharm = vim.fn.char2nr("^Z")
 -- Set path to current file direction and pwd:
 vim.opt.path = ".,,"
 
@@ -120,6 +118,7 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = false
 -- }}}
 -- Maps {{{
+
 -- Select Whole File:
 map.nnoremap("<leader>vf", "ggVG")
 
@@ -129,6 +128,7 @@ map.nnoremap("<silent>", "<leader>cr", ':let<C-u>let @/=""<CR>')
 -- Navigate Buffers:
 map.nnoremap("<silent>", "]b", "<cmd>bnext<CR>")
 map.nnoremap("<silent>", "[b", "<cmd>bprevious<CR>")
+--
 -- Jump to the alternate buffer:
 map.nnoremap("<silent>", "``", "<cmd>e #<CR>")
 
