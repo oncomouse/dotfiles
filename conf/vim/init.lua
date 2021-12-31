@@ -119,6 +119,9 @@ vim.opt.expandtab = false
 -- }}}
 -- Maps {{{
 
+-- Select the Whole File:
+map.nnoremap("<leader>vf", "ggVG")
+
 -- Clear Currently Highlighted Regexp:
 map.nnoremap("<silent>", "<leader>cr", ':let<C-u>let @/=""<CR>')
 
@@ -174,9 +177,6 @@ vim.cmd([[map <F10> <cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"nam
 
 -- Sourced from jessarcher/dotfiles {{{
 --  \ https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
-
--- Allow gf to open non-existent files
-map.map("gf", ":edit <cfile><cr>")
 
 -- Quicker switching between windows
 map.nmap("<silent>", "<C-h>", "<C-w>h")
