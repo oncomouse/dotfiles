@@ -297,7 +297,7 @@ dotfiles.list_toggle = function(pfx, force_open)
 	if not force_open then
 		local status = vim.g["dotfiles_" .. pfx .. "open"] or 0
 		if status ~= 0 then
-			vim.g["dotfiles_" .. pfx .. "open"]	= 0
+			vim.g["dotfiles_" .. pfx .. "open"] = 0
 			vim.cmd(pfx .. "close")
 			return
 		end
@@ -308,7 +308,7 @@ dotfiles.list_toggle = function(pfx, force_open)
 			return
 		end
 	end
-	vim.g["dotfiles_" .. pfx .. "open"]	= 1
+	vim.g["dotfiles_" .. pfx .. "open"] = 1
 	vim.cmd(pfx .. "open")
 end
 
@@ -342,30 +342,20 @@ vim.g.bibfiles = "~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/li
 -- }}}
 -- Plugins {{{
 -- Lazy-load packer commands:
-vim.api.nvim_add_user_command("PackerInstall", function()
-	vim.cmd("packadd packer.nvim")
-	require('dotfiles.plugins').install()
-end, {})
-vim.api.nvim_add_user_command("PackerUpdate", function()
-	vim.cmd("packadd packer.nvim")
-	require('dotfiles.plugins').update()
-end, {})
-vim.api.nvim_add_user_command("PackerSync", function()
-	vim.cmd("packadd packer.nvim")
-	require('dotfiles.plugins').sync()
-end, {})
-vim.api.nvim_add_user_command("PackerClean", function()
-	vim.cmd("packadd packer.nvim")
-	require('dotfiles.plugins').clean()
-end, {})
-vim.api.nvim_add_user_command("PackerStatus", function()
-	vim.cmd("packadd packer.nvim")
-	require('dotfiles.plugins').status()
-end, {})
-vim.api.nvim_add_user_command("PackerCompile", function()
-	vim.cmd("packadd packer.nvim")
-	require('dotfiles.plugins').compile()
-end, {})
+local packer_commands = {
+	"install",
+	"update",
+	"sync",
+	"clean",
+	"status",
+	"compile",
+}
+for _, cmd in pairs(packer_commands) do
+	vim.api.nvim_add_user_command("Packer" .. cmd:gsub("^%l", string.upper), function()
+		vim.cmd("packadd packer.nvim")
+		require("dotfiles.plugins")[cmd]()
+	end, {})
+end
 
 -- Update Packer.nvim automatically:
 vim.cmd([[autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | PackerCompile]])
@@ -374,7 +364,7 @@ vim.cmd([[autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | P
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
 	vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", vim.g.install_path })
-	vim.cmd([[PackerSync]])
+	vim.cmd("PackerSync")
 end
 -- }}}
 -- # vim:foldmethod=marker:foldlevel=0
