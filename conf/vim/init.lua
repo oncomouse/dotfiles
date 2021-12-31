@@ -119,9 +119,6 @@ vim.opt.expandtab = false
 -- }}}
 -- Maps {{{
 
--- Select Whole File:
-map.nnoremap("<leader>vf", "ggVG")
-
 -- Clear Currently Highlighted Regexp:
 map.nnoremap("<silent>", "<leader>cr", ':let<C-u>let @/=""<CR>')
 
