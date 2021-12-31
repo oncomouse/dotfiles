@@ -1,7 +1,7 @@
 -- luacheck: globals vim dotfiles
 local map = require("dotfiles.utils.map")
 local servers = require("dotfiles.nvim_lsp.servers")
-local function on_attach(client, _)
+local function on_attach(client, buf_num)
 	-- Update codeLens:
 	if client.resolved_capabilities.code_lens then
 		vim.api.nvim_command(
@@ -70,7 +70,7 @@ local function on_attach(client, _)
 	-- Formatting:
 	if formatting_provider then
 		vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr()"
-		vim.api.nvim_buf_add_user_command(0, "Format", function()
+		vim.api.nvim_buf_add_user_command(buf_num, "Format", function()
 			vim.lsp.buf.formatting()
 		end, {})
 	else
