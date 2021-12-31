@@ -61,7 +61,7 @@ setmetatable(map, {
 			}
 			if type(rhs) == "function" then
 				mapping = ""
-				options = vim.tbl_extend("keep", options, { callback = rhs })
+				options["callback"] = rhs
 			else
 				mapping = rhs
 			end
