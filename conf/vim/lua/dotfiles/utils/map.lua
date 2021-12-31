@@ -7,14 +7,6 @@
 -- map.unmap("j")
 
 local map = {}
-map.__function_store = {}
-map.__create = function(f)
-	table.insert(map.__function_store, f)
-	return #map.__function_store
-end
-_G._dotfiles_map_exec = function(id)
-	map.__function_store[id]()
-end
 -- Types of maps we will match against (does not need to contain :map and :map!):
 map.__allowed_maps = {
 	"c",
@@ -59,9 +51,17 @@ setmetatable(map, {
 			local lhs = #arg == 3 and arg[2] or arg[1]
 			local rhs = #arg == 3 and arg[3] or arg[2]
 			local mapping
+			local options = {
+				silent = silent,
+				noremap = noremap,
+				expr = expr,
+				script = script,
+				nowait = nowait,
+				unique = unique,
+			}
 			if type(rhs) == "function" then
-				local func_id = map.__create(rhs)
-				mapping = "<cmd>lua _dotfiles_map_exec(" .. func_id .. ")<CR>"
+				mapping = ""
+				options = vim.tbl_extend("keep", options, { callback = rhs })
 			else
 				mapping = rhs
 			end
@@ -69,38 +69,13 @@ setmetatable(map, {
 				if unmap then
 					vim.api.nvim_buf_del_keymap(vim.fn.bufnr("."), map_mode, lhs)
 				else
-					vim.api.nvim_buf_set_keymap(
-						vim.fn.bufnr("."),
-						map_mode,
-						lhs,
-						mapping,
-						{
-							silent = silent,
-							noremap = noremap,
-							expr = expr,
-							script = script,
-							nowait = nowait,
-							unique = unique,
-						}
-					)
+					vim.api.nvim_buf_set_keymap(vim.fn.bufnr("."), map_mode, lhs, mapping, options)
 				end
 			else
 				if unmap then
 					vim.api.nvim_del_keymap(map_mode, lhs)
 				else
-					vim.api.nvim_set_keymap(
-						map_mode,
-						lhs,
-						mapping,
-						{
-							silent = silent,
-							noremap = noremap,
-							expr = expr,
-							script = script,
-							nowait = nowait,
-							unique = unique,
-						}
-					)
+					vim.api.nvim_set_keymap(map_mode, lhs, mapping, options)
 				end
 			end
 		end
