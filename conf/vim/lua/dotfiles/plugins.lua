@@ -77,7 +77,7 @@ return require("packer").startup({
 			},
 			{
 				"ibhagwan/fzf-lua",
-				event = "VimEnter",
+				cmd = { "Files", "Buffers", "GitStatus" },
 				config = function()
 					local wh = vim.api.nvim_win_get_height(0)
 					local ph = vim.opt.previewheight:get()
