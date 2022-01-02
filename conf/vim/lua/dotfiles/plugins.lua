@@ -136,6 +136,55 @@ return require("packer").startup({
 				end,
 			}, -- Git support
 			{
+				"phaazon/hop.nvim",
+				config = function()
+					require("hop").setup({})
+					local map = require("dotfiles.utils.map")
+					map.nmap("<leader>f", function()
+						require("hop").hint_char1({
+							direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+						})
+					end)
+					map.nmap("<leader>F", function()
+						require("hop").hint_char1({
+							direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+						})
+					end)
+					map.omap("<leader>f", function()
+						require("hop").hint_char1({
+							direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+							inclusive_jump = true,
+						})
+					end)
+					map.omap("<leader>F", function()
+						require("hop").hint_char1({
+							direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+							inclusive_jump = true,
+						})
+					end)
+					map.nmap("<leader>t", function()
+						require("hop").hint_char1({
+							direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+						})
+					end)
+					map.nmap("<leader>T", function()
+						require("hop").hint_char1({
+							direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+						})
+					end)
+					map.omap("<leader>t", function()
+						require("hop").hint_char1({
+							direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+						})
+					end)
+					map.omap("<leader>T", function()
+						require("hop").hint_char1({
+							direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+						})
+					end)
+				end,
+			}, -- Motion
+			{
 				"hrsh7th/vim-vsnip",
 				event = "VimEnter",
 				config = function()
