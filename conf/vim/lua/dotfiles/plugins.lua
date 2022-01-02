@@ -360,6 +360,7 @@ return require("packer").startup({
 					vim.g.lushwal_configuration = {
 						addons = {
 							indent_blankline_nvim = true,
+							gina = true,
 							markdown = true,
 						},
 					}
