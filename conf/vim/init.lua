@@ -363,8 +363,12 @@ vim.cmd([[autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | P
 -- Install packer.nvim, if it isn't present:
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
-	vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", vim.g.install_path })
-	vim.cmd("PackerSync")
+	vim.fn.jobstart({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }, {
+		on_exit = function()
+			vim.cmd("packadd packer.nvim")
+			vim.cmd("PackerSync")
+		end,
+	})
 end
 -- }}}
 -- # vim:foldmethod=marker:foldlevel=0
