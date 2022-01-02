@@ -72,7 +72,10 @@ local function on_attach(client, buf_num)
 		vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr()"
 		vim.api.nvim_buf_add_user_command(buf_num, "Format", function()
 			vim.lsp.buf.formatting()
-		end, {})
+		end, {
+			desc = "lua vim.lsp.buf.formatting()",
+			force = true,
+		})
 	else
 		client.resolved_capabilities.document_formatting = false
 		client.resolved_capabilities.document_range_formatting = false

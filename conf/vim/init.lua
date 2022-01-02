@@ -268,8 +268,12 @@ vim.api.nvim_add_user_command("Diagnostics", function()
 	else
 		vim.cmd("lclose")
 	end
-end, {})
-vim.api.nvim_add_user_command("Format", "silent normal! mxgggqG`x<CR>", {})
+end, {
+	force = true,
+})
+vim.api.nvim_add_user_command("Format", "silent normal! mxgggqG`x<CR>", {
+	force = true,
+})
 
 -- Adjust Spacing:
 vim.api.nvim_add_user_command("Spaces", function(args)
@@ -279,6 +283,7 @@ vim.api.nvim_add_user_command("Spaces", function(args)
 	vim.fn.winrestview(wv)
 	vim.cmd("setlocal ts? sw? sts? et?")
 end, {
+	force = true,
 	nargs = 1,
 })
 vim.api.nvim_add_user_command("Tabs", function(args)
@@ -288,6 +293,7 @@ vim.api.nvim_add_user_command("Tabs", function(args)
 	vim.fn.winrestview(wv)
 	vim.cmd("setlocal ts? sw? sts? et?")
 end, {
+	force = true,
 	nargs = 1,
 })
 -- }}}

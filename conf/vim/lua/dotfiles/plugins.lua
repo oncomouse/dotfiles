@@ -102,16 +102,21 @@ return require("packer").startup({
 						})
 					end, {
 						complete = "dir",
+						force = true,
 						nargs = "?",
 					})
 					vim.api.nvim_add_user_command("Buffers", function()
 						require("fzf-lua").buffers()
-					end, {})
+					end, {
+						force = true,
+					})
 					vim.api.nvim_add_user_command("GitStatus", function()
 						require("fzf-lua").git_status()
-					end, {})
+					end, {
+						force = true,
+					})
 				end,
-				requires = { "kyazdani42/nvim-web-devicons" },
+				-- requires = { "kyazdani42/nvim-web-devicons" },
 			},
 			{
 				"lambdalisue/gina.vim",
