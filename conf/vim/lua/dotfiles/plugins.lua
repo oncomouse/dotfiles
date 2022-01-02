@@ -116,7 +116,7 @@ return require("packer").startup({
 						force = true,
 					})
 				end,
-				-- requires = { "kyazdani42/nvim-web-devicons" },
+				requires = { "kyazdani42/nvim-web-devicons" },
 			},
 			{
 				"lambdalisue/gina.vim",
@@ -419,6 +419,7 @@ return require("packer").startup({
 				config = function()
 					vim.g.lushwal_configuration = {
 						addons = {
+							hop_nvim = true,
 							indent_blankline_nvim = true,
 							gina = true,
 							markdown = true,
