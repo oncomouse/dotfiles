@@ -94,7 +94,7 @@ return require("packer").startup({
 					})
 				end,
 				requires = { "kyazdani42/nvim-web-devicons" },
-			},
+			}, -- FZF Client
 			{
 				"lambdalisue/gina.vim",
 				cmd = "Gina",
@@ -165,7 +165,7 @@ return require("packer").startup({
 						})
 					end)
 				end,
-			}, -- Motion
+			}, -- Fancy jump, useful for text editing
 			{
 				"hrsh7th/vim-vsnip",
 				event = "VimEnter",
@@ -270,7 +270,6 @@ return require("packer").startup({
 					require("nvim-treesitter.configs").setup({
 						ensure_installed = "maintained",
 						highlight = { enable = true },
-						-- indent = { enable = true },
 						autotag = { enable = true },
 						textobjects = {
 							select = {
