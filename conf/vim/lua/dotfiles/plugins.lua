@@ -154,6 +154,7 @@ return require("packer").startup({
 				requires = {
 					"hrsh7th/cmp-nvim-lsp",
 					"hrsh7th/cmp-vsnip",
+					"hrsh7th/cmp-path",
 				},
 				config = function()
 					local cmp = require("cmp")
@@ -177,6 +178,7 @@ return require("packer").startup({
 						sources = {
 							{ name = "nvim_lsp" },
 							{ name = "vsnip" },
+							{ name = "path" },
 						},
 						completion = {
 							autocomplete = false,
