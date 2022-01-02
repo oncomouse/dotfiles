@@ -190,7 +190,6 @@ return require("packer").startup({
 				"neovim/nvim-lspconfig",
 				requires = {
 					{ "williamboman/nvim-lsp-installer", module = "nvim-lsp-installer" },
-					-- { "hrsh7th/vim-vsnip-integ", opt = true, requires = { "vim-vsnip" } },
 					{
 						"jose-elias-alvarez/null-ls.nvim",
 						module = "null-ls",
