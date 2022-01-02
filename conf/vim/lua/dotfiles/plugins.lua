@@ -10,11 +10,11 @@ return require("packer").startup({
 			{ "oncomouse/vim-surround", requires = { "tpope/vim-repeat" } }, -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 			{ "wellle/targets.vim", requires = { "tpope/vim-repeat" } }, -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 			{
-				"monkoose/matchparen.nvim", -- Faster matchparen for Neovim
+				"monkoose/matchparen.nvim",
 				config = function()
 					require("matchparen").setup()
 				end,
-			},
+			}, -- Faster matchparen for Neovim
 			{
 				"ahmedkhalf/project.nvim",
 				config = function()
@@ -52,29 +52,6 @@ return require("packer").startup({
 				end,
 				after = "nvim-cmp",
 			}, -- Autopairs + Endwise
-			{
-				"oncomouse/nvim-colorizer.lua",
-				config = function()
-					if vim.opt.termguicolors:get() then
-						require("colorizer").setup({
-							"*",
-							"!packer",
-							html = { names = true, RRGGBBAA = false },
-							css = { css = true, RRGGBBAA = false },
-							scss = {
-								css = true,
-								RRGGBBAA = false,
-								custom_matcher = require("colorizer/sass").variable_matcher,
-							},
-						}, {
-							names = false,
-							RRGGBBAA = true,
-							mode = "background", -- Could be background, foreground, or virtualtext
-						})
-					end
-					vim.cmd([[autocmd dotfiles-settings FileType scss lua require'colorizer/sass'.attach_to_buffer()]])
-				end,
-			},
 			{
 				"ibhagwan/fzf-lua",
 				cmd = { "Files", "Buffers", "GitStatus" },
@@ -353,6 +330,7 @@ return require("packer").startup({
 				"Fymyte/rasi.vim",
 				ft = "rasi",
 			}, -- Rasi Syntax for Rofi
+			-- Appearance:
 			{
 				"lukas-reineke/indent-blankline.nvim",
 				config = function()
@@ -374,23 +352,6 @@ return require("packer").startup({
 					})
 				end,
 			},
-			-- Writing Plugins:
-			{
-				"folke/zen-mode.nvim",
-				config = function()
-					require("zen-mode").setup({})
-					local map = require("dotfiles.utils.map")
-					map.nmap("<leader>z", function()
-						require("zen-mode").toggle({
-							window = {
-								width = 0.75,
-							},
-						})
-					end)
-				end,
-				ft = { "markdown" },
-			},
-			-- Colorschemes:
 			{
 				"oncomouse/lushwal.nvim",
 				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
@@ -403,6 +364,29 @@ return require("packer").startup({
 							markdown = true,
 						},
 					}
+				end,
+			},
+			{
+				"oncomouse/nvim-colorizer.lua",
+				config = function()
+					if vim.opt.termguicolors:get() then
+						require("colorizer").setup({
+							"*",
+							"!packer",
+							html = { names = true, RRGGBBAA = false },
+							css = { css = true, RRGGBBAA = false },
+							scss = {
+								css = true,
+								RRGGBBAA = false,
+								custom_matcher = require("colorizer/sass").variable_matcher,
+							},
+						}, {
+							names = false,
+							RRGGBBAA = true,
+							mode = "background", -- Could be background, foreground, or virtualtext
+						})
+					end
+					vim.cmd([[autocmd dotfiles-settings FileType scss lua require'colorizer/sass'.attach_to_buffer()]])
 				end,
 			},
 		})
