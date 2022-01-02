@@ -122,12 +122,17 @@ return require("packer").startup({
 				"lambdalisue/gina.vim",
 				cmd = "Gina",
 				config = function()
-					vim.fn["gina#custom#command#option"]("status", "--opener", vim.opt.previewheight:get() .. "split")
-					vim.fn["gina#custom#command#option"]("commit", "--opener", vim.opt.previewheight:get() .. "split")
-					vim.fn["gina#custom#command#option"]("diff", "--opener", vim.opt.previewheight:get() .. "split")
-					vim.fn["gina#custom#command#option"]("status", "--group", "short")
-					vim.fn["gina#custom#command#option"]("commit", "--group", "short")
-					vim.fn["gina#custom#command#option"]("diff", "--group", "short")
+					for _,command in pairs({
+						"branch",
+						"changes",
+						"commit",
+						"diff",
+						"log",
+						"status",
+					}) do
+						vim.fn["gina#custom#command#option"](command, "--opener", vim.opt.previewheight:get() .. "split")
+						vim.fn["gina#custom#command#option"](command, "--group", "short")
+					end
 					-- Implement vim-fugitive commands in Gina:
 					vim.fn["gina#custom#mapping#nmap"]("status", "cc", ":<C-u>Gina commit<CR>", {
 						noremap = 1,
