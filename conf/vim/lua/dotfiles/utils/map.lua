@@ -35,33 +35,36 @@ setmetatable(map, {
 				-- Match :map! and :noremap!
 			elseif map_call:match("^.*()!") then
 				map_mode = "!"
-				-- Otherwise, map against __allowed_maps (defined above):
 			else
+				-- Otherwise, map against __allowed_maps (defined above):
 				map_mode = string.sub(map_call, 1, 1)
 				assert(vim.tbl_contains(map.__allowed_maps, map_mode), "Illegal map type, " .. map_mode)
 			end
 			local noremap = string.find(map_call, "noremap") ~= nil
 			local unmap = string.find(map_call, "unmap") ~= nil
-			local silent = #arg == 3 and string.find(string.lower(arg[1]), "<silent>") ~= nil
-			local buffer = #arg == 3 and string.find(string.lower(arg[1]), "<buffer>") ~= nil
-			local expr = #arg == 3 and string.find(string.lower(arg[1]), "<expr>") ~= nil
-			local nowait = #arg == 3 and string.find(string.lower(arg[1]), "<nowait>") ~= nil
-			local unique = #arg == 3 and string.find(string.lower(arg[1]), "<unique>") ~= nil
-			local script = #arg == 3 and string.find(string.lower(arg[1]), "<script>") ~= nil
-			local lhs = #arg == 3 and arg[2] or arg[1]
-			local rhs = #arg == 3 and arg[3] or arg[2]
+			local silent = #arg >= 3 and string.find(string.lower(arg[1]), "<silent>") ~= nil
+			local buffer = #arg >= 3 and string.find(string.lower(arg[1]), "<buffer>") ~= nil
+			local expr = #arg >= 3 and string.find(string.lower(arg[1]), "<expr>") ~= nil
+			local nowait = #arg >= 3 and string.find(string.lower(arg[1]), "<nowait>") ~= nil
+			local unique = #arg >= 3 and string.find(string.lower(arg[1]), "<unique>") ~= nil
+			local script = #arg >= 3 and string.find(string.lower(arg[1]), "<script>") ~= nil
+			local lhs = #arg >= 3 and arg[2] or arg[1]
+			local rhs = #arg >= 3 and arg[3] or arg[2]
+			local options = arg[4] or {}
 			local mapping
-			local options = {
+			options = vim.tbl_extend("keep", options, {
 				silent = silent,
 				noremap = noremap,
 				expr = expr,
 				script = script,
 				nowait = nowait,
 				unique = unique,
-			}
+			})
 			if type(rhs) == "function" then
 				mapping = ""
-				options["callback"] = rhs
+				if options["callback"] == nil then
+					options["callback"] = rhs
+				end
 			else
 				mapping = rhs
 			end

@@ -12,43 +12,67 @@ local function on_attach(client, buf_num)
 	-- vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
 	map.nnoremap("<silent><buffer>", "<leader>s", function()
 		vim.lsp.buf.document_symbol()
-	end)
+	end, {
+		desc = "lua vim.lsp.buf.document_symbol()",
+	})
 	map.nnoremap("<silent><buffer>", "<F2>", function()
 		vim.lsp.buf.rename()
-	end)
+	end, {
+		desc = "lua vim.lsp.buf.rename()",
+	})
 	map.nnoremap("<silent><buffer>", "gd", function()
 		vim.lsp.buf.definition()
-	end)
+	end, {
+		desc = "lua vim.lsp.buf.definition()",
+	})
 	if client.resolved_capabilities.goto_definition == true then
 		vim.opt_local.tagfunc = "v:lua.vim.lsp.tagfunc"
 	end
 	map.nnoremap("<silent><buffer>", "gD", function()
 		vim.lsp.buf.declaration()
-	end)
+	end, {
+		desc = "lua vim.lsp.buf.declaration()",
+	})
 	map.nnoremap("<silent><buffer>", "gy", function()
 		vim.lsp.buf.type_definition()
-	end)
+	end, {
+		desc = "lua vim.lsp.buf.type_definition()",
+	})
 	map.nnoremap("<silent><buffer>", "gi", function()
 		vim.lsp.buf.implementation()
-	end)
+	end, {
+		desc = "lua vim.lsp.buf.implementation()",
+	})
 	map.nnoremap("<silent><buffer>", "gr", function()
 		vim.lsp.buf.references()
-	end)
+	end, {
+		desc = "lua vim.lsp.buf.references()",
+	})
 	map.nnoremap("<silent><buffer>", "gl", function()
 		vim.lsp.codelens.run()
-	end)
+	end, {
+		desc = "lua vim.lsp.codelens.run()",
+	})
 	map.nnoremap("<silent><buffer>", "ga", function()
 		vim.lsp.buf.code_action()
-	end)
+	end, {
+		desc = "lua vim.lsp.buf.code_action()",
+	})
 	map.vnoremap("<silent><buffer>", "ga", function()
 		vim.lsp.buf.range_code_action()
-	end)
+	end, {
+		desc = "lua vim.lsp.buf.range_code_action()",
+	})
 	map.nnoremap("<silent><buffer>", "K", function()
 		require("dotfiles.nvim_lsp.show_documentation")()
-	end)
+	end, {
+		desc = "lua require('dotfiles.nvim_lsp.show_documentation')()",
+	})
 	map.nnoremap("<silent><buffer>", "<C-k>", function()
 		vim.lsp.buf.signature_help()
-	end)
+	end, {
+		desc = "lua vim.lsp.buf.signature_help()",
+	})
 	map.nnoremap("<silent><buffer>", "<F5>", ":<CR>")
 	local snippet_provider = vim.tbl_contains(servers[client.name].provides or {}, "snippets")
 	local diagnostic_provider = vim.tbl_contains(servers[client.name].provides or {}, "diagnostics")
@@ -62,10 +86,14 @@ local function on_attach(client, buf_num)
 		)
 		map.nnoremap("<silent><buffer>", "]d", function()
 			vim.diagnostic.goto_next()
-		end)
+		end, {
+			desc = "lua vim.diagnostic.goto_next()",
+		})
 		map.nnoremap("<silent><buffer>", "[d", function()
 			vim.diagnostic.goto_prev()
-		end)
+		end, {
+			desc = "lua vim.diagnostic.goto_prev()",
+		})
 	end
 	-- Formatting:
 	if formatting_provider then
