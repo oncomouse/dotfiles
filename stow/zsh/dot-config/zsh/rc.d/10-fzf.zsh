@@ -17,7 +17,7 @@ fi
 [[ -e "${HOME}/.fzf/shell/key-bindings.zsh" ]] && source "${HOME}/.fzf/shell/key-bindings.zsh"
 
 # Set pywal colors, if we have them:
-if [[ -d "${HOME}/.cache/wal" ]]; then
+if [[ -d "${XDG_CACHE_HOME:=~/.cache}/wal" ]]; then
 	source "${HOME}/.cache/wal/colors.sh"
 	FZF_COLORS=" --color=bg+:${color8},bg:${background},spinner:${color14},hl:${color12} --color=fg:${foreground},header:${color12},info:${background},pointer:${color14} --color=marker:${color14},fg+:${foreground},prompt:${color3},hl+:${color12}"
 else
