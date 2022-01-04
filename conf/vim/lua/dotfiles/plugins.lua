@@ -21,13 +21,13 @@ return require("packer").startup({
 				config = function()
 					require("project_nvim").setup({
 						patterns = {
-							"Rakefile",
-							"package.json",
 							".git/",
 							"Gemfile",
+							"Makefile",
+							"Rakefile",
+							"package.json",
 							"pyproject.toml",
 							"setup.py",
-							"Makefile",
 						},
 					})
 				end,
@@ -58,7 +58,7 @@ return require("packer").startup({
 				cmd = { "Files", "Buffers", "GitStatus" },
 				config = function()
 					local wh = vim.api.nvim_win_get_height(0)
-					local ph = vim.opt.previewheight:get()
+					local ph = vim.o.previewheight
 					require("fzf-lua").setup({
 						winopts = {
 							height = ph / wh,
