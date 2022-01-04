@@ -302,7 +302,7 @@ vim.api.nvim_add_user_command("Git", function(args)
 	if args.args:match("^status") then
 		vim.cmd("GitStatus")
 	else
-		vim.cmd("Gina " .. table.concat(args.args, " "))
+		vim.cmd("Gina " .. args.args)
 	end
 end, {
 	force = true,
