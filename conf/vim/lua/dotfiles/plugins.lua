@@ -81,6 +81,21 @@ return require("packer").startup({
 								},
 							},
 						},
+						fzf_colors = {
+							["fg"] = { "fg", "Normal" },
+							["bg"] = { "bg", "Normal" },
+							["hl"] = { "fg", "Comment" },
+							["fg+"] = { "fg", "Normal" },
+							["bg+"] = { "bg", "CursorLine" },
+							["hl+"] = { "fg", "Statement" },
+							["info"] = { "fg", "PreProc" },
+							["prompt"] = { "fg", "Label" },
+							["pointer"] = { "fg", "Identifier" },
+							["marker"] = { "fg", "Identifier" },
+							["spinner"] = { "fg", "Identiier" },
+							["header"] = { "fg", "Comment" },
+							["gutter"] = { "bg", "Normal" },
+						},
 					})
 					vim.api.nvim_add_user_command("Files", function(args)
 						require("fzf-lua").files({
