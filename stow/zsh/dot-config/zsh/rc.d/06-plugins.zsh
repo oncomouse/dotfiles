@@ -13,7 +13,6 @@ local -a plugins=(
 	zsh-users/zsh-history-substring-search
     zsh-users/zsh-autosuggestions       # Inline suggestions
     zsh-users/zsh-syntax-highlighting   # Command-line syntax highlighting
-	unixorn/fzf-zsh-plugin              # FZF bindings
 )
 
 # zsh-autocomplete sends *a lot* of characters to your terminal. This is fine
