@@ -333,7 +333,7 @@ end
 
 -- Search project directory or, if we are in a quickfix buffer, search there:
 dotfiles.grep_or_qfgrep = function()
-	if vim.opt.buftype == "quickfix" then
+	if vim.opt.buftype:get() == "quickfix" then
 		-- Load cfilter in quickfix view:
 		vim.cmd([[packadd cfilter]])
 		local input = vim.fn.input("QFGrep/")
