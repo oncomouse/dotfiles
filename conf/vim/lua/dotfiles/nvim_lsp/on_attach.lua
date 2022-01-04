@@ -48,7 +48,7 @@ local function on_attach(client, buf_num)
 	end, {
 		desc = "lua vim.lsp.buf.references()",
 	})
-	map.nnoremap("<silent><buffer>", "gl", function()
+	map.nnoremap("<silent><buffer>", "ge", function()
 		vim.lsp.codelens.run()
 	end, {
 		desc = "lua vim.lsp.codelens.run()",
