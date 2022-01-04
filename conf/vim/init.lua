@@ -296,6 +296,19 @@ end, {
 	force = true,
 	nargs = 1,
 })
+
+-- Custom :Git command to utilize fzf-lua for status
+vim.api.nvim_add_user_command("Git", function(args)
+	if args.args:match("^status") then
+		vim.cmd("GitStatus")
+	else
+		vim.cmd("Gina " .. table.concat(args.args, " "))
+	end
+end, {
+	force = true,
+	nargs = "+",
+})
+
 -- }}}
 -- Functions {{{
 -- Hide or display a quickfix or location list:
