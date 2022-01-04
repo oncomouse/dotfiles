@@ -15,6 +15,7 @@ return require("packer").startup({
 					require("matchparen").setup()
 				end,
 			}, -- Faster matchparen for Neovim
+			"oncomouse/vim-lion", -- gl and gL for alignment
 			{
 				"ahmedkhalf/project.nvim",
 				config = function()
