@@ -122,48 +122,14 @@ return require("packer").startup({
 				config = function()
 					require("hop").setup({})
 					local map = require("dotfiles.utils.map")
-					map.nmap("<leader>f", function()
-						require("hop").hint_char1({
-							direction = require("hop.hint").HintDirection.AFTER_CURSOR,
-						})
-					end)
-					map.nmap("<leader>F", function()
-						require("hop").hint_char1({
-							direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
-						})
-					end)
-					map.omap("<leader>f", function()
-						require("hop").hint_char1({
-							direction = require("hop.hint").HintDirection.AFTER_CURSOR,
-							inclusive_jump = true,
-						})
-					end)
-					map.omap("<leader>F", function()
-						require("hop").hint_char1({
-							direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
-							inclusive_jump = true,
-						})
-					end)
-					map.nmap("<leader>t", function()
-						require("hop").hint_char1({
-							direction = require("hop.hint").HintDirection.AFTER_CURSOR,
-						})
-					end)
-					map.nmap("<leader>T", function()
-						require("hop").hint_char1({
-							direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
-						})
-					end)
-					map.omap("<leader>t", function()
-						require("hop").hint_char1({
-							direction = require("hop.hint").HintDirection.AFTER_CURSOR,
-						})
-					end)
-					map.omap("<leader>T", function()
-						require("hop").hint_char1({
-							direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
-						})
-					end)
+					map.nmap("<leader>f", "<cmd>HopChar1AC<cr>")
+					map.nmap("<leader>F", "<cmd>HopChar1BC<cr>")
+					map.omap("<leader>f", "<cmd>HopChar1AC<cr>")
+					map.omap("<leader>F", "<cmd>HopChar1BC<cr>")
+					map.nmap("<localleader>f", "<cmd>HopChar2AC<cr>")
+					map.nmap("<localleader>F", "<cmd>HopChar2BC<cr>")
+					map.omap("<localleader>f", "<cmd>HopChar2AC<cr>")
+					map.omap("<localleader>F", "<cmd>HopChar2BC<cr>")
 				end,
 			}, -- Fancy jump, useful for text editing
 			{
