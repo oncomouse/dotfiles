@@ -72,6 +72,15 @@ return require("packer").startup({
 								["default"] = require("fzf-lua.actions").file_edit,
 							},
 						},
+						git = {
+							status = {
+								actions = {
+									["default"] = function()
+										vim.cmd("Gina commit")
+									end,
+								},
+							},
+						},
 					})
 					vim.api.nvim_add_user_command("Files", function(args)
 						require("fzf-lua").files({
@@ -100,7 +109,7 @@ return require("packer").startup({
 				"lambdalisue/gina.vim",
 				cmd = "Gina",
 				config = function()
-					for _,command in pairs({
+					for _, command in pairs({
 						"branch",
 						"changes",
 						"commit",
@@ -108,7 +117,11 @@ return require("packer").startup({
 						"log",
 						"status",
 					}) do
-						vim.fn["gina#custom#command#option"](command, "--opener", vim.opt.previewheight:get() .. "split")
+						vim.fn["gina#custom#command#option"](
+							command,
+							"--opener",
+							vim.opt.previewheight:get() .. "split"
+						)
 						vim.fn["gina#custom#command#option"](command, "--group", "short")
 					end
 					-- Implement vim-fugitive commands in Gina:
