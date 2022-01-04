@@ -263,6 +263,8 @@ vim.cmd([[autocmd dotfiles-settings BufReadPost *
 vim.cmd([[autocmd dotfiles-settings BufWinEnter,BufFilePost * lua dotfiles.fasd_update()]])
 -- }}}
 -- Commands {{{
+
+-- Formatting and Diagnostic commands for LSP-less files
 vim.api.nvim_add_user_command("Diagnostics", function()
 	vim.cmd("silent lmake! %")
 	if #vim.fn.getloclist(0) == 0 then
