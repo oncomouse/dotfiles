@@ -27,7 +27,7 @@ end
 
 local function jump_autopairs()
 	local row, col = utils.get_cursor()
-	local line_after_cursor = string.sub(utils.text_get_current_line(), col)
+	local line_after_cursor = string.sub(utils.text_get_current_line(0), col)
 	if vim.b.end_regex == nil then
 		vim.b.end_regex = end_regex()
 	end
