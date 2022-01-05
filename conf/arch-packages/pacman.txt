@@ -79,3 +79,10 @@ words
 mpv
 youtube-dl
 rofi
+thunar
+gvfs
+thunar-archive-plugin
+thunar-media-tags-plugin
+thunar-volman
+tumbler
+xarchiver
