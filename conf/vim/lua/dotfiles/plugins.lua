@@ -5,6 +5,10 @@ return require("packer").startup({
 	function(use)
 		use({
 			{ "wbthomason/packer.nvim", opt = true },
+			{
+				"oncomouse/plenary-script.nvim",
+				requires = { "nvim-lua/plenary.nvim"},
+			}, -- Content-based filetype detection using plenary.nvim
 			"sickill/vim-pasta", -- fix block paste for Neovim
 			"tpope/vim-commentary", -- gc<motion> to (un)comment
 			{ "oncomouse/vim-surround", requires = { "tpope/vim-repeat" } }, -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
@@ -323,10 +327,6 @@ return require("packer").startup({
 					},
 				},
 			}, -- Markdown Syntax
-			-- {
-			-- 	"Fymyte/rasi.vim",
-			-- 	ft = "rasi",
-			-- }, -- Rasi Syntax for Rofi
 			-- Appearance:
 			{
 				"lukas-reineke/indent-blankline.nvim",
