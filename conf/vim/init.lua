@@ -1,6 +1,6 @@
 -- luacheck: globals vim dotfiles
--- vim.g.do_filetype_lua = 1 -- Enable filetype.lua
--- vim.g.did_load_filetypes = 0 -- Disable filetype.vim
+vim.g.do_filetype_lua = 1 -- Enable filetype.lua
+vim.g.did_load_filetypes = 0 -- Disable filetype.vim
 -- Dotfiles Settings {{{
 if not vim.tbl_contains(vim.opt.runtimepath:get(), vim.fn.expand("~/dotfiles/conf/vim")) then
 	vim.opt.runtimepath:append("~/dotfiles/conf/vim")
