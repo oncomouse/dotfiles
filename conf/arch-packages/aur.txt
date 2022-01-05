@@ -20,3 +20,4 @@ rofi-dmenu
 rofi-emoji
 wezterm-nightly-bin
 stylua
+polkit-dumb-agent-git
