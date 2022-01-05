@@ -398,7 +398,9 @@ end
 vim.filetype.add({
 	extension = {
 		rasi = "rasi",
-	}
+	},
+	filename = {},
+	pattern = {},
 })
 -- }}}
 -- # vim:foldmethod=marker:foldlevel=0
