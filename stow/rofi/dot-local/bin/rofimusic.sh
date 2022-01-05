@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 font=${1:-"FiraCode Nerd Font 12"}
-choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next" | \
+choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next\n Search" | \
 	rofi \
 	-match fuzzy \
 	-auto-select \
@@ -26,5 +26,8 @@ case "$choice" in
 		;;
 	*Next*)
 		liskin-media next
+		;;
+	*Search*)
+		mpd_rofi.sh
 		;;
 esac
