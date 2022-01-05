@@ -1,4 +1,6 @@
 -- luacheck: globals vim dotfiles
+-- vim.g.do_filetype_lua = 1 -- Enable filetype.lua
+-- vim.g.did_load_filetypes = 0 -- Disable filetype.vim
 -- Dotfiles Settings {{{
 if not vim.tbl_contains(vim.opt.runtimepath:get(), vim.fn.expand("~/dotfiles/conf/vim")) then
 	vim.opt.runtimepath:append("~/dotfiles/conf/vim")
@@ -261,6 +263,8 @@ vim.cmd([[autocmd dotfiles-settings BufReadPost *
 vim.cmd([[autocmd dotfiles-settings BufWinEnter,BufFilePost * lua dotfiles.fasd_update()]])
 -- }}}
 -- Commands {{{
+
+-- Formatting and Diagnostic commands for LSP-less files
 vim.api.nvim_add_user_command("Diagnostics", function()
 	vim.cmd("silent lmake! %")
 	if #vim.fn.getloclist(0) == 0 then
@@ -302,7 +306,7 @@ vim.api.nvim_add_user_command("Git", function(args)
 	if args.args:match("^status") then
 		vim.cmd("GitStatus")
 	else
-		vim.cmd("Gina " .. table.concat(args.args, " "))
+		vim.cmd("Gina " .. args.args)
 	end
 end, {
 	force = true,
@@ -333,7 +337,7 @@ end
 
 -- Search project directory or, if we are in a quickfix buffer, search there:
 dotfiles.grep_or_qfgrep = function()
-	if vim.opt.buftype == "quickfix" then
+	if vim.opt.buftype:get() == "quickfix" then
 		-- Load cfilter in quickfix view:
 		vim.cmd([[packadd cfilter]])
 		local input = vim.fn.input("QFGrep/")

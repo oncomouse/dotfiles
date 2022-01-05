@@ -81,6 +81,21 @@ return require("packer").startup({
 								},
 							},
 						},
+						fzf_colors = {
+							["fg"] = { "fg", "Normal" },
+							["bg"] = { "bg", "Normal" },
+							["hl"] = { "fg", "Comment" },
+							["fg+"] = { "fg", "Normal" },
+							["bg+"] = { "bg", "CursorLine" },
+							["hl+"] = { "fg", "Statement" },
+							["info"] = { "fg", "PreProc" },
+							["prompt"] = { "fg", "Label" },
+							["pointer"] = { "fg", "Identifier" },
+							["marker"] = { "fg", "Identifier" },
+							["spinner"] = { "fg", "Identiier" },
+							["header"] = { "fg", "Comment" },
+							["gutter"] = { "bg", "Normal" },
+						},
 					})
 					vim.api.nvim_add_user_command("Files", function(args)
 						require("fzf-lua").files({
@@ -136,14 +151,17 @@ return require("packer").startup({
 				config = function()
 					require("hop").setup({})
 					local map = require("dotfiles.utils.map")
-					map.nmap("<leader>f", "<cmd>HopChar1AC<cr>")
-					map.nmap("<leader>F", "<cmd>HopChar1BC<cr>")
-					map.omap("<leader>f", "<cmd>HopChar1AC<cr>")
-					map.omap("<leader>F", "<cmd>HopChar1BC<cr>")
-					map.nmap("<localleader>f", "<cmd>HopChar2AC<cr>")
-					map.nmap("<localleader>F", "<cmd>HopChar2BC<cr>")
-					map.omap("<localleader>f", "<cmd>HopChar2AC<cr>")
-					map.omap("<localleader>F", "<cmd>HopChar2BC<cr>")
+					local maps = {
+						{ "<leader>f", "<cmd>HopChar1AC<cr>" },
+						{ "<leader>F", "<cmd>HopChar1BC<cr>" },
+						{ "<localleader>f", "<cmd>HopChar2AC<cr>" },
+						{ "<localleader>F", "<cmd>HopChar2BC<cr>" },
+					}
+					for _,mapdef in pairs(maps) do
+						map.nmap(mapdef[1], mapdef[2])
+						map.omap(mapdef[1], mapdef[2])
+						map.xmap(mapdef[1], mapdef[2])
+					end
 				end,
 			}, -- Fancy jump, useful for text editing
 			{
