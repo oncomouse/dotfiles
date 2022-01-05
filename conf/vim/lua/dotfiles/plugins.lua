@@ -13,12 +13,6 @@ return require("packer").startup({
 			"tpope/vim-commentary", -- gc<motion> to (un)comment
 			{ "oncomouse/vim-surround", requires = { "tpope/vim-repeat" } }, -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 			{ "wellle/targets.vim", requires = { "tpope/vim-repeat" } }, -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
-			{
-				"monkoose/matchparen.nvim",
-				config = function()
-					require("matchparen").setup()
-				end,
-			}, -- Faster matchparen for Neovim
 			"oncomouse/vim-lion", -- gl and gL for alignment
 			{
 				"ahmedkhalf/project.nvim",
