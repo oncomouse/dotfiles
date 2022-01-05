@@ -394,4 +394,11 @@ if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
 	})
 end
 -- }}}
+-- Filetypes {{{
+vim.filetype.add({
+	extension = {
+		rasi = "rasi",
+	}
+})
+-- }}}
 -- # vim:foldmethod=marker:foldlevel=0

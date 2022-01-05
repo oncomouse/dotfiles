@@ -323,10 +323,10 @@ return require("packer").startup({
 					},
 				},
 			}, -- Markdown Syntax
-			{
-				"Fymyte/rasi.vim",
-				ft = "rasi",
-			}, -- Rasi Syntax for Rofi
+			-- {
+			-- 	"Fymyte/rasi.vim",
+			-- 	ft = "rasi",
+			-- }, -- Rasi Syntax for Rofi
 			-- Appearance:
 			{
 				"lukas-reineke/indent-blankline.nvim",
