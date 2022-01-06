@@ -12,6 +12,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		filter = awful.widget.taglist.filter.noempty,
 		buttons = beautiful.taglist_mousebuttons,
 	})
+	-- s.taglist = wibox.container.background(s.taglist)
+	-- s.taglist:set_bg(beautiful.tasklist_bg_focus)
+	-- s.taglist:set_fg(beautiful.tasklist_fg_focus)
 	s.tasklist = awful.widget.tasklist({
 		screen = s,
 		filter = awful.widget.tasklist.filter.focused,

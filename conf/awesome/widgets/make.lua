@@ -1,9 +1,14 @@
 -- luacheck: globals awesome
 local awful = require("awful")
 local wibox = require("wibox")
+local beautiful = require("beautiful")
 local widget_signals = {}
 local function block_watcher(cmd, delay, name)
 	local widget = awful.widget.watch(cmd, delay)
+	local bg_container = wibox.container.background()
+	bg_container:set_widget(widget)
+	bg_container:set_bg(beautiful.tasklist_bg_focus)
+	bg_container:set_fg(beautiful.tasklist_fg_focus)
 	-- Trigger for button presses
 	widget:connect_signal("button::press", function(_, _, _, button)
 		awful.spawn.easy_async_with_shell("env BUTTON=" .. button .. " " .. cmd, function()
@@ -19,7 +24,7 @@ local function block_watcher(cmd, delay, name)
 			end)
 		end)
 	end
-	return widget
+	return bg_container
 end
 
 -- System-wide signal dispersal for key presses

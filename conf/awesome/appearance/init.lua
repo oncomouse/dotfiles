@@ -1,58 +1,39 @@
 -- luacheck: globals screen
 local beautiful = require("beautiful")
-local gears = require("gears")
 local awful = require("awful")
-require("awful.autofocus")
 local is_laptop = require("utils.is_laptop")
--- {{{ Appearance
--- Beautiful
-beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
-local xrdb = beautiful.xresources.get_current_theme()
 local dpi = beautiful.xresources.apply_dpi
-beautiful.bg_focus = xrdb.color6
-beautiful.mfact = 0.55
-beautiful.tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
-beautiful.icon_dir = os.getenv("HOME") .. "/.icons/oomox-xresources-reverse-flat/"
-beautiful.fg_icon = xrdb.color7
-beautiful.icon_size = 16
-beautiful.notification_icon_size = 16
-beautiful.useless_gap = 0 -- No gaps
+-- {{{ Appearance
+-- Load Theme
+beautiful.init("~/dotfiles/conf/awesome/themes/xresources/theme.lua")
+-- Centered zoom scale:
 beautiful.cm_scale = is_laptop and 0.85 or 0.75
--- Border Colors:
-beautiful.border_color_normal = xrdb.color0
-beautiful.border_color_active = beautiful.bg_focus
-beautiful.border_color_floating_normal = xrdb.color0
-beautiful.border_color_floating_active = beautiful.border_color_active
-beautiful.border_width = 0
--- Fonts:
+-- Main area ratio:
+beautiful.mfact = 0.55
+-- Fonts {{{
 local laptop_font = "JetBrainsMono Nerd Font"
 local desktop_font = "FiraCode Nerd Font"
 beautiful.font = is_laptop and laptop_font .. " Normal 9" or desktop_font .. " Normal 10"
 beautiful.notification_font = is_laptop and laptop_font .. " Normal 9" or desktop_font .. " Normal 10"
 beautiful.hotkeys_font = is_laptop and laptop_font .. " Normal 12" or desktop_font .. " Normal 14"
 beautiful.hotkeys_description_font = is_laptop and laptop_font .. " Normal 12" or desktop_font .. " Normal 14"
--- Wibar stuff:
-beautiful.bar_height = 24
+-- }}}
+-- Use Dracula for Icons:
+beautiful.icon_theme = "/usr/share/icons/Dracula"
+-- Tags:
+beautiful.tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
+-- Wibar:
+beautiful.bar_height   = dpi(24)
 beautiful.bar_position = "top"
--- Hotkey formatting:
-beautiful.hotkeys_modifiers_fg = xrdb.color4
-beautiful.taglist_shape_border_color_focus = xrdb.color5
--- Taglist Formatting:
--- local tag_width = dpi(tonumber(last(gears.string.split(beautiful.font, " "))) + 5)
-beautiful.taglist_squares_sel = nil
-beautiful.taglist_squares_unsel = nil
--- Tasklist formatting:
-beautiful.tasklist_bg_focus = xrdb.color0
-beautiful.tasklist_fg_focus = xrdb.color7
 -- Set the background:
 beautiful.background_dot_tile_size = dpi(100)
-beautiful.background_dot_width = dpi(6)
+beautiful.background_dot_width     = dpi(6)
 awful.screen.connect_for_each_screen(function(s)
 	require("backgrounds.dots")(s)
 end)
 awful.util.shell = "/bin/bash"
 -- }}}
--- Load Additional Resources:
+-- Naughty Configuration {{{
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 local naughty = require("naughty")
@@ -63,9 +44,11 @@ naughty.connect_signal("request::display_error", function(message, startup)
 		message = message,
 	})
 end)
-naughty.connect_signal('request::display', function(n)
-   naughty.layout.box{notification = n}
+naughty.connect_signal("request::display", function(n)
+	naughty.layout.box({ notification = n })
 end)
+-- }}}
+-- Additional Configurations {{{
 require("layouts") -- Layouts
 -- Screen decoration settings
 screen.connect_signal("request::desktop_decoration", function(s)
@@ -80,6 +63,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	-- Highlight first tag to start:
 	awful.screen.focused().tags[1]:view_only()
 end)
+require("awful.autofocus")
 require("appearance.behaviors.sloppyfocus")
 -- require("appearance.behaviors.attachbelow") -- attachbelow patch
 require("appearance.behaviors.smartborders") -- smartborder patch
+-- }}}
+-- # vim:foldmethod=marker:foldlevel=0
