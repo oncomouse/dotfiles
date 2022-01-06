@@ -96,17 +96,17 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
                 )
             )
         system("bat cache --build > /dev/null")
-    if which("pywalfox") is not None:
-        message("Updaing pywalfox")
-        system("pywalfox update")
+    # if which("pywalfox") is not None:
+    #     message("Updaing pywalfox")
+    #     system("pywalfox update")
     # Run oomox:
-    if which("oomox-cli") is not None:
-        message("Running oomox-cli")
-        system(
-            "oomox-cli /opt/oomox/scripted_colors/xresources/xresources-reverse > /dev/null"
-        )
-    if which("oomox-archdroid-icons-cli"):
-        message("Running oomox-archdroid-icons-cli")
-        system(
-            "oomox-archdroid-icons-cli /opt/oomox/scripted_colors/xresources/xresources-reverse > /dev/null"
-        )
+    # if which("oomox-cli") is not None:
+    #     message("Running oomox-cli")
+    #     system(
+    #         "oomox-cli /opt/oomox/scripted_colors/xresources/xresources-reverse > /dev/null"
+    #     )
+    # if which("oomox-archdroid-icons-cli"):
+    #     message("Running oomox-archdroid-icons-cli")
+    #     system(
+    #         "oomox-archdroid-icons-cli /opt/oomox/scripted_colors/xresources/xresources-reverse > /dev/null"
+    #     )
