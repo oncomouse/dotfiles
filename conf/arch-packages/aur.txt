@@ -10,9 +10,6 @@ perl-term-shellui
 pacman-git
 seadrive-daemon
 shellcheck-bin
-themix-gui-git
-themix-icons-archdroid-git
-themix-theme-oomox-git
 tllocalmgr-git
 zotero
 rofi-dmenu
