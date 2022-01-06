@@ -5,6 +5,7 @@ systemctl --user import-environment DISPLAY
 # Load XDG Autostart for WMs without it:
 dex -a
 
+thunar --daemon
 polkit-dumb-agent
 
 # Don't start picom on the laptop:
