@@ -13,7 +13,6 @@ return require("packer").startup({
 			"tpope/vim-commentary", -- gc<motion> to (un)comment
 			{ "oncomouse/vim-surround", requires = { "tpope/vim-repeat" } }, -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 			{ "wellle/targets.vim", requires = { "tpope/vim-repeat" } }, -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
-			"oncomouse/vim-lion", -- gl and gL for alignment
 			{
 				"ahmedkhalf/project.nvim",
 				config = function()
@@ -30,6 +29,39 @@ return require("packer").startup({
 					})
 				end,
 			}, -- Set project root
+			-- Editor Enhancements:
+			"oncomouse/vim-lion", -- gl and gL to align
+			{
+				"haya14busa/vim-asterisk",
+				config = function()
+					local map = require("dotfiles.utils.map")
+					map.map("*", "<Plug>(asterisk-*)")
+					map.map("#", "<Plug>(asterisk-#)")
+					map.map("g*", "<Plug>(asterisk-g*)")
+					map.map("g#", "<Plug>(asterisk-g#)")
+					map.map("z*", "<Plug>(asterisk-z*)")
+					map.map("gz*", "<Plug>(asterisk-gz*)")
+					map.map("z#", "<Plug>(asterisk-z#)")
+					map.map("gz#", "<Plug>(asterisk-gz#)")
+					vim.g["asterisk#keeppos"] = 1
+				end,
+			}, -- Fancy * and # bindings
+			"vim-scripts/ReplaceWithRegister", -- gr{motion} or grr or gr in visual to replace with register
+			{
+				"monaqa/dial.nvim",
+				config = function()
+					local map = require("dotfiles.utils.map")
+					map.nmap("<C-a>", "<Plug>(dial-increment)")
+					map.nmap("<C-x>", "<Plug>(dial-decrement)")
+					map.vmap("<C-a>", "<Plug>(dial-increment)")
+					map.vmap("<C-x>", "<Plug>(dial-decrement)")
+					map.vmap("g<C-a>", "<Plug>(dial-increment-additional)")
+					map.vmap("g<C-x>", "<Plug>(dial-decrement-additional)")
+					local dial = require("dial")
+					table.insert(dial.config.searchlist.normal, "markup#markdown#header")
+					table.insert(dial.config.searchlist.visual, "markup#markdown#header")
+				end
+			}, -- Increment more things than just numbers in normal and visual modes
 			{
 				"windwp/nvim-autopairs",
 				config = function()
@@ -51,6 +83,7 @@ return require("packer").startup({
 				end,
 				after = "nvim-cmp",
 			}, -- Autopairs + Endwise
+			-- Extra functionality + UI:
 			{
 				"ibhagwan/fzf-lua",
 				cmd = { "Files", "Buffers", "GitStatus" },
