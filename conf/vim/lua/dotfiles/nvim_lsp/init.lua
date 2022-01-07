@@ -23,23 +23,25 @@ require("dotfiles.null-ls")
 
 for lsp, settings in pairs(servers) do
 	local ok, lsp_server = lsp_installer_servers.get_server(lsp)
+	local opts = {
+		on_attach = on_attach,
+		capabilities = capabilities,
+	}
+	if #vim.tbl_keys(settings) > 0 then
+		opts = vim.tbl_extend("keep", opts, settings)
+	end
+	local diagnostic_provider = vim.tbl_contains(servers[lsp].provides or {}, "diagnostics")
+	if not diagnostic_provider then
+		opts.handlers = handler_no_diagnostics
+	end
 	if ok then
-		local opts = {
-			on_attach = on_attach,
-			capabilities = capabilities,
-		}
-		if #vim.tbl_keys(settings) > 0 then
-			opts = vim.tbl_extend("keep", opts, settings)
-		end
-		local diagnostic_provider = vim.tbl_contains(servers[lsp].provides or {}, "diagnostics")
-		if not diagnostic_provider then
-			opts.handlers = handler_no_diagnostics
-		end
 		lsp_server:on_ready(function()
 			lsp_server:setup(opts)
 		end)
 		if not lsp_server:is_installed() then
 			lsp_server:install()
 		end
+	else
+		require("lspconfig")[lsp].setup(opts)
 	end
 end

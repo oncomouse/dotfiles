@@ -1,8 +1,21 @@
+-- luacheck: globals vim
 local servers = {
 	["null-ls"] = {
 		provides = {
 			"diagnostics",
 			"formatting",
+		},
+	},
+	flow = {
+		provides = {
+			"snippets",
+			"diagnostics",
+			"formatting",
+		},
+		settings = {
+			flow = {
+				enabled = require("lspconfig.util").path.exists(".flowconfig"),
+			},
 		},
 	},
 	sumneko_lua = {
