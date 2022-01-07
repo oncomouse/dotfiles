@@ -47,18 +47,6 @@ return require("packer").startup({
 			}, -- Fancy * and # bindings
 			"vim-scripts/ReplaceWithRegister", -- gr{motion} or grr or gr in visual to replace with register
 			{
-				"monaqa/dial.nvim",
-				config = function()
-					vim.keymap.set({ "n", "v" }, "<C-a>", "<Plug>(dial-increment)")
-					vim.keymap.set({ "n", "v" }, "<C-x>", "<Plug>(dial-decrement)")
-					vim.keymap.set("v", "g<C-a>", "<Plug>(dial-increment-additional)")
-					vim.keymap.set("v", "g<C-x>", "<Plug>(dial-decrement-additional)")
-					local dial = require("dial")
-					table.insert(dial.config.searchlist.normal, "markup#markdown#header")
-					table.insert(dial.config.searchlist.visual, "markup#markdown#header")
-				end,
-			}, -- Increment more things than just numbers in normal and visual modes
-			{
 				"windwp/nvim-autopairs",
 				config = function()
 					require("dotfiles.autopairs.fast-wrap")
