@@ -7,7 +7,7 @@ return require("packer").startup({
 			{ "wbthomason/packer.nvim", opt = true },
 			{
 				"oncomouse/plenary-script.nvim",
-				requires = { "nvim-lua/plenary.nvim"},
+				requires = { "nvim-lua/plenary.nvim" },
 			}, -- Content-based filetype detection using plenary.nvim
 			"sickill/vim-pasta", -- fix block paste for Neovim
 			"tpope/vim-commentary", -- gc<motion> to (un)comment
@@ -34,15 +34,14 @@ return require("packer").startup({
 			{
 				"haya14busa/vim-asterisk",
 				config = function()
-					local map = require("dotfiles.utils.map")
-					map.map("*", "<Plug>(asterisk-*)")
-					map.map("#", "<Plug>(asterisk-#)")
-					map.map("g*", "<Plug>(asterisk-g*)")
-					map.map("g#", "<Plug>(asterisk-g#)")
-					map.map("z*", "<Plug>(asterisk-z*)")
-					map.map("gz*", "<Plug>(asterisk-gz*)")
-					map.map("z#", "<Plug>(asterisk-z#)")
-					map.map("gz#", "<Plug>(asterisk-gz#)")
+					vim.keymap.set("", "*", "<Plug>(asterisk-*)")
+					vim.keymap.set("", "#", "<Plug>(asterisk-#)")
+					vim.keymap.set("", "g*", "<Plug>(asterisk-g*)")
+					vim.keymap.set("", "g#", "<Plug>(asterisk-g#)")
+					vim.keymap.set("", "z*", "<Plug>(asterisk-z*)")
+					vim.keymap.set("", "gz*", "<Plug>(asterisk-gz*)")
+					vim.keymap.set("", "z#", "<Plug>(asterisk-z#)")
+					vim.keymap.set("", "gz#", "<Plug>(asterisk-gz#)")
 					vim.g["asterisk#keeppos"] = 1
 				end,
 			}, -- Fancy * and # bindings
@@ -50,17 +49,14 @@ return require("packer").startup({
 			{
 				"monaqa/dial.nvim",
 				config = function()
-					local map = require("dotfiles.utils.map")
-					map.nmap("<C-a>", "<Plug>(dial-increment)")
-					map.nmap("<C-x>", "<Plug>(dial-decrement)")
-					map.vmap("<C-a>", "<Plug>(dial-increment)")
-					map.vmap("<C-x>", "<Plug>(dial-decrement)")
-					map.vmap("g<C-a>", "<Plug>(dial-increment-additional)")
-					map.vmap("g<C-x>", "<Plug>(dial-decrement-additional)")
+					vim.keymap.set({ "n", "v" }, "<C-a>", "<Plug>(dial-increment)")
+					vim.keymap.set({ "n", "v" }, "<C-x>", "<Plug>(dial-decrement)")
+					vim.keymap.set("v", "g<C-a>", "<Plug>(dial-increment-additional)")
+					vim.keymap.set("v", "g<C-x>", "<Plug>(dial-decrement-additional)")
 					local dial = require("dial")
 					table.insert(dial.config.searchlist.normal, "markup#markdown#header")
 					table.insert(dial.config.searchlist.visual, "markup#markdown#header")
-				end
+				end,
 			}, -- Increment more things than just numbers in normal and visual modes
 			{
 				"windwp/nvim-autopairs",
@@ -78,8 +74,7 @@ return require("packer").startup({
 					cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 					-- Jump closed autopairs:
-					local map = require("dotfiles.utils.map")
-					map.imap("<C-L>", require("dotfiles.jump-autopairs"))
+					vim.keymap.set("i", "<C-L>", require("dotfiles.jump-autopairs"))
 				end,
 				after = "nvim-cmp",
 			}, -- Autopairs + Endwise
@@ -181,17 +176,14 @@ return require("packer").startup({
 				"phaazon/hop.nvim",
 				config = function()
 					require("hop").setup({})
-					local map = require("dotfiles.utils.map")
 					local maps = {
 						{ "<leader>f", "<cmd>HopChar1AC<cr>" },
 						{ "<leader>F", "<cmd>HopChar1BC<cr>" },
 						{ "<localleader>f", "<cmd>HopChar2AC<cr>" },
 						{ "<localleader>F", "<cmd>HopChar2BC<cr>" },
 					}
-					for _,mapdef in pairs(maps) do
-						map.nmap(mapdef[1], mapdef[2])
-						map.omap(mapdef[1], mapdef[2])
-						map.xmap(mapdef[1], mapdef[2])
+					for _, mapdef in pairs(maps) do
+						vim.keymap.set({ "n", "o", "x" }, mapdef[1], mapdef[2])
 					end
 				end,
 			}, -- Fancy jump, useful for text editing
@@ -199,12 +191,19 @@ return require("packer").startup({
 				"hrsh7th/vim-vsnip",
 				event = "VimEnter",
 				config = function()
-					local map = require("dotfiles.utils.map")
 					vim.g.vsnip_snippet_dir = os.getenv("HOME") .. "/dotfiles/conf/vim/snippets"
-					map.imap("<expr>", "<Tab>", "vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'")
-					map.smap("<expr>", "<Tab>", "vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'")
-					map.imap("<expr>", "<S-Tab>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'")
-					map.smap("<expr>", "<S-Tab>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'")
+					vim.keymap.set(
+						{ "s", "i" },
+						"<Tab>",
+						"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
+						{ expr = true }
+					)
+					vim.keymap.set(
+						{ "s", "i" },
+						"<S-Tab>",
+						"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
+						{ expr = true }
+					)
 					vim.cmd(
 						"autocmd dotfiles-settings CompleteDone * if vsnip#available(1) | call vsnip#expand() | endif"
 					)

@@ -1,5 +1,4 @@
 -- luacheck: globals vim dotfiles
-local map = require("dotfiles.utils.map")
 local servers = require("dotfiles.nvim_lsp.servers")
 local function on_attach(client, buf_num)
 	-- Update codeLens:
@@ -10,70 +9,105 @@ local function on_attach(client, buf_num)
 	end
 	-- Use C+x C+o for completion:
 	-- vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-	map.nnoremap("<silent><buffer>", "<leader>s", function()
+	vim.keymap.set("n", "<leader>s", function()
 		vim.lsp.buf.document_symbol()
 	end, {
+		silent = true,
+		noremap = true,
+		buffer = true,
 		desc = "lua vim.lsp.buf.document_symbol()",
 	})
-	map.nnoremap("<silent><buffer>", "<F2>", function()
+	vim.keymap.set("n", "<F2>", function()
 		vim.lsp.buf.rename()
 	end, {
+		silent = true,
+		noremap = true,
+		buffer = true,
 		desc = "lua vim.lsp.buf.rename()",
 	})
-	map.nnoremap("<silent><buffer>", "gd", function()
+	vim.keymap.set("n", "<leader>gd", function()
 		vim.lsp.buf.definition()
 	end, {
+		silent = true,
+		noremap = true,
+		buffer = true,
 		desc = "lua vim.lsp.buf.definition()",
 	})
 	if client.resolved_capabilities.goto_definition == true then
 		vim.opt_local.tagfunc = "v:lua.vim.lsp.tagfunc"
 	end
-	map.nnoremap("<silent><buffer>", "gD", function()
+	vim.keymap.set("n", "<leader>gD", function()
 		vim.lsp.buf.declaration()
 	end, {
+		silent = true,
+		noremap = true,
+		buffer = true,
 		desc = "lua vim.lsp.buf.declaration()",
 	})
-	map.nnoremap("<silent><buffer>", "gy", function()
+	vim.keymap.set("n", "<leader>gy", function()
 		vim.lsp.buf.type_definition()
 	end, {
+		silent = true,
+		noremap = true,
+		buffer = true,
 		desc = "lua vim.lsp.buf.type_definition()",
 	})
-	map.nnoremap("<silent><buffer>", "gi", function()
+	vim.keymap.set("n", "<leader>gi", function()
 		vim.lsp.buf.implementation()
 	end, {
+		silent = true,
+		noremap = true,
+		buffer = true,
 		desc = "lua vim.lsp.buf.implementation()",
 	})
-	map.nnoremap("<silent><buffer>", "gr", function()
+	vim.keymap.set("n", "<leader>gr", function()
 		vim.lsp.buf.references()
 	end, {
+		silent = true,
+		noremap = true,
+		buffer = true,
 		desc = "lua vim.lsp.buf.references()",
 	})
-	map.nnoremap("<silent><buffer>", "ge", function()
+	vim.keymap.set("n", "<leader>gl", function()
 		vim.lsp.codelens.run()
 	end, {
+		silent = true,
+		noremap = true,
+		buffer = true,
 		desc = "lua vim.lsp.codelens.run()",
 	})
-	map.nnoremap("<silent><buffer>", "ga", function()
+	vim.keymap.set("n", "<leader>ga", function()
 		vim.lsp.buf.code_action()
 	end, {
+		silent = true,
+		noremap = true,
+		buffer = true,
 		desc = "lua vim.lsp.buf.code_action()",
 	})
-	map.vnoremap("<silent><buffer>", "ga", function()
+	vim.keymap.set("v", "<leader>ga", function()
 		vim.lsp.buf.range_code_action()
 	end, {
+		silent = true,
+		noremap = true,
+		buffer = true,
 		desc = "lua vim.lsp.buf.range_code_action()",
 	})
-	map.nnoremap("<silent><buffer>", "K", function()
+	vim.keymap.set("n", "K", function()
 		require("dotfiles.nvim_lsp.show_documentation")()
 	end, {
+		silent = true,
+		noremap = true,
+		buffer = true,
 		desc = "lua require('dotfiles.nvim_lsp.show_documentation')()",
 	})
-	map.nnoremap("<silent><buffer>", "<C-k>", function()
+	vim.keymap.set("n", "<C-k>", function()
 		vim.lsp.buf.signature_help()
 	end, {
+		silent = true,
+		noremap = true,
+		buffer = true,
 		desc = "lua vim.lsp.buf.signature_help()",
 	})
-	map.nnoremap("<silent><buffer>", "<F5>", ":<CR>")
 	local snippet_provider = vim.tbl_contains(servers[client.name].provides or {}, "snippets")
 	local diagnostic_provider = vim.tbl_contains(servers[client.name].provides or {}, "diagnostics")
 	local formatting_provider = vim.tbl_contains(servers[client.name].provides or {}, "formatting")
@@ -84,14 +118,20 @@ local function on_attach(client, buf_num)
 		vim.cmd(
 			[[ autocmd! dotfiles-settings DiagnosticChanged <buffer> lua vim.diagnostic.setloclist({ open = false }) ]]
 		)
-		map.nnoremap("<silent><buffer>", "]d", function()
+		vim.keymap.set("n", "]d", function()
 			vim.diagnostic.goto_next()
 		end, {
+			silent = true,
+			noremap = true,
+			buffer = true,
 			desc = "lua vim.diagnostic.goto_next()",
 		})
-		map.nnoremap("<silent><buffer>", "[d", function()
+		vim.keymap.set("n", "[d", function()
 			vim.diagnostic.goto_prev()
 		end, {
+			silent = true,
+			noremap = true,
+			buffer = true,
 			desc = "lua vim.diagnostic.goto_prev()",
 		})
 	end
@@ -138,9 +178,9 @@ local function on_attach(client, buf_num)
 		ts_utils.setup_client(client)
 
 		-- no default maps, so you may want to define some here
-		map.nmap("<buffer><silent>", "gs", ":TSLspOrganize<CR>")
-		map.nmap("<buffer><silent>", "gr", ":TSLspRenameFile<CR>")
-		map.nmap("<buffer><silent>", "gI", ":TSLspImportAll<CR>")
+		vim.keymap.set("n", "gs", ":TSLspOrganize<CR>", { buffer = true, silent = true })
+		vim.keymap.set("n", "gr", ":TSLspRenameFile<CR>", { buffer = true, silent = true })
+		vim.keymap.set("n", "gI", ":TSLspImportAll<CR>", { buffer = true, silent = true })
 	end
 end
 

@@ -5,7 +5,6 @@ vim.g.did_load_filetypes = 0 -- Disable filetype.vim
 if not vim.tbl_contains(vim.opt.runtimepath:get(), vim.fn.expand("~/dotfiles/conf/vim")) then
 	vim.opt.runtimepath:append("~/dotfiles/conf/vim")
 end
-local map = require("dotfiles.utils.map")
 dotfiles = _G.dotfiles or {}
 
 -- Add Dotfiles After To RTP:
@@ -121,55 +120,55 @@ vim.opt.expandtab = false
 -- Maps {{{
 
 -- Select the Whole File:
-map.nnoremap("<leader>vf", "ggVG")
+vim.keymap.set("n", "<leader>vf", "ggVG", { noremap = true })
 
 -- Clear Currently Highlighted Regexp:
-map.nnoremap("<silent>", "<leader>cr", ':let<C-u>let @/=""<CR>')
+vim.keymap.set("n", "<leader>cr", ':let<C-u>let @/=""<CR>', { silent = true, noremap = true })
 
 -- Navigate Buffers:
-map.nnoremap("<silent>", "]b", "<cmd>bnext<CR>")
-map.nnoremap("<silent>", "[b", "<cmd>bprevious<CR>")
+vim.keymap.set("n", "]b", "<cmd>bnext<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "[b", "<cmd>bprevious<CR>", { silent = true, noremap = true })
 --
 -- Jump to the alternate buffer:
-map.nnoremap("<silent>", "``", "<cmd>e #<CR>")
+vim.keymap.set("n", "``", "<cmd>e #<CR>", { silent = true, noremap = true })
 
 -- Source https://github.com/romainl/minivimrc/blob/master/vimrc
 -- Minimal File Finding:
-map.nnoremap("<localleader>f", ":find *")
-map.nnoremap("<localleader>s", ":sfind *")
-map.nnoremap("<localleader>v", ":vert sfind *")
+vim.keymap.set("n", "<localleader>f", ":find *", { noremap = true })
+vim.keymap.set("n", "<localleader>s", ":sfind *", { noremap = true })
+vim.keymap.set("n", "<localleader>v", ":vert sfind *", { noremap = true })
 -- Minimal Buffer Jumping:
-map.nnoremap("<leader>a", ":buffers<CR>:buffer<Space> ")
-map.nnoremap("<localleader>a", ":buffer *")
-map.nnoremap("<localleader>A", ":sbuffer *")
+vim.keymap.set("n", "<leader>a", ":buffers<CR>:buffer<Space> ", { noremap = true })
+vim.keymap.set("n", "<localleader>a", ":buffer *", { noremap = true })
+vim.keymap.set("n", "<localleader>A", ":sbuffer *", { noremap = true })
 
 -- Better Matching:
-map.nnoremap("[I", "[I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>")
-map.nnoremap("]I", "]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>")
+vim.keymap.set("n", "[I", "[I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>", { noremap = true })
+vim.keymap.set("n", "]I", "]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>", { noremap = true })
 
 -- Navigate Quickfix:
-map.nnoremap("<silent>", "]q", "<cmd>cnext<CR>")
-map.nnoremap("<silent>", "[q", "<cmd>cprevious<CR>")
+vim.keymap.set("n", "]q", "<cmd>cnext<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "[q", "<cmd>cprevious<CR>", { silent = true, noremap = true })
 
 -- Navigate Location List:
-map.nnoremap("<silent>", "]d", "<cmd>lnext<CR>")
-map.nnoremap("<silent>", "[d", "<cmd>lprev<CR>")
+vim.keymap.set("n", "]d", "<cmd>lnext<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "[d", "<cmd>lprev<CR>", { silent = true, noremap = true })
 
 -- Toggle Quickfix:
-map.nnoremap("<silent>", "<leader>q", "<cmd>lua dotfiles.list_toggle('c')<CR>")
-map.nnoremap("<silent>", "<leader>d", "<cmd>lua dotfiles.list_toggle('l')<CR>")
+vim.keymap.set("n", "<leader>q", "<cmd>lua dotfiles.list_toggle('c')<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>d", "<cmd>lua dotfiles.list_toggle('l')<CR>", { silent = true, noremap = true })
 
 -- Project Grep:
-map.nnoremap("<silent>", "<leader>/", "<cmd>lua dotfiles.grep_or_qfgrep()<CR>")
+vim.keymap.set("n", "<leader>/", "<cmd>lua dotfiles.grep_or_qfgrep()<CR>", { silent = true, noremap = true })
 
 -- Enable Todo:
 vim.g.enable_todo = 1
 
 -- Highlight a block and type "@" to run a macro on the block:
-map.xnoremap("<silent>", "@", ":<C-u>call visualat#execute_macro_over_visual_range()<CR>")
+vim.keymap.set("x", "@", ":<C-u>call visualat#execute_macro_over_visual_range()<CR>", { silent = true, noremap = true })
 
 -- Calculator:
-map.inoremap("<silent>", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>")
+vim.keymap.set("i", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
 
 -- Shortcut to view current syntax highlighting group:
 vim.cmd([[map <F10> <cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -180,31 +179,31 @@ vim.cmd([[map <F10> <cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"nam
 --  \ https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
 
 -- Quicker switching between windows
-map.nmap("<silent>", "<C-h>", "<C-w>h")
-map.nmap("<silent>", "<C-j>", "<C-w>j")
-map.nmap("<silent>", "<C-k>", "<C-w>k")
-map.nmap("<silent>", "<C-l>", "<C-w>l")
+vim.keymap.set("n", "<C-h>", "<C-w>h", { silent = true })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { silent = true })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { silent = true })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { silent = true })
 
 -- Reselect visual selection after indenting
-map.vnoremap("<", "<gv")
-map.vnoremap(">", ">gv")
+vim.keymap.set("v", "<", "<gv", { noremap = true })
+vim.keymap.set("v", ">", ">gv", { noremap = true })
 
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
-map.nnoremap("<silent> <expr>", "j", "(v:count == 0 ? 'gj' : 'j')")
-map.nnoremap("<silent> <expr>", "k", "(v:count == 0 ? 'gk' : 'k')")
+vim.keymap.set("n", "j", "(v:count == 0 ? 'gj' : 'j')", { silent = true, noremap = true, expr = true })
+vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap = true, expr = true })
 
 -- Paste replace visual selection without copying it
-map.vnoremap("<leader>p", '"_dP')
+vim.keymap.set("v", "<leader>p", '"_dP', { noremap = true })
 -- }}}
 -- FZF Bindings: {{{
-map.nmap("<silent>", "<c-p>", "<cmd>Files<CR>")
-map.nmap("<silent>", "<leader>a", "<cmd>Buffers<CR>")
+vim.keymap.set("n", "<c-p>", "<cmd>Files<CR>", { silent = true })
+vim.keymap.set("n", "<leader>a", "<cmd>Buffers<CR>", { silent = true })
 -- }}}
 -- Fold Maps: {{{
-map.onoremap("<silent>", "iz", "<cmd>normal! [zj0v]zk$<cr>")
-map.xnoremap("<silent>", "iz", "<cmd>normal! [zj0o]zk$<cr>")
-map.onoremap("<silent>", "az", "<cmd>normal! [zv]z$<cr>")
-map.xnoremap("<silent>", "az", "<cmd>normal! [zo]z$<cr>")
+vim.keymap.set("o", "iz", "<cmd>normal! [zj0v]zk$<cr>", { silent = true, noremap = true })
+vim.keymap.set("x", "iz", "<cmd>normal! [zj0o]zk$<cr>", { silent = true, noremap = true })
+vim.keymap.set("o", "az", "<cmd>normal! [zv]z$<cr>", { silent = true, noremap = true })
+vim.keymap.set("x", "az", "<cmd>normal! [zo]z$<cr>", { silent = true, noremap = true })
 -- }}}
 -- }}}
 -- Theme {{{
