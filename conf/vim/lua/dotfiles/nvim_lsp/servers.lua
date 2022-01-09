@@ -12,7 +12,7 @@ local servers = {
 			"diagnostics",
 			"formatting",
 		},
-		autostart = require("lspconfig.util").path.exists(".flowconfig"),
+		autostart = false,
 	},
 	sumneko_lua = {
 		provides = {
