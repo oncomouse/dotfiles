@@ -178,9 +178,9 @@ local function on_attach(client, buf_num)
 		ts_utils.setup_client(client)
 
 		-- no default maps, so you may want to define some here
-		vim.keymap.set("n", "gs", ":TSLspOrganize<CR>", { buffer = true, silent = true })
-		vim.keymap.set("n", "gr", ":TSLspRenameFile<CR>", { buffer = true, silent = true })
-		vim.keymap.set("n", "gI", ":TSLspImportAll<CR>", { buffer = true, silent = true })
+		vim.keymap.set("n", "<leader>gs", ":TSLspOrganize<CR>", { buffer = true, silent = true })
+		vim.keymap.set("n", "<leader>gr", ":TSLspRenameFile<CR>", { buffer = true, silent = true })
+		vim.keymap.set("n", "<leader>gI", ":TSLspImportAll<CR>", { buffer = true, silent = true })
 	end
 end
 
