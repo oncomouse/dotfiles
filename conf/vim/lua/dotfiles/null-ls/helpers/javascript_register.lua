@@ -1,14 +1,30 @@
 -- luacheck: globals vim dotfiles
 local utils = require("null-ls.utils")
 local function eslint_project()
-	return utils.make_conditional_utils().root_has_file({
-		".eslintrc",
-		".eslintrc.js",
-		".eslintrc.cjs",
-		".eslintrc.yaml",
-		".eslintrc.yml",
-		".eslintrc.json",
-	})
+	if
+		utils.make_conditional_utils().root_has_file({
+			".eslintrc",
+			".eslintrc.js",
+			".eslintrc.cjs",
+			".eslintrc.yaml",
+			".eslintrc.yml",
+			".eslintrc.json",
+		})
+	then
+		return true
+	end
+	-- Check for package.json eslintConfig, which is how CRA does it:
+	if utils.make_conditional_utils().root_has_file({ "package.json" }) then
+		local ok, fp  = pcall(io.open, utils.get_root() .. "/package.json", "r")
+		if ok then
+			local ok, package_json = pcall(vim.fn.json_decode, fp:read("*a"))
+			fp:close()
+			if ok then
+				return vim.fn.has_key(package_json, "eslintConfig") == 1
+			end
+		end
+	end
+	return false
 end
 
 local semistandard_types = {
