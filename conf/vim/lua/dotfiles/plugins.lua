@@ -247,10 +247,6 @@ return require("packer").startup({
 						module = "null-ls",
 						requires = { { "nvim-lua/plenary.nvim", module = "plenary" } },
 					},
-					{
-						"jose-elias-alvarez/nvim-lsp-ts-utils",
-						ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-					},
 				},
 				ft = {
 					"css",
