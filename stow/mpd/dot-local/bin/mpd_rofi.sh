@@ -2,7 +2,7 @@
 # shellcheck disable=SC2119,SC2120
 
 rofi_bar() {
-	rofi -match fuzzy -auto-select -dmenu -i -location 1 -theme-str "window { width: 100%; }" "$@"
+	rofi -match fuzzy -dmenu -i -location 1 -theme-str "window { width: 100%; }" "$@"
 }
 
 action-search() {
