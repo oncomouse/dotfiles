@@ -162,6 +162,7 @@ return require("packer").startup({
 			}, -- Git support
 			{
 				"phaazon/hop.nvim",
+				keys = { "<leader>f", "<leader>F", "<localleader>f", "<localleader>F" },
 				config = function()
 					require("hop").setup({})
 					local maps = {
