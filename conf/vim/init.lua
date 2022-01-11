@@ -345,7 +345,7 @@ dotfiles.grep_or_qfgrep = function()
 		vim.cmd([[packadd cfilter]])
 		local input = vim.fn.input("QFGrep/")
 		if #input > 0 then
-			local prefix = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist and "L" or "C"
+			local prefix = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "L" or "C"
 			vim.cmd(prefix .. "filter /" .. input .. "/")
 		end
 	else
