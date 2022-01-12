@@ -9,5 +9,5 @@ function _G.start_flow_for_javascript()
 	end
 end
 
-vim.cmd([[autocmd! FileType javascript,javascriptreact lua start_flow_for_javascript()]])
+vim.cmd([[autocmd! dotfiles-settings FileType dotfile-settings javascript,javascriptreact lua start_flow_for_javascript()]])
 EOF
