@@ -20,7 +20,6 @@ manager.gobject = lgi.Playerctl.PlayerManager()
 function manager.gobject.on_name_appeared(_, name)
 	manager:follow_player(name)
 end
-
 function manager.gobject.on_player_vanished(_, player)
 	manager:unfollow_player(player.props.player_name)
 end
