@@ -43,6 +43,7 @@ require("null-ls").setup({
 		require("null-ls").builtins.diagnostics.standardrb,
 		require("null-ls").builtins.code_actions.shellcheck,
 		require("dotfiles.null-ls.builtins.hover.bibtex"),
+		require("dotfiles.null-ls.builtins.completion.bibtex"),
 		javascript_register("formatting"),
 		javascript_register("diagnostics"),
 		javascript_register("code_actions"),
