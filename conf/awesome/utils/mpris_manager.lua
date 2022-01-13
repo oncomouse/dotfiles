@@ -10,7 +10,6 @@ local allowed_mpris_players = beautiful.mpris_players or {
 	"mpv",
 }
 
-local Playerctl = lgi.Playerctl
 local manager = {}
 manager.players = {}
 manager.most_recent_player = nil
@@ -29,7 +28,7 @@ manager.gobject.on_player_vanished:connect("player-vanished")
 -- Internal management:
 function manager:follow_player(name)
 	if gears.table.hasitem(allowed_mpris_players, gears.string.split(name.name, ".")[1]) then
-		local player = Playerctl.Player.new_from_name(name)
+		local player = lgi.Playerctl.Player.new_from_name(name)
 		player.on_metadata = function(p)
 			manager.update(p)
 		end
@@ -68,7 +67,7 @@ end
 -- Signals:
 -- Handle widget creation:
 awesome.connect_signal("widget::mpris::create_widget", function()
-	for _, name in pairs(Playerctl.list_players()) do
+	for _, name in pairs(lgi.Playerctl.list_players()) do
 		manager:follow_player(name)
 	end
 end)
