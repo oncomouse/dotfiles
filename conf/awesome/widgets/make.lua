@@ -16,7 +16,7 @@ local function block_watcher(cmd, delay, name)
 		end)
 	end)
 	if name then
-		widget_signals[name] = widget
+		widget_signals[name] = { widget }
 		-- Internal keypress handler:
 		widget:connect_signal("widget::update", function()
 			awful.spawn.easy_async_with_shell(cmd, function(stdout)
@@ -30,8 +30,7 @@ end
 -- System-wide signal dispersal for key presses
 awesome.connect_signal("widget::update", function(name)
 	if widget_signals[name] then
-		local widgets = type(widget_signals[name]) == "table" and widget_signals[name] or { widget_signals[name] }
-		for _,widget in pairs(widgets) do
+		for _,widget in pairs(widget_signals[name]) do
 			widget:emit_signal("widget::update")
 		end
 	end
@@ -50,15 +49,15 @@ local function make_wibar_widgets(widget_definitions)
 
 	for _, widget in ipairs(widget_definitions) do
 		if widget[3] == "mpris" then
-			local mpd_widget = require("widgets.mpris")({
-				name = "mpd",
-			}).widget
-			local ncspot_widget = require("widgets.mpris")({
-				name = "ncspot",
-			}).widget
-			table.insert(widgets.children, mpd_widget)
-			table.insert(widgets.children, ncspot_widget)
-			widget_signals["mpris"] = { mpd_widget, ncspot_widget }
+			local player_widgets = {}
+			for _,player in pairs(beautiful.mpris_players) do
+				local w = require("widgets.mpris")({
+					name = player,
+				}).widget
+				table.insert(widgets.children, w)
+				table.insert(player_widgets, w)
+			end
+			widget_signals["mpris"] = player_widgets
 		else
 			table.insert(widgets.children, block_watcher(widget[1], widget[2], widget[3]))
 		end
