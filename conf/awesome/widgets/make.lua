@@ -30,8 +30,10 @@ end
 -- System-wide signal dispersal for key presses
 awesome.connect_signal("widget::update", function(name)
 	if widget_signals[name] then
-		local widget = widget_signals[name]
-		widget:emit_signal("widget::update")
+		local widgets = type(widget_signals[name]) == "table" and widget_signals[name] or { widget_signals[name] }
+		for _,widget in pairs(widgets) do
+			widget:emit_signal("widget::update")
+		end
 	end
 end)
 
@@ -47,7 +49,19 @@ local function make_wibar_widgets(widget_definitions)
 	})
 
 	for _, widget in ipairs(widget_definitions) do
-		table.insert(widgets.children, block_watcher(widget[1], widget[2], widget[3]))
+		if widget[3] == "mpris" then
+			local mpd_widget = require("widgets.mpris")({
+				name = "mpd",
+			}).widget
+			local ncspot_widget = require("widgets.mpris")({
+				name = "ncspot",
+			}).widget
+			table.insert(widgets.children, mpd_widget)
+			table.insert(widgets.children, ncspot_widget)
+			widget_signals["mpris"] = { mpd_widget, ncspot_widget }
+		else
+			table.insert(widgets.children, block_watcher(widget[1], widget[2], widget[3]))
+		end
 	end
 	return widgets
 end
