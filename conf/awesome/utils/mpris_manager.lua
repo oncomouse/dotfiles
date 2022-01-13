@@ -46,7 +46,12 @@ function manager:unfollow_player(name)
 	if gears.table.hasitem(self.players, name) then
 		self.players[name] = nil
 		if self.most_recent_player == name then
-			awesome.emit_signal("widget::mpris::update", nil)
+			if #self.players > 0 then
+				for _,player in pairs(self.players) do
+					self.most_recent_player = player
+				end
+			end
+			awesome.emit_signal("widget::mpris::update", self.most_recent_player)
 		end
 	end
 end
