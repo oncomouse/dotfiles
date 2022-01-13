@@ -3,33 +3,37 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local lgi = require("lgi")
 
-local Playerctl = lgi.Playerctl
 beautiful.mpris_players = {
 	"mpd",
 	"ncspot",
 	"mpv",
 }
+
+local Playerctl = lgi.Playerctl
 local manager = {}
 manager.players = {}
 manager.most_recent_player = nil
-local gobject = lgi.Playerctl.PlayerManager()
-function gobject:on_name_appeared(name)
+
+-- GObject handlers:
+manager.gobject = lgi.Playerctl.PlayerManager()
+function manager.gobject.on_name_appeared(_, name)
 	manager:follow_player(name)
 end
 
-function gobject:on_player_vanished(player)
+function manager.gobject.on_player_vanished(_, player)
 	manager:unfollow_player(player.props.player_name)
 end
-gobject.on_name_appeared:connect("name-appeared")
-gobject.on_player_vanished:connect("player-vanished")
+manager.gobject.on_name_appeared:connect("name-appeared")
+manager.gobject.on_player_vanished:connect("player-vanished")
 
+-- Internal management:
 function manager:follow_player(name)
 	if gears.table.hasitem(beautiful.mpris_players, gears.string.split(name.name, ".")[1]) then
 		local player = Playerctl.Player.new_from_name(name)
 		player.on_metadata = function(p)
 			manager.update(p)
 		end
-		gobject:manage_player(player)
+		self.gobject:manage_player(player)
 		self.players[gears.string.split(name.name, ".")[1]] = player
 		if self.most_recent_player == nil then
 			self.most_recent_player = gears.string.split(name.name, ".")[1]
@@ -37,7 +41,6 @@ function manager:follow_player(name)
 		end
 	end
 end
-
 function manager:unfollow_player(name)
 	name = gears.string.split(name.name, ".")[1]
 	if gears.table.hasitem(self.players, name) then
@@ -48,6 +51,7 @@ function manager:unfollow_player(name)
 	end
 end
 
+-- Extract player information and signal widget:
 function manager.update(player)
 	awesome.emit_signal("widget::mpris::update", player.playback_status, {
 		artist = player:get_artist(),
@@ -56,13 +60,15 @@ function manager.update(player)
 	})
 end
 
+-- Signals:
+-- Handle widget creation:
 awesome.connect_signal("widget::mpris::create_widget", function()
 	for _, name in pairs(Playerctl.list_players()) do
 		manager:follow_player(name)
 	end
 end)
 
--- Signals:
+-- Handle action requests:
 awesome.connect_signal("widget::mpris::action", function(action)
 	local player
 	if manager.most_recent_player ~= nil then
@@ -81,11 +87,5 @@ awesome.connect_signal("widget::mpris::action", function(action)
 			player:previous()
 		end
 		manager.update(player)
-	end
-end)
-
-awesome.connect_signal("widget::mpris::keypress", function(action)
-	if manager.most_recent_player ~= nil then
-		awesome.emit_signal("widget::mpris::action", action)
 	end
 end)
