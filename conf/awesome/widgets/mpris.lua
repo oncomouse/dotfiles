@@ -41,7 +41,7 @@ function MediaPlayer:init(args)
 		end,
 		set_visible = function(widget, show_or_hide)
 			widget.icon.visible = show_or_hide
-			widget.current_song = show_or_hide
+			widget.current_song.visible = show_or_hide
 		end,
 	})
 
