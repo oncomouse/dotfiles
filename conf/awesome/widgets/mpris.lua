@@ -11,6 +11,7 @@ function MediaPlayer:new(args)
 end
 
 function MediaPlayer:init(args)
+	args = args or {}
 	self.font = args.font or beautiful.font
 	self.icons = args.icons or {
 		PLAYING = "契 ",
@@ -49,7 +50,7 @@ function MediaPlayer:init(args)
 	return self
 end
 
-function MediaPlayer:escape_xml(str)
+function MediaPlayer.escape_xml(str)
 	str = string.gsub(str, "&", "&amp;")
 	str = string.gsub(str, "<", "&lt;")
 	str = string.gsub(str, ">", "&gt;")
@@ -67,7 +68,7 @@ function MediaPlayer:update_widget_text(status, metadata)
 	local artist = metadata.artist
 	local title = metadata.title
 	local output = string.format("%s - %s", artist, title)
-	self.widget:set_text(self:escape_xml(output))
+	self.widget:set_text(self.escape_xml(output))
 	self.widget:set_status(self.icons[status])
 	self.widget:set_visible(true)
 end
