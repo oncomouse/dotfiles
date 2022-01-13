@@ -3,7 +3,8 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local lgi = require("lgi")
 
-beautiful.mpris_players = {
+-- Allowed music players
+local allowed_mpris_players = beautiful.mpris_players or {
 	"mpd",
 	"ncspot",
 	"mpv",
@@ -28,7 +29,7 @@ manager.gobject.on_player_vanished:connect("player-vanished")
 
 -- Internal management:
 function manager:follow_player(name)
-	if gears.table.hasitem(beautiful.mpris_players, gears.string.split(name.name, ".")[1]) then
+	if gears.table.hasitem(allowed_mpris_players, gears.string.split(name.name, ".")[1]) then
 		local player = Playerctl.Player.new_from_name(name)
 		player.on_metadata = function(p)
 			manager.update(p)
