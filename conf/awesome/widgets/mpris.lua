@@ -2,10 +2,6 @@
 -- Adapted from: https://raw.githubusercontent.com/macunha1/awesomewm-media-player-widget/master/init.lua
 local awful = require("awful")
 local beautiful = require("beautiful")
-local gears = require("gears")
-local lgi = require("lgi")
-
-local Playerctl = lgi.Playerctl
 local wibox = require("wibox")
 
 local MediaPlayer = {}
@@ -21,7 +17,6 @@ function MediaPlayer:init(args)
 		PAUSED = " ",
 		STOPPED = "栗",
 	}
-	self.name = args.name or 'mpd'
 	self.status = nil
 	self.player = nil
 
@@ -64,17 +59,16 @@ function MediaPlayer:escape_xml(str)
 	return str
 end
 
-function MediaPlayer:update_widget_text(player)
-	awesome.emit_signal("widget::mpris::update", self.name)
-	if player.playback_status == nil or player.playback_status == "STOPPED" then
+function MediaPlayer:update_widget_text(status, metadata)
+	if status == nil or status == "STOPPED" then
 		self:hide_widget()
 		return
 	end
-	local artist = player:get_artist()
-	local title = player:get_title()
+	local artist = metadata.artist
+	local title = metadata.title
 	local output = string.format("%s - %s", artist, title)
 	self.widget:set_text(self:escape_xml(output))
-	self.widget:set_status(self.icons[player.playback_status])
+	self.widget:set_status(self.icons[status])
 	self.widget:set_visible(true)
 end
 
@@ -86,52 +80,8 @@ end
 
 function MediaPlayer:signal()
 	-- Connect Playerctl:
-	local function follow_player(name)
-		if not self.player and self.name == gears.string.split(name.name, ".")[1] then
-			self.player = Playerctl.Player.new_from_name(name)
-			self.player.on_metadata = function(player)
-				self:update_widget_text(player)
-			end
-			self:update_widget_text(self.player)
-			awesome.emit_signal("widget::mpris::manage", self)
-		end
-	end
-
-	local function unfollow_player(name)
-		if self.player and self.name == gears.string.split(name.name, ".")[1] then
-			self.player = nil
-			self.player.on_metadata = function() end
-			self:hide_widget()
-			awesome.emit_signal("widget::mpris::unmanage", self)
-		end
-	end
-
-	self.manager = lgi.Playerctl.PlayerManager()
-	self.manager.on_name_appeared:connect("name-appeared")
-	function self.manager:on_name_appeared(name)
-		follow_player(name)
-	end
-
-	function self.manager:on_player_vanished(player)
-		unfollow_player(player.props.player_name)
-	end
-
-	for _, name in pairs(Playerctl.list_players()) do
-		follow_player(name)
-	end
-
-	-- Collection Action Signals:
-	self.widget:connect_signal("widget::mpris::action", function(_, action)
-		if action == "play_pause" then
-			self.player:play_pause()
-		elseif action == "stop" then
-			self.player:stop()
-		elseif action == "next" then
-			self.player:next()
-		elseif action == "previous" then
-			self.player:previous()
-		end
-	end)
+	awesome.connect_signal("widget::mpris::update", function(...) self:update_widget_text(...) end)
+	awesome.emit_signal("widget::mpris::create_widget")
 
 	-- Connect Buttons
 	self.widget:buttons(awful.util.table.join(
@@ -139,21 +89,21 @@ function MediaPlayer:signal()
 			{},
 			1, -- button 1: left click  - play/pause
 			function()
-				self.widget:emit_signal("widget::mpris::action", "play_pause")
+				awesome.emit_signal("widget::mpris::action", "play_pause")
 			end
 		),
 		awful.button(
 			{},
 			3, -- button 4: scroll up   - next song
 			function()
-				self.widget:emit_signal("widget::mpris::action", "next")
+				awesome.emit_signal("widget::mpris::action", "next")
 			end
 		),
 		awful.button(
 			{},
 			2, -- button 5: scroll down - previous song
 			function()
-				self.widget:emit_signal("widget::mpris::action", "previous")
+				awesome.emit_signal("widget::mpris::action", "previous")
 			end
 		)
 	))

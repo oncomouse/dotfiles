@@ -50,13 +50,9 @@ local function make_wibar_widgets(widget_definitions)
 	for _, widget in ipairs(widget_definitions) do
 		if widget[3] == "mpris" then
 			local player_widgets = {}
-			for _,player in pairs(beautiful.mpris_players) do
-				local w = require("widgets.mpris")({
-					name = player,
-				}).widget
-				table.insert(widgets.children, w)
-				table.insert(player_widgets, w)
-			end
+			local w = require("widgets.mpris")({}).widget
+			table.insert(widgets.children, w)
+			table.insert(player_widgets, w)
 			widget_signals["mpris"] = player_widgets
 		else
 			table.insert(widgets.children, block_watcher(widget[1], widget[2], widget[3]))
