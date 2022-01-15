@@ -262,13 +262,6 @@ local FileType = {
 	{
 		provider = "]",
 	},
-	{
-		{
-			Space,
-			Space,
-		},
-		condition = function() return not conditions.has_diagnostics() end,
-	},
 }
 
 local FileEncoding = {
@@ -302,7 +295,7 @@ local Diagnostics = {
 		self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
 	end,
 	{
-		Space
+		Space,
 	},
 	{
 		provider = function(self)
@@ -337,7 +330,21 @@ local TerminalName = {
 		local tname, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "")
 		return " " .. tname
 	end,
-	hl = { style = "bold" },
+	-- hl = { style = "bold" },
+}
+
+local WordCount = {
+	condition = function()
+		return vim.tbl_contains({
+			"markdown",
+			"txt",
+			"vimwiki",
+		}, vim.opt.filetype:get())
+	end,
+	init = function(self)
+		self.words = vim.fn.wordcount().words
+	end,
+	provider = function(self) return "W:" .. self.words end
 }
 
 local HelpFileName = {
@@ -348,7 +355,7 @@ local HelpFileName = {
 		local filename = vim.api.nvim_buf_get_name(0)
 		return vim.fn.fnamemodify(filename, ":t")
 	end,
-	hl = { fg = colors.blue },
+	-- hl = { fg = colors.blue },
 }
 local Align = { provider = "%=" }
 
@@ -360,9 +367,20 @@ local DefaultStatusline = {
 	FileName,
 	Space,
 	-- Git,
-	Space,
+	-- Space,
 	Align,
 	FileType,
+	Space,
+	WordCount,
+	{
+		{
+			Space,
+			Space,
+		},
+		condition = function()
+			return not conditions.has_diagnostics()
+		end,
+	},
 	Diagnostics,
 }
 local InactiveStatusline = {
@@ -384,10 +402,11 @@ local SpecialStatusline = {
 		})
 	end,
 
-	FileType,
-	Space,
 	HelpFileName,
 	Align,
+	FileType,
+	Space,
+	Space,
 }
 
 local TerminalStatusline = {
