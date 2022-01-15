@@ -185,13 +185,13 @@ return require("packer").startup({
 						{ "s", "i" },
 						"<Tab>",
 						"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
-						{ expr = true }
+						{ expr = true, remap = true }
 					)
 					vim.keymap.set(
 						{ "s", "i" },
 						"<S-Tab>",
 						"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
-						{ expr = true }
+						{ expr = true, remap = true }
 					)
 					vim.cmd(
 						"autocmd dotfiles-settings CompleteDone * if vsnip#available(1) | call vsnip#expand() | endif"
