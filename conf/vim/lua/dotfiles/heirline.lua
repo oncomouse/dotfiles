@@ -257,26 +257,15 @@ local FileType = {
 		provider = function()
 			return vim.bo.filetype
 		end,
-		hl = { fg = colors.yellow },
+		hl = function()
+			return conditions.is_active() and { fg = colors.yellow } or {}
+		end,
 	},
 	{
 		provider = "]",
 	},
 }
 
-local FileEncoding = {
-	provider = function()
-		local enc = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc -- :h 'enc'
-		return enc ~= "utf-8" and enc:upper()
-	end,
-}
-
-local FileFormat = {
-	provider = function()
-		local fmt = vim.bo.fileformat
-		return fmt ~= "unix" and fmt:upper()
-	end,
-}
 local Diagnostics = {
 
 	condition = conditions.has_diagnostics,
@@ -298,29 +287,91 @@ local Diagnostics = {
 		Space,
 	},
 	{
-		provider = function(self)
-			-- 0 is just another output, we can decide to print it or not!
-			return self.errors > 0 and (" " .. self.error_icon .. self.errors .. " ")
+		condition = function(self)
+			return self.errors > 0
 		end,
-		hl = { bg = colors.diag.error, fg = colors.dark_gray },
+		{
+			{
+				provider = "",
+				hl = { fg = colors.diag.error },
+			},
+			{
+				provider = function(self)
+					return self.errors > 0 and (" " .. self.error_icon .. self.errors .. " ")
+				end,
+				hl = { bg = colors.diag.error, fg = colors.dark_gray },
+			},
+			{
+				provider = "",
+				condition = function(self) return self.warnings == 0 and self.info == 0 and self.hints == 0 end,
+				hl = { fg = colors.diag.error, bg = colors.black },
+			},
+		},
 	},
 	{
-		provider = function(self)
-			return self.warnings > 0 and (" " .. self.warn_icon .. self.warnings .. " ")
+		condition = function(self)
+			return self.warnings > 0
 		end,
-		hl = { bg = colors.diag.warn, fg = colors.dark_gray },
+		{
+			{
+				provider = "",
+				hl = { fg = colors.diag.warn },
+			},
+			{
+				provider = function(self)
+					return self.warnings > 0 and (" " .. self.warn_icon .. self.warnings .. " ")
+				end,
+				hl = { bg = colors.diag.warn, fg = colors.dark_gray },
+			},
+			{
+				provider = "",
+				condition = function(self) return self.info == 0 and self.hints == 0 end,
+				hl = { fg = colors.diag.warn, bg = colors.black },
+			},
+		},
 	},
 	{
-		provider = function(self)
-			return self.info > 0 and (" " .. self.info_icon .. self.info .. " ")
+		condition = function(self)
+			return self.info > 0
 		end,
-		hl = { bg = colors.diag.info, fg = colors.dark_gray },
+		{
+			{
+				provider = "",
+				hl = { fg = colors.diag.info },
+			},
+			{
+				provider = function(self)
+					return self.info > 0 and (" " .. self.info_icon .. self.info .. " ")
+				end,
+				hl = { bg = colors.diag.info, fg = colors.dark_gray },
+			},
+			{
+				provider = "",
+				condition = function(self) return self.hints == 0 end,
+				hl = { fg = colors.diag.info, bg = colors.black },
+			},
+		},
 	},
 	{
-		provider = function(self)
-			return self.hints > 0 and (" " .. self.hint_icon .. self.hints)
+		condition = function(self)
+			return self.hints > 0
 		end,
-		hl = { fg = colors.diag.hint },
+		{
+			{
+				provider = "",
+				hl = { fg = colors.diag.hint },
+			},
+			{
+				provider = function(self)
+					return self.hints > 0 and (" " .. self.hint_icon .. self.hint .. " ")
+				end,
+				hl = { bg = colors.diag.hint, fg = colors.dark_gray },
+			},
+			{
+				provider = "",
+				hl = { fg = colors.diag.hint, bg = colors.black },
+			},
+		},
 	},
 }
 local TerminalName = {
@@ -344,19 +395,96 @@ local WordCount = {
 	init = function(self)
 		self.words = vim.fn.wordcount().words
 	end,
-	provider = function(self) return "W:" .. self.words end
+	{
+		Space,
+		{
+			provider = function(self)
+				return "W:" .. self.words
+			end,
+		},
+	},
 }
 
 local HelpFileName = {
 	condition = function()
 		return vim.bo.filetype == "help"
 	end,
-	provider = function()
-		local filename = vim.api.nvim_buf_get_name(0)
-		return vim.fn.fnamemodify(filename, ":t")
-	end,
+	{
+		{
+			provider = "[",
+		},
+		{
+			provider = "Help",
+			hl = { fg = colors.yellow },
+		},
+		{
+			provider = "]",
+		},
+		Space,
+		FileIcon,
+		{
+			provider = function()
+				local filename = vim.api.nvim_buf_get_name(0)
+				return vim.fn.fnamemodify(filename, ":t")
+			end,
+		},
+		Space,
+		FileFlags,
+	},
 	-- hl = { fg = colors.blue },
 }
+
+local QuickfixName = {
+	init = function(self)
+		self.title = vim.w.quickfix_title or ""
+		self.name = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "Location List" or "Quickfix List"
+	end,
+	condition = function()
+		return vim.bo.filetype == "qf"
+	end,
+	{
+		{
+			provider = "[",
+		},
+		{
+			provider = function(self)
+				return self.name
+			end,
+			hl = { fg = colors.yellow },
+		},
+		{
+			provider = "]",
+		},
+		Space,
+		{
+			provider = function(self)
+				return self.title
+			end,
+		},
+	},
+}
+
+local Position = {
+	init = function(self)
+		self.line = vim.fn.line(".")
+		self.col = vim.fn.col(".")
+		self.last_line = vim.fn.line("$")
+	end,
+	{
+		{
+			provider = function(self)
+				return string.format("%s:%s", self.line, self.col)
+			end,
+		},
+		Space,
+		{
+			provider = function(self)
+				return string.format("%d%%%%", self.line / self.last_line * 100)
+			end,
+		},
+	},
+}
+
 local Align = { provider = "%=" }
 
 ViMode = mode_wrapper({ "", "" }, { ViMode, Snippets })
@@ -371,6 +499,7 @@ local DefaultStatusline = {
 	Align,
 	FileType,
 	Space,
+	Position,
 	WordCount,
 	{
 		{
@@ -388,10 +517,9 @@ local InactiveStatusline = {
 		return not conditions.is_active()
 	end,
 
-	FileType,
-	Space,
 	FileName,
 	Align,
+	FileType,
 }
 
 local SpecialStatusline = {
@@ -403,6 +531,7 @@ local SpecialStatusline = {
 	end,
 
 	HelpFileName,
+	QuickfixName,
 	Align,
 	FileType,
 	Space,
@@ -415,18 +544,16 @@ local TerminalStatusline = {
 		return conditions.buffer_matches({ buftype = { "terminal" } })
 	end,
 
-	-- hl = { bg = colors.purple },
-
 	-- Quickly add a condition to the ViMode to only show it when buffer is active!
 	{ condition = conditions.is_active, ViMode, Space },
-	-- FileType,
-	-- Space,
 	TerminalName,
 	Align,
+	FileType,
+	Space,
+	Space,
 }
 
 local StatusLines = {
-
 	hl = function()
 		if conditions.is_active() then
 			return {
