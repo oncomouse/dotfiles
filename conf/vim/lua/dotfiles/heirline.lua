@@ -24,21 +24,68 @@ local colors = {
 		change = utils.get_highlight("DiffChange").fg,
 	},
 }
-local mode_colors = {
-	n = colors.blue,
-	i = colors.green,
-	v = colors.orange,
-	V = colors.orange,
-	["^V"] = colors.orange,
-	c = colors.cyan,
-	s = colors.purple,
-	S = colors.purple,
-	["^S"] = colors.purple,
-	R = colors.red,
-	r = colors.red,
-	["!"] = colors.red,
-	t = colors.purple,
-}
+-- local
+
+local mode_wrapper = function(delimiter, component)
+	component = utils.clone(component)
+	component.hl = component.hl or {}
+	local old_hl_func, old_hl
+	if type(component.hl) == "function" then
+		old_hl_func = component.hl
+	else
+		old_hl = component.hl
+		old_hl_func = function()
+			return utils.clone(old_hl)
+		end
+	end
+	component.hl = function(obj)
+		local hl = old_hl_func(obj)
+		local mode = obj.mode:sub(1, 1) -- get only the first mode character
+		hl.bg = obj.mode_colors[mode]
+		if not hl.fg or hl.fg == colors.gray then
+			hl.fg = colors.dark_gray
+		end
+		return hl
+	end
+	return {
+		static = {
+			mode_colors = {
+				n = colors.blue,
+				i = colors.green,
+				v = colors.orange,
+				V = colors.orange,
+				["^V"] = colors.orange,
+				c = colors.cyan,
+				s = colors.purple,
+				S = colors.purple,
+				["^S"] = colors.purple,
+				R = colors.red,
+				r = colors.red,
+				["!"] = colors.red,
+				t = colors.purple,
+			},
+		},
+		init = function(self)
+			self.mode = vim.fn.mode(1) -- :h mode()
+		end,
+		{
+			hl = function(self)
+				local mode = self.mode:sub(1, 1) -- get only the first mode character
+				return { fg = self.mode_colors[mode], bg = colors.black }
+			end,
+			provider = delimiter[1],
+		},
+		component,
+		{
+			hl = function(self)
+				local mode = self.mode:sub(1, 1) -- get only the first mode character
+				return { fg = self.mode_colors[mode], bg = colors.dark_gray }
+			end,
+			provider = delimiter[2],
+		},
+	}
+end
+
 local ViMode = {
 	-- get vim current mode, this information will be required by the provider
 	-- and the highlight functions, so we compute it only once per component
@@ -95,12 +142,11 @@ local ViMode = {
 	-- control the padding and make sure our string is always at least 2
 	-- characters long. Plus a nice Icon.
 	provider = function(self)
-		return "%2(" .. self.mode_names[self.mode] .. "%)"
+		return self.mode_names[self.mode]
 	end,
 	-- Same goes for the highlight. Now the foreground will change according to the current mode.
-	hl = function(self)
-		local mode = self.mode:sub(1, 1) -- get only the first mode character
-		return { bg = mode_colors[mode], fg = colors.dark_gray, style = "bold" }
+	hl = function()
+		return { fg = colors.dark_gray, style = "bold" }
 	end,
 }
 local Snippets = {
@@ -113,7 +159,7 @@ local Snippets = {
 		local backward = (vim.fn["vsnip#jumpable"](-1) == 1) and " " or ""
 		return backward .. forward
 	end,
-	hl = { fg = "red", syle = "bold" },
+	hl = { fg = colors.dark_gray, syle = "bold" },
 }
 local FileNameBlock = {
 	-- let's first set up some attributes needed by this component and it's children
@@ -156,7 +202,7 @@ local FileName = {
 		end
 		return filename
 	end,
-	hl = { fg = utils.get_highlight("Directory").fg },
+	-- hl = { fg = utils.get_highlight("Directory").fg },
 }
 
 local FileFlags = {
@@ -166,7 +212,7 @@ local FileFlags = {
 				return "[+]"
 			end
 		end,
-		hl = { fg = colors.green },
+		-- hl = { fg = colors.green },
 	},
 	{
 		provider = function()
@@ -174,7 +220,7 @@ local FileFlags = {
 				return ""
 			end
 		end,
-		hl = { fg = colors.orange },
+		-- hl = { fg = colors.orange },
 	},
 }
 
@@ -183,29 +229,46 @@ local FileFlags = {
 -- but we'll see how easy it is to alter existing components using a "modifier"
 -- component
 
-local FileNameModifer = {
-	hl = function()
-		if vim.bo.modified then
-			-- use `force` because we need to override the child's hl foreground
-			return { fg = colors.cyan, style = "bold", force = true }
-		end
-	end,
-}
+-- local FileNameModifer = {
+-- 	hl = function()
+-- 		if vim.bo.modified then
+-- 			-- use `force` because we need to override the child's hl foreground
+-- 			return { fg = colors.cyan, style = "bold", force = true }
+-- 		end
+-- 	end,
+-- }
 
 -- let's add the children to our FileNameBlock component
-FileNameBlock = utils.insert(
+FileName = utils.insert(
 	FileNameBlock,
 	FileIcon,
-	utils.insert(FileNameModifer, FileName), -- a new table where FileName is a child of FileNameModifier
+	FileName,
+	-- utils.insert(FileNameModifer, FileName), -- a new table where FileName is a child of FileNameModifier
 	unpack(FileFlags), -- A small optimisation, since their parent does nothing
 	{ provider = "%<" } -- this means that the statusline is cut here when there's not enough space
 )
 
+local Space = { provider = " " }
 local FileType = {
-	provider = function()
-		return string.upper(vim.bo.filetype)
-	end,
-	hl = { fg = utils.get_highlight("Type").fg, style = "bold" },
+	{
+		provider = "[",
+	},
+	{
+		provider = function()
+			return vim.bo.filetype
+		end,
+		hl = { fg = colors.yellow },
+	},
+	{
+		provider = "]",
+	},
+	{
+		{
+			Space,
+			Space,
+		},
+		condition = function() return not conditions.has_diagnostics() end,
+	},
 }
 
 local FileEncoding = {
@@ -238,37 +301,33 @@ local Diagnostics = {
 		self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
 		self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
 	end,
-
 	{
-		provider = "![",
+		Space
 	},
 	{
 		provider = function(self)
 			-- 0 is just another output, we can decide to print it or not!
-			return self.errors > 0 and (self.error_icon .. self.errors .. " ")
+			return self.errors > 0 and (" " .. self.error_icon .. self.errors .. " ")
 		end,
-		hl = { fg = colors.diag.error },
+		hl = { bg = colors.diag.error, fg = colors.dark_gray },
 	},
 	{
 		provider = function(self)
-			return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
+			return self.warnings > 0 and (" " .. self.warn_icon .. self.warnings .. " ")
 		end,
-		hl = { fg = colors.diag.warn },
+		hl = { bg = colors.diag.warn, fg = colors.dark_gray },
 	},
 	{
 		provider = function(self)
-			return self.info > 0 and (self.info_icon .. self.info .. " ")
+			return self.info > 0 and (" " .. self.info_icon .. self.info .. " ")
 		end,
-		hl = { fg = colors.diag.info },
+		hl = { bg = colors.diag.info, fg = colors.dark_gray },
 	},
 	{
 		provider = function(self)
-			return self.hints > 0 and (self.hint_icon .. self.hints)
+			return self.hints > 0 and (" " .. self.hint_icon .. self.hints)
 		end,
 		hl = { fg = colors.diag.hint },
-	},
-	{
-		provider = "]",
 	},
 }
 local TerminalName = {
@@ -278,7 +337,7 @@ local TerminalName = {
 		local tname, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "")
 		return " " .. tname
 	end,
-	hl = { fg = colors.blue, style = "bold" },
+	hl = { style = "bold" },
 }
 
 local HelpFileName = {
@@ -292,51 +351,19 @@ local HelpFileName = {
 	hl = { fg = colors.blue },
 }
 local Align = { provider = "%=" }
-local Space = { provider = " " }
 
-local mode_surround = function(delimiters, component)
-	component = utils.clone(component)
-	return {
-		{
-			init = function(self)
-				self.mode = vim.fn.mode(1) -- :h mode()
-			end,
-			hl = function(self)
-				local mode = self.mode:sub(1, 1) -- get only the first mode character
-				return { fg = mode_colors[mode], bg = colors.black }
-			end,
-			provider = delimiters[1],
-		},
-		component,
-		{
-			init = function(self)
-				self.mode = vim.fn.mode(1) -- :h mode()
-			end,
-			hl = function(self)
-				local mode = self.mode:sub(1, 1) -- get only the first mode character
-				return { fg = mode_colors[mode], bg = colors.dark_gray }
-			end,
-			provider = delimiters[2],
-		},
-	}
-end
-
-ViMode = mode_surround({ "", "" }, { ViMode, Snippets })
+ViMode = mode_wrapper({ "", "" }, { ViMode, Snippets })
 
 local DefaultStatusline = {
 	ViMode,
 	Space,
 	FileName,
 	Space,
-	Git,
+	-- Git,
 	Space,
-	Diagnostics,
 	Align,
-	Align,
-	Space,
 	FileType,
-	Space,
-	Space,
+	Diagnostics,
 }
 local InactiveStatusline = {
 	condition = function()
@@ -373,8 +400,8 @@ local TerminalStatusline = {
 
 	-- Quickly add a condition to the ViMode to only show it when buffer is active!
 	{ condition = conditions.is_active, ViMode, Space },
-	FileType,
-	Space,
+	-- FileType,
+	-- Space,
 	TerminalName,
 	Align,
 }
