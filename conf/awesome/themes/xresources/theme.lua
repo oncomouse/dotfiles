@@ -18,7 +18,7 @@ local theme = dofile(themes_path.."default/theme.lua")
 theme.font          = "sans 8"
 
 theme.bg_normal     = xrdb.background
-theme.bg_focus      = xrdb.color6
+theme.bg_focus      = xrdb.color14
 theme.bg_urgent     = xrdb.color1
 theme.bg_minimize   = xrdb.color8
 theme.bg_systray    = theme.bg_normal

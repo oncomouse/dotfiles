@@ -1,4 +1,10 @@
-gtk-font-name="Liberation Sans 10"
-gtk-theme-name="Dracula"
-gtk-icon-theme-name="Dracula"
+gtk-enable-animations=1
+gtk-primary-button-warps-slider=0
+gtk-toolbar-style=3
+gtk-menu-images=1
+gtk-button-images=1
+gtk-cursor-theme-size=24
 gtk-cursor-theme-name="adwaita"
+gtk-icon-theme-name="Dracula"
+gtk-theme-name = "Catppuccin"
+gtk-font-fname = "Fira Sans 14"

@@ -10,13 +10,13 @@
     alternate-urgent-background: {color8};
     active-foreground:           {background};
     lightbg:                     {color8};
-    selected-active-foreground:  {color6};
+    selected-active-foreground:  {color14};
     alternate-active-background: @active-background;
     background:                  {background};
     alternate-normal-foreground: @foreground;
     normal-background:           @background;
     lightfg:                     {color7};
-    selected-normal-background:  {color6};
+    selected-normal-background:  {color14};
     border-color:                {color7};
     spacing:                     2;
     separatorcolor:              {color7};

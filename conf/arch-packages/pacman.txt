@@ -86,3 +86,5 @@ thunar-media-tags-plugin
 thunar-volman
 tumbler
 xarchiver
+gnome-themes-extra
+gtk-engine-murrine
