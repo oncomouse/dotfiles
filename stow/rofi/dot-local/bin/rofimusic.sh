@@ -8,7 +8,7 @@ choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next\n Search\n�
 	-dmenu \
 	-i \
 	-font "$font" \
-	-p "$(liskin-media status)" \
+	-p "$(playerctl --format "{{status}}:: {{artist}} - {{title}}" metadata| sed -e "s/Playing::/契/" -e "s/Paused:://" -e "s/Stopped::/栗/")" \
 	"-location" \
 	"1" \
 	"-theme-str" \
