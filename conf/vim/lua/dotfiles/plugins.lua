@@ -373,7 +373,7 @@ return require("packer").startup({
 						},
 					}
 				end,
-			},
+			}, -- Colorscheme
 			{
 				"oncomouse/nvim-colorizer.lua",
 				config = function()
@@ -396,13 +396,13 @@ return require("packer").startup({
 					end
 					vim.cmd([[autocmd dotfiles-settings FileType scss lua require'colorizer/sass'.attach_to_buffer()]])
 				end,
-			},
-			{
-				"rebelot/heirline.nvim",
-				config = function()
-					require("heirline").setup(require("dotfiles.heirline"))
-				end
-			}
+			}, -- Highlight colors in files
+			-- {
+			-- 	"rebelot/heirline.nvim",
+			-- 	config = function()
+			-- 		require("heirline").setup(require("dotfiles.heirline"))
+			-- 	end
+			-- } -- Statusline
 		})
 	end,
 })
