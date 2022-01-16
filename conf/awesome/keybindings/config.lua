@@ -609,6 +609,15 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		description = "Take an Interactive Screenshot",
 		group = "Media",
 	}),
+	awful.key({
+		modifiers = { beautiful.modkey, "Shift", "Ctrl" },
+		key = "Print",
+		on_press = function()
+			awful.spawn.with_shell("xcolor | xclip -selection clipboard"),
+		end,
+		description = "Onscreen Colour Picker",
+		group = "Media",
+	})
 })
 -- }}}
 -- vim:foldmethod=marker:foldlevel=0

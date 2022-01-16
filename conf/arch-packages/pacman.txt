@@ -88,3 +88,4 @@ tumbler
 xarchiver
 gnome-themes-extra
 gtk-engine-murrine
+xcolor
