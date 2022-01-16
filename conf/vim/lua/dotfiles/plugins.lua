@@ -397,12 +397,12 @@ return require("packer").startup({
 					vim.cmd([[autocmd dotfiles-settings FileType scss lua require'colorizer/sass'.attach_to_buffer()]])
 				end,
 			}, -- Highlight colors in files
-			-- {
-			-- 	"rebelot/heirline.nvim",
-			-- 	config = function()
-			-- 		require("heirline").setup(require("dotfiles.heirline"))
-			-- 	end
-			-- } -- Statusline
+			{
+				"rebelot/heirline.nvim",
+				config = function()
+					require("heirline").setup(require("dotfiles.heirline"))
+				end
+			} -- Statusline
 		})
 	end,
 })
