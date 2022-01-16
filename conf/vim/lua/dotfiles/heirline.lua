@@ -301,7 +301,7 @@ local Diagnostics = {
 			},
 			{
 				provider = function(self)
-					return self.errors > 0 and (" " .. self.error_icon .. self.errors .. " ")
+					return self.errors > 0 and (self.error_icon .. self.errors)
 				end,
 				hl = { bg = colors.diag.error, fg = colors.dark_gray },
 			},
@@ -329,7 +329,7 @@ local Diagnostics = {
 			},
 			{
 				provider = function(self)
-					return self.warnings > 0 and (" " .. self.warn_icon .. self.warnings .. " ")
+					return self.warnings > 0 and (self.warn_icon .. self.warnings)
 				end,
 				hl = { bg = colors.diag.warn, fg = colors.dark_gray },
 			},
@@ -357,7 +357,7 @@ local Diagnostics = {
 			},
 			{
 				provider = function(self)
-					return self.info > 0 and (" " .. self.info_icon .. self.info .. " ")
+					return self.info > 0 and (self.info_icon .. self.info)
 				end,
 				hl = { bg = colors.diag.info, fg = colors.dark_gray },
 			},
@@ -385,7 +385,7 @@ local Diagnostics = {
 			},
 			{
 				provider = function(self)
-					return self.hints > 0 and (" " .. self.hint_icon .. self.hint .. " ")
+					return self.hints > 0 and (self.hint_icon .. self.hint)
 				end,
 				hl = { bg = colors.diag.hint, fg = colors.dark_gray },
 			},
