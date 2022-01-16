@@ -179,6 +179,7 @@ local FileIcon = {
 			{ default = true }
 		)
 	end,
+	condition = conditions.is_active,
 	provider = function(self)
 		return self.icon and (self.icon .. " ")
 	end,
