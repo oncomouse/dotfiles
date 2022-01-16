@@ -250,6 +250,9 @@ FileName = utils.insert(
 
 local Space = { provider = " " }
 local FileType = {
+	condition = function()
+		return #vim.bo.filetype > 0
+	end,
 	{
 		provider = "[",
 	},
