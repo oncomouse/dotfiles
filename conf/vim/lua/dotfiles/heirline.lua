@@ -315,7 +315,13 @@ local Diagnostics = {
 		{
 			{
 				provider = "",
-				hl = { fg = colors.diag.warn },
+				hl = function(self)
+					local h = { fg = colors.diag.warn }
+					if self.errors > 0 then
+						h.bg = colors.diag.error
+					end
+					return h
+				end,
 			},
 			{
 				provider = function(self)
@@ -337,7 +343,13 @@ local Diagnostics = {
 		{
 			{
 				provider = "",
-				hl = { fg = colors.diag.info },
+				hl = function(self)
+					local h = { fg = colors.diag.info }
+					if self.errors > 0 then
+						h.bg = colors.diag.warn
+					end
+					return h
+				end,
 			},
 			{
 				provider = function(self)
@@ -359,7 +371,13 @@ local Diagnostics = {
 		{
 			{
 				provider = "",
-				hl = { fg = colors.diag.hint },
+				hl = function(self)
+					local h = { fg = colors.diag.hint }
+					if self.errors > 0 then
+						h.bg = colors.diag.info
+					end
+					return h
+				end,
 			},
 			{
 				provider = function(self)
