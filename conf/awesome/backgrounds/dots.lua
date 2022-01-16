@@ -4,7 +4,7 @@ local beautiful = require("beautiful")
 local xrdb = beautiful.xresources.get_current_theme()
 
 local function make_background()
-	local tile_color = gears.color(xrdb.color0)
+	local tile_color = gears.color(xrdb.background)
 	local box_color = gears.color(xrdb.color8)
 	local tile_width = beautiful.background_dot_tile_size
 	local box_width = beautiful.background_dot_width
