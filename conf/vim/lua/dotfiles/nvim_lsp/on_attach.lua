@@ -116,7 +116,9 @@ local function on_attach(client, buf_num)
 	end
 	if diagnostic_provider then
 		vim.cmd(
-			[[ autocmd! dotfiles-settings DiagnosticChanged <buffer> lua vim.diagnostic.setloclist({ open = false }) ]]
+			[[ autocmd! dotfiles-settings DiagnosticChanged <buffer> lua vim.diagnostic.setloclist({ open = false })
+			autocmd! dotfiles-settings BufEnter <buffer> lua vim.diagnostic.setloclist({ open = false })
+			]]
 		)
 		vim.keymap.set("n", "]d", function()
 			vim.diagnostic.goto_next()
