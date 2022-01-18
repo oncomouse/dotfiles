@@ -218,7 +218,10 @@ if vim.fn.has("mac") == 1 or vim.fn.exists("$DISPLAY") == 1 then
 	vim.cmd([[let &t_8b='<Esc>[48;2;%lu;%lu;%lum']])
 	vim.opt.termguicolors = true
 
-	vim.cmd([[colorscheme lushwal]])
+	local ok = pcall(vim.cmd, [[colorscheme lushwal]])
+	if not ok then
+		vim.cmd([[colorscheme default]])
+	end
 else
 	vim.cmd([[colorscheme default]])
 end
@@ -392,7 +395,6 @@ end
 
 -- Update Packer.nvim automatically:
 vim.cmd([[autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | PackerCompile]])
-
 -- Install packer.nvim, if it isn't present:
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
