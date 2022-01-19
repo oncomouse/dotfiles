@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 source ~/dotfiles/conf/xorg/xinit-common
 
+/usr/bin/picom --experimental-backends -b
+
 export QT_QPA_PLATFORMTHEME=qt5ct
 export DESKTOP_SESSION="awesome"
 exec awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
