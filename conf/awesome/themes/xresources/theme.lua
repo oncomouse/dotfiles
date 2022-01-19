@@ -30,7 +30,7 @@ theme.fg_minimize   = theme.bg_normal
 theme.fg_icon       = xrdb.color7
 
 theme.useless_gap   = 0
-theme.border_width  = 0
+theme.border_width  = 2
 theme.border_color_normal = xrdb.color0
 theme.border_color_active = theme.bg_focus
 theme.border_color_floating_normal = xrdb.color0
