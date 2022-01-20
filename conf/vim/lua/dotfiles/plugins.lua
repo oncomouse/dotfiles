@@ -82,7 +82,7 @@ return require("packer").startup({
 							border = "none",
 							preview = {
 								flip_columns = 110,
-							}
+							},
 						},
 						files = {
 							actions = {
@@ -404,8 +404,8 @@ return require("packer").startup({
 				"rebelot/heirline.nvim",
 				config = function()
 					require("heirline").setup(require("dotfiles.heirline"))
-				end
-			} -- Statusline
+				end,
+			}, -- Statusline
 		})
 	end,
 })
