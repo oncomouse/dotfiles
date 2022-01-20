@@ -80,6 +80,9 @@ return require("packer").startup({
 							row = 0.99,
 							col = 0,
 							border = "none",
+							preview = {
+								flip_columns = 110,
+							}
 						},
 						files = {
 							actions = {
