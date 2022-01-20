@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+source ~/dotfiles/conf/xorg/xinit-common
+
+nm-applet&
+
+export QT_QPA_PLATFORMTHEME=qt5ct
+export DESKTOP_SESSION="xfce"
+exec startxfce4
+# vim:ft=sh
