@@ -89,3 +89,5 @@ xarchiver
 gnome-themes-extra
 gtk-engine-murrine
 xcolor
+papirus-icon-theme
+arc-gtk-theme

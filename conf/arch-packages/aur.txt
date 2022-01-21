@@ -17,5 +17,3 @@ rofi-emoji
 wezterm-nightly-bin
 stylua
 polkit-dumb-agent-git
-dracula-icons-git
-catppuccin-gtk-theme
