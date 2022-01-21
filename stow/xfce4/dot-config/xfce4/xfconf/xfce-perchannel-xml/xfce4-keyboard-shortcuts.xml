@@ -61,6 +61,7 @@
       <property name="&lt;Shift&gt;&lt;Super&gt;Return" type="string" value="kitty"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;n" type="string" value="networkmanager_dmenu -i -n -F"/>
       <property name="&lt;Alt&gt;&lt;Super&gt;r" type="string" value="rofi -match fuzzy -auto-select -show drun -show-icons -drun-display-format &quot;{name}&quot;"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;b" type="string" value="xbacklight -set 50"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
