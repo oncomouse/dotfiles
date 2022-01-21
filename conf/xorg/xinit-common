@@ -7,6 +7,8 @@ dex -a
 
 polkit-dumb-agent&
 
+/usr/bin/picom --experimental-backends -b
+
 ## Appareance:
 
 # Load Xresources:

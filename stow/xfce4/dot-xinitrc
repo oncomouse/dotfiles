@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
-source ~/dotfiles/conf/xorg/xinit-common
+## Key Bindings
+
+# Set compose key (for unicode) to menu:
+setxkbmap -option compose:menu
+# Always turn on numlock:
+setxkbmap -option numpad:mac us
+# Convert capslock to escape:
+setxkbmap -option caps:escape
+
+# reassign Alt_R to Super_L
+xmodmap -e "keycode 108 = Super_L"
+# make sure X keeps it out of the mod1 group
+xmodmap -e "remove mod1 = Super_L"
 
 nm-applet&
 
