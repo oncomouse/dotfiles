@@ -50,4 +50,16 @@ beautiful.rules = {
 			modal = true,
 		},
 	},
+	{
+		id = "titlbar-test",
+		rule_any = {
+			type = {
+				"normal",
+				"dialog",
+			},
+		},
+		properties = {
+			can_titlebar = true,
+		},
+	},
 }

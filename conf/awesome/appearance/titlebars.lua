@@ -41,6 +41,9 @@ client.connect_signal("request::titlebars", function(c)
 end)
 
 local function set_titlebar(client, s)
+	if not client.can_titlebar then
+		return
+	end
 	if s then
 		if client.titlebar == nil then
 			client:emit_signal("request::titlebars", "rules", {})
