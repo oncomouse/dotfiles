@@ -8,6 +8,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 -- This is used later as the default terminal and editor to run.
 beautiful.terminal = "kitty"
+beautiful.file_explorer = "thunar"
 -- Default modkey.
 beautiful.modkey = "Mod4"
 beautiful.global_keybindings = {}
@@ -154,6 +155,16 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 			awful.spawn(beautiful.terminal)
 		end,
 		description = "Open a Terminal",
+		group = "Awesome",
+	}),
+
+	awful.key({
+		modifiers = { beautiful.modkey },
+		key = "e",
+		on_press = function()
+			awful.spawn(beautiful.file_explorer)
+		end,
+		description = "Open the File Explorer",
 		group = "Awesome",
 	}),
 
