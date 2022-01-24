@@ -55,6 +55,11 @@ theme.tasklist_fg_focus = xrdb.color7
 -- Hotkey formatting:
 theme.hotkeys_modifiers_fg = xrdb.color4
 
+theme.titlebar_bg_normal = xrdb.background
+theme.titlebar_fg_normal = xrdb.color7
+theme.titlebar_bg_focus = xrdb.color8
+theme.titlebar_fg_focus = xrdb.foreground
+
 theme.tooltip_fg = theme.fg_normal
 theme.tooltip_bg = theme.bg_normal
 

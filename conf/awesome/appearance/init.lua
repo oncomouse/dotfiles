@@ -17,6 +17,7 @@ beautiful.font = is_laptop and laptop_font .. " Normal 9" or desktop_font .. " N
 beautiful.notification_font = is_laptop and laptop_font .. " Normal 9" or desktop_font .. " Normal 10"
 beautiful.hotkeys_font = is_laptop and laptop_font .. " Normal 12" or desktop_font .. " Normal 14"
 beautiful.hotkeys_description_font = is_laptop and laptop_font .. " Normal 12" or desktop_font .. " Normal 14"
+beautiful.titlebar_font = is_laptop and laptop_font .. " Normal 9" or desktop_font .. " Normal 10"
 -- }}}
 -- Use Dracula for Icons:
 beautiful.icon_theme = "/usr/share/icons/Dracula"
@@ -67,5 +68,6 @@ require("awful.autofocus")
 require("appearance.behaviors.sloppyfocus")
 -- require("appearance.behaviors.attachbelow") -- attachbelow patch
 require("appearance.behaviors.smartborders") -- smartborder patch
+require("appearance.titlebars")
 -- }}}
 -- # vim:foldmethod=marker:foldlevel=0
