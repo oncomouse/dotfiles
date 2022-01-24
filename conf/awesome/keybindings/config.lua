@@ -12,7 +12,7 @@ beautiful.terminal = "kitty"
 beautiful.modkey = "Mod4"
 beautiful.global_keybindings = {}
 -- Should moveresize and moveresizeedge toggle floating?
-beautiful.toggle_floating_on_moveresize = false
+beautiful.toggle_floating_on_moveresize = true
 -- Launcher Commands {{{
 
 local dmenucmd = {
