@@ -213,7 +213,7 @@ vim.keymap.set("x", "ae", "<cmd>normal! gg0oG$<cr>", { silent = true, noremap = 
 -- }}}
 -- Theme {{{
 -- Fancy color for macs and X11 sessions:
-if vim.fn.has("mac") == 1 or vim.fn.exists("$DISPLAY") == 1 then
+if require("dotfiles.utils.use_termguicolors")() then
 	vim.cmd([[let &t_8f='<Esc>[38;2;%lu;%lu;%lum']])
 	vim.cmd([[let &t_8b='<Esc>[48;2;%lu;%lu;%lum']])
 	vim.opt.termguicolors = true
