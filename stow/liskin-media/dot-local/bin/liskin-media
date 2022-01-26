@@ -151,7 +151,7 @@ function action-play { p=$(get-mpris-smart); playerctl -p "$p" play-pause; }
 function action-stop { playerctl -a stop; }
 function action-next { p=$(get-mpris-smart); playerctl -p "$p" next; }
 function action-prev { p=$(get-mpris-smart); playerctl -p "$p" previous; }
-function action-status { if [ -e "$STATUS" ]; then cat "$STATUS"; else echo "栗"; fi }
+function action-status { if [ -e "$STATUS" ]; then cat "$STATUS"; else p=$(get-mpris-smart); playerctl -p "$p" --format "{{status}}::{{artist}} - {{title}}" metadata| sed -e "s/Playing::/契 /" -e "s/Paused::/ /" -e "s/Stopped::/栗 /"; fi }
 
 if [[ $(type -t "action-${1-}") == function ]]; then
 	"action-$1" "${@:2}"
