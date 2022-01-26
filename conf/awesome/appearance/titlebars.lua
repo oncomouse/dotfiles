@@ -54,15 +54,16 @@ local function set_titlebar(client, s)
 	end
 end
 
+local function truefloat(c)
+	return c.floating and not c.maximized and not c.fullscreen
+end
+
 -- Hook called when a client spawns
 client.connect_signal("manage", function(c)
-	set_titlebar(c, c.floating or c.first_tag.layout == awful.layout.suit.floating)
+	set_titlebar(c, truefloat(c) or c.first_tag.layout == awful.layout.suit.floating)
 end)
 
 tag.connect_signal("property::layout", function(t)
-	-- New to Lua ?
-	-- pairs iterates on the table and return a key value pair
-	-- I don't need the key here, so I put _ to ignore it
 	for _, c in pairs(t:clients()) do
 		if t.layout == awful.layout.suit.floating then
 			set_titlebar(c, true)
@@ -73,5 +74,5 @@ tag.connect_signal("property::layout", function(t)
 end)
 
 client.connect_signal("property::floating", function(c)
-	set_titlebar(c, c.floating or c.first_tag and c.first_tag.layout.name == "floating")
+	set_titlebar(c, truefloat(c) or c.first_tag and c.first_tag.layout.name == "floating")
 end)
