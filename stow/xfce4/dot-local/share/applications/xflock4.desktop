@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Exec=xflock4
+Name=Lock Screen
+Comment=Use xflock4 to lock the screen
+Icon=xfsm-lock
