@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+source ~/dotfiles/conf/xorg/xinit-common
+
+export QT_QPA_PLATFORMTHEME=qt5ct
+export DESKTOP_SESSION="awesome"
+DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
+export DOTFILES_TARGET
+# vim:ft=sh
