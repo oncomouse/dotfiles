@@ -41,5 +41,5 @@ EOF
 
 IFS=$'\n'
 for dir in $(printf "%s" "$dirs" | fzf --reverse -m |  sed -e "s/\n/ /g"); do
-	fd -t f -e flac . "$dir" -x ffmpeg -i "{}" -qscale:a 0 "{.}.mp3"
+	fd -t f -e flac . "$dir" -x ffmpeg -i "{}" -qscale:a 0 "$HOME/My Music/out/{/.}.mp3"
 done
