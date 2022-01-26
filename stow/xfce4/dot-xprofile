@@ -13,9 +13,6 @@ xmodmap -e "keycode 108 = Super_L"
 # make sure X keeps it out of the mod1 group
 xmodmap -e "remove mod1 = Super_L"
 
-export QT_QPA_PLATFORMTHEME=qt5ct
-export DESKTOP_SESSION="xfce"
-DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
-export DOTFILES_TARGET
 xrdb ~/.Xresources
+source ~/dotfiles/conf/xorg/xprofile-common
 # vim:ft=sh

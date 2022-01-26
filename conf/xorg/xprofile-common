@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
+export DOTFILES_TARGET
+export QT_QPA_PLATFORMTHEME=qt5ct
+PATH=$HOME/.local/bin:$PATH
+# vim:ft=sh
