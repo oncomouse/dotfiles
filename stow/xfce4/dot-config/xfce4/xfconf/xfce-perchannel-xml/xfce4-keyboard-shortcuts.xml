@@ -62,7 +62,7 @@
       <property name="&lt;Shift&gt;&lt;Super&gt;q" type="string" value="xfce4-session-logout"/>
       <property name="&lt;Alt&gt;&lt;Super&gt;r" type="string" value="xfce4-popup-whiskermenu"/>
       <property name="&lt;Alt&gt;&lt;Super&gt;p" type="string" value="rofimusic.sh &quot;Sans Regular 12&quot;"/>
-      <property name="&lt;Shift&gt;&lt;Super&gt;Return" type="string" value="env DOTFILES_TARGET=&quot;laptop&quot; kitty"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;Return" type="string" value="kitty"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
