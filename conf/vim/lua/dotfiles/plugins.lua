@@ -405,6 +405,7 @@ return require("packer").startup({
 				config = function()
 					require("heirline").setup(require("dotfiles.heirline"))
 				end,
+				cond = require("dotfiles.utils.use_termguicolors"),
 			}, -- Statusline
 		})
 	end,
