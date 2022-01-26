@@ -5,4 +5,5 @@ Terminal=false
 Exec=xflock4
 Name=Lock Screen
 Comment=Use xflock4 to lock the screen
+Categories=System;X-XFCE;X-Xfce-Toplevel;
 Icon=xfsm-lock
