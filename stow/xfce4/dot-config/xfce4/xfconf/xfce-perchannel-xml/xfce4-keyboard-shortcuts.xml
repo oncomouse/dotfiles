@@ -57,7 +57,6 @@
       <property name="HomePage" type="string" value="exo-open --launch WebBrowser"/>
       <property name="XF86Display" type="string" value="xfce4-display-settings --minimal"/>
       <property name="override" type="bool" value="true"/>
-      <property name="&lt;Shift&gt;&lt;Super&gt;n" type="string" value="networkmanager_dmenu -i -n -F"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;b" type="string" value="xbacklight -set 50"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;q" type="string" value="xfce4-session-logout"/>
       <property name="&lt;Alt&gt;&lt;Super&gt;r" type="string" value="xfce4-popup-whiskermenu"/>
