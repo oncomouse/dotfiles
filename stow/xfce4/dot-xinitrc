@@ -13,7 +13,7 @@ xmodmap -e "keycode 108 = Super_L"
 # make sure X keeps it out of the mod1 group
 xmodmap -e "remove mod1 = Super_L"
 
-nm-applet&
+cmst&
 
 export QT_QPA_PLATFORMTHEME=qt5ct
 export DESKTOP_SESSION="xfce"

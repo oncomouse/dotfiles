@@ -47,6 +47,9 @@
       <property name="known-legacy-items" type="array">
         <value type="string" value="networkmanager applet"/>
       </property>
+      <property name="known-items" type="array">
+        <value type="string" value="CMST - Connman System Tray"/>
+      </property>
     </property>
     <property name="plugin-8" type="string" value="pulseaudio">
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
