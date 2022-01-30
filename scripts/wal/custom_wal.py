@@ -96,6 +96,11 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
                 )
             )
         system("bat cache --build > /dev/null")
+    if which("xfce4-terminal") is not None:
+        system("mkdir -p ~/.local/share/xfce4/terminal/colorschemes")
+        system(
+            "ln -sf ~/.cache/wal/pywal.theme ~/.local/share/xfce4/terminal/colorschemes"
+        )
     # if which("pywalfox") is not None:
     #     message("Updaing pywalfox")
     #     system("pywalfox update")
