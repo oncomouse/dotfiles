@@ -40,6 +40,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		height = beautiful.bar_height,
 		visible = true,
 	})
+	s.widget_bar = require("widgets")
 	s.wibar.widget = {
 		layout = wibox.layout.align.horizontal,
 		-- Left Bar:
@@ -55,6 +56,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		-- Center Bar:
 		s.tasklist,
 		-- Right Bar:
-		require("widgets"),
+		s.widget_bar,
 	}
 end)
