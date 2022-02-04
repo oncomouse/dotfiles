@@ -21,6 +21,9 @@ function killbar {
 	if [ "$(pgrep -c awesome)" -gt 0 ]; then
 		echo "awesome.emit_signal(\"widget::update\", \"mpris\")" | awesome-client
 	fi
+	if command -v xfce4-panel &> /dev/null; then
+		xfce4-panel --plugin-event=genmon-1:refresh:bool:true
+	fi
 }
 
 # Stop from controlling things like Firefox
@@ -147,7 +150,7 @@ function get-mpris-smart {
 	get-mpris-playing || get-mpris-one-playing-or-paused || get-mpris-last
 }
 
-function action-play { p=$(get-mpris-smart); playerctl -p "$p" play-pause; }
+function action-play { p=$(get-mpris-smart); playerctl -p "$p" play-pause && killbar 44; }
 function action-stop { playerctl -a stop; }
 function action-next { p=$(get-mpris-smart); playerctl -p "$p" next; }
 function action-prev { p=$(get-mpris-smart); playerctl -p "$p" previous; }
