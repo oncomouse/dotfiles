@@ -18,6 +18,7 @@ beautiful.notification_font = is_laptop and laptop_font .. " Normal 9" or deskto
 beautiful.hotkeys_font = is_laptop and laptop_font .. " Normal 12" or desktop_font .. " Normal 14"
 beautiful.hotkeys_description_font = is_laptop and laptop_font .. " Normal 12" or desktop_font .. " Normal 14"
 beautiful.titlebar_font = is_laptop and laptop_font .. " Normal 9" or desktop_font .. " Normal 10"
+beautiful.titlebar_title_enabled = true
 -- }}}
 -- Use Dracula for Icons:
 beautiful.icon_theme = "/usr/share/icons/Dracula"
