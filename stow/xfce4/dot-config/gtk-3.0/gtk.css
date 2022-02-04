@@ -1,0 +1,7 @@
+/* XFCE4 Rounded Panel */
+.xfce4-panel {
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+}
