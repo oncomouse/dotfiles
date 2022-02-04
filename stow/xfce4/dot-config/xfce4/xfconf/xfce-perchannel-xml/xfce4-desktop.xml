@@ -5,9 +5,16 @@
     <property name="screen0" type="empty">
       <property name="monitorLVDS1" type="empty">
         <property name="workspace0" type="empty">
-          <property name="color-style" type="int" value="0"/>
+          <property name="color-style" type="int" value="1"/>
           <property name="image-style" type="int" value="5"/>
           <property name="last-image" type="string" value="/home/andrew/dotfiles/backgrounds/wallhaven-nml81k.jpg"/>
+          <property name="rgba1" type="array">
+            <value type="double" value="0.101961"/>
+            <value type="double" value="0.372549"/>
+            <value type="double" value="0.705882"/>
+            <value type="double" value="1.000000"/>
+          </property>
+          <property name="backdrop-cycle-enable" type="bool" value="false"/>
         </property>
         <property name="workspace1" type="empty">
           <property name="color-style" type="int" value="0"/>
@@ -51,6 +58,8 @@
         </property>
       </property>
     </property>
+    <property name="single-workspace-mode" type="bool" value="true"/>
+    <property name="single-workspace-number" type="int" value="0"/>
   </property>
   <property name="last" type="empty">
     <property name="window-width" type="int" value="602"/>

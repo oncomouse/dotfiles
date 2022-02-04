@@ -18,8 +18,8 @@
         <value type="int" value="3"/>
         <value type="int" value="4"/>
         <value type="int" value="5"/>
-        <value type="int" value="1"/>
         <value type="int" value="6"/>
+        <value type="int" value="1"/>
         <value type="int" value="8"/>
         <value type="int" value="9"/>
         <value type="int" value="10"/>
@@ -60,7 +60,6 @@
     </property>
     <property name="plugin-14" type="string" value="actions"/>
     <property name="plugin-7" type="string" value="whiskermenu"/>
-    <property name="plugin-1" type="string" value="xfce4-mpc-plugin"/>
     <property name="plugin-15" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
     </property>
@@ -76,5 +75,6 @@
     <property name="plugin-16" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
     </property>
+    <property name="plugin-1" type="string" value="genmon"/>
   </property>
 </channel>
