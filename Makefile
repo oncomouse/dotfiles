@@ -4,7 +4,7 @@ server:
 	env SERVER=true bash ./bootstrap/init.sh
 
 # Suckless Targets:
-sl_apps := dwm dmenu dwmblocks st neatvi aslstatus slstatus nextvi
+sl_apps := dwm dmenu dwmblocks st neatvi aslstatus slstatus tabbed nextvi
 
 $(sl_apps:%=%-rebuild):
 	scripts/sl_build.sh $(subst -rebuild,,${@}) rebuild

@@ -1,0 +1,5 @@
+[
+	"https://tools.suckless.org/tabbed/patches/xresources/tabbed-xresources-20210317-dabf6a2.diff",
+	"https://tools.suckless.org/tabbed/patches/xft/tabbed-0.6-xft.diff",
+	"https://tools.suckless.org/tabbed/patches/autohide/tabbed-autohide-20201222-dabf6a2.diff"
+]
