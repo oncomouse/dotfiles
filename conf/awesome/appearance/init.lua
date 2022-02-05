@@ -5,6 +5,7 @@ local is_laptop = require("utils.is_laptop")
 local dpi = beautiful.xresources.apply_dpi
 -- {{{ Appearance
 -- Load Theme
+beautiful.floating_only = is_laptop -- Are we only floating?
 beautiful.init("~/dotfiles/conf/awesome/themes/xresources/theme.lua")
 -- Centered zoom scale:
 beautiful.cm_scale = is_laptop and 0.85 or 0.75

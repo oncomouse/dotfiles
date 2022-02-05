@@ -2,8 +2,8 @@
 local beautiful = require("beautiful")
 local awful = require("awful")
 local gears = require("gears")
-local is_laptop = require("utils.is_laptop")
 local hotkeys_popup = require("awful.hotkeys_popup")
+local is_laptop = require("utils.is_laptop")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
