@@ -5,10 +5,10 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Hack:size=11";
+static char *font = "JetBrainsMono Nerd Font:size=13";
 static char *font2[] = {
-	"JoyPixels:size=10",
-	"FiraCode Nerd Font:size=11"
+	"JoyPixels:size=12",
+	"FiraCode Nerd Font:size=13"
 };
 static int borderpx = 2;
 
