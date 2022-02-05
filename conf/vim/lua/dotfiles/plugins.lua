@@ -288,27 +288,37 @@ return require("packer").startup({
 					require("nvim-treesitter.configs").setup({
 						ensure_installed = "maintained",
 						highlight = { enable = true },
-						autotag = { enable = true },
-						textobjects = {
-							select = {
-								enable = true,
-								lookahead = true,
-								keymaps = {
-									["af"] = "@function.outer",
-									["if"] = "@function.inner",
-									["ac"] = "@class.outer",
-									["ic"] = "@class.inner",
-								},
-							},
-						},
-						context_commentstring = {
-							enable = true,
-						},
 					})
 				end,
 				requires = {
-					{ "nvim-treesitter/nvim-treesitter-textobjects" },
-					{ "windwp/nvim-ts-autotag", ft = { "html", "javascript", "javascriptreact" } },
+					{
+						"nvim-treesitter/nvim-treesitter-textobjects",
+						config = function()
+							require("nvim-treesitter.configs").setup({
+								textobjects = {
+									select = {
+										enable = true,
+										lookahead = true,
+										keymaps = {
+											["af"] = "@function.outer",
+											["if"] = "@function.inner",
+											["ac"] = "@class.outer",
+											["ic"] = "@class.inner",
+										},
+									},
+								},
+							})
+						end,
+					},
+					{
+						"windwp/nvim-ts-autotag",
+						ft = { "html", "javascript", "javascriptreact" },
+						config = function()
+							require("nvim-treesitter.configs").setup({
+								autotag = { enable = true },
+							})
+						end,
+					},
 					{
 						"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
 						ft = {
@@ -322,6 +332,13 @@ return require("packer").startup({
 							"lua",
 							"vim",
 						},
+						config = function()
+							require("nvim-treesitter.configs").setup({
+								context_commentstring = {
+									enable = true,
+								},
+							})
+						end,
 					},
 					{
 						"RRethy/nvim-treesitter-endwise",
