@@ -17,10 +17,10 @@ local gen_button_shape = gears.shape.circle
 
 local helpers = {}
 function helpers.horizontal_pad(width)
-    return wibox.widget{
-        forced_width = width,
-        layout = wibox.layout.fixed.horizontal
-    }
+	return wibox.widget({
+		forced_width = width,
+		layout = wibox.layout.fixed.horizontal,
+	})
 end
 
 -- Add a titlebar
@@ -105,9 +105,18 @@ local function truefloat(c)
 	return c.floating and not c.maximized and not c.fullscreen
 end
 
+-- local function set_shadow(c)
+-- 	if c.floating and not c.maximized and not c.fullscreen then
+-- 		awful.spawn("xprop -id " .. c.window .. " -f _COMPTON_SHADOW 32c -set _COMPTON_SHADOW 1")
+-- 	else
+-- 		awful.spawn("xprop -id " .. c.window .. " -f _COMPTON_SHADOW 32c -set _COMPTON_SHADOW 0")
+-- 	end
+-- end
+
 -- Hook called when a client spawns
 client.connect_signal("manage", function(c)
 	set_titlebar(c, truefloat(c) or c.first_tag.layout == awful.layout.suit.floating)
+	-- set_shadow(c)
 end)
 
 tag.connect_signal("property::layout", function(t)
@@ -122,4 +131,9 @@ end)
 
 client.connect_signal("property::floating", function(c)
 	set_titlebar(c, truefloat(c) or c.first_tag and c.first_tag.layout.name == "floating")
+	-- set_shadow(c)
 end)
+
+-- client.connect_signal("manage", set_shadow)
+-- client.connect_signal("property::floating", set_shadow)
+-- client.connect_signal("request::geometry", set_shadow)
