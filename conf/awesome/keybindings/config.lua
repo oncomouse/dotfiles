@@ -2,6 +2,7 @@
 local beautiful = require("beautiful")
 local awful = require("awful")
 local gears = require("gears")
+local is_laptop = require("utils.is_laptop")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -410,6 +411,15 @@ beautiful.client_keybindings = {
 		description = "Center Floating Client",
 		group = "Client",
 	}),
+	is_laptop and awful.key({
+		modifiers = { beautiful.modkey },
+		key = "m",
+		on_press = function(c)
+			c.maximized = not c.maximized; c:raise()
+		end,
+		description = "Maximize Client",
+		group = "Client",
+	}) or nil,
 }
 -- }}}
 -- Layout Keybinding Group {{{
@@ -423,7 +433,7 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		description = "Select Tiled Layout",
 		group = "Layout",
 	}),
-	awful.key({
+	is_laptop and nil or awful.key({
 		modifiers = { beautiful.modkey },
 		key = "m",
 		on_press = function()
@@ -564,28 +574,36 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 	awful.key({
 		modifiers = {},
 		key = "XF86AudioPlay",
-		on_press = function() awesome.emit_signal("widget::mpris::action", "play_pause") end,
+		on_press = function()
+			awesome.emit_signal("widget::mpris::action", "play_pause")
+		end,
 		description = "Play/pause Audio",
 		group = "Media",
 	}),
 	awful.key({
 		modifiers = {},
 		key = "XF86AudioPrev",
-		on_press = function() awesome.emit_signal("widget::mpris::action", "previous") end,
+		on_press = function()
+			awesome.emit_signal("widget::mpris::action", "previous")
+		end,
 		description = "Previous Track",
 		group = "Media",
 	}),
 	awful.key({
 		modifiers = {},
 		key = "XF86AudioNext",
-		on_press = function() awesome.emit_signal("widget::mpris::action", "next") end,
+		on_press = function()
+			awesome.emit_signal("widget::mpris::action", "next")
+		end,
 		description = "Next Track",
 		group = "Media",
 	}),
 	awful.key({
 		modifiers = {},
 		key = "XF86AudioStop",
-		on_press = function() awesome.emit_signal("widget::mpris::action", "stop") end,
+		on_press = function()
+			awesome.emit_signal("widget::mpris::action", "stop")
+		end,
 		description = "Stop Audio from Playing",
 		group = "Media",
 	}),
@@ -628,7 +646,7 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		end,
 		description = "Onscreen Colour Picker",
 		group = "Media",
-	})
+	}),
 })
 -- }}}
 -- vim:foldmethod=marker:foldlevel=0
