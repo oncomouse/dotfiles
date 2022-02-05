@@ -4,14 +4,13 @@ local beautiful = require("beautiful")
 local wibox = require("wibox")
 local is_laptop = require("utils.is_laptop")
 screen.connect_signal("request::desktop_decoration", function(s)
+	s.systray = wibox.widget.systray()
 	if is_laptop then
 		s.layoutbox = wibox.widget.textbox("")
-		s.systray = wibox.widget.systray()
 	else
 		s.layoutbox = awful.widget.layoutbox(s)
 		s.layoutbox:buttons(beautiful.layoutbox_mousebuttons)
 		s.layoutbox = wibox.container.margin(s.layoutbox, 4, 4, 4, 4)
-		s.systray = wibox.widget.textbox("")
 	end
 	s.taglist = awful.widget.taglist({
 		screen = s,
