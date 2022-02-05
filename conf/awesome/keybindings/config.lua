@@ -8,7 +8,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 -- This is used later as the default terminal and editor to run.
-beautiful.terminal = "kitty"
+beautiful.terminal = is_laptop and "st" or "kitty"
 beautiful.file_explorer = "thunar"
 -- Default modkey.
 beautiful.modkey = "Mod4"
