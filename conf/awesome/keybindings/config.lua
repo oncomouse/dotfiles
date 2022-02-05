@@ -411,56 +411,62 @@ beautiful.client_keybindings = {
 		description = "Center Floating Client",
 		group = "Client",
 	}),
-	is_laptop and awful.key({
-		modifiers = { beautiful.modkey },
-		key = "m",
-		on_press = function(c)
-			c.maximized = not c.maximized; c:raise()
-		end,
-		description = "Maximize Client",
-		group = "Client",
-	}) or nil,
 }
+if is_laptop then
+	beautiful.client_keybindings = gears.table.join(beautiful.client_keybindings, {
+		awful.key({
+			modifiers = { beautiful.modkey },
+			key = "m",
+			on_press = function(c)
+				c.maximized = not c.maximized; c:raise()
+			end,
+			description = "Maximize Client",
+			group = "Client",
+		})
+	})
+end
 -- }}}
 -- Layout Keybinding Group {{{
-beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
-	awful.key({
-		modifiers = { beautiful.modkey, "Shift" },
-		key = "t",
-		on_press = function()
-			awful.layout.set(awful.layout.suit.tile.left)
-		end,
-		description = "Select Tiled Layout",
-		group = "Layout",
-	}),
-	is_laptop and nil or awful.key({
-		modifiers = { beautiful.modkey },
-		key = "m",
-		on_press = function()
-			awful.layout.set(require("layouts.centeredmonocle"))
-		end,
-		description = "Select Centered Monocle Layout",
-		group = "Layout",
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey, "Shift" },
-		key = "m",
-		on_press = function()
-			awful.layout.set(awful.layout.suit.max)
-		end,
-		description = "Select Monocle Layout",
-		group = "Layout",
-	}),
-	awful.key({
-		modifiers = { beautiful.modkey },
-		key = "t",
-		on_press = function()
-			awful.layout.set(awful.layout.suit.tile.right)
-		end,
-		description = "Select Right Tile Layout",
-		group = "Layout",
-	}),
-})
+if not is_laptop then
+	beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
+		awful.key({
+			modifiers = { beautiful.modkey, "Shift" },
+			key = "t",
+			on_press = function()
+				awful.layout.set(awful.layout.suit.tile.left)
+			end,
+			description = "Select Tiled Layout",
+			group = "Layout",
+		}),
+		awful.key({
+			modifiers = { beautiful.modkey },
+			key = "m",
+			on_press = function()
+				awful.layout.set(require("layouts.centeredmonocle"))
+			end,
+			description = "Select Centered Monocle Layout",
+			group = "Layout",
+		}),
+		awful.key({
+			modifiers = { beautiful.modkey, "Shift" },
+			key = "m",
+			on_press = function()
+				awful.layout.set(awful.layout.suit.max)
+			end,
+			description = "Select Monocle Layout",
+			group = "Layout",
+		}),
+		awful.key({
+			modifiers = { beautiful.modkey },
+			key = "t",
+			on_press = function()
+				awful.layout.set(awful.layout.suit.tile.right)
+			end,
+			description = "Select Right Tile Layout",
+			group = "Layout",
+		}),
+	})
+end
 -- }}}
 -- Tag Keybinding Group {{{
 beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
