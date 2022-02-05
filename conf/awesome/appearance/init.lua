@@ -31,9 +31,11 @@ beautiful.bar_position = "top"
 -- Set the background:
 beautiful.background_dot_tile_size = dpi(100)
 beautiful.background_dot_width     = dpi(6)
-awful.screen.connect_for_each_screen(function(s)
-	require("backgrounds.dots")(s)
-end)
+if not is_laptop then
+	awful.screen.connect_for_each_screen(function(s)
+		require("backgrounds.dots")(s)
+	end)
+end
 awful.util.shell = "/bin/bash"
 -- }}}
 -- Naughty Configuration {{{

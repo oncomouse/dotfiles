@@ -3,5 +3,12 @@ source ~/dotfiles/conf/xorg/xinit-common
 
 export QT_QPA_PLATFORMTHEME=qt5ct
 export DESKTOP_SESSION="awesome"
+
+DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
+if [ "$DOTFILES_TARGET" == "laptop" ]; then
+	hsetroot -cover ~/dotfiles/backgrounds/wallhaven-nml81k.jpg
+	cmst -m &
+fi
+
 exec awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
 # vim:ft=sh

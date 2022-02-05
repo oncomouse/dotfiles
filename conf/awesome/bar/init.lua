@@ -5,13 +5,15 @@ local wibox = require("wibox")
 local is_laptop = require("utils.is_laptop")
 screen.connect_signal("request::desktop_decoration", function(s)
 	if is_laptop then
-		s.layoutbox = wibox.widget.textbox('')
+		s.layoutbox = wibox.widget.textbox("")
+		s.systray = wibox.widget.systray()
 	else
 		s.layoutbox = awful.widget.layoutbox(s)
 		s.layoutbox:buttons(beautiful.layoutbox_mousebuttons)
 		s.layoutbox = wibox.container.margin(s.layoutbox, 4, 4, 4, 4)
+		s.systray = wibox.widget.textbox("")
 	end
-s.taglist = awful.widget.taglist({
+	s.taglist = awful.widget.taglist({
 		screen = s,
 		filter = awful.widget.taglist.filter.noempty,
 		buttons = beautiful.taglist_mousebuttons,
@@ -60,6 +62,11 @@ s.taglist = awful.widget.taglist({
 		-- Center Bar:
 		s.tasklist,
 		-- Right Bar:
-		s.widget_bar,
+		{
+			s.systray,
+			s.widget_bar,
+			spacing = 1,
+			layout = wibox.layout.fixed.horizontal,
+		},
 	}
 end)
