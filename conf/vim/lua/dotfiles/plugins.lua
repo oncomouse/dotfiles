@@ -50,9 +50,9 @@ return require("packer").startup({
 				"windwp/nvim-autopairs",
 				config = function()
 					require("dotfiles.autopairs.fast-wrap")
-					require("dotfiles.autopairs.endwise-ruby")
-					require("dotfiles.autopairs.endwise-lua")
-					require("dotfiles.autopairs.endwise-vim")
+					-- require("dotfiles.autopairs.endwise-ruby")
+					-- require("dotfiles.autopairs.endwise-lua")
+					-- require("dotfiles.autopairs.endwise-vim")
 					require("dotfiles.autopairs.endwise-sh")
 					require("dotfiles.autopairs.rules-markdown")
 
@@ -141,14 +141,16 @@ return require("packer").startup({
 				"lambdalisue/gina.vim",
 				cmd = "Gina",
 				config = function()
-					for _, command in pairs({
-						"branch",
-						"changes",
-						"commit",
-						"diff",
-						"log",
-						"status",
-					}) do
+					for _, command in
+						pairs({
+							"branch",
+							"changes",
+							"commit",
+							"diff",
+							"log",
+							"status",
+						})
+					do
 						vim.fn["gina#custom#command#option"](
 							command,
 							"--opener",
@@ -320,6 +322,16 @@ return require("packer").startup({
 							"lua",
 							"vim",
 						},
+					},
+					{
+						"RRethy/nvim-treesitter-endwise",
+						config = function()
+							require("nvim-treesitter.configs").setup({
+								endwise = {
+									enable = true,
+								},
+							})
+						end,
 					},
 				},
 			}, -- Treesitter-based Syntax
