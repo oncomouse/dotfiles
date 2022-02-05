@@ -70,6 +70,7 @@ require("awful.autofocus")
 require("appearance.behaviors.sloppyfocus")
 -- require("appearance.behaviors.attachbelow") -- attachbelow patch
 require("appearance.behaviors.smartborders") -- smartborder patch
+require("appearance.behaviors.shadow_for_floating") -- shadows on floating windows only
 require("appearance.titlebars")
 -- }}}
 -- # vim:foldmethod=marker:foldlevel=0
