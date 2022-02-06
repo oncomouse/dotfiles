@@ -46,14 +46,19 @@ return require("packer").startup({
 				end,
 			}, -- Fancy * and # bindings
 			"vim-scripts/ReplaceWithRegister", -- gr{motion} or grr or gr in visual to replace with register
-			 {
+			{
 				"cohama/lexima.vim",
 				config = function()
 					vim.cmd([[autocmd! dotfiles-settings FileType lua lua dotfiles.lua_endwise()]])
-					vim.keymap.set("i", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>', { noremap = true })
-					vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima)", { silent = true})
+					vim.keymap.set(
+						"i",
+						"<Plug>(dotfiles-lexima)",
+						'<C-r>=lexima#insmode#leave_till_eol("")<CR>',
+						{ noremap = true }
+					)
+					vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima)", { silent = true })
 				end,
-			 }, -- Autopairs + Endwise
+			}, -- Autopairs + Endwise
 			-- Extra functionality + UI:
 			{
 				"ibhagwan/fzf-lua",
@@ -129,16 +134,14 @@ return require("packer").startup({
 				"lambdalisue/gina.vim",
 				cmd = "Gina",
 				config = function()
-					for _, command in
-						pairs({
-							"branch",
-							"changes",
-							"commit",
-							"diff",
-							"log",
-							"status",
-						})
-					do
+					for _, command in pairs({
+						"branch",
+						"changes",
+						"commit",
+						"diff",
+						"log",
+						"status",
+					}) do
 						vim.fn["gina#custom#command#option"](
 							command,
 							"--opener",
