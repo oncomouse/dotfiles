@@ -165,7 +165,12 @@ vim.keymap.set("n", "<leader>/", "<cmd>lua dotfiles.grep_or_qfgrep()<CR>", { sil
 vim.g.enable_todo = 1
 
 -- Highlight a block and type "@" to run a macro on the block:
-vim.keymap.set("x", "@", ":<C-u>call visualat#execute_macro_over_visual_range()<CR>", { silent = true, noremap = true })
+vim.keymap.set(
+	"x",
+	"@",
+	"<cmd>lua dotfiles.visualat.execute_macro_over_visual_range()<CR>",
+	{ silent = true, noremap = true }
+)
 
 -- Calculator:
 vim.keymap.set("i", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
