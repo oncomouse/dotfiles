@@ -46,26 +46,14 @@ return require("packer").startup({
 				end,
 			}, -- Fancy * and # bindings
 			"vim-scripts/ReplaceWithRegister", -- gr{motion} or grr or gr in visual to replace with register
-			{
-				"windwp/nvim-autopairs",
+			 {
+				"cohama/lexima.vim",
 				config = function()
-					require("dotfiles.autopairs.fast-wrap")
-					-- require("dotfiles.autopairs.endwise-ruby")
-					-- require("dotfiles.autopairs.endwise-lua")
-					-- require("dotfiles.autopairs.endwise-vim")
-					require("dotfiles.autopairs.endwise-sh")
-					require("dotfiles.autopairs.rules-markdown")
-
-					-- Configuration for cmp:
-					local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-					local cmp = require("cmp")
-					cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-
-					-- Jump closed autopairs:
-					vim.keymap.set("i", "<C-L>", require("dotfiles.jump-autopairs"))
+					vim.cmd([[autocmd! dotfiles-settings FileType lua call dotfiles#lexima#extend_endwise()]])
+					vim.keymap.set("i", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>', { noremap = true })
+					vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima)", { silent = true})
 				end,
-				after = "nvim-cmp",
-			}, -- Autopairs + Endwise
+			 }, -- Autopairs + Endwise
 			-- Extra functionality + UI:
 			{
 				"ibhagwan/fzf-lua",
@@ -335,16 +323,6 @@ return require("packer").startup({
 						config = function()
 							require("nvim-treesitter.configs").setup({
 								context_commentstring = {
-									enable = true,
-								},
-							})
-						end,
-					},
-					{
-						"RRethy/nvim-treesitter-endwise",
-						config = function()
-							require("nvim-treesitter.configs").setup({
-								endwise = {
 									enable = true,
 								},
 							})
