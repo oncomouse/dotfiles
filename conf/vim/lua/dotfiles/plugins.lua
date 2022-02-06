@@ -49,7 +49,7 @@ return require("packer").startup({
 			 {
 				"cohama/lexima.vim",
 				config = function()
-					vim.cmd([[autocmd! dotfiles-settings FileType lua call dotfiles#lexima#extend_endwise()]])
+					vim.cmd([[autocmd! dotfiles-settings FileType lua lua dotfiles.lua_endwise()]])
 					vim.keymap.set("i", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>', { noremap = true })
 					vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima)", { silent = true})
 				end,
