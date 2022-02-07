@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static char font[]              = "JetBrainsMono Nerd Font:size=10";
+#include "target.h"
 static char* normbgcolor        = "#222222";
 static char* normfgcolor        = "#cccccc";
 static char* selbgcolor         = "#555555";
