@@ -313,8 +313,8 @@ beautiful.client_keybindings = {
 		group = "Client",
 	}),
 	awful.key({
-		modifiers = { beautiful.modkey, "Shift" },
-		key = "c",
+		modifiers = { beautiful.modkey },
+		key = "w",
 		on_press = function(c)
 			c:kill()
 		end,
