@@ -5,6 +5,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gears = require("gears")
 local decorations = require("appearance.titlebars.decorations")
+local truefloat = require("appearance.utils.truefloat")
 
 local xrdb = beautiful.xresources.get_current_theme()
 -- Make dpi function global
@@ -99,10 +100,6 @@ local function set_titlebar(client, s)
 	else
 		awful.titlebar.hide(client)
 	end
-end
-
-local function truefloat(c)
-	return c.floating and not c.maximized and not c.fullscreen
 end
 
 -- Hook called when a client spawns

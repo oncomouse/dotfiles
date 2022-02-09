@@ -1,15 +1,10 @@
 -- luacheck: globals screen tag client
 local beautiful = require("beautiful")
+local truefloat = require("appearance.utils.truefloat")
 local function make_border_dwim(t)
 	-- use this because there might be multiple tag selected
 	local cs = t.screen.clients
 	local border = {}
-
-	-- because maximized and fullscreen client
-	-- are considered floating
-	local function truefloat(c)
-		return c.floating and not c.maximized and not c.fullscreen
-	end
 
 	-- TODO: look up table instead of ifelse
 	if t.layout.name == "max" then
