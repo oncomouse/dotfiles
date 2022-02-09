@@ -10,8 +10,7 @@ polkit-dumb-agent&
 # Load Picom with shadows if we're not on the laptop:
 DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
 [ -e ~/.cache/wal/colors.sh ] && source ~/.cache/wal/colors.sh
-/usr/bin/picom --experimental-backends -b --shadow-color "$background"
-# "$([ "$DOTFILES_TARGET" != "laptop" ] && echo "--shadow")" 
+/usr/bin/picom --experimental-backends -b --shadow-color "$background" "$([ "$DOTFILES_TARGET" != "laptop" ] && echo "--shadow")" 
 
 ## Appareance:
 

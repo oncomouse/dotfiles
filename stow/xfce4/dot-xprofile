@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 ## Use Picom for Compositing
 /usr/bin/picom --experimental-backends -b
-cmst -m &
 
 ## Key Bindings
 
