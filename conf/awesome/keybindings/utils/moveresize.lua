@@ -1,6 +1,8 @@
+local truefloat = require("appearance.utils.truefloat")
+
 local function moveresize(move)
 	return function(c)
-		if not c.floating then
+		if not truefloat(c) then
 			if require("beautiful").toggle_floating_on_moveresize then
 				require("awful").client.floating.toggle(c)
 			else
