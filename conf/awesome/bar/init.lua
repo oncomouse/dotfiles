@@ -62,7 +62,13 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		s.tasklist,
 		-- Right Bar:
 		{
-			s.systray,
+			{
+				{ s.systray, layout = wibox.layout.fixed.horizontal },
+				right = 10,
+				top = 2,
+				bottom = 2,
+				widget = wibox.container.margin,
+			},
 			s.widget_bar,
 			spacing = 1,
 			layout = wibox.layout.fixed.horizontal,
