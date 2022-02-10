@@ -17,18 +17,19 @@ local function make_border_dwim(t)
 		end
 	elseif t.layout.name == "floating" then
 		for _, c in ipairs(cs) do
-			if c.maximized or c.fullscreen then
-				border[c] = false
-			else
-				border[c] = true
-			end
+			border[c] = false
+			-- if c.maximized or c.fullscreen then
+			-- 	border[c] = false
+			-- else
+			-- 	border[c] = true
+			-- end
 		end
 	else
 		local count = 0
 		local only = nil
 		for _, c in ipairs(cs) do
 			if truefloat(c) then
-				border[c] = true
+				border[c] = false
 			elseif c.maximized or c.fullscreen or c.minimized then
 				border[c] = false
 			else
