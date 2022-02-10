@@ -17,24 +17,24 @@ if status is-interactive
 		setuvar OW_LONG (cat ~/.ow_credentials.json | jq .coordinates[1])
 	end
 	# DOTFILES_TARGET
-	if status is-login
-		if test -e $HOME/.local/share/dotfiles/target
-			set -gx DOTFILES_TARGET (/bin/cat $HOME/.local/share/dotfiles/target)
-		end
-		setuvar FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
-		# Setup FZF themes:
-		if test -d "$HOME/.cache/wal" -a (echo $FZF_DEFAULT_OPTS | grep color -c) -eq 0
-			echo "Sourcing FZF Colors"
-			source ~/.cache/wal/colors-fzf.fish
-		end
-		set -gx FZF_DEFAULT_COMMAND "fd -t f --follow --hidden"
-		set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
-		set -gx FZF_ALT_C_COMMAND "fd --type d --follow"
-
-		set -gx FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=wal --color=always --style=header,grid --line-range :300 {}'"
-		set -gx FZF_ALT_C_OPTS "--preview 'ls --color=always {} | head -200'"
-		set -gx XDG_DATA_DIRS ~/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+	# if status is-login
+	if test -e $HOME/.local/share/dotfiles/target
+		set -gx DOTFILES_TARGET (/bin/cat $HOME/.local/share/dotfiles/target)
 	end
+	setuvar FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
+	# Setup FZF themes:
+	if test -d "$HOME/.cache/wal" -a (echo $FZF_DEFAULT_OPTS | grep color -c) -eq 0
+		echo "Sourcing FZF Colors"
+		source ~/.cache/wal/colors-fzf.fish
+	end
+	set -gx FZF_DEFAULT_COMMAND "fd -t f --follow --hidden"
+	set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+	set -gx FZF_ALT_C_COMMAND "fd --type d --follow"
+
+	set -gx FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=wal --color=always --style=header,grid --line-range :300 {}'"
+	set -gx FZF_ALT_C_OPTS "--preview 'ls --color=always {} | head -200'"
+	set -gx XDG_DATA_DIRS ~/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+	# end
 
 	# Configure ASDF:
 	# if not contains $HOME/.asdf/shims $fish_user_paths
