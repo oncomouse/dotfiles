@@ -38,21 +38,7 @@ if not is_laptop then
 end
 awful.util.shell = "/bin/bash"
 -- }}}
--- Naughty Configuration {{{
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
-local naughty = require("naughty")
-naughty.connect_signal("request::display_error", function(message, startup)
-	naughty.notification({
-		urgency = "critical",
-		title = "Oops, an error happened" .. (startup and " during startup!" or "!"),
-		message = message,
-	})
-end)
-naughty.connect_signal("request::display", function(n)
-	naughty.layout.box({ notification = n })
-end)
--- }}}
+require("appearance.naughty")
 -- Additional Configurations {{{
 require("layouts") -- Layouts
 -- Screen decoration settings

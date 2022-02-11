@@ -98,4 +98,22 @@ rnotification.connect_signal('request::rules', function()
     }
 end)
 
+-- Custom Notification stuff
+theme.notification_position = "top_right"
+theme.notification_border_width = 1
+theme.notification_border_radius = 0
+theme.notification_border_color = xrdb.color10
+-- theme.notification_bg = xrdb.color7
+-- theme.notification_fg = xrdb.color0
+theme.notification_crit_bg = xrdb.color11
+theme.notification_crit_fg = xrdb.color0
+theme.notification_margin = dpi(15)
+theme.notification_icon_size = dpi(50)
+--theme.notification_height = dpi(80)
+--theme.notification_width = dpi(300)
+--theme.notification_opacity = 0.7
+theme.notification_font = theme.font
+-- theme.notification_padding = theme.screen_margin * 2
+-- theme.notification_spacing = theme.screen_margin * 2
+
 return theme

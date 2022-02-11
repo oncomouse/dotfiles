@@ -3,14 +3,10 @@
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
+local helpers = require("helpers")
 
 -- Disable popup tooltip on titlebar button hover
 awful.titlebar.enable_tooltip = false
-
-local helpers = {}
-helpers.colorize_text = function(text, color)
-	return "<span foreground='"..color.."'>"..text.."</span>"
-end
 
 local decorations = {}
 local button_commands = {
