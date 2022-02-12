@@ -60,6 +60,7 @@ xscreensaver
 pipewire
 pipewire-alsa
 pipewire-pulse
+wireplumber
 unclutter
 luarocks
 shfmt

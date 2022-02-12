@@ -21,6 +21,7 @@ grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s
 if [ -z "$SERVER" ]; then
 	## User systemd services
 	systemctl --user enable pipewire-pulse
+	systemctl --user enable wireplumber.service
 	systemctl --user enable seadrive.service
 	systemctl --user enable mpd.service
 	systemctl --user enable mpDris2.service
