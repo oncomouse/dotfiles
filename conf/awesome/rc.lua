@@ -6,10 +6,10 @@ package.path = package.path .. addtional_path
 require("appearance")
 require("keybindings")
 require("mousebindings")
-require("signals")
 require("rules")
-require("bar")
+require("signals")
 require("notifications").init()
+require("bar")
 -- if not require("utils.is_laptop") then
 -- 	require("utils.heartbeat") -- Prevent screensaver when designated apps are running
 -- end

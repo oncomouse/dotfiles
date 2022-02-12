@@ -36,7 +36,7 @@ function manager:follow_player(name)
 		self.players[gears.string.split(name.name, ".")[1]] = player
 		if self.most_recent_player == nil then
 			self.most_recent_player = gears.string.split(name.name, ".")[1]
-			manager.update(player)
+			manager.update()
 		end
 	end
 end
@@ -47,16 +47,21 @@ function manager:unfollow_player(name)
 		if self.most_recent_player == name then
 			if #self.players > 0 then
 				for _,player in pairs(self.players) do
-					self.most_recent_player = player
+					self.most_recent_player = player.name
 				end
 			end
-			awesome.emit_signal("dotfiles::mpris::update", self.most_recent_player)
+			awesome.emit_signal("dotfiles::mpris::update")
 		end
 	end
 end
 
 -- Extract player information and signal widget:
 function manager.update(player)
+	if player == nil then
+		player = manager.players[manager.most_recent_player]
+	elseif type(player) == "string" then
+		player = manager.players[player]
+	end
 	awesome.emit_signal("dotfiles::mpris::update", player.playback_status, {
 		artist = player:get_artist(),
 		album = player:get_album(),
@@ -67,9 +72,7 @@ end
 -- Signals:
 -- Handle widget creation:
 awesome.connect_signal("dotfiles::mpris::create_widget", function()
-	for _, name in pairs(lgi.Playerctl.list_players()) do
-		manager:follow_player(name)
-	end
+	manager.update()
 end)
 
 -- Handle action requests:
@@ -93,3 +96,7 @@ awesome.connect_signal("dotfiles::mpris::action", function(action)
 		manager.update(player)
 	end
 end)
+
+for _, name in pairs(lgi.Playerctl.list_players()) do
+	manager:follow_player(name)
+end
