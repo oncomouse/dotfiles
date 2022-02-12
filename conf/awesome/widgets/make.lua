@@ -48,16 +48,11 @@ local function make_wibar_widgets(widget_definitions)
 	})
 
 	for _, widget in ipairs(widget_definitions) do
-		if widget[3] == "mpris" then
-			local player_widgets = {}
-			local w = require("widgets.mpris")({}).widget
+		local ok, widget_def = pcall(require, "widgets." .. widget[3])
+		if ok then
+			local w = widget_def({}).widget
 			table.insert(widgets.children, w)
-			table.insert(player_widgets, w)
-			widget_signals["mpris"] = player_widgets
-		elseif widget[3] == "heartbeat" then
-			local w = require("widgets.heartbeat")({}).widget
-			table.insert(widgets.children, w)
-			widget_signals["mpris"] = w
+			widget_signals[widget[3]] = { w }
 		else
 			table.insert(widgets.children, block_watcher(widget[1], widget[2], widget[3]))
 		end
