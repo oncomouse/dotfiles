@@ -107,8 +107,7 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		modifiers = { beautiful.modkey, "Mod1" },
 		key = "c",
 		on_press = function()
-			local cp = require("widgets.clock_popup")
-			cp:toggle()
+			awesome.emit_signal("dotfiles::date")
 		end,
 		description = "Display Clock",
 		group = "Launcher",

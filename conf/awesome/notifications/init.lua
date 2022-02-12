@@ -44,6 +44,7 @@ function notifications.init()
 		require("notifications.battery")
 	end
     require("notifications.mpris")
+	require("notifications.date")
     require("notifications.appearance")
 end
 
