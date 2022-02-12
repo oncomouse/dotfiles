@@ -4,7 +4,7 @@ local awful = require("awful")
 local function media_key_press(cmd, signal)
 	return function()
 		awful.spawn.easy_async_with_shell(cmd, function()
-			awesome.emit_signal("widget::update", signal)
+			awesome.emit_signal("dotfiles::update", signal)
 		end)
 	end
 end

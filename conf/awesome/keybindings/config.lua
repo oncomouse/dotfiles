@@ -581,7 +581,7 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		modifiers = {},
 		key = "XF86AudioPlay",
 		on_press = function()
-			awesome.emit_signal("widget::mpris::action", "play_pause")
+			awesome.emit_signal("dotfiles::mpris::action", "play_pause")
 		end,
 		description = "Play/pause Audio",
 		group = "Media",
@@ -590,7 +590,7 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		modifiers = {},
 		key = "XF86AudioPrev",
 		on_press = function()
-			awesome.emit_signal("widget::mpris::action", "previous")
+			awesome.emit_signal("dotfiles::mpris::action", "previous")
 		end,
 		description = "Previous Track",
 		group = "Media",
@@ -599,7 +599,7 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		modifiers = {},
 		key = "XF86AudioNext",
 		on_press = function()
-			awesome.emit_signal("widget::mpris::action", "next")
+			awesome.emit_signal("dotfiles::mpris::action", "next")
 		end,
 		description = "Next Track",
 		group = "Media",
@@ -608,7 +608,7 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		modifiers = {},
 		key = "XF86AudioStop",
 		on_press = function()
-			awesome.emit_signal("widget::mpris::action", "stop")
+			awesome.emit_signal("dotfiles::mpris::action", "stop")
 		end,
 		description = "Stop Audio from Playing",
 		group = "Media",

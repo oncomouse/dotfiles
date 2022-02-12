@@ -1,14 +1,7 @@
 -- luacheck: globals awesome
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/notifications/battery.lua
--- local icons = require("icons")
+local icons = require("icons")
 local notifications = require("notifications")
-
-local icons = {
-	image = {
-		battery = "/usr/share/icons/ePapirus/24x24/panel/battery-100.svg",
-		battery_charging = "/usr/share/icons/ePapirus/24x24/panel/battery-100-charging.svg",
-	}
-}
 
 -- Helper variables
 local charger_first_time = true

@@ -50,14 +50,14 @@ function manager:unfollow_player(name)
 					self.most_recent_player = player
 				end
 			end
-			awesome.emit_signal("widget::mpris::update", self.most_recent_player)
+			awesome.emit_signal("dotfiles::mpris::update", self.most_recent_player)
 		end
 	end
 end
 
 -- Extract player information and signal widget:
 function manager.update(player)
-	awesome.emit_signal("widget::mpris::update", player.playback_status, {
+	awesome.emit_signal("dotfiles::mpris::update", player.playback_status, {
 		artist = player:get_artist(),
 		album = player:get_album(),
 		title = player:get_title(),
@@ -66,14 +66,14 @@ end
 
 -- Signals:
 -- Handle widget creation:
-awesome.connect_signal("widget::mpris::create_widget", function()
+awesome.connect_signal("dotfiles::mpris::create_widget", function()
 	for _, name in pairs(lgi.Playerctl.list_players()) do
 		manager:follow_player(name)
 	end
 end)
 
 -- Handle action requests:
-awesome.connect_signal("widget::mpris::action", function(action)
+awesome.connect_signal("dotfiles::mpris::action", function(action)
 	local player
 	if manager.most_recent_player ~= nil then
 		player = manager.players[manager.most_recent_player]

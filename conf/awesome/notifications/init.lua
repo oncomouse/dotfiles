@@ -26,8 +26,8 @@ function notifications.notify_dwim(args, notif)
     if n and not n._private.is_destroyed and not n.is_expired then
         notif.title = args.title or notif.title
         notif.message = args.message or notif.message
-        -- notif.text = args.text or notif.text
         notif.icon = args.icon or notif.icon
+		notif.text_icon = args.text_icon or notif.text_icon
         notif.timeout = args.timeout or notif.timeout
     else
         n = naughty.notification(args)
@@ -42,7 +42,7 @@ function notifications.init()
 		require("notifications.brightness")
 		require("notifications.battery")
 	end
-    -- require("notifications.mpd")
+    require("notifications.mpd")
     -- Load theme
     -- require("notifications.themes." .. theme_name)
 end

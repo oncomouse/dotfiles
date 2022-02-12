@@ -81,8 +81,8 @@ end
 
 function MediaPlayer:signal()
 	-- Connect Playerctl:
-	awesome.connect_signal("widget::mpris::update", function(...) self:update_widget_text(...) end)
-	awesome.emit_signal("widget::mpris::create_widget")
+	awesome.connect_signal("dotfiles::mpris::update", function(...) self:update_widget_text(...) end)
+	awesome.emit_signal("dotfiles::mpris::create_widget")
 
 	-- Connect Buttons
 	self.widget:buttons(awful.util.table.join(
@@ -90,21 +90,21 @@ function MediaPlayer:signal()
 			{},
 			1, -- button 1: left click  - play/pause
 			function()
-				awesome.emit_signal("widget::mpris::action", "play_pause")
+				awesome.emit_signal("dotfiles::mpris::action", "play_pause")
 			end
 		),
 		awful.button(
 			{},
 			3, -- button 4: scroll up   - next song
 			function()
-				awesome.emit_signal("widget::mpris::action", "next")
+				awesome.emit_signal("dotfiles::mpris::action", "next")
 			end
 		),
 		awful.button(
 			{},
 			2, -- button 5: scroll down - previous song
 			function()
-				awesome.emit_signal("widget::mpris::action", "previous")
+				awesome.emit_signal("dotfiles::mpris::action", "previous")
 			end
 		)
 	))

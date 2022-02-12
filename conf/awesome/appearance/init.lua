@@ -21,8 +21,7 @@ beautiful.hotkeys_description_font = is_laptop and laptop_font .. " Normal 12" o
 beautiful.titlebar_font = is_laptop and laptop_font .. " Normal 9" or desktop_font .. " Normal 10"
 beautiful.titlebar_title_enabled = true
 -- }}}
--- Use Dracula for Icons:
-beautiful.icon_theme = "/usr/share/icons/Dracula"
+beautiful.icon_theme = "/usr/share/icons/ePapirus-Dark"
 -- Tags:
 beautiful.tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 -- Wibar:

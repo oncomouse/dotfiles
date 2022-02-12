@@ -12,13 +12,13 @@ local function block_watcher(cmd, delay, name)
 	-- Trigger for button presses
 	widget:connect_signal("button::press", function(_, _, _, button)
 		awful.spawn.easy_async_with_shell("env BUTTON=" .. button .. " " .. cmd, function()
-			widget:emit_signal("widget::update")
+			widget:emit_signal("dotfiles::update")
 		end)
 	end)
 	if name then
 		widget_signals[name] = { widget }
 		-- Internal keypress handler:
-		widget:connect_signal("widget::update", function()
+		widget:connect_signal("dotfiles::update", function()
 			awful.spawn.easy_async_with_shell(cmd, function(stdout)
 				widget:set_text(stdout)
 			end)
@@ -28,10 +28,10 @@ local function block_watcher(cmd, delay, name)
 end
 
 -- System-wide signal dispersal for key presses
-awesome.connect_signal("widget::update", function(name)
+awesome.connect_signal("dotfiles::update", function(name)
 	if widget_signals[name] then
 		for _,widget in pairs(widget_signals[name]) do
-			widget:emit_signal("widget::update")
+			widget:emit_signal("dotfiles::update")
 		end
 	end
 end)

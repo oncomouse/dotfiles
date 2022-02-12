@@ -4,8 +4,8 @@ local notifications = require("notifications")
 
 local icons = {
 	image = {
-		volume = "/usr/share/icons/ePapirus/24x24/panel/audio-volume-high.svg",
-		muted = "/usr/share/icons/ePapirus/24x24/panel/audio-volume-muted.svg",
+		volume = "/usr/share/icons/ePapirus-Dark/24x24/panel/audio-volume-high.svg",
+		muted = "/usr/share/icons/ePapirus-Dark/24x24/panel/audio-volume-muted.svg",
 	},
 }
 
