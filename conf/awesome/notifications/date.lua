@@ -27,7 +27,7 @@ awesome.connect_signal("dotfiles::date", function()
 			title = "Current Time:",
 			message = "<b>" .. rtrim(time) .. "</b>",
 			timeout = timeout,
-			app_name = "clock",
+			app_name = "date",
 		}, notif)
 	end)
 end)

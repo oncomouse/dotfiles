@@ -32,6 +32,7 @@ local default_icon = "𥉉"
 -- (This will be removed when notification rules are released)
 -- Using Nerd Font
 local app_config = {
+	["date"] = { icon = "", title = true },
 	["battery"] = { icon = "", title = false },
 	["charger"] = { icon = "ﮣ", title = false },
 	["volume"] = { icon = "墳", title = false },
