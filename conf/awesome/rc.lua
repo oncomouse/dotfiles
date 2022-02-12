@@ -10,6 +10,6 @@ require("rules")
 require("signals")
 require("notifications").init()
 require("bar")
--- if not require("utils.is_laptop") then
--- 	require("utils.heartbeat") -- Prevent screensaver when designated apps are running
--- end
+if not require("utils.is_laptop") then
+	require("utils.heartbeat").init() -- Prevent screensaver when designated apps are running
+end

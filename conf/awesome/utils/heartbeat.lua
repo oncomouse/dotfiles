@@ -20,7 +20,7 @@ local init = function()
 
 	local function check()
 		if forced_stop then
-			awful.spawn(delay_command)
+			awful.spawn(delay_command, false)
 			return
 		end
 		if not forced_only then
@@ -40,13 +40,14 @@ local init = function()
 							for _, needle in pairs(apps) do
 								if string.match(app:upper(), needle:upper()) then
 									stop = true
+									break
 								end
 							end
 						end
 					end
 				end
 				if stop then
-					awful.spawn(delay_command)
+					awful.spawn(delay_command, false)
 				end
 			end)
 		end
@@ -59,18 +60,29 @@ local init = function()
 		callback = check,
 	})
 
+	local function update_forced_stop(on)
+		if on == nil then
+			on = not forced_stop
+		end
+		forced_stop = on
+		awesome.emit_signal("dotfiles::heartbeat::update", forced_stop)
+	end
+
 	-- Use these three signals to build widgets and keyboard shortcuts that caffeinate or decaffeinate your system:
 	-- Run awesome.emit_signal("heartbeat::toggle_forced_stop") to toggle forced stop
-	awesome.connect_signal("heartbeat::toggle_forced_stop", function()
-		forced_stop = not forced_stop
+	awesome.connect_signal("dotfiles::heartbeat::toggle", function()
+		update_forced_stop()
 	end)
 	-- Run awesome.emit_signal("heartbeat::start_forced_stop") to start forced stop
-	awesome.connect_signal("heartbeat::start_forced_stop", function()
-		forced_stop = true
+	awesome.connect_signal("dotfiles::heartbeat::start", function()
+		update_forced_stop(true)
 	end)
 	-- Run awesome.emit_signal("heartbeat::stop_forced_stop") to stop forced stop
-	awesome.connect_signal("heartbeat::stop_forced_stop", function()
-		forced_stop = false
+	awesome.connect_signal("dotfiles::heartbeat::stop", function()
+		update_forced_stop(false)
+	end)
+	awesome.connect_signal("dotfiles::heartbeat::create", function()
+		awesome.emit_signal("dotfiles::heartbeat::update", forced_stop)
 	end)
 end
 

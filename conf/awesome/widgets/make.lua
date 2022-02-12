@@ -54,6 +54,10 @@ local function make_wibar_widgets(widget_definitions)
 			table.insert(widgets.children, w)
 			table.insert(player_widgets, w)
 			widget_signals["mpris"] = player_widgets
+		elseif widget[3] == "heartbeat" then
+			local w = require("widgets.heartbeat")({}).widget
+			table.insert(widgets.children, w)
+			widget_signals["mpris"] = w
 		else
 			table.insert(widgets.children, block_watcher(widget[1], widget[2], widget[3]))
 		end

@@ -8,7 +8,8 @@ local widgets = require("utils.is_laptop")
 		}
 	or {
 		{ "dwmblocks-volume.sh", 30, "volume" },
-		{ "dwmblocks-mpris.sh", 30, "mpris" },
+		{ nil, 0, "heartbeat" },
+		{ nil, 0, "mpris" },
 		{ "dwmblocks-weather.sh", 600, "weather" },
 		{ "dwmblocks-date.sh", 5, "date" },
 	}
