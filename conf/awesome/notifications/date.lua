@@ -23,7 +23,6 @@ local timeout = 2
 
 awesome.connect_signal("dotfiles::date", function()
 	awful.spawn.easy_async_with_shell("date +'%a %m/%d %-I:%M %p'", function(time)
-		-- menubar.utils.rtrim(time)
 		notif = notifications.notify_dwim({
 			title = "Current Time:",
 			message = "<b>" .. rtrim(time) .. "</b>",
