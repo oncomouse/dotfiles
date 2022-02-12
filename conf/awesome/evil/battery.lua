@@ -5,6 +5,7 @@
 --      percentage (integer)
 -- evil::charger
 --      plugged (boolean)
+-- Requires: acpid
 
 local awful = require("awful")
 
@@ -20,6 +21,7 @@ local charger_script = [[
 -- First get battery file path
 -- If there are multiple, only get the first one
 -- TODO support multiple batteries
+
 awful.spawn.easy_async_with_shell(
 	'sh -c \'out="$(find /sys/class/power_supply/BAT?/capacity)" && (echo "$out" | head -1) || false\' ',
 	function(battery_file, _, _, exit_code)
