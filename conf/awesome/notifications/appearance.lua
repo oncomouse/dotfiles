@@ -41,7 +41,7 @@ local app_config = {
 	["night_mode"] = { icon = "望", title = false },
 	["NetworkManager"] = { icon = "ﯱ", title = true },
 	["youtube"] = { icon = "輸", title = true },
-	["mpd"] = { icon = "ﱘ", title = true },
+	["mpris"] = { icon = "ﱘ", title = true },
 	["mpv"] = { icon = "", title = true },
 	["keyboard"] = { icon = "", title = false },
 	["email"] = { icon = "", title = true },

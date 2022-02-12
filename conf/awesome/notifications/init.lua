@@ -43,7 +43,7 @@ function notifications.init()
 		require("notifications.brightness")
 		require("notifications.battery")
 	end
-    require("notifications.mpd")
+    require("notifications.mpris")
     require("notifications.appearance")
 end
 
