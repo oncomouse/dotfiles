@@ -1,9 +1,9 @@
 -- luacheck: globals awesome
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/evil/battery.lua
 -- Provides:
--- evil::battery
+-- dotfiles::battery
 --      percentage (integer)
--- evil::charger
+-- dotfiles::charger
 --      plugged (boolean)
 -- Requires: acpid
 
@@ -31,7 +31,7 @@ awful.spawn.easy_async_with_shell(
 		end
 		-- Periodically get battery info
 		awful.widget.watch("cat " .. battery_file, update_interval, function(_, stdout)
-			awesome.emit_signal("evil::battery", tonumber(stdout))
+			awesome.emit_signal("dotfiles::battery", tonumber(stdout))
 		end)
 	end
 )
@@ -48,7 +48,7 @@ awful.spawn.easy_async_with_shell(
 		local emit_charger_info = function()
 			awful.spawn.easy_async_with_shell("cat " .. charger_file, function(out)
 				local status = tonumber(out) == 1
-				awesome.emit_signal("evil::charger", status)
+				awesome.emit_signal("dotfiles::charger", status)
 			end)
 		end
 

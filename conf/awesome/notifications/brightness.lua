@@ -6,7 +6,7 @@ local notif
 local first_time = true
 local timeout = 1.5
 
-awesome.connect_signal("evil::brightness", function(percentage)
+awesome.connect_signal("dotfiles::brightness", function(percentage)
 	if first_time then
 		first_time = false
 	else

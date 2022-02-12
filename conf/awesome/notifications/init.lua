@@ -1,6 +1,7 @@
+-- luacheck: globals menubar
+-- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/notifications/themes/amarena.lua
 local beautiful = require("beautiful")
 local naughty = require("naughty")
-local menubar = require("menubar")
 
 local notifications = {}
 
@@ -43,8 +44,7 @@ function notifications.init()
 		require("notifications.battery")
 	end
     require("notifications.mpd")
-    -- Load theme
-    -- require("notifications.themes." .. theme_name)
+    require("notifications.appearance")
 end
 
 -- Handle notification icon

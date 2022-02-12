@@ -1,7 +1,7 @@
 -- luacheck: globals awesome
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/evil/volume.lua
 -- Provides:
--- evil::volume
+-- dotfiles::volume
 --      percentage (integer)
 --      muted (boolean)
 local awful = require("awful")
@@ -30,7 +30,7 @@ local function emit_volume_info()
 			-- through `pavucontrol` or even without user intervention,
 			-- when a media file starts playing.
 			if volume_int ~= volume_old or muted_int ~= muted_old then
-				awesome.emit_signal("evil::volume", volume_int, muted)
+				awesome.emit_signal("dotfiles::volume", volume_int, muted)
 				volume_old = volume_int
 				muted_old = muted_int
 			end

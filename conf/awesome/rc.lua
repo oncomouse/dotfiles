@@ -8,7 +8,7 @@ require("keybindings")
 require("mousebindings")
 require("bar")
 require("rules")
-require("evil")
+require("signals")
 require("notifications").init()
 -- if not require("utils.is_laptop") then
 -- 	require("utils.heartbeat") -- Prevent screensaver when designated apps are running

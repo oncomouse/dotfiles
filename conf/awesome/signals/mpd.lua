@@ -1,13 +1,13 @@
 -- luacheck: globals awesome
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/evil/mpd.lua
 -- Provides:
--- evil::mpd
+-- dotfiles::mpd
 --      artist (string)
 --      song (string)
 --      paused (boolean)
--- evil::mpd_volume
+-- dotfiles::mpd_volume
 --      value (integer from 0 to 100)
--- evil::mpd_options
+-- dotfiles::mpd_options
 --      loop (boolean)
 --      random (boolean)
 local awful = require("awful")
@@ -35,7 +35,7 @@ local function emit_info()
 			paused = true
 		end
 
-		awesome.emit_signal("evil::mpd", artist, title, paused)
+		awesome.emit_signal("dotfiles::mpd", artist, title, paused)
 	end)
 end
 
@@ -66,7 +66,7 @@ awful.spawn.easy_async_with_shell(
 -- MPD Volume
 local function emit_volume_info()
 	awful.spawn.easy_async_with_shell("mpc volume | awk '{print substr($2, 1, length($2)-1)}'", function(stdout)
-		awesome.emit_signal("evil::mpd_volume", tonumber(stdout))
+		awesome.emit_signal("dotfiles::mpd_volume", tonumber(stdout))
 	end)
 end
 
@@ -105,7 +105,7 @@ local function emit_options_info()
 	awful.spawn.easy_async_with_shell("mpc | tail -1", function(stdout)
 		local loop = stdout:match("repeat: (.*)")
 		local random = stdout:match("random: (.*)")
-		awesome.emit_signal("evil::mpd_options", loop:sub(1, 2) == "on", random:sub(1, 2) == "on")
+		awesome.emit_signal("dotfiles::mpd_options", loop:sub(1, 2) == "on", random:sub(1, 2) == "on")
 	end)
 end
 

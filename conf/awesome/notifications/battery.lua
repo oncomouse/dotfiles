@@ -20,7 +20,7 @@ local user = {
 }
 
 -- Full / Low / Critical notifications
-awesome.connect_signal("evil::battery", function(battery)
+awesome.connect_signal("dotfiles::battery", function(battery)
 	local message
 	local icon
 	local timeout
@@ -59,7 +59,7 @@ awesome.connect_signal("evil::battery", function(battery)
 end)
 
 -- Charger notifications
-awesome.connect_signal("evil::charger", function(plugged)
+awesome.connect_signal("dotfiles::charger", function(plugged)
 	charger_plugged = plugged
 	local message
 	local icon

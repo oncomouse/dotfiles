@@ -37,7 +37,6 @@ if not is_laptop then
 end
 awful.util.shell = "/bin/bash"
 -- }}}
-require("appearance.naughty")
 -- Additional Configurations {{{
 require("layouts") -- Layouts
 -- Screen decoration settings

@@ -1,7 +1,7 @@
 -- luacheck: globals awesome
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/evil/brightness.lua
 -- Provides:
--- evil::brightness
+-- dotfiles::brightness
 --      percentage (integer)
 local awful = require("awful")
 
@@ -20,7 +20,7 @@ local brightness_script = [[
 local emit_brightness_info = function()
 	awful.spawn.with_line_callback(brightness_script, {
 		stdout = function(line)
-			awesome.emit_signal("evil::brightness", math.floor(tonumber(line)))
+			awesome.emit_signal("dotfiles::brightness", math.floor(tonumber(line)))
 		end,
 	})
 end

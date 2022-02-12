@@ -22,7 +22,7 @@ local send_mpd_notif = function(artist, song, paused)
 				notif:destroy()
 			end
 		else
-			-- Since the evil::mpd signal is also emitted when seeking, only
+			-- Since the dotfiles::mpd signal is also emitted when seeking, only
 			-- send a notification when the song and artist are different than
 			-- before.
 			if artist ~= old_artist and song ~= old_song then
@@ -42,11 +42,11 @@ end
 
 -- Allow dynamically toggling mpd notifications
 notifications.mpd.enable = function()
-	awesome.connect_signal("evil::mpd", send_mpd_notif)
+	awesome.connect_signal("dotfiles::mpd", send_mpd_notif)
 	notifications.mpd.enabled = true
 end
 notifications.mpd.disable = function()
-	awesome.disconnect_signal("evil::mpd", send_mpd_notif)
+	awesome.disconnect_signal("dotfiles::mpd", send_mpd_notif)
 	notifications.mpd.enabled = false
 end
 notifications.mpd.toggle = function()
