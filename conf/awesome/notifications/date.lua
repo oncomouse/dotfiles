@@ -19,7 +19,7 @@ end
 notifications.date = {}
 
 local notif
-local timeout = 3
+local timeout = 2
 
 awesome.connect_signal("dotfiles::date", function()
 	awful.spawn.easy_async_with_shell("date +'%a %m/%d %-I:%M %p'", function(time)
