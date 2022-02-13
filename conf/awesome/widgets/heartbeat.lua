@@ -13,7 +13,7 @@ return Block({
 		end,
 	},
 	widget_options = {
-		forced_width = 20,
+		forced_width = 14,
 		align = "center",
 	},
 	signals = {
