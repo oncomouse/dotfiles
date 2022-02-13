@@ -16,7 +16,7 @@ return Block({
 		["dotfiles::battery::status"] = function(update, level, charging)
 			local icon = charging and icons.charging or icons.discharging
 			local charge_icon = charging and charge_icons.charging or charge_icons.discharging
-			update(icon .. " " .. tostring(level) .. " " .. charge_icon)
+			update(icon .. " " .. tostring(level) .. "%" .. charge_icon)
 		end,
 	},
 	cb = "dotfiles::battery::request"
