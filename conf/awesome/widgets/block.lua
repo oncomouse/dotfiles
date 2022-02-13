@@ -1,7 +1,8 @@
 -- luacheck: globals awesome
 local awful = require("awful")
-local wibox = require("wibox")
+local beautiful = require("beautiful")
 local gears = require("gears")
+local wibox = require("wibox")
 
 local Block = function(def)
 	local Widget = {}
@@ -9,17 +10,25 @@ local Block = function(def)
 		return setmetatable({}, { __index = self }):init()
 	end
 	function Widget:init()
-		self.widget = def.widget or wibox.widget({
-			gears.table.join({
-				id = "output",
-				markup = "",
-				widget = wibox.widget.textbox,
-			}, def.widget_options or {}),
-			layout = wibox.layout.fixed.horizontal,
-			update = function(output)
-				self.widget.output.markup = output
-			end,
-		})
+		self.widget = def.widget
+			or wibox.widget({
+				{
+					gears.table.join({
+						id = "output",
+						markup = "",
+						widget = wibox.widget.textbox,
+					}, def.widget_options or {}),
+					id = "bg",
+					widget = wibox.container.background,
+					bg = def.bg or beautiful.tasklist_bg_focus,
+					fg = def.fg or beautiful.tasklist_fg_focus,
+				},
+				layout = wibox.layout.fixed.horizontal,
+				update = function(output)
+					self.widget.bg.output.markup = output
+				end,
+			})
+
 		if type(def.cb) == "function" then
 			self.request_update = function()
 				def.cb(self.widget.update)
