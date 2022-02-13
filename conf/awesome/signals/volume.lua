@@ -38,8 +38,12 @@ local function emit_volume_info()
 	)
 end
 
+awesome.connect_signal("dotfiles::volume::request", function()
+	emit_volume_info()
+end)
+
 -- Run once to initialize widgets
-emit_volume_info()
+-- emit_volume_info()
 
 -- Sleeps until pactl detects an event (volume up/down/toggle mute)
 local volume_script = [[
