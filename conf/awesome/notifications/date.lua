@@ -1,6 +1,7 @@
 -- luacheck: globals awesome
 local notifications = require("notifications")
 local awful = require("awful")
+local icons = require("icons")
 
 -- Source: https://github.com/blitmap/lua-snippets/blob/d02813ef60e956a249ee7dfb8d576981f8ba1cf4/string-trim.lua
 local rtrim = function(s)
@@ -27,6 +28,7 @@ awesome.connect_signal("dotfiles::date", function()
 			title = "Current Time:",
 			message = "<b>" .. rtrim(time) .. "</b>",
 			timeout = timeout,
+			icon = icons.image.date,
 			app_name = "date",
 		}, notif)
 	end)
