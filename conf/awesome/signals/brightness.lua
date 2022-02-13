@@ -17,16 +17,28 @@ local brightness_script = [[
    xbacklight
 "]]
 
+local brightness = 0
+
 local emit_brightness_info = function()
 	awful.spawn.with_line_callback(brightness_script, {
 		stdout = function(line)
-			awesome.emit_signal("dotfiles::brightness", math.floor(tonumber(line)))
+			brightness = math.floor(tonumber(line))
+			awesome.emit_signal("dotfiles::brightness::update", brightness)
 		end,
 	})
 end
 
--- Run once to initialize widgets
-emit_brightness_info()
+awesome.connect_signal("dotfiles::brightness::request", emit_brightness_info)
+
+awesome.connect_signal("dotfiles::brightness::action", function(action)
+	if action == "default" then
+		awful.spawn("xbacklight -set 50", false)
+	elseif action == "down" then
+		awful.spawn("xbacklight -dec 5", false)
+	elseif action == "up" then
+		awful.spawn("xbacklight -inc 5", false)
+	end
+end)
 
 -- Kill old inotifywait process
 awful.spawn.easy_async_with_shell(
