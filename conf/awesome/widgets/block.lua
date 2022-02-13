@@ -6,9 +6,6 @@ local wibox = require("wibox")
 
 local Block = function(def)
 	local Widget = {}
-	function Widget:new(opts)
-		return setmetatable({}, { __index = self }):init(opts or {})
-	end
 	function Widget:init(opts)
 		def = gears.table.crush(def, opts)
 		-- Create the widget:
@@ -117,7 +114,7 @@ local Block = function(def)
 		self.request_update()
 		return self
 	end
-	return setmetatable(Widget, { __call = Widget.new })
+	return setmetatable(Widget, { __call = Widget.init })
 end
 
 return Block
