@@ -4,7 +4,7 @@ local beautiful = require("beautiful")
 local wibox = require("wibox")
 local is_laptop = require("utils.is_laptop")
 screen.connect_signal("request::desktop_decoration", function(s)
-	s.systray = wibox.widget.systray()
+	-- s.systray = wibox.widget.systray()
 	if is_laptop then
 		s.layoutbox = wibox.widget.textbox("")
 	else
@@ -62,15 +62,15 @@ screen.connect_signal("request::desktop_decoration", function(s)
 		s.tasklist,
 		-- Right Bar:
 		{
-			{
-				{ s.systray, layout = wibox.layout.fixed.horizontal },
-				right = 10,
-				top = 2,
-				bottom = 2,
-				widget = wibox.container.margin,
-			},
+			-- {
+			-- 	{ s.systray, layout = wibox.layout.fixed.horizontal },
+			-- 	right = 10,
+			-- 	top = 2,
+			-- 	bottom = 2,
+			-- 	widget = wibox.container.margin,
+			-- },
 			s.widget_bar,
-			spacing = 1,
+			spacing = 0,
 			layout = wibox.layout.fixed.horizontal,
 		},
 	}
