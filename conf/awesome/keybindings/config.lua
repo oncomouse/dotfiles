@@ -171,7 +171,9 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 	awful.key({
 		modifiers = { beautiful.modkey, "Shift" },
 		key = "b",
-		on_press = require("widgets.keypress")("dwm-brightness.sh default", "brightness"),
+		on_press = function()
+			awesome.emit_signal("dotfiles::brightness::action", "default")
+		end,
 		description = "Set Default Brightness",
 		group = "Awesome",
 	}),
@@ -417,11 +419,12 @@ if is_laptop then
 			modifiers = { beautiful.modkey },
 			key = "m",
 			on_press = function(c)
-				c.maximized = not c.maximized; c:raise()
+				c.maximized = not c.maximized
+				c:raise()
 			end,
 			description = "Maximize Client",
 			group = "Client",
-		})
+		}),
 	})
 end
 -- }}}
@@ -544,14 +547,18 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 	awful.key({
 		modifiers = {},
 		key = "XF86MonBrightnessUp",
-		on_press = require("widgets.keypress")("dwm-brightness.sh up", "brightness"),
+		on_press = function()
+			awesome.emit_signal("dotfiles::brightness::action", "up")
+		end,
 		description = "Raise Brightness by 5%",
 		group = "Media",
 	}),
 	awful.key({
 		modifiers = {},
 		key = "XF86MonBrightnessDown",
-		on_press = require("widgets.keypress")("dwm-brightness.sh down", "brightness"),
+		on_press = function()
+			awesome.emit_signal("dotfiles::brightness::action", "down")
+		end,
 		description = "Lower Brightness by 5%",
 		group = "Media",
 	}),
