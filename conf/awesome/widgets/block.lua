@@ -18,14 +18,13 @@ local Block = function(def)
 						markup = "",
 						widget = wibox.widget.textbox,
 					}, def.widget_options or {}),
-					id = "bg",
 					widget = wibox.container.background,
 					bg = def.bg or beautiful.tasklist_bg_focus,
 					fg = def.fg or beautiful.tasklist_fg_focus,
 				},
 				layout = wibox.layout.fixed.horizontal,
 				update = function(output)
-					self.widget.bg.output.markup = output
+					self.widget.children[1].output.markup = output
 				end,
 			})
 
