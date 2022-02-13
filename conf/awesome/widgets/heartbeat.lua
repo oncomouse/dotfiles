@@ -1,4 +1,5 @@
 -- luacheck: globals awesome
+local awful = require("awful")
 local Block = require("widgets.block")
 
 local status = {
@@ -7,7 +8,7 @@ local status = {
 }
 return Block({
 	buttons = {
-		[1] = function()
+		[awful.button.names.LEFT] = function()
 			awesome.emit_signal("dotfiles::heartbeat::toggle")
 		end,
 	},

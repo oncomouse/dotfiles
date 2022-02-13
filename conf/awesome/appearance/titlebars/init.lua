@@ -4,6 +4,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gears = require("gears")
+local helpers = require("helpers")
 local decorations = require("appearance.titlebars.decorations")
 local truefloat = require("appearance.utils.truefloat")
 
@@ -16,21 +17,13 @@ local gen_button_margin = dpi(8)
 local gen_button_color_unfocused = xrdb.color8
 local gen_button_shape = gears.shape.circle
 
-local helpers = {}
-function helpers.horizontal_pad(width)
-	return wibox.widget({
-		forced_width = width,
-		layout = wibox.layout.fixed.horizontal,
-	})
-end
-
 -- Add a titlebar
 client.connect_signal("request::titlebars", function(c)
 	local buttons = {
-		awful.button({}, 1, function()
+		awful.button({}, awful.button.names.LEFT, function()
 			c:activate({ context = "titlebar", action = "mouse_move" })
 		end),
-		awful.button({}, 3, function()
+		awful.button({}, awful.button.names.RIGHT, function()
 			c:activate({ context = "titlebar", action = "mouse_resize" })
 		end),
 	}

@@ -5,13 +5,13 @@ local rtrim = require("utils.rtrim")
 return Block({
 	timeout = 30,
 	buttons = {
-		[1] = function()
+		[awful.button.names.LEFT] = function()
 			awful.spawn("xbacklight -set 50", false)
 		end,
-		[4] = function()
+		[awful.button.names.SCROLL_UP] = function()
 			awful.spawn("xbacklight -dec 5", false)
 		end,
-		[5] = function()
+		[awful.button.names.SCROLL_DOWN] = function()
 			awful.spawn("xbacklight -inc 5", false)
 		end,
 	},

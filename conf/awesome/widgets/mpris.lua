@@ -1,4 +1,5 @@
 -- luacheck: globals awesome
+local awful = require("awful")
 local Block = require("widgets.block")
 
 local icons = {
@@ -18,13 +19,13 @@ end
 
 return Block({
 	buttons = {
-		[1] = function()
+		[awful.button.names.LEFT] = function()
 			awesome.emit_signal("dotfiles::mpris::action", "play_pause")
 		end,
-		[2] = function()
+		[awful.button.names.MIDDLE] = function()
 			awesome.emit_signal("dotfiles::mpris::action", "previous")
 		end,
-		[3] = function()
+		[awful.button.names.RIGHT] = function()
 			awesome.emit_signal("dotfiles::mpris::action", "next")
 		end,
 	},

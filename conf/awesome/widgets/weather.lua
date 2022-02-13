@@ -6,7 +6,7 @@ local Block = require("widgets.block")
 return Block({
 	name = "weather",
 	buttons = {
-		[1] = function() awful.spawn('xdg-open "https://wttr.in"', false) end,
+		[awful.button.names.LEFT] = function() awful.spawn('xdg-open "https://wttr.in"', false) end,
 	},
 	cb = function(update)
 		awful.spawn.easy_async_with_shell(

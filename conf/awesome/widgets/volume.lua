@@ -5,9 +5,9 @@ local Block = require("widgets.block")
 return Block({
 	name = "volume",
 	buttons = {
-		[1] = function() awful.spawn.with_shell("liskin-media mute", false) end,
-		[4] = function() awful.spawn.with_shell("liskin-media volume up", false) end,
-		[5] = function() awful.spawn.with_shell("liskin-media volume down", false) end,
+		[awful.button.names.LEFT] = function() awful.spawn.with_shell("liskin-media mute", false) end,
+		[awful.button.names.SCROLL_UP] = function() awful.spawn.with_shell("liskin-media volume up", false) end,
+		[awful.button.names.SCROLL_DOWN] = function() awful.spawn.with_shell("liskin-media volume down", false) end,
 	},
 	cb = "dotfiles::volume::request",
 	timeout = 30,
