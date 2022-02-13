@@ -1,13 +1,14 @@
 -- luacheck: globals awesome
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/evil/battery.lua
 -- Provides:
--- dotfiles::battery
+-- dotfiles::battery::level
 --      percentage (integer)
--- dotfiles::charger
+-- dotfiles::battery::charger
 --      plugged (boolean)
 -- Requires: acpid
 
 local awful = require("awful")
+local gears = require("gears")
 
 local update_interval = 30
 
@@ -21,25 +22,19 @@ local charger_script = [[
 	'
 ]]
 
--- First get battery file path
--- If there are multiple, only get the first one
--- TODO support multiple batteries
-
-awful.spawn.easy_async_with_shell(
-	'sh -c \'out="$(find /sys/class/power_supply/BAT?/capacity)" && (echo "$out" | head -1) || false\' ',
-	function(battery_file, _, _, exit_code)
-		-- No battery file found
-		if not (exit_code == 0) then
-			return
-		end
-		-- Periodically get battery info
-		awful.widget.watch("cat " .. battery_file, update_interval, function(_, stdout)
-			level = tonumber(stdout)
+gears.timer({
+	timeout = update_interval,
+	autostart = true,
+	call_now = true,
+	callback = function()
+		awful.spawn.easy_async_with_shell("acpi -b | head -n  1", function(stdout)
+			level = stdout:match("%d+%%"):gsub("%%", "")
+			level = tonumber(level)
 			awesome.emit_signal("dotfiles::battery::level", level)
 			awesome.emit_signal("dotfiles::battery::status", level, charging)
 		end)
 	end
-)
+})
 
 -- First get charger file path
 awful.spawn.easy_async_with_shell(
