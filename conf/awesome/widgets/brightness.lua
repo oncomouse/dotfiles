@@ -18,7 +18,7 @@ return Block({
 	cb = function(update)
 		awful.spawn.easy_async_with_shell("xbacklight 2> /dev/null | cut -d . -f 1", function(output)
 			if #output > 0 then
-				update("" .. rtrim(output) .. "%")
+				update(" " .. rtrim(output) .. "%")
 			end
 		end)
 	end
