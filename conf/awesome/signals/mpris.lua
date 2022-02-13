@@ -71,7 +71,7 @@ end
 
 -- Signals:
 -- Handle widget creation:
-awesome.connect_signal("dotfiles::mpris::create_widget", function()
+awesome.connect_signal("dotfiles::mpris::request", function()
 	manager.update()
 end)
 

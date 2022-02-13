@@ -11,6 +11,9 @@ local awful = require("awful")
 
 local update_interval = 30
 
+local level = nil
+local charging = false
+
 -- Subscribe to power supply status changes with acpi_listen
 local charger_script = [[
 	sh -c '
@@ -31,7 +34,9 @@ awful.spawn.easy_async_with_shell(
 		end
 		-- Periodically get battery info
 		awful.widget.watch("cat " .. battery_file, update_interval, function(_, stdout)
-			awesome.emit_signal("dotfiles::battery", tonumber(stdout))
+			level = tonumber(stdout)
+			awesome.emit_signal("dotfiles::battery::level", level)
+			awesome.emit_signal("dotfiles::battery::status", level, charging)
 		end)
 	end
 )
@@ -47,8 +52,9 @@ awful.spawn.easy_async_with_shell(
 		-- Then initialize function that emits charger info
 		local emit_charger_info = function()
 			awful.spawn.easy_async_with_shell("cat " .. charger_file, function(out)
-				local status = tonumber(out) == 1
-				awesome.emit_signal("dotfiles::charger", status)
+				charging = tonumber(out) == 1
+				awesome.emit_signal("dotfiles::battery::charger", charging)
+				awesome.emit_signal("dotfiles::battery::status", level, charging)
 			end)
 		end
 
@@ -69,3 +75,7 @@ awful.spawn.easy_async_with_shell(
 		)
 	end
 )
+
+awesome.connect_signal("dotfiles::battery::request", function()
+	awesome.emit_signal("dotfiles::battery::status", level, charging)
+end)

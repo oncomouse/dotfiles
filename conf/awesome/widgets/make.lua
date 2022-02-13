@@ -1,40 +1,5 @@
 -- luacheck: globals awesome
-local awful = require("awful")
 local wibox = require("wibox")
-local beautiful = require("beautiful")
-local widget_signals = {}
-local function block_watcher(cmd, delay, name)
-	local widget = awful.widget.watch(cmd, delay)
-	local bg_container = wibox.container.background()
-	bg_container:set_widget(widget)
-	bg_container:set_bg(beautiful.tasklist_bg_focus)
-	bg_container:set_fg(beautiful.tasklist_fg_focus)
-	-- Trigger for button presses
-	widget:connect_signal("button::press", function(_, _, _, button)
-		awful.spawn.easy_async_with_shell("env BUTTON=" .. button .. " " .. cmd, function()
-			widget:emit_signal("dotfiles::update")
-		end)
-	end)
-	if name then
-		widget_signals[name] = { widget }
-		-- Internal keypress handler:
-		widget:connect_signal("dotfiles::update", function()
-			awful.spawn.easy_async_with_shell(cmd, function(stdout)
-				widget:set_text(stdout)
-			end)
-		end)
-	end
-	return bg_container
-end
-
--- System-wide signal dispersal for key presses
-awesome.connect_signal("dotfiles::update", function(name)
-	if widget_signals[name] then
-		for _,widget in pairs(widget_signals[name]) do
-			widget:emit_signal("dotfiles::update")
-		end
-	end
-end)
 
 local function make_wibar_widgets(widget_definitions)
 	local widgets = wibox.widget({
@@ -48,13 +13,10 @@ local function make_wibar_widgets(widget_definitions)
 	})
 
 	for _, widget in ipairs(widget_definitions) do
-		local ok, widget_def = pcall(require, "widgets." .. widget[3])
+		local ok, widget_def = pcall(require, "widgets." .. widget)
 		if ok then
 			local w = widget_def({}).widget
 			table.insert(widgets.children, w)
-			widget_signals[widget[3]] = { w }
-		else
-			table.insert(widgets.children, block_watcher(widget[1], widget[2], widget[3]))
 		end
 	end
 	return widgets

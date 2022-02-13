@@ -12,7 +12,7 @@ local icons = {
 local notif
 local timeout = 1.5
 local first_time = true
-awesome.connect_signal("dotfiles::volume", function(percentage, muted)
+awesome.connect_signal("dotfiles::volume::update", function(percentage, muted)
 	if first_time then
 		first_time = false
 	else
