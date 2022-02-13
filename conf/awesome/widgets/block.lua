@@ -10,42 +10,50 @@ local Block = function(def)
 		return setmetatable({}, { __index = self }):init()
 	end
 	function Widget:init()
+		-- Create the widget:
 		self.widget = def.widget
 			or wibox.widget({
 				{
+					-- Extend the textbox with an additional options passed:
 					gears.table.join({
 						id = "output",
 						markup = "",
 						widget = wibox.widget.textbox,
 					}, def.widget_options or {}),
+					-- Wrap in a background container:
 					widget = wibox.container.background,
 					bg = def.bg or beautiful.tasklist_bg_focus,
 					fg = def.fg or beautiful.tasklist_fg_focus,
 				},
 				layout = wibox.layout.fixed.horizontal,
+				-- The update function, which changes markup:
 				update = function(output)
 					self.widget.children[1].output.markup = output
 				end,
 			})
 
-		local state = {}
+		-- Update calls the widget's update, but it also has an attached state:
+		self.state = {}
 		self.update = setmetatable({}, {
 			__call = function(_, output)
 				self.widget.update(output)
 			end,
 			__index = function(_, index)
-				return index == "state" and state or nil
+				return index == "state" and self.state or nil
 			end
 		})
 
+		-- Handle callback functions:
 		if type(def.callback) == "function" then
 			self.request_update = function()
 				def.callback(self.update)
 			end
+		-- And signal names:
 		elseif type(def.callback) == "string" then
 			self.request_update = function()
 				awesome.emit_signal(def.callback)
 			end
+		-- And no callbacks:
 		else
 			self.request_update = function()
 				if self.widget.update then
@@ -53,6 +61,9 @@ local Block = function(def)
 				end
 			end
 		end
+
+		-- Attach button listeners:
+		-- def.buttons is a table with button number = function(<update>)
 		if type(def.buttons) == "table" then
 			local buttons = {}
 			for num, button in pairs(def.buttons) do
@@ -69,6 +80,9 @@ local Block = function(def)
 				awful.button({}, awful.button.names.LEFT, function() self.request_update() end)
 			}
 		end
+
+		-- Create a timer if this block is periodically calling something. I mostly
+		-- do this in the signal definitions themselves, but it's still here:
 		if type(def.timeout) == "number" and def.timeout > 0 then
 			self.timer = gears.timer({
 				timeout = def.timeout,
@@ -77,6 +91,10 @@ local Block = function(def)
 				callback = self.request_update,
 			})
 		end
+
+		-- Attach any signal listeners:
+		-- def.signals is table with signal_name = function(update, ...) where ...
+		-- is the args passed by the signal itself.
 		if type(def.signals) == "table" then
 			for signal, cb in pairs(def.signals) do
 				awesome.connect_signal(signal, function(...)
@@ -85,6 +103,7 @@ local Block = function(def)
 				end)
 			end
 		end
+		-- Trigger an update to get initial content:
 		self.request_update()
 		return self
 	end
