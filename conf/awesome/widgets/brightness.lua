@@ -8,10 +8,10 @@ return Block({
 			awesome.emit_signal("dotfiles::brightness::action", "default")
 		end,
 		[awful.button.names.SCROLL_UP] = function()
-			awesome.emit_signal("dotfiles::brightness::action", "down")
+			awesome.emit_signal("dotfiles::brightness::action", "up")
 		end,
 		[awful.button.names.SCROLL_DOWN] = function()
-			awesome.emit_signal("dotfiles::brightness::action", "up")
+			awesome.emit_signal("dotfiles::brightness::action", "down")
 		end,
 	},
 	callback = "dotfiles::brightness::request",
