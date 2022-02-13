@@ -8,7 +8,6 @@ function Date:new()
 end
 
 function Date:init()
-	self.status = false
 	self.widget = wibox.widget({
 		{
 			format = "%a %m/%d %-I:%M %p ",
