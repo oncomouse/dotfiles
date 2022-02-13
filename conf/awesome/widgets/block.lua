@@ -54,6 +54,10 @@ local Block = function(def)
 				)
 			end
 			self.widget.buttons = buttons
+		else
+			self.widget.buttons = {
+				awful.button({}, 1, function() self.request_update() end)
+			}
 		end
 		if type(def.timeout) == "number" and def.timeout > 0 then
 			self.timer = gears.timer({
