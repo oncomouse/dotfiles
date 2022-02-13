@@ -4,14 +4,14 @@ local widgets = require("utils.is_laptop")
 			{ "dwmblocks-volume.sh", 30, "volume" },
 			{ "dwmblocks-brightness.sh", 30, "brightness" },
 			{ "dwmblocks-battery.sh", 30, "battery" },
-			{ "dwmblocks-date.sh", 5, "date" },
+			{ nil, 0, "date" },
 		}
 	or {
 		{ "dwmblocks-volume.sh", 30, "volume" },
 		{ nil, 0, "heartbeat" },
 		{ nil, 0, "mpris" },
 		{ "dwmblocks-weather.sh", 600, "weather" },
-		{ "dwmblocks-date.sh", 5, "date" },
+		{ nil, 0, "date" },
 	}
 
 return widgets
