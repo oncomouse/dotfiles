@@ -11,24 +11,31 @@ local Block = function(def)
 	end
 	function Widget:init()
 		-- Create the widget:
-		self.widget = def.widget
-			or wibox.widget({
+		self.widget = wibox.widget({
 				{
-					-- Extend the textbox with an additional options passed:
-					gears.table.join({
-						id = "output",
-						markup = "",
-						widget = wibox.widget.textbox,
-					}, def.widget_options or {}),
-					-- Wrap in a background container:
-					widget = wibox.container.background,
-					bg = def.bg or beautiful.tasklist_bg_focus,
-					fg = def.fg or beautiful.tasklist_fg_focus,
+					{
+						-- Extend the textbox with an additional options passed:
+						def.widget or gears.table.join({
+							id = "output",
+							markup = "",
+							widget = wibox.widget.textbox,
+						}, def.widget_options or {}),
+						-- Wrap in a background container:
+						widget = wibox.container.background,
+						bg = def.bg or beautiful.tasklist_bg_focus,
+						fg = def.fg or beautiful.tasklist_fg_focus,
+					},
+					widget = wibox.container.margin,
+					margins = def.margins or beautiful.block_margins or {
+						left = 10,
+					},
 				},
 				layout = wibox.layout.fixed.horizontal,
 				-- The update function, which changes markup:
 				update = function(output)
-					self.widget.children[1].output.markup = output
+					if self.widget.children[1].children[1].output then
+						self.widget.children[1].children[1].output.markup = output
+					end
 				end,
 			})
 
@@ -40,7 +47,7 @@ local Block = function(def)
 			end,
 			__index = function(_, index)
 				return index == "state" and self.state or nil
-			end
+			end,
 		})
 
 		-- Handle callback functions:
@@ -48,12 +55,12 @@ local Block = function(def)
 			self.request_update = function()
 				def.callback(self.update)
 			end
-		-- And signal names:
+			-- And signal names:
 		elseif type(def.callback) == "string" then
 			self.request_update = function()
 				awesome.emit_signal(def.callback)
 			end
-		-- And no callbacks:
+			-- And no callbacks:
 		else
 			self.request_update = function()
 				if self.widget.update then
@@ -77,7 +84,9 @@ local Block = function(def)
 			self.widget.buttons = buttons
 		else
 			self.widget.buttons = {
-				awful.button({}, awful.button.names.LEFT, function() self.request_update() end)
+				awful.button({}, awful.button.names.LEFT, function()
+					self.request_update()
+				end),
 			}
 		end
 

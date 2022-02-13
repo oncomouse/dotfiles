@@ -4,11 +4,6 @@ local wibox = require("wibox")
 local function make_wibar_widgets(widget_definitions)
 	local widgets = wibox.widget({
 		layout = wibox.layout.fixed.horizontal,
-		spacing = 10,
-		spacing_widget = {
-			text = " ",
-			widget = wibox.widget.textbox,
-		},
 		widget = wibox.container.place,
 	})
 
