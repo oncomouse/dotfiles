@@ -10,7 +10,6 @@ return Block({
 		[awful.button.names.SCROLL_DOWN] = function() awful.spawn.with_shell("liskin-media volume down", false) end,
 	},
 	cb = "dotfiles::volume::request",
-	timeout = 30,
 	signals = {
 		["dotfiles::volume::update"] = function(update, volume, muted)
 			local output
