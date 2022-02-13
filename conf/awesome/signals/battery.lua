@@ -27,8 +27,9 @@ gears.timer({
 	autostart = true,
 	call_now = true,
 	callback = function()
-		awful.spawn.easy_async_with_shell("acpi -b | cut -d : -f 2 | cut -d , -f 2 | sed -e 's/[ %]//g'", function(stdout)
-			level = tonumber(stdout)
+		awful.spawn.easy_async_with_shell("acpi -b | head -n  1", function(stdout)
+			level = stdout:match("%d+%%"):gsub("%%", "")
+			level = tonumber(level)
 			awesome.emit_signal("dotfiles::battery::level", level)
 			awesome.emit_signal("dotfiles::battery::status", level, charging)
 		end)
