@@ -31,7 +31,6 @@ gears.timer({
 			level = stdout:match("%d+%%"):gsub("%%", "")
 			level = tonumber(level)
 			awesome.emit_signal("dotfiles::battery::level", level)
-			awesome.emit_signal("dotfiles::battery::status", level, charging)
 		end)
 	end
 })
@@ -49,7 +48,6 @@ awful.spawn.easy_async_with_shell(
 			awful.spawn.easy_async_with_shell("cat " .. charger_file, function(out)
 				charging = tonumber(out) == 1
 				awesome.emit_signal("dotfiles::battery::charger", charging)
-				awesome.emit_signal("dotfiles::battery::status", level, charging)
 			end)
 		end
 

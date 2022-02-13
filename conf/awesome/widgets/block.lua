@@ -28,9 +28,19 @@ local Block = function(def)
 				end,
 			})
 
+		local state = {}
+		self.update = setmetatable({}, {
+			__call = function(_, output)
+				self.widget.update(output)
+			end,
+			__index = function(_, index)
+				return index == "state" and state or nil
+			end
+		})
+
 		if type(def.cb) == "function" then
 			self.request_update = function()
-				def.cb(self.widget.update)
+				def.cb(self.update)
 			end
 		elseif type(def.cb) == "string" then
 			self.request_update = function()
@@ -49,7 +59,7 @@ local Block = function(def)
 				table.insert(
 					buttons,
 					awful.button({}, tonumber(num), function()
-						button(self.widget.update)
+						button(self.update)
 					end)
 				)
 			end
@@ -71,7 +81,7 @@ local Block = function(def)
 			for signal, cb in pairs(def.signals) do
 				awesome.connect_signal(signal, function(...)
 					local args = { ... }
-					cb(table.unpack(gears.table.join({ self.widget.update }, args)))
+					cb(table.unpack(gears.table.join({ self.update }, args)))
 				end)
 			end
 		end

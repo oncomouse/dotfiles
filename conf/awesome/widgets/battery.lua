@@ -11,13 +11,25 @@ local icons = {
 	discharging = "",
 }
 
+local function make_output(update)
+	local icon = update.state.charging and icons.charging or icons.discharging
+	local charge_icon = update.state.charging and charge_icons.charging or charge_icons.discharging
+	update(icon .. " " .. tostring(update.state.level) .. "%" .. charge_icon)
+end
+
 return Block({
 	signals = {
-		["dotfiles::battery::status"] = function(update, level, charging)
-			local icon = charging and icons.charging or icons.discharging
-			local charge_icon = charging and charge_icons.charging or charge_icons.discharging
-			update(icon .. " " .. tostring(level) .. "%" .. charge_icon)
+		["dotfiles::battery::update"] = function(update)
+			make_output(update)
+		end,
+		["dotfiles::battery::charger"] = function(update, charging)
+			update.state.charging = charging
+			make_output(update)
+		end,
+		["dotfiles::battery::level"] = function(update, level)
+			update.state.level = level
+			make_output(update)
 		end,
 	},
-	cb = "dotfiles::battery::request"
+	cb = "dotfiles::battery::request",
 })
