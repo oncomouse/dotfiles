@@ -6,11 +6,11 @@ local wibox = require("wibox")
 
 local Block = function(def)
 	local Widget = {}
-	function Widget:new()
-		return setmetatable({}, { __index = self }):init()
+	function Widget:new(opts)
+		return setmetatable({}, { __index = self }):init(opts or {})
 	end
 	function Widget:init(opts)
-		def = gears.table.crush(def, opts or {})
+		def = gears.table.crush(def, opts)
 		-- Create the widget:
 		self.widget = wibox.widget({
 				{
