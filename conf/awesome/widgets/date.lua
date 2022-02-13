@@ -10,5 +10,5 @@ return Block({
 			widget = wibox.widget.textclock
 		},
 		layout = wibox.layout.fixed.horizontal,
-	})
+	}),
 })
