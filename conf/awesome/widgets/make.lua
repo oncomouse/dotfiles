@@ -15,7 +15,7 @@ local function make_wibar_widgets(widget_definitions)
 	for _, widget in ipairs(widget_definitions) do
 		local ok, widget_def = pcall(require, "widgets." .. widget)
 		if ok then
-			local w = widget_def({}).widget
+			local w = widget_def().widget
 			table.insert(widgets.children, w)
 		end
 	end
