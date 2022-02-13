@@ -9,7 +9,8 @@ local Block = function(def)
 	function Widget:new()
 		return setmetatable({}, { __index = self }):init()
 	end
-	function Widget:init()
+	function Widget:init(opts)
+		def = gears.table.crush(def, opts or {})
 		-- Create the widget:
 		self.widget = wibox.widget({
 				{

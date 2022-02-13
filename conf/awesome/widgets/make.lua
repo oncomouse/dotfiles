@@ -8,9 +8,11 @@ local function make_wibar_widgets(widget_definitions)
 	})
 
 	for _, widget in ipairs(widget_definitions) do
-		local ok, widget_def = pcall(require, "widgets." .. widget)
+		local name = type(widget) == "string" and widget or widget.name
+		local opts = type(widget) == "string" and {} or widget.opts
+		local ok, widget_def = pcall(require, "widgets." .. name)
 		if ok then
-			local w = widget_def().widget
+			local w = widget_def(opts).widget
 			table.insert(widgets.children, w)
 		end
 	end
