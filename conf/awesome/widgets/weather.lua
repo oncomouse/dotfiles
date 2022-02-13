@@ -8,7 +8,7 @@ return Block({
 	buttons = {
 		[awful.button.names.LEFT] = function() awful.spawn('xdg-open "https://wttr.in"', false) end,
 	},
-	cb = function(update)
+	callback = function(update)
 		awful.spawn.easy_async_with_shell(
 			'curl -s "https://wttr.in/?format=1" | sed -e "s/ +//" -e "s/Unknown.*\\$//"',
 			function(stdout)

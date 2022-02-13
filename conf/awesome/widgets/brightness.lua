@@ -14,7 +14,7 @@ return Block({
 			awesome.emit_signal("dotfiles::brightness::action", "up")
 		end,
 	},
-	cb = "dotfiles::brightness::request",
+	callback = "dotfiles::brightness::request",
 	signals = {
 		["dotfiles::brightness::update"] = function(update, brightness)
 			update(" " .. tostring(brightness) .. "%")

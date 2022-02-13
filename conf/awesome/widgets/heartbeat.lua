@@ -22,5 +22,5 @@ return Block({
 			update(output)
 		end,
 	},
-	cb = "dotfiles::heartbeat::request",
+	callback = "dotfiles::heartbeat::request",
 })

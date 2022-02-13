@@ -38,13 +38,13 @@ local Block = function(def)
 			end
 		})
 
-		if type(def.cb) == "function" then
+		if type(def.callback) == "function" then
 			self.request_update = function()
-				def.cb(self.update)
+				def.callback(self.update)
 			end
-		elseif type(def.cb) == "string" then
+		elseif type(def.callback) == "string" then
 			self.request_update = function()
-				awesome.emit_signal(def.cb)
+				awesome.emit_signal(def.callback)
 			end
 		else
 			self.request_update = function()

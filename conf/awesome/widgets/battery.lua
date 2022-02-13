@@ -31,5 +31,5 @@ return Block({
 			make_output(update)
 		end,
 	},
-	cb = "dotfiles::battery::request",
+	callback = "dotfiles::battery::request",
 })

@@ -29,7 +29,7 @@ return Block({
 			awesome.emit_signal("dotfiles::mpris::action", "next")
 		end,
 	},
-	cb = "dotfiles::mpris::request",
+	callback = "dotfiles::mpris::request",
 	signals = {
 		["dotfiles::mpris::update"] = function(update, status, metadata)
 			if status == "STOPPED" then
