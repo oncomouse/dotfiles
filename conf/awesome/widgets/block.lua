@@ -36,6 +36,11 @@ local Block = function(def)
 			update = function(output)
 				if self.widget.children[1].children[1].output then
 					self.widget.children[1].children[1].output.markup = output
+					if output == "" then
+						self.widget.visible = false
+					else
+						self.widget.visible = true
+					end
 				end
 			end,
 		})
