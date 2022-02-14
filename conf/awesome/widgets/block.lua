@@ -4,6 +4,9 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local wibox = require("wibox")
 
+-- local installed_penlight,path = pcall(require, "pl.path")
+-- require("naughty").notification({ title = path.dirname(path.abspath(debug.getinfo(1).short_src)) })
+
 local Block = function(def)
 	local Widget = {}
 	function Widget:init(opts)
