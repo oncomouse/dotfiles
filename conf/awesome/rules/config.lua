@@ -1,5 +1,6 @@
 local beautiful = require("beautiful")
 local awful = require("awful")
+local is_laptop = require("utils.is_laptop")
 beautiful.rules = {
 	-- All clients will match this rule.
 	{
@@ -8,6 +9,7 @@ beautiful.rules = {
 		properties = {
 			focus = awful.client.focus.filter,
 			raise = true,
+			floating = is_laptop, -- Are we floating only?
 			screen = awful.screen.preferred,
 			placement = awful.placement.no_overlap + awful.placement.no_offscreen,
 		},
