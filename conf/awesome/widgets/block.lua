@@ -10,32 +10,32 @@ local Block = function(def)
 		def = gears.table.crush(def, opts)
 		-- Create the widget:
 		self.widget = wibox.widget({
+			{
 				{
-					{
-						-- Extend the textbox with an additional options passed:
-						def.widget or gears.table.join({
-							id = "output",
-							markup = "",
-							widget = wibox.widget.textbox,
-						}, def.widget_options or {}),
-						widget = wibox.container.margin,
-						margins = def.margins or beautiful.block_margins or {
-							left = 5,
-							right = 5,
-						},
+					-- Extend the textbox with an additional options passed:
+					def.widget or gears.table.join({
+						id = "output",
+						markup = "",
+						widget = wibox.widget.textbox,
+					}, def.widget_options or {}),
+					widget = wibox.container.margin,
+					margins = def.margins or beautiful.block_margins or {
+						left = 5,
+						right = 5,
 					},
-					widget = wibox.container.background,
-					bg = def.bg or beautiful.tasklist_bg_focus,
-					fg = def.fg or beautiful.tasklist_fg_focus,
 				},
-				layout = wibox.layout.fixed.horizontal,
-				-- The update function, which changes markup:
-				update = function(output)
-					if self.widget.children[1].children[1].output then
-						self.widget.children[1].children[1].output.markup = output
-					end
-				end,
-			})
+				widget = wibox.container.background,
+				bg = def.bg or beautiful.tasklist_bg_focus,
+				fg = def.fg or beautiful.tasklist_fg_focus,
+			},
+			layout = wibox.layout.fixed.horizontal,
+			-- The update function, which changes markup:
+			update = function(output)
+				if self.widget.children[1].children[1].output then
+					self.widget.children[1].children[1].output.markup = output
+				end
+			end,
+		})
 
 		-- Update calls the widget's update, but it also has an attached state:
 		self.state = {}
