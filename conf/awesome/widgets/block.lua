@@ -18,15 +18,15 @@ local Block = function(def)
 							markup = "",
 							widget = wibox.widget.textbox,
 						}, def.widget_options or {}),
-						-- Wrap in a background container:
-						widget = wibox.container.background,
-						bg = def.bg or beautiful.tasklist_bg_focus,
-						fg = def.fg or beautiful.tasklist_fg_focus,
+						widget = wibox.container.margin,
+						margins = def.margins or beautiful.block_margins or {
+							left = 5,
+							right = 5,
+						},
 					},
-					widget = wibox.container.margin,
-					margins = def.margins or beautiful.block_margins or {
-						left = 10,
-					},
+					widget = wibox.container.background,
+					bg = def.bg or beautiful.tasklist_bg_focus,
+					fg = def.fg or beautiful.tasklist_fg_focus,
 				},
 				layout = wibox.layout.fixed.horizontal,
 				-- The update function, which changes markup:
