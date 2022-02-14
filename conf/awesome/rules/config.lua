@@ -9,7 +9,6 @@ beautiful.rules = {
 		properties = {
 			focus = awful.client.focus.filter,
 			raise = true,
-			floating = is_laptop, -- Are we floating only?
 			screen = awful.screen.preferred,
 			placement = awful.placement.no_overlap + awful.placement.no_offscreen,
 		},
@@ -65,3 +64,7 @@ beautiful.rules = {
 		},
 	},
 }
+
+if is_laptop then
+	beautiful.rules[1].properties.floating = true
+end
