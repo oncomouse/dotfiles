@@ -1,7 +1,7 @@
 -- luacheck: globals awesome
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/evil/volume.lua
 -- Provides:
--- dotfiles::volume
+-- dotfiles::volume::update
 --      percentage (integer)
 --      muted (boolean)
 local awful = require("awful")
@@ -41,8 +41,6 @@ end
 awesome.connect_signal("dotfiles::volume::request", function()
 	emit_volume_info()
 end)
--- Run once to initialize widgets
--- emit_volume_info()
 
 -- Sleeps until pactl detects an event (volume up/down/toggle mute)
 local volume_script = [[
