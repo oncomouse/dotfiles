@@ -42,8 +42,9 @@ function notifications.init()
 	if require("utils.is_laptop") then
 		require("notifications.brightness")
 		require("notifications.battery")
+	else
+		require("notifications.mpris")
 	end
-	require("notifications.mpris")
 	require("notifications.date")
     require("notifications.appearance")
 end
