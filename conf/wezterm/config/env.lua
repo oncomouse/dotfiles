@@ -1,7 +1,7 @@
 local HOME = os.getenv("HOME")
 local XDG_CACHE_HOME = os.getenv("XDG_CACHE_HOME") or HOME .. "/.cache"
 local XDG_CONFIG_HOME = os.getenv("XDG_CONFIG_HOME") or HOME .. "/.config"
-local DOTFILES_TARGET = os.getenv("DOTFILES_TARGET") or "laptop"
+local DOTFILES_TARGET = os.getenv("DOTFILES_TARGET") or "desktop"
 
 return {
 	HOME=HOME,
