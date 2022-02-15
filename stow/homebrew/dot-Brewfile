@@ -6,6 +6,7 @@ tap "homebrew/cask-fonts"
 tap "homebrew/core"
 tap "homebrew/services"
 tap "oncomouse/repo"
+tap "wez/wezterm"
 brew "coreutils"
 brew "readline"
 brew "asdf"
@@ -58,6 +59,7 @@ cask "flux", args: { appdir: "/Applications" }
 cask "font-hasklig", args: { appdir: "/Applications" }
 cask "font-fira-code", args: { appdir: "/Applications" }
 cask "font-firacode-nerd-font"
+cask "font-jetbrains-mono-nerd-font"
 cask "font-tex-gyre-heros", args: { appdir: "/Applications" }
 cask "grandperspective", args: { appdir: "/Applications" }
 cask "karabiner-elements", args: { appdir: "/Applications" }
@@ -67,4 +69,5 @@ cask "licecap", args: { appdir: "/Applications" }
 cask "mpv"
 cask "seadrive"
 cask "slack", args: { appdir: "/Applications" }
+cask "wez/wezterm/wezterm"
 cask "zotero"
