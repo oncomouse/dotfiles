@@ -59,7 +59,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			},
 		},
 		-- Center Bar:
-		s.tasklist,
+		is_laptop and wibox.widget.textbox or s.tasklist,
 		-- Right Bar:
 		{
 			-- {
