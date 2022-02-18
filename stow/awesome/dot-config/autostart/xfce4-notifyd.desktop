@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Hidden=true
+Name=Xfce Notification Daemon
+Exec=/usr/lib/xfce4/notifyd/xfce4-notifyd
+Icon=org.xfce.notification
+OnlyShowIn=XFCE;
