@@ -19,4 +19,3 @@ The organization is as follows:
 ## Stow
 
 Packages are managed with a custom re-write of [GNU Stow](https://www.gnu.org/software/stow/). It's located in `scripts/stow.py`. The re-write implements all features of stow except: `--adopt`, `--ignore`, `--defer`, `--override`, and `--compat`. Also, importantly, it fixes [#33](https://github.com/aspiers/stow/issues/33), which has been documented since Apr 8, 2019 and fixed since May 24, 2020, but continues to be unpatched in stow.
-test
