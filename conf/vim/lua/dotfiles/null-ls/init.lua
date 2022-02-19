@@ -1,4 +1,3 @@
--- luacheck: globals vim dotfiles
 local javascript_register = require("dotfiles.null-ls.helpers.javascript_register")
 
 require("null-ls").setup({
@@ -36,7 +35,7 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.rubocop,
 		require("null-ls").builtins.formatting.standardrb,
 		require("null-ls").builtins.diagnostics.shellcheck,
-		require("null-ls").builtins.diagnostics.luacheck,
+		require("null-ls").builtins.diagnostics.selene,
 		require("null-ls").builtins.diagnostics.flake8,
 		require("null-ls").builtins.diagnostics.vint,
 		require("null-ls").builtins.diagnostics.rubocop,

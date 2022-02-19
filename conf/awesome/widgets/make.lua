@@ -1,4 +1,3 @@
--- luacheck: globals awesome
 local wibox = require("wibox")
 
 local function make_wibar_widgets(widget_definitions)

@@ -1,4 +1,3 @@
--- luacheck: globals awesome
 local awful = require("awful")
 local rtrim = require("utils.rtrim")
 local Block = require("widgets.block")

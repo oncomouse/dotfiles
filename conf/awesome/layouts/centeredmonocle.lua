@@ -50,7 +50,8 @@ cm.name = "centeredmonocle"
 function cm.arrange(p)
 	return fmax(p, false)
 end
-function cm.skip_gap(nclients, t) -- luacheck: no unused args
+-- selene: allow(unused_variable)
+function cm.skip_gap(nclients, t)
 	return true
 end
 

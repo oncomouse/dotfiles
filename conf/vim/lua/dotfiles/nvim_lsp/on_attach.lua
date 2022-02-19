@@ -1,4 +1,3 @@
--- luacheck: globals vim dotfiles
 local servers = require("dotfiles.nvim_lsp.servers")
 local function on_attach(client, buf_num)
 	-- Update codeLens:

@@ -1,5 +1,4 @@
--- luacheck: globals vim dotfiles
-dotfiles = _G.dotfiles or {}
+_dotfiles = _dotfiles or {}
 local function make_rule(at, ed, ft, syn)
 	return {
 		char = "<CR>",
@@ -11,7 +10,7 @@ local function make_rule(at, ed, ft, syn)
 		syntax = syn
 	}
 end
-dotfiles.lua_endwise = function()
+_dotfiles.lua_endwise = function()
 	vim.fn["lexima#add_rule"](make_rule([[^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
 	vim.fn["lexima#add_rule"](make_rule([[^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
 	vim.fn["lexima#add_rule"](make_rule([[^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))

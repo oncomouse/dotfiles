@@ -1,4 +1,3 @@
--- luacheck: globals awesome screen client
 local beautiful = require("beautiful")
 local awful = require("awful")
 -- Mouse behavior for layoutbox:

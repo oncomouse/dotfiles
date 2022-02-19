@@ -1,5 +1,4 @@
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/notifications/mpd.lua
--- luacheck: globals awesome client
 local icons = require("icons")
 local notifications = require("notifications")
 

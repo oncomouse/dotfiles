@@ -1,4 +1,3 @@
--- luacheck: globals awesome
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/notifications/battery.lua
 local icons = require("icons")
 local notifications = require("notifications")

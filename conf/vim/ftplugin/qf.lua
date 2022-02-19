@@ -1,4 +1,3 @@
--- luacheck: globals vim
 -- Turn off FZF trigger for easier QF navigation:
 vim.keymap.set("n", "<C-P>", "<C-P>", { buffer = true }) -- nmap <buffer> <C-P> <C-P>
 local status, _ = pcall(require, "qf_helper")

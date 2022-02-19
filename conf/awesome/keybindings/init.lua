@@ -1,4 +1,3 @@
--- luacheck: globals client
 local awful = require("awful")
 local beautiful = require("beautiful")
 require("keybindings.config")

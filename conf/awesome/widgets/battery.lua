@@ -1,4 +1,3 @@
--- luacheck: globals awesome
 local Block = require("widgets.block")
 
 local charge_icons = {

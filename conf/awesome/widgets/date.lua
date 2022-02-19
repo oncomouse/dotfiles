@@ -1,4 +1,3 @@
--- luacheck: globals awesome
 local wibox = require("wibox")
 local Block = require("widgets.block")
 

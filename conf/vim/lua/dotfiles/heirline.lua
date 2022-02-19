@@ -1,4 +1,3 @@
--- luacheck: globals vim
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
 local colors = {
@@ -34,7 +33,7 @@ local mode_wrapper = function(delimiter, component)
 		old_hl_func = component.hl
 	else
 		old_hl = component.hl
-		old_hl_func = function()
+		old_hl_func = function(_)
 			return utils.clone(old_hl)
 		end
 	end

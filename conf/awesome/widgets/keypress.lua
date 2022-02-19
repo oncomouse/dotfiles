@@ -1,4 +1,3 @@
--- luacheck: globals awesome
 local awful = require("awful")
 -- Handler for key presses
 local function media_key_press(cmd, signal)

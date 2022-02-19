@@ -1,4 +1,3 @@
--- luacheck: globals vim
 local h = require("null-ls.helpers")
 local methods = require("null-ls.methods")
 

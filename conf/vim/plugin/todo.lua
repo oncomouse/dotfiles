@@ -1,7 +1,7 @@
--- luacheck: globals dotfiles vim
-dotfiles = _G.dotfiles or {}
-dotfiles.todo = {}
-dotfiles.todo.toggle_done = function()
+_dotfiles = _dotfiles or {}
+
+_dotfiles.todo = {}
+_dotfiles.todo.toggle_done = function()
 	local line = vim.fn.getline(".")
 	if vim.regex([[ X$]]):match_str(line) then
 		vim.fn.setline(".", vim.fn.substitute(line, " X$", "", ""))
@@ -13,18 +13,18 @@ dotfiles.todo.toggle_done = function()
 		vim.fn.setline(".", line .. " X")
 	end
 end
-dotfiles.todo.next_project = function()
+_dotfiles.todo.next_project = function()
 	return vim.fn.search([[^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$]], "w")
 end
-dotfiles.todo.prev_project = function()
+_dotfiles.todo.prev_project = function()
 	return vim.fn.search([[^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$]], "bw")
 end
 -- Search
-dotfiles.todo.search_project = function(project, depth, begin, ed)
+_dotfiles.todo.search_project = function(project, depth, begin, ed)
 	vim.fn.cursor(begin, 1)
 	return vim.fn.search([[\v^\t{]] .. depth .. [[}\V]] .. project .. ":", "c", ed)
 end
-dotfiles.todo.search_end_of_item = function(...)
+_dotfiles.todo.search_end_of_item = function(...)
 	local args = { ... }
 	local lnum = args[1] > 0 and args[2] or vim.fn.line(".")
 	local flags = args[1] > 1 and args[3] or ""
@@ -54,7 +54,7 @@ dotfiles.todo.search_end_of_item = function(...)
 
 	return ed
 end
-dotfiles.todo.search_projects = function(projects)
+_dotfiles.todo.search_projects = function(projects)
 	if vim.fn.empty(projects) == 1 then
 		return 0
 	end
@@ -66,13 +66,13 @@ dotfiles.todo.search_projects = function(projects)
 	local depth = 0
 
 	for _, project in pairs(projects) do
-		if dotfiles.todo.search_project(project, depth, begin, ed) == 0 then
+		if _dotfiles.todo.search_project(project, depth, begin, ed) == 0 then
 			vim.fn.setpos(".", save_pos)
 			return 0
 		end
 
 		begin = vim.fn.line(".")
-		ed = dotfiles.todo.search_end_of_item(begin)
+		ed = _dotfiles.todo.search_end_of_item(begin)
 		depth = depth + 1
 	end
 
@@ -81,7 +81,7 @@ dotfiles.todo.search_projects = function(projects)
 
 	return begin
 end
-dotfiles.todo.CompleteProject = function(lead)
+_dotfiles.todo.CompleteProject = function(lead)
 	local lnum = 1
 	local list = {}
 	local stack = { "" }
@@ -119,11 +119,11 @@ dotfiles.todo.CompleteProject = function(lead)
 	return list
 end
 
-dotfiles.todo.goto_project = function()
-	local res = vim.fn.input("Project: ", "", "customlist,v:lua.dotfiles.todo.CompleteProject")
+_dotfiles.todo.goto_project = function()
+	local res = vim.fn.input("Project: ", "", "customlist,v:lua._dotfiles.todo.CompleteProject")
 
 	if res ~= "" then
-		dotfiles.todo.search_projects(vim.fn.split(res, ":"))
+		_dotfiles.todo.search_projects(vim.fn.split(res, ":"))
 	end
 end
 
@@ -132,25 +132,25 @@ end
 if vim.fn.exists("g:enable_todo") == 0 then
 	vim.cmd([[finish]])
 end
-dotfiles.todo.map = function()
+_dotfiles.todo.map = function()
 	-- Mark A Task As Done:
 	vim.keymap.set(
 		"n",
 		"<leader>td",
-		"<cmd>lua dotfiles.todo.toggle_done()<CR>",
+		"<cmd>lua _dotfiles.todo.toggle_done()<CR>",
 		{ buffer = true, silent = true, noremap = true }
 	)
 	vim.keymap.set(
 		"v",
 		"<leader>td",
-		"<cmd>lua dotfiles.todo.toggle_done()<CR>",
+		"<cmd>lua _dotfiles.todo.toggle_done()<CR>",
 		{ buffer = true, silent = true, noremap = true }
 	)
 	-- Go To Project:
 	vim.keymap.set(
 		"n",
 		"<leader>tg",
-		"<cmd>lua dotfiles.todo.goto_project()<CR>",
+		"<cmd>lua _dotfiles.todo.goto_project()<CR>",
 		{ buffer = true, silent = true, noremap = true }
 	)
 	-- Search For Done Tasks:
@@ -159,20 +159,20 @@ dotfiles.todo.map = function()
 	vim.keymap.set(
 		"n",
 		"]t",
-		"<cmd>lua dotfiles.todo.next_project()<CR>",
+		"<cmd>lua _dotfiles.todo.next_project()<CR>",
 		{ buffer = true, silent = true, noremap = true }
 	)
 	-- Go To Previous Project:
 	vim.keymap.set(
 		"n",
 		"[t",
-		"<cmd>lua dotfiles.todo.prev_project()<CR>",
+		"<cmd>lua _dotfiles.todo.prev_project()<CR>",
 		{ buffer = true, silent = true, noremap = true }
 	)
 end
 
 vim.cmd([[augroup todo
 	autocmd!
-	autocmd BufRead,BufNewFile todo.* lua dotfiles.todo.map()
-	autocmd FileType vimwiki lua dotfiles.todo.map()
+	autocmd BufRead,BufNewFile todo.* lua _dotfiles.todo.map()
+	autocmd FileType vimwiki lua _dotfiles.todo.map()
 augroup END]])

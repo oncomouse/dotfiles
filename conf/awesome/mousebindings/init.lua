@@ -1,4 +1,3 @@
--- luacheck: globals client
 local beautiful = require("beautiful")
 local awful = require("awful")
 require("mousebindings.config")

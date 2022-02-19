@@ -1,4 +1,3 @@
--- luacheck: globals vim dotfiles
 vim.diagnostic.config({
 	underline = true,
 	virtual_text = true,

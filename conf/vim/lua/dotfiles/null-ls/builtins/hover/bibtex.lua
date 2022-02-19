@@ -1,4 +1,3 @@
--- luacheck: globals vim
 -- BibTeX citation hover. This needs iskeyword to match "@", so you have to set
 --   vim.opt_local.iskeyword = vim.opt_local.iskeyword + "@-@"
 -- or

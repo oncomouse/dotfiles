@@ -1,4 +1,3 @@
--- luacheck: globals client
 local awful = require("awful")
 local is_laptop = require("utils.is_laptop")
 local function set_shadow(c)

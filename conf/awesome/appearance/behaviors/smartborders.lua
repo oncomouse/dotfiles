@@ -1,4 +1,3 @@
--- luacheck: globals screen tag client
 local beautiful = require("beautiful")
 local truefloat = require("appearance.utils.truefloat")
 local function make_border_dwim(t)
@@ -28,9 +27,7 @@ local function make_border_dwim(t)
 		local count = 0
 		local only = nil
 		for _, c in ipairs(cs) do
-			if truefloat(c) then
-				border[c] = false
-			elseif c.maximized or c.fullscreen or c.minimized then
+			if truefloat(c) or c.maximized or c.fullscreen or c.minimized then
 				border[c] = false
 			else
 				count = count + 1

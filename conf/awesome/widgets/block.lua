@@ -1,4 +1,3 @@
--- luacheck: globals awesome
 local awful = require("awful")
 local beautiful = require("beautiful")
 local gears = require("gears")

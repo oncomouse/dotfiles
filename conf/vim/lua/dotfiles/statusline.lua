@@ -1,13 +1,12 @@
--- luacheck: globals vim dotfiles
-dotfiles = _G.dotfiles or {}
-function dotfiles.sl_wc()
+_dotfiles = _dotfiles or {}
+function _dotfiles.sl_wc()
 	return vim.tbl_contains({
 		"markdown",
 		"txt",
 		"vimwiki",
 	}, vim.opt.filetype:get()) and " W:" .. vim.fn.wordcount().words or ""
 end
-function dotfiles.sl_dg()
+function _dotfiles.sl_dg()
 	local d = ""
 	for sign_key, kind in pairs({
 		DiagnosticSignError = vim.diagnostic.severity.ERROR,
@@ -24,9 +23,9 @@ function dotfiles.sl_dg()
 	end
 	return d
 end
-local statusline = " %0.45f%m%h%w%r%= %y%{v:lua.dotfiles.sl_wc()} %l:%c %p%%%{v:lua.dotfiles.sl_dg()} "
+local statusline = " %0.45f%m%h%w%r%= %y%{v:lua._dotfiles.sl_wc()} %l:%c %p%%%{v:lua._dotfiles.sl_dg()} "
 local statusline_nc = " %0.45f%m%h%w%r%="
-function dotfiles.sl_stl()
+function _dotfiles.sl_stl()
 	return vim.g.statusline_winid == vim.fn.win_getid() and statusline or statusline_nc
 end
-vim.opt.statusline = "%!v:lua.dotfiles.sl_stl()"
+vim.opt.statusline = "%!v:lua._dotfiles.sl_stl()"

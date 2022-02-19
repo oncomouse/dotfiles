@@ -1,4 +1,3 @@
--- luacheck: globals screen
 local beautiful = require("beautiful")
 local awful = require("awful")
 local is_laptop = require("utils.is_laptop")

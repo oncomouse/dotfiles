@@ -1,4 +1,3 @@
--- luacheck: globals awesome client
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/notifications/volume.lua
 local notifications = require("notifications")
 

@@ -1,4 +1,3 @@
--- luacheck: globals awesome
 local notifications = require("notifications")
 local icons = require("icons")
 

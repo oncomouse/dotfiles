@@ -1,4 +1,3 @@
--- luacheck: globals vim
 local servers = {
 	["null-ls"] = {
 		provides = {

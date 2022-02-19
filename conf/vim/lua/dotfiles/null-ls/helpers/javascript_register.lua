@@ -1,4 +1,3 @@
--- luacheck: globals vim dotfiles
 local utils = require("null-ls.utils")
 local function eslint_project()
 	if
@@ -15,11 +14,11 @@ local function eslint_project()
 	end
 	-- Check for package.json eslintConfig, which is how CRA does it:
 	if utils.make_conditional_utils().root_has_file({ "package.json" }) then
-		local ok, fp  = pcall(io.open, utils.get_root() .. "/package.json", "r")
-		if ok then
-			local ok, package_json = pcall(vim.fn.json_decode, fp:read("*a"))
+		local json_exists, fp  = pcall(io.open, utils.get_root() .. "/package.json", "r")
+		if json_exists then
+			local json_read, package_json = pcall(vim.fn.json_decode, fp:read("*a"))
 			fp:close()
-			if ok then
+			if json_read then
 				return vim.fn.has_key(package_json, "eslintConfig") == 1
 			end
 		end

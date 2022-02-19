@@ -1,5 +1,4 @@
---luacheck: globals vim dotfiles
-dotfiles = _G.dotfiles or {}
+_dotfiles = _dotfiles or {}
 vim.g.dotfiles_ts_playground = true -- Load playground
 return require("packer").startup({
 	function(use)
@@ -49,7 +48,7 @@ return require("packer").startup({
 			{
 				"cohama/lexima.vim",
 				config = function()
-					vim.cmd([[autocmd! dotfiles-settings FileType lua lua dotfiles.lua_endwise()]])
+					vim.cmd([[autocmd! dotfiles-settings FileType lua lua _dotfiles.lua_endwise()]])
 					vim.keymap.set(
 						"i",
 						"<Plug>(dotfiles-lexima)",

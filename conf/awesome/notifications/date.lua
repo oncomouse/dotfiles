@@ -1,4 +1,3 @@
--- luacheck: globals awesome
 local notifications = require("notifications")
 local awful = require("awful")
 local icons = require("icons")

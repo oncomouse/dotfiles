@@ -1,4 +1,3 @@
--- luacheck: globals vim
 local function parse_bibtex(data)
 	local entries = {}
 	local matches = {}

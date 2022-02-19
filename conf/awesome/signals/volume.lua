@@ -1,4 +1,3 @@
--- luacheck: globals awesome
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/evil/volume.lua
 -- Provides:
 -- dotfiles::volume::update

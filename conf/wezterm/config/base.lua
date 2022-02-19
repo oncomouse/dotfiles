@@ -1,4 +1,4 @@
-local XDG_CACHE_HOME = require("config.env").XDG_CACHE_HOME
+-- local XDG_CACHE_HOME = require("config.env").XDG_CACHE_HOME
 
 return {
 	-- Color scheme:

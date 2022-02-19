@@ -1,5 +1,4 @@
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/decorations/themes/ephemeral.lua
--- luacheck: globals client tag
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")

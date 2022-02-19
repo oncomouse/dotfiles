@@ -1,4 +1,3 @@
--- luacheck: globals vim
 local utils = require("nvim-autopairs.utils")
 local get_buf_rules = require("nvim-autopairs").get_buf_rules
 
