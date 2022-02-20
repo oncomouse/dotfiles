@@ -1,0 +1,23 @@
+background_color = #3b4857 100
+# foreground_color = #c7c7c7 100
+border_width = 0
+rounded = 0
+
+panel_background_id = 0
+taskbar_background_id = 1
+systray_background_id = 1
+battery_background_id = 1
+clock_background_id = 1
+
+panel_position = top right
+panel_items = TSBC
+panel_shrink = 1
+
+taskbar_mode = multi_desktop
+taskbar_hide_if_empty = 1
+
+time1_format = %a %m/%d %-I:%M %p 
+time1_font = Inter Nerd Font Normal 10
+
+bat1_font = Inter Nerd Font Normal 10
+# vim:ft=apachestyle
