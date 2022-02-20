@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+if [ "$1" == 37 ]; then
+	if [ "$(pamixer --get-mute)" == "false" ]; then
+		notify-send "墳$(pamixer --get-volume)%"
+	else
+		notify-send "婢"
+	fi
+else
+	notify-send "$(liskin-media status)"
+fi
+
+# vim:ft=sh

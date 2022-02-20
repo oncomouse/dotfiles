@@ -24,6 +24,9 @@ function killbar {
 	if [ "$(pgrep -c xfce4-panel)" -gt 0 ]; then
 		xfce4-panel --plugin-event=genmon-1:refresh:bool:true
 	fi
+	if [ "$(pgrep -c openbox)" -gt 0 ]; then
+		ob-music "$switch"
+	fi
 }
 
 # Stop from controlling things like Firefox
