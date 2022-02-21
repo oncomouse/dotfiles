@@ -190,7 +190,7 @@ window.label.text.justify:   center
 
 EOF
 } > ~/.themes/myobtheme/openbox-3/themerc
-cp ~/.local/bin/my-obtgen/openbox-3/* ~/.themes/myobtheme/openbox-3/
+cp ~/.local/share/my-obtgen/openbox-3/* ~/.themes/myobtheme/openbox-3/
 check_theme
 }
 
