@@ -190,15 +190,15 @@ window.label.text.justify:   center
 
 EOF
 } > ~/.themes/myobtheme/openbox-3/themerc
-cp ~/.local/share/my-obtgen/openbox-3/* ~/.themes/myobtheme/openbox-3/
+cp ~/.local/share/obtgen/openbox-3/* ~/.themes/myobtheme/openbox-3/
 check_theme
 }
 
 fill_color(){
 	get_colors(){
-		grep "color$1 *:" $file | awk -F\# '{print $2}' | head -1
+		grep "color$1 *:" "$file" | awk -F\# '{print $2}' | head -1
 	}
-	get_colors_bg=`grep "background *:" $file | awk -F\# '{print $2}' | head -1`
+	get_colors_bg="$(grep "background *:" "$file" | awk -F\# '{print $2}' | head -1)"
 }
 
 check_theme(){
