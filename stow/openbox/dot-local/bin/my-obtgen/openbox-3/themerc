@@ -23,21 +23,21 @@ menu.items.active.bg.color:     #212733
 menu.items.active.text.color:   #6dcbfa
 
 # Active window
-window.active.border.color:                           #6dcbfa
+window.active.border.color:                           #3b4857
 
 window.active.title.bg:                               solid flat
-window.active.title.bg.color:                         #6dcbfa
-window.active.title.separator.color:                  #6dcbfa
+window.active.title.bg.color:                         #3b4857
+window.active.title.separator.color:                  #3b4857
 window.active.text.justify:                           center
 
 window.active.label.bg:                               parentrelative
-window.active.label.text.color:                       #6dcbfa
+window.active.label.text.color:                       #3b4857
 
 window.active.handle.bg:                              flat solid
-window.active.handle.bg.color:                        #6dcbfa
+window.active.handle.bg.color:                        #3b4857
 
 window.active.grip.bg:                                flat solid
-window.active.grip.bg.color:                          #6dcbfa
+window.active.grip.bg.color:                          #3b4857
 
 window.active.button.unpressed.bg:                    parentrelative
 window.active.button.unpressed.bg.color:              #212733

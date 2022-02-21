@@ -38,21 +38,21 @@ menu.items.active.bg.color:     #${get_colors_bg}
 menu.items.active.text.color:   #$(get_colors 4)
 
 # Active window
-window.active.border.color:                           #$(get_colors 4)
+window.active.border.color:                           #$(get_colors 8)
 
 window.active.title.bg:                               solid flat
-window.active.title.bg.color:                         #$(get_colors 4)
-window.active.title.separator.color:                  #$(get_colors 4)
+window.active.title.bg.color:                         #$(get_colors 8)
+window.active.title.separator.color:                  #$(get_colors 8)
 window.active.text.justify:                           center
 
 window.active.label.bg:                               parentrelative
-window.active.label.text.color:                       #$(get_colors 4)
+window.active.label.text.color:                       #$(get_colors 8)
 
 window.active.handle.bg:                              flat solid
-window.active.handle.bg.color:                        #$(get_colors 4)
+window.active.handle.bg.color:                        #$(get_colors 8)
 
 window.active.grip.bg:                                flat solid
-window.active.grip.bg.color:                          #$(get_colors 4)
+window.active.grip.bg.color:                          #$(get_colors 8)
 
 window.active.button.unpressed.bg:                    parentrelative
 window.active.button.unpressed.bg.color:              #${get_colors_bg}
