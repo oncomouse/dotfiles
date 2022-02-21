@@ -384,7 +384,7 @@ local Diagnostics = {
 			},
 			{
 				provider = function(self)
-					return self.hints > 0 and (self.hint_icon .. self.hint)
+					return self.hints > 0 and (self.hint_icon .. tostring(self.hint or 0))
 				end,
 				hl = { bg = colors.diag.hint, fg = colors.dark_gray },
 			},
