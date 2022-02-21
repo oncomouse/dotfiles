@@ -1,32 +1,6 @@
 #!/usr/bin/env bash
-# Get values from Xresources
 config=~/.config/dunst/dunstrc
-lb=$(xrdb-color color8)
-lf=$(xrdb-color color7)
-lfr=$(xrdb-color color4)
-nb=$(xrdb-color color8)
-nf=$(xrdb-color color7)
-nfr=$(xrdb-color color14)
-cb=$(xrdb-color color8)
-cf=$(xrdb-color color7)
-cfr=$(xrdb-color color1)
 
 # Kill and running dunst instances and start
-killall dunst;/usr/bin/dunst -config $config \
-    -lb "$lb" \
-    -lf "$lf" \
-    -lfr "$lfr" \
-    -nb "$nb" \
-    -nf "$nf" \
-    -nfr "$nfr" \
-    -cb "$cb" \
-    -cf "$cf" \
-    -cfr "$cfr"
-
-# -geometry "0x0-$geometry_x+$geometry_y" \
-# -separator_height "$separator_height" \
-# -padding "$padding" \
-# -horizontal_padding "$horizontal_padding" \
-# -max_icon_size "$max_icon_size" \
-# -frame_width "$frame_width" \
+killall dunst;/usr/bin/dunst -config $config
 # vim:ft=sh

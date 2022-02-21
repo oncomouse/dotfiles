@@ -25,7 +25,7 @@ function killbar {
 		xfce4-panel --plugin-event=genmon-1:refresh:bool:true
 	fi
 	if [ "$(pgrep -c openbox)" -gt 0 ]; then
-		ob-music "$switch"
+		ob-music "$1"
 	fi
 }
 

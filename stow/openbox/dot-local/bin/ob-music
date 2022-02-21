@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-if [ "$1" == 37 ]; then
+echo "$1"
+if [ "$1" == "37" ]; then
 	if [ "$(pamixer --get-mute)" == "false" ]; then
 		notify-send "墳$(pamixer --get-volume)%"
 	else

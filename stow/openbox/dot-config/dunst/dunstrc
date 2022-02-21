@@ -25,7 +25,7 @@
     separator_color = auto
     sort = no
     idle_threshold = 0
-    font = Inter Nerd Font 12
+    font = Inter Nerd Font Medium 12
     line_height = 14
     markup = full
     # The format of the message.  Possible variables are:
@@ -49,10 +49,10 @@
     hide_duplicate_count = false
     show_indicators = yes
     # Align icons left/right/off
-    icon_position = off
+    icon_position = left
     min_icon_size = 0
     max_icon_size = 32
-    icon_path = /usr/share/icons/Numix/24/status/:/usr/share/icons/Numix/24/devices/
+    icon_path = /usr/share/icons/ePapirus-Dark/24x24/status:/usr/share/icons/ePapirus-Dark/24x24/devices:/usr/share/icons/ePapirus-Dark/24x24/apps:/usr/share/icons/ePapirus-Dark/24x24/panel
     sticky_history = yes
     history_length = 20
     dmenu = /usr/bin/rofi -dmenu -p dunst:
@@ -81,13 +81,22 @@
 
 [urgency_low]
     timeout = 10
+	background = "#3b4857"
+	foreground = "#c7c7c7"
+	frame_color = "#73d0FF"
     #icon = /path/to/icon
 
 [urgency_normal]
     timeout = 10
+	background = "#3b4857"
+	foreground = "#c7c7c7"
+	frame_color = "#95e6cb"
     #icon = /path/to/icon
 
 [urgency_critical]
     timeout = 0
+	background = "#FFC44C"
+	foreground = "#3b4857"
+	frame_color = "#f28779"
     #icon = /path/to/icon
 # vim: ft=cfg
