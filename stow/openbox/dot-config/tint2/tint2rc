@@ -69,7 +69,7 @@ panel_padding = 2 0 2
 panel_background_id = 1
 wm_menu = 1
 panel_dock = 0
-panel_position = bottom center horizontal
+panel_position = top center horizontal
 panel_layer = top
 panel_monitor = all
 panel_shrink = 0
@@ -191,7 +191,7 @@ battery_dwheel_command =
 ac_connected_cmd = 
 ac_disconnected_cmd = 
 
-#-------------------------------------
+#------------------------------------
 # Tooltip
 tooltip_show_timeout = 0.5
 tooltip_hide_timeout = 0.1
