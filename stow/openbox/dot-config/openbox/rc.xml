@@ -361,6 +361,7 @@
       <command>ob-term</command>
     </action>
   </keybind>
+  <!-- Launchers -->
   <keybind key="W-A-r">
     <action name="Execute">
       <command>rofi -match fuzzy -auto-select -font "Inter 12" -show drun -show-icons -drun-display-format "{name}"</command>
@@ -374,6 +375,11 @@
   <keybind key="W-A-p">
     <action name="Execute">
       <command>rofimusic.sh "Inter NerdFont 12"</command>
+    </action>
+  </keybind>
+  <keybind key="W-S-p">
+    <action name="Execute">
+      <command>ob-powermenu</command>
     </action>
   </keybind>
 
