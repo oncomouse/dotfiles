@@ -6,13 +6,13 @@
                 <execute>cmake-gui</execute>
             </action> </item>
             <item label="CMake curses GUI (ccmake)"> <action name="Execute">
-                <execute>st -e ccmake</execute>
+                <execute>ob-term -e ccmake</execute>
             </action> </item>
             <item label="IDLE (Python IDE)"> <action name="Execute">
                 <execute>idle</execute>
             </action> </item>
             <item label="Python"> <action name="Execute">
-                <execute>st -e python</execute>
+                <execute>ob-term -e python</execute>
             </action> </item>
             <item label="Qt Assistant"> <action name="Execute">
                 <execute>assistant</execute>
@@ -29,22 +29,22 @@
         </menu>
         <menu id="2" label="Editors">
             <item label="AA Fire"> <action name="Execute">
-                <execute>st -e aafire -driver slang</execute>
+                <execute>ob-term -e aafire -driver slang</execute>
             </action> </item>
             <item label="Kile"> <action name="Execute">
                 <execute>kile</execute>
             </action> </item>
             <item label="Nano"> <action name="Execute">
-                <execute>st -e nano</execute>
+                <execute>ob-term -e nano</execute>
             </action> </item>
             <item label="Neovim"> <action name="Execute">
-                <execute>st -e nvim</execute>
+                <execute>ob-term -e nvim</execute>
             </action> </item>
             <item label="Vi"> <action name="Execute">
-                <execute>st -e vi</execute>
+                <execute>ob-term -e vi</execute>
             </action> </item>
             <item label="Vim"> <action name="Execute">
-                <execute>st -e vim</execute>
+                <execute>ob-term -e vim</execute>
             </action> </item>
         </menu>
         <menu id="18" label="Games">
@@ -87,7 +87,7 @@
                 <execute>mpv --player-operation-mode=pseudo-gui</execute>
             </action> </item>
             <item label="ncmpcpp"> <action name="Execute">
-                <execute>st -e ncmpcpp</execute>
+                <execute>ob-term -e ncmpcpp</execute>
             </action> </item>
             <item label="Qt V4L2 test Utility"> <action name="Execute">
                 <execute>qv4l2</execute>
@@ -110,25 +110,25 @@
                 <execute>firefox</execute>
             </action> </item>
             <item label="FTP"> <action name="Execute">
-                <execute>st -e ftp</execute>
+                <execute>ob-term -e ftp</execute>
             </action> </item>
             <item label="Links"> <action name="Execute">
-                <execute>st -e links</execute>
+                <execute>ob-term -e links</execute>
             </action> </item>
             <item label="Links"> <action name="Execute">
                 <execute>xlinks -g</execute>
             </action> </item>
             <item label="Listen"> <action name="Execute">
-                <execute>st -e listen</execute>
+                <execute>ob-term -e listen</execute>
             </action> </item>
             <item label="Mail Reader"> <action name="Execute">
                 <execute>exo-open --launch MailReader</execute>
             </action> </item>
             <item label="Talk"> <action name="Execute">
-                <execute>st -e talk</execute>
+                <execute>ob-term -e talk</execute>
             </action> </item>
             <item label="Telnet"> <action name="Execute">
-                <execute>st -e telnet</execute>
+                <execute>ob-term -e telnet</execute>
             </action> </item>
             <item label="TkVNC"> <action name="Execute">
                 <execute>xterm -e tkvnc</execute>
@@ -168,21 +168,21 @@
         </menu>
         <menu id="4" label="Science">
             <item label="bc"> <action name="Execute">
-                <execute>st -e bc</execute>
+                <execute>ob-term -e bc</execute>
             </action> </item>
             <item label="dc"> <action name="Execute">
-                <execute>st -e dc</execute>
+                <execute>ob-term -e dc</execute>
             </action> </item>
         </menu>
         <menu id="19" label="Shells">
             <item label="GIT"> <action name="Execute">
-                <execute>st -e git</execute>
+                <execute>ob-term -e git</execute>
             </action> </item>
             <item label="kitty"> <action name="Execute">
                 <execute>kitty</execute>
             </action> </item>
             <item label="ranger"> <action name="Execute">
-                <execute>st -e ranger</execute>
+                <execute>ob-term -e ranger</execute>
             </action> </item>
             <item label="ST"> <action name="Execute">
                 <execute>st</execute>
@@ -298,13 +298,13 @@
                 <execute>avahi-discover</execute>
             </action> </item>
             <item label="fish"> <action name="Execute">
-                <execute>st -e fish</execute>
+                <execute>ob-term -e fish</execute>
             </action> </item>
             <item label="Hardware Locality lstopo"> <action name="Execute">
                 <execute>lstopo</execute>
             </action> </item>
             <item label="Htop"> <action name="Execute">
-                <execute>st -e htop</execute>
+                <execute>ob-term -e htop</execute>
             </action> </item>
             <item label="Log Out"> <action name="Execute">
                 <execute>xfce4-session-logout</execute>
@@ -313,10 +313,10 @@
                 <execute>xterm -e /usr/bin/pstree.x11</execute>
             </action> </item>
             <item label="pstree"> <action name="Execute">
-                <execute>st -e pstree</execute>
+                <execute>ob-term -e pstree</execute>
             </action> </item>
             <item label="Pstree"> <action name="Execute">
-                <execute>st -e pstree.x11</execute>
+                <execute>ob-term -e pstree.x11</execute>
             </action> </item>
             <item label="Sensor Viewer"> <action name="Execute">
                 <execute>xfce4-sensors</execute>
@@ -325,13 +325,13 @@
                 <execute>xfce4-taskmanager</execute>
             </action> </item>
             <item label="TeXconfig"> <action name="Execute">
-                <execute>st -e texconfig</execute>
+                <execute>ob-term -e texconfig</execute>
             </action> </item>
             <item label="Tint2"> <action name="Execute">
                 <execute>tint2</execute>
             </action> </item>
             <item label="Top"> <action name="Execute">
-                <execute>st -e top</execute>
+                <execute>ob-term -e top</execute>
             </action> </item>
         </menu>
         <menu id="38" label="Utilities">
@@ -369,7 +369,7 @@
                 <execute>exo-open --launch FileManager</execute>
             </action> </item>
             <item label="Info"> <action name="Execute">
-                <execute>st -e info</execute>
+                <execute>ob-term -e info</execute>
             </action> </item>
             <item label="Lock Screen (XScreenSaver)"> <action name="Execute">
                 <execute>xscreensaver-command -lock</execute>
@@ -408,7 +408,7 @@
                 <execute>xarchiver</execute>
             </action> </item>
             <item label="Xev"> <action name="Execute">
-                <execute>st -e xev</execute>
+                <execute>ob-term -e xev</execute>
             </action> </item>
             <item label="Xkill"> <action name="Execute">
                 <execute>xkill</execute>
