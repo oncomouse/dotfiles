@@ -1,0 +1,5 @@
+[Desktop Entry]
+Exec=xfce4-autostart
+Type=Application
+Terminal=false
+Name=Startup Script for XFCE4

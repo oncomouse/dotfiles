@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+source ~/dotfiles/conf/xorg/xprofile-common
+# vim:ft=sh

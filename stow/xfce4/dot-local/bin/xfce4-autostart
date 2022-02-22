@@ -1,6 +1,20 @@
 #!/usr/bin/env bash
-## Use Picom for Compositing
-/usr/bin/picom --experimental-backends -b
+
+picom --experimental-backends -b --config ~/dotfiles/conf/picom/common.conf
+
+## System Configuration
+
+# Needed to start Dunst:
+systemctl --user import-environment DISPLAY
+# Load XDG Autostart for WMs without it:
+dex -a
+
+## Appareance:
+
+# Load Xresources:
+xrdb ~/.Xresources
+# Set background:
+# hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
 
 ## Key Bindings
 
@@ -16,6 +30,4 @@ xmodmap -e "keycode 108 = Super_L"
 # make sure X keeps it out of the mod1 group
 xmodmap -e "remove mod1 = Super_L"
 
-xrdb ~/.Xresources
-source ~/dotfiles/conf/xorg/xprofile-common
 # vim:ft=sh

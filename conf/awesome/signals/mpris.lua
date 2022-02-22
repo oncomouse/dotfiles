@@ -49,7 +49,8 @@ function manager:unfollow_player(name)
 					self.most_recent_player = player.name
 				end
 			end
-			awesome.emit_signal("dotfiles::mpris::update")
+			-- awesome.emit_signal("dotfiles::mpris::update")
+			self.update()
 		end
 	end
 end
@@ -61,11 +62,13 @@ function manager.update(player)
 	elseif type(player) == "string" then
 		player = manager.players[player]
 	end
-	awesome.emit_signal("dotfiles::mpris::update", player.playback_status, {
-		artist = player:get_artist(),
-		album = player:get_album(),
-		title = player:get_title(),
-	})
+	if player ~= nil then
+		awesome.emit_signal("dotfiles::mpris::update", player.playback_status, {
+			artist = player:get_artist(),
+			album = player:get_album(),
+			title = player:get_title(),
+		})
+	end
 end
 
 -- Signals:
