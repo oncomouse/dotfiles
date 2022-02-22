@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
-echo "$1"
-if [ "$1" == "37" ]; then
-	if [ "$(pamixer --get-mute)" == "false" ]; then
-		notify-send "墳$(pamixer --get-volume)%"
-	else
-		notify-send "婢"
-	fi
-else
-	notify-send "$(liskin-media status)"
+if [ "$1" == "44" ]; then
+	status="$(liskin-media status)"
+	# if [ "$(echo "$status" | grep -c  栗)" == "0" ]; then
+		# notify-send "$status"
+	# fi
 fi
 
 # vim:ft=sh
