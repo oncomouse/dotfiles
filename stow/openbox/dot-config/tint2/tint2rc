@@ -62,7 +62,7 @@ border_color_pressed = #000000 100
 
 #-------------------------------------
 # Panel
-panel_items = LTSCB
+panel_items = LTSB:C
 panel_size = 100% 30
 panel_margin = 0 0
 panel_padding = 2 0 2
@@ -198,5 +198,12 @@ tooltip_hide_timeout = 0.1
 tooltip_padding = 4 4
 tooltip_background_id = 5
 tooltip_font_color = #c7c7c7 100
+
+separator = new
+separator_background_id = 0
+separator_color = #777777 80
+separator_style = empty
+separator_size = 10
+separator_padding = 0 0
 
 # vim:ft=apachestyle
