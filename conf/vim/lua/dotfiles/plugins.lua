@@ -133,14 +133,16 @@ return require("packer").startup({
 				"lambdalisue/gina.vim",
 				cmd = "Gina",
 				config = function()
-					for _, command in pairs({
-						"branch",
-						"changes",
-						"commit",
-						"diff",
-						"log",
-						"status",
-					}) do
+					for _, command in
+						pairs({
+							"branch",
+							"changes",
+							"commit",
+							"diff",
+							"log",
+							"status",
+						})
+					do
 						vim.fn["gina#custom#command#option"](
 							command,
 							"--opener",
@@ -338,7 +340,7 @@ return require("packer").startup({
 				ft = "xml",
 				setup = function()
 					vim.g.xml_no_comment_map = 1
-				end
+				end,
 			}, -- XML tag close
 			{
 				"plasticboy/vim-markdown",
