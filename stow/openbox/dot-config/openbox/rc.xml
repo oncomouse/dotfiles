@@ -384,7 +384,15 @@
   </keybind>
 
   <!-- Keybindings for moving windows -->
-  <keybind key="W-Up">
+  <keybind key="W-C-c">
+    <action name="MoveResizeTo">
+      <!-- center the window on the first monitor -->
+      <x>center</x>
+      <y>center</y>
+      <monitor>1</monitor>
+    </action>
+  </keybind>
+    <keybind key="W-Up">
     <action name="MoveRelative">
       <x>0</x>
       <y>-25</y>
