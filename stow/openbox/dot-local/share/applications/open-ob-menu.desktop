@@ -1,0 +1,4 @@
+[Desktop Entry]
+Exec=xdotool key ctrl+alt+space
+Name=Open Root Menu
+Icon=tint2
