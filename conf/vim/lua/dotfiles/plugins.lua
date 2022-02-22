@@ -334,6 +334,13 @@ return require("packer").startup({
 			}, -- Treesitter-based Syntax
 			-- Non-Treesitter Syntax:
 			{
+				"sukima/xmledit",
+				ft = "xml",
+				setup = function()
+					vim.g.xml_no_comment_map = 1
+				end
+			}, -- XML tag close
+			{
 				"plasticboy/vim-markdown",
 				ft = "markdown",
 				setup = function()
