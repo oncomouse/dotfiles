@@ -201,10 +201,10 @@ fill_color(){
 }
 
 check_theme(){
-	if [[ $(cat $HOME/.config/openbox/rc.xml | grep "myobtheme") ]]; then
+	if grep -q "myobtheme" < "$HOME"/.config/openbox/rc.xml; then
 		notify-send "Done. now you can try your theme :)"
 		openbox --reconfigure
-	elif [[ $(find /usr/lib -type d -name lxappearance | xargs ls -R | grep ob) ]]; then
+	elif find /usr/lib -type d -print0 -name lxappearance | xargs -0 ls -R | grep -q ob; then
 		lxappearance >/dev/null 2>&1
 	elif [[ $(which obconf) ]]; then
 		obconf >/dev/null 2>&1
