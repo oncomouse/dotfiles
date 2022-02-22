@@ -34,7 +34,9 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.shfmt,
 		require("null-ls").builtins.formatting.rubocop,
 		require("null-ls").builtins.formatting.standardrb,
-		require("null-ls").builtins.diagnostics.shellcheck,
+		require("null-ls").builtins.diagnostics.shellcheck.with({
+			diagnostics_format = "#{m} [#{c}]",
+		}),
 		require("null-ls").builtins.diagnostics.selene,
 		require("null-ls").builtins.diagnostics.flake8,
 		require("null-ls").builtins.diagnostics.vint,
