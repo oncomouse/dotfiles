@@ -1,20 +1,33 @@
 #!/usr/bin/env bash
 #
-source ~/dotfiles/conf/xorg/xinit-common
+# Needed to start Dunst:
+systemctl --user import-environment DISPLAY
+# Load XDG Autostart for WMs without it:
+dex -a
+
+## Appareance:
+
+# Load Xresources:
+xrdb ~/.Xresources
+# Set background:
+# hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
+
+## Key Bindings
+
+# Set compose key (for unicode) to menu:
+setxkbmap -option compose:menu
+# Always turn on numlock:
+setxkbmap -option numpad:mac us
+# Convert capslock to escape:
+setxkbmap -option caps:escape
+
+# reassign Alt_R to Super_L
+xmodmap -e "keycode 108 = Super_L"
+# make sure X keeps it out of the mod1 group
+xmodmap -e "remove mod1 = Super_L"
+
 source ~/dotfiles/conf/xorg/xprofile-common
 
 hsetroot -cover ~/dotfiles/backgrounds/wallhaven-nml81k.jpg
-
-dunst &
-killall -q polybar
-liskin-media mpris-daemon&
-
-# Launch bar1 and bar2
-# echo "---" | tee -a /tmp/polybar1.log /tmp/polybar2.log
-# polybar switcher 2>&1 | tee -a /tmp/polybar1.log & disown
-# polybar tray 2>&1 | tee -a /tmp/polybar2.log & disown
-
-pkill tint2
-tint2&
 
 # vim:ft=sh
