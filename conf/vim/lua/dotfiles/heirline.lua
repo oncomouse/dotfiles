@@ -348,8 +348,10 @@ local Diagnostics = {
 				provider = "",
 				hl = function(self)
 					local h = { fg = colors.diag.info }
-					if self.errors > 0 then
+					if self.warnings > 0 then
 						h.bg = colors.diag.warn
+					elseif self.errors > 0 and self.warnings == 0 then
+						h.bg = colors.diag.error
 					end
 					return h
 				end,
@@ -376,15 +378,19 @@ local Diagnostics = {
 				provider = "",
 				hl = function(self)
 					local h = { fg = colors.diag.hint }
-					if self.errors > 0 then
+					if self.info > 0 then
 						h.bg = colors.diag.info
+					elseif self.errors > 0 and self.warnings == 0 and self.info == 0 then
+						h.bg = colors.diag.error
+					elseif self.warnings > 0 and self.info == 0 then
+						h.bg = colors.diag.warn
 					end
 					return h
 				end,
 			},
 			{
 				provider = function(self)
-					return self.hints > 0 and (self.hint_icon .. tostring(self.hint or 0))
+					return self.hints > 0 and (self.hint_icon .. self.hints)
 				end,
 				hl = { bg = colors.diag.hint, fg = colors.dark_gray },
 			},
