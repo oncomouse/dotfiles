@@ -5,10 +5,6 @@ systemctl --user import-environment DISPLAY
 # Load XDG Autostart for WMs without it:
 dex -a
 
-polkit-dumb-agent&
-
-/usr/bin/picom --experimental-backends -b --shadow
-
 ## Appareance:
 
 # Load Xresources:
@@ -30,9 +26,4 @@ xmodmap -e "keycode 108 = Super_L"
 # make sure X keeps it out of the mod1 group
 xmodmap -e "remove mod1 = Super_L"
 
-## Security
-
-# Unlock keyring
-# eval "$(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)"
-# export SSH_AUTH_SOCK
 # vim:ft=bash

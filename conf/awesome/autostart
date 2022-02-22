@@ -6,5 +6,4 @@ DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/s
 if [ "$DOTFILES_TARGET" == "laptop" ]; then
 	hsetroot -cover ~/dotfiles/backgrounds/wallhaven-nml81k.jpg
 fi
-
 # vim:ft=sh

@@ -1,0 +1,5 @@
+[Desktop Entry]
+Exec=/bin/sh -c "/usr/bin/pkill dunst; /usr/bin/dunst"
+Name=Dunst
+Terminal=false
+Type=Application

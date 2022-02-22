@@ -1,0 +1,5 @@
+[Desktop Entry]
+Exec=polkit-dumb-agent
+Name=Polkit Dumb Agent
+Type=Application
+Terminal=false
