@@ -3,14 +3,11 @@
 # Needed to start Dunst:
 systemctl --user import-environment DISPLAY
 # Load XDG Autostart for WMs without it:
-dex -a
 
 ## Appareance:
 
 # Load Xresources:
 xrdb ~/.Xresources
-# Set background:
-# hsetroot -solid "#$(xrdb -query | grep background | head -1 | cut -d "#" -f2)"
 
 ## Key Bindings
 
