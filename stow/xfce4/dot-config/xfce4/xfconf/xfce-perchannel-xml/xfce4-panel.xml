@@ -64,6 +64,10 @@
       <property name="known-items" type="array">
         <value type="string" value="CMST - Connman System Tray"/>
       </property>
+      <property name="known-legacy-items" type="array">
+        <value type="string" value="cbatticon"/>
+        <value type="string" value="volctl"/>
+      </property>
     </property>
     <property name="plugin-13" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
