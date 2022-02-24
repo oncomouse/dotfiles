@@ -382,6 +382,11 @@
       <command>ob-powermenu</command>
     </action>
   </keybind>
+  <keybind key="C-W-space">
+    <action name="Execute">
+      <command>rofi -show emoji -modi emoji -font "Inter 12"</command>
+    </action>
+  </keybind>
 
   <!-- Keybindings for moving windows -->
   <keybind key="W-C-c">
