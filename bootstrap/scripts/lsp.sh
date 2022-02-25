@@ -1,4 +1,4 @@
-##!/usr/bin/env bash
+#!/usr/bin/env bash
 #os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 ## Install VSCode LSPs:
 #platform="linux-x64"
