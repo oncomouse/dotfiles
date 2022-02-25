@@ -32,6 +32,7 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.reorder_python_imports,
 		require("null-ls").builtins.formatting.fish_indent,
 		require("null-ls").builtins.formatting.shfmt,
+		require("null-ls").builtins.formatting.shellharden,
 		require("null-ls").builtins.formatting.rubocop,
 		require("null-ls").builtins.formatting.standardrb,
 		require("null-ls").builtins.diagnostics.shellcheck.with({
