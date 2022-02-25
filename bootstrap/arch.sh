@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Assume, at minimum, "pacman -S base-devel vim git curl fish" run during install:
-sudo pacman -S --noconfirm --needed - < "$HOME/dotfiles/conf/arch-packages/pacman.txt"
+sudo cat "$HOME/dotfiles/conf/arch-packages/pacman.txt" | sudo pacman -S --noconfirm --needed -
 
 ~/dotfiles/bootstrap/scripts/common.sh
 
@@ -10,13 +10,13 @@ mkdir -p "$HOME/aur"
 ~/dotfiles/bootstrap/scripts/aur.sh
 
 # Install AUR using Paru:
- for pkg in "$(grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/aur.txt | sed -e "s/\s*#.*\$//g")"; do
-	paru --needed -S --skipreview $pkg
- done
+grep -v "^\s*#" < "$HOME"/dotfiles/conf/arch-packages/aur.txt | while IFS= read -r pkg; do
+	paru --needed -S --skipreview "$pkg"
+done
 # Setup flatpak:
 flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 # Install Flatpaks:
-grep -v -e "^#" < "$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
+grep -v -e "^#" <"$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
 
 if [ -z "$SERVER" ]; then
 	## User systemd services
@@ -54,7 +54,7 @@ sudo passwd -l root
 sudo chgrp -R wheel /usr/local
 
 # Set Shell to Fish:
-if ! echo "$SHELL" | grep fish > /dev/null 2>&1; then
+if ! echo "$SHELL" | grep fish >/dev/null 2>&1; then
 	sudo chsh -s "$(which fish)" "$USER"
 fi
 
