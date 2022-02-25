@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# vol_change=${2:-5}
+vol_change=${2:-5}
 case "$1" in
   "up")
 	if pamixer --get-mute > /dev/null; then

@@ -24,11 +24,11 @@ INTERFACE="${INTERFACE:-wlan0}"
 # As per #36 -- It is transparent: e.g. if the machine has no battery or wireless
 # connection (think desktop), the corresponding block should not be displayed.
 [[ ! -d /sys/class/net/${INTERFACE}/wireless ]] ||
-    [[ "$(cat /sys/class/net/$INTERFACE/operstate)" = 'down' ]] && exit
+    [[ "$(cat /sys/class/net/"$INTERFACE"/operstate)" = 'down' ]] && exit
 
 #------------------------------------------------------------------------
 
-ESSID=$(/sbin/iwconfig $INTERFACE | perl -n -e'/ESSID:"(.*?)"/ && print $1')
+ESSID=$(/sbin/iwconfig "$INTERFACE" | perl -n -e'/ESSID:"(.*?)"/ && print $1')
 
 #------------------------------------------------------------------------
 

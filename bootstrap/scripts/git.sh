@@ -2,7 +2,7 @@
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 git config --global user.name "oncomouse"
 git config --global user.email "oncomouse@gmail.com"
-if [ $os == "macos" ]; then
+if [ "$os" == "macos" ]; then
   git config --global credential.helper osxkeychain
 else
   git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
