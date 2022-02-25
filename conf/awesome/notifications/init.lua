@@ -1,6 +1,7 @@
 -- Source: https://github.com/elenapan/dotfiles/blob/master/config/awesome/notifications/themes/amarena.lua
 local beautiful = require("beautiful")
 local naughty = require("naughty")
+local menubar = require("menubar")
 
 local notifications = {}
 

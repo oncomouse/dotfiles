@@ -1,7 +1,7 @@
 local beautiful = require("beautiful")
 local awful = require("awful")
 local gears = require("gears")
-local menubar = require("menubar")
+-- local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local is_laptop = require("utils.is_laptop")
 -- Enable hotkeys help widget for VIM and other apps
@@ -9,7 +9,7 @@ local is_laptop = require("utils.is_laptop")
 require("awful.hotkeys_popup.keys")
 -- This is used later as the default terminal and editor to run.
 beautiful.terminal = is_laptop and "tabbed -r 2 -c st -w ''" or "kitty"
-menubar.utils.terminal = beautiful.terminal -- Set the terminal for applications that require it
+-- menubar.utils.terminal = beautiful.terminal -- Set the terminal for applications that require it
 beautiful.file_explorer = "thunar"
 -- Default modkey.
 beautiful.modkey = "Mod4"
@@ -18,21 +18,21 @@ beautiful.global_keybindings = {}
 beautiful.toggle_floating_on_moveresize = true
 -- Launcher Commands {{{
 
--- local dmenucmd = {
--- 	"rofi",
--- 	"-theme",
--- 	"~/dotfiles/conf/rofi/barmenu.rasi",
--- 	"-match",
--- 	"fuzzy",
--- 	"-auto-select",
--- 	"-font",
--- 	beautiful.font,
--- 	"-show",
--- 	"drun",
--- 	"-show-icons",
--- 	"-drun-display-format",
--- 	"{name}",
--- }
+local dmenucmd = {
+	"rofi",
+	"-theme",
+	"~/dotfiles/conf/rofi/barmenu.rasi",
+	"-match",
+	"fuzzy",
+	"-auto-select",
+	"-font",
+	beautiful.font,
+	"-show",
+	"drun",
+	"-show-icons",
+	"-drun-display-format",
+	"{name}",
+}
 local rofiwincmd = {
 	"rofi",
 	"-theme",
@@ -81,8 +81,8 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		modifiers = { beautiful.modkey, "Mod1" },
 		key = "r",
 		on_press = function()
-			-- awful.spawn(dmenucmd)
-			menubar.show()
+			awful.spawn(dmenucmd)
+			-- menubar.show()
 		end,
 		description = "Drun menu",
 		group = "Launcher",
