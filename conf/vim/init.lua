@@ -82,6 +82,8 @@ vim.opt.dictionary = "/usr/share/dict/words"
 vim.opt.commentstring = "# %s"
 
 -- Disable Plugins {{{
+vim.g.load_black = "py1.0"
+vim.g.loaded_fzf = 1
 vim.g.loaded_gzip = 1
 vim.g.loaded_tarPlugin = 1
 vim.g.loaded_zipPlugin = 1
