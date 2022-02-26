@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 ## Install Node.js Modules
 # Setup a local to user global npm path:
-os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 mkdir -p "${HOME}/.npm-packages/lib"
 npm config set prefix "${HOME}/.npm-packages"
 if which npm > /dev/null 2>&1; then

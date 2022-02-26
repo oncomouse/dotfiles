@@ -46,7 +46,7 @@ package_version() {
 # Install Bat
 if ! which bat > /dev/null 2>&1; then
   pkgver=$(package_version sharkdp/bat)
-  curl -sLo ~/dotfiles/bat.deb https://github.com/sharkdp/bat/releases/download/v${pkgver}/bat-musl_${pkgver}_amd64.deb
+  curl -sLo ~/dotfiles/bat.deb https://github.com/sharkdp/bat/releases/download/v"${pkgver}"/bat-musl_"${pkgver}"_amd64.deb
   sudo dpkg -i ~/dotfiles/bat.deb
   rm ~/dotfiles/bat.deb
 fi
@@ -54,14 +54,14 @@ fi
 # Install fd
 if ! which fd > /dev/null 2>&1; then
   pkgver=$(package_version sharkdp/fd)
-  curl -sLo ~/dotfiles/fd.deb https://github.com/sharkdp/fd/releases/download/v${pkgver}/fd-musl_${pkgver}_amd64.deb
+  curl -sLo ~/dotfiles/fd.deb https://github.com/sharkdp/fd/releases/download/v"${pkgver}"/fd-musl_"${pkgver}"_amd64.deb
   sudo dpkg -i ~/dotfiles/fd.deb
   rm ~/dotfiles/fd.deb
 fi
 
 if ! which exa > /dev/null 2>&1; then
   pkgver=$(package_version ogham/exa)
-  curl -sLo ~/dotfiles/exa.zip https://github.com/ogham/exa/releases/download/v${pkgver}/exa-linux-x86_64-${pkgver}.zip
+  curl -sLo ~/dotfiles/exa.zip https://github.com/ogham/exa/releases/download/v"${pkgver}"/exa-linux-x86_64-"${pkgver}".zip
   sudo apt-get install -y unzip
   unzip ~/dotfiles/exa.zip
   sudo mv exa-linux-x86_64 /usr/local/bin/exa
@@ -70,7 +70,7 @@ fi
 
 if ! which rg > /dev/null 2>&1; then
   pkgver=$(package_version BurntSushi/ripgrep)
-  curl -sLo ~/dotfiles/rg.deb https://github.com/BurntSushi/ripgrep/releases/download/v${pkgver}/ripgrep_${pkgver}_amd64.deb
+  curl -sLo ~/dotfiles/rg.deb https://github.com/BurntSushi/ripgrep/releases/download/v"${pkgver}"/ripgrep_"${pkgver}"_amd64.deb
   sudo dpkg -i ~/dotfiles/rg.deb
   rm ~/dotfiles/rg.deb
 fi

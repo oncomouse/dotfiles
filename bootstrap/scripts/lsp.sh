@@ -64,7 +64,7 @@ if [[ ! -d $dir ]]; then
 #!/usr/bin/env bash
 DIR="$dir/extension/server"
 \$DIR/bin/$platform/lua-language-server -E -e LANG=en \$DIR/main.lua \$*
-# vim:ft=bash
+# vim:ft=sh
 EOF
   chmod +x ~/.local/bin/sumneko-lua-language-server
 fi
