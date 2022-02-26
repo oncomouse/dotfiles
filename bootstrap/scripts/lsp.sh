@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
+os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 ## Install VSCode LSPs:
 #platform="linux-x64"
 #if [[ $os == "macos" ]]; then
