@@ -1,6 +1,7 @@
 local beautiful = require("beautiful")
 local awful = require("awful")
 local gears = require("gears")
+local truefloat = require("appearance.utils.truefloat")
 -- local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local is_laptop = require("utils.is_laptop")
@@ -332,7 +333,7 @@ beautiful.client_keybindings = {
 		group = "Client",
 	}),
 	awful.key({
-		modifiers = { beautiful.modkey },
+		modifiers = { beautiful.modkey, "Shift" },
 		key = "f",
 		description = "Toggle Fullscreen",
 		group = "Client",
@@ -432,11 +433,47 @@ end
 -- }}}
 -- Layout Keybinding Group {{{
 if not is_laptop then
+
+	-- If we are changing layouts from floating layout, we need to restore clients that should get
+	-- managed by the new layout, which means turning off floating:
+	local function restore_floating()
+		local s = awful.screen.focused()
+		local l = awful.layout.get(s)
+		local ln = awful.layout.getname(l)
+		if not ln == "floating" then
+			return
+		end
+		local t = s.selected_tag
+		if not t then return end
+
+		-- Get a list of currently displayed clients:
+		local clients = t:clients()
+		for _,c in pairs(clients) do
+			if truefloat(c) then
+				-- Check if the client matches either of the floating rules:
+				if not require("appearance.utils.should_float")(c) then
+					c.floating = false
+				end
+			end
+		end
+	end
+
 	beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
+		awful.key({
+			modifiers = { beautiful.modkey },
+			key = "t",
+			on_press = function()
+				restore_floating()
+				awful.layout.set(awful.layout.suit.tile.right)
+			end,
+			description = "Select Right Tile Layout",
+			group = "Layout",
+		}),
 		awful.key({
 			modifiers = { beautiful.modkey, "Shift" },
 			key = "t",
 			on_press = function()
+				restore_floating()
 				awful.layout.set(awful.layout.suit.tile.left)
 			end,
 			description = "Select Tiled Layout",
@@ -444,8 +481,18 @@ if not is_laptop then
 		}),
 		awful.key({
 			modifiers = { beautiful.modkey },
+			key = "f",
+			on_press = function()
+				awful.layout.set(awful.layout.suit.floating)
+			end,
+			description = "Select Floating Layout",
+			group = "Layout",
+		}),
+		awful.key({
+			modifiers = { beautiful.modkey },
 			key = "m",
 			on_press = function()
+				restore_floating()
 				awful.layout.set(require("layouts.centeredmonocle"))
 			end,
 			description = "Select Centered Monocle Layout",
@@ -455,18 +502,10 @@ if not is_laptop then
 			modifiers = { beautiful.modkey, "Shift" },
 			key = "m",
 			on_press = function()
+				restore_floating()
 				awful.layout.set(awful.layout.suit.max)
 			end,
 			description = "Select Monocle Layout",
-			group = "Layout",
-		}),
-		awful.key({
-			modifiers = { beautiful.modkey },
-			key = "t",
-			on_press = function()
-				awful.layout.set(awful.layout.suit.tile.right)
-			end,
-			description = "Select Right Tile Layout",
 			group = "Layout",
 		}),
 	})

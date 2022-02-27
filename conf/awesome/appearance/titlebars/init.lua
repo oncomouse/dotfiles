@@ -6,6 +6,7 @@ local gears = require("gears")
 local helpers = require("helpers")
 local decorations = require("appearance.titlebars.decorations")
 local truefloat = require("appearance.utils.truefloat")
+local should_float = require("appearance.utils.should_float")
 
 local xrdb = beautiful.xresources.get_current_theme()
 -- Make dpi function global
@@ -96,7 +97,7 @@ end
 
 -- Hook called when a client spawns
 client.connect_signal("manage", function(c)
-	set_titlebar(c, truefloat(c) or c.first_tag.layout == awful.layout.suit.floating)
+	set_titlebar(c, truefloat(c) or c.first_tag and c.first_tag.layout.id == "floating")
 end)
 
 tag.connect_signal("property::layout", function(t)
@@ -104,7 +105,9 @@ tag.connect_signal("property::layout", function(t)
 		if t.layout == awful.layout.suit.floating then
 			set_titlebar(c, true)
 		else
-			set_titlebar(c, false)
+			if not should_float(c) then
+				set_titlebar(c, false)
+			end
 		end
 	end
 end)
