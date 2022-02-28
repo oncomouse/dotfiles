@@ -478,6 +478,31 @@
       <command>liskin-media stop</command>
     </action>
   </keybind>
+  <keybind key="XF86KbdBrightnessUp">
+    <action name="Execute">
+      <command>sudo /usr/local/bin/keyboard-backlight up</command>
+    </action>
+  </keybind>
+  <keybind key="XF86KbdBrightnessDown">
+    <action name="Execute">
+      <command>sudo /usr/local/bin/keyboard-backlight down</command>
+    </action>
+  </keybind>
+  <keybind key="XF86MonBrightnessUp">
+    <action name="Execute">
+      <command>ob-brightness up</command>
+    </action>
+  </keybind>
+  <keybind key="XF86MonBrightnessDown">
+    <action name="Execute">
+      <command>ob-brightness down</command>
+    </action>
+  </keybind>
+  <keybind key="W-S-b">
+    <action name="Execute">
+      <command>ob-brightness default</command>
+    </action>
+  </keybind>
 </keyboard>
 
 <mouse>
