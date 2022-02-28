@@ -5,6 +5,7 @@ local truefloat = require("appearance.utils.truefloat")
 -- local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local is_laptop = require("utils.is_laptop")
+local should_float = require("appearance.utils.should_float")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -433,7 +434,6 @@ end
 -- }}}
 -- Layout Keybinding Group {{{
 if not is_laptop then
-
 	-- If we are changing layouts from floating layout, we need to restore clients that should get
 	-- managed by the new layout, which means turning off floating:
 	local function restore_floating()
@@ -451,11 +451,15 @@ if not is_laptop then
 		for _,c in pairs(clients) do
 			if truefloat(c) then
 				-- Check if the client matches either of the floating rules:
-				if not require("appearance.utils.should_float")(c) then
+				if not should_float(c) then
 					c.floating = false
 				end
 			end
 		end
+	end
+	local function layout_set(layout)
+		restore_floating()
+		awful.layout.set(layout)
 	end
 
 	beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
@@ -463,8 +467,7 @@ if not is_laptop then
 			modifiers = { beautiful.modkey },
 			key = "t",
 			on_press = function()
-				restore_floating()
-				awful.layout.set(awful.layout.suit.tile.right)
+				layout_set(awful.layout.suit.tile.right)
 			end,
 			description = "Select Right Tile Layout",
 			group = "Layout",
@@ -473,8 +476,7 @@ if not is_laptop then
 			modifiers = { beautiful.modkey, "Shift" },
 			key = "t",
 			on_press = function()
-				restore_floating()
-				awful.layout.set(awful.layout.suit.tile.left)
+				layout_set(awful.layout.suit.tile.left)
 			end,
 			description = "Select Tiled Layout",
 			group = "Layout",
@@ -492,8 +494,7 @@ if not is_laptop then
 			modifiers = { beautiful.modkey },
 			key = "m",
 			on_press = function()
-				restore_floating()
-				awful.layout.set(require("layouts.centeredmonocle"))
+				layout_set(require("layouts.centeredmonocle"))
 			end,
 			description = "Select Centered Monocle Layout",
 			group = "Layout",
@@ -502,8 +503,7 @@ if not is_laptop then
 			modifiers = { beautiful.modkey, "Shift" },
 			key = "m",
 			on_press = function()
-				restore_floating()
-				awful.layout.set(awful.layout.suit.max)
+				layout_set(awful.layout.suit.max)
 			end,
 			description = "Select Monocle Layout",
 			group = "Layout",
