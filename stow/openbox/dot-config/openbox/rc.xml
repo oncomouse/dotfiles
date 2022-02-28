@@ -445,37 +445,37 @@
   <!-- Media Keys -->
   <keybind key="XF86AudioRaiseVolume">
     <action name="Execute">
-      <command>liskin-media volume up</command>
+      <command>pamixer -i 5</command>
     </action>
   </keybind>
   <keybind key="XF86AudioLowerVolume">
     <action name="Execute">
-      <command>liskin-media volume down</command>
+      <command>pamixer -d 5</command>
     </action>
   </keybind>
   <keybind key="XF86AudioMute">
     <action name="Execute">
-      <command>liskin-media mute</command>
+      <command>pactl set-sink-mute   @DEFAULT_SINK@   toggle</command>
     </action>
   </keybind>
   <keybind key="XF86AudioPlay">
     <action name="Execute">
-      <command>liskin-media play</command>
+      <command>mpc toggle</command>
     </action>
   </keybind>
   <keybind key="XF86AudioPrev">
     <action name="Execute">
-      <command>liskin-media prev</command>
+      <command>mpc prev</command>
     </action>
   </keybind>
   <keybind key="XF86AudioNext">
     <action name="Execute">
-      <command>liskin-media next</command>
+      <command>mpc next</command>
     </action>
   </keybind>
   <keybind key="XF86AudioStop">
     <action name="Execute">
-      <command>liskin-media stop</command>
+      <command>mpc stop</command>
     </action>
   </keybind>
   <keybind key="XF86KbdBrightnessUp">
