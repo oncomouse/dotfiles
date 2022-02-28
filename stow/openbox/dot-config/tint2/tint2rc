@@ -62,7 +62,7 @@ border_color_pressed = #000000 100
 
 #-------------------------------------
 # Panel
-panel_items = LTS:C
+panel_items = LTES:C
 panel_size = 100% 30
 panel_margin = 0 0
 panel_padding = 2 0 2
@@ -160,6 +160,7 @@ time1_format = %a %m/%d %-I:%M %p
 time2_format =
 time1_timezone = 
 time2_timezone = 
+clock_font = Inter Nerd Font Medium 10
 clock_font_color = #d9d7ce 100
 clock_padding = 2 0
 clock_background_id = 0
@@ -205,5 +206,14 @@ separator_color = #777777 80
 separator_style = empty
 separator_size = 10
 separator_padding = 0 0
+
+#----------------------------------
+# Executor 1: Weather
+execp = new
+execp_command = curl -s "https://wttr.in/?format=1" | sed -e "s/ +//" -e "s/Unknown.*\\$//"
+execp_interval = 600
+execp_font_color = #d9d7ce 100
+execp_lclick_command = xdg-open "https://wttr.in"
+execp_font = Inter Nerd Font Medium 10
 
 # vim:ft=apachestyle
