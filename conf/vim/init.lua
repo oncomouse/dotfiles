@@ -118,6 +118,43 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = false
 -- }}}
+-- Functions {{{
+local function list_toggle(pfx, force_open)
+	if not force_open then
+		local status = vim.g["dotfiles_" .. pfx .. "open"] or 0
+		if status ~= 0 then
+			vim.g["dotfiles_" .. pfx .. "open"] = 0
+			vim.cmd(pfx .. "close")
+			return
+		end
+		if pfx == "l" and vim.fn.len(vim.fn.getloclist(0)) == 0 then
+			vim.cmd([[echohl ErrorMsg
+			echo 'Location List is Empty.'
+			echohl NONE]])
+			return
+		end
+	end
+	vim.g["dotfiles_" .. pfx .. "open"] = 1
+	vim.cmd(pfx .. "open")
+end
+
+local function grep_or_qfgrep()
+	if vim.opt.buftype:get() == "quickfix" then
+		-- Load cfilter in quickfix view:
+		vim.cmd([[packadd cfilter]])
+		local input = vim.fn.input("QFGrep/")
+		if #input > 0 then
+			local prefix = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "L" or "C"
+			vim.cmd(prefix .. "filter /" .. input .. "/")
+		end
+	else
+		local input = vim.fn.input("Grep/")
+		if #input > 0 then
+			vim.cmd('silent! grep! "' .. input .. '"')
+		end
+	end
+end
+-- }}}
 -- Maps {{{
 
 -- Select the Whole File:
@@ -156,11 +193,17 @@ vim.keymap.set("n", "]d", "<cmd>lnext<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "[d", "<cmd>lprev<CR>", { silent = true, noremap = true })
 
 -- Toggle Quickfix:
-vim.keymap.set("n", "<leader>q", "<cmd>lua _dotfiles.list_toggle('c')<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "<leader>d", "<cmd>lua _dotfiles.list_toggle('l')<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>q", function()
+	list_toggle("c")
+end, { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>d", function()
+	list_toggle("l")
+end, { silent = true, noremap = true })
 
 -- Project Grep:
-vim.keymap.set("n", "<leader>/", "<cmd>lua _dotfiles.grep_or_qfgrep()<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>/", function()
+	grep_or_qfgrep()
+end, { silent = true, noremap = true })
 
 -- Enable Todo:
 vim.g.enable_todo = 1
@@ -233,46 +276,78 @@ else
 end
 -- }}}
 -- Autogroups {{{
-vim.cmd([[augroup dotfiles-settings
-	autocmd!
-augroup END]])
+vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
 -- }}}
 -- Autocommands {{{
 -- Line Number Colors in default:
-vim.cmd([[autocmd dotfiles-settings ColorScheme default hi LineNr ctermfg=7]])
-vim.cmd([[autocmd dotfiles-settings ColorScheme default hi LineNrAbove ctermfg=7]])
-vim.cmd([[autocmd dotfiles-settings ColorScheme default hi LineNrBelow ctermfg=7]])
-vim.cmd([[autocmd dotfiles-settings ColorScheme default hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE]])
-vim.cmd([[autocmd dotfiles-settings ColorScheme default hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE]])
+vim.api.nvim_create_autocmd("ColorScheme", { group = "dotfiles-settings", command = "default hi LineNr ctermfg=7" })
+vim.api.nvim_create_autocmd(
+	"ColorScheme",
+	{ group = "dotfiles-settings", command = "default hi LineNrAbove ctermfg=7" }
+)
+vim.api.nvim_create_autocmd(
+	"ColorScheme",
+	{ group = "dotfiles-settings", command = "default hi LineNrBelow ctermfg=7" }
+)
+vim.api.nvim_create_autocmd(
+	"ColorScheme",
+	{ group = "dotfiles-settings", command = "default hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE" }
+)
+vim.api.nvim_create_autocmd(
+	"ColorScheme",
+	{ group = "dotfiles-settings", command = "default hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE" }
+)
 
 -- Turn Off Line Numbering:
 if vim.fn.has("nvim") == 1 then
-	vim.cmd([[autocmd dotfiles-settings TermOpen * setlocal nonumber norelativenumber]])
+	vim.api.nvim_create_autocmd(
+		"TermOpen",
+		{ group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" }
+	)
 end
 
 -- Start QuickFix:
-vim.cmd([[autocmd dotfiles-settings QuickFixCmdPost [^l]* lua _dotfiles.list_toggle('c', 1)]])
-vim.cmd([[autocmd dotfiles-settings QuickFixCmdPost l*    lua _dotfiles.list_toggle('l', 1)]])
+
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+	group = "dotfiles-settings",
+	pattern = "[^l]*",
+	callback = function()
+		list_toggle("c", 1)
+	end,
+})
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+	group = "dotfiles-settings",
+	pattern = "l*",
+	callback = function()
+		list_toggle("l", 1)
+	end,
+})
 
 -- Highlighted Yank:
-vim.cmd(
-	[[autocmd dotfiles-settings TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}]]
-)
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = "dotfiles-settings",
+	command = [[silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}]],
+})
 
 -- Close Preview Window:
-vim.cmd([[autocmd dotfiles-settings CompleteDone * if pumvisible() == 0 | pclose | endif]])
-
--- On opening a file, jump to the last known cursor position (see :h line())
-vim.cmd([[autocmd dotfiles-settings BufReadPost *
-\ if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' |
-\	 exe "normal! g`\"" |
-\ end]])
-
--- Fix window resizing
--- vim.cmd([[autocmd dotfiles-settings VimEnter * silent exec "!kill -s SIGWINCH $PPID"]])
+vim.api.nvim_create_autocmd("CompleteDone", {
+	group = "dotfiles-settings",
+	callback = function()
+		if vim.fn.pumvisible() == 0 then
+			vim.cmd("pclose")
+		end
+	end,
+})
 
 -- Update FASD For NeoVim
-vim.cmd([[autocmd dotfiles-settings BufWinEnter,BufFilePost * lua _dotfiles.fasd_update()]])
+vim.api.nvim_create_autocmd("BufWinEnter,BufFilePost", {
+	group = "dotfiles-settings",
+	callback = function()
+		if vim.fn.empty(vim.opt.buftype:get()) == 1 then
+			vim.fn.jobstart({ "fasd", "-A", vim.fn.expand("%:p") })
+		end
+	end,
+})
 -- }}}
 -- Commands {{{
 
@@ -325,52 +400,6 @@ end, {
 	nargs = "+",
 })
 
--- }}}
--- Functions {{{
--- Hide or display a quickfix or location list:
-_dotfiles.list_toggle = function(pfx, force_open)
-	if not force_open then
-		local status = vim.g["dotfiles_" .. pfx .. "open"] or 0
-		if status ~= 0 then
-			vim.g["dotfiles_" .. pfx .. "open"] = 0
-			vim.cmd(pfx .. "close")
-			return
-		end
-		if pfx == "l" and vim.fn.len(vim.fn.getloclist(0)) == 0 then
-			vim.cmd([[echohl ErrorMsg
-			echo 'Location List is Empty.'
-			echohl NONE]])
-			return
-		end
-	end
-	vim.g["dotfiles_" .. pfx .. "open"] = 1
-	vim.cmd(pfx .. "open")
-end
-
--- Search project directory or, if we are in a quickfix buffer, search there:
-_dotfiles.grep_or_qfgrep = function()
-	if vim.opt.buftype:get() == "quickfix" then
-		-- Load cfilter in quickfix view:
-		vim.cmd([[packadd cfilter]])
-		local input = vim.fn.input("QFGrep/")
-		if #input > 0 then
-			local prefix = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "L" or "C"
-			vim.cmd(prefix .. "filter /" .. input .. "/")
-		end
-	else
-		local input = vim.fn.input("Grep/")
-		if #input > 0 then
-			vim.cmd('silent! grep! "' .. input .. '"')
-		end
-	end
-end
-
--- Update FASD for Neovim:
-_dotfiles.fasd_update = function()
-	if vim.fn.empty(vim.opt.buftype:get()) == 1 then
-		vim.fn.jobstart({ "fasd", "-A", vim.fn.expand("%:p") })
-	end
-end
 -- }}}
 -- Signs: {{{
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }

@@ -2,9 +2,13 @@ local servers = require("dotfiles.nvim_lsp.servers")
 local function on_attach(client, buf_num)
 	-- Update codeLens:
 	if client.resolved_capabilities.code_lens then
-		vim.api.nvim_command(
-			[[autocmd! dotfiles-settings CursorHold,CursorHoldI,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]]
-		)
+		vim.api.nvim_create_autocmd("CursorHold,CursorHoldI,InsertLeave", {
+			buffer = buf_num,
+			group = "dotfiles-settings",
+			callback = function()
+				vim.lsp.codelens.refresh()
+			end,
+		})
 	end
 	-- Use C+x C+o for completion:
 	-- vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
@@ -114,11 +118,13 @@ local function on_attach(client, buf_num)
 		vim.cmd([[packadd vim-vsnip-integ]])
 	end
 	if diagnostic_provider then
-		vim.cmd(
-			[[ autocmd! dotfiles-settings DiagnosticChanged <buffer> lua vim.diagnostic.setloclist({ open = false })
-			autocmd! dotfiles-settings BufEnter <buffer> lua vim.diagnostic.setloclist({ open = false })
-			]]
-		)
+		vim.api.nvim_create_autocmd("DiagnosticChanged,BufEnter", {
+			buffer = buf_num,
+			group = "dotfiles-settings",
+			callback = function()
+				vim.diagnostic.setloclist({ open = false })
+			end
+		})
 		vim.keymap.set("n", "]d", function()
 			vim.diagnostic.goto_next()
 		end, {

@@ -48,7 +48,37 @@ return require("packer").startup({
 			{
 				"cohama/lexima.vim",
 				config = function()
-					vim.cmd([[autocmd! dotfiles-settings FileType lua lua _dotfiles.lua_endwise()]])
+					local function make_rule(at, ed, ft, syn)
+						return {
+							char = "<CR>",
+							input = "<CR>",
+							input_after = "<CR>" .. ed,
+							at = at,
+							except = [[\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1]] .. ed,
+							filetype = ft,
+							syntax = syn,
+						}
+					end
+					vim.api.nvim_create_autocmd("FileType", {
+						pattern = "lua",
+						group = "dotfiles-settings",
+						callback = function()
+							vim.fn["lexima#add_rule"](
+								make_rule([[^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
+							)
+							vim.fn["lexima#add_rule"](
+								make_rule([[^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
+							)
+							vim.fn["lexima#add_rule"](
+								make_rule(
+									[[^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#]],
+									"end",
+									"lua",
+									{}
+								)
+							)
+						end,
+					})
 					vim.keymap.set(
 						"i",
 						"<Plug>(dotfiles-lexima)",
@@ -190,9 +220,10 @@ return require("packer").startup({
 						"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
 						{ expr = true, remap = true }
 					)
-					vim.cmd(
-						"autocmd dotfiles-settings CompleteDone * if vsnip#available(1) | call vsnip#expand() | endif"
-					)
+					vim.api.nvim_create_autocmd("CompleteDone", {
+						group = "dotfiles-settings",
+						command = "if vsnip#available(1) | call vsnip#expand() | endif",
+					})
 				end,
 				requires = {
 					{ "rafamadriz/friendly-snippets", after = { "vim-vsnip" } }, -- Base Snippets
@@ -415,7 +446,13 @@ return require("packer").startup({
 							mode = "background", -- Could be background, foreground, or virtualtext
 						})
 					end
-					vim.cmd([[autocmd dotfiles-settings FileType scss lua require'colorizer/sass'.attach_to_buffer()]])
+					vim.api.nvim_create_autocmd("FileType", {
+						group = "dotfiles-settings",
+						pattern = "scss",
+						callback = function()
+							require("colorizer/sass").attach_to_buffer()
+						end,
+					})
 				end,
 			}, -- Highlight colors in files
 			{

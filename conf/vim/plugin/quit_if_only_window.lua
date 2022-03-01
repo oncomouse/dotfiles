@@ -1,5 +1,3 @@
-_dotfiles = _dotfiles or {}
-_dotfiles.quit_if_only_window = {}
 -- https://stackoverflow.com/a/39307414
 local function next_normal_window()
 	for i=1, vim.fn.winnr('$') do
@@ -20,7 +18,7 @@ local function next_normal_window()
 	return -1
 end
 
-_dotfiles.quit_if_only_window.quit_if_only_window = function()
+local quit_if_only_window = function()
 	local buftype = vim.fn.getbufvar(vim.fn.winbufnr(vim.fn.winnr()), '&buftype')
 	if buftype ~= 'quickfix' and buftype ~= 'help' then
 		return
@@ -67,9 +65,11 @@ end
 
 -- autoclose last open location/quickfix/help windows on a tab
 if vim.fn.has('autocmd') == 1 then
-	vim.cmd[[aug AutoCloseAllQF
-	au!
-	autocmd WinEnter * nested lua _dotfiles.quit_if_only_window.quit_if_only_window()
-	aug END]]
+	vim.api.nvim_create_augroup("AutoCloseAllQf", { clear = true })
+	vim.api.nvim_create_autocmd("WinEnter", {
+		group = "AutoCloseAllQf",
+		nested = true,
+		callback = quit_if_only_window,
+	})
 end
 

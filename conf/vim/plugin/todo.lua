@@ -1,7 +1,5 @@
-_dotfiles = _dotfiles or {}
-
-_dotfiles.todo = {}
-_dotfiles.todo.toggle_done = function()
+local todo = {}
+todo.toggle_done = function()
 	local line = vim.fn.getline(".")
 	if vim.regex([[ X$]]):match_str(line) then
 		vim.fn.setline(".", vim.fn.substitute(line, " X$", "", ""))
@@ -13,18 +11,18 @@ _dotfiles.todo.toggle_done = function()
 		vim.fn.setline(".", line .. " X")
 	end
 end
-_dotfiles.todo.next_project = function()
+todo.next_project = function()
 	return vim.fn.search([[^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$]], "w")
 end
-_dotfiles.todo.prev_project = function()
+todo.prev_project = function()
 	return vim.fn.search([[^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$]], "bw")
 end
 -- Search
-_dotfiles.todo.search_project = function(project, depth, begin, ed)
+todo.search_project = function(project, depth, begin, ed)
 	vim.fn.cursor(begin, 1)
 	return vim.fn.search([[\v^\t{]] .. depth .. [[}\V]] .. project .. ":", "c", ed)
 end
-_dotfiles.todo.search_end_of_item = function(...)
+todo.search_end_of_item = function(...)
 	local args = { ... }
 	local lnum = args[1] > 0 and args[2] or vim.fn.line(".")
 	local flags = args[1] > 1 and args[3] or ""
@@ -54,7 +52,7 @@ _dotfiles.todo.search_end_of_item = function(...)
 
 	return ed
 end
-_dotfiles.todo.search_projects = function(projects)
+todo.search_projects = function(projects)
 	if vim.fn.empty(projects) == 1 then
 		return 0
 	end
@@ -66,13 +64,13 @@ _dotfiles.todo.search_projects = function(projects)
 	local depth = 0
 
 	for _, project in pairs(projects) do
-		if _dotfiles.todo.search_project(project, depth, begin, ed) == 0 then
+		if todo.search_project(project, depth, begin, ed) == 0 then
 			vim.fn.setpos(".", save_pos)
 			return 0
 		end
 
 		begin = vim.fn.line(".")
-		ed = _dotfiles.todo.search_end_of_item(begin)
+		ed = todo.search_end_of_item(begin)
 		depth = depth + 1
 	end
 
@@ -81,7 +79,7 @@ _dotfiles.todo.search_projects = function(projects)
 
 	return begin
 end
-_dotfiles.todo.CompleteProject = function(lead)
+todo.CompleteProject = function(lead)
 	local lnum = 1
 	local list = {}
 	local stack = { "" }
@@ -119,11 +117,11 @@ _dotfiles.todo.CompleteProject = function(lead)
 	return list
 end
 
-_dotfiles.todo.goto_project = function()
-	local res = vim.fn.input("Project: ", "", "customlist,v:lua._dotfiles.todo.CompleteProject")
+todo.goto_project = function()
+	local res = vim.fn.input("Project: ", "", "customlist,v:lua.todo.CompleteProject")
 
 	if res ~= "" then
-		_dotfiles.todo.search_projects(vim.fn.split(res, ":"))
+		todo.search_projects(vim.fn.split(res, ":"))
 	end
 end
 
@@ -132,25 +130,25 @@ end
 if vim.fn.exists("g:enable_todo") == 0 then
 	vim.cmd([[finish]])
 end
-_dotfiles.todo.map = function()
+todo.map = function()
 	-- Mark A Task As Done:
 	vim.keymap.set(
 		"n",
 		"<leader>td",
-		"<cmd>lua _dotfiles.todo.toggle_done()<CR>",
+		todo.toggle_done,
 		{ buffer = true, silent = true, noremap = true }
 	)
 	vim.keymap.set(
 		"v",
 		"<leader>td",
-		"<cmd>lua _dotfiles.todo.toggle_done()<CR>",
+		todo.toggle_done,
 		{ buffer = true, silent = true, noremap = true }
 	)
 	-- Go To Project:
 	vim.keymap.set(
 		"n",
 		"<leader>tg",
-		"<cmd>lua _dotfiles.todo.goto_project()<CR>",
+		todo.goto_project,
 		{ buffer = true, silent = true, noremap = true }
 	)
 	-- Search For Done Tasks:
@@ -159,20 +157,26 @@ _dotfiles.todo.map = function()
 	vim.keymap.set(
 		"n",
 		"]t",
-		"<cmd>lua _dotfiles.todo.next_project()<CR>",
+		todo.next_project,
 		{ buffer = true, silent = true, noremap = true }
 	)
 	-- Go To Previous Project:
 	vim.keymap.set(
 		"n",
 		"[t",
-		"<cmd>lua _dotfiles.todo.prev_project()<CR>",
+		todo.prev_project,
 		{ buffer = true, silent = true, noremap = true }
 	)
 end
 
-vim.cmd([[augroup todo
-	autocmd!
-	autocmd BufRead,BufNewFile todo.* lua _dotfiles.todo.map()
-	autocmd FileType vimwiki lua _dotfiles.todo.map()
-augroup END]])
+vim.api.nvim_create_augroup("todo", { clear = true })
+vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
+	group = "todo",
+	pattern = "todo.*",
+	callback = todo.map
+})
+vim.api.nvim_create_autocmd("FileType", {
+	group = "todo",
+	pattern = "vimwiki",
+	callback = todo.map
+})
