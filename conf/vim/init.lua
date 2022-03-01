@@ -429,7 +429,11 @@ for _, cmd in pairs(packer_commands) do
 end
 
 -- Update Packer.nvim automatically:
-vim.cmd([[autocmd! dotfiles-settings BufWritePost plugins.lua source <afile> | PackerCompile]])
+vim.api.nvim_create_autocmd("BufWritePost", {
+	group = "dotfiles-settings",
+	pattern = "plugins.lua",
+	command = "source <afile> | PackerCompile"
+})
 -- Install packer.nvim, if it isn't present:
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
