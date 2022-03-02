@@ -47,17 +47,17 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     # Make a vim dir to add to &runtimepath:
     message("Configuring Vim")
     system("nvim --headless +LushwalCompile +qall")
-    if which("dunst") is not None:
-        message("Configuring Dunst")
-        system("mkdir -p {}/.config/dunst > /dev/null".format(home))
-        copyfile(
-            "{}/.cache/wal/dunstrc".format(home),
-            "{}/.config/dunst/dunstrc".format(home),
-        )
-        message("Restarting Dunst")
-        system(
-            "killall dunst > /dev/null 2>&1 && notify-send 'Dunst Reloaded'"
-        )
+    # if which("dunst") is not None:
+    #     message("Configuring Dunst")
+    #     system("mkdir -p {}/.config/dunst > /dev/null".format(home))
+    #     copyfile(
+    #         "{}/.cache/wal/dunstrc".format(home),
+    #         "{}/.config/dunst/dunstrc".format(home),
+    #     )
+    #     message("Restarting Dunst")
+    #     system(
+    #         "killall dunst > /dev/null 2>&1 && notify-send 'Dunst Reloaded'"
+    #     )
     if which("xrdb") is not None:
         message("Reloading xrdb")
         system("xrdb {}/.Xresources".format(home))
