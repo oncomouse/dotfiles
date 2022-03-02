@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
+~/dotfiles/conf/awesome/autostart
 exec awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
 # vim:ft=sh
