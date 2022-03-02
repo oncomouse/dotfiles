@@ -443,11 +443,13 @@ if not is_laptop then
 			return
 		end
 		local t = s.selected_tag
-		if not t then return end
+		if not t then
+			return
+		end
 
 		-- Get a list of currently displayed clients:
 		local clients = t:clients()
-		for _,c in pairs(clients) do
+		for _, c in pairs(clients) do
 			if truefloat(c) then
 				-- Check if the client matches either of the floating rules:
 				if not should_float(c) then
