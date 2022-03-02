@@ -83,9 +83,7 @@ beautiful.global_keybindings = gears.table.join(beautiful.global_keybindings, {
 		modifiers = { beautiful.modkey, "Mod1" },
 		key = "r",
 		on_press = function()
-			require("naughty").notification({ title = dmenucmd[#dmenucmd] })
 			awful.spawn(dmenucmd)
-			-- menubar.show()
 		end,
 		description = "Drun menu",
 		group = "Launcher",
