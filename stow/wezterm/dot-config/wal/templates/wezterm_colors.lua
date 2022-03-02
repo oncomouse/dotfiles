@@ -1,4 +1,14 @@
 return {{
+	window_frame = {{
+		active_titlebar_bg = "{background}",
+
+		-- The overall background color of the tab bar when
+		-- the window is not focused
+		inactive_titlebar_bg = "{background}",
+
+		-- The color of the inactive tab bar edge/divider
+		inactive_tab_edge = "{color8}",
+	}},
 	colors = {{
 		foreground = "{foreground}",
 		background = "{background}",
@@ -12,15 +22,15 @@ return {{
 		brights = {{"{color8}","{color9}","{color10}","{color11}","{color12}","{color13}","{color14}","{color15}"}},
 		tab_bar = {{
 			background = "{background}",
-			active_tab = {{
+			inactive_tab = {{
 				bg_color = "{background}",
-				fg_color = "{color6}",
+				fg_color = "{foreground}",
 				intensity = "Normal",
 				underline = "None",
 				italic = false,
 				strikethrough = false,
 			}},
-			inactive_tab = {{
+			active_tab = {{
 				bg_color = "{color8}",
 				fg_color = "{color7}",
 				intensity = "Normal",

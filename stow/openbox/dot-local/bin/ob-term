@@ -4,7 +4,8 @@ DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/s
 if [ "$DOTFILES_TARGET" == "desktop" ]; then
 	exec kitty "$@"
 elif [ "$DOTFILES_TARGET" == "laptop" ]; then
-	exec tabbed -r 2 -c st -w '' "$@"
+	# exec tabbed -r 2 -c st -w '' "$@"
+	exec wezterm "$@"
 else
 	exec xterm "$@"
 fi
