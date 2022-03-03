@@ -280,22 +280,25 @@ vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
 -- }}}
 -- Autocommands {{{
 -- Line Number Colors in default:
-vim.api.nvim_create_autocmd("ColorScheme", { group = "dotfiles-settings", command = "default hi LineNr ctermfg=7" })
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
-	{ group = "dotfiles-settings", command = "default hi LineNrAbove ctermfg=7" }
+	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNr ctermfg=7" }
 )
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
-	{ group = "dotfiles-settings", command = "default hi LineNrBelow ctermfg=7" }
+	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNrAbove ctermfg=7" }
 )
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
-	{ group = "dotfiles-settings", command = "default hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE" }
+	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNrBelow ctermfg=7" }
 )
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
-	{ group = "dotfiles-settings", command = "default hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE" }
+	{ group = "dotfiles-settings", pattern = "default", command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE" }
+)
+vim.api.nvim_create_autocmd(
+	"ColorScheme",
+	{ group = "dotfiles-settings", pattern = "default", command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE" }
 )
 
 -- Turn Off Line Numbering:
@@ -432,7 +435,7 @@ end
 vim.api.nvim_create_autocmd("BufWritePost", {
 	group = "dotfiles-settings",
 	pattern = "plugins.lua",
-	command = "source <afile> | PackerCompile"
+	command = "source <afile> | PackerCompile",
 })
 -- Install packer.nvim, if it isn't present:
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
