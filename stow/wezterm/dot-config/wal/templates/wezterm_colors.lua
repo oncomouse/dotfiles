@@ -7,7 +7,7 @@ return {{
 		inactive_titlebar_bg = "{background}",
 
 		-- The color of the inactive tab bar edge/divider
-		inactive_tab_edge = "{background}",
+		-- inactive_tab_edge = "{background}",
 	}},
 	colors = {{
 		foreground = "{foreground}",
