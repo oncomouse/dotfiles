@@ -10,8 +10,14 @@
 
 # Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
 
+DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
+
 # Super+Shift+Return to start an instance of kitty
-riverctl map normal Super+Shift Return spawn kitty
+if [ "$DOTFILES_TARGET" == "laptop" ]; then
+	riverctl map normal Super+Shift Return spawn wezterm
+else
+	riverctl map normal Super+Shift Return spawn kitty
+fi
 
 # Super+W to close the focused view
 riverctl map normal Super W close
@@ -170,8 +176,6 @@ pkill dunst; dunst&
 
 # Set and exec into the default layout generator, rivertile.
 # River will send the process group of the init executable SIGTERM on exit.
-DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
-
 if [ "$DOTFILES_TARGET" == "laptop" ]; then
 	riverctl default-layout rivertile
 	exec rivertile -view-padding 0 -outer-padding 0
