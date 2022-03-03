@@ -14,10 +14,11 @@ DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/s
 
 # Super+Shift+Return to start an instance of kitty
 if [ "$DOTFILES_TARGET" == "laptop" ]; then
-	riverctl map normal Super+Shift Return spawn wezterm
+	export TERMINAL="wezterm"
 else
-	riverctl map normal Super+Shift Return spawn kitty
+	export TERMINAL="kitty"
 fi
+riverctl map normal Super+Shift Return spawn "$TERMINAL"
 
 # Super+W to close the focused view
 riverctl map normal Super W close
@@ -56,10 +57,10 @@ riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
 riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
 
 # Super+Alt+{H,J,K,L} to move views
-riverctl map normal Super Left move left 100
-riverctl map normal Super Down move down 100
-riverctl map normal Super Up move up 100
-riverctl map normal Super Right move right 100
+riverctl map normal Super Left move left 25
+riverctl map normal Super Down move down 25
+riverctl map normal Super Up move up 25
+riverctl map normal Super Right move right 25
 
 # Super+Alt+Control+{H,J,K,L} to snap views to screen edges
 riverctl map normal Super+Control Left snap left
@@ -68,10 +69,10 @@ riverctl map normal Super+Control Up snap up
 riverctl map normal Super+Control Right snap right
 
 # Super+Alt+Shif+{H,J,K,L} to resize views
-riverctl map normal Super+Shift Left resize horizontal -100
-riverctl map normal Super+Shift Down resize vertical 100
-riverctl map normal Super+Shift Up resize vertical -100
-riverctl map normal Super+Shift Right resize horizontal 100
+riverctl map normal Super+Shift Left resize horizontal -25
+riverctl map normal Super+Shift Down resize vertical 25
+riverctl map normal Super+Shift Up resize vertical -25
+riverctl map normal Super+Shift Right resize horizontal 25
 
 # Super + Left Mouse Button to move views
 riverctl map-pointer normal Super BTN_LEFT move-view
@@ -176,7 +177,7 @@ pkill dunst; dunst&
 
 # Set and exec into the default layout generator, rivertile.
 # River will send the process group of the init executable SIGTERM on exit.
-if [ "$DOTFILES_TARGET" == "laptop" ]; then
+if [ "$DOTFILES_TARGET" != "laptop" ]; then
 	riverctl default-layout rivertile
 	exec rivertile -view-padding 0 -outer-padding 0
 fi
