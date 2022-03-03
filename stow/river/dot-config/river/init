@@ -78,16 +78,16 @@ do
 	tags=$((1 << ($i - 1)))
 
 	# Super+[1-9] to focus tag [0-8]
-	riverctl map normal Super $i set-focused-tags $tags
+	riverctl map normal Super "$i" set-focused-tags $tags
 
 	# Super+Shift+[1-9] to tag focused view with tag [0-8]
-	riverctl map normal Super+Shift $i set-view-tags $tags
+	riverctl map normal Super+Shift "$i" set-view-tags $tags
 
 	# Super+Ctrl+[1-9] to toggle focus of tag [0-8]
-	riverctl map normal Super+Control $i toggle-focused-tags $tags
+	riverctl map normal Super+Control "$i" toggle-focused-tags $tags
 
 	# Super+Shift+Ctrl+[1-9] to toggle tag [0-8] of focused view
-	riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
+	riverctl map normal Super+Shift+Control "$i" toggle-view-tags $tags
 done
 
 # Super+0 to focus all tags
@@ -170,6 +170,10 @@ pkill dunst; dunst&
 
 # Set and exec into the default layout generator, rivertile.
 # River will send the process group of the init executable SIGTERM on exit.
-riverctl default-layout rivertile
-exec rivertile -view-padding 0 -outer-padding 0
+DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
+
+if [ "$DOTFILES_TARGET" == "laptop" ]; then
+	riverctl default-layout rivertile
+	exec rivertile -view-padding 0 -outer-padding 0
+fi
 # vim:ft=sh
