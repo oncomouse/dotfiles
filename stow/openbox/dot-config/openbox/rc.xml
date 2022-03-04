@@ -314,7 +314,7 @@
 
   <!-- Keybindings for window switching with the arrow keys -->
   <keybind key="W-l">
-    <action name="DirectionalCycleWindows">
+    <action name="DirectionalTargetWindow">
       <direction>east</direction>
       <dialog>no</dialog>
       <raise>yes</raise>
@@ -322,7 +322,7 @@
     </action>
   </keybind>
   <keybind key="W-h">
-    <action name="DirectionalCycleWindows">
+    <action name="DirectionalTargetWindow">
       <direction>west</direction>
       <dialog>no</dialog>
       <raise>yes</raise>
@@ -330,7 +330,7 @@
     </action>
   </keybind>
   <keybind key="W-j">
-    <action name="DirectionalCycleWindows">
+    <action name="DirectionalTargetWindow">
       <direction>north</direction>
       <dialog>no</dialog>
       <raise>yes</raise>
@@ -338,7 +338,7 @@
     </action>
   </keybind>
   <keybind key="W-k">
-    <action name="DirectionalCycleWindows">
+    <action name="DirectionalTargetWindow">
       <direction>south</direction>
       <dialog>no</dialog>
       <raise>yes</raise>
