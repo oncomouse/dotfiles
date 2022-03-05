@@ -4,12 +4,8 @@ return require("packer").startup({
 	function(use)
 		use({
 			{ "wbthomason/packer.nvim", opt = true },
-			-- {
-			-- 	"oncomouse/plenary-script.nvim",
-			-- 	requires = { "nvim-lua/plenary.nvim" },
-			-- }, -- Content-based filetype detection using plenary.nvim
 			"sickill/vim-pasta", -- fix block paste for Neovim
-			"tpope/vim-commentary", -- gc<motion> to (un)comment
+			{ "tpope/vim-commentary", requires = { "tpope/vim-repeat" } }, -- gc<motion> to (un)comment
 			{ "oncomouse/vim-surround", requires = { "tpope/vim-repeat" } }, -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 			{ "wellle/targets.vim", requires = { "tpope/vim-repeat" } }, -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 			{
@@ -43,8 +39,9 @@ return require("packer").startup({
 					vim.keymap.set("", "gz#", "<Plug>(asterisk-gz#)")
 					vim.g["asterisk#keeppos"] = 1
 				end,
+				requires = { "tpope/vim-repeat" },
 			}, -- Fancy * and # bindings
-			"vim-scripts/ReplaceWithRegister", -- gr{motion} or grr or gr in visual to replace with register
+			{ "vim-scripts/ReplaceWithRegister", requires = { "tpope/vim-repeat" } }, -- gr{motion} or grr or gr in visual to replace with register
 			{
 				"cohama/lexima.vim",
 				config = function()
@@ -163,16 +160,14 @@ return require("packer").startup({
 				"lambdalisue/gina.vim",
 				cmd = "Gina",
 				config = function()
-					for _, command in
-						pairs({
-							"branch",
-							"changes",
-							"commit",
-							"diff",
-							"log",
-							"status",
-						})
-					do
+					for _, command in pairs({
+						"branch",
+						"changes",
+						"commit",
+						"diff",
+						"log",
+						"status",
+					}) do
 						vim.fn["gina#custom#command#option"](
 							command,
 							"--opener",
