@@ -95,10 +95,13 @@ local function set_titlebar(client, s)
 	end
 end
 
+local function handle_adding_titlebars(c)
+	set_titlebar(c, truefloat(c) or (c.first_tag and c.first_tag.layout.name == "floating"))
+end
+
 -- Hook called when a client spawns
-client.connect_signal("manage", function(c)
-	set_titlebar(c, truefloat(c) or c.first_tag and c.first_tag.layout.id == "floating")
-end)
+client.connect_signal("request::manage", handle_adding_titlebars)
+client.connect_signal("property::floating", handle_adding_titlebars)
 
 tag.connect_signal("property::layout", function(t)
 	for _, c in pairs(t:clients()) do
@@ -110,9 +113,5 @@ tag.connect_signal("property::layout", function(t)
 			end
 		end
 	end
-end)
-
-client.connect_signal("property::floating", function(c)
-	set_titlebar(c, truefloat(c) or c.first_tag and c.first_tag.layout.name == "floating")
 end)
 
