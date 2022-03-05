@@ -57,23 +57,23 @@ window.active.grip.bg.color:                          #$(get_colors 8)
 window.active.button.unpressed.bg:                    parentrelative
 window.active.button.unpressed.bg.color:              #${get_colors_bg}
 
-window.active.button.iconify.unpressed.image.color:   #$(get_colors 7)
+window.active.button.iconify.unpressed.image.color:   #$(get_colors 3)
 window.active.button.iconify.pressed.image.color:     #$(get_colors 3)
 window.active.button.iconify.hover.image.color:       #$(get_colors 3)
 
-window.active.button.max.unpressed.image.color:       #$(get_colors 7)
+window.active.button.max.unpressed.image.color:       #$(get_colors 2)
 window.active.button.max.pressed.image.color:         #$(get_colors 2)
 window.active.button.max.hover.image.color:           #$(get_colors 2)
 
-window.active.button.close.unpressed.image.color:     #$(get_colors 7)
-window.active.button.close.pressed.image.color:       #$(get_colors 1)
-window.active.button.close.hover.image.color:         #$(get_colors 1)
+window.active.button.close.unpressed.image.color:     #$(get_colors 5)
+window.active.button.close.pressed.image.color:       #$(get_colors 5)
+window.active.button.close.hover.image.color:         #$(get_colors 5)
 
-window.active.button.shade.unpressed.image.color:     #$(get_colors 7)
-window.active.button.shade.pressed.image.color:       #$(get_colors 5)
-window.active.button.shade.hover.image.color:         #$(get_colors 5)
+window.active.button.shade.unpressed.image.color:     #$(get_colors 1)
+window.active.button.shade.pressed.image.color:       #$(get_colors 1)
+window.active.button.shade.hover.image.color:         #$(get_colors 1)
 
-window.active.button.desk.unpressed.image.color:      #$(get_colors 7)
+window.active.button.desk.unpressed.image.color:      #$(get_colors 6)
 window.active.button.desk.pressed.image.color:        #$(get_colors 6)
 window.active.button.desk.hover.image.color:          #$(get_colors 6)
 
@@ -85,7 +85,7 @@ window.active.button.disabled.bg.color:               #${get_colors_bg}
 window.active.button.disabled.image.color:            #${get_colors_bg}
 
 window.active.button.toggled.bg:                      parentrelative
-window.active.button.toggled.image.color:             #$(get_colors 5)
+window.active.button.toggled.image.color:             #626973
 
 window.active.button.toggled.pressed.bg:              parentrelative
 window.active.button.toggled.pressed.image.color:     #$(get_colors 7)
