@@ -17,25 +17,45 @@ local theme = dofile(themes_path.."default/theme.lua")
 
 theme.font          = "sans 8"
 
-theme.bg_normal     = xrdb.background
-theme.bg_focus      = xrdb.color14
-theme.bg_urgent     = xrdb.color1
-theme.bg_minimize   = xrdb.color8
+-- Attach XRDB to the theme instead of having to keep looking it up:
+theme.background = xrdb.background
+theme.foreground = xrdb.foreground
+theme.color0     = xrdb.color0
+theme.color1     = xrdb.color1
+theme.color2     = xrdb.color2
+theme.color3     = xrdb.color3
+theme.color4     = xrdb.color4
+theme.color5     = xrdb.color5
+theme.color6     = xrdb.color6
+theme.color7     = xrdb.color7
+theme.color8     = xrdb.color8
+theme.color9     = xrdb.color9
+theme.color10    = xrdb.color10
+theme.color11    = xrdb.color11
+theme.color12    = xrdb.color12
+theme.color13    = xrdb.color13
+theme.color14    = xrdb.color14
+theme.color15    = xrdb.color15
+
+theme.bg_normal     = theme.background
+theme.bg_focus      = theme.color14
+theme.bg_urgent     = theme.color1
+theme.bg_minimize   = theme.color8
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = xrdb.foreground
+theme.fg_normal     = theme.foreground
 theme.fg_focus      = theme.bg_normal
 theme.fg_urgent     = theme.bg_normal
 theme.fg_minimize   = theme.bg_normal
-theme.fg_icon       = xrdb.color7
+theme.fg_icon       = theme.color7
 
 theme.useless_gap   = 0
 theme.border_width  = 2
-theme.border_color_normal = xrdb.color0
+theme.border_color_normal = theme.color0
 theme.border_color_active = theme.bg_focus
-theme.border_color_floating_normal = xrdb.color0
+theme.border_color_floating_normal = theme.color0
 theme.border_color_floating_active = theme.border_color_active
-theme.border_color_marked = xrdb.color10
+theme.border_color_marked = theme.color10
 
 -- There are other variable sets
 -- overriding the default one when
@@ -47,18 +67,18 @@ theme.border_color_marked = xrdb.color10
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- Example:
 -- Taglist Formatting:
-theme.taglist_bg_occupied = xrdb.background
-theme.taglist_fg_occupied = xrdb.color7
+theme.taglist_bg_occupied = theme.background
+theme.taglist_fg_occupied = theme.color7
 -- Tasklist formatting:
-theme.tasklist_bg_focus = xrdb.background
-theme.tasklist_fg_focus = xrdb.color7
+theme.tasklist_bg_focus = theme.background
+theme.tasklist_fg_focus = theme.color7
 -- Hotkey formatting:
-theme.hotkeys_modifiers_fg = xrdb.color4
+theme.hotkeys_modifiers_fg = theme.color4
 
-theme.titlebar_bg_normal = xrdb.background
-theme.titlebar_fg_normal = xrdb.color7
-theme.titlebar_bg_focus = xrdb.color8
-theme.titlebar_fg_focus = xrdb.foreground
+theme.titlebar_bg_normal = theme.background
+theme.titlebar_fg_normal = theme.color7
+theme.titlebar_bg_focus = theme.color8
+theme.titlebar_fg_focus = theme.foreground
 
 theme.tooltip_fg = theme.fg_normal
 theme.tooltip_bg = theme.bg_normal
@@ -74,7 +94,7 @@ theme.icon_size              = dpi(16)
 theme.notification_icon_size = dpi(16)
 
 -- Recolor Layout icons:
-theme = theme_assets.recolor_layout(theme, xrdb.color7)
+theme = theme_assets.recolor_layout(theme, theme.color7)
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
@@ -102,11 +122,11 @@ end)
 theme.notification_position = "top_right"
 theme.notification_border_width = 1
 theme.notification_border_radius = 0
-theme.notification_border_color = xrdb.color10
--- theme.notification_bg = xrdb.color7
--- theme.notification_fg = xrdb.color0
-theme.notification_crit_bg = xrdb.color11
-theme.notification_crit_fg = xrdb.color0
+theme.notification_border_color = theme.color10
+-- theme.notification_bg = theme.color7
+-- theme.notification_fg = theme.color0
+theme.notification_crit_bg = theme.color11
+theme.notification_crit_fg = theme.color0
 theme.notification_margin = dpi(15)
 theme.notification_icon_size = dpi(50)
 --theme.notification_height = dpi(80)
