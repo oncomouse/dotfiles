@@ -16,3 +16,9 @@ any = true
 
 [menubar]
 any = true
+
+[root]
+any = true
+
+[mouse]
+any = true
