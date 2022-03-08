@@ -2,7 +2,6 @@ local beautiful = require("beautiful")
 local awful = require("awful")
 local is_laptop = require("utils.is_laptop")
 local menubar = require("menubar")
-local xrdb = beautiful.xresources.get_current_theme()
 local dpi = beautiful.xresources.apply_dpi
 -- {{{ Appearance
 -- Load Theme
@@ -40,7 +39,7 @@ awful.util.shell = "/bin/bash"
 -- }}}
 -- Menubar {{{
 menubar.prompt_args = {
-	bg_cursor = xrdb.background,
+	bg_cursor = beautiful.background,
 }
 -- }}}
 -- Additional Configurations {{{

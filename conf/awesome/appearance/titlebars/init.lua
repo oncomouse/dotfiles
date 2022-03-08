@@ -8,13 +8,12 @@ local decorations = require("appearance.titlebars.decorations")
 local truefloat = require("appearance.utils.truefloat")
 local should_float = require("appearance.utils.should_float")
 
-local xrdb = beautiful.xresources.get_current_theme()
 -- Make dpi function global
 local dpi = beautiful.xresources.apply_dpi
 -- Button configuration
 local gen_button_size = dpi(9)
 local gen_button_margin = dpi(8)
-local gen_button_color_unfocused = xrdb.color8
+local gen_button_color_unfocused = beautiful.color8
 local gen_button_shape = gears.shape.circle
 
 -- Add a titlebar
@@ -45,9 +44,9 @@ client.connect_signal("request::titlebars", function(c)
 			decorations.button(
 				c,
 				gen_button_shape,
-				xrdb.color3,
+				beautiful.color3,
 				gen_button_color_unfocused,
-				xrdb.color11,
+				beautiful.color11,
 				gen_button_size,
 				gen_button_margin,
 				"sticky"
@@ -55,9 +54,9 @@ client.connect_signal("request::titlebars", function(c)
 			decorations.button(
 				c,
 				gen_button_shape,
-				xrdb.color2,
+				beautiful.color2,
 				gen_button_color_unfocused,
-				xrdb.color10,
+				beautiful.color10,
 				gen_button_size,
 				gen_button_margin,
 				"maximize"
@@ -65,9 +64,9 @@ client.connect_signal("request::titlebars", function(c)
 			decorations.button(
 				c,
 				gen_button_shape,
-				xrdb.color5,
+				beautiful.color5,
 				gen_button_color_unfocused,
-				xrdb.color13,
+				beautiful.color13,
 				gen_button_size,
 				gen_button_margin,
 				"close"

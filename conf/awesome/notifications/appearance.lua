@@ -2,7 +2,6 @@
 local beautiful = require("beautiful")
 local wibox = require("wibox")
 local gears = require("gears")
-local xrdb = beautiful.xresources.get_current_theme()
 local dpi = beautiful.xresources.apply_dpi
 
 local helpers = require("helpers")
@@ -49,9 +48,9 @@ local app_config = {
 }
 
 local urgency_color = {
-	["low"] = xrdb.color2,
-	["normal"] = xrdb.color4,
-	["critical"] = xrdb.color11,
+	["low"] = beautiful.color2,
+	["normal"] = beautiful.color4,
+	["critical"] = beautiful.color11,
 }
 
 -- Template
@@ -100,7 +99,7 @@ naughty.connect_signal("request::display", function(n)
 				},
 				widget = wibox.container.place,
 			},
-			bg = xrdb.color8 .. "32",
+			bg = beautiful.color8 .. "32",
 			forced_height = dpi(25),
 			forced_width = dpi(70),
 			widget = wibox.container.background,
@@ -131,7 +130,7 @@ naughty.connect_signal("request::display", function(n)
 							widget = custom_notification_icon,
 						},
 						forced_width = dpi(50),
-						bg = xrdb.background,
+						bg = beautiful.background,
 						widget = wibox.container.background,
 					},
 					{
@@ -173,7 +172,7 @@ naughty.connect_signal("request::display", function(n)
 			},
 			-- Anti-aliasing container
 			shape = helpers.rrect(beautiful.notification_border_radius),
-			bg = xrdb.color0,
+			bg = beautiful.color0,
 			widget = wibox.container.background,
 		},
 	})

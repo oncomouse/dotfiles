@@ -3,8 +3,6 @@ local wibox = require("wibox")
 local gears = require("gears")
 local beautiful = require("beautiful")
 
-local xrdb = beautiful.xresources.get_current_theme()
-
 local clock_popup = wibox({
 	visible = false,
 	ontop = true,
@@ -14,8 +12,8 @@ local clock_popup = wibox({
 })
 clock_popup.height = 75
 clock_popup.width = 720
-clock_popup.bg = xrdb.color0 .. "CC"
-clock_popup.fg = xrdb.color15
+clock_popup.bg = beautiful.color0 .. "CC"
+clock_popup.fg = beautiful.color15
 awful.placement.centered(clock_popup)
 
 clock_popup:buttons(gears.table.join(awful.button({}, 1, function()
