@@ -14,7 +14,6 @@ tllocalmgr-git
 zotero
 rofi-dmenu
 rofi-emoji
-wezterm-nightly-bin
 stylua
 polkit-dumb-agent-git
 selene-linter
