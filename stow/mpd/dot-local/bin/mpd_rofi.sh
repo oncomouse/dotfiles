@@ -8,7 +8,7 @@ rofi_bar() {
 action-search() {
 	match="$(mpc playlist | rofi_bar)"
 	if [[ "$match" != "" ]]; then
-		match_pos="$(mpc playlist | grep -n "$match" | cut -d : -f 1)"
+		match_pos="$(mpc playlist | grep -n "$match" | cut -d : -f 1 | head -n 1)"
 		mpc play "$match_pos" >/dev/null
 	fi
 }
