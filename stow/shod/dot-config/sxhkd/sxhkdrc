@@ -1,0 +1,56 @@
+mod="super"
+rofi_font="Inter Medium 12"
+
+$mod + q
+	pgrep -x sxhkd && killall -q sxhkd; sxhkd
+
+## Desktop Commands
+$mod + {_,Shift} + {1-9}
+	shodc {goto,sendto} {1-9}
+
+## Window Commands
+
+$mod + {Up,Down}
+	shodc geom -r -y {25,-25}
+
+$mod + {Left,Right}
+	shodc geom -r -x {25,-25}
+
+$mod + Shift + {Up,Down}
+	shodc geom -r -h {25,-25}
+
+$mod + Shift + {Left,Right}
+	shodc geom -r -w {25,-25}
+
+# Maximize?
+# Center?
+
+## Launchers
+$mod + e
+	thunar
+
+$mod + shift + Return
+	dotfiles-term
+
+$mod + alt + {r,w}
+	rofi -match fuzzy -auto-select -font "$rofi_font" -show {drun,window} -show-icons {-drun-display-form "\\{name\\}", -window-format "\\{w\\} \\{c\\} \\{t:25\\}" }
+
+$mod + alt + space
+	rofi -show emoji -modi emoji -location 1 -theme-str "window \\{ width: 100% \\}"
+
+$mod + alt + p
+	rofimusic.sh "$rofi_font"
+
+## Audio
+
+# Previous / Next Song
+XF86Audio{Prev,Next,Play,Stop}
+	liskin-media {prev,next,play,stop}
+
+# Raise or Lower Volume
+XF86Audio{Lower,Raise}Volume
+	liskin-media volume {down,up}
+
+# Mute
+XF86AudioMute
+	liskin-media mute

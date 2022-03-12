@@ -121,6 +121,8 @@ if [[ ! -d "$BUILD_LOCATION/$project" ]]; then
 		project_repo=https://github.com/kyx0r/nextvi
 	elif [ "$project" = "2bwm" ]; then
 		project_repo=https://github.com/venam/2bwm
+	elif [ "$project" = "shod" ]; then
+		project_repo=https://github.com/phillbush/shod
 fi
 
 	git clone "$project_repo" "$BUILD_LOCATION/$project"
@@ -139,7 +141,7 @@ make clean
 # Generate our separate build branch:
 git checkout -b build
 # aslstatus doesn't use the config.def.h convention, so delete the default:
-if [ "$project" = "2bwm" ] || [ "$project" = "aslstatus" ] || [ "$project" = "neatvi" ] || [ "$project" = "nextvi" ]; then
+if [ "$project" = "2bwm" ] || [ "$project" = "shod" ] || [ "$project" = "aslstatus" ] || [ "$project" = "neatvi" ] || [ "$project" = "nextvi" ]; then
 	rm "$conf_file"
 fi
 # Link the configuration file from our repository:

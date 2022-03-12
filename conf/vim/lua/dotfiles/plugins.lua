@@ -385,6 +385,7 @@ return require("packer").startup({
 					},
 				},
 			}, -- Markdown Syntax
+			"baskerville/vim-sxhkdrc",
 			-- Appearance:
 			{
 				"lukas-reineke/indent-blankline.nvim",
