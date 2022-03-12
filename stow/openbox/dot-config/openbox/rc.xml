@@ -358,7 +358,7 @@
   </keybind>
   <keybind key="W-S-Return">
     <action name="Execute">
-      <command>ob-term</command>
+      <command>dotfiles-term</command>
     </action>
   </keybind>
   <!-- Launchers -->

@@ -10,7 +10,7 @@ local should_float = require("appearance.utils.should_float")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 -- This is used later as the default terminal and editor to run.
-beautiful.terminal = "st" -- "tabbed -r 2 -c st -w ''"
+beautiful.terminal = "dotfiles-term" -- "tabbed -r 2 -c st -w ''"
 -- menubar.utils.terminal = beautiful.terminal -- Set the terminal for applications that require it
 beautiful.file_explorer = "thunar"
 -- Default modkey.

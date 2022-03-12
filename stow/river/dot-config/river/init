@@ -13,12 +13,7 @@
 DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
 
 # Super+Shift+Return to start an instance of kitty
-if [ "$DOTFILES_TARGET" == "laptop" ]; then
-	export TERMINAL="wezterm"
-else
-	export TERMINAL="kitty"
-fi
-riverctl map normal Super+Shift Return spawn "$TERMINAL"
+riverctl map normal Super+Shift Return spawn "$HOME"/.local/share/bin/dotfiles-term
 
 # Super+W to close the focused view
 riverctl map normal Super W close

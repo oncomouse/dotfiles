@@ -43,7 +43,7 @@ static const uint8_t borders[] = {3,5,5,4};
 static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
 static const char *termcmd[]   = {
-	"ob-term",
+	"dotfiles-term",
 	NULL
 };
 static const char *fmcmd[] = {
