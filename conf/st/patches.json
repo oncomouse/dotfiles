@@ -1,12 +1,12 @@
 [
 	"https://st.suckless.org/patches/scrollback/st-scrollback-20210507-4536f46.diff",
-	"https://raw.githubusercontent.com/oncomouse/dwm-patches/master/st-ligatures-scrollback-20210114-4ef0cbd.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/st-ligatures-scrollback-20210114-4ef0cbd.diff",
 	"https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff",
 	"https://st.suckless.org/patches/clipboard/st-clipboard-0.8.3.diff",
 	"https://st.suckless.org/patches/delkey/st-delkey-20201112-4ef0cbd.diff",
 	"https://st.suckless.org/patches/xresources/st-xresources-20200604-9ba7ecf.diff",
 	"https://st.suckless.org/patches/anysize/st-anysize-0.8.4.diff",
-	"https://raw.githubusercontent.com/oncomouse/dwm-patches/master/st-font2-20210629-4ef0cbd.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/st-font2-20210629-4ef0cbd.diff",
 	"https://raw.githubusercontent.com/hexoctal/st-undercurl/master/st-undercurl-0.8.4-20210424.diff",
 	"https://st.suckless.org/patches/desktopentry/st-desktopentry-0.8.4.diff"
 ]
