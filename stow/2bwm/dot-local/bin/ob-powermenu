@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-source ~/.cache/wal/colors.sh
-choice="$(printf "Lock\nSuspend\nLogoff\nRestart\nShutdown" | rofi -dmenu -match fuzzy -auto-select -i -p Powermenu -font "Inter Nerd Font Medium 12" )"
+font=${1:-"Inter Medium 12"}
+choice="$(printf "Lock\nSuspend\nLogoff\nRestart\nShutdown" | rofi -dmenu -match fuzzy -auto-select -i -p Powermenu -font "$font" )"
 case $choice in
 	Lock)
 		xscreensaver-command -lock

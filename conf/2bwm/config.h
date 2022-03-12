@@ -1,7 +1,7 @@
 #include <X11/XF86keysym.h>
 ///---User configurable stuff---///
 ///---Modifiers---///
-static const char rofifont[] = "Inter 12";
+static const char rofifont[] = "Inter Medium 12";
 #define MOD             XCB_MOD_MASK_4       /* Super/Windows key  or check xmodmap(1) with -pm  defined in /usr/include/xcb/xproto.h */
 ///--Speed---///
 /* Move this many pixels when moving or resizing with keyboard unless the window has hints saying otherwise.
@@ -94,6 +94,11 @@ static const char *emojimenucmd[] = {
 };
 static const char *musicmenucmd[] = {
 	"rofimusic.sh",
+	rofifont,
+	NULL
+};
+static const char *powermenucmd[] = {
+	"ob-powermenu",
 	rofifont,
 	NULL
 };
@@ -252,6 +257,7 @@ static key keys[] = {
 	// Start programs
 	{ MOD |ALT,                   XK_r,              start,              {.com = menucmd}},
 	{ MOD |ALT,                   XK_p,              start,              {.com = musicmenucmd}},
+	{ MOD |SHIFT,                 XK_p,              start,              {.com = powermenucmd}},
 	{ MOD |ALT,                   XK_w,              start,              {.com = winmenucmd}},
 	{ MOD |ALT,                   XK_space,          start,              {.com = emojimenucmd}},
 	{ MOD,                        XK_e,              start,              {.com = fmcmd} },
