@@ -490,17 +490,17 @@
   </keybind>
   <keybind key="XF86MonBrightnessUp">
     <action name="Execute">
-      <command>ob-brightness up</command>
+      <command>dotfiles-brightness up</command>
     </action>
   </keybind>
   <keybind key="XF86MonBrightnessDown">
     <action name="Execute">
-      <command>ob-brightness down</command>
+      <command>dotfiles-brightness down</command>
     </action>
   </keybind>
   <keybind key="W-S-b">
     <action name="Execute">
-      <command>ob-brightness default</command>
+      <command>dotfiles-brightness default</command>
     </action>
   </keybind>
 </keyboard>

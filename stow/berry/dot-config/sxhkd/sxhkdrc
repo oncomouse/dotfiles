@@ -28,6 +28,13 @@ XF86Audio{Lower,Raise}Volume
 XF86AudioMute
 	liskin-media mute
 
+#Brightness
+XF86KbdBrightness{Up,Down}
+	dotfiles-brightness {up,down}
+
+super + b
+	dotfiles-brightness default
+
 ## WM Commands
 
 # Reload
