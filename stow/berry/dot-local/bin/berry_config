@@ -24,7 +24,7 @@ berryc edge_lock   "true"
 berryc set_font    "Inter-10"
 
 # Move and resize
-berryc move_mask "Mod4"
-berryc resize_mask "Mod4|shift"
+berryc move_mask "mod4"
+berryc resize_mask "mod5|shift"
 
 #vim:ft=sh
