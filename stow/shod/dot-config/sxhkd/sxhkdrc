@@ -9,7 +9,7 @@ super + shift + Return
 	dotfiles-term
 
 super + alt + {r,w}
-	rofi -match fuzzy -auto-select -font "Inter Medium 12" -show {drun,window} -show-icons {-drun-display-form \{name\}, -window-format "\\{w\\} \\{c\\} \\{t:25\\}" }
+	rofi -match fuzzy -auto-select -font "Inter Medium 12" -show {drun,window} -show-icons {-drun-display-form \{name\}, -window-format "\\{w\\} \\{c\\} \\{t:25\\}"}
 
 super + alt + space
 	rofi -show emoji -modi emoji -location 1 -theme-str "window \\{ width: 100%; \\}"

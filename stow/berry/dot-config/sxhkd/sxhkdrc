@@ -1,6 +1,3 @@
-super + q
-	pgrep -x sxhkd && killall -q sxhkd; sxhkd
-
 ## Launchers
 super + e
 	thunar
@@ -31,27 +28,49 @@ XF86Audio{Lower,Raise}Volume
 XF86AudioMute
 	liskin-media mute
 
-#
-# berry hotkeys
-#
+## WM Commands
 
+# Reload
+super + q
+	pgrep -x sxhkd && killall -q sxhkd; sxhkd;\
+	berry_config
+
+# Quit
 super + shift + q
 	berryc quit
 
+# Switch Windows (directional)
 super + {_,shift} + {Left, Up, Down, Right}
     berryc {window_move, window_resize} {-25 0, 0 -25, 0 25, 25 0}
 
+# Switch windows
+super + Tab
+	berryc cycle_focus
+
+## Desktop Commands
+
+# Switch and Send to Desktops
 super + {_,shift} + {1-9}
     berryc {switch_workspace, send_to_workspace} {0-9}
 
-super + shift + {1-9}
-    berryc send_to_workspace {0-9}
+## Window Commands
 
+# Maximize
 super + m
     berryc window_monocle
 
+# Fullscreen
 super + f
     berryc fullscreen
+
+# Center
+super + c
+	berryc window_center
+
+# Raise
+super + r
+	berryc pointer_focus;\
+	berryc window_raise
 
 super +  p
     berryc snap_right
@@ -62,14 +81,9 @@ super + o
 super + n
     berryc toggle_decorations
 
-super + Tab
-    berryc cycle_focus
-
+# Close
 super + q
     berryc window_close
-
-super + c
-    berryc window_center
 
 ~button1
     berryc pointer_focus
