@@ -123,6 +123,8 @@ if [[ ! -d "$BUILD_LOCATION/$project" ]]; then
 		project_repo=https://github.com/venam/2bwm
 	elif [ "$project" = "shod" ]; then
 		project_repo=https://github.com/phillbush/shod
+	elif [ "$project" = "berry" ]; then
+		project_repo=https://github.com/JLErvin/berry
 fi
 
 	git clone "$project_repo" "$BUILD_LOCATION/$project"
@@ -145,7 +147,9 @@ if [ "$project" = "2bwm" ] || [ "$project" = "shod" ] || [ "$project" = "aslstat
 	rm "$conf_file"
 fi
 # Link the configuration file from our repository:
-ln -sf "$ROOT_CONFIGURATION_PATH/$project/$conf_file" "$BUILD_LOCATION/$project"
+if [ -f "$ROOT_CONFIGURATION_PATH/$project/$conf_file" ]; then
+	ln -sf "$ROOT_CONFIGURATION_PATH/$project/$conf_file" "$BUILD_LOCATION/$project"
+fi
 
 # Check if there is a target file:
 TARGET="${DOTFILES_TARGET:-laptop}"
@@ -174,6 +178,9 @@ done
 set +e
 
 # Build and install the software:
+if [ "$project" == "berry" ];then
+	./configure
+fi
 make
 install_software
 
