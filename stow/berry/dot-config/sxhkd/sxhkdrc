@@ -1,0 +1,75 @@
+super + q
+	pgrep -x sxhkd && killall -q sxhkd; sxhkd
+
+## Launchers
+super + e
+	thunar
+
+super + shift + Return
+	dotfiles-term
+
+super + alt + {r,w}
+	rofi -match fuzzy -auto-select -font "Inter Medium 12" -show {drun,window} -show-icons {-drun-display-form \{name\}, -window-format "\\{w\\} \\{c\\} \\{t:25\\}" }
+
+super + alt + space
+	rofi -show emoji -modi emoji -location 1 -theme-str "window \\{ width: 100%; \\}"
+
+super + alt + p
+	rofimusic.sh "Inter Medium 12"
+
+## Audio
+
+# Previous / Next Song
+XF86Audio{Prev,Next,Play,Stop}
+	liskin-media {prev,next,play,stop}
+
+# Raise or Lower Volume
+XF86Audio{Lower,Raise}Volume
+	liskin-media volume {down,up}
+
+# Mute
+XF86AudioMute
+	liskin-media mute
+
+#
+# berry hotkeys
+#
+
+super + shift + q
+	berryc quit
+
+super + {_,shift} + {Left, Up, Down, Right}
+    berryc {window_move, window_resize} {-25 0, 0 -25, 0 25, 25 0}
+
+super + {_,shift} + {1-9}
+    berryc {switch_workspace, send_to_workspace} {0-9}
+
+super + shift + {1-9}
+    berryc send_to_workspace {0-9}
+
+super + m
+    berryc window_monocle
+
+super + f
+    berryc fullscreen
+
+super +  p
+    berryc snap_right
+
+super + o 
+    berryc snap_left
+
+super + n
+    berryc toggle_decorations
+
+super + Tab
+    berryc cycle_focus
+
+super + q
+    berryc window_close
+
+super + c
+    berryc window_center
+
+~button1
+    berryc pointer_focus
