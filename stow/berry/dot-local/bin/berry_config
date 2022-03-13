@@ -24,7 +24,12 @@ berryc edge_lock   "true"
 berryc set_font    "Inter-10"
 
 # Move and resize
-berryc move_mask "mod4"
+berryc move_mask "mod5"
 berryc resize_mask "mod5|shift"
+
+# Proper desktop names:
+for i in {0..8}; do
+	berryc name_desktop "$i" "Desktop $((i+1))"
+done
 
 #vim:ft=sh
