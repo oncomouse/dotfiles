@@ -19,9 +19,9 @@ berryc top_gap            30
 # Set decoration colors
 berryc focus_color         "$(echo "$color8" | sed -e "s/#//")"
 berryc unfocus_color       "$(echo "$color8" | sed -e "s/#//")"
-berryc inner_focus_color   "$(echo "$color6" | sed -e "s/#//")"
-berryc inner_unfocus_color "$(echo "$color7" | sed -e "s/#//")"
-berryc text_focus_color    "$(echo "$color0" | sed -e "s/#//")"
+berryc inner_focus_color   "$(echo "$color8" | sed -e "s/#//")"
+berryc inner_unfocus_color "$(echo "$color0" | sed -e "s/#//")"
+berryc text_focus_color    "$(echo "$color15" | sed -e "s/#//")"
 berryc text_unfocus_color  "$(echo "$color8" | sed -e "s/#//")"
 
 # Other options
