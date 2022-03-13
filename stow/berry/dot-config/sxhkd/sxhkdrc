@@ -32,8 +32,8 @@ XF86AudioMute
 
 # Reload
 super + q
-	pgrep -x sxhkd && killall -q sxhkd; sxhkd;\
-	berry_config
+	berry_config; \
+	pkill -SIGUSR1 sxhkd
 
 # Quit
 super + shift + q
