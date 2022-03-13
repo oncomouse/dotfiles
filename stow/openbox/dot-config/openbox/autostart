@@ -4,5 +4,10 @@ picom --experimental-backends -b --config ~/dotfiles/conf/picom/common.conf
 
 source ~/dotfiles/conf/xorg/xinit-common
 
+source ~/dotfiles/conf/xorg/xinit.d/no-xfce4
+source ~/dotfiles/conf/xorg/xinit.d/dunst
+source ~/dotfiles/conf/xorg/xinit.d/tint2
+
+
 hsetroot -cover ~/dotfiles/backgrounds/wallhaven-nml81k.jpg
 # vim:ft=sh

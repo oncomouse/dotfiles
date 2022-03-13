@@ -1,5 +1,0 @@
-[Desktop Entry]
-Exec=/bin/sh -c "/usr/bin/pkill picom; /usr/bin/picom -c -b"
-Name=Picom
-Terminal=false
-Type=Application

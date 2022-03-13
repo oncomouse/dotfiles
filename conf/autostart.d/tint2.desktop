@@ -1,5 +1,0 @@
-[Desktop Entry]
-Exec=/bin/sh -c "/usr/bin/pkill tint2; /usr/bin/tint2"
-Name=Tint2
-Terminal=false
-Type=Application

@@ -1,6 +1,0 @@
-[Desktop Entry]
-Name=Unclutter
-Comment=Unclutter
-Exec=unclutter -root
-Terminal=false
-Type=Application

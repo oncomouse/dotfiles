@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+pkill sxhkd; sxhkd 2> ~/.cache/sxhkd-error.log&
+# vim:ft=sh
