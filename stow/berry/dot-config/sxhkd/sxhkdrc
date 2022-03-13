@@ -14,7 +14,7 @@ super + alt + space
 super + alt + p
 	rofimusic.sh "Inter Medium 12"
 
-## Audio
+## Media Keys
 
 # Previous / Next Song
 XF86Audio{Prev,Next,Play,Stop}
@@ -28,10 +28,11 @@ XF86Audio{Lower,Raise}Volume
 XF86AudioMute
 	liskin-media mute
 
-#Brightness
+# Brightness Up or Down
 XF86KbdBrightness{Up,Down}
 	dotfiles-brightness {up,down}
 
+# Set Default Brightness
 super + b
 	dotfiles-brightness default
 
