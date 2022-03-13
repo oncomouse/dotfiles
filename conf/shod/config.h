@@ -7,20 +7,20 @@ struct Config config = {
 	 */
 
 	/* 0-or-1 flags */
-	.sloppyfocus    = 0,            /* set to 1 to use sloppy focus */
+	.sloppyfocus    = 1,            /* set to 1 to use sloppy focus */
 	.honorconfig    = 0,            /* set to 1 to honor configure requests */
 
 	/* general configuration */
 	.modifier       = Mod4Mask,     /* Modifier button */
 	.snap           = 8,            /* proximity of container edges to perform snap attraction */
 	.font           = "fixed",      /* font for titles in titlebars */
-	.ndesktops      = 10,           /* number of desktops per monitor */
+	.ndesktops      = 9,           /* number of desktops per monitor */
 
 	/* dock configuration */
 	.dockwidth      = 64,           /* width of the dock (or its height, if it is horizontal) */
 	.dockspace      = 64,           /* size of each dockapp (64 for windowmaker dockapps) */
-	.dockgravity    = "E",          /* placement of the dock */
-	.dockcolors     = {"#121212", "#2E3436", "#000000"},
+	.dockgravity    = "S",          /* placement of the dock */
+	.dockcolors     = {"#212733", "#3b4857", "#212733"},
 
 	/* notification configuration */
 	.notifgap       = 3,            /* gap, in pixels, between notifications */
@@ -33,16 +33,16 @@ struct Config config = {
 	/* title bar */
 	.titlewidth = 17,
 	.foreground = {
-		[FOCUSED]   = "#FFFFFF",
-		[UNFOCUSED] = "#FFFFFF",
-		[URGENT]    = "#FFFFFF",
+		[FOCUSED]   = "#d9d7ce",
+		[UNFOCUSED] = "#d9d7ce",
+		[URGENT]    = "#d9d7ce",
 	},
 
 	/* border */
-	.borderwidth = 6,
+	.borderwidth = 4,
 	.bordercolors = {
-		[FOCUSED]   = {"#3465A4", "#729FCF", "#204A87"},
-		[UNFOCUSED] = {"#555753", "#888A85", "#2E3436"},
+		[FOCUSED]   = {"#2f3a46", "#596069", "#3b4857"},
+		[UNFOCUSED] = {"#212733", "#212733", "#212733"},
 		[URGENT]    = {"#CC0000", "#EF2929", "#A40000"},
 	},
 

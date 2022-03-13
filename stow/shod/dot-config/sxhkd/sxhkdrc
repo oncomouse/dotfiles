@@ -31,19 +31,44 @@ XF86Audio{Lower,Raise}Volume
 XF86AudioMute
 	liskin-media mute
 
+## WM Commands
+
+# Quit
+super + shift + q
+	pkill shod
+
+# Directional window switching
+super + {h,j,k,l}
+	shodc focus {-l,-t,-b,-r}
+
 ## Desktop Commands
+
+# Switch and Send to Desktops
 super + {_,shift} + {1-9}
 	shodc {goto,sendto} {1-9}
 
 ## Window Commands
 
+# Move
 super + {Up,Down,Left,Right}
-	shodc geom -r {-y,-y,-x,-x} {-25,25,-25,25}
+	shodc geom -r {-y -25,-y 25,-x -25,-x 25}
 
+# Resize
 super + shift + {Up,Down,Left,Right}
-	shodc geom -r {-h,-h,-w,-w} {-25,25,-25,25}
+	shodc geom -r {-h -25,-h 25,-w -25,-w 25}
 
-# Maximize?
+# Maximize
+super + m
+	shodc state -M -T
+
+# Shade
+super + shift + m
+	shodc state -s -T
+
+#Raise
+super + r
+	shodc state -a
+
 # Center?
 
 ## Launchers
