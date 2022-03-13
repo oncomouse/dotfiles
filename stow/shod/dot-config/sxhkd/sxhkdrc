@@ -37,17 +37,11 @@ super + {_,shift} + {1-9}
 
 ## Window Commands
 
-super + {Up,Down}
-	shodc geom -r -y {-25,25}
+super + {Up,Down,Left,Right}
+	shodc geom -r {-y,-y,-x,-x} {-25,25,-25,25}
 
-super + {Left,Right}
-	shodc geom -r -x {-25,25}
-
-super + shift + {Up,Down}
-	shodc geom -r -h {-25,25}
-
-super + shift + {Left,Right}
-	shodc geom -r -w {-25,25}
+super + shift + {Up,Down,Left,Right}
+	shodc geom -r {-h,-h,-w,-w} {-25,25,-25,25}
 
 # Maximize?
 # Center?
