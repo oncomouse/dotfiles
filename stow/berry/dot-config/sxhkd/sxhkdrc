@@ -29,11 +29,15 @@ XF86AudioMute
 	liskin-media mute
 
 # Brightness Up or Down
-XF86KbdBrightness{Up,Down}
+XF86MonBrightness{Up,Down}
 	dotfiles-brightness {up,down}
 
+# Keyboard Backlight Up or Down
+XF86KbdBrightness{Up,Down}
+	sudo /usr/local/bin/keyboard-backlight {up,down}
+
 # Set Default Brightness
-super + b
+super + shift + b
 	dotfiles-brightness default
 
 ## WM Commands
