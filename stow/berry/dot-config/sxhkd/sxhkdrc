@@ -39,10 +39,6 @@ super + q
 super + shift + q
 	berryc quit
 
-# Switch Windows (directional)
-super + {_,shift} + {Left, Up, Down, Right}
-    berryc {window_move, window_resize} {-25 0, 0 -25, 0 25, 25 0}
-
 # Switch windows
 super + Tab
 	berryc cycle_focus
@@ -51,33 +47,28 @@ super + Tab
 
 # Switch and Send to Desktops
 super + {_,shift} + {1-9}
-    berryc {switch_workspace, send_to_workspace} {0-9}
+    berryc {switch_workspace, send_to_workspace} {0-8}
 
 ## Window Commands
 
-# Maximize
-super + m
-    berryc window_monocle
-
-# Fullscreen
-super + f
-    berryc fullscreen
-
-# Center
-super + c
-	berryc window_center
+# Maximize, Center, Fullscreen
+super + {m,c,f}
+    berryc {window_monocle,window_center,fullscreen}
 
 # Raise
 super + r
 	berryc pointer_focus;\
 	berryc window_raise
 
-super +  p
-    berryc snap_right
+# Resize windows
+super + {_,shift} + {Left, Up, Down, Right}
+	berryc {window_move, window_resize} {-25 0, 0 -25, 0 25, 25 0}
 
-super + o 
-    berryc snap_left
+# Snap Right and Left
+super + {p,o}
+    berryc {snap_right,snap_left}
 
+# Toggle Decorations
 super + n
     berryc toggle_decorations
 
