@@ -1,45 +1,72 @@
-mod="super"
-rofi_font="Inter Medium 12"
-
-$mod + q
+super + q
 	pgrep -x sxhkd && killall -q sxhkd; sxhkd
 
+## Launchers
+super + e
+	thunar
+
+super + shift + Return
+	dotfiles-term
+
+super + alt + {r,w}
+	rofi -match fuzzy -auto-select -font "Inter Medium 12" -show {drun,window} -show-icons {-drun-display-form \{name\}, -window-format "\\{w\\} \\{c\\} \\{t:25\\}" }
+
+super + alt + space
+	rofi -show emoji -modi emoji -location 1 -theme-str "window \\{ width: 100%; \\}"
+
+super + alt + p
+	rofimusic.sh "Inter Medium 12"
+
+## Audio
+
+# Previous / Next Song
+XF86Audio{Prev,Next,Play,Stop}
+	liskin-media {prev,next,play,stop}
+
+# Raise or Lower Volume
+XF86Audio{Lower,Raise}Volume
+	liskin-media volume {down,up}
+
+# Mute
+XF86AudioMute
+	liskin-media mute
+
 ## Desktop Commands
-$mod + {_,Shift} + {1-9}
+super + {_,shift} + {1-9}
 	shodc {goto,sendto} {1-9}
 
 ## Window Commands
 
-$mod + {Up,Down}
-	shodc geom -r -y {25,-25}
+super + {Up,Down}
+	shodc geom -r -y {-25,25}
 
-$mod + {Left,Right}
-	shodc geom -r -x {25,-25}
+super + {Left,Right}
+	shodc geom -r -x {-25,25}
 
-$mod + Shift + {Up,Down}
-	shodc geom -r -h {25,-25}
+super + shift + {Up,Down}
+	shodc geom -r -h {-25,25}
 
-$mod + Shift + {Left,Right}
-	shodc geom -r -w {25,-25}
+super + shift + {Left,Right}
+	shodc geom -r -w {-25,25}
 
 # Maximize?
 # Center?
 
 ## Launchers
-$mod + e
+super + e
 	thunar
 
-$mod + shift + Return
+super + shift + Return
 	dotfiles-term
 
-$mod + alt + {r,w}
-	rofi -match fuzzy -auto-select -font "$rofi_font" -show {drun,window} -show-icons {-drun-display-form "\\{name\\}", -window-format "\\{w\\} \\{c\\} \\{t:25\\}" }
+super + alt + {r,w}
+	rofi -match fuzzy -auto-select -font "Inter Medium 12" -show {drun,window} -show-icons {-drun-display-form \{name\}, -window-format "\\{w\\} \\{c\\} \\{t:25\\}" }
 
-$mod + alt + space
-	rofi -show emoji -modi emoji -location 1 -theme-str "window \\{ width: 100% \\}"
+super + alt + space
+	rofi -show emoji -modi emoji -location 1 -theme-str "window \\{ width: 100%; \\}"
 
-$mod + alt + p
-	rofimusic.sh "$rofi_font"
+super + alt + p
+	rofimusic.sh "Inter Medium 12"
 
 ## Audio
 
