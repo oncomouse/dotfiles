@@ -2,8 +2,8 @@
 source ~/.cache/wal/colors.sh
 status="$(pamixer --get-volume-human)"
 if [ "$status" == "muted" ]; then
-	echo "%{F$color7}婢  %{F-}"
+	echo "%{F$color8}婢%{F-}"
 else
-	echo "墳  $status"
+	echo "墳$status"
 fi
 # vim:ft=sh
