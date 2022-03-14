@@ -86,7 +86,7 @@ super + n
     berryc toggle_decorations
 
 # Close
-super + q
+super + w
     berryc window_close
 
 ~button1

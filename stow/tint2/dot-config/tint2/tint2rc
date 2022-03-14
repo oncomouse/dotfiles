@@ -62,7 +62,8 @@ border_color_pressed = #000000 100
 
 #-------------------------------------
 # Panel
-panel_items = LTES:C
+# panel_items = LTES:C
+panel_items = TES:C
 panel_size = 100% 30
 panel_margin = 0 0
 panel_padding = 2 0 2
