@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ~/.cache/wal/colors.sh
+
 number_of_desktops="$(xprop -root _NET_NUMBER_OF_DESKTOPS | sed -e "s/^\S\+ = //")"
 current_desktop="$(xprop -root _NET_CURRENT_DESKTOP | sed -e "s/^\S\+ = //")"
 desktop_names="[$(xprop -root _NET_DESKTOP_NAMES | sed -e "s/^\S\+ = //")]"
@@ -16,6 +18,15 @@ for (( i=0; i<number_of_desktops; i++ )); do
 	fi
 	if [ "$occupied" == 1 ] || [ "$current" == 1 ]; then
 		desktop_name="$(echo "$desktop_names" | jq .["$i"] | sed -e 's/"//g')"
-		echo "$desktop_name"
+		if [ "$current" == 1 ]; then
+			echo -n "%{F$color8}%{B$color14}"
+		else
+			echo -n "%{F$color7}%{B$color0}"
+		fi
+		echo -n " $desktop_name "
+		if [ "$current" == 1 ]; then
+			echo -n "%{F-}%{B-}"
+		fi
 	fi
 done
+# vim:ft=sh

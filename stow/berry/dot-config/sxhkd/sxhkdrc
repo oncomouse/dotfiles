@@ -59,6 +59,7 @@ super + Tab
 
 # Switch and Send to Desktops
 super + {_,shift} + {1-9}
+	pkill -RTMIN+1 lemonaid; \
     berryc {switch_workspace, send_to_workspace} {0-8}
 
 ## Window Commands

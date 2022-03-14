@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+source ~/.cache/wal/colors.sh
+lemonaid | lemonbar -p -d -f "JetBrains Mono Nerd Font:style=medium:size=11" -B "$color0" -F "$color7" | /bin/bash &
+# vim:ft=sh
