@@ -18,6 +18,9 @@ function killbar {
 	if [ "$(pgrep -c waybar)" -gt 0 ]; then
 		pkill "$switch" waybar
 	fi
+	if [ "$(pgrep -c lemonaid)" -gt 0 ]; then
+		pkill "$switch" lemonaid
+	fi
 	if [ "$(pgrep -c awesome)" -gt 0 ]; then
 		echo "awesome.emit_signal(\"dotfiles::update\", \"mpris\")" | awesome-client
 	fi

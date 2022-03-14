@@ -10,12 +10,13 @@
 
 static const unsigned short int left = 1;     // no. of left aligned blocks
 static const unsigned short int centre = 0;   // no. of centre aligned blocks
-static const unsigned short int right = 0;    // no. of right aligned blocks
+static const unsigned short int right = 1;    // no. of right aligned blocks
 
 // Blocks must be in the order of their alignment
 static const Block blocks[] = {
 	// command                  update interval(in s)   update signal
 	{ "lemonbar_desktops",        3600,                   1 },
+	{ "lemonbar_volume",          3600,                   3 },
 	/* { "lemonbar_cpu",           10,                     2 }, */
 	/* { "lemonbar_mem",           60,                     3 }, */
 	/* { "lemonbar_tempt",         10,                     4 }, */
