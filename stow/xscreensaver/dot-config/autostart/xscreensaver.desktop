@@ -1,0 +1,6 @@
+[Desktop Entry]
+Version=1.0
+Name=Xscreensaver
+Exec=xscreensaver -no-splash
+Terminal=false
+Type=Application
