@@ -153,6 +153,11 @@ static const char *rofinetworkcmd[] = {
 	"-font",
 	rofifont, NULL
 };
+static const char *rofimusiccmd[] = {
+	"rofimusic.sh",
+	rofifont,
+	NULL
+};
 
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
 /* static char *statuscmds[] = { "notify-send $BUTTON click" }; */
@@ -166,6 +171,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,     XK_n,                       spawn,          {.v = rofinetworkcmd} },
 	{ MODKEY|ShiftMask,     XK_w,                       spawn,          {.v = rofiwincmd} },
 	{ MODKEY|ControlMask,   XK_space,                   spawn,          {.v = rofiemojicmd} },
+	{ MODKEY|Mod1Mask,      XK_p,                       spawn,          {.v = rofimusiccmd} },
 	{ MODKEY|ShiftMask,     XK_Return,                  spawn,          {.v = termcmd} },
 	{ MODKEY,               XK_e,                       spawn,          SHCMD("thunar") },
 	{ MODKEY|ShiftMask,     XK_b,                       spawn,          SHCMD("dwm-brightness.sh default")},

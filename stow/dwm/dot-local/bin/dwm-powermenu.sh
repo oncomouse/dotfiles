@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
-dwm_colors() {
-	xrdb -query | rg dwm | sed -e 's/^dwm\.//' -e 's/:\s\+/=/'
-}
-eval "$(dwm_colors)"
-choice="$(printf "Lock\nSuspend\nLogoff\nRestart\nShutdown" | dmenu -n -F -i -p Powermenu -fn "Hack-Regular:size=9" -nb "$normbgcolor" -nf "$normfgcolor" -sb "$tagsselbgcolor" -sf "$tagsselfgcolor")"
+DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
+rofifont=$([ "$DOTFILES_TARGET" = "laptop" ] && echo "JetBrainsMono Nerd Font Normal 9" || echo "FiraCode Nerd Font Normal 10")
+choice="$(printf "Lock\nSuspend\nLogoff\nRestart\nShutdown" | rofi -dmenu -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -i -p Powermenu -font "$rofifont")"
 case $choice in
 	Lock)
 		xscreensaver-command -lock
