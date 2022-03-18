@@ -275,16 +275,16 @@ local Diagnostics = {
 
 	static = {
 		error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
-		warn_icon  = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
-		info_icon  = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
-		hint_icon  = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
+		warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
+		info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
+		hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
 	},
 
 	init = function(self)
-		self.errors   = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+		self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
 		self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-		self.hints    = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-		self.info     = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+		self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+		self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
 	end,
 	{
 		Space,
@@ -306,7 +306,9 @@ local Diagnostics = {
 			},
 			{
 				provider = "",
-				condition = function(self) return self.warnings == 0 and self.info == 0 and self.hints == 0 end,
+				condition = function(self)
+					return self.warnings == 0 and self.info == 0 and self.hints == 0
+				end,
 				hl = { fg = colors.diag.error, bg = colors.black },
 			},
 		},
@@ -334,7 +336,9 @@ local Diagnostics = {
 			},
 			{
 				provider = "",
-				condition = function(self) return self.info == 0 and self.hints == 0 end,
+				condition = function(self)
+					return self.info == 0 and self.hints == 0
+				end,
 				hl = { fg = colors.diag.warn, bg = colors.black },
 			},
 		},
@@ -364,7 +368,9 @@ local Diagnostics = {
 			},
 			{
 				provider = "",
-				condition = function(self) return self.hints == 0 end,
+				condition = function(self)
+					return self.hints == 0
+				end,
 				hl = { fg = colors.diag.info, bg = colors.black },
 			},
 		},
@@ -528,16 +534,22 @@ local DefaultStatusline = {
 	Space,
 	Position,
 	WordCount,
+	Diagnostics,
 	{
-		{
-			Space,
-			Space,
-		},
 		condition = function()
 			return not conditions.has_diagnostics()
 		end,
+		{
+			{
+				Space,
+				Space,
+			},
+			{
+				provider = "",
+				hl = { fg = colors.dark_gray, bg = colors.black },
+			},
+		},
 	},
-	Diagnostics,
 }
 local InactiveStatusline = {
 	condition = function()
