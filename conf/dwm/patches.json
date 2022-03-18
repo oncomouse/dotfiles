@@ -7,7 +7,6 @@
 	"https://dwm.suckless.org/patches/statuscmd/dwm-statuscmd-20210405-67d76bd.diff",
 	"https://dwm.suckless.org/patches/noborder/dwm-noborderfloatingfix-6.2.diff",
 	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-rtile-20210619-61bb8b2.diff",
-	"https://dwm.suckless.org/patches/focusonnetactive/dwm-focusonnetactive-2017-12-24-3756f7f.diff",
 	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-xsession-20210706-61bb8b2.diff",
 	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-focusedontop-20210917-a786211.diff",
 	"https://dwm.suckless.org/patches/autostart/dwm-autostart-20210120-cb3f58a.diff",
