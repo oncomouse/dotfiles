@@ -41,7 +41,7 @@ static char *colors[][3] = {
 	[SchemeTagsSel]  = { tagsselfgcolor, tagsselbgcolor,  tagsselbordercolor  }, // Tagbar left selected {text,background,not used but cannot be empty}
 	[SchemeTagsNorm]  = { tagsnormfgcolor, tagsnormbgcolor,  tagsnormbordercolor  }, // Tagbar left unselected {text,background,not used but cannot be empty}
 	[SchemeInfoSel]  = { titleselfgcolor, titleselbgcolor,  titleselbordercolor  }, // infobar middle  selected {text,background,not used but cannot be empty}
-	[SchemeInfoNorm]  = { titlenormfgcolor, titlenormbgcolor,  titlenormbordercolor  }, // infobar middle  unselected {text,background,not used but cannot be
+	[SchemeInfoNorm]  = { titlenormfgcolor, titlenormbgcolor,  titlenormbordercolor  }, // infobar middle unselected {text,background,not used but cannot be
 };
 
 /* tagging */
@@ -164,40 +164,43 @@ static const char *rofimusiccmd[] = {
 /* static char *statuscmd[] = { "/bin/sh", "-c", NULL, NULL }; */
 /* modifier                     key        function        argument */
 
+#include "focusurgent.c"
+
 static Key keys[] = {
-	{ MODKEY|Mod1Mask,      XK_r,                       spawn,          {.v = dmenucmd} },
-	{ MODKEY,               XK_p,                       spawn,          {.v = dmenucmd} },
-	{ MODKEY|ShiftMask,     XK_p,                       spawn,          SHCMD("dwm-powermenu.sh") },
-	{ MODKEY|ShiftMask,     XK_n,                       spawn,          {.v = rofinetworkcmd} },
-	{ MODKEY|ShiftMask,     XK_w,                       spawn,          {.v = rofiwincmd} },
-	{ MODKEY|ControlMask,   XK_space,                   spawn,          {.v = rofiemojicmd} },
-	{ MODKEY|Mod1Mask,      XK_p,                       spawn,          {.v = rofimusiccmd} },
-	{ MODKEY|ShiftMask,     XK_Return,                  spawn,          {.v = termcmd} },
-	{ MODKEY,               XK_e,                       spawn,          SHCMD("thunar") },
-	{ MODKEY|ShiftMask,     XK_b,                       spawn,          SHCMD("dwm-brightness.sh default")},
-	{ MODKEY,               XK_b,                       togglebar,      {0} },
-	{ MODKEY,               XK_j,                       focusstack,     {.i = +1 } },
-	{ MODKEY,               XK_k,                       focusstack,     {.i = -1 } },
-	{ MODKEY,               XK_Tab,                     focusstack,     {.i = +1 } },
-	{ MODKEY|ShiftMask,     XK_Tab,                     focusstack,     {.i = -1 } },
-	{ MODKEY,               XK_i,                       incnmaster,     {.i = +1 } },
-	{ MODKEY,               XK_d,                       incnmaster,     {.i = -1 } },
-	{ MODKEY,               XK_h,                       setmfact,       {.f = -0.05} },
-	{ MODKEY,               XK_l,                       setmfact,       {.f = +0.05} },
-	{ MODKEY,               XK_Return,                  zoom,           {0} },
-	{ MODKEY,               XK_w,                       killclient,     {0} },
-	{ MODKEY,               XK_t,                       setlayout,      {.v = &layouts[0]} },
-	{ MODKEY|ShiftMask,     XK_t,                       setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,               XK_f,                       setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,               XK_m,                       setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,               XK_space,                   togglefloating, {0} },
-	{ MODKEY,               XK_0,                       view,           {.ui = ~0} },
-	{ MODKEY|ShiftMask,     XK_0,                       tag,            {.ui = ~0} },
-	{ MODKEY,               XK_comma,                   focusmon,       {.i = -1} },
-	{ MODKEY,               XK_period,                  focusmon,       {.i = +1} },
-	{ MODKEY|ShiftMask,     XK_comma,                   tagmon,         {.i = -1} },
-	{ MODKEY|ShiftMask,     XK_period,                  tagmon,         {.i = +1} },
-	{ MODKEY,               XK_F5,                      xrdb,           {.v = NULL} },
+	{ MODKEY|Mod1Mask,              XK_r,                       spawn,          {.v = dmenucmd} },
+	{ MODKEY,                       XK_p,                       spawn,          {.v = dmenucmd} },
+	{ MODKEY|ShiftMask,             XK_p,                       spawn,          SHCMD("dwm-powermenu.sh") },
+	{ MODKEY|ShiftMask,             XK_n,                       spawn,          {.v = rofinetworkcmd} },
+	{ MODKEY|ShiftMask,             XK_w,                       spawn,          {.v = rofiwincmd} },
+	{ MODKEY|ControlMask,           XK_space,                   spawn,          {.v = rofiemojicmd} },
+	{ MODKEY|Mod1Mask,              XK_p,                       spawn,          {.v = rofimusiccmd} },
+	{ MODKEY|ShiftMask,             XK_Return,                  spawn,          {.v = termcmd} },
+	{ MODKEY,                       XK_e,                       spawn,          SHCMD("thunar") },
+	{ MODKEY|ShiftMask,             XK_b,                       spawn,          SHCMD("dwm-brightness.sh default")},
+	{ MODKEY,                       XK_b,                       togglebar,      {0} },
+	{ MODKEY,                       XK_u,                       focusurgent,    {0} },
+	{ MODKEY,                       XK_j,                       focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_k,                       focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_Tab,                     focusstack,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_Tab,                     focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_i,                       incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_d,                       incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_h,                       setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_l,                       setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_Return,                  zoom,           {0} },
+	{ MODKEY,                       XK_w,                       killclient,     {0} },
+	{ MODKEY,                       XK_t,                       setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|ShiftMask,             XK_t,                       setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_f,                       setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,                       setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_space,                   togglefloating, {0} },
+	{ MODKEY,                       XK_0,                       view,           {.ui = ~0} },
+	{ MODKEY|ShiftMask,             XK_0,                       tag,            {.ui = ~0} },
+	{ MODKEY,                       XK_comma,                   focusmon,       {.i = -1} },
+	{ MODKEY,                       XK_period,                  focusmon,       {.i = +1} },
+	{ MODKEY|ShiftMask,             XK_comma,                   tagmon,         {.i = -1} },
+	{ MODKEY|ShiftMask,             XK_period,                  tagmon,         {.i = +1} },
+	{ MODKEY,                       XK_F5,                      xrdb,           {.v = NULL} },
 
 	TAGKEYS(                XK_1,                                       0)
 	TAGKEYS(                XK_2,                                       1)
