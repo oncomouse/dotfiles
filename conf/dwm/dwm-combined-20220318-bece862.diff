@@ -120,14 +120,6 @@ index a2ac963..27b991d 100644
  	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
  	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
  	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
-diff --git a/config.h b/config.h
-new file mode 120000
-index 0000000..31839cb
---- /dev/null
-+++ b/config.h
-@@ -0,0 +1 @@
-+/home/andrew/dotfiles/conf/dwm/config.h
-\ No newline at end of file
 diff --git a/drw.c b/drw.c
 index 4cdbcbe..f8bc814 100644
 --- a/drw.c
@@ -1928,11 +1920,3 @@ index 0000000..4432806
 +Exec=dwm
 +Icon=dwm
 +Type=XSession
-diff --git a/target.h b/target.h
-new file mode 120000
-index 0000000..5f1413d
---- /dev/null
-+++ b/target.h
-@@ -0,0 +1 @@
-+/home/andrew/dotfiles/conf/dwm/targets/desktop/target.h
-\ No newline at end of file
