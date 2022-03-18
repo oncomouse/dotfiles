@@ -34,14 +34,14 @@ static char statusfgcolor[]        = "#bbbbbb";
 static char statusbgcolor[]        = "#222222";
 static char statusbordercolor[]    = "#444444";
 static char *colors[][3] = {
-	/*               fg           bg           border   */
-	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-	[SchemeStatus]  = { statusfgcolor, statusbgcolor, statusbordercolor  }, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  = { tagsselfgcolor, tagsselbgcolor,  tagsselbordercolor  }, // Tagbar left selected {text,background,not used but cannot be empty}
-	[SchemeTagsNorm]  = { tagsnormfgcolor, tagsnormbgcolor,  tagsnormbordercolor  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-	[SchemeInfoSel]  = { titleselfgcolor, titleselbgcolor,  titleselbordercolor  }, // infobar middle  selected {text,background,not used but cannot be empty}
-	[SchemeInfoNorm]  = { titlenormfgcolor, titlenormbgcolor,  titlenormbordercolor  }, // infobar middle unselected {text,background,not used but cannot be
+	/*                    fg                bg                 border */
+	[SchemeNorm]      = { normfgcolor,      normbgcolor,       normbordercolor },
+	[SchemeSel]       = { selfgcolor,       selbgcolor,        selbordercolor  },
+	[SchemeStatus]    = { statusfgcolor,    statusbgcolor,     statusbordercolor  },    // Statusbar right {text, background, not used but cannot be empty}
+	[SchemeTagsSel]   = { tagsselfgcolor,   tagsselbgcolor,    tagsselbordercolor  },   // Tagbar left selected {text, background, not used but cannot be empty}
+	[SchemeTagsNorm]  = { tagsnormfgcolor,  tagsnormbgcolor,   tagsnormbordercolor  },  // Tagbar left unselected {text, background, not used but cannot be empty}
+	[SchemeInfoSel]   = { titleselfgcolor,  titleselbgcolor,   titleselbordercolor  },  // infobar middle  selected {text, background, not used but cannot be empty}
+	[SchemeInfoNorm]  = { titlenormfgcolor, titlenormbgcolor,  titlenormbordercolor  }, // infobar middle unselected {text,background, not used but cannot be empty}
 };
 
 /* tagging */
@@ -202,15 +202,15 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period,                  tagmon,         {.i = +1} },
 	{ MODKEY,                       XK_F5,                      xrdb,           {.v = NULL} },
 
-	TAGKEYS(                XK_1,                                       0)
-	TAGKEYS(                XK_2,                                       1)
-	TAGKEYS(                XK_3,                                       2)
-	TAGKEYS(                XK_4,                                       3)
-	TAGKEYS(                XK_5,                                       4)
-	TAGKEYS(                XK_6,                                       5)
-	TAGKEYS(                XK_7,                                       6)
-	TAGKEYS(                XK_8,                                       7)
-	TAGKEYS(                XK_9,                                       8)
+	TAGKEYS(                        XK_1,                                       0)
+	TAGKEYS(                        XK_2,                                       1)
+	TAGKEYS(                        XK_3,                                       2)
+	TAGKEYS(                        XK_4,                                       3)
+	TAGKEYS(                        XK_5,                                       4)
+	TAGKEYS(                        XK_6,                                       5)
+	TAGKEYS(                        XK_7,                                       6)
+	TAGKEYS(                        XK_8,                                       7)
+	TAGKEYS(                        XK_9,                                       8)
 
 	{ MODKEY,                       XK_Down,                    moveresize,     {.v = "0x 25y 0w 0h" } },
 	{ MODKEY,                       XK_Up,                      moveresize,     {.v = "0x -25y 0w 0h" } },
