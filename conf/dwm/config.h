@@ -1,11 +1,15 @@
 /* See LICENSE file for copyright and license details. */
 #include <X11/XF86keysym.h>
 /* appearance */
-static const unsigned int borderpx = 1;        /* border pixel of windows */
+static const unsigned int borderpx = 2;        /* border pixel of windows */
 static const unsigned int snap     = 32;       /* snap pixel */
 static const int showbar           = 1;        /* 0 means no bar */
+static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
+static const unsigned int systrayspacing = 2;   /* systray spacing */
+static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int showsystray        = 1;     /* 0 means no systray */
 static const int topbar            = 1;        /* 0 means bottom bar */
-static const float cm_scale        = 0.75;     /* % of screen for center monocle */
 static const int focusedontop      = 1;
 # include "target.h"
 static char normbgcolor[]          = "#222222";
@@ -49,14 +53,18 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      role        instance  title  wintype,          tags mask  isfloating  alwaysontop monitor */
-	{ NULL,       NULL,       NULL,     NULL,  WTYPE "DIALOG",   0,         1,          1,          -1 },
-	{ NULL,       NULL,       NULL,     NULL,  WTYPE "UTILITY",  0,         1,          1,          -1 },
-	{ NULL,       NULL,       NULL,     NULL,  WTYPE "TOOLBAR",  0,         1,          1,          -1 },
-	{ NULL,       NULL,       NULL,     NULL,  WTYPE "SPLASH",   0,         1,          1,          -1 },
-	{ "Gimp",     NULL,       NULL,     NULL,  NULL,             0,         1,          0,          -1 },
-	{ "Firefox",  NULL,       NULL,     NULL,  NULL,             1 << 8,    0,          0,          -1 },
-	{ NULL,       "pop-up",   NULL,     NULL,  NULL,             0,         1,          1,          -1 },
+	/* class        role        instance  title  wintype,          tags mask  isfloating  alwaysontop monitor */
+
+	{ NULL,         NULL,       NULL,     NULL,  WTYPE "DIALOG",   0,         1,          1,          -1 },
+	{ NULL,         NULL,       NULL,     NULL,  WTYPE "UTILITY",  0,         1,          1,          -1 },
+	{ NULL,         NULL,       NULL,     NULL,  WTYPE "TOOLBAR",  0,         1,          1,          -1 },
+	{ NULL,         NULL,       NULL,     NULL,  WTYPE "SPLASH",   0,         1,          1,          -1 },
+	{ "Gimp",       NULL,       NULL,     NULL,  NULL,             0,         1,          0,          -1 },
+	{ "Thunar",     NULL,       NULL,     NULL,  NULL,             0,         1,          0,          -1 },
+	{ "zoom",       NULL,       NULL,     NULL,  NULL,             0,         1,          0,          -1 },
+	{ "mpv",        NULL,       NULL,     NULL,  NULL,             0,         1,          0,          -1 },
+	{ NULL,         "pop-up",   NULL,     NULL,  NULL,             0,         1,          1,          -1 },
+
 };
 
 /* layout(s) */
@@ -70,7 +78,6 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-	{ "[C]",      centeredmonocle },
 	{ "=[]",      rtile },
 };
 
@@ -86,7 +93,7 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define STATUSBAR "dwmblocks"
 
-static const char *termcmd[]     = { "kitty", NULL };
+static const char *termcmd[]     = { "dotfiles-term", NULL };
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -150,6 +157,7 @@ static const char *rofinetworkcmd[] = {
 /* static char *statuscmds[] = { "notify-send $BUTTON click" }; */
 /* static char *statuscmd[] = { "/bin/sh", "-c", NULL, NULL }; */
 /* modifier                     key        function        argument */
+
 static Key keys[] = {
 	{ MODKEY|Mod1Mask,      XK_r,                       spawn,          {.v = dmenucmd} },
 	{ MODKEY,               XK_p,                       spawn,          {.v = dmenucmd} },
@@ -158,6 +166,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,     XK_w,                       spawn,          {.v = rofiwincmd} },
 	{ MODKEY|ControlMask,   XK_space,                   spawn,          {.v = rofiemojicmd} },
 	{ MODKEY|ShiftMask,     XK_Return,                  spawn,          {.v = termcmd} },
+	{ MODKEY,               XK_e,                       spawn,          SHCMD("thunar") },
 	{ MODKEY|ShiftMask,     XK_b,                       spawn,          SHCMD("dwm-brightness.sh default")},
 	{ MODKEY,               XK_b,                       togglebar,      {0} },
 	{ MODKEY,               XK_j,                       focusstack,     {.i = +1 } },
@@ -168,14 +177,13 @@ static Key keys[] = {
 	{ MODKEY,               XK_l,                       setmfact,       {.f = +0.05} },
 	{ MODKEY,               XK_Return,                  zoom,           {0} },
 	{ MODKEY,               XK_Tab,                     view,           {0} },
-	{ MODKEY|ShiftMask,     XK_c,                       killclient,     {0} },
+	{ MODKEY,               XK_w,                       killclient,     {0} },
 	{ MODKEY,               XK_t,                       setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,     XK_t,                       setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,               XK_f,                       setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,               XK_m,                       setlayout,      {.v = &layouts[3]} },
 	{ MODKEY|ShiftMask,     XK_m,                       setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,               XK_space,                   setlayout,      {0} },
-	{ MODKEY|ShiftMask,     XK_space,                   togglefloating, {0} },
+	{ MODKEY,               XK_space,                   togglefloating, {0} },
 	{ MODKEY,               XK_0,                       view,           {.ui = ~0} },
 	{ MODKEY|ShiftMask,     XK_0,                       tag,            {.ui = ~0} },
 	{ MODKEY,               XK_comma,                   focusmon,       {.i = -1} },
@@ -183,6 +191,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,     XK_comma,                   tagmon,         {.i = -1} },
 	{ MODKEY|ShiftMask,     XK_period,                  tagmon,         {.i = +1} },
 	{ MODKEY,               XK_F5,                      xrdb,           {.v = NULL} },
+
 	TAGKEYS(                XK_1,                                       0)
 	TAGKEYS(                XK_2,                                       1)
 	TAGKEYS(                XK_3,                                       2)
@@ -192,34 +201,36 @@ static Key keys[] = {
 	TAGKEYS(                XK_7,                                       6)
 	TAGKEYS(                XK_8,                                       7)
 	TAGKEYS(                XK_9,                                       8)
-	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
-	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -25y 0w 0h" } },
-	{ MODKEY,                       XK_Right,  moveresize,     {.v = "25x 0y 0w 0h" } },
-	{ MODKEY,                       XK_Left,   moveresize,     {.v = "-25x 0y 0w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Down,   moveresize,     {.v = "0x 0y 0w 25h" } },
-	{ MODKEY|ShiftMask,             XK_Up,     moveresize,     {.v = "0x 0y 0w -25h" } },
-	{ MODKEY|ShiftMask,             XK_Right,  moveresize,     {.v = "0x 0y 25w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -25w 0h" } },
-	{ MODKEY|ControlMask,           XK_Up,     moveresizeedge, {.v = "t"} },
-	{ MODKEY|ControlMask,           XK_Down,   moveresizeedge, {.v = "b"} },
-	{ MODKEY|ControlMask,           XK_Left,   moveresizeedge, {.v = "l"} },
-	{ MODKEY|ControlMask,           XK_Right,  moveresizeedge, {.v = "r"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Up,     moveresizeedge, {.v = "T"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Down,   moveresizeedge, {.v = "B"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Left,   moveresizeedge, {.v = "L"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Right,  moveresizeedge, {.v = "R"} },
-	{ MODKEY|ShiftMask,     XK_q,                       quit,           {0} },
-	{ 0,                    XF86XK_KbdBrightnessDown,   spawn,          SHCMD("sudo /usr/local/bin/keyboard-backlight down") },
-	{ 0,                    XF86XK_KbdBrightnessUp,     spawn,          SHCMD("sudo /usr/local/bin/keyboard-backlight up") },
-	{ 0,                    XF86XK_MonBrightnessUp,     spawn,          SHCMD("dwm-brightness.sh up") },
-	{ 0,                    XF86XK_MonBrightnessDown,   spawn,          SHCMD("dwm-brightness.sh down") },
-	{ 0,                    XF86XK_AudioMute,           spawn,          SHCMD("liskin-media mute") },
-	{ 0,                    XF86XK_AudioLowerVolume,    spawn,          SHCMD("liskin-media volume down") },
-	{ 0,                    XF86XK_AudioRaiseVolume,    spawn,          SHCMD("liskin-media volume up") },
-	{ 0,                    XF86XK_AudioPlay,           spawn,          SHCMD("liskin-media play") },
-	{ 0,                    XF86XK_AudioPrev,           spawn,          SHCMD("liskin-media prev") },
-	{ 0,                    XF86XK_AudioNext,           spawn,          SHCMD("liskin-media next") },
-	{ 0,                    XF86XK_AudioStop,           spawn,          SHCMD("liskin-media stop") }
+
+	{ MODKEY,                       XK_Down,                    moveresize,     {.v = "0x 25y 0w 0h" } },
+	{ MODKEY,                       XK_Up,                      moveresize,     {.v = "0x -25y 0w 0h" } },
+	{ MODKEY,                       XK_Right,                   moveresize,     {.v = "25x 0y 0w 0h" } },
+	{ MODKEY,                       XK_Left,                    moveresize,     {.v = "-25x 0y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_Down,                    moveresize,     {.v = "0x 0y 0w 25h" } },
+	{ MODKEY|ShiftMask,             XK_Up,                      moveresize,     {.v = "0x 0y 0w -25h" } },
+	{ MODKEY|ShiftMask,             XK_Right,                   moveresize,     {.v = "0x 0y 25w 0h" } },
+	{ MODKEY|ShiftMask,             XK_Left,                    moveresize,     {.v = "0x 0y -25w 0h" } },
+	{ MODKEY|ControlMask,           XK_Up,                      moveresizeedge, {.v = "t"} },
+	{ MODKEY|ControlMask,           XK_Down,                    moveresizeedge, {.v = "b"} },
+	{ MODKEY|ControlMask,           XK_Left,                    moveresizeedge, {.v = "l"} },
+	{ MODKEY|ControlMask,           XK_Right,                   moveresizeedge, {.v = "r"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Up,                      moveresizeedge, {.v = "T"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Down,                    moveresizeedge, {.v = "B"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Left,                    moveresizeedge, {.v = "L"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Right,                   moveresizeedge, {.v = "R"} },
+	{ MODKEY|ShiftMask,             XK_q,                       quit,           {0} },
+	{ 0,                            XF86XK_KbdBrightnessDown,   spawn,          SHCMD("sudo /usr/local/bin/keyboard-backlight down") },
+	{ 0,                            XF86XK_KbdBrightnessUp,     spawn,          SHCMD("sudo /usr/local/bin/keyboard-backlight up") },
+	{ 0,                            XF86XK_MonBrightnessUp,     spawn,          SHCMD("dwm-brightness.sh up") },
+	{ 0,                            XF86XK_MonBrightnessDown,   spawn,          SHCMD("dwm-brightness.sh down") },
+	{ 0,                            XF86XK_AudioMute,           spawn,          SHCMD("liskin-media mute") },
+	{ 0,                            XF86XK_AudioLowerVolume,    spawn,          SHCMD("liskin-media volume down") },
+	{ 0,                            XF86XK_AudioRaiseVolume,    spawn,          SHCMD("liskin-media volume up") },
+	{ 0,                            XF86XK_AudioPlay,           spawn,          SHCMD("liskin-media play") },
+	{ 0,                            XF86XK_AudioPrev,           spawn,          SHCMD("liskin-media prev") },
+	{ 0,                            XF86XK_AudioNext,           spawn,          SHCMD("liskin-media next") },
+	{ 0,                            XF86XK_AudioStop,           spawn,          SHCMD("liskin-media stop") }
+
 };
 
 /* button definitions */

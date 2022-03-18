@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+xrdb -merge ~/.cache/wal/dwm.Xresources
+xrdb -merge ~/.cache/wal/dmenu.Xresources
+
 mkdir -p ~/.cache/dwm
 exec dwm 2> ~/.cache/dwm/stderr
 
