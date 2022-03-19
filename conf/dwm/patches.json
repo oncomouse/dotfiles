@@ -3,7 +3,7 @@
 	"https://dwm.suckless.org/patches/hide_vacant_tags/dwm-hide_vacant_tags-6.2.diff",
 	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-color_emoji-20210821-138b405.diff",
 	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-xrdb_colorbar-20210117-61bb8b2.diff",
-	"https://dwm.suckless.org/patches/pertag/dwm-pertag-20200914-61bb8b2.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-pertag_nobarpos-20220319-bece862.diff",
 	"https://dwm.suckless.org/patches/statuscmd/dwm-statuscmd-20210405-67d76bd.diff",
 	"https://dwm.suckless.org/patches/noborder/dwm-noborderfloatingfix-6.2.diff",
 	"https://dwm.suckless.org/patches/focusurgent/dwm-focusurgent-20160831-56a31dc.diff",
