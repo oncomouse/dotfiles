@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+case "$1" in
+  "up")
+	  liskin-media volume up
+	;;
+  "down")
+	  liskin-media volume down
+	;;
+  "mute")
+	  liskin-media mute
+	;;
+  *)
+	;;
+esac
+output="$(pamixer --get-volume-human | sed s/muted/x/g)"
+if [ ${#output} -gt 0 ] && [ "$(pgrep -c dunst)" -gt 0 ]; then
+	dunstify -i audio-volume-high -h string:x-dunst-stack-tag:volume "$output"
+fi
+# vim:ft=sh

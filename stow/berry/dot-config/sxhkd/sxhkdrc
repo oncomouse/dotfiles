@@ -22,11 +22,11 @@ XF86Audio{Prev,Next,Play,Stop}
 
 # Raise or Lower Volume
 XF86Audio{Lower,Raise}Volume
-	liskin-media volume {down,up}
+	dotfiles-volume {down,up}
 
 # Mute
 XF86AudioMute
-	liskin-media mute
+	dotfiles-volume mute
 
 # Brightness Up or Down
 XF86MonBrightness{Up,Down}

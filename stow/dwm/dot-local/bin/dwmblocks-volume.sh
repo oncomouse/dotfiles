@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 case $BUTTON in
-	1) dwm-volume.sh mute ;;
-	4) dwm-volume.sh up ;;
-	5) dwm-volume.sh down ;;
+	1) dotfiles-volume mute ;;
+	4) dotfiles-volume up ;;
+	5) dotfiles-volume down ;;
 esac
 icon="墳"
 output="$(pamixer --get-volume-human | sed s/muted/x/g)"
