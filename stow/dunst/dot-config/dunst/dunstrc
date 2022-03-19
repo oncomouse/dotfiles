@@ -29,7 +29,7 @@
 
 	## Text
     font = Inter Nerd Font Medium 10
-    line_height = 14
+    line_height = 0
     markup = full
     # The format of the message.  Possible variables are:
     #   %a  appname
