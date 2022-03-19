@@ -109,6 +109,10 @@ function action-mpris-daemon {
 					status="栗"
 				fi
 				echo "$status$info" > "$STATUS"
+				# Dunst updates for status changes
+				if [ "$(pgrep -c dunst)" -gt 0 ]; then
+					dunstify -i musique -h string:x-dunst-stack-tag:music "$status$info" -t 1500
+				fi
 				killbar 44
 			fi
 		done

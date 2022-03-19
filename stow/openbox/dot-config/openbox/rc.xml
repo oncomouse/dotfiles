@@ -379,7 +379,7 @@
   </keybind>
   <keybind key="W-S-p">
     <action name="Execute">
-      <command>ob-powermenu</command>
+      <command>dotfiles-powermenu</command>
     </action>
   </keybind>
   <keybind key="C-W-space">

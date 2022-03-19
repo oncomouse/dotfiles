@@ -14,6 +14,9 @@ super + alt + space
 super + alt + p
 	rofimusic.sh "Inter Medium 12"
 
+super + shift + p
+	dotfiles-powermenu
+
 ## Media Keys
 
 # Previous / Next Song

@@ -98,7 +98,7 @@ static const char *musicmenucmd[] = {
 	NULL
 };
 static const char *powermenucmd[] = {
-	"ob-powermenu",
+	"dotfiles-powermenu",
 	rofifont,
 	NULL
 };
