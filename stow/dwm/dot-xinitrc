@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ~/dotfiles/conf/xorg/xprofile-common
+
 xrdb -merge ~/.cache/wal/dwm.Xresources
 xrdb -merge ~/.cache/wal/dmenu.Xresources
 

@@ -94,8 +94,6 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define STATUSBAR "dwmblocks"
 
-static const char *termcmd[]     = { "dotfiles-term", NULL };
-
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = {
@@ -130,34 +128,6 @@ static const char *rofiwincmd[] = {
 	"{w} {c} {t:25}",
 	NULL
 };
-static const char *rofiemojicmd[] = {
-	"rofi",
-	"-show",
-	"emoji",
-	"-modi",
-	"emoji",
-	"-location",
-	"1",
-	"-theme-str",
-	"window { width: 100%; }",
-	"-font",
-	rofifont,
-	NULL
-};
-static const char *rofinetworkcmd[] = {
-	"networkmanager_dmenu",
-	"-location",
-	"1",
-	"-theme-str",
-	"window { width: 100%; }",
-	"-font",
-	rofifont, NULL
-};
-static const char *rofimusiccmd[] = {
-	"rofimusic.sh",
-	rofifont,
-	NULL
-};
 
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
 /* static char *statuscmds[] = { "notify-send $BUTTON click" }; */
@@ -166,83 +136,7 @@ static const char *rofimusiccmd[] = {
 
 #include "focusurgent.c"
 
-static Key keys[] = {
-	{ MODKEY|Mod1Mask,              XK_r,                       spawn,          {.v = dmenucmd} },
-	{ MODKEY,                       XK_p,                       spawn,          {.v = dmenucmd} },
-	{ MODKEY|ShiftMask,             XK_p,                       spawn,          SHCMD("dotfiles-powermenu") },
-	{ MODKEY|ShiftMask,             XK_n,                       spawn,          {.v = rofinetworkcmd} },
-	{ MODKEY|ShiftMask,             XK_w,                       spawn,          {.v = rofiwincmd} },
-	{ MODKEY|ControlMask,           XK_space,                   spawn,          {.v = rofiemojicmd} },
-	{ MODKEY|Mod1Mask,              XK_p,                       spawn,          {.v = rofimusiccmd} },
-	{ MODKEY|ShiftMask,             XK_Return,                  spawn,          {.v = termcmd} },
-	{ MODKEY,                       XK_e,                       spawn,          SHCMD("thunar") },
-	{ MODKEY|ShiftMask,             XK_b,                       spawn,          SHCMD("dotfiles-brightness default")},
-	{ MODKEY|Mod1Mask,              XK_c,                       spawn,          SHCMD("dunstify -i alarm-clock-panel -h string:x-dunst-stack-tag:date \"$(date +'%a %m/%d %I:%M %p')\" -t 1500") },
-	{ MODKEY,                       XK_b,                       togglebar,      {0} },
-	{ MODKEY,                       XK_u,                       focusurgent,    {0} },
-	{ MODKEY,                       XK_j,                       focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,                       focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_Tab,                     focusstack,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_Tab,                     focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,                       incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,                       incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,                       setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,                       setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return,                  zoom,           {0} },
-	{ MODKEY,                       XK_w,                       killclient,     {0} },
-	{ MODKEY,                       XK_t,                       setlayout,      {.v = &layouts[0]} },
-	{ MODKEY|ShiftMask,             XK_t,                       setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_f,                       setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,                       setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,                   togglefloating, {0} },
-	{ MODKEY,                       XK_0,                       view,           {.ui = ~0} },
-	{ MODKEY|ShiftMask,             XK_0,                       tag,            {.ui = ~0} },
-	{ MODKEY,                       XK_comma,                   focusmon,       {.i = -1} },
-	{ MODKEY,                       XK_period,                  focusmon,       {.i = +1} },
-	{ MODKEY|ShiftMask,             XK_comma,                   tagmon,         {.i = -1} },
-	{ MODKEY|ShiftMask,             XK_period,                  tagmon,         {.i = +1} },
-	{ MODKEY,                       XK_F5,                      xrdb,           {.v = NULL} },
-
-	TAGKEYS(                        XK_1,                                       0)
-	TAGKEYS(                        XK_2,                                       1)
-	TAGKEYS(                        XK_3,                                       2)
-	TAGKEYS(                        XK_4,                                       3)
-	TAGKEYS(                        XK_5,                                       4)
-	TAGKEYS(                        XK_6,                                       5)
-	TAGKEYS(                        XK_7,                                       6)
-	TAGKEYS(                        XK_8,                                       7)
-	TAGKEYS(                        XK_9,                                       8)
-
-	{ MODKEY,                       XK_Down,                    moveresize,     {.v = "0x 25y 0w 0h" } },
-	{ MODKEY,                       XK_Up,                      moveresize,     {.v = "0x -25y 0w 0h" } },
-	{ MODKEY,                       XK_Right,                   moveresize,     {.v = "25x 0y 0w 0h" } },
-	{ MODKEY,                       XK_Left,                    moveresize,     {.v = "-25x 0y 0w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Down,                    moveresize,     {.v = "0x 0y 0w 25h" } },
-	{ MODKEY|ShiftMask,             XK_Up,                      moveresize,     {.v = "0x 0y 0w -25h" } },
-	{ MODKEY|ShiftMask,             XK_Right,                   moveresize,     {.v = "0x 0y 25w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Left,                    moveresize,     {.v = "0x 0y -25w 0h" } },
-	{ MODKEY|ControlMask,           XK_Up,                      moveresizeedge, {.v = "t"} },
-	{ MODKEY|ControlMask,           XK_Down,                    moveresizeedge, {.v = "b"} },
-	{ MODKEY|ControlMask,           XK_Left,                    moveresizeedge, {.v = "l"} },
-	{ MODKEY|ControlMask,           XK_Right,                   moveresizeedge, {.v = "r"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Up,                      moveresizeedge, {.v = "T"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Down,                    moveresizeedge, {.v = "B"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Left,                    moveresizeedge, {.v = "L"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Right,                   moveresizeedge, {.v = "R"} },
-	{ MODKEY|ShiftMask,             XK_q,                       quit,           {0} },
-	{ 0,                            XF86XK_KbdBrightnessDown,   spawn,          SHCMD("sudo /usr/local/bin/keyboard-backlight down") },
-	{ 0,                            XF86XK_KbdBrightnessUp,     spawn,          SHCMD("sudo /usr/local/bin/keyboard-backlight up") },
-	{ 0,                            XF86XK_MonBrightnessUp,     spawn,          SHCMD("dotfiles-brightness up") },
-	{ 0,                            XF86XK_MonBrightnessDown,   spawn,          SHCMD("dotfiles-brightness down") },
-	{ 0,                            XF86XK_AudioMute,           spawn,          SHCMD("dotfiles-volume mute") },
-	{ 0,                            XF86XK_AudioLowerVolume,    spawn,          SHCMD("dotfiles-volume down") },
-	{ 0,                            XF86XK_AudioRaiseVolume,    spawn,          SHCMD("dotfiles-volume up") },
-	{ 0,                            XF86XK_AudioPlay,           spawn,          SHCMD("liskin-media play") },
-	{ 0,                            XF86XK_AudioPrev,           spawn,          SHCMD("liskin-media prev") },
-	{ 0,                            XF86XK_AudioNext,           spawn,          SHCMD("liskin-media next") },
-	{ 0,                            XF86XK_AudioStop,           spawn,          SHCMD("liskin-media stop") }
-
-};
+static Key keys[] = { 0 };
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
@@ -266,3 +160,131 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
 
+void
+setlayoutex(const Arg *arg)
+{
+	setlayout(&((Arg) { .v = &layouts[arg->i] }));
+}
+
+void
+viewex(const Arg *arg)
+{
+	view(&((Arg) { .ui = 1 << arg->ui }));
+}
+
+void
+viewall(const Arg *arg)
+{
+	view(&((Arg){.ui = ~0}));
+}
+
+void
+toggleviewex(const Arg *arg)
+{
+	toggleview(&((Arg) { .ui = 1 << arg->ui }));
+}
+
+void
+tagex(const Arg *arg)
+{
+	tag(&((Arg) { .ui = 1 << arg->ui }));
+}
+
+void
+toggletagex(const Arg *arg)
+{
+	toggletag(&((Arg) { .ui = 1 << arg->ui }));
+}
+
+void
+tagall(const Arg *arg)
+{
+	tag(&((Arg){.ui = ~0}));
+}
+
+void
+moveex(const Arg *arg)
+{
+	if (arg->i == 1)
+		moveresize(&((Arg) {.v = "-25x 0y 0w 0h" })); // Left
+	else if(arg->i == 2)
+		moveresize(&((Arg) {.v = "0x 25y 0w 0h" })); // Down
+	else if(arg->i == 3)
+		moveresize(&((Arg) {.v = "0x -25y 0w 0h" })); // Up
+	else if(arg->i == 4)
+		moveresize(&((Arg) {.v = "25x 0y 0w 0h" })); // Right
+}
+
+void
+resizeex(const Arg *arg)
+{
+	if (arg->i == 1)
+		moveresize(&((Arg) {.v = "0x 0y -25w 0h" })); // Left
+	else if(arg->i == 2)
+		moveresize(&((Arg) {.v = "0x 0y 0w 25h" })); // Down
+	else if(arg->i == 3)
+		moveresize(&((Arg) {.v = "0x 0y 0w -25h" })); // Up
+	else if(arg->i == 4)
+		moveresize(&((Arg) {.v = "0x 0y 25w 0h" })); // Right
+}
+
+void
+moveedgeex(const Arg *arg)
+{
+	if (arg->i == 1)
+		moveresizeedge(&((Arg) {.v = "l" })); // Left
+	else if(arg->i == 2)
+		moveresizeedge(&((Arg) {.v = "d" })); // Down
+	else if(arg->i == 3)
+		moveresizeedge(&((Arg) {.v = "u" })); // Up
+	else if(arg->i == 4)
+		moveresizeedge(&((Arg) {.v = "r" })); // Right
+}
+
+void
+resizeedgeex(const Arg *arg)
+{
+	if (arg->i == 1)
+		moveresizeedge(&((Arg) {.v = "L" })); // Left
+	else if(arg->i == 2)
+		moveresizeedge(&((Arg) {.v = "D" })); // Down
+	else if(arg->i == 3)
+		moveresizeedge(&((Arg) {.v = "U" })); // Up
+	else if(arg->i == 4)
+		moveresizeedge(&((Arg) {.v = "R" })); // Right
+}
+
+/* signal definitions */
+/* signum must be greater than 0 */
+/* trigger signals using `xsetroot -name "fsignal:<signame> [<type> <value>]"` */
+static Signal signals[] = {
+	/* signum           function */
+	{ "focusstack",     focusstack },
+	{ "setmfact",       setmfact },
+	{ "togglebar",      togglebar },
+	{ "focusurgent",    focusurgent },
+	{ "incnmaster",     incnmaster },
+	{ "togglefloating", togglefloating },
+	{ "focusmon",       focusmon },
+	{ "tagmon",         tagmon },
+	{ "zoom",           zoom },
+	{ "view",           view },
+	{ "viewall",        viewall },
+	{ "viewex",         viewex },
+	{ "toggleview",     view },
+	{ "toggleviewex",   toggleviewex },
+	{ "tag",            tag },
+	{ "tagall",         tagall },
+	{ "tagex",          tagex },
+	{ "toggletag",      tag },
+	{ "toggletagex",    toggletagex },
+	{ "killclient",     killclient },
+	{ "quit",           quit },
+	{ "setlayout",      setlayout },
+	{ "setlayoutex",    setlayoutex },
+	{ "move",           moveex },
+	{ "resize",         resizeex },
+	{ "moveedge",       moveedgeex },
+	{ "resizeedge",     resizeedgeex },
+	{ "xrdb",           xrdb }
+};

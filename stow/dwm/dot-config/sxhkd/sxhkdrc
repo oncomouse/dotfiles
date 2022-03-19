@@ -1,0 +1,83 @@
+## Launchers
+super q
+	pkill -SIGUSR1 sxhkd
+
+super + e
+	thunar
+
+super + shift + Return
+	dotfiles-term
+
+super + alt + c
+	dunstify -i alarm-clock-panel -h string:x-dunst-stack-tag:date "$(date +'%a %m/%d %I:%M %p')" -t 1500
+
+super + alt + {r,w}
+	rofi -match fuzzy -auto-select -font "FiraCode Nerd Font Normal 12" -show {drun,window} -show-icons {-drun-display-form \{name\}, -window-format "\\{w\\} \\{c\\} \\{t:25\\}" }
+
+super + alt + space
+	rofi -show emoji -modi emoji -location 1 -font "FiraCode Nerd Font Normal 12"-theme-str "window \\{ width: 100%; \\}"
+
+super + alt + p
+	rofimusic.sh "FiraCode Nerd Font Normal 12"
+
+super + shift + p
+	dotfiles-powermenu
+
+## Media Keys
+
+# Previous / Next Song
+XF86Audio{Prev,Next,Play,Stop}
+	liskin-media {prev,next,play,stop}
+
+# Raise or Lower Volume
+XF86Audio{Lower,Raise}Volume
+	dotfiles-volume {down,up}
+
+# Mute
+XF86AudioMute
+	dotfiles-volume mute
+
+# Brightness Up or Down
+XF86MonBrightness{Up,Down}
+	dotfiles-brightness {up,down}
+
+# Keyboard Backlight Up or Down
+XF86KbdBrightness{Up,Down}
+	sudo /usr/local/bin/keyboard-backlight {up,down}
+
+# Set Default Brightness
+super + shift + b
+	dotfiles-brightness default
+
+## WM Keys
+
+# Tag Controls
+super + {_, control, shift, control + shift} + {1-9}
+	dwmc {viewex, toggleviewex, tagex, toggletagex} {0-8}
+
+super + {b, u, Return, w, space, F5}
+	dwmc {togglebar, focusurgent, zoom, killclient, togglefloating, xrdb}
+
+super + shift + q
+	dwmc quit
+
+super + {j, k, Tab, shift + Tab}
+	dwmc focusstack {1, -1, 1, -1}
+
+super + {i,d}
+	dwmc incmaster {1, -1}
+
+super + {h,l}
+	dwmc setmfact {-0.05, 0.05}
+
+super + {t, shift + t, f, m}
+	dwmc setlayoutex 0, 3, 1, 2
+
+super + {_, shift} + 0
+	dwmc {viewall, tagall}
+
+super + {_, shift} + {comma, period}
+	dwmc {focusmon, tagmon} {-1, 1}
+
+super + {_, shift, control, control + shift} + {Left, Down, Up, Right}
+	dwmc {move, resize, moveedge, resizeedge} {1,2,3,4}
