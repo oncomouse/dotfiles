@@ -58,6 +58,9 @@ super + shift + q
 super + Tab
 	berryc cycle_focus
 
+super + {h,j,k,l}
+	berryc cardinal_focus {2,3,1,0}
+
 ## Desktop Commands
 
 # Switch and Send to Desktops
