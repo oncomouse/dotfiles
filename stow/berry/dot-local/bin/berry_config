@@ -24,8 +24,8 @@ berryc edge_lock   "true"
 berryc set_font    "Inter-10"
 
 # Move and resize
-berryc move_mask "mod5"
-berryc resize_mask "mod5|shift"
+berryc move_mask "mod4"
+berryc resize_mask "mod4|shift"
 
 # Proper desktop names:
 for i in {0..8}; do
