@@ -14,3 +14,6 @@ liskin-media mpris-daemon&
 
 pkill dwmblocks
 dwmblocks&
+
+DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
+[ "$DOTFILES_TARGET" = "laptop" ] && cbatticon&
