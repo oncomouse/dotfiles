@@ -244,12 +244,30 @@ static Key keys[] = {
 
 };
 
+static int cur_layout = 0;
+
+void
+cyclelayout (const Arg *arg) {
+	if (arg->i == -1) {
+		if(cur_layout == 0)
+			return;
+		cur_layout--;
+	} else if (arg->i == 1) {
+		if(cur_layout == LENGTH(layouts) - 1)
+			return;
+		cur_layout++;
+	}
+	setlayout(&((Arg) { .v = &layouts[cur_layout] }));
+}
+
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+	{ ClkLtSymbol,          0,              Button4,        cyclelayout,    {.i = -1} },
+	{ ClkLtSymbol,          0,              Button5,        cyclelayout,    {.i = 1} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkWinTitle,          0,              Button3,        spawn,          {.v = rofiwincmd} },
 	{ ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
