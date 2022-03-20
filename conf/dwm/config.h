@@ -166,6 +166,23 @@ static const char *rofimusiccmd[] = {
 	NULL
 };
 
+void
+center(const Arg *arg)
+{
+	Client *c = selmon->sel;
+
+	if (!c->isfloating)
+		return;
+
+	int nx,ny,nw,nh;
+	nx = c->mon->mx + (c->mon->mw - WIDTH(c)) / 2;
+	ny = c->mon->my + (c->mon->mh - HEIGHT(c)) / 2;
+	nw = c->w;
+	nh = c->h;
+	XRaiseWindow(dpy, c->win);
+	resize(c, nx, ny, nw, nh, True);
+}
+
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
 /* static char *statuscmds[] = { "notify-send $BUTTON click" }; */
 /* static char *statuscmd[] = { "/bin/sh", "-c", NULL, NULL }; */
@@ -218,6 +235,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                                       7)
 	TAGKEYS(                        XK_9,                                       8)
 
+	{ MODKEY,                       XK_c,                       center,              {0} },
 	{ MODKEY|ControlMask,           XK_m,                       togglemaximize,      {0} },
 	{ MODKEY,                       XK_Down,                    moveresize,          {.v = "0x 25y 0w 0h" } },
 	{ MODKEY,                       XK_Up,                      moveresize,          {.v = "0x -25y 0w 0h" } },
@@ -253,7 +271,8 @@ static Key keys[] = {
 static int cur_layout = 0;
 
 void
-cyclelayout (const Arg *arg) {
+cyclelayout (const Arg *arg)
+{
 	if (arg->i == -1) {
 		if(cur_layout == 0)
 			return;
