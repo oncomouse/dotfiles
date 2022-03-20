@@ -229,7 +229,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                                       8)
 
 	{ MODKEY,                       XK_c,                       center,              {0} },
-	{ MODKEY|ControlMask,           XK_m,                       togglemaximize,              {0} },
+	{ MODKEY|ControlMask,           XK_m,                       togglemaximize,      {0} },
 	{ MODKEY,                       XK_Down,                    moveresize,          {.v = "0x 25y 0w 0h" } },
 	{ MODKEY,                       XK_Up,                      moveresize,          {.v = "0x -25y 0w 0h" } },
 	{ MODKEY,                       XK_Right,                   moveresize,          {.v = "25x 0y 0w 0h" } },
