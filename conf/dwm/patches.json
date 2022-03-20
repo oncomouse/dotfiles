@@ -12,5 +12,6 @@
 	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-focusedontop-20210917-a786211.diff",
 	"https://dwm.suckless.org/patches/autostart/dwm-autostart-20210120-cb3f58a.diff",
 	"https://dwm.suckless.org/patches/systray/dwm-systray-6.3.diff",
-	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-maximize-20220320-bece862.diff"
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-maximize-20220320-bece862.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-compton_shadow-20220320-bece862.diff"
 ]
