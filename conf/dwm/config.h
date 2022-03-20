@@ -174,13 +174,15 @@ center(const Arg *arg)
 	if (!c->isfloating)
 		return;
 
-	int nx,ny,nw,nh;
+	int ox,oy,nx,ny;
+	char a[30];
+
+	ox = c->x;
+	oy = c->y;
 	nx = c->mon->mx + (c->mon->mw - WIDTH(c)) / 2;
 	ny = c->mon->my + (c->mon->mh - HEIGHT(c)) / 2;
-	nw = c->w;
-	nh = c->h;
-	XRaiseWindow(dpy, c->win);
-	resize(c, nx, ny, nw, nh, True);
+	sprintf(a, "%dx %dy 0w 0h", nx - ox, ny - oy);
+	moveresize(&((Arg) { .v = a }));
 }
 
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
