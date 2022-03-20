@@ -1,5 +1,5 @@
 /* See LICENSE file for copyright and license details. */
-#include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx = 2;        /* border pixel of windows */
 static const unsigned int snap     = 32;       /* snap pixel */
@@ -11,7 +11,8 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int topbar            = 1;        /* 0 means bottom bar */
 static const int focusedontop      = 1;
-# include "target.h"
+
+/* scheme */
 static char normbgcolor[]          = "#222222";
 static char normbordercolor[]      = "#444444";
 static char normfgcolor[]          = "#bbbbbb";
@@ -81,6 +82,11 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] 
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
+
+/* Additional includes */
+#include <X11/XF86keysym.h>
+#include "target.h"
+#include "focusurgent.c"
 
 /* key definitions */
 #define MODKEY Mod4Mask
@@ -163,8 +169,6 @@ static const char *rofimusiccmd[] = {
 /* static char *statuscmds[] = { "notify-send $BUTTON click" }; */
 /* static char *statuscmd[] = { "/bin/sh", "-c", NULL, NULL }; */
 /* modifier                     key        function        argument */
-
-#include "focusurgent.c"
 
 static Key keys[] = {
 	{ MODKEY|Mod1Mask,              XK_r,                       spawn,          {.v = dmenucmd} },
