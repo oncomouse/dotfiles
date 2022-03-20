@@ -4,3 +4,5 @@ static char *font2[] = {
 	"FiraCode Nerd Font:size=13"
 };
 
+static const char dmenufont[]      = "JetBrainsMono Nerd Font:size=13";
+static const char rofifont[]       = "JetBrainsMono Nerd Font Regular 13";
