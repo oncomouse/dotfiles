@@ -69,15 +69,6 @@ static const Rule rules[] = {
 
 };
 
-/* layout(s) */
-static const Layout layouts[] = {
-	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
-	{ "=[]",      rtile },
-};
-
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
@@ -214,9 +205,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,                       setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return,                  zoom,           {0} },
 	{ MODKEY,                       XK_w,                       killclient,     {0} },
-	{ MODKEY,                       XK_t,                       setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_t,                       setlayout,      {.v = &layouts[tileidx]} },
 	{ MODKEY|ShiftMask,             XK_t,                       setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_f,                       setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_f,                       setlayout,      {.v = &layouts[floatidx]} },
 	{ MODKEY,                       XK_m,                       setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,                   togglefloating, {0} },
 	{ MODKEY,                       XK_0,                       view,           {.ui = ~0} },
@@ -238,7 +229,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                                       8)
 
 	{ MODKEY,                       XK_c,                       center,              {0} },
-	{ MODKEY|ControlMask,           XK_m,                       togglemaximize,      {0} },
+	{ MODKEY|ControlMask,           XK_m,                       togglemaximize,              {0} },
 	{ MODKEY,                       XK_Down,                    moveresize,          {.v = "0x 25y 0w 0h" } },
 	{ MODKEY,                       XK_Up,                      moveresize,          {.v = "0x -25y 0w 0h" } },
 	{ MODKEY,                       XK_Right,                   moveresize,          {.v = "25x 0y 0w 0h" } },
