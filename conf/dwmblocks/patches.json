@@ -1,3 +1,4 @@
 [
-	"https://dwm.suckless.org/patches/statuscmd/dwmblocks-statuscmd-20210402-96cbb45.diff"
+	"https://dwm.suckless.org/patches/statuscmd/dwmblocks-statuscmd-20210402-96cbb45.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwmblocks-no_returnstatus-20220321-1345c1e.diff"
 ]
