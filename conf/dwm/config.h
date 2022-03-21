@@ -162,9 +162,6 @@ center(const Arg *arg)
 {
 	Client *c = selmon->sel;
 
-	if (!c->isfloating)
-		return;
-
 	int ox,oy,nx,ny;
 	char a[30];
 
