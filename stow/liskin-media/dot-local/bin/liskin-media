@@ -83,6 +83,7 @@ function action-mic-mute { pactl set-source-mute @DEFAULT_SOURCE@ toggle; }
 STATUS="/tmp/dwmblocks.mpris"
 function action-mpris-daemon {
 	[[ -e "$STATUS" ]] && rm "$STATUS"
+	trap "pkill -f -- --follow" EXIT
 	playerctl --all-players --follow --format "{{playerName}}::{{status}}::{{artist}} - {{title}}" metadata 2> /dev/null \
 	| while read -r line; do
 		block=1
