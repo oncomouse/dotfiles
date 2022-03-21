@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+xrdb -merge ~/.cache/wal/dwm.Xresources
+xrdb -merge ~/.cache/wal/dmenu.Xresources
+
+# vim:ft=sh
