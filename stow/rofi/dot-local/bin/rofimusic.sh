@@ -8,7 +8,7 @@ choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next\n Search\n�
 	-dmenu \
 	-i \
 	-font "$font" \
-	-p "$(liskin-media status)" \
+	-p "$(dotfiles-media status)" \
 	"-location" \
 	"1" \
 	"-theme-str" \
@@ -16,16 +16,16 @@ choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next\n Search\n�
 )
 case "$choice" in
 	*Play*)
-		liskin-media play
+		dotfiles-media play
 		;;
 	*Stop*)
-		liskin-media stop
+		dotfiles-media stop
 		;;
 	*Previous*)
-		liskin-media prev
+		dotfiles-media prev
 		;;
 	*Next*)
-		liskin-media next
+		dotfiles-media next
 		;;
 	*Search*)
 		mpd_rofi.sh search

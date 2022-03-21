@@ -21,15 +21,15 @@ super + alt + p
 
 # Previous / Next Song
 XF86Audio{Prev,Next,Play,Stop}
-	liskin-media {prev,next,play,stop}
+	dotfiles-media {prev,next,play,stop}
 
 # Raise or Lower Volume
 XF86Audio{Lower,Raise}Volume
-	liskin-media volume {down,up}
+	dotfiles-media volume {down,up}
 
 # Mute
 XF86AudioMute
-	liskin-media mute
+	dotfiles-media mute
 
 ## WM Commands
 
@@ -91,12 +91,12 @@ super + alt + p
 
 # Previous / Next Song
 XF86Audio{Prev,Next,Play,Stop}
-	liskin-media {prev,next,play,stop}
+	dotfiles-media {prev,next,play,stop}
 
 # Raise or Lower Volume
 XF86Audio{Lower,Raise}Volume
-	liskin-media volume {down,up}
+	dotfiles-media volume {down,up}
 
 # Mute
 XF86AudioMute
-	liskin-media mute
+	dotfiles-media mute

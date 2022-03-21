@@ -251,10 +251,10 @@ static Key keys[] = {
 	{ 0,                            XF86XK_AudioMute,           spawn,               SHCMD("dotfiles-volume mute") },
 	{ 0,                            XF86XK_AudioLowerVolume,    spawn,               SHCMD("dotfiles-volume down") },
 	{ 0,                            XF86XK_AudioRaiseVolume,    spawn,               SHCMD("dotfiles-volume up") },
-	{ 0,                            XF86XK_AudioPlay,           spawn,               SHCMD("liskin-media play") },
-	{ 0,                            XF86XK_AudioPrev,           spawn,               SHCMD("liskin-media prev") },
-	{ 0,                            XF86XK_AudioNext,           spawn,               SHCMD("liskin-media next") },
-	{ 0,                            XF86XK_AudioStop,           spawn,               SHCMD("liskin-media stop") }
+	{ 0,                            XF86XK_AudioPlay,           spawn,               SHCMD("dotfiles-media play") },
+	{ 0,                            XF86XK_AudioPrev,           spawn,               SHCMD("dotfiles-media prev") },
+	{ 0,                            XF86XK_AudioNext,           spawn,               SHCMD("dotfiles-media next") },
+	{ 0,                            XF86XK_AudioStop,           spawn,               SHCMD("dotfiles-media stop") }
 
 };
 

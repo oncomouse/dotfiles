@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+
+function killbar {
+	local switch
+	switch="-$1"
+	if [ "$(pgrep -c dwmblocks)" -gt 0 ]; then
+		pkill "$switch" dwmblocks
+	fi
+	if [ "$(pgrep -c waybar)" -gt 0 ]; then
+		pkill "$switch" waybar
+	fi
+	if [ "$(pgrep -c lemonaid)" -gt 0 ]; then
+		pkill "$switch" lemonaid
+	fi
+	if [ "$(pgrep -c awesome)" -gt 0 ]; then
+		echo "awesome.emit_signal(\"dotfiles::update\", \"mpris\")" | awesome-client
+	fi
+	if [ "$(pgrep -c xfce4-panel)" -gt 0 ]; then
+		xfce4-panel --plugin-event=genmon-1:refresh:bool:true
+	fi
+	if [ "$(pgrep -c openbox)" -gt 0 ]; then
+		ob-music "$1"
+	fi
+}
+
+function update_status {
+	action-status >"$STATUS"
+	killbar 44
+}
+
+function action-daemon {
+	STATUS="/tmp/dwmblocks.mpris"
+	[[ -e "$STATUS" ]] && rm "$STATUS"
+	trap "pkill -f idleloop" EXIT
+	mpc idleloop player 2>/dev/null |
+		while read -r; do
+			update_status
+		done
+}
+
+function volume-bluetooth {
+	local method
+	[[ $1 == up ]] && method=VolumeUp || method=VolumeDown
+	dbus-send \
+		--print-reply --type=method_call \
+		--system --dest=org.bluez \
+		/org/bluez/hci0/dev_"$2" org.bluez.MediaControl1."$method" >/dev/null
+}
+
+function volume-pulseaudio {
+	local switch
+	if [[ $(pamixer --get-volume-human) == muted ]]; then
+		pamixer -t
+	fi
+	[[ $1 == up ]] && switch="-i" || switch="-d"
+	pamixer "$switch" 5
+}
+
+# Volume up/down via:
+#  - bluetooth AVRCP (if avilable and default sink)
+#  - pulseaudio (otherwise)
+#
+# Motivation: lowering volume in software degrades quality as the upper
+# bits are unused.
+function action-volume {
+	if [[ ${1-} != @(up|down) ]]; then
+		echo 'up|down expected'
+		exit 1
+	fi
+
+	if [[ $(pactl info) =~ "Default Sink: bluez_sink."([0-9A-F_]*)".a2dp_sink" ]]; then
+		bt_addr="${BASH_REMATCH[1]}"
+		volume-bluetooth "$1" "$bt_addr" && exit 0
+	fi
+
+	volume-pulseaudio "$1"
+	killbar 37
+}
+function action-mute {
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+	killbar 37
+}
+function action-mic-mute { pactl set-source-mute @DEFAULT_SOURCE@ toggle; }
+function action-play { mpc toggle >/dev/null; }
+function action-stop { mpc stop >/dev/null; }
+function action-next { mpc next >/dev/null; }
+function action-prev { mpc prev >/dev/null; }
+function action-status {
+	output="$(mpc -f "%artist% - %title%")"
+	info="$(echo "$output" | head -n 1)"
+	status="$(echo "$output" | head -n 2 | sed -e "s/\[//" -e "s/\].*//" | tail -n 1)"
+	if [ "$status" = "playing" ]; then
+		status="契 "
+	elif [ "$status" = "paused" ]; then
+		status=" "
+	elif [ "$(echo "$output" | grep -c "\[")" -eq 0 ]; then
+		status="栗"
+		info=""
+	fi
+	echo "$status$info"
+}
+
+if [[ $(type -t "action-${1-}") == function ]]; then
+	"action-$1" "${@:2}"
+else
+	echo "unexpected action: ${1-}"
+fi
+# vim:ft=sh

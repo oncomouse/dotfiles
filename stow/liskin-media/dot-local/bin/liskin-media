@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Original source: https://github.com/liskin/dotfiles/blob/home/bin/liskin-media
+# Original source: https://github.com/dotfiles/dotfiles/blob/home/bin/dotfiles-media
 # Modified to add
 #  - MPRIS currently playing
 #  - Filter only preferred players
@@ -100,7 +100,7 @@ function action-mpris-daemon {
 		for p in "${players[@]}"; do
 			if [ "$p" = "$player" ]; then
 				if [[ $status == @(Paused|Playing) ]]; then
-					printf "%s\n" "$player" >"${XDG_RUNTIME_DIR}/liskin-media-last"
+					printf "%s\n" "$player" >"${XDG_RUNTIME_DIR}/dotfiles-media-last"
 				fi
 				if [ "$status" = "Playing" ]; then
 					status="契 "
@@ -150,8 +150,8 @@ function get-mpris-one-playing-or-paused {
 }
 
 function get-mpris-last {
-	if [[ -f "${XDG_RUNTIME_DIR}/liskin-media-last" ]]; then
-		echo "$(< "${XDG_RUNTIME_DIR}/liskin-media-last")"
+	if [[ -f "${XDG_RUNTIME_DIR}/dotfiles-media-last" ]]; then
+		echo "$(< "${XDG_RUNTIME_DIR}/dotfiles-media-last")"
 	else
 		return 1
 	fi

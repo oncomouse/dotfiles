@@ -21,7 +21,7 @@ super + shift + p
 
 # Previous / Next Song
 XF86Audio{Prev,Next,Play,Stop}
-	liskin-media {prev,next,play,stop}
+	dotfiles-media {prev,next,play,stop}
 
 # Raise or Lower Volume
 XF86Audio{Lower,Raise}Volume

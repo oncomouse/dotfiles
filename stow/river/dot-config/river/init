@@ -128,15 +128,15 @@ do
 	riverctl map $mode None XF86Eject spawn 'eject -T'
 
 	# Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-	riverctl map $mode None XF86AudioRaiseVolume  spawn 'liskin-media volume down'
-	riverctl map $mode None XF86AudioLowerVolume  spawn 'liskin-media volume up'
-	riverctl map $mode None XF86AudioMute         spawn 'liskin-media mute'
+	riverctl map $mode None XF86AudioRaiseVolume  spawn 'dotfiles-media volume down'
+	riverctl map $mode None XF86AudioLowerVolume  spawn 'dotfiles-media volume up'
+	riverctl map $mode None XF86AudioMute         spawn 'dotfiles-media mute'
 
 	# Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
-	riverctl map $mode None XF86AudioMedia spawn 'liskin-media play'
-	riverctl map $mode None XF86AudioPlay  spawn 'liskin-media play'
-	riverctl map $mode None XF86AudioPrev  spawn 'liskin-media prev'
-	riverctl map $mode None XF86AudioNext  spawn 'liskin-media next'
+	riverctl map $mode None XF86AudioMedia spawn 'dotfiles-media play'
+	riverctl map $mode None XF86AudioPlay  spawn 'dotfiles-media play'
+	riverctl map $mode None XF86AudioPrev  spawn 'dotfiles-media prev'
+	riverctl map $mode None XF86AudioNext  spawn 'dotfiles-media next'
 
 	# Control screen backlight brighness with light (https://github.com/haikarainen/light)
 	riverctl map $mode None XF86MonBrightnessUp   spawn 'light -A 5'

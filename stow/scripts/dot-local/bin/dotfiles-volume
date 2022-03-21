@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 case "$1" in
   "up")
-	  liskin-media volume up
+	  dotfiles-media volume up
 	;;
   "down")
-	  liskin-media volume down
+	  dotfiles-media volume down
 	;;
   "mute")
-	  liskin-media mute
+	  dotfiles-media mute
 	;;
   *)
 	;;
