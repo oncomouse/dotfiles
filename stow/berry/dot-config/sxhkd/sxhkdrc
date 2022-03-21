@@ -1,6 +1,6 @@
 ## Launchers
 super + e
-	pcmanfm
+	dotfiles-fm
 
 super + shift + Return
 	dotfiles-term

@@ -182,7 +182,7 @@
                 <execute>dotfiles-term -e ranger</execute>
             </action> </item>
             <item label="Thunar File Manager"> <action name="Execute">
-                <execute>pcmanfm</execute>
+                <execute>dotfiles-fm</execute>
             </action> </item>
         </menu>
         <menu id="37" label="System">
@@ -225,7 +225,7 @@
                     <execute>xfce4-display-settings</execute>
                 </action> </item>
                 <item label="File Manager Settings"> <action name="Execute">
-                    <execute>pcmanfm-settings</execute>
+                    <execute>thunar-settings</execute>
                 </action> </item>
                 <item label="Keyboard"> <action name="Execute">
                     <execute>xfce4-keyboard-settings</execute>
@@ -255,7 +255,7 @@
                     <execute>qt5ct</execute>
                 </action> </item>
                 <item label="Removable Drives and Media"> <action name="Execute">
-                    <execute>pcmanfm-volman-settings</execute>
+                    <execute>thunar-volman-settings</execute>
                 </action> </item>
                 <item label="Session and Startup"> <action name="Execute">
                     <execute>xfce4-session-settings</execute>
