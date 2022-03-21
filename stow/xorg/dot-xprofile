@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 source ~/dotfiles/conf/xorg/xprofile-common
+
+[ -e ~/dotfiles/conf/xorg/xprofile.d/"$DESKTOP_SESSION" ] && source ~/dotfiles/conf/xorg/xprofile.d/"$DESKTOP_SESSION"
 # vim:ft=sh
