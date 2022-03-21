@@ -3,7 +3,7 @@ super + q
 
 ## Launchers
 super + e
-	thunar
+	pcmanfm
 
 super + shift + Return
 	dotfiles-term
@@ -73,7 +73,7 @@ super + r
 
 ## Launchers
 super + e
-	thunar
+	pcmanfm
 
 super + shift + Return
 	dotfiles-term

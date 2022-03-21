@@ -1,6 +1,6 @@
 ## Launchers
 super + e
-	thunar
+	pcmanfm
 
 super + shift + Return
 	dotfiles-term

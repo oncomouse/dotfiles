@@ -47,7 +47,7 @@ static const char *termcmd[]   = {
 	NULL
 };
 static const char *fmcmd[] = {
-	"thunar",
+	"pcmanfm",
 	NULL
 };
 static const char *menucmd[]   = {

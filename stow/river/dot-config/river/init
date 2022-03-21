@@ -144,7 +144,7 @@ do
 done
 
 # Launchers
-riverctl map normal Super E spawn "thunar"
+riverctl map normal Super E spawn "pcmanfm"
 riverctl map normal Super+Alt R spawn "rofi -match fuzzy -auto-select -show drun -show-icons -drun-display-format '{name}' -font 'FiraCode Nerd Font 12' -location 2"
 
 # Set background and border color
@@ -160,7 +160,7 @@ riverctl set-repeat 50 300
 # Make certain views start floating
 riverctl float-filter-add app-id float
 riverctl float-filter-add app-id Rofi
-riverctl float-filter-add app-id thunar
+riverctl float-filter-add app-id pcmanfm
 riverctl float-filter-add title "popup title with spaces"
 
 # Set app-ids and titles of views which should use client side decorations
