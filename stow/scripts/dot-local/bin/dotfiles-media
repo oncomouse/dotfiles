@@ -28,16 +28,6 @@ function update_status {
 	killbar 44
 }
 
-function action-daemon {
-	STATUS="/tmp/dwmblocks.mpris"
-	[[ -e "$STATUS" ]] && rm "$STATUS"
-	trap "pkill -f idleloop" EXIT
-	mpc idleloop player 2>/dev/null |
-		while read -r; do
-			update_status
-		done
-}
-
 function volume-bluetooth {
 	local method
 	[[ $1 == up ]] && method=VolumeUp || method=VolumeDown
@@ -56,12 +46,15 @@ function volume-pulseaudio {
 	pamixer "$switch" 5
 }
 
-# Volume up/down via:
-#  - bluetooth AVRCP (if avilable and default sink)
-#  - pulseaudio (otherwise)
-#
-# Motivation: lowering volume in software degrades quality as the upper
-# bits are unused.
+function action-daemon {
+	STATUS="/tmp/dwmblocks.mpris"
+	[[ -e "$STATUS" ]] && rm "$STATUS"
+	trap "pkill -f idleloop 2> /dev/null" EXIT
+	mpc idleloop player 2>/dev/null |
+		while read -r; do
+			update_status
+		done
+}
 function action-volume {
 	if [[ ${1-} != @(up|down) ]]; then
 		echo 'up|down expected'
