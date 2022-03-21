@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+if command -v thunar > /dev/null; then
+	exec thunar "$@"
+elif command -v pcmanfm > /dev/null; then
+	exec pcmanfm "$@"
+elif command -v ranger > /dev/null; then
+	exec dotfiles-term -e ranger "$@"
+else
+	notify-send "No file manager is installed"
+fi
+# vim:ft=sh
