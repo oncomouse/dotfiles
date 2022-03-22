@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 pkill cbatticon; cbatticon&
-pkill volctl; volctl&
+pkill -f volctl; volctl&
 pkill tint2; tint2&
 # vim:ft=sh
 
