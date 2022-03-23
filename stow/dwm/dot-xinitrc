@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 source ~/dotfiles/conf/xorg/xprofile-common
-
-xrdb -merge ~/.cache/wal/dwm.Xresources
-xrdb -merge ~/.cache/wal/dmenu.Xresources
+source ~/dotfiles/conf/xorg/xprofile.d/dwm
 
 mkdir -p ~/.cache/dwm
 exec dwm 2> ~/.cache/dwm/stderr
