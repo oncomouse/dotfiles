@@ -14,6 +14,5 @@ xmodmap -e "keycode 108 = Super_L"
 xmodmap -e "remove mod1 = Super_L"
 
 export QT_QPA_PLATFORMTHEME=qt5ct
-export DESKTOP_SESSION="xfce"
-exec startxfce4
+
 # vim:ft=sh

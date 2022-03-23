@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-exec openbox
-# vim:ft=sh

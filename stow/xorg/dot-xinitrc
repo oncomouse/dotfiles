@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+export DESKTOP_SESSION=dwm
+
+source ~/.xprofile
+
+if [ "$DESKTOP_SESSION" = "xfce4" ]; then
+	WM_EXEC=startxfce4
+else
+	WM_EXEC="$DESKTOP_SESSION"
+fi
+
+mkdir -p ~/.cache/"$DESKTOP_SESSION"
+exec $WM_EXEC 2> ~/.cache/"$DESKTOP_SESSION"/stderr
+
+# vim:ft=sh
