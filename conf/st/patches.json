@@ -7,6 +7,6 @@
 	"https://st.suckless.org/patches/xresources/st-xresources-20200604-9ba7ecf.diff",
 	"https://st.suckless.org/patches/anysize/st-anysize-0.8.4.diff",
 	"https://raw.githubusercontent.com/oncomouse/patches/master/st-font2-20210629-4ef0cbd.diff",
-	"https://raw.githubusercontent.com/hexoctal/st-undercurl/master/st-undercurl-0.8.4-20210424.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/st-undercurl-20220322-ef05519.diff",
 	"https://st.suckless.org/patches/desktopentry/st-desktopentry-0.8.4.diff"
 ]
