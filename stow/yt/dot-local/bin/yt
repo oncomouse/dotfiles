@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # dependencies: mpv youtube-dl fzf rofi/dmenu gnu-grep
 
 # NOTE:  if you dont have gnu grep you can replace grep with rg

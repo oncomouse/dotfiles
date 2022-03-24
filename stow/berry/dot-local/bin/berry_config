@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ## Berry Config:
 source ~/.cache/wal/colors.sh

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "Disabling automatic video when joining a Zoom meeting..."
 defaults write ~/Library/Preferences/us.zoom.config.plist ZDisableVideo 1

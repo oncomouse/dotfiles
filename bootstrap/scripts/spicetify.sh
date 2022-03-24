@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Create XDG directory for Spicetify:
 if [[ ! -d ~/.config/spicetify ]]; then

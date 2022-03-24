@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Where are all the configuration and target files stored:
 ROOT_CONFIGURATION_PATH="$HOME/dotfiles/conf"
