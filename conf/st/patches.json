@@ -1,6 +1,6 @@
 [
 	"https://st.suckless.org/patches/scrollback/st-scrollback-20210507-4536f46.diff",
-	"https://raw.githubusercontent.com/oncomouse/patches/master/st-ligatures-scrollback-20210114-4ef0cbd.diff",
+	"https://st.suckless.org/patches/ligatures/0.8.4/st-ligatures-boxdraw-20210824-0.8.4.diff",
 	"https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff",
 	"https://st.suckless.org/patches/clipboard/st-clipboard-0.8.3.diff",
 	"https://st.suckless.org/patches/delkey/st-delkey-20201112-4ef0cbd.diff",
