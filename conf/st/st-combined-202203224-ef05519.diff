@@ -574,14 +574,6 @@ index 91ab8ca..b473c29 100644
 +#define UNDERCURL_CAPPED 2
 +// Active style
 +#define UNDERCURL_STYLE UNDERCURL_SPIKY
-diff --git a/config.h b/config.h
-new file mode 120000
-index 0000000..5f76219
---- /dev/null
-+++ b/config.h
-@@ -0,0 +1 @@
-+/home/andrew/dotfiles/conf/st/config.h
-\ No newline at end of file
 diff --git a/config.mk b/config.mk
 index 4c4c5d5..82b5510 100644
 --- a/config.mk
@@ -1280,14 +1272,6 @@ index 8201ad6..659878c 100644
  	acsc=+C\,D-A.B0E``aaffgghFiGjjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~,
  	am,
  	bce,
-diff --git a/target.h b/target.h
-new file mode 120000
-index 0000000..8e89837
---- /dev/null
-+++ b/target.h
-@@ -0,0 +1 @@
-+/home/andrew/dotfiles/conf/st/targets/laptop/target.h
-\ No newline at end of file
 diff --git a/win.h b/win.h
 index e6e4369..8b5b618 100644
 --- a/win.h
