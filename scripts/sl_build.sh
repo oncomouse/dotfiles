@@ -25,6 +25,11 @@ elif [ "$project" = "neatvi" ] || [ "$project" = "nextvi" ]; then
 	conf_file="conf.c"
 fi
 
+main_branch=master
+if [ "$project" == "dwl" ]; then
+	main_branch=main
+fi
+
 # Read in a list of patches to apply:
 if [ -e "conf/$project/patches.json" ]; then
 	mapfile -t patches < <(jq -r .[] "conf/$project/patches.json")
@@ -34,7 +39,7 @@ fi
 
 # Determine branch name from patch file name:
 branch_name() {
-	echo "$1" | awk -F"/" '{print $NF}' | sed -e "s/\.diff//" | cut -d "-" -f2
+	echo "$1" | awk -F"/" '{print $NF}' | sed -e "s/\.\(diff\|patch\)//" | cut -d "-" -f2 | cut -d ":" -f2
 }
 
 # Resolve merge conflicts. Either, accept both the patch and head, accept the
@@ -97,7 +102,7 @@ rebuild() {
 	git checkout build
 	make
 	install_software
-	git checkout master
+	git checkout "$main_branch"
 	cd "$owd" || exit
 }
 if [ "$2" = "rebuild" ]; then
@@ -113,6 +118,8 @@ if [[ ! -d "$BUILD_LOCATION/$project" ]]; then
 	# Non-suckless projects that have different Git URLs:
 	if [ "$project" = "dwmblocks" ]; then
 		project_repo=https://github.com/torrinfail/dwmblocks
+	elif [ "$project" = "dwl" ]; then
+		project_repo=https://github.com/djpohly/dwl
 	elif [ "$project" = "aslstatus" ]; then
 		project_repo=https://notabug.org/dm9pZCAq/aslstatus
 	elif [ "$project" = "neatvi" ]; then
@@ -134,9 +141,9 @@ fi
 
 cd "$BUILD_LOCATION/$project" || exit
 # Reset project to default state, so we can pull changes into the repo:
-git checkout master --force
+git checkout "$main_branch" --force
 # Clean previous build stuff:
-git branch | grep -v "master" | xargs git branch -D --force
+git branch | grep -v "$main_branch" | xargs git branch -D --force
 # Update Git repo:
 git pull
 # Clean:
@@ -188,4 +195,4 @@ install_software
 
 # Reset to the default state:
 make clean
-git checkout master
+git checkout "$main_branch"
