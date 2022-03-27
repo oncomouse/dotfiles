@@ -1,0 +1,168 @@
+{
+	// "layer": "top", // Waybar at top layer
+	// "position": "bottom", // Waybar position (top|bottom|left|right)
+	"height": 30, // Waybar height (to be removed for auto height)
+	// "width": 1280, // Waybar width
+	"spacing": 4, // Gaps between modules (4px)
+	// Choose the order of the modules
+	"modules-left": [
+		"custom/dwl_tag#0",
+		"custom/dwl_tag#1",
+		"custom/dwl_tag#2",
+		"custom/dwl_tag#3",
+		"custom/dwl_tag#4",
+		"custom/dwl_tag#5",
+		"custom/dwl_tag#6",
+		"custom/dwl_tag#7",
+		"custom/dwl_tag#8",
+		"custom/dwl_layout"
+	],
+	"modules-center": ["custom/dwl_title"],
+	"modules-right": [
+		"tray",
+		"pulseaudio",
+		"mpd",
+		"backlight",
+		"battery",
+		"clock"
+	],
+	"mpd": {
+		"format": "{stateIcon} {artist} - {title}",
+		"format-disconnected": "Disconnected ",
+		"format-stopped": "栗",
+		"unknown-tag": "N/A",
+		"interval": 2,
+		"consume-icons": {
+			"on": " "
+		},
+		"random-icons": {
+			"off": "<span color=\"#f53c3c\"></span> ",
+			"on": " "
+		},
+		"repeat-icons": {
+			"on": " "
+		},
+		"single-icons": {
+			"on": "1 "
+		},
+		"state-icons": {
+			"paused": "",
+			"playing": ""
+		},
+		"tooltip-format": "MPD (connected)",
+		"tooltip-format-disconnected": "MPD (disconnected)"
+	},
+	// "idle_inhibitor": {
+	//     "format": "{icon}",
+	//     "format-icons": {
+	//         "activated": "",
+	//         "deactivated": ""
+	//     }
+	// },
+	"tray": {
+		// "icon-size": 21,
+		"spacing": 10
+	},
+	"clock": {
+		// "timezone": "America/New_York",
+		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+		"format": "{:%a %m/%d %I:%M %p}"
+		// "format-alt": "{:%Y-%m-%d}"
+
+	},
+	"backlight": {
+		// "device": "acpi_video1",
+		"format": "{percent}% {icon}",
+		"format-icons": ["", ""]
+	},
+	"battery": {
+		"states": {
+			// "good": 95,
+			"warning": 30,
+			"critical": 15
+		},
+		"format": "{capacity}% {icon}",
+		"format-charging": "{capacity}% ",
+		"format-plugged": "{capacity}% ",
+		"format-alt": "{time} {icon}",
+		// "format-good": "", // An empty format will hide the module
+		// "format-full": "",
+		"format-icons": ["", "", "", "", ""]
+	},
+	"pulseaudio": {
+		// "scroll-step": 1, // %, can be a float
+		"format": "{volume}% {icon} {format_source}",
+		"format-bluetooth": "{volume}% {icon} {format_source}",
+		"format-bluetooth-muted": " {icon} {format_source}",
+		"format-muted": " {format_source}",
+		"format-source": "{volume}% ",
+		"format-source-muted": "",
+		"format-icons": {
+			"headphone": "",
+			"hands-free": "",
+			"headset": "",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": ["", "", ""]
+		},
+		"on-click": "pavucontrol"
+	},
+	"custom/dwl_tag#0": {
+		"exec": "waybar-dwl.sh '' 0",
+		"format": "{}",
+		"return-type": "json"
+	},
+	"custom/dwl_tag#1": {
+		"exec": "waybar-dwl.sh '' 1",
+		"format": "{}",
+		"return-type": "json"
+	},
+	"custom/dwl_tag#2": {
+		"exec": "waybar-dwl.sh '' 2",
+		"format": "{}",
+		"return-type": "json"
+	},
+	"custom/dwl_tag#3": {
+		"exec": "waybar-dwl.sh '' 3",
+		"format": "{}",
+		"return-type": "json"
+	},
+	"custom/dwl_tag#4": {
+		"exec": "waybar-dwl.sh '' 4",
+		"format": "{}",
+		"return-type": "json"
+	},
+	"custom/dwl_tag#5": {
+		"exec": "waybar-dwl.sh '' 5",
+		"format": "{}",
+		"return-type": "json"
+	},
+	"custom/dwl_tag#6": {
+		"exec": "waybar-dwl.sh '' 6",
+		"format": "{}",
+		"return-type": "json"
+	},
+	"custom/dwl_tag#7": {
+		"exec": "waybar-dwl.sh '' 7",
+		"format": "{}",
+		"return-type": "json"
+	},
+	"custom/dwl_tag#8": {
+		"exec": "waybar-dwl.sh '' 8",
+		"format": "{}",
+		"return-type": "json"
+	},
+	"custom/dwl_layout": {
+		"exec": "waybar-dwl.sh '' layout",
+		"format": "{}",
+		"return-type": "json"
+	},
+	"custom/dwl_title": {
+		"exec": "waybar-dwl.sh '' title",
+		"format": "{}",
+		"escape": true,
+		"return-type": "json"
+	}
+}
+// vim:ft=jsonc

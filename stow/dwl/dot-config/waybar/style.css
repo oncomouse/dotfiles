@@ -1,0 +1,183 @@
+/* Special */
+@define-color background #212733;
+@define-color foreground #d9d7ce;
+@define-color cursor #e5e1cf;
+
+/* Colors */
+@define-color color0 #212733;
+@define-color color1 #FFAE57;
+@define-color color2 #a6cc70;
+@define-color color3 #fad07b;
+@define-color color4 #6dcbfa;
+@define-color color5 #ed8274;
+@define-color color6 #90e1c6;
+@define-color color7 #c7c7c7;
+@define-color color8 #3b4857;
+@define-color color9 #FFC44C;
+@define-color color10 #bae67e;
+@define-color color11 #ffd580;
+@define-color color12 #73d0ff;
+@define-color color13 #f28779;
+@define-color color14 #95e6cb;
+@define-color color15 #d9d7ce;
+
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: "FiraCode Nerd Font", mono;
+    font-size: 15px;
+}
+
+window#waybar {
+    background-color: @background;
+    border-bottom: 3px @color8;
+    color: @foreground;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#mpd {
+    padding: 0 10px;
+    color: @foreground;
+}
+
+#window,
+#workspaces {
+    margin: 0 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+/* #clock { */
+/*     background-color: #64727D; */
+/* } */
+
+/* #battery { */
+/*     background-color: #ffffff; */
+/*     color: #000000; */
+/* } */
+
+/* #battery.charging, #battery.plugged { */
+/*     color: #ffffff; */
+/*     background-color: #26A65B; */
+/* } */
+
+/* @keyframes blink { */
+/*     to { */
+/*         background-color: #ffffff; */
+/*         color: #000000; */
+/*     } */
+/* } */
+
+/* #battery.critical:not(.charging) { */
+/*     background-color: #f53c3c; */
+/*     color: #ffffff; */
+/*     animation-name: blink; */
+/*     animation-duration: 0.5s; */
+/*     animation-timing-function: linear; */
+/*     animation-iteration-count: infinite; */
+/*     animation-direction: alternate; */
+/* } */
+
+/* label:focus { */
+/*     background-color: #000000; */
+/* } */
+
+/* #backlight { */
+/*     background-color: #90b1b1; */
+/* } */
+
+/* #pulseaudio { */
+/*     background-color: #f1c40f; */
+/*     color: #000000; */
+/* } */
+
+/* #pulseaudio.muted { */
+/*     background-color: #90b1b1; */
+/*     color: #2a5c45; */
+/* } */
+
+/* #tray { */
+/*     background-color: #2980b9; */
+/* } */
+
+/* #tray > .passive { */
+/*     -gtk-icon-effect: dim; */
+/* } */
+
+/* #tray > .needs-attention { */
+/*     -gtk-icon-effect: highlight; */
+/*     background-color: #eb4d4b; */
+/* } */
+
+/* #idle_inhibitor { */
+/*     background-color: #2d3436; */
+/* } */
+
+/* #idle_inhibitor.activated { */
+/*     background-color: #ecf0f1; */
+/*     color: #2d3436; */
+/* } */
+
+/* #mpd { */
+/*     background-color: #66cc99; */
+/*     color: #2a5c45; */
+/* } */
+
+/* #mpd.disconnected { */
+/*     background-color: #f53c3c; */
+/* } */
+
+/* #mpd.stopped { */
+/*     background-color: #90b1b1; */
+/* } */
+
+/* #mpd.paused { */
+/*     background-color: #51a37a; */
+/* } */
+
+/* #custom-dwl_layout { */
+/*     color: #EC5800 */
+/* } */
+
+/* #custom-dwl_title { */
+/*     color: #017AFF */
+/* } */
+
+#custom-dwl_tag.selected {
+    background: @color14;
+	color: @color8;
+}
+
+#custom-dwl_tag.urgent {
+    background-color: @color1;
+	color: @color8;
+}
+
+#custom-dwl_tag.active {
+    border-top: 1px solid @color7;
+}
