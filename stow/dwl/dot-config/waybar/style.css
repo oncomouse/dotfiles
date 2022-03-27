@@ -178,6 +178,12 @@ window#waybar.hidden {
 	color: @color8;
 }
 
-#custom-dwl_tag.active {
-    border-top: 1px solid @color7;
+/* #custom-dwl_tag.active { */
+/*     border-top: 1px solid @color7; */
+/* } */
+
+#custom-dwl_tag.empty {
+	font-size: 1px;
+	color: @background;
+	padding: 0;
 }

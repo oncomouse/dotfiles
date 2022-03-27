@@ -134,11 +134,11 @@ _cycle() {
 	    if [[ "${this_status}" ]]; then
 		printf -- '{"text":" %s ","class":[%s]}\n' "${name[this_tag]}" "${this_status}"
 	    else
-		printf -- '{"text":" %s "}\n' "${name[this_tag]}"
+		printf -- '{"text":"","class":["empty"]}\n'
 	    fi
 	    ;;
 	layout)
-	    printf -- '{"text":"  %s  "}\n' "${layout}"
+	    printf -- '{"text":"%s"}\n' "${layout}"
 	    ;;
 	title)
 	    printf -- '{"text":"%s"}\n' "${title}"
