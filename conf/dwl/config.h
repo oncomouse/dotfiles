@@ -8,7 +8,8 @@ static const float focuscolor[]     = {0.58431372549, 0.90196078431, 0.796078431
 static const int smartborders       = 1;
 
 static const char *const autostart[] = {
-        /* "sh", "-c", "swaybg --image /xap/local/background", NULL, */
+		"sh", "-c", "convert ~/.cache/wal/background.svg ~/.cache/wal/background.png", NULL,
+		"sh", "-c", "swaybg -m tile -i ~/.cache/wal/background.png", NULL,
 		"sh", "-c", "waybar&", NULL,
 		"sh", "-c", "pkill dunst; dunst&", NULL,
         NULL /* terminate */
