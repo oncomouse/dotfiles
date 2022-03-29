@@ -171,7 +171,7 @@ index a2ac963..1c8630d 100644
  	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
  	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
 diff --git a/drw.c b/drw.c
-index 4cdbcbe..f8bc814 100644
+index 4cdbcbe..ba35af0 100644
 --- a/drw.c
 +++ b/drw.c
 @@ -133,19 +133,6 @@ xfont_create(Drw *drw, const char *fontname, FcPattern *fontpattern)
@@ -194,7 +194,14 @@ index 4cdbcbe..f8bc814 100644
  	font = ecalloc(1, sizeof(Fnt));
  	font->xfont = xfont;
  	font->pattern = pattern;
-@@ -208,7 +195,7 @@ drw_clr_create(Drw *drw, Clr *dest, const char *clrname)
+@@ -203,12 +190,14 @@ drw_clr_create(Drw *drw, Clr *dest, const char *clrname)
+ 	                       DefaultColormap(drw->dpy, drw->screen),
+ 	                       clrname, dest))
+ 		die("error, cannot allocate color '%s'", clrname);
++
++	dest->pixel |= 0xff << 24;
+ }
+ 
  /* Wrapper to create color schemes. The caller has to call free(3) on the
   * returned color scheme when done using it. */
  Clr *
