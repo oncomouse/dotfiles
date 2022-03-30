@@ -9,6 +9,5 @@
 	"https://raw.githubusercontent.com/oncomouse/patches/master/st-font2-20210629-4ef0cbd.diff",
 	"https://raw.githubusercontent.com/oncomouse/patches/master/st-undercurl-20220322-ef05519.diff",
 	"https://st.suckless.org/patches/desktopentry/st-desktopentry-0.8.4.diff",
-	"https://raw.githubusercontent.com/oncomouse/patches/master/st-boxdraw-20220323-ef05519.diff",
-	"https://gitlab.com/GasparVardanyan/st-autocomplete/-/raw/master/st-0.8.5-autocomplete-20220327-230120.diff"
+	"https://raw.githubusercontent.com/oncomouse/patches/master/st-boxdraw-20220323-ef05519.diff"
 ]
