@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
 
-if [ "$DOTFILES_TARGET" == "desktop" ]; then
-	# exec kitty "$@"
-	exec st "$@"
-elif [ "$DOTFILES_TARGET" == "laptop" ]; then
-	exec tabbed -r 2 -c st -w '' "$@"
-else
-	exec xterm "$@"
+if [[ -n "$DISPLAY" ]]; then
+	if [ "$DOTFILES_TARGET" == "desktop" ]; then
+		exec st "$@"
+	elif [ "$DOTFILES_TARGET" == "laptop" ]; then
+		exec tabbed -r 2 -c st -w '' "$@"
+	else
+		exec xterm "$@"
+	fi
+elif [[ -n "$WAYLAND_DISPLAY" ]]; then
+	exec foot
 fi
 # vim:ft=sh
