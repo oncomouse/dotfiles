@@ -39,7 +39,7 @@ for lsp, settings in pairs(servers) do
 		if not lsp_server:is_installed() then
 			lsp_server:install()
 		end
-	else
+	elseif vim.tbl_contains(require("lspconfig").available_servers(), lsp) then
 		require("lspconfig")[lsp].setup(opts)
 	end
 end
