@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-export DESKTOP_SESSION=dwm
+if [ -a ~/.xinitrc.local ]; then
+	source ~/.xinitrc.local
+else
+	DESKTOP_SESSION=dwm
+fi
+export DESKTOP_SESSION
 
 source ~/.xprofile
 
