@@ -265,7 +265,7 @@ index ddc8321..86e73f9 100644
  dwm is customized by creating a custom config.h and (re)compiling the source
  code. This keeps it fast, secure and simple.
 diff --git a/dwm.c b/dwm.c
-index 5f16260..269cb5d 100644
+index 5f16260..7a019fd 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -29,12 +29,14 @@
@@ -813,16 +813,15 @@ index 5f16260..269cb5d 100644
  	XCrossingEvent *ev = &e->xcrossing;
  
  	if ((ev->mode != NotifyNormal || ev->detail == NotifyInferior) && ev->window != root)
-@@ -773,6 +978,8 @@ enternotify(XEvent *e)
+@@ -773,6 +978,7 @@ enternotify(XEvent *e)
  	} else if (!c || c == selmon->sel)
  		return;
  	focus(c);
-+	XRaiseWindow(dpy, c->win);
 +	while (XCheckMaskEvent(dpy, EnterWindowMask, &xev));
  }
  
  void
-@@ -781,13 +988,18 @@ expose(XEvent *e)
+@@ -781,13 +987,18 @@ expose(XEvent *e)
  	Monitor *m;
  	XExposeEvent *ev = &e->xexpose;
  
@@ -842,10 +841,11 @@ index 5f16260..269cb5d 100644
  	if (!c || !ISVISIBLE(c))
  		for (c = selmon->stack; c && !ISVISIBLE(c); c = c->snext);
  	if (selmon->sel && selmon->sel != c)
-@@ -802,6 +1014,30 @@ focus(Client *c)
+@@ -802,6 +1013,31 @@ focus(Client *c)
  		grabbuttons(c, 1);
  		XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColBorder].pixel);
  		setfocus(c);
++		XRaiseWindow(dpy, c->win);
 +		if (focusedontop && c->mon->lt[c->mon->sellt]->arrange) {
 +			/* Move all visible tiled clients that are not marked as on top below the bar window */
 +			wc.stack_mode = Below;
