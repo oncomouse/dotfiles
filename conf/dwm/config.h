@@ -187,52 +187,52 @@ togglefullscreen(const Arg *arg)
 /* modifier                     key        function        argument */
 
 static Key keys[] = {
-	{ MODKEY|Mod1Mask,              XK_r,                       spawn,            {.v = dmenucmd} },
-	{ MODKEY,                       XK_p,                       spawn,            {.v = dmenucmd} },
-	{ MODKEY|ShiftMask,             XK_p,                       spawn,            SHCMD("dotfiles-powermenu") },
-	{ MODKEY|ShiftMask,             XK_n,                       spawn,            {.v = rofinetworkcmd} },
-	{ MODKEY|ShiftMask,             XK_w,                       spawn,            {.v = rofiwincmd} },
-	{ MODKEY|ControlMask,           XK_space,                   spawn,            {.v = rofiemojicmd} },
-	{ MODKEY|Mod1Mask,              XK_p,                       spawn,            {.v = rofimusiccmd} },
-	{ MODKEY|ShiftMask,             XK_Return,                  spawn,            {.v = termcmd} },
-	{ MODKEY,                       XK_e,                       spawn,            SHCMD("dotfiles-fm") },
-	{ MODKEY|ShiftMask,             XK_b,                       spawn,            SHCMD("dotfiles-brightness default")},
-	{ MODKEY|Mod1Mask,              XK_c,                       spawn,            SHCMD("dunstify -i alarm-clock-panel -h string:x-dunst-stack-tag:date \"$(date +'%a %m/%d %I:%M %p')\" -t 1500") },
-	{ MODKEY,                       XK_f,                       togglefullscreen, {0} },
-	{ MODKEY,                       XK_b,                       togglebar,        {0} },
-	{ MODKEY,                       XK_u,                       focusurgent,      {0} },
-	{ MODKEY,                       XK_j,                       focusstack,       {.i = +1 } },
-	{ MODKEY,                       XK_k,                       focusstack,       {.i = -1 } },
-	{ MODKEY,                       XK_Tab,                     focusstack,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_Tab,                     focusstack,       {.i = -1 } },
-	{ MODKEY,                       XK_i,                       incnmaster,       {.i = +1 } },
-	{ MODKEY,                       XK_d,                       incnmaster,       {.i = -1 } },
-	{ MODKEY,                       XK_h,                       setmfact,         {.f = -0.05} },
-	{ MODKEY,                       XK_l,                       setmfact,         {.f = +0.05} },
-	{ MODKEY,                       XK_Return,                  zoom,             {0} },
-	{ MODKEY,                       XK_w,                       killclient,       {0} },
-	{ MODKEY|ControlMask,           XK_t,                       setlayout,        {.v = &layouts[tileidx]} },
-	{ MODKEY|ControlMask|ShiftMask, XK_t,                       setlayout,        {.v = &layouts[3]} },
-	{ MODKEY|ControlMask,           XK_f,                       setlayout,        {.v = &layouts[floatidx]} },
-	{ MODKEY|ControlMask,           XK_m,                       setlayout,        {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,                   togglefloating,   {0} },
-	{ MODKEY,                       XK_0,                       view,             {.ui = ~0} },
-	{ MODKEY|ShiftMask,             XK_0,                       tag,              {.ui = ~0} },
-	{ MODKEY,                       XK_comma,                   focusmon,         {.i = -1} },
-	{ MODKEY,                       XK_period,                  focusmon,         {.i = +1} },
-	{ MODKEY|ShiftMask,             XK_comma,                   tagmon,           {.i = -1} },
-	{ MODKEY|ShiftMask,             XK_period,                  tagmon,           {.i = +1} },
-	{ MODKEY,                       XK_F5,                      xrdb,             {.v = NULL} },
+	{ MODKEY|Mod1Mask,              XK_r,                       spawn,               {.v = dmenucmd} },
+	{ MODKEY,                       XK_p,                       spawn,               {.v = dmenucmd} },
+	{ MODKEY|ShiftMask,             XK_p,                       spawn,               SHCMD("dotfiles-powermenu") },
+	{ MODKEY|ShiftMask,             XK_n,                       spawn,               {.v = rofinetworkcmd} },
+	{ MODKEY|ShiftMask,             XK_w,                       spawn,               {.v = rofiwincmd} },
+	{ MODKEY|ControlMask,           XK_space,                   spawn,               {.v = rofiemojicmd} },
+	{ MODKEY|Mod1Mask,              XK_p,                       spawn,               {.v = rofimusiccmd} },
+	{ MODKEY|ShiftMask,             XK_Return,                  spawn,               {.v = termcmd} },
+	{ MODKEY,                       XK_e,                       spawn,               SHCMD("dotfiles-fm") },
+	{ MODKEY|ShiftMask,             XK_b,                       spawn,               SHCMD("dotfiles-brightness default")},
+	{ MODKEY|Mod1Mask,              XK_c,                       spawn,               SHCMD("dunstify -i alarm-clock-panel -h string:x-dunst-stack-tag:date \"$(date +'%a %m/%d %I:%M %p')\" -t 1500") },
+	{ MODKEY,                       XK_f,                       togglefullscreen,    {0} },
+	{ MODKEY,                       XK_b,                       togglebar,           {0} },
+	{ MODKEY,                       XK_u,                       focusurgent,         {0} },
+	{ MODKEY,                       XK_j,                       focusstack,          {.i = +1 } },
+	{ MODKEY,                       XK_k,                       focusstack,          {.i = -1 } },
+	{ MODKEY,                       XK_Tab,                     focusstack,          {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_Tab,                     focusstack,          {.i = -1 } },
+	{ MODKEY,                       XK_i,                       incnmaster,          {.i = +1 } },
+	{ MODKEY,                       XK_d,                       incnmaster,          {.i = -1 } },
+	{ MODKEY,                       XK_h,                       setmfact,            {.f = -0.05} },
+	{ MODKEY,                       XK_l,                       setmfact,            {.f = +0.05} },
+	{ MODKEY,                       XK_Return,                  zoom,                {0} },
+	{ MODKEY,                       XK_w,                       killclient,          {0} },
+	{ MODKEY|ControlMask,           XK_t,                       setlayout,           {.v = &layouts[tileidx]} },
+	{ MODKEY|ControlMask|ShiftMask, XK_t,                       setlayout,           {.v = &layouts[3]} },
+	{ MODKEY|ControlMask,           XK_f,                       setlayout,           {.v = &layouts[floatidx]} },
+	{ MODKEY|ControlMask,           XK_m,                       setlayout,           {.v = &layouts[2]} },
+	{ MODKEY,                       XK_space,                   togglefloating,      {0} },
+	{ MODKEY,                       XK_0,                       view,                {.ui = ~0} },
+	{ MODKEY|ShiftMask,             XK_0,                       tag,                 {.ui = ~0} },
+	{ MODKEY,                       XK_comma,                   focusmon,            {.i = -1} },
+	{ MODKEY,                       XK_period,                  focusmon,            {.i = +1} },
+	{ MODKEY|ShiftMask,             XK_comma,                   tagmon,              {.i = -1} },
+	{ MODKEY|ShiftMask,             XK_period,                  tagmon,              {.i = +1} },
+	{ MODKEY,                       XK_F5,                      xrdb,                {.v = NULL} },
 
-	TAGKEYS(                        XK_1,                                       0)
-	TAGKEYS(                        XK_2,                                       1)
-	TAGKEYS(                        XK_3,                                       2)
-	TAGKEYS(                        XK_4,                                       3)
-	TAGKEYS(                        XK_5,                                       4)
-	TAGKEYS(                        XK_6,                                       5)
-	TAGKEYS(                        XK_7,                                       6)
-	TAGKEYS(                        XK_8,                                       7)
-	TAGKEYS(                        XK_9,                                       8)
+	TAGKEYS(                        XK_1,                       0)
+	TAGKEYS(                        XK_2,                       1)
+	TAGKEYS(                        XK_3,                       2)
+	TAGKEYS(                        XK_4,                       3)
+	TAGKEYS(                        XK_5,                       4)
+	TAGKEYS(                        XK_6,                       5)
+	TAGKEYS(                        XK_7,                       6)
+	TAGKEYS(                        XK_8,                       7)
+	TAGKEYS(                        XK_9,                       8)
 
 	{ MODKEY,                       XK_c,                       center,              {0} },
 	{ MODKEY,                       XK_Down,                    moveresize,          {.v = "0x 25y 0w 0h" } },
