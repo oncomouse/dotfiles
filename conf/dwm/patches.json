@@ -14,5 +14,6 @@
 	"https://dwm.suckless.org/patches/systray/dwm-systray-6.3.diff",
 	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-compton_floating-20220320-bece862.diff",
 	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-picom_border_fix-20220329-bece862.diff",
-	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-raiseonfocus-20220409-bece862.diff"
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-raiseonfocus-20220409-bece862.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-maximize-20220320-bece862.diff"
 ]

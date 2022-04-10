@@ -79,6 +79,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 #include <X11/XF86keysym.h>
 #include "target.h"
 #include "focusurgent.c"
+#include "maximize.c"
 
 /* key definitions */
 #define MODKEY Mod4Mask
@@ -202,10 +203,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,                       setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return,                  zoom,           {0} },
 	{ MODKEY,                       XK_w,                       killclient,     {0} },
-	{ MODKEY,                       XK_t,                       setlayout,      {.v = &layouts[tileidx]} },
-	{ MODKEY|ShiftMask,             XK_t,                       setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_f,                       setlayout,      {.v = &layouts[floatidx]} },
-	{ MODKEY,                       XK_m,                       setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ControlMask,           XK_t,                       setlayout,      {.v = &layouts[tileidx]} },
+	{ MODKEY|ControlMask|ShiftMask, XK_t,                       setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ControlMask,           XK_f,                       setlayout,      {.v = &layouts[floatidx]} },
+	{ MODKEY|ControlMask,           XK_m,                       setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,                   togglefloating, {0} },
 	{ MODKEY,                       XK_0,                       view,           {.ui = ~0} },
 	{ MODKEY|ShiftMask,             XK_0,                       tag,            {.ui = ~0} },
@@ -243,6 +244,11 @@ static Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_Left,                    moveresizeedge,      {.v = "L"} },
 	{ MODKEY|ControlMask|ShiftMask, XK_Right,                   moveresizeedge,      {.v = "R"} },
 	{ MODKEY|ShiftMask,             XK_q,                       quit,                {0} },
+	{ MODKEY|ControlMask|ShiftMask, XK_h,                       togglehorizontalmax, {.v = NULL} },
+	{ MODKEY|ControlMask|ShiftMask, XK_l,                       togglehorizontalmax, {.v = NULL} },
+	{ MODKEY|ControlMask|ShiftMask, XK_j,                       toggleverticalmax,   {.v = NULL} },
+	{ MODKEY|ControlMask|ShiftMask, XK_k,                       toggleverticalmax,   {.v = NULL} },
+	{ MODKEY,                       XK_m,                       togglemaximize,      {0} },
 	{ 0,                            XF86XK_KbdBrightnessDown,   spawn,               SHCMD("sudo /usr/local/bin/keyboard-backlight down") },
 	{ 0,                            XF86XK_KbdBrightnessUp,     spawn,               SHCMD("sudo /usr/local/bin/keyboard-backlight up") },
 	{ 0,                            XF86XK_MonBrightnessUp,     spawn,               SHCMD("dotfiles-brightness up") },
