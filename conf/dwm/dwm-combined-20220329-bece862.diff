@@ -265,7 +265,7 @@ index ddc8321..86e73f9 100644
  dwm is customized by creating a custom config.h and (re)compiling the source
  code. This keeps it fast, secure and simple.
 diff --git a/dwm.c b/dwm.c
-index 5f16260..7750ff0 100644
+index 5f16260..d826f76 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -29,12 +29,14 @@
@@ -1723,7 +1723,7 @@ index 5f16260..7750ff0 100644
  		XMapRaised(dpy, m->barwin);
  		XSetClassHint(dpy, m->barwin, &ch);
  	}
-@@ -1994,30 +2742,155 @@ updatesizehints(Client *c)
+@@ -1994,30 +2742,156 @@ updatesizehints(Client *c)
  void
  updatestatus(void)
  {
@@ -1823,7 +1823,8 @@ index 5f16260..7750ff0 100644
 +	Client *i;
 +	Monitor *m = systraytomon(NULL);
 +	unsigned int x = m->mx + m->mw;
-+	unsigned int sw = TEXTW(stext) - lrpad + systrayspacing;
++	/* unsigned int sw = TEXTW(stext) - lrpad + systrayspacing; */
++	unsigned int sw = statusw - lrpad + systrayspacing;
 +	unsigned int w = 1;
 +
 +	if (!showsystray)
@@ -1892,7 +1893,7 @@ index 5f16260..7750ff0 100644
  }
  
  void
-@@ -2042,11 +2915,34 @@ updatewmhints(Client *c)
+@@ -2042,11 +2916,34 @@ updatewmhints(Client *c)
  void
  view(const Arg *arg)
  {
@@ -1928,7 +1929,7 @@ index 5f16260..7750ff0 100644
  	focus(NULL);
  	arrange(selmon);
  }
-@@ -2064,6 +2960,16 @@ wintoclient(Window w)
+@@ -2064,6 +2961,16 @@ wintoclient(Window w)
  	return NULL;
  }
  
@@ -1945,7 +1946,7 @@ index 5f16260..7750ff0 100644
  Monitor *
  wintomon(Window w)
  {
-@@ -2117,6 +3023,33 @@ xerrorstart(Display *dpy, XErrorEvent *ee)
+@@ -2117,6 +3024,33 @@ xerrorstart(Display *dpy, XErrorEvent *ee)
  	return -1;
  }
  
@@ -1979,7 +1980,7 @@ index 5f16260..7750ff0 100644
  void
  zoom(const Arg *arg)
  {
-@@ -2143,12 +3076,15 @@ main(int argc, char *argv[])
+@@ -2143,12 +3077,15 @@ main(int argc, char *argv[])
  	if (!(dpy = XOpenDisplay(NULL)))
  		die("dwm: cannot open display");
  	checkotherwm();
