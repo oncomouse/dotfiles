@@ -26,7 +26,7 @@ elif [ "$project" = "neatvi" ] || [ "$project" = "nextvi" ]; then
 fi
 
 main_branch=master
-if [ "$project" == "dwl" ] || [ "$project" == "dwm" ]; then
+if [ "$project" == "dwl" ] || [ "$project" == "dwm" ] || [ "$project" == "st" ]; then
 	main_branch=main
 fi
 
@@ -120,6 +120,8 @@ if [[ ! -d "$BUILD_LOCATION/$project" ]]; then
 		project_repo=https://github.com/torrinfail/dwmblocks
 	elif [ "$project" = "dwm" ]; then
 		project_repo=https://github.com/oncomouse/dwm
+	elif [ "$project" = "st" ]; then
+		project_repo=https://github.com/oncomouse/st
 	elif [ "$project" = "dwl" ]; then
 		project_repo=https://github.com/djpohly/dwl
 	elif [ "$project" = "aslstatus" ]; then
