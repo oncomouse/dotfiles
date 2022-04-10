@@ -26,7 +26,7 @@ elif [ "$project" = "neatvi" ] || [ "$project" = "nextvi" ]; then
 fi
 
 main_branch=master
-if [ "$project" == "dwl" ]; then
+if [ "$project" == "dwl" ] || [ "$project" == "dwm" ]; then
 	main_branch=main
 fi
 
@@ -118,6 +118,8 @@ if [[ ! -d "$BUILD_LOCATION/$project" ]]; then
 	# Non-suckless projects that have different Git URLs:
 	if [ "$project" = "dwmblocks" ]; then
 		project_repo=https://github.com/torrinfail/dwmblocks
+	elif [ "$project" = "dwm" ]; then
+		project_repo=https://github.com/oncomouse/dwm
 	elif [ "$project" = "dwl" ]; then
 		project_repo=https://github.com/djpohly/dwl
 	elif [ "$project" = "aslstatus" ]; then
@@ -134,7 +136,7 @@ if [[ ! -d "$BUILD_LOCATION/$project" ]]; then
 		project_repo=https://github.com/JLErvin/berry
 	elif [ "$project" = "lemonaid" ]; then
 		project_repo=https://github.com/Murtaza-Udaipurwala/lemonaid
-fi
+	fi
 
 	git clone "$project_repo" "$BUILD_LOCATION/$project"
 fi
