@@ -215,7 +215,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_t,                       setlayout,           {.v = &layouts[3]} },
 	{ MODKEY|ControlMask,           XK_f,                       setlayout,           {.v = &layouts[floatidx]} },
 	{ MODKEY|ControlMask,           XK_m,                       setlayout,           {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,                   togglefloating,      {0} },
+	{ MODKEY|ShiftMask,             XK_space,                   togglefloating,      {0} },
 	{ MODKEY,                       XK_0,                       view,                {.ui = ~0} },
 	{ MODKEY|ShiftMask,             XK_0,                       tag,                 {.ui = ~0} },
 	{ MODKEY,                       XK_comma,                   focusmon,            {.i = -1} },
