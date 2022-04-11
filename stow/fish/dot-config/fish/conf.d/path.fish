@@ -25,6 +25,7 @@ if status --is-login
 	fish_add_path /usr/local/opt/lua@5.3/bin/
 	fish_add_path /usr/local/opt/grep/libexec/gnubin/
 	fish_add_path ~/.local/nvim-osx64/bin/
+	fish_add_path ~/.local/nvim-linux64/bin/
 
 
 	# NPM Local manpath:
