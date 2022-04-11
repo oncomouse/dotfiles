@@ -222,6 +222,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period,                  focusmon,            {.i = +1} },
 	{ MODKEY|ShiftMask,             XK_comma,                   tagmon,              {.i = -1} },
 	{ MODKEY|ShiftMask,             XK_period,                  tagmon,              {.i = +1} },
+	{ MODKEY,                       XK_F1,                      spawn,               SHCMD("scrot ~/Seadrive/My\\ Libraries/My\\ Library/Photos/Screenshots/'%Y-%m-%d-%H%M%S_$wx$h.png'") },
 	{ MODKEY,                       XK_F5,                      xrdb,                {.v = NULL} },
 
 	TAGKEYS(                        XK_1,                       0)
