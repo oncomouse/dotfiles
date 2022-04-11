@@ -133,7 +133,7 @@ return require("packer").startup({
 							["gutter"] = { "bg", "Normal" },
 						},
 					})
-					vim.api.nvim_add_user_command("Files", function(args)
+					vim.api.nvim_create_user_command("Files", function(args)
 						require("fzf-lua").files({
 							fzf_opts = { ["--layout"] = "reverse-list", ["--info"] = "inline" },
 							cwd = args.args == "" and "." or args.args,
@@ -143,12 +143,12 @@ return require("packer").startup({
 						force = true,
 						nargs = "?",
 					})
-					vim.api.nvim_add_user_command("Buffers", function()
+					vim.api.nvim_create_user_command("Buffers", function()
 						require("fzf-lua").buffers()
 					end, {
 						force = true,
 					})
-					vim.api.nvim_add_user_command("GitStatus", function()
+					vim.api.nvim_create_user_command("GitStatus", function()
 						require("fzf-lua").git_status()
 					end, {
 						force = true,

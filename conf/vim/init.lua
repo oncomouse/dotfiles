@@ -356,7 +356,7 @@ vim.api.nvim_create_autocmd("BufWinEnter,BufFilePost", {
 -- Commands {{{
 
 -- Formatting and Diagnostic commands for LSP-less files
-vim.api.nvim_add_user_command("Diagnostics", function()
+vim.api.nvim_create_user_command("Diagnostics", function()
 	vim.cmd("silent lmake! %")
 	if #vim.fn.getloclist(0) == 0 then
 		vim.cmd("lopen")
@@ -366,12 +366,12 @@ vim.api.nvim_add_user_command("Diagnostics", function()
 end, {
 	force = true,
 })
-vim.api.nvim_add_user_command("Format", "silent normal! mxgggqG`x<CR>", {
+vim.api.nvim_create_user_command("Format", "silent normal! mxgggqG`x<CR>", {
 	force = true,
 })
 
 -- Adjust Spacing:
-vim.api.nvim_add_user_command("Spaces", function(args)
+vim.api.nvim_create_user_command("Spaces", function(args)
 	local wv = vim.fn.winsaveview()
 	vim.opt_local.expandtab = true
 	vim.cmd("silent execute '%!expand -it" .. args.args .. "'")
@@ -381,7 +381,7 @@ end, {
 	force = true,
 	nargs = 1,
 })
-vim.api.nvim_add_user_command("Tabs", function(args)
+vim.api.nvim_create_user_command("Tabs", function(args)
 	local wv = vim.fn.winsaveview()
 	vim.opt_local.expandtab = false
 	vim.cmd("silent execute '%!unexpand -t" .. args.args .. "'")
@@ -393,7 +393,7 @@ end, {
 })
 
 -- Custom :Git command to utilize fzf-lua for status
-vim.api.nvim_add_user_command("Git", function(args)
+vim.api.nvim_create_user_command("Git", function(args)
 	if args.args:match("^status") then
 		vim.cmd("GitStatus")
 	else
@@ -426,7 +426,7 @@ local packer_commands = {
 	"compile",
 }
 for _, cmd in pairs(packer_commands) do
-	vim.api.nvim_add_user_command("Packer" .. cmd:gsub("^%l", string.upper), function()
+	vim.api.nvim_create_user_command("Packer" .. cmd:gsub("^%l", string.upper), function()
 		vim.cmd("packadd packer.nvim")
 		require("dotfiles.plugins")[cmd]()
 	end, {})
