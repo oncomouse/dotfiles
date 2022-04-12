@@ -339,7 +339,6 @@ return require("packer").startup({
 							"ruby",
 							"rust",
 							"scss",
-							"teal",
 							"tsx",
 							"typescript",
 							"vim",
