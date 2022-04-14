@@ -5,7 +5,7 @@ static const Block blocks[] = {
 	/* {"", "dwmblocks-load.sh", 30, 7}, */
 	/* {"", "dwmblocks-essid.sh", 30, 8}, */
 	/* {"", "dwmblocks-brightness.sh", 30, 4}, */
-	{"", "dwmblocks-battery.sh", 30, 5},
+	/* {"", "dwmblocks-battery.sh", 30, 5}, */
 	{"", "dwmblocks-weather.sh", 600, 9},
 	{"", "dwmblocks-date.sh", 5, 6},
 };
