@@ -1,1 +1,18 @@
-[]
+[
+	"https://dwm.suckless.org/patches/moveresize/dwm-moveresize-20201206-cce77d8.diff",
+	"https://dwm.suckless.org/patches/hide_vacant_tags/dwm-hide_vacant_tags-6.2.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-color_emoji-20210821-138b405.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-xrdb_colorbar-20210117-61bb8b2.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-pertag_nobarpos-20220319-bece862.diff",
+	"https://dwm.suckless.org/patches/statuscmd/dwm-statuscmd-20210405-67d76bd.diff",
+	"https://dwm.suckless.org/patches/noborder/dwm-noborderfloatingfix-6.2.diff",
+	"https://dwm.suckless.org/patches/focusurgent/dwm-focusurgent-20160831-56a31dc.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-rtile-20210619-61bb8b2.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-xsession-20210706-61bb8b2.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-focusedontop-20210917-a786211.diff",
+	"https://dwm.suckless.org/patches/autostart/dwm-autostart-20210120-cb3f58a.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-compton_floating-20220320-bece862.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-picom_border_fix-20220329-bece862.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-raiseonfocus-20220409-bece862.diff",
+	"https://raw.githubusercontent.com/oncomouse/patches/master/dwm-maximize-20220320-bece862.diff"
+]
