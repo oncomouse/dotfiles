@@ -11,7 +11,7 @@ end
 
 vim.api.nvim_create_autocmd("FileType", {
 	group = "dotfiles-settings",
-	pattern = "javascript,javascriptreact"
+	pattern = "javascript,javascriptreact",
 	callback = start_flow_for_javascript,
 })
 EOF
