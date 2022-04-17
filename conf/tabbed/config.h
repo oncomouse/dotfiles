@@ -78,5 +78,5 @@ static Key keys[] = {
 	{ MODKEY,          XK_u,      focusurgent, { 0 } },
 	{ MODKEY|Mod1Mask, XK_u,      toggle,      { .v = (void*) &urgentswitch } },
 
-	{ 0,                         XK_F11,    fullscreen,  { 0 } },
+	{ 0,               XK_F11,    fullscreen,  { 0 } },
 };
