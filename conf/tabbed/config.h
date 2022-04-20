@@ -51,7 +51,7 @@ ResourcePref resources[] = {
 static Key keys[] = {
 	/* modifier                        key        function     argument */
 	{ MODKEY,          XK_Return, focusonce,   { 0 } },
-	{ MODKEY,          XK_t,      spawn,       { 0 } },
+	/* { MODKEY,          XK_t,      spawn,       { 0 } }, Do this with st+newterm*/
 
 	{ ControlMask,     XK_Prior,  rotate,      { .i = -1 } },
 	{ ControlMask,     XK_Next,   rotate,      { .i = +1 } },
