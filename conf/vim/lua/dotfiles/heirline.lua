@@ -158,7 +158,7 @@ local Snippets = {
 		local backward = (vim.fn["vsnip#jumpable"](-1) == 1) and " " or ""
 		return backward .. forward
 	end,
-	hl = { fg = colors.dark_gray, syle = "bold" },
+	hl = { fg = colors.dark_gray, bold = true },
 }
 local FileNameBlock = {
 	-- let's first set up some attributes needed by this component and it's children
