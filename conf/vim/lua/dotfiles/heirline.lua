@@ -145,7 +145,7 @@ local ViMode = {
 	end,
 	-- Same goes for the highlight. Now the foreground will change according to the current mode.
 	hl = function()
-		return { fg = colors.dark_gray, style = "bold" }
+		return { fg = colors.dark_gray, bold = true }
 	end,
 }
 local Snippets = {
@@ -233,7 +233,7 @@ local FileFlags = {
 -- 	hl = function()
 -- 		if vim.bo.modified then
 -- 			-- use `force` because we need to override the child's hl foreground
--- 			return { fg = colors.cyan, style = "bold", force = true }
+-- 			return { fg = colors.cyan, bold = true, force = true }
 -- 		end
 -- 	end,
 -- }
@@ -414,7 +414,7 @@ local TerminalName = {
 		local tname, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "")
 		return " " .. tname
 	end,
-	-- hl = { style = "bold" },
+	-- hl = { bold = true },
 }
 
 local WordCount = {
