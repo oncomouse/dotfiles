@@ -73,7 +73,6 @@ static Key keys[] = {
 	{ MODKEY,          XK_9,      move,        { .i = 8 } },
 	{ MODKEY,          XK_0,      move,        { .i = 9 } },
 
-	{ ControlMask,     XK_w,      killclient,  { 0 } },
 	{ MODKEY,          XK_w,      killclient,  { 0 } },
 
 	{ MODKEY,          XK_u,      focusurgent, { 0 } },
