@@ -25,11 +25,11 @@ beautiful.icon_theme = "/usr/share/icons/ePapirus-Dark"
 -- Tags:
 beautiful.tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 -- Wibar:
-beautiful.bar_height   = dpi(24)
+beautiful.bar_height = dpi(24)
 beautiful.bar_position = "top"
 -- Set the background:
 beautiful.background_dot_tile_size = dpi(100)
-beautiful.background_dot_width     = dpi(6)
+beautiful.background_dot_width = dpi(6)
 if not is_laptop then
 	awful.screen.connect_for_each_screen(function(s)
 		require("backgrounds.dots")(s)

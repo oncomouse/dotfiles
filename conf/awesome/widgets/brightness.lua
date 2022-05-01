@@ -17,6 +17,6 @@ return Block({
 	signals = {
 		["dotfiles::brightness::update"] = function(update, brightness)
 			update(" " .. tostring(brightness) .. "%")
-		end
+		end,
 	},
 })

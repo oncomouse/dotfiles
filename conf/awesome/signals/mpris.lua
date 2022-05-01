@@ -45,7 +45,7 @@ function manager:unfollow_player(name)
 		self.players[name] = nil
 		if self.most_recent_player == name then
 			if #self.players > 0 then
-				for _,player in pairs(self.players) do
+				for _, player in pairs(self.players) do
 					self.most_recent_player = player.name
 				end
 			end

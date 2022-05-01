@@ -132,51 +132,26 @@ if vim.fn.exists("g:enable_todo") == 0 then
 end
 todo.map = function()
 	-- Mark A Task As Done:
-	vim.keymap.set(
-		"n",
-		"<leader>td",
-		todo.toggle_done,
-		{ buffer = true, silent = true, noremap = true }
-	)
-	vim.keymap.set(
-		"v",
-		"<leader>td",
-		todo.toggle_done,
-		{ buffer = true, silent = true, noremap = true }
-	)
+	vim.keymap.set("n", "<leader>td", todo.toggle_done, { buffer = true, silent = true, noremap = true })
+	vim.keymap.set("v", "<leader>td", todo.toggle_done, { buffer = true, silent = true, noremap = true })
 	-- Go To Project:
-	vim.keymap.set(
-		"n",
-		"<leader>tg",
-		todo.goto_project,
-		{ buffer = true, silent = true, noremap = true }
-	)
+	vim.keymap.set("n", "<leader>tg", todo.goto_project, { buffer = true, silent = true, noremap = true })
 	-- Search For Done Tasks:
 	vim.keymap.set("n", "<leader>t/", "/ X$<CR>", { buffer = true, silent = true, noremap = true })
 	-- Go To Next Project:
-	vim.keymap.set(
-		"n",
-		"]t",
-		todo.next_project,
-		{ buffer = true, silent = true, noremap = true }
-	)
+	vim.keymap.set("n", "]t", todo.next_project, { buffer = true, silent = true, noremap = true })
 	-- Go To Previous Project:
-	vim.keymap.set(
-		"n",
-		"[t",
-		todo.prev_project,
-		{ buffer = true, silent = true, noremap = true }
-	)
+	vim.keymap.set("n", "[t", todo.prev_project, { buffer = true, silent = true, noremap = true })
 end
 
 vim.api.nvim_create_augroup("todo", { clear = true })
 vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
 	group = "todo",
 	pattern = "todo.*",
-	callback = todo.map
+	callback = todo.map,
 })
 vim.api.nvim_create_autocmd("FileType", {
 	group = "todo",
 	pattern = "vimwiki",
-	callback = todo.map
+	callback = todo.map,
 })

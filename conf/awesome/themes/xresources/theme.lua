@@ -12,45 +12,45 @@ local xrdb = xresources.get_current_theme()
 local themes_path = require("gears.filesystem").get_themes_dir()
 
 -- inherit default theme
-local theme = dofile(themes_path.."default/theme.lua")
+local theme = dofile(themes_path .. "default/theme.lua")
 -- load vector assets' generators for this theme
 
-theme.font          = "sans 8"
+theme.font = "sans 8"
 
 -- Attach XRDB to the theme instead of having to keep looking it up:
 theme.background = xrdb.background
 theme.foreground = xrdb.foreground
-theme.color0     = xrdb.color0
-theme.color1     = xrdb.color1
-theme.color2     = xrdb.color2
-theme.color3     = xrdb.color3
-theme.color4     = xrdb.color4
-theme.color5     = xrdb.color5
-theme.color6     = xrdb.color6
-theme.color7     = xrdb.color7
-theme.color8     = xrdb.color8
-theme.color9     = xrdb.color9
-theme.color10    = xrdb.color10
-theme.color11    = xrdb.color11
-theme.color12    = xrdb.color12
-theme.color13    = xrdb.color13
-theme.color14    = xrdb.color14
-theme.color15    = xrdb.color15
+theme.color0 = xrdb.color0
+theme.color1 = xrdb.color1
+theme.color2 = xrdb.color2
+theme.color3 = xrdb.color3
+theme.color4 = xrdb.color4
+theme.color5 = xrdb.color5
+theme.color6 = xrdb.color6
+theme.color7 = xrdb.color7
+theme.color8 = xrdb.color8
+theme.color9 = xrdb.color9
+theme.color10 = xrdb.color10
+theme.color11 = xrdb.color11
+theme.color12 = xrdb.color12
+theme.color13 = xrdb.color13
+theme.color14 = xrdb.color14
+theme.color15 = xrdb.color15
 
-theme.bg_normal     = theme.background
-theme.bg_focus      = theme.color14
-theme.bg_urgent     = theme.color1
-theme.bg_minimize   = theme.color8
-theme.bg_systray    = theme.bg_normal
+theme.bg_normal = theme.background
+theme.bg_focus = theme.color14
+theme.bg_urgent = theme.color1
+theme.bg_minimize = theme.color8
+theme.bg_systray = theme.bg_normal
 
-theme.fg_normal     = theme.foreground
-theme.fg_focus      = theme.bg_normal
-theme.fg_urgent     = theme.bg_normal
-theme.fg_minimize   = theme.bg_normal
-theme.fg_icon       = theme.color7
+theme.fg_normal = theme.foreground
+theme.fg_focus = theme.bg_normal
+theme.fg_urgent = theme.bg_normal
+theme.fg_minimize = theme.bg_normal
+theme.fg_icon = theme.color7
 
-theme.useless_gap   = 0
-theme.border_width  = 2
+theme.useless_gap = 0
+theme.border_width = 2
 theme.border_color_normal = theme.color0
 theme.border_color_active = theme.bg_focus
 theme.border_color_floating_normal = theme.color0
@@ -86,11 +86,11 @@ theme.tooltip_bg = theme.bg_normal
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_submenu_icon = themes_path.."default/submenu.png"
+theme.menu_submenu_icon = themes_path .. "default/submenu.png"
 theme.menu_height = dpi(16)
-theme.menu_width  = dpi(100)
+theme.menu_width = dpi(100)
 
-theme.icon_size              = dpi(16)
+theme.icon_size = dpi(16)
 theme.notification_icon_size = dpi(16)
 
 -- Recolor Layout icons:
@@ -101,9 +101,7 @@ theme = theme_assets.recolor_layout(theme, theme.color7)
 theme.icon_theme = nil
 
 -- Generate Awesome icon:
-theme.awesome_icon = theme_assets.awesome_icon(
-    theme.menu_height, theme.bg_focus, theme.fg_focus
-)
+theme.awesome_icon = theme_assets.awesome_icon(theme.menu_height, theme.bg_focus, theme.fg_focus)
 
 -- Generate taglist squares:
 -- local taglist_square_size = dpi(4)
@@ -111,11 +109,11 @@ theme.taglist_squares_sel = nil
 theme.taglist_squares_unsel = nil
 
 -- Set different colors for urgent notifications.
-rnotification.connect_signal('request::rules', function()
-    rnotification.append_rule {
-        rule       = { urgency = 'critical' },
-        properties = { bg = '#ff0000', fg = '#ffffff' }
-    }
+rnotification.connect_signal("request::rules", function()
+	rnotification.append_rule({
+		rule = { urgency = "critical" },
+		properties = { bg = "#ff0000", fg = "#ffffff" },
+	})
 end)
 
 -- Custom Notification stuff

@@ -8,7 +8,7 @@ local notifications = {}
 -- Notification settings
 -- Icon size
 -- naughty.config.defaults['icon_size'] = beautiful.notification_icon_size
-naughty.config.defaults['border_width'] = beautiful.notification_border_width
+naughty.config.defaults["border_width"] = beautiful.notification_border_width
 
 -- Timeouts
 naughty.config.defaults.timeout = 5
@@ -23,22 +23,22 @@ naughty.config.presets.critical.timeout = 12
 --     -- After a while, use this to update or recreate the notification if it is expired / dismissed
 --     my_notif = notifications.notify_dwim({ title = "good", message = "bye" }, my_notif)
 function notifications.notify_dwim(args, notif)
-    local n = notif
-    if n and not n._private.is_destroyed and not n.is_expired then
-        notif.title = args.title or notif.title
-        notif.message = args.message or notif.message
-        notif.icon = args.icon or notif.icon
+	local n = notif
+	if n and not n._private.is_destroyed and not n.is_expired then
+		notif.title = args.title or notif.title
+		notif.message = args.message or notif.message
+		notif.icon = args.icon or notif.icon
 		notif.text_icon = args.text_icon or notif.text_icon
-        notif.timeout = args.timeout or notif.timeout
-    else
-        n = naughty.notification(args)
-    end
-    return n
+		notif.timeout = args.timeout or notif.timeout
+	else
+		n = naughty.notification(args)
+	end
+	return n
 end
 
 function notifications.init()
-    -- Initialize various notification daemons
-    require("notifications.volume")
+	-- Initialize various notification daemons
+	require("notifications.volume")
 	if require("utils.is_laptop") then
 		require("notifications.brightness")
 		require("notifications.battery")
@@ -46,26 +46,27 @@ function notifications.init()
 		require("notifications.mpris")
 	end
 	require("notifications.date")
-    require("notifications.appearance")
+	require("notifications.appearance")
 end
 
 -- Handle notification icon
 naughty.connect_signal("request::icon", function(n, context, hints)
-    -- Handle other contexts here
-    if context ~= "app_icon" then return end
+	-- Handle other contexts here
+	if context ~= "app_icon" then
+		return
+	end
 
-    -- Use XDG icon
-    local path = menubar.utils.lookup_icon(hints.app_icon) or
-    menubar.utils.lookup_icon(hints.app_icon:lower())
+	-- Use XDG icon
+	local path = menubar.utils.lookup_icon(hints.app_icon) or menubar.utils.lookup_icon(hints.app_icon:lower())
 
-    if path then
-        n.icon = path
-    end
+	if path then
+		n.icon = path
+	end
 end)
 
 -- Use XDG icon
 naughty.connect_signal("request::action_icon", function(a, _, hints)
-    a.icon = menubar.utils.lookup_icon(hints.id)
+	a.icon = menubar.utils.lookup_icon(hints.id)
 end)
 
 return notifications

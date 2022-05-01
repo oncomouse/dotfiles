@@ -7,4 +7,3 @@ npairs.add_rules({
 	endwise("^%s*if%W.*$", "fi", { "sh", "zsh" }, {}),
 	endwise("%sdo$", "done", { "sh", "zsh" }, {}),
 })
-

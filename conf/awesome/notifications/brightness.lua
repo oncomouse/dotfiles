@@ -11,15 +11,12 @@ awesome.connect_signal("dotfiles::brightness::update", function(percentage)
 	else
 		local icon = icons.image.brightness
 		-- Send notification
-		notif = notifications.notify_dwim(
-			{
-				title = "Brightness",
-				message = tostring(percentage),
-				icon = icon,
-				timeout = timeout,
-				app_name = "brightness",
-			},
-			notif
-		)
+		notif = notifications.notify_dwim({
+			title = "Brightness",
+			message = tostring(percentage),
+			icon = icon,
+			timeout = timeout,
+			app_name = "brightness",
+		}, notif)
 	end
 end)

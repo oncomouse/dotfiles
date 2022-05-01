@@ -31,7 +31,7 @@ gears.timer({
 			level = tonumber(level)
 			awesome.emit_signal("dotfiles::battery::level", level)
 		end)
-	end
+	end,
 })
 
 -- First get charger file path

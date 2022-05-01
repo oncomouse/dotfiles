@@ -77,4 +77,3 @@ client.connect_signal("property::fullscreen", make_border_dwim_client_wrapper)
 client.connect_signal("property::minimized", make_border_dwim_client_wrapper)
 tag.connect_signal("property::layout", make_border_dwim)
 screen.connect_signal("tag::history::update", make_border_dwim_screen_wrapper)
-

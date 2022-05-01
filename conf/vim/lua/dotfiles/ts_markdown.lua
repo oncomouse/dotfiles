@@ -1,4 +1,7 @@
-require("vim.treesitter.query").set_query("markdown", "highlights", [[
+require("vim.treesitter.query").set_query(
+	"markdown",
+	"highlights",
+	[[
 [
 	(atx_heading)
 	(setext_heading)
@@ -35,5 +38,5 @@ require("vim.treesitter.query").set_query("markdown", "highlights", [[
 	(backslash_escape)
 	(hard_line_break)
 ] @string.escape
-]])
-
+]]
+)

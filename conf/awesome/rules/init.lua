@@ -8,13 +8,13 @@ ruled.client.connect_signal("request::rules", function()
 	end
 end)
 
-ruled.notification.connect_signal('request::rules', function()
-    -- All notifications will match this rule.
-    ruled.notification.append_rule {
-        rule       = { },
-        properties = {
-            screen           = awful.screen.preferred,
-            implicit_timeout = 5,
-        }
-    }
+ruled.notification.connect_signal("request::rules", function()
+	-- All notifications will match this rule.
+	ruled.notification.append_rule({
+		rule = {},
+		properties = {
+			screen = awful.screen.preferred,
+			implicit_timeout = 5,
+		},
+	})
 end)

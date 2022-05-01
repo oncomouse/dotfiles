@@ -14,27 +14,24 @@ local function emit_volume_info()
 	-- In the output of `pacmd list-sinks`, lines +7 and +11 after "* index:"
 	-- contain the volume level and muted state respectively
 	-- This is why we are using `awk` to print them.
-	awful.spawn.easy_async_with_shell(
-		"pamixer --get-mute --get-volume",
-		function(stdout)
-			local parts = gears.string.split(stdout, " ")
-			local muted = parts[1]:match("true")
-			local muted_int = muted and 1 or 0
-			local volume = parts[2]:match("(%d+)")
-			local volume_int = tonumber(volume)
-			-- Only send signal if there was a change
-			-- We need this since we use `pactl subscribe` to detect
-			-- volume events. These are not only triggered when the
-			-- user adjusts the volume through a keybind, but also
-			-- through `pavucontrol` or even without user intervention,
-			-- when a media file starts playing.
-			if volume_int ~= volume_old or muted_int ~= muted_old then
-				awesome.emit_signal("dotfiles::volume::update", volume_int, muted)
-				volume_old = volume_int
-				muted_old = muted_int
-			end
+	awful.spawn.easy_async_with_shell("pamixer --get-mute --get-volume", function(stdout)
+		local parts = gears.string.split(stdout, " ")
+		local muted = parts[1]:match("true")
+		local muted_int = muted and 1 or 0
+		local volume = parts[2]:match("(%d+)")
+		local volume_int = tonumber(volume)
+		-- Only send signal if there was a change
+		-- We need this since we use `pactl subscribe` to detect
+		-- volume events. These are not only triggered when the
+		-- user adjusts the volume through a keybind, but also
+		-- through `pavucontrol` or even without user intervention,
+		-- when a media file starts playing.
+		if volume_int ~= volume_old or muted_int ~= muted_old then
+			awesome.emit_signal("dotfiles::volume::update", volume_int, muted)
+			volume_old = volume_int
+			muted_old = muted_int
 		end
-	)
+	end)
 end
 
 awesome.connect_signal("dotfiles::volume::request", function()

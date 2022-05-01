@@ -113,4 +113,3 @@ tag.connect_signal("property::layout", function(t)
 		end
 	end
 end)
-

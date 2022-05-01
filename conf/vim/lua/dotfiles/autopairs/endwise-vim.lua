@@ -24,4 +24,3 @@ for _, at in ipairs({ "aug", "augroup" }) do
 	table.insert(vim_rules, endwise("^%s*" .. at .. "%s+.+$", at .. " END", "vim", {}))
 end
 npairs.add_rules(vim_rules)
-

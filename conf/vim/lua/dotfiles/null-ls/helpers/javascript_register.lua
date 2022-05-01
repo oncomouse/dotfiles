@@ -14,7 +14,7 @@ local function eslint_project()
 	end
 	-- Check for package.json eslintConfig, which is how CRA does it:
 	if utils.make_conditional_utils().root_has_file({ "package.json" }) then
-		local json_exists, fp  = pcall(io.open, utils.get_root() .. "/package.json", "r")
+		local json_exists, fp = pcall(io.open, utils.get_root() .. "/package.json", "r")
 		if json_exists then
 			local json_read, package_json = pcall(vim.fn.json_decode, fp:read("*a"))
 			fp:close()
