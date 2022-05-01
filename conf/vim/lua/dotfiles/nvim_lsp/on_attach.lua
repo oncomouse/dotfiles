@@ -1,7 +1,7 @@
 local servers = require("dotfiles.nvim_lsp.servers")
 local function on_attach(client, buf_num)
 	-- Update codeLens:
-	if client.resolved_capabilities.code_lens then
+	if client.server_capabilities.codeLensProvider then
 		vim.api.nvim_create_autocmd("CursorHold,CursorHoldI,InsertLeave", {
 			buffer = buf_num,
 			group = "dotfiles-settings",
@@ -36,9 +36,9 @@ local function on_attach(client, buf_num)
 		buffer = true,
 		desc = "lua vim.lsp.buf.definition()",
 	})
-	if client.resolved_capabilities.goto_definition == true then
-		vim.opt_local.tagfunc = "v:lua.vim.lsp.tagfunc"
-	end
+	-- if client.server_capabilities.gotoDefinitionProvider == true then
+	vim.opt_local.tagfunc = "v:lua.vim.lsp.tagfunc"
+	-- end
 	vim.keymap.set("n", "<leader>gD", function()
 		vim.lsp.buf.declaration()
 	end, {
@@ -152,8 +152,8 @@ local function on_attach(client, buf_num)
 			force = true,
 		})
 	else
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentRangeFormattingProvider = false
 	end
 end
 
