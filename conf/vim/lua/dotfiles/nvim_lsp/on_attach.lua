@@ -123,7 +123,7 @@ local function on_attach(client, buf_num)
 			group = "dotfiles-settings",
 			callback = function()
 				vim.diagnostic.setloclist({ open = false })
-			end
+			end,
 		})
 		vim.keymap.set("n", "]d", function()
 			vim.diagnostic.goto_next()
@@ -146,7 +146,7 @@ local function on_attach(client, buf_num)
 	if formatting_provider then
 		vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr()"
 		vim.api.nvim_buf_create_user_command(buf_num, "Format", function()
-			vim.lsp.buf.formatting()
+			vim.lsp.buf.format({ async = true })
 		end, {
 			desc = "lua vim.lsp.buf.formatting()",
 			force = true,
