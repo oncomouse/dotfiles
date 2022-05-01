@@ -344,7 +344,7 @@ return require("packer").startup({
 							"vim",
 							"vue",
 							"yaml",
-							"zig"
+							"zig",
 						},
 						highlight = { enable = true },
 					})
