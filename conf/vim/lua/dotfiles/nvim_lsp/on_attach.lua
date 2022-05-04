@@ -12,25 +12,19 @@ local function on_attach(client, buf_num)
 	end
 	-- Use C+x C+o for completion:
 	-- vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-	vim.keymap.set("n", "<leader>s", function()
-		vim.lsp.buf.document_symbol()
-	end, {
+	vim.keymap.set("n", "<leader>s", vim.lsp.buf.document_symbol, {
 		silent = true,
 		noremap = true,
 		buffer = true,
 		desc = "lua vim.lsp.buf.document_symbol()",
 	})
-	vim.keymap.set("n", "<F2>", function()
-		vim.lsp.buf.rename()
-	end, {
+	vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, {
 		silent = true,
 		noremap = true,
 		buffer = true,
 		desc = "lua vim.lsp.buf.rename()",
 	})
-	vim.keymap.set("n", "<leader>gd", function()
-		vim.lsp.buf.definition()
-	end, {
+	vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {
 		silent = true,
 		noremap = true,
 		buffer = true,
@@ -39,73 +33,55 @@ local function on_attach(client, buf_num)
 	-- if client.server_capabilities.gotoDefinitionProvider == true then
 	vim.opt_local.tagfunc = "v:lua.vim.lsp.tagfunc"
 	-- end
-	vim.keymap.set("n", "<leader>gD", function()
-		vim.lsp.buf.declaration()
-	end, {
+	vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, {
 		silent = true,
 		noremap = true,
 		buffer = true,
 		desc = "lua vim.lsp.buf.declaration()",
 	})
-	vim.keymap.set("n", "<leader>gy", function()
-		vim.lsp.buf.type_definition()
-	end, {
+	vim.keymap.set("n", "<leader>gy", vim.lsp.buf.type_definition, {
 		silent = true,
 		noremap = true,
 		buffer = true,
 		desc = "lua vim.lsp.buf.type_definition()",
 	})
-	vim.keymap.set("n", "<leader>gi", function()
-		vim.lsp.buf.implementation()
-	end, {
+	vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, {
 		silent = true,
 		noremap = true,
 		buffer = true,
 		desc = "lua vim.lsp.buf.implementation()",
 	})
-	vim.keymap.set("n", "<leader>gr", function()
-		vim.lsp.buf.references()
-	end, {
+	vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {
 		silent = true,
 		noremap = true,
 		buffer = true,
 		desc = "lua vim.lsp.buf.references()",
 	})
-	vim.keymap.set("n", "<leader>gl", function()
-		vim.lsp.codelens.run()
-	end, {
+	vim.keymap.set("n", "<leader>gl", vim.lsp.codelens.run, {
 		silent = true,
 		noremap = true,
 		buffer = true,
 		desc = "lua vim.lsp.codelens.run()",
 	})
-	vim.keymap.set("n", "<leader>ga", function()
-		vim.lsp.buf.code_action()
-	end, {
+	vim.keymap.set("n", "<leader>ga", vim.lsp.buf.code_action, {
 		silent = true,
 		noremap = true,
 		buffer = true,
 		desc = "lua vim.lsp.buf.code_action()",
 	})
-	vim.keymap.set("v", "<leader>ga", function()
-		vim.lsp.buf.range_code_action()
-	end, {
+	vim.keymap.set("v", "<leader>ga", vim.lsp.buf.range_code_action, {
 		silent = true,
 		noremap = true,
 		buffer = true,
 		desc = "lua vim.lsp.buf.range_code_action()",
 	})
-	vim.keymap.set("n", "K", function()
-		require("dotfiles.nvim_lsp.show_documentation")()
-	end, {
+	vim.keymap.set("n", "K", require("dotfiles.nvim_lsp.show_documentation"), {
 		silent = true,
 		noremap = true,
 		buffer = true,
 		desc = "lua require('dotfiles.nvim_lsp.show_documentation')()",
 	})
-	vim.keymap.set("n", "<C-k>", function()
-		vim.lsp.buf.signature_help()
-	end, {
+	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, {
 		silent = true,
 		noremap = true,
 		buffer = true,
@@ -125,17 +101,13 @@ local function on_attach(client, buf_num)
 				vim.diagnostic.setloclist({ open = false })
 			end,
 		})
-		vim.keymap.set("n", "]d", function()
-			vim.diagnostic.goto_next()
-		end, {
+		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {
 			silent = true,
 			noremap = true,
 			buffer = true,
 			desc = "lua vim.diagnostic.goto_next()",
 		})
-		vim.keymap.set("n", "[d", function()
-			vim.diagnostic.goto_prev()
-		end, {
+		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {
 			silent = true,
 			noremap = true,
 			buffer = true,
