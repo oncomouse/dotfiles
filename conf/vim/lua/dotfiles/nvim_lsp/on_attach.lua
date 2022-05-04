@@ -11,7 +11,7 @@ local function on_attach(client, buf_num)
 		})
 	end
 	-- Use C+x C+o for completion:
-	-- vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
+	vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
 	vim.keymap.set("n", "<leader>s", vim.lsp.buf.document_symbol, {
 		silent = true,
 		noremap = true,

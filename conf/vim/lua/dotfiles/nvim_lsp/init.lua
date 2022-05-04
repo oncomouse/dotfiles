@@ -15,7 +15,8 @@ local handler_no_diagnostics = {
 
 local on_attach = require("dotfiles.nvim_lsp.on_attach")
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 require("dotfiles.null-ls")
 require("nvim-lsp-installer").setup({
