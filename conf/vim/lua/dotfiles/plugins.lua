@@ -183,22 +183,6 @@ return require("packer").startup({
 				end,
 			}, -- Git support
 			{
-				"phaazon/hop.nvim",
-				keys = { "<leader>f", "<leader>F", "<localleader>f", "<localleader>F" },
-				config = function()
-					require("hop").setup({})
-					local maps = {
-						{ "<leader>f", "<cmd>HopChar1AC<cr>" },
-						{ "<leader>F", "<cmd>HopChar1BC<cr>" },
-						{ "<localleader>f", "<cmd>HopChar2AC<cr>" },
-						{ "<localleader>F", "<cmd>HopChar2BC<cr>" },
-					}
-					for _, mapdef in pairs(maps) do
-						vim.keymap.set({ "n", "o", "x" }, mapdef[1], mapdef[2])
-					end
-				end,
-			}, -- Fancy jump, useful for text editing
-			{
 				"hrsh7th/vim-vsnip",
 				event = "VimEnter",
 				config = function()
@@ -351,25 +335,6 @@ return require("packer").startup({
 				end,
 				requires = {
 					{
-						"nvim-treesitter/nvim-treesitter-textobjects",
-						config = function()
-							require("nvim-treesitter.configs").setup({
-								textobjects = {
-									select = {
-										enable = true,
-										lookahead = true,
-										keymaps = {
-											["af"] = "@function.outer",
-											["if"] = "@function.inner",
-											["ac"] = "@class.outer",
-											["ic"] = "@class.inner",
-										},
-									},
-								},
-							})
-						end,
-					},
-					{
 						"windwp/nvim-ts-autotag",
 						ft = { "html", "javascript", "javascriptreact" },
 						config = function()
@@ -426,7 +391,7 @@ return require("packer").startup({
 					},
 				},
 			}, -- Markdown Syntax
-			"baskerville/vim-sxhkdrc",
+			"baskerville/vim-sxhkdrc", -- SXHKD Syntax
 			-- Appearance:
 			{
 				"lukas-reineke/indent-blankline.nvim",
