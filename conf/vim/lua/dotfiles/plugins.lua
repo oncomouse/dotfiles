@@ -209,44 +209,6 @@ return require("packer").startup({
 					{ "edheltzel/vscode-jekyll-snippets", ft = { "markdown", "html" } }, -- Jekyll Snippets
 				},
 			}, -- Snippets
-			-- {
-			-- 	"hrsh7th/nvim-cmp",
-			-- vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-			-- 	requires = {
-			-- 		"hrsh7th/cmp-nvim-lsp",
-			-- 		"hrsh7th/cmp-vsnip",
-			-- 		"hrsh7th/cmp-path",
-			-- 	},
-			-- 	config = function()
-			-- 		local cmp = require("cmp")
-			-- 		cmp.setup({
-			-- 			snippet = {
-			-- 				expand = function(args)
-			-- 					vim.fn["vsnip#anonymous"](args.body)
-			-- 				end,
-			-- 			},
-			-- 			mapping = {
-			-- 				["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-			-- 				["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-			-- 				["<C-d>"] = cmp.mapping.scroll_docs(-4),
-			-- 				["<C-f>"] = cmp.mapping.scroll_docs(4),
-			-- 				["<C-x><C-o>"] = cmp.mapping.complete(),
-			-- 				["<C-c>"] = cmp.mapping.abort(),
-			-- 				["<C-e>"] = cmp.mapping.close(),
-			-- 				["<C-y>"] = cmp.mapping.confirm({ select = true }),
-			-- 				["<Tab>"] = cmp.mapping.confirm({ select = true }),
-			-- 			},
-			-- 			sources = {
-			-- 				{ name = "nvim_lsp" },
-			-- 				{ name = "vsnip" },
-			-- 				{ name = "path" },
-			-- 			},
-			-- 			completion = {
-			-- 				autocomplete = false,
-			-- 			},
-			-- 		})
-			-- 	end,
-			-- }, -- Completion
 			{
 				"neovim/nvim-lspconfig",
 				requires = {
