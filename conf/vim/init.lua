@@ -213,7 +213,7 @@ vim.g.enable_todo = 1
 vim.keymap.set(
 	"x",
 	"@",
-	"<cmd>lua _dotfiles.visualat.execute_macro_over_visual_range()<CR>",
+	require("dotfiles.visualat"),
 	{ silent = true, noremap = true }
 )
 
