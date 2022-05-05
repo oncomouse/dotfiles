@@ -1,4 +1,3 @@
-_dotfiles = _dotfiles or {}
 vim.g.dotfiles_ts_playground = true -- Load playground
 return require("packer").startup({
 	function(use)

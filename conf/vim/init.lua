@@ -4,7 +4,6 @@ vim.g.did_load_filetypes = 0 -- Disable filetype.vim
 if not vim.tbl_contains(vim.opt.runtimepath:get(), vim.fn.expand("~/dotfiles/conf/vim")) then
 	vim.opt.runtimepath:append("~/dotfiles/conf/vim")
 end
-_dotfiles = _dotfiles or {}
 
 -- Add Dotfiles After To RTP:
 vim.opt.runtimepath:append("~/dotfiles/conf/vim/after")
