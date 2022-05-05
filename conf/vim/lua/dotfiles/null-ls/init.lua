@@ -1,7 +1,7 @@
 local javascript_register = require("dotfiles.null-ls.helpers.javascript_register")
 
 require("null-ls").setup({
-	on_attach = require("dotfiles.nvim_lsp.on_attach"),
+	on_attach = require("dotfiles.nvim-lsp.on_attach"),
 	sources = {
 		require("null-ls").builtins.formatting.prettier.with({
 			update_on_insert = false,

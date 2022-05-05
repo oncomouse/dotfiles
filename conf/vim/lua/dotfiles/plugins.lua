@@ -238,7 +238,7 @@ return require("packer").startup({
 					"yaml",
 				},
 				config = function()
-					require("dotfiles.nvim_lsp")
+					require("dotfiles.nvim-lsp")
 				end,
 			}, -- LSP
 			{

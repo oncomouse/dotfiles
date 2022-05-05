@@ -4,7 +4,7 @@ vim.diagnostic.config({
 	signs = false,
 	severity_sort = true,
 })
-local servers = require("dotfiles.nvim_lsp.servers")
+local servers = require("dotfiles.nvim-lsp.servers")
 
 -- LSP Logging:
 -- vim.lsp.set_log_level("trace")
@@ -13,9 +13,9 @@ local handler_no_diagnostics = {
 	["textDocument/publishDiagnostics"] = function() end,
 }
 
-local on_attach = require("dotfiles.nvim_lsp.on_attach")
+local on_attach = require("dotfiles.nvim-lsp.on_attach")
 
--- local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- local capabilities = require("cmp_nvim-lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 require("dotfiles.null-ls")
