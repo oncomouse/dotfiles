@@ -23,7 +23,15 @@ return require("packer").startup({
 				end,
 			}, -- Set project root
 			-- Editor Enhancements:
-			"oncomouse/vim-lion", -- gl and gL to align
+			{
+				"oncomouse/vim-lion",
+				keys = {
+					{ "v", "gl" },
+					{ "n", "gl" },
+					{ "v", "gL" },
+					{ "n", "gL" },
+				},
+			}, -- gl and gL to align
 			{
 				"haya14busa/vim-asterisk",
 				config = function()
