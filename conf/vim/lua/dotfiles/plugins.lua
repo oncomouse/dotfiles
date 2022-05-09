@@ -3,6 +3,14 @@ return require("packer").startup({
 		use({
 			{ "wbthomason/packer.nvim", opt = true },
 			"sickill/vim-pasta", -- fix block paste for Neovim
+			{
+				"christoomey/vim-sort-motion",
+				keys = {
+					{ "x", "gs" },
+					{ "n", "gs" },
+					{ "n", "gss" },
+				},
+			}, -- gs to sort
 			{ "tpope/vim-commentary", requires = { "tpope/vim-repeat" } }, -- gc<motion> to (un)comment
 			{
 				"oncomouse/vim-surround",
