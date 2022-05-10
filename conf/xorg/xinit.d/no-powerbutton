@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+exec systemd-inhibit --what=handle-power-key sleep infinity
+#vim: ft=sh
