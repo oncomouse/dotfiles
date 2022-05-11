@@ -65,7 +65,15 @@ return require("packer").startup({
 				end,
 				requires = { "tpope/vim-repeat" },
 			}, -- Fancy * and # bindings
-			{ "vim-scripts/ReplaceWithRegister", requires = { "tpope/vim-repeat" } }, -- gr{motion} or grr or gr in visual to replace with register
+			{
+				"vim-scripts/ReplaceWithRegister",
+				keys = {
+					{ "x", "gr" },
+					{ "n", "gr" },
+					{ "n", "grr" },
+				},
+				requires = { "tpope/vim-repeat" },
+			}, -- gr{motion} or grr or gr in visual to replace with register
 			{
 				"cohama/lexima.vim",
 				config = function()
@@ -301,6 +309,7 @@ return require("packer").startup({
 							"ninja",
 							"nix",
 							"norg",
+							"org",
 							"perl",
 							"php",
 							"python",
@@ -378,7 +387,6 @@ return require("packer").startup({
 					},
 				},
 			}, -- Markdown Syntax
-			"baskerville/vim-sxhkdrc", -- SXHKD Syntax
 			-- Appearance:
 			{
 				"lukas-reineke/indent-blankline.nvim",
@@ -438,9 +446,7 @@ return require("packer").startup({
 					vim.api.nvim_create_autocmd("FileType", {
 						group = "dotfiles-settings",
 						pattern = "scss",
-						callback = function()
-							require("colorizer/sass").attach_to_buffer()
-						end,
+						callback = require("colorizer/sass").attach_to_buffer,
 					})
 				end,
 			}, -- Highlight colors in files
