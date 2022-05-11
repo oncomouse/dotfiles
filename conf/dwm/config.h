@@ -268,7 +268,8 @@ static Key keys[] = {
 	{ 0,                            XF86XK_AudioPlay,           spawn,               SHCMD("dotfiles-media play") },
 	{ 0,                            XF86XK_AudioPrev,           spawn,               SHCMD("dotfiles-media prev") },
 	{ 0,                            XF86XK_AudioNext,           spawn,               SHCMD("dotfiles-media next") },
-	{ 0,                            XF86XK_AudioStop,           spawn,               SHCMD("dotfiles-media stop") }
+	{ 0,                            XF86XK_AudioStop,           spawn,               SHCMD("dotfiles-media stop") },
+	{ 0,                            XF86XK_PowerOff,            spawn,               SHCMD("dotfiles-power") },
 
 };
 

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+font=${1:-"FiraCode Nerd Font 12"}
+choice=$(printf "Yes\nNo" | \
+	rofi \
+	-match fuzzy \
+	-auto-select \
+	-dmenu \
+	-i \
+	-font "$font" \
+	-p "Shutdown Computer?" \
+	"-location" \
+	"1" \
+	"-theme-str" \
+	"window { width: 100%; }" \
+)
+
+if [ "$choice" = "Yes" ]; then
+	notify-send "Shutdown"
+	poweroff
+fi
+# vim:ft=sh
