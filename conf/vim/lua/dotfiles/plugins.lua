@@ -77,6 +77,24 @@ return require("packer").startup({
 			{
 				"cohama/lexima.vim",
 				config = function()
+					-- XML-style closetag:
+					vim.api.nvim_create_autocmd("FileType", {
+						pattern = "html,xml,javascript,javascriptreact",
+						group = "dotfiles-settings",
+						callback = function()
+							vim.fn["lexima#add_rule"]({ char = "<", input_after = ">" })
+							vim.fn["lexima#add_rule"]({
+								char = ">",
+								at = [[<\(\w\+\)\%#>]],
+								leave = 1,
+								input_after = [[</\1>]],
+								with_submatch = 1,
+							})
+						end,
+						desc = "Rules for auto-closing XML-style tags",
+					})
+
+					-- Lua endwise rules:
 					local function make_rule(at, ed, ft, syn)
 						return {
 							char = "<CR>",
@@ -107,7 +125,10 @@ return require("packer").startup({
 								)
 							)
 						end,
+						desc = "Rules for lua endwise",
 					})
+
+					-- Autoclose mapping:
 					vim.keymap.set(
 						"i",
 						"<Plug>(dotfiles-lexima)",
@@ -331,15 +352,6 @@ return require("packer").startup({
 				end,
 				requires = {
 					{
-						"windwp/nvim-ts-autotag",
-						ft = { "html", "javascript", "javascriptreact" },
-						config = function()
-							require("nvim-treesitter.configs").setup({
-								autotag = { enable = true },
-							})
-						end,
-					},
-					{
 						"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
 						ft = {
 							"javascript",
@@ -363,13 +375,6 @@ return require("packer").startup({
 				},
 			}, -- Treesitter-based Syntax
 			-- Non-Treesitter Syntax:
-			{
-				"sukima/xmledit",
-				ft = "xml",
-				setup = function()
-					vim.g.xml_no_comment_map = 1
-				end,
-			}, -- XML tag close
 			{
 				"plasticboy/vim-markdown",
 				ft = "markdown",
