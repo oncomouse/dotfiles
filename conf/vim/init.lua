@@ -434,7 +434,7 @@ end
 -- Update Packer.nvim automatically:
 vim.api.nvim_create_autocmd("BufWritePost", {
 	group = "dotfiles-settings",
-	pattern = "plugins.lua",
+	pattern = "plugins/*.lua",
 	command = "source <afile> | PackerCompile",
 })
 -- Install packer.nvim, if it isn't present:
