@@ -40,7 +40,7 @@ local eslint_types = {
 local function javascript_register(type)
 	if not eslint_project() then
 		return vim.tbl_contains(semistandard_types, type)
-				and require("dotfiles.null-ls.builtins." .. type .. ".semistandard")
+				and require("dotfiles.plugins.null-ls.builtins." .. type .. ".semistandard")
 			or nil
 	end
 

@@ -1,4 +1,4 @@
-local javascript_register = require("dotfiles.null-ls.helpers.javascript_register")
+local javascript_register = require("dotfiles.plugins.null-ls.helpers.javascript_register")
 
 require("null-ls").setup({
 	on_attach = require("dotfiles.nvim-lsp.on_attach"),
@@ -44,8 +44,8 @@ require("null-ls").setup({
 		require("null-ls").builtins.diagnostics.rubocop,
 		require("null-ls").builtins.diagnostics.standardrb,
 		require("null-ls").builtins.code_actions.shellcheck,
-		require("dotfiles.null-ls.builtins.hover.bibtex"),
-		require("dotfiles.null-ls.builtins.completion.bibtex"),
+		require("dotfiles.plugins.null-ls.builtins.hover.bibtex"),
+		require("dotfiles.plugins.null-ls.builtins.completion.bibtex"),
 		require("null-ls").builtins.completion.vsnip,
 		javascript_register("formatting"),
 		javascript_register("diagnostics"),

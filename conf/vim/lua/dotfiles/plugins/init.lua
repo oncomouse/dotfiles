@@ -398,7 +398,7 @@ return require("packer").startup({
 			{
 				"rebelot/heirline.nvim",
 				config = function()
-					require("heirline").setup(require("dotfiles.heirline"))
+					require("heirline").setup(require("dotfiles.plugins.heirline"))
 				end,
 				cond = require("dotfiles.utils.use_termguicolors"),
 			}, -- Statusline
