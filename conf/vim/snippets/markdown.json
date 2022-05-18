@@ -1,0 +1,10 @@
+{
+	"cite": {
+		"prefix": "cite",
+		"body": [
+			"[@$1, $2]"
+		],
+		"description": "Markdown - cite a reference",
+		"scope": "text.markdown"
+	}
+}
