@@ -1,6 +1,14 @@
 return function()
 	-- Markdown rules:
 	vim.fn["lexima#add_rule"]({ char = "*", at = [[^\s*\%#]], input = "*<Space>", filetype = "markdown" }) -- Bulleted lists
+	vim.fn["lexima#add_rule"]({
+		char = "]",
+		at = [=[\[[^]]*\%#\]]=],
+		leave = "]",
+		input = "(",
+		input_after = ")",
+		filetype = "markdown",
+	}) -- Links
 
 	-- Handle bold/italic pairs:
 	local function make_markdown_bi_rule(char, escape)
@@ -25,20 +33,31 @@ return function()
 			filetype = "markdown",
 			except = esc_char .. [[\{1\}\%#]],
 		}) -- Leave bold pair
-		vim.fn["lexima#add_rule"]({ char = "<BS>", at = esc_char .. [[\%#]] .. esc_char, delete = char, filetype = "markdown" }) -- Delete pair
+		vim.fn["lexima#add_rule"]({
+			char = "<BS>",
+			at = esc_char .. [[\%#]] .. esc_char,
+			delete = char,
+			filetype = "markdown",
+		}) -- Delete pair
 	end
 	make_markdown_bi_rule("*", true)
 	make_markdown_bi_rule("_")
 
 	-- XML-style closetag:
-	vim.fn["lexima#add_rule"]({ char = "<", input_after = ">", filetype = "html,xml,javascript,javascriptreact" })
-	vim.fn["lexima#add_rule"]({
-		char = ">",
-		at = [[<\(\w\+\)\%#>]],
-		leave = 1,
-		input_after = [[</\1>]],
-		with_submatch = 1,
-		filetype = "html,xml,javascript,javascriptreact",
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = "html,xml,javascript,javascriptreact",
+		group = "dotfiles-settings",
+		callback = function()
+			vim.fn["lexima#add_rule"]({ char = "<", input_after = ">" })
+			vim.fn["lexima#add_rule"]({
+				char = ">",
+				at = [[<\(\w\+\)\%#>]],
+				leave = 1,
+				input_after = [[</\1>]],
+				with_submatch = 1,
+			})
+		end,
+		desc = "Rules for auto-closing XML-style tags",
 	})
 
 	-- Lua endwise rules:
