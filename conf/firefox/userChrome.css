@@ -116,10 +116,10 @@ Here you can comment if you want your buttons to be showed up!
     display: none !important;
 }
 
-/* This one is the "shield" icon  */
-#tracking-protection-icon-container {
-    display: none !important;
-}
+/* /1* This one is the "shield" icon  *1/ */
+/* #tracking-protection-icon-container { */
+/*     display: none !important; */
+/* } */
 
 /* This one is the hamburger menu!  */
 #PanelUI-button {
