@@ -144,14 +144,14 @@ todo.map = function()
 	vim.keymap.set("n", "[t", todo.prev_project, { buffer = true, silent = true, noremap = true })
 end
 
-vim.api.nvim_create_augroup("todo", { clear = true })
+local todo_augroup = vim.api.nvim_create_augroup("todo", { clear = true })
 vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
-	group = "todo",
+	group = todo_augroup,
 	pattern = "todo.*",
 	callback = todo.map,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	group = "todo",
+	group = todo_augroup,
 	pattern = "vimwiki",
 	callback = todo.map,
 })
