@@ -77,6 +77,10 @@ return require("packer").startup({
 			{
 				"cohama/lexima.vim",
 				config = function()
+					-- Markdown matches:
+					vim.fn["lexima#add_rule"]({ char = "*", input_after = "*", filetype = "markdown" })
+					vim.fn["lexima#add_rule"]({ char = "*", at = [[\%#\*]], leave = 1, filetype = "markdown" })
+					vim.fn["lexima#add_rule"]({ char = "<BS>", at = [[\*\%#\*]], delete = 1, filetype = "markdown" })
 					-- XML-style closetag:
 					vim.api.nvim_create_autocmd("FileType", {
 						pattern = "html,xml,javascript,javascriptreact",
