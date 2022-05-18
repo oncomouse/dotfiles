@@ -77,10 +77,51 @@ return require("packer").startup({
 			{
 				"cohama/lexima.vim",
 				config = function()
-					-- Markdown matches:
-					vim.fn["lexima#add_rule"]({ char = "*", input_after = "*", filetype = "markdown", except = [[^\*\{0,1\}\%#]] })
-					vim.fn["lexima#add_rule"]({ char = "*", at = [[\%#\*]], leave = 1, filetype = "markdown" })
-					vim.fn["lexima#add_rule"]({ char = "<BS>", at = [[\*\%#\*]], delete = 1, filetype = "markdown" })
+					-- Markdown rules:
+					vim.fn["lexima#add_rule"]({ char = "*", at = [[^\s*\%#]], input = "*<Space>", filetype = "markdown" }) -- Bulleted lists
+					-- Bold and Italics:
+					vim.fn["lexima#add_rule"]({
+						char = "*",
+						input_after = "*",
+						filetype = "markdown",
+						except = [[^\*\{0,1\}\%#]],
+					}) -- Italics pair
+					vim.fn["lexima#add_rule"]({
+						char = "*",
+						at = [[\%#\*]],
+						leave = "*",
+						filetype = "markdown",
+						except = [[\*\{1\}\%#]],
+					}) -- Leave italics pair
+					vim.fn["lexima#add_rule"]({
+						char = "*",
+						at = [[\*\*.\+\%#\*]],
+						leave = 2,
+						filetype = "markdown",
+						except = [[\*\{1\}\%#]],
+					}) -- Leave bold pair
+					vim.fn["lexima#add_rule"]({ char = "<BS>", at = [[\*\%#\*]], delete = "*", filetype = "markdown" }) -- Delete pair
+					vim.fn["lexima#add_rule"]({
+						char = "_",
+						input_after = "_",
+						filetype = "markdown",
+						except = [[^_\{0,1\}\%#]],
+					}) -- Italics pair
+					vim.fn["lexima#add_rule"]({
+						char = "_",
+						at = [[\%#_]],
+						leave = "_",
+						filetype = "markdown",
+						except = [[_\{1\}\%#]],
+					}) -- Leave italics pair
+					vim.fn["lexima#add_rule"]({
+						char = "_",
+						at = [[__.\+\%#_]],
+						leave = 2,
+						filetype = "markdown",
+						except = [[_\{1\}\%#]],
+					}) -- Leave bold pair
+					vim.fn["lexima#add_rule"]({ char = "<BS>", at = [[_\%#_]], delete = "_", filetype = "markdown" }) -- Delete pair
 					-- XML-style closetag:
 					vim.api.nvim_create_autocmd("FileType", {
 						pattern = "html,xml,javascript,javascriptreact",
