@@ -3,7 +3,8 @@ return function()
 	vim.fn["lexima#add_rule"]({ char = "*", at = [[^\s*\%#]], input = "*<Space>", filetype = "markdown" }) -- Bulleted lists
 	vim.fn["lexima#add_rule"]({
 		char = "]",
-		at = [=[\[\(@\)\{0\}[^]]*\%#\]]=],
+		at = [=[\[[^]]*\%#\]]=],
+		except = [=[\[@[^]]*\%#\]]=],
 		leave = "]",
 		input = "(",
 		input_after = ")",
