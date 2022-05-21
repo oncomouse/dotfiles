@@ -1,0 +1,43 @@
+exec ~/dotfiles/conf/ratpoison/autostart &
+
+
+escape C-z
+
+# [workspaces]
+exec rpws init 6 -a
+bind M-1 exec rpws 1
+bind M-2 exec rpws 2
+bind M-3 exec rpws 3
+bind M-4 exec rpws 4
+bind M-5 exec rpws 5
+bind M-6 exec rpws 6
+bind M-Right exec rpwsn
+bind M-Left exec rpwsp
+bind M-S-1 exec rpwsm1
+bind M-S-2 exec rpwsm2
+bind M-S-3 exec rpwsm3
+bind M-S-4 exec rpwsm4
+bind M-S-5 exec rpwsm5
+bind M-S-6 exec rpwsm6
+
+bind Return exec dotfiles-term &
+bind f exec dotfiles-fm &
+bind q quit
+
+bind h focusleft
+bind j focusdown
+bind k focusup
+bind l focusright
+
+# [windows]
+bind w exec ratpoison -c "select $(ratpoison -c "windows (%n)%a" | rofi -dmenu)" &
+
+# [groups]
+bind C-g exec ratpoison -c "gnew $(ratpoison -c "prompt Create new group:")" &
+bind M-g exec ratpoison -c "gmove $(ratpoison -c groups | rofi -dmenu | cut -c 2-20 | sed -e 's/[+*-]//g')" &
+bind g exec ratpoison -c "gselect $(ratpoison -c groups | rofi -dmenu | cut -c 2-20 | sed -e 's/[+*-]//g')" &
+
+# [launchers]
+definekey root M-r exec rofi -show drun
+definekey root M-p exec rofimusic.sh
+# vim:ft=ratpoison
