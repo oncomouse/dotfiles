@@ -15,11 +15,17 @@ exec rp-workspaces.sh 6
 bind Return exec dotfiles-term &
 bind f exec dotfiles-fm &
 
-# [switch panes]
+# [switch frames]
+unbind Tab
+bind Tab fselect
 bind h focusleft
 bind j focusdown
 bind k focusup
 bind l focusright
+bind C-h exchangeleft
+bind C-j exchangedown
+bind C-k exchangeup
+bind C-l exchangeright
 
 # [zoom]
 bind z exec rp-zoom.sh
