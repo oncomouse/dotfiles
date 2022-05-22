@@ -2,7 +2,11 @@ exec ~/dotfiles/conf/ratpoison/autostart &
 
 exec ~/dotfiles/conf/ratpoison/workspaces.sh 6
 
-escape C-z
+# [settings]
+exec ~/dotfiles/conf/ratpoison/colors.sh &
+set bargravity c
+set font "JetBrainsMono Nerd Font:size=13"
+escape s-z
 
 # [workspaces]
 bind M-Right exec rpwsn
@@ -28,5 +32,5 @@ bind g exec ratpoison -c "gselect $(ratpoison -c groups | rofi -dmenu | cut -c 2
 # [launchers]
 definekey top M-s-r exec rofi -show drun
 definekey top M-s-p exec rofimusic.sh
-definekey top s-S-p exec dotfiles-power
+definekey top s-P exec dotfiles-powermenu
 # vim:ft=ratpoison
