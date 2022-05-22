@@ -3,17 +3,21 @@ exec ~/dotfiles/conf/ratpoison/autostart &
 # [settings]
 exec rp-colors.sh &
 set bargravity c
-set font "JetBrainsMono Nerd Font:size=13"
+set font "JetBrainsMono Nerd Font:size=11"
 escape s-space
 
 # [workspaces]
 bind M-Right exec rpwsn
 bind M-Left exec rpwsp
-exec rp-workspaces.sh 6
+# exec rp-workspaces.sh 6
 
 # [launchers]
 bind Return exec dotfiles-term &
 bind f exec dotfiles-fm &
+
+# [fancy input]
+unbind colon
+bind colon exec ratpoison -c $(rofi -dmenu -p ':' -no-fixed-num-lines) &
 
 # [switch frames]
 unbind Tab
@@ -42,4 +46,19 @@ bind g exec ratpoison -c "gselect $(ratpoison -c groups | rofi -dmenu -match fuz
 definekey top M-s-r exec rofi -show drun
 definekey top M-s-p exec rofimusic.sh
 definekey top s-P exec dotfiles-powermenu
+
+# [workspaces]
+exec rpws init 6 -a
+definekey top s-1 exec rpws 1 &
+definekey top s-2 exec rpws 2 &
+definekey top s-3 exec rpws 3 &
+definekey top s-4 exec rpws 4 &
+definekey top s-5 exec rpws 5 &
+definekey top s-6 exec rpws 6 &
+definekey top s-exclam rpwsm1 &
+definekey top s-at rpwsm2 &
+definekey top s-numbersign rpwsm3 &
+definekey top s-dollar rpwsm4 &
+definekey top s-percent rpwsm5 &
+definekey top s-asciicircum rpwsm6 &
 # vim:ft=ratpoison
