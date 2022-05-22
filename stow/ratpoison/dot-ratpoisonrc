@@ -26,6 +26,7 @@ bind M-g exec ratpoison -c "gmove $(ratpoison -c groups | rofi -dmenu | cut -c 2
 bind g exec ratpoison -c "gselect $(ratpoison -c groups | rofi -dmenu | cut -c 2-20 | sed -e 's/[+*-]//g')" &
 
 # [launchers]
-definekey top M-r exec rofi -show drun
-definekey top M-p exec rofimusic.sh
+definekey top M-s-r exec rofi -show drun
+definekey top M-s-p exec rofimusic.sh
+definekey top s-S-p exec dotfiles-power
 # vim:ft=ratpoison
