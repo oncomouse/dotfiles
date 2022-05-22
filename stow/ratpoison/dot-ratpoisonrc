@@ -1,21 +1,21 @@
 exec ~/dotfiles/conf/ratpoison/autostart &
 
-exec ~/dotfiles/conf/ratpoison/workspaces.sh 6
-
 # [settings]
 exec ~/dotfiles/conf/ratpoison/colors.sh &
 set bargravity c
 set font "JetBrainsMono Nerd Font:size=13"
-escape s-z
+escape s-space
 
 # [workspaces]
 bind M-Right exec rpwsn
 bind M-Left exec rpwsp
+exec ~/dotfiles/conf/ratpoison/workspaces.sh 6
 
+# [launchers]
 bind Return exec dotfiles-term &
 bind f exec dotfiles-fm &
-bind q quit
 
+# [switch panes]
 bind h focusleft
 bind j focusdown
 bind k focusup
