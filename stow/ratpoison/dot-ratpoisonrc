@@ -14,6 +14,10 @@ bind M-Left exec rpwsp
 # [launchers]
 bind Return exec dotfiles-term &
 bind f exec dotfiles-fm &
+# battery
+bind b exec ratpoison -c "echo $(acpi -b)" &
+# time
+bind t exec ratpoison -c "echo $(date +"%a %-m/%d %-I:%M %p")" &
 
 # [fancy input]
 # unbind colon
