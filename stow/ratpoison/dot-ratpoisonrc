@@ -16,8 +16,8 @@ bind Return exec dotfiles-term &
 bind f exec dotfiles-fm &
 
 # [fancy input]
-unbind colon
-bind colon exec ratpoison -c $(rofi -dmenu -p ':' -no-fixed-num-lines) &
+# unbind colon
+# bind colon exec ratpoison -c $(rofi -dmenu -p ':' -no-fixed-num-lines) &
 
 # [switch frames]
 unbind Tab
