@@ -25,12 +25,12 @@ bind l focusright
 bind z exec rp-zoom.sh
 
 # [windows]
-bind w exec ratpoison -c "select $(ratpoison -c "windows (%n)%a" | rofi -dmenu | sed -e "s/(\([0-9]\+\)).*\$/\1/")" &
+bind w exec ratpoison -c "select $(ratpoison -c "windows (%n)%a" | rofi -dmenu -match fuzzy -auto-select | sed -e "s/(\([0-9]\+\)).*\$/\1/")" &
 
 # [groups]
 bind C-g exec ratpoison -c "gnew $(ratpoison -c "prompt Create new group:")" &
-bind M-g exec ratpoison -c "gmove $(ratpoison -c groups | rofi -dmenu | cut -c 2-20 | sed -e 's/[+*-]//g')" &
-bind g exec ratpoison -c "gselect $(ratpoison -c groups | rofi -dmenu | cut -c 2-20 | sed -e 's/[+*-]//g')" &
+bind M-g exec ratpoison -c "gmove $(ratpoison -c groups | rofi -dmenu -match fuzzy -auto-select | cut -c 2-20 | sed -e 's/[+*-]//g')" &
+bind g exec ratpoison -c "gselect $(ratpoison -c groups | rofi -dmenu -match fuzzy -auto-select | cut -c 2-20 | sed -e 's/[+*-]//g')" &
 
 # [launchers]
 definekey top M-s-r exec rofi -show drun
