@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/cache}
+XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
 export XDG_CACHE_HOME
 mkdir -p "$XDG_CACHE_HOME/ratpoison"
 
-if [ -e "$XDG_CACHE_HOME/ratpoison/zoom" ]; then
-	ratpoison -c "frestore $(cat "$XDG_CACHE_HOME/ratpoison/zoom")"
-	rm "$XDG_CACHE_HOME/ratpoison/zoom"
+file="$XDG_CACHE_HOME/ratpoison/zoom-$(rpws current)"
+
+if [ -e "$file" ]; then
+	ratpoison -c "frestore $(cat "$file")"
+	rm "$file"
 else
-	ratpoison -c fdump > "$XDG_CACHE_HOME/ratpoison/zoom"
+	ratpoison -c fdump > "$file"
 	ratpoison -c only
 fi

@@ -1,7 +1,7 @@
 exec ~/dotfiles/conf/ratpoison/autostart &
 
 # [settings]
-exec ~/dotfiles/conf/ratpoison/colors.sh &
+exec rp-colors.sh &
 set bargravity c
 set font "JetBrainsMono Nerd Font:size=13"
 escape s-space
@@ -9,7 +9,7 @@ escape s-space
 # [workspaces]
 bind M-Right exec rpwsn
 bind M-Left exec rpwsp
-exec ~/dotfiles/conf/ratpoison/workspaces.sh 6
+exec rp-workspaces.sh 6
 
 # [launchers]
 bind Return exec dotfiles-term &
@@ -20,6 +20,9 @@ bind h focusleft
 bind j focusdown
 bind k focusup
 bind l focusright
+
+# [zoom]
+bind z exec rp-zoom.sh
 
 # [windows]
 bind w exec ratpoison -c "select $(ratpoison -c "windows (%n)%a" | rofi -dmenu)" &
