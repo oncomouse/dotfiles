@@ -20,7 +20,8 @@ bind b exec ratpoison -c "echo $(acpi -b)" &
 bind t exec ratpoison -c "echo $(date +"%a %-m/%d %-I:%M %p")" &
 
 # [fancy input]
-# unbind colon
+unbind colon
+bind colon exec rp-prompt.sh
 # bind colon exec ratpoison -c $(rofi -dmenu -p ':' -no-fixed-num-lines) &
 
 # [switch frames]

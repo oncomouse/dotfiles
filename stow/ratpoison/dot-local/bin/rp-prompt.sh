@@ -15,6 +15,8 @@ if [ ! -f "$file" ]; then
 	touch "$file"
 fi
 
-command="$(tac "$file" | rofi -dmenu -match fuzzy -p ":")"
-echo "$command" >> "$file"
-ratpoison -c "$command"
+command="$(tac "$file" | rofi -dmenu -match fuzzy -p ":" -no-fixed-num-lines)"
+if [ "$command" != '' ]; then
+	echo "$command" >> "$file"
+	ratpoison -c "$command"
+fi
