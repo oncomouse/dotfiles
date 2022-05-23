@@ -1,8 +1,8 @@
 if status is-interactive
 	# Test for keyring:
-	if test -n "$DESKTOP_SESSION"
-		set -x (gnome-keyring-daemon --start | string split "=")
-	end
+	# if test -n "$DESKTOP_SESSION"
+	# 	set -x (gnome-keyring-daemon --start | string split "=")
+	# end
 	# Setup Pywal colors:
 	if test -d $HOME/.cache/wal
 		source ~/.cache/wal/colors.fish
