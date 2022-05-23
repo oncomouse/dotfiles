@@ -10,7 +10,6 @@ escape s-space
 # [workspaces]
 bind M-Right exec rpwsn
 bind M-Left exec rpwsp
-# exec rp-workspaces.sh 6
 
 # [launchers]
 bind Return exec dotfiles-term &
@@ -23,7 +22,6 @@ bind t exec ratpoison -c "echo $(date +"%a %-m/%d %-I:%M %p")" &
 # [fancy input]
 unbind colon
 bind colon exec rp-prompt.sh
-# bind colon exec ratpoison -c $(rofi -dmenu -p ':' -no-fixed-num-lines) &
 
 # [switch frames]
 unbind Tab
@@ -67,4 +65,18 @@ definekey top s-numbersign rpwsm3 &
 definekey top s-dollar rpwsm4 &
 definekey top s-percent rpwsm5 &
 definekey top s-asciicircum rpwsm6 &
+
+# [mediakeys]
+definekey top XF86KbdBrightnessDown exec sudo /usr/local/bin/keyboard-backlight down &
+definekey top XF86KbdBrightnessUp exec sudo /usr/local/bin/keyboard-backlight up &
+definekey top XF86MonBrightnessUp exec dotfiles-brightness up &
+definekey top XF86MonBrightnessDown exec dotfiles-brightness down &
+definekey top XF86AudioMute exec dotfiles-volume mute &
+definekey top XF86AudioLowerVolume exec dotfiles-volume down &
+definekey top XF86AudioRaiseVolume exec dotfiles-volume up &
+definekey top XF86AudioPlay exec dotfiles-media play &
+definekey top XF86AudioPrev exec dotfiles-media prev &
+definekey top XF86AudioNext exec dotfiles-media next &
+definekey top XF86AudioStop exec dotfiles-media stop &
+definekey top XF86PowerOff exec dotfiles-power &
 # vim:ft=ratpoison
