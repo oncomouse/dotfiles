@@ -1,12 +1,12 @@
-exec ~//conf/ratpoison/autostart &
+exec ~/conf/ratpoison/autostart &
 exec rp-prompt.sh startup &
 
 # [settings]
+escape s-x
 exec rp-colors.sh &
 set border 2
 set bargravity c
 set font "JetBrainsMono Nerd Font:size=13"
-escape s-x
 
 # [To be redefined]
 unbind b
@@ -62,10 +62,12 @@ bind C-s-l exchangeright
 # [zoom]
 alias zoom exec rp-zoom.sh &
 bind z zoom
+bind s-z zoom
 
 # [windows]
 alias rp-windows exec ratpoison -c "select $(ratpoison -c "windows (%n)%a" | rofi -dmenu -match fuzzy -auto-select | sed -e "s/(\([0-9]\+\)).*\$/\1/")" &
 bind w rp-windows
+bind s-w rp-windows
 
 # [groups]
 alias rp-gnew exec ratpoison -c "gnew $(ratpoison -c "prompt Create new group:")" &
@@ -120,7 +122,9 @@ unbind C-Right
 unbind C-Up
 unbind C-Down
 unbind C-Return
+unbind a
 
+# [Don't use these]
 unbind C-A
 unbind C-K
 unbind C-S
@@ -135,12 +139,12 @@ unbind C-k
 unbind C-m
 unbind C-n
 unbind C-p
+unbind C-r
 unbind C-s
 unbind C-space
 unbind C-u
 unbind C-underscore
 unbind C-v
 unbind C-w
-unbind a
 
 # vim:ft=ratpoison
