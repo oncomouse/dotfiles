@@ -5,6 +5,7 @@ choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next\n Search\n�
 	rofi \
 	-match fuzzy \
 	-auto-select \
+	-no-fixed-num-lines \
 	-dmenu \
 	-i \
 	-font "$font" \

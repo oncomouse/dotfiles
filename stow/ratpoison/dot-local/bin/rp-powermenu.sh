@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
-choice="$(printf "Lock\nSuspend\nLogoff\nRestart\nShutdown" | rofi -dmenu -match fuzzy -auto-select -i -p Powermenu -location 1 -theme-str "window { width: 100%; }")"
+choice="$(printf "Lock\nSuspend\nLogoff\nRestart\nShutdown" | rofi -dmenu -match fuzzy -auto-select -i -p Powermenu -location 1 -theme-str "window { width: 100%; }" -no-fixed-num-lines)"
 case $choice in
 	Lock)
 		xscreensaver-command -lock
