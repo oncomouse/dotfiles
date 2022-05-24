@@ -5,7 +5,7 @@ exec rp-prompt.sh startup &
 exec rp-colors.sh &
 set border 2
 set bargravity c
-set font "JetBrainsMono Nerd Font:size=11"
+set font "JetBrainsMono Nerd Font:size=13"
 escape s-x
 
 # [To be redefined]
@@ -39,10 +39,6 @@ bind b battery
 bind s-b battery
 bind t time
 bind s-t time
-# Unused launcher binds
-unbind a
-unbind C-a
-unbind C-c
 
 # [switch frames]
 bind Tab fselect
@@ -129,10 +125,13 @@ unbind C-A
 unbind C-K
 unbind C-S
 unbind C-V
+unbind C-a
 unbind C-apostrophe
 unbind C-b
+unbind C-c
 unbind C-f
 unbind C-i
+unbind C-k
 unbind C-m
 unbind C-n
 unbind C-p
@@ -142,5 +141,6 @@ unbind C-u
 unbind C-underscore
 unbind C-v
 unbind C-w
-unbind C-k
+unbind a
+
 # vim:ft=ratpoison
