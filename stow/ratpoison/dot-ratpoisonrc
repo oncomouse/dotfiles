@@ -1,6 +1,6 @@
 exec ~/dotfiles/conf/ratpoison/autostart &
 exec rp-prompt.sh startup &
-exec rp-sloppy.sh &
+# exec rp-sloppy.sh &
 
 # [settings]
 exec rp-colors.sh &
