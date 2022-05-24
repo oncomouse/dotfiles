@@ -1,5 +1,6 @@
 exec ~/dotfiles/conf/ratpoison/autostart &
 exec rp-prompt.sh startup &
+exec rp-sloppy.sh &
 
 # [settings]
 exec rp-colors.sh &
@@ -17,6 +18,8 @@ bind f exec dotfiles-fm &
 # battery
 bind b exec ratpoison -c "echo $(acpi -b)" &
 # time
+unbind a
+unbind C-a
 bind t exec ratpoison -c "echo $(date +"%a %-m/%d %-I:%M %p")" &
 
 # [fancy input]
@@ -34,6 +37,14 @@ bind C-h exchangeleft
 bind C-j exchangedown
 bind C-k exchangeup
 bind C-l exchangeright
+unbind Left
+unbind Right
+unbind Up
+unbind Down
+unbind C-Left
+unbind C-Right
+unbind C-Up
+unbind C-Down
 
 # [zoom]
 bind z exec rp-zoom.sh
