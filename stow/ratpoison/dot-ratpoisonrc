@@ -3,6 +3,7 @@ exec rp-prompt.sh startup &
 
 # [settings]
 exec rp-colors.sh &
+set border 2
 set bargravity c
 set font "JetBrainsMono Nerd Font:size=11"
 escape s-x
@@ -16,15 +17,18 @@ alias battery exec ratpoison -c "echo $(acpi -b)" &
 alias fm exec dotfiles-fm &
 alias term exec dotfiles-term &
 alias time exec ratpoison -c "echo $(date +"%a %-m/%d %-I:%M %p")" &
-bind Return term
 bind c term
-bind C-c term
+bind s-c term
 bind f fm
+bind s-f fm
 bind b battery
+bind s-b battery
 bind t time
+bind s-t time
 # Unused time binds
 unbind a
 unbind C-a
+unbind s-a
 
 # [switch frames]
 bind Tab fselect
