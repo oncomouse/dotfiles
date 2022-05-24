@@ -80,7 +80,7 @@ bind g rp-gselect
 # [launchers]
 definekey top M-s-r exec rofi -match fuzzy -auto-select -show drun -show-icons {-drun-display-form \{name\}, -window-format "\\{w\\} \\{c\\} \\{t:25\\}"} -location 1 -theme-str "window { width: 100%; }" &
 definekey top M-s-p exec rofimusic.sh &
-definekey top s-P exec dotfiles-powermenu &
+definekey top s-P exec rp-powermenu.sh &
 bind C-exclam colon exec dotfiles-term -e
 
 # [workspaces]
