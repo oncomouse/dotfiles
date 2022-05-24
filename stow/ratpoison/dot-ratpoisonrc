@@ -145,6 +145,7 @@ unbind C-space
 unbind C-u
 unbind C-underscore
 unbind C-v
+unbind C-x
 unbind C-w
 
 # vim:ft=ratpoison
