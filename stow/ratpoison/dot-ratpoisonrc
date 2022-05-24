@@ -8,6 +8,20 @@ set bargravity c
 set font "JetBrainsMono Nerd Font:size=11"
 escape s-x
 
+# [To be redefined]
+unbind b
+unbind c
+unbind f
+unbind h
+unbind j
+unbind k
+unbind l
+unbind C-h
+unbind C-j
+unbind C-k
+unbind C-l
+unbind t
+
 # [workspaces]
 bind M-Right exec rpwsn
 bind M-Left exec rpwsp
@@ -25,10 +39,10 @@ bind b battery
 bind s-b battery
 bind t time
 bind s-t time
-# Unused time binds
+# Unused launcher binds
 unbind a
 unbind C-a
-unbind s-a
+unbind C-c
 
 # [switch frames]
 bind Tab fselect
@@ -50,7 +64,8 @@ bind C-s-k exchangeup
 bind C-s-l exchangeright
 
 # [zoom]
-bind z exec rp-zoom.sh
+alias zoom exec rp-zoom.sh &
+bind z zoom
 
 # [windows]
 alias rp-windows exec ratpoison -c "select $(ratpoison -c "windows (%n)%a" | rofi -dmenu -match fuzzy -auto-select | sed -e "s/(\([0-9]\+\)).*\$/\1/")" &
@@ -108,4 +123,24 @@ unbind C-Left
 unbind C-Right
 unbind C-Up
 unbind C-Down
+unbind C-Return
+
+unbind C-A
+unbind C-K
+unbind C-S
+unbind C-V
+unbind C-apostrophe
+unbind C-b
+unbind C-f
+unbind C-i
+unbind C-m
+unbind C-n
+unbind C-p
+unbind C-s
+unbind C-space
+unbind C-u
+unbind C-underscore
+unbind C-v
+unbind C-w
+unbind C-k
 # vim:ft=ratpoison
