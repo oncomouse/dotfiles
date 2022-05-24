@@ -1,12 +1,14 @@
 exec ~/dotfiles/conf/ratpoison/autostart &
 exec rp-prompt.sh startup &
+alias time ratpoison -c "echo $(date +"%a %-m/%d %-I:%M %p")"
+alias battery exec ratpoison -c "echo $(acpi -b)"
 # exec rp-sloppy.sh &
 
 # [settings]
 exec rp-colors.sh &
 set bargravity c
 set font "JetBrainsMono Nerd Font:size=11"
-escape s-space
+escape s-x
 
 # [workspaces]
 bind M-Right exec rpwsn
@@ -14,20 +16,17 @@ bind M-Left exec rpwsp
 
 # [launchers]
 bind Return exec dotfiles-term &
+bind c exec dotfiles-term &
+bind C-c exec dotfiles-term &
 bind f exec dotfiles-fm &
 # battery
-bind b exec ratpoison -c "echo $(acpi -b)" &
+bind b exec battery &
 # time
 unbind a
 unbind C-a
-bind t exec ratpoison -c "echo $(date +"%a %-m/%d %-I:%M %p")" &
-
-# [fancy input]
-unbind colon
-bind colon exec rp-prompt.sh
+bind t exec time &
 
 # [switch frames]
-unbind Tab
 bind Tab fselect
 bind h focusleft
 bind j focusdown
@@ -37,25 +36,29 @@ bind C-h exchangeleft
 bind C-j exchangedown
 bind C-k exchangeup
 bind C-l exchangeright
-unbind Left
-unbind Right
-unbind Up
-unbind Down
-unbind C-Left
-unbind C-Right
-unbind C-Up
-unbind C-Down
+bind s-h focusleft
+bind s-j focusdown
+bind s-k focusup
+bind s-l focusright
+bind C-s-h exchangeleft
+bind C-s-j exchangedown
+bind C-s-k exchangeup
+bind C-s-l exchangeright
 
 # [zoom]
 bind z exec rp-zoom.sh
 
 # [windows]
-bind w exec ratpoison -c "select $(ratpoison -c "windows (%n)%a" | rofi -dmenu -match fuzzy -auto-select | sed -e "s/(\([0-9]\+\)).*\$/\1/")" &
+alias rp-windows exec ratpoison -c "select $(ratpoison -c "windows (%n)%a" | rofi -dmenu -match fuzzy -auto-select | sed -e "s/(\([0-9]\+\)).*\$/\1/")" 
+bind w rp-windows &
 
 # [groups]
-bind C-g exec ratpoison -c "gnew $(ratpoison -c "prompt Create new group:")" &
-bind M-g exec ratpoison -c "gmove $(ratpoison -c groups | rofi -dmenu -match fuzzy -auto-select | cut -c 2-20 | sed -e 's/[+*-]//g')" &
-bind g exec ratpoison -c "gselect $(ratpoison -c groups | rofi -dmenu -match fuzzy -auto-select | cut -c 2-20 | sed -e 's/[+*-]//g')" &
+alias rp-gnew ratpoison -c "gnew $(ratpoison -c "prompt Create new group:")"
+alias rp-gmove ratpoison -c "gmove $(ratpoison -c groups | rofi -dmenu -match fuzzy -auto-select | cut -c 2-20 | sed -e 's/[+*-]//g')"
+alias rp-gselect ratpoison -c "gselect $(ratpoison -c groups | rofi -dmenu -match fuzzy -auto-select | cut -c 2-20 | sed -e 's/[+*-]//g')"
+bind C-g exec rp-gnew &
+bind M-g exec rp-gmove &
+bind g exec rp-gselect &
 
 # [launchers]
 definekey top M-s-r exec rofi -show drun
@@ -90,4 +93,14 @@ definekey top XF86AudioPrev exec dotfiles-media prev &
 definekey top XF86AudioNext exec dotfiles-media next &
 definekey top XF86AudioStop exec dotfiles-media stop &
 definekey top XF86PowerOff exec dotfiles-power &
+
+# [unused keys]
+unbind Left
+unbind Right
+unbind Up
+unbind Down
+unbind C-Left
+unbind C-Right
+unbind C-Up
+unbind C-Down
 # vim:ft=ratpoison
