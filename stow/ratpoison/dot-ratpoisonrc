@@ -16,11 +16,11 @@ unbind h
 unbind j
 unbind k
 unbind l
+unbind t
 unbind C-h
 unbind C-j
 unbind C-k
 unbind C-l
-unbind t
 
 # [workspaces]
 bind M-Right exec rpwsn
