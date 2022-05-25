@@ -8,19 +8,20 @@
  * codebase lean and clean
  */
 
-static const unsigned short int left = 5;     // no. of left aligned blocks
+static const unsigned short int left = 3;     // no. of left aligned blocks
 static const unsigned short int centre = 0;   // no. of centre aligned blocks
-static const unsigned short int right = 0;    // no. of right aligned blocks
+static const unsigned short int right = 3;    // no. of right aligned blocks
 
 // Blocks must be in the order of their alignment
 static const Block blocks[] = {
 	// command                  update interval(in s)   update signal
 
-	{ "rpbar-clock.sh",            60,                     6 },
-	{ "rpbar-desktop.sh",          0,                      1 },
-	{ "rpbar-volume.sh",           0,                      3 },
-	{ "rpbar-brightness.sh",       0,                      5 },
-	{ "rpbar-curwin.sh",           0,                      4 },
+	{ "rpbar-clock.sh",         60,                     6 },
+	{ "rpbar-desktop.sh",       0,                      1 },
+	{ "rpbar-curwin.sh",        0,                      2 },
+	{ "rpbar-volume.sh",        0,                      3 },
+	{ "rpbar-brightness.sh",    0,                      4 },
+	{ "rpbar-battery.sh",       0,                      5 },
 	/* 
 	 * dotfiles-media runs pkill -44 for status updates and lemonaid (which doesn't use
 	 * mpris) dies if it receives an undefined signal. So we define a dummy signal.

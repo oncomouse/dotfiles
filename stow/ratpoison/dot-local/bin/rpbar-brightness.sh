@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 icon=""
-if test -x backlight; then
+if command -v backlight; then
 	output="$(xbacklight 2> /dev/null | cut -d . -f 1)"
 	if [ ${#output} -gt 0 ]; then
 		echo -n "["
