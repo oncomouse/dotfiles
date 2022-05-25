@@ -5,7 +5,7 @@ if command -v xbacklight > /dev/null; then
 	if [ ${#output} -gt 0 ]; then
 		echo -n "%{A:dotfiles-brightness default:}"
 		echo -n "["
-		echo -n "$icon $output%"
+		echo -n "$icon$output%"
 		echo -n "]"
 		echo -n "%{A}"
 		echo ""
