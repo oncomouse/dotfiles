@@ -1,12 +1,16 @@
 exec ~/dotfiles/conf/ratpoison/autostart &
 exec rp-prompt.sh startup &
 
+# [hooks]
+addhook switchgroup exec pkill -RTMIN+1 lemonaid
+
 # [settings]
 escape s-x
 exec rp-colors.sh &
 set border 2
 set bargravity c
 set font "JetBrainsMono Nerd Font:size=13"
+set padding 0 25 0 0
 
 # [To be redefined]
 unbind b
@@ -65,7 +69,7 @@ bind z zoom
 bind s-z zoom
 
 # [windows]
-alias rp-windows exec ratpoison -c "select $(ratpoison -c "windows (%n)%a" | rofi -dmenu -match fuzzy -auto-select | sed -e "s/(\([0-9]\+\)).*\$/\1/")" &
+alias rp-windows exec ratpoison -c "select $(ratpoison -c "windows (%n)%a:%t" | rofi -dmenu -auto-select | sed -e "s/(\([0-9]\+\)).*\$/\1/")" &
 bind w rp-windows
 bind s-w rp-windows
 
