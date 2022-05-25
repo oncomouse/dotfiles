@@ -24,7 +24,11 @@ function killbar {
 }
 
 function update_status {
-	action-status >"$STATUS"
+	status="$(action-status)"
+	echo "$status" > "$STATUS"
+	if [ "$(pgrep -c dunst)" -gt 0 ]; then
+		dunstify -i musique -h string:x-dunst-stack-tag:music "$status" -t 1500
+	fi
 	killbar 44
 }
 
