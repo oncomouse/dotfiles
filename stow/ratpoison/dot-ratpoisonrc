@@ -1,4 +1,4 @@
-exec ~/conf/ratpoison/autostart &
+exec ~/dotfiles/conf/ratpoison/autostart &
 exec rp-prompt.sh startup &
 
 # [settings]
