@@ -10,8 +10,9 @@ if [ "$status" == "muted" ]; then
 else
 	echo -n "墳 $status"
 fi
+echo -n "]"
 echo -n "%{A}"
 echo -n "%{A}"
 echo -n "%{A}"
-echo "]"
+echo ""
 # vim:ft=sh
