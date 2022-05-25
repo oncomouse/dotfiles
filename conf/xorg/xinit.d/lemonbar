@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 source ~/.cache/wal/colors.sh
 pkill lemonaid; pkill lemonbar
-lemonaid | lemonbar -p -d -f "JetBrains Mono Nerd Font:style=medium:size=11" -B "$color0" -F "$color7" | /usr/bin/env bash &
+lemonaid | lemonbar -p -d -f "JetBrains Mono Nerd Font:style=medium:size=11" -B "$color0" -F "$color7" -g x22 | /usr/bin/env bash &
 # vim:ft=sh

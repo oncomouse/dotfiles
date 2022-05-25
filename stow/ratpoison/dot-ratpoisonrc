@@ -11,7 +11,7 @@ exec rp-colors.sh &
 set border 2
 set bargravity c
 set font "JetBrainsMono Nerd Font:size=13"
-set padding 0 25 0 0
+set padding 0 22 0 0
 
 # [To be redefined]
 unbind b
