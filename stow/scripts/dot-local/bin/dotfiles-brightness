@@ -8,4 +8,7 @@ output="$(xbacklight 2> /dev/null | cut -d . -f 1)"
 if [ ${#output} -gt 0 ] && [ "$(pgrep -c dunst)" -gt 0 ]; then
 	dunstify -i xfpm-brightness-lcd -h string:x-dunst-stack-tag:test "$output%"
 fi
+if [ "$(pgrep -c lemonaid)" -gt 0 ]; then
+	pkill -RTMIN+5 lemonaid
+fi
 # vim:ft=sh

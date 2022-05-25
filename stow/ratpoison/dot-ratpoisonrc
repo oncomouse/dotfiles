@@ -3,9 +3,10 @@ exec rp-prompt.sh startup &
 
 # [hooks]
 addhook switchgroup exec pkill -RTMIN+1 lemonaid
+addhook switchwin exec pkill -RTMIN+4 lemonaid
 
 # [settings]
-escape s-x
+escape s-space
 exec rp-colors.sh &
 set border 2
 set bargravity c

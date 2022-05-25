@@ -8,26 +8,28 @@
  * codebase lean and clean
  */
 
-static const unsigned short int left = 1;     // no. of left aligned blocks
+static const unsigned short int left = 5;     // no. of left aligned blocks
 static const unsigned short int centre = 0;   // no. of centre aligned blocks
-static const unsigned short int right = 1;    // no. of right aligned blocks
+static const unsigned short int right = 0;    // no. of right aligned blocks
 
 // Blocks must be in the order of their alignment
 static const Block blocks[] = {
 	// command                  update interval(in s)   update signal
-	{ "lemonbar_desktops",        3600,                   1 },
-	{ "lemonbar_volume",          3600,                   3 },
-	/* { "lemonbar_cpu",           10,                     2 }, */
-	/* { "lemonbar_mem",           60,                     3 }, */
-	/* { "lemonbar_tempt",         10,                     4 }, */
-	/* { "lemonbar_vol",           0,                      5 }, */
-	/* { "lemonbar_brightness",    0,                      6 }, */
-	/* { "lemonbar_battery",       60,                     7 }, */
-	/* { "lemonbar_wifi",          0,                      8 }, */
-	/* { "lemonbar_clock",         60,                     9 }, */
+
+	{ "rpbar-clock.sh",            60,                     6 },
+	{ "rpbar-desktop.sh",          0,                      1 },
+	{ "rpbar-volume.sh",           0,                      3 },
+	{ "rpbar-brightness.sh",       0,                      5 },
+	{ "rpbar-curwin.sh",           0,                      4 },
+	/* 
+	 * dotfiles-media runs pkill -44 for status updates and lemonaid (which doesn't use
+	 * mpris) dies if it receives an undefined signal. So we define a dummy signal.
+	 * */
+	{ "echo ''",                   0,                      10 },
+
 };
 
 // sets delimeter between status commands. NULL character ('\0') means no delimeter.
-static const char *delim = "  ";
-static const unsigned int delim_length = 3;
+static const char *delim = "\0";
+static const unsigned int delim_length = 1;
 
