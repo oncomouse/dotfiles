@@ -37,6 +37,7 @@ alias battery exec ratpoison -c "echo $(acpi -b)" &
 alias fm exec dotfiles-fm &
 alias term exec dotfiles-term &
 alias time exec ratpoison -c "echo $(date +"%a %-m/%d %-I:%M %p")" &
+alias default-brightness exec dotfiles-brightnes default &
 bind c term
 bind s-c term
 bind f fm
@@ -45,6 +46,7 @@ bind b battery
 bind s-b battery
 bind t time
 bind s-t time
+bind B default-brightness
 
 # [switch frames]
 bind Tab fselect
