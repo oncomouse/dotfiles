@@ -1,0 +1,22 @@
+diff --git a/src/actions.c b/src/actions.c
+index e65ca0c..de46263 100644
+--- a/src/actions.c
++++ b/src/actions.c
+@@ -4438,7 +4438,7 @@ set_fwcolor (struct cmdarg **args)
+       if (!XAllocNamedColor (dpy, cur->def_cmap, ARG_STRING(0), &color, &junk))
+         return cmdret_new (RET_FAILURE, "set fwcolor: unknown color");
+ 
+-      rp_glob_screen.fw_color = color.pixel;
++      rp_glob_screen.fw_color = color.pixel | 0xff << 24;
+       update_gc (cur);
+ 
+       free (defaults.fwcolor_string);
+@@ -4467,7 +4467,7 @@ set_bwcolor (struct cmdarg **args)
+       if (!XAllocNamedColor (dpy, cur_screen->def_cmap, ARG_STRING(0), &color, &junk))
+         return cmdret_new (RET_FAILURE, "set bwcolor: unknown color");
+ 
+-      rp_glob_screen.bw_color = color.pixel;
++      rp_glob_screen.bw_color = color.pixel | 0xff << 24;
+       update_gc (cur_screen);
+ 
+       free (defaults.bwcolor_string);
