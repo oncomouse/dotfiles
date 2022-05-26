@@ -14,6 +14,6 @@ case "$1" in
 esac
 output="$(pamixer --get-volume-human | sed s/muted/x/g)"
 if [ ${#output} -gt 0 ] && [ "$(pgrep -c dunst)" -gt 0 ]; then
-	dunstify -i audio-volume-high -h string:x-dunst-stack-tag:volume "$output"
+	dunstify -i audio-volume-high -h string:x-dunst-stack-tag:volume "$output" -t 1500
 fi
 # vim:ft=sh
