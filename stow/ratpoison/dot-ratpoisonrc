@@ -29,10 +29,6 @@ unbind C-j
 unbind C-k
 unbind C-l
 
-# [workspaces]
-bind M-Right exec rpwsn
-bind M-Left exec rpwsp
-
 # [launchers]
 alias battery exec ratpoison -c "echo $(acpi -b)" &
 alias fm exec dotfiles-fm &
@@ -94,6 +90,8 @@ bind C-exclam colon exec dotfiles-term -e
 
 # [workspaces]
 exec rpws init 6 -a
+definekey top s-Right exec rpwsn
+definekey top s-Left exec rpwsp
 definekey top s-1 exec rpws 1 &
 definekey top s-2 exec rpws 2 &
 definekey top s-3 exec rpws 3 &
