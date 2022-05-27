@@ -74,7 +74,7 @@ bind z zoom
 bind s-z zoom
 
 # [windows]
-alias rp-windows exec ratpoison -c "select $(ratpoison -c "windows (%n)%a:%t" | rofi -dmenu -auto-select | sed -e "s/(\([0-9]\+\)).*\$/\1/")" &
+alias rp-windows exec rp-windows.sh &
 bind w rp-windows
 bind s-w rp-windows
 
