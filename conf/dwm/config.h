@@ -195,6 +195,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_space,                   spawn,               {.v = rofiemojicmd} },
 	{ MODKEY|Mod1Mask,              XK_p,                       spawn,               {.v = rofimusiccmd} },
 	{ MODKEY|ShiftMask,             XK_Return,                  spawn,               {.v = termcmd} },
+	{ MODKEY|ShiftMask,             XK_c,                       spawn,               {.v = termcmd} },
 	{ MODKEY,                       XK_e,                       spawn,               SHCMD("dotfiles-fm") },
 	{ MODKEY|ShiftMask,             XK_b,                       spawn,               SHCMD("dotfiles-brightness default")},
 	{ MODKEY|Mod1Mask,              XK_c,                       spawn,               SHCMD("dunstify -i alarm-clock-panel -h string:x-dunst-stack-tag:date \"$(date +'%a %m/%d %I:%M %p')\" -t 1500") },
