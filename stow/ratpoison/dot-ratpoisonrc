@@ -5,6 +5,7 @@ exec rp-prompt.sh startup &
 addhook switchgroup exec pkill -RTMIN+1 lemonaid &
 addhook switchgroup exec pkill -RTMIN+2 lemonaid &
 addhook switchwin exec pkill -RTMIN+2 lemonaid &
+addhook switchwin exec rp-zoom.sh check
 
 # [settings]
 escape s-space
