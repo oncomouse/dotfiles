@@ -24,10 +24,13 @@ local servers = {
 					path = vim.split(package.path, ";"),
 				},
 				workspace = {
-					library = {
-						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-					},
+					library = vim.api.nvim_get_runtime_file("", true),
+				},
+				diagnostics = {
+					globals = { "vim" },
+				},
+				telemetry = {
+					enable = false,
 				},
 			},
 		},
