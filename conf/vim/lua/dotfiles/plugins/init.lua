@@ -67,6 +67,7 @@ return require("packer").startup({
 			}, -- Fancy * and # bindings
 			{
 				"vim-scripts/ReplaceWithRegister",
+
 				keys = {
 					{ "x", "gr" },
 					{ "n", "gr" },
@@ -175,32 +176,39 @@ return require("packer").startup({
 				end,
 			}, -- Git support
 			{
-				"hrsh7th/vim-vsnip",
-				event = "VimEnter",
-				config = function()
-					vim.g.vsnip_snippet_dir = os.getenv("HOME") .. "/dotfiles/conf/vim/snippets"
-					vim.keymap.set(
-						{ "s", "i" },
-						"<Tab>",
-						"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
-						{ expr = true, remap = true }
-					)
-					vim.keymap.set(
-						{ "s", "i" },
-						"<S-Tab>",
-						"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
-						{ expr = true, remap = true }
-					)
-					vim.api.nvim_create_autocmd("CompleteDone", {
-						group = "dotfiles-settings",
-						command = "if vsnip#available(1) | call vsnip#expand() | endif",
-					})
-				end,
+				"L3MON4D3/LuaSnip",
 				requires = {
-					{ "rafamadriz/friendly-snippets", after = { "vim-vsnip" } }, -- Base Snippets
+					{ "rafamadriz/friendly-snippets", after = { "LuaSnip" } }, -- Base Snippets
 					{ "edheltzel/vscode-jekyll-snippets", ft = { "markdown", "html" } }, -- Jekyll Snippets
 				},
-			}, -- Snippets
+			},
+			-- {
+			-- 	"hrsh7th/vim-vsnip",
+			-- 	event = "VimEnter",
+			-- 	config = function()
+			-- 		vim.g.vsnip_snippet_dir = os.getenv("HOME") .. "/dotfiles/conf/vim/snippets"
+			-- 		vim.keymap.set(
+			-- 			{ "s", "i" },
+			-- 			"<Tab>",
+			-- 			"vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<Tab>'",
+			-- 			{ expr = true, remap = true }
+			-- 		)
+			-- 		vim.keymap.set(
+			-- 			{ "s", "i" },
+			-- 			"<S-Tab>",
+			-- 			"vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
+			-- 			{ expr = true, remap = true }
+			-- 		)
+			-- 		vim.api.nvim_create_autocmd("CompleteDone", {
+			-- 			group = "dotfiles-settings",
+			-- 			command = "if vsnip#available(1) | call vsnip#expand() | endif",
+			-- 		})
+			-- 	end,
+			-- 	requires = {
+			-- 		{ "rafamadriz/friendly-snippets", after = { "vim-vsnip" } }, -- Base Snippets
+			-- 		{ "edheltzel/vscode-jekyll-snippets", ft = { "markdown", "html" } }, -- Jekyll Snippets
+			-- 	},
+			-- }, -- Snippets
 			{
 				"neovim/nvim-lspconfig",
 				requires = {
