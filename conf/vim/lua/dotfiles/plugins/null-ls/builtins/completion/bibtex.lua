@@ -9,22 +9,26 @@ local bibtex = require("dotfiles.utils.bibtex")
 
 local COMPLETION = methods.internal.COMPLETION
 
+local function make_documentation(entry_contents)
+	local documentation = {
+		"*Author*: " .. (entry_contents.author or ""),
+		"*Title*: " .. (entry_contents.title or ""),
+		"*Year*: " .. (entry_contents.date or ""),
+	}
+	documentation = require("vim.lsp.util").convert_input_to_markdown_lines(documentation)
+	documentation = table.concat(documentation, "\n")
+	return documentation
+end
+
 local function make_item(entry_contents)
 	return {
 		label = entry_contents.key,
 		detail = (entry_contents.title or ""),
 		documentation = {
 			kind = vim.lsp.protocol.MarkupKind.Markdown,
-			value = "*Author*: "
-				.. (entry_contents.author or "")
-				.. "\n"
-				.. "*Title*: "
-				.. (entry_contents.title or "")
-				.. "\n"
-				.. "*Year*: "
-				.. (entry_contents.date or ""),
+			value = make_documentation(entry_contents),
 		},
-		kind = vim.lsp.protocol.CompletionItemKind["Text"],
+		kind = vim.lsp.protocol.CompletionItemKind["Keyword"],
 	}
 end
 
