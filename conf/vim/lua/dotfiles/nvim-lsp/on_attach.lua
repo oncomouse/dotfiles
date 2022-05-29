@@ -87,12 +87,8 @@ local function on_attach(client, buf_num)
 		buffer = true,
 		desc = "lua vim.lsp.buf.signature_help()",
 	})
-	local snippet_provider = vim.tbl_contains(servers[client.name].provides or {}, "snippets")
 	local diagnostic_provider = vim.tbl_contains(servers[client.name].provides or {}, "diagnostics")
 	local formatting_provider = vim.tbl_contains(servers[client.name].provides or {}, "formatting")
-	if snippet_provider then
-		vim.cmd([[packadd vim-vsnip-integ]])
-	end
 	if diagnostic_provider then
 		vim.api.nvim_create_autocmd("DiagnosticChanged,BufEnter", {
 			buffer = buf_num,

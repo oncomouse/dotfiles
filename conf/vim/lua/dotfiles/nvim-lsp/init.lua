@@ -16,7 +16,6 @@ return function()
 
 	local on_attach = require("dotfiles.nvim-lsp.on_attach")
 
-	-- local capabilities = require("cmp_nvim-lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 	require("dotfiles.plugins.null-ls")
