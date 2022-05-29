@@ -1,5 +1,6 @@
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
+
 local colors = {
 	red = utils.get_highlight("AnsiColor1").fg,
 	green = utils.get_highlight("AnsiColor2").fg,
@@ -615,4 +616,4 @@ local StatusLines = {
 	DefaultStatusline,
 }
 
-return StatusLines
+require("heirline").setup(StatusLines)

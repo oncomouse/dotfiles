@@ -76,7 +76,6 @@ return require("packer").startup({
 			}, -- gr{motion} or grr or gr in visual to replace with register
 			{
 				"cohama/lexima.vim",
-				config = require("dotfiles.plugins.lexima"),
 			}, -- Autopairs + Endwise
 			-- Extra functionality + UI:
 			{
@@ -397,9 +396,6 @@ return require("packer").startup({
 			}, -- Highlight colors in files
 			{
 				"rebelot/heirline.nvim",
-				config = function()
-					require("heirline").setup(require("dotfiles.plugins.heirline"))
-				end,
 				cond = require("dotfiles.utils.use_termguicolors"),
 			}, -- Statusline
 		})
