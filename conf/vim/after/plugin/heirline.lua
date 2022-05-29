@@ -157,8 +157,15 @@ if ok then
 			return vim.tbl_contains({ "s", "i" }, vim.fn.mode())
 		end,
 		provider = function()
-			local forward = (vim.fn["vsnip#jumpable"](1) == 1) and "" or ""
-			local backward = (vim.fn["vsnip#jumpable"](-1) == 1) and " " or ""
+			local forward,backward
+			local has_luasnip, ls = pcall(require, "luasnip")
+			if has_luasnip then
+				forward = (ls.jumpable(1) == 1) and "" or ""
+				backward = (ls.jumpable(-1) == 1) and " " or ""
+			else
+				forward = (vim.fn["vsnip#jumpable"](1) == 1) and "" or ""
+				backward = (vim.fn["vsnip#jumpable"](-1) == 1) and " " or ""
+			end
 			return backward .. forward
 		end,
 		hl = { fg = colors.dark_gray, bold = true },
