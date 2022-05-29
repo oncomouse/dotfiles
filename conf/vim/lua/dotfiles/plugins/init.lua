@@ -79,6 +79,7 @@ return require("packer").startup({
 				"cohama/lexima.vim",
 				-- Configured in ~/dotfiles/conf/vim/after/plugin/lexima.lua
 			}, -- Autopairs + Endwise
+			"michaeljsmith/vim-indent-object", -- ii, ai, aI for indent-based textobjects
 			-- Extra functionality + UI:
 			{
 				"ibhagwan/fzf-lua",
@@ -213,9 +214,7 @@ return require("packer").startup({
 					"vim",
 					"yaml",
 				},
-				config = function()
-					require("dotfiles.nvim-lsp")
-				end,
+				config = require("dotfiles.nvim-lsp"),
 			}, -- LSP
 			{
 				"nvim-treesitter/nvim-treesitter",
@@ -223,52 +222,60 @@ return require("packer").startup({
 					vim.cmd([[TSUpdate]])
 				end,
 				config = function()
-					vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-					vim.opt_local.foldmethod = "expr"
+					local parsers = {
+						"bash",
+						"bibtex",
+						"c",
+						"cmake",
+						"comment",
+						"cpp",
+						"css",
+						"dockerfile",
+						"fennel",
+						"fish",
+						"go",
+						"graphql",
+						"html",
+						"http",
+						"java",
+						"javascript",
+						"jsdoc",
+						"json",
+						"jsonc",
+						"latex",
+						"lua",
+						"make",
+						"ninja",
+						"nix",
+						"norg",
+						"org",
+						"perl",
+						"php",
+						"python",
+						"r",
+						"rasi",
+						"regex",
+						"ruby",
+						"rust",
+						"scss",
+						"tsx",
+						"typescript",
+						"vim",
+						"vue",
+						"yaml",
+						"zig",
+					}
+					vim.api.nvim_create_autocmd("FileType", {
+						pattern = vim.fn.join(parsers, ","),
+						group = "dotfiles-settings",
+						callback = function()
+							vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+							vim.opt_local.foldmethod = "expr"
+						end,
+						desc = "Set fold method for treesitter",
+					})
 					require("nvim-treesitter.configs").setup({
-						ensure_installed = {
-							"bash",
-							"bibtex",
-							"c",
-							"cmake",
-							"comment",
-							"cpp",
-							"css",
-							"dockerfile",
-							"fennel",
-							"fish",
-							"go",
-							"graphql",
-							"html",
-							"http",
-							"java",
-							"javascript",
-							"jsdoc",
-							"json",
-							"jsonc",
-							"latex",
-							"lua",
-							"make",
-							"ninja",
-							"nix",
-							"norg",
-							"org",
-							"perl",
-							"php",
-							"python",
-							"r",
-							"rasi",
-							"regex",
-							"ruby",
-							"rust",
-							"scss",
-							"tsx",
-							"typescript",
-							"vim",
-							"vue",
-							"yaml",
-							"zig",
-						},
+						ensure_installed = parsers,
 						highlight = { enable = true },
 					})
 				end,
