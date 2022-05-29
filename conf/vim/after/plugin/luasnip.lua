@@ -40,6 +40,7 @@ if ok then
 		return t("<S-Tab>")
 	end, {
 		expr = true,
+		remap = true,
 	})
 	vim.keymap.set({ "i", "s" }, "<C-E>", function()
 		if ls.choice_active() then
@@ -48,6 +49,7 @@ if ok then
 		return t("<C-E>")
 	end, {
 		expr = true,
+		remap = true,
 	})
 	vim.api.nvim_create_autocmd("CompleteDone", {
 		group = "dotfiles-settings",
