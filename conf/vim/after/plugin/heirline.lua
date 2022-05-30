@@ -1,4 +1,4 @@
-local ok = require("heirline")
+local ok = pcall(require, "heirline")
 if ok then
 	local conditions = require("heirline.conditions")
 	local utils = require("heirline.utils")
