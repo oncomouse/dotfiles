@@ -18,7 +18,6 @@ return function()
 
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-	require("dotfiles.plugins.null-ls")
 	require("nvim-lsp-installer").setup({
 		ensure_installed = vim.tbl_keys(servers),
 	})

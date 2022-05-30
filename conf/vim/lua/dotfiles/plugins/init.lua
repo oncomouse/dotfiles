@@ -186,14 +186,14 @@ return require("packer").startup({
 				},
 			}, -- Snippets
 			{
+				"jose-elias-alvarez/null-ls.nvim",
+				requires = { { "nvim-lua/plenary.nvim", module = "plenary" } },
+				config = require("dotfiles.plugins.null-ls"),
+			},
+			{
 				"neovim/nvim-lspconfig",
 				requires = {
 					{ "williamboman/nvim-lsp-installer", module = "nvim-lsp-installer" },
-					{
-						"jose-elias-alvarez/null-ls.nvim",
-						module = "null-ls",
-						requires = { { "nvim-lua/plenary.nvim", module = "plenary" } },
-					},
 				},
 				ft = {
 					"css",
