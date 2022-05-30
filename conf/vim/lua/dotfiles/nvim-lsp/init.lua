@@ -33,7 +33,7 @@ return function()
 		if not vim.tbl_contains(servers[lsp].provides or {}, "diagnostics") then
 			opts.handlers = handler_no_diagnostics
 		end
-		if lsp ~= "null-ls" then
+		if vim.tbl_contains(require("lspconfig").available_servers(), lsp) then
 			require("lspconfig")[lsp].setup(opts)
 		end
 	end
