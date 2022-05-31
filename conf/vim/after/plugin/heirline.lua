@@ -640,8 +640,18 @@ if ok then
 	-- 			return filename
 	-- 		end,
 	-- 	},
+	-- 	condition = function()
+	-- 		if conditions.buffer_matches({
+	-- 			buftype = { "nofile", "help", "quickfix" },
+	-- 			filetype = { "^git.*", "fugitive" },
+	-- 		}) then
+	-- 			vim.cmd("setlocal winbar")
+	-- 			return false
+	-- 		end
+	-- 		return true
+	-- 	end,
 	-- 	hl = { fg = colors.white, bold = false }
 	-- }
 
-	require("heirline").setup(StatusLines) --, Winbar)
+	require("heirline").setup(StatusLines)--, Winbar)
 end
