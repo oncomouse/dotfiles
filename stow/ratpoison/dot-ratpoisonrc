@@ -14,6 +14,7 @@ set border 2
 set bargravity c
 set font "JetBrainsMono Nerd Font:size=13"
 set padding 0 22 0 0
+set startupmessage 0
 
 # [To be redefined]
 unbind b
@@ -87,6 +88,9 @@ definekey top M-s-r exec rofi -match fuzzy -auto-select -show drun -show-icons {
 definekey top M-s-p exec rofimusic.sh "JetBrainsMono Nerd Font 11" &
 definekey top s-P exec rp-powermenu.sh "JetBrainsMono Nerd Font 11" &
 bind C-exclam colon exec dotfiles-term -e
+
+# [screenshots]
+bind Print exec dotfiles-screenshot
 
 # [workspaces]
 exec rpws init 6 -a
