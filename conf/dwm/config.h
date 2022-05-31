@@ -223,7 +223,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period,                  focusmon,            {.i = +1} },
 	{ MODKEY|ShiftMask,             XK_comma,                   tagmon,              {.i = -1} },
 	{ MODKEY|ShiftMask,             XK_period,                  tagmon,              {.i = +1} },
-	{ MODKEY,                       XK_F1,                      spawn,               SHCMD("scrot ~/Seadrive/My\\ Libraries/My\\ Library/Photos/Screenshots/'%Y-%m-%d-%H%M%S_$wx$h.png'") },
 	{ MODKEY,                       XK_F5,                      xrdb,                {.v = NULL} },
 
 	TAGKEYS(                        XK_1,                       0)
@@ -259,6 +258,8 @@ static Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_j,                       toggleverticalmax,   {.v = NULL} },
 	{ MODKEY|ControlMask|ShiftMask, XK_k,                       toggleverticalmax,   {.v = NULL} },
 	{ MODKEY,                       XK_m,                       togglemaximize,      {0} },
+	{ MODKEY,                       XK_Print,                   spawn,               SHCMD("dotfiles-screenshot") },
+	{ MODKEY|ShiftMask,             XK_Print,                   spawn,               SHCMD("dotfiles-screenshot -s") },
 	{ 0,                            XF86XK_KbdBrightnessDown,   spawn,               SHCMD("sudo /usr/local/bin/keyboard-backlight down") },
 	{ 0,                            XF86XK_KbdBrightnessUp,     spawn,               SHCMD("sudo /usr/local/bin/keyboard-backlight up") },
 	{ 0,                            XF86XK_MonBrightnessUp,     spawn,               SHCMD("dotfiles-brightness up") },

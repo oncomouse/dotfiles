@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+opt="${1:-}"
+scrot ~/Seadrive/My\ Libraries/My\ Library/Photos/Screenshots/'%Y-%m-%d-%H%M%S_$wx$h.png'  "$opt"
+file="$(/bin/ls -t ~/Seadrive/My\ Libraries/My\ Library/Photos/Screenshots/ | head -n 1)"
+ACTION="$(dunstify -i camera -h string:x-dunst-stack-tag:scrot "Screenshot Saved; Middle-click to view/browse directory" -A "browse,Browse Directory" -A "view,View Image" -t 4000)"
+
+case "$ACTION" in
+"browse")
+    dotfiles-fm ~/Seadrive/My\ Libraries/My\ Library/Photos/Screenshots/ &
+    ;;
+"view")
+	feh "$file" &
+    ;;
+"*")
+    ;;
+esac
+# vim:ft=sh
