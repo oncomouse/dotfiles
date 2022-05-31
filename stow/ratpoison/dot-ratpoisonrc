@@ -16,6 +16,9 @@ set font "JetBrainsMono Nerd Font:size=13"
 set padding 0 22 0 0
 set startupmessage 0
 
+# [functionality]
+bind Escape abort
+
 # [To be redefined]
 unbind b
 unbind c
