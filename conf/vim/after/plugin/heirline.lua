@@ -157,7 +157,7 @@ if ok then
 			return vim.tbl_contains({ "s", "i" }, vim.fn.mode())
 		end,
 		provider = function()
-			local forward,backward
+			local forward, backward
 			local has_luasnip, ls = pcall(require, "luasnip")
 			if has_luasnip then
 				forward = ls.jumpable(1) and "" or ""
@@ -625,5 +625,23 @@ if ok then
 		DefaultStatusline,
 	}
 
-	require("heirline").setup(StatusLines)
+	-- local Winbar = {
+	-- 	Align,
+	-- 	FileFlags,
+	-- 	{
+	-- 		provider = function()
+	-- 			-- first, trim the pattern relative to the current directory. For other
+	-- 			-- options, see :h filename-modifers
+	-- 			local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+	-- 			if filename == "" then
+	-- 				return "[No Name]"
+	-- 			end
+	-- 			filename = vim.fn.pathshorten(filename)
+	-- 			return filename
+	-- 		end,
+	-- 	},
+	-- 	hl = { fg = colors.white, bold = false }
+	-- }
+
+	require("heirline").setup(StatusLines) --, Winbar)
 end
