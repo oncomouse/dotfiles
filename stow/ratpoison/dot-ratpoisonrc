@@ -9,11 +9,12 @@ addhook switchwin exec rp-zoom.sh check
 # [settings]
 escape s-space
 exec rp-colors.sh &
+set startupmessage 0
 set border 2
 set bargravity c
 set font "JetBrainsMono Nerd Font:size=11"
 set padding 0 22 0 0
-set startupmessage 0
+set onlyborder 0
 
 # [functionality]
 bind Escape abort
