@@ -160,8 +160,8 @@ if ok then
 			local forward,backward
 			local has_luasnip, ls = pcall(require, "luasnip")
 			if has_luasnip then
-				forward = (ls.jumpable(1) == 1) and "" or ""
-				backward = (ls.jumpable(-1) == 1) and " " or ""
+				forward = ls.jumpable(1) and "" or ""
+				backward = ls.jumpable(-1) and " " or ""
 			else
 				forward = (vim.fn["vsnip#jumpable"](1) == 1) and "" or ""
 				backward = (vim.fn["vsnip#jumpable"](-1) == 1) and " " or ""
