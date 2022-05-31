@@ -1,5 +1,4 @@
 exec ~/dotfiles/conf/ratpoison/autostart &
-exec rp-prompt.sh startup &
 
 # [hooks]
 addhook switchgroup exec pkill -RTMIN+1 lemonaid &
