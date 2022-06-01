@@ -187,8 +187,8 @@ return require("packer").startup({
 			}, -- Snippets
 			{
 				"jose-elias-alvarez/null-ls.nvim",
+				-- Configured in ~/dotfiles/conf/vim/after/plugin/null-ls.lua
 				requires = { { "nvim-lua/plenary.nvim", module = "plenary" } },
-				config = require("dotfiles.plugins.null-ls"),
 			},
 			{
 				"neovim/nvim-lspconfig",
@@ -214,70 +214,51 @@ return require("packer").startup({
 					"vim",
 					"yaml",
 				},
-				config = require("dotfiles.nvim-lsp"),
+				config = function()
+					local servers = require("dotfiles.nvim-lsp.servers")
+					local on_attach = require("dotfiles.nvim-lsp.on_attach")
+
+					vim.diagnostic.config({
+						underline = true,
+						virtual_text = true,
+						signs = false,
+						severity_sort = true,
+					})
+
+					-- LSP Logging:
+					-- vim.lsp.set_log_level("trace")
+
+					local handler_no_diagnostics = {
+						["textDocument/publishDiagnostics"] = function() end,
+					}
+					local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+					require("nvim-lsp-installer").setup({
+						ensure_installed = vim.tbl_keys(servers),
+					})
+
+					for lsp, settings in pairs(servers) do
+						local opts = {
+							on_attach = on_attach,
+							capabilities = capabilities,
+						}
+						if #vim.tbl_keys(settings) > 0 then
+							opts = vim.tbl_extend("keep", opts, settings)
+						end
+						if not vim.tbl_contains(servers[lsp].provides or {}, "diagnostics") then
+							opts.handlers = handler_no_diagnostics
+						end
+						if lsp ~= "null-ls" then
+							require("lspconfig")[lsp].setup(opts)
+						end
+					end
+				end,
 			}, -- LSP
 			{
 				"nvim-treesitter/nvim-treesitter",
+				-- Configured in ~/dotfiles/conf/vim/after/plugin/nvim-treesitter.lua
 				run = function()
 					vim.cmd([[TSUpdate]])
-				end,
-				config = function()
-					local parsers = {
-						"bash",
-						"bibtex",
-						"c",
-						"cmake",
-						"comment",
-						"cpp",
-						"css",
-						"dockerfile",
-						"fennel",
-						"fish",
-						"go",
-						"graphql",
-						"html",
-						"http",
-						"java",
-						"javascript",
-						"jsdoc",
-						"json",
-						"jsonc",
-						"latex",
-						"lua",
-						"make",
-						"ninja",
-						"nix",
-						"norg",
-						"org",
-						"perl",
-						"php",
-						"python",
-						"r",
-						"rasi",
-						"regex",
-						"ruby",
-						"rust",
-						"scss",
-						"tsx",
-						"typescript",
-						"vim",
-						"vue",
-						"yaml",
-						"zig",
-					}
-					vim.api.nvim_create_autocmd("FileType", {
-						pattern = vim.fn.join(parsers, ","),
-						group = "dotfiles-settings",
-						callback = function()
-							vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-							vim.opt_local.foldmethod = "expr"
-						end,
-						desc = "Set fold method for treesitter",
-					})
-					require("nvim-treesitter.configs").setup({
-						ensure_installed = parsers,
-						highlight = { enable = true },
-					})
 				end,
 				requires = {
 					{

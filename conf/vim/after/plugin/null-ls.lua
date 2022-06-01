@@ -1,4 +1,5 @@
-return function()
+local ok = pcall(require, "null-ls")
+if ok then
 	local javascript_register = require("dotfiles.plugins.null-ls.helpers.javascript_register")
 
 	require("null-ls").setup({
