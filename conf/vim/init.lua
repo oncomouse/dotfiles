@@ -180,10 +180,6 @@ vim.keymap.set("n", "<leader>a", ":buffers<CR>:buffer<Space> ", { noremap = true
 vim.keymap.set("n", "<localleader>a", ":buffer *", { noremap = true })
 vim.keymap.set("n", "<localleader>A", ":sbuffer *", { noremap = true })
 
--- Better Matching:
-vim.keymap.set("n", "[I", "[I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>", { noremap = true })
-vim.keymap.set("n", "]I", "]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>", { noremap = true })
-
 -- Navigate Quickfix:
 vim.keymap.set("n", "]q", "<cmd>cnext<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "[q", "<cmd>cprevious<CR>", { silent = true, noremap = true })
@@ -209,20 +205,10 @@ end, { silent = true, noremap = true })
 vim.g.enable_todo = 1
 
 -- Highlight a block and type "@" to run a macro on the block:
-vim.keymap.set(
-	"x",
-	"@",
-	require("dotfiles.visualat"),
-	{ silent = true, noremap = true }
-)
+vim.keymap.set("x", "@", require("dotfiles.visualat"), { silent = true, noremap = true })
 
 -- Calculator:
 vim.keymap.set("i", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
-
--- Shortcut to view current syntax highlighting group:
-vim.cmd([[map <F10> <cmd>echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]])
 
 -- Sourced from jessarcher/dotfiles {{{
 --  \ https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
@@ -351,6 +337,17 @@ vim.api.nvim_create_autocmd("BufWinEnter,BufFilePost", {
 		end
 	end,
 })
+
+-- Remember Last Place in Edited File
+vim.api.nvim_create_autocmd("BufReadPost", {
+	group = "dotfiles-settings",
+	callback = function()
+		if vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") then
+			vim.cmd([[exe "normal! g'\""]])
+		end
+	end,
+})
+
 -- }}}
 -- Commands {{{
 
