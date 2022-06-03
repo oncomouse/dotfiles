@@ -28,6 +28,8 @@ unbind j
 unbind k
 unbind l
 unbind t
+unbind S
+unbind s
 unbind C-h
 unbind C-j
 unbind C-k
@@ -67,6 +69,10 @@ bind C-s-h exchangeleft
 bind C-s-j exchangedown
 bind C-s-k exchangeup
 bind C-s-l exchangeright
+
+# [reverse splits]
+bind s hsplit
+bind S split
 
 # [zoom]
 alias zoom exec rp-zoom.sh &
