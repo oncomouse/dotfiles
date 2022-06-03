@@ -16,8 +16,8 @@ static const unsigned short int right = 4;    // no. of right aligned blocks
 static const Block blocks[] = {
 	// command                  update interval(in s)   update signal
 
-	{ "rpbar-desktop.sh",       0,                      1 },
-	{ "rpbar-curwin.sh",        0,                      2 },
+	{ "rpbar-desktop.sh",       120,                    1 },
+	{ "rpbar-curwin.sh",        120,                    2 },
 	{ "rpbar-volume.sh",        0,                      3 },
 	{ "rpbar-brightness.sh",    0,                      4 },
 	{ "rpbar-battery.sh",       30,                     5 },
