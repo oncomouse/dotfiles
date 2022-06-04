@@ -1,7 +1,6 @@
 -- This is better-digraphs.nvim with telescope.nvim replaced with vim.ui.select
 --   (original is at: https://github.com/protex/better-digraphs.nvim)
 
--- https://stackoverflow.com/questions/11201262/how-to-read-data-from-a-file-in-lua
 local get_cursor_column = function()
 	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col
