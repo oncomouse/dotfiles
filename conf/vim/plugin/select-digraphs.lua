@@ -1,0 +1,10 @@
+-- Default mappings for select-digraphs
+vim.keymap.set("i", "<C-k><C-k>", function()
+	require("select-digraphs")("i")
+end)
+vim.keymap.set("n", "r<C-k><C-k>", function()
+	require("select-digraphs")("r")
+end)
+vim.keymap.set("v", "r<C-k><C-k>", function()
+	require("select-digraphs")("gvr")
+end)
