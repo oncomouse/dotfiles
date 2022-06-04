@@ -54,7 +54,7 @@ end
 
 local digraphs = nil
 
-function choose_digraph(mode)
+function select_digraph(mode)
 	mode = mode or "i"
 
 	-- Load digraphs and strip off the ones that don't come out of the parser correctly:
@@ -90,4 +90,4 @@ function choose_digraph(mode)
 	end)
 end
 
-return choose_digraph
+return select_digraph
