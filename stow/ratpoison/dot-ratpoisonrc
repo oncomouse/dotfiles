@@ -5,6 +5,8 @@ addhook switchgroup exec pkill -RTMIN+1 lemonaid &
 addhook switchgroup exec pkill -RTMIN+2 lemonaid &
 addhook switchwin exec pkill -RTMIN+2 lemonaid &
 addhook switchwin exec rp-zoom.sh check
+addhook switchframe exec pkill -RTMIN+2 lemonaid &
+addhook deletewindow exec pkill -RTMIN+2 lemonaid &
 
 # [settings]
 escape s-space
