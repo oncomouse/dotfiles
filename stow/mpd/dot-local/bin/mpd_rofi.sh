@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2119,SC2120
 
+font=${2:-"FiraCode Nerd Font 12"}
+
 rofi_bar() {
-	rofi -match fuzzy -dmenu -i -location 1 -theme-str "window { width: 100%; }" "$@"
+	rofi -match fuzzy -dmenu -i -font "$font" -location 1 -theme-str "window { width: 100%; }" "$@"
 }
 
 action-search() {

@@ -29,9 +29,9 @@ case "$choice" in
 		dotfiles-media next
 		;;
 	*Search*)
-		mpd_rofi.sh search
+		mpd_rofi.sh search "$font"
 		;;
 	*Add*)
-		mpd_rofi.sh add
+		mpd_rofi.sh add "$font"
 		;;
 esac

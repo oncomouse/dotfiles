@@ -157,6 +157,11 @@ static const char *rofimusiccmd[] = {
 	rofifont,
 	NULL
 };
+static const char *dotfilesunicodecmd[] = {
+	"dotfiles-unicode",
+	rofifont,
+	NULL
+};
 
 void
 center(const Arg *arg)
@@ -199,6 +204,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_e,                       spawn,               SHCMD("dotfiles-fm") },
 	{ MODKEY|ShiftMask,             XK_b,                       spawn,               SHCMD("dotfiles-brightness default")},
 	{ MODKEY|Mod1Mask,              XK_c,                       spawn,               SHCMD("dunstify -i alarm-clock-panel -h string:x-dunst-stack-tag:date \"$(date +'%a %m/%d %I:%M %p')\" -t 1500") },
+	{ MODKEY|Mod1Mask,              XK_k,                       spawn,               { .v = dotfilesunicodecmd } },
 	{ MODKEY,                       XK_f,                       togglefullscreen,    {0} },
 	{ MODKEY,                       XK_b,                       togglebar,           {0} },
 	{ MODKEY,                       XK_u,                       focusurgent,         {0} },
