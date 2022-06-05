@@ -2,5 +2,6 @@
 	"https://raw.githubusercontent.com/oncomouse/patches/master/dmenu-color_emoji-20210822-d78ff08.diff",
 	"https://tools.suckless.org/dmenu/patches/xresources/dmenu-xresources-4.9.diff",
 	"https://tools.suckless.org/dmenu/patches/fuzzymatch/dmenu-fuzzymatch-4.9.diff",
-	"https://tools.suckless.org/dmenu/patches/instant/dmenu-instant-4.7.diff"
+	"https://tools.suckless.org/dmenu/patches/instant/dmenu-instant-4.7.diff",
+	"https://tools.suckless.org/dmenu/patches/lines-below-prompt/dmenu-linesbelowprompt-and-fullwidth-20211014.diff"
 ]
