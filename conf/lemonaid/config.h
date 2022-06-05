@@ -19,7 +19,7 @@ static const Block blocks[] = {
 	{ "rpbar-desktop.sh",       120,                    1 },
 	{ "rpbar-curwin.sh",        30,                     2 },
 	{ "rpbar-volume.sh",        0,                      3 },
-	{ "rpbar-brightness.sh",    0,                      4 },
+	{ "rpbar-brightness.sh",    120,                      4 },
 	{ "rpbar-battery.sh",       30,                     5 },
 	{ "rpbar-clock.sh",         60,                     6 },
 	/* 
