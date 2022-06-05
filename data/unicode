@@ -1,0 +1,2010 @@
+ :A0:No-Break Space
+¡:A1:Inverted Exclamation Mark
+¢:A2:Cent Sign
+£:A3:Pound Sign
+¤:A4:Currency Sign
+¥:A5:Yen Sign
+¦:A6:Broken Bar
+§:A7:Section Sign
+¨:A8:Diaeresis
+©:A9:Copyright Sign
+ª:Aa:Feminine Ordinal Indicator
+«:Ab:Left-Pointing Double Angle Quotation Mark
+¬:Ac:Not Sign
+®:Ae:Registered Sign
+¯:Af:Macron
+°:B0:Degree Sign
+±:B1:Plus-Minus Sign
+²:B2:Superscript Two
+³:B3:Superscript Three
+´:B4:Acute Accent
+µ:B5:Micro Sign
+¶:B6:Pilcrow Sign
+·:B7:Middle Dot
+¸:B8:Cedilla
+¹:B9:Superscript One
+º:Ba:Masculine Ordinal Indicator
+»:Bb:Right-Pointing Double Angle Quotation Mark
+¼:Bc:Vulgar Fraction One Quarter
+½:Bd:Vulgar Fraction One Half
+¾:Be:Vulgar Fraction Three Quarters
+¿:Bf:Inverted Question Mark
+À:C0:Latin Capital Letter A With Grave
+Á:C1:Latin Capital Letter A With Acute
+Â:C2:Latin Capital Letter A With Circumflex
+Ã:C3:Latin Capital Letter A With Tilde
+Ä:C4:Latin Capital Letter A With Diaeresis
+Å:C5:Latin Capital Letter A With Ring Above
+Æ:C6:Latin Capital Letter Ae
+Ç:C7:Latin Capital Letter C With Cedilla
+È:C8:Latin Capital Letter E With Grave
+É:C9:Latin Capital Letter E With Acute
+Ê:Ca:Latin Capital Letter E With Circumflex
+Ë:Cb:Latin Capital Letter E With Diaeresis
+Ì:Cc:Latin Capital Letter I With Grave
+Í:Cd:Latin Capital Letter I With Acute
+Î:Ce:Latin Capital Letter I With Circumflex
+Ï:Cf:Latin Capital Letter I With Diaeresis
+Ð:D0:Latin Capital Letter Eth (Icelandic)                                                                        
+Ñ:D1:Latin Capital Letter N With Tilde
+Ò:D2:Latin Capital Letter O With Grave
+Ó:D3:Latin Capital Letter O With Acute
+Ô:D4:Latin Capital Letter O With Circumflex
+Õ:D5:Latin Capital Letter O With Tilde
+Ö:D6:Latin Capital Letter O With Diaeresis
+×:D7:Multiplication Sign
+Ø:D8:Latin Capital Letter O With Stroke
+Ù:D9:Latin Capital Letter U With Grave
+Ú:Da:Latin Capital Letter U With Acute
+Û:Db:Latin Capital Letter U With Circumflex
+Ü:Dc:Latin Capital Letter U With Diaeresis
+Ý:Dd:Latin Capital Letter Y With Acute
+Þ:De:Latin Capital Letter Thorn (Icelandic)                                                                      
+ß:Df:Latin Small Letter Sharp S (German)                                                                         
+à:E0:Latin Small Letter A With Grave
+á:E1:Latin Small Letter A With Acute
+â:E2:Latin Small Letter A With Circumflex
+ã:E3:Latin Small Letter A With Tilde
+ä:E4:Latin Small Letter A With Diaeresis
+å:E5:Latin Small Letter A With Ring Above
+æ:E6:Latin Small Letter Ae
+ç:E7:Latin Small Letter C With Cedilla
+è:E8:Latin Small Letter E With Grave
+é:E9:Latin Small Letter E With Acute
+ê:Ea:Latin Small Letter E With Circumflex
+ë:Eb:Latin Small Letter E With Diaeresis
+ì:Ec:Latin Small Letter I With Grave
+í:Ed:Latin Small Letter I With Acute
+î:Ee:Latin Small Letter I With Circumflex
+ï:Ef:Latin Small Letter I With Diaeresis
+ð:F0:Latin Small Letter Eth (Icelandic)                                                                          
+ñ:F1:Latin Small Letter N With Tilde
+ò:F2:Latin Small Letter O With Grave
+ó:F3:Latin Small Letter O With Acute
+ô:F4:Latin Small Letter O With Circumflex
+õ:F5:Latin Small Letter O With Tilde
+ö:F6:Latin Small Letter O With Diaeresis
+÷:F7:Division Sign
+ø:F8:Latin Small Letter O With Stroke
+ù:F9:Latin Small Letter U With Grave
+ú:Fa:Latin Small Letter U With Acute
+û:Fb:Latin Small Letter U With Circumflex
+ü:Fc:Latin Small Letter U With Diaeresis
+ý:Fd:Latin Small Letter Y With Acute
+þ:Fe:Latin Small Letter Thorn (Icelandic)                                                                        
+ÿ:Ff:Latin Small Letter Y With Diaeresis
+Α:391:Greek Capital Letter Alpha
+Β:392:Greek Capital Letter Beta
+Γ:393:Greek Capital Letter Gamma
+Δ:394:Greek Capital Letter Delta
+Ε:395:Greek Capital Letter Epsilon
+Ζ:396:Greek Capital Letter Zeta
+Η:397:Greek Capital Letter Eta
+Θ:398:Greek Capital Letter Theta
+Ι:399:Greek Capital Letter Iota
+Κ:39A:Greek Capital Letter Kappa
+Λ:39B:Greek Capital Letter Lamda
+Μ:39C:Greek Capital Letter Mu
+Ν:39D:Greek Capital Letter Nu
+Ξ:39E:Greek Capital Letter Xi
+Ο:39F:Greek Capital Letter Omicron
+Π:3A0:Greek Capital Letter Pi
+Ρ:3A1:Greek Capital Letter Rho
+Σ:3A3:Greek Capital Letter Sigma
+Τ:3A4:Greek Capital Letter Tau
+Υ:3A5:Greek Capital Letter Upsilon
+Φ:3A6:Greek Capital Letter Phi
+Χ:3A7:Greek Capital Letter Chi
+Ψ:3A8:Greek Capital Letter Psi
+Ω:3A9:Greek Capital Letter Omega
+α:3B1:Greek Small Letter Alpha
+β:3B2:Greek Small Letter Beta
+γ:3B3:Greek Small Letter Gamma
+δ:3B4:Greek Small Letter Delta
+ε:3B5:Greek Small Letter Epsilon
+ζ:3B6:Greek Small Letter Zeta
+η:3B7:Greek Small Letter Eta
+θ:3B8:Greek Small Letter Theta
+ι:3B9:Greek Small Letter Iota
+κ:3Ba:Greek Small Letter Kappa
+λ:3Bb:Greek Small Letter Lamda
+μ:3Bc:Greek Small Letter Mu
+ν:3Bd:Greek Small Letter Nu
+ξ:3Be:Greek Small Letter Xi
+ο:3Bf:Greek Small Letter Omicron
+π:3C0:Greek Small Letter Pi
+ρ:3C1:Greek Small Letter Rho
+σ:3C3:Greek Small Letter Sigma
+τ:3C4:Greek Small Letter Tau
+υ:3C5:Greek Small Letter Upsilon
+φ:3C6:Greek Small Letter Phi
+χ:3C7:Greek Small Letter Chi
+ψ:3C8:Greek Small Letter Psi
+ω:3C9:Greek Small Letter Omega
+А:410:Cyrillic Capital Letter A
+Б:411:Cyrillic Capital Letter Be
+В:412:Cyrillic Capital Letter Ve
+Г:413:Cyrillic Capital Letter Ghe
+Д:414:Cyrillic Capital Letter De
+Е:415:Cyrillic Capital Letter Ie
+Ж:416:Cyrillic Capital Letter Zhe
+З:417:Cyrillic Capital Letter Ze
+И:418:Cyrillic Capital Letter I
+Й:419:Cyrillic Capital Letter Short I
+К:41A:Cyrillic Capital Letter Ka
+Л:41B:Cyrillic Capital Letter El
+М:41C:Cyrillic Capital Letter Em
+Н:41D:Cyrillic Capital Letter En
+О:41E:Cyrillic Capital Letter O
+П:41F:Cyrillic Capital Letter Pe
+Р:420:Cyrillic Capital Letter Er
+С:421:Cyrillic Capital Letter Es
+Т:422:Cyrillic Capital Letter Te
+У:423:Cyrillic Capital Letter U
+Ф:424:Cyrillic Capital Letter Ef
+Х:425:Cyrillic Capital Letter Ha
+Ц:426:Cyrillic Capital Letter Tse
+Ч:427:Cyrillic Capital Letter Che
+Ш:428:Cyrillic Capital Letter Sha
+Щ:429:Cyrillic Capital Letter Shcha
+Ъ:42A:Cyrillic Capital Letter Hard Sign
+Ы:42B:Cyrillic Capital Letter Yeru
+Ь:42C:Cyrillic Capital Letter Soft Sign
+Э:42D:Cyrillic Capital Letter E
+Ю:42E:Cyrillic Capital Letter Yu
+Я:42F:Cyrillic Capital Letter Ya
+а:430:Cyrillic Small Letter A
+б:431:Cyrillic Small Letter Be
+в:432:Cyrillic Small Letter Ve
+г:433:Cyrillic Small Letter Ghe
+д:434:Cyrillic Small Letter De
+е:435:Cyrillic Small Letter Ie
+ж:436:Cyrillic Small Letter Zhe
+з:437:Cyrillic Small Letter Ze
+и:438:Cyrillic Small Letter I
+й:439:Cyrillic Small Letter Short I
+к:43A:Cyrillic Small Letter Ka
+л:43B:Cyrillic Small Letter El
+м:43C:Cyrillic Small Letter Em
+н:43D:Cyrillic Small Letter En
+о:43E:Cyrillic Small Letter O
+п:43F:Cyrillic Small Letter Pe
+р:440:Cyrillic Small Letter Er
+с:441:Cyrillic Small Letter Es
+т:442:Cyrillic Small Letter Te
+у:443:Cyrillic Small Letter U
+ф:444:Cyrillic Small Letter Ef
+х:445:Cyrillic Small Letter Ha
+ц:446:Cyrillic Small Letter Tse
+ч:447:Cyrillic Small Letter Che
+ш:448:Cyrillic Small Letter Sha
+щ:449:Cyrillic Small Letter Shcha
+ъ:44A:Cyrillic Small Letter Hard Sign
+ы:44B:Cyrillic Small Letter Yeru
+ь:44C:Cyrillic Small Letter Soft Sign
+э:44D:Cyrillic Small Letter E
+ю:44E:Cyrillic Small Letter Yu
+я:44F:Cyrillic Small Letter Ya
+‒:2012:Figure Dash
+–:2013:En Dash
+—:2014:Em Dash
+―:2015:Horizontal Bar
+‘:2018:Left Single Quotation Mark
+’:2019:Right Single Quotation Mark
+‚:201A:Single Low-9 Quotation Mark                                                                                 
+‛:201B:Single High-Reversed-9 Quotation Mark                                                                       
+“:201C:Left Double Quotation Mark
+”:201D:Right Double Quotation Mark
+„:201E:Double Low-9 Quotation Mark                                                                                 
+‟:201F:Double High-Reversed-9 Quotation Mark                                                                       
+…:2026:Horizontal Ellipsis
+‽:203D:Interrobang
+′:2032:Prime
+″:2033:Double Prime
+‴:2034:Triple Prime
+₩:20A9:Won Sign
+€:20Ac:Euro Sign
+₽:20Bd:Rouble Sign
+℅:2105:Care Of
+™:2122:Trade Mark Sign
+ⁱ:2071:Superscript Latin Small Letter I
+⁰:2070:Superscript Zero
+¹:B9:Superscript One
+²:B2:Superscript Two
+³:B3:Superscript Three
+⁴:2074:Superscript Four
+⁵:2075:Superscript Five
+⁶:2076:Superscript Six
+⁷:2077:Superscript Seven
+⁸:2078:Superscript Eight
+⁹:2079:Superscript Nine
+⁺:207A:Superscript Plus Sign
+⁻:207B:Superscript Minus
+⁼:207C:Superscript Equals Sign
+⁽:207D:Superscript Left Parenthesis
+⁾:207E:Superscript Right Parenthesis
+ⁿ:207F:Superscript Latin Small Letter N
+₀:2080:Subscript Zero
+₁:2081:Subscript One
+₂:2082:Subscript Two
+₃:2083:Subscript Three
+₄:2084:Subscript Four
+₅:2085:Subscript Five
+₆:2086:Subscript Six
+₇:2087:Subscript Seven
+₈:2088:Subscript Eight
+₉:2089:Subscript Nine
+₊:208A:Subscript Plus Sign
+₋:208B:Subscript Minus
+₌:208C:Subscript Equals Sign
+₍:208D:Subscript Left Parenthesis
+₎:208E:Subscript Right Parenthesis
+ₐ:2090:Latin Subscript Small Letter A
+ₑ:2091:Latin Subscript Small Letter E
+ₒ:2092:Latin Subscript Small Letter O
+ₓ:2093:Latin Subscript Small Letter X
+ₔ:2094:Latin Subscript Small Letter Schwa
+ₕ:2095:Latin Subscript Small Letter H
+ₖ:2096:Latin Subscript Small Letter K
+ₗ:2097:Latin Subscript Small Letter L
+ₘ:2098:Latin Subscript Small Letter M
+ₙ:2099:Latin Subscript Small Letter N
+ₚ:209A:Latin Subscript Small Letter P
+ₛ:209B:Latin Subscript Small Letter S
+ₜ:209C:Latin Subscript Small Letter T
+±:B1:Plus-Minus Sign
+ℕ:2115:Double-Struck Capital N
+ℚ:211A:Double-Struck Capital Q
+ℝ:211D:Double-Struck Capital R
+ℤ:2124:Double-Struck Capital Z
+ℵ:2135:Alef Symbol
+∀:2200:For All
+∂:2202:Partial Differential
+∃:2203:There Exists
+Ǝ:18E:Latin Capital Letter Reversed E
+∄:2204:There Does Not Exist
+∅:2205:Empty Set
+∆:2206:Increment
+∇:2207:Nabla
+∈:2208:Element Of
+∉:2209:Not An Element Of
+∊:220A:Small Element Of
+∋:220B:Contains As Member
+∌:220C:Does Not Contain As Member
+∍:220D:Small Contains As Member
+∎:220E:End Of Proof
+∏:220F:N-Ary Product
+∐:2210:N-Ary Coproduct
+∑:2211:N-Ary Summation
+∕:2215:Division Slash
+∖:2216:Set Minus
+∗:2217:Asterisk Operator
+∘:2218:Ring Operator
+∙:2219:Bullet Operator
+√:221A:Square Root
+∛:221B:Cube Root
+∜:221C:Fourth Root
+∝:221D:Proportional To
+∞:221E:Infinity
+∟:221F:Right Angle
+∠:2220:Angle
+∡:2221:Measured Angle
+∢:2222:Spherical Angle
+∣:2223:Divides
+∤:2224:Does Not Divide
+∥:2225:Parallel To
+∦:2226:Not Parallel To
+∧:2227:Logical And
+∨:2228:Logical Or
+∩:2229:Intersection
+∪:222A:Union
+∫:222B:Integral
+∬:222C:Double Integral
+∭:222D:Triple Integral
+∮:222E:Contour Integral
+∯:222F:Surface Integral
+∰:2230:Volume Integral
+∱:2231:Clockwise Integral
+∲:2232:Clockwise Contour Integral
+∳:2233:Anticlockwise Contour Integral
+∴:2234:Therefore
+∵:2235:Because
+≁:2241:Not Tilde
+≂:2242:Minus Tilde
+≃:2243:Asymptotically Equal To
+≄:2244:Not Asymptotically Equal To
+≅:2245:Approximately Equal To
+≆:2246:Approximately But Not Actually Equal To
+≇:2247:Neither Approximately Nor Actually Equal To
+≈:2248:Almost Equal To
+≉:2249:Not Almost Equal To
+≊:224A:Almost Equal Or Equal To
+≋:224B:Triple Tilde
+≌:224C:All Equal To
+≍:224D:Equivalent To
+≝:225D:Equal To By Definition
+≟:225F:Questioned Equal To
+≠:2260:Not Equal To
+≡:2261:Identical To
+≢:2262:Not Identical To
+≣:2263:Strictly Equivalent To
+≤:2264:Less-Than Or Equal To
+≥:2265:Greater-Than Or Equal To
+≦:2266:Less-Than Over Equal To
+≧:2267:Greater-Than Over Equal To
+≨:2268:Less-Than But Not Equal To
+≩:2269:Greater-Than But Not Equal To
+≪:226A:Much Less-Than
+≫:226B:Much Greater-Than
+≬:226C:Between
+≭:226D:Not Equivalent To
+≮:226E:Not Less-Than
+≯:226F:Not Greater-Than
+≰:2270:Neither Less-Than Nor Equal To
+≱:2271:Neither Greater-Than Nor Equal To
+≲:2272:Less-Than Or Equivalent To
+≳:2273:Greater-Than Or Equivalent To
+≴:2274:Neither Less-Than Nor Equivalent To
+≵:2275:Neither Greater-Than Nor Equivalent To
+≶:2276:Less-Than Or Greater-Than
+≷:2277:Greater-Than Or Less-Than
+≸:2278:Neither Less-Than Nor Greater-Than
+≹:2279:Neither Greater-Than Nor Less-Than
+⊂:2282:Subset Of
+⊃:2283:Superset Of
+⊄:2284:Not A Subset Of
+⊅:2285:Not A Superset Of
+⊆:2286:Subset Of Or Equal To
+⊇:2287:Superset Of Or Equal To
+⊈:2288:Neither A Subset Of Nor Equal To
+⊉:2289:Neither A Superset Of Nor Equal To
+⊊:228A:Subset Of With Not Equal To
+⊋:228B:Superset Of With Not Equal To
+⊌:228C:Multiset
+⊍:228D:Multiset Multiplication
+⊎:228E:Multiset Union
+⊏:228F:Square Image Of
+⊐:2290:Square Original Of
+⊑:2291:Square Image Of Or Equal To
+⊒:2292:Square Original Of Or Equal To
+⊓:2293:Square Cap
+⊔:2294:Square Cup
+⊕:2295:Circled Plus
+⊖:2296:Circled Minus
+⊗:2297:Circled Times
+⊘:2298:Circled Division Slash
+⊙:2299:Circled Dot Operator
+⊚:229A:Circled Ring Operator
+⊛:229B:Circled Asterisk Operator
+⊜:229C:Circled Equals
+⊝:229D:Circled Dash
+⊞:229E:Squared Plus
+⊟:229F:Squared Minus
+⊠:22A0:Squared Times
+⊡:22A1:Squared Dot Operator
+⊢:22A2:Right Tack
+⊣:22A3:Left Tack
+⊤:22A4:Down Tack
+⊥:22A5:Up Tack
+⊦:22A6:Assertion
+⊧:22A7:Models
+⊨:22A8:True
+⊩:22A9:Forces
+⊪:22Aa:Triple Vertical Bar Right Turnstile
+⊫:22Ab:Double Vertical Bar Double Right Turnstile
+⊬:22Ac:Does Not Prove
+⊭:22Ad:Not True
+⊮:22Ae:Does Not Force
+⊯:22Af:Negated Double Vertical Bar Double Right Turnstile
+⊲:22B2:Normal Subgroup Of
+⊳:22B3:Contains As Normal Subgroup
+⊴:22B4:Normal Subgroup Of Or Equal To
+⊵:22B5:Contains As Normal Subgroup Or Equal To
+⊻:22Bb:Xor
+⊼:22Bc:Nand
+⊽:22Bd:Nor
+⊾:22Be:Right Angle With Arc
+⊿:22Bf:Right Triangle
+⋀:22C0:N-Ary Logical And
+⋁:22C1:N-Ary Logical Or
+⋂:22C2:N-Ary Intersection
+⋃:22C3:N-Ary Union
+⋄:22C4:Diamond Operator
+⋅:22C5:Dot Operator
+⋆:22C6:Star Operator
+⋇:22C7:Division Times
+⋈:22C8:Bowtie
+⋉:22C9:Left Normal Factor Semidirect Product
+⋊:22Ca:Right Normal Factor Semidirect Product
+⋪:22Ea:Not Normal Subgroup Of
+⋫:22Eb:Does Not Contain As Normal Subgroup
+⋬:22Ec:Not Normal Subgroup Of Or Equal To
+⋭:22Ed:Does Not Contain As Normal Subgroup Or Equal
+⋮:22Ee:Vertical Ellipsis
+⋯:22Ef:Midline Horizontal Ellipsis
+⋰:22F0:Up Right Diagonal Ellipsis
+⋱:22F1:Down Right Diagonal Ellipsis
+⋲:22F2:Element Of With Long Horizontal Stroke
+⋳:22F3:Element Of With Vertical Bar At End Of Horizontal Stroke
+⋴:22F4:Small Element Of With Vertical Bar At End Of Horizontal Stroke
+⋵:22F5:Element Of With Dot Above
+⋶:22F6:Element Of With Overbar
+⋷:22F7:Small Element Of With Overbar
+⋸:22F8:Element Of With Underbar
+⋹:22F9:Element Of With Two Horizontal Strokes
+⋺:22Fa:Contains With Long Horizontal Stroke
+⋻:22Fb:Contains With Vertical Bar At End Of Horizontal Stroke
+⋼:22Fc:Small Contains With Vertical Bar At End Of Horizontal Stroke
+⋽:22Fd:Contains With Overbar
+⋾:22Fe:Small Contains With Overbar
+⋿:22Ff:Z Notation Bag Membership
+⌀:2300:Diameter Sign
+⌈:2308:Left Ceiling
+⌉:2309:Right Ceiling
+⌊:230A:Left Floor
+⌋:230B:Right Floor
+⌌:230C:Bottom Right Crop
+⌍:230D:Bottom Left Crop
+⌎:230E:Top Right Crop
+⌏:230F:Top Left Crop
+⌐:2310:Reversed Not Sign
+⌑:2311:Square Lozenge
+⌒:2312:Arc
+⌓:2313:Segment
+⌔:2314:Sector
+⌕:2315:Telephone Recorder
+⌖:2316:Position Indicator
+⌗:2317:Viewdata Square
+⌘:2318:Place Of Interest Sign
+⌙:2319:Turned Not Sign
+⌚:231A:Watch
+⌛:231B:Hourglass
+⌜:231C:Top Left Corner
+⌝:231D:Top Right Corner
+⌞:231E:Bottom Left Corner
+⌟:231F:Bottom Right Corner
+⌠:2320:Top Half Integral
+⌡:2321:Bottom Half Integral
+⌢:2322:Frown
+⌣:2323:Smile
+⌤:2324:Up Arrowhead Between Two Horizontal Bars
+⌥:2325:Option Key
+⌦:2326:Erase To The Right
+⌧:2327:X In A Rectangle Box
+⌨:2328:Keyboard
+〈:2329:Left-Pointing Angle Bracket
+〉:232A:Right-Pointing Angle Bracket
+⌫:232B:Erase To The Left
+⏎:23Ce:Return Symbol
+⏏:23Cf:Eject Symbol
+⏩:23E9:Black Right-Pointing Double Triangle
+⏪:23Ea:Black Left-Pointing Double Triangle
+⏫:23Eb:Black Up-Pointing Double Triangle
+⏬:23Ec:Black Down-Pointing Double Triangle
+⏭:23Ed:Black Right-Pointing Double Triangle With Vertical Bar
+⏮:23Ee:Black Left-Pointing Double Triangle With Vertical Bar
+⏯:23Ef:Black Right-Pointing Triangle With Double Vertical Bar
+⏰:23F0:Alarm Clock
+⏱:23F1:Stopwatch
+⏲:23F2:Timer Clock
+⏳:23F3:Hourglass With Flowing Sand
+⏴:23F4:Black Medium Left-Pointing Triangle
+⏵:23F5:Black Medium Right-Pointing Triangle
+⏶:23F6:Black Medium Up-Pointing Triangle
+⏷:23F7:Black Medium Down-Pointing Triangle
+⏸:23F8:Double Vertical Bar
+⏹:23F9:Black Square For Stop
+⏺:23Fa:Black Circle For Record
+⏻:23Fb:Power Symbol
+⏼:23Fc:Power On-Off Symbol
+⏽:23Fd:Power On Symbol
+⏾:23Fe:Power Sleep Symbol
+⏿:23Ff:Observer Eye Symbol
+¼:Bc:Vulgar Fraction One Quarter
+½:Bd:Vulgar Fraction One Half
+¾:Be:Vulgar Fraction Three Quarters
+⅐:2150:Vulgar Fraction One Seventh
+⅑:2151:Vulgar Fraction One Ninth
+⅒:2152:Vulgar Fraction One Tenth
+⅓:2153:Vulgar Fraction One Third
+⅔:2154:Vulgar Fraction Two Thirds
+⅕:2155:Vulgar Fraction One Fifth
+⅖:2156:Vulgar Fraction Two Fifths
+⅗:2157:Vulgar Fraction Three Fifths
+⅘:2158:Vulgar Fraction Four Fifths
+⅙:2159:Vulgar Fraction One Sixth
+⅚:215A:Vulgar Fraction Five Sixths
+⅛:215B:Vulgar Fraction One Eighth
+⅜:215C:Vulgar Fraction Three Eighths
+⅝:215D:Vulgar Fraction Five Eighths
+⅞:215E:Vulgar Fraction Seven Eighths
+⅟:215F:Fraction Numerator One
+←:2190:Leftwards Arrow
+↑:2191:Upwards Arrow
+→:2192:Rightwards Arrow
+↓:2193:Downwards Arrow
+↔:2194:Left Right Arrow
+↕:2195:Up Down Arrow
+↖:2196:North West Arrow
+↗:2197:North East Arrow
+↘:2198:South East Arrow
+↙:2199:South West Arrow
+↚:219A:Leftwards Arrow With Stroke
+↛:219B:Rightwards Arrow With Stroke
+↜:219C:Leftwards Wave Arrow
+↝:219D:Rightwards Wave Arrow
+↞:219E:Leftwards Two Headed Arrow
+↟:219F:Upwards Two Headed Arrow
+↠:21A0:Rightwards Two Headed Arrow
+↡:21A1:Downwards Two Headed Arrow
+↢:21A2:Leftwards Arrow With Tail
+↣:21A3:Rightwards Arrow With Tail
+↤:21A4:Leftwards Arrow From Bar
+↥:21A5:Upwards Arrow From Bar
+↦:21A6:Rightwards Arrow From Bar
+↧:21A7:Downwards Arrow From Bar
+↨:21A8:Up Down Arrow With Base
+↩:21A9:Leftwards Arrow With Hook
+↪:21Aa:Rightwards Arrow With Hook
+↫:21Ab:Leftwards Arrow With Loop
+↬:21Ac:Rightwards Arrow With Loop
+↭:21Ad:Left Right Wave Arrow
+↮:21Ae:Left Right Arrow With Stroke
+↯:21Af:Downwards Zigzag Arrow
+↰:21B0:Upwards Arrow With Tip Leftwards
+↱:21B1:Upwards Arrow With Tip Rightwards
+↲:21B2:Downwards Arrow With Tip Leftwards
+↳:21B3:Downwards Arrow With Tip Rightwards
+↴:21B4:Rightwards Arrow With Corner Downwards
+↵:21B5:Downwards Arrow With Corner Leftwards
+↶:21B6:Anticlockwise Top Semicircle Arrow
+↷:21B7:Clockwise Top Semicircle Arrow
+↸:21B8:North West Arrow To Long Bar
+↹:21B9:Leftwards Arrow To Bar Over Rightwards Arrow To Bar
+↺:21Ba:Anticlockwise Open Circle Arrow
+↻:21Bb:Clockwise Open Circle Arrow
+↼:21Bc:Leftwards Harpoon With Barb Upwards
+↽:21Bd:Leftwards Harpoon With Barb Downwards
+↾:21Be:Upwards Harpoon With Barb Rightwards
+↿:21Bf:Upwards Harpoon With Barb Leftwards
+⇀:21C0:Rightwards Harpoon With Barb Upwards
+⇁:21C1:Rightwards Harpoon With Barb Downwards
+⇂:21C2:Downwards Harpoon With Barb Rightwards
+⇃:21C3:Downwards Harpoon With Barb Leftwards
+⇄:21C4:Rightwards Arrow Over Leftwards Arrow
+⇅:21C5:Upwards Arrow Leftwards Of Downwards Arrow
+⇆:21C6:Leftwards Arrow Over Rightwards Arrow
+⇇:21C7:Leftwards Paired Arrows
+⇈:21C8:Upwards Paired Arrows
+⇉:21C9:Rightwards Paired Arrows
+⇊:21Ca:Downwards Paired Arrows
+⇋:21Cb:Leftwards Harpoon Over Rightwards Harpoon
+⇌:21Cc:Rightwards Harpoon Over Leftwards Harpoon
+⇍:21Cd:Leftwards Double Arrow With Stroke
+⇎:21Ce:Left Right Double Arrow With Stroke
+⇏:21Cf:Rightwards Double Arrow With Stroke
+⇐:21D0:Leftwards Double Arrow
+⇑:21D1:Upwards Double Arrow
+⇒:21D2:Rightwards Double Arrow
+⇓:21D3:Downwards Double Arrow
+⇔:21D4:Left Right Double Arrow
+⇕:21D5:Up Down Double Arrow
+⇖:21D6:North West Double Arrow
+⇗:21D7:North East Double Arrow
+⇘:21D8:South East Double Arrow
+⇙:21D9:South West Double Arrow
+⇚:21Da:Leftwards Triple Arrow
+⇛:21Db:Rightwards Triple Arrow
+⇜:21Dc:Leftwards Squiggle Arrow
+⇝:21Dd:Rightwards Squiggle Arrow
+⇞:21De:Upwards Arrow With Double Stroke
+⇟:21Df:Downwards Arrow With Double Stroke
+⇠:21E0:Leftwards Dashed Arrow
+⇡:21E1:Upwards Dashed Arrow
+⇢:21E2:Rightwards Dashed Arrow
+⇣:21E3:Downwards Dashed Arrow
+⇤:21E4:Leftwards Arrow To Bar
+⇥:21E5:Rightwards Arrow To Bar
+⇦:21E6:Leftwards White Arrow
+⇧:21E7:Upwards White Arrow
+⇨:21E8:Rightwards White Arrow
+⇩:21E9:Downwards White Arrow
+⇪:21Ea:Upwards White Arrow From Bar
+⇫:21Eb:Upwards White Arrow On Pedestal
+⇬:21Ec:Upwards White Arrow On Pedestal With Horizontal Bar
+⇭:21Ed:Upwards White Arrow On Pedestal With Vertical Bar
+⇮:21Ee:Upwards White Double Arrow
+⇯:21Ef:Upwards White Double Arrow On Pedestal
+⇰:21F0:Rightwards White Arrow From Wall
+⇱:21F1:North West Arrow To Corner
+⇲:21F2:South East Arrow To Corner
+⇳:21F3:Up Down White Arrow
+⇴:21F4:Right Arrow With Small Circle
+⇵:21F5:Downwards Arrow Leftwards Of Upwards Arrow
+⇶:21F6:Three Rightwards Arrows
+⇷:21F7:Leftwards Arrow With Vertical Stroke
+⇸:21F8:Rightwards Arrow With Vertical Stroke
+⇹:21F9:Left Right Arrow With Vertical Stroke
+⇺:21Fa:Leftwards Arrow With Double Vertical Stroke
+⇻:21Fb:Rightwards Arrow With Double Vertical Stroke
+⇼:21Fc:Left Right Arrow With Double Vertical Stroke
+⇽:21Fd:Leftwards Open-Headed Arrow
+⇾:21Fe:Rightwards Open-Headed Arrow
+⇿:21Ff:Left Right Open-Headed Arrow
+■:25A0:Black Square
+□:25A1:White Square
+▢:25A2:White Square With Rounded Corners
+▣:25A3:White Square Containing Black Small Square
+▪:25Aa:Black Small Square
+▫:25Ab:White Small Square
+▬:25Ac:Black Rectangle
+▭:25Ad:White Rectangle
+▮:25Ae:Black Vertical Rectangle
+▯:25Af:White Vertical Rectangle
+▰:25B0:Black Parallelogram
+▱:25B1:White Parallelogram
+▲:25B2:Black Up-Pointing Triangle
+△:25B3:White Up-Pointing Triangle
+▴:25B4:Black Up-Pointing Small Triangle
+▵:25B5:White Up-Pointing Small Triangle
+▶:25B6:Black Right-Pointing Triangle
+▷:25B7:White Right-Pointing Triangle
+▸:25B8:Black Right-Pointing Small Triangle
+▹:25B9:White Right-Pointing Small Triangle
+►:25Ba:Black Right-Pointing Pointer
+▻:25Bb:White Right-Pointing Pointer
+▼:25Bc:Black Down-Pointing Triangle
+▽:25Bd:White Down-Pointing Triangle
+▾:25Be:Black Down-Pointing Small Triangle
+▿:25Bf:White Down-Pointing Small Triangle
+◀:25C0:Black Left-Pointing Triangle
+◁:25C1:White Left-Pointing Triangle
+◂:25C2:Black Left-Pointing Small Triangle
+◃:25C3:White Left-Pointing Small Triangle
+◄:25C4:Black Left-Pointing Pointer
+◅:25C5:White Left-Pointing Pointer
+◆:25C6:Black Diamond
+◇:25C7:White Diamond
+◈:25C8:White Diamond Containing Black Small Diamond
+◉:25C9:Fisheye
+◊:25Ca:Lozenge
+○:25Cb:White Circle
+◌:25Cc:Dotted Circle
+◍:25Cd:Circle With Vertical Fill
+◎:25Ce:Bullseye
+●:25Cf:Black Circle
+◐:25D0:Circle With Left Half Black
+◑:25D1:Circle With Right Half Black
+◒:25D2:Circle With Lower Half Black
+◓:25D3:Circle With Upper Half Black
+◔:25D4:Circle With Upper Right Quadrant Black
+◕:25D5:Circle With All But Upper Left Quadrant Black
+◖:25D6:Left Half Black Circle
+◗:25D7:Right Half Black Circle
+◘:25D8:Inverse Bullet
+◙:25D9:Inverse White Circle
+◚:25Da:Upper Half Inverse White Circle
+◛:25Db:Lower Half Inverse White Circle
+◜:25Dc:Upper Left Quadrant Circular Arc
+◝:25Dd:Upper Right Quadrant Circular Arc
+◞:25De:Lower Right Quadrant Circular Arc
+◟:25Df:Lower Left Quadrant Circular Arc
+◠:25E0:Upper Half Circle
+◡:25E1:Lower Half Circle
+◢:25E2:Black Lower Right Triangle
+◣:25E3:Black Lower Left Triangle
+◤:25E4:Black Upper Left Triangle
+◥:25E5:Black Upper Right Triangle
+◦:25E6:White Bullet
+◧:25E7:Square With Left Half Black
+◨:25E8:Square With Right Half Black
+◩:25E9:Square With Upper Left Diagonal Half Black
+◪:25Ea:Square With Lower Right Diagonal Half Black
+◫:25Eb:White Square With Vertical Bisecting Line
+◬:25Ec:White Up-Pointing Triangle With Dot
+◭:25Ed:Up-Pointing Triangle With Left Half Black
+◮:25Ee:Up-Pointing Triangle With Right Half Black
+◯:25Ef:Large Circle
+◰:25F0:White Square With Upper Left Quadrant
+◱:25F1:White Square With Lower Left Quadrant
+◲:25F2:White Square With Lower Right Quadrant
+◳:25F3:White Square With Upper Right Quadrant
+◴:25F4:White Circle With Upper Left Quadrant
+◵:25F5:White Circle With Lower Left Quadrant
+◶:25F6:White Circle With Lower Right Quadrant
+◷:25F7:White Circle With Upper Right Quadrant
+◸:25F8:Upper Left Triangle
+◹:25F9:Upper Right Triangle
+◺:25Fa:Lower Left Triangle
+◻:25Fb:White Medium Square
+◼:25Fc:Black Medium Square
+◽:25Fd:White Medium Small Square
+◾:25Fe:Black Medium Small Square
+◿:25Ff:Lower Right Triangle
+☀:2600:Black Sun With Rays
+☁:2601:Cloud
+☂:2602:Umbrella
+☃:2603:Snowman
+☄:2604:Comet
+★:2605:Black Star
+☆:2606:White Star
+\#:23:Number Sign
+$:24:Dollar Sign
+@:40:Commercial At
+[:5B:Left Square Bracket
+\:5C:Reverse Solidus
+]:5D:Right Square Bracket
+^:5E:Circumflex Accent
+`:60:Grave Accent
+{:7B:Left Curly Bracket
+|:7C:Vertical Line
+}:7D:Right Curly Bracket
+~:7E:Tilde
+♩:2669:Quarter Note
+♪:266A:Eighth Note
+♫:266B:Beamed Eighth Notes
+♬:266C:Beamed Sixteenth Notes
+♭:266D:Music Flat Sign
+♮:266E:Music Natural Sign
+♯:266F:Music Sharp Sign
+✓:2713:Check Mark
+✡:2721:Star Of David
+😺:1F63A:Smiling Cat Face With Open Mouth
+🐱:1F431:Cat Face
+💯:1F4Af:Hundred Points Symbol
+\#:23:Number Sign
+$:24:Dollar Sign
+@:40:Commercial At
+[:5B:Left Square Bracket
+\:5C:Reverse Solidus
+]:5D:Right Square Bracket
+^:5E:Circumflex Accent
+`:60:Grave Accent
+{:7B:Left Curly Bracket
+|:7C:Vertical Line
+}:7D:Right Curly Bracket
+~:7E:Tilde
+ :A0:No-Break Space
+¡:A1:Inverted Exclamation Mark
+¢:A2:Cent Sign
+£:A3:Pound Sign
+¤:A4:Currency Sign
+¥:A5:Yen Sign
+¦:A6:Broken Bar
+§:A7:Section Sign
+¨:A8:Diaeresis
+©:A9:Copyright Sign
+ª:Aa:Feminine Ordinal Indicator
+«:Ab:Left-Pointing Double Angle Quotation Mark
+¬:Ac:Not Sign
+®:Ae:Registered Sign
+¯:Af:Macron
+°:B0:Degree Sign
+±:B1:Plus-Minus Sign
+²:B2:Superscript Two
+³:B3:Superscript Three
+´:B4:Acute Accent
+µ:B5:Micro Sign
+¶:B6:Pilcrow Sign
+·:B7:Middle Dot
+¸:B8:Cedilla
+¹:B9:Superscript One
+º:Ba:Masculine Ordinal Indicator
+»:Bb:Right-Pointing Double Angle Quotation Mark
+¼:Bc:Vulgar Fraction One Quarter
+½:Bd:Vulgar Fraction One Half
+¾:Be:Vulgar Fraction Three Quarters
+¿:Bf:Inverted Question Mark
+À:C0:Latin Capital Letter A With Grave
+Á:C1:Latin Capital Letter A With Acute
+Â:C2:Latin Capital Letter A With Circumflex
+Ã:C3:Latin Capital Letter A With Tilde
+Ä:C4:Latin Capital Letter A With Diaeresis
+Å:C5:Latin Capital Letter A With Ring Above
+Æ:C6:Latin Capital Letter Ae
+Ç:C7:Latin Capital Letter C With Cedilla
+È:C8:Latin Capital Letter E With Grave
+É:C9:Latin Capital Letter E With Acute
+Ê:Ca:Latin Capital Letter E With Circumflex
+Ë:Cb:Latin Capital Letter E With Diaeresis
+Ì:Cc:Latin Capital Letter I With Grave
+Í:Cd:Latin Capital Letter I With Acute
+Î:Ce:Latin Capital Letter I With Circumflex
+Ï:Cf:Latin Capital Letter I With Diaeresis
+Ð:D0:Latin Capital Letter Eth (Icelandic)                                                                        
+Ñ:D1:Latin Capital Letter N With Tilde
+Ò:D2:Latin Capital Letter O With Grave
+Ó:D3:Latin Capital Letter O With Acute
+Ô:D4:Latin Capital Letter O With Circumflex
+Õ:D5:Latin Capital Letter O With Tilde
+Ö:D6:Latin Capital Letter O With Diaeresis
+×:D7:Multiplication Sign
+Ø:D8:Latin Capital Letter O With Stroke
+Ù:D9:Latin Capital Letter U With Grave
+Ú:Da:Latin Capital Letter U With Acute
+Û:Db:Latin Capital Letter U With Circumflex
+Ü:Dc:Latin Capital Letter U With Diaeresis
+Ý:Dd:Latin Capital Letter Y With Acute
+Þ:De:Latin Capital Letter Thorn (Icelandic)                                                                      
+ß:Df:Latin Small Letter Sharp S (German)                                                                         
+à:E0:Latin Small Letter A With Grave
+á:E1:Latin Small Letter A With Acute
+â:E2:Latin Small Letter A With Circumflex
+ã:E3:Latin Small Letter A With Tilde
+ä:E4:Latin Small Letter A With Diaeresis
+å:E5:Latin Small Letter A With Ring Above
+æ:E6:Latin Small Letter Ae
+ç:E7:Latin Small Letter C With Cedilla
+è:E8:Latin Small Letter E With Grave
+é:E9:Latin Small Letter E With Acute
+ê:Ea:Latin Small Letter E With Circumflex
+ë:Eb:Latin Small Letter E With Diaeresis
+ì:Ec:Latin Small Letter I With Grave
+í:Ed:Latin Small Letter I With Acute
+î:Ee:Latin Small Letter I With Circumflex
+ï:Ef:Latin Small Letter I With Diaeresis
+ð:F0:Latin Small Letter Eth (Icelandic)                                                                          
+ñ:F1:Latin Small Letter N With Tilde
+ò:F2:Latin Small Letter O With Grave
+ó:F3:Latin Small Letter O With Acute
+ô:F4:Latin Small Letter O With Circumflex
+õ:F5:Latin Small Letter O With Tilde
+ö:F6:Latin Small Letter O With Diaeresis
+÷:F7:Division Sign
+ø:F8:Latin Small Letter O With Stroke
+ù:F9:Latin Small Letter U With Grave
+ú:Fa:Latin Small Letter U With Acute
+û:Fb:Latin Small Letter U With Circumflex
+ü:Fc:Latin Small Letter U With Diaeresis
+ý:Fd:Latin Small Letter Y With Acute
+þ:Fe:Latin Small Letter Thorn (Icelandic)                                                                        
+ÿ:Ff:Latin Small Letter Y With Diaeresis
+Ā:100:Latin Capital Letter A With Macron
+ā:101:Latin Small Letter A With Macron
+Ă:102:Latin Capital Letter A With Breve
+ă:103:Latin Small Letter A With Breve
+Ą:104:Latin Capital Letter A With Ogonek
+ą:105:Latin Small Letter A With Ogonek
+Ć:106:Latin Capital Letter C With Acute
+ć:107:Latin Small Letter C With Acute
+Ĉ:108:Latin Capital Letter C With Circumflex
+ĉ:109:Latin Small Letter C With Circumflex
+Ċ:10A:Latin Capital Letter C With Dot Above
+ċ:10B:Latin Small Letter C With Dot Above
+Č:10C:Latin Capital Letter C With Caron
+č:10D:Latin Small Letter C With Caron
+Ď:10E:Latin Capital Letter D With Caron
+ď:10F:Latin Small Letter D With Caron
+Đ:110:Latin Capital Letter D With Stroke
+đ:111:Latin Small Letter D With Stroke
+Ē:112:Latin Capital Letter E With Macron
+ē:113:Latin Small Letter E With Macron
+Ĕ:114:Latin Capital Letter E With Breve
+ĕ:115:Latin Small Letter E With Breve
+Ė:116:Latin Capital Letter E With Dot Above
+ė:117:Latin Small Letter E With Dot Above
+Ę:118:Latin Capital Letter E With Ogonek
+ę:119:Latin Small Letter E With Ogonek
+Ě:11A:Latin Capital Letter E With Caron
+ě:11B:Latin Small Letter E With Caron
+Ĝ:11C:Latin Capital Letter G With Circumflex
+ĝ:11D:Latin Small Letter G With Circumflex
+Ğ:11E:Latin Capital Letter G With Breve
+ğ:11F:Latin Small Letter G With Breve
+Ġ:120:Latin Capital Letter G With Dot Above
+ġ:121:Latin Small Letter G With Dot Above
+Ģ:122:Latin Capital Letter G With Cedilla
+ģ:123:Latin Small Letter G With Cedilla
+Ĥ:124:Latin Capital Letter H With Circumflex
+ĥ:125:Latin Small Letter H With Circumflex
+Ħ:126:Latin Capital Letter H With Stroke
+ħ:127:Latin Small Letter H With Stroke
+Ĩ:128:Latin Capital Letter I With Tilde
+ĩ:129:Latin Small Letter I With Tilde
+Ī:12A:Latin Capital Letter I With Macron
+ī:12B:Latin Small Letter I With Macron
+Ĭ:12C:Latin Capital Letter I With Breve
+ĭ:12D:Latin Small Letter I With Breve
+Į:12E:Latin Capital Letter I With Ogonek
+į:12F:Latin Small Letter I With Ogonek
+İ:130:Latin Capital Letter I With Dot Above
+ı:131:Latin Small Letter Dotless I
+Ĳ:132:Latin Capital Ligature Ij
+ĳ:133:Latin Small Ligature Ij
+Ĵ:134:Latin Capital Letter J With Circumflex
+ĵ:135:Latin Small Letter J With Circumflex
+Ķ:136:Latin Capital Letter K With Cedilla
+ķ:137:Latin Small Letter K With Cedilla
+ĸ:138:Latin Small Letter Kra
+Ĺ:139:Latin Capital Letter L With Acute
+ĺ:13A:Latin Small Letter L With Acute
+Ļ:13B:Latin Capital Letter L With Cedilla
+ļ:13C:Latin Small Letter L With Cedilla
+Ľ:13D:Latin Capital Letter L With Caron
+ľ:13E:Latin Small Letter L With Caron
+Ŀ:13F:Latin Capital Letter L With Middle Dot
+ŀ:140:Latin Small Letter L With Middle Dot
+Ł:141:Latin Capital Letter L With Stroke
+ł:142:Latin Small Letter L With Stroke
+Ń:143:Latin Capital Letter N With Acute
+ń:144:Latin Small Letter N With Acute
+Ņ:145:Latin Capital Letter N With Cedilla
+ņ:146:Latin Small Letter N With Cedilla
+Ň:147:Latin Capital Letter N With Caron
+ň:148:Latin Small Letter N With Caron
+ŉ:149:Latin Small Letter N Preceded By Apostrophe
+Ŋ:14A:Latin Capital Letter Eng
+ŋ:14B:Latin Small Letter Eng
+Ō:14C:Latin Capital Letter O With Macron
+ō:14D:Latin Small Letter O With Macron
+Ŏ:14E:Latin Capital Letter O With Breve
+ŏ:14F:Latin Small Letter O With Breve
+Ő:150:Latin Capital Letter O With Double Acute
+ő:151:Latin Small Letter O With Double Acute
+Œ:152:Latin Capital Ligature Oe
+œ:153:Latin Small Ligature Oe
+Ŕ:154:Latin Capital Letter R With Acute
+ŕ:155:Latin Small Letter R With Acute
+Ŗ:156:Latin Capital Letter R With Cedilla
+ŗ:157:Latin Small Letter R With Cedilla
+Ř:158:Latin Capital Letter R With Caron
+ř:159:Latin Small Letter R With Caron
+Ś:15A:Latin Capital Letter S With Acute
+ś:15B:Latin Small Letter S With Acute
+Ŝ:15C:Latin Capital Letter S With Circumflex
+ŝ:15D:Latin Small Letter S With Circumflex
+Ş:15E:Latin Capital Letter S With Cedilla
+ş:15F:Latin Small Letter S With Cedilla
+Š:160:Latin Capital Letter S With Caron
+š:161:Latin Small Letter S With Caron
+Ţ:162:Latin Capital Letter T With Cedilla
+ţ:163:Latin Small Letter T With Cedilla
+Ť:164:Latin Capital Letter T With Caron
+ť:165:Latin Small Letter T With Caron
+Ŧ:166:Latin Capital Letter T With Stroke
+ŧ:167:Latin Small Letter T With Stroke
+Ũ:168:Latin Capital Letter U With Tilde
+ũ:169:Latin Small Letter U With Tilde
+Ū:16A:Latin Capital Letter U With Macron
+ū:16B:Latin Small Letter U With Macron
+Ŭ:16C:Latin Capital Letter U With Breve
+ŭ:16D:Latin Small Letter U With Breve
+Ů:16E:Latin Capital Letter U With Ring Above
+ů:16F:Latin Small Letter U With Ring Above
+Ű:170:Latin Capital Letter U With Double Acute
+ű:171:Latin Small Letter U With Double Acute
+Ų:172:Latin Capital Letter U With Ogonek
+ų:173:Latin Small Letter U With Ogonek
+Ŵ:174:Latin Capital Letter W With Circumflex
+ŵ:175:Latin Small Letter W With Circumflex
+Ŷ:176:Latin Capital Letter Y With Circumflex
+ŷ:177:Latin Small Letter Y With Circumflex
+Ÿ:178:Latin Capital Letter Y With Diaeresis
+Ź:179:Latin Capital Letter Z With Acute
+ź:17A:Latin Small Letter Z With Acute
+Ż:17B:Latin Capital Letter Z With Dot Above
+ż:17C:Latin Small Letter Z With Dot Above
+Ž:17D:Latin Capital Letter Z With Caron
+ž:17E:Latin Small Letter Z With Caron
+Ơ:1A0:Latin Capital Letter O With Horn
+ơ:1A1:Latin Small Letter O With Horn
+Ƣ:1A2:Latin Capital Letter Oi
+ƣ:1A3:Latin Small Letter Oi
+Ʀ:1A6:Latin Letter Yr
+Ư:1Af:Latin Capital Letter U With Horn
+ư:1B0:Latin Small Letter U With Horn
+Ƶ:1B5:Latin Capital Letter Z With Stroke
+ƶ:1B6:Latin Small Letter Z With Stroke
+Ʒ:1B7:Latin Capital Letter Ezh
+Ǎ:1Cd:Latin Capital Letter A With Caron
+ǎ:1Ce:Latin Small Letter A With Caron
+Ǐ:1Cf:Latin Capital Letter I With Caron
+ǐ:1D0:Latin Small Letter I With Caron
+Ǒ:1D1:Latin Capital Letter O With Caron
+ǒ:1D2:Latin Small Letter O With Caron
+Ǔ:1D3:Latin Capital Letter U With Caron
+ǔ:1D4:Latin Small Letter U With Caron
+Ǟ:1De:Latin Capital Letter A With Diaeresis And Macron
+ǟ:1Df:Latin Small Letter A With Diaeresis And Macron
+Ǡ:1E0:Latin Capital Letter A With Dot Above And Macron
+ǡ:1E1:Latin Small Letter A With Dot Above And Macron
+Ǣ:1E2:Latin Capital Letter Ae With Macron
+ǣ:1E3:Latin Small Letter Ae With Macron
+Ǥ:1E4:Latin Capital Letter G With Stroke
+ǥ:1E5:Latin Small Letter G With Stroke
+Ǧ:1E6:Latin Capital Letter G With Caron
+ǧ:1E7:Latin Small Letter G With Caron
+Ǩ:1E8:Latin Capital Letter K With Caron
+ǩ:1E9:Latin Small Letter K With Caron
+Ǫ:1Ea:Latin Capital Letter O With Ogonek
+ǫ:1Eb:Latin Small Letter O With Ogonek
+Ǭ:1Ec:Latin Capital Letter O With Ogonek And Macron
+ǭ:1Ed:Latin Small Letter O With Ogonek And Macron
+Ǯ:1Ee:Latin Capital Letter Ezh With Caron
+ǯ:1Ef:Latin Small Letter Ezh With Caron
+ǰ:1F0:Latin Small Letter J With Caron
+Ǵ:1F4:Latin Capital Letter G With Acute
+ǵ:1F5:Latin Small Letter G With Acute
+ʿ:2Bf:Modifier Letter Left Half Ring
+ˇ:2C7:Caron
+˘:2D8:Breve
+˙:2D9:Dot Above
+˚:2Da:Ring Above
+˛:2Db:Ogonek
+˝:2Dd:Double Acute Accent
+Ά:386:Greek Capital Letter Alpha With Tonos
+Έ:388:Greek Capital Letter Epsilon With Tonos
+Ή:389:Greek Capital Letter Eta With Tonos
+Ί:38A:Greek Capital Letter Iota With Tonos
+Ό:38C:Greek Capital Letter Omicron With Tonos
+Ύ:38E:Greek Capital Letter Upsilon With Tonos
+Ώ:38F:Greek Capital Letter Omega With Tonos
+ΐ:390:Greek Small Letter Iota With Dialytika And Tonos
+Α:391:Greek Capital Letter Alpha
+Β:392:Greek Capital Letter Beta
+Γ:393:Greek Capital Letter Gamma
+Δ:394:Greek Capital Letter Delta
+Ε:395:Greek Capital Letter Epsilon
+Ζ:396:Greek Capital Letter Zeta
+Η:397:Greek Capital Letter Eta
+Θ:398:Greek Capital Letter Theta
+Ι:399:Greek Capital Letter Iota
+Κ:39A:Greek Capital Letter Kappa
+Λ:39B:Greek Capital Letter Lamda
+Μ:39C:Greek Capital Letter Mu
+Ν:39D:Greek Capital Letter Nu
+Ξ:39E:Greek Capital Letter Xi
+Ο:39F:Greek Capital Letter Omicron
+Π:3A0:Greek Capital Letter Pi
+Ρ:3A1:Greek Capital Letter Rho
+Σ:3A3:Greek Capital Letter Sigma
+Τ:3A4:Greek Capital Letter Tau
+Υ:3A5:Greek Capital Letter Upsilon
+Φ:3A6:Greek Capital Letter Phi
+Χ:3A7:Greek Capital Letter Chi
+Ψ:3A8:Greek Capital Letter Psi
+Ω:3A9:Greek Capital Letter Omega
+Ϊ:3Aa:Greek Capital Letter Iota With Dialytika
+Ϋ:3Ab:Greek Capital Letter Upsilon With Dialytika
+ά:3Ac:Greek Small Letter Alpha With Tonos
+έ:3Ad:Greek Small Letter Epsilon With Tonos
+ή:3Ae:Greek Small Letter Eta With Tonos
+ί:3Af:Greek Small Letter Iota With Tonos
+ΰ:3B0:Greek Small Letter Upsilon With Dialytika And Tonos
+α:3B1:Greek Small Letter Alpha
+β:3B2:Greek Small Letter Beta
+γ:3B3:Greek Small Letter Gamma
+δ:3B4:Greek Small Letter Delta
+ε:3B5:Greek Small Letter Epsilon
+ζ:3B6:Greek Small Letter Zeta
+η:3B7:Greek Small Letter Eta
+θ:3B8:Greek Small Letter Theta
+ι:3B9:Greek Small Letter Iota
+κ:3Ba:Greek Small Letter Kappa
+λ:3Bb:Greek Small Letter Lamda
+μ:3Bc:Greek Small Letter Mu
+ν:3Bd:Greek Small Letter Nu
+ξ:3Be:Greek Small Letter Xi
+ο:3Bf:Greek Small Letter Omicron
+π:3C0:Greek Small Letter Pi
+ρ:3C1:Greek Small Letter Rho
+ς:3C2:Greek Small Letter Final Sigma
+σ:3C3:Greek Small Letter Sigma
+τ:3C4:Greek Small Letter Tau
+υ:3C5:Greek Small Letter Upsilon
+φ:3C6:Greek Small Letter Phi
+χ:3C7:Greek Small Letter Chi
+ψ:3C8:Greek Small Letter Psi
+ω:3C9:Greek Small Letter Omega
+ϊ:3Ca:Greek Small Letter Iota With Dialytika
+ϋ:3Cb:Greek Small Letter Upsilon With Dialytika
+ό:3Cc:Greek Small Letter Omicron With Tonos
+ύ:3Cd:Greek Small Letter Upsilon With Tonos
+ώ:3Ce:Greek Small Letter Omega With Tonos
+Ϙ:3D8:Greek Letter Archaic Koppa
+ϙ:3D9:Greek Small Letter Archaic Koppa
+Ϛ:3Da:Greek Letter Stigma
+ϛ:3Db:Greek Small Letter Stigma
+Ϝ:3Dc:Greek Letter Digamma
+ϝ:3Dd:Greek Small Letter Digamma
+Ϟ:3De:Greek Letter Koppa
+ϟ:3Df:Greek Small Letter Koppa
+Ϡ:3E0:Greek Letter Sampi
+ϡ:3E1:Greek Small Letter Sampi
+ϴ:3F4:Greek Capital Theta Symbol
+ϵ:3F5:Greek Lunate Epsilon Symbol
+Ё:401:Cyrillic Capital Letter Io
+Ђ:402:Cyrillic Capital Letter Dje
+Ѓ:403:Cyrillic Capital Letter Gje
+Є:404:Cyrillic Capital Letter Ukrainian Ie
+Ѕ:405:Cyrillic Capital Letter Dze
+І:406:Cyrillic Capital Letter Byelorussian-Ukrainian I
+Ї:407:Cyrillic Capital Letter Yi
+Ј:408:Cyrillic Capital Letter Je
+Љ:409:Cyrillic Capital Letter Lje
+Њ:40A:Cyrillic Capital Letter Nje
+Ћ:40B:Cyrillic Capital Letter Tshe
+Ќ:40C:Cyrillic Capital Letter Kje
+Ў:40E:Cyrillic Capital Letter Short U
+Џ:40F:Cyrillic Capital Letter Dzhe
+А:410:Cyrillic Capital Letter A
+Б:411:Cyrillic Capital Letter Be
+В:412:Cyrillic Capital Letter Ve
+Г:413:Cyrillic Capital Letter Ghe
+Д:414:Cyrillic Capital Letter De
+Е:415:Cyrillic Capital Letter Ie
+Ж:416:Cyrillic Capital Letter Zhe
+З:417:Cyrillic Capital Letter Ze
+И:418:Cyrillic Capital Letter I
+Й:419:Cyrillic Capital Letter Short I
+К:41A:Cyrillic Capital Letter Ka
+Л:41B:Cyrillic Capital Letter El
+М:41C:Cyrillic Capital Letter Em
+Н:41D:Cyrillic Capital Letter En
+О:41E:Cyrillic Capital Letter O
+П:41F:Cyrillic Capital Letter Pe
+Р:420:Cyrillic Capital Letter Er
+С:421:Cyrillic Capital Letter Es
+Т:422:Cyrillic Capital Letter Te
+У:423:Cyrillic Capital Letter U
+Ф:424:Cyrillic Capital Letter Ef
+Х:425:Cyrillic Capital Letter Ha
+Ц:426:Cyrillic Capital Letter Tse
+Ч:427:Cyrillic Capital Letter Che
+Ш:428:Cyrillic Capital Letter Sha
+Щ:429:Cyrillic Capital Letter Shcha
+Ъ:42A:Cyrillic Capital Letter Hard Sign
+Ы:42B:Cyrillic Capital Letter Yeru
+Ь:42C:Cyrillic Capital Letter Soft Sign
+Э:42D:Cyrillic Capital Letter E
+Ю:42E:Cyrillic Capital Letter Yu
+Я:42F:Cyrillic Capital Letter Ya
+а:430:Cyrillic Small Letter A
+б:431:Cyrillic Small Letter Be
+в:432:Cyrillic Small Letter Ve
+г:433:Cyrillic Small Letter Ghe
+д:434:Cyrillic Small Letter De
+е:435:Cyrillic Small Letter Ie
+ж:436:Cyrillic Small Letter Zhe
+з:437:Cyrillic Small Letter Ze
+и:438:Cyrillic Small Letter I
+й:439:Cyrillic Small Letter Short I
+к:43A:Cyrillic Small Letter Ka
+л:43B:Cyrillic Small Letter El
+м:43C:Cyrillic Small Letter Em
+н:43D:Cyrillic Small Letter En
+о:43E:Cyrillic Small Letter O
+п:43F:Cyrillic Small Letter Pe
+р:440:Cyrillic Small Letter Er
+с:441:Cyrillic Small Letter Es
+т:442:Cyrillic Small Letter Te
+у:443:Cyrillic Small Letter U
+ф:444:Cyrillic Small Letter Ef
+х:445:Cyrillic Small Letter Ha
+ц:446:Cyrillic Small Letter Tse
+ч:447:Cyrillic Small Letter Che
+ш:448:Cyrillic Small Letter Sha
+щ:449:Cyrillic Small Letter Shcha
+ъ:44A:Cyrillic Small Letter Hard Sign
+ы:44B:Cyrillic Small Letter Yeru
+ь:44C:Cyrillic Small Letter Soft Sign
+э:44D:Cyrillic Small Letter E
+ю:44E:Cyrillic Small Letter Yu
+я:44F:Cyrillic Small Letter Ya
+ё:451:Cyrillic Small Letter Io
+ђ:452:Cyrillic Small Letter Dje
+ѓ:453:Cyrillic Small Letter Gje
+є:454:Cyrillic Small Letter Ukrainian Ie
+ѕ:455:Cyrillic Small Letter Dze
+і:456:Cyrillic Small Letter Byelorussian-Ukrainian I
+ї:457:Cyrillic Small Letter Yi
+ј:458:Cyrillic Small Letter Je
+љ:459:Cyrillic Small Letter Lje
+њ:45A:Cyrillic Small Letter Nje
+ћ:45B:Cyrillic Small Letter Tshe
+ќ:45C:Cyrillic Small Letter Kje
+ў:45E:Cyrillic Small Letter Short U
+џ:45F:Cyrillic Small Letter Dzhe
+Ѣ:462:Cyrillic Capital Letter Yat
+ѣ:463:Cyrillic Small Letter Yat
+Ѫ:46A:Cyrillic Capital Letter Big Yus
+ѫ:46B:Cyrillic Small Letter Big Yus
+Ѳ:472:Cyrillic Capital Letter Fita
+ѳ:473:Cyrillic Small Letter Fita
+Ѵ:474:Cyrillic Capital Letter Izhitsa
+ѵ:475:Cyrillic Small Letter Izhitsa
+Ҁ:480:Cyrillic Capital Letter Koppa
+ҁ:481:Cyrillic Small Letter Koppa
+Ґ:490:Cyrillic Capital Letter Ghe With Upturn
+ґ:491:Cyrillic Small Letter Ghe With Upturn
+א:5D0:Hebrew Letter Alef
+ב:5D1:Hebrew Letter Bet
+ג:5D2:Hebrew Letter Gimel
+ד:5D3:Hebrew Letter Dalet
+ה:5D4:Hebrew Letter He
+ו:5D5:Hebrew Letter Vav
+ז:5D6:Hebrew Letter Zayin
+ח:5D7:Hebrew Letter Het
+ט:5D8:Hebrew Letter Tet
+י:5D9:Hebrew Letter Yod
+ך:5Da:Hebrew Letter Final Kaf
+כ:5Db:Hebrew Letter Kaf
+ל:5Dc:Hebrew Letter Lamed
+ם:5Dd:Hebrew Letter Final Mem
+מ:5De:Hebrew Letter Mem
+ן:5Df:Hebrew Letter Final Nun
+נ:5E0:Hebrew Letter Nun
+ס:5E1:Hebrew Letter Samekh
+ע:5E2:Hebrew Letter Ayin
+ף:5E3:Hebrew Letter Final Pe
+פ:5E4:Hebrew Letter Pe
+ץ:5E5:Hebrew Letter Final Tsadi
+צ:5E6:Hebrew Letter Tsadi
+ק:5E7:Hebrew Letter Qof
+ר:5E8:Hebrew Letter Resh
+ש:5E9:Hebrew Letter Shin
+ת:5Ea:Hebrew Letter Tav
+،:60C:Arabic Comma
+؛:61B:Arabic Semicolon
+؟:61F:Arabic Question Mark
+ء:621:Arabic Letter Hamza
+آ:622:Arabic Letter Alef With Madda Above
+أ:623:Arabic Letter Alef With Hamza Above
+ؤ:624:Arabic Letter Waw With Hamza Above
+إ:625:Arabic Letter Alef With Hamza Below
+ئ:626:Arabic Letter Yeh With Hamza Above
+ا:627:Arabic Letter Alef
+ب:628:Arabic Letter Beh
+ة:629:Arabic Letter Teh Marbuta
+ت:62A:Arabic Letter Teh
+ث:62B:Arabic Letter Theh
+ج:62C:Arabic Letter Jeem
+ح:62D:Arabic Letter Hah
+خ:62E:Arabic Letter Khah
+د:62F:Arabic Letter Dal
+ذ:630:Arabic Letter Thal
+ر:631:Arabic Letter Reh
+ز:632:Arabic Letter Zain
+س:633:Arabic Letter Seen
+ش:634:Arabic Letter Sheen
+ص:635:Arabic Letter Sad
+ض:636:Arabic Letter Dad
+ط:637:Arabic Letter Tah
+ظ:638:Arabic Letter Zah
+ع:639:Arabic Letter Ain
+غ:63A:Arabic Letter Ghain
+ـ:640:Arabic Tatweel
+ف:641:Arabic Letter Feh
+ق:642:Arabic Letter Qaf
+ك:643:Arabic Letter Kaf
+ل:644:Arabic Letter Lam
+م:645:Arabic Letter Meem
+ن:646:Arabic Letter Noon
+ه:647:Arabic Letter Heh
+و:648:Arabic Letter Waw
+ى:649:Arabic Letter Alef Maksura
+ي:64A:Arabic Letter Yeh
+ً:64B:Arabic Fathatan
+ٌ:64C:Arabic Dammatan
+ٍ:64D:Arabic Kasratan
+َ:64E:Arabic Fatha
+ُ:64F:Arabic Damma
+ِ:650:Arabic Kasra
+ّ:651:Arabic Shadda
+ْ:652:Arabic Sukun
+ٰ:670:Arabic Letter Superscript Alef
+پ:67E:Arabic Letter Peh
+ڤ:6A4:Arabic Letter Veh
+گ:6Af:Arabic Letter Gaf
+۰:6F0:Extended Arabic-Indic Digit Zero
+۱:6F1:Extended Arabic-Indic Digit One
+۲:6F2:Extended Arabic-Indic Digit Two
+۳:6F3:Extended Arabic-Indic Digit Three
+۴:6F4:Extended Arabic-Indic Digit Four
+۵:6F5:Extended Arabic-Indic Digit Five
+۶:6F6:Extended Arabic-Indic Digit Six
+۷:6F7:Extended Arabic-Indic Digit Seven
+۸:6F8:Extended Arabic-Indic Digit Eight
+۹:6F9:Extended Arabic-Indic Digit Nine
+Ḃ:1E02:Latin Capital Letter B With Dot Above
+ḃ:1E03:Latin Small Letter B With Dot Above
+Ḇ:1E06:Latin Capital Letter B With Line Below
+ḇ:1E07:Latin Small Letter B With Line Below
+Ḋ:1E0A:Latin Capital Letter D With Dot Above
+ḋ:1E0B:Latin Small Letter D With Dot Above
+Ḏ:1E0E:Latin Capital Letter D With Line Below
+ḏ:1E0F:Latin Small Letter D With Line Below
+Ḑ:1E10:Latin Capital Letter D With Cedilla
+ḑ:1E11:Latin Small Letter D With Cedilla
+Ḟ:1E1E:Latin Capital Letter F With Dot Above
+ḟ:1E1F:Latin Small Letter F With Dot Above
+Ḡ:1E20:Latin Capital Letter G With Macron
+ḡ:1E21:Latin Small Letter G With Macron
+Ḣ:1E22:Latin Capital Letter H With Dot Above
+ḣ:1E23:Latin Small Letter H With Dot Above
+Ḧ:1E26:Latin Capital Letter H With Diaeresis
+ḧ:1E27:Latin Small Letter H With Diaeresis
+Ḩ:1E28:Latin Capital Letter H With Cedilla
+ḩ:1E29:Latin Small Letter H With Cedilla
+Ḱ:1E30:Latin Capital Letter K With Acute
+ḱ:1E31:Latin Small Letter K With Acute
+Ḵ:1E34:Latin Capital Letter K With Line Below
+ḵ:1E35:Latin Small Letter K With Line Below
+Ḻ:1E3A:Latin Capital Letter L With Line Below
+ḻ:1E3B:Latin Small Letter L With Line Below
+Ḿ:1E3E:Latin Capital Letter M With Acute
+ḿ:1E3F:Latin Small Letter M With Acute
+Ṁ:1E40:Latin Capital Letter M With Dot Above
+ṁ:1E41:Latin Small Letter M With Dot Above
+Ṅ:1E44:Latin Capital Letter N With Dot Above
+ṅ:1E45:Latin Small Letter N With Dot Above
+Ṉ:1E48:Latin Capital Letter N With Line Below
+ṉ:1E49:Latin Small Letter N With Line Below
+Ṕ:1E54:Latin Capital Letter P With Acute
+ṕ:1E55:Latin Small Letter P With Acute
+Ṗ:1E56:Latin Capital Letter P With Dot Above
+ṗ:1E57:Latin Small Letter P With Dot Above
+Ṙ:1E58:Latin Capital Letter R With Dot Above
+ṙ:1E59:Latin Small Letter R With Dot Above
+Ṟ:1E5E:Latin Capital Letter R With Line Below
+ṟ:1E5F:Latin Small Letter R With Line Below
+Ṡ:1E60:Latin Capital Letter S With Dot Above
+ṡ:1E61:Latin Small Letter S With Dot Above
+Ṫ:1E6A:Latin Capital Letter T With Dot Above
+ṫ:1E6B:Latin Small Letter T With Dot Above
+Ṯ:1E6E:Latin Capital Letter T With Line Below
+ṯ:1E6F:Latin Small Letter T With Line Below
+Ṽ:1E7C:Latin Capital Letter V With Tilde
+ṽ:1E7D:Latin Small Letter V With Tilde
+Ẁ:1E80:Latin Capital Letter W With Grave
+ẁ:1E81:Latin Small Letter W With Grave
+Ẃ:1E82:Latin Capital Letter W With Acute
+ẃ:1E83:Latin Small Letter W With Acute
+Ẅ:1E84:Latin Capital Letter W With Diaeresis
+ẅ:1E85:Latin Small Letter W With Diaeresis
+Ẇ:1E86:Latin Capital Letter W With Dot Above
+ẇ:1E87:Latin Small Letter W With Dot Above
+Ẋ:1E8A:Latin Capital Letter X With Dot Above
+ẋ:1E8B:Latin Small Letter X With Dot Above
+Ẍ:1E8C:Latin Capital Letter X With Diaeresis
+ẍ:1E8D:Latin Small Letter X With Diaeresis
+Ẏ:1E8E:Latin Capital Letter Y With Dot Above
+ẏ:1E8F:Latin Small Letter Y With Dot Above
+Ẑ:1E90:Latin Capital Letter Z With Circumflex
+ẑ:1E91:Latin Small Letter Z With Circumflex
+Ẕ:1E94:Latin Capital Letter Z With Line Below
+ẕ:1E95:Latin Small Letter Z With Line Below
+ẖ:1E96:Latin Small Letter H With Line Below
+ẗ:1E97:Latin Small Letter T With Diaeresis
+ẘ:1E98:Latin Small Letter W With Ring Above
+ẙ:1E99:Latin Small Letter Y With Ring Above
+Ả:1Ea2:Latin Capital Letter A With Hook Above
+ả:1Ea3:Latin Small Letter A With Hook Above
+Ẻ:1Eba:Latin Capital Letter E With Hook Above
+ẻ:1Ebb:Latin Small Letter E With Hook Above
+Ẽ:1Ebc:Latin Capital Letter E With Tilde
+ẽ:1Ebd:Latin Small Letter E With Tilde
+Ỉ:1Ec8:Latin Capital Letter I With Hook Above
+ỉ:1Ec9:Latin Small Letter I With Hook Above
+Ỏ:1Ece:Latin Capital Letter O With Hook Above
+ỏ:1Ecf:Latin Small Letter O With Hook Above
+Ủ:1Ee6:Latin Capital Letter U With Hook Above
+ủ:1Ee7:Latin Small Letter U With Hook Above
+Ỳ:1Ef2:Latin Capital Letter Y With Grave
+ỳ:1Ef3:Latin Small Letter Y With Grave
+Ỷ:1Ef6:Latin Capital Letter Y With Hook Above
+ỷ:1Ef7:Latin Small Letter Y With Hook Above
+Ỹ:1Ef8:Latin Capital Letter Y With Tilde
+ỹ:1Ef9:Latin Small Letter Y With Tilde
+ἀ:1F00:Greek Small Letter Alpha With Psili
+ἁ:1F01:Greek Small Letter Alpha With Dasia
+ἂ:1F02:Greek Small Letter Alpha With Psili And Varia
+ἃ:1F03:Greek Small Letter Alpha With Dasia And Varia
+ἄ:1F04:Greek Small Letter Alpha With Psili And Oxia
+ἅ:1F05:Greek Small Letter Alpha With Dasia And Oxia
+ἆ:1F06:Greek Small Letter Alpha With Psili And Perispomeni
+ἇ:1F07:Greek Small Letter Alpha With Dasia And Perispomeni
+ :2002:En Space
+ :2003:Em Space
+ :2004:Three-Per-Em Space
+ :2005:Four-Per-Em Space
+ :2006:Six-Per-Em Space
+ :2009:Thin Space
+ :200A:Hair Space
+‐:2010:Hyphen
+–:2013:En Dash
+—:2014:Em Dash
+―:2015:Horizontal Bar
+‖:2016:Double Vertical Line
+‗:2017:Double Low Line
+‘:2018:Left Single Quotation Mark
+’:2019:Right Single Quotation Mark
+‚:201A:Single Low-9 Quotation Mark                                                                                 
+‛:201B:Single High-Reversed-9 Quotation Mark                                                                       
+“:201C:Left Double Quotation Mark
+”:201D:Right Double Quotation Mark
+„:201E:Double Low-9 Quotation Mark                                                                                 
+‟:201F:Double High-Reversed-9 Quotation Mark                                                                       
+†:2020:Dagger
+‡:2021:Double Dagger
+‥:2025:Two Dot Leader
+…:2026:Horizontal Ellipsis
+‰:2030:Per Mille Sign
+′:2032:Prime
+″:2033:Double Prime
+‴:2034:Triple Prime
+‵:2035:Reversed Prime
+‶:2036:Reversed Double Prime
+‷:2037:Reversed Triple Prime
+‸:2038:Caret
+‹:2039:Single Left-Pointing Angle Quotation Mark
+›:203A:Single Right-Pointing Angle Quotation Mark
+※:203B:Reference Mark
+‾:203E:Overline
+⁄:2044:Fraction Slash
+⁰:2070:Superscript Zero
+⁴:2074:Superscript Four
+⁵:2075:Superscript Five
+⁶:2076:Superscript Six
+⁷:2077:Superscript Seven
+⁸:2078:Superscript Eight
+⁹:2079:Superscript Nine
+⁺:207A:Superscript Plus Sign
+⁻:207B:Superscript Minus
+⁼:207C:Superscript Equals Sign
+⁽:207D:Superscript Left Parenthesis
+⁾:207E:Superscript Right Parenthesis
+ⁿ:207F:Superscript Latin Small Letter N
+₀:2080:Subscript Zero
+₁:2081:Subscript One
+₂:2082:Subscript Two
+₃:2083:Subscript Three
+₄:2084:Subscript Four
+₅:2085:Subscript Five
+₆:2086:Subscript Six
+₇:2087:Subscript Seven
+₈:2088:Subscript Eight
+₉:2089:Subscript Nine
+₊:208A:Subscript Plus Sign
+₋:208B:Subscript Minus
+₌:208C:Subscript Equals Sign
+₍:208D:Subscript Left Parenthesis
+₎:208E:Subscript Right Parenthesis
+₤:20A4:Lira Sign
+₧:20A7:Peseta Sign
+₩:20A9:Won Sign
+€:20Ac:Euro Sign
+₽:20Bd:Rouble Sign
+℃:2103:Degree Celsius
+℅:2105:Care Of
+℉:2109:Degree Fahrenheit
+№:2116:Numero Sign
+℗:2117:Sound Recording Copyright
+℞:211E:Prescription Take
+℠:2120:Service Mark
+™:2122:Trade Mark Sign
+Ω:2126:Ohm Sign
+Å:212B:Angstrom Sign
+⅓:2153:Vulgar Fraction One Third
+⅔:2154:Vulgar Fraction Two Thirds
+⅕:2155:Vulgar Fraction One Fifth
+⅖:2156:Vulgar Fraction Two Fifths
+⅗:2157:Vulgar Fraction Three Fifths
+⅘:2158:Vulgar Fraction Four Fifths
+⅙:2159:Vulgar Fraction One Sixth
+⅚:215A:Vulgar Fraction Five Sixths
+⅛:215B:Vulgar Fraction One Eighth
+⅜:215C:Vulgar Fraction Three Eighths
+⅝:215D:Vulgar Fraction Five Eighths
+⅞:215E:Vulgar Fraction Seven Eighths
+Ⅰ:2160:Roman Numeral One
+Ⅱ:2161:Roman Numeral Two
+Ⅲ:2162:Roman Numeral Three
+Ⅳ:2163:Roman Numeral Four
+Ⅴ:2164:Roman Numeral Five
+Ⅵ:2165:Roman Numeral Six
+Ⅶ:2166:Roman Numeral Seven
+Ⅷ:2167:Roman Numeral Eight
+Ⅸ:2168:Roman Numeral Nine
+Ⅹ:2169:Roman Numeral Ten
+Ⅺ:216A:Roman Numeral Eleven
+Ⅻ:216B:Roman Numeral Twelve
+ⅰ:2170:Small Roman Numeral One
+ⅱ:2171:Small Roman Numeral Two
+ⅲ:2172:Small Roman Numeral Three
+ⅳ:2173:Small Roman Numeral Four
+ⅴ:2174:Small Roman Numeral Five
+ⅵ:2175:Small Roman Numeral Six
+ⅶ:2176:Small Roman Numeral Seven
+ⅷ:2177:Small Roman Numeral Eight
+ⅸ:2178:Small Roman Numeral Nine
+ⅹ:2179:Small Roman Numeral Ten
+ⅺ:217A:Small Roman Numeral Eleven
+ⅻ:217B:Small Roman Numeral Twelve
+←:2190:Leftwards Arrow
+↑:2191:Upwards Arrow
+→:2192:Rightwards Arrow
+↓:2193:Downwards Arrow
+↔:2194:Left Right Arrow
+↕:2195:Up Down Arrow
+⇐:21D0:Leftwards Double Arrow
+⇒:21D2:Rightwards Double Arrow
+⇔:21D4:Left Right Double Arrow
+∀:2200:For All
+∂:2202:Partial Differential
+∃:2203:There Exists
+∅:2205:Empty Set
+∆:2206:Increment
+∇:2207:Nabla
+∈:2208:Element Of
+∋:220B:Contains As Member
+∏:220F:N-Ary Product
+∑:2211:N-Ary Summation
+−:2212:Minus Sign
+∓:2213:Minus-Or-Plus Sign
+∗:2217:Asterisk Operator
+∘:2218:Ring Operator
+∙:2219:Bullet Operator
+√:221A:Square Root
+∝:221D:Proportional To
+∞:221E:Infinity
+∟:221F:Right Angle
+∠:2220:Angle
+∥:2225:Parallel To
+∧:2227:Logical And
+∨:2228:Logical Or
+∩:2229:Intersection
+∪:222A:Union
+∫:222B:Integral
+∬:222C:Double Integral
+∮:222E:Contour Integral
+∴:2234:Therefore
+∵:2235:Because
+∶:2236:Ratio
+∷:2237:Proportion
+∼:223C:Tilde Operator
+∾:223E:Inverted Lazy S
+≃:2243:Asymptotically Equal To
+≅:2245:Approximately Equal To
+≈:2248:Almost Equal To
+≌:224C:All Equal To
+≓:2253:Image Of Or Approximately Equal To
+≠:2260:Not Equal To
+≡:2261:Identical To
+≤:2264:Less-Than Or Equal To
+≥:2265:Greater-Than Or Equal To
+≪:226A:Much Less-Than
+≫:226B:Much Greater-Than
+≮:226E:Not Less-Than
+≯:226F:Not Greater-Than
+⊂:2282:Subset Of
+⊃:2283:Superset Of
+⊆:2286:Subset Of Or Equal To
+⊇:2287:Superset Of Or Equal To
+⊙:2299:Circled Dot Operator
+⊚:229A:Circled Ring Operator
+⊥:22A5:Up Tack
+⋅:22C5:Dot Operator
+⋮:22Ee:Vertical Ellipsis
+⋯:22Ef:Midline Horizontal Ellipsis
+⌂:2302:House
+⌈:2308:Left Ceiling
+⌉:2309:Right Ceiling
+⌊:230A:Left Floor
+⌋:230B:Right Floor
+⌐:2310:Reversed Not Sign
+⌒:2312:Arc
+⌕:2315:Telephone Recorder
+⌠:2320:Top Half Integral
+⌡:2321:Bottom Half Integral
+〈:2329:Left-Pointing Angle Bracket
+〉:232A:Right-Pointing Angle Bracket
+␣:2423:Open Box
+⑀:2440:Ocr Hook
+⑁:2441:Ocr Chair
+⑂:2442:Ocr Fork
+⑃:2443:Ocr Inverted Fork
+⑆:2446:Ocr Branch Bank Identification
+⑇:2447:Ocr Amount Of Check
+⑈:2448:Ocr Dash
+⑉:2449:Ocr Customer Account Number
+⒈:2488:Digit One Full Stop
+⒉:2489:Digit Two Full Stop
+⒊:248A:Digit Three Full Stop
+⒋:248B:Digit Four Full Stop
+⒌:248C:Digit Five Full Stop
+⒍:248D:Digit Six Full Stop
+⒎:248E:Digit Seven Full Stop
+⒏:248F:Digit Eight Full Stop
+⒐:2490:Digit Nine Full Stop
+─:2500:Box Drawings Light Horizontal
+━:2501:Box Drawings Heavy Horizontal
+│:2502:Box Drawings Light Vertical
+┃:2503:Box Drawings Heavy Vertical
+┄:2504:Box Drawings Light Triple Dash Horizontal
+┅:2505:Box Drawings Heavy Triple Dash Horizontal
+┆:2506:Box Drawings Light Triple Dash Vertical
+┇:2507:Box Drawings Heavy Triple Dash Vertical
+┈:2508:Box Drawings Light Quadruple Dash Horizontal
+┉:2509:Box Drawings Heavy Quadruple Dash Horizontal
+┊:250A:Box Drawings Light Quadruple Dash Vertical
+┋:250B:Box Drawings Heavy Quadruple Dash Vertical
+┌:250C:Box Drawings Light Down And Right
+┍:250D:Box Drawings Down Light And Right Heavy
+┎:250E:Box Drawings Down Heavy And Right Light
+┏:250F:Box Drawings Heavy Down And Right
+┐:2510:Box Drawings Light Down And Left
+┑:2511:Box Drawings Down Light And Left Heavy
+┒:2512:Box Drawings Down Heavy And Left Light
+┓:2513:Box Drawings Heavy Down And Left
+└:2514:Box Drawings Light Up And Right
+┕:2515:Box Drawings Up Light And Right Heavy
+┖:2516:Box Drawings Up Heavy And Right Light
+┗:2517:Box Drawings Heavy Up And Right
+┘:2518:Box Drawings Light Up And Left
+┙:2519:Box Drawings Up Light And Left Heavy
+┚:251A:Box Drawings Up Heavy And Left Light
+┛:251B:Box Drawings Heavy Up And Left
+├:251C:Box Drawings Light Vertical And Right
+┝:251D:Box Drawings Vertical Light And Right Heavy
+┠:2520:Box Drawings Vertical Heavy And Right Light
+┣:2523:Box Drawings Heavy Vertical And Right
+┤:2524:Box Drawings Light Vertical And Left
+┥:2525:Box Drawings Vertical Light And Left Heavy
+┨:2528:Box Drawings Vertical Heavy And Left Light
+┫:252B:Box Drawings Heavy Vertical And Left
+┬:252C:Box Drawings Light Down And Horizontal
+┯:252F:Box Drawings Down Light And Horizontal Heavy
+┰:2530:Box Drawings Down Heavy And Horizontal Light
+┳:2533:Box Drawings Heavy Down And Horizontal
+┴:2534:Box Drawings Light Up And Horizontal
+┷:2537:Box Drawings Up Light And Horizontal Heavy
+┸:2538:Box Drawings Up Heavy And Horizontal Light
+┻:253B:Box Drawings Heavy Up And Horizontal
+┼:253C:Box Drawings Light Vertical And Horizontal
+┿:253F:Box Drawings Vertical Light And Horizontal Heavy
+╂:2542:Box Drawings Vertical Heavy And Horizontal Light
+╋:254B:Box Drawings Heavy Vertical And Horizontal
+╱:2571:Box Drawings Light Diagonal Upper Right To Lower Left
+╲:2572:Box Drawings Light Diagonal Upper Left To Lower Right
+▀:2580:Upper Half Block
+▄:2584:Lower Half Block
+█:2588:Full Block
+▌:258C:Left Half Block
+▐:2590:Right Half Block
+░:2591:Light Shade
+▒:2592:Medium Shade
+▓:2593:Dark Shade
+■:25A0:Black Square
+□:25A1:White Square
+▢:25A2:White Square With Rounded Corners
+▣:25A3:White Square Containing Black Small Square
+▤:25A4:Square With Horizontal Fill
+▥:25A5:Square With Vertical Fill
+▦:25A6:Square With Orthogonal Crosshatch Fill
+▧:25A7:Square With Upper Left To Lower Right Fill
+▨:25A8:Square With Upper Right To Lower Left Fill
+▩:25A9:Square With Diagonal Crosshatch Fill
+▪:25Aa:Black Small Square
+▬:25Ac:Black Rectangle
+▭:25Ad:White Rectangle
+▲:25B2:Black Up-Pointing Triangle
+△:25B3:White Up-Pointing Triangle
+▶:25B6:Black Right-Pointing Triangle
+▷:25B7:White Right-Pointing Triangle
+▼:25Bc:Black Down-Pointing Triangle
+▽:25Bd:White Down-Pointing Triangle
+◀:25C0:Black Left-Pointing Triangle
+◁:25C1:White Left-Pointing Triangle
+◆:25C6:Black Diamond
+◇:25C7:White Diamond
+◊:25Ca:Lozenge
+○:25Cb:White Circle
+◎:25Ce:Bullseye
+●:25Cf:Black Circle
+◐:25D0:Circle With Left Half Black
+◑:25D1:Circle With Right Half Black
+◘:25D8:Inverse Bullet
+◙:25D9:Inverse White Circle
+◢:25E2:Black Lower Right Triangle
+◣:25E3:Black Lower Left Triangle
+★:2605:Black Star
+☆:2606:White Star
+☜:261C:White Left Pointing Index
+☞:261E:White Right Pointing Index
+☺:263A:White Smiling Face
+☻:263B:Black Smiling Face
+☼:263C:White Sun With Rays
+♀:2640:Female Sign
+♂:2642:Male Sign
+♠:2660:Black Spade Suit
+♡:2661:White Heart Suit
+♢:2662:White Diamond Suit
+♣:2663:Black Club Suit
+♩:2669:Quarter Note
+♪:266A:Eighth Note
+♫:266B:Beamed Eighth Notes
+♭:266D:Music Flat Sign
+♮:266E:Music Natural Sign
+♯:266F:Music Sharp Sign
+✓:2713:Check Mark
+✗:2717:Ballot X
+✠:2720:Maltese Cross
+　:3000:Ideographic Space
+、:3001:Ideographic Comma
+。:3002:Ideographic Full Stop
+〃:3003:Ditto Mark
+〄:3004:Japanese Industrial Standard Symbol
+々:3005:Ideographic Iteration Mark
+〆:3006:Ideographic Closing Mark
+〇:3007:Ideographic Number Zero
+《:300A:Left Double Angle Bracket
+》:300B:Right Double Angle Bracket
+「:300C:Left Corner Bracket
+」:300D:Right Corner Bracket
+『:300E:Left White Corner Bracket
+』:300F:Right White Corner Bracket
+【:3010:Left Black Lenticular Bracket
+】:3011:Right Black Lenticular Bracket
+〒:3012:Postal Mark
+〓:3013:Geta Mark
+〔:3014:Left Tortoise Shell Bracket
+〕:3015:Right Tortoise Shell Bracket
+〖:3016:Left White Lenticular Bracket
+〗:3017:Right White Lenticular Bracket
+〜:301C:Wave Dash
+ぁ:3041:Hiragana Letter Small A
+あ:3042:Hiragana Letter A
+ぃ:3043:Hiragana Letter Small I
+い:3044:Hiragana Letter I
+ぅ:3045:Hiragana Letter Small U
+う:3046:Hiragana Letter U
+ぇ:3047:Hiragana Letter Small E
+え:3048:Hiragana Letter E
+ぉ:3049:Hiragana Letter Small O
+お:304A:Hiragana Letter O
+か:304B:Hiragana Letter Ka
+が:304C:Hiragana Letter Ga
+き:304D:Hiragana Letter Ki
+ぎ:304E:Hiragana Letter Gi
+く:304F:Hiragana Letter Ku
+ぐ:3050:Hiragana Letter Gu
+け:3051:Hiragana Letter Ke
+げ:3052:Hiragana Letter Ge
+こ:3053:Hiragana Letter Ko
+ご:3054:Hiragana Letter Go
+さ:3055:Hiragana Letter Sa
+ざ:3056:Hiragana Letter Za
+し:3057:Hiragana Letter Si
+じ:3058:Hiragana Letter Zi
+す:3059:Hiragana Letter Su
+ず:305A:Hiragana Letter Zu
+せ:305B:Hiragana Letter Se
+ぜ:305C:Hiragana Letter Ze
+そ:305D:Hiragana Letter So
+ぞ:305E:Hiragana Letter Zo
+た:305F:Hiragana Letter Ta
+だ:3060:Hiragana Letter Da
+ち:3061:Hiragana Letter Ti
+ぢ:3062:Hiragana Letter Di
+っ:3063:Hiragana Letter Small Tu
+つ:3064:Hiragana Letter Tu
+づ:3065:Hiragana Letter Du
+て:3066:Hiragana Letter Te
+で:3067:Hiragana Letter De
+と:3068:Hiragana Letter To
+ど:3069:Hiragana Letter Do
+な:306A:Hiragana Letter Na
+に:306B:Hiragana Letter Ni
+ぬ:306C:Hiragana Letter Nu
+ね:306D:Hiragana Letter Ne
+の:306E:Hiragana Letter No
+は:306F:Hiragana Letter Ha
+ば:3070:Hiragana Letter Ba
+ぱ:3071:Hiragana Letter Pa
+ひ:3072:Hiragana Letter Hi
+び:3073:Hiragana Letter Bi
+ぴ:3074:Hiragana Letter Pi
+ふ:3075:Hiragana Letter Hu
+ぶ:3076:Hiragana Letter Bu
+ぷ:3077:Hiragana Letter Pu
+へ:3078:Hiragana Letter He
+べ:3079:Hiragana Letter Be
+ぺ:307A:Hiragana Letter Pe
+ほ:307B:Hiragana Letter Ho
+ぼ:307C:Hiragana Letter Bo
+ぽ:307D:Hiragana Letter Po
+ま:307E:Hiragana Letter Ma
+み:307F:Hiragana Letter Mi
+む:3080:Hiragana Letter Mu
+め:3081:Hiragana Letter Me
+も:3082:Hiragana Letter Mo
+ゃ:3083:Hiragana Letter Small Ya
+や:3084:Hiragana Letter Ya
+ゅ:3085:Hiragana Letter Small Yu
+ゆ:3086:Hiragana Letter Yu
+ょ:3087:Hiragana Letter Small Yo
+よ:3088:Hiragana Letter Yo
+ら:3089:Hiragana Letter Ra
+り:308A:Hiragana Letter Ri
+る:308B:Hiragana Letter Ru
+れ:308C:Hiragana Letter Re
+ろ:308D:Hiragana Letter Ro
+ゎ:308E:Hiragana Letter Small Wa
+わ:308F:Hiragana Letter Wa
+ゐ:3090:Hiragana Letter Wi
+ゑ:3091:Hiragana Letter We
+を:3092:Hiragana Letter Wo
+ん:3093:Hiragana Letter N
+ゔ:3094:Hiragana Letter Vu
+゛:309B:Katakana-Hiragana Voiced Sound Mark
+゜:309C:Katakana-Hiragana Semi-Voiced Sound Mark
+ゝ:309D:Hiragana Iteration Mark
+ゞ:309E:Hiragana Voiced Iteration Mark
+ァ:30A1:Katakana Letter Small A
+ア:30A2:Katakana Letter A
+ィ:30A3:Katakana Letter Small I
+イ:30A4:Katakana Letter I
+ゥ:30A5:Katakana Letter Small U
+ウ:30A6:Katakana Letter U
+ェ:30A7:Katakana Letter Small E
+エ:30A8:Katakana Letter E
+ォ:30A9:Katakana Letter Small O
+オ:30Aa:Katakana Letter O
+カ:30Ab:Katakana Letter Ka
+ガ:30Ac:Katakana Letter Ga
+キ:30Ad:Katakana Letter Ki
+ギ:30Ae:Katakana Letter Gi
+ク:30Af:Katakana Letter Ku
+グ:30B0:Katakana Letter Gu
+ケ:30B1:Katakana Letter Ke
+ゲ:30B2:Katakana Letter Ge
+コ:30B3:Katakana Letter Ko
+ゴ:30B4:Katakana Letter Go
+サ:30B5:Katakana Letter Sa
+ザ:30B6:Katakana Letter Za
+シ:30B7:Katakana Letter Si
+ジ:30B8:Katakana Letter Zi
+ス:30B9:Katakana Letter Su
+ズ:30Ba:Katakana Letter Zu
+セ:30Bb:Katakana Letter Se
+ゼ:30Bc:Katakana Letter Ze
+ソ:30Bd:Katakana Letter So
+ゾ:30Be:Katakana Letter Zo
+タ:30Bf:Katakana Letter Ta
+ダ:30C0:Katakana Letter Da
+チ:30C1:Katakana Letter Ti
+ヂ:30C2:Katakana Letter Di
+ッ:30C3:Katakana Letter Small Tu
+ツ:30C4:Katakana Letter Tu
+ヅ:30C5:Katakana Letter Du
+テ:30C6:Katakana Letter Te
+デ:30C7:Katakana Letter De
+ト:30C8:Katakana Letter To
+ド:30C9:Katakana Letter Do
+ナ:30Ca:Katakana Letter Na
+ニ:30Cb:Katakana Letter Ni
+ヌ:30Cc:Katakana Letter Nu
+ネ:30Cd:Katakana Letter Ne
+ノ:30Ce:Katakana Letter No
+ハ:30Cf:Katakana Letter Ha
+バ:30D0:Katakana Letter Ba
+パ:30D1:Katakana Letter Pa
+ヒ:30D2:Katakana Letter Hi
+ビ:30D3:Katakana Letter Bi
+ピ:30D4:Katakana Letter Pi
+フ:30D5:Katakana Letter Hu
+ブ:30D6:Katakana Letter Bu
+プ:30D7:Katakana Letter Pu
+ヘ:30D8:Katakana Letter He
+ベ:30D9:Katakana Letter Be
+ペ:30Da:Katakana Letter Pe
+ホ:30Db:Katakana Letter Ho
+ボ:30Dc:Katakana Letter Bo
+ポ:30Dd:Katakana Letter Po
+マ:30De:Katakana Letter Ma
+ミ:30Df:Katakana Letter Mi
+ム:30E0:Katakana Letter Mu
+メ:30E1:Katakana Letter Me
+モ:30E2:Katakana Letter Mo
+ャ:30E3:Katakana Letter Small Ya
+ヤ:30E4:Katakana Letter Ya
+ュ:30E5:Katakana Letter Small Yu
+ユ:30E6:Katakana Letter Yu
+ョ:30E7:Katakana Letter Small Yo
+ヨ:30E8:Katakana Letter Yo
+ラ:30E9:Katakana Letter Ra
+リ:30Ea:Katakana Letter Ri
+ル:30Eb:Katakana Letter Ru
+レ:30Ec:Katakana Letter Re
+ロ:30Ed:Katakana Letter Ro
+ヮ:30Ee:Katakana Letter Small Wa
+ワ:30Ef:Katakana Letter Wa
+ヰ:30F0:Katakana Letter Wi
+ヱ:30F1:Katakana Letter We
+ヲ:30F2:Katakana Letter Wo
+ン:30F3:Katakana Letter N
+ヴ:30F4:Katakana Letter Vu
+ヵ:30F5:Katakana Letter Small Ka
+ヶ:30F6:Katakana Letter Small Ke
+ヷ:30F7:Katakana Letter Va
+ヸ:30F8:Katakana Letter Vi
+ヹ:30F9:Katakana Letter Ve
+ヺ:30Fa:Katakana Letter Vo
+・:30Fb:Katakana Middle Dot
+ー:30Fc:Katakana-Hiragana Prolonged Sound Mark
+ヽ:30Fd:Katakana Iteration Mark
+ヾ:30Fe:Katakana Voiced Iteration Mark
+ㄅ:3105:Bopomofo Letter B
+ㄆ:3106:Bopomofo Letter P
+ㄇ:3107:Bopomofo Letter M
+ㄈ:3108:Bopomofo Letter F
+ㄉ:3109:Bopomofo Letter D
+ㄊ:310A:Bopomofo Letter T
+ㄋ:310B:Bopomofo Letter N
+ㄌ:310C:Bopomofo Letter L
+ㄍ:310D:Bopomofo Letter G
+ㄎ:310E:Bopomofo Letter K
+ㄏ:310F:Bopomofo Letter H
+ㄐ:3110:Bopomofo Letter J
+ㄑ:3111:Bopomofo Letter Q
+ㄒ:3112:Bopomofo Letter X
+ㄓ:3113:Bopomofo Letter Zh
+ㄔ:3114:Bopomofo Letter Ch
+ㄕ:3115:Bopomofo Letter Sh
+ㄖ:3116:Bopomofo Letter R
+ㄗ:3117:Bopomofo Letter Z
+ㄘ:3118:Bopomofo Letter C
+ㄙ:3119:Bopomofo Letter S
+ㄚ:311A:Bopomofo Letter A
+ㄛ:311B:Bopomofo Letter O
+ㄜ:311C:Bopomofo Letter E
+ㄞ:311E:Bopomofo Letter Ai
+ㄟ:311F:Bopomofo Letter Ei
+ㄠ:3120:Bopomofo Letter Au
+ㄡ:3121:Bopomofo Letter Ou
+ㄢ:3122:Bopomofo Letter An
+ㄣ:3123:Bopomofo Letter En
+ㄤ:3124:Bopomofo Letter Ang
+ㄥ:3125:Bopomofo Letter Eng
+ㄦ:3126:Bopomofo Letter Er
+ㄧ:3127:Bopomofo Letter I
+ㄨ:3128:Bopomofo Letter U
+ㄩ:3129:Bopomofo Letter Iu
+ㄪ:312A:Bopomofo Letter V
+ㄫ:312B:Bopomofo Letter Ng
+ㄬ:312C:Bopomofo Letter Gn
+㈠:3220:Parenthesized Ideograph One
+㈡:3221:Parenthesized Ideograph Two
+㈢:3222:Parenthesized Ideograph Three
+㈣:3223:Parenthesized Ideograph Four
+㈤:3224:Parenthesized Ideograph Five
+㈥:3225:Parenthesized Ideograph Six
+㈦:3226:Parenthesized Ideograph Seven
+㈧:3227:Parenthesized Ideograph Eight
+㈨:3228:Parenthesized Ideograph Nine
+ﬀ:Fb00:Latin Small Ligature Ff
+ﬁ:Fb01:Latin Small Ligature Fi
+ﬂ:Fb02:Latin Small Ligature Fl
+ﬅ:Fb05:Latin Small Ligature Long S T
+ﬆ:Fb06:Latin Small Ligature St

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+sed -e "s/\([^:]\+\):\([^:]\+\):\([^:]\+\)/\1 (\3): \2/" < ~/dotfiles/data/unicode | dmenu -l 6 -i -p "Unicode Cheatsheet: " -fn "JetBrainsMono Nerd Font:size=11" > /dev/null
+# vim:ft=sh
