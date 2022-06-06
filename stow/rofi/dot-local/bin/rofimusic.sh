@@ -9,7 +9,7 @@ choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next\n Search\n�
 	-dmenu \
 	-i \
 	-font "$font" \
-	-p "$(dotfiles-media status)" \
+	-p "$(dotfiles-media status | sed -e "s/栗/栗 Stopped/")" \
 	"-location" \
 	"1" \
 	"-theme-str" \
