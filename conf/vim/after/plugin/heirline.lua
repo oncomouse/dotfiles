@@ -625,33 +625,56 @@ if ok then
 		DefaultStatusline,
 	}
 
-	-- local Winbar = {
-	-- 	Align,
-	-- 	FileFlags,
-	-- 	{
-	-- 		provider = function()
-	-- 			-- first, trim the pattern relative to the current directory. For other
-	-- 			-- options, see :h filename-modifers
-	-- 			local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
-	-- 			if filename == "" then
-	-- 				return "[No Name]"
-	-- 			end
-	-- 			filename = vim.fn.pathshorten(filename)
-	-- 			return filename
-	-- 		end,
-	-- 	},
-	-- 	condition = function()
-	-- 		if conditions.buffer_matches({
-	-- 			buftype = { "nofile", "help", "quickfix" },
-	-- 			filetype = { "^git.*", "fugitive" },
-	-- 		}) then
-	-- 			vim.cmd("setlocal winbar")
-	-- 			return false
-	-- 		end
-	-- 		return true
-	-- 	end,
-	-- 	hl = { fg = colors.white, bold = false }
-	-- }
+	local WinBarContents = {
+		Align,
+		FileFlags,
+		{
+			provider = function()
+				-- first, trim the pattern relative to the current directory. For other
+				-- options, see :h filename-modifers
+				local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+				if filename == "" then
+					return "[No Name]"
+				end
+				filename = vim.fn.pathshorten(filename)
+				return filename
+			end,
+		},
+	}
+	local WinBars = {
+		init = utils.pick_child_on_condition,
+		{ -- Hide the winbar for special buffers
+			condition = function()
+				return conditions.buffer_matches({
+					buftype = { "nofile", "prompt", "help", "quickfix" },
+					filetype = { "^git.*", "fugitive" },
+				})
+			end,
+			init = function()
+				vim.opt_local.winbar = nil
+			end,
+		},
+		{ -- A special winbar for terminals
+			condition = function()
+				return conditions.buffer_matches({ buftype = { "terminal" } })
+			end,
+			Align,
+			TerminalName,
+			hl = { fg = colors.white, bold = false }
+		},
+		{ -- An inactive winbar for regular files
+			condition = function()
+				return not conditions.is_active()
+			end,
+			WinBarContents,
+			hl = { fg = colors.dark_gray, bold = false },
+		},
+		-- A winbar for regular files
+		{
+			WinBarContents,
+			hl = { fg = colors.white, bold = false },
+		}
+	}
 
-	require("heirline").setup(StatusLines)--, Winbar)
+	require("heirline").setup(StatusLines, WinBars)
 end
