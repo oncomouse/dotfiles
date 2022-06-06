@@ -328,16 +328,6 @@ vim.api.nvim_create_autocmd("CompleteDone", {
 	end,
 })
 
--- Update FASD For NeoVim
-vim.api.nvim_create_autocmd("BufWinEnter,BufFilePost", {
-	group = "dotfiles-settings",
-	callback = function()
-		if vim.fn.empty(vim.opt.buftype:get()) == 1 then
-			vim.fn.jobstart({ "fasd", "-A", vim.fn.expand("%:p") })
-		end
-	end,
-})
-
 -- Remember Last Place in Edited File
 vim.api.nvim_create_autocmd("BufReadPost", {
 	group = "dotfiles-settings",

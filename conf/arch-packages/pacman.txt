@@ -23,7 +23,6 @@ python-pip
 lua
 luarocks
 vim
-fasd
 ripgrep
 fd
 htop

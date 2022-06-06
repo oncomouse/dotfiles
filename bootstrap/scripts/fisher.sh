@@ -9,7 +9,7 @@ fisher_plugins=(
   "laughedelic/pisces"
   "wk/plugin-ssh-term-helper"
   "oh-my-fish/plugin-bang-bang"
-  "oh-my-fish/plugin-fasd"
+  "jethrokuan/z"
 )
 
 # Install fisher:

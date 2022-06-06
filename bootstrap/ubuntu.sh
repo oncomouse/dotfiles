@@ -23,15 +23,6 @@ if test ! ~/.fzf; then
   ~/.fzf/install
 fi
 
-# Install Fasd
-if ! which fasd > /dev/null 2>&1; then
-  git clone https://github.com/clvv/fasd
-  cd ~/dotfiles/fasd || exit
-  sudo make install
-  cd ~/dotfiles || exit
-  rm -rf fasd
-fi
-
 package_version() {
   regex='^http'
   if [[ $1 =~ $regex ]]; then
