@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
-rofifont=$([ "$DOTFILES_TARGET" = "laptop" ] && echo "JetBrainsMono Nerd Font Normal 9" || echo "FiraCode Nerd Font Normal 10")
-choice="$(printf "Lock\nSuspend\nLogoff\nRestart\nShutdown" | rofi -dmenu -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -i -p Powermenu -font "$rofifont")"
+font=${1:-"FiraCode Nerd Font 12"}
+choice="$(printf "Lock\nSuspend\nLogoff\nRestart\nShutdown" | rofi -dmenu -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -i -p Powermenu -font "$font")"
 case $choice in
 	Lock)
 		xscreensaver-command -lock

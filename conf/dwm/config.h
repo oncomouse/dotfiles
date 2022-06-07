@@ -162,6 +162,11 @@ static const char *dotfilesunicodecmd[] = {
 	rofifont,
 	NULL
 };
+static const char *dotfilespowermenu[] = {
+	"dotfiles-powermenu",
+	rofifont,
+	NULL
+};
 
 void
 center(const Arg *arg)
@@ -194,7 +199,7 @@ togglefullscreen(const Arg *arg)
 static Key keys[] = {
 	{ MODKEY|Mod1Mask,              XK_r,                       spawn,               {.v = dmenucmd} },
 	{ MODKEY,                       XK_p,                       spawn,               {.v = dmenucmd} },
-	{ MODKEY|ShiftMask,             XK_p,                       spawn,               SHCMD("dotfiles-powermenu") },
+	{ MODKEY|ShiftMask,             XK_p,                       spawn,               {.v = dotfilespowermenu} },
 	{ MODKEY|ShiftMask,             XK_n,                       spawn,               {.v = rofinetworkcmd} },
 	{ MODKEY|ShiftMask,             XK_w,                       spawn,               {.v = rofiwincmd} },
 	{ MODKEY|ControlMask,           XK_space,                   spawn,               {.v = rofiemojicmd} },
