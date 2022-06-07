@@ -8,7 +8,8 @@ fi
 dirs="$(fd -t f -e flac . "$music_dir" -x echo {//}  | sort | uniq)"
 
 IFS=$'\n'
-mkdir -p "$HOME/My Music/out"
 for dir in $(printf "%s" "$dirs" | fzf --reverse -m |  sed -e "s/\n/ /g"); do
-	fd -t f -e flac . "$dir" -x ffmpeg -i "{}" -qscale:a 0 "$HOME/My Music/out/{/.}.mp3"
+	output_dir="$HOME/My Music/out/$(echo "$dir" | awk -F/ '{printf("%s/%s", $(NF-1), $(NF))}')"
+	mkdir -p "$output_dir"
+	fd -t f -e flac . "$dir" -x ffmpeg -i "{}" -qscale:a 0 "$output_dir/{/.}.mp3"
 done
