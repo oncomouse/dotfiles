@@ -95,8 +95,7 @@ bind M-g rp-gmove
 bind g rp-gselect
 
 # [launchers]
-definekey top M-s-r exec rofi -match fuzzy -auto-select -show drun -show-icons {-drun-display-form \{name\}, -window-format "\\{w\\} \\{c\\} \\{t:25\\}"} -location 1 -theme-str "window { width: 100%; }" -font "JetBrainsMono Nerd Font 11" &
-# definekey top M-s-r exec j4-dmenu-desktop --dmenu="dmenu -i -n -l 6 -p drun -fn 'JetBrains Mono Nerd Font:size=11'" --term="st" &
+definekey top M-s-r exec rp-run.sh "JetBrainsMono Nerd Font 11" &
 definekey top M-s-p exec rofimusic.sh "JetBrainsMono Nerd Font 11" &
 definekey top M-s-k exec dotfiles-unicode "JetBrainsMono Nerd Font 11" &
 definekey top s-P exec rp-powermenu.sh "JetBrainsMono Nerd Font 11" &

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+font=${1:-"FiraCode Nerd Font 12"}
+# shellcheck disable=1083
+rofi \
+	-show emoji \
+	-modi emoji \
+	-location 1 \
+	-theme-str window { width: 100% } \
+	-font "$font"
+# vim:ft=sh

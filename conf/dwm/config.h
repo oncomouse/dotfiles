@@ -98,52 +98,7 @@ static const char *termcmd[]     = { "dotfiles-term", NULL };
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = {
-	"rofi",
-	"-theme",
-	"~/dotfiles/conf/rofi/barmenu.rasi",
-	"-match",
-	"fuzzy",
-	"-auto-select",
-	"-font",
-	rofifont,
-	"-show",
-	"drun",
-	"-show-icons",
-	"-drun-display-format",
-	"{name}",
-	NULL
-};
-static const char *rofiwincmd[] = {
-	"rofi",
-	"-theme",
-	"~/dotfiles/conf/rofi/barmenu.rasi",
-	"-match",
-	"fuzzy",
-	"-auto-select",
-	"-font",
-	rofifont,
-	"-show",
-	"window",
-	"-show-icons",
-	"-window-format",
-	"{w} {c} {t:25}",
-	NULL
-};
-static const char *rofiemojicmd[] = {
-	"rofi",
-	"-show",
-	"emoji",
-	"-modi",
-	"emoji",
-	"-location",
-	"1",
-	"-theme-str",
-	"window { width: 100%; }",
-	"-font",
-	rofifont,
-	NULL
-};
+static const char *dmenucmd[] = { NULL };
 
 void
 center(const Arg *arg)
@@ -174,11 +129,11 @@ togglefullscreen(const Arg *arg)
 /* modifier                     key        function        argument */
 
 static Key keys[] = {
-	{ MODKEY|Mod1Mask,              XK_r,                       spawn,               {.v = dmenucmd} },
-	{ MODKEY,                       XK_p,                       spawn,               {.v = dmenucmd} },
+	{ MODKEY|Mod1Mask,              XK_r,                       spawn,               FONTCMD("dotfiles-run") },
+	{ MODKEY,                       XK_p,                       spawn,               FONTCMD("dotfiles-run") },
 	{ MODKEY|ShiftMask,             XK_p,                       spawn,               FONTCMD("dotfiles-powermenu") },
-	{ MODKEY|ShiftMask,             XK_w,                       spawn,               {.v = rofiwincmd} },
-	{ MODKEY|ControlMask,           XK_space,                   spawn,               {.v = rofiemojicmd} },
+	{ MODKEY|ShiftMask,             XK_w,                       spawn,               FONTCMD("dwm-win.sh") },
+	{ MODKEY|ControlMask,           XK_space,                   spawn,               FONTCMD("dotfiles-emoji") },
 	{ MODKEY|Mod1Mask,              XK_p,                       spawn,               FONTCMD("rofimusic.sh") },
 	{ MODKEY|ShiftMask,             XK_Return,                  spawn,               {.v = termcmd} },
 	{ MODKEY|ShiftMask,             XK_c,                       spawn,               {.v = termcmd} },
