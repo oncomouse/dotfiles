@@ -5,6 +5,6 @@ rofi \
 	-show emoji \
 	-modi emoji \
 	-location 1 \
-	-theme-str window { width: 100% } \
+	-theme-str "window { width: 100%; }" \
 	-font "$font"
 # vim:ft=sh
