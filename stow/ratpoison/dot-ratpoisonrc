@@ -99,6 +99,7 @@ definekey top M-s-r exec rp-run.sh "JetBrainsMono Nerd Font 11" &
 definekey top M-s-p exec rofimusic.sh "JetBrainsMono Nerd Font 11" &
 definekey top M-s-k exec dotfiles-unicode "JetBrainsMono Nerd Font 11" &
 definekey top s-P exec rp-powermenu.sh "JetBrainsMono Nerd Font 11" &
+definekey top C-s-space exec dotfiles-emoji "JetBrainsMono Nerd Font 11"
 bind C-exclam colon exec dotfiles-term -e
 
 # [screenshots]
