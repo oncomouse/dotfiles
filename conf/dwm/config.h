@@ -92,6 +92,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define STATUSBAR "dwmblocks"
+#define FONTCMD(cmd) { .v = (const char*[]){ cmd, rofifont, NULL } }
 
 static const char *termcmd[]     = { "dotfiles-term", NULL };
 
@@ -143,30 +144,6 @@ static const char *rofiemojicmd[] = {
 	rofifont,
 	NULL
 };
-static const char *rofinetworkcmd[] = {
-	"networkmanager_dmenu",
-	"-location",
-	"1",
-	"-theme-str",
-	"window { width: 100%; }",
-	"-font",
-	rofifont, NULL
-};
-static const char *rofimusiccmd[] = {
-	"rofimusic.sh",
-	rofifont,
-	NULL
-};
-static const char *dotfilesunicodecmd[] = {
-	"dotfiles-unicode",
-	rofifont,
-	NULL
-};
-static const char *dotfilespowermenu[] = {
-	"dotfiles-powermenu",
-	rofifont,
-	NULL
-};
 
 void
 center(const Arg *arg)
@@ -199,17 +176,16 @@ togglefullscreen(const Arg *arg)
 static Key keys[] = {
 	{ MODKEY|Mod1Mask,              XK_r,                       spawn,               {.v = dmenucmd} },
 	{ MODKEY,                       XK_p,                       spawn,               {.v = dmenucmd} },
-	{ MODKEY|ShiftMask,             XK_p,                       spawn,               {.v = dotfilespowermenu} },
-	{ MODKEY|ShiftMask,             XK_n,                       spawn,               {.v = rofinetworkcmd} },
+	{ MODKEY|ShiftMask,             XK_p,                       spawn,               FONTCMD("dotfiles-powermenu") },
 	{ MODKEY|ShiftMask,             XK_w,                       spawn,               {.v = rofiwincmd} },
 	{ MODKEY|ControlMask,           XK_space,                   spawn,               {.v = rofiemojicmd} },
-	{ MODKEY|Mod1Mask,              XK_p,                       spawn,               {.v = rofimusiccmd} },
+	{ MODKEY|Mod1Mask,              XK_p,                       spawn,               FONTCMD("rofimusic.sh") },
 	{ MODKEY|ShiftMask,             XK_Return,                  spawn,               {.v = termcmd} },
 	{ MODKEY|ShiftMask,             XK_c,                       spawn,               {.v = termcmd} },
 	{ MODKEY,                       XK_e,                       spawn,               SHCMD("dotfiles-fm") },
 	{ MODKEY|ShiftMask,             XK_b,                       spawn,               SHCMD("dotfiles-brightness default")},
 	{ MODKEY|Mod1Mask,              XK_c,                       spawn,               SHCMD("dunstify -i alarm-clock-panel -h string:x-dunst-stack-tag:date \"$(date +'%a %m/%d %I:%M %p')\" -t 1500") },
-	{ MODKEY|Mod1Mask,              XK_k,                       spawn,               { .v = dotfilesunicodecmd } },
+	{ MODKEY|Mod1Mask,              XK_k,                       spawn,               FONTCMD("dotfiles-unicode") },
 	{ MODKEY,                       XK_f,                       togglefullscreen,    {0} },
 	{ MODKEY,                       XK_b,                       togglebar,           {0} },
 	{ MODKEY,                       XK_u,                       focusurgent,         {0} },
