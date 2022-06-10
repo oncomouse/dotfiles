@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
-font=${1:-"FiraCode Nerd Font 12"}
+font="$(ratpoison -c 'set font' | sed -e 's/:size=/ /')"
 choice="$(printf "Lock\nSuspend\nLogoff\nRestart\nShutdown" | rofi -dmenu -match fuzzy -auto-select -i -p Powermenu -location 1 -theme-str "window { width: 100%; }" -no-fixed-num-lines -font "$font")"
 case $choice in
 	Lock)

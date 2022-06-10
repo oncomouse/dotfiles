@@ -7,6 +7,9 @@ source ~/dotfiles/conf/xorg/xinit.d/no-xfce4
 source ~/dotfiles/conf/xorg/xinit.d/dunst
 source ~/dotfiles/conf/xorg/xinit.d/no-powerbutton
 
+# Set up dmenu colors
+xrdb -merge ~/.cache/wal/dmenu.Xresources
+
 source ~/.cache/wal/colors.sh
 pkill lemonaid; pkill lemonbar
 lemonaid | lemonbar -a 20 -p -d -f "JetBrains Mono Nerd Font:style=medium:size=10" -B "$color0" -F "$color7" -g x22 | /usr/bin/env bash &
