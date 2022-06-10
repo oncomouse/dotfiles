@@ -96,10 +96,10 @@ bind M-g rp-gmove
 bind g rp-gselect
 
 # [launchers]
-definekey top M-s-r exec rp-run.sh "$(ratpoison -c 'set font' | sed -e 's/:size=/ /')" &
-definekey top M-s-p exec rofimusic.sh "$(ratpoison -c 'set font' | sed -e "s/:size=/ /")" &
-definekey top M-s-k exec dotfiles-unicode "$(ratpoison -c 'set font' | sed -e "s/:size=/ /')' &
-definekey top s-P exec rp-powermenu.sh "$(ratpoison -c 'set font' | sed -e "s/:size=/ /')' &
+definekey top M-s-r exec rp-run.sh &
+definekey top s-P exec rp-powermenu.sh &
+definekey top M-s-p exec rofimusic.sh "$(ratpoison -c 'set font' | sed -e 's/:size=/ /')" &
+definekey top M-s-k exec dotfiles-unicode "$(ratpoison -c 'set font' | sed -e 's/:size=/ /')" &
 definekey top C-s-space exec dotfiles-emoji "$(ratpoison -c 'set font' | sed -e 's/:size=/ /')" &
 bind C-exclam colon exec dotfiles-term -e
 
