@@ -107,8 +107,8 @@ bind Print exec dotfiles-screenshot
 
 # [workspaces]
 exec rpws init 6 -a
-definekey top s-Right exec rpws next &
-definekey top s-Left exec rpws previous &
+definekey top s-Right rpwsn
+definekey top s-Left rpwsp
 definekey top s-1 exec rpws 1 &
 definekey top s-2 exec rpws 2 &
 definekey top s-3 exec rpws 3 &
