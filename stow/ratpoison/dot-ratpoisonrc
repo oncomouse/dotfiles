@@ -149,7 +149,7 @@ unbind C-Down
 unbind C-Return
 unbind a
 
-# [Don't use these]
+# [Replaced w/ Super key bindings]
 unbind C-A
 unbind C-K
 unbind C-S
