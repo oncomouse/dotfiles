@@ -109,12 +109,12 @@ bind Print exec dotfiles-screenshot
 exec rpws init 6 -a
 definekey top s-Right rpwsn
 definekey top s-Left rpwsp
-definekey top s-1 exec rpws 1 &
-definekey top s-2 exec rpws 2 &
-definekey top s-3 exec rpws 3 &
-definekey top s-4 exec rpws 4 &
-definekey top s-5 exec rpws 5 &
-definekey top s-6 exec rpws 6 &
+definekey top s-1 rpws1
+definekey top s-2 rpws2
+definekey top s-3 rpws3
+definekey top s-4 rpws4
+definekey top s-5 rpws5
+definekey top s-6 rpws6
 definekey top s-exclam rpwsm1 &
 definekey top s-at rpwsm2 &
 definekey top s-numbersign rpwsm3 &
