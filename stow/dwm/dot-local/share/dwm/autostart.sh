@@ -3,6 +3,8 @@
 source ~/dotfiles/conf/xorg/xinit-common
 dex -a
 picom --experimental-backends -b --config ~/dotfiles/conf/picom/dwm.conf
+pkill dwmblocks
+dwmblocks &
 
 source ~/dotfiles/conf/xorg/xinit.d/no-xfce4
 source ~/dotfiles/conf/xorg/xinit.d/dunst
