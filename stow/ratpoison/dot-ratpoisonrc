@@ -74,8 +74,8 @@ bind C-s-k exchangeup
 bind C-s-l exchangeright
 
 # [reverse splits]
-bind s hsplit
-bind S split
+bind S hsplit
+bind s split
 
 # [zoom]
 alias zoom exec rp-zoom.sh &
