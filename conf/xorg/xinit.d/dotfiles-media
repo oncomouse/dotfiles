@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+pkill -f dotfiles-media
+dotfiles-media daemon&
+#vim: ft=sh

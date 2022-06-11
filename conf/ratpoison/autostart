@@ -8,10 +8,10 @@ picom --experimental-backends -b --config ~/dotfiles/conf/picom/ratpoison.conf
 source ~/dotfiles/conf/xorg/xinit.d/no-xfce4
 source ~/dotfiles/conf/xorg/xinit.d/dunst
 source ~/dotfiles/conf/xorg/xinit.d/no-powerbutton
+source ~/dotfiles/conf/xorg/xinit.d/dotfiles-media
+source ~/dotfiles/conf/xorg/xinit.d/tile-background
 
-# Set up dmenu colors
-xrdb -merge ~/.cache/wal/dmenu.Xresources
-
+# Load Bar
 source ~/.cache/wal/colors.sh
 pkill lemonaid; pkill lemonbar
 # shellcheck disable=2154
@@ -22,11 +22,5 @@ lemonaid | lemonbar \
 	-B "$color0" \
 	-F "$color7" \
 	-g x22 | /usr/bin/env bash &
-
-convert ~/.cache/wal/background.svg ~/.cache/wal/background.png
-hsetroot -tile ~/.cache/wal/background.png
-
-pkill -f dotfiles-media
-dotfiles-media daemon&
 
 # vim:ft=sh

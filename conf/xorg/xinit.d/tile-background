@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+if [ ! -d ~/.cache/wal/background.png ]; then
+	convert ~/.cache/wal/background.svg ~/.cache/wal/background.png
+fi
+hsetroot -tile ~/.cache/wal/background.png
+# vim:ft=sh
