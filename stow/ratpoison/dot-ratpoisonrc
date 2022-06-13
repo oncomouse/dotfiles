@@ -108,20 +108,20 @@ bind Print exec dotfiles-screenshot
 
 # [workspaces]
 exec rpws init 6 -a
-definekey top s-Right rpwsn
-definekey top s-Left rpwsp
-definekey top s-1 rpws1
-definekey top s-2 rpws2
-definekey top s-3 rpws3
-definekey top s-4 rpws4
-definekey top s-5 rpws5
-definekey top s-6 rpws6
-definekey top s-exclam rpwsm1 &
-definekey top s-at rpwsm2 &
-definekey top s-numbersign rpwsm3 &
-definekey top s-dollar rpwsm4 &
-definekey top s-percent rpwsm5 &
-definekey top s-asciicircum rpwsm6 &
+bind Right rpwsn
+bind Left rpwsp
+bind 1 rpws1
+bind 2 rpws2
+bind 3 rpws3
+bind 4 rpws4
+bind 5 rpws5
+bind 6 rpws6
+bind exclam rpwsm1 &
+bind at rpwsm2 &
+bind numbersign rpwsm3 &
+bind dollar rpwsm4 &
+bind percent rpwsm5 &
+bind asciicircum rpwsm6 &
 
 # [mediakeys]
 definekey top XF86KbdBrightnessDown exec sudo /usr/local/bin/keyboard-backlight down &
