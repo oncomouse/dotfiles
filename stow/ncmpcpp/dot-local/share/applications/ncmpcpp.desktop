@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=true
+Exec=ncmpcpp
+Name=NCMPCPP
+Comment=MPD Client Written in CPP
+Categories=Music
+Icon=mpd
