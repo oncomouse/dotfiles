@@ -534,7 +534,7 @@ if ok then
 
 	local DefaultStatusline = {
 		ViMode,
-		Space,
+		-- Space,
 		-- FileName,
 		-- Space,
 		-- Git,
@@ -550,10 +550,10 @@ if ok then
 				return not conditions.has_diagnostics()
 			end,
 			{
-				{
-					Space,
-					Space,
-				},
+				-- {
+				-- 	Space,
+				-- 	Space,
+				-- },
 				{
 					provider = "",
 					hl = { fg = colors.dark_gray, bg = colors.black },
@@ -595,8 +595,6 @@ if ok then
 		QuickfixName,
 		Align,
 		FileType,
-		Space,
-		Space,
 		{
 			provider = "",
 			hl = { fg = colors.dark_gray, bg = colors.black },
