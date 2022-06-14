@@ -213,6 +213,9 @@ vim.keymap.set("x", "@", require("dotfiles.visualat"), { silent = true, noremap 
 -- Calculator:
 vim.keymap.set("i", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
 
+-- Vertical split like in my Tmux config
+vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
+
 -- Sourced from jessarcher/dotfiles {{{
 --  \ https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
 
