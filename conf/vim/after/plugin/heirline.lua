@@ -535,8 +535,8 @@ if ok then
 	local DefaultStatusline = {
 		ViMode,
 		Space,
-		FileName,
-		Space,
+		-- FileName,
+		-- Space,
 		-- Git,
 		-- Space,
 		Align,
@@ -566,9 +566,17 @@ if ok then
 			return not conditions.is_active()
 		end,
 
+		{
+			provider = "",
+			hl = { fg = colors.dark_gray, bg = colors.black },
+		},
 		FileName,
 		Align,
 		FileType,
+		{
+			provider = "",
+			hl = { fg = colors.dark_gray, bg = colors.black },
+		},
 	}
 
 	local SpecialStatusline = {
@@ -579,12 +587,20 @@ if ok then
 			})
 		end,
 
+		{
+			provider = "",
+			hl = { fg = colors.dark_gray, bg = colors.black },
+		},
 		HelpFileName,
 		QuickfixName,
 		Align,
 		FileType,
 		Space,
 		Space,
+		{
+			provider = "",
+			hl = { fg = colors.dark_gray, bg = colors.black },
+		},
 	}
 
 	local TerminalStatusline = {
@@ -600,6 +616,10 @@ if ok then
 		FileType,
 		Space,
 		Space,
+		{
+			provider = "",
+			hl = { fg = colors.dark_gray, bg = colors.black },
+		},
 	}
 
 	local StatusLines = {
@@ -625,56 +645,108 @@ if ok then
 		DefaultStatusline,
 	}
 
-	-- local WinBarContents = {
-	-- 	Align,
-	-- 	FileFlags,
-	-- 	{
-	-- 		provider = function()
-	-- 			-- first, trim the pattern relative to the current directory. For other
-	-- 			-- options, see :h filename-modifers
-	-- 			local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
-	-- 			if filename == "" then
-	-- 				return "[No Name]"
-	-- 			end
-	-- 			filename = vim.fn.pathshorten(filename)
-	-- 			return filename
-	-- 		end,
-	-- 	},
-	-- }
-	-- local WinBars = {
-	-- 	init = utils.pick_child_on_condition,
-	-- 	{ -- Hide the winbar for special buffers
-	-- 		condition = function()
-	-- 			return conditions.buffer_matches({
-	-- 				buftype = { "nofile", "prompt", "help", "quickfix" },
-	-- 				filetype = { "^git.*", "fugitive" },
-	-- 			})
-	-- 		end,
-	-- 		init = function()
-	-- 			vim.opt_local.winbar = nil
-	-- 		end,
-	-- 	},
-	-- 	{ -- A special winbar for terminals
-	-- 		condition = function()
-	-- 			return conditions.buffer_matches({ buftype = { "terminal" } })
-	-- 		end,
-	-- 		Align,
-	-- 		TerminalName,
-	-- 		hl = { fg = colors.white, bold = false }
-	-- 	},
-	-- 	{ -- An inactive winbar for regular files
-	-- 		condition = function()
-	-- 			return not conditions.is_active()
-	-- 		end,
-	-- 		WinBarContents,
-	-- 		hl = { fg = colors.dark_gray, bold = false },
-	-- 	},
-	-- 	-- A winbar for regular files
-	-- 	{
-	-- 		WinBarContents,
-	-- 		hl = { fg = colors.white, bold = false },
-	-- 	}
-	-- }
+	local WinBarContents = {
+		init = function(self)
+			self.filename = vim.api.nvim_buf_get_name(0)
+		end,
+		Align,
+		-- utils.surround({ "", "" }, nil, {
+		{
+			{
+				provider = "",
+				hl = function()
+					if conditions.is_active() then
+						return {
+							bg = colors.black,
+							fg = utils.get_highlight("StatusLine").bg,
+						}
+					else
+						return {
+							bg = colors.black,
+							fg = colors.black,
+						}
+					end
+				end,
+			},
+			FileIcon,
+			{
+				provider = function()
+					-- first, trim the pattern relative to the current directory. For other
+					-- options, see :h filename-modifers
+					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+					if filename == "" then
+						return "[No Name]"
+					end
+					filename = vim.fn.pathshorten(filename)
+					return filename
+				end,
+			},
+			FileFlags,
+			hl = function()
+				if conditions.is_active() then
+					return {
+						fg = utils.get_highlight("StatusLine").fg,
+						bg = utils.get_highlight("StatusLine").bg,
+					}
+				else
+					return {
+						fg = utils.get_highlight("StatusLineNC").fg,
+						bg = colors.black,
+					}
+				end
+			end,
+			{
+				provider = "",
+				hl = function()
+					if conditions.is_active() then
+						return {
+							bg = colors.black,
+							fg = utils.get_highlight("StatusLine").bg,
+						}
+					else
+						return {
+							bg = colors.black,
+							fg = colors.black,
+						}
+					end
+				end,
+			},
+		},
+	}
+	local WinBars = {
+		init = utils.pick_child_on_condition,
+		{ -- Hide the winbar for special buffers
+			condition = function()
+				return conditions.buffer_matches({
+					buftype = { "nofile", "prompt", "help", "quickfix" },
+					filetype = { "^git.*", "fugitive" },
+				})
+			end,
+			init = function()
+				vim.opt_local.winbar = nil
+			end,
+		},
+		{ -- A special winbar for terminals
+			condition = function()
+				return conditions.buffer_matches({ buftype = { "terminal" } })
+			end,
+			Align,
+			TerminalName,
+			hl = { fg = colors.white, bold = false },
+		},
+		{ -- An inactive winbar for regular files
+			condition = function()
+				return not conditions.is_active()
+			end,
+			WinBarContents,
+			hl = { fg = colors.dark_gray, bold = false },
+		},
+		-- A winbar for regular files
+		{
+			WinBarContents,
+			hl = { fg = colors.white, bold = false },
+		},
+	}
 
-	require("heirline").setup(StatusLines)
+	require("heirline").setup(StatusLines, WinBars)
 end
