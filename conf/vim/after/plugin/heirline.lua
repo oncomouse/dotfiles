@@ -647,8 +647,6 @@ if ok then
 		init = function(self)
 			self.filename = vim.api.nvim_buf_get_name(0)
 		end,
-		Align,
-		-- utils.surround({ "", "" }, nil, {
 		{
 			{
 				provider = "",
@@ -666,33 +664,57 @@ if ok then
 					end
 				end,
 			},
-			FileIcon,
 			{
-				provider = function()
-					-- first, trim the pattern relative to the current directory. For other
-					-- options, see :h filename-modifers
-					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
-					if filename == "" then
-						return "[No Name]"
+				FileIcon,
+				{
+					provider = function()
+						-- first, trim the pattern relative to the current directory. For other
+						-- options, see :h filename-modifers
+						local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+						if filename == "" then
+							return "[No Name]"
+						end
+						filename = vim.fn.pathshorten(filename)
+						return filename
+					end,
+				},
+				FileFlags,
+				hl = function()
+					if conditions.is_active() then
+						return {
+							fg = utils.get_highlight("StatusLine").fg,
+							bg = utils.get_highlight("StatusLine").bg,
+						}
+					else
+						return {
+							fg = utils.get_highlight("StatusLineNC").fg,
+							bg = colors.black,
+						}
 					end
-					filename = vim.fn.pathshorten(filename)
-					return filename
+				end,
+				condition = function(self)
+					return self.winbar_type == "regular"
 				end,
 			},
-			FileFlags,
-			hl = function()
-				if conditions.is_active() then
-					return {
-						fg = utils.get_highlight("StatusLine").fg,
-						bg = utils.get_highlight("StatusLine").bg,
-					}
-				else
-					return {
-						fg = utils.get_highlight("StatusLineNC").fg,
-						bg = colors.black,
-					}
-				end
-			end,
+			{
+				TerminalName,
+				hl = function()
+					if conditions.is_active() then
+						return {
+							fg = utils.get_highlight("StatusLine").fg,
+							bg = utils.get_highlight("StatusLine").bg,
+						}
+					else
+						return {
+							fg = utils.get_highlight("StatusLineNC").fg,
+							bg = colors.black,
+						}
+					end
+				end,
+				condition = function(self)
+					return self.winbar_type == "terminal"
+				end,
+			},
 			{
 				provider = "",
 				hl = function()
@@ -729,9 +751,11 @@ if ok then
 			condition = function()
 				return conditions.buffer_matches({ buftype = { "terminal" } })
 			end,
-			Align,
-			TerminalName,
+			WinBarContents,
 			hl = { fg = colors.white, bold = false },
+			init = function(self)
+				self.winbar_type = "terminal"
+			end,
 		},
 		{ -- An inactive winbar for regular files
 			condition = function()
@@ -739,11 +763,17 @@ if ok then
 			end,
 			WinBarContents,
 			hl = { fg = colors.dark_gray, bold = false },
+			init = function(self)
+				self.winbar_type = "regular"
+			end,
 		},
 		-- A winbar for regular files
 		{
 			WinBarContents,
 			hl = { fg = colors.white, bold = false },
+			init = function(self)
+				self.winbar_type = "regular"
+			end,
 		},
 	}
 
