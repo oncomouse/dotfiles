@@ -1,5 +1,6 @@
 local ok = pcall(require, "heirline")
 if ok then
+	local delim = { left = "", right = "" }
 	local conditions = require("heirline.conditions")
 	local utils = require("heirline.utils")
 
@@ -281,7 +282,6 @@ if ok then
 	}
 
 	local Diagnostics = {
-
 		condition = conditions.has_diagnostics,
 
 		static = {
@@ -306,7 +306,7 @@ if ok then
 			end,
 			{
 				{
-					provider = "",
+					provider = delim.left,
 					hl = { fg = colors.diag.error },
 				},
 				{
@@ -316,7 +316,7 @@ if ok then
 					hl = { bg = colors.diag.error, fg = colors.dark_gray },
 				},
 				{
-					provider = "",
+					provider = delim.right,
 					condition = function(self)
 						return self.warnings == 0 and self.info == 0 and self.hints == 0
 					end,
@@ -330,7 +330,7 @@ if ok then
 			end,
 			{
 				{
-					provider = "",
+					provider = delim.left,
 					hl = function(self)
 						local h = { fg = colors.diag.warn }
 						if self.errors > 0 then
@@ -346,7 +346,7 @@ if ok then
 					hl = { bg = colors.diag.warn, fg = colors.dark_gray },
 				},
 				{
-					provider = "",
+					provider = delim.right,
 					condition = function(self)
 						return self.info == 0 and self.hints == 0
 					end,
@@ -360,7 +360,7 @@ if ok then
 			end,
 			{
 				{
-					provider = "",
+					provider = delim.left,
 					hl = function(self)
 						local h = { fg = colors.diag.info }
 						if self.warnings > 0 then
@@ -378,7 +378,7 @@ if ok then
 					hl = { bg = colors.diag.info, fg = colors.dark_gray },
 				},
 				{
-					provider = "",
+					provider = delim.right,
 					condition = function(self)
 						return self.hints == 0
 					end,
@@ -392,7 +392,7 @@ if ok then
 			end,
 			{
 				{
-					provider = "",
+					provider = delim.left,
 					hl = function(self)
 						local h = { fg = colors.diag.hint }
 						if self.info > 0 then
@@ -412,7 +412,7 @@ if ok then
 					hl = { bg = colors.diag.hint, fg = colors.dark_gray },
 				},
 				{
-					provider = "",
+					provider = delim.right,
 					hl = { fg = colors.diag.hint, bg = colors.black },
 				},
 			},
@@ -531,7 +531,7 @@ if ok then
 
 	local Align = { provider = "%=" }
 
-	ViMode = mode_wrapper({ "", "" }, { ViMode, Snippets })
+	ViMode = mode_wrapper({ delim.left, delim.right }, { ViMode, Snippets })
 
 	local DefaultStatusline = {
 		ViMode,
@@ -551,12 +551,8 @@ if ok then
 				return not conditions.has_diagnostics()
 			end,
 			{
-				-- {
-				-- 	Space,
-				-- 	Space,
-				-- },
 				{
-					provider = "",
+					provider = delim.right,
 					hl = { fg = colors.dark_gray, bg = colors.black },
 				},
 			},
@@ -568,14 +564,14 @@ if ok then
 		end,
 
 		{
-			provider = "",
+			provider = delim.left,
 			hl = { fg = colors.dark_gray, bg = colors.black },
 		},
 		FileName,
 		Align,
 		FileType,
 		{
-			provider = "",
+			provider = delim.right,
 			hl = { fg = colors.dark_gray, bg = colors.black },
 		},
 	}
@@ -589,7 +585,7 @@ if ok then
 		end,
 
 		{
-			provider = "",
+			provider = delim.left,
 			hl = { fg = colors.dark_gray, bg = colors.black },
 		},
 		HelpFileName,
@@ -597,7 +593,7 @@ if ok then
 		Align,
 		FileType,
 		{
-			provider = "",
+			provider = delim.right,
 			hl = { fg = colors.dark_gray, bg = colors.black },
 		},
 	}
@@ -616,7 +612,7 @@ if ok then
 		Space,
 		Space,
 		{
-			provider = "",
+			provider = delim.right,
 			hl = { fg = colors.dark_gray, bg = colors.black },
 		},
 	}
@@ -651,7 +647,7 @@ if ok then
 		Align,
 		{
 			{
-				provider = "",
+				provider = delim.left,
 				hl = function()
 					if conditions.is_active() then
 						return {
@@ -718,7 +714,7 @@ if ok then
 				end,
 			},
 			{
-				provider = "",
+				provider = delim.right,
 				hl = function()
 					if conditions.is_active() then
 						return {
