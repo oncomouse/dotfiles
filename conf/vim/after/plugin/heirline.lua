@@ -575,7 +575,6 @@ if ok then
 
 		-- Quickly add a condition to the ViMode to only show it when buffer is active!
 		{ condition = conditions.is_active, ViMode, Space },
-		TerminalName,
 		Align,
 		FileType,
 		{
