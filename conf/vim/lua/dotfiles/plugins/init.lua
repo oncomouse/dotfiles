@@ -243,19 +243,18 @@ return require("packer").startup({
 				config = function()
 					vim.g.tpipeline_autoembed = 0
 				end,
-			},
+			}, -- Store the statusline in TMUX
 			{
 				"christoomey/vim-tmux-navigator",
 				config = function()
 					vim.g.tmux_navigator_no_mappings = 1
-					vim.keymap.set("n", "<leader>vf", "ggVG", { noremap = true })
 					vim.keymap.set("n", "<C-Space>h", ":TmuxNavigateLeft<cr>", { noremap = true, silent = true })
 					vim.keymap.set("n", "<C-Space>j", ":TmuxNavigateDown<cr>", { noremap = true, silent = true })
 					vim.keymap.set("n", "<C-Space>k", ":TmuxNavigateUp<cr>", { noremap = true, silent = true })
 					vim.keymap.set("n", "<C-Space>l", ":TmuxNavigateRight<cr>", { noremap = true, silent = true })
 					vim.keymap.set("n", "<C-Space>`", ":TmuxNavigatePrevious<cr>", { noremap = true, silent = true })
 				end,
-			},
+			}, -- Standardize TMUX pane jumps and Vim pane jumps
 			-- Appearance:
 			{
 				"lukas-reineke/indent-blankline.nvim",
