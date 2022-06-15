@@ -738,7 +738,7 @@ if ok then
 				return conditions.buffer_matches({
 					buftype = { "nofile", "prompt", "help", "quickfix" },
 					filetype = { "^gina.*", "fugitive", "fzf" },
-					bufname = { "^gina.*", ".*commit$" },
+					bufname = { "^gina.*", ".*commit$", "^$" },
 				})
 			end,
 			init = function()
