@@ -28,67 +28,26 @@ if ok then
 			change = utils.get_highlight("DiffChange").fg,
 		},
 	}
-	-- local
 
-	local mode_wrapper = function(delimiter, component)
-		component = utils.clone(component)
-		component.hl = component.hl or {}
-		local old_hl_func, old_hl
-		if type(component.hl) == "function" then
-			old_hl_func = component.hl
-		else
-			old_hl = component.hl
-			old_hl_func = function(_)
-				return utils.clone(old_hl)
+	local Snippets = {
+		-- check that we are in insert or select mode
+		condition = function()
+			return vim.tbl_contains({ "s", "i" }, vim.fn.mode())
+		end,
+		provider = function()
+			local forward, backward
+			local has_luasnip, ls = pcall(require, "luasnip")
+			if has_luasnip then
+				forward = ls.jumpable(1) and "" or ""
+				backward = ls.jumpable(-1) and " " or ""
+			else
+				forward = (vim.fn["vsnip#jumpable"](1) == 1) and "" or ""
+				backward = (vim.fn["vsnip#jumpable"](-1) == 1) and " " or ""
 			end
-		end
-		component.hl = function(obj)
-			local hl = old_hl_func(obj)
-			local mode = obj.mode:sub(1, 1) -- get only the first mode character
-			hl.bg = obj.mode_colors[mode]
-			if not hl.fg or hl.fg == colors.gray then
-				hl.fg = colors.dark_gray
-			end
-			return hl
-		end
-		return {
-			static = {
-				mode_colors = {
-					n = colors.blue,
-					i = colors.green,
-					v = colors.orange,
-					V = colors.orange,
-					["^V"] = colors.orange,
-					c = colors.cyan,
-					s = colors.purple,
-					S = colors.purple,
-					["^S"] = colors.purple,
-					R = colors.red,
-					r = colors.red,
-					["!"] = colors.red,
-					t = colors.purple,
-				},
-			},
-			init = function(self)
-				self.mode = vim.fn.mode(1) -- :h mode()
-			end,
-			{
-				hl = function(self)
-					local mode = self.mode:sub(1, 1) -- get only the first mode character
-					return { fg = self.mode_colors[mode], bg = colors.black }
-				end,
-				provider = delimiter[1],
-			},
-			component,
-			{
-				hl = function(self)
-					local mode = self.mode:sub(1, 1) -- get only the first mode character
-					return { fg = self.mode_colors[mode], bg = colors.dark_gray }
-				end,
-				provider = delimiter[2],
-			},
-		}
-	end
+			return backward .. forward
+		end,
+		hl = { fg = colors.dark_gray, bold = true },
+	}
 
 	local ViMode = {
 		-- get vim current mode, this information will be required by the provider
@@ -137,48 +96,70 @@ if ok then
 				["!"] = "!",
 				t = "T",
 			},
+			mode_colors = {
+				n = colors.blue,
+				i = colors.green,
+				v = colors.orange,
+				V = colors.orange,
+				["^V"] = colors.orange,
+				c = colors.cyan,
+				s = colors.purple,
+				S = colors.purple,
+				["^S"] = colors.purple,
+				R = colors.red,
+				r = colors.red,
+				["!"] = colors.red,
+				t = colors.purple,
+			},
+			mode_color = function(self)
+				local mode = conditions.is_active() and self.mode:sub(1, 1) or "n"
+				return self.mode_colors[mode]
+			end,
 		},
-		-- We can now access the value of mode() that, by now, would have been
-		-- computed by `init()` and use it to index our strings dictionary.
-		-- note how `static` fields become just regular attributes once the
-		-- component is instantiated.
-		-- To be extra meticulous, we can also add some vim statusline syntax to
-		-- control the padding and make sure our string is always at least 2
-		-- characters long. Plus a nice Icon.
-		provider = function(self)
-			return self.mode_names[self.mode]
-		end,
-		-- Same goes for the highlight. Now the foreground will change according to the current mode.
-		hl = function()
-			return { fg = colors.dark_gray, bold = true }
-		end,
+		{
+			{
+				provider = delim.left,
+				hl = function(self)
+					return {
+						fg = self:mode_color(),
+						bg = colors.black,
+						bold = true,
+					}
+				end,
+			},
+			{
+				{
+					provider = function(self)
+						return self.mode_names[self.mode]
+					end,
+				},
+				Snippets,
+				hl = function(self)
+					return {
+						bg = self:mode_color(),
+						fg = colors.black,
+						bold = true,
+					}
+				end,
+			},
+			{
+				provider = delim.right,
+				hl = function(self)
+					return {
+						fg = self:mode_color(),
+						bg = colors.dark_gray,
+						bold = true,
+					}
+				end,
+			},
+		},
 	}
-	local Snippets = {
-		-- check that we are in insert or select mode
-		condition = function()
-			return vim.tbl_contains({ "s", "i" }, vim.fn.mode())
-		end,
-		provider = function()
-			local forward, backward
-			local has_luasnip, ls = pcall(require, "luasnip")
-			if has_luasnip then
-				forward = ls.jumpable(1) and "" or ""
-				backward = ls.jumpable(-1) and " " or ""
-			else
-				forward = (vim.fn["vsnip#jumpable"](1) == 1) and "" or ""
-				backward = (vim.fn["vsnip#jumpable"](-1) == 1) and " " or ""
-			end
-			return backward .. forward
-		end,
-		hl = { fg = colors.dark_gray, bold = true },
-	}
+
 	local FileNameBlock = {
-		-- let's first set up some attributes needed by this component and it's children
 		init = function(self)
 			self.filename = vim.api.nvim_buf_get_name(0)
 		end,
 	}
-	-- We can now define some children separately and add them later
 
 	local FileIcon = {
 		init = function(self)
@@ -236,21 +217,6 @@ if ok then
 		},
 	}
 
-	-- Now, let's say that we want the filename color to change if the buffer is
-	-- modified. Of course, we could do that directly using the FileName.hl field,
-	-- but we'll see how easy it is to alter existing components using a "modifier"
-	-- component
-
-	-- local FileNameModifer = {
-	-- 	hl = function()
-	-- 		if vim.bo.modified then
-	-- 			-- use `force` because we need to override the child's hl foreground
-	-- 			return { fg = colors.cyan, bold = true, force = true }
-	-- 		end
-	-- 	end,
-	-- }
-
-	-- let's add the children to our FileNameBlock component
 	FileName = utils.insert(
 		FileNameBlock,
 		FileIcon,
@@ -283,14 +249,12 @@ if ok then
 
 	local Diagnostics = {
 		condition = conditions.has_diagnostics,
-
 		static = {
 			error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
 			warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
 			info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
 			hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
 		},
-
 		init = function(self)
 			self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
 			self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
@@ -425,6 +389,11 @@ if ok then
 			local tname, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "")
 			return " " .. tname
 		end,
+		condition = function()
+			return not conditions.buffer_matches({
+				filetype = { "fzf" },
+			})
+		end,
 		-- hl = { bold = true },
 	}
 
@@ -531,7 +500,7 @@ if ok then
 
 	local Align = { provider = "%=" }
 
-	ViMode = mode_wrapper({ delim.left, delim.right }, { ViMode, Snippets })
+	-- ViMode = mode_wrapper({ delim.left, delim.right }, { ViMode, Snippets })
 
 	local DefaultStatusline = {
 		ViMode,
@@ -609,8 +578,6 @@ if ok then
 		TerminalName,
 		Align,
 		FileType,
-		Space,
-		Space,
 		{
 			provider = delim.right,
 			hl = { fg = colors.dark_gray, bg = colors.black },
