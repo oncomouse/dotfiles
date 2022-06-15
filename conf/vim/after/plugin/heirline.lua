@@ -4,16 +4,17 @@ if ok then
 	local utils = require("heirline.utils")
 
 	local colors = {
+		black = utils.get_highlight("AnsiColor0").fg,
 		red = utils.get_highlight("AnsiColor1").fg,
 		green = utils.get_highlight("AnsiColor2").fg,
+		yellow = utils.get_highlight("AnsiColor3").fg,
 		blue = utils.get_highlight("AnsiColor4").fg,
+		orange = utils.get_highlight("AnsiColor5").fg,
+		cyan = utils.get_highlight("AnsiColor6").fg,
 		gray = utils.get_highlight("AnsiColor7").fg,
 		dark_gray = utils.get_highlight("AnsiColor8").fg,
-		orange = utils.get_highlight("AnsiColor5").fg,
 		purple = utils.get_highlight("Conditional").fg,
-		cyan = utils.get_highlight("AnsiColor6").fg,
-		yellow = utils.get_highlight("AnsiColor3").fg,
-		black = utils.get_highlight("AnsiColor0").fg,
+		white = utils.get_highlight("AnsiColor15").fg,
 		diag = {
 			warn = utils.get_highlight("DiagnosticWarn").fg,
 			error = utils.get_highlight("DiagnosticError").fg,
@@ -624,13 +625,13 @@ if ok then
 		hl = function()
 			if conditions.is_active() then
 				return {
-					fg = utils.get_highlight("StatusLine").fg,
-					bg = utils.get_highlight("StatusLine").bg,
+					fg = colors.white,
+					bg = colors.dark_gray,
 				}
 			else
 				return {
-					fg = utils.get_highlight("StatusLineNC").fg,
-					bg = utils.get_highlight("StatusLineNC").bg,
+					fg = colors.gray,
+					bg = colors.dark_gray,
 				}
 			end
 		end,
@@ -655,7 +656,7 @@ if ok then
 					if conditions.is_active() then
 						return {
 							bg = colors.black,
-							fg = utils.get_highlight("StatusLine").bg,
+							fg = colors.dark_gray,
 						}
 					else
 						return {
@@ -683,12 +684,12 @@ if ok then
 				hl = function()
 					if conditions.is_active() then
 						return {
-							fg = utils.get_highlight("StatusLine").fg,
-							bg = utils.get_highlight("StatusLine").bg,
+							fg = colors.white,
+							bg = colors.dark_gray,
 						}
 					else
 						return {
-							fg = utils.get_highlight("StatusLineNC").fg,
+							fg = colors.gray,
 							bg = colors.black,
 						}
 					end
@@ -702,12 +703,12 @@ if ok then
 				hl = function()
 					if conditions.is_active() then
 						return {
-							fg = utils.get_highlight("StatusLine").fg,
-							bg = utils.get_highlight("StatusLine").bg,
+							fg = colors.white,
+							bg = colors.dark_gray,
 						}
 					else
 						return {
-							fg = utils.get_highlight("StatusLineNC").fg,
+							fg = colors.gray,
 							bg = colors.black,
 						}
 					end
@@ -722,7 +723,7 @@ if ok then
 					if conditions.is_active() then
 						return {
 							bg = colors.black,
-							fg = utils.get_highlight("StatusLine").bg,
+							fg = colors.dark_gray,
 						}
 					else
 						return {

@@ -240,8 +240,9 @@ return require("packer").startup({
 			-- TMUX:
 			{
 				"vimpostor/vim-tpipeline",
-				config = function()
+				setup = function()
 					vim.g.tpipeline_autoembed = 0
+					vim.g.tpipeline_clearstl = 1
 				end,
 			}, -- Store the statusline in TMUX
 			{
