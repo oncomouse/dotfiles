@@ -137,7 +137,7 @@ if [[ ! -d "$BUILD_LOCATION/$project" ]]; then
 	elif [ "$project" = "berry" ]; then
 		project_repo=https://github.com/JLErvin/berry
 	elif [ "$project" = "lemonaid" ]; then
-		project_repo=https://github.com/Murtaza-Udaipurwala/lemonaid
+		project_repo=https://github.com/oncomouse/lemonaid
 	fi
 
 	git clone "$project_repo" "$BUILD_LOCATION/$project"

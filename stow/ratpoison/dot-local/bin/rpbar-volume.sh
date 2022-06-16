@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=1090
 source ~/.cache/wal/colors.sh
 status="$(pamixer --get-volume-human)"
 echo -n "["
