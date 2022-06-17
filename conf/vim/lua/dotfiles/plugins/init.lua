@@ -240,6 +240,7 @@ return require("packer").startup({
 			-- TMUX:
 			{
 				"vimpostor/vim-tpipeline",
+				-- Configured in ~/dotfiles/conf/vim/after/plugin/tpipeline.lua
 				setup = function()
 					vim.g.tpipeline_autoembed = 0
 					vim.g.tpipeline_clearstl = 1
