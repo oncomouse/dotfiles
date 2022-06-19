@@ -121,7 +121,7 @@ local file_name = " %{%v:lua._stl.FileName()%}%{%v:lua._stl.FileFlags()%}"
 local statusline = " %{%v:lua._stl.FileIcon()%}"
 	.. file_name
 	.. "%=%{%v:lua._stl.FileType()%}%{%v:lua._stl.WordCount()%} %l:%c %p%%%{%v:lua._stl.Diagnostics()%} "
-local statusline_nc = file_name
+local statusline_nc = "%=" .. file_name
 
 local function active()
 	return vim.g.statusline_winid == vim.fn.win_getid()
