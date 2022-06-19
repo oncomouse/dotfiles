@@ -113,7 +113,7 @@ end
 -- }}}
 -- Statusline {{{
 require("dotfiles.statusline")
-vim.opt.laststatus = 3 -- Use global statusline
+-- vim.opt.laststatus = 3 -- Use global statusline
 -- }}}
 -- Tabs {{{
 vim.opt.tabstop = 4

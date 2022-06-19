@@ -1,4 +1,33 @@
 _dotfiles = _dotfiles or {}
+
+-- Color
+local hlgs = {}
+local function hl_name(h)
+	return "Sl" .. h.fg or "_" .. h.bg or "_" .. h.sp or "_"
+end
+local function hl_group(h, n)
+	local no = vim.api.nvim_get_hl_by_name("Normal", true)
+	local hl = {
+		foreground = h.fg and vim.api.nvim_get_hl_by_name("AnsiColor" .. h.fg, true).foreground or no.foreground,
+		background = h.bg and vim.api.nvim_get_hl_by_name("AnsiColor" .. h.bg, true).foreground or no.background,
+		special = h.sp and vim.api.nvim_get_hl_by_name("AnsiColor" .. h.sp, true).foreground or "",
+	}
+	for _, k in pairs(vim.tbl_filter(function(x)
+		return not vim.tbl_contains({ "fg", "bg", "sp" }, x)
+	end, vim.tbl_keys(h))) do
+		hl[k] = h[k]
+	end
+	vim.api.nvim_set_hl(0, n, hl)
+end
+function _dotfiles.hl(h)
+	local n = hl_name(h)
+	if not hlgs[n] then
+		hl_group(h, n)
+	end
+	return "%#" .. n .. "#"
+end
+-- End Color
+
 function _dotfiles.sl_wc()
 	return vim.tbl_contains({
 		"markdown",
@@ -26,14 +55,14 @@ end
 
 -- From heirline.nvim
 local function width_percent_below(n, thresh, is_winbar)
-    local winwidth
-    if vim.o.laststatus == 3 and not is_winbar then
-        winwidth = vim.o.columns
-    else
-        winwidth = vim.api.nvim_win_get_width(0)
-    end
+	local winwidth
+	if vim.o.laststatus == 3 and not is_winbar then
+		winwidth = vim.o.columns
+	else
+		winwidth = vim.api.nvim_win_get_width(0)
+	end
 
-    return n / winwidth <= thresh
+	return n / winwidth <= thresh
 end
 -- End From heirline.nvim
 
@@ -70,8 +99,12 @@ function _dotfiles.sl_fg()
 	return flags
 end
 
-local file_name = "%{v:lua._dotfiles.sl_fn()}%{v:lua._dotfiles.sl_fg()}"
-local statusline = file_name .. "%=%y%{v:lua._dotfiles.sl_wc()} %l:%c %p%%%{v:lua._dotfiles.sl_dg()} "
+function _dotfiles.sl_ft()
+	return "[" .. _dotfiles.hl({fg=3, bg=8}) .. vim.bo.filetype .. "%*]"
+end
+
+local file_name = " %{%v:lua._dotfiles.sl_fn()%}%{%v:lua._dotfiles.sl_fg()%}"
+local statusline = file_name .. "%=%{%v:lua._dotfiles.sl_ft()%}%{%v:lua._dotfiles.sl_wc()%} %l:%c %p%%%{%v:lua._dotfiles.sl_dg()%} "
 local statusline_nc = file_name
 
 local function active()
