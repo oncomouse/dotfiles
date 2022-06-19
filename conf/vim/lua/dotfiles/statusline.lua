@@ -23,60 +23,62 @@ function _dotfiles.sl_dg()
 	end
 	return d
 end
-local statusline = "%=%y%{v:lua._dotfiles.sl_wc()} %l:%c %p%%%{v:lua._dotfiles.sl_dg()} "
-local statusline_nc = ""
-local winbar = "%=%0.45f%m%h%w%r"
+
+-- From heirline.nvim
+local function width_percent_below(n, thresh, is_winbar)
+    local winwidth
+    if vim.o.laststatus == 3 and not is_winbar then
+        winwidth = vim.o.columns
+    else
+        winwidth = vim.api.nvim_win_get_width(0)
+    end
+
+    return n / winwidth <= thresh
+end
+-- End From heirline.nvim
+
+function _dotfiles.sl_fn()
+	local filename = vim.api.nvim_buf_get_name(0)
+	-- first, trim the pattern relative to the current directory. For other
+	-- options, see :h filename-modifers
+	filename = vim.fn.fnamemodify(filename, ":.")
+	if filename == "" then
+		return "[No Name]"
+	end
+	if vim.bo.buftype == "help" then
+		return vim.fn.fnamemodify(filename, ":t")
+	end
+	-- now, if the filename would occupy more than 1/4th of the available
+	-- space, we trim the file path to its initials
+	if width_percent_below(#filename, 0.25) then
+		filename = vim.fn.pathshorten(filename)
+	end
+	return filename
+end
+
+function _dotfiles.sl_fg()
+	local flags = ""
+	if vim.bo.modified then
+		flags = flags .. "[+]"
+	end
+	if vim.bo.buftype == "help" then
+		flags = flags .. "[?]"
+	end
+	if not vim.bo.modifiable or vim.bo.readonly then
+		flags = flags .. "[]"
+	end
+	return flags
+end
+
+local file_name = "%{v:lua._dotfiles.sl_fn()}%{v:lua._dotfiles.sl_fg()}"
+local statusline = file_name .. "%=%y%{v:lua._dotfiles.sl_wc()} %l:%c %p%%%{v:lua._dotfiles.sl_dg()} "
+local statusline_nc = file_name
+
 local function active()
 	return vim.g.statusline_winid == vim.fn.win_getid()
 end
+
 function _dotfiles.sl_stl()
 	return active() and statusline or statusline_nc
 end
-
--- This is from heirline.nvim
-local function pattern_list_match(str, pattern_list)
-    for _, pattern in ipairs(pattern_list) do
-        if str:find(pattern) then
-            return true
-        end
-    end
-    return false
-end
-
-local buf_matchers = {
-    filetype = function(pattern_list)
-        local ft = vim.bo.filetype
-        return pattern_list_match(ft, pattern_list)
-    end,
-    buftype = function(pattern_list)
-        local bt = vim.bo.buftype
-        return pattern_list_match(bt, pattern_list)
-    end,
-    bufname = function(pattern_list)
-        local bn = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
-        return pattern_list_match(bn, pattern_list)
-    end,
-}
-
-local function buffer_matches(patterns)
-    for kind, pattern_list in pairs(patterns) do
-        if buf_matchers[kind](pattern_list) then
-            return true
-        end
-    end
-    return false
-end
--- End heirline.nvim copy
-function _dotfiles.sl_winbar()
-	local hide_winbar = buffer_matches({
-		buftype = { "nofile", "prompt", "help", "quickfix" },
-		filetype = { "^gina.*", "fugitive", "fzf" },
-		bufname = { "^gina.*", ".*commit$", "^$" },
-	})
-	if hide_winbar then
-		return ""
-	end
-	return winbar
-end
 vim.opt.statusline = "%!v:lua._dotfiles.sl_stl()"
--- vim.opt.winbar = "%!v:lua._dotfiles.sl_winbar()"
