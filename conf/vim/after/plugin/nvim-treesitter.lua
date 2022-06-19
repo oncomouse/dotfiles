@@ -52,6 +52,7 @@ if ok then
 		end,
 		desc = "Set fold method for treesitter",
 	})
+
 	require("nvim-treesitter.configs").setup({
 		ensure_installed = parsers,
 		highlight = { enable = true },
