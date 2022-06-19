@@ -285,7 +285,6 @@ return require("packer").startup({
 				config = function()
 					vim.g.lushwal_configuration = {
 						addons = {
-							hop_nvim = true,
 							indent_blankline_nvim = true,
 							gina = true,
 							markdown = true,
