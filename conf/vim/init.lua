@@ -271,11 +271,11 @@ vim.api.nvim_create_autocmd(
 )
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE" }
+	{ group = "dotfiles-settings", pattern = "default", command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE gui=NONE" }
 )
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE" }
+	{ group = "dotfiles-settings", pattern = "default", command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE gui=NONE" }
 )
 
 -- Turn Off Line Numbering:
