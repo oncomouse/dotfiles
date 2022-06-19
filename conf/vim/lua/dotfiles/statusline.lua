@@ -68,9 +68,9 @@ function _stl.Diagnostics()
 		DiagnosticSignHint = vim.diagnostic.severity.HINT,
 	}) do
 		local c = #vim.diagnostic.get(0, { severity = kind })
-		local sign = vim.fn.sign_getdefined(sign_key)[1]
-		local marker = sign.text
 		if c ~= 0 then
+			local sign = vim.fn.sign_getdefined(sign_key)[1]
+			local marker = sign.text
 			local h = ""
 			if not diagnostic_hl[kind] then
 				diagnostic_hl[kind] = vim.api.nvim_get_hl_by_name(sign_key, true)
