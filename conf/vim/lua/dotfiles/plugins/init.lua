@@ -238,14 +238,17 @@ return require("packer").startup({
 				},
 			}, -- Markdown Syntax
 			-- TMUX:
-			{
-				"vimpostor/vim-tpipeline",
-				-- Configured in ~/dotfiles/conf/vim/after/plugin/tpipeline.lua
-				setup = function()
-					vim.g.tpipeline_autoembed = 0
-					vim.g.tpipeline_clearstl = 1
-				end,
-			}, -- Store the statusline in TMUX
+			-- {
+			-- 	"vimpostor/vim-tpipeline",
+			-- 	-- Configured in ~/dotfiles/conf/vim/after/plugin/tpipeline.lua
+			-- 	setup = function()
+			-- 		vim.g.tpipeline_autoembed = 0
+			-- 		vim.g.tpipeline_clearstl = 1
+			-- 		vim.g.tpipeline_cursormoved = 1
+			-- 		vim.cmd([[let &t_fe = "\<Esc>[?1004h"]])
+			-- 		vim.cmd([[let &t_fd = "\<Esc>[?1004l"]])
+			-- 	end,
+			-- }, -- Store the statusline in TMUX
 			{
 				"christoomey/vim-tmux-navigator",
 				config = function()

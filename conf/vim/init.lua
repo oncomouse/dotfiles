@@ -18,7 +18,7 @@ vim.opt.hidden = true --  turn off buffer saving when switching
 vim.opt.lazyredraw = true --  Don't redraw between macro runs (may make terminal flicker)
 
 -- Turn off cmdheight
-vim.opt.cmdheight = 0
+-- vim.opt.cmdheight = 0
 
 -- Override Default Split Creation Locations:
 vim.opt.splitbelow = true
