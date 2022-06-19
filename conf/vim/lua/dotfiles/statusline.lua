@@ -1,17 +1,24 @@
-_dotfiles = _dotfiles or {}
+_stl = {}
 
 -- Color
 local hlgs = {}
 local function hl_name(h)
-	return "Sl" .. h.fg or "_" .. h.bg or "_" .. h.sp or "_"
+	return "Sl"
+		.. (h.fg and string.gsub(h.fg, "#", "") or "_")
+		.. (h.bg and string.gsub(h.bg, "#", "") or "_")
+		.. (h.sp and string.gsub(h.sp, "#", "") or "_")
 end
+
+local function rgb_or_ansi(color)
+	return type(color) == "string" and color or vim.api.nvim_get_hl_by_name("AnsiColor" .. color, true).foreground
+end
+
 local function hl_group(h, n)
 	local no = vim.api.nvim_get_hl_by_name("Normal", true)
-	local hl = {
-		foreground = h.fg and vim.api.nvim_get_hl_by_name("AnsiColor" .. h.fg, true).foreground or no.foreground,
-		background = h.bg and vim.api.nvim_get_hl_by_name("AnsiColor" .. h.bg, true).foreground or no.background,
-		special = h.sp and vim.api.nvim_get_hl_by_name("AnsiColor" .. h.sp, true).foreground or "",
-	}
+	local hl = {}
+	hl.foreground = h.fg and rgb_or_ansi(h.fg) or no.foreground
+	hl.background = h.bg and rgb_or_ansi(h.bg) or no.background
+	hl.special = h.sp and rgb_or_ansi(h.sp) or no.background
 	for _, k in pairs(vim.tbl_filter(function(x)
 		return not vim.tbl_contains({ "fg", "bg", "sp" }, x)
 	end, vim.tbl_keys(h))) do
@@ -19,7 +26,7 @@ local function hl_group(h, n)
 	end
 	vim.api.nvim_set_hl(0, n, hl)
 end
-function _dotfiles.hl(h)
+local function hl(h)
 	local n = hl_name(h)
 	if not hlgs[n] then
 		hl_group(h, n)
@@ -28,14 +35,14 @@ function _dotfiles.hl(h)
 end
 -- End Color
 
-function _dotfiles.sl_wc()
+function _stl.WordCount()
 	return vim.tbl_contains({
 		"markdown",
 		"txt",
 		"vimwiki",
 	}, vim.opt.filetype:get()) and " W:" .. vim.fn.wordcount().words or ""
 end
-function _dotfiles.sl_dg()
+function _stl.Diagnostics()
 	local d = ""
 	for sign_key, kind in pairs({
 		DiagnosticSignError = vim.diagnostic.severity.ERROR,
@@ -66,7 +73,7 @@ local function width_percent_below(n, thresh, is_winbar)
 end
 -- End From heirline.nvim
 
-function _dotfiles.sl_fn()
+function _stl.FileName()
 	local filename = vim.api.nvim_buf_get_name(0)
 	-- first, trim the pattern relative to the current directory. For other
 	-- options, see :h filename-modifers
@@ -85,7 +92,7 @@ function _dotfiles.sl_fn()
 	return filename
 end
 
-function _dotfiles.sl_fg()
+function _stl.FileFlags()
 	local flags = ""
 	if vim.bo.modified then
 		flags = flags .. "[+]"
@@ -99,19 +106,28 @@ function _dotfiles.sl_fg()
 	return flags
 end
 
-function _dotfiles.sl_ft()
-	return "[" .. _dotfiles.hl({fg=3, bg=8}) .. vim.bo.filetype .. "%*]"
+function _stl.FileIcon()
+	local filename = vim.api.nvim_buf_get_name(0)
+	local extension = vim.fn.fnamemodify(filename, ":e")
+	local icon, icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+	return icon and (hl({ fg = icon_color, bg = 8 }) .. icon .. "%*") or ""
 end
 
-local file_name = " %{%v:lua._dotfiles.sl_fn()%}%{%v:lua._dotfiles.sl_fg()%}"
-local statusline = file_name .. "%=%{%v:lua._dotfiles.sl_ft()%}%{%v:lua._dotfiles.sl_wc()%} %l:%c %p%%%{%v:lua._dotfiles.sl_dg()%} "
+function _stl.FileType()
+	return "[" .. hl({ fg = 3, bg = 8 }) .. vim.bo.filetype .. "%*]"
+end
+
+local file_name = " %{%v:lua._stl.FileName()%}%{%v:lua._stl.FileFlags()%}"
+local statusline = " %{%v:lua._stl.FileIcon()%}"
+	.. file_name
+	.. "%=%{%v:lua._stl.FileType()%}%{%v:lua._stl.WordCount()%} %l:%c %p%%%{%v:lua._stl.Diagnostics()%} "
 local statusline_nc = file_name
 
 local function active()
 	return vim.g.statusline_winid == vim.fn.win_getid()
 end
 
-function _dotfiles.sl_stl()
+function _stl.sl_stl()
 	return active() and statusline or statusline_nc
 end
-vim.opt.statusline = "%!v:lua._dotfiles.sl_stl()"
+vim.opt.statusline = "%!v:lua._stl.sl_stl()"

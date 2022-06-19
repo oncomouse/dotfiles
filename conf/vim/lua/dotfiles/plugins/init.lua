@@ -81,6 +81,7 @@ return require("packer").startup({
 			}, -- Autopairs + Endwise
 			"michaeljsmith/vim-indent-object", -- ii, ai, aI for indent-based textobjects
 			-- Extra functionality + UI:
+			{ "kyazdani42/nvim-web-devicons" }, -- Icons, used in the statusline
 			{
 				"ibhagwan/fzf-lua",
 				-- Configured in ~/dotfiles/conf/vim/after/plugin/fzf-lua.lua
