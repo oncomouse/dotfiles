@@ -15,18 +15,21 @@ local function rgb_or_ansi(color)
 	if type(color) == "string" then
 		return color
 	end
+	if color > 15 then
+		return color
+	end
 	local ok, hi = pcall(vim.api.nvim_get_hl_by_name, "AnsiColor" .. color, true)
-	return ok and hi.foreground or no.background
+	return ok and hi.foreground or "None"
 end
 
 local function hl_group(h, n)
 	local hl = {}
 	hl.foreground = h.fg and rgb_or_ansi(h.fg) or no.foreground
-	if type(h.fg) == "number" then
+	if type(h.fg) == "number" and h.fg <= 15 then
 		hl.ctermfg = h.fg
 	end
 	hl.background = h.bg and rgb_or_ansi(h.bg) or no.background
-	if type(h.bg) == "number" then
+	if type(h.bg) == "number" and h.bg <= 15 then
 		hl.ctermbg = h.bg
 	end
 	hl.special = h.sp and rgb_or_ansi(h.sp) or no.background
@@ -53,6 +56,9 @@ function _stl.WordCount()
 		"vimwiki",
 	}, vim.opt.filetype:get()) and " W:" .. vim.fn.wordcount().words or ""
 end
+
+local diagnostic_hl = {}
+
 function _stl.Diagnostics()
 	local d = ""
 	for sign_key, kind in pairs({
@@ -65,7 +71,12 @@ function _stl.Diagnostics()
 		local sign = vim.fn.sign_getdefined(sign_key)[1]
 		local marker = sign.text
 		if c ~= 0 then
-			d = d .. " " .. marker .. tostring(c)
+			local h = ""
+			if not diagnostic_hl[kind] then
+				diagnostic_hl[kind] = vim.api.nvim_get_hl_by_name(sign_key, true)
+			end
+			h = hl({ bg = diagnostic_hl[kind].foreground, fg = 0 })
+			d = d .. " " .. h .. marker .. tostring(c) .. "%*"
 		end
 	end
 	return d
