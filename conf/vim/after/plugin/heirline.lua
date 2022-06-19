@@ -200,19 +200,17 @@ if ok then
 
 	local FileFlags = {
 		{
-			provider = function()
-				if vim.bo.modified then
-					return "[+]"
-				end
-			end,
+			provider = "[+]",
+			condition = function()
+				return vim.bo.modified
+			end
 			-- hl = { fg = colors.green },
 		},
 		{
-			provider = function()
-				if not vim.bo.modifiable or vim.bo.readonly then
-					return ""
-				end
-			end,
+			provider = "",
+			condition = function()
+				return not vim.bo.modifiable or vim.bo.readonly
+			end
 			-- hl = { fg = colors.orange },
 		},
 	}
