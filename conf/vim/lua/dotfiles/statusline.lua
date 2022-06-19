@@ -10,14 +10,24 @@ local function hl_name(h)
 end
 
 local function rgb_or_ansi(color)
-	return type(color) == "string" and color or vim.api.nvim_get_hl_by_name("AnsiColor" .. color, true).foreground
+	if type(color) == "string" then
+		return color
+	end
+	local ok, hi = pcall(vim.api.nvim_get_hl_by_name, "AnsiColor" .. color, true)
+	return ok and hi.foreground or ""
 end
 
 local function hl_group(h, n)
 	local no = vim.api.nvim_get_hl_by_name("Normal", true)
 	local hl = {}
 	hl.foreground = h.fg and rgb_or_ansi(h.fg) or no.foreground
+	if type(h.fg) == "number" then
+		hl.ctermfg = h.fg
+	end
 	hl.background = h.bg and rgb_or_ansi(h.bg) or no.background
+	if type(h.bg) == "number" then
+		hl.ctermbg = h.bg
+	end
 	hl.special = h.sp and rgb_or_ansi(h.sp) or no.background
 	for _, k in pairs(vim.tbl_filter(function(x)
 		return not vim.tbl_contains({ "fg", "bg", "sp" }, x)
@@ -107,9 +117,13 @@ function _stl.FileFlags()
 end
 
 function _stl.FileIcon()
+	local has_icons, di = pcall(require, "nvim-web-devicons")
+	if not has_icons then
+		return ""
+	end
 	local filename = vim.api.nvim_buf_get_name(0)
 	local extension = vim.fn.fnamemodify(filename, ":e")
-	local icon, icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+	local icon, icon_color = di.get_icon_color(filename, extension, { default = true })
 	return icon and (hl({ fg = icon_color, bg = 8 }) .. icon .. "%*") or ""
 end
 
@@ -117,8 +131,8 @@ function _stl.FileType()
 	return "[" .. hl({ fg = 3, bg = 8 }) .. vim.bo.filetype .. "%*]"
 end
 
-local file_name = " %{%v:lua._stl.FileName()%}%{%v:lua._stl.FileFlags()%}"
-local statusline = " %{%v:lua._stl.FileIcon()%}"
+local file_name = "%{%v:lua._stl.FileName()%}%{%v:lua._stl.FileFlags()%}"
+local statusline = "%{%v:lua._stl.FileIcon()%} "
 	.. file_name
 	.. "%=%{%v:lua._stl.FileType()%}%{%v:lua._stl.WordCount()%} %l:%c %p%%%{%v:lua._stl.Diagnostics()%} "
 local statusline_nc = "%=" .. file_name

@@ -252,21 +252,6 @@ vim.keymap.set("o", "ae", "<cmd>normal! gg0vG$<cr>", { silent = true, noremap = 
 vim.keymap.set("x", "ae", "<cmd>normal! gg0oG$<cr>", { silent = true, noremap = true })
 -- }}}
 -- }}}
--- Theme {{{
--- Fancy color for macs and X11 sessions:
-if require("dotfiles.utils.use_termguicolors")() then
-	vim.cmd([[let &t_8f='<Esc>[38;2;%lu;%lu;%lum']])
-	vim.cmd([[let &t_8b='<Esc>[48;2;%lu;%lu;%lum']])
-	vim.opt.termguicolors = true
-
-	local ok = pcall(vim.cmd, [[colorscheme lushwal]])
-	if not ok then
-		vim.cmd([[colorscheme default]])
-	end
-else
-	vim.cmd([[colorscheme default]])
-end
--- }}}
 -- Autogroups {{{
 vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
 -- }}}
@@ -344,6 +329,21 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
+-- }}}
+-- Theme {{{
+-- Fancy color for macs and X11 sessions:
+if require("dotfiles.utils.use_termguicolors")() then
+	vim.cmd([[let &t_8f='<Esc>[38;2;%lu;%lu;%lum']])
+	vim.cmd([[let &t_8b='<Esc>[48;2;%lu;%lu;%lum']])
+	vim.opt.termguicolors = true
+
+	local ok = pcall(vim.cmd, [[colorscheme lushwal]])
+	if not ok then
+		vim.cmd([[colorscheme default]])
+	end
+else
+	vim.cmd([[colorscheme default]])
+end
 -- }}}
 -- Commands {{{
 

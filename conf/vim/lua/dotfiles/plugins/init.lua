@@ -81,11 +81,10 @@ return require("packer").startup({
 			}, -- Autopairs + Endwise
 			"michaeljsmith/vim-indent-object", -- ii, ai, aI for indent-based textobjects
 			-- Extra functionality + UI:
-			{ "kyazdani42/nvim-web-devicons" }, -- Icons, used in the statusline
+			{ "kyazdani42/nvim-web-devicons", cond = require("dotfiles.utils.use_termguicolors") }, -- Icons, used in the statusline
 			{
 				"ibhagwan/fzf-lua",
 				-- Configured in ~/dotfiles/conf/vim/after/plugin/fzf-lua.lua
-				requires = { "kyazdani42/nvim-web-devicons" },
 			}, -- FZF Client
 			{
 				"lambdalisue/gina.vim",
@@ -312,11 +311,6 @@ return require("packer").startup({
 					})
 				end,
 			}, -- Highlight colors in files
-			{
-				"rebelot/heirline.nvim",
-				-- Configured in ~/dotfiles/conf/vim/after/plugin/heirline.lua
-				cond = require("dotfiles.utils.use_termguicolors"),
-			}, -- Statusline
 		})
 	end,
 })
