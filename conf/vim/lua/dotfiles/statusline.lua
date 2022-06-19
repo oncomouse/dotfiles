@@ -127,7 +127,7 @@ local function active()
 	return vim.g.statusline_winid == vim.fn.win_getid()
 end
 
-function _stl.sl_stl()
+function _stl.StatusLine()
 	return active() and statusline or statusline_nc
 end
-vim.opt.statusline = "%!v:lua._stl.sl_stl()"
+vim.opt.statusline = "%!v:lua._stl.StatusLine()"
