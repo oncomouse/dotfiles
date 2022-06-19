@@ -9,16 +9,17 @@ local function hl_name(h)
 		.. (h.sp and string.gsub(h.sp, "#", "") or "_")
 end
 
+local no = vim.api.nvim_get_hl_by_name("Normal", true)
+
 local function rgb_or_ansi(color)
 	if type(color) == "string" then
 		return color
 	end
 	local ok, hi = pcall(vim.api.nvim_get_hl_by_name, "AnsiColor" .. color, true)
-	return ok and hi.foreground or ""
+	return ok and hi.foreground or no.background
 end
 
 local function hl_group(h, n)
-	local no = vim.api.nvim_get_hl_by_name("Normal", true)
 	local hl = {}
 	hl.foreground = h.fg and rgb_or_ansi(h.fg) or no.foreground
 	if type(h.fg) == "number" then
