@@ -43,7 +43,11 @@ if ok then
 			["gutter"] = { "bg", "Normal" },
 		},
 	})
+
+	-- Register fzf-lua as vim.ui.select
 	require("fzf-lua").register_ui_select()
+
+	-- :Files command
 	vim.api.nvim_create_user_command("Files", function(args)
 		require("fzf-lua").files({
 			fzf_opts = { ["--layout"] = "reverse-list", ["--info"] = "inline" },
@@ -54,11 +58,15 @@ if ok then
 		force = true,
 		nargs = "?",
 	})
+
+	-- :Buffers command
 	vim.api.nvim_create_user_command("Buffers", function()
 		require("fzf-lua").buffers()
 	end, {
 		force = true,
 	})
+
+	-- :GitStatus command
 	vim.api.nvim_create_user_command("GitStatus", function()
 		require("fzf-lua").git_status()
 	end, {
