@@ -190,6 +190,11 @@ return require("packer").startup({
 				end,
 			}, -- LSP
 			{
+				"anuvyklack/hydra.nvim",
+				config = function()
+				end,
+			},
+			{
 				"nvim-treesitter/nvim-treesitter",
 				-- Configured in ~/dotfiles/conf/vim/after/plugin/nvim-treesitter.lua
 				run = function()
