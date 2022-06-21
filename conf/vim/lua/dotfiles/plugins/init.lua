@@ -243,34 +243,13 @@ return require("packer").startup({
 				},
 			}, -- Markdown Syntax
 			-- Appearance:
-			-- {
-			-- 	"lukas-reineke/indent-blankline.nvim",
-			-- 	config = function()
-			-- 		require("indent_blankline").setup({
-			-- 			buftype_exclude = { "terminal" },
-			-- 			filetype_exclude = {
-			-- 				"diff",
-			-- 				"fzf",
-			-- 				"gina-status",
-			-- 				"help",
-			-- 				"lsp-installer",
-			-- 				"markdown",
-			-- 				"packer",
-			-- 				"qf",
-			-- 			},
-			-- 			show_current_context = true,
-			-- 			context_patterns = { "class", "function", "method", "^if", "table", "^for", "^while" },
-			-- 			show_current_context_start = true,
-			-- 		})
-			-- 	end,
-			-- },
 			{
 				"oncomouse/lushwal.nvim",
 				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 				config = function()
 					vim.g.lushwal_configuration = {
 						addons = {
-							indent_blankline_nvim = true,
+							hydra_nvim = true,
 							gina = true,
 							markdown = true,
 						},
