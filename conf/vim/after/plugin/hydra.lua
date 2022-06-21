@@ -26,4 +26,5 @@ if ok then
 			{ "=", "<C-w>=", { desc = "equalize" } },
 		},
 	})
+
 end
