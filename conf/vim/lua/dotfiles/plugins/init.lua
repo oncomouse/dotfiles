@@ -237,18 +237,6 @@ return require("packer").startup({
 					},
 				},
 			}, -- Markdown Syntax
-			-- TMUX:
-			{
-				"christoomey/vim-tmux-navigator",
-				config = function()
-					vim.g.tmux_navigator_no_mappings = 1
-					vim.keymap.set("n", "<C-Space>h", ":TmuxNavigateLeft<cr>", { noremap = true, silent = true })
-					vim.keymap.set("n", "<C-Space>j", ":TmuxNavigateDown<cr>", { noremap = true, silent = true })
-					vim.keymap.set("n", "<C-Space>k", ":TmuxNavigateUp<cr>", { noremap = true, silent = true })
-					vim.keymap.set("n", "<C-Space>l", ":TmuxNavigateRight<cr>", { noremap = true, silent = true })
-					vim.keymap.set("n", "<C-Space>`", ":TmuxNavigatePrevious<cr>", { noremap = true, silent = true })
-				end,
-			}, -- Standardize TMUX pane jumps and Vim pane jumps
 			-- Appearance:
 			{
 				"lukas-reineke/indent-blankline.nvim",
