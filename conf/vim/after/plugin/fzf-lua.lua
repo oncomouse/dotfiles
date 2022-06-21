@@ -1,4 +1,4 @@
-local ok = require("fzf-lua")
+local ok = pcall(require, "fzf-lua")
 if ok then
 	local wh = vim.api.nvim_win_get_height(0)
 	local ph = vim.o.previewheight
