@@ -75,11 +75,11 @@ function select_digraph(mode)
 		end
 		if string.match(mode, "^i$") then
 			if vim.fn.mode() ~= "i" then
-				if get_cursor_column() ~= 0 then
-					vim.api.nvim_feedkeys("a", "", false)
-				else
+				-- if get_cursor_column() ~= 0 then
+				-- 	vim.api.nvim_feedkeys("a", "", false)
+				-- else
 					vim.api.nvim_feedkeys("i", "", false)
-				end
+				-- end
 			end
 			vim.api.nvim_feedkeys("" .. choice[2], "", false)
 		elseif string.match(mode, "^r$") then
