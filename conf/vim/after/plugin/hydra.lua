@@ -26,4 +26,14 @@ if ok then
 			{ "=", "<C-w>=", { desc = "equalize" } },
 		},
 	})
+
+	Hydra({
+		name = "Buffer switcher",
+		mode = "n",
+		body = "b",
+		heads = {
+			{ "[", "<cmd>bprev<cr>" },
+			{ "]", "<cmd>bnext<cr>" },
+		}
+	})
 end
