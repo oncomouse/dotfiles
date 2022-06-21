@@ -68,6 +68,15 @@ end
 
 vim.opt.wrapscan = true
 
+-- Linewrap:
+vim.opt.wrap = false
+vim.opt.sidescroll = 5
+vim.opt.showbreak = "↲ "
+
+-- Listchars:
+vim.opt.listchars = "tab:│ ,nbsp:␣,trail:•,precedes:<,extends:>"
+vim.opt.list = true
+
 -- Mouse And Clipboard:
 vim.opt.mouse = "a" -- Mouse support
 if vim.fn.has("clipboard") == 1 then
@@ -271,11 +280,19 @@ vim.api.nvim_create_autocmd(
 )
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE gui=NONE" }
+	{
+		group = "dotfiles-settings",
+		pattern = "default",
+		command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE gui=NONE",
+	}
 )
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE gui=NONE" }
+	{
+		group = "dotfiles-settings",
+		pattern = "default",
+		command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE gui=NONE",
+	}
 )
 
 -- Turn Off Line Numbering:
@@ -366,6 +383,7 @@ vim.api.nvim_create_user_command("Format", "silent normal! mxgggqG`x<CR>", {
 vim.api.nvim_create_user_command("Spaces", function(args)
 	local wv = vim.fn.winsaveview()
 	vim.opt_local.expandtab = true
+	vim.opt_local.listchars = vim.opt_local.listchars + "multispace:│" .. vim.fn["repeat"](" ", args.args)
 	vim.cmd("silent execute '%!expand -it" .. args.args .. "'")
 	vim.fn.winrestview(wv)
 	vim.cmd("setlocal ts? sw? sts? et?")
