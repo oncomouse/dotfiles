@@ -2,17 +2,17 @@ local ok, Hydra = pcall(require,"hydra")
 
 if ok then
 
-	Hydra({
-		name = "Side scroll",
-		mode = "n",
-		body = "z",
-		heads = {
-			{ "h", "5zh" },
-			{ "l", "5zl", { desc = "←/→" } },
-			{ "H", "zH" },
-			{ "L", "zL", { desc = "half screen ←/→" } },
-		},
-	})
+	-- Hydra({
+	-- 	name = "Side scroll",
+	-- 	mode = "n",
+	-- 	body = "z",
+	-- 	heads = {
+	-- 		{ "h", "5zh" },
+	-- 		{ "l", "5zl", { desc = "←/→" } },
+	-- 		{ "H", "zH" },
+	-- 		{ "L", "zL", { desc = "half screen ←/→" } },
+	-- 	},
+	-- })
 
 	Hydra({
 		name = "Resize windows",
