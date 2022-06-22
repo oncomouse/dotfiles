@@ -247,6 +247,14 @@ return require("packer").startup({
 				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 				config = function()
 					vim.g.lushwal_configuration = {
+						color_overrides = function(colors)
+							local overrides = {
+								red = colors.color5,
+								orange = colors.color1,
+								amaranth = colors.color5.mix(colors.color4, 34).saturate(46).darken(5),
+							}
+							return vim.tbl_extend("force", colors, overrides)
+						end,
 						addons = {
 							hydra_nvim = true,
 							gina = true,
