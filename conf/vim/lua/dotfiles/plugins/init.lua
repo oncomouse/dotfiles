@@ -247,6 +247,7 @@ return require("packer").startup({
 				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 				config = function()
 					vim.g.lushwal_configuration = {
+						-- Ayu Mirage is weird, so we do some overrides:
 						color_overrides = function(colors)
 							local overrides = {
 								red = colors.color5,
