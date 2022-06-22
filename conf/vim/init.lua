@@ -70,8 +70,8 @@ vim.opt.wrapscan = true
 
 -- Linewrap:
 -- vim.opt.wrap = false
--- vim.opt.sidescroll = 5
--- vim.opt.showbreak = "↲ "
+vim.opt.sidescroll = 5
+vim.opt.showbreak = "↲ "
 
 -- Listchars:
 vim.opt.listchars = "tab:│ ,nbsp:␣,trail:•,precedes:<,extends:>"
