@@ -11,5 +11,5 @@ rofi \
 "-location" \
 "1" \
 "-theme-str" \
-"window { width: 100%; }" > /dev/null
+"window { width: 100%; }" | cut -d " " -f 1 | tr -d '\n' | xclip -i -selection clipboard
 # vim:ft=sh
