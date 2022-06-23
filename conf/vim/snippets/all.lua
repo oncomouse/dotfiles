@@ -29,4 +29,12 @@ return {
 			return "(" .. parent.env.POSTFIX_MATCH .. ")"
 		end),
 	}),
+	postfix(".fn", {
+		d(1, function(_, parent)
+			return sn(nil, {
+				i(1),
+				t("(" .. parent.env.POSTFIX_MATCH .. ")"),
+			})
+		end),
+	}),
 }
