@@ -192,7 +192,7 @@ return require("packer").startup({
 			{
 				"anuvyklack/hydra.nvim",
 				-- Configured in ~/dotfiles/conf/vim/after/plugin/hydra.lua
-			},
+			}, -- Repeating keys mode (used for window resizing, atm)
 			{
 				"nvim-treesitter/nvim-treesitter",
 				-- Configured in ~/dotfiles/conf/vim/after/plugin/nvim-treesitter.lua
@@ -256,6 +256,7 @@ return require("packer").startup({
 							}
 							return vim.tbl_extend("force", colors, overrides)
 						end,
+						-- Here's all the addons we need:
 						addons = {
 							hydra_nvim = true,
 							gina = true,
@@ -269,8 +270,8 @@ return require("packer").startup({
 				config = function()
 					if vim.opt.termguicolors:get() then
 						require("colorizer").setup({
-							"*",
-							"!packer",
+							"*", -- Load everywhere
+							"!packer", -- Except packer buffers
 							html = { names = true, RRGGBBAA = false },
 							css = { css = true, RRGGBBAA = false },
 							scss = {
@@ -279,11 +280,12 @@ return require("packer").startup({
 								custom_matcher = require("colorizer/sass").variable_matcher,
 							},
 						}, {
-							names = false,
+							names = false, -- Turn off highlighting color words in non-HTML/CSS settings
 							RRGGBBAA = true,
 							mode = "background", -- Could be background, foreground, or virtualtext
 						})
 					end
+					-- Attach the variable matcher to scss buffers:
 					vim.api.nvim_create_autocmd("FileType", {
 						group = "dotfiles-settings",
 						pattern = "scss",
