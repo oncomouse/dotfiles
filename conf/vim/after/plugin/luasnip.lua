@@ -34,7 +34,7 @@ if ok then
 		remap = true,
 	})
 	vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
-		if ls.in_snippet() and ls.jumpable(-1) then
+		if ls.jumpable(-1) then
 			return "<Plug>luasnip-jump-prev"
 		end
 		return t("<S-Tab>")
