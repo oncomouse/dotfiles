@@ -119,9 +119,6 @@ if vim.fn.has("mac") == 1 and vim.fn.has("nvim") == 1 then
 	}
 end
 -- }}}
--- Statusline {{{
-require("dotfiles.statusline")
--- }}}
 -- Tabs {{{
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4

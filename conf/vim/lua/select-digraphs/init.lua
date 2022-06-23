@@ -1,10 +1,10 @@
 -- This is better-digraphs.nvim with telescope.nvim replaced with vim.ui.select
 --   (original is at: https://github.com/protex/better-digraphs.nvim)
 
-local get_cursor_column = function()
-	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col
-end
+-- local get_cursor_column = function()
+-- 	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+-- 	return col
+-- end
 
 local match_digraph_table_header = function(line)
 	return string.match(line, "official name")
@@ -54,7 +54,7 @@ end
 
 local digraphs = nil
 
-function select_digraph(mode)
+local function select_digraph(mode)
 	mode = mode or "i"
 
 	-- Load digraphs and strip off the ones that don't come out of the parser correctly:

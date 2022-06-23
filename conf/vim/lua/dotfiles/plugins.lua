@@ -244,7 +244,7 @@ return require("packer").startup({
 			-- Appearance:
 			{
 				"oncomouse/lushwal.nvim",
-				requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
+				requires = { { "oncomouse/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 				config = function()
 					vim.g.lushwal_configuration = {
 						-- Ayu Mirage is weird, so we do some overrides:
