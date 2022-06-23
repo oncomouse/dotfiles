@@ -225,7 +225,7 @@ return require("packer").startup({
 			}, -- Treesitter-based Syntax
 			-- Non-Treesitter Syntax:
 			{
-				"plasticboy/vim-markdown",
+				"preservim/vim-markdown",
 				ft = "markdown",
 				setup = function()
 					vim.g.vim_markdown_frontmatter = 1 -- Format YAML
