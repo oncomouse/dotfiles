@@ -1,5 +1,7 @@
 _stl = {}
 
+-- vim.opt.laststatus = 3 -- Use global statusline
+
 local color = require("dotfiles.statusline.color")
 local fm_hrl = require("dotfiles.statusline.from_heirline")
 

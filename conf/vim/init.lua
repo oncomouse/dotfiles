@@ -17,9 +17,6 @@ vim.opt.autowrite = true --  Autosave files
 vim.opt.hidden = true --  turn off buffer saving when switching
 vim.opt.lazyredraw = true --  Don't redraw between macro runs (may make terminal flicker)
 
--- Turn off cmdheight
--- vim.opt.cmdheight = 0
-
 -- Override Default Split Creation Locations:
 vim.opt.splitbelow = true
 vim.opt.splitright = true
@@ -56,6 +53,7 @@ vim.opt.wildcharm = vim.fn.char2nr("^Z")
 -- Set path to current file direction and pwd:
 vim.opt.path = ".,,"
 
+-- Use better grep, if available:
 if vim.fn.executable("rg") == 1 then
 	vim.opt.grepprg = "rg --vimgrep"
 	vim.opt.grepformat = "%f:%l:%c:%m"
@@ -66,12 +64,13 @@ else
 	vim.opt.grepprg = "grep -rn"
 end
 
-vim.opt.wrapscan = true
+-- Searching:
+vim.opt.wrapscan = true -- Start scan over at the top
 
 -- Linewrap:
 -- vim.opt.wrap = false
-vim.opt.sidescroll = 5
-vim.opt.showbreak = "↲ "
+vim.opt.sidescroll = 5 -- Unused without set wrap, but prepared in case it is used
+vim.opt.showbreak = "↳ " -- Show a line has wrapped
 
 -- Listchars:
 vim.opt.listchars = "tab:│ ,nbsp:␣,trail:•,precedes:<,extends:>"
@@ -122,7 +121,6 @@ end
 -- }}}
 -- Statusline {{{
 require("dotfiles.statusline")
--- vim.opt.laststatus = 3 -- Use global statusline
 -- }}}
 -- Tabs {{{
 vim.opt.tabstop = 4
@@ -131,6 +129,7 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = false
 -- }}}
 -- Functions {{{
+-- Open or close quickfix or loclist
 local function list_toggle(pfx, force_open)
 	if not force_open then
 		local status = vim.g["dotfiles_" .. pfx .. "open"] or 0
@@ -150,6 +149,7 @@ local function list_toggle(pfx, force_open)
 	vim.cmd(pfx .. "open")
 end
 
+-- Run grep! unless we're in quickfix results, then run cfilter
 local function grep_or_qfgrep()
 	if vim.opt.buftype:get() == "quickfix" then
 		-- Load cfilter in quickfix view:
@@ -168,9 +168,6 @@ local function grep_or_qfgrep()
 end
 -- }}}
 -- Maps {{{
-
--- Select the Whole File:
-vim.keymap.set("n", "<leader>vf", "ggVG", { noremap = true })
 
 -- Clear Currently Highlighted Regexp:
 vim.keymap.set("n", "<leader>cr", ':let<C-u>let @/=""<CR>', { silent = true, noremap = true })
@@ -228,22 +225,14 @@ vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
 -- Sourced from jessarcher/dotfiles {{{
 --  \ https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
 
--- Quicker switching between windows
-vim.keymap.set("n", "<C-h>", "<C-w>h", { silent = true })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { silent = true })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { silent = true })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { silent = true })
-
 -- Reselect visual selection after indenting
-vim.keymap.set("v", "<", "<gv", { noremap = true })
-vim.keymap.set("v", ">", ">gv", { noremap = true })
+-- vim.keymap.set("v", "<", "<gv", { noremap = true })
+-- vim.keymap.set("v", ">", ">gv", { noremap = true })
 
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 vim.keymap.set("n", "j", "(v:count == 0 ? 'gj' : 'j')", { silent = true, noremap = true, expr = true })
 vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap = true, expr = true })
 
--- Paste replace visual selection without copying it
-vim.keymap.set("v", "<leader>p", '"_dP', { noremap = true })
 -- }}}
 -- FZF Bindings: {{{
 vim.keymap.set("n", "<c-p>", "<cmd>Files<CR>", { silent = true })
@@ -415,7 +404,7 @@ end, {
 })
 
 -- }}}
--- Signs: {{{
+-- Signs {{{
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
