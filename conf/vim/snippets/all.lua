@@ -1,3 +1,4 @@
+local postfix = require("luasnip.extras.postfix").postfix
 return {
 	s("dc", {
 		f(function()

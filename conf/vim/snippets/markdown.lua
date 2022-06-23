@@ -1,3 +1,4 @@
+local postfix = require("luasnip.extras.postfix").postfix
 -- Infinite lists (based on LaTeX example on LuaSnip's wiki)
 local rec_ls
 rec_ls = function(delim)
