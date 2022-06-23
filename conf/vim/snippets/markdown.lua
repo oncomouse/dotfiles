@@ -37,4 +37,14 @@ return {
 			return "**" .. parent.env.POSTFIX_MATCH .. "**"
 		end),
 	}),
+	postfix(".link", {
+		d(1, function(_, parent)
+			return sn(nil, {
+				t("[" .. parent.env.POSTFIX_MATCH .. "]"),
+				t("("),
+				i(1),
+				t(")"),
+			})
+		end)
+	})
 }
