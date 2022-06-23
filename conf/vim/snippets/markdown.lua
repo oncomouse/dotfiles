@@ -27,4 +27,14 @@ return {
 		d(2, rec_ls("*"), {}),
 		i(0),
 	}),
+	postfix(".it", {
+		f(function(_, parent)
+			return "*" .. parent.env.POSTFIX_MATCH .. "*"
+		end),
+	}),
+	postfix(".bd", {
+		f(function(_, parent)
+			return "**" .. parent.env.POSTFIX_MATCH .. "**"
+		end),
+	}),
 }
