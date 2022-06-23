@@ -51,7 +51,7 @@ function _stl.FileName()
 	if vim.bo.buftype == "quickfix" then
 		local title = vim.w.quickfix_title or ""
 		local name = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "Location List" or "Quickfix List"
-		return "[" .. color.hl({ fg = 3 }) .. name .. "%*" .."] " .. title
+		return "[" .. color.hl({ fg = 3 }) .. name .. "%*" .. "] " .. title
 	end
 	if filename == "" then
 		return "[No Name]"
@@ -67,7 +67,7 @@ end
 function _stl.FileFlags()
 	local flags = ""
 	if fm_hrl.buffer_matches({
-		buftype =  { "quickfix", "terminal" }
+		buftype = { "quickfix", "terminal" },
 	}) then
 		return ""
 	end
@@ -85,7 +85,7 @@ end
 
 function _stl.FileIcon()
 	if fm_hrl.buffer_matches({
-		buftype =  { "quickfix", "terminal" }
+		buftype = { "quickfix", "terminal" },
 	}) then
 		return ""
 	end
@@ -101,15 +101,31 @@ end
 
 function _stl.FileType()
 	if fm_hrl.buffer_matches({
-		buftype =  { "quickfix", "terminal" }
+		buftype = { "quickfix", "terminal" },
 	}) then
 		return ""
 	end
 	return "[" .. color.hl({ fg = 3 }) .. vim.bo.filetype .. "%*]"
 end
 
+function _stl.LuaSnip()
+	local has_luasnip, ls = pcall(require, "luasnip")
+	if has_luasnip then
+		local forward, backward, choice
+		if ls.expand_or_locally_jumpable() then
+			forward = ls.jumpable(1) and "" or ""
+			backward = ls.jumpable(-1) and "" or ""
+			choice = ls.choice_active() and "?" or ""
+			if #forward + #backward + #choice > 0 then
+				return " [ " .. color.hl({ bold = true }) .. backward .. forward .. choice .. "%*]"
+			end
+		end
+	end
+	return ""
+end
+
 local file_name = "%{%v:lua._stl.FileName()%}%{%v:lua._stl.FileFlags()%}"
-local statusline = "%{%v:lua._stl.FileIcon()%} "
+local statusline = "%{%v:lua._stl.LuaSnip()%}%{%v:lua._stl.FileIcon()%} "
 	.. file_name
 	.. "%=%{%v:lua._stl.FileType()%}%{%v:lua._stl.WordCount()%} %l:%c %p%%%{%v:lua._stl.Diagnostics()%} "
 local statusline_nc = "%=" .. file_name .. " "
