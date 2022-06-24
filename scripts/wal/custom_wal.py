@@ -61,9 +61,12 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     if which("xrdb") is not None:
         message("Reloading xrdb")
         system("xrdb {}/.Xresources".format(home))
+        system("xrdb -merge ~/.cache/wal/dwm.Xresources")
+        system("xrdb -merge ~/.cache/wal/dmenu.Xresources")
     if which("awesome-client") is not None:
         message("Reloading awesome")
-        system('echo "awesome:restart()" | awesome-client')
+        system('pgrep -c awesome && echo "awesome:restart()" | awesome-client')
+
     if re.match(r"kitty", environ["TERM"]) is not None:
         message("Reloading kitty")
         system(
