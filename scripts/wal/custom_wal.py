@@ -3,6 +3,7 @@ import sys
 from os import environ
 from os import path
 from os import system
+from os import WEXITSTATUS
 from pathlib import Path
 from shutil import copyfile
 from shutil import which
@@ -43,6 +44,10 @@ def message(msg, output="info"):
     )
 
 
+def pgrep(process):
+    return WEXITSTATUS(system("pgrep -c {}".format(process))) == 0
+
+
 if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     # Make a vim dir to add to &runtimepath:
     # message("Configuring Vim")
@@ -63,9 +68,9 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
         system("xrdb {}/.Xresources".format(home))
         system("xrdb -merge ~/.cache/wal/dwm.Xresources")
         system("xrdb -merge ~/.cache/wal/dmenu.Xresources")
-    if which("awesome-client") is not None:
+    if pgrep("awesome"):
         message("Reloading awesome")
-        system('pgrep -c awesome && echo "awesome:restart()" | awesome-client')
+        system('echo "awesome:restart()" | awesome-client')
 
     if re.match(r"kitty", environ["TERM"]) is not None:
         message("Reloading kitty")
