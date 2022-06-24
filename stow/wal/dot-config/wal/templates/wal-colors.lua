@@ -1,5 +1,5 @@
-return {
-	{
+return {{
+	{{
 		foreground = "{foreground}",
 		background = "{background}",
 		cursor = "{cursor}",
@@ -19,5 +19,5 @@ return {
 		color14 = "{color14}",
 		color7 = "{color7}",
 		color15 = "{color15}",
-	},
-}
+	}},
+}}
