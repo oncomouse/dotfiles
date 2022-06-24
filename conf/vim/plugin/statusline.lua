@@ -51,7 +51,7 @@ function _stl.FileName()
 	if vim.bo.buftype == "quickfix" then
 		local title = vim.w.quickfix_title or ""
 		local name = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "Location List" or "Quickfix List"
-		return "[" .. color.hl({ fg = 3 }) .. name .. "%*" .. "] " .. title
+		return "[" .. color.hl({ fg = 3, bg = 8 }) .. name .. "%*" .. "] " .. title
 	end
 	if filename == "" then
 		return "[No Name]"
@@ -96,16 +96,17 @@ function _stl.FileIcon()
 	local filename = vim.api.nvim_buf_get_name(0)
 	local extension = vim.fn.fnamemodify(filename, ":e")
 	local icon, icon_color = di.get_icon_color(filename, extension, { default = true })
-	return icon and (color.hl({ fg = icon_color }) .. " " .. icon .. "%*") or ""
+	return icon and (color.hl({ fg = icon_color, bg = 8 }) .. " " .. icon .. "%*") or ""
 end
 
 function _stl.FileType()
 	if fm_hrl.buffer_matches({
 		buftype = { "quickfix", "terminal" },
+		filetype = { "" },
 	}) then
 		return ""
 	end
-	return "[" .. color.hl({ fg = 3 }) .. vim.bo.filetype .. "%*]"
+	return "[" .. color.hl({ fg = 3, bg = 8 }) .. vim.bo.filetype .. "%*]"
 end
 
 function _stl.LuaSnip()
