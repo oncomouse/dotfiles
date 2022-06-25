@@ -45,7 +45,12 @@ def message(msg, output="info"):
 
 
 def pgrep(process):
-    return WEXITSTATUS(system("pgrep -c {}".format(process))) == 0
+    return (
+        WEXITSTATUS(
+            system("pgrep -c {} > /dev/null 2> /dev/null".format(process))
+        )
+        == 0
+    )
 
 
 if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
