@@ -50,9 +50,11 @@ local function hl_group(h, n)
 	hl.special = h.sp and rgb_or_ansi(h.sp) or no.background
 
 	-- Include any other keys from the original object
-	for _, k in pairs(vim.tbl_filter(function(x)
-		return not vim.tbl_contains({ "fg", "bg", "sp" }, x)
-	end, vim.tbl_keys(h))) do
+	for _, k in
+		pairs(vim.tbl_filter(function(x)
+			return not vim.tbl_contains({ "fg", "bg", "sp" }, x)
+		end, vim.tbl_keys(h)))
+	do
 		hl[k] = h[k]
 	end
 
@@ -67,6 +69,14 @@ local function hl(h)
 	end
 	return "%#" .. n .. "#"
 end
--- End Color
 
-return { hl = hl }
+local function regenerate_colors()
+	hlgs = {}
+end
+
+local ok, lushwal = pcall(require, "lushwal.nvim")
+if ok and vim.g.colors_name == "lushwal" then
+	lushwal.add_reload_hook(regenerate_colors)
+end
+
+return { hl = hl, regenerate_colors = regenerate_colors }
