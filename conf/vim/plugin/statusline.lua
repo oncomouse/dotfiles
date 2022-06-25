@@ -102,7 +102,7 @@ end
 function _stl.FileType()
 	if fm_hrl.buffer_matches({
 		buftype = { "quickfix", "terminal" },
-		filetype = { "" },
+		filetype = { "^$" },
 	}) then
 		return ""
 	end
