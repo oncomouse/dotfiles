@@ -79,6 +79,8 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     if pgrep("ratpoison"):
         system("/bin/bash -c rp-colors.sh")
         system("/bin/bash -c rp-bar.sh")
+    if pgrep("dwm"):
+        system("xdotool key super+F5")
 
     if re.match(r"kitty", environ["TERM"]) is not None:
         message("Reloading kitty")
