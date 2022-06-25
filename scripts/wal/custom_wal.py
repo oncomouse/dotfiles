@@ -71,6 +71,9 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     if pgrep("awesome"):
         message("Reloading awesome")
         system('echo "awesome:restart()" | awesome-client')
+    if pgrep("ratpoison"):
+        system("/bin/bash -c rp-colors.sh")
+        system("/bin/bash -c rp-bar.sh")
 
     if re.match(r"kitty", environ["TERM"]) is not None:
         message("Reloading kitty")
