@@ -293,6 +293,7 @@ return require("packer").startup({
 					})
 				end,
 			}, -- Highlight colors in files
+			{ "rebelot/heirline.nvim" },
 		})
 	end,
 })
