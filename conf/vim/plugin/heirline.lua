@@ -8,12 +8,12 @@ if heirline_available then
 	local function setup_colors()
 		if lushwal_available then
 			return {
-				black = require("lushwal").colors.black.hex,
-				yellow = require("lushwal").colors.yellow.hex,
-				error = require("lushwal").colors.red.hex,
-				warn = require("lushwal").colors.yellow.hex,
-				info = require("lushwal").colors.blue.hex,
-				hint = require("lushwal").colors.cyan.hex,
+				black = lushwal.colors.black.hex,
+				yellow = lushwal.colors.yellow.hex,
+				error = lushwal.colors.red.hex,
+				warn = lushwal.colors.yellow.hex,
+				info = lushwal.colors.blue.hex,
+				hint = lushwal.colors.cyan.hex,
 			}
 		end
 		return {
@@ -45,17 +45,29 @@ if heirline_available then
 			provider = function()
 				return "W:" .. vim.fn.wordcount().words
 			end,
-		}
+		},
 	}
+
+	local DiagnosticComponent = function(type)
+		return {
+			condition = function(self)
+				return self[type] > 0
+			end,
+			provider = function(self)
+				return self.symbols[type] .. self[type]
+			end,
+			hl = { bg = colors[type], fg = colors.black },
+		}
+	end
 
 	local Diagnostics = {
 		condition = conditions.has_diagnostics,
 		static = {
 			symbols = {
-				error = vim.api.nvim_get_hl_by_name("DiagnosticSignError", true).text,
-				warn = vim.api.nvim_get_hl_by_name("DiagnosticSignWarn", true).text,
-				info = vim.api.nvim_get_hl_by_name("DiagnosticSignInfo", true).text,
-				hint = vim.api.nvim_get_hl_by_name("DiagnosticSignHint", true).text,
+				error = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
+				warn = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
+				info = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
+				hint = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
 			},
 		},
 		init = function(self)
@@ -65,42 +77,11 @@ if heirline_available then
 			self.hint = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
 		end,
 		{
-			{
-				condition = function(self)
-					return self.error > 0
-				end,
-				provider = function(self)
-					return self.symbols.error .. " " .. self.error
-				end,
-				hl = { bg = colors.error, fg = colors.black },
-			},
-			{
-				condition = function(self)
-					return self.warn > 0
-				end,
-				provider = function(self)
-					return self.symbols.warn .. " " .. self.warn
-				end,
-				hl = { bg = colors.warn, fg = colors.black },
-			},
-			{
-				condition = function(self)
-					return self.info > 0
-				end,
-				provider = function(self)
-					return self.symbols.info .. " " .. self.info
-				end,
-				hl = { bg = colors.info, fg = colors.black },
-			},
-			{
-				condition = function(self)
-					return self.hint > 0
-				end,
-				provider = function(self)
-					return self.symbols.hint .. " " .. self.hint
-				end,
-				hl = { bg = colors.hint, fg = colors.black },
-			},
+			Space,
+			DiagnosticComponent("error"),
+			DiagnosticComponent("warn"),
+			DiagnosticComponent("info"),
+			DiagnosticComponent("hint"),
 		},
 	}
 
@@ -147,11 +128,11 @@ if heirline_available then
 				hl = function()
 					if conditions.is_active() then
 						return {
-							fg = colors.yellow
+							fg = colors.yellow,
 						}
 					end
 					return {}
-				end
+				end,
 			},
 			{ provider = "]" },
 			{
@@ -184,11 +165,11 @@ if heirline_available then
 				hl = function()
 					if conditions.is_active() then
 						return {
-							fg = colors.yellow
+							fg = colors.yellow,
 						}
 					end
 					return {}
-				end
+				end,
 			},
 			{ provider = "]" },
 		},
@@ -309,11 +290,11 @@ if heirline_available then
 				hl = function()
 					if conditions.is_active() then
 						return {
-							fg = colors.yellow
+							fg = colors.yellow,
 						}
 					end
 					return {}
-				end
+				end,
 			},
 			{ provider = "]" },
 		},
@@ -353,12 +334,12 @@ if heirline_available then
 
 	local Position = {
 		Space,
-		{ provider = "%l:%c", }
+		{ provider = "%l:%c" },
 	}
 
 	local Percentage = {
 		Space,
-		{ provider = "%p%%", }
+		{ provider = "%p%%" },
 	}
 
 	local StatuslineNC = {
@@ -416,7 +397,7 @@ if heirline_available then
 			Position,
 			Percentage,
 			Space,
-		}
+		},
 	}
 
 	local StatusLines = {
@@ -445,12 +426,12 @@ if heirline_available then
 		end)
 	end
 
-	vim.api.nvim_create_augroup("Heirline", { clear = true })
+	local stl_augroup = vim.api.nvim_create_augroup("Heirline", { clear = true })
 	vim.api.nvim_create_autocmd("ColorScheme", {
 		callback = function()
 			heirline.reset_highlights()
 			heirline.load_colors(setup_colors())
 		end,
-		group = "Heirline",
+		group = stl_augroup,
 	})
 end
