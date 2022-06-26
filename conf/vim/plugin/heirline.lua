@@ -147,6 +147,7 @@ if heirline_available then
 					end,
 				})
 			),
+			Space,
 			{
 				provider = function()
 					local title = vim.w.quickfix_title or ""
