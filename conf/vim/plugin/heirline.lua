@@ -150,7 +150,7 @@ if heirline_available then
 		},
 	}
 
-	local FileNameFromFilename = {
+	local FileNameFromFiletype = {
 		utils.surround(
 			{ "[", "]" },
 			nil,
@@ -341,7 +341,7 @@ if heirline_available then
 		init = utils.pick_child_on_condition,
 		FileNameTerminal,
 		FileNameQF,
-		FileNameFromFilename,
+		FileNameFromFiletype,
 		FileNameNoName,
 	}
 
