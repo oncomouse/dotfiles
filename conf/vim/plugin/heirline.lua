@@ -70,6 +70,7 @@ if heirline_available then
 				hint = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
 			},
 		},
+		update = { "DiagnosticChanged", "BufEnter" },
 		init = function(self)
 			self.error = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
 			self.warn = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
@@ -85,7 +86,7 @@ if heirline_available then
 		},
 	}
 
-	local FileNameBlock = {
+	local FileNameBlockComponent = {
 		init = function(self)
 			self.filename = vim.api.nvim_buf_get_name(0)
 		end,
@@ -219,7 +220,7 @@ if heirline_available then
 		},
 	}
 
-	FileNameBlock = utils.insert(FileNameBlock, FileName, FileFlags)
+	local FileNameBlock = utils.insert(FileNameBlockComponent, FileName, FileFlags)
 
 	local FileIcon = {
 		init = function(self)
@@ -354,18 +355,15 @@ if heirline_available then
 		Space,
 	}
 
-	local FileNameSpecial = {
-		init = function(self)
-			self.filename = vim.api.nvim_buf_get_name(0)
-		end,
-		{
+	local SpecialFileName = {
 			init = utils.pick_child_on_condition,
 			FileNameTerminal,
 			FileNameQF,
 			FileNameGit,
 			FileNameNoName,
-		},
 	}
+
+	local SpecialFileNameBlock = utils.insert(FileNameBlockComponent, SpecialFileName)
 
 	local StatuslineSpecial = {
 		condition = function()
@@ -375,7 +373,7 @@ if heirline_available then
 			})
 		end,
 		Space,
-		FileNameSpecial,
+		SpecialFileNameBlock,
 		{
 			condition = function()
 				return not conditions.buffer_matches({
