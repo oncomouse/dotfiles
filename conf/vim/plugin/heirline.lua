@@ -198,28 +198,17 @@ if heirline_available then
 
 	local FileFlags = {
 		init = utils.pick_child_on_condition,
-		{
-			condition = function()
-				return conditions.buffer_matches({
-					buftype = { "quickfix", "terminal" },
-				})
-			end,
-			provider = "",
-		},
+		condition = function()
+			return not conditions.buffer_matches({
+				buftype = { "help" },
+			})
+		end,
 		{
 			{
 				condition = function()
 					return vim.bo.modified
 				end,
 				provider = "[+]",
-			},
-			{
-				condition = function()
-					return conditions.buffer_matches({
-						buftype = { "help" },
-					})
-				end,
-				provider = "[?]",
 			},
 			{
 				condition = function()
