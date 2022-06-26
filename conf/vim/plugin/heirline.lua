@@ -259,11 +259,15 @@ if heirline_available then
 			self.filetype = vim.bo.filetype
 		end,
 		{
-			utils.surround({ "[", "]" }, nil, utils.insert(Highlight, {
-				provider = function(self)
-					return self.filetype
-				end,
-			})),
+			utils.surround(
+				{ "[", "]" },
+				nil,
+				utils.insert(Highlight, {
+					provider = function(self)
+						return self.filetype
+					end,
+				})
+			),
 		},
 	}
 
@@ -281,21 +285,17 @@ if heirline_available then
 			end,
 			{
 				Space,
-				utils.surround(
-					{ "[", "]" },
-					nil,
+				utils.surround({ "[", "]" }, nil, {
+					{ provider = " " },
 					{
-						{ provider = " " },
-						{
-							provider = function(self)
-								return self.backward .. self.forward .. self.choice
-							end,
-							hl = {
-								bold = true,
-							},
+						provider = function(self)
+							return self.backward .. self.forward .. self.choice
+						end,
+						hl = {
+							bold = true,
 						},
-					}
-				),
+					},
+				}),
 			},
 		},
 	}
