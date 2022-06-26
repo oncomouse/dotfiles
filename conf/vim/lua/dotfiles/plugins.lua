@@ -293,7 +293,8 @@ return require("packer").startup({
 					})
 				end,
 			}, -- Highlight colors in files
-			{ "rebelot/heirline.nvim" },
+			{ "rebelot/heirline.nvim" }, -- Statusline
+			-- Configured in ~/dotfiles/conf/vim/plugin/heirline.lua
 		})
 	end,
 })

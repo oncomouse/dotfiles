@@ -29,9 +29,12 @@ if heirline_available then
 				},
 			})
 		end,
-		provider = function()
-			return " W:" .. vim.fn.wordcount().words
-		end,
+		Space,
+		{
+			provider = function()
+				return "W:" .. vim.fn.wordcount().words
+			end,
+		}
 	}
 
 	local Diagnostics = {
@@ -339,12 +342,12 @@ if heirline_available then
 
 	local Position = {
 		Space,
-		provider = "%l:%c",
+		{ provider = "%l:%c", }
 	}
 
 	local Percentage = {
 		Space,
-		provider = "%p%%",
+		{ provider = "%p%%", }
 	}
 
 	local StatuslineNC = {
