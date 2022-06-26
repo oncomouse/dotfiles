@@ -10,6 +10,7 @@ if heirline_available then
 			return {
 				black = lushwal.colors.black.hex,
 				yellow = lushwal.colors.yellow.hex,
+				cyan = lushwal.colors.cyan.hex,
 				error = lushwal.colors.red.hex,
 				warn = lushwal.colors.yellow.hex,
 				info = lushwal.colors.blue.hex,
@@ -19,6 +20,7 @@ if heirline_available then
 		return {
 			black = utils.get_highlight("Normal").bg,
 			yellow = utils.get_highlight("DiagnosticWarn").fg,
+			cyan = utils.get_highlight("DiagnosticHint").fg,
 			error = utils.get_highlight("DiagnosticError").fg,
 			warn = utils.get_highlight("DiagnosticWarn").fg,
 			info = utils.get_highlight("DiagnosticInfo").fg,
@@ -30,16 +32,20 @@ if heirline_available then
 
 	local Space = { provider = " " }
 
-	local Highlight = {
-		hl = function()
-			if conditions.is_active() then
-				return {
-					fg = colors.yellow,
-				}
-			end
-			return {}
-		end,
-	}
+	local HighlightProvider = function(color)
+		return {
+			hl = function()
+				if conditions.is_active() then
+					return {
+						fg = color,
+					}
+				end
+				return {}
+			end,
+		}
+	end
+	local Highlight = HighlightProvider(colors.yellow)
+	local LuaSnipHighlight = HighlightProvider(colors.cyan)
 
 	local WordCount = {
 		condition = function()
@@ -151,6 +157,9 @@ if heirline_available then
 	}
 
 	local FileNameFromFiletype = {
+		condition = function()
+			return vim.bo.filetype ~= ""
+		end,
 		utils.surround(
 			{ "[", "]" },
 			nil,
@@ -285,17 +294,15 @@ if heirline_available then
 			end,
 			{
 				Space,
-				utils.surround({ "[", "]" }, nil, {
-					{ provider = " " },
-					{
+				utils.surround(
+					{ "[", "]" },
+					nil,
+					utils.insert(LuaSnipHighlight, {
 						provider = function(self)
-							return self.backward .. self.forward .. self.choice
+							return " " .. self.backward .. self.forward .. self.choice
 						end,
-						hl = {
-							bold = true,
-						},
-					},
-				}),
+					})
+				),
 			},
 		},
 	}
