@@ -1,7 +1,7 @@
 local heirline_available, heirline = pcall(require, "heirline")
 
 if heirline_available then
-	local lushwal_available, lushwal = pcall(require, "lushwal.nvim")
+	local lushwal_available, lushwal = pcall(require, "lushwal")
 	local utils = require("heirline.utils")
 	local conditions = require("heirline.conditions")
 
@@ -19,8 +19,8 @@ if heirline_available then
 		end
 		return {
 			black = utils.get_highlight("Normal").bg,
-			yellow = utils.get_highlight("DiagnosticWarn").fg,
-			cyan = utils.get_highlight("DiagnosticHint").fg,
+			yellow = utils.get_highlight("Statement").fg,
+			cyan = utils.get_highlight("Identifier").fg,
 			error = utils.get_highlight("DiagnosticError").fg,
 			warn = utils.get_highlight("DiagnosticWarn").fg,
 			info = utils.get_highlight("DiagnosticInfo").fg,
@@ -392,7 +392,6 @@ if heirline_available then
 		Statusline,
 	}
 
-	heirline.load_colors(setup_colors())
 	heirline.setup(StatusLines)
 
 	if lushwal_available then
