@@ -30,6 +30,17 @@ if heirline_available then
 
 	local Space = { provider = " " }
 
+	local Highlight = {
+		hl = function()
+			if conditions.is_active() then
+				return {
+					fg = colors.yellow,
+				}
+			end
+			return {}
+		end,
+	}
+
 	local WordCount = {
 		condition = function()
 			return conditions.buffer_matches({
@@ -119,23 +130,17 @@ if heirline_available then
 			})
 		end,
 		{
-			{ provider = "[" },
-			{
-				provider = function()
-					local name = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "Location List"
-						or "Quickfix List"
-					return name
-				end,
-				hl = function()
-					if conditions.is_active() then
-						return {
-							fg = colors.yellow,
-						}
-					end
-					return {}
-				end,
-			},
-			{ provider = "]" },
+			utils.surround(
+				{ "[", "]" },
+				nil,
+				utils.insert(Highlight, {
+					provider = function()
+						local name = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "Location List"
+							or "Quickfix List"
+						return name
+					end,
+				})
+			),
 			{
 				provider = function()
 					local title = vim.w.quickfix_title or ""
@@ -144,36 +149,18 @@ if heirline_available then
 			},
 		},
 	}
-	local FileNameGit = {
-		condition = function()
-			return conditions.buffer_matches({
-				filetype = { "^gina.*", "diff", "fugitive", "^git.*" },
-			})
-		end,
-		{
-			{ provider = "[" },
-			{
+
+	local FileNameFromFilename = {
+		utils.surround(
+			{ "[", "]" },
+			nil,
+			utils.insert(Highlight, {
 				provider = function()
-					local title = "Git "
 					local ft = vim.bo.filetype
-					if ft == "gina-commit" then
-						title = title .. "Commit"
-					elseif ft == "diff" then
-						title = title .. "Diff"
-					end
-					return title
+					return vim.fn.toupper(ft:sub(1, 1)) .. ft:sub(2)
 				end,
-				hl = function()
-					if conditions.is_active() then
-						return {
-							fg = colors.yellow,
-						}
-					end
-					return {}
-				end,
-			},
-			{ provider = "]" },
-		},
+			})
+		),
 	}
 
 	local FileNameNoName = {
@@ -272,21 +259,11 @@ if heirline_available then
 			self.filetype = vim.bo.filetype
 		end,
 		{
-			{ provider = "[" },
-			{
+			utils.surround({ "[", "]" }, nil, {
 				provider = function(self)
 					return self.filetype
 				end,
-				hl = function()
-					if conditions.is_active() then
-						return {
-							fg = colors.yellow,
-						}
-					end
-					return {}
-				end,
-			},
-			{ provider = "]" },
+			}),
 		},
 	}
 
@@ -304,16 +281,21 @@ if heirline_available then
 			end,
 			{
 				Space,
-				{ provider = "[ " },
-				{
-					provider = function(self)
-						return self.backward .. self.forward .. self.choice
-					end,
-					hl = {
-						bold = true,
-					},
-				},
-				{ provider = "]" },
+				utils.surround(
+					{ "[", "]" },
+					nil,
+					{
+						{ provider = " " },
+						{
+							provider = function(self)
+								return self.backward .. self.forward .. self.choice
+							end,
+							hl = {
+								bold = true,
+							},
+						},
+					}
+				),
 			},
 		},
 	}
@@ -356,11 +338,11 @@ if heirline_available then
 	}
 
 	local SpecialFileName = {
-			init = utils.pick_child_on_condition,
-			FileNameTerminal,
-			FileNameQF,
-			FileNameGit,
-			FileNameNoName,
+		init = utils.pick_child_on_condition,
+		FileNameTerminal,
+		FileNameQF,
+		FileNameFromFilename,
+		FileNameNoName,
 	}
 
 	local SpecialFileNameBlock = utils.insert(FileNameBlockComponent, SpecialFileName)
@@ -369,7 +351,7 @@ if heirline_available then
 		condition = function()
 			return conditions.buffer_matches({
 				buftype = { "quickfix", "terminal" },
-				filetype = { "^gina.*", "diff", "fugitive", "^git.*", "^$" },
+				filetype = { "packer", "^gina.*", "diff", "fugitive", "^git.*", "^$" },
 			})
 		end,
 		Space,
