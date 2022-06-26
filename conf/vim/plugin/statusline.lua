@@ -139,3 +139,9 @@ function _stl.StatusLine()
 	return active() and statusline or statusline_nc
 end
 vim.opt.statusline = "%!v:lua._stl.StatusLine()"
+
+-- Lushwal reload hook
+local ok, lushwal = pcall(require, "lushwal.nvim")
+if ok and vim.g.colors_name == "lushwal" then
+	lushwal.add_reload_hook(color.regenerate_colors)
+end

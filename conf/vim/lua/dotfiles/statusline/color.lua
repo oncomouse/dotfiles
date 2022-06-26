@@ -74,9 +74,4 @@ local function regenerate_colors()
 	hlgs = {}
 end
 
-local ok, lushwal = pcall(require, "lushwal.nvim")
-if ok and vim.g.colors_name == "lushwal" then
-	lushwal.add_reload_hook(regenerate_colors)
-end
-
 return { hl = hl, regenerate_colors = regenerate_colors }
