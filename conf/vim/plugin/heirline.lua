@@ -1,17 +1,28 @@
 local heirline_available, heirline = pcall(require, "heirline")
 
 if heirline_available then
+	local lushwal_available, lushwal = pcall(require, "lushwal.nvim")
 	local utils = require("heirline.utils")
 	local conditions = require("heirline.conditions")
 
 	local function setup_colors()
+		if lushwal_available then
+			return {
+				black = require("lushwal").colors.black.hex,
+				yellow = require("lushwal").colors.yellow.hex,
+				error = require("lushwal").colors.red.hex,
+				warn = require("lushwal").colors.yellow.hex,
+				info = require("lushwal").colors.blue.hex,
+				hint = require("lushwal").colors.cyan.hex,
+			}
+		end
 		return {
-			black = require("lushwal").colors.black.hex,
-			yellow = require("lushwal").colors.yellow.hex,
-			error = require("lushwal").colors.red.hex,
-			warn = require("lushwal").colors.yellow.hex,
-			info = require("lushwal").colors.blue.hex,
-			hint = require("lushwal").colors.cyan.hex,
+			black = utils.get_highlight("Normal").bg,
+			yellow = utils.get_highlight("DiagnosticWarn").fg,
+			error = utils.get_highlight("DiagnosticError").fg,
+			warn = utils.get_highlight("DiagnosticWarn").fg,
+			info = utils.get_highlight("DiagnosticInfo").fg,
+			hint = utils.get_highlight("DiagnosticHint").fg,
 		}
 	end
 
@@ -427,7 +438,6 @@ if heirline_available then
 	heirline.load_colors(setup_colors())
 	heirline.setup(StatusLines)
 
-	local lushwal_available, lushwal = pcall(require, "lushwal.nvim")
 	if lushwal_available and vim.g.colors_name == "lushwal" then
 		lushwal.add_reload_hook(function()
 			heirline.reset_highlights()
