@@ -395,7 +395,7 @@ if heirline_available then
 	heirline.load_colors(setup_colors())
 	heirline.setup(StatusLines)
 
-	if lushwal_available and vim.g.colors_name == "lushwal" then
+	if lushwal_available then
 		lushwal.add_reload_hook(function()
 			heirline.reset_highlights()
 			heirline.load_colors(setup_colors())
