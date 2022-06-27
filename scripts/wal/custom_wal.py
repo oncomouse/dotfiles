@@ -108,17 +108,3 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
         system(
             "ln -sf ~/.cache/wal/pywal.theme ~/.local/share/xfce4/terminal/colorschemes"
         )
-    # if which("pywalfox") is not None:
-    #     message("Updaing pywalfox")
-    #     system("pywalfox update")
-    # Run oomox:
-    # if which("oomox-cli") is not None:
-    #     message("Running oomox-cli")
-    #     system(
-    #         "oomox-cli /opt/oomox/scripted_colors/xresources/xresources-reverse > /dev/null"
-    #     )
-    # if which("oomox-archdroid-icons-cli"):
-    #     message("Running oomox-archdroid-icons-cli")
-    #     system(
-    #         "oomox-archdroid-icons-cli /opt/oomox/scripted_colors/xresources/xresources-reverse > /dev/null"
-    #     )
