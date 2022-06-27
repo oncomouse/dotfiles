@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+# shellcheck disable=2034
 font=${1:-"FiraCode Nerd Font 12"}
-choice="$(wal --theme | rg "^ -" | rg -v random | sed -e "s/^ - //" | sort | uniq | \
+themes="$(wal --theme)"
+light="$(echo "$themes" | tail +"$(echo "$themes" | rg -n "Light" | cut -d : -f 1)" | rg "^ -" | rg -v random | sed -e "s/^ - //" | sort | uniq)"
+choice="$(echo "$themes" | rg "^ -" | rg -v random | sed -e "s/^ - //" | sort | uniq | \
 rofi \
 -match fuzzy \
 -no-fixed-num-lines \
@@ -13,6 +16,10 @@ rofi \
 "-theme-str" \
 "window { width: 100%; }")"
 if [ "$choice" != "" ]; then
-	python3 ~/dotfiles/scripts/wal/custom_wal.py --theme "$choice"
+	if [ "$(echo "$light" | grep -c "$choice")" -eq 0 ]; then
+		python3 ~/dotfiles/scripts/wal/custom_wal.py --theme "$choice"
+	else
+		python3 ~/dotfiles/scripts/wal/custom_wal.py --theme "$choice" -l
+	fi
 fi
 # vim:ft=sh
