@@ -242,15 +242,9 @@ if heirline_available then
 		Space,
 		{
 			provider = function(self)
-				if not self.di_ok then
-					return ""
-				end
 				return self.icon
 			end,
 			hl = function(self)
-				if not self.di_ok then
-					return {}
-				end
 				return {
 					fg = self.fg,
 				}
