@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# shellcheck disable=2034
 font=${1:-"FiraCode Nerd Font 12"}
 config_path=${XDG_CONFIG_HOME:-"$HOME/.config"}
 themes="$(wal --theme)"
