@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=PolicyKit Authentication Agent
+Comment[ar]=مدير الاستيثاق PolicyKit
+Categories=
+NoDisplay=true
+OnlyShowIn=XFCE;
+Hidden=true
