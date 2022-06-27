@@ -7,7 +7,7 @@ systemctl --user import-environment DISPLAY
 ## Appareance:
 
 # Load Xresources:
-xrdb ~/.Xresources
+source ~/dotfiles/conf/xorg/xinit.d/xrdb
 
 ## Key Bindings
 

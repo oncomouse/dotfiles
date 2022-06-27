@@ -1,6 +1,8 @@
-#include "/home/andrew/.cache/wal/colors.Xresources"
-#include "/home/andrew/dotfiles/conf/xscreensaver/xscreensaver.Xresources"
-
+#include ".cache/wal/dwm.Xresources"
+#include ".cache/wal/dmenu.Xresources"
+#include ".cache/wal/st.Xresources"
+#include ".cache/wal/colors.Xresources"
+#include "dotfiles/conf/xscreensaver/xscreensaver.Xresources"
 ! Need these for wezterm to get proper cursors:
 Xcursor.theme: Adwaita
 Xcursor.size: 32

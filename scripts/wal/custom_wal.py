@@ -56,9 +56,7 @@ def pgrep(process):
 if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     if which("xrdb") is not None:
         message("Reloading xrdb")
-        system("xrdb {}/.Xresources".format(home))
-        system("xrdb -merge ~/.cache/wal/dwm.Xresources")
-        system("xrdb -merge ~/.cache/wal/dmenu.Xresources")
+        system("xrdb -I{} ~/.Xresources".format(home))
 
     # Reload various windowmanagers:
     if pgrep("awesome"):
@@ -69,6 +67,9 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
         system("/bin/bash -c rp-bar.sh")
     if pgrep("dwm"):
         system("xdotool key super+F5")
+
+    if pgrep("st"):
+        system("pidof st | xargs kill -s USR1")
 
     if re.match(r"kitty", environ["TERM"]) is not None:
         message("Reloading kitty")
