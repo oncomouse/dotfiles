@@ -2,24 +2,26 @@
 # shellcheck disable=2034
 font=${1:-"FiraCode Nerd Font 12"}
 themes="$(wal --theme)"
-light="$(echo "$themes" | tail +"$(echo "$themes" | rg -n "Light" | cut -d : -f 1)" | rg "^ -" | rg -v random | sed -e "s/^ - //" | sort | uniq)"
-choice="$(echo "$themes" | rg "^ -" | rg -v random | sed -e "s/^ - //" | sort | uniq | \
+dark="$(echo "$themes" | tail +"$(echo "$themes" | rg -n "Dark" | cut -d : -f 1)")"
+dark="$(echo "$dark" | head -n "$(echo "$dark" | rg -n "Light" | cut -d : -f 1)" | rg "^ -" | rg -v random | sed -e "s/^ - //" -e "s/\(.\)\$/\1 (Dark)/")"
+dark="$(printf "%s\n%s" "$dark" "$(fd -e json . ~/.config/wal/colorschemes/dark -x echo "{/.} (Dark)")" | uniq | sort)"
+light="$(echo "$themes" | tail +"$(echo "$themes" | rg -n "Light" | cut -d : -f 1)" | rg "^ -" | rg -v random | sed -e "s/^ - //" -e "s/\(.\)\$/\1 (Light)/")"
+light="$(printf "%s\n%s" "$light" "$(fd -e json . ~/.config/wal/colorschemes/light -x echo "{/.} (Light)")" | uniq | sort)"
+choice="$(printf "%s\n%s" "$dark" "$light" | sort | \
 rofi \
 -match fuzzy \
 -no-fixed-num-lines \
 -dmenu \
 -i \
 -font "$font" \
--p "Unicode Cheatsheet: " \
+-p "Choose Theme: " \
 "-location" \
 "1" \
 "-theme-str" \
 "window { width: 100%; }")"
 if [ "$choice" != "" ]; then
-	if [ "$(echo "$light" | grep -c "$choice")" -eq 0 ]; then
-		python3 ~/dotfiles/scripts/wal/custom_wal.py --theme "$choice" > /dev/null
-	else
-		python3 ~/dotfiles/scripts/wal/custom_wal.py --theme "$choice" -l > /dev/null
-	fi
+	type="$(echo "$choice" | cut -d " " -f 2 | sed -e "s/[()]//g")"
+	choice="$(echo "$choice" | cut -d " " -f 1)"
+	python3 ~/dotfiles/scripts/wal/custom_wal.py --theme "$choice" "$([ "$type" == "Light" ] && echo "-l")" > /dev/null
 fi
 # vim:ft=sh
