@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+font=${1:-"FiraCode Nerd Font 12"}
+choice="$(wal --theme | rg "^ -" | rg -v random | sed -e "s/^ - //" | sort | uniq | \
+rofi \
+-match fuzzy \
+-no-fixed-num-lines \
+-dmenu \
+-i \
+-font "$font" \
+-p "Unicode Cheatsheet: " \
+"-location" \
+"1" \
+"-theme-str" \
+"window { width: 100%; }")"
+if [ "$choice" != "" ]; then
+	python3 ~/dotfiles/scripts/wal/custom_wal.py --theme "$choice"
+fi
+# vim:ft=sh
