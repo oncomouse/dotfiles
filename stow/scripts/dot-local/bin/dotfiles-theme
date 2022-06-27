@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 # shellcheck disable=2034
 font=${1:-"FiraCode Nerd Font 12"}
+config_path=${XDG_CONFIG_HOME:-"$HOME/.config"}
 themes="$(wal --theme)"
 dark="$(echo "$themes" | tail +"$(echo "$themes" | rg -n "Dark" | cut -d : -f 1)")"
 dark="$(echo "$dark" | head -n "$(echo "$dark" | rg -n "Light" | cut -d : -f 1)" | rg "^ -" | rg -v random | sed -e "s/^ - //" -e "s/\(.\)\$/\1 (Dark)/")"
-dark="$(printf "%s\n%s" "$dark" "$(fd -e json . ~/.config/wal/colorschemes/dark -x echo "{/.} (Dark)")" | uniq | sort)"
+dark="$(printf "%s\n%s" "$dark" "$(fd -e json . "$config_path"/wal/colorschemes/dark -x echo "{/.} (Dark)")" | uniq | sort)"
 light="$(echo "$themes" | tail +"$(echo "$themes" | rg -n "Light" | cut -d : -f 1)" | rg "^ -" | rg -v random | sed -e "s/^ - //" -e "s/\(.\)\$/\1 (Light)/")"
-light="$(printf "%s\n%s" "$light" "$(fd -e json . ~/.config/wal/colorschemes/light -x echo "{/.} (Light)")" | uniq | sort)"
+light="$(printf "%s\n%s" "$light" "$(fd -e json . "$config_path"/wal/colorschemes/light -x echo "{/.} (Light)")" | uniq | sort)"
 choice="$(printf "%s\n%s" "$dark" "$light" | sort | \
 rofi \
 -match fuzzy \
