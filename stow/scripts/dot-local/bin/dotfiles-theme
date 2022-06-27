@@ -17,9 +17,9 @@ rofi \
 "window { width: 100%; }")"
 if [ "$choice" != "" ]; then
 	if [ "$(echo "$light" | grep -c "$choice")" -eq 0 ]; then
-		python3 ~/dotfiles/scripts/wal/custom_wal.py --theme "$choice"
+		python3 ~/dotfiles/scripts/wal/custom_wal.py --theme "$choice" > /dev/null
 	else
-		python3 ~/dotfiles/scripts/wal/custom_wal.py --theme "$choice" -l
+		python3 ~/dotfiles/scripts/wal/custom_wal.py --theme "$choice" -l > /dev/null
 	fi
 fi
 # vim:ft=sh
