@@ -2,7 +2,7 @@ return require("packer").startup({
 	function(use)
 		use({
 			{ "wbthomason/packer.nvim", opt = true },
-			"sickill/vim-pasta", -- fix block paste for Neovim
+			-- "sickill/vim-pasta", -- fix block paste for Neovim
 			{
 				"christoomey/vim-sort-motion",
 				keys = {
