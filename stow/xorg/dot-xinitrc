@@ -9,6 +9,7 @@ fi
 export DESKTOP_SESSION
 
 # shellcheck source=/dev/null
+source ~/dotfiles/conf/xorg/xinit-common
 source ~/dotfiles/conf/xorg/xprofile-common
 # shellcheck source=/dev/null
 [ -e ~/dotfiles/conf/xorg/xprofile.d/"$DESKTOP_SESSION" ] && source ~/dotfiles/conf/xorg/xprofile.d/"$DESKTOP_SESSION"

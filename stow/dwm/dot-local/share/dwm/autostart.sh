@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 #shellcheck disable=1090
-source ~/dotfiles/conf/xorg/xinit-common
 dex -a
 picom --experimental-backends -b --config ~/dotfiles/conf/picom/dwm.conf
 pkill dwmblocks
