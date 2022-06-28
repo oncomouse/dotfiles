@@ -66,8 +66,12 @@ if vim.fn.exists("g:pasta_disabled_filetypes") == 0 then
 	}
 end
 
-vim.g.pasta_paste_before_mapping = "P"
-vim.g.pasta_paste_after_mapping = "p"
+if vim.fn.exists("g:pasta_paste_before_mapping") == 0 then
+	vim.g.pasta_paste_before_mapping = "P"
+end
+if vim.fn.exists("g:pasta_paste_after_mapping") == 0 then
+	vim.g.pasta_paste_after_mapping = "p"
+end
 
 vim.keymap.set("n", "<Plug>BeforePasta", function()
 	normal_pasta("P", "O")
