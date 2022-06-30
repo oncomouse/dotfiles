@@ -4,7 +4,6 @@
 /usr/bin/env python "$HOME/dotfiles/scripts/stow.py" -d "$HOME/dotfiles/stow" -t "$HOME" --no-folding --dotfiles -R fish
 
 fisher_plugins=(
-  "jorgebucaran/fisher"
   "excitedleigh/virtualfish"
   "laughedelic/pisces"
   "wk/plugin-ssh-term-helper"
