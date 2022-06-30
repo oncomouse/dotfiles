@@ -1,3 +1,17 @@
+make
+fish
+btrfs-progs
+iw
+gptfdisk
+iwd
+terminus-font
+which
+sudo
+automake
+autoconf
+pkgconf
+gcc
+fakeroot
 man-db
 openssh
 expat
