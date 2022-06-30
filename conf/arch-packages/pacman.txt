@@ -92,3 +92,4 @@ unzip
 patch
 automake
 connman
+ruby
