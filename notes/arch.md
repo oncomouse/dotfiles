@@ -14,7 +14,7 @@ Notes:
 
 Additional Packages to install, before reboot:
 
-`pacman -S linux-zen linux-firmware refind base-devel vim git curl make fish btrfs-progs iw gptfdisk iwd terminus-font which sudo automake autoconf pkgconf gcc fakeroot`
+`pacman -S linux-zen linux-firmware refind base-devel vim git curl fish iw gptfdisk iwd terminus-font sudo`
 
 Install AMD or Intel Microcode: `pacman -S amd-ucode` or `pacman -S intel-ucode`
 
