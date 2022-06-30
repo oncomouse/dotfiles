@@ -93,3 +93,4 @@ patch
 automake
 connman
 ruby
+picom
