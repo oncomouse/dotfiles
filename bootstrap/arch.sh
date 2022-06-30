@@ -10,9 +10,8 @@ mkdir -p "$HOME/aur"
 ~/dotfiles/bootstrap/scripts/aur.sh
 
 # Install AUR using Paru:
-grep -v "^\s*#" < "$HOME"/dotfiles/conf/arch-packages/aur.txt | while IFS= read -r pkg; do
-	paru --needed -S --skipreview "$pkg"
-done
+cat "$HOME"/dotfiles/conf/arch-packages/aur.txt | paru --needed -S --skipreview --noconfirm -
+
 # Setup flatpak:
 flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 # Install Flatpaks:
