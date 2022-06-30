@@ -14,7 +14,7 @@ Notes:
 
 Additional Packages to install, before reboot:
 
-`pacman -S linux-zen linux-firmware refind base-devel vim git curl fish dhcpcd btrfs-progs iw gptfdisk iwd terminus-font`
+`pacman -S linux-zen linux-firmware refind base-devel vim git curl fish btrfs-progs iw gptfdisk iwd terminus-font which sudo`
 
 Install AMD or Intel Microcode: `pacman -S amd-ucode` or `pacman -S intel-ucode`
 
@@ -64,7 +64,7 @@ Passphrase: secret
 > DHCP=yes
 
 1. systemctl enable systemd-networkd.service
-1. systemctl enable dhcpcd.service
+1. systemctl enable systemd-resolved.service
 
 # AMD CPU Stuff
 
