@@ -12,14 +12,9 @@ if [ "$os" == 'macos' ]; then
 	pip3install 'mackup'
 elif [ "$os" == "arch" ]; then
 	if [ -z "$SERVER" ];then
-		sudo pacman -S vint
-		sudo pacman -S flake8
-		sudo pacman -S python-black
-		sudo pacman -S yamllint
-		sudo pacman -S python-pywal
+		sudo pacman -S --noconfirm vint flake8 python-black yamllint python-pywal
 	fi
-	sudo pacman -S python-poetry
-	sudo pacman -S python-pynvim
+	sudo pacman -S --noconfirm python-poetry python-pynvim
 else
 	if [ -z "$SERVER" ];then
 		# Vim Linters:
