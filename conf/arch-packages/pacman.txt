@@ -4,6 +4,7 @@ expat
 ufw
 xdg-utils
 usbutils
+pciutils
 xorg-server
 xorg-xsetroot
 xorg-xrdb
@@ -85,3 +86,4 @@ dunst
 unzip
 patch
 automake
+connman
