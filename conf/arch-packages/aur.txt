@@ -13,3 +13,4 @@ rofi-emoji
 stylua
 polkit-dumb-agent-git
 selene-linter
+libsearpc
