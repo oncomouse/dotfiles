@@ -1,5 +1,4 @@
 fish
-btrfs-progs
 iw
 gptfdisk
 iwd
