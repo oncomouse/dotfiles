@@ -1,5 +1,4 @@
 bibtool
-libsearpc
 otf-hasklig
 otf-nerd-fonts-fira-code
 nerd-fonts-jetbrains-mono
@@ -12,5 +11,4 @@ rofi-emoji
 stylua
 polkit-dumb-agent-git
 selene-linter
-libsearpc
 lemonbar-xft-git
