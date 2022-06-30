@@ -29,6 +29,7 @@ exa
 fzf
 bat
 jq
+ttf-joypixels
 ttf-jetbrains-mono
 ttf-fira-code
 otf-fira-sans
