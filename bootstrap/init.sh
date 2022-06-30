@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euxo pipefail
 
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 bash=$(which bash)
