@@ -5,23 +5,11 @@ return require("packer").startup({
 			-- "sickill/vim-pasta", -- fix block paste for Neovim
 			{
 				"christoomey/vim-sort-motion",
-				keys = {
-					{ "x", "gs" },
-					{ "n", "gs" },
-					{ "n", "gss" },
-				},
 			}, -- gs to sort
 			{ "tpope/vim-commentary", requires = { "tpope/vim-repeat" } }, -- gc<motion> to (un)comment
 			{
 				"oncomouse/vim-surround",
 				requires = { "tpope/vim-repeat" },
-				keys = {
-					{ "x", "S" },
-					{ "n", "ys" },
-					{ "n", "yss" },
-					{ "n", "ds" },
-					{ "n", "cs" },
-				},
 			}, -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 			{ "wellle/targets.vim", requires = { "tpope/vim-repeat" } }, -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 			{
@@ -43,12 +31,6 @@ return require("packer").startup({
 			-- Editor Enhancements:
 			{
 				"oncomouse/vim-lion",
-				keys = {
-					{ "v", "gl" },
-					{ "n", "gl" },
-					{ "v", "gL" },
-					{ "n", "gL" },
-				},
 			}, -- gl and gL to align
 			{
 				"haya14busa/vim-asterisk",
@@ -68,11 +50,6 @@ return require("packer").startup({
 			{
 				"vim-scripts/ReplaceWithRegister",
 
-				keys = {
-					{ "x", "gr" },
-					{ "n", "gr" },
-					{ "n", "grr" },
-				},
 				requires = { "tpope/vim-repeat" },
 			}, -- gr{motion} or grr or gr in visual to replace with register
 			{
