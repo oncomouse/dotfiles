@@ -49,8 +49,8 @@ sudo ufw enable
 sudo sed -i ' 1 s/"$/ l1tf=full,force spec_store_bypass_disable=on spectre_v2=on lsm=lockdown,yama,apparmor lockdown=confidentiality init_on_alloc=1 init_on_free=1 page_alloc.shuffle=1 slab_nomerge vsyscall=none"/' /boot/refind_linux.conf
 
 # Restrict su
-sudo passwd -l root
-sudo chgrp -R wheel /usr/local
+# sudo passwd -l root
+# sudo chgrp -R wheel /usr/local
 
 # Set Shell to Fish:
 if ! echo "$SHELL" | grep fish >/dev/null 2>&1; then
