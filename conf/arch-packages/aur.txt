@@ -4,7 +4,6 @@ otf-hasklig
 otf-nerd-fonts-fira-code
 nerd-fonts-jetbrains-mono
 perl-term-shellui
-seadrive-daemon
 shellcheck-bin
 tllocalmgr-git
 zotero
@@ -14,3 +13,4 @@ stylua
 polkit-dumb-agent-git
 selene-linter
 libsearpc
+lemonbar-xft-git
