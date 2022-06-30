@@ -73,7 +73,7 @@ merge_conflict() {
 					break
 					;;
 				"Edit ${file}")
-					eval "${EDITOR:-nvim} $file"
+					eval "${EDITOR:-vim} $file"
 					break
 					;;
 				"*")
