@@ -12,12 +12,13 @@ dotfiles_stow () {
 mkdir -p ~/.config/fish
 dotfiles_stow fish
 dotfiles_stow bash
-dotfiles_stow wal
-dotfiles_stow xplr
+dotfiles_stow neovim
 dotfiles_stow vim
+dotfiles_stow tmux
+dotfiles_stow ripgrep
 if [ -z "$SERVER" ]; then
+	dotfiles_stow wal
 	dotfiles_stow kitty
-	dotfiles_stow neovim
 	dotfiles_stow proselint
 	dotfiles_stow rubocop
 	dotfiles_stow vale
@@ -28,8 +29,8 @@ if [ -z "$SERVER" ]; then
 		dotfiles_stow karabiner
 	elif [ "$os" == "arch" ]; then
 		# Other setup files:
-		dotfiles_stow awesome
-		dotfiles_stow picom
+		dotfiles_stow dwm
+		dotfiles_stow ratpoison
 		dotfiles_stow xdg
 		dotfiles_stow rofi
 		dotfiles_stow xorg
@@ -39,11 +40,8 @@ if [ -z "$SERVER" ]; then
 		dotfiles_stow xscreensaver
 		dotfiles_stow systemd
 		dotfiles_stow unclutter
-		dotfiles_stow mpDris2
 		dotfiles_stow mpv
-		dotfiles_stow networkmanager-dmenu
 		dotfiles_stow pulse
-		dotfiles_stow yt
 	fi
 	## Configure NCSpot:
 	if [ "$os" == "macos" ]; then
@@ -56,6 +54,3 @@ if [ -z "$SERVER" ]; then
 else
 	dotfiles_stow neovim-server
 fi
-dotfiles_stow vim
-dotfiles_stow tmux
-dotfiles_stow ripgrep

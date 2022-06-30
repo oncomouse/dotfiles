@@ -24,12 +24,11 @@ if [ -z "$SERVER" ]; then
 	systemctl --user enable wireplumber.service
 	systemctl --user enable seadrive.service
 	systemctl --user enable mpd.service
-	systemctl --user enable mpDris2.service
 	systemctl --user enable tmux.service
 	systemctl --user enable redshift.service
 
 	# Use Rofi for dmenu:
-	sudo ln -sf "$(which rofi)" /usr/bin/dmenu
+	# sudo ln -sf "$(which rofi)" /usr/bin/dmenu
 fi
 sudo systemctl enable NetworkManager.service
 sudo systemctl start NetworkManager.service

@@ -1,13 +1,9 @@
-awesome-git
 bibtool
 libsearpc
-mpdris2
-mpv-mpris
-ncspot
 otf-hasklig
 otf-nerd-fonts-fira-code
+nerd-fonts-jetbrains-mono
 perl-term-shellui
-pacman-git
 seadrive-daemon
 shellcheck-bin
 tllocalmgr-git

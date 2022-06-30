@@ -1,9 +1,9 @@
 man-db
 openssh
-unbound
 expat
 ufw
 xdg-utils
+usbutils
 xorg-server
 xorg-xsetroot
 xorg-xrdb
@@ -13,7 +13,6 @@ xclip
 accountsservice
 texlive-core
 firefox
-kitty
 cmake
 rustup
 nodejs
@@ -42,18 +41,14 @@ libnotify
 gnome-keyring
 libsecret
 unzip
-materia-gtk-theme
 redshift
 feh
 dex
 fuse2
-yajl
 hsetroot
 inetutils
-deno
 cups
 cups-pdf
-flatpak
 tmux
 xscreensaver
 pipewire
@@ -65,10 +60,9 @@ luarocks
 shfmt
 ttf-liberation
 mpd
+mpc
+ncmpcpp
 playerctl
-lua53-penlight
-lua53-argparse
-lua53-lgi
 pamixer
 networkmanager
 noto-fonts
@@ -76,7 +70,6 @@ noto-fonts-cjk
 noto-fonts-emoji
 gnu-free-fonts
 words
-mpv
 youtube-dl
 rofi
 gvfs
@@ -86,3 +79,8 @@ gtk-engine-murrine
 xcolor
 papirus-icon-theme
 arc-gtk-theme
+pcmanfm-gtk3
+dunst
+unzip
+patch
+automake

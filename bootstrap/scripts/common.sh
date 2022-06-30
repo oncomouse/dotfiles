@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
+os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
+
 ~/dotfiles/bootstrap/scripts/stow.sh
 ~/dotfiles/bootstrap/scripts/git.sh
 ~/dotfiles/bootstrap/scripts/vim.sh
-~/dotfiles/bootstrap/scripts/unbound.sh
 ~/dotfiles/bootstrap/scripts/diff-so-fancy.sh
 ~/dotfiles/bootstrap/scripts/luarocks.sh
 ~/dotfiles/bootstrap/scripts/node-modules.sh
@@ -20,4 +21,8 @@ if [ -z "$SERVER" ]; then
 	~/dotfiles/bootstrap/scripts/asdf.sh
 	~/dotfiles/bootstrap/scripts/csl.sh
 	~/dotfiles/bootstrap/scripts/tex.sh
+fi
+
+if [ "$os" == "arch" ]; then
+	~/dotfiles/bootstrap/scripts/suckless.sh
 fi

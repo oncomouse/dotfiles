@@ -2,8 +2,6 @@
 
 packages=(
   "paru"
-  "https://github.com/oncomouse/pandoc-bin"
-  "https://github.com/oncomouse/vale-bin"
 )
 
 mkdir -p ~/aur
@@ -37,4 +35,3 @@ for package in "${packages[@]}"; do
   fi
 done
 cd ~/dotfiles || exit
-networkmanager-dmenu-git

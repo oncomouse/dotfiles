@@ -11,3 +11,6 @@ $(sl_apps:%=%-rebuild):
 
 $(sl_apps):
 	scripts/sl_build.sh ${@}
+
+ratpoison:
+	scripts/rp_build.sh
