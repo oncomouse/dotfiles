@@ -34,8 +34,7 @@ if [ -z "$SERVER" ]; then
 		dotfiles_stow xdg
 		dotfiles_stow rofi
 		dotfiles_stow xorg
-		dotfiles_stow gtk-3.0
-		dotfiles_stow gtk-2.0
+		dotfiles_stow gtk
 		dotfiles_stow redshift
 		dotfiles_stow xscreensaver
 		dotfiles_stow systemd

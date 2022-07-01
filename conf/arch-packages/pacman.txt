@@ -94,3 +94,4 @@ automake
 connman
 ruby
 picom
+links
