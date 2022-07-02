@@ -322,16 +322,6 @@ vim.api.nvim_create_autocmd("CompleteDone", {
 	end,
 })
 
--- Remember Last Place in Edited File
-vim.api.nvim_create_autocmd("BufReadPost", {
-	group = "dotfiles-settings",
-	callback = function()
-		if vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") then
-			vim.cmd([[exe "normal! g'\""]])
-		end
-	end,
-})
-
 -- }}}
 -- Theme {{{
 -- Fancy color for macs and X11 sessions:
