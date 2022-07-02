@@ -18,7 +18,6 @@ dotfiles_stow tmux
 dotfiles_stow ripgrep
 if [ -z "$SERVER" ]; then
 	dotfiles_stow wal
-	dotfiles_stow kitty
 	dotfiles_stow proselint
 	dotfiles_stow rubocop
 	dotfiles_stow vale
@@ -30,17 +29,19 @@ if [ -z "$SERVER" ]; then
 	elif [ "$os" == "arch" ]; then
 		# Other setup files:
 		dotfiles_stow dwm
+		dotfiles_stow dunst
 		dotfiles_stow ratpoison
 		dotfiles_stow xdg
 		dotfiles_stow rofi
 		dotfiles_stow xorg
-		dotfiles_stow gtk-3.0
-		dotfiles_stow gtk-2.0
+		dotfiles_stow gtk
 		dotfiles_stow redshift
 		dotfiles_stow xscreensaver
 		dotfiles_stow systemd
 		dotfiles_stow unclutter
 		dotfiles_stow mpv
+		dotfiles_stow mpd
+		dotfiles_stow ncmpcpp
 		dotfiles_stow pulse
 	fi
 	## Configure NCSpot:

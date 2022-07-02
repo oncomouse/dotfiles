@@ -10,9 +10,8 @@ mkdir -p "$HOME/aur"
 ~/dotfiles/bootstrap/scripts/aur.sh
 
 # Install AUR using Paru:
-grep -v "^\s*#" < "$HOME"/dotfiles/conf/arch-packages/aur.txt | while IFS= read -r pkg; do
-	paru --needed -S --skipreview "$pkg"
-done
+cat "$HOME"/dotfiles/conf/arch-packages/aur.txt | paru --needed -S --skipreview --noconfirm -
+
 # Setup flatpak:
 flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 # Install Flatpaks:
@@ -46,7 +45,7 @@ sudo ufw allow out
 sudo ufw enable
 
 # Set kernel flags:
-sudo sed -i ' 1 s/"$/ l1tf=full,force spec_store_bypass_disable=on spectre_v2=on lsm=lockdown,yama,apparmor lockdown=confidentiality init_on_alloc=1 init_on_free=1 page_alloc.shuffle=1 slab_nomerge vsyscall=none"/' /boot/refind_linux.conf
+sudo sed -i ' 1 s/"$/ l1tf=full,force spec_store_bypass_disable=on spectre_v2=on lsm=yama,apparmor init_on_alloc=1 init_on_free=1 page_alloc.shuffle=1 slab_nomerge vsyscall=none"/' /boot/refind_linux.conf
 
 # Restrict su
 # sudo passwd -l root

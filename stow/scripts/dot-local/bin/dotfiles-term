@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
-DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
+# DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
 
 if [[ -n "$DISPLAY" ]]; then
-	if [ "$DOTFILES_TARGET" == "desktop" ]; then
-		exec st "$@"
-	elif [ "$DOTFILES_TARGET" == "laptop" ]; then
-		exec tabbed -r 2 -c st -w '' "$@"
-	else
-		exec xterm "$@"
-	fi
+	exec st "$@"
+	# if [ "$DOTFILES_TARGET" == "desktop" ]; then
+	# 	exec st "$@"
+	# elif [ "$DOTFILES_TARGET" == "laptop" ]; then
+	# 	exec tabbed -r 2 -c st -w '' "$@"
+	# else
+	# 	exec xterm "$@"
+	# fi
 elif [[ -n "$WAYLAND_DISPLAY" ]]; then
 	exec foot
 fi

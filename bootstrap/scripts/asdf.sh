@@ -13,7 +13,6 @@ asdf plugin add nodejs
 # asdf plugin add lua https://github.com/Stratus3D/asdf-lua.git
 env RUBY_CONFIGURE_OPTS="$ruby_env" asdf install ruby 2.6.6
 env RUBY_CONFIGURE_OPTS="$ruby_env" asdf install ruby 2.7.2
-# env RUBY_CONFIGURE_OPTS="$ruby_env" asdf install ruby latest
 asdf global ruby system
 asdf global nodejs system
 # asdf install lua 5.1.5

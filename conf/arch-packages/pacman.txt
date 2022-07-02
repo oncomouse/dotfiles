@@ -92,3 +92,8 @@ unzip
 patch
 automake
 connman
+ruby
+picom
+links
+acpi
+xorg-xbacklight
