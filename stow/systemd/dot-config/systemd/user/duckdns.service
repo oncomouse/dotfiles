@@ -1,0 +1,6 @@
+[Unit]
+Description=Update DuckDNS
+
+[Service]
+Type=oneshot
+ExecStart=%h/dotfiles/scripts/duck.sh
