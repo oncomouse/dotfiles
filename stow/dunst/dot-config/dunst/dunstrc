@@ -28,7 +28,7 @@
 	progress_bar_max_width = 200
 
 	## Text
-    font = Inter Nerd Font Medium 10
+    font = FiraCode Nerd Font Medium 10
     line_height = 0
     markup = full
     # The format of the message.  Possible variables are:
