@@ -1,4 +1,5 @@
 fish
+rsync
 iw
 gptfdisk
 iwd
