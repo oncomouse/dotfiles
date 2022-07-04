@@ -6,4 +6,6 @@ cd ~/.local || exit
 [[ -d nvim-linux64 ]] && rm -rf nvim-linux64
 tar zxvf nvim-linux64.tar.gz
 rm nvim-linux64.tar.gz
+sudo install -d nvim-linux64/ /usr/local
+
 cd "$owd" || exit
