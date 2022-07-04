@@ -78,12 +78,12 @@ function action-mute {
 	killbar 37
 }
 function action-mic-mute { pactl set-source-mute @DEFAULT_SOURCE@ toggle; }
-function action-play { mpc toggle >/dev/null; }
-function action-stop { mpc stop >/dev/null; }
-function action-next { mpc next >/dev/null; }
-function action-prev { mpc prev >/dev/null; }
+function action-play { mpc toggle >/dev/null 2>/dev/null; }
+function action-stop { mpc stop >/dev/null 2>/dev/null; }
+function action-next { mpc next >/dev/null 2>/dev/null; }
+function action-prev { mpc prev >/dev/null 2>/dev/null; }
 function action-status {
-	output="$(mpc -f "%artist% - %title%")"
+	output="$(mpc -f "%artist% - %title%" 2> /dev/null)"
 	info="$(echo "$output" | head -n 1)"
 	status="$(echo "$output" | head -n 2 | sed -e "s/\[//" -e "s/\].*//" | tail -n 1)"
 	if [ "$status" = "playing" ]; then
