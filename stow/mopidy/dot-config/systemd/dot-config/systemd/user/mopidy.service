@@ -1,0 +1,9 @@
+[Unit]
+Description=Mopidy
+After=network-online.target
+
+[Service]
+ExecStart=mopidy
+
+[Install]
+WantedBy=default.target 
