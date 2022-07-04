@@ -9,6 +9,8 @@ if command -v xbacklight > /dev/null; then
 		echo -n "]"
 		echo -n "%{A}"
 		echo ""
+	else
+		echo ""
 	fi
 else
 	echo ""
