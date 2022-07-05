@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 target="${DOTFILES_TARGET:-laptop}"
 widgets="$(jq -r "join(\" \")" ~/dotfiles/conf/luastatus/targets/"$target"/widgets.json)"
+pkill luastatus
 if pgrep sdorfehs > /dev/null; then
 	eval set "$widgets"
 	exec env DESKTOP_SESSION="sdorfehs" luastatus-stdout-wrapper -B separator='' -- "$@" > ~/.config/sdorfehs/bar
