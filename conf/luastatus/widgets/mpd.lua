@@ -9,7 +9,11 @@ widget = {
 			if t.status.state == "pause" then
 				state=" "
 			end
-			return string.format("[%s%s - %s]", state, t.song.Artist, t.song.Title)
+			local output = string.format("%s%s - %s", state, t.song.Artist, t.song.Title)
+			if #output > 40 then
+				output = string.sub(output, 1, 39) .. "…"
+			end
+			return string.format("[%s]", output)
 		end
 	end
 }
