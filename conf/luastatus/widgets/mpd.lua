@@ -13,7 +13,7 @@ widget = {
 			if #output > 40 then
 				output = string.sub(output, 1, 39) .. "…"
 			end
-			return string.format("[%s]", output)
+			return string.format("[^ca(1, dotfiles-media play, 2, dotfiles-media prev, 3, dotfiles-media next)%s^ca()]", output)
 		end
 	end
 }

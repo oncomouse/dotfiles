@@ -3,9 +3,9 @@ target="${DOTFILES_TARGET:-laptop}"
 widgets="$(jq -r "join(\" \")" ~/dotfiles/conf/luastatus/targets/"$target"/widgets.json)"
 if pgrep sdorfehs > /dev/null; then
 	eval set "$widgets"
-	exec luastatus-stdout-wrapper -B separator='' -- "$@" > ~/.config/sdorfehs/bar
+	exec env DESKTOP_SESSION="sdorfehs" luastatus-stdout-wrapper -B separator='' -- "$@" > ~/.config/sdorfehs/bar
 elif pgrep dwm > /dev/null; then
 	eval set "$widgets"
-	exec luastatus -b dwm -B separator='' -- "$@"
+	exec env DESKTOP_SESSION="dwm" luastatus -b dwm -B separator='' -- "$@"
 fi
 # vim:ft=sh
