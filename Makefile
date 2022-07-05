@@ -14,3 +14,6 @@ $(sl_apps):
 
 ratpoison:
 	scripts/rp_build.sh
+
+sdorfehs:
+	scripts/sf_build.sh

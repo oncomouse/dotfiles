@@ -30,7 +30,7 @@ if [ -z "$SERVER" ]; then
 		# Other setup files:
 		dotfiles_stow dwm
 		dotfiles_stow dunst
-		dotfiles_stow ratpoison
+		dotfiles_stow sdorfehs
 		dotfiles_stow xdg
 		dotfiles_stow rofi
 		dotfiles_stow xorg
