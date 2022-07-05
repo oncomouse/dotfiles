@@ -1,13 +1,8 @@
 exec sf-autostart &
 
 # [hooks]
-# addhook switchgroup exec pkill -RTMIN+1 lemonaid &
-# addhook switchgroup exec pkill -RTMIN+2 lemonaid &
-# addhook switchwin exec pkill -RTMIN+2 lemonaid &
 addhook switchwin exec sf-zoom.sh check
 addhook deletewindow exec sf-zoom.sh check
-# addhook switchframe exec pkill -RTMIN+2 lemonaid &
-# addhook deletewindow exec pkill -RTMIN+2 lemonaid &
 
 # [settings]
 escape s-space
