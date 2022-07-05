@@ -16,6 +16,7 @@ set border 2
 set bargravity n
 set barpadding 5 2
 set font "JetBrainsMono Nerd Font:size=11"
+set vscreens 6
 set padding 0 0 0 0
 set onlyborder 0
 
@@ -109,21 +110,18 @@ bind C-exclam colon exec dotfiles-term -e
 bind Print exec dotfiles-screenshot
 
 # [workspaces]
-# exec rpws init 6 -a
-# bind Right rpwsn
-# bind Left rpwsp
-# bind 1 rpws1
-# bind 2 rpws2
-# bind 3 rpws3
-# bind 4 rpws4
-# bind 5 rpws5
-# bind 6 rpws6
-# bind exclam rpwsm1 &
-# bind at rpwsm2 &
-# bind numbersign rpwsm3 &
-# bind dollar rpwsm4 &
-# bind percent rpwsm5 &
-# bind asciicircum rpwsm6 &
+bind 1 vselect 0
+bind 2 vselect 1
+bind 3 vselect 2
+bind 4 vselect 3
+bind 5 vselect 4
+bind 6 vselect 5
+bind exclam vmove 0
+bind at vmove 1
+bind numbersign vmove 2
+bind dollar vmove 3
+bind percent vmove 4
+bind asciicircum vmove 5
 
 # [mediakeys]
 definekey top XF86KbdBrightnessDown exec sudo /usr/local/bin/keyboard-backlight down &
@@ -144,6 +142,21 @@ unbind Left
 unbind Right
 unbind Up
 unbind Down
+unbind F1
+unbind F2
+unbind F3
+unbind F4
+unbind F5
+unbind F6
+unbind F7
+unbind F8
+unbind F9
+unbind F10
+unbind F11
+unbind 0
+unbind 7
+unbind 8
+unbind 9
 unbind C-Left
 unbind C-Right
 unbind C-Up
