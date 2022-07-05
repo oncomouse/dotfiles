@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#shellcheck disable=1090
+
+dex -a
+picom --experimental-backends -b --config ~/dotfiles/conf/picom/ratpoison.conf
+
+source ~/dotfiles/conf/xorg/xinit.d/no-xfce4
+source ~/dotfiles/conf/xorg/xinit.d/dunst
+source ~/dotfiles/conf/xorg/xinit.d/no-powerbutton
+source ~/dotfiles/conf/xorg/xinit.d/dotfiles-media
+source ~/dotfiles/conf/xorg/xinit.d/tile-background
+
+# vim:ft=sh
