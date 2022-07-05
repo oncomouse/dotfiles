@@ -1,0 +1,9 @@
+[selene]
+base = "lua52"
+name = "luastatus"
+
+[luastatus]
+any = true
+
+[widget]
+any = true

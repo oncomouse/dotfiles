@@ -24,5 +24,5 @@ if [ -z "$SERVER" ]; then
 fi
 
 if [ "$os" == "arch" ]; then
-	~/dotfiles/bootstrap/scripts/suckless.sh
+	~/dotfiles/bootstrap/scripts/compiled.sh
 fi

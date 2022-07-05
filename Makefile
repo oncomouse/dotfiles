@@ -17,3 +17,6 @@ ratpoison:
 
 sdorfehs:
 	scripts/sf_build.sh
+
+luastatus:
+	conf/luastatus/build.sh

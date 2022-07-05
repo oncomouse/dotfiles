@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d4c5f19..cea4367 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -124,7 +124,7 @@ DEF_OPT (BUILD_PLUGIN_MEM_USAGE_LINUX     "plugins/mem-usage-linux"     ON)
+ DEF_OPT (BUILD_PLUGIN_MPD                 "plugins/mpd"                 ON)
+ DEF_OPT (BUILD_PLUGIN_NETWORK_LINUX       "plugins/network-linux"       ON)
+ DEF_OPT (BUILD_PLUGIN_PIPE                "plugins/pipe"                ON)
+-DEF_OPT (BUILD_PLUGIN_PULSE               "plugins/pulse"               OFF)
++DEF_OPT (BUILD_PLUGIN_PULSE               "plugins/pulse"               ON)
+ DEF_OPT (BUILD_PLUGIN_TIMER               "plugins/timer"               ON)
+ DEF_OPT (BUILD_PLUGIN_UDEV                "plugins/udev"                ON)
+ DEF_OPT (BUILD_PLUGIN_UNIXSOCK            "plugins/unixsock"            OFF)

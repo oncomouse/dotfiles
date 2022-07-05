@@ -98,3 +98,4 @@ picom
 links
 acpi
 xorg-xbacklight
+yajl

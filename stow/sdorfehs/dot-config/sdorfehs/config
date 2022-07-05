@@ -20,7 +20,6 @@ set vscreens 6
 set padding 0 0 0 0
 set onlyborder 0
 
-exec sf-colors.sh &
 
 # [functionality]
 bind Escape abort
@@ -36,6 +35,7 @@ unbind l
 unbind t
 unbind S
 unbind s
+unbind exclam
 unbind C-h
 unbind C-j
 unbind C-k
@@ -124,8 +124,8 @@ bind percent vmove 4
 bind asciicircum vmove 5
 
 # [mediakeys]
-definekey top XF86KbdBrightnessDown exec sudo /usr/local/bin/keyboard-backlight down &
-definekey top XF86KbdBrightnessUp exec sudo /usr/local/bin/keyboard-backlight up &
+definekey top XF86KbdBrightnessDown exec kbdlight down 5
+definekey top XF86KbdBrightnessUp exec kbdlight up 5
 definekey top XF86MonBrightnessUp exec dotfiles-brightness up &
 definekey top XF86MonBrightnessDown exec dotfiles-brightness down &
 definekey top XF86AudioMute exec dotfiles-volume mute &
@@ -175,7 +175,6 @@ unbind C-b
 unbind C-c
 unbind C-f
 unbind C-i
-unbind C-k
 unbind C-m
 unbind C-n
 unbind C-p
@@ -188,4 +187,6 @@ unbind C-v
 unbind C-x
 unbind C-w
 
+exec dotfiles-luastatus &
+exec sf-colors.sh &
 # vim:ft=ratpoison
