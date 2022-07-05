@@ -44,14 +44,6 @@ if [ -z "$SERVER" ]; then
 		dotfiles_stow ncmpcpp
 		dotfiles_stow pulse
 	fi
-	## Configure NCSpot:
-	if [ "$os" == "macos" ]; then
-		mkdir -p ~/Library/Preferences/org.affekt.ncspot/
-		dotfiles_stow ncspot-macos
-	elif [ -z "$SERVER" ]; then
-		mkdir -p ~/.config/ncspot
-		dotfiles_stow ncspot-linux
-	fi
 else
 	dotfiles_stow neovim-server
 fi
