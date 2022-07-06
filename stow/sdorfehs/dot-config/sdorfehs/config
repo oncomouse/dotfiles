@@ -1,8 +1,11 @@
 exec sf-autostart &
 
 # [hooks]
-addhook switchwin exec sf-zoom.sh check
 addhook deletewindow exec sf-zoom.sh check
+addhook newwindow exec sf-zoom.sh check
+addhook switchwin exec sf-zoom.sh check
+addhook switchscreen exec sf-zoom.sh check
+addhook switchvscreen exec sf-zoom.sh check
 
 # [settings]
 escape s-space
