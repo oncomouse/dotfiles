@@ -15,6 +15,7 @@ set vscreens 6
 set padding 0 0 0 0
 set onlyborder 0
 set stickyfmt [%t]
+set gap 0
 
 # [functionality]
 bind Escape abort
@@ -184,4 +185,4 @@ unbind C-w
 
 exec dotfiles-luastatus &
 exec sf-colors.sh &
-# vim:ft=ratpoison
+# vim:ft=sdorfehs
