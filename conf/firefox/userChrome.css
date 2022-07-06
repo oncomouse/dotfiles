@@ -9,7 +9,7 @@ Here you can change the opacity level and the main color of the browser. Also th
 :root {
     --urlbar-width:25vw;
 }
-
+	
 /* 
 G E N E R A L 
 */
@@ -45,7 +45,7 @@ T A B S
     margin-top: -1px !important;
     margin-bottom: 1px !important;
     margin-left: var(--urlbar-width) !important;
-    max-height: 32px !important;
+    max-height: 36px !important;
 }
 
 .tab-background {
@@ -100,6 +100,10 @@ B U T T O N S
 Here you can comment if you want your buttons to be showed up!
 
 */
+
+#stop-reload-button {
+	margin-top: -8px;
+}
 
 /* This one is the forward button  */
 #forward-button {
