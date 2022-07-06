@@ -4,19 +4,10 @@ server:
 	env SERVER=true bash ./bootstrap/init.sh
 
 # Suckless Targets:
-sl_apps := 2bwm berry dwl dwm dmenu dwmblocks st neatvi aslstatus slstatus tabbed nextvi shod lemonaid
+compiled_apps := 2bwm berry dwl dwm dmenu dwmblocks st neatvi aslstatus slstatus tabbed nextvi shod lemonaid luastatus ratpoison sdorfehs
 
-$(sl_apps:%=%-rebuild):
-	scripts/sl_build.sh $(subst -rebuild,,${@}) rebuild
+$(compiled_apps:%=%-rebuild):
+	scripts/build-compiled.sh $(subst -rebuild,,${@}) rebuild
 
-$(sl_apps):
-	scripts/sl_build.sh ${@}
-
-ratpoison:
-	scripts/rp_build.sh
-
-sdorfehs:
-	scripts/sf_build.sh
-
-luastatus:
-	conf/luastatus/build.sh
+$(compiled_apps):
+	scripts/build-compiled.sh ${@}
