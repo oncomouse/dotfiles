@@ -54,6 +54,11 @@ def pgrep(process):
 
 
 if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
+    message("New background")
+    system("convert ~/.cache/wal/background.svg ~/.cache/wal/background.png")
+    if which("hsetroot") is not None:
+        system("hsetroot -tile ~/.cache/wal/background.png")
+
     if which("xrdb") is not None:
         message("Reloading xrdb")
         system("xrdb -I{} ~/.Xresources".format(home))
@@ -62,6 +67,8 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     if pgrep("awesome"):
         message("Reloading awesome")
         system('echo "awesome:restart()" | awesome-client')
+    if pgrep("sdorfehs"):
+        system("/bin/bash -c sf-colors.sh")
     if pgrep("ratpoison"):
         system("/bin/bash -c rp-colors.sh")
         system("/bin/bash -c rp-bar.sh")
