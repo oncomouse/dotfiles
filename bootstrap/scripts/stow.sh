@@ -31,6 +31,7 @@ if [ -z "$SERVER" ]; then
 		dotfiles_stow dwm
 		dotfiles_stow dunst
 		dotfiles_stow sdorfehs
+		dotfiles_stow luastatus
 		dotfiles_stow xdg
 		dotfiles_stow rofi
 		dotfiles_stow xorg

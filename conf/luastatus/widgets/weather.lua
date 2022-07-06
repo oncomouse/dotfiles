@@ -30,6 +30,6 @@ widget = {
 		pieces = split(weather, " ")
 		icon = pieces[1]
 		forecast = pieces[2]
-		return string.format("[^ca(xdg-open http://wttr.in)^fn(JoyPixels:size=9)%s^fn()%s&ca()]", icon, forecast)
+		return string.format("[^ca(xdg-open http://wttr.in)^fn(JoyPixels:size=9)%s^fn()%s^ca()]", icon, forecast)
 	end
 }
