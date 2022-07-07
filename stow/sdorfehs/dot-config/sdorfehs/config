@@ -125,6 +125,8 @@ bind dollar vmove 3
 bind percent vmove 4
 bind asciicircum vmove 5
 
+definekey top F11 fullscreen
+
 # [mediakeys]
 definekey top XF86KbdBrightnessDown exec kbdlight down 5
 definekey top XF86KbdBrightnessUp exec kbdlight up 5
