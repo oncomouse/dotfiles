@@ -1,5 +1,5 @@
 diff --git a/actions.c b/actions.c
-index 63accc4..390f7c7 100644
+index 63accc4..73b26d1 100644
 --- a/actions.c
 +++ b/actions.c
 @@ -199,6 +199,7 @@ static cmdret *cmd_focuslast(int interactive, struct cmdarg **args);
@@ -18,7 +18,7 @@ index 63accc4..390f7c7 100644
  	add_command("getenv",		cmd_getenv,	1, 1, 1,
  	            "Variable: ", arg_STRING);
  	add_command("getsel",		cmd_getsel,	0, 0, 0);
-@@ -5797,3 +5799,27 @@ cmd_commands(int interactive, struct cmdarg **args)
+@@ -5797,3 +5799,20 @@ cmd_commands(int interactive, struct cmdarg **args)
  	sbuf_free(sb);
  	return ret;
  }
@@ -32,16 +32,9 @@ index 63accc4..390f7c7 100644
 +	if (!win)
 +		return cmdret_new(RET_FAILURE, NULL);
 +
-+	rp_window *oldfs;
-+
-+	if ((oldfs = rp_current_screen->full_screen_win)) {
-+		if (win == oldfs) {
-+			oldfs->full_screen = 0;
-+			remove_atom(oldfs->w, _net_wm_state, XA_ATOM,
-+				_net_wm_state_fullscreen);
-+			maximize(oldfs);
-+		}
-+	} else
++	if (win->full_screen == 1)
++		window_full_screen(NULL);
++	else
 +		window_full_screen(win);
 +
 +	return cmdret_new(RET_SUCCESS, NULL);
