@@ -1,4 +1,5 @@
 exec sf-autostart &
+exec echo "0" > /tmp/sf-vscreen
 
 # [hooks]
 addhook deletewindow exec sf-zoom.sh check
@@ -6,16 +7,18 @@ addhook newwindow exec sf-zoom.sh check
 addhook switchwin exec sf-zoom.sh check
 addhook switchscreen exec sf-zoom.sh check
 addhook switchvscreen exec sf-zoom.sh check
+addhook switchvscreen exec echo "$(sdorfehs -c vscreens | grep "*" | cut -d "*" -f 1)" > /tmp/sf-vscreen
 
 # [settings]
 escape s-space
 set startupmessage 0
 set border 2
 set bargravity n
+set barinpadding 1
 set barpadding 5 2
 set font "JetBrainsMono Nerd Font:size=10"
 set vscreens 6
-set padding 0 0 0 0
+set padding 0 20 0 0
 set onlyborder 0
 set stickyfmt [%t]
 set gap 0
@@ -98,8 +101,8 @@ bind M-g sf-gmove
 bind g sf-gselect
 
 # [launchers]
-definekey top M-s-r exec sf-run.sh &
-definekey top s-P exec sf-powermenu.sh &
+definekey top M-s-r exec dotfiles-run &
+definekey top s-P exec dotfiles-powermenu &
 definekey top M-s-p exec rofimusic.sh "$(sdorfehs -c 'set font' | sed -e 's/:size=/ /')" &
 definekey top M-s-k exec dotfiles-unicode "$(sdorfehs -c 'set font' | sed -e 's/:size=/ /')" &
 definekey top C-s-space exec dotfiles-emoji "$(sdorfehs -c 'set font' | sed -e 's/:size=/ /')" &

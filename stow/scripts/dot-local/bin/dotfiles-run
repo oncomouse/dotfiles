@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 font=${1:-"FiraCode Nerd Font 12"}
+offset=0
+if pgrep sdorfehs > /dev/null; then
+	font="$(sdorfehs -c 'set font')"
+	font_size="$(echo "$font" | cut -d "=" -f 2)"
+	font="${font/:size=/ }"
+	padding="$(sdorfehs -c 'set padding' | cut -d " " -f 2)"
+	barpadding="$(sdorfehs -c 'set barpadding' | cut -d " " -f 2)"
+	offset=$((padding + barpadding * 2 + font_size + 2))
+fi
 # shellcheck disable=1083
 rofi \
-	-theme ~/dotfiles/conf/rofi/barmenu.rasi \
 	-match fuzzy \
 	-auto-select \
 	-font "$font" \
 	-show drun \
 	-show-icons \
+	-location 1 \
+	-theme-str "window { width: 100%; y-offset: $offset; }" \
 	-drun-display-format {name}
 # vim:ft=sh
