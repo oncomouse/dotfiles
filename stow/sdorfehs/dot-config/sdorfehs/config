@@ -125,6 +125,7 @@ bind dollar vmove 3
 bind percent vmove 4
 bind asciicircum vmove 5
 
+# [toggle fullscreen]
 definekey top F11 fullscreen
 
 # [mediakeys]
