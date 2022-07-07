@@ -1,5 +1,6 @@
 exec sf-autostart &
 exec echo "0" > /tmp/sf-vscreen
+exec sf-tray &
 
 # [hooks]
 addhook deletewindow exec sf-zoom.sh check
