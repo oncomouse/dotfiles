@@ -18,7 +18,7 @@ set barinpadding 1
 set barpadding 5 2
 set font "JetBrainsMono Nerd Font:size=10"
 set vscreens 6
-set padding 0 20 0 0
+set padding 0 0 0 0
 set onlyborder 0
 set stickyfmt [%t]
 set gap 0
@@ -103,9 +103,9 @@ bind g sf-gselect
 # [launchers]
 definekey top M-s-r exec dotfiles-run &
 definekey top s-P exec dotfiles-powermenu &
-definekey top M-s-p exec rofimusic.sh "$(sdorfehs -c 'set font' | sed -e 's/:size=/ /')" &
-definekey top M-s-k exec dotfiles-unicode "$(sdorfehs -c 'set font' | sed -e 's/:size=/ /')" &
-definekey top C-s-space exec dotfiles-emoji "$(sdorfehs -c 'set font' | sed -e 's/:size=/ /')" &
+definekey top M-s-p exec rofimusic.sh &
+definekey top M-s-k exec dotfiles-unicode &
+definekey top C-s-space exec dotfiles-emoji &
 bind C-exclam colon exec dotfiles-term -e
 
 # [screenshots]
