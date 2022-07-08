@@ -1,4 +1,8 @@
 # Vim-style bindings
+def_key "h"
+	previous_column
+def_key "l"
+	next_column
 def_key "j"
 	scroll_down
 def_key "J"
@@ -9,10 +13,18 @@ def_key "k"
 def_key "K"
 	select_item
 	scroll_up
+def_key "ctrl-e"
+	move_end
+def_key "ctrl-h"
+	move_home
 def_key "ctrl-d"
 	scroll_down_album
+def_key "ctrl-d"
+	page_down
 def_key "ctrl-u"
 	scroll_up_album
+def_key "ctrl-u"
+	page_down
 def_key "d"
 	delete_playlist_items
 def_key "n"
