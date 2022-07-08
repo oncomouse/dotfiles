@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
 
 font=${2:-"FiraCode Nerd Font 12"}
+offset=0
+if pgrep sdorfehs > /dev/null; then
+	font="$(sdorfehs -c 'set font')"
+	font_size="$(echo "$font" | cut -d "=" -f 2)"
+	font="${font/:size=/ }"
+	padding="$(sdorfehs -c 'set padding' | cut -d " " -f 2)"
+	barpadding="$(sdorfehs -c 'set barpadding' | cut -d " " -f 2)"
+	offset=$((padding + barpadding * 2 + font_size + 2))
+fi
 
 # shellcheck disable=SC2119,SC2120
 rofi_bar() {
-	rofi -match fuzzy -dmenu -i -font "$font" -location 1 -theme-str "window { width: 100%; }" "$@"
+	rofi -match fuzzy -dmenu -i -font "$font" -location 1 -theme-str "window { width: 100%; y-offset: $offset; }" "$@"
 }
 
 action-search() {
