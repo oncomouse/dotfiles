@@ -55,7 +55,7 @@ vim.opt.path = ".,,"
 
 -- Use better grep, if available:
 if vim.fn.executable("rg") == 1 then
-	vim.opt.grepprg = "rg --vimgrep"
+	vim.opt.grepprg = "rg --vimgrep --smart-case"
 	vim.opt.grepformat = "%f:%l:%c:%m"
 elseif vim.fn.executable("ag") == 1 then
 	vim.opt.grepprg = "ag --vimgrep"
