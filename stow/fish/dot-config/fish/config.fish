@@ -7,6 +7,8 @@ if status is-interactive
 	if test -d $HOME/.cache/wal
 		source ~/.cache/wal/colors.fish
 	end
+	# EDITOR
+	setuvar EDITOR (which nvim)
 	# Tell sxhkd to not use fish:
 	setuvar SXHKD_SHELL sh
 	# NNN Theme
@@ -16,12 +18,12 @@ if status is-interactive
 		setuvar OW_LAT (cat ~/.ow_credentials.json | jq .coordinates[0])
 		setuvar OW_LONG (cat ~/.ow_credentials.json | jq .coordinates[1])
 	end
+	setuvar FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
 	# DOTFILES_TARGET
 	# if status is-login
 	if test -e $HOME/.local/share/dotfiles/target
 		set -gx DOTFILES_TARGET (/bin/cat $HOME/.local/share/dotfiles/target)
 	end
-	setuvar FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
 	# Setup FZF themes:
 	if test -d "$HOME/.cache/wal" -a (echo $FZF_DEFAULT_OPTS | grep color -c) -eq 0
 		echo "Sourcing FZF Colors"
