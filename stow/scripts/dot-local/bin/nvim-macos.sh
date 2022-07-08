@@ -6,4 +6,5 @@ cd ~/.local || exit
 [[ -d nvim-osx64 ]] && rm -rf nvim-osx64
 tar zxvf nvim-macos.tar.gz
 rm nvim-macos.tar.gz
+sudo install -d nvim-macos/ /usr/local
 cd "$owd" || exit
