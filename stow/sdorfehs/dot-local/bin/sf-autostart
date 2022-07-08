@@ -12,7 +12,7 @@ source ~/dotfiles/conf/xorg/xinit.d/tile-background
 
 target="${DOTFILES_TARGET:-laptop}"
 if [ "$target" = "desktop" ]; then
-	sdorfehs -c 'set font "FiraCode Nerd Font:size=12"'
+	sdorfehs -c 'set font "FiraCode Nerd Font:size=10"'
 else
 	sdorfehs -c 'set font "JetBrainsMono Nerd Font:size=10"'
 fi
