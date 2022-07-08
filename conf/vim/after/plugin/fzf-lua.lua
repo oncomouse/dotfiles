@@ -24,6 +24,8 @@ if ok then
 					["default"] = function()
 						vim.cmd("Gina commit")
 					end,
+					["ctrl-h"] = { require("fzf-lua.actions").git_stage, require("fzf-lua.actions").resume },
+					["ctrl-l"] = { require("fzf-lua.actions").git_unstage, require("fzf-lua.actions").resume },
 				},
 			},
 		},
