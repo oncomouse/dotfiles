@@ -62,7 +62,7 @@ enabled = false
 #metadata_timeout = 1000
 
 [http]
-#enabled = true
+enabled = false
 #hostname = 127.0.0.1
 #port = 6680
 #zeroconf = Mopidy HTTP server on $hostname
@@ -81,7 +81,7 @@ enabled = false
 #enabled = true
 
 [stream]
-#enabled = true
+enabled = false
 #protocols = 
 #  http
 #  https
