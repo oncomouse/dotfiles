@@ -195,9 +195,5 @@ unbind C-v
 unbind C-x
 unbind C-w
 
-unmanage pcmanfm-qt
-unmanage lxqt-panel
-
-exec dotfiles-luastatus &
 exec sf-colors.sh &
 # vim:ft=sdorfehs
