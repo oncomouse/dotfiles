@@ -18,7 +18,7 @@ set border 2
 set barinpadding 1
 set barpadding 5 2
 set vscreens 6
-set padding 0 24 0 0
+set padding 0 28 0 0
 set onlyborder 0
 set stickyfmt [%t]
 set gap 0

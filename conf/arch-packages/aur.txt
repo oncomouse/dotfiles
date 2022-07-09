@@ -12,3 +12,4 @@ stylua
 polkit-dumb-agent-git
 selene-linter
 lemonbar-xft-git
+volctl
