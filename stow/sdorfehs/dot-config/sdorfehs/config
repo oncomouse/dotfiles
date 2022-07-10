@@ -2,6 +2,7 @@
 escape s-space
 set startupmessage 0
 set border 2
+set barsticky 0
 set bargravity c
 set barborder 1
 set barpadding 5 2
@@ -10,13 +11,8 @@ set padding 0 22 0 0
 set onlyborder 0
 set gap 0
 
-# [unmanage]
-unmanage polybar
-
 # [autostart]
 exec sf-autostart &
-exec dotfiles-polybar &
-exec sf-colors.sh &
 
 # [hooks]
 addhook deletewindow exec sf-zoom.sh check
@@ -128,7 +124,7 @@ bind percent vmove 4
 bind asciicircum vmove 5
 
 # [toggle fullscreen]
-definekey top F11 exec xdotool getactivewindow windowstate --toggle FULLSCREEN && polybar-msg cmd toggle &
+definekey top F11 exec xdotool getactivewindow windowstate --toggle FULLSCREEN &
 
 # [mediakeys]
 definekey top XF86KbdBrightnessDown exec kbdlight down 5
@@ -194,4 +190,9 @@ unbind C-v
 unbind C-x
 unbind C-w
 
+# [unmanage]
+exec dotfiles-polybar &
+set barsticky 0
+
+exec sf-colors.sh &
 # vim:ft=sdorfehs
