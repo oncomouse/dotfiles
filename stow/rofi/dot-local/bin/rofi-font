@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+font=${1:-"FiraCode Nerd Font 12"}
+if pgrep sdorfehs > /dev/null; then
+	font="$(sdorfehs -c 'set font')"
+	font="${font/:size=/ }"
+fi
+echo "$font"
+# vim:ft=sh

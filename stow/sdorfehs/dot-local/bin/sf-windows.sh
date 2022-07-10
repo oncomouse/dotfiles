@@ -4,12 +4,9 @@ if [ "$(sdorfehs -c windows | grep -c ^.)" = 1 ]; then
 	exit
 fi
 
-font="$(sdorfehs -c 'set font')"
-font_size="$(echo "$font" | cut -d "=" -f 2)"
-font="${font/:size=/ }"
-padding="$(sdorfehs -c 'set padding' | cut -d " " -f 2)"
-barpadding="$(sdorfehs -c 'set barpadding' | cut -d " " -f 2)"
-offset=$((padding + barpadding * 2 + font_size + 2))
+font="$(rofi-font "$1")"
+offset="$(rofi-offset)"
+
 choice="$(sdorfehs -c "windows (%n)%a:%t" | rofi \
 	-dmenu \
 	-match \

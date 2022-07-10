@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+offset=0
+if pgrep sdorfehs > /dev/null; then
+	# font="$(sdorfehs -c 'set font')"
+	# font_size="$(echo "$font" | cut -d "=" -f 2)"
+	# font="${font/:size=/ }"
+	padding="$(sdorfehs -c 'set padding' | cut -d " " -f 2)"
+	# barpadding="$(sdorfehs -c 'set barpadding' | cut -d " " -f 2)"
+	# offset=$((padding + barpadding * 2 + font_size + 2))
+	offset="$padding"
+fi
+echo "$offset"
+# vim:ft=sh
