@@ -3,7 +3,6 @@ escape s-space
 set startupmessage 0
 set border 2
 set bargravity c
-set barsticky 0
 set barborder 1
 set barpadding 5 2
 set vscreens 6
@@ -129,7 +128,7 @@ bind percent vmove 4
 bind asciicircum vmove 5
 
 # [toggle fullscreen]
-definekey top F11 exec sdorfehs -c fullscreen && polybar-msg cmd toggle &
+definekey top F11 exec xdotool getactivewindow windowstate --toggle FULLSCREEN && polybar-msg cmd toggle &
 
 # [mediakeys]
 definekey top XF86KbdBrightnessDown exec kbdlight down 5
