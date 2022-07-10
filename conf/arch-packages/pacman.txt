@@ -99,5 +99,4 @@ links
 acpi
 xorg-xbacklight
 yajl
-tint2
-cbatticon
+xdotool
