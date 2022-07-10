@@ -12,6 +12,9 @@ function killbar {
 	if [ "$(pgrep -c lemonaid)" -gt 0 ]; then
 		pkill "$switch" lemonaid
 	fi
+	if pgrep polybar; then
+		polybar-msg action "#mpd.hook.0"
+	fi
 	if [ "$(pgrep -c awesome)" -gt 0 ]; then
 		echo "awesome.emit_signal(\"dotfiles::update\", \"mpris\")" | awesome-client
 	fi
