@@ -1,8 +1,0 @@
-[
-	"~/dotfiles/conf/luastatus/widgets/sf-vscreen.lua",
-	"~/dotfiles/conf/luastatus/widgets/mpd.lua",
-	"~/dotfiles/conf/luastatus/widgets/volume.lua",
-	"~/dotfiles/conf/luastatus/widgets/battery.lua",
-	"~/dotfiles/conf/luastatus/widgets/brightness.lua",
-	"~/dotfiles/conf/luastatus/widgets/clock.lua"
-]
