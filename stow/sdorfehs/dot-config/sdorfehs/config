@@ -11,8 +11,13 @@ set padding 0 22 0 0
 set onlyborder 0
 set gap 0
 
+# [unmanage]
+unmanage polybar
+
 # [autostart]
 exec sf-autostart &
+exec dotfiles-polybar &
+exec sf-colors.sh &
 
 # [hooks]
 addhook deletewindow exec sf-zoom.sh check
@@ -190,9 +195,4 @@ unbind C-v
 unbind C-x
 unbind C-w
 
-#[Unmanage]
-unmanage polybar
-
-exec dotfiles-polybar &
-exec sf-colors.sh &
 # vim:ft=sdorfehs
