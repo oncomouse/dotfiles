@@ -16,12 +16,12 @@ set startupmessage 0
 set border 2
 set bargravity c
 set barsticky 0
+set barborder 1
 set barinpadding 1
 set barpadding 5 2
 set vscreens 6
-set padding 0 24 0 0
+set padding 0 22 0 0
 set onlyborder 0
-set stickyfmt [%t]
 set gap 0
 
 set bargravity c
