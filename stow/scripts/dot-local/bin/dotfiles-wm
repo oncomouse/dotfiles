@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+function action-window {
+	if [[ ${1-} != @(next|prev) ]]; then
+		echo 'next|prev expected'
+		exit 1
+	fi
+	if pgrep sdorfehs > /dev/null; then
+		sdorfehs -c "$1"
+	fi
+}
+
+function action-workspace {
+	if [[ ${1-} != @(next|prev) ]]; then
+		echo 'next|prev expected'
+		exit 1
+	fi
+	if pgrep sdorfehs > /dev/null; then
+		vscreens="$(sdorfehs -c vscreens)"
+		first="0"
+		last="$(echo "$vscreens" | tail -n 1 | head -c 1)"
+		current="$(echo "$vscreens" | grep "*" | head -c 1)"
+		target=
+		echo "$last"
+		if [ "$current" = "$first" ] && [ "$1" = "prev" ]; then
+			target="$last"
+		elif [ "$current" = "$last" ] && [ "$1" = "next" ]; then
+			target="$first"
+		elif [ "$1" = "next" ]; then
+			target=$(($current + 1))
+		else
+			target=$(($current - 1))
+		fi
+		sdorfehs -c "vselect $target"
+	fi
+}
+
+if [[ $(type -t "action-${1-}") == function ]]; then
+	"action-$1" "${@:2}"
+else
+	echo "unexpected action: ${1-}"
+fi
+# vim:ft=sh
