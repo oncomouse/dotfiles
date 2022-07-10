@@ -4,6 +4,7 @@
 dex -a
 picom --experimental-backends -b --config ~/dotfiles/conf/picom/ratpoison.conf
 
+source ~/dotfiles/conf/xorg/xinit.d/tint2
 source ~/dotfiles/conf/xorg/xinit.d/no-xfce4
 source ~/dotfiles/conf/xorg/xinit.d/dunst
 source ~/dotfiles/conf/xorg/xinit.d/no-powerbutton
@@ -12,9 +13,9 @@ source ~/dotfiles/conf/xorg/xinit.d/tile-background
 
 target="${DOTFILES_TARGET:-laptop}"
 if [ "$target" = "desktop" ]; then
-	sdorfehs -c 'set font "FiraCode Nerd Font:size=10"'
+	sdorfehs -c 'set font "FiraCode Nerd Font:size=12"'
 else
-	sdorfehs -c 'set font "JetBrainsMono Nerd Font:size=10"'
+	sdorfehs -c 'set font "JetBrainsMono Nerd Font:size=12"'
 fi
 
 # vim:ft=sh
