@@ -17,7 +17,7 @@ BUILD_LOCATION=${XDG_DATA_HOME:-$HOME/.local/share}/dwm-config
 # Determine which Suckless project is being used:
 project=${1:-dwm}
 
-if [ "$project" = "ratpoison" ] || [ "$project" = "sdorfehs" ] || [ "$project" = "luastatus" ]; then
+if [ "$project" = "ratpoison" ] || [ "$project" = "sdorfehs" ]; then
 	exec ~/dotfiles/conf/"${project}"/build.sh
 	exit
 fi
