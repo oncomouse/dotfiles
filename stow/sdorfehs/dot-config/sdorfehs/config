@@ -1,12 +1,3 @@
-exec sf-autostart &
-
-# [hooks]
-addhook deletewindow exec sf-zoom.sh check
-addhook newwindow exec sf-zoom.sh check
-addhook switchwin exec sf-zoom.sh check
-addhook switchscreen exec sf-zoom.sh check
-addhook switchvscreen exec sf-zoom.sh check
-
 # [settings]
 escape s-space
 set startupmessage 0
@@ -20,10 +11,20 @@ set padding 0 22 0 0
 set onlyborder 0
 set gap 0
 
+# [autostart]
+exec sf-autostart &
+
+# [hooks]
+addhook deletewindow exec sf-zoom.sh check
+addhook newwindow exec sf-zoom.sh check
+addhook switchwin exec sf-zoom.sh check
+addhook switchscreen exec sf-zoom.sh check
+addhook switchvscreen exec sf-zoom.sh check
+
 # [functionality]
 bind Escape abort
 
-# [To be redefined]
+# [to be redefined]
 unbind b
 unbind c
 unbind f
@@ -62,10 +63,10 @@ bind h focusleft
 bind j focusdown
 bind k focusup
 bind l focusright
-bind C-h exchangeleft
-bind C-j exchangedown
-bind C-k exchangeup
-bind C-l exchangeright
+bind H exchangeleft
+bind J exchangedown
+bind K exchangeup
+bind L exchangeright
 bind s-h focusleft
 bind s-j focusdown
 bind s-k focusup
