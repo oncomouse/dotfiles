@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+target="${DOTFILES_TARGET:-laptop}"
+pkill polybar
+exec polybar "$target"
+# vim:ft=sh

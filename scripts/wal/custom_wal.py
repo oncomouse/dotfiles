@@ -63,6 +63,10 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
         message("Reloading xrdb")
         system("xrdb -I{} ~/.Xresources".format(home))
 
+    # Reload polybar:
+    if pgrep("polybar"):
+        system("polybar-msg cmd restart")
+
     # Reload various windowmanagers:
     if pgrep("awesome"):
         message("Reloading awesome")
