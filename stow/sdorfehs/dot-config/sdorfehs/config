@@ -1,6 +1,4 @@
 exec sf-autostart &
-exec echo "0" > /tmp/sf-vscreen
-exec sf-tray &
 
 # [hooks]
 addhook deletewindow exec sf-zoom.sh check
@@ -8,7 +6,6 @@ addhook newwindow exec sf-zoom.sh check
 addhook switchwin exec sf-zoom.sh check
 addhook switchscreen exec sf-zoom.sh check
 addhook switchvscreen exec sf-zoom.sh check
-addhook switchvscreen exec echo "$(sdorfehs -c vscreens | grep "*" | cut -d "*" -f 1)" > /tmp/sf-vscreen
 
 # [settings]
 escape s-space
@@ -17,15 +14,11 @@ set border 2
 set bargravity c
 set barsticky 0
 set barborder 1
-set barinpadding 1
 set barpadding 5 2
 set vscreens 6
 set padding 0 22 0 0
 set onlyborder 0
 set gap 0
-
-set bargravity c
-set barsticky 0
 
 # [functionality]
 bind Escape abort
@@ -130,7 +123,7 @@ bind percent vmove 4
 bind asciicircum vmove 5
 
 # [toggle fullscreen]
-definekey top F11 fullscreen
+definekey top F11 exec sdorfehs -c fullscreen && polybar-msg cmd toggle &
 
 # [mediakeys]
 definekey top XF86KbdBrightnessDown exec kbdlight down 5
