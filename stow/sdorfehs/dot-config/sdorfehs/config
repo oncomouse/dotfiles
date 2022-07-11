@@ -106,6 +106,9 @@ definekey top M-s-k exec dotfiles-unicode &
 definekey top C-s-space exec dotfiles-emoji &
 bind C-exclam colon exec dotfiles-term -e
 
+# Polybar fullscreen mess:
+definekey top s-b exec xdo lower -n polybar
+
 # [screenshots]
 bind Print exec dotfiles-screenshot
 
