@@ -2,5 +2,5 @@
 Description=Update DuckDNS
 
 [Service]
-Type=oneshot
+Type=simple
 ExecStart=%h/dotfiles/scripts/duck.sh
