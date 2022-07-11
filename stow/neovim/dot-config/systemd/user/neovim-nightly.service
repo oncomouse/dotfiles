@@ -1,0 +1,6 @@
+[Unit]
+Description=Download Neovim Nightly
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/nvim-linux.sh
