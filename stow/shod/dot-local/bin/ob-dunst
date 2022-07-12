@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-config=~/.config/dunst/dunstrc
-
-# Kill and running dunst instances and start
-killall dunst;/usr/bin/dunst -config $config
-# vim:ft=sh
