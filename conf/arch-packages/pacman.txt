@@ -17,6 +17,10 @@ xorg-xrdb
 xorg-xmodmap
 xorg-xinit
 xclip
+xorg-xprop
+xorg-xbacklight
+xdotool
+xdo
 accountsservice
 texlive-core
 firefox
@@ -97,7 +101,4 @@ ruby
 picom
 links
 acpi
-xorg-xbacklight
 yajl
-xdotool
-xdo
