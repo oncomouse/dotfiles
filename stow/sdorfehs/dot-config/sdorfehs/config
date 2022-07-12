@@ -7,7 +7,7 @@ set bargravity c
 set barborder 1
 set barpadding 5 2
 set vscreens 6
-set padding 0 22 0 0
+set padding 0 24 0 0
 set onlyborder 0
 set gap 0
 
@@ -20,11 +20,11 @@ addhook newwindow exec sf-zoom.sh check
 addhook switchwin exec sf-zoom.sh check
 addhook switchscreen exec sf-zoom.sh check
 addhook switchvscreen exec sf-zoom.sh check
-addhook deletewindow exec xdo above -N Polybar -t "$(xprop -root _NET_SUPPORTING_WM_CHECK | cut -d "#" -f 2)"
-addhook newwindownewwindowexec xdo above -N Polybar -t "$(xprop -root _NET_SUPPORTING_WM_CHECK | cut -d "#" -f 2)"
-addhook switchwin exec xdo above -N Polybar -t "$(xprop -root _NET_SUPPORTING_WM_CHECK | cut -d "#" -f 2)"
-addhook switchscreen exec xdo above -N Polybar -t "$(xprop -root _NET_SUPPORTING_WM_CHECK | cut -d "#" -f 2)"
-addhook switchvscreen exec xdo above -N Polybar -t "$(xprop -root _NET_SUPPORTING_WM_CHECK | cut -d "#" -f 2)"
+addhook deletewindow exec sf-lower-polybar.sh &
+addhook newwindownewwindowexec sf-lower-polybar.sh &
+addhook switchwin exec sf-lower-polybar.sh &
+addhook switchscreen exec sf-lower-polybar.sh &
+addhook switchvscreen exec sf-lower-polybar.sh &
 
 # [functionality]
 bind Escape abort
