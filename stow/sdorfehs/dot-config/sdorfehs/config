@@ -20,6 +20,11 @@ addhook newwindow exec sf-zoom.sh check
 addhook switchwin exec sf-zoom.sh check
 addhook switchscreen exec sf-zoom.sh check
 addhook switchvscreen exec sf-zoom.sh check
+addhook deletewindow exec xdo above -N Polybar -t "$(xprop -root _NET_SUPPORTING_WM_CHECK | cut -d "#" -f 2)"
+addhook newwindownewwindowexec xdo above -N Polybar -t "$(xprop -root _NET_SUPPORTING_WM_CHECK | cut -d "#" -f 2)"
+addhook switchwin exec xdo above -N Polybar -t "$(xprop -root _NET_SUPPORTING_WM_CHECK | cut -d "#" -f 2)"
+addhook switchscreen exec xdo above -N Polybar -t "$(xprop -root _NET_SUPPORTING_WM_CHECK | cut -d "#" -f 2)"
+addhook switchvscreen exec xdo above -N Polybar -t "$(xprop -root _NET_SUPPORTING_WM_CHECK | cut -d "#" -f 2)"
 
 # [functionality]
 bind Escape abort
