@@ -17,7 +17,7 @@ BUILD_LOCATION=${XDG_DATA_HOME:-$HOME/.local/share}/dwm-config
 # Determine which Suckless project is being used:
 project=${1:-dwm}
 
-if [ "$project" = "ratpoison" ] || [ "$project" = "sdorfehs" ]; then
+if [ "$project" = "sdorfehs" ]; then
 	exec ~/dotfiles/conf/"${project}"/build.sh
 	exit
 fi
@@ -135,14 +135,6 @@ if [[ ! -d "$BUILD_LOCATION/$project" ]]; then
 		project_repo=https://github.com/aligrudi/neatvi
 	elif [ "$project" = "nextvi" ]; then
 		project_repo=https://github.com/kyx0r/nextvi
-	elif [ "$project" = "2bwm" ]; then
-		project_repo=https://github.com/venam/2bwm
-	elif [ "$project" = "shod" ]; then
-		project_repo=https://github.com/phillbush/shod
-	elif [ "$project" = "berry" ]; then
-		project_repo=https://github.com/JLErvin/berry
-	elif [ "$project" = "lemonaid" ]; then
-		project_repo=https://github.com/oncomouse/lemonaid
 	fi
 
 	git clone "$project_repo" "$BUILD_LOCATION/$project"
@@ -161,7 +153,7 @@ make clean
 # Generate our separate build branch:
 git checkout -b build
 # aslstatus doesn't use the config.def.h convention, so delete the default:
-if [ "$project" = "2bwm" ] || [ "$project" = "lemonaid" ] || [ "$project" = "shod" ] || [ "$project" = "aslstatus" ] || [ "$project" = "neatvi" ] || [ "$project" = "nextvi" ]; then
+if [ "$project" = "aslstatus" ] || [ "$project" = "neatvi" ] || [ "$project" = "nextvi" ]; then
 	rm "$conf_file"
 fi
 # Link the configuration file from our repository:
@@ -196,9 +188,6 @@ done
 set +e
 
 # Build and install the software:
-if [ "$project" == "berry" ];then
-	./configure
-fi
 make
 install_software
 

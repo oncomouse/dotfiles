@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-if [ "$1" == "44" ]; then
-	status="$(dotfiles-media status)"
-	# if [ "$(echo "$status" | grep -c  栗)" == "0" ]; then
-		# notify-send "$status"
-	# fi
-fi
-
-# vim:ft=sh
