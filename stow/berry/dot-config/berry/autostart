@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-dex -a
 picom --experimental-backends -b --config ~/dotfiles/conf/picom/common.conf
 
 source ~/dotfiles/conf/xorg/xinit.d/sxhkd
