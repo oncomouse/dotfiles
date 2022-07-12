@@ -17,12 +17,16 @@ action-search() {
 }
 
 action-add() {
-	choice="$(mpc ls | while IFS= read -r artist; do mpc ls "$artist" 2> /dev/null | while IFS= read -r album; do printf "%s\n" "$album"; done; done | rofi_bar)"
-	if [[ -n "$choice" ]]; then
-			 mpc ls "$choice" 2> /dev/null | while IFS= read -r song; do
-			 mpc add "$song"
-		 done
-	fi
+	# Get a list of artists \
+	#	Get a list of albums \
+	#	Select albums \
+	#	Get a list of songs in the selected albums \
+	#	Add the songs to MPD
+	mpc ls | \
+		xargs -d "\n" -I{}  mpc ls {} 2> /dev/null | \
+		rofi_bar -multi-select | \
+		xargs -d "\n" -I{} mpc ls {} 2> /dev/null | \
+		xargs -d "\n" -I {} mpc add {} 2> /dev/null
 }
 
 if [[ $(type -t "action-${1-}") == function ]]; then
