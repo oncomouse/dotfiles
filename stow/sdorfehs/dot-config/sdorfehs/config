@@ -107,7 +107,7 @@ definekey top C-s-space exec dotfiles-emoji &
 bind C-exclam colon exec dotfiles-term -e
 
 # Polybar fullscreen mess:
-definekey top s-b exec xdo lower -N Polybar
+definekey top s-b exec polybar-msg cmd toggle
 
 # [screenshots]
 bind Print exec dotfiles-screenshot
