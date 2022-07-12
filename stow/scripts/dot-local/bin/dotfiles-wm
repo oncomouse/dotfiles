@@ -8,6 +8,13 @@ function action-window {
 	if pgrep sdorfehs > /dev/null; then
 		sdorfehs -c "$1"
 	fi
+	if pgrep dwm > /dev/null; then
+		if [ "$1" = "next" ]; then
+			xdotool key super+j
+		else
+			xdotool key super+k
+		fi
+	fi
 }
 
 function action-workspace {
