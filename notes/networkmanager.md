@@ -1,3 +1,3 @@
 ## Connect
 
-Run `nmcli device wifi connect <SSID> password <PASSWORD>`.
+Run `nmcli device wifi --ask connect <SSID>`.
