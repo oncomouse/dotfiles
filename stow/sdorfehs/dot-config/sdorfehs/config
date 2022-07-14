@@ -76,14 +76,17 @@ bind s-h focusleft
 bind s-j focusdown
 bind s-k focusup
 bind s-l focusright
-bind C-s-h exchangeleft
-bind C-s-j exchangedown
-bind C-s-k exchangeup
-bind C-s-l exchangeright
+bind s-H exchangeleft
+bind s-J exchangedown
+bind s-K exchangeup
+bind s-L exchangeright
 
 # [reverse splits]
 bind S hsplit
 bind s split
+
+# [controls]
+bind C-w delete
 
 # [zoom]
 alias zoom exec sf-zoom.sh &
