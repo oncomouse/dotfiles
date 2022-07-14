@@ -84,6 +84,7 @@ bind s split
 
 # [controls]
 bind C-w delete
+definekey top s-w delete
 
 # [zoom]
 alias zoom exec sf-zoom.sh &
