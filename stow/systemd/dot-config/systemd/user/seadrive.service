@@ -3,23 +3,23 @@ Description=Seadrive mount of user files
 After=network-online.target
 
 [Service]
-; Environment=SEADRIVE_CONFIG_FILE="%h/.config/seadrive/seadrive.conf"
-; Environment=SEADRIVE_DATA_DIR="%h/.local/share/seadrive/data/"
-; Environment=SEADRIVE_LOG_FILE="%h/.local/share/seadrive/logs/seadrive.log"
+Environment=SEADRIVE_CONFIG_FILE="%h/.config/seadrive/seadrive.conf"
+Environment=SEADRIVE_DATA_DIR="%h/.local/share/seadrive/data/"
+Environment=SEADRIVE_LOG_FILE="%h/.local/share/seadrive/logs/seadrive.log"
 Environment=SEADRIVE_MOUNT_DIR="%h/Seadrive"
-ExecStartPre=mkdir -p %h/.cache/seadrive
-ExecStart=rclone mount \
-	--cache-dir=%h/.cache/seadrive \
-	--vfs-cache-mode=full \
-	Seafile: ${SEADRIVE_MOUNT_DIR}/"My Libraries"
-; ExecStart=/usr/bin/seadrive \
-;   -f \
-;   -c ${SEADRIVE_CONFIG_FILE} \
-;   -d ${SEADRIVE_DATA_DIR} \
-;   -l ${SEADRIVE_LOG_FILE} \
-;   ${SEADRIVE_MOUNT_DIR}
-; Restart=always
-ExecStopPost=/bin/sh -c 'fusermount -uz ${SEADRIVE_MOUNT_DIR}/"My Libraries"; exit 0'
+; ExecStartPre=mkdir -p %h/.cache/seadrive
+; ExecStart=rclone mount \
+; 	--cache-dir=%h/.cache/seadrive \
+; 	--vfs-cache-mode=full \
+; 	Seafile: ${SEADRIVE_MOUNT_DIR}/"My Libraries"
+ExecStart=/usr/bin/seadrive \
+  -f \
+  -c ${SEADRIVE_CONFIG_FILE} \
+  -d ${SEADRIVE_DATA_DIR} \
+  -l ${SEADRIVE_LOG_FILE} \
+  ${SEADRIVE_MOUNT_DIR}
+Restart=always
+ExecStopPost=/bin/sh -c 'fusermount -uz ${SEADRIVE_MOUNT_DIR}/; exit 0'
 
 [Install]
-WantedBy=default.target 
+WantedBy=default.target
