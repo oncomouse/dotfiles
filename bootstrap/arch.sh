@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Assume, at minimum, "pacman -S base-devel vim git curl fish" run during install:
+# Assume, at minimum, "pacman -S base-devel neovim git curl fish" run during install:
 sudo cat "$HOME/dotfiles/conf/arch-packages/pacman.txt" | sudo pacman -S --noconfirm --needed -
 
 ~/dotfiles/bootstrap/scripts/common.sh
@@ -12,10 +12,14 @@ mkdir -p "$HOME/aur"
 # Install AUR using Paru:
 cat "$HOME"/dotfiles/conf/arch-packages/aur.txt | paru --needed -S --skipreview --noconfirm -
 
-# Setup flatpak:
-flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-# Install Flatpaks:
-grep -v -e "^#" <"$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
+if [ -z "$SERVER" ]; then
+	sudo cat "$HOME/dotfiles/conf/arch-packages/pacman-desktop.txt" | sudo pacman -S --noconfirm --needed -
+	cat "$HOME"/dotfiles/conf/arch-packages/aur-desktop.txt | paru --needed -S --skipreview --noconfirm -
+	# Setup flatpak:
+	flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+	# Install Flatpaks:
+	grep -v -e "^#" <"$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
+fi
 
 if [ -z "$SERVER" ]; then
 	## User systemd services
@@ -25,10 +29,8 @@ if [ -z "$SERVER" ]; then
 	systemctl --user enable mpd.service
 	systemctl --user enable tmux.service
 	systemctl --user enable redshift.service
-
-	# Use Rofi for dmenu:
-	# sudo ln -sf "$(which rofi)" /usr/bin/dmenu
 fi
+
 sudo systemctl enable NetworkManager.service
 sudo systemctl start NetworkManager.service
 
@@ -45,11 +47,7 @@ sudo ufw allow out
 sudo ufw enable
 
 # Set kernel flags:
-sudo sed -i ' 1 s/"$/ l1tf=full,force spec_store_bypass_disable=on spectre_v2=on lsm=yama,apparmor init_on_alloc=1 init_on_free=1 page_alloc.shuffle=1 slab_nomerge vsyscall=none"/' /boot/refind_linux.conf
-
-# Restrict su
-# sudo passwd -l root
-# sudo chgrp -R wheel /usr/local
+sudo sed -i ' 1 s/"$/ l1tf=full,force spec_store_bypass_disable=on spectre_v2=on lsm=yama init_on_alloc=1 init_on_free=1 page_alloc.shuffle=1 slab_nomerge vsyscall=none"/' /boot/refind_linux.conf
 
 # Set Shell to Fish:
 if ! echo "$SHELL" | grep fish >/dev/null 2>&1; then

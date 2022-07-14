@@ -1,0 +1,14 @@
+bibtool
+nerd-fonts-jetbrains-mono
+otf-hasklig
+otf-nerd-fonts-fira-code
+perl-term-shellui
+polkit-dumb-agent-git
+rofi-dmenu
+rofi-emoji
+selene-linter
+shellcheck-bin
+stylua
+tllocalmgr-git
+volctl
+zotero

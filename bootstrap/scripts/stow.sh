@@ -10,39 +10,47 @@ dotfiles_stow () {
 }
 # Basic Setup:
 mkdir -p ~/.config/fish
-dotfiles_stow fish
 dotfiles_stow bash
-dotfiles_stow neovim
-dotfiles_stow vim
-dotfiles_stow tmux
+dotfiles_stow fish
 dotfiles_stow ripgrep
+dotfiles_stow scripts
+dotfiles_stow tmux
+if [ "$os" == "arch" ]; then
+	dotfiles_stow systemd
+fi
 if [ -z "$SERVER" ]; then
-	dotfiles_stow wal
+	dotfiles_stow mopidy
+	dotfiles_stow mpd
+	dotfiles_stow ncmpcpp
+	dotfiles_stow neovim
 	dotfiles_stow proselint
 	dotfiles_stow rubocop
 	dotfiles_stow vale
-	dotfiles_stow mpd
+	dotfiles_stow wal
 	if [ "$os" == "macos" ]; then
 		dotfiles_stow homebrew
-		dotfiles_stow mackup
 		dotfiles_stow karabiner
+		dotfiles_stow mackup
+		dotfiles_stow wezterm
 	elif [ "$os" == "arch" ]; then
 		# Other setup files:
-		dotfiles_stow dwm
 		dotfiles_stow dunst
-		dotfiles_stow sdorfehs
-		dotfiles_stow xdg
-		dotfiles_stow rofi
-		dotfiles_stow xorg
+		dotfiles_stow dwm
+		dotfiles_stow fontconfig
 		dotfiles_stow gtk
-		dotfiles_stow redshift
-		dotfiles_stow xscreensaver
-		dotfiles_stow systemd
-		dotfiles_stow unclutter
-		dotfiles_stow mpv
 		dotfiles_stow mpd
+		dotfiles_stow no-xfce4
+		dotfiles_stow mpv
 		dotfiles_stow ncmpcpp
+		dotfiles_stow picom
+		dotfiles_stow polybar
 		dotfiles_stow pulse
+		dotfiles_stow redshift
+		dotfiles_stow rofi
+		dotfiles_stow sdorfehs
+		dotfiles_stow xorg
+		dotfiles_stow xscreensaver
+		dotfiles_stow zathura
 	fi
 else
 	dotfiles_stow neovim-server
