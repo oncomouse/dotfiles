@@ -172,6 +172,11 @@ N A V B A R
 .browser-toolbar:not(.titlebar-color) {
     background: var(--toolbar-field-background-color) !important;
 }
+
+/* Block WebRTC is disabled button */
+[label^="WebRTC"] {
+  display: none;
+}
 /* 
 S I D E - B A R
 */
