@@ -14,19 +14,17 @@ Notes:
 
 Additional Packages to install, before reboot:
 
-`pacman -S linux-zen linux-firmware refind base-devel vim git curl fish iw gptfdisk iwd terminus-font sudo`
+`pacman -S linux linux-firmware refind base-devel neovim git curl fish iw sudo networkmanager`
 
 Install AMD or Intel Microcode: `pacman -S amd-ucode` or `pacman -S intel-ucode`
 
-Set `/etc/vconsole.conf` to:
-
-> FONT=ter-v18n
-
-1. Configure [sudo](https://wiki.archlinux.org/index.php/Sudo)
-
 # User
 
-useradd -m -G wheel -s /usr/bin/fish andrew
+`useradd -m -G wheel -s /usr/bin/fish andrew`
+
+# Configure Sudo for `wheel`
+
+`visudo`
 
 # IWD Wifi Configuration
 
@@ -57,8 +55,7 @@ Passphrase: secret
 /etc/systemd/network/20-wireless.network:
 
 > [Match]
-> Name=wlp*
-> Name=wlan*
+> Name=wl*
 > 
 > [Network]
 > DHCP=yes
