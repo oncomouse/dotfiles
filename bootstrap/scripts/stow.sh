@@ -12,6 +12,7 @@ dotfiles_stow () {
 mkdir -p ~/.config/fish
 dotfiles_stow bash
 dotfiles_stow fish
+dotfiles_stow git
 dotfiles_stow ripgrep
 dotfiles_stow scripts
 dotfiles_stow tmux
