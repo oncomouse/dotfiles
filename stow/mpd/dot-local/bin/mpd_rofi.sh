@@ -9,10 +9,7 @@ rofi_bar() {
 }
 
 action-search() {
-	match="$(mpc playlist -f "%position%. %artist% - %title%" | rofi_bar)"
-	if [[ "$match" != "" ]]; then
-		mpc play "$(echo "$match" | cut -d "." -f 1)" >/dev/null
-	fi
+	mpc play "$(mpc playlist -f "%position%. %artist% - %title%" | rofi_bar | cut -d "." -f 1)" 2> /dev/null > /dev/null
 }
 
 action-add() {
