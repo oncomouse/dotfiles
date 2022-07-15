@@ -10,8 +10,8 @@ if ! command -v git-credential-netrc > /dev/null; then
 	cp git-credential-netrc ~/.local/bin
 	cd "$owd" || exit
 	rm -rf ~/.cache/git
-	git config --global credential.helper netrc
 fi
+git config --global credential.helper netrc
 git config --global pull.rebase false
 git config --global init.defaultBranch master
 git config --global core.editor "nvim"
