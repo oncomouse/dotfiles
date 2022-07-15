@@ -14,7 +14,7 @@ Notes:
 
 Additional Packages to install, before reboot:
 
-`pacman -S linux linux-firmware refind base-devel neovim git curl fish iw sudo networkmanager`
+`pacman -S linux linux-firmware refind base-devel neovim git curl fish iw sudo networkmanager gpg`
 
 Install AMD or Intel Microcode: `pacman -S amd-ucode` or `pacman -S intel-ucode`
 
