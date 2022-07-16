@@ -1,0 +1,1 @@
+/home/andrew/dotfiles/conf/vim/init-minimal.lua

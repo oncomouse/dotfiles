@@ -1,3 +1,16 @@
+local plugins = {
+	{ "savq/paq-nvim" },
+	"tpope/vim-repeat", -- dot repeat for plugins
+	"tpope/vim-commentary", -- gc to toggle comments
+	"oncomouse/vim-surround", -- ys to add, cs to change, ds to delete. f, F for function, t/T for tag
+	"oncomouse/vim-lion", -- gl and gL to align
+	"vim-scripts/ReplaceWithRegister", -- gr{motion} or grr or gr in visual to replace with register
+}
+
+--------------------------------------------------------------------------------
+-- Settings:
+--------------------------------------------------------------------------------
+
 vim.cmd([[set visualbell t_vb=]]) -- Disable visual bell
 vim.opt.autowrite = true --  Autosave files
 vim.opt.hidden = true --  turn off buffer saving when switching
@@ -63,9 +76,8 @@ vim.opt.dictionary = "/usr/share/dict/words"
 -- Default to hashtag-style comments, by default:
 vim.opt.commentstring = "# %s"
 
-
 -- Minimal Statusbar:
-vim.opt.statusline=" %0.45f%m%h%w%r%= %y %l:%c "
+vim.opt.statusline = " %0.45f%m%h%w%r%= %y %l:%c "
 
 -- Mouse And Clipboard:
 vim.opt.mouse = "a" -- Mouse support
@@ -77,21 +89,67 @@ if vim.fn.has("clipboard") == 1 then
 	end
 end
 
--- ==============================================================================
+--------------------------------------------------------------------------------
 -- Disable Plugins:
--- ==============================================================================
+--------------------------------------------------------------------------------
+
 vim.g.loaded_gzip = 1
 vim.g.loaded_tarPlugin = 1
 vim.g.loaded_zipPlugin = 1
 vim.g.loaded_2html_plugin = 1
 vim.g.loaded_rrhelper = 1
 vim.g.loaded_remote_plugins = 1
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
--- ==============================================================================
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+--------------------------------------------------------------------------------
+-- Functions:
+--------------------------------------------------------------------------------
+
+-- Open or close quickfix or loclist
+local function list_toggle(pfx, force_open)
+	if not force_open then
+		local status = vim.g["dotfiles_" .. pfx .. "open"] or 0
+		if status ~= 0 then
+			vim.g["dotfiles_" .. pfx .. "open"] = 0
+			vim.cmd(pfx .. "close")
+			return
+		end
+		if pfx == "l" and vim.fn.len(vim.fn.getloclist(0)) == 0 then
+			vim.cmd([[echohl ErrorMsg
+			echo 'Location List is Empty.'
+			echohl NONE]])
+			return
+		end
+	end
+	vim.g["dotfiles_" .. pfx .. "open"] = 1
+	vim.cmd(pfx .. "open")
+end
+
+-- Run grep! unless we're in quickfix results, then run cfilter
+local function grep_or_qfgrep()
+	if vim.opt.buftype:get() == "quickfix" then
+		-- Load cfilter in quickfix view:
+		vim.cmd([[packadd cfilter]])
+		local input = vim.fn.input("QFGrep/")
+		if #input > 0 then
+			local prefix = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "L" or "C"
+			vim.cmd(prefix .. "filter /" .. input .. "/")
+		end
+	else
+		local input = vim.fn.input("Grep/")
+		if #input > 0 then
+			vim.cmd('silent! grep! "' .. input .. '"')
+		end
+	end
+end
+
+--------------------------------------------------------------------------------
 -- Autocommands:
--- ==============================================================================
+--------------------------------------------------------------------------------
+
 vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
+
 -- Line Number Colors in default:
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
@@ -105,28 +163,19 @@ vim.api.nvim_create_autocmd(
 	"ColorScheme",
 	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNrBelow ctermfg=7" }
 )
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{
-		group = "dotfiles-settings",
-		pattern = "default",
-		command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE gui=NONE",
-	}
-)
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{
-		group = "dotfiles-settings",
-		pattern = "default",
-		command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE gui=NONE",
-	}
-)
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = "dotfiles-settings",
+	pattern = "default",
+	command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE gui=NONE",
+})
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = "dotfiles-settings",
+	pattern = "default",
+	command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE gui=NONE",
+})
 
 -- Turn Off Line Numbering:
-vim.api.nvim_create_autocmd(
-	"TermOpen",
-	{ group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" }
-)
+vim.api.nvim_create_autocmd("TermOpen", { group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" })
 
 -- Start QuickFix:
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
@@ -160,9 +209,10 @@ vim.api.nvim_create_autocmd("CompleteDone", {
 	end,
 })
 
--- ==============================================================================
--- Basic Maps:
--- ==============================================================================
+--------------------------------------------------------------------------------
+-- Maps:
+--------------------------------------------------------------------------------
+
 -- Clear Currently Highlighted Regexp:
 vim.keymap.set("n", "<leader>cr", ':let<C-u>let @/=""<CR>', { silent = true, noremap = true })
 
@@ -202,7 +252,10 @@ vim.keymap.set("n", "<leader>/", function()
 end, { silent = true, noremap = true })
 
 -- Highlight a block and type "@" to run a macro on the block:
-vim.keymap.set("x", "@", require("dotfiles.visualat"), { silent = true, noremap = true })
+vim.keymap.set("x", "@", function()
+	vim.cmd([[echo '@'.getcmdline()
+	execute ":'<,'>normal @".nr2char(getchar())]])
+end, { silent = true, noremap = true })
 
 -- Calculator:
 vim.keymap.set("i", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
@@ -215,18 +268,14 @@ vim.keymap.set("n", "j", "(v:count == 0 ? 'gj' : 'j')", { silent = true, noremap
 vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap = true, expr = true })
 
 -- Textobjects:
--- Fold Maps:
-vim.keymap.set("o", "iz", "<cmd>normal! [zj0v]zk$<cr>", { silent = true, noremap = true })
-vim.keymap.set("x", "iz", "<cmd>normal! [zj0o]zk$<cr>", { silent = true, noremap = true })
-vim.keymap.set("o", "az", "<cmd>normal! [zv]z$<cr>", { silent = true, noremap = true })
-vim.keymap.set("x", "az", "<cmd>normal! [zo]z$<cr>", { silent = true, noremap = true })
 
 -- Entire document:
 vim.keymap.set("o", "ae", "<cmd>normal! gg0vG$<cr>", { silent = true, noremap = true })
 vim.keymap.set("x", "ae", "<cmd>normal! gg0oG$<cr>", { silent = true, noremap = true })
--- ==============================================================================
+
+--------------------------------------------------------------------------------
 -- Commands:
--- ==============================================================================
+--------------------------------------------------------------------------------
 vim.api.nvim_create_user_command("Diagnostics", function()
 	vim.cmd("silent lmake! %")
 	if #vim.fn.getloclist(0) == 0 then
@@ -263,164 +312,90 @@ end, {
 	force = true,
 	nargs = 1,
 })
--- ==============================================================================
--- Functions:
--- ==============================================================================
 
--- Open or close quickfix or loclist
-local function list_toggle(pfx, force_open)
-	if not force_open then
-		local status = vim.g["dotfiles_" .. pfx .. "open"] or 0
-		if status ~= 0 then
-			vim.g["dotfiles_" .. pfx .. "open"] = 0
-			vim.cmd(pfx .. "close")
-			return
-		end
-		if pfx == "l" and vim.fn.len(vim.fn.getloclist(0)) == 0 then
-			vim.cmd([[echohl ErrorMsg
-			echo 'Location List is Empty.'
-			echohl NONE]])
-			return
-		end
-	end
-	vim.g["dotfiles_" .. pfx .. "open"] = 1
-	vim.cmd(pfx .. "open")
-end
-
--- Run grep! unless we're in quickfix results, then run cfilter
-local function grep_or_qfgrep()
-	if vim.opt.buftype:get() == "quickfix" then
-		-- Load cfilter in quickfix view:
-		vim.cmd([[packadd cfilter]])
-		local input = vim.fn.input("QFGrep/")
-		if #input > 0 then
-			local prefix = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "L" or "C"
-			vim.cmd(prefix .. "filter /" .. input .. "/")
-		end
-	else
-		local input = vim.fn.input("Grep/")
-		if #input > 0 then
-			vim.cmd('silent! grep! "' .. input .. '"')
-		end
-	end
-end
--- ==============================================================================
+--------------------------------------------------------------------------------
 -- Minpac For Essentials:
--- ==============================================================================
-function! s:packpath() abort
-	return ($XDG_DATA_HOME ? $XDG_DATA_HOME : $HOME.'/.local/share') . '/minpac/minimal'
-endfunction
+--------------------------------------------------------------------------------
 
-if !get(g:, 'skip_minimal_minpac', !has('patch-7.4.1384'))
-	function! PackInit() abort
-		-- Download Minpac:
-		let l:minpac_dir = s:packpath()
-		if empty(glob(l:minpac_dir.'/pack/minpac/opt/minpac'))
-			if executable('git')
-				silent execute '!git clone --depth 1 https://github.com/k-takata/minpac "'.l:minpac_dir.'/pack/minpac/opt/minpac"'
-			endif
-		endif
-
-		-- Load Minpac:
-		packadd minpac
-
-		if exists('g:loaded_minpac')
-			call minpac#init({'dir': l:minpac_dir})
-			call minpac#add('tpope/vim-sensible', {'type': 'opt'}) " Agreeable vim settings:
-			call minpac#add('xero/securemodelines', {'type': 'opt'}) " Secure modelines
-			call minpac#add('tpope/vim-repeat') " dot repeat for plugins
-			call minpac#add('tpope/vim-commentary') " gc to toggle comments
-			call minpac#add('oncomouse/vim-surround') " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-			call minpac#add('oncomouse/vim-lion') " gl and gL to align
-			call minpac#add('vim-scripts/ReplaceWithRegister') " gr{motion} or grr or gr in visual to replace with register
-			call minpac#add('k-takata/minpac', {'type': 'opt'})
-			call minpac#add('noahfrederick/vim-neovim-defaults', {'type': 'opt'}) " Set Vim with the same default as NeoVim
-		else
-			echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
-		endif
-	endfunction
-
-	exe 'set packpath+='.s:packpath()
-	command! PackUpdate call PackInit() | call minpac#update()
-	command! PackClean call PackInit() | call minpac#clean()
-	command! PackStatus call PackInit() | call minpac#status()
+function paq_path()
+	local o = os.getenv("XDG_DATA_HOME")
+	o = o and o or os.getenv("HOME") .. "/.local/share"
+	return o .. "/paq.nvim/minimal"
 end
 
--- ==============================================================================
--- Pack Settings:
--- ==============================================================================
-if has('patch-7.4.1384') " packadd available
-	if !has('patch-8.1.1365') && !has('nvim-0.4') " Securemodelines is needed:
-		set nomodeline
-		vim.g.secure_modelines_verbose = 0
-		vim.g.secure_modelines_modelines = 15
-		vim.g.secure_modelines_allowed_items = [
-			\ 'textwidth',	 'tw',
-			\ 'softtabstop', 'sts',
-			\ 'tabstop',     'ts',
-			\ 'shiftwidth',	 'sw',
-			\ 'expandtab',	 'et',	 'noexpandtab', 'noet',
-			\ 'filetype',    'ft',
-			\ 'foldmethod',	 'fdm',
-			\ 'foldlevel',	 'fdl',
-			\ 'readonly',    'ro',	 'noreadonly', 'noro',
-			\ 'rightleft',	 'rl',	 'norightleft', 'norl',
-			\ 'cindent',     'cin',	 'nocindent', 'nocin',
-			\ 'smartindent', 'si',	 'nosmartindent', 'nosi',
-			\ 'autoindent',	 'ai',	 'noautoindent', 'noai',
-			\ 'spell',       'nospell',
-			\ 'spelllang',
-			\ 'wrap',        'nowrap',
-			\ 'syntax'
-			\ ]
-		packadd! securemodelines
-	endif
-	if !has('nvim') " Not using Neovim:
-		packadd! vim-sensible
-		packadd! vim-neovim-defaults
-	endif
-	if !exists('g:skip_minimal_minpac')
-		colorscheme default
-	endif
-endif
+function paq_init()
+	local paq_dir = paq_path()
+	if vim.fn.empty(vim.fn.glob(paq_dir .. "/pack/paqs/opt/paq-nvim")) == 1 then
+		os.execute("git clone --depth 1 https://github.com/savq/paq-nvim " .. paq_dir .. "/pack/paqs/opt/paq")
+	end
+	vim.cmd([[packadd paq]])
+	local paq = require("paq")
+	paq:setup({
+		path = paq_dir,
+	})
+	paq(plugins)
+	return paq
+end
 
--- ==============================================================================
+vim.opt.packpath = vim.opt.packpath + paq_path()
+local commands = {
+	"sync",
+	"clean",
+	"install",
+	"update",
+	"list",
+}
+for _, command in pairs(commands) do
+	vim.api.nvim_create_user_command("Paq" .. command:sub(1, 1):upper() .. command:sub(2), function()
+		paq_init()[command]()
+	end, {
+		force = true,
+	})
+end
+
+--------------------------------------------------------------------------------
+-- Colorscheme
+--------------------------------------------------------------------------------
+
+vim.cmd([[colorscheme default]])
+
+--------------------------------------------------------------------------------
 -- FZF:
--- ==============================================================================
-if isdirectory('/usr/local/opt/fzf') " Homebrew
-	set runtimepath+=/usr/local/opt/fzf
+--------------------------------------------------------------------------------
+
+if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then -- Homebrew
+	vim.opt.runtimepath = vim.opt.runtimepath + "/usr/local/opt/fzf"
 	vim.g.has_fzf = 1
-elseif isdirectory('/usr/share/vim/vimfiles') " Arch, btw
-	set runtimepath+=/usr/share/vim/vimfiles
+elseif vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 then -- Arch, btw
+	vim.opt.runtimepath = vim.opt.runtimepath + "/usr/share/vim/vimfiles"
 	vim.g.has_fzf = 1
-elseif isdirectory('~/.fzf') " Local install
-	set runtimepath+=~/.fzf
+elseif vim.fn.isdirectory("~/.fzf") == 1 then -- Local install
+	vim.opt.runtimepath = vim.opt.runtimepath + "~/.fzf"
 	vim.g.has_fzf = 1
 end
-vim.g.fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'border': 'top' } }
+vim.g.fzf_layout = { window = { width = 1, height = 0.4, yoffset = 1, border = "top" } }
 vim.g.fzf_action = {
-	\ 'ctrl-s': 'split',
-	\ 'ctrl-v': 'vsplit',
-	\ 'ctrl-t': 'tabnew',
-	\ 'ctrl-e': 'edit',
-	\ }
+	["ctrl-s"] = "split",
+	["ctrl-v"] = "vsplit",
+	["ctrl-t"] = "tabnew",
+	["ctrl-e"] = "edit",
+}
 vim.g.fzf_nvim_statusline = 0
-if !exists('g:skip_minimal_minpac')
-	vim.g.fzf_colors =
-		\ { 'fg':      ['fg', 'Normal'],
-		\   'bg':      ['bg', 'Normal'],
-		\   'hl':      ['fg', 'Comment'],
-		\   'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-		\   'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-		\   'hl+':     ['fg', 'Statement'],
-		\   'info':    ['fg', 'PreProc'],
-		\   'border':  ['fg', 'Ignore'],
-		\   'prompt':  ['fg', 'Conditional'],
-		\   'pointer': ['fg', 'Exception'],
-		\   'marker':  ['fg', 'Keyword'],
-		\   'spinner': ['fg', 'Label'],
-		\   'header':  ['fg', 'Comment'] }
-endif
-if get(g:, 'has_fzf', 0)
-	nmap <silent> <C-P> <cmd>FZF --reverse --info=inline<cr>
-endif
+vim.g.fzf_colors = {
+	fg = { "fg", "Normal" },
+	bg = { "bg", "Normal" },
+	hl = { "fg", "Comment" },
+	["fg+"] = { "fg", "CursorLine", "CursorColumn", "Normal" },
+	["bg+"] = { "bg", "CursorLine", "CursorColumn" },
+	["hl+"] = { "fg", "Statement" },
+	info = { "fg", "PreProc" },
+	border = { "fg", "Ignore" },
+	prompt = { "fg", "Conditional" },
+	pointer = { "fg", "Exception" },
+	marker = { "fg", "Keyword" },
+	spinner = { "fg", "Label" },
+	header = { "fg", "Comment" },
+}
+if vim.g.has_fzf ~= 0 then
+	vim.keymap.set("n", "<C-P>", "<cmd>FZF --reverse --info=inline<cr>", { silent = true, noremap = true })
+end
