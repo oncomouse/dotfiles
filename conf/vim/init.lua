@@ -209,7 +209,10 @@ end, { silent = true, noremap = true })
 vim.g.enable_todo = 1
 
 -- Highlight a block and type "@" to run a macro on the block:
-vim.keymap.set("x", "@", require("dotfiles.visualat"), { silent = true, noremap = true })
+vim.keymap.set("x", "@", function()
+	vim.cmd([[echo '@'.getcmdline()
+	execute ":'<,'>normal @".nr2char(getchar())]])
+end, { silent = true, noremap = true })
 
 -- Calculator:
 vim.keymap.set("i", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
