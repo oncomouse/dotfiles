@@ -320,7 +320,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
 	vim.fn.jobstart({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }, {
 		on_exit = function()
 			vim.cmd("packadd packer.nvim")
-			vim.cmd("PackerSync")
+			plugins().sync()
 		end,
 	})
 end
