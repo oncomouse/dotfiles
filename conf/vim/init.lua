@@ -403,38 +403,7 @@ end
 vim.g.bibfiles = "~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
 -- }}}
 -- Plugins {{{
--- Lazy-load packer commands:
-local packer_commands = {
-	"install",
-	"update",
-	"sync",
-	"clean",
-	"status",
-	"compile",
-}
-for _, cmd in pairs(packer_commands) do
-	vim.api.nvim_create_user_command("Packer" .. cmd:gsub("^%l", string.upper), function()
-		vim.cmd("packadd packer.nvim")
-		require("dotfiles.plugins")[cmd]()
-	end, {})
-end
-
--- Update Packer.nvim automatically:
-vim.api.nvim_create_autocmd("BufWritePost", {
-	group = "dotfiles-settings",
-	pattern = "plugins/*.lua",
-	command = "source <afile> | PackerCompile",
-})
--- Install packer.nvim, if it isn't present:
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
-if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
-	vim.fn.jobstart({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }, {
-		on_exit = function()
-			vim.cmd("packadd packer.nvim")
-			vim.cmd("PackerSync")
-		end,
-	})
-end
+require("dotfiles.plugins")
 -- }}}
 -- Filetypes {{{
 vim.filetype.add({
