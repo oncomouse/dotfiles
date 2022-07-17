@@ -1,6 +1,6 @@
 local plugins = {
 	{ "savq/paq-nvim", opt = true, as = "paq" },
-	"noah/fu", -- colors
+	"lodestone/lodestone.vim", -- colors
 	"tpope/vim-repeat", -- dot repeat for plugins
 	"tpope/vim-commentary", -- gc to toggle comments
 	"oncomouse/vim-surround", -- ys to add, cs to change, ds to delete. f, F for function, t/T for tag
@@ -345,7 +345,7 @@ end
 -- Colorscheme
 --------------------------------------------------------------------------------
 
-vim.cmd([[colorscheme fu]])
+vim.cmd([[colorscheme lodestone]])
 
 --------------------------------------------------------------------------------
 -- FZF:
