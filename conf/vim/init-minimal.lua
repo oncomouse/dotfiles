@@ -1,5 +1,5 @@
 local plugins = {
-	{ "savq/paq-nvim" },
+	{ "savq/paq-nvim", opt = true, as = "paq" },
 	"tpope/vim-repeat", -- dot repeat for plugins
 	"tpope/vim-commentary", -- gc to toggle comments
 	"oncomouse/vim-surround", -- ys to add, cs to change, ds to delete. f, F for function, t/T for tag
@@ -43,9 +43,9 @@ vim.opt.previewheight = 14
 
 -- Completion:
 vim.opt.completeopt = "menuone,noselect,noinsert,preview"
-vim.opt.shortmess = vim.opt.shortmess + "c"
+vim.opt.shortmess:append("c")
 -- prevent a condition where vim lags due to searching include files.
-vim.opt.complete = vim.opt.complete - "i"
+vim.opt.complete:remove("i")
 
 -- <C-z> expands wildcards in command mode
 vim.opt.wildcharm = vim.fn.char2nr("^Z")
@@ -325,19 +325,20 @@ end
 
 function paq_init()
 	local paq_dir = paq_path()
-	if vim.fn.empty(vim.fn.glob(paq_dir .. "/pack/paqs/opt/paq-nvim")) == 1 then
-		os.execute("git clone --depth 1 https://github.com/savq/paq-nvim " .. paq_dir .. "/pack/paqs/opt/paq")
+	local clone_path = paq_dir .. "/pack/paqs/opt/paq"
+	if vim.fn.empty(vim.fn.glob(clone_path)) == 1 then
+		os.execute("git clone --depth 1 https://github.com/savq/paq-nvim " .. clone_path)
 	end
 	vim.cmd([[packadd paq]])
 	local paq = require("paq")
 	paq:setup({
-		path = paq_dir,
+		path = paq_dir .. "/pack/paqs/",
 	})
 	paq(plugins)
 	return paq
 end
 
-vim.opt.packpath = vim.opt.packpath + paq_path()
+vim.opt.packpath:append(paq_path())
 local commands = {
 	"sync",
 	"clean",
@@ -347,7 +348,8 @@ local commands = {
 }
 for _, command in pairs(commands) do
 	vim.api.nvim_create_user_command("Paq" .. command:sub(1, 1):upper() .. command:sub(2), function()
-		paq_init()[command]()
+		local paq = paq_init()
+		paq[command](paq)
 	end, {
 		force = true,
 	})
@@ -364,13 +366,13 @@ vim.cmd([[colorscheme default]])
 --------------------------------------------------------------------------------
 
 if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then -- Homebrew
-	vim.opt.runtimepath = vim.opt.runtimepath + "/usr/local/opt/fzf"
+	vim.opt.runtimepath:append("/usr/local/opt/fzf")
 	vim.g.has_fzf = 1
 elseif vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 then -- Arch, btw
-	vim.opt.runtimepath = vim.opt.runtimepath + "/usr/share/vim/vimfiles"
+	vim.opt.runtimepath:append("/usr/share/vim/vimfiles")
 	vim.g.has_fzf = 1
 elseif vim.fn.isdirectory("~/.fzf") == 1 then -- Local install
-	vim.opt.runtimepath = vim.opt.runtimepath + "~/.fzf"
+	vim.opt.runtimepath:append("~/.fzf")
 	vim.g.has_fzf = 1
 end
 vim.g.fzf_layout = { window = { width = 1, height = 0.4, yoffset = 1, border = "top" } }
