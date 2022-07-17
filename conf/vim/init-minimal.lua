@@ -67,11 +67,6 @@ end
 -- Searching:
 vim.opt.wrapscan = true -- Start scan over at the top
 
--- Linewrap:
--- vim.opt.wrap = false
-vim.opt.sidescroll = 5 -- Unused without set wrap, but prepared in case it is used
-vim.opt.showbreak = "↳ " -- Show a line has wrapped
-
 vim.opt.dictionary = "/usr/share/dict/words"
 
 -- Default to hashtag-style comments, by default:
