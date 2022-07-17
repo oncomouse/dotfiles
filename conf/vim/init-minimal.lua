@@ -1,5 +1,6 @@
 local plugins = {
 	{ "savq/paq-nvim", opt = true, as = "paq" },
+	"noah/fu", -- colors
 	"tpope/vim-repeat", -- dot repeat for plugins
 	"tpope/vim-commentary", -- gc to toggle comments
 	"oncomouse/vim-surround", -- ys to add, cs to change, ds to delete. f, F for function, t/T for tag
@@ -12,9 +13,9 @@ local plugins = {
 --------------------------------------------------------------------------------
 
 vim.cmd([[set visualbell t_vb=]]) -- Disable visual bell
-vim.opt.autowrite = true --  Autosave files
-vim.opt.hidden = true --  turn off buffer saving when switching
-vim.opt.lazyredraw = true --  Don't redraw between macro runs (may make terminal flicker)
+vim.opt.autowrite = true --	 Autosave files
+vim.opt.hidden = true --	turn off buffer saving when switching
+vim.opt.lazyredraw = true --	Don't redraw between macro runs (may make terminal flicker)
 
 -- Override Default Split Creation Locations:
 vim.opt.splitbelow = true
@@ -90,6 +91,15 @@ if vim.fn.has("clipboard") == 1 then
 end
 
 --------------------------------------------------------------------------------
+-- Tabs
+--------------------------------------------------------------------------------
+
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab = false
+
+--------------------------------------------------------------------------------
 -- Disable Plugins:
 --------------------------------------------------------------------------------
 
@@ -149,30 +159,6 @@ end
 --------------------------------------------------------------------------------
 
 vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
-
--- Line Number Colors in default:
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNr ctermfg=7" }
-)
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNrAbove ctermfg=7" }
-)
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNrBelow ctermfg=7" }
-)
-vim.api.nvim_create_autocmd("ColorScheme", {
-	group = "dotfiles-settings",
-	pattern = "default",
-	command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE gui=NONE",
-})
-vim.api.nvim_create_autocmd("ColorScheme", {
-	group = "dotfiles-settings",
-	pattern = "default",
-	command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE gui=NONE",
-})
 
 -- Turn Off Line Numbering:
 vim.api.nvim_create_autocmd("TermOpen", { group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" })
@@ -359,7 +345,7 @@ end
 -- Colorscheme
 --------------------------------------------------------------------------------
 
-vim.cmd([[colorscheme default]])
+vim.cmd([[colorscheme fu]])
 
 --------------------------------------------------------------------------------
 -- FZF:
@@ -400,4 +386,48 @@ vim.g.fzf_colors = {
 }
 if vim.g.has_fzf ~= 0 then
 	vim.keymap.set("n", "<C-P>", "<cmd>FZF --reverse --info=inline<cr>", { silent = true, noremap = true })
+	vim.keymap.set("n", "<leader>a", function()
+		curbuf = vim.api.nvim_get_current_buf()
+		prevbuf = vim.fn.bufnr('#')
+		local buffers = vim.tbl_map(function(n)
+			local flag = (n == curbuf and '%') or (n == prevbuf and '#') or ' '
+			return {
+				bufnr = n,
+				flag = flag,
+				info = vim.fn.getbufinfo(n)[1],
+			}
+		end, vim.api.nvim_list_bufs())
+		table.sort(buffers, function(a,b)
+			if a.info.hidden == 0 then
+				return true
+			elseif b.info.hidden == 0 then
+				return false
+			elseif a.flag == "#" then
+				return true
+			elseif b.flag == "#" then
+				return false
+			end
+			return a.info.lastused > b.info.lastused
+		end)
+		vim.fn["fzf#run"](vim.fn["fzf#wrap"]("Buffers", {
+			sink = function(choice)
+				vim.api.nvim_set_current_buf(tonumber(string.sub(choice, string.find(choice, "%d+"))))
+			end,
+			source = vim.tbl_map(function(buf)
+				return string.format("[%s] %s%s	 %-32s line %d",
+					buf.bufnr,
+					buf.flag,
+					buf.info.hidden == 1 and 'h' or 'a',
+					vim.fn.pathshorten(buf.info.name),
+					buf.info.lnum)
+			end, buffers),
+			options = {
+				"--prompt", "> " ,
+				"--multi",
+				"--no-sort",
+				"--header-lines", "1",
+				"--reverse",
+			}
+		}))
+	end, { silent = true, noremap = true })
 end
