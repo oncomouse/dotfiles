@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 font="$(rofi-font "$1")"
 offset="$(rofi-offset)"
-choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next%s" "$(pgrep -x mpd &> /dev/null && printf "\n Search\n Add Album")" | \
+choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next%s" "$(pgrep -x mpd &> /dev/null && printf "\n Search\n Add Album\n Remove Album")" | \
 	rofi \
 	-match fuzzy \
 	-auto-select \
@@ -31,5 +31,8 @@ case "$choice" in
 		;;
 	*Add*)
 		mpd_rofi.sh add "$font"
+		;;
+	*Remove*)
+		mpd_rofi.sh remove "$font"
 		;;
 esac

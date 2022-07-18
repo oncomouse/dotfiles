@@ -25,6 +25,14 @@ action-add() {
 		xargs -d "\n" -I {} mpc add {} 2> /dev/null
 }
 
+action-remove() {
+	playlist="$(mpc playlist -f "%position% %artist% - %album%")"
+	choice="$(echo "$playlist" | sed -e "s/^[0-9]\\+ //" | uniq | rofi_bar -multi-select)"
+	if [ "$choice" != "" ]; then
+		echo "$playlist" | grep "$choice" | tac | cut -d " " -f 1 | xargs -I {} mpc del {}
+	fi
+}
+
 if [[ $(type -t "action-${1-}") == function ]]; then
 	"action-$1" "${@:2}"
 else
