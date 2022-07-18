@@ -159,6 +159,12 @@ end
 
 vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
 
+-- Correct whitespace
+vim.api.nvim_create_autocmd(
+	"ColorScheme",
+	{ group = "dotfiles-settings", pattern = "lodestone", command = "hi Whitespace ctermfg=236 guifg=#202438" }
+)
+
 -- Turn Off Line Numbering:
 vim.api.nvim_create_autocmd("TermOpen", { group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" })
 
@@ -211,7 +217,11 @@ vim.keymap.set("n", "<localleader>f", ":find *", { noremap = true })
 vim.keymap.set("n", "<localleader>s", ":sfind *", { noremap = true })
 vim.keymap.set("n", "<localleader>v", ":vert sfind *", { noremap = true })
 -- Minimal Buffer Jumping:
-vim.keymap.set("n", "<leader>a", ":buffers<CR>:buffer<Space> ", { noremap = true })
+vim.keymap.set("n", "<leader>a", function()
+	vim.cmd([[buffers]])
+	local last = vim.fn.getbufinfo("#")[1]
+	return ":buffers<CR>:buffer<Space>" .. (last ~= nil and last.bufnr or "")
+end, { noremap = true, expr = true })
 vim.keymap.set("n", "<localleader>a", ":buffer *", { noremap = true })
 vim.keymap.set("n", "<localleader>A", ":sbuffer *", { noremap = true })
 
@@ -344,7 +354,10 @@ end
 -- Colorscheme
 --------------------------------------------------------------------------------
 
-vim.cmd([[colorscheme lodestone]])
+local ok = pcall(vim.cmd, [[colorscheme lodestone]])
+if not ok then
+	vim.cmd([[colorscheme default]])
+end
 
 --------------------------------------------------------------------------------
 -- FZF:
@@ -385,48 +398,4 @@ vim.g.fzf_colors = {
 }
 if vim.g.has_fzf ~= 0 then
 	vim.keymap.set("n", "<C-P>", "<cmd>FZF --reverse --info=inline<cr>", { silent = true, noremap = true })
-	vim.keymap.set("n", "<leader>a", function()
-		local curbuf = vim.api.nvim_get_current_buf()
-		local prevbuf = vim.fn.bufnr('#')
-		local buffers = vim.tbl_map(function(n)
-			local flag = (n == curbuf and '%') or (n == prevbuf and '#') or ' '
-			return {
-				bufnr = n,
-				flag = flag,
-				info = vim.fn.getbufinfo(n)[1],
-			}
-		end, vim.api.nvim_list_bufs())
-		table.sort(buffers, function(a,b)
-			if a.info.hidden == 0 then
-				return true
-			elseif b.info.hidden == 0 then
-				return false
-			elseif a.flag == "#" then
-				return true
-			elseif b.flag == "#" then
-				return false
-			end
-			return a.info.lastused > b.info.lastused
-		end)
-		vim.fn["fzf#run"](vim.fn["fzf#wrap"]("Buffers", {
-			sink = function(choice)
-				vim.api.nvim_set_current_buf(tonumber(string.sub(choice, string.find(choice, "%d+"))))
-			end,
-			source = vim.tbl_map(function(buf)
-				return string.format("[%s] %s%s	 %-32s line %d",
-					buf.bufnr,
-					buf.flag,
-					buf.info.hidden == 1 and 'h' or 'a',
-					vim.fn.pathshorten(buf.info.name),
-					buf.info.lnum)
-			end, buffers),
-			options = {
-				"--prompt", "> " ,
-				"--multi",
-				"--no-sort",
-				"--header-lines", "1",
-				"--reverse",
-			}
-		}))
-	end, { silent = true, noremap = true })
 end
