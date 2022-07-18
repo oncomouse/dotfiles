@@ -232,10 +232,6 @@ vim.keymap.set("n", "j", "(v:count == 0 ? 'gj' : 'j')", { silent = true, noremap
 vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap = true, expr = true })
 
 -- }}}
--- FZF Bindings: {{{
-vim.keymap.set("n", "<c-p>", "<cmd>Files<CR>", { silent = true })
-vim.keymap.set("n", "<leader>a", "<cmd>Buffers<CR>", { silent = true })
--- }}}
 -- Textobjects: {{{
 -- Fold Maps:
 vim.keymap.set("o", "iz", "<cmd>normal! [zj0v]zk$<cr>", { silent = true, noremap = true })

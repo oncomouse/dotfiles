@@ -108,4 +108,7 @@ if ok then
 	end, {
 		force = true,
 	})
+
+	vim.keymap.set("n", "<c-p>", "<cmd>Files<CR>", { silent = true })
+	vim.keymap.set("n", "<leader>a", "<cmd>Buffers<CR>", { silent = true })
 end
