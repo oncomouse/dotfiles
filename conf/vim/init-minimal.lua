@@ -382,8 +382,8 @@ vim.g.fzf_colors = {
 if vim.g.has_fzf ~= 0 then
 	vim.keymap.set("n", "<C-P>", "<cmd>FZF --reverse --info=inline<cr>", { silent = true, noremap = true })
 	vim.keymap.set("n", "<leader>a", function()
-		curbuf = vim.api.nvim_get_current_buf()
-		prevbuf = vim.fn.bufnr('#')
+		local curbuf = vim.api.nvim_get_current_buf()
+		local prevbuf = vim.fn.bufnr('#')
 		local buffers = vim.tbl_map(function(n)
 			local flag = (n == curbuf and '%') or (n == prevbuf and '#') or ' '
 			return {
