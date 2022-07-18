@@ -1,5 +1,4 @@
-local ok = pcall(vim.fn["lexima#vital"])
-if ok then
+if vim.g.loaded_lexima == 1 then
 	local add_rule = vim.fn["lexima#add_rule"]
 	-- Markdown rules:
 	add_rule({ char = "*", at = [[^\s*\%#]], input = "*<Space>", filetype = "markdown" }) -- Bulleted lists
