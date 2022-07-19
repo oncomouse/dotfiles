@@ -7,7 +7,7 @@ if heirline_available then
 	local function setup_colors()
 		return {
 			black = utils.get_highlight("Normal").bg,
-			yellow = utils.get_highlight("Statement").fg,
+			yellow = utils.get_highlight("Label").fg,
 			cyan = utils.get_highlight("Identifier").fg,
 			error = utils.get_highlight("DiagnosticError").fg,
 			warn = utils.get_highlight("DiagnosticWarn").fg,
@@ -377,6 +377,7 @@ if heirline_available then
 
 	heirline.setup(StatusLines)
 
+	local lushwal_available, lushwal = pcall(require, "lushwal")
 	if lushwal_available then
 		lushwal.add_reload_hook(function()
 			heirline.reset_highlights()
