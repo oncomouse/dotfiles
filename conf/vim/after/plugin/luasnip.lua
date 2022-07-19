@@ -1,3 +1,11 @@
+-- {
+-- 	"L3MON4D3/LuaSnip",
+-- 	-- Configured in ~/dotfiles/conf/vim/after/plugin/luasnip.lua
+-- 	requires = {
+-- 		{ "rafamadriz/friendly-snippets", after = { "LuaSnip" } }, -- Base Snippets
+-- 		{ "edheltzel/vscode-jekyll-snippets", ft = { "markdown", "html" } }, -- Jekyll Snippets
+-- 	},
+-- }, -- Snippets
 local ok, ls = pcall(require, "luasnip")
 
 if ok then
