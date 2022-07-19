@@ -1,22 +1,10 @@
 local heirline_available, heirline = pcall(require, "heirline")
 
 if heirline_available then
-	local lushwal_available, lushwal = pcall(require, "lushwal")
 	local utils = require("heirline.utils")
 	local conditions = require("heirline.conditions")
 
 	local function setup_colors()
-		if lushwal_available then
-			return {
-				black = lushwal.colors.black.hex,
-				yellow = lushwal.colors.yellow.hex,
-				cyan = lushwal.colors.cyan.hex,
-				error = lushwal.colors.red.hex,
-				warn = lushwal.colors.yellow.hex,
-				info = lushwal.colors.blue.hex,
-				hint = lushwal.colors.cyan.hex,
-			}
-		end
 		return {
 			black = utils.get_highlight("Normal").bg,
 			yellow = utils.get_highlight("Statement").fg,
