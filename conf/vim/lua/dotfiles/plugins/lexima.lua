@@ -1,4 +1,4 @@
-if vim.g.loaded_lexima == 1 then
+local function lexima_rules()
 	local add_rule = vim.fn["lexima#add_rule"]
 	-- Markdown rules:
 	add_rule({ char = "*", at = [[^\s*\%#]], input = "*<Space>", filetype = "markdown" }) -- Bulleted lists
@@ -90,3 +90,5 @@ if vim.g.loaded_lexima == 1 then
 	vim.keymap.set("i", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>', { noremap = true })
 	vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima)", { silent = true })
 end
+
+return lexima_rules

@@ -62,8 +62,16 @@ local function plugins()
 
 					requires = { "tpope/vim-repeat" },
 				}, -- gr{motion} or grr or gr in visual to replace with register
-				"cohama/lexima.vim", -- Autopairs
-				-- Configured in ~/dotfiles/conf/vim/after/plugin/lexima.lua
+				{
+					"cohama/lexima.vim", -- Autopairs
+					setup = function()
+						vim.g.lexima_enable_endwise_rules = 0 -- Disable endwise in Lexima
+						vim.g.lexima_disable_closetag = 1
+					end,
+					event = "VimEnter",
+					config = require("dotfiles.plugins.lexima")
+					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/lexima.lua
+				},
 				"michaeljsmith/vim-indent-object", -- ii, ai, aI for indent-based textobjects
 				-- Extra functionality + UI:
 				{ "kyazdani42/nvim-web-devicons", cond = require("dotfiles.utils.use_termguicolors") }, -- Icons, used in the statusline
@@ -83,11 +91,7 @@ local function plugins()
 							"log",
 							"status",
 						}) do
-							vim.fn["gina#custom#command#option"](
-								command,
-								"--opener",
-								vim.opt.previewheight:get() .. "split"
-							)
+							vim.fn["gina#custom#command#option"](command, "--opener", vim.opt.previewheight:get() .. "split")
 							vim.fn["gina#custom#command#option"](command, "--group", "short")
 						end
 						-- Implement vim-fugitive commands in Gina:
@@ -97,14 +101,6 @@ local function plugins()
 						})
 					end,
 				}, -- Git support
-				-- {
-				-- 	"L3MON4D3/LuaSnip",
-				-- 	-- Configured in ~/dotfiles/conf/vim/after/plugin/luasnip.lua
-				-- 	requires = {
-				-- 		{ "rafamadriz/friendly-snippets", after = { "LuaSnip" } }, -- Base Snippets
-				-- 		{ "edheltzel/vscode-jekyll-snippets", ft = { "markdown", "html" } }, -- Jekyll Snippets
-				-- 	},
-				-- }, -- Snippets
 				{
 					"jose-elias-alvarez/null-ls.nvim",
 					-- Configured in ~/dotfiles/conf/vim/after/plugin/null-ls.lua
