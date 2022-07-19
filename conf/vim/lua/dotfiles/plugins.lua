@@ -97,14 +97,14 @@ local function plugins()
 						})
 					end,
 				}, -- Git support
-				{
-					"L3MON4D3/LuaSnip",
-					-- Configured in ~/dotfiles/conf/vim/after/plugin/luasnip.lua
-					requires = {
-						{ "rafamadriz/friendly-snippets", after = { "LuaSnip" } }, -- Base Snippets
-						{ "edheltzel/vscode-jekyll-snippets", ft = { "markdown", "html" } }, -- Jekyll Snippets
-					},
-				}, -- Snippets
+				-- {
+				-- 	"L3MON4D3/LuaSnip",
+				-- 	-- Configured in ~/dotfiles/conf/vim/after/plugin/luasnip.lua
+				-- 	requires = {
+				-- 		{ "rafamadriz/friendly-snippets", after = { "LuaSnip" } }, -- Base Snippets
+				-- 		{ "edheltzel/vscode-jekyll-snippets", ft = { "markdown", "html" } }, -- Jekyll Snippets
+				-- 	},
+				-- }, -- Snippets
 				{
 					"jose-elias-alvarez/null-ls.nvim",
 					-- Configured in ~/dotfiles/conf/vim/after/plugin/null-ls.lua
