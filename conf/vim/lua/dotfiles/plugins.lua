@@ -62,10 +62,8 @@ local function plugins()
 
 					requires = { "tpope/vim-repeat" },
 				}, -- gr{motion} or grr or gr in visual to replace with register
-				{
-					"cohama/lexima.vim",
-					-- Configured in ~/dotfiles/conf/vim/after/plugin/lexima.lua
-				}, -- Autopairs + Endwise
+				"cohama/lexima.vim", -- Autopairs
+				-- Configured in ~/dotfiles/conf/vim/after/plugin/lexima.lua
 				"michaeljsmith/vim-indent-object", -- ii, ai, aI for indent-based textobjects
 				-- Extra functionality + UI:
 				{ "kyazdani42/nvim-web-devicons", cond = require("dotfiles.utils.use_termguicolors") }, -- Icons, used in the statusline
@@ -188,25 +186,20 @@ local function plugins()
 					end,
 					requires = {
 						{
+							"windwp/nvim-ts-autotag",
+							"RRethy/nvim-treesitter-endwise",
 							"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
 							ft = {
+								"css",
+								"html",
 								"javascript",
 								"javascriptreact",
+								"lua",
+								"scss",
 								"typescript",
 								"typescriptreact",
-								"css",
-								"scss",
-								"html",
-								"lua",
 								"vim",
 							},
-							config = function()
-								require("nvim-treesitter.configs").setup({
-									context_commentstring = {
-										enable = true,
-									},
-								})
-							end,
 						},
 					},
 				}, -- Treesitter-based Syntax

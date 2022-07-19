@@ -46,41 +46,45 @@ if vim.g.loaded_lexima == 1 then
 	make_markdown_bi_rule("_")
 
 	-- XML-style closetag:
-	vim.api.nvim_create_autocmd("FileType", {
-		pattern = "html,xml,javascript,javascriptreact",
-		group = "dotfiles-settings",
-		callback = function()
-			add_rule({ char = "<", input_after = ">" })
-			add_rule({
-				char = ">",
-				at = [[<\(\w\+\)\%#>]],
-				leave = 1,
-				input_after = [[</\1>]],
-				with_submatch = 1,
-			})
-		end,
-		desc = "Rules for auto-closing XML-style tags",
-	})
+	if vim.g.lexima_disable_closetag == 0 then
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "html,xml,javascript,javascriptreact",
+			group = "dotfiles-settings",
+			callback = function()
+				add_rule({ char = "<", input_after = ">" })
+				add_rule({
+					char = ">",
+					at = [[<\(\w\+\)\%#>]],
+					leave = 1,
+					input_after = [[</\1>]],
+					with_submatch = 1,
+				})
+			end,
+			desc = "Rules for auto-closing XML-style tags",
+		})
+	end
 
 	-- Lua endwise rules:
-	local function make_endwise_rule(at, ed, ft, syn)
-		return {
-			char = "<CR>",
-			input = "<CR>",
-			input_after = "<CR>" .. ed,
-			at = at,
-			except = [[\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1]] .. ed,
-			filetype = ft,
-			syntax = syn,
-		}
+	if vim.g.lexima_enable_endwise_rules == 1 then
+		local function make_endwise_rule(at, ed, ft, syn)
+			return {
+				char = "<CR>",
+				input = "<CR>",
+				input_after = "<CR>" .. ed,
+				at = at,
+				except = [[\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1]] .. ed,
+				filetype = ft,
+				syntax = syn,
+			}
+		end
+		add_rule(make_endwise_rule([[^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
+		add_rule(
+			make_endwise_rule([[^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
+		)
+		add_rule(
+			make_endwise_rule([[^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
+		)
 	end
-	add_rule(make_endwise_rule([[^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
-	add_rule(
-		make_endwise_rule([[^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
-	)
-	add_rule(
-		make_endwise_rule([[^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
-	)
 
 	-- Autoclose mapping:
 	vim.keymap.set("i", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>', { noremap = true })

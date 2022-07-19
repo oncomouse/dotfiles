@@ -387,6 +387,8 @@ end
 vim.g.bibfiles = "~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
 -- }}}
 -- Plugins {{{
+vim.g.lexima_enable_endwise_rules = 0 -- Disable endwise in Lexima
+vim.g.lexima_disable_closetag = 1
 require("dotfiles.plugins")
 -- }}}
 -- Filetypes {{{
