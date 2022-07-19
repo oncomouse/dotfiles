@@ -183,22 +183,22 @@ local function plugins()
 					requires = {
 						"windwp/nvim-ts-autotag",
 						"RRethy/nvim-treesitter-endwise",
-						{
-							"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
-							ft = {
-								"css",
-								"html",
-								"javascript",
-								"javascriptreact",
-								"lua",
-								"scss",
-								"typescript",
-								"typescriptreact",
-								"vim",
-							},
-						},
 					},
 				}, -- Treesitter-based Syntax
+				{
+					"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
+					ft = {
+						"css",
+						"html",
+						"javascript",
+						"javascriptreact",
+						"lua",
+						"scss",
+						"typescript",
+						"typescriptreact",
+						"vim",
+					},
+				},
 				-- Non-Treesitter Syntax:
 				{
 					"preservim/vim-markdown",
