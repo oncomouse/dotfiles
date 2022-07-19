@@ -185,9 +185,9 @@ local function plugins()
 						vim.cmd([[TSUpdate]])
 					end,
 					requires = {
+						"windwp/nvim-ts-autotag",
+						"RRethy/nvim-treesitter-endwise",
 						{
-							"windwp/nvim-ts-autotag",
-							"RRethy/nvim-treesitter-endwise",
 							"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
 							ft = {
 								"css",
