@@ -68,8 +68,8 @@ local function plugins()
 						vim.g.lexima_enable_endwise_rules = 0 -- Disable endwise in Lexima
 						vim.g.lexima_disable_closetag = 1
 					end,
-					event = "VimEnter",
-					config = require("dotfiles.plugins.lexima")
+					event = "InsertEnter",
+					config = require("dotfiles.plugins.lexima"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/lexima.lua
 				},
 				"michaeljsmith/vim-indent-object", -- ii, ai, aI for indent-based textobjects
@@ -91,7 +91,11 @@ local function plugins()
 							"log",
 							"status",
 						}) do
-							vim.fn["gina#custom#command#option"](command, "--opener", vim.opt.previewheight:get() .. "split")
+							vim.fn["gina#custom#command#option"](
+								command,
+								"--opener",
+								vim.opt.previewheight:get() .. "split"
+							)
 							vim.fn["gina#custom#command#option"](command, "--group", "short")
 						end
 						-- Implement vim-fugitive commands in Gina:
@@ -275,8 +279,8 @@ local function plugins()
 		end,
 		config = {
 			package_root = pack_path,
-			compile_path = util.join_paths(compile_path, 'packer_compiled.lua'),
-		}
+			compile_path = util.join_paths(compile_path, "packer_compiled.lua"),
+		},
 	})
 end
 
