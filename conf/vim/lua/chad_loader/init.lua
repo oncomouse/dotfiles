@@ -6,17 +6,16 @@ chad_loader.lazy_load = function(tb)
 		group = vim.api.nvim_create_augroup(tb.augroup_name, {}),
 		callback = function()
 			if tb.condition() then
-				vim.cmd([[packadd packer.nvim]])
 				vim.api.nvim_del_augroup_by_name(tb.augroup_name)
 
 				-- dont defer for treesitter as it will show slow highlighting
 				-- This deferring only happens only when we do "nvim filename"
 				if tb.plugins ~= "nvim-treesitter" then
 					vim.defer_fn(function()
-						require("packer").loader(tb.plugins)
+						vim.cmd("PackerLoad " .. tb.plugins)
 					end, 0)
 				else
-					require("packer").loader(tb.plugins)
+					vim.cmd("PackerLoad " .. tb.plugins)
 				end
 			end
 		end,

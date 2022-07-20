@@ -1,7 +1,7 @@
 local xdg = require("dotfiles.utils.xdg")
 local packer_path = xdg("XDG_DATA_HOME") .. "/packer.nvim"
 local pack_path = packer_path .. "/pack"
-local install_path = pack_path .. "/packer/opt/packer.nvim"
+local install_path = pack_path .. "/packer/start/packer.nvim"
 local compile_path = packer_path .. "/plugin"
 
 local function plugins()
@@ -10,7 +10,7 @@ local function plugins()
 	return require("packer").startup({
 		function(use)
 			use({
-				{ "wbthomason/packer.nvim", opt = true },
+				"wbthomason/packer.nvim",
 				{
 					"sickill/vim-pasta",
 					opt = true,
@@ -370,20 +370,19 @@ local function plugins()
 	})
 end
 
-local packer_commands = {
-	"install",
-	"update",
-	"sync",
-	"clean",
-	"status",
-	"compile",
-}
-for _, cmd in pairs(packer_commands) do
-	vim.api.nvim_create_user_command("Packer" .. cmd:gsub("^%l", string.upper), function()
-		vim.cmd("packadd packer.nvim")
-		plugins()[cmd]()
-	end, {})
-end
+-- local packer_commands = {
+-- 	"install",
+-- 	"update",
+-- 	"sync",
+-- 	"clean",
+-- 	"status",
+-- 	"compile",
+-- }
+-- for _, cmd in pairs(packer_commands) do
+-- 	vim.api.nvim_create_user_command("Packer" .. cmd:gsub("^%l", string.upper), function()
+-- 		plugins()[cmd]()
+-- 	end, {})
+-- end
 
 vim.opt.runtimepath:append(packer_path)
 vim.opt.packpath:append(packer_path)
@@ -398,8 +397,9 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
 	vim.fn.jobstart({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }, {
 		on_exit = function()
-			vim.cmd("packadd packer.nvim")
 			plugins().sync()
 		end,
 	})
 end
+
+return plugins
