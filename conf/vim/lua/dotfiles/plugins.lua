@@ -13,21 +13,41 @@ local function plugins()
 				{ "wbthomason/packer.nvim", opt = true },
 				{
 					"sickill/vim-pasta",
+					opt = true,
+					setup = function()
+						require("chad_loader").on_file_open("vim-pasta")
+					end,
 				}, -- fix block paste for Neovim
 				{
 					"christoomey/vim-sort-motion",
+					opt = true,
+					setup = function()
+						require("chad_loader").on_file_open("vim-sort-motion")
+					end,
 				}, -- gs to sort
 				{
 					"tpope/vim-commentary",
 					requires = { "tpope/vim-repeat" },
+					opt = true,
+					setup = function()
+						require("chad_loader").on_file_open("vim-commentary")
+					end,
 				}, -- gc<motion> to (un)comment
 				{
 					"oncomouse/vim-surround",
 					requires = { "tpope/vim-repeat" },
+					opt = true,
+					setup = function()
+						require("chad_loader").on_file_open("vim-surround")
+					end,
 				}, -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 				{
 					"wellle/targets.vim",
 					requires = { "tpope/vim-repeat" },
+					opt = true,
+					setup = function()
+						require("chad_loader").on_file_open("targets.vim")
+					end,
 				}, -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 				{
 					"ahmedkhalf/project.nvim",
@@ -44,10 +64,18 @@ local function plugins()
 							},
 						})
 					end,
+					module = "project_nvim",
+					setup = function()
+						require("chad_loader").on_file_open("project.nvim")
+					end,
 				}, -- Set project root
 				-- Editor Enhancements:
 				{
 					"oncomouse/vim-lion",
+					opt = true,
+					setup = function()
+						require("chad_loader").on_file_open("vim-lion")
+					end,
 				}, -- gl and gL to align
 				{
 					"haya14busa/vim-asterisk",
@@ -63,11 +91,19 @@ local function plugins()
 						vim.g["asterisk#keeppos"] = 1
 					end,
 					requires = { "tpope/vim-repeat" },
+					opt = true,
+					setup = function()
+						require("chad_loader").on_file_open("vim-asterisk")
+					end,
 				}, -- Fancy * and # bindings
 				{
 					"vim-scripts/ReplaceWithRegister",
 
 					requires = { "tpope/vim-repeat" },
+					opt = true,
+					setup = function()
+						require("chad_loader").on_file_open("ReplaceWithRegister")
+					end,
 				}, -- gr{motion} or grr or gr in visual to replace with register
 				{
 					"cohama/lexima.vim", -- Autopairs
@@ -81,12 +117,16 @@ local function plugins()
 				},
 				{
 					"michaeljsmith/vim-indent-object",
+					opt = true,
+					setup = function()
+						require("chad_loader").on_file_open("vim-indent-object")
+					end,
 				}, -- ii, ai, aI for indent-based textobjects
 				-- Extra functionality + UI:
 				{
 					"kyazdani42/nvim-web-devicons",
 					cond = require("dotfiles.utils.use_termguicolors"),
-					after = "heirline.nvim",
+					module = "nvim-web-devicons",
 				}, -- Icons, used in the statusline
 				{
 					"ibhagwan/fzf-lua",
@@ -129,14 +169,17 @@ local function plugins()
 						{
 							"rafamadriz/friendly-snippets",
 						}, -- Base Snippets
-					}
+					},
 					-- Configured in ~/dotfiles/conf/vim/after/plugin/luasnip.lua
 				}, -- Snippets
 				{
 					"jose-elias-alvarez/null-ls.nvim",
 					requires = { { "nvim-lua/plenary.nvim", module = "plenary" } },
 					config = require("dotfiles.plugins.null-ls"),
-					event = { "BufRead", "BufWinEnter", "BufNewFile" },
+					module = "null-ls",
+					setup = function()
+						require("chad_loader").on_file_open("null-ls.nvim")
+					end,
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/null-ls.lua
 				}, -- Format and Diagnostics
 				{
@@ -205,33 +248,33 @@ local function plugins()
 				}, -- LSP
 				{
 					"anuvyklack/hydra.nvim",
-					-- Configured in ~/dotfiles/conf/vim/after/plugin/hydra.lua
+					config = require("dotfiles.plugins.hydra"),
+					module = "hydra",
+					setup = function()
+						require("chad_loader").on_file_open("hydra.nvim")
+					end,
+					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/hydra.lua
 				}, -- Repeating keys mode (used for window resizing, atm)
 				{
 					"nvim-treesitter/nvim-treesitter",
-					-- Configured in ~/dotfiles/conf/vim/after/plugin/nvim-treesitter.lua
+					config = require("dotfiles.plugins.nvim-treesitter"),
 					run = function()
 						vim.cmd([[TSUpdate]])
 					end,
 					requires = {
 						{ "windwp/nvim-ts-autotag", after = "nvim-treesitter" },
 						{ "RRethy/nvim-treesitter-endwise", after = "nvim-treesitter" },
+						{
+							"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
+							after = "nvim-treesitter",
+						},
 					},
+					module = "nvim-treesitter",
+					setup = function()
+						require("chad_loader").on_file_open("nvim-treesitter")
+					end,
+					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/nvim-treesitter.lua
 				}, -- Treesitter-based Syntax
-				{
-					"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
-					ft = {
-						"css",
-						"html",
-						"javascript",
-						"javascriptreact",
-						"lua",
-						"scss",
-						"typescript",
-						"typescriptreact",
-						"vim",
-					},
-				},
 				-- Non-Treesitter Syntax:
 				{
 					"preservim/vim-markdown",
@@ -285,7 +328,6 @@ local function plugins()
 				}, -- Colorscheme
 				{
 					"oncomouse/nvim-colorizer.lua",
-					event = { "BufRead", "BufNewFile" },
 					config = function()
 						if vim.opt.termguicolors:get() then
 							require("colorizer").setup({

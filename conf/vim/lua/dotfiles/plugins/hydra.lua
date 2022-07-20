@@ -1,7 +1,5 @@
-local ok, Hydra = pcall(require,"hydra")
-
-if ok then
-
+local function config_hydra()
+	local Hydra = require("hydra")
 	Hydra({
 		name = "Side scroll",
 		mode = "n",
@@ -26,5 +24,6 @@ if ok then
 			{ "=", "<C-w>=", { desc = "equalize" } },
 		},
 	})
-
 end
+
+return config_hydra
