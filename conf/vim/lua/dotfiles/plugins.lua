@@ -3,7 +3,6 @@ local packer_path = xdg("XDG_DATA_HOME") .. "/packer.nvim"
 local pack_path = packer_path .. "/pack"
 local install_path = pack_path .. "/packer/opt/packer.nvim"
 local compile_path = packer_path .. "/plugin"
--- local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 
 local function plugins()
 	local util = require("packer.util")
