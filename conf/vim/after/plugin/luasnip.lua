@@ -62,5 +62,16 @@ if ok then
 
 	-- Loaders:
 	require("luasnip.loaders.from_vscode").lazy_load()
-	require("luasnip.loaders.from_lua").load({ paths = "~/dotfiles/conf/vim/snippets" })
+	require("luasnip.loaders.from_lua").lazy_load({ paths = "~/dotfiles/conf/vim/snippets" })
+
+	vim.api.nvim_create_autocmd("InsertLeave", {
+	   callback = function()
+		  if
+			 ls.session.current_nodes[vim.api.nvim_get_current_buf()]
+			 and not ls.session.jump_active
+		  then
+			 ls.unlink_current()
+		  end
+	   end,
+	})
 end
