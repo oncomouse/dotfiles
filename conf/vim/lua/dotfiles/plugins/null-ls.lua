@@ -1,5 +1,4 @@
-local ok = pcall(require, "null-ls")
-if ok then
+local function config_null_ls()
 	local javascript_register = require("dotfiles.plugins.null-ls.helpers.javascript_register")
 	local sources = {
 		require("null-ls").builtins.formatting.prettier.with({
@@ -34,17 +33,16 @@ if ok then
 		require("null-ls").builtins.code_actions.shellcheck,
 		require("dotfiles.plugins.null-ls.builtins.hover.bibtex"),
 		require("dotfiles.plugins.null-ls.builtins.completion.bibtex"),
+		require("null-ls").builtins.completion.luasnip,
 		javascript_register("formatting"),
 		javascript_register("diagnostics"),
 		javascript_register("code_actions"),
 	}
-
-	if pcall(require, "luasnip") then
-		table.insert(sources, require("null-ls").builtins.completion.luasnip)
-	end
 
 	require("null-ls").setup({
 		on_attach = require("dotfiles.nvim-lsp.on_attach"),
 		sources = sources,
 	})
 end
+
+return config_null_ls

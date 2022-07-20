@@ -197,7 +197,6 @@ unbind C-u
 unbind C-underscore
 unbind C-v
 unbind C-x
-unbind C-w
 
 # [unmanage]
 exec dotfiles-polybar &

@@ -11,16 +11,24 @@ local function plugins()
 		function(use)
 			use({
 				{ "wbthomason/packer.nvim", opt = true },
-				"sickill/vim-pasta", -- fix block paste for Neovim
+				{
+					"sickill/vim-pasta",
+				}, -- fix block paste for Neovim
 				{
 					"christoomey/vim-sort-motion",
 				}, -- gs to sort
-				{ "tpope/vim-commentary", requires = { "tpope/vim-repeat" } }, -- gc<motion> to (un)comment
+				{
+					"tpope/vim-commentary",
+					requires = { "tpope/vim-repeat" },
+				}, -- gc<motion> to (un)comment
 				{
 					"oncomouse/vim-surround",
 					requires = { "tpope/vim-repeat" },
 				}, -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-				{ "wellle/targets.vim", requires = { "tpope/vim-repeat" } }, -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
+				{
+					"wellle/targets.vim",
+					requires = { "tpope/vim-repeat" },
+				}, -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
 				{
 					"ahmedkhalf/project.nvim",
 					config = function()
@@ -71,9 +79,15 @@ local function plugins()
 					config = require("dotfiles.plugins.lexima"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/lexima.lua
 				},
-				"michaeljsmith/vim-indent-object", -- ii, ai, aI for indent-based textobjects
+				{
+					"michaeljsmith/vim-indent-object",
+				}, -- ii, ai, aI for indent-based textobjects
 				-- Extra functionality + UI:
-				{ "kyazdani42/nvim-web-devicons", cond = require("dotfiles.utils.use_termguicolors") }, -- Icons, used in the statusline
+				{
+					"kyazdani42/nvim-web-devicons",
+					cond = require("dotfiles.utils.use_termguicolors"),
+					after = "heirline.nvim",
+				}, -- Icons, used in the statusline
 				{
 					"ibhagwan/fzf-lua",
 					keys = { { "n", "<C-p>" }, { "n", "<leader>a" } },
@@ -107,18 +121,24 @@ local function plugins()
 						})
 					end,
 				}, -- Git support
-				{ "rafamadriz/friendly-snippets", event = "InsertEnter" }, -- Base Snippets
 				{
 					"L3MON4D3/LuaSnip",
-					after = "friendly-snippets",
 					config = require("dotfiles.plugins.luasnip"),
+					module = "luasnip",
+					requires = {
+						{
+							"rafamadriz/friendly-snippets",
+						}, -- Base Snippets
+					}
 					-- Configured in ~/dotfiles/conf/vim/after/plugin/luasnip.lua
 				}, -- Snippets
 				{
 					"jose-elias-alvarez/null-ls.nvim",
-					-- Configured in ~/dotfiles/conf/vim/after/plugin/null-ls.lua
 					requires = { { "nvim-lua/plenary.nvim", module = "plenary" } },
-				},
+					config = require("dotfiles.plugins.null-ls"),
+					event = { "BufRead", "BufWinEnter", "BufNewFile" },
+					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/null-ls.lua
+				}, -- Format and Diagnostics
 				{
 					"neovim/nvim-lspconfig",
 					requires = {
@@ -194,8 +214,8 @@ local function plugins()
 						vim.cmd([[TSUpdate]])
 					end,
 					requires = {
-						"windwp/nvim-ts-autotag",
-						"RRethy/nvim-treesitter-endwise",
+						{ "windwp/nvim-ts-autotag", after = "nvim-treesitter" },
+						{ "RRethy/nvim-treesitter-endwise", after = "nvim-treesitter" },
 					},
 				}, -- Treesitter-based Syntax
 				{
@@ -233,6 +253,15 @@ local function plugins()
 				-- Appearance:
 				{
 					"oncomouse/lushwal.nvim",
+					opt = true,
+					cmd = "LushwalCompile",
+					setup = function()
+						vim.api.nvim_create_autocmd("ColorSchemePre", {
+							group = "dotfiles-settings",
+							pattern = "lushwal",
+							command = "packadd lushwal.nvim",
+						})
+					end,
 					requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 					config = function()
 						vim.g.lushwal_configuration = {
@@ -256,6 +285,7 @@ local function plugins()
 				}, -- Colorscheme
 				{
 					"oncomouse/nvim-colorizer.lua",
+					event = { "BufRead", "BufNewFile" },
 					config = function()
 						if vim.opt.termguicolors:get() then
 							require("colorizer").setup({
