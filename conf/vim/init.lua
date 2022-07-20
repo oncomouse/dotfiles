@@ -279,15 +279,12 @@ vim.api.nvim_create_autocmd(
 )
 
 -- Turn Off Line Numbering:
-if vim.fn.has("nvim") == 1 then
-	vim.api.nvim_create_autocmd(
-		"TermOpen",
-		{ group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" }
-	)
-end
+vim.api.nvim_create_autocmd(
+	"TermOpen",
+	{ group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" }
+)
 
 -- Start QuickFix:
-
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 	group = "dotfiles-settings",
 	pattern = "[^l]*",
