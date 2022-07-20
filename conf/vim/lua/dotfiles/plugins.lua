@@ -76,7 +76,10 @@ local function plugins()
 				{ "kyazdani42/nvim-web-devicons", cond = require("dotfiles.utils.use_termguicolors") }, -- Icons, used in the statusline
 				{
 					"ibhagwan/fzf-lua",
-					-- Configured in ~/dotfiles/conf/vim/after/plugin/fzf-lua.lua
+					keys = { { "n", "<C-p>" }, { "n", "<leader>a" } },
+					cmd = { "FzfLua", "Files", "Buffers", "GitStatus" },
+					config = require("dotfiles.plugins.fzf-lua"),
+					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/fzf-lua.lua
 				}, -- FZF Client
 				{
 					"lambdalisue/gina.vim",
@@ -104,13 +107,12 @@ local function plugins()
 						})
 					end,
 				}, -- Git support
+				{ "rafamadriz/friendly-snippets", event = "InsertEnter" }, -- Base Snippets
 				{
 					"L3MON4D3/LuaSnip",
+					after = "friendly-snippets",
+					config = require("dotfiles.plugins.luasnip"),
 					-- Configured in ~/dotfiles/conf/vim/after/plugin/luasnip.lua
-					requires = {
-						{ "rafamadriz/friendly-snippets", after = { "LuaSnip" } }, -- Base Snippets
-						{ "edheltzel/vscode-jekyll-snippets", ft = { "markdown", "html" } }, -- Jekyll Snippets
-					},
 				}, -- Snippets
 				{
 					"jose-elias-alvarez/null-ls.nvim",

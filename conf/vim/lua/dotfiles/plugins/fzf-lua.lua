@@ -1,4 +1,4 @@
-if vim.g.loaded_fzf_lua == 1 then
+local function config_fzf_lua()
 	local wh = vim.api.nvim_win_get_height(0)
 	local ph = vim.o.previewheight
 	require("fzf-lua").setup({
@@ -111,3 +111,5 @@ if vim.g.loaded_fzf_lua == 1 then
 	vim.keymap.set("n", "<c-p>", "<cmd>Files<CR>", { silent = true })
 	vim.keymap.set("n", "<leader>a", "<cmd>Buffers<CR>", { silent = true })
 end
+
+return config_fzf_lua

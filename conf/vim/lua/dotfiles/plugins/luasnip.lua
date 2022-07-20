@@ -1,6 +1,5 @@
-local ok, ls = pcall(require, "luasnip")
-
-if ok then
+local function config_luasnips()
+	local ls = require("luasnip")
 	local types = require("luasnip.util.types")
 	local t = require("dotfiles.utils.termcode")
 
@@ -75,3 +74,5 @@ if ok then
 	   end,
 	})
 end
+
+return config_luasnips
