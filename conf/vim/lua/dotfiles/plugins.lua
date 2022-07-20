@@ -328,6 +328,10 @@ local function plugins()
 				}, -- Colorscheme
 				{
 					"oncomouse/nvim-colorizer.lua",
+					module = "colorizer",
+					setup = function()
+						require("chad_loader").colorizer()
+					end,
 					config = function()
 						if vim.opt.termguicolors:get() then
 							require("colorizer").setup({
@@ -352,9 +356,10 @@ local function plugins()
 							pattern = "scss",
 							callback = require("colorizer/sass").attach_to_buffer,
 						})
+						vim.cmd("ColorizerAttachToBuffer")
 					end,
 				}, -- Highlight colors in files
-				{ "rebelot/heirline.nvim" }, -- Statusline
+				"rebelot/heirline.nvim", -- Statusline
 				-- Configured in ~/dotfiles/conf/vim/plugin/heirline.lua
 			})
 		end,
