@@ -1,3 +1,0 @@
--- local ok = pcall(require, "nvim-treesitter")
--- if ok then
--- end
