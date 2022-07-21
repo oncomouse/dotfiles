@@ -165,7 +165,24 @@ local function plugins()
 					"justinmk/vim-dirvish",
 					opt = true,
 					setup = function()
-						require("chad_loader").dirvish()
+						function is_dir(path)
+							local f = io.open(path)
+							if f == nil then
+								return false
+							end
+							local _, _, code = f:read(0)
+							f:close()
+							return code == 21
+						end
+
+						require("chad_loader").do_not_defer("vim-dirvish")
+						require("chad_loader").lazy_load({
+							events = { "BufRead", "BufWinEnter", "BufNewFile" },
+							plugins = "vim-dirvish",
+							condition = function()
+								return is_dir(vim.fn.expand("%:p"))
+							end,
+						})
 					end,
 				},
 				{ "roginfarrer/vim-dirvish-dovish", after = "vim-dirvish" },
@@ -280,6 +297,7 @@ local function plugins()
 					},
 					module = "nvim-treesitter",
 					setup = function()
+						require("chad_loader").do_not_defer("nvim-treesitter")
 						require("chad_loader").on_file_open("nvim-treesitter")
 					end,
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/nvim-treesitter.lua
@@ -339,7 +357,13 @@ local function plugins()
 					"oncomouse/nvim-colorizer.lua",
 					module = "colorizer",
 					setup = function()
-						require("chad_loader").colorizer()
+						require("chad_loader").lazy_load({
+							events = { "BufRead", "BufNewFile" },
+							plugins = "nvim-colorizer.lua",
+							condition = function()
+								return true
+							end,
+						})
 					end,
 					config = function()
 						if vim.opt.termguicolors:get() then
