@@ -268,6 +268,7 @@ local function plugins()
 							"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
 							after = "nvim-treesitter",
 						},
+						{ "andymass/vim-matchup", after = "nvim-treesitter" },
 					},
 					module = "nvim-treesitter",
 					setup = function()
