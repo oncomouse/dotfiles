@@ -1,5 +1,10 @@
 local chad_loader = {}
 
+local do_not_defer = {
+	"nvim-treesitter",
+	"vim-dirvish",
+}
+
 chad_loader.lazy_load = function(tb)
 	vim.api.nvim_create_autocmd(tb.events, {
 		pattern = "*",
@@ -8,14 +13,12 @@ chad_loader.lazy_load = function(tb)
 			if tb.condition() then
 				vim.api.nvim_del_augroup_by_name(tb.augroup_name)
 
-				-- dont defer for treesitter as it will show slow highlighting
-				-- This deferring only happens only when we do "nvim filename"
-				if tb.plugins ~= "nvim-treesitter" then
+				if vim.tbl_contains(do_not_defer, tb.plugins) then
+					vim.cmd("PackerLoad " .. tb.plugins)
+				else
 					vim.defer_fn(function()
 						vim.cmd("PackerLoad " .. tb.plugins)
 					end, 0)
-				else
-					vim.cmd("PackerLoad " .. tb.plugins)
 				end
 			end
 		end,
@@ -30,6 +33,23 @@ chad_loader.colorizer = function()
 
 		condition = function()
 			return true
+		end,
+	})
+end
+
+function is_dir(path)
+	f = io.open(path)
+	return not f:read(0) and f:seek("end") ~= 0
+end
+
+chad_loader.dirvish = function()
+	chad_loader.lazy_load({
+		events = { "BufEnter" },
+		augroup_name = "DirvishLazy",
+		plugins = "vim-dirvish",
+
+		condition = function()
+			return is_dir(vim.fn.expand("%:p"))
 		end,
 	})
 end

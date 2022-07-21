@@ -162,6 +162,14 @@ local function plugins()
 					end,
 				}, -- Git support
 				{
+					"justinmk/vim-dirvish",
+					opt = true,
+					setup = function()
+						require("chad_loader").dirvish()
+					end,
+				},
+				{ "roginfarrer/vim-dirvish-dovish", after = "vim-dirvish" },
+				{
 					"L3MON4D3/LuaSnip",
 					config = require("dotfiles.plugins.luasnip"),
 					module = "luasnip",
@@ -170,7 +178,7 @@ local function plugins()
 							"rafamadriz/friendly-snippets",
 						}, -- Base Snippets
 					},
-					-- Configured in ~/dotfiles/conf/vim/after/plugin/luasnip.lua
+					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/luasnip.lua
 				}, -- Snippets
 				{
 					"jose-elias-alvarez/null-ls.nvim",
