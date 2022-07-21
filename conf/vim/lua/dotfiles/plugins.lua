@@ -293,7 +293,11 @@ local function plugins()
 							"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
 							after = "nvim-treesitter",
 						},
-						{ "andymass/vim-matchup", after = "nvim-treesitter" },
+						{ "andymass/vim-matchup", after = "nvim-treesitter", setup = function()
+							vim.g.matchup_matchparen_offscreen = {
+								method = "popup"
+							}
+						end},
 					},
 					module = "nvim-treesitter",
 					setup = function()
