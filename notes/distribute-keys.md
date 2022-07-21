@@ -2,4 +2,4 @@
 
 From machine with secret keys:
 
-`gpg --batch --export-secret-key "<KEY UUID>" | ssh <NEW MACHINE IP> set -x GPG_TTY (tty) && gpg --import --batch`
+`gpg --batch --export-secret-key "<KEY UUID>" | ssh <NEW MACHINE IP> gpg --import --batch`
