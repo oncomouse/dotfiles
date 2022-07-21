@@ -40,4 +40,23 @@ chad_loader.on_file_open = function(plugin_name)
 	})
 end
 
+chad_loader.on_directory = function(plugin_name)
+	function is_dir(path)
+		local f = io.open(path)
+		if f == nil then
+			return false
+		end
+		local _, _, code = f:read(0)
+		f:close()
+		return code == 21
+	end
+	require("chad_loader").lazy_load({
+		events = { "BufRead", "BufWinEnter", "BufNewFile" },
+		plugins = plugin_name,
+		condition = function()
+			return is_dir(vim.fn.expand("%:p"))
+		end,
+	})
+end
+
 return chad_loader

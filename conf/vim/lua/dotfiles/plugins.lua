@@ -15,7 +15,14 @@ local function plugins()
 					"sickill/vim-pasta",
 					opt = true,
 					setup = function()
-						require("chad_loader").on_file_open("vim-pasta")
+						require("chad_loader").do_not_defer("vim-pasta")
+						require("chad_loader").lazy_load({
+							events = { "BufRead", "BufNewFile" },
+							plugins = "vim-pasta",
+							condition = function()
+								return true
+							end,
+						})
 					end,
 				}, -- fix block paste for Neovim
 				{
@@ -165,31 +172,15 @@ local function plugins()
 					"justinmk/vim-dirvish",
 					opt = true,
 					setup = function()
-						function is_dir(path)
-							local f = io.open(path)
-							if f == nil then
-								return false
-							end
-							local _, _, code = f:read(0)
-							f:close()
-							return code == 21
-						end
-
 						require("chad_loader").do_not_defer("vim-dirvish")
-						require("chad_loader").lazy_load({
-							events = { "BufRead", "BufWinEnter", "BufNewFile" },
-							plugins = "vim-dirvish",
-							condition = function()
-								return is_dir(vim.fn.expand("%:p"))
-							end,
-						})
+						require("chad_loader").on_directory("vim-dirvish")
 					end,
 				},
 				{ "roginfarrer/vim-dirvish-dovish", after = "vim-dirvish" },
 				{
 					"L3MON4D3/LuaSnip",
 					config = require("dotfiles.plugins.luasnip"),
-					module = "luasnip",
+					module = "luasnip", -- Is loaded when null-ls loads luasnip completion
 					requires = {
 						{
 							"rafamadriz/friendly-snippets",
@@ -293,11 +284,15 @@ local function plugins()
 							"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
 							after = "nvim-treesitter",
 						},
-						{ "andymass/vim-matchup", after = "nvim-treesitter", setup = function()
-							vim.g.matchup_matchparen_offscreen = {
-								method = "popup"
-							}
-						end},
+						{
+							"andymass/vim-matchup",
+							after = "nvim-treesitter",
+							setup = function()
+								vim.g.matchup_matchparen_offscreen = {
+									method = "popup",
+								}
+							end,
+						},
 					},
 					module = "nvim-treesitter",
 					setup = function()
@@ -333,7 +328,7 @@ local function plugins()
 						vim.api.nvim_create_autocmd("ColorSchemePre", {
 							group = "dotfiles-settings",
 							pattern = "lushwal",
-							command = "packadd lushwal.nvim",
+							command = "PackerLoad lushwal.nvim",
 						})
 					end,
 					requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
@@ -386,14 +381,14 @@ local function plugins()
 								RRGGBBAA = true,
 								mode = "background", -- Could be background, foreground, or virtualtext
 							})
+							-- Attach the variable matcher to scss buffers:
+							vim.api.nvim_create_autocmd("FileType", {
+								group = "dotfiles-settings",
+								pattern = "scss",
+								callback = require("colorizer/sass").attach_to_buffer,
+							})
+							vim.cmd("ColorizerAttachToBuffer")
 						end
-						-- Attach the variable matcher to scss buffers:
-						vim.api.nvim_create_autocmd("FileType", {
-							group = "dotfiles-settings",
-							pattern = "scss",
-							callback = require("colorizer/sass").attach_to_buffer,
-						})
-						vim.cmd("ColorizerAttachToBuffer")
 					end,
 				}, -- Highlight colors in files
 				"rebelot/heirline.nvim", -- Statusline
