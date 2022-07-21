@@ -23,5 +23,7 @@ if [ -z "$SERVER" ]; then
 fi
 
 if [ "$os" == "arch" ]; then
-	~/dotfiles/bootstrap/scripts/compiled.sh
+	if [ -z "$SERVER" ]; then
+		~/dotfiles/bootstrap/scripts/compiled.sh
+	fi
 fi
