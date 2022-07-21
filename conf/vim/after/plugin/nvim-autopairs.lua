@@ -14,33 +14,26 @@ if ok then
 		return re:match_str(target)
 	end
 
-	local function not_before_vim_regex(regex)
+	local function line_matches_vim_regex(regex)
 		return function(opts)
-			if match_vim_regex(opts.line, opts.col, #opts.line, regex) then
-				return false
-			end
+			return match_vim_regex(opts.line, 0, #opts.line, regex)
 		end
 	end
 
-	local function not_after_vim_regex(regex)
+	local function not_line_matches_vim_regex(regex)
 		return function(opts)
-			if match_vim_regex(opts.line, 0, opts.col - 1, regex) then
-				return false
-			end
+			return not match_vim_regex(opts.line, 0, #opts.line, regex)
 		end
 	end
 
 	local function markdown_bold_italic_rule(char)
-		local regex = vim.fn.fnameescape(char .. char)
+		local c = vim.fn.fnnameescape(char)
+		local regex = c .. c .. "[^".. char .. "]*" .. [[\%#]] .. "[^".. char .. "]*" .. c .. c
 		return Rule(char, char, "markdown")
-			:with_pair(not_before_vim_regex(regex))
-			:with_pair(not_after_vim_regex(regex))
+			:with_pair(not_line_matches_vim_regex(regex))
 			:with_del(function(opts)
-				local _, c = utils.get_cursor()
-				opts.col = c
-				local before = not_before_vim_regex(regex)(opts)
-				local after = not_after_vim_regex(regex)(opts)
-				return before or after
+				opts.col = utils.get_cursor()
+				return not_line_matches_vim_regex(regex)
 			end)
 	end
 
