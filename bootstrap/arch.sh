@@ -17,8 +17,7 @@ mkdir -p "$HOME/aur"
 # Install AUR using Paru:
 cat "$HOME"/dotfiles/conf/arch-packages/aur.txt | paru --needed -S --skipreview --noconfirm -
 
-if [ -z "$SERVER" ]; then
-	sudo cat "$HOME/dotfiles/conf/arch-packages/pacman-desktop.txt" | sudo pacman -S --noconfirm --needed -
+if [ -z "$SERVER" ]; then sudo cat "$HOME/dotfiles/conf/arch-packages/pacman-desktop.txt" | sudo pacman -S --noconfirm --needed -
 	cat "$HOME"/dotfiles/conf/arch-packages/aur-desktop.txt | paru --needed -S --skipreview --noconfirm -
 	# Setup flatpak:
 	flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -58,6 +57,15 @@ sudo sed -i ' 1 s/"$/ l1tf=full,force spec_store_bypass_disable=on spectre_v2=on
 if ! echo "$SHELL" | grep fish >/dev/null 2>&1; then
 	sudo chsh -s "$(which fish)" "$USER"
 fi
+
+# Configure Root Environment:
+sudo mkdir -p /root/.config/nvim
+sudo cp ~/dotfiles/conf/vim/init-minimal.lua /root/.config/nvim/init.lua
+sudo cp ~/dotfiles/stow/tmux/dot-tmux.conf /root/.tmux.conf
+sudo mkdir -p /root/.tmux/plugins
+sudo cp -r ~/.tmux/plugins/tpm /root/.tmux/plugins
+sudo mkdir -p /root/.config/fish/conf.d
+echo "fzf_key_bindings" | sudo tee /root/.config/fish/conf.d/fzf.fish
 
 if [ -z "$SERVER" ]; then
 	# Configure xdg-utils
