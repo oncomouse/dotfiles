@@ -42,6 +42,9 @@ sudo systemctl start NetworkManager.service
 sudo systemctl enable sshd.service
 sudo systemctl start sshd.service
 
+# Configure ssh-agent autostart:
+systemctl --user enable ssh-agent.service
+
 # Enable UFW:
 sudo systemctl enable ufw.service
 sudo systemctl start ufw.service
