@@ -12,9 +12,28 @@ Notes:
 	* Add `initrd=boot\<amd|intel>-ucode.img` before `initramfs` line to load ucode
 	* Add " apparmor=1" after `initramfs`
 
+# Partition Drive using `sgdisk`
+
+Clear the drive:
+
+```
+# sgdisk --zap-all $DRIVE
+```
+
+Format the drive:
+```
+# sgdisk --clear \
+         --new=1:0:+300MiB --typecode=1:ef00 --change-name=1:EFI \
+         --new=2:0:+16GiB  --typecode=2:8200 --change-name=2:swap \
+         --new=3:0:0       --typecode=3:8300 --change-name=3:system \
+         $DRIVE
+```
+
+# Install these
+
 Additional Packages to install, before reboot:
 
-`pacman -S linux linux-firmware refind base-devel neovim git curl fish iw sudo networkmanager gpg`
+`pacman -S linux linux-firmware refind base-devel neovim git curl fish iw sudo networkmanager gnupg`
 
 Install AMD or Intel Microcode: `pacman -S amd-ucode` or `pacman -S intel-ucode`
 
@@ -26,44 +45,18 @@ Install AMD or Intel Microcode: `pacman -S amd-ucode` or `pacman -S intel-ucode`
 
 `visudo`
 
-# IWD Wifi Configuration
-
-~~~sh
-# systemctl start iwd
-# systemctl start rfkill-unblock@wifi
-# iwctl device wlp1s0 set-property Powered on
-# iwctl
-[iwd]# station wlp1s0 connect ESSID
-Type the network passphrase for ESSID psk.
-Passphrase: secret
-[iwd]# exit
-# sed '/^Passphrase=/d' /var/lib/iwd/ESSID.psk > /mnt/var/lib/iwd/ESSID.psk
-# chmod 0600 /mnt/var/lib/iwd/ESSID.psk
-~~~
+Add `Defaults editor=/usr/bin/nvim`
+Uncomment line about `wheel`
 
 # Network Configuration
 
-/etc/systemd/network/20-wired.network:
+`systemctl enable NetworkManager.service`
 
-> [Match]
-> Name=en*
-> Name=eth*
->
-> [Network]
-> DHCP=yes
+You may need to install `linux-firmware` and any DKMS modules.
 
-/etc/systemd/network/20-wireless.network:
+To connect to wifi, `nmcli device wifi --ask connect <SSID>`
 
-> [Match]
-> Name=wl*
-> 
-> [Network]
-> DHCP=yes
-
-1. systemctl enable systemd-networkd.service
-1. systemctl enable systemd-resolved.service
-
-# AMD CPU Stuff
+# AMD GPU Stuff
 
 [AMDGPU on Arch Wiki](https://wiki.archlinux.org/index.php/AMDGPU)
  
