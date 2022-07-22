@@ -61,6 +61,7 @@ fi
 # Configure Root Environment:
 sudo mkdir -p /root/.config/nvim
 sudo cp ~/dotfiles/conf/vim/init-minimal.lua /root/.config/nvim/init.lua
+sudo nvim +PaqInstall +qall
 sudo cp ~/dotfiles/stow/tmux/dot-tmux.conf /root/.tmux.conf
 sudo mkdir -p /root/.tmux/plugins
 sudo cp -r ~/.tmux/plugins/tpm /root/.tmux/plugins
