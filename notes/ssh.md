@@ -10,3 +10,4 @@ Host <IP ADDR>
 	IdentityFile ~/.ssh/id_ed25519
 ```
 1. Run `ssh-add ~/.ssh/id_ed25519` and enter passphrase
+1. Run `ssh-copy-id <IP ADDR>`
