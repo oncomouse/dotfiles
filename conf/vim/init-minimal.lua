@@ -6,6 +6,7 @@ local plugins = {
 	"oncomouse/vim-surround", -- ys to add, cs to change, ds to delete. f, F for function, t/T for tag
 	"oncomouse/vim-lion", -- gl and gL to align
 	"vim-scripts/ReplaceWithRegister", -- gr{motion} or grr or gr in visual to replace with register
+	{ "justinmk/vim-dirvish", opt = true }, -- Open directories
 }
 
 --------------------------------------------------------------------------------
@@ -398,4 +399,20 @@ vim.g.fzf_colors = {
 }
 if vim.g.has_fzf ~= 0 then
 	vim.keymap.set("n", "<C-P>", "<cmd>FZF --reverse --info=inline<cr>", { silent = true, noremap = true })
+end
+
+-- Paq Configuration
+--
+
+function is_dir(path)
+	local f = io.open(path)
+	if f == nil then
+		return false
+	end
+	local _, _, code = f:read(0)
+	f:close()
+	return code == 21
+end
+if is_dir(vim.fn.expand("%:p")) then
+	vim.cmd([[packadd vim-dirvish]])
 end
