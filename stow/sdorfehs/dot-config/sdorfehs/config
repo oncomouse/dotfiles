@@ -96,14 +96,6 @@ alias sf-windows exec sf-windows.sh &
 bind w sf-windows
 bind s-w sf-windows
 
-# [groups]
-alias sf-gnew exec sdorfehs -c "gnew $(sdorfehs -c "prompt Create new group:")" &
-alias sf-gmove exec sdorfehs -c "gmove $(sdorfehs -c groups | rofi -dmenu -match fuzzy -auto-select | cut -c 2-20 | sed -e 's/[+*-]//g')" &
-alias sf-gselect exec sdorfehs -c "gselect $(sdorfehs -c groups | rofi -dmenu -match fuzzy -auto-select | cut -c 2-20 | sed -e 's/[+*-]//g')" &
-bind C-g sf-gnew
-bind M-g sf-gmove
-bind g sf-gselect
-
 # [launchers]
 definekey top M-s-r exec dotfiles-run &
 definekey top s-P exec dotfiles-powermenu &
