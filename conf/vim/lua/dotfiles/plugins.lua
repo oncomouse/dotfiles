@@ -201,7 +201,8 @@ local function plugins()
 				{
 					"neovim/nvim-lspconfig",
 					requires = {
-						{ "williamboman/nvim-lsp-installer", module = "nvim-lsp-installer" },
+						{ "williamboman/mason.nvim", module = "mason" },
+						{ "williamboman/mason-lspconfig.nvim", module = "mason-lspconfig" },
 					},
 					ft = {
 						"css",
@@ -241,7 +242,8 @@ local function plugins()
 						}
 						local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-						require("nvim-lsp-installer").setup({
+						require("mason").setup()
+						require("mason-lspconfig").setup({
 							ensure_installed = vim.tbl_keys(servers),
 						})
 

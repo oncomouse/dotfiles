@@ -1,0 +1,11 @@
+* prettier
+* stylua
+* black
+* shfmt
+* shellharden
+* rubocop
+* standardrb
+* shellcheck
+* selene
+* flake8
+* vint
