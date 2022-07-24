@@ -24,7 +24,7 @@ def_key "ctrl-d"
 def_key "ctrl-u"
 	scroll_up_album
 def_key "ctrl-u"
-	page_down
+	page_up
 def_key "d"
 	delete_playlist_items
 def_key "n"
