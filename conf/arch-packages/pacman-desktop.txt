@@ -29,7 +29,6 @@ picom
 pipewire
 pipewire-alsa
 pipewire-pulse
-playerctl
 redshift
 rofi
 tex-gyre-fonts
