@@ -354,7 +354,7 @@ vim.api.nvim_create_user_command("Format", "silent normal! mxgggqG`x<CR>", {
 vim.api.nvim_create_user_command("Spaces", function(args)
 	local wv = vim.fn.winsaveview()
 	vim.opt_local.expandtab = true
-	vim.opt_local.listchars = vim.opt_local.listchars + "multispace:│" .. vim.fn["repeat"](" ", args.args)
+	vim.opt_local.listchars = vim.opt_local.listchars:append("multispace:│" .. vim.fn["repeat"](" ", args.args))
 	vim.cmd("silent execute '%!expand -it" .. args.args .. "'")
 	vim.fn.winrestview(wv)
 	vim.cmd("setlocal ts? sw? sts? et?")
