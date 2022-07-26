@@ -1,4 +1,7 @@
 local function config_null_ls()
+	-- Mason stuff:
+	require("dotfiles.plugins.mason").install_tools()
+
 	local javascript_register = require("dotfiles.plugins.null-ls.helpers.javascript_register")
 	local sources = {
 		require("null-ls").builtins.formatting.prettier.with({

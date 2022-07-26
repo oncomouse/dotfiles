@@ -190,7 +190,10 @@ local function plugins()
 				}, -- Snippets
 				{
 					"jose-elias-alvarez/null-ls.nvim",
-					requires = { { "nvim-lua/plenary.nvim", module = "plenary" } },
+					requires = {
+						{ "nvim-lua/plenary.nvim", module = "plenary" },
+						{ "williamboman/mason.nvim", module = { "mason", "mason-core", "mason-registry", "mason-schemas" } },
+					},
 					config = require("dotfiles.plugins.null-ls"),
 					module = "null-ls",
 					setup = function()
