@@ -22,14 +22,10 @@ local function generate_local_packages()
 	local registry = require("mason-registry")
 	if registry.add_package ~= nil then
 		registry.add_package("rubocop", "dotfiles.plugins.mason.registry.rubocop")
-		registry.add_package("selene", "dotfiles.plugins.mason.registry.selene")
-		registry.add_package("shellharden", "dotfiles.plugins.mason.registry.shellharden")
 		registry.add_package("standardrb", "dotfiles.plugins.mason.registry.standardrb")
 		table.insert(M.local_packages, "done")
 	else
 		M.local_packages["rubocop"] = require("dotfiles.plugins.mason.registry.rubocop")
-		M.local_packages["selene"] = require("dotfiles.plugins.mason.registry.selene")
-		M.local_packages["shellharden"] = require("dotfiles.plugins.mason.registry.shellharden")
 		M.local_packages["standardrb"] = require("dotfiles.plugins.mason.registry.standardrb")
 	end
 end
