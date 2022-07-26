@@ -24,8 +24,9 @@ if status --is-login
 	# Lua5.3 for macOS:
 	fish_add_path /usr/local/opt/lua@5.3/bin/
 	fish_add_path /usr/local/opt/grep/libexec/gnubin/
-	fish_add_path ~/.local/nvim-macos/bin/
-	fish_add_path ~/.local/nvim-linux64/bin/
+	fish_add_path --prepend ~/.local/nvim-macos/bin/
+	fish_add_path --prepend ~/.local/nvim-linux64/bin/
+	fish_add_path --append /usr/local/bin
 
 
 	# NPM Local manpath:
