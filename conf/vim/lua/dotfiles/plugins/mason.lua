@@ -50,9 +50,22 @@ local function install_maybe(pkg)
 	end
 end
 
+local function configure_mason()
+	require("mason").setup()
+end
+
 function M.install_tools()
+	configure_mason()
 	generate_local_packages()
 	vim.tbl_map(install_maybe, M.packages)
+end
+
+function M.install_lsp()
+	configure_mason()
+	local servers = require("dotfiles.nvim-lsp.servers")
+	require("mason-lspconfig").setup({
+		ensure_installed = vim.tbl_keys(servers),
+	})
 end
 
 return M

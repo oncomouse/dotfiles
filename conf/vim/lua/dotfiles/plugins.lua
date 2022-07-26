@@ -192,7 +192,10 @@ local function plugins()
 					"jose-elias-alvarez/null-ls.nvim",
 					requires = {
 						{ "nvim-lua/plenary.nvim", module = "plenary" },
-						{ "williamboman/mason.nvim", module = { "mason", "mason-core", "mason-registry", "mason-schemas" } },
+						{
+							"williamboman/mason.nvim",
+							module = { "mason", "mason-core", "mason-registry", "mason-schemas" },
+						},
 					},
 					config = require("dotfiles.plugins.null-ls"),
 					module = "null-ls",
@@ -204,7 +207,10 @@ local function plugins()
 				{
 					"neovim/nvim-lspconfig",
 					requires = {
-						{ "williamboman/mason.nvim", module = "mason" },
+						{
+							"williamboman/mason.nvim",
+							module = { "mason", "mason-core", "mason-registry", "mason-schemas" },
+						},
 						{ "williamboman/mason-lspconfig.nvim", module = "mason-lspconfig" },
 					},
 					ft = {
@@ -245,10 +251,7 @@ local function plugins()
 						}
 						local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-						require("mason").setup()
-						require("mason-lspconfig").setup({
-							ensure_installed = vim.tbl_keys(servers),
-						})
+						require("dotfiles.plugins.mason").install_lsp()
 
 						for lsp, settings in pairs(servers) do
 							local opts = {
