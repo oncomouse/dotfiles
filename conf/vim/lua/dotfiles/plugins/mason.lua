@@ -19,15 +19,8 @@ local function generate_local_packages()
 	if #M.local_packages ~= 0 then
 		return
 	end
-	local registry = require("mason-registry")
-	if registry.add_package ~= nil then
-		registry.add_package("rubocop", "dotfiles.plugins.mason.registry.rubocop")
-		registry.add_package("standardrb", "dotfiles.plugins.mason.registry.standardrb")
-		table.insert(M.local_packages, "done")
-	else
-		M.local_packages["rubocop"] = require("dotfiles.plugins.mason.registry.rubocop")
-		M.local_packages["standardrb"] = require("dotfiles.plugins.mason.registry.standardrb")
-	end
+	M.local_packages["rubocop"] = require("dotfiles.plugins.mason.registry.rubocop")
+	M.local_packages["standardrb"] = require("dotfiles.plugins.mason.registry.standardrb")
 end
 
 local function install_maybe(pkg)
