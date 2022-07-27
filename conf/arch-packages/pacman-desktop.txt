@@ -31,6 +31,8 @@ pipewire-alsa
 pipewire-pulse
 redshift
 rofi
+shellharden
+shfmt
 tex-gyre-fonts
 texlive-core
 ttf-fira-code

@@ -2,7 +2,6 @@ accountsservice
 bat
 cmake
 exa
-expat
 fd
 fish
 fuse2
@@ -29,11 +28,9 @@ ripgrep
 rsync
 ruby
 rustup
-shfmt
 terminus-font
 tmux
 ufw
-unzip
 unzip
 usbutils
 words
