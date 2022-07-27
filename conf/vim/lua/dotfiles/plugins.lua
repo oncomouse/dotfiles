@@ -8,7 +8,9 @@ local function plugins()
 	pcall(vim.cmd, [[packadd packer.nvim]])
 	local ok, util = pcall(require, "packer.util")
 
-	if not ok then return end
+	if not ok then
+		return
+	end
 
 	return require("packer").startup({
 		function(use)
@@ -18,7 +20,9 @@ local function plugins()
 					"sickill/vim-pasta",
 					opt = true,
 					setup = function()
-						require("chad_loader").do_not_defer("vim-pasta") require("chad_loader").lazy_load({ events = { "BufRead", "BufNewFile" },
+						require("chad_loader").do_not_defer("vim-pasta")
+						require("chad_loader").lazy_load({
+							events = { "BufRead", "BufNewFile" },
 							plugins = "vim-pasta",
 							condition = function()
 								return true
@@ -193,10 +197,7 @@ local function plugins()
 					"jose-elias-alvarez/null-ls.nvim",
 					requires = {
 						{ "nvim-lua/plenary.nvim", module = "plenary" },
-						{
-							"williamboman/mason.nvim",
-							module = { "mason", "mason-core", "mason-registry", "mason-schemas" },
-						},
+						{ "williamboman/mason.nvim", module = "mason" },
 					},
 					config = require("dotfiles.plugins.null-ls"),
 					module = "null-ls",
@@ -208,10 +209,7 @@ local function plugins()
 				{
 					"neovim/nvim-lspconfig",
 					requires = {
-						{
-							"williamboman/mason.nvim",
-							module = { "mason", "mason-core", "mason-registry", "mason-schemas" },
-						},
+						{ "williamboman/mason.nvim", module = "mason" },
 						{ "williamboman/mason-lspconfig.nvim", module = "mason-lspconfig" },
 					},
 					ft = {
