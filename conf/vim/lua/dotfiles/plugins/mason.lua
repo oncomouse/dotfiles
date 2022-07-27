@@ -1,16 +1,16 @@
 local M = {}
 M.packages = {
-	"black",
-	"flake8",
-	"prettier",
-	"rubocop",
-	"selene",
-	"shellcheck",
-	"shellharden",
-	"shfmt",
-	"standardrb",
-	"stylua",
-	"vint",
+	-- "black",
+	-- "flake8",
+	-- "prettier",
+	-- "rubocop",
+	-- "selene",
+	-- "shellcheck",
+	-- "shellharden",
+	-- "shfmt",
+	-- "standardrb",
+	-- "stylua",
+	-- "vint",
 }
 
 M.local_packages = {}
