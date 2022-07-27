@@ -2,6 +2,7 @@ bibtool
 nerd-fonts-jetbrains-mono
 otf-hasklig
 otf-nerd-fonts-fira-code
+pandoc-bin
 perl-term-shellui
 polkit-dumb-agent-git
 rofi-dmenu
@@ -10,5 +11,4 @@ selene-linter
 shellcheck-bin
 stylua-bin
 tllocalmgr-git
-volctl
 zotero
