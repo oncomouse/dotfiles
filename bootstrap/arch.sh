@@ -17,7 +17,8 @@ mkdir -p "$HOME/aur"
 # Install AUR using Paru:
 cat "$HOME"/dotfiles/conf/arch-packages/aur.txt | paru --needed -S --skipreview --noconfirm -
 
-if [ -z "$SERVER" ]; then sudo cat "$HOME/dotfiles/conf/arch-packages/pacman-desktop.txt" | sudo pacman -S --noconfirm --needed -
+if [ "$SERVER" = "" ]; then
+	sudo cat "$HOME/dotfiles/conf/arch-packages/pacman-desktop.txt" | sudo pacman -S --noconfirm --needed -
 	cat "$HOME"/dotfiles/conf/arch-packages/aur-desktop.txt | paru --needed -S --skipreview --noconfirm -
 	# Setup flatpak:
 	flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -25,7 +26,7 @@ if [ -z "$SERVER" ]; then sudo cat "$HOME/dotfiles/conf/arch-packages/pacman-des
 	grep -v -e "^#" <"$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
 fi
 
-if [ -z "$SERVER" ]; then
+if [ "$SERVER" = "" ]; then
 	## User systemd services
 	systemctl --user enable pipewire-pulse
 	systemctl --user enable wireplumber.service
@@ -71,7 +72,7 @@ sudo cp -r ~/.tmux/plugins/tpm /root/.tmux/plugins
 sudo mkdir -p /root/.config/fish/conf.d
 echo "fzf_key_bindings" | sudo tee /root/.config/fish/conf.d/fzf.fish
 
-if [ -z "$SERVER" ]; then
+if [ "$SERVER" = "" ]; then
 	# Configure xdg-utils
 	xdg-settings set default-web-browser firefox.desktop
 	xdg-mime default org.pwmt.zathura.desktop application/pdf
