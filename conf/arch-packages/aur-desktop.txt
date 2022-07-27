@@ -8,7 +8,7 @@ rofi-dmenu
 rofi-emoji
 selene-linter
 shellcheck-bin
-stylua
+stylua-bin
 tllocalmgr-git
 volctl
 zotero
