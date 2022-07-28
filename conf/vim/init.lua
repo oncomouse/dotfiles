@@ -262,28 +262,19 @@ vim.api.nvim_create_autocmd(
 	"ColorScheme",
 	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNrBelow ctermfg=7" }
 )
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{
-		group = "dotfiles-settings",
-		pattern = "default",
-		command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE gui=NONE",
-	}
-)
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{
-		group = "dotfiles-settings",
-		pattern = "default",
-		command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE gui=NONE",
-	}
-)
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = "dotfiles-settings",
+	pattern = "default",
+	command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE gui=NONE",
+})
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = "dotfiles-settings",
+	pattern = "default",
+	command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE gui=NONE",
+})
 
 -- Turn Off Line Numbering:
-vim.api.nvim_create_autocmd(
-	"TermOpen",
-	{ group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" }
-)
+vim.api.nvim_create_autocmd("TermOpen", { group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" })
 
 -- Start QuickFix:
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
@@ -406,6 +397,15 @@ vim.filetype.add({
 	},
 	filename = {},
 	pattern = {},
+})
+-- }}}
+-- LSP Configuration {{{
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local buf = args.buf
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		require("dotfiles.nvim-lsp.on_attach")(client, buf)
+	end,
 })
 -- }}}
 -- # vim:foldmethod=marker:foldlevel=0

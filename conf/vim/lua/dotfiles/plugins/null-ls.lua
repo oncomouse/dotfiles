@@ -43,7 +43,7 @@ local function config_null_ls()
 	}
 
 	require("null-ls").setup({
-		on_attach = require("dotfiles.nvim-lsp.on_attach"),
+		-- on_attach = require("dotfiles.nvim-lsp.on_attach"),
 		sources = sources,
 	})
 end
