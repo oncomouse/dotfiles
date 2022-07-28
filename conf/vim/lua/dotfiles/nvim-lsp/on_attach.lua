@@ -11,7 +11,13 @@ local function on_attach(client, buf_num)
 		})
 	end
 	-- Use C+x C+o for completion:
-	vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
+	if client.server_capabilities.completionProvider then
+		vim.bo[buf_num].omnifunc = "v:lua.vim.lsp.omnifunc"
+	end
+	-- Use C+x C+] for tags:
+	if client.server_capabilities.definitionProvider then
+		vim.bo[buf_num].tagfunc = "v:lua.vim.lsp.tagfunc"
+	end
 	vim.keymap.set("n", "<leader>s", vim.lsp.buf.document_symbol, {
 		silent = true,
 		noremap = true,
