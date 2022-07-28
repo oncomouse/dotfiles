@@ -2,6 +2,9 @@ local function config_lspconfig()
 	local servers = require("dotfiles.plugins.nvim-lspconfig.servers")
 	local on_attach = require("dotfiles.plugins.nvim-lspconfig.on_attach")
 
+	-- Install LSPs
+	require("dotfiles.plugins.mason").install_lsp()
+
 	vim.diagnostic.config({
 		underline = true,
 		virtual_text = true,
@@ -16,8 +19,6 @@ local function config_lspconfig()
 		["textDocument/publishDiagnostics"] = function() end,
 	}
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-	require("dotfiles.plugins.mason").install_lsp()
 
 	for lsp, settings in pairs(servers) do
 		local opts = {

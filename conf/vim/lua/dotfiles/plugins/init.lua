@@ -232,6 +232,7 @@ local function plugins()
 						"yaml",
 					},
 					config = require("dotfiles.plugins.nvim-lspconfig"),
+					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/nvim-lspconfig/init.lua
 				}, -- LSP
 				{
 					"anuvyklack/hydra.nvim",
