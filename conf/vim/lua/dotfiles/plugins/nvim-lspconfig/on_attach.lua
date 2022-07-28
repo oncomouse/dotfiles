@@ -1,4 +1,4 @@
-local servers = require("dotfiles.nvim-lsp.servers")
+local servers = require("dotfiles.plugins.nvim-lspconfig.servers")
 local function on_attach(client, buf_num)
 	-- Update codeLens:
 	if client.server_capabilities.codeLensProvider then
@@ -81,11 +81,11 @@ local function on_attach(client, buf_num)
 		buffer = true,
 		desc = "lua vim.lsp.buf.range_code_action()",
 	})
-	vim.keymap.set("n", "K", require("dotfiles.nvim-lsp.show_documentation"), {
+	vim.keymap.set("n", "K", require("dotfiles.plugins.nvim-lspconfig.show_documentation"), {
 		silent = true,
 		noremap = true,
 		buffer = true,
-		desc = "lua require('dotfiles.nvim-lsp.show_documentation')()",
+		desc = "lua require('dotfiles.plugins.nvim-lspconfig.show_documentation')()",
 	})
 	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, {
 		silent = true,

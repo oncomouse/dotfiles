@@ -231,43 +231,7 @@ local function plugins()
 						"vim",
 						"yaml",
 					},
-					config = function()
-						local servers = require("dotfiles.nvim-lsp.servers")
-						local on_attach = require("dotfiles.nvim-lsp.on_attach")
-
-						vim.diagnostic.config({
-							underline = true,
-							virtual_text = true,
-							signs = false,
-							severity_sort = true,
-						})
-
-						-- LSP Logging:
-						-- vim.lsp.set_log_level("trace")
-
-						local handler_no_diagnostics = {
-							["textDocument/publishDiagnostics"] = function() end,
-						}
-						local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-						require("dotfiles.plugins.mason").install_lsp()
-
-						for lsp, settings in pairs(servers) do
-							local opts = {
-								on_attach = on_attach,
-								capabilities = capabilities,
-							}
-							if #vim.tbl_keys(settings) > 0 then
-								opts = vim.tbl_extend("keep", opts, settings)
-							end
-							if not vim.tbl_contains(servers[lsp].provides or {}, "diagnostics") then
-								opts.handlers = handler_no_diagnostics
-							end
-							if lsp ~= "null-ls" then
-								require("lspconfig")[lsp].setup(opts)
-							end
-						end
-					end,
+					config = require("dotfiles.plugins.nvim-lspconfig"),
 				}, -- LSP
 				{
 					"anuvyklack/hydra.nvim",
