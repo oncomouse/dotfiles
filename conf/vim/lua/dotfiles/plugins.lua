@@ -233,7 +233,7 @@ local function plugins()
 					},
 					config = function()
 						local servers = require("dotfiles.nvim-lsp.servers")
-						-- local on_attach = require("dotfiles.nvim-lsp.on_attach")
+						local on_attach = require("dotfiles.nvim-lsp.on_attach")
 
 						vim.diagnostic.config({
 							underline = true,
@@ -254,7 +254,7 @@ local function plugins()
 
 						for lsp, settings in pairs(servers) do
 							local opts = {
-								-- on_attach = on_attach,
+								on_attach = on_attach,
 								capabilities = capabilities,
 							}
 							if #vim.tbl_keys(settings) > 0 then

@@ -399,13 +399,4 @@ vim.filetype.add({
 	pattern = {},
 })
 -- }}}
--- LSP Configuration {{{
-vim.api.nvim_create_autocmd("LspAttach", {
-	callback = function(args)
-		local buf = args.buf
-		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		require("dotfiles.nvim-lsp.on_attach")(client, buf)
-	end,
-})
--- }}}
 -- # vim:foldmethod=marker:foldlevel=0
