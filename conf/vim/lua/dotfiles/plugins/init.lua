@@ -204,7 +204,7 @@ local function plugins()
 					setup = function()
 						require("chad_loader").on_file_open("null-ls.nvim")
 					end,
-					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/null-ls.lua
+					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/null-ls/init.lua
 				}, -- Format and Diagnostics
 				{
 					"neovim/nvim-lspconfig",
