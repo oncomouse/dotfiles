@@ -5,7 +5,7 @@
 
 fisher_plugins=(
   "excitedleigh/virtualfish"
-  "laughedelic/pisces"
+  "jorgebucaran/autopair.fish"
   "wk/plugin-ssh-term-helper"
   "oh-my-fish/plugin-bang-bang"
   "jethrokuan/z"
