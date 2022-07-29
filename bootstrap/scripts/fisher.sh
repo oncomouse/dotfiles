@@ -8,7 +8,6 @@ fisher_plugins=(
   "jorgebucaran/autopair.fish"
   "wk/plugin-ssh-term-helper"
   "oh-my-fish/plugin-bang-bang"
-  "jethrokuan/z"
 )
 
 # Install fisher:
