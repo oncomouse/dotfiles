@@ -1,108 +1,114 @@
 # Defined in /var/folders/gm/7y6mk_5943gdc8pbcmvvj2ldyhzrtk/T//fish.K64QJR/fish_prompt.fish @ line 2
 function fish_prompt --description 'Write out the prompt'
-    if not set -q __fish_git_prompt_show_informative_status
-        set -g __fish_git_prompt_show_informative_status 1
-    end
-    if not set -q __fish_git_prompt_hide_untrackedfiles
-        set -g __fish_git_prompt_hide_untrackedfiles 1
-    end
+	set --local last_status $pipestatus
 
-    if not set -q __fish_git_prompt_color_branch
-        set -g __fish_git_prompt_color_branch magenta --bold
-    end
-    if not set -q __fish_git_prompt_showupstream
-        set -g __fish_git_prompt_showupstream "informative"
-    end
-    if not set -q __fish_git_prompt_char_upstream_ahead
-        set -g __fish_git_prompt_char_upstream_ahead "↑"
-    end
-    if not set -q __fish_git_prompt_char_upstream_behind
-        set -g __fish_git_prompt_char_upstream_behind "↓"
-    end
-    if not set -q __fish_git_prompt_char_upstream_prefix
-        set -g __fish_git_prompt_char_upstream_prefix ""
-    end
+	if not set -q __fish_git_prompt_show_informative_status
+		set -g __fish_git_prompt_show_informative_status 1
+	end
+	if not set -q __fish_git_prompt_hide_untrackedfiles
+		set -g __fish_git_prompt_hide_untrackedfiles 1
+	end
 
-    if not set -q __fish_git_prompt_char_stagedstate
-        set -g __fish_git_prompt_char_stagedstate "●"
-    end
-    if not set -q __fish_git_prompt_char_dirtystate
-        set -g __fish_git_prompt_char_dirtystate "✚"
-    end
-    if not set -q __fish_git_prompt_char_untrackedfiles
-        set -g __fish_git_prompt_char_untrackedfiles "…"
-    end
-    if not set -q __fish_git_prompt_char_conflictedstate
-        set -g __fish_git_prompt_char_conflictedstate "✖"
-    end
-    if not set -q __fish_git_prompt_char_cleanstate
-        set -g __fish_git_prompt_char_cleanstate "✓"
-    end
+	if not set -q __fish_git_prompt_color_branch
+		set -g __fish_git_prompt_color_branch magenta --bold
+	end
+	if not set -q __fish_git_prompt_showupstream
+		set -g __fish_git_prompt_showupstream informative
+	end
+	if not set -q __fish_git_prompt_char_upstream_ahead
+		set -g __fish_git_prompt_char_upstream_ahead "↑"
+	end
+	if not set -q __fish_git_prompt_char_upstream_behind
+		set -g __fish_git_prompt_char_upstream_behind "↓"
+	end
+	if not set -q __fish_git_prompt_char_upstream_prefix
+		set -g __fish_git_prompt_char_upstream_prefix ""
+	end
 
-    if not set -q __fish_git_prompt_color_dirtystate
-        set -g __fish_git_prompt_color_dirtystate blue
-    end
-    if not set -q __fish_git_prompt_color_stagedstate
-        set -g __fish_git_prompt_color_stagedstate yellow
-    end
-    if not set -q __fish_git_prompt_color_invalidstate
-        set -g __fish_git_prompt_color_invalidstate red
-    end
-    if not set -q __fish_git_prompt_color_untrackedfiles
-        set -g __fish_git_prompt_color_untrackedfiles $fish_color_normal
-    end
-    if not set -q __fish_git_prompt_color_cleanstate
-        set -g __fish_git_prompt_color_cleanstate green
-    end
+	if not set -q __fish_git_prompt_char_stagedstate
+		set -g __fish_git_prompt_char_stagedstate "●"
+	end
+	if not set -q __fish_git_prompt_char_dirtystate
+		set -g __fish_git_prompt_char_dirtystate "✚"
+	end
+	if not set -q __fish_git_prompt_char_untrackedfiles
+		set -g __fish_git_prompt_char_untrackedfiles "…"
+	end
+	if not set -q __fish_git_prompt_char_conflictedstate
+		set -g __fish_git_prompt_char_conflictedstate "✖"
+	end
+	if not set -q __fish_git_prompt_char_cleanstate
+		set -g __fish_git_prompt_char_cleanstate "✓"
+	end
 
-    set -l last_status $status
+	if not set -q __fish_git_prompt_color_dirtystate
+		set -g __fish_git_prompt_color_dirtystate blue
+	end
+	if not set -q __fish_git_prompt_color_stagedstate
+		set -g __fish_git_prompt_color_stagedstate yellow
+	end
+	if not set -q __fish_git_prompt_color_invalidstate
+		set -g __fish_git_prompt_color_invalidstate red
+	end
+	if not set -q __fish_git_prompt_color_untrackedfiles
+		set -g __fish_git_prompt_color_untrackedfiles $fish_color_normal
+	end
+	if not set -q __fish_git_prompt_color_cleanstate
+		set -g __fish_git_prompt_color_cleanstate green
+	end
 
-    if not set -q __fish_prompt_normal
-        set -g __fish_prompt_normal (set_color normal)
-    end
+	# set -l last_status $status
 
-    set -l color_cwd
-    set -l prefix
-    set -l suffix
-    switch $USER
-        case root toor
-            if set -q fish_color_cwd_root
-                set color_cwd $fish_color_cwd_root
-            else
-                set color_cwd $fish_color_cwd
-            end
-            set suffix '#'
-        case '*'
-            set color_cwd $fish_color_cwd
-            set suffix 'λ'
-    end
+	if not set -q __fish_prompt_normal
+		set -g __fish_prompt_normal (set_color normal)
+	end
 
-    # Are we in an SSH Connection?
-    if [ -n "$SSH_CONNECTION" -o -n "$SSH_CLIENT" ]
-        echo -n -s (set_color --bold yellow) "SSH" (set_color normal) (set_color yellow) "@" (hostname) ":" (set_color normal)
-    end
-    # PWD
-    set_color $color_cwd
-    echo -n (prompt_pwd)
-    set_color normal
+	set -l color_cwd
+	set -l prefix
+	set -l suffix
+	switch $USER
+		case root toor
+			if set -q fish_color_cwd_root
+				set color_cwd $fish_color_cwd_root
+			else
+				set color_cwd $fish_color_cwd
+			end
+			set suffix '#'
+		case '*'
+			set color_cwd $fish_color_cwd
+			set suffix λ
+	end
 
-    # Detect VIRTUAL_ENV
-    if set -q VIRTUAL_ENV
-        echo -n -s " (" (set_color yellow) \ue73c (set_color normal) " |" (set_color --bold blue) (basename "$VIRTUAL_ENV") (set_color normal) ")"
-    end
+	# Are we in an SSH Connection?
+	if [ -n "$SSH_CONNECTION" -o -n "$SSH_CLIENT" ]
+		echo -n -s (set_color --bold yellow) SSH (set_color normal) (set_color yellow) "@" (hostname) ":" (set_color normal)
+	end
+	# PWD
+	set_color $color_cwd
+	echo -n (prompt_pwd)
+	set_color normal
+
+	# Detect VIRTUAL_ENV
+	if set -q VIRTUAL_ENV
+		echo -n -s " (" (set_color yellow) \ue73c (set_color normal) " |" (set_color --bold blue) (basename "$VIRTUAL_ENV") (set_color normal) ")"
+	end
 
 	# Git
-    # if test (pwd | grep -c Seafile) -eq 0
-      printf '%s ' (__fish_vcs_prompt)
-    # else
-      # echo -n ' '
-    # end
+	# if test (pwd | grep -c Seafile) -eq 0
+	printf '%s ' (__fish_vcs_prompt)
+	# else
+	# echo -n ' '
+	# end
 
-    if not test $last_status -eq 0
-        set_color $fish_color_error
-    end
+	for code in $last_status
+		if test $code -ne 0
+			set_color magenta
+			printf "[%s] " (echo $code)
+			break
+		end
+	end
 
-    echo -n "$suffix "
+	echo -n "$suffix "
 
-    set_color normal
+	set_color normal
 end
