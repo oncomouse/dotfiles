@@ -1,0 +1,187 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+format = """
+$hostname\
+$username\
+$directory\
+$ruby\
+$python\
+$git_branch\
+$git_state\
+$git_status\
+$status\
+$character"""
+
+[character]
+format = " $symbol "
+success_symbol = "λ"
+error_symbol = "[λ](red bold)"
+
+[status]
+format = "[\\[$symbol$status\\]]($style)"
+disabled = false
+symbol = ""
+
+[directory]
+format = "[$path]($style)[$read_only]($read_only_style)"
+truncate_to_repo = false
+style = "cyan"
+repo_root_style = "bold cyan"
+fish_style_pwd_dir_length = 1
+
+[git_branch]
+format = "\\([$branch]($style)|"
+
+[git_status]
+format = "[$all_status$ahead_behind]($style)\\)"
+ahead = "⇡$count"
+behind = "⇣$count"
+diverged = "⇡$ahead_count⇣$behind_count"
+deleted = "[x$count](bold red)"
+modified = "[+$count](bold blue)"
+staged = "[●$count](bold yellow)"
+style = ""
+untracked ="…"
+up_to_date = ""
+
+[hostname]
+ssh_only = true
+ssh_symbol = "[SSH](bold yellow)"
+format = "$ssh_symbol@[$hostname:](yellow)"
+
+[ruby]
+symbol = " "
+format = "[\\[$symbol($version)\\]]($style)"
+style = "blue"
+
+[python]
+symbol = " "
+format = "[\\[$symbol($version;$venv)\\]]($style)"
+style = "blue"
+
+[username]
+format="[\\[$user\\]]($style):"
+
+### UNUSED ####################################################################
+[localip]
+disabled = true
+[shlvl]
+disabled = true
+[singularity]
+disabled = true
+[kubernetes]
+disabled = true
+[vcsh]
+disabled = true
+[git_commit]
+disabled = true
+[git_metrics]
+disabled = true
+[hg_branch]
+disabled = true
+[docker_context]
+disabled = true
+[package]
+disabled = true
+[buf]
+disabled = true
+[c]
+disabled = true
+[cmake]
+disabled = true
+[cobol]
+disabled = true
+[container]
+disabled = true
+[daml]
+disabled = true
+[dart]
+disabled = true
+[deno]
+disabled = true
+[dotnet]
+disabled = true
+[elixir]
+disabled = true
+[elm]
+disabled = true
+[erlang]
+disabled = true
+[golang]
+disabled = true
+[haskell]
+disabled = true
+[helm]
+disabled = true
+[java]
+disabled = true
+[julia]
+disabled = true
+[kotlin]
+disabled = true
+[lua]
+disabled = true
+[nim]
+disabled = true
+[nodejs]
+disabled = true
+[ocaml]
+disabled = true
+[perl]
+disabled = true
+[php]
+disabled = true
+[pulumi]
+disabled = true
+[purescript]
+disabled = true
+[rlang]
+disabled = true
+[red]
+disabled = true
+[rust]
+disabled = true
+[scala]
+disabled = true
+[swift]
+disabled = true
+[terraform]
+disabled = true
+[vlang]
+disabled = true
+[vagrant]
+disabled = true
+[zig]
+disabled = true
+[nix_shell]
+disabled = true
+[conda]
+disabled = true
+[spack]
+disabled = true
+[memory_usage]
+disabled = true
+[aws]
+disabled = true
+[gcloud]
+disabled = true
+[openstack]
+disabled = true
+[azure]
+disabled = true
+[crystal]
+disabled = true
+[cmd_duration]
+disabled = true
+[line_break]
+disabled = true
+[jobs]
+disabled = true
+[battery]
+disabled = true
+[time]
+disabled = true
+[shell]
+disabled = true

@@ -78,3 +78,6 @@ if status is-interactive
 	# Colors:
 	set fish_color_cwd cyan
 end
+if command -v starship > /dev/null
+	starship init fish | source
+end
