@@ -43,9 +43,10 @@ diverged = "↑$ahead_count↓$behind_count"
 deleted = "[x$count](bold red)"
 modified = "[+$count](bold blue)"
 staged = "[●$count](bold yellow)"
+stashed = ""
 style = ""
 untracked ="…"
-up_to_date = ""
+up_to_date = "[✓](green)"
 
 [hostname]
 ssh_only = true
