@@ -17,12 +17,13 @@ $character"""
 [character]
 format = " $symbol "
 success_symbol = "λ"
-error_symbol = "[λ](red bold)"
+error_symbol = "[λ](red)"
 
 [status]
 format = "[\\[$symbol$status\\]]($style)"
 disabled = false
 symbol = ""
+style = "red"
 
 [directory]
 format = "[$path]($style)[$read_only]($read_only_style)"
@@ -32,7 +33,7 @@ repo_root_style = "bold cyan"
 fish_style_pwd_dir_length = 1
 
 [git_branch]
-format = "\\([$branch]($style)|"
+format = "\\([$branch]($style)"
 
 [git_status]
 format = "[$all_status$ahead_behind]($style)\\)"
@@ -46,7 +47,7 @@ staged = "[●$count](bold yellow)"
 stashed = ""
 style = ""
 untracked ="…"
-up_to_date = "[✓](green)"
+up_to_date = ""
 
 [hostname]
 ssh_only = true
