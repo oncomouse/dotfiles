@@ -28,6 +28,7 @@ ripgrep
 rsync
 ruby
 rustup
+starship
 terminus-font
 tmux
 ufw
@@ -35,3 +36,4 @@ unzip
 usbutils
 words
 xdg-utils
+zoxide
