@@ -291,6 +291,34 @@ local function plugins()
 						},
 					},
 				}, -- Markdown Syntax
+				{
+					"Pocco81/true-zen.nvim",
+					module = "true-zen",
+					setup = function()
+						require("chad_loader").on_file_open("true-zen.nvim")
+					end,
+					config = function()
+						require("true-zen").setup({})
+						local is_narrow = false
+						function _G.dotfiles_tz_narrow(type)
+							if type == nil then
+								vim.opt.opfunc = "v:lua.dotfiles_tz_narrow"
+								return "g@"
+							end
+							is_narrow = true
+							vim.cmd([[exe "'[,']TZNarrow"]])
+						end
+						vim.keymap.set("n", "<leader>n", function()
+							if is_narrow then
+								is_narrow = false
+								return ":TZNarrow<cr>"
+							end
+							return _G.dotfiles_tz_narrow()
+						end, {
+							expr = true,
+						})
+					end,
+				},
 				-- Appearance:
 				{
 					"oncomouse/lushwal.nvim",
