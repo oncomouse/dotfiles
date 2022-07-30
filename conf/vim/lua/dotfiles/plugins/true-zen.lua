@@ -12,7 +12,13 @@ function true_zen.narrow_opfunc(type)
 end
 
 local function config_true_zen()
-	require("true-zen").setup({})
+	require("true-zen").setup({
+		modes = {
+			narrow = {
+				folds_style = "invisible",
+			},
+		},
+	})
 	vim.keymap.set("n", "gz", function()
 		return true_zen.narrow_opfunc()
 	end, {
@@ -24,7 +30,7 @@ local function config_true_zen()
 		end
 		return ":'<,'>TZNarrow<CR>"
 	end, {
-		expr = true
+		expr = true,
 	})
 end
 
