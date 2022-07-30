@@ -96,10 +96,10 @@ local function plugins()
 						vim.keymap.set("", "#", "<Plug>(asterisk-#)")
 						vim.keymap.set("", "g*", "<Plug>(asterisk-g*)")
 						vim.keymap.set("", "g#", "<Plug>(asterisk-g#)")
-						vim.keymap.set("", "z*", "<Plug>(asterisk-z*)")
-						vim.keymap.set("", "gz*", "<Plug>(asterisk-gz*)")
-						vim.keymap.set("", "z#", "<Plug>(asterisk-z#)")
-						vim.keymap.set("", "gz#", "<Plug>(asterisk-gz#)")
+						-- vim.keymap.set("", "z*", "<Plug>(asterisk-z*)")
+						-- vim.keymap.set("", "gz*", "<Plug>(asterisk-gz*)")
+						-- vim.keymap.set("", "z#", "<Plug>(asterisk-z#)")
+						-- vim.keymap.set("", "gz#", "<Plug>(asterisk-gz#)")
 						vim.g["asterisk#keeppos"] = 1
 					end,
 					requires = { "tpope/vim-repeat" },
@@ -297,27 +297,8 @@ local function plugins()
 					setup = function()
 						require("chad_loader").on_file_open("true-zen.nvim")
 					end,
-					config = function()
-						require("true-zen").setup({})
-						local is_narrow = false
-						function _G.dotfiles_tz_narrow(type)
-							if type == nil then
-								vim.opt.opfunc = "v:lua.dotfiles_tz_narrow"
-								return "g@"
-							end
-							is_narrow = true
-							vim.cmd([[exe "'[,']TZNarrow"]])
-						end
-						vim.keymap.set("n", "<leader>n", function()
-							if is_narrow then
-								is_narrow = false
-								return ":TZNarrow<cr>"
-							end
-							return _G.dotfiles_tz_narrow()
-						end, {
-							expr = true,
-						})
-					end,
+					config = require("dotfiles.plugins.true-zen"),
+					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/true-zen.lua
 				},
 				-- Appearance:
 				{
