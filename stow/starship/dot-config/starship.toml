@@ -5,9 +5,10 @@ add_newline = false
 format = """
 $hostname\
 $username\
-$directory\
+$shell\
 $ruby\
 $python\
+$directory\
 $git_branch\
 $git_state\
 $git_status\
@@ -56,16 +57,24 @@ format = "$ssh_symbol@[$hostname:](yellow)"
 
 [ruby]
 symbol = " "
-format = "[\\[$symbol($version)\\]]($style)"
+format = "[$symbol($version):]($style)"
 style = "blue"
 
 [python]
 symbol = " "
-format = "[\\[$symbol($version;$venv)\\]]($style)"
+format = "[$symbol($version;$venv):]($style)"
 style = "blue"
 
 [username]
-format="[\\[$user\\]]($style):"
+format="[$user:]($style)"
+
+[shell]
+disabled = false
+fish_indicator = ""
+bash_indicator = "bash:"
+zsh_indicator = "zsh:"
+format = "[$indicator]($style)"
+style = "green"
 
 ### UNUSED ####################################################################
 [localip]
@@ -185,6 +194,4 @@ disabled = true
 [battery]
 disabled = true
 [time]
-disabled = true
-[shell]
 disabled = true
