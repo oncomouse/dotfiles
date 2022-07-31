@@ -142,7 +142,7 @@ local function plugins()
 				}, -- Icons, used in the statusline
 				{
 					"ibhagwan/fzf-lua",
-					keys = { { "n", "<C-p>" }, { "n", "<leader>a" } },
+					keys = { { "n", "<C-p>" }, { "n", "<leader>a" }, { "n", "z=" } },
 					cmd = { "FzfLua", "Files", "Buffers", "GitStatus" },
 					config = require("dotfiles.plugins.fzf-lua"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/fzf-lua.lua
@@ -372,8 +372,11 @@ local function plugins()
 						end
 					end,
 				}, -- Highlight colors in files
-				"rebelot/heirline.nvim", -- Statusline
-				-- Configured in ~/dotfiles/conf/vim/plugin/heirline.lua
+				{
+					"rebelot/heirline.nvim",
+					config = require("dotfiles.plugins.heirline"),
+				}, -- Statusline
+				-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/heirline.lua
 			})
 		end,
 		config = {

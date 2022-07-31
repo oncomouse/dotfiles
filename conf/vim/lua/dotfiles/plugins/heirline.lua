@@ -1,6 +1,5 @@
-local heirline_available, heirline = pcall(require, "heirline")
-
-if heirline_available then
+local function config_heirline()
+	local heirline = require("heirline")
 	local utils = require("heirline.utils")
 	local conditions = require("heirline.conditions")
 
@@ -394,3 +393,5 @@ if heirline_available then
 		group = stl_augroup,
 	})
 end
+
+return config_heirline
