@@ -182,13 +182,13 @@ local function plugins()
 					end,
 				}, -- Directory display
 				{ "roginfarrer/vim-dirvish-dovish", after = "vim-dirvish" }, -- Add useful commands to vim-dirvish
-				--      Create file a,
-				--      Create directory A,
-				--      Delete under cursor dd,
-				--      Rename under cursor r,
-				--      Yank under cursor (or visual selection) yy,
-				--      Copy file to current directory pp,
-				--      Move file to current directory PP
+				--      Create file: a,
+				--      Create directory: A,
+				--      Delete under cursor: dd,
+				--      Rename under cursor: r,
+				--      Yank under cursor (or visual selection): yy,
+				--      Copy file to current directory: pp,
+				--      Move file to current directory: PP
 				{
 					"L3MON4D3/LuaSnip",
 					config = require("dotfiles.plugins.luasnip"),
@@ -250,6 +250,16 @@ local function plugins()
 					end,
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/hydra.lua
 				}, -- Repeating keys mode (used for window resizing, atm)
+				{
+					"chentoast/marks.nvim",
+					module = "marks",
+					setup = function()
+						require("chad_loader").on_file_open("marks.nvim")
+					end,
+					config = function()
+						require("marks").setup({})
+					end,
+				},
 				{
 					"nvim-treesitter/nvim-treesitter",
 					config = require("dotfiles.plugins.nvim-treesitter"),
