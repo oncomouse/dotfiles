@@ -1,7 +1,10 @@
+-- Local settings for Markdown
 vim.opt_local.wrap = true
 vim.opt_local.linebreak = true
 vim.opt_local.list = false
 vim.opt_local.spell = true
+vim.opt_local.showbreak = "NONE"
+
 -- Turn conceal on and off in a buffer:
 vim.keymap.set("n", "<leader>cc", function()
 	vim.opt_local.conceallevel = vim.opt_local.conceallevel == 0 and 2 or 0
@@ -13,7 +16,6 @@ end, {
 vim.cmd([[compiler markdown_combo]])
 
 vim.opt_local.iskeyword = vim.opt_local.iskeyword + "',-,@-@"
-vim.opt_local.omnifunc = "bibliography_omnifunc#omnifunc"
 
 -- Pandoc <format> to compile documents quickly and easily:
 vim.api.nvim_create_user_command("Pandoc", function(args)
