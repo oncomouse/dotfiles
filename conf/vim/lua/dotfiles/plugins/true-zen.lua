@@ -8,7 +8,7 @@ function true_zen.narrow_opfunc(type)
 		vim.opt.opfunc = "v:lua.true_zen.narrow_opfunc"
 		return "g@"
 	end
-	vim.cmd([[exe "'[,']TZNarrow"]])
+	require("true-zen.narrow").toggle(vim.fn.getpos("'[")[2],vim.fn.getpos("']")[2])
 end
 
 local function config_true_zen()
@@ -33,14 +33,7 @@ local function config_true_zen()
 	end, {
 		expr = true,
 	})
-	vim.keymap.set("v", "gz", function()
-		if vim.b.tz_narrowed_buffer then
-			return ":TZNarrow<cr>"
-		end
-		return ":'<,'>TZNarrow<CR>"
-	end, {
-		expr = true,
-	})
+	vim.keymap.set("v", "gz", "<cmd>'<,'>TZNarrow<CR>")
 	vim.keymap.set("n", "<C-W>z", "<cmd>TZFocus<CR>")
 	vim.keymap.set("n", "<leader>z", "<cmd>TZAtaraxis<cr>")
 end
