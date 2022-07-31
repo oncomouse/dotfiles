@@ -56,13 +56,15 @@ ssh_symbol = "[SSH](bold yellow)"
 format = "$ssh_symbol@[$hostname:](yellow)"
 
 [ruby]
-symbol = " "
+symbol = ""
 format = "[$symbol($version):]($style)"
+version_format = "${raw}"
 style = "blue"
 
 [python]
-symbol = " "
-format = "[$symbol($version;$venv):]($style)"
+symbol = ""
+format = "[$symbol(($pyenv_prefix)$version(;$virtualenv)):]($style)"
+version_format = "${raw}"
 style = "blue"
 
 [username]
@@ -73,6 +75,13 @@ disabled = false
 fish_indicator = ""
 bash_indicator = "bash:"
 zsh_indicator = "zsh:"
+powershell_indicator = "psh:"
+ion_indicator = "ion:"
+elvish_indicator = "esh:"
+tcsh_indicator = "tcsh:"
+xonsh_indicator = "xonsh:"
+cmd_inicator = "cmd:"
+nu_indicator = "nu:"
 format = "[$indicator]($style)"
 style = "green"
 
