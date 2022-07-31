@@ -180,8 +180,15 @@ local function plugins()
 						require("chad_loader").do_not_defer("vim-dirvish")
 						require("chad_loader").on_directory("vim-dirvish")
 					end,
-				},
-				{ "roginfarrer/vim-dirvish-dovish", after = "vim-dirvish" },
+				}, -- Directory display
+				{ "roginfarrer/vim-dirvish-dovish", after = "vim-dirvish" }, -- Add useful commands to vim-dirvish
+				--      Create file a,
+				--      Create directory A,
+				--      Delete under cursor dd,
+				--      Rename under cursor r,
+				--      Yank under cursor (or visual selection) yy,
+				--      Copy file to current directory pp,
+				--      Move file to current directory PP
 				{
 					"L3MON4D3/LuaSnip",
 					config = require("dotfiles.plugins.luasnip"),
