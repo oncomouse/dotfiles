@@ -110,7 +110,6 @@ local function config_fzf_lua()
 
 	vim.keymap.set("n", "<c-p>", "<cmd>Files<CR>", { silent = true })
 	vim.keymap.set("n", "<leader>a", "<cmd>Buffers<CR>", { silent = true })
-	vim.keymap.set("n", "z=", "<cmd>FzfLua spell_suggest<CR>", { silent = true })
 end
 
 return config_fzf_lua

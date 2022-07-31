@@ -12,12 +12,23 @@ function true_zen.narrow_opfunc(type)
 end
 
 local function config_true_zen()
+	local bufnr = nil
 	require("true-zen").setup({
 		modes = {
 			ataraxis = {
 				minimum_writing_area = {
 					width = 80,
 				},
+			},
+			minimalist = {
+				open_callback = function()
+					bufnr = vim.fn.bufnr("0")
+					vim.keymap.set("n", "z=", "<cmd>FzfLua spell_suggest<CR>", { silent = true, buffer = bufnr })
+				end,
+				close_callback = function()
+					-- For some reason this both works and causes an error, so we have to wrap it in pcall:
+					pcall(vim.keymap.del, "n", "z=", { buffer = bufnr })
+				end,
 			},
 			narrow = {
 				folds_style = "invisible",

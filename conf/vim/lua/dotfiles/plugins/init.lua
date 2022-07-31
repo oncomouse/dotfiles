@@ -142,7 +142,7 @@ local function plugins()
 				}, -- Icons, used in the statusline
 				{
 					"ibhagwan/fzf-lua",
-					keys = { { "n", "<C-p>" }, { "n", "<leader>a" }, { "n", "z=" } },
+					keys = { { "n", "<C-p>" }, { "n", "<leader>a" } },
 					cmd = { "FzfLua", "Files", "Buffers", "GitStatus" },
 					config = require("dotfiles.plugins.fzf-lua"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/fzf-lua.lua
