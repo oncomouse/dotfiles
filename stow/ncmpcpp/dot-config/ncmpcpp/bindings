@@ -31,6 +31,11 @@ def_key "n"
 	next_found_item
 def_key "N"
 	previous_found_item
+def_key ","
+  move_sort_order_down
+def_key ","
+  move_selected_items_down
+
 ##############################################################
 ## This is the example bindings file. Copy it to            ##
 ## $XDG_CONFIG_HOME/ncmpcpp/bindings or ~/.ncmpcpp/bindings ##
