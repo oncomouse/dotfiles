@@ -19,8 +19,6 @@ local function config_true_zen()
 				minimum_writing_area = {
 					width = 80,
 				},
-			},
-			minimalist = {
 				open_callback = function()
 					bufnr = vim.fn.bufnr("0")
 					vim.keymap.set("n", "z=", "<cmd>FzfLua spell_suggest<CR>", { silent = true, buffer = bufnr })
