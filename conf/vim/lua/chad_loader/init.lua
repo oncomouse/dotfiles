@@ -2,11 +2,11 @@ local chad_loader = {}
 
 local do_not_defer = {}
 
-chad_loader.do_not_defer = function(plugin)
+function chad_loader.do_not_defer(plugin)
 	table.insert(do_not_defer, plugin)
 end
 
-chad_loader.lazy_load = function(tb)
+function chad_loader.lazy_load(tb)
 	local augroup = "ChadLazyLoader" .. tb.plugins
 	vim.api.nvim_create_autocmd(tb.events, {
 		pattern = "*",
@@ -29,7 +29,7 @@ end
 -- load certain plugins only when there's a file opened in the buffer
 -- if "nvim filename" is executed -> load the plugin after nvim gui loads
 -- This gives an instant preview of nvim with the file opened
-chad_loader.on_file_open = function(plugin_name)
+function chad_loader.on_file_open(plugin_name)
 	chad_loader.lazy_load({
 		events = { "BufRead", "BufWinEnter", "BufNewFile" },
 		plugins = plugin_name,
@@ -40,7 +40,7 @@ chad_loader.on_file_open = function(plugin_name)
 	})
 end
 
-chad_loader.on_directory = function(plugin_name)
+function chad_loader.on_directory(plugin_name)
 	function is_dir(path)
 		local f = io.open(path)
 		if f == nil then
