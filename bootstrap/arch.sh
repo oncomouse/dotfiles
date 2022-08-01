@@ -3,12 +3,9 @@
 # sudo needs to be configured
 
 # Assume, at minimum, "pacman -S base-devel neovim git curl fish sudo" run during install:
-sudo cat "$HOME/dotfiles/conf/arch-packages/pacman.txt" | sudo pacman -S --noconfirm --needed -
+sudo cat "$HOME/dotfiles/conf/arch-packages/pacman.txt" | sudo pacman -S --noconfirm --needed --assume-installed=ttf-font-nerd -
 
 ~/dotfiles/bootstrap/scripts/common.sh
-
-sudo systemctl daemon-reload
-systemctl --user daemon-reload
 
 mkdir -p "$HOME/aur"
 # Install some AUR packages (including paru):
@@ -25,6 +22,9 @@ if [ "$SERVER" = "" ]; then
 	# Install Flatpaks:
 	grep -v -e "^#" <"$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
 fi
+
+sudo systemctl daemon-reload
+systemctl --user daemon-reload
 
 if [ "$SERVER" = "" ]; then
 	## User systemd services
