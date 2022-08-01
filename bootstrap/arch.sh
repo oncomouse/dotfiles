@@ -7,9 +7,6 @@ sudo cat "$HOME/dotfiles/conf/arch-packages/pacman.txt" | sudo pacman -S --nocon
 
 ~/dotfiles/bootstrap/scripts/common.sh
 
-sudo systemctl daemon-reload
-systemctl --user daemon-reload
-
 mkdir -p "$HOME/aur"
 # Install some AUR packages (including paru):
 ~/dotfiles/bootstrap/scripts/aur.sh
@@ -25,6 +22,9 @@ if [ "$SERVER" = "" ]; then
 	# Install Flatpaks:
 	grep -v -e "^#" <"$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
 fi
+
+sudo systemctl daemon-reload
+systemctl --user daemon-reload
 
 if [ "$SERVER" = "" ]; then
 	## User systemd services
