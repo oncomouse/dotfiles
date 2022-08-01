@@ -3,7 +3,7 @@
 # sudo needs to be configured
 
 # Assume, at minimum, "pacman -S base-devel neovim git curl fish sudo" run during install:
-sudo cat "$HOME/dotfiles/conf/arch-packages/pacman.txt" | sudo pacman -S --noconfirm --needed -
+sudo cat "$HOME/dotfiles/conf/arch-packages/pacman.txt" | sudo pacman -S --noconfirm --needed --assume-installed=ttf-font-nerd -
 
 ~/dotfiles/bootstrap/scripts/common.sh
 
