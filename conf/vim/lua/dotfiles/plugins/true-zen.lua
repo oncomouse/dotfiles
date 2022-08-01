@@ -8,8 +8,10 @@ function true_zen.narrow_opfunc(type)
 		vim.opt.opfunc = "v:lua.true_zen.narrow_opfunc"
 		return "g@"
 	end
-	require("true-zen.narrow").toggle(vim.fn.getpos("'[")[2],vim.fn.getpos("']")[2])
+	require("true-zen.narrow").toggle(vim.fn.getpos("'[")[2], vim.fn.getpos("']")[2])
 end
+
+local augroup = nil
 
 local function config_true_zen()
 	local bufnr = nil
@@ -19,6 +21,23 @@ local function config_true_zen()
 				minimum_writing_area = {
 					width = 80,
 				},
+				open_callback = function()
+					augroup = vim.api.nvim_create_augroup("dotfiles-settings-true-zen", {})
+					vim.api.nvim_create_autocmd("QuitPre", {
+						group = augroup,
+						callback = function()
+							if vim.b.tz_narrowed_buffer then
+								vim.schedule(function()
+									vim.cmd([[normal! zE]])
+								end)
+								vim.b.tz_narrowed_buffer = nil
+							end
+						end,
+					})
+				end,
+				close_callback = function()
+					vim.api.nvim_del_augroup_by_id(augroup)
+				end,
 			},
 			minimalist = {
 				open_callback = function()
@@ -34,9 +53,13 @@ local function config_true_zen()
 				folds_style = "invisible",
 			},
 			focus = {
-				open_callback = function() vim.opt_local.showtabline = 0 end,
-				close_callback = function() vim.opt_local.showtabline = 1 end,
-			}
+				open_callback = function()
+					vim.opt_local.showtabline = 0
+				end,
+				close_callback = function()
+					vim.opt_local.showtabline = 1
+				end,
+			},
 		},
 	})
 	vim.keymap.set("n", "gz", function()
