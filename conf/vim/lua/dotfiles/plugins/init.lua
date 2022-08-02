@@ -311,6 +311,7 @@ local function plugins()
 				}, -- Markdown Syntax
 				{
 					"Pocco81/true-zen.nvim",
+					branch = "dev",
 					module = "true-zen",
 					setup = function()
 						require("chad_loader").on_file_open("true-zen.nvim")
