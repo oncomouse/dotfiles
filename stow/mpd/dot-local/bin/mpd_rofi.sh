@@ -18,8 +18,7 @@ action-add() {
 	#	Select albums \
 	#	Get a list of songs in the selected albums \
 	#	Add the songs to MPD
-	mpc ls | \
-		xargs -d "\n" -I{}  mpc ls {} 2> /dev/null | \
+	mpc -f "%file%" search any " " | cut -d "/" -f 1-2 | uniq | \
 		rofi_bar -multi-select | \
 		xargs -d "\n" -I{} mpc ls {} 2> /dev/null | \
 		xargs -d "\n" -I {} mpc add {} 2> /dev/null

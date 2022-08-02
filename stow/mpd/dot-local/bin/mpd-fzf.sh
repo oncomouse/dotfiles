@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 action-add() {
-	mpc ls | \
-		xargs -d "\n" -I{}  mpc ls {} 2> /dev/null | \
+	mpc -f "%file%" search any " " | cut -d "/" -f 1-2 | uniq | \
 		fzf -m | \
 		xargs -d "\n" -I{} mpc ls {} 2> /dev/null | \
 		xargs -d "\n" -I {} mpc add {} 2> /dev/null
