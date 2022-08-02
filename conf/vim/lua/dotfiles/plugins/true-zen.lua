@@ -11,7 +11,7 @@ function true_zen.narrow_opfunc(type)
 	require("true-zen.narrow").toggle(vim.fn.getpos("'[")[2], vim.fn.getpos("']")[2])
 end
 
-local augroup = nil
+local augroup = vim.api.nvim_create_augroup("dotfiles-settings-true-zen", {})
 
 local function config_true_zen()
 	local bufnr = nil
@@ -22,7 +22,6 @@ local function config_true_zen()
 					width = 80,
 				},
 				open_callback = function()
-					augroup = vim.api.nvim_create_augroup("dotfiles-settings-true-zen", {})
 					vim.api.nvim_create_autocmd("QuitPre", {
 						group = augroup,
 						callback = function()
@@ -36,7 +35,7 @@ local function config_true_zen()
 					})
 				end,
 				close_callback = function()
-					vim.api.nvim_del_augroup_by_id(augroup)
+					augroup = vim.api.nvim_create_augroup("dotfiles-settings-true-zen", { clear = true, })
 				end,
 			},
 			minimalist = {
