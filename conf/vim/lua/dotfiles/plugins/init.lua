@@ -73,6 +73,7 @@ local function plugins()
 								"package.json",
 								"pyproject.toml",
 								"setup.py",
+								".project-root",
 							},
 						})
 					end,
