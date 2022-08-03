@@ -11,7 +11,6 @@ function true_zen.narrow_opfunc(type)
 	require("true-zen.narrow").toggle(vim.fn.getpos("'[")[2], vim.fn.getpos("']")[2])
 end
 
--- local augroup = vim.api.nvim_create_augroup("dotfiles-settings-true-zen", {})
 
 local function config_true_zen()
 	local bufnr = nil
@@ -21,22 +20,6 @@ local function config_true_zen()
 				minimum_writing_area = {
 					width = 80,
 				},
-				-- open_callback = function()
-				-- 	vim.api.nvim_create_autocmd("QuitPre", {
-				-- 		group = augroup,
-				-- 		callback = function()
-				-- 			if vim.b.tz_narrowed_buffer then
-				-- 				vim.schedule(function()
-				-- 					vim.cmd([[normal! zE]])
-				-- 				end)
-				-- 				vim.b.tz_narrowed_buffer = nil
-				-- 			end
-				-- 		end,
-				-- 	})
-				-- end,
-				-- close_callback = function()
-				-- 	augroup = vim.api.nvim_create_augroup("dotfiles-settings-true-zen", { clear = true, })
-				-- end,
 			},
 			minimalist = {
 				open_callback = function()
