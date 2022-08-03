@@ -1,9 +1,6 @@
 -- Dotfiles Settings {{{
-if not vim.tbl_contains(vim.opt.runtimepath:get(), vim.fn.expand("~/dotfiles/conf/vim")) then
-	vim.opt.runtimepath:append("~/dotfiles/conf/vim")
-end
-
--- Add Dotfiles After To RTP:
+-- Add Dotfiles To RTP:
+vim.opt.runtimepath:append("~/dotfiles/conf/vim")
 vim.opt.runtimepath:append("~/dotfiles/conf/vim/after")
 
 -- Set Spellfile Location:
