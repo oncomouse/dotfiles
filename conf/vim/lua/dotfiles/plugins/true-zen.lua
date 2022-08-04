@@ -11,7 +11,6 @@ function true_zen.narrow_opfunc(type)
 	require("true-zen.narrow").toggle(vim.fn.getpos("'[")[2], vim.fn.getpos("']")[2])
 end
 
-
 local function config_true_zen()
 	local bufnr = nil
 	require("true-zen").setup({
