@@ -39,6 +39,7 @@ local function config_treesitter()
 		"typescript",
 		"vim",
 		"vue",
+		"xml",
 		"yaml",
 		"zig",
 	}
@@ -51,6 +52,16 @@ local function config_treesitter()
 		end,
 		desc = "Set fold method for treesitter",
 	})
+
+	require("nvim-treesitter.parsers").list.xml = {
+		install_info = {
+			url = "https://github.com/Trivernis/tree-sitter-xml",
+			files = { "src/parser.c" },
+			generate_requires_npm = true,
+			branch = "main",
+		},
+		filetype = "xml",
+	}
 
 	require("nvim-treesitter.configs").setup({
 		ensure_installed = parsers,
