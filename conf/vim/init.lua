@@ -236,10 +236,6 @@ vim.keymap.set("o", "iz", "<cmd>normal! [zj0v]zk$<cr>", { silent = true, noremap
 vim.keymap.set("x", "iz", "<cmd>normal! [zj0o]zk$<cr>", { silent = true, noremap = true })
 vim.keymap.set("o", "az", "<cmd>normal! [zv]z$<cr>", { silent = true, noremap = true })
 vim.keymap.set("x", "az", "<cmd>normal! [zo]z$<cr>", { silent = true, noremap = true })
-
--- Entire document:
-vim.keymap.set("o", "ae", "<cmd>normal! gg0vG$<cr>", { silent = true, noremap = true })
-vim.keymap.set("x", "ae", "<cmd>normal! gg0oG$<cr>", { silent = true, noremap = true })
 -- }}}
 -- }}}
 -- Autogroups {{{
