@@ -13,9 +13,7 @@ local function config_mini()
 			end,
 			s = function(type)
 				local punc_matcher = "[.?!]"
-				local pos = vim.fn.getpos(".")
-				local lnum = pos[2]
-				local col = pos[3]
+				local _, lnum, col, _ = unpack(vim.fn.getpos("."))
 				local line = vim.api.nvim_get_current_line()
 				local end_of_sentence = string.find(string.sub(line, col, #line), punc_matcher)
 				if not end_of_sentence then
