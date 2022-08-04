@@ -38,14 +38,6 @@ local function plugins()
 					end,
 				}, -- gs to sort
 				{
-					"tpope/vim-commentary",
-					requires = { "tpope/vim-repeat" },
-					opt = true,
-					setup = function()
-						require("chad_loader").on_file_open("vim-commentary")
-					end,
-				}, -- gc<motion> to (un)comment
-				{
 					"oncomouse/vim-surround",
 					requires = { "tpope/vim-repeat" },
 					opt = true,
@@ -54,13 +46,35 @@ local function plugins()
 					end,
 				}, -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
 				{
-					"wellle/targets.vim",
-					requires = { "tpope/vim-repeat" },
-					opt = true,
+					"echasnovski/mini.nvim",
+					module = {
+						"mini.ai",
+						"mini.comment",
+						"mini.indentscope",
+						"mini.jump",
+						"mini.misc",
+						-- "mini.base16",
+						-- "mini.bufremove",
+						-- "mini.completion",
+						-- "mini.cursorword",
+						-- "mini.doc",
+						-- "mini.fuzzy",
+						-- "mini.jump2d",
+						-- "mini.pairs",
+						-- "mini.sessions",
+						-- "mini.starter",
+						-- "mini.statusline",
+						-- "mini.surround",
+						-- "mini.tabline",
+						-- "mini.test",
+						-- "mini.trailspace",
+					},
 					setup = function()
-						require("chad_loader").on_file_open("targets.vim")
+						require("chad_loader").on_file_open("mini.nvim")
 					end,
-				}, -- add next block n]) targets, plus words in commas (a,), asterisks (a*), etc
+					config = require("dotfiles.plugins.mini-nvim"),
+					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/mini-nvim.lua
+				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai)
 				{
 					"ahmedkhalf/project.nvim",
 					config = function()
@@ -128,13 +142,6 @@ local function plugins()
 					config = require("dotfiles.plugins.lexima"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/lexima.lua
 				},
-				{
-					"michaeljsmith/vim-indent-object",
-					opt = true,
-					setup = function()
-						require("chad_loader").on_file_open("vim-indent-object")
-					end,
-				}, -- ii, ai, aI for indent-based textobjects
 				-- Extra functionality + UI:
 				{
 					"kyazdani42/nvim-web-devicons",
@@ -272,7 +279,16 @@ local function plugins()
 						{ "RRethy/nvim-treesitter-endwise", after = "nvim-treesitter" },
 						{
 							"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
-							after = "nvim-treesitter",
+							after = { "nvim-treesitter", "mini.nvim" },
+							config = function()
+								require("mini.comment").setup({
+									hooks = {
+										pre = function()
+											require("ts_context_commentstring.internal").update_commentstring()
+										end,
+									},
+								})
+							end,
 						},
 						{
 							"andymass/vim-matchup",
