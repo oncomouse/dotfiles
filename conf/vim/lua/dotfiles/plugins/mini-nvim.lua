@@ -11,7 +11,7 @@ local function config_mini()
 				}
 				return { from = from, to = to }
 			end,
-			s = function(type, _, opts)
+			s = function(type)
 				local punc_matcher = "[.?!]"
 				local _, lnum, col, _ = unpack(vim.fn.getpos("."))
 				vim.cmd([[normal! )]])
@@ -25,12 +25,6 @@ local function config_mini()
 					col = vim.fn.col("."),
 				}
 				vim.api.nvim_win_set_cursor(0, { lnum, col })
-				-- local sentence = vim.fn.join(vim.api.nvim_buf_get_lines(0, p_top, p_bottom, false), "\n")
-				-- print(vim.inspect(sentence))
-				-- print(vim.inspect({
-				-- 	p_top,
-				-- 	p_bottom,
-				-- }))
 				local p_orig_bottom = {
 					line = p_bottom.line,
 					col = p_bottom.col,
