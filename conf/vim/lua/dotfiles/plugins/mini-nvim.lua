@@ -13,60 +13,70 @@ local function config_mini()
 			end,
 			s = function(type)
 				local punc_matcher = "[.?!]"
-				local _, lnum, col, _ = unpack(vim.fn.getpos("."))
+				local function make_point()
+					local _, l, c, _ = unpack(vim.fn.getpos("."))
+					return {
+						line = l,
+						col = c,
+					}
+				end
+				-- Store the cursor position:
+				local p_cursor = make_point()
+
+				-- Get the end of the sentence:
 				vim.cmd([[normal! )]])
-				local p_bottom = {
-					line = vim.fn.line("."),
-					col = vim.fn.col("."),
-				}
+				local p_bottom = make_point()
+				local p_orig_bottom = make_point()
+
+				-- Get the beginning of the sentence:
 				vim.cmd([[normal! (]])
-				local p_top = {
-					line = vim.fn.line("."),
-					col = vim.fn.col("."),
-				}
-				vim.api.nvim_win_set_cursor(0, { lnum, col })
-				local p_orig_bottom = {
-					line = p_bottom.line,
-					col = p_bottom.col,
-				}
+				local p_top = make_point()
+
+				-- Restore the cursor:
+				vim.api.nvim_win_set_cursor(0, { p_cursor.line, p_cursor.col - 1 })
+
+				-- Try to find any punctuation at the end of our sentence:
 				local last_line_of_sentence = vim.api.nvim_buf_get_lines(0, p_bottom.line - 1, p_bottom.line, false)[1]
 				while p_bottom.line >= p_top.line do
 					if last_line_of_sentence:sub(p_bottom.col, p_bottom.col):match(punc_matcher) then
 						break
-					else
+					else -- Iterate to the previous character:
+						-- If we're at the start of the line, move up one line:
 						if p_bottom.col == 1 then
 							p_bottom.line = p_bottom.line - 1
 							last_line_of_sentence =
 								vim.api.nvim_buf_get_lines(0, p_bottom.line - 1, p_bottom.line, false)[1]
+							-- Guard against hitting the top of the file:
 							if last_line_of_sentence == nil then
 								break
 							end
+							p_bottom.col = #last_line_of_sentence - 1
+						else -- Otherwise, go back one character:
+							p_bottom.col = p_bottom.col - 1
+						end
+					end
+				end
+
+				-- Just use what Neovim gave us if the above didn't work:
+				if p_bottom.line < p_top.line or (p_bottom.line == p_top.line and p_bottom.col < p_top.col) then
+					p_bottom = p_orig_bottom
+				end
+
+				-- Adjust the target if we are selecting "inside" instead of "around":
+				if type == "i" then
+					-- But only if there is actually a punctuation mark found:
+					if vim.fn.getline(p_bottom.line):sub(p_bottom.col, p_bottom.col):match(punc_matcher) then
+						if p_bottom.col == 1 then
+							p_bottom.line = p_bottom.line - 1
+							last_line_of_sentence =
+								vim.api.nvim_buf_get_lines(0, p_bottom.line - 1, p_bottom.line, false)[1]
 							p_bottom.col = #last_line_of_sentence - 1
 						else
 							p_bottom.col = p_bottom.col - 1
 						end
 					end
 				end
-				if p_bottom.line < p_top.line or (p_bottom.line == p_top.line and p_bottom.col < p_top.col)then
-					p_bottom = p_orig_bottom
-				end
-				if type == "i" then
-					if p_bottom.col == 1 then
-						p_bottom.line = p_bottom.line - 1
-						last_line_of_sentence =
-							vim.api.nvim_buf_get_lines(0, p_bottom.line - 1, p_bottom.line, false)[1]
-						p_bottom.col = #last_line_of_sentence - 1
-					else
-						p_bottom.col = p_bottom.col -1
-					end
-				end
-				-- print(vim.inspect(last_line_of_sentence))
-				-- if p_bottom.col ~= #last_line_of_sentence then
-				-- 	p_bottom.col = p_bottom.col - (type == "i" and 3 or 2)
-				-- else
-				-- 	local a,b = string.find(last_line_of_sentence, "[.!?]%s*$")
-				-- 	p_bottom.col = p_bottom.col - (b - a + (type == "i" and 1 or 0))
-				-- end
+
 				return {
 					from = p_top,
 					to = p_bottom,
