@@ -16,7 +16,6 @@ local function config_mini()
 		}
 	end
 
-
 	---@param inside boolean
 	---@return Pair top, Pair bottom
 	local function extract_sentence(inside)

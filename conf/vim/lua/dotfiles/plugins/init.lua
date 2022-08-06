@@ -250,6 +250,19 @@ local function plugins()
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/nvim-lspconfig/init.lua
 				}, -- LSP
 				{
+					"hrsh7th/nvim-cmp",
+					after = "LuaSnip",
+					requires = {
+						{ "hrsh7th/cmp-nvim-lsp", after = "LuaSnip" },
+						{ "saadparwaiz1/cmp_luasnip", after = "LuaSnip" },
+						{ "hrsh7th/cmp-nvim-lua", after = "LuaSnip" },
+						{ "hrsh7th/cmp-buffer", after = "LuaSnip" },
+						{ "hrsh7th/cmp-path", after = "LuaSnip" },
+					},
+					config = require("dotfiles.plugins.cmp"),
+					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/cmp.lua
+				},
+				{
 					"anuvyklack/hydra.nvim",
 					config = require("dotfiles.plugins.hydra"),
 					module = "hydra",
