@@ -61,12 +61,16 @@ local function config_cmp()
 			{ name = "luasnip" },
 			{ name = "path" },
 			{ name = "buffer" },
-			{ name = "fish" },
 		},
 	})
 	cmp.setup.filetype({ "markdown" }, {
 		completion = {
 			autocomplete = false,
+		},
+	})
+	cmp.setup.filetype({ "fish" }, {
+		sources = {
+			{ name = "fish" },
 		},
 	})
 end

@@ -16,6 +16,7 @@ local function plugins()
 		function(use)
 			use({
 				{ "wbthomason/packer.nvim", opt = true },
+
 				{
 					"sickill/vim-pasta",
 					opt = true,
@@ -30,6 +31,7 @@ local function plugins()
 						})
 					end,
 				}, -- fix block paste for Neovim
+
 				{
 					"christoomey/vim-sort-motion",
 					opt = true,
@@ -37,6 +39,7 @@ local function plugins()
 						require("chad_loader").on_file_open("vim-sort-motion")
 					end,
 				}, -- gs to sort
+
 				{
 					"oncomouse/vim-surround",
 					requires = { "tpope/vim-repeat" },
@@ -45,6 +48,7 @@ local function plugins()
 						require("chad_loader").on_file_open("vim-surround")
 					end,
 				}, -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
+
 				{
 					"echasnovski/mini.nvim",
 					module = {
@@ -75,6 +79,7 @@ local function plugins()
 					config = require("dotfiles.plugins.mini-nvim"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/mini-nvim.lua
 				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai)
+
 				{
 					"ahmedkhalf/project.nvim",
 					config = function()
@@ -96,7 +101,9 @@ local function plugins()
 						require("chad_loader").on_file_open("project.nvim")
 					end,
 				}, -- Set project root
+
 				-- Editor Enhancements:
+
 				{
 					"oncomouse/vim-lion",
 					opt = true,
@@ -104,6 +111,7 @@ local function plugins()
 						require("chad_loader").on_file_open("vim-lion")
 					end,
 				}, -- gl and gL to align
+
 				{
 					"haya14busa/vim-asterisk",
 					config = function()
@@ -123,6 +131,7 @@ local function plugins()
 						require("chad_loader").on_file_open("vim-asterisk")
 					end,
 				}, -- Fancy * and # bindings
+
 				{
 					"vim-scripts/ReplaceWithRegister",
 
@@ -132,6 +141,7 @@ local function plugins()
 						require("chad_loader").on_file_open("ReplaceWithRegister")
 					end,
 				}, -- gr{motion} or grr or gr in visual to replace with register
+
 				{
 					"cohama/lexima.vim", -- Autopairs
 					setup = function()
@@ -142,12 +152,15 @@ local function plugins()
 					config = require("dotfiles.plugins.lexima"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/lexima.lua
 				},
+
 				-- Extra functionality + UI:
+
 				{
 					"kyazdani42/nvim-web-devicons",
 					cond = require("dotfiles.utils.use_termguicolors"),
 					module = "nvim-web-devicons",
 				}, -- Icons, used in the statusline
+
 				{
 					"ibhagwan/fzf-lua",
 					keys = { { "n", "<C-p>" }, { "n", "<leader>a" } },
@@ -155,6 +168,7 @@ local function plugins()
 					config = require("dotfiles.plugins.fzf-lua"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/fzf-lua.lua
 				}, -- FZF Client
+
 				{
 					"lambdalisue/gina.vim",
 					cmd = "Gina",
@@ -181,6 +195,7 @@ local function plugins()
 						})
 					end,
 				}, -- Git support
+
 				{
 					"justinmk/vim-dirvish",
 					opt = true,
@@ -189,6 +204,7 @@ local function plugins()
 						require("chad_loader").on_directory("vim-dirvish")
 					end,
 				}, -- Directory display
+
 				{ "roginfarrer/vim-dirvish-dovish", after = "vim-dirvish" }, -- Add useful commands to vim-dirvish
 				--      Create file: a,
 				--      Create directory: A,
@@ -197,10 +213,11 @@ local function plugins()
 				--      Yank under cursor (or visual selection): yy,
 				--      Copy file to current directory: pp,
 				--      Move file to current directory: PP
+
 				{
 					"L3MON4D3/LuaSnip",
 					config = require("dotfiles.plugins.luasnip"),
-					module = "luasnip", -- Is loaded when null-ls loads luasnip completion
+					event = "InsertEnter",
 					requires = {
 						{
 							"rafamadriz/friendly-snippets",
@@ -208,10 +225,11 @@ local function plugins()
 					},
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/luasnip.lua
 				}, -- Snippets
+
 				{
 					"jose-elias-alvarez/null-ls.nvim",
 					requires = {
-						{ "nvim-lua/plenary.nvim", module = "plenary" },
+						{ "nvim-lua/plenary.nvim", module = { "plenary.async", "plenary" } },
 						{ "williamboman/mason.nvim", module = "mason" },
 					},
 					config = require("dotfiles.plugins.null-ls"),
@@ -221,6 +239,7 @@ local function plugins()
 					end,
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/null-ls/init.lua
 				}, -- Format and Diagnostics
+
 				{
 					"neovim/nvim-lspconfig",
 					requires = {
@@ -249,21 +268,26 @@ local function plugins()
 					config = require("dotfiles.plugins.nvim-lspconfig"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/nvim-lspconfig/init.lua
 				}, -- LSP
+
 				{
 					"hrsh7th/nvim-cmp",
 					module = "cmp",
-					after = "LuaSnip",
+					opt = true,
+					setup = function()
+						require("chad_loader").on_file_open("nvim-cmp")
+					end,
 					requires = {
-						{ "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp", after = "LuaSnip" },
-						{ "saadparwaiz1/cmp_luasnip", module = "cmp_luasnip", after = "LuaSnip" },
-						{ "hrsh7th/cmp-nvim-lua", module = "cmp_nvim_lua", after = "LuaSnip" },
-						{ "hrsh7th/cmp-buffer", after = "LuaSnip" },
-						{ "hrsh7th/cmp-path", after = "LuaSnip" },
+						{ "hrsh7th/cmp-nvim-lsp" },
+						{ "saadparwaiz1/cmp_luasnip" },
+						{ "hrsh7th/cmp-nvim-lua" },
+						{ "hrsh7th/cmp-buffer" },
+						{ "hrsh7th/cmp-path" },
 						{ "mtoohey31/cmp-fish", ft = "fish" },
 					},
 					config = require("dotfiles.plugins.cmp"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/cmp.lua
 				},
+
 				{
 					"anuvyklack/hydra.nvim",
 					config = require("dotfiles.plugins.hydra"),
@@ -273,6 +297,7 @@ local function plugins()
 					end,
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/hydra.lua
 				}, -- Repeating keys mode (used for window resizing, atm)
+
 				{
 					"chentoast/marks.nvim",
 					module = "marks",
@@ -283,6 +308,7 @@ local function plugins()
 						require("marks").setup({})
 					end,
 				},
+
 				{
 					"nvim-treesitter/nvim-treesitter",
 					config = require("dotfiles.plugins.nvim-treesitter"),
@@ -322,6 +348,7 @@ local function plugins()
 					end,
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/nvim-treesitter.lua
 				}, -- Treesitter-based Syntax
+
 				-- Non-Treesitter Syntax:
 				{
 					"preservim/vim-markdown",
@@ -340,6 +367,7 @@ local function plugins()
 						},
 					},
 				}, -- Markdown Syntax
+
 				{
 					"Pocco81/true-zen.nvim",
 					branch = "dev",
@@ -350,6 +378,7 @@ local function plugins()
 					config = require("dotfiles.plugins.true-zen"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/true-zen.lua
 				},
+
 				-- Appearance:
 				{
 					"oncomouse/lushwal.nvim",
@@ -383,6 +412,7 @@ local function plugins()
 						}
 					end,
 				}, -- Colorscheme
+
 				{
 					"oncomouse/nvim-colorizer.lua",
 					module = "colorizer",
@@ -422,6 +452,7 @@ local function plugins()
 						end
 					end,
 				}, -- Highlight colors in files
+
 				{
 					"rebelot/heirline.nvim",
 					config = require("dotfiles.plugins.heirline"),
