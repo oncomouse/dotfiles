@@ -9,8 +9,8 @@ local function config_cmp()
 		mapping = {
 			["<C-p>"] = cmp.mapping.select_prev_item(),
 			["<C-n>"] = cmp.mapping.select_next_item(),
-			["<C-d>"] = cmp.mapping.scroll_docs(-4),
-			["<C-f>"] = cmp.mapping.scroll_docs(4),
+			["<C-u>"] = cmp.mapping.scroll_docs(-4),
+			["<C-d>"] = cmp.mapping.scroll_docs(4),
 			["<C-x><C-o>"] = cmp.mapping.complete(),
 			["<C-c>"] = cmp.mapping.abort(),
 			["<C-e>"] = cmp.mapping.close(),
@@ -23,12 +23,7 @@ local function config_cmp()
 				-- 	cmp.select_next_item()
 				if require("luasnip").expand_or_jumpable() then
 					vim.fn.feedkeys(
-						vim.api.nvim_replace_termcodes(
-							"<Plug>luasnip-expand-or-jump",
-							true,
-							true,
-							true
-						),
+						vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true),
 						""
 					)
 				else
@@ -39,21 +34,18 @@ local function config_cmp()
 				-- if cmp.visible() then
 				-- 	cmp.select_prev_item()
 				if require("luasnip").jumpable(-1) then
-					vim.fn.feedkeys(
-						vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true),
-						""
-					)
+					vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
 				else
 					fallback()
 				end
 			end, { "i", "s" }),
 		},
 		sources = {
-			{ name = "luasnip" },
 			{ name = "nvim_lsp" },
-			{ name = "buffer" },
 			{ name = "nvim_lua" },
+			{ name = "luasnip" },
 			{ name = "path" },
+			{ name = "buffer" },
 		},
 		completion = {
 			autocomplete = true,

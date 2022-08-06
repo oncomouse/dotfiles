@@ -251,11 +251,12 @@ local function plugins()
 				}, -- LSP
 				{
 					"hrsh7th/nvim-cmp",
+					module = "cmp",
 					after = "LuaSnip",
 					requires = {
-						{ "hrsh7th/cmp-nvim-lsp", after = "LuaSnip" },
-						{ "saadparwaiz1/cmp_luasnip", after = "LuaSnip" },
-						{ "hrsh7th/cmp-nvim-lua", after = "LuaSnip" },
+						{ "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp", after = "LuaSnip" },
+						{ "saadparwaiz1/cmp_luasnip", module = "cmp_luasnip", after = "LuaSnip" },
+						{ "hrsh7th/cmp-nvim-lua", module = "cmp_nvim_lua", after = "LuaSnip" },
 						{ "hrsh7th/cmp-buffer", after = "LuaSnip" },
 						{ "hrsh7th/cmp-path", after = "LuaSnip" },
 					},
