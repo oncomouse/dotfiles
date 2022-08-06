@@ -26,10 +26,10 @@ local servers = {
 				workspace = {
 					library = vim.api.nvim_get_runtime_file("", true),
 				},
-				completion = {
-					callSnippet = "Replace",
-					keywordSnippet = "Replace",
-				},
+				-- completion = {
+				-- 	callSnippet = "Replace",
+				-- 	keywordSnippet = "Replace",
+				-- },
 				diagnostics = {
 					globals = { "vim" },
 				},
