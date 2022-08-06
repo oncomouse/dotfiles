@@ -36,7 +36,7 @@ local function config_null_ls()
 		require("null-ls").builtins.code_actions.shellcheck,
 		require("dotfiles.plugins.null-ls.builtins.hover.bibtex"),
 		require("dotfiles.plugins.null-ls.builtins.completion.bibtex"),
-		require("null-ls").builtins.completion.luasnip,
+		-- require("null-ls").builtins.completion.luasnip,
 		javascript_register("formatting"),
 		javascript_register("diagnostics"),
 		javascript_register("code_actions"),
