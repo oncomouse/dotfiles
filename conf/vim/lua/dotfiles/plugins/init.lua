@@ -259,6 +259,7 @@ local function plugins()
 						{ "hrsh7th/cmp-nvim-lua", module = "cmp_nvim_lua", after = "LuaSnip" },
 						{ "hrsh7th/cmp-buffer", after = "LuaSnip" },
 						{ "hrsh7th/cmp-path", after = "LuaSnip" },
+						{ "mtoohey31/cmp-fish", ft = "fish" },
 					},
 					config = require("dotfiles.plugins.cmp"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/cmp.lua
