@@ -50,29 +50,29 @@ local function config_luasnips()
 		expr = true,
 		remap = true,
 	})
+
+	-- Loaders:
+	require("luasnip.loaders.from_vscode").lazy_load()
+	require("luasnip.loaders.from_lua").lazy_load({ paths = "~/dotfiles/conf/vim/snippets" })
+
+	local augroup = vim.api.nvim_create_augroup("dotfiles-settings-luasnips", { clear = true })
 	vim.api.nvim_create_autocmd("CompleteDone", {
-		group = "dotfiles-settings",
+		group = augroup,
 		callback = function()
 			if ls.available(1) then
 				ls.expand()
 			end
 		end,
 	})
-
-	-- Loaders:
-	require("luasnip.loaders.from_vscode").lazy_load()
-	require("luasnip.loaders.from_lua").lazy_load({ paths = "~/dotfiles/conf/vim/snippets" })
-
 	vim.api.nvim_create_autocmd("InsertLeave", {
-	   callback = function()
-		  if
-			 ls.session.current_nodes[vim.api.nvim_get_current_buf()]
-			 and not ls.session.jump_active
-		  then
-			 ls.unlink_current()
-		  end
-	   end,
+		group = augroup,
+		callback = function()
+			if ls.session.current_nodes[vim.api.nvim_get_current_buf()] and not ls.session.jump_active then
+				ls.unlink_current()
+			end
+		end,
 	})
+
 end
 
 return config_luasnips

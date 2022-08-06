@@ -18,8 +18,14 @@ local function config_lspconfig()
 	local handler_no_diagnostics = {
 		["textDocument/publishDiagnostics"] = function() end,
 	}
-	-- local capabilities = vim.lsp.protocol.make_client_capabilities()
-	local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+	local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+	local capabilities
+	if ok then
+		capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+	else
+		capabilities = vim.lsp.protocol.make_client_capabilities()
+	end
 
 	for lsp, settings in pairs(servers) do
 		local opts = {
