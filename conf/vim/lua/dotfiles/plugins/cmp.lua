@@ -63,7 +63,7 @@ local function config_cmp()
 			{ name = "buffer" },
 		},
 	})
-	cmp.setup.filetype({ "markdown" }, {
+	cmp.setup.filetype({ "markdown", "gina-commit" }, {
 		completion = {
 			autocomplete = false,
 		},
