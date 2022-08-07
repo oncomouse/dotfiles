@@ -80,9 +80,13 @@ local function config_mini()
 	})
 	require("mini.comment").setup({})
 	require("mini.indentscope").setup({
+		draw = {
+			animation = require("mini.indentscope").gen_animation("none"),
+		},
 		options = {
 			indent_at_cursor = false,
 		},
+		symbol = "│",
 	})
 	vim.g.miniindentscope_disable = true
 	require("mini.jump").setup({})
