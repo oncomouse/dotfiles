@@ -64,139 +64,20 @@ local function config_mini()
 					to = to,
 				}
 			end,
-			[","] = function(type)
-				---@param sentence table<number, Pair> Beginning and end of sentence in col,line pairs
-				---@param cursor Pair position of the cursor
-				---@param forward boolean Are we searching forward or backward within the sentence?
-				---@param inside boolean Are we searching inside (with an i- mapping) or around (with an a- mapping)?
-				---@return Pair match A comma was found | nil A comma was not found
-				local function hunt_comma(sentence, cursor, forward, inside)
-
-					---@param line number The line currently being checked
-					---@return boolean continue If searching can continue, if moving forward, keep line lower than end of sentence; if moving backward keep it higher than beginning of sentence
-					local function not_done(line)
-						if forward then
-							return line <= sentence[2].line
-						end
-						return line >= sentence[1].line
-					end
-
-					---@param line number The buffer line to get from Neovim
-					---@return string bufline The buffer line from Neovim
-					local function get_line_contents(line)
-						return vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1] or ""
-					end
-
-					---@param line The current line number being scanned
-					---@param contents The content of the buffer line being scanned
-					---@return start_col number The column to start scanning from, depending on direction
-					---@return stop_col number The column to stop scanning at, depending on direction
-					local function set_start_stop(line, contents)
-						local start_col, stop_col
-
-						-- Moving forward: start at the beginning of the line end at the end, unless we're on the last line
-						if forward then
-							start_col = 1
-							stop_col = #contents
-							if line == sentence[2].line then
-								stop_col = sentence[2].col
-							end
-						-- Moving backward: start at the end of the line and end at the beginning, unless we're on the first line
-						else
-							start_col = #contents
-							stop_col = 1
-							if line == sentence[1].line then
-								stop_col = sentence[1].col
-							end
-						end
-
-						-- If we're on the line with the cursor, start there
-						if line == cursor.line then
-							start_col = cursor.col
-						end
-
-						return start_col, stop_col
-					end
-
-					-- Start scanning at the cursor line
-					local line = cursor.line
-
-					while not_done(line) do
-						local contents = get_line_contents(line)
-						local start_col, stop_col = set_start_stop(line, contents)
-						local col
-						if forward then
-							-- Find the first comma in the available search area
-							col = contents:sub(start_col, stop_col):find([[,]])
-							if col ~= nil then
-								if inside then
-									-- If the comma is at the beginning (*sad grammarian noises*), move to the end of the previous line
-									if col == 1 then
-										line = line - 1
-										col = #get_line_contents(line)
-									else
-										col = col - 1
-									end
-								else
-									if col ~= #contents and contents:sub(start_col, stop_col):sub(col + 1, col + 1):match([[ ]]) then
-										col = col + 1
-									end
-								end
-								return {
-									col = (start_col - 1) + col,
-									line = line,
-								}
-							end
-							line = line + 1
-						else
-							local found = false
-							start_col, stop_col = set_start_stop(line, contents)
-							col = start_col
-							while col >= stop_col do
-								if contents:sub(col, col):match([[,]]) then
-									found = true
-									if inside then
-										if col == #contents then
-											line = line + 1
-											col = 1
-										elseif contents:sub(col + 1, col + 1):match([[ ]]) then
-											col = col + 2
-										else
-											col = col + 1
-										end
-									end
-									break
-								end
-								col = col - 1
-							end
-							if found then
-								return {
-									col = col,
-									line = line,
-								}
-							end
-							line = line - 1
-						end
-					end
-
-					return nil
-				end
-
-				local cursor = make_point()
-				local s_start, s_end = extract_sentence(type == "i")
-				local sentence = { s_start, s_end }
-				local comma_in_front = hunt_comma(sentence, cursor, false, type == "i")
-				local comma_behind = hunt_comma(sentence, cursor, true, type == "i")
-				return {
-					to = comma_in_front == nil and s_start or comma_in_front,
-					from = comma_behind == nil and s_end or comma_behind,
+			[","] = { -- Grammatically correct comma matching
+				{
+					"[%.?!][ ]*()()[^,%.?!]+(),[ ]*()", -- Start of sentence
+					"(),[ ]*()[^,%.?!]+()()[%.?!][ ]*", -- End of sentence
+					",[ ]*()[^,%.?!]+(),[ ]*", -- Dependent clause
+					"^()[A-Z][^,%.?!]+(),[ ]*", -- Start of line
 				}
-			end,
+			},
 		},
 		mappings = {
 			around_last = "aN",
 			inside_last = "iN",
 		},
+		search_method = "cover",
 	})
 	require("mini.comment").setup({})
 	require("mini.indentscope").setup({
