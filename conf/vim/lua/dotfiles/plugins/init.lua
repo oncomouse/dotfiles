@@ -491,11 +491,11 @@ end, {
 })
 
 -- Update Packer.nvim automatically:
-vim.api.nvim_create_autocmd("BufWritePost", {
-	group = "dotfiles-settings",
-	pattern = "*/plugins/*.lua",
-	command = "source <afile> | PackerCompile",
-})
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+-- 	group = "dotfiles-settings",
+-- 	pattern = "*/plugins/*.lua",
+-- 	command = "source <afile> | PackerCompile",
+-- })
 -- Install packer.nvim, if it isn't present:
 if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
 	vim.fn.jobstart({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }, {
