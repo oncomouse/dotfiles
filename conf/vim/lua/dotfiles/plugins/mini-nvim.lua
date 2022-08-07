@@ -1,8 +1,8 @@
----@class Pair
----@field line integer
----@field col integer
-
 local function config_mini()
+	---@class Pair
+	---@field line integer
+	---@field col integer
+
 	---@return Pair
 	local function make_point()
 		local _, l, c, _ = unpack(vim.fn.getpos("."))
@@ -78,7 +78,10 @@ local function config_mini()
 		},
 		search_method = "cover", -- Only use next and last mappings to search
 	})
+
 	require("mini.comment").setup({})
+
+	-- We just use this for the indent textobjects:
 	require("mini.indentscope").setup({
 		draw = {
 			animation = require("mini.indentscope").gen_animation("none"),
@@ -89,7 +92,11 @@ local function config_mini()
 		symbol = "│",
 	})
 	vim.g.miniindentscope_disable = true
+
+	-- Fancy f/F/t/T:
 	require("mini.jump").setup({})
+
+	-- Replace vim-surround:
 	require("mini.surround").setup({
 		custom_surroundings = {
 			["("] = { output = { left = "( ", right = " )" } },
@@ -106,7 +113,7 @@ local function config_mini()
 			replace = "cs",
 			update_n_lines = "",
 		},
-		search_method = "cover_or_next",
+		search_method = "cover",
 	})
 
 	-- Remap adding surrounding to Visual mode selection
