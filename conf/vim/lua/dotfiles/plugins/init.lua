@@ -41,44 +41,35 @@ local function plugins()
 				}, -- gs to sort
 
 				{
-					"oncomouse/vim-surround",
-					requires = { "tpope/vim-repeat" },
-					opt = true,
-					setup = function()
-						require("chad_loader").on_file_open("vim-surround")
-					end,
-				}, -- ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-
-				{
 					"echasnovski/mini.nvim",
 					module = {
 						"mini.ai",
+						"mini.base16",
+						"mini.bufremove",
 						"mini.comment",
+						"mini.completion",
+						"mini.cursorword",
+						"mini.doc",
+						"mini.fuzzy",
 						"mini.indentscope",
 						"mini.jump",
+						"mini.jump2d",
 						"mini.misc",
-						-- "mini.base16",
-						-- "mini.bufremove",
-						-- "mini.completion",
-						-- "mini.cursorword",
-						-- "mini.doc",
-						-- "mini.fuzzy",
-						-- "mini.jump2d",
-						-- "mini.pairs",
-						-- "mini.sessions",
-						-- "mini.starter",
-						-- "mini.statusline",
-						-- "mini.surround",
-						-- "mini.tabline",
-						-- "mini.test",
-						-- "mini.trailspace",
+						"mini.pairs",
+						"mini.sessions",
+						"mini.starter",
+						"mini.statusline",
+						"mini.surround",
+						"mini.tabline",
+						"mini.test",
+						"mini.trailspace",
 					},
 					setup = function()
 						require("chad_loader").on_file_open("mini.nvim")
 					end,
 					config = require("dotfiles.plugins.mini-nvim"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/mini-nvim.lua
-				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai)
+				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai); mini.surround for surround (ys to add, cs to change, ds to delete)
 
 				{
 					"ahmedkhalf/project.nvim",
