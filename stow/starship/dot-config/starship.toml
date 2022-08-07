@@ -60,12 +60,14 @@ symbol = ""
 format = "[$symbol($version):]($style)"
 version_format = "${raw}"
 style = "blue"
+detect_extensions = []
 
 [python]
 symbol = ""
 format = "[$symbol(($pyenv_prefix)$version(;$virtualenv)):]($style)"
 version_format = "${raw}"
 style = "blue"
+detect_extensions = []
 
 [username]
 format="[$user:]($style)"
