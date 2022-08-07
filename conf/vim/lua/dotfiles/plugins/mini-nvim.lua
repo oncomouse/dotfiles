@@ -4,9 +4,6 @@
 local pair = {}
 
 local function config_mini()
-	-- local augroup = vim.api.nvim_create_augroup("dotfiles-mini.nvim", { clear = true })
-	local spec_pair = require("mini.ai").gen_spec.pair
-
 	---@return Pair
 	local function make_point()
 		local _, l, c, _ = unpack(vim.fn.getpos("."))
@@ -195,27 +192,12 @@ local function config_mini()
 					from = comma_behind == nil and s_end or comma_behind,
 				}
 			end,
-			["*"] = spec_pair("*", "*", { type = "greedy" }),
-			["_"] = spec_pair("_", "_", { type = "greedy" }),
 		},
 		mappings = {
 			around_last = "aN",
 			inside_last = "iN",
 		},
 	})
-	-- vim.api.nvim_create_autocmd("FileType", {
-	-- 	pattern = "markdown",
-	-- 	group = augroup,
-	-- 	callback = function()
-	-- 		-- local spec_pair = require("mini.ai").gen_spec.pair
-	-- 		-- vim.b.miniai_config = {
-	-- 		-- 	custom_textobjects = {
-	-- 		-- 		["*"] = spec_pair("*", "*", { type = "greedy" }),
-	-- 		-- 		["_"] = spec_pair("_", "_", { type = "greedy" }),
-	-- 		-- 	},
-	-- 		-- }
-	-- 	end,
-	-- })
 	require("mini.comment").setup({})
 	require("mini.indentscope").setup({
 		options = {
