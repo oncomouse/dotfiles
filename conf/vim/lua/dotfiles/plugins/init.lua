@@ -136,7 +136,7 @@ local function plugins()
 				{
 					"cohama/lexima.vim", -- Autopairs
 					setup = function()
-						vim.g.lexima_enable_endwise_rules = 0 -- Disable endwise in Lexima
+						vim.g.lexima_enable_endwise_rules = 1 -- Disable endwise in Lexima
 						vim.g.lexima_disable_closetag = 1
 					end,
 					event = "InsertEnter",
@@ -308,7 +308,6 @@ local function plugins()
 					end,
 					requires = {
 						{ "windwp/nvim-ts-autotag", after = "nvim-treesitter" },
-						{ "RRethy/nvim-treesitter-endwise", after = "nvim-treesitter" },
 						{
 							"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
 							after = { "nvim-treesitter", "mini.nvim" },
