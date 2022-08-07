@@ -398,6 +398,7 @@ local function plugins()
 								hydra_nvim = true,
 								gina = true,
 								markdown = true,
+								nvim_cmp = true,
 							},
 						}
 					end,
