@@ -1,9 +1,9 @@
 ---@class Pair
----@public field line number
----@public field col number
-local pair = {}
+---@field line integer
+---@field col integer
 
 local function config_mini()
+
 	---@return Pair
 	local function make_point()
 		local _, l, c, _ = unpack(vim.fn.getpos("."))
@@ -45,7 +45,7 @@ local function config_mini()
 
 	require("mini.ai").setup({
 		custom_textobjects = {
-			e = function()
+			e = function() -- Whole buffer
 				local from = { line = 1, col = 1 }
 				local to = {
 					line = vim.fn.line("$"),
@@ -56,7 +56,7 @@ local function config_mini()
 					to = to,
 				}
 			end,
-			s = function(type) -- Use the built-in sentence-wise motions (`(` and `)`) to capture sentence textobjects
+			s = function(type) -- Sentences (using sentence-wise move commands `(` and `)`)
 				local from, to = extract_sentence(type == "i")
 
 				return {
@@ -77,7 +77,7 @@ local function config_mini()
 			around_last = "aN",
 			inside_last = "iN",
 		},
-		search_method = "cover",
+		search_method = "cover", -- Only use next and last mappings to search
 	})
 	require("mini.comment").setup({})
 	require("mini.indentscope").setup({
