@@ -21,25 +21,29 @@ local function config_true_zen()
 				},
 			},
 			minimalist = {
-				open_callback = function()
-					bufnr = vim.fn.bufnr("0")
-					vim.keymap.set("n", "z=", "<cmd>FzfLua spell_suggest<CR>", { silent = true, buffer = bufnr })
-				end,
-				close_callback = function()
-					-- For some reason this both works and causes an error, so we have to wrap it in pcall:
-					pcall(vim.keymap.del, "n", "z=", { buffer = bufnr })
-				end,
+				callbacks = {
+					open_pos = function()
+						bufnr = vim.fn.bufnr("0")
+						vim.keymap.set("n", "z=", "<cmd>FzfLua spell_suggest<CR>", { silent = true, buffer = bufnr })
+					end,
+					close_pos = function()
+						-- For some reason this both works and causes an error, so we have to wrap it in pcall:
+						pcall(vim.keymap.del, "n", "z=", { buffer = bufnr })
+					end,
+				},
 			},
 			narrow = {
 				folds_style = "invisible",
 			},
 			focus = {
-				open_callback = function()
-					vim.opt_local.showtabline = 0
-				end,
-				close_callback = function()
-					vim.opt_local.showtabline = 1
-				end,
+				callbacks = {
+					open_pre = function()
+						vim.opt_local.showtabline = 0
+					end,
+					close_pos = function()
+						vim.opt_local.showtabline = 1
+					end,
+				},
 			},
 		},
 	})
