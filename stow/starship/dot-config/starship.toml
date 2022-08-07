@@ -6,6 +6,7 @@ format = """
 $hostname\
 $username\
 $shell\
+$nodejs\
 $ruby\
 $python\
 $directory\
@@ -54,6 +55,13 @@ up_to_date = ""
 ssh_only = true
 ssh_symbol = "[SSH](bold yellow)"
 format = "$ssh_symbol@[$hostname:](yellow)"
+
+[nodejs]
+symbol = ""
+format = "[$symbol($version):]($style)"
+version_format = "${raw}"
+style = "blue"
+detect_extensions = []
 
 [ruby]
 symbol = ""
@@ -147,8 +155,6 @@ disabled = true
 [lua]
 disabled = true
 [nim]
-disabled = true
-[nodejs]
 disabled = true
 [ocaml]
 disabled = true
