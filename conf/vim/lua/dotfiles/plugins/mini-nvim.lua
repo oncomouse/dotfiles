@@ -91,7 +91,7 @@ local function config_mini()
 		},
 		symbol = "│",
 	})
-	vim.g.miniindentscope_disable = true
+	vim.g.miniindentscope_disable = false
 
 	-- Fancy f/F/t/T:
 	require("mini.jump").setup({})
