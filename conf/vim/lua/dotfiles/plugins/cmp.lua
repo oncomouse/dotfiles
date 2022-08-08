@@ -49,8 +49,6 @@ local function config_cmp()
 					cmp.select_next_item()
 				elseif require("luasnip").expand_or_locally_jumpable() then
 					feedkey("<Plug>luasnip-expand-or-jump")
-				elseif has_words_before() then
-					cmp.complete()
 				else
 					fallback()
 				end
