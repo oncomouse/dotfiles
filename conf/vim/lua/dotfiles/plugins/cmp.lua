@@ -45,18 +45,14 @@ local function config_cmp()
 				select = false,
 			}),
 			["<Tab>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_next_item()
-				elseif require("luasnip").expand_or_locally_jumpable() then
+				if require("luasnip").expand_or_locally_jumpable() then
 					feedkey("<Plug>luasnip-expand-or-jump")
 				else
 					fallback()
 				end
 			end, { "i", "s" }),
 			["<S-Tab>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_prev_item()
-				elseif require("luasnip").jumpable(-1) then
+				if require("luasnip").jumpable(-1) then
 					feedkey("<Plug>luasnip-jump-prev")
 				else
 					fallback()
