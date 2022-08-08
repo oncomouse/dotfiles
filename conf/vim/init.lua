@@ -63,13 +63,8 @@ end
 vim.opt.wrapscan = true -- Start scan over at the top
 
 -- Linewrap:
--- vim.opt.wrap = false
 vim.opt.sidescroll = 5 -- Unused without set wrap, but prepared in case it is used
 vim.opt.showbreak = "↳ " -- Show a line has wrapped
-
--- Listchars:
-vim.opt.listchars = "tab:│ ,nbsp:␣,trail:•,precedes:<,extends:>"
-vim.opt.list = true
 
 -- Mouse And Clipboard:
 vim.opt.mouse = "a" -- Mouse support
@@ -341,7 +336,6 @@ vim.api.nvim_create_user_command("Spaces", function(args)
 	vim.opt_local.tabstop = tonumber(args.args)
 	vim.opt_local.softtabstop = tonumber(args.args)
 	vim.opt_local.shiftwidth = tonumber(args.args)
-	vim.opt_local.listchars = vim.opt_local.listchars:append("multispace:│" .. vim.fn["repeat"](" ", args.args))
 	vim.cmd("silent execute '%!expand -it" .. args.args .. "'")
 	vim.fn.winrestview(wv)
 	vim.cmd("setlocal ts? sw? sts? et?")
