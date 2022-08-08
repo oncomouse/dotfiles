@@ -93,6 +93,15 @@ local function plugins()
 					end,
 				}, -- Set project root
 
+				{
+					"tpope/vim-sleuth",
+					opt = true,
+					setup = function()
+						require("chad_loader").do_not_defer("vim-sleuth")
+						require("chad_loader").on_file_open("vim-sleuth")
+					end
+				}, -- Automatically set indent
+
 				-- Editor Enhancements:
 
 				{
