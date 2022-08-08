@@ -99,7 +99,7 @@ local function plugins()
 					setup = function()
 						require("chad_loader").do_not_defer("vim-sleuth")
 						require("chad_loader").on_file_open("vim-sleuth")
-					end
+					end,
 				}, -- Automatically set indent
 
 				-- Editor Enhancements:
@@ -404,6 +404,7 @@ local function plugins()
 							-- Here's all the addons we need:
 							addons = {
 								hydra_nvim = true,
+								indent_blankline_nvim = true,
 								gina = true,
 								markdown = true,
 								nvim_cmp = true,
@@ -457,6 +458,21 @@ local function plugins()
 					config = require("dotfiles.plugins.heirline"),
 				}, -- Statusline
 				-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/heirline.lua
+
+				{
+					"lukas-reineke/indent-blankline.nvim",
+					setup = function()
+						require("chad_loader").on_file_open("indent-blankline.nvim")
+					end,
+					config = function()
+						require("indent_blankline").setup({
+							show_end_of_line = true,
+							space_char_blankline = " ",
+						})
+					end,
+					opt = true,
+				},
+
 			})
 		end,
 		config = {
