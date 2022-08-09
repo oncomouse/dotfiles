@@ -406,6 +406,7 @@ local function plugins()
 								hydra_nvim = true,
 								gina = true,
 								markdown = true,
+								mini_nvim = true,
 								nvim_cmp = true,
 							},
 						}
