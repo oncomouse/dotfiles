@@ -389,6 +389,9 @@ local function plugins()
 							command = "PackerLoad lushwal.nvim",
 						})
 					end,
+					run = function()
+						vim.cmd([[LushwalCompile]])
+					end,
 					requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 					config = function()
 						vim.g.lushwal_configuration = {
