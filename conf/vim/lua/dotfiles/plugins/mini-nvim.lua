@@ -82,15 +82,7 @@ local function config_mini()
 	require("mini.comment").setup({})
 
 	-- We just use this for the indent textobjects:
-	require("mini.indentscope").setup({
-		draw = {
-			animation = require("mini.indentscope").gen_animation("none"),
-		},
-		options = {
-			indent_at_cursor = false,
-		},
-		symbol = "│",
-	})
+	require("mini.indentscope").setup({})
 	vim.g.miniindentscope_disable = true
 
 	-- Fancy f/F/t/T:
