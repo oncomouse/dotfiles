@@ -88,32 +88,31 @@ local function config_mini()
 	-- Fancy f/F/t/T:
 	require("mini.jump").setup({})
 
-	-- Replace vim-surround:
-	require("mini.surround").setup({
-		custom_surroundings = {
-			["("] = { output = { left = "( ", right = " )" } },
-			["["] = { output = { left = "[ ", right = " ]" } },
-			["{"] = { output = { left = "{ ", right = " }" } },
-			["<"] = { output = { left = "< ", right = " >" } },
-		},
-		mappings = {
-			add = "ys",
-			delete = "ds",
-			find = "",
-			find_left = "",
-			highlight = "",
-			replace = "cs",
-			update_n_lines = "",
-		},
-		search_method = "cover",
-	})
+	-- -- Replace vim-surround:
+	-- require("mini.surround").setup({
+	-- 	custom_surroundings = {
+	-- 		["("] = { output = { left = "( ", right = " )" } },
+	-- 		["["] = { output = { left = "[ ", right = " ]" } },
+	-- 		["{"] = { output = { left = "{ ", right = " }" } },
+	-- 		["<"] = { output = { left = "< ", right = " >" } },
+	-- 	},
+	-- 	mappings = {
+	-- 		add = "ys",
+	-- 		delete = "ds",
+	-- 		find = "",
+	-- 		find_left = "",
+	-- 		highlight = "",
+	-- 		replace = "cs",
+	-- 		update_n_lines = "",
+	-- 	},
+	-- 	search_method = "cover",
+	-- })
+	-- -- Remap adding surrounding to Visual mode selection
+	-- vim.keymap.del("x", "ys")
+	-- vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
+	-- -- Make special mapping for "add surrounding for line"
+	-- vim.keymap.set("n", "yss", "ys_", { noremap = false })
 
-	-- Remap adding surrounding to Visual mode selection
-	vim.keymap.del("x", "ys")
-	vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
-
-	-- Make special mapping for "add surrounding for line"
-	vim.keymap.set("n", "yss", "ys_", { noremap = false })
 end
 
 return config_mini
