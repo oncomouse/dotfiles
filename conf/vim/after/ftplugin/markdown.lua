@@ -28,5 +28,13 @@ vim.b.minisurround_config = {
 	custom_surroundings = {
 		["*"] = s_maker("*"),
 		["_"] = s_maker("_"),
+		["b"] = {
+			input = { find = "%*%*.-%*%*", extract = "^(%*%*).*(%*%*)$" },
+			output = { left = "**", right = "**" },
+		},
+		["i"] = {
+			input = { find = "%*.-%*", extract = "^(%*).*(%*)$" },
+			output = { left = "*", right = "*" },
+		},
 	},
 }
