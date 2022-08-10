@@ -41,14 +41,6 @@ local function plugins()
 				}, -- gs to sort
 
 				{
-					"oncomouse/vim-surround",
-					module = "vim-surround",
-					setup = function()
-						require("chad_loader").on_file_open("vim-surround")
-					end,
-				},
-
-				{
 					"echasnovski/mini.nvim",
 					module = {
 						"mini.ai",
