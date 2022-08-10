@@ -452,7 +452,7 @@ local function plugins()
 								pattern = "scss",
 								callback = require("colorizer/sass").attach_to_buffer,
 							})
-							vim.cmd("ColorizerAttachToBuffer")
+							require("colorizer").attach_to_buffer(0)
 						end
 					end,
 				}, -- Highlight colors in files
