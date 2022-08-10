@@ -2,8 +2,8 @@ local spec_pair = require("mini.ai").gen_spec.pair
 
 vim.b.miniai_config = {
 	custom_textobjects = {
-		["*"] = spec_pair("*", "*", { type = "greedy" }),
-		["_"] = spec_pair("_", "_", { type = "greedy" }),
+		["*"] = spec_pair("*", "*", { type = "greedy" }), -- Grab all asterisks when selecting
+		["_"] = spec_pair("_", "_", { type = "greedy" }), -- Grab all underscores when selecting
 	},
 }
 
@@ -26,13 +26,13 @@ local function s_maker(char)
 end
 vim.b.minisurround_config = {
 	custom_surroundings = {
-		["*"] = s_maker("*"),
-		["_"] = s_maker("_"),
-		["b"] = {
+		["*"] = s_maker("*"), -- Prompt for asterisks
+		["_"] = s_maker("_"), -- Prompt for underscores
+		["b"] = { -- Surround for bold
 			input = { find = "%*%*.-%*%*", extract = "^(%*%*).*(%*%*)$" },
 			output = { left = "**", right = "**" },
 		},
-		["i"] = {
+		["i"] = { -- Surround for italics
 			input = { find = "%*.-%*", extract = "^(%*).*(%*)$" },
 			output = { left = "*", right = "*" },
 		},

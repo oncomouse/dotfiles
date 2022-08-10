@@ -109,6 +109,9 @@ local function config_mini()
 	vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
 	-- Make special mapping for "add surrounding for line"
 	vim.keymap.set("n", "yss", "ys_", { noremap = false })
+	-- Custom mappings:
+	--  ~/dotfiles/conf/vim/after/ftplugin/lua.lua
+	--  ~/dotfiles/conf/vim/after/ftplugin/markdown.lua
 end
 
 return config_mini
