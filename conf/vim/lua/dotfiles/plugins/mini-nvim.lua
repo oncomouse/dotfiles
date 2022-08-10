@@ -16,6 +16,7 @@ local function config_mini()
 	---@return { from: Pair, to: Pair }
 	local function extract_sentence(type)
 		local inside = type == "i"
+
 		-- Get the end of the sentence:
 		vim.cmd([[normal! )]])
 		local to = make_point()
@@ -42,7 +43,7 @@ local function config_mini()
 
 		return {
 			from = from,
-			to = to
+			to = to,
 		}
 	end
 
