@@ -13,7 +13,7 @@ local function config_mini()
 	end
 
 	---@param inside boolean
-	---@return Pair top, Pair bottom
+	---@return { from: Pair, to: Pair }
 	local function extract_sentence(type)
 		local inside = type == "i"
 		-- Get the end of the sentence:
