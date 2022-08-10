@@ -2,6 +2,8 @@ local function config_mini()
 	---@class Pair
 	---@field line integer
 	---@field col integer
+	
+	---@alias ai_type "i" | "a"
 
 	---@return Pair
 	local function make_point()
@@ -12,7 +14,7 @@ local function config_mini()
 		}
 	end
 
-	---@param inside boolean
+	---@param type ai_type
 	---@return { from: Pair, to: Pair }
 	local function extract_sentence(type)
 		local inside = type == "i"
