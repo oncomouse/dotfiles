@@ -6,58 +6,57 @@ local function config_mini()
 	---@alias ai_type "i" | "a"
 
 	---@return Pair
-	local function make_point()
-		local _, l, c, _ = unpack(vim.fn.getpos("."))
-		return {
-			line = l,
-			col = c,
-		}
-	end
+	-- local function make_point()
+	-- 	local _, l, c, _ = unpack(vim.fn.getpos("."))
+	-- 	return {
+	-- 		line = l,
+	-- 		col = c,
+	-- 	}
+	-- end
 
 	---@param type ai_type
 	---@return { from: Pair, to: Pair }
-	local function extract_sentence(type)
-		local inside = type == "i"
+	-- local function extract_sentence(type)
+	-- 	local inside = type == "i"
+	--
+	-- 	-- Get the end of the sentence:
+	-- 	vim.cmd([[normal )]])
+	-- 	local to = make_point()
+	--
+	-- 	-- Get the beginning of the sentence:
+	-- 	vim.cmd([[normal (]])
+	-- 	local from = make_point()
+	--
+	-- 	local punc_matcher = "[.?!]"
+	-- 	-- Try to find any punctuation at the end of our sentence:
+	-- 	local target_line = to.line
+	-- 	while target_line >= from.line and target_line > 0 do
+	-- 		-- From where should we start searching?
+	-- 		local start_pos = target_line == from.line and from.col or 0
+	-- 		-- Get a match, if one exists:
+	-- 		local match_start, match_stop = vim.regex(punc_matcher):match_line(0, target_line - 1, start_pos)
+	-- 		if match_start ~= nil then
+	-- 			to.col = start_pos + (inside and match_start or match_stop)
+	-- 			to.line = target_line
+	-- 			break
+	-- 		end
+	-- 		target_line = target_line - 1
+	-- 	end
+	--
+	-- 	return {
+	-- 		from = from,
+	-- 		to = to,
+	-- 	}
+	-- end
 
-		-- Get the end of the sentence:
-		vim.cmd([[normal )]])
-		local to = make_point()
-
-		-- Get the beginning of the sentence:
-		vim.cmd([[normal (]])
-		local from = make_point()
-
-		local punc_matcher = "[.?!]"
-		-- Try to find any punctuation at the end of our sentence:
-		local target_line = to.line
-		while target_line >= from.line and target_line > 0 do
-			-- From where should we start searching?
-			local start_pos = target_line == from.line and from.col or 0
-			-- Get a match, if one exists:
-			local match_start, match_stop = vim.regex(punc_matcher):match_line(0, target_line - 1, start_pos)
-			if match_start ~= nil then
-				to.col = start_pos + (inside and match_start or match_stop)
-				to.line = target_line
-				break
-			end
-			target_line = target_line - 1
-		end
-
-		return {
-			from = from,
-			to = to,
-		}
-	end
-
+	-- vim-textobj-sentence configuration
 	vim.g["textobj#sentence#select"] = "s"
 	vim.g["textobj#sentence#move_p"] = "("
 	vim.g["textobj#sentence#move_n"] = ")"
 	vim.g["textobj#sentence#doubleStandard"] = "“”"
 	vim.g["textobj#sentence#singleStandard"] = "‘’"
-
 	vim.g["textobj#sentence#doubleDefault"] = vim.g["textobj#sentence#doubleStandard"]
 	vim.g["textobj#sentence#singleDefault"] = vim.g["textobj#sentence#singleStandard"]
-
 	vim.g["textobj#sentence#abbreviations"] = {
 		"[ABCDIMPSUabcdegimpsv]",
 		"l[ab]",
@@ -90,7 +89,21 @@ local function config_mini()
 		"Messrs",
 	}
 
-	vim.g["loaded_textobj_sentence"] = 1
+	local function from_textobject_user(map)
+		local function get_point(result)
+			return {
+				line = result[2],
+				col = result[3]
+			}
+		end
+		return function(type)
+			local results = map["select_function_" .. type]()
+			return {
+				from = get_point(results[2]),
+				to = get_point(results[3]),
+			}
+		end
+	end
 	require("mini.ai").setup({
 		custom_textobjects = {
 			e = function() -- Whole buffer
@@ -105,16 +118,10 @@ local function config_mini()
 				}
 			end,
 			-- s = extract_sentence, -- Sentences (using sentence-wise move commands `(` and `)`)
-			s = function(type, _, _)
-				local to, from
-				local results = vim.fn["textobj#sentence#select_" .. type]()
-				from = { line = results[2][2], col = results[2][3] }
-				to = { line = results[3][2], col = results[3][3] }
-				return {
-					from = from,
-					to = to,
-				}
-			end,
+			s = from_textobject_user({
+				select_function_a = vim.fn["textobj#sentence#select_a"],
+				select_function_i = vim.fn["textobj#sentence#select_i"],
+			}),
 			[","] = { -- Grammatically correct comma matching
 				{
 					"[%.?!][ ]*()()[^,%.?!]+(),[ ]*()", -- Start of sentence
