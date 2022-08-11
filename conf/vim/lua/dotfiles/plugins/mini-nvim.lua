@@ -1,4 +1,3 @@
-
 local function config_mini()
 	---@class Pair
 	---@field line integer
@@ -21,11 +20,11 @@ local function config_mini()
 		local inside = type == "i"
 
 		-- Get the end of the sentence:
-		vim.cmd([[normal! )]])
+		vim.cmd([[normal )]])
 		local to = make_point()
 
 		-- Get the beginning of the sentence:
-		vim.cmd([[normal! (]])
+		vim.cmd([[normal (]])
 		local from = make_point()
 
 		local punc_matcher = "[.?!]"
@@ -50,6 +49,48 @@ local function config_mini()
 		}
 	end
 
+	vim.g["textobj#sentence#select"] = "s"
+	vim.g["textobj#sentence#move_p"] = "("
+	vim.g["textobj#sentence#move_n"] = ")"
+	vim.g["textobj#sentence#doubleStandard"] = "“”"
+	vim.g["textobj#sentence#singleStandard"] = "‘’"
+
+	vim.g["textobj#sentence#doubleDefault"] = vim.g["textobj#sentence#doubleStandard"]
+	vim.g["textobj#sentence#singleDefault"] = vim.g["textobj#sentence#singleStandard"]
+
+	vim.g["textobj#sentence#abbreviations"] = {
+		"[ABCDIMPSUabcdegimpsv]",
+		"l[ab]",
+		"[eRr]d",
+		"Ph",
+		"[Ccp]l",
+		"[Lli]n",
+		"[cn]o",
+		"[Oe]p",
+		"[DJMSh]r",
+		"[MVv]s",
+		"[CFMPScfpw]t",
+		"alt",
+		"[Ee]tc",
+		"div",
+		"es[pt]",
+		"[Ll]td",
+		"min",
+		"[MD]rs",
+		"[Aa]pt",
+		"[Aa]ve?",
+		"[Ss]tr?",
+		"[Aa]ssn",
+		"[Bb]lvd",
+		"[Dd]ept",
+		"incl",
+		"Inst",
+		"Prof",
+		"Univ",
+		"Messrs",
+	}
+
+	vim.g["loaded_textobj_sentence"] = 1
 	require("mini.ai").setup({
 		custom_textobjects = {
 			e = function() -- Whole buffer
@@ -63,7 +104,17 @@ local function config_mini()
 					to = to,
 				}
 			end,
-			s = extract_sentence, -- Sentences (using sentence-wise move commands `(` and `)`)
+			-- s = extract_sentence, -- Sentences (using sentence-wise move commands `(` and `)`)
+			s = function(type, _, _)
+				local to, from
+				local results = vim.fn["textobj#sentence#select_" .. type]()
+				from = { line = results[2][2], col = results[2][3] }
+				to = { line = results[3][2], col = results[3][3] }
+				return {
+					from = from,
+					to = to,
+				}
+			end,
 			[","] = { -- Grammatically correct comma matching
 				{
 					"[%.?!][ ]*()()[^,%.?!]+(),[ ]*()", -- Start of sentence
