@@ -1,8 +1,9 @@
+
 local function config_mini()
 	---@class Pair
 	---@field line integer
 	---@field col integer
-	
+
 	---@alias ai_type "i" | "a"
 
 	---@return Pair
@@ -87,6 +88,12 @@ local function config_mini()
 
 	-- Fancy f/F/t/T:
 	require("mini.jump").setup({})
+	vim.keymap.set("n", "<esc>", function() -- Use <esc> to stop jumping, if we enter the wrong target
+		if require("mini.jump").state.jumping then
+			require("mini.jump").stop_jumping()
+		end
+		return "<esc>"
+	end, { expr = true, noremap = false })
 
 	-- Replace vim-surround:
 	require("mini.surround").setup({
