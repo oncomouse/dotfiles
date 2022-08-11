@@ -8,17 +8,18 @@ if status is-interactive
 		source ~/.cache/wal/colors.fish
 	end
 	# EDITOR
-	setuvar EDITOR (which nvim)
+	# setuvar EDITOR (which nvim)
+	set -gx EDITOR (which nvim)
 	# Tell sxhkd to not use fish:
-	setuvar SXHKD_SHELL sh
+	set -gx SXHKD_SHELL sh
 	# NNN Theme
-	setuvar NNN_FCOLORS "0603040200050E070D09abc4"
+	set -gx NNN_FCOLORS "0603040200050E070D09abc4"
 	if test -e $HOME/.ow_credentials.json
-		setuvar OW_KEY (cat ~/.ow_credentials.json | jq -r .key)
-		setuvar OW_LAT (cat ~/.ow_credentials.json | jq .coordinates[0])
-		setuvar OW_LONG (cat ~/.ow_credentials.json | jq .coordinates[1])
+		set -gx OW_KEY (cat ~/.ow_credentials.json | jq -r .key)
+		set -gx OW_LAT (cat ~/.ow_credentials.json | jq .coordinates[0])
+		set -gx OW_LONG (cat ~/.ow_credentials.json | jq .coordinates[1])
 	end
-	setuvar FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
+	set -gx FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
 	# DOTFILES_TARGET
 	# if status is-login
 	if test -e $HOME/.local/share/dotfiles/target
@@ -61,7 +62,7 @@ if status is-interactive
 	source $ASDF_DIR/lib/asdf.fish
 
 	# Configure Pisces (fish pairing):
-	setuvar pisces_only_insert_at_eol 1
+	set -gx pisces_only_insert_at_eol 1
 	#
 	# Setup Kitty:
 	if command -sq kitty
