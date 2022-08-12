@@ -71,6 +71,8 @@ local function plugins()
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/mini-nvim.lua
 				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai); mini.surround for surround (ys to add, cs to change, ds to delete)
 
+				{ "preservim/vim-textobj-sentence", after = "mini.nvim" },
+
 				{
 					"ahmedkhalf/project.nvim",
 					config = function()
