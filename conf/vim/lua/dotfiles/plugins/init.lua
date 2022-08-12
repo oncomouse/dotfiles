@@ -409,16 +409,16 @@ local function plugins()
 
 				{
 					"oncomouse/nvim-colorizer.lua",
-					module = "colorizer",
-					setup = function()
-						require("chad_loader").lazy_load({
-							events = { "BufRead", "BufNewFile" },
-							plugins = "nvim-colorizer.lua",
-							condition = function()
-								return true
-							end,
-						})
-					end,
+					-- module = "colorizer",
+					-- setup = function()
+					-- 	require("chad_loader").lazy_load({
+					-- 		events = { "BufRead", "BufNewFile" },
+					-- 		plugins = "nvim-colorizer.lua",
+					-- 		condition = function()
+					-- 			return true
+					-- 		end,
+					-- 	})
+					-- end,
 					config = function()
 						if vim.opt.termguicolors:get() then
 							require("colorizer").setup({
