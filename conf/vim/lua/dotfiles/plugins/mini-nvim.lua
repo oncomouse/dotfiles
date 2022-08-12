@@ -43,6 +43,7 @@ local function config_mini()
 		end
 		return function(type)
 			local results = map["select_function_" .. type]()
+			if results == 0 then return nil end
 			return {
 				from = get_point(results[2]),
 				to = get_point(results[3]),
