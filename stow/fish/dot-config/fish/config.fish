@@ -1,17 +1,15 @@
 if status is-interactive
-	# Test for keyring:
-	# if test -n "$DESKTOP_SESSION"
-	# 	set -x (gnome-keyring-daemon --start | string split "=")
-	# end
 	# Setup Pywal colors:
 	if test -d $HOME/.cache/wal
 		source ~/.cache/wal/colors.fish
 	end
+
 	# EDITOR
-	# setuvar EDITOR (which nvim)
 	set -gx EDITOR (which nvim)
+
 	# Tell sxhkd to not use fish:
 	set -gx SXHKD_SHELL sh
+
 	# NNN Theme
 	set -gx NNN_FCOLORS "0603040200050E070D09abc4"
 	if test -e $HOME/.ow_credentials.json
@@ -19,25 +17,27 @@ if status is-interactive
 		set -gx OW_LAT (cat ~/.ow_credentials.json | jq .coordinates[0])
 		set -gx OW_LONG (cat ~/.ow_credentials.json | jq .coordinates[1])
 	end
-	set -gx FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
+
 	# DOTFILES_TARGET
-	# if status is-login
 	if test -e $HOME/.local/share/dotfiles/target
 		set -gx DOTFILES_TARGET (/bin/cat $HOME/.local/share/dotfiles/target)
 	end
+
 	# Setup FZF themes:
-	if test -d "$HOME/.cache/wal" -a (echo $FZF_DEFAULT_OPTS | grep color -c) -eq 0
-		echo "Sourcing FZF Colors"
-		source ~/.cache/wal/colors-fzf.fish
-	end
+	set -gx FZF_DEFAULT_OPTS "--ansi --bind='ctrl-o:execute(open {})+abort'"
 	set -gx FZF_DEFAULT_COMMAND "fd -t f --follow --hidden"
 	set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 	set -gx FZF_ALT_C_COMMAND "fd --type d --follow"
-
+	if test -d "$HOME/.cache/wal"
+		set -gx FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS --color=bg+:$color8,bg:$background,spinner:$color14,hl:$color12"\
+		"--color=fg:$foreground,header:$color12,info:$background,pointer:$color14"\
+		"--color=marker:$color14,fg+:$foreground,prompt:$color3,hl+:$color12"
+	end
 	set -gx FZF_CTRL_T_OPTS "--preview-window 'right:60%' --preview 'bat --theme=wal --color=always --style=header,grid --line-range :300 {}'"
 	set -gx FZF_ALT_C_OPTS "--preview 'ls --color=always {} | head -200'"
+
+	# XDG Stuff:
 	set -gx XDG_DATA_DIRS ~/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
-	# end
 
 	# Configure ASDF:
 	# if not contains $HOME/.asdf/shims $fish_user_paths
@@ -67,13 +67,6 @@ if status is-interactive
 	# Setup Kitty:
 	if command -sq kitty
 		kitty + complete setup fish | source
-	end
-
-	# Fasd Aliases:
-	if command -sq nvim
-		function v;f -t -e nvim $argv;end
-	else
-		function v;f -t -b viminfo -e vim $argv;end
 	end
 
 	# Colors:
