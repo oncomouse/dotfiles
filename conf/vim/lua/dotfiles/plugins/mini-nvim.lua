@@ -1,7 +1,9 @@
 local function config_mini()
 	-- vim-textobj-sentence configuration
-	vim.g["textobj#sentence#doubleDefault"] = "“”"
-	vim.g["textobj#sentence#singleDefault"] = "‘’"
+	-- vim.g["textobj#sentence#doubleDefault"] = "“”"
+	-- vim.g["textobj#sentence#singleDefault"] = "‘’"
+	vim.g["textobj#sentence#doubleDefault"] = [[""]]
+	vim.g["textobj#sentence#singleDefault"] = [['']]
 	vim.g["textobj#sentence#abbreviations"] = {
 		"[ABCDIMPSUabcdegimpsv]",
 		"l[ab]",
@@ -35,24 +37,29 @@ local function config_mini()
 	}
 
 	local function from_textobject_user(map)
-		local function get_point(result)
+
+		local function textobject_result_to_point(result)
 			return {
 				line = result[2],
-				col = result[3]
+				col = result[3],
 			}
 		end
+
 		return function(type)
 			local results = map["select_function_" .. type]()
-			if results == 0 then return nil end
+			if results == 0 then
+				return nil
+			end
 			return {
-				from = get_point(results[2]),
-				to = get_point(results[3]),
+				from = textobject_result_to_point(results[2]),
+				to = textobject_result_to_point(results[3]),
 			}
 		end
 	end
 
 	require("mini.ai").setup({
 		custom_textobjects = {
+
 			e = function() -- Whole buffer
 				local from = { line = 1, col = 1 }
 				local to = {
@@ -64,10 +71,31 @@ local function config_mini()
 					to = to,
 				}
 			end,
+
+			-- These sentence objects are based on textobject-function:
+			--   `is` grabs the words of the sentence (without trailing punctuation and quotes)
+			--   `as` grabs ending punctuation but not white space
+			--   `iS` works like `as`
+			--   `aS` grabs ending punctuation and white space
 			s = from_textobject_user({
+				select_function_i = function() -- Rewrite selection results to remove trailing punctuation and quotes
+					local results = vim.fn["textobj#sentence#select_i"]()
+
+					local start = (results[2][2] == results[3][2] and results[2][3] or 0)
+					local line = vim.api.nvim_buf_get_lines(0, results[3][2] - 1, results[3][2], false)[1]:sub(
+						start,
+						results[3][3]
+					)
+					results[3][3] = start + line:find("['\".?!]+$") - 2
+					return results
+				end,
+				select_function_a = vim.fn["textobj#sentence#select_i"],
+			}),
+			S = from_textobject_user({
 				select_function_a = vim.fn["textobj#sentence#select_a"],
 				select_function_i = vim.fn["textobj#sentence#select_i"],
 			}),
+
 			[","] = { -- Grammatically correct comma matching
 				{
 					"[%.?!][ ]*()()[^,%.?!]+(),[ ]*()", -- Start of sentence
