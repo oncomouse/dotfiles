@@ -72,6 +72,7 @@ local function plugins()
 				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai); mini.surround for surround (ys to add, cs to change, ds to delete)
 
 				{ "preservim/vim-textobj-sentence", after = "mini.nvim" },
+				{ "nvim-treesitter/nvim-treesitter-textobjects", after = "mini.nvim" },
 
 				{
 					"ahmedkhalf/project.nvim",
