@@ -55,14 +55,12 @@ local function config_cmp()
 				end
 			end, { "i", "s" }),
 		},
-		sources = {
+		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lua" },
 			{ name = "luasnip" },
-			{ name = "path" },
-			{ name = "buffer" },
 			{ name = "fish" },
-		},
+		}),
 		completion = {
 			autocomplete = false,
 		},

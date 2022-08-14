@@ -274,8 +274,6 @@ local function plugins()
 						{ "hrsh7th/cmp-nvim-lsp" },
 						{ "saadparwaiz1/cmp_luasnip" },
 						{ "hrsh7th/cmp-nvim-lua" },
-						{ "hrsh7th/cmp-buffer" },
-						{ "hrsh7th/cmp-path" },
 						{ "mtoohey31/cmp-fish", ft = "fish" },
 					},
 					config = require("dotfiles.plugins.cmp"),
