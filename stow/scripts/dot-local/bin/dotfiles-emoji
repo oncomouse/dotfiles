@@ -7,5 +7,6 @@ rofi \
 	-modi emoji \
 	-location 1 \
 	-theme-str "window { width: 100%; y-offset: $offset; }" \
+	-emoji-format "{emoji} <span weight='bold'>{name}</span> [<span size='small'>({keywords})</span>]" \
 	-font "$font"
 # vim:ft=sh
