@@ -122,10 +122,6 @@ local function plugins()
 						vim.keymap.set("", "#", "<Plug>(asterisk-#)")
 						vim.keymap.set("", "g*", "<Plug>(asterisk-g*)")
 						vim.keymap.set("", "g#", "<Plug>(asterisk-g#)")
-						-- vim.keymap.set("", "z*", "<Plug>(asterisk-z*)")
-						-- vim.keymap.set("", "gz*", "<Plug>(asterisk-gz*)")
-						-- vim.keymap.set("", "z#", "<Plug>(asterisk-z#)")
-						-- vim.keymap.set("", "gz#", "<Plug>(asterisk-gz#)")
 						vim.g["asterisk#keeppos"] = 1
 					end,
 					requires = { "tpope/vim-repeat" },
@@ -148,7 +144,7 @@ local function plugins()
 				{
 					"cohama/lexima.vim", -- Autopairs
 					setup = function()
-						vim.g.lexima_enable_endwise_rules = 1 -- Disable endwise in Lexima
+						vim.g.lexima_enable_endwise_rules = 1
 						vim.g.lexima_disable_closetag = 0
 					end,
 					event = "InsertEnter",
@@ -503,13 +499,6 @@ end, {
 
 -- Since the autocommand is causing problems, let's run a command:
 vim.api.nvim_create_user_command("DotfilesCompile", "so % | PackerCompile", {})
-
--- Update Packer.nvim automatically:
--- vim.api.nvim_create_autocmd("BufWritePost", {
--- 	group = "dotfiles-settings",
--- 	pattern = "*/plugins/*.lua",
--- 	command = "source <afile> | PackerCompile",
--- })
 
 -- Install packer.nvim, if it isn't present:
 if vim.fn.empty(vim.fn.glob(install_path)) == 1 then
