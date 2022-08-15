@@ -410,21 +410,22 @@ local function plugins()
 
 				{
 					"oncomouse/nvim-colorizer.lua",
-					-- module = "colorizer",
-					-- setup = function()
-					-- 	require("chad_loader").lazy_load({
-					-- 		events = { "BufRead", "BufNewFile" },
-					-- 		plugins = "nvim-colorizer.lua",
-					-- 		condition = function()
-					-- 			return true
-					-- 		end,
-					-- 	})
-					-- end,
+					module = "colorizer",
+					setup = function()
+						require("chad_loader").lazy_load({
+							events = { "BufRead", "BufNewFile" },
+							plugins = "nvim-colorizer.lua",
+							condition = function()
+								return true
+							end,
+						})
+					end,
 					config = function()
 						if vim.opt.termguicolors:get() then
 							require("colorizer").setup({
 								"*", -- Load everywhere
 								"!packer", -- Except packer buffers
+								"!gina*", -- And commit buffers
 								html = { names = true, RRGGBBAA = false },
 								css = { css = true, RRGGBBAA = false },
 								scss = {
@@ -443,7 +444,7 @@ local function plugins()
 								pattern = "scss",
 								callback = require("colorizer/sass").attach_to_buffer,
 							})
-							require("colorizer").attach_to_buffer(0)
+							require("colorizer").setup_hook()
 						end
 					end,
 				}, -- Highlight colors in files
