@@ -17,6 +17,8 @@ local function plugins()
 			use({
 				{ "wbthomason/packer.nvim", opt = true },
 
+				-- Editor Enhancements:
+
 				{
 					"sickill/vim-pasta",
 					opt = true,
@@ -70,7 +72,6 @@ local function plugins()
 					config = require("dotfiles.plugins.mini-nvim"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/mini-nvim.lua
 				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai); mini.surround for surround (ys to add, cs to change, ds to delete)
-
 				{ "preservim/vim-textobj-sentence", after = "mini.nvim" },
 				{ "nvim-treesitter/nvim-treesitter-textobjects", after = "mini.nvim" },
 
@@ -105,8 +106,6 @@ local function plugins()
 					end,
 				}, -- Automatically set indent
 
-				-- Editor Enhancements:
-
 				{
 					"oncomouse/vim-lion",
 					opt = true,
@@ -133,7 +132,6 @@ local function plugins()
 
 				{
 					"vim-scripts/ReplaceWithRegister",
-
 					requires = { "tpope/vim-repeat" },
 					opt = true,
 					setup = function()
@@ -274,7 +272,7 @@ local function plugins()
 					},
 					config = require("dotfiles.plugins.cmp"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/cmp.lua
-				},
+				}, -- Completion (used as a super omnifunc (C-X C-O))
 
 				{
 					"anuvyklack/hydra.nvim",
@@ -295,7 +293,17 @@ local function plugins()
 					config = function()
 						require("marks").setup({})
 					end,
-				},
+				}, -- Enhanced marks support
+
+				{
+					"Pocco81/true-zen.nvim",
+					module = "true-zen",
+					setup = function()
+						require("chad_loader").on_file_open("true-zen.nvim")
+					end,
+					config = require("dotfiles.plugins.true-zen"),
+					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/true-zen.lua
+				}, -- Zoomed, minimalist mode (<leader>z and gz<motion>)
 
 				{
 					"nvim-treesitter/nvim-treesitter",
@@ -336,6 +344,7 @@ local function plugins()
 				}, -- Treesitter-based Syntax
 
 				-- Non-Treesitter Syntax:
+
 				{
 					"preservim/vim-markdown",
 					ft = "markdown",
@@ -354,17 +363,8 @@ local function plugins()
 					},
 				}, -- Markdown Syntax
 
-				{
-					"Pocco81/true-zen.nvim",
-					module = "true-zen",
-					setup = function()
-						require("chad_loader").on_file_open("true-zen.nvim")
-					end,
-					config = require("dotfiles.plugins.true-zen"),
-					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/true-zen.lua
-				},
-
 				-- Appearance:
+
 				{
 					"oncomouse/lushwal.nvim",
 					opt = true,
@@ -464,7 +464,7 @@ local function plugins()
 						})
 					end,
 					opt = true,
-				},
+				}, -- Mark and highlight indentations
 			})
 		end,
 		config = {
