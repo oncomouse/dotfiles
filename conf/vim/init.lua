@@ -81,6 +81,9 @@ vim.opt.dictionary = "/usr/share/dict/words"
 -- Default to hashtag-style comments, by default:
 vim.opt.commentstring = "# %s"
 
+-- Enable Todo:
+vim.g.enable_todo = 1
+
 -- Disable Plugins {{{
 vim.g.load_black = "py1.0"
 vim.g.loaded_fzf = 1
@@ -160,26 +163,8 @@ end
 -- Clear Currently Highlighted Regexp:
 vim.keymap.set("n", "<leader>cr", ':let<C-u>let @/=""<CR>', { silent = true, noremap = true })
 
--- Navigate Buffers:
-vim.keymap.set("n", "]b", "<cmd>bnext<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "[b", "<cmd>bprevious<CR>", { silent = true, noremap = true })
---
--- Jump to the alternate buffer:
+-- Jump to last buffer:
 vim.keymap.set("n", "``", "<cmd>e #<CR>", { silent = true, noremap = true })
-
--- Source https://github.com/romainl/minivimrc/blob/master/vimrc
--- Minimal File Finding:
-vim.keymap.set("n", "<localleader>f", ":find *", { noremap = true })
-vim.keymap.set("n", "<localleader>s", ":sfind *", { noremap = true })
-vim.keymap.set("n", "<localleader>v", ":vert sfind *", { noremap = true })
--- Minimal Buffer Jumping:
-vim.keymap.set("n", "<leader>a", ":buffers<CR>:buffer<Space> ", { noremap = true })
-vim.keymap.set("n", "<localleader>a", ":buffer *", { noremap = true })
-vim.keymap.set("n", "<localleader>A", ":sbuffer *", { noremap = true })
-
--- Navigate Quickfix:
-vim.keymap.set("n", "]q", "<cmd>cnext<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "[q", "<cmd>cprevious<CR>", { silent = true, noremap = true })
 
 -- Navigate Location List:
 vim.keymap.set("n", "]d", "<cmd>lnext<CR>", { silent = true, noremap = true })
@@ -198,9 +183,6 @@ vim.keymap.set("n", "<leader>/", function()
 	grep_or_qfgrep()
 end, { silent = true, noremap = true })
 
--- Enable Todo:
-vim.g.enable_todo = 1
-
 -- Highlight a block and type "@" to run a macro on the block:
 vim.keymap.set("x", "@", function()
 	vim.cmd([[echo '@'.getcmdline()
@@ -215,16 +197,22 @@ vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
 
 -- Sourced from jessarcher/dotfiles {{{
 --  \ https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
-
--- Reselect visual selection after indenting
--- vim.keymap.set("v", "<", "<gv", { noremap = true })
--- vim.keymap.set("v", ">", ">gv", { noremap = true })
-
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
 vim.keymap.set("n", "j", "(v:count == 0 ? 'gj' : 'j')", { silent = true, noremap = true, expr = true })
 vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap = true, expr = true })
-
 -- }}}
+-- Sourced from romainl/minivimrc {{{
+--  \ https://github.com/romainl/minivimrc/blob/master/vimrc
+-- Minimal File Finding:
+vim.keymap.set("n", "<localleader>f", ":find *", { noremap = true })
+vim.keymap.set("n", "<localleader>s", ":sfind *", { noremap = true })
+vim.keymap.set("n", "<localleader>v", ":vert sfind *", { noremap = true })
+-- Minimal Buffer Jumping:
+vim.keymap.set("n", "<leader>a", ":buffers<CR>:buffer<Space> ", { noremap = true })
+vim.keymap.set("n", "<localleader>a", ":buffer *", { noremap = true })
+vim.keymap.set("n", "<localleader>A", ":sbuffer *", { noremap = true })
+-- }}}
+
 -- Textobjects: {{{
 -- Fold Maps:
 vim.keymap.set("o", "iz", "<cmd>normal! [zj0v]zk$<cr>", { silent = true, noremap = true })
