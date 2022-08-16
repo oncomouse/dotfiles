@@ -169,8 +169,10 @@ local function plugins()
 
 				{
 					"ibhagwan/fzf-lua",
-					keys = { { "n", "<C-p>" }, { "n", "<leader>a" } },
-					cmd = { "FzfLua", "Files", "Buffers", "GitStatus" },
+					module = "fzf-lua",
+					setup = function()
+						require("chad_loader").on_file_open("fzf-lua")
+					end,
 					config = require("dotfiles.plugins.fzf-lua"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/fzf-lua.lua
 				}, -- FZF Client
