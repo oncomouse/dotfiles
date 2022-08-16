@@ -148,6 +148,15 @@ local function plugins()
 					event = "InsertEnter",
 					config = require("dotfiles.plugins.lexima"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/lexima.lua
+				}, -- Endwise and autopairs
+
+				{
+					"tpope/vim-unimpaired",
+					requires = { "tpope/vim-repeat" },
+					opt = true,
+					setup = function()
+						require("chad_loader").on_file_open("vim-unimpaired")
+					end,
 				},
 
 				-- Extra functionality + UI:
