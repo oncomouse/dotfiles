@@ -89,6 +89,14 @@ local function config_mini()
 		end
 	end
 
+	local function make_point()
+		local _, l, c, _ = unpack(vim.fn.getpos("."))
+		return {
+			line = l,
+			col = c,
+		}
+	end
+
 	require("mini.ai").setup({
 		custom_textobjects = {
 
@@ -98,6 +106,18 @@ local function config_mini()
 					line = vim.fn.line("$"),
 					col = vim.fn.getline("$"):len(),
 				}
+				return {
+					from = from,
+					to = to,
+				}
+			end,
+
+			z = function(type) -- Folds
+				vim.cmd("normal [z" .. (type == "i" and "j0" or ""))
+				local from = make_point()
+				vim.cmd("normal ]z" .. (type == "i" and "k$" or "$"))
+				local to = make_point()
+
 				return {
 					from = from,
 					to = to,
