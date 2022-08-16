@@ -1,7 +1,16 @@
+---@class Pair
+---@field line integer
+---@field col integer
+
+---@alias ai_type "i" | "a"
+
 local function config_mini()
 	local queries = require("nvim-treesitter.query")
 
-	local miniAiTreesitter = function(ai_type, _, _, query_list)
+	---@param ai_type ai_type
+	---@param query_list string[]
+	---@return Pair[]
+	local function miniAiTreesitter(ai_type, _, _, query_list)
 		ai_type = ai_type == "a" and ".outer" or ".inner"
 		query_list = vim.tbl_map(function(query)
 			return query .. ai_type
@@ -23,7 +32,9 @@ local function config_mini()
 		return matches
 	end
 
-	local miniAiTreeWrapper = function(query_list)
+	---@param query_list string[]
+	---@return fun(ai_type:ai_type, _:any, opts:{ [string]: any }|nil):Pair[]
+	local function miniAiTreeWrapper(query_list)
 		if type(query_list) ~= "table" then
 			query_list = { query_list }
 		end
@@ -69,6 +80,8 @@ local function config_mini()
 		"Messrs",
 	}
 
+	---@param map { [string]: fun() } A list of textobject functions
+	---@return fun(type:ai_type):Pair
 	local function from_textobject_user(map)
 		local function textobject_result_to_point(result)
 			return {
@@ -77,6 +90,8 @@ local function config_mini()
 			}
 		end
 
+		---@param type ai_type
+		---@return Pair
 		return function(type)
 			local results = map["select_function_" .. type]()
 			if results == 0 then
@@ -89,6 +104,7 @@ local function config_mini()
 		end
 	end
 
+	---@return Pair #The Pair at the current cursor position
 	local function make_point()
 		local _, l, c, _ = unpack(vim.fn.getpos("."))
 		return {
@@ -124,7 +140,7 @@ local function config_mini()
 				}
 			end,
 
-			-- These sentence objects are based on textobject-function:
+			-- Sentence objects, based on vim-textobj-sentence and how vim-textobj-function works:
 			--   `is` grabs the words of the sentence (without trailing punctuation and quotes)
 			--   `as` grabs ending punctuation but not white space
 			--   `iS` works like `as`
