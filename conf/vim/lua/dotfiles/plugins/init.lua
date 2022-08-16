@@ -67,8 +67,8 @@ local function plugins()
 						"mini.trailspace",
 					},
 					requires = {
-						{ "preservim/vim-textobj-sentence" }, -- Sentence object
-						{ "nvim-treesitter/nvim-treesitter-textobjects" }, -- Configuration for treesitter objects
+						{ "preservim/vim-textobj-sentence", after ="mini.nvim" }, -- Sentence object
+						{ "nvim-treesitter/nvim-treesitter-textobjects", after="nvim-treesitter" }, -- Configuration for treesitter objects
 					},
 					setup = function()
 						require("chad_loader").on_file_open("mini.nvim")
