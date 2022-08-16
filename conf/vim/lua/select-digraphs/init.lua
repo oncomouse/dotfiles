@@ -71,6 +71,9 @@ local function select_digraph(mode)
 		end,
 	}, function(choice)
 		if choice == nil then
+			if mode == "i" then -- Restore input
+				vim.api.nvim_feedkeys("i", "", false)
+			end
 			return
 		end
 
