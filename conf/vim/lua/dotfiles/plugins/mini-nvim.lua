@@ -129,9 +129,9 @@ local function config_mini()
 			end,
 
 			z = function(type) -- Folds
-				vim.cmd("normal [z" .. (type == "i" and "j0" or ""))
+				vim.api.nvim_feedkeys("[z" .. (type == "i" and "j0" or ""), "x", true)
 				local from = make_point()
-				vim.cmd("normal ]z" .. (type == "i" and "k$" or "$"))
+				vim.api.nvim_feedkeys("]z" .. (type == "i" and "k$" or "$"), "x", true)
 				local to = make_point()
 
 				return {
