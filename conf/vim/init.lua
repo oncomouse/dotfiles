@@ -306,7 +306,9 @@ vim.api.nvim_create_user_command("Diagnostics", function()
 end, {
 	force = true,
 })
-vim.api.nvim_create_user_command("Format", "silent normal! mxgggqG`x<CR>", {
+vim.api.nvim_create_user_command("Format", function()
+	vim.api.nvim_feedkeys("mxgggqG`x", "x", true)
+end, {
 	force = true,
 })
 

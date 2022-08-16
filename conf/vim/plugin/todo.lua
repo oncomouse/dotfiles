@@ -48,7 +48,7 @@ if vim.fn.exists("g:enable_todo") == 1 then
 
 		if not vim.regex([[n]]):match_str(flags) then
 			vim.fn.cursor(ed, 0)
-			vim.cmd([[normal! ^]])
+			vim.api.nvim_feedkeys("^", "x", true)
 		end
 
 		return ed
@@ -76,7 +76,7 @@ if vim.fn.exists("g:enable_todo") == 1 then
 		end
 
 		vim.fn.cursor(begin, 1)
-		vim.cmd([[normal! ^]])
+		vim.api.nvim_feedkeys("^", "x", true)
 
 		return begin
 	end

@@ -266,8 +266,11 @@ vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap
 -- Textobjects:
 
 -- Entire document:
-vim.keymap.set("o", "ae", "<cmd>normal! gg0vG$<cr>", { silent = true, noremap = true })
-vim.keymap.set("x", "ae", "<cmd>normal! gg0oG$<cr>", { silent = true, noremap = true })
+local function _map_buffer()
+	vim.api.nvim_feedkeys("gg0vG$", "x", true)
+end
+vim.keymap.set("o", "ae", _map_buffer, { silent = true, noremap = true })
+vim.keymap.set("x", "ae", _map_buffer, { silent = true, noremap = true })
 
 --------------------------------------------------------------------------------
 -- Commands:
@@ -282,7 +285,9 @@ vim.api.nvim_create_user_command("Diagnostics", function()
 end, {
 	force = true,
 })
-vim.api.nvim_create_user_command("Format", "silent normal! mxgggqG`x<CR>", {
+vim.api.nvim_create_user_command("Format", function()
+	vim.api.nvim_feedkeys("mxgggqG`x", "x", true)
+end, {
 	force = true,
 })
 
