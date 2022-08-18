@@ -460,6 +460,11 @@ local function plugins()
 
 				{
 					"rebelot/heirline.nvim",
+					module = "heirline",
+					setup = function()
+						require("chad_loader").on_file_open("heirline.nvim")
+						require("chad_loader").do_not_defer("heirline.nvim")
+					end,
 					config = require("dotfiles.plugins.heirline"),
 				}, -- Statusline
 				-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/heirline.lua
