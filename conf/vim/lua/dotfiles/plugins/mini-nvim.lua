@@ -181,9 +181,11 @@ local function config_mini()
 			around_last = "aN",
 			inside_last = "iN",
 		},
+		n_lines = 50,
 		search_method = "cover", -- Only use next and last mappings to search
 	})
 
+	-- gc for commenting/uncommenting:
 	require("mini.comment").setup({})
 
 	-- We just use this for the indent textobjects:
@@ -216,6 +218,7 @@ local function config_mini()
 			replace = "cs",
 			update_n_lines = "",
 		},
+		n_lines = 50,
 		search_method = "cover_or_next",
 	})
 	-- Remap adding surrounding to Visual mode selection
