@@ -156,6 +156,7 @@ bind zI zoom 3
 bind zO zoom 0.3
 bind . repeat
 bind <AS-ArrowUp><AS-ArrowUp><AS-ArrowDown><AS-ArrowDown><AS-ArrowLeft><AS-ArrowRight><AS-ArrowLeft><AS-ArrowRight>ba open https://www.youtube.com/watch?v=M3iOROuTuMA
+unbindurl www.github.com <C-f>
 unbindurl ^https://github.com <C-f>
 
 " Aliases
@@ -233,11 +234,13 @@ alias prefremove removepref
 alias tabclosealltoright tabcloseallto right
 alias tabclosealltoleft tabcloseallto left
 alias reibadailty jumble
+alias bookmark js q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(window.open('https://pinboard.in/add?url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Pinboard','toolbar=no,width=700,height=350'));
 
 " Autocmds
 autocmd DocStart https://feedly.com mode ignore
 autocmd DocStart mail.google.com mode ignore
 autocmd DocStart https://outlook.office.com mode ignore
+autocmd DocStart undefined mode ignore
 autocmd DocLoad ^https://github.com/tridactyl/tridactyl/issues/new$ issue
 autocmd TriStart .* source_quiet
 
