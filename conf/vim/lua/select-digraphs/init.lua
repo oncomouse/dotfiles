@@ -1,5 +1,20 @@
 -- This is better-digraphs.nvim with telescope.nvim replaced with vim.ui.select
 --   (original is at: https://github.com/protex/better-digraphs.nvim)
+--
+-- Add digraphs using vim.g.select_digraph_additions:
+-- vim.g.select_digraph_additions = {
+--   {
+--     digraph = "OK",
+--     symbol = "*",
+--     name = "NEW STAR"
+--   },
+--   {
+--     digraph = "zz",
+--     symbol = "Z",
+--     name = "CAPITAL Z"
+--   }
+-- }
+
 
 local get_cursor_column = function()
 	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -44,12 +59,44 @@ local get_digraph_from_doc = function()
 	return {}
 end
 
-local generate_default_digraphs = function()
-	local digraph_raw_list = get_digraph_from_doc()
-	return vim.tbl_map(function(line)
+local generate_digraphs = function()
+	local digraph_list = get_digraph_from_doc()
+	local function is_valid_digraph(item)
+		return #item == 3 and item[1] ~= nil and item[2] ~= nil and item[3] ~= nil
+	end
+	local function get_digraph_from_line(line)
 		local columns = vim.fn.split(line, "\t")
 		return { columns[5], columns[2], columns[1] }
-	end, digraph_raw_list)
+	end
+	digraph_list = vim.tbl_map(get_digraph_from_line, digraph_list)
+	digraph_list = vim.tbl_filter(is_valid_digraph, digraph_list)
+	if vim.g.select_digraph_additions then
+		for _, digraph_addition in pairs(vim.g.select_digraph_additions) do
+			if string.len(digraph_addition.digraph) ~= 2 then
+				error(
+					"Digraph "
+						.. digraph_addition.digraph
+						.. " should have 2 characters, found "
+						.. string.len(digraph_addition.digraph)
+				)
+			end
+			if string.len(digraph_addition.symbol) ~= 1 then
+				error(
+					"Digraph symbol "
+						.. digraph_addition.symbol
+						.. " should have 1 characters, found "
+						.. string.len(digraph_addition.symbol)
+				)
+			end
+			table.insert(digraph_list, {
+				digraph_addition.name,
+				digraph_addition.digraph,
+				digraph_addition.symbol,
+			})
+			vim.fn.digraph_set(digraph_addition.digraph, digraph_addition.symbol)
+		end
+	end
+	return digraph_list
 end
 
 local digraphs = nil
@@ -59,9 +106,7 @@ local function select_digraph(mode)
 
 	-- Load digraphs and strip off the ones that don't come out of the parser correctly:
 	if digraphs == nil then
-		digraphs = vim.tbl_filter(function(item)
-			return #item == 3 and item[1] ~= nil and item[2] ~= nil and item[3] ~= nil
-		end, generate_default_digraphs())
+		digraphs = generate_digraphs()
 	end
 
 	vim.ui.select(digraphs, {
@@ -73,7 +118,7 @@ local function select_digraph(mode)
 		if choice == nil then
 			if mode == "i" then -- Restore input
 				vim.api.nvim_feedkeys("i", "", false)
-			elseif mode == "gvr" then
+			elseif mode == "gvr" then -- Restore visual selection
 				vim.api.nvim_feedkeys("gv", "", false)
 			end
 			return
