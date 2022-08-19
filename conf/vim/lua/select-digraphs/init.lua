@@ -73,6 +73,8 @@ local function select_digraph(mode)
 		if choice == nil then
 			if mode == "i" then -- Restore input
 				vim.api.nvim_feedkeys("i", "", false)
+			elseif mode == "gvr" then
+				vim.api.nvim_feedkeys("gv", "", false)
 			end
 			return
 		end
@@ -89,7 +91,7 @@ local function select_digraph(mode)
 		elseif string.match(mode, "^r$") then
 			vim.api.nvim_feedkeys("r" .. choice[2], "", false)
 		elseif string.match(mode, "^gvr$") then
-			vim.api.nvim_feedkeys("gvr" .. choice[2], "", false)
+			vim.api.nvim_feedkeys((vim.fn.mode():match("^[vV]") and "" or "gv") .. "r" .. choice[2], "", false)
 		end
 	end)
 end
