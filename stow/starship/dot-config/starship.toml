@@ -32,6 +32,7 @@ format = "[$path]($style)[$read_only]($read_only_style)"
 truncate_to_repo = false
 style = "cyan"
 repo_root_style = "bold cyan"
+repo_root_format = "[$before_root_path]($style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)"
 fish_style_pwd_dir_length = 1
 
 [git_branch]
