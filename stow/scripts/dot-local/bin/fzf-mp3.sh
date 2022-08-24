@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-music_dir=/mnt/Media/Music
+music_dir=/mnt/music
 out_dir=/mnt/Media/Devices
 if [ ! -d "$music_dir" ]; then
 	music_dir="$HOME/Music"
