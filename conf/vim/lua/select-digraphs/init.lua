@@ -60,16 +60,23 @@ local get_digraph_from_doc = function()
 end
 
 local generate_digraphs = function()
-	local digraph_list = get_digraph_from_doc()
-	local function is_valid_digraph(item)
-		return #item == 3 and item[1] ~= nil and item[2] ~= nil and item[3] ~= nil
-	end
+
+	-- Convert file into digraph:
 	local function get_digraph_from_line(line)
 		local columns = vim.fn.split(line, "\t")
 		return { columns[5], columns[2], columns[1] }
 	end
+
+	-- Strip digraphs that didn't parse correctly:
+	local function is_valid_digraph(item)
+		return #item == 3 and item[1] ~= nil and item[2] ~= nil and item[3] ~= nil
+	end
+
+	local digraph_list = get_digraph_from_doc()
 	digraph_list = vim.tbl_map(get_digraph_from_line, digraph_list)
 	digraph_list = vim.tbl_filter(is_valid_digraph, digraph_list)
+
+	-- Handle any custom digraphs:
 	if vim.g.select_digraph_additions then
 		for _, digraph_addition in pairs(vim.g.select_digraph_additions) do
 			if string.len(digraph_addition.digraph) ~= 2 then
@@ -104,7 +111,6 @@ local digraphs = nil
 local function select_digraph(mode)
 	mode = mode or "i"
 
-	-- Load digraphs and strip off the ones that don't come out of the parser correctly:
 	if digraphs == nil then
 		digraphs = generate_digraphs()
 	end
