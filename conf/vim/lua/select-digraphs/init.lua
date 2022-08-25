@@ -59,18 +59,18 @@ local get_digraph_from_doc = function()
 	return {}
 end
 
+-- Convert file into digraph:
+local function get_digraph_from_line(line)
+	local columns = vim.fn.split(line, "\t")
+	return { columns[5], columns[2], columns[1] }
+end
+
+-- Strip digraphs that didn't parse correctly:
+local function is_valid_digraph(item)
+	return #item == 3 and item[1] ~= nil and item[2] ~= nil and item[3] ~= nil
+end
+
 local generate_digraphs = function()
-
-	-- Convert file into digraph:
-	local function get_digraph_from_line(line)
-		local columns = vim.fn.split(line, "\t")
-		return { columns[5], columns[2], columns[1] }
-	end
-
-	-- Strip digraphs that didn't parse correctly:
-	local function is_valid_digraph(item)
-		return #item == 3 and item[1] ~= nil and item[2] ~= nil and item[3] ~= nil
-	end
 
 	local digraph_list = get_digraph_from_doc()
 	digraph_list = vim.tbl_map(get_digraph_from_line, digraph_list)
