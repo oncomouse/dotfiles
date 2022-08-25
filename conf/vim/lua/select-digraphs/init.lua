@@ -15,6 +15,7 @@
 --   }
 -- }
 
+local M = {}
 
 local get_cursor_column = function()
 	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -108,7 +109,7 @@ end
 
 local digraphs = nil
 
-local function select_digraph(mode)
+function M.select_digraph(mode)
 	mode = mode or "i"
 
 	if digraphs == nil then
@@ -147,4 +148,4 @@ local function select_digraph(mode)
 	end)
 end
 
-return select_digraph
+return M
