@@ -78,6 +78,27 @@ local function plugins()
 				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai); mini.surround for surround (ys to add, cs to change, ds to delete)
 
 				{
+					"nvim-neorg/neorg",
+					after = "nvim-treesitter",
+					requires = { "nvim-lua/plenary.nvim", module = { "plenary.async", "plenary" } },
+					config = function()
+						require("neorg").setup({
+							load = {
+								["core.defaults"] = {},
+							},
+						})
+						require("nvim-treesitter.configs").setup({
+							ensure_installed = {
+								"norg", --[[ other parsers you would wish to have ]]
+							},
+							highlight = { -- Be sure to enable highlights if you haven't!
+								enable = true,
+							},
+						})
+					end,
+				},
+
+				{
 					"ahmedkhalf/project.nvim",
 					config = function()
 						require("project_nvim").setup({
