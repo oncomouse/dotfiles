@@ -201,14 +201,10 @@ local function config_mini()
 		return "<esc>"
 	end, { expr = true, noremap = false })
 
+	local ts_input = require("mini.surround").gen_spec.input.treesitter
+
 	-- Replace vim-surround:
 	require("mini.surround").setup({
-		-- custom_surroundings = {
-		-- 	["("] = { output = { left = "( ", right = " )" } },
-		-- 	["["] = { output = { left = "[ ", right = " ]" } },
-		-- 	["{"] = { output = { left = "{ ", right = " }" } },
-		-- 	["<"] = { output = { left = "< ", right = " >" } },
-		-- },
 		mappings = {
 			add = "ys",
 			delete = "ds",
