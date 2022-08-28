@@ -203,12 +203,12 @@ local function config_mini()
 
 	-- Replace vim-surround:
 	require("mini.surround").setup({
-		custom_surroundings = {
-			["("] = { output = { left = "( ", right = " )" } },
-			["["] = { output = { left = "[ ", right = " ]" } },
-			["{"] = { output = { left = "{ ", right = " }" } },
-			["<"] = { output = { left = "< ", right = " >" } },
-		},
+		-- custom_surroundings = {
+		-- 	["("] = { output = { left = "( ", right = " )" } },
+		-- 	["["] = { output = { left = "[ ", right = " ]" } },
+		-- 	["{"] = { output = { left = "{ ", right = " }" } },
+		-- 	["<"] = { output = { left = "< ", right = " >" } },
+		-- },
 		mappings = {
 			add = "ys",
 			delete = "ds",
@@ -217,6 +217,7 @@ local function config_mini()
 			highlight = "",
 			replace = "cs",
 			update_n_lines = "",
+			suffix_last = "N",
 		},
 		n_lines = 50,
 		search_method = "cover_or_next",
