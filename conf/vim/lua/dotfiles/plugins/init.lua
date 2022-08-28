@@ -165,6 +165,7 @@ local function plugins()
 				{
 					"cohama/lexima.vim", -- Autopairs
 					setup = function()
+						vim.g.lexima_enable_space_rules = 0
 						vim.g.lexima_enable_endwise_rules = 1
 						vim.g.lexima_disable_closetag = 0
 					end,
