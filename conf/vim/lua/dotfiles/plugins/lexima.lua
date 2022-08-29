@@ -45,6 +45,29 @@ local function lexima_rules()
 	make_markdown_bi_rule("*", true)
 	make_markdown_bi_rule("_")
 
+	add_rule({
+		char = "/",
+		input_after = "/",
+		filetype = "norg",
+	})
+	add_rule({
+		char = "*",
+		input_after = "*",
+		filetype = "norg",
+	})
+	add_rule({
+		char = "<BS>",
+		at = [[\*]] .. [[\%#]] .. [[\*]],
+		delete = "*",
+		filetype = "norg",
+	}) -- Delete pair
+	add_rule({
+		char = "<BS>",
+		at = [[\/]] .. [[\%#]] .. [[\/]],
+		delete = "/",
+		filetype = "norg",
+	}) -- Delete pair
+
 	-- XML-style closetag:
 	if vim.g.lexima_disable_closetag == 0 then
 		vim.api.nvim_create_autocmd("FileType", {
