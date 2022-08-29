@@ -418,7 +418,6 @@ local function plugins()
 							config = function()
 								require("autolist").setup()
 							end,
-							opt = true,
 						},
 					},
 				}, -- Markdown Syntax
