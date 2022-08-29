@@ -60,6 +60,7 @@ local function config_cmp()
 			{ name = "nvim_lua" },
 			{ name = "luasnip" },
 			{ name = "fish" },
+			{ name = "neorg" },
 		}),
 		completion = {
 			autocomplete = false,

@@ -85,6 +85,27 @@ local function plugins()
 						require("neorg").setup({
 							load = {
 								["core.defaults"] = {},
+								["core.norg.concealer"] = {
+									config = {
+
+										icons = {
+											undone = {
+												enabled = true,
+												icon = " ",
+												query = "(todo_item_undone) @icon",
+												extract = function()
+													return 1
+												end,
+											},
+										},
+									},
+								},
+								["core.norg.completion"] = {
+									config = {
+										engine = "nvim-cmp",
+									},
+								},
+								["core.integrations.nvim-cmp"] = {},
 							},
 						})
 						require("nvim-treesitter.configs").setup({
