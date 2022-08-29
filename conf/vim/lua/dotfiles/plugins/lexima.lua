@@ -1,7 +1,7 @@
 local function lexima_rules()
 	local add_rule = vim.fn["lexima#add_rule"]
 	-- Markdown rules:
-	add_rule({ char = "*", at = [[^\s*\%#]], input = "*<Space>", filetype = "markdown" }) -- Bulleted lists
+	-- add_rule({ char = "*", at = [[^\s*\%#]], input = "*<Space>", filetype = "markdown" }) -- Bulleted lists
 	add_rule({
 		char = "]",
 		at = [=[\[[^]]*\%#\]]=],

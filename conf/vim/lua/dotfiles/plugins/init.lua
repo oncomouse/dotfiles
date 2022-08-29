@@ -413,6 +413,13 @@ local function plugins()
 							"godlygeek/tabular",
 							cmd = { "Tabularize" },
 						},
+						{
+							"gaoDean/autolist.nvim",
+							config = function()
+								require("autolist").setup()
+							end,
+							opt = true,
+						},
 					},
 				}, -- Markdown Syntax
 
