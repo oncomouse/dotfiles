@@ -45,6 +45,8 @@ local function lexima_rules()
 	make_markdown_bi_rule("*", true)
 	make_markdown_bi_rule("_")
 
+	-- Neorg Rules:
+	-- Bold / Italic:
 	add_rule({
 		char = "/",
 		input_after = "/",
@@ -53,6 +55,7 @@ local function lexima_rules()
 	add_rule({
 		char = "*",
 		input_after = "*",
+		except = [[^\%#]],
 		filetype = "norg",
 	})
 	add_rule({
@@ -60,13 +63,20 @@ local function lexima_rules()
 		at = [[\*]] .. [[\%#]] .. [[\*]],
 		delete = "*",
 		filetype = "norg",
-	}) -- Delete pair
+	})
 	add_rule({
 		char = "<BS>",
 		at = [[\/]] .. [[\%#]] .. [[\/]],
 		delete = "/",
 		filetype = "norg",
-	}) -- Delete pair
+	})
+	-- Tasks:
+	add_rule({
+		char = "[",
+		input = "[ ]",
+		at = [[^\s*-\+\s*\%#]],
+		filetype = "norg",
+	})
 
 	-- XML-style closetag:
 	if vim.g.lexima_disable_closetag == 0 then
