@@ -89,13 +89,8 @@ local function plugins()
 									config = {
 
 										icons = {
-											undone = {
-												enabled = true,
-												icon = " ",
-												query = "(todo_item_undone) @icon",
-												extract = function()
-													return 1
-												end,
+											todo = {
+												undone = { icon = " " },
 											},
 										},
 									},
