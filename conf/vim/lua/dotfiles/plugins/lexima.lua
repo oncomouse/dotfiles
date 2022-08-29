@@ -80,21 +80,17 @@ local function lexima_rules()
 
 	-- XML-style closetag:
 	if vim.g.lexima_disable_closetag == 0 then
-		vim.api.nvim_create_autocmd("FileType", {
-			pattern = "html,xml,javascript,javascriptreact",
-			group = "dotfiles-settings",
-			callback = function()
-				add_rule({ char = "<", input_after = ">" })
-				add_rule({
-					char = ">",
-					at = [[<\(\w\+\)\%#>]],
-					leave = 1,
-					input_after = [[</\1>]],
-					with_submatch = 1,
-				})
-			end,
-			desc = "Rules for auto-closing XML-style tags",
-		})
+		for _, ft in pairs({ "html", "xml", "javascript", "javascriptreact" }) do
+			add_rule({ char = "<", input_after = ">", filetype = ft })
+			add_rule({
+				char = ">",
+				at = [[<\(\w\+\)\%#>]],
+				leave = 1,
+				input_after = [[</\1>]],
+				with_submatch = 1,
+				filetype = ft,
+			})
+		end
 	end
 
 	-- Lua endwise rules:
@@ -111,12 +107,8 @@ local function lexima_rules()
 			}
 		end
 		add_rule(make_endwise_rule([[^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
-		add_rule(
-			make_endwise_rule([[^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
-		)
-		add_rule(
-			make_endwise_rule([[^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
-		)
+		add_rule(make_endwise_rule([[^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
+		add_rule(make_endwise_rule([[^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
 	end
 
 	-- Autoclose mapping:
