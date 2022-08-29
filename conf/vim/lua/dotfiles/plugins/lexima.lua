@@ -47,29 +47,33 @@ local function lexima_rules()
 
 	-- Neorg Rules:
 	-- Bold / Italic:
-	add_rule({
-		char = "/",
-		input_after = "/",
-		filetype = "norg",
-	})
-	add_rule({
-		char = "*",
-		input_after = "*",
-		except = [[^\%#]],
-		filetype = "norg",
-	})
-	add_rule({
-		char = "<BS>",
-		at = [[\*]] .. [[\%#]] .. [[\*]],
-		delete = "*",
-		filetype = "norg",
-	})
-	add_rule({
-		char = "<BS>",
-		at = [[\/]] .. [[\%#]] .. [[\/]],
-		delete = "/",
-		filetype = "norg",
-	})
+	local function neorg_pair(char)
+		local esc_char = [[\]] .. char
+		add_rule({
+			char = char,
+			input_after = char,
+			except = [[^\s*\%#]],
+			filetype = "norg",
+		})
+		add_rule({
+			char = "<BS>",
+			at = esc_char .. [[\%#]] .. esc_char,
+			delete = char,
+			filetype = "norg",
+		})
+	end
+	neorg_pair("/")
+	neorg_pair("*")
+	neorg_pair("_")
+	neorg_pair("-")
+	neorg_pair("|")
+	neorg_pair("`")
+	neorg_pair("^")
+	neorg_pair(",")
+	neorg_pair("$")
+	neorg_pair("=")
+	neorg_pair("+")
+
 	-- Tasks:
 	add_rule({
 		char = "[",
