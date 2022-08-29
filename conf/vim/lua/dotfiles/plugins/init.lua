@@ -87,7 +87,6 @@ local function plugins()
 								["core.defaults"] = {},
 								["core.norg.concealer"] = {
 									config = {
-
 										icons = {
 											todo = {
 												undone = { icon = " " },
