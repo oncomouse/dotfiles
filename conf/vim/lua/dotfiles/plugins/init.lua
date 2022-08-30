@@ -124,27 +124,52 @@ local function plugins()
 										insert_char = "-"
 									elseif line:match("^%s*[~]+") then
 										insert_char = "~"
+									elseif line:match("^%s*[>]+") then
+										insert_char = ">"
+									elseif line:match("^%s*%*+") then
+										insert_char = "*"
 									end
 									if insert_char == nil then
 										return [[<C-t>]]
 									end
-									return [[<Esc>:keepjumps normal F]] .. insert_char .. "a" .. insert_char .. [[<cr>`^a]]
+									return [[<Esc><Cmd>keepjumps normal! F]] .. insert_char .. "a" .. insert_char .. [[<Cr>`^a]]
 								end, {
 									buffer = true,
 									expr = true,
 								})
-								-- vim.keymap.set({ "i" }, "<C-d>", function()
-								-- 	local line = vim.api.nvim_get_current_line()
-								-- 	if line:match("^%s*-[-]+") then
-								-- 		return [[<Esc>F-xA]]
-								-- 	elseif line:match("^%s*~[~]+") then
-								-- 		return [[<Esc>F~xA]]
-								-- 	end
-								-- 	return [[<C-d>]]
-								-- end, {
-								-- 	buffer = true,
-								-- 	expr = true,
-								-- })
+								vim.keymap.set({ "i" }, "<C-d>", function()
+									local line = vim.api.nvim_get_current_line()
+									local delete_char = nil
+									-- Prevent deleting leading whitespace if at a level one bullet
+									if line:match("^%s*[-~*>][^-~*>]") then
+										return ''
+									end
+									if line:match("^%s*-[-]+") then
+										delete_char = "-"
+									elseif line:match("^%s*~[~]+") then
+										delete_char = "~"
+									elseif line:match("^%s*>[>]+") then
+										delete_char = ">"
+									elseif line:match("^%s*%*%*+") then
+										delete_char = "*"
+									end
+									if delete_char == nil then
+										return [[<C-d>]]
+									end
+
+									local c = vim.fn.col(".")
+									local pos = "`^hi"
+									if c > #line then
+										pos = "$a"
+									elseif c == #line then
+										pos = "$i"
+									end
+									return [[<Esc><Cmd>keepjumps normal! F]] .. delete_char .. [==[x<Cr>]==] .. pos
+
+								end, {
+									expr = true,
+									buffer = true,
+								})
 							end,
 							group = "dotfiles-settings",
 						})
