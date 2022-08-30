@@ -12,6 +12,9 @@ local function config_neorg()
 						todo = {
 							undone = { icon = " " },
 						},
+						heading = {
+							level_5 = { icon = "     →"}
+						}
 					},
 				},
 			},
