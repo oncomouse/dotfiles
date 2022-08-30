@@ -84,7 +84,11 @@ local function plugins()
 					config = function()
 						require("neorg").setup({
 							load = {
-								["core.defaults"] = {},
+								["core.defaults"] = {
+									config = {
+										check_news = false,
+									},
+								},
 								["core.norg.concealer"] = {
 									config = {
 										icons = {
@@ -109,6 +113,36 @@ local function plugins()
 							highlight = { -- Be sure to enable highlights if you haven't!
 								enable = true,
 							},
+						})
+						vim.api.nvim_create_autocmd("FileType", {
+							pattern = "norg",
+							callback = function()
+								vim.keymap.set({ "i" }, "<C-t>", function()
+									local line = vim.api.nvim_get_current_line()
+									if line:match("^%s*[-]+") then
+										return [[<Esc>I-<Esc>A]]
+									elseif line:match("^%s*[~]+") then
+										return [[<Esc>I~<Esc>A]]
+									end
+									return [[<C-t>]]
+								end, {
+									buffer = true,
+									expr = true,
+								})
+								vim.keymap.set({ "i" }, "<C-d>", function()
+									local line = vim.api.nvim_get_current_line()
+									if line:match("^%s*-[-]+") then
+										return [[<Esc>F-xA]]
+									elseif line:match("^%s*~[~]+") then
+										return [[<Esc>F~xA]]
+									end
+									return [[<C-d>]]
+								end, {
+									buffer = true,
+									expr = true,
+								})
+							end,
+							group = "dotfiles-settings",
 						})
 					end,
 				},
@@ -267,7 +301,8 @@ local function plugins()
 				}, -- Snippets
 
 				{
-					"jose-elias-alvarez/null-ls.nvim",
+					-- "jose-elias-alvarez/null-ls.nvim",
+					"AllenDang/null-ls.nvim",
 					requires = {
 						{ "nvim-lua/plenary.nvim", module = { "plenary.async", "plenary" } },
 						{ "williamboman/mason.nvim", module = "mason" },

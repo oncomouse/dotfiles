@@ -64,21 +64,37 @@ local function lexima_rules()
 	end
 	neorg_pair("/")
 	neorg_pair("*")
-	neorg_pair("_")
-	neorg_pair("-")
-	neorg_pair("|")
-	neorg_pair("`")
-	neorg_pair("^")
-	neorg_pair(",")
-	neorg_pair("$")
-	neorg_pair("=")
-	neorg_pair("+")
+	-- neorg_pair("_")
+	-- neorg_pair("-")
+	-- neorg_pair("<Bar>")
+	-- neorg_pair("`")
+	-- neorg_pair("^")
+	-- neorg_pair(",")
+	-- neorg_pair("$")
+	-- neorg_pair("=")
+	-- neorg_pair("+")
 
 	-- Tasks:
 	add_rule({
 		char = "[",
 		input = "[ ]",
 		at = [[^\s*-\+\s*\%#]],
+		filetype = "norg",
+	})
+
+	-- Lists
+	add_rule({
+		char = "<CR>",
+		at = [[^\s*\(-\+\)\s*\(\[.\]\)\{0,1\}.*\%#]],
+		input = [[<cr>\1 \2]],
+		with_submatch = 2,
+		filetype = "norg",
+	})
+	add_rule({
+		char = "<CR>",
+		at = [[^\s*\(\~\+\)\s*.*\%#]],
+		input = [[<cr>\1 ]],
+		with_submatch = 1,
 		filetype = "norg",
 	})
 
