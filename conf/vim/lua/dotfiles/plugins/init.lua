@@ -119,28 +119,32 @@ local function plugins()
 							callback = function()
 								vim.keymap.set({ "i" }, "<C-t>", function()
 									local line = vim.api.nvim_get_current_line()
+									local insert_char = nil
 									if line:match("^%s*[-]+") then
-										return [[<Esc>I-<Esc>A]]
+										insert_char = "-"
 									elseif line:match("^%s*[~]+") then
-										return [[<Esc>I~<Esc>A]]
+										insert_char = "~"
 									end
-									return [[<C-t>]]
+									if insert_char == nil then
+										return [[<C-t>]]
+									end
+									return [[<Esc>:keepjumps normal F]] .. insert_char .. "a" .. insert_char .. [[<cr>`^a]]
 								end, {
 									buffer = true,
 									expr = true,
 								})
-								vim.keymap.set({ "i" }, "<C-d>", function()
-									local line = vim.api.nvim_get_current_line()
-									if line:match("^%s*-[-]+") then
-										return [[<Esc>F-xA]]
-									elseif line:match("^%s*~[~]+") then
-										return [[<Esc>F~xA]]
-									end
-									return [[<C-d>]]
-								end, {
-									buffer = true,
-									expr = true,
-								})
+								-- vim.keymap.set({ "i" }, "<C-d>", function()
+								-- 	local line = vim.api.nvim_get_current_line()
+								-- 	if line:match("^%s*-[-]+") then
+								-- 		return [[<Esc>F-xA]]
+								-- 	elseif line:match("^%s*~[~]+") then
+								-- 		return [[<Esc>F~xA]]
+								-- 	end
+								-- 	return [[<C-d>]]
+								-- end, {
+								-- 	buffer = true,
+								-- 	expr = true,
+								-- })
 							end,
 							group = "dotfiles-settings",
 						})
