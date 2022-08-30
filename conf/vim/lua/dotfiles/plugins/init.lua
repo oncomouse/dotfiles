@@ -239,8 +239,7 @@ local function plugins()
 				}, -- Snippets
 
 				{
-					-- "jose-elias-alvarez/null-ls.nvim",
-					"AllenDang/null-ls.nvim",
+					"jose-elias-alvarez/null-ls.nvim",
 					requires = {
 						{ "nvim-lua/plenary.nvim", module = { "plenary.async", "plenary" } },
 						{ "williamboman/mason.nvim", module = "mason" },
