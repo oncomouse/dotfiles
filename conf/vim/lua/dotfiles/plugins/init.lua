@@ -83,6 +83,7 @@ local function plugins()
 					requires = { "nvim-lua/plenary.nvim", module = { "plenary.async", "plenary" } },
 					config = require("dotfiles.plugins.neorg"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/neorg.lua
+					-- Organization and note-taking
 				},
 
 				{
