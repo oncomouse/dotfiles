@@ -47,8 +47,8 @@ local function lexima_rules()
 
 	-- Neorg Rules:
 	-- Bold / Italic:
-	local function neorg_pair(char)
-		local esc_char = [[\]] .. char
+	local function neorg_pair(char, esc_char)
+		esc_char = esc_char and esc_char or [[\]] .. char
 		add_rule({
 			char = char,
 			input_after = char,
@@ -58,27 +58,33 @@ local function lexima_rules()
 		add_rule({
 			char = "<BS>",
 			at = esc_char .. [[\%#]] .. esc_char,
-			delete = char,
+			delete = 1,
 			filetype = "norg",
 		})
 	end
 	neorg_pair("/")
 	neorg_pair("*")
-	-- neorg_pair("_")
-	-- neorg_pair("-")
-	-- neorg_pair("<Bar>")
-	-- neorg_pair("`")
+	neorg_pair("_", "_")
+	neorg_pair("-")
+	neorg_pair("<Bar>", "|")
+	neorg_pair("`")
 	-- neorg_pair("^")
-	-- neorg_pair(",")
-	-- neorg_pair("$")
-	-- neorg_pair("=")
-	-- neorg_pair("+")
+	neorg_pair(",")
+	neorg_pair("$")
+	neorg_pair("=", "=")
+	neorg_pair("+", "+")
 
 	-- Tasks:
 	add_rule({
 		char = "[",
 		input = "[ ]",
 		at = [[^\s*-\+\s*\%#]],
+		filetype = "norg",
+	})
+	add_rule({
+		char = "<BS>",
+		delete = 3,
+		at = [[^\s*-\+\s*\[.\]\%#]],
 		filetype = "norg",
 	})
 
