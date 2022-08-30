@@ -54,7 +54,7 @@ vim.opt.shortmess:append("c")
 vim.opt.complete:remove("i")
 
 -- <C-z> expands wildcards in command mode
-vim.opt.wildcharm = vim.fn.char2nr("^Z")
+vim.cmd([[set wildcharm=<C-z>]])
 -- Set path to current file direction and pwd:
 vim.opt.path = ".,,"
 
