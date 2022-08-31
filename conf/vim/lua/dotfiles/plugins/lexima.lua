@@ -52,7 +52,7 @@ local function lexima_rules()
 		add_rule({
 			char = char,
 			input_after = char,
-			except = [[^\s*\%#]],
+			except = [[^\s*]] .. esc_char .. [[*\%#]],
 			filetype = "norg",
 		})
 		add_rule({
