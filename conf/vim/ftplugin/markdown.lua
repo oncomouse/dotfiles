@@ -31,4 +31,6 @@ end, {
 	nargs = 1,
 })
 
-vim.cmd("nmap <buffer> O O<cmd>lua require('autolist').list()<cr>")
+vim.keymap.set("n", "O", "O<cmd>lua require('autolist').list()<cr>", {
+	buffer = true,
+})
