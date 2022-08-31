@@ -51,6 +51,12 @@ local function lexima_rules()
 		esc_char = esc_char and esc_char or [[\]] .. char
 		add_rule({
 			char = char,
+			leave = 1,
+			at = [[\%#]] .. esc_char,
+			filetype = "norg",
+		})
+		add_rule({
+			char = char,
 			input_after = char,
 			except = [[^\s*]] .. esc_char .. [[*\%#]],
 			filetype = "norg",
