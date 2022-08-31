@@ -69,10 +69,10 @@ local function lexima_rules()
 	neorg_pair("<Bar>", "|")
 	neorg_pair("`")
 	neorg_pair("^")
-	neorg_pair(",")
+	-- neorg_pair(",")
 	neorg_pair("$")
-	neorg_pair("=", "=")
-	neorg_pair("+", "+")
+	-- neorg_pair("=", "=")
+	-- neorg_pair("+", "+")
 
 	-- Tasks:
 	add_rule({
