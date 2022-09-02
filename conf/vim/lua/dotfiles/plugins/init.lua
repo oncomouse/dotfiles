@@ -13,7 +13,8 @@ local function plugins()
 	end
 
 	return require("packer").startup({
-		function(use)
+		function(use, use_rocks)
+			use_rocks("lpeg")
 			use({
 				{ "wbthomason/packer.nvim", opt = true },
 
