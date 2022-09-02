@@ -1,4 +1,5 @@
-local function parse_bibtex(data)
+local M = {}
+function M.parse_bibtex(data)
 	local entries = {}
 	local matches = {}
 	local raw_entry
@@ -43,27 +44,23 @@ end
 local function escape_bibfile(file)
 	return string.gsub(file, " ", "\\ ")
 end
-local function parse_bibfiles(bibfiles)
+function M.parse_bibfiles(bibfiles)
 	if type(bibfiles) == "table" then
 		return vim.tbl_map(escape_bibfile, bibfiles)
 	end
 	return escape_bibfile(bibfiles)
 end
-local function query_bibtex(bibfiles, key)
+function M.query_bibtex(bibfiles, key)
 	local handle = io.popen(
 		"bash -c 'bibtool -r biblatex -X \"^"
 			.. string.gsub(key, "@", "")
 			.. '" '
-			.. parse_bibfiles(bibfiles)
+			.. M.parse_bibfiles(bibfiles)
 			.. ' -- "keep.field {title}" -- "keep.field {author}" -- "keep.field {date}" -- "print.line.length {400}"\''
 	)
 	local results = handle:read("*a")
 	handle:close()
-	return parse_bibtex(results)
+	return M.parse_bibtex(results)
 end
 
-return {
-	query_bibtex = query_bibtex,
-	parse_bibfiles = parse_bibfiles,
-	parse_bibtex = parse_bibtex,
-}
+return M
