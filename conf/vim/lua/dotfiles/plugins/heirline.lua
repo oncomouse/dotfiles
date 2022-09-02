@@ -168,7 +168,7 @@ local function config_heirline()
 	}
 
 	local FileName = {
-		init = utils.pick_child_on_condition,
+		fallthrough = false,
 		FileNameHelp,
 		{
 			provider = function(self)
@@ -182,7 +182,7 @@ local function config_heirline()
 	}
 
 	local FileFlags = {
-		init = utils.pick_child_on_condition,
+		fallthrough = false,
 		condition = function()
 			return not conditions.buffer_matches({
 				buftype = { "help" },
@@ -327,7 +327,7 @@ local function config_heirline()
 	}
 
 	local SpecialFileName = {
-		init = utils.pick_child_on_condition,
+		fallthrough = false,
 		FileNameTerminal,
 		FileNameQF,
 		FileNameFromFiletype,
@@ -367,7 +367,7 @@ local function config_heirline()
 			end
 		end,
 
-		init = utils.pick_child_on_condition,
+		fallthrough = false,
 
 		StatuslineSpecial,
 		StatuslineNC,
