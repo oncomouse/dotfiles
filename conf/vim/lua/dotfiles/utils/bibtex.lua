@@ -1,3 +1,5 @@
+local parser = require("dotfiles.utils.bibtex.parser")
+
 local M = {}
 function M.parse_bibtex(data)
 	local matches = {}
@@ -30,7 +32,6 @@ end
 function M.query_bibtex(bibfiles, key)
 	bibfiles = M.parse_bibfiles(type(bibfiles) == "string" and { bibfiles } or bibfiles)
 	local results = {}
-	local parser = require("dotfiles.utils.bibtex.parser")
 	for _,bibfile in pairs(bibfiles) do
 		local fp = assert(io.open(bibfile, "rb"))
 		local contents = parser:match(fp:read("*a"))
