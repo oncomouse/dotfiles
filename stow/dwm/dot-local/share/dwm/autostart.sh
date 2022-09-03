@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #shellcheck disable=1090
-picom --experimental-backends -b --config ~/dotfiles/conf/picom/dwm.conf
+picom -b --config ~/dotfiles/conf/picom/dwm.conf
 pkill dwmblocks
 dwmblocks &
 

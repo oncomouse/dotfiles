@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-picom --experimental-backends -b --config ~/dotfiles/conf/picom/common.conf
+picom -b --config ~/dotfiles/conf/picom/common.conf
 
 
 source ~/dotfiles/conf/xorg/xinit.d/no-xfce4

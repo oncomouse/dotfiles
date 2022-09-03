@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #shellcheck disable=1090
 
-picom --experimental-backends -b --config ~/dotfiles/conf/picom/sdorfehs.conf
+picom -b --config ~/dotfiles/conf/picom/sdorfehs.conf
 
 source ~/dotfiles/conf/xorg/xinit.d/no-xfce4
 source ~/dotfiles/conf/xorg/xinit.d/dunst
