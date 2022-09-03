@@ -14,7 +14,9 @@ local function plugins()
 
 	return require("packer").startup({
 		function(use, use_rocks)
-			use_rocks("lpeg")
+			use_rocks({
+				{ "lpeg-bibtex", server = "https://luarocks.org/dev" }
+			})
 			use({
 				{ "wbthomason/packer.nvim", opt = true },
 

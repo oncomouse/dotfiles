@@ -1,4 +1,4 @@
-local parser = require("dotfiles.utils.bibtex.parser")
+local parser = require("lpeg-bibtex")
 
 local M = {}
 function M.parse_bibtex(data)
