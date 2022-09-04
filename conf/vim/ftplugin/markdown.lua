@@ -30,7 +30,3 @@ vim.api.nvim_create_user_command("Pandoc", function(args)
 end, {
 	nargs = 1,
 })
-
-vim.keymap.set("n", "O", "O<cmd>lua require('autolist').list()<cr>", {
-	buffer = true,
-})
