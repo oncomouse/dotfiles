@@ -26,7 +26,7 @@ return h.make_builtin({
 	name = "bibtex",
 	generator_opts = {
 		runtime_condition = function(params)
-			params.bibfiles = vim.g.bibfiles
+			params.bibfiles = require("nvim-ref").config.bibfiles
 			return true
 		end,
 	},

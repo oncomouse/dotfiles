@@ -6,15 +6,10 @@ function M.parse_bibtex(data)
 	for _,entry in pairs(data) do
 		local entry_content = {
 			key = entry.key,
+			kind = entry.kind,
 		}
 		for _,item in pairs(entry.contents or {}) do
-			if item.key == "author" then
-				entry_content.author = item.value:gsub("[,}{]", "")
-			elseif item.key == "title" then
-				entry_content.title = item.value:gsub("[,}{]", "")
-			elseif item.key == "date" then
-				entry_content.date = item.value
-			end
+			entry_content[item.key] = item.value:gsub("[,}{]", "")
 		end
 		table.insert(matches, entry_content)
 	end
