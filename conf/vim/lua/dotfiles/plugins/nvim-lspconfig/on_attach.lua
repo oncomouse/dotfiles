@@ -12,12 +12,24 @@ local function on_attach(client, buf_num)
 	end
 	-- Use C+x C+o for completion:
 	-- if client.server_capabilities.completionProvider then
-	-- 	vim.bo[buf_num].omnifunc = "v:lua.vim.lsp.omnifunc"
+	-- 	vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
 	-- end
 	-- Use C+x C+] for tags:
 	if client.server_capabilities.definitionProvider then
-		vim.bo[buf_num].tagfunc = "v:lua.vim.lsp.tagfunc"
+		vim.opt_local.tagfunc = "v:lua.vim.lsp.tagfunc"
 	end
+	-- Use K for hover (except in VimL):
+	if vim.opt_local.ft:get() ~= "vim" then
+		vim.api.nvim_buf_create_user_command(buf_num, "Hover", function()
+			vim.lsp.buf.hover()
+		end, {
+			desc = "lua vim.lsp.buf.hover()",
+			force = true,
+			nargs = "+",
+		})
+		vim.opt_local.keywordprg = ":Hover"
+	end
+	-- LSP-specific maps:
 	vim.keymap.set("n", "<leader>s", vim.lsp.buf.document_symbol, {
 		silent = true,
 		noremap = true,
@@ -36,9 +48,6 @@ local function on_attach(client, buf_num)
 		buffer = true,
 		desc = "lua vim.lsp.buf.definition()",
 	})
-	-- if client.server_capabilities.gotoDefinitionProvider == true then
-	vim.opt_local.tagfunc = "v:lua.vim.lsp.tagfunc"
-	-- end
 	vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, {
 		silent = true,
 		noremap = true,
@@ -81,16 +90,6 @@ local function on_attach(client, buf_num)
 		buffer = true,
 		desc = "lua vim.lsp.buf.range_code_action()",
 	})
-	if vim.opt_local.ft:get() ~= "vim" then
-		vim.api.nvim_buf_create_user_command(buf_num, "Hover", function()
-			vim.lsp.buf.hover()
-		end, {
-			desc = "lua vim.lsp.buf.hover()",
-			force = true,
-			nargs = "+",
-		})
-		vim.opt_local.keywordprg = ":Hover"
-	end
 	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, {
 		silent = true,
 		noremap = true,
