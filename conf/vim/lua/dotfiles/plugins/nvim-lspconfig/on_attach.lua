@@ -81,12 +81,16 @@ local function on_attach(client, buf_num)
 		buffer = true,
 		desc = "lua vim.lsp.buf.range_code_action()",
 	})
-	vim.keymap.set("n", "K", require("dotfiles.plugins.nvim-lspconfig.show_documentation"), {
-		silent = true,
-		noremap = true,
-		buffer = true,
-		desc = "lua require('dotfiles.plugins.nvim-lspconfig.show_documentation')()",
-	})
+	if vim.opt_local.ft:get() ~= "vim" then
+		vim.api.nvim_buf_create_user_command(buf_num, "Hover", function()
+			vim.lsp.buf.hover()
+		end, {
+			desc = "lua vim.lsp.buf.hover()",
+			force = true,
+			nargs = "+",
+		})
+		vim.opt_local.keywordprg = ":Hover"
+	end
 	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, {
 		silent = true,
 		noremap = true,
