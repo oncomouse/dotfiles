@@ -5,7 +5,7 @@
 -- Somewhere in an ftplugin/markdown.vim file (or with an autocmd)
 local h = require("null-ls.helpers")
 local methods = require("null-ls.methods")
-local bibtex = require("dotfiles.utils.bibtex")
+local bibtex = require("nvim-ref.utils.bibtex")
 
 local HOVER = methods.internal.HOVER
 
