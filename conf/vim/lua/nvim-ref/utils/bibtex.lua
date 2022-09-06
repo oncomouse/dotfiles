@@ -25,6 +25,9 @@ function M.parse_bibfiles(bibfiles)
 	return escape_bibfile(bibfiles)
 end
 function M.query_bibtex(bibfiles, key)
+	if not string.match(key, "^@") then
+		key = "@" .. key
+	end
 	bibfiles = M.parse_bibfiles(type(bibfiles) == "string" and { bibfiles } or bibfiles)
 	local results = {}
 	for _,bibfile in pairs(bibfiles) do
