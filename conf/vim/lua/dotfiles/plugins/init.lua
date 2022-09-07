@@ -15,7 +15,7 @@ local function plugins()
 	return require("packer").startup({
 		function(use, use_rocks)
 			use_rocks({
-				{ "lpeg-bibtex", server = "https://luarocks.org/dev" }
+				{ "lpeg-bibtex", server = "https://luarocks.org/dev" },
 			})
 			use({
 				{ "wbthomason/packer.nvim", opt = true },
@@ -382,6 +382,8 @@ local function plugins()
 						vim.g.vim_markdown_conceal = 0 -- Don't conceal
 						vim.g.vim_markdown_conceal_code_blocks = 0 -- Don't conceal code blocks
 						vim.g.vim_markdown_math = 1 -- Do process MathJaX and LaTeX math
+						vim.g.vim_markdown_auto_insert_bullets = 0 -- autoList handles bullet insertion now
+						vim.g.vim_markdown_new_list_item_indent = 0 -- autoList handles spacing for lists
 					end,
 					requires = {
 						{ -- Required for TableFormat in vim-markdown but also useful elsewhere
@@ -391,7 +393,15 @@ local function plugins()
 						{
 							"gaoDean/autolist.nvim",
 							config = function()
-								require("autolist").setup()
+								require("autolist").setup({
+									colon = {
+										preferred = "*",
+									},
+									invert = {
+										mapping = "",
+										ul_marker = "*",
+									},
+								})
 							end,
 						},
 					},
