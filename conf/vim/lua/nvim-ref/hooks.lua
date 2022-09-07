@@ -10,6 +10,7 @@ end
 
 function M.add_hook(name, cb)
 	assert(hooks[name] ~= nil, "Attempt to attach to undefined hook, " .. name .. "!")
+	assert(type(cb) == "function", "Attempt to attach something that is not a function to hook, " .. name .. "!")
 	table.insert(hooks[name], cb)
 end
 
