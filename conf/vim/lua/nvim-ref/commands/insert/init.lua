@@ -1,4 +1,3 @@
-local format = require("nvim-ref.format")
 local hooks = require("nvim-ref.hooks")
 local M = {}
 
@@ -30,7 +29,7 @@ local function get_cursor_column()
 	return col
 end
 
-local function insert(cite)
+function M.insert(cite)
 	local c = vim.fn.col(".")
 	local line = vim.api.nvim_get_current_line()
 	local before = line:sub(1, c - 1)
@@ -50,16 +49,6 @@ local function insert(cite)
 			vim.api.nvim_feedkeys("i", "", false)
 		end
 	end
-end
-
-function M.key(citation)
-	local cite = format.get_key(citation)
-	return insert(cite)
-end
-
-function M.citation(citation)
-	local cite = format.get_citation(citation)
-	return insert(cite)
 end
 
 return M

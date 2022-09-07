@@ -3,10 +3,10 @@ local function buffer_type()
 	return vim.opt_local.filetype:get()
 end
 
-function M.get_key(citation)
+function M.get_ref(citation)
 	local bt = buffer_type()
 	if bt == "tex" or bt == "latex" then
-		return "\\cite{" .. citation.key "}"
+		return "\\cite{" .. citation.key .. "}"
 	elseif bt == "org" then
 		return "[cite:@" .. citation.key .. ";]"
 	end

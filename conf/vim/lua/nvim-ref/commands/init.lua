@@ -62,15 +62,22 @@ function cmd(args)
 	end
 end
 
-function M.invoker(command, subcommand, args)
-	print(string.format("Running %s.%s(%s)", command, subcommand, vim.inspect(args)))
+function M.dispatcher(command, subcommand, args)
+	local target = command
+	if subcommand ~= nil then
+		target = string.format("%s.%s", command, subcommand)
+	end
+	local ok, func = pcall(require, string.format("nvim-ref.commands.%s", target))
+	assert(ok, string.format("Could not load command, %s, ", target))
+	assert(type(func) == "function", string.format("Loaded command, %s, is not a function.", target))
+	func(args)
 end
 
 function M.run(command, args)
 	local subcommand = nil
 	command, subcommand = unpack(vim.fn.split(command, "\\."))
 	assert(commands[command] ~= nil, "Attempt to run unknown command, " .. command .. "!")
-	M.invoker(command, subcommand, args)
+	M.dispatcher(command, subcommand, args)
 end
 
 function M.complete(typed)

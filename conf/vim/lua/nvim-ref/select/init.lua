@@ -1,10 +1,7 @@
 local bibtex = require("nvim-ref.utils.bibtex")
 local M = {}
 
-M.insert = function(query, args)
-	args = args or {
-		type = "key"
-	}
+M.citation = function(cb, query)
 	local results = bibtex.query_bibtex(require("nvim-ref").config.bibfiles, query or "")
 	vim.ui.select(results, {
 		prompt = "Digraph: ",
@@ -12,7 +9,7 @@ M.insert = function(query, args)
 			return string.format("@%s: %s - %s [%s]", item.key, item.author, item.title, item.kind)
 		end,
 	}, function(choice)
-		require("nvim-ref.insert")[args.type](choice)
+		cb(choice)
 	end)
 end
 

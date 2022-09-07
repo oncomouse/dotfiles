@@ -8,7 +8,7 @@ function M.setup(opts)
 	M.hooks.define_hook("setup_done")
 	require("nvim-ref.commands").make_command()
 	M.commands = { 
-		invoker = require("nvim-ref.commands").invoker,
+		invoker = require("nvim-ref.commands").dispatcher,
 	}
 	-- Boot up default commands:
 	for _,cmd in pairs(M.config.commands) do
