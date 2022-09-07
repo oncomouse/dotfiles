@@ -93,6 +93,7 @@ local function config_neorg()
 			end, {
 				expr = true,
 				buffer = true,
+				desc = "Override <C-d> for neorg"
 			})
 		end,
 		group = "dotfiles-settings",

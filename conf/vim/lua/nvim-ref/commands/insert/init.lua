@@ -1,5 +1,29 @@
 local format = require("nvim-ref.format")
+local hooks = require("nvim-ref.hooks")
 local M = {}
+
+hooks.add_hook("setup_done", function()
+	hooks.run_hook("add_command", {
+		id = "insert",
+		name = "Insert a citation",
+		subcommands = {
+			{
+				id = "ref",
+				name = "Insert a reference",
+				callback = function()
+					require("nvim-ref.insert.select")("", { type = "ref" })
+				end,
+			},
+			{
+				id = "citation",
+				name = "Insert a full citation",
+				callback = function()
+					require("nvim-ref.insert.select")("", { type = "citation" })
+				end,
+			},
+		},
+	})
+end)
 
 local function get_cursor_column()
 	local _, col = unpack(vim.api.nvim_win_get_cursor(0))

@@ -1,5 +1,8 @@
 local default_config = {
-	bibfiles = {}
+	bibfiles = {},
+	commands = {
+		"insert",
+	}
 }
 local function config(opts)
 	if opts.bibfiles and type(opts.bibfiles) == "string" then
