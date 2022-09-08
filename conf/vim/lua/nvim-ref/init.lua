@@ -8,8 +8,6 @@ function M.setup(opts)
 	M.config = config(opts)
 	M.hooks = require("nvim-ref.hooks")
 	M.hooks.define_hook("setup_done")
-	M.hooks.define_hook("add_command")
-	M.hooks.define_hook("add_filetype")
 	M.filetypes = require("nvim-ref.filetypes").filetypes
 	M.commands = { 
 		run = require("nvim-ref.commands").run,

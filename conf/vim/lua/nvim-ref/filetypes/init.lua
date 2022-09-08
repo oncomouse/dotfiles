@@ -8,6 +8,8 @@ M.filetypes = {}
 -- type: string for filetype pattern
 -- }
 
+hooks.define_hook("add_filetype")
+
 function M.require(ft)
 	if not M.filetypes[ft] then
 		error(string.format("Unknown filetype, %s!", ft))
