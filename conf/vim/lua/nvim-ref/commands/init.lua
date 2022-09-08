@@ -46,7 +46,9 @@ function M.run(command, args)
 				return commands[item].name
 			end,
 		}, function(choice)
-			M.run(choice, {})
+			if choice ~= nil then
+				M.run(choice, {})
+			end
 		end)
 		return
 	end
@@ -61,7 +63,9 @@ function M.run(command, args)
 				return item.name
 			end,
 		}, function(choice)
-			M.run(command .. "." .. choice.id, {})
+			if choice ~= nil then
+				M.run(command .. "." .. choice.id, {})
+			end
 		end)
 	elseif commands[command].callback then -- Otherwise, we have a calllback function, so we run it:
 		assert(
