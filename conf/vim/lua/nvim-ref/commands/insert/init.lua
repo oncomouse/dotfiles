@@ -10,14 +10,14 @@ hooks.add_hook("setup_done", function()
 				id = "ref",
 				name = "Insert a reference",
 				callback = function()
-					require("nvim-ref.commands.insert.select")("", { type = "ref" })
+					require("nvim-ref.select").citation(M.ref)
 				end,
 			},
 			{
 				id = "citation",
 				name = "Insert a full citation",
 				callback = function()
-					require("nvim-ref.commands.insert.select")("", { type = "citation" })
+					require("nvim-ref.select").citation(M.citation)
 				end,
 			},
 		},
@@ -28,6 +28,17 @@ local function get_cursor_column()
 	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col
 end
+
+function M.ref(citation)
+	local cite = require("nvim-ref.format").get_ref(citation)
+	M.insert(cite)
+end
+
+function M.citation(citation)
+	local cite = require("nvim-ref.format").get_citation(citation)
+	M.insert(cite)
+end
+
 
 function M.insert(cite)
 	local c = vim.fn.col(".")
