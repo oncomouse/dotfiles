@@ -9,29 +9,6 @@ local function insert_callback(cb, args)
 	end
 end
 
-hooks.add_hook("setup_done", function()
-	hooks.run_hook("add_command", {
-		id = "insert",
-		name = "Insert a citation",
-		subcommands = {
-			{
-				id = "ref",
-				name = "Insert a reference",
-				callback = function(args)
-					insert_callback(M.ref, args)
-				end,
-			},
-			{
-				id = "citation",
-				name = "Insert a full citation",
-				callback = function(args)
-					insert_callback(M.citation, args)
-				end,
-			},
-		},
-	})
-end)
-
 local function get_cursor_column()
 	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col
@@ -68,6 +45,29 @@ function M.insert(cite)
 			vim.api.nvim_feedkeys("i", "", false)
 		end
 	end
+end
+
+function M.setup()
+	hooks.run_hook("add_command", {
+		id = "insert",
+		name = "Insert a citation",
+		subcommands = {
+			{
+				id = "ref",
+				name = "Insert a reference",
+				callback = function(args)
+					insert_callback(M.ref, args)
+				end,
+			},
+			{
+				id = "citation",
+				name = "Insert a full citation",
+				callback = function(args)
+					insert_callback(M.citation, args)
+				end,
+			},
+		},
+	})
 end
 
 return M

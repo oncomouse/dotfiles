@@ -16,8 +16,15 @@ function M.setup(opts)
 		if string.match(cmd, "[.]") then -- Handle accidental subcommand inclusions by the user
 			cmd = vim.fn.split(cmd, "\\.")[1]
 		end
-		local ok = pcall(require, "nvim-ref.commands." .. cmd)
-		assert(ok, "Could not load default command, nvim-ref.commands." .. cmd .. "!")
+		local ok, command = pcall(require, "nvim-ref.commands." .. cmd)
+		if not ok then
+			ok, command = pcall(require, cmd)
+			assert(ok, "Could not load default command, " .. cmd .. "!")
+		else
+			cmd = "nvim-ref.commands." .. cmd
+		end
+		assert(type(command.setup) == "function", "Could not call .setup() on " .. cmd .. " as it is not a function!")
+		command.setup()
 	end
 	-- TODO: Autocommand(s) to scan for and load bibliography files in document metadata
 	M.hooks.run_hook("setup_done")
