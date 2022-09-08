@@ -9,38 +9,20 @@ local bibtex = require("nvim-ref.utils.bibtex")
 
 local HOVER = methods.internal.HOVER
 
-local function make_item(entry_contents)
-	return "*Author*: "
-		.. (entry_contents.author or "")
-		.. "\n"
-		.. "*Title*: "
-		.. (entry_contents.title or "")
-		.. "\n"
-		.. "*Year*: "
-		.. (entry_contents.date or "")
-end
-
 return h.make_builtin({
 	method = HOVER,
 	filetypes = { "markdown" },
 	name = "bibtex",
-	generator_opts = {
-		runtime_condition = function(params)
-			params.bibfiles = require("nvim-ref").config.bibfiles
-			return true
-		end,
-	},
 	generator = {
-		fn = function(params, done)
+		fn = function(_, done)
 			local cword = vim.fn.expand("<cword>")
 
-			if not string.find(cword, "@", 1, true) then
-				done()
-				return
+			if string.match(cword, "^@") then
+				cword = string.sub(cword, 2)
 			end
-			local results = bibtex.query_bibtex(params.bibfiles, cword)
+			local results = bibtex.query_bibtex(require("nvim-ref").config.bibfiles, cword)
 			if results[1].key == cword then
-				done({ make_item(results[1]) })
+				done({ require("nvim-ref.format").get_markdown_documentation(results[1]) })
 			else
 				done()
 			end

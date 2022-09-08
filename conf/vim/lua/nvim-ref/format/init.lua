@@ -33,4 +33,15 @@ function M.get_citation(citation)
 	}
 end
 
+function M.get_markdown_documentation(citation)
+	local documentation = {
+		"*Author*: " .. (citation.author or ""),
+		"*Title*: " .. (citation.title or ""),
+		"*Year*: " .. (citation.date or ""),
+	}
+	documentation = require("vim.lsp.util").convert_input_to_markdown_lines(documentation)
+	documentation = table.concat(documentation, "\n")
+	return documentation
+end
+
 return M

@@ -9,24 +9,13 @@ local bibtex = require("nvim-ref.utils.bibtex")
 
 local COMPLETION = methods.internal.COMPLETION
 
-local function make_documentation(entry_contents)
-	local documentation = {
-		"*Author*: " .. (entry_contents.author or ""),
-		"*Title*: " .. (entry_contents.title or ""),
-		"*Year*: " .. (entry_contents.date or ""),
-	}
-	documentation = require("vim.lsp.util").convert_input_to_markdown_lines(documentation)
-	documentation = table.concat(documentation, "\n")
-	return documentation
-end
-
 local function make_item(entry_contents)
 	return {
 		label = entry_contents.key,
 		detail = (entry_contents.title or ""),
 		documentation = {
 			kind = vim.lsp.protocol.MarkupKind.Markdown,
-			value = make_documentation(entry_contents),
+			value = require("nvim-ref.format").get_markdown_documentation(entry_contents),
 		},
 		kind = vim.lsp.protocol.CompletionItemKind["Keyword"],
 	}
@@ -36,20 +25,15 @@ return h.make_builtin({
 	method = COMPLETION,
 	filetypes = { "markdown", "latex" },
 	name = "bibtex",
-	generator_opts = {
-		runtime_condition = function(params)
-			params.bibfiles = require("nvim-ref").config.bibfiles
-			return true
-		end,
-	},
 	generator = {
 		fn = function(params, done)
+			-- TODO: This only works in Markdown
 			if not string.find(params.word_to_complete, "@", 1, true) then
 				done({ { items = {}, isIncomplete = false } })
 				return
 			end
 
-			local results = bibtex.query_bibtex(params.bibfiles, params.word_to_complete)
+			local results = bibtex.query_bibtex(require("nvim-ref").config.bibfiles, params.word_to_complete)
 			local items = {}
 			for _, item in ipairs(results) do
 				table.insert(items, make_item(item))
