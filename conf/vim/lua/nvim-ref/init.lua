@@ -8,10 +8,13 @@ function M.setup(opts)
 	M.hooks.define_hook("setup_done")
 	require("nvim-ref.commands").make_command()
 	M.commands = { 
-		invoker = require("nvim-ref.commands").dispatcher,
+		run = require("nvim-ref.commands").run,
 	}
 	-- Boot up default commands:
 	for _,cmd in pairs(M.config.commands) do
+		if string.match(cmd, "[.]") then -- Handle accidental subcommand inclusions by the user
+			cmd = vim.fn.split(cmd, "\\.")[1]
+		end
 		local ok = pcall(require, "nvim-ref.commands." .. cmd)
 		assert(ok, "Could not load default command, nvim-ref.commands." .. cmd .. "!")
 	end

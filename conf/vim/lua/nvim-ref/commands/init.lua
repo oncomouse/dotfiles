@@ -46,7 +46,6 @@ function M.run(command, args)
 	assert(commands[command] ~= nil, "Attempt to run unknown command, " .. command .. "!")
 
 	if commands[command].subcommands then -- We still have subcommands, so let the user choose one:
-		-- Choose a subcommand:
 		local choices = commands[command].subcommands
 		vim.ui.select(choices, {
 			prompt = "Choose a subcommand for " .. command,
@@ -57,6 +56,7 @@ function M.run(command, args)
 			M.run(command .. "." .. choice.id, {})
 		end)
 	elseif commands[command].callback then -- Otherwise, we have a calllback function, so we run it:
+		assert(type(commands[command].callback) == "function", string.format("Callback for command, %s, is not a function!", command))
 		commands[command].callback(args)
 	else -- Lastly, attempt to load a lua module with our function in it:
 		local ok, func = pcall(require, string.format("nvim-ref.commands.%s", command))

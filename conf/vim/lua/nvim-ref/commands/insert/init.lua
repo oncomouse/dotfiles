@@ -1,6 +1,14 @@
 local hooks = require("nvim-ref.hooks")
 local M = {}
 
+local function insert_callback(cb, args)
+	if #args == 0 then
+		require("nvim-ref.select").citation(cb)
+	else
+		cb(require("nvim-ref.citations").get_citation(args))
+	end
+end
+
 hooks.add_hook("setup_done", function()
 	hooks.run_hook("add_command", {
 		id = "insert",
@@ -9,15 +17,15 @@ hooks.add_hook("setup_done", function()
 			{
 				id = "ref",
 				name = "Insert a reference",
-				callback = function()
-					require("nvim-ref.select").citation(M.ref)
+				callback = function(args)
+					insert_callback(M.ref, args)
 				end,
 			},
 			{
 				id = "citation",
 				name = "Insert a full citation",
-				callback = function()
-					require("nvim-ref.select").citation(M.citation)
+				callback = function(args)
+					insert_callback(M.citation, args)
 				end,
 			},
 		},

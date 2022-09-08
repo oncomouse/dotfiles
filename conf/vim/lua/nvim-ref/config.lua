@@ -1,8 +1,9 @@
 local default_config = {
 	bibfiles = {},
 	commands = {
-		"capture",
 		"insert",
+		"capture",
+		"edit",
 	}
 }
 local function config(opts)
