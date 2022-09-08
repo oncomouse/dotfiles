@@ -1,6 +1,8 @@
 local config = require("nvim-ref.config")
 local M = {}
 
+-- TODO: cmp source
+
 function M.setup(opts)
 	opts = opts or {}
 	M.config = config(opts)
