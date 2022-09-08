@@ -1,6 +1,7 @@
 local default_config = {
 	bibfiles = {},
 	commands = {
+		"capture",
 		"insert",
 	}
 }

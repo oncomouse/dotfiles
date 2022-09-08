@@ -3,22 +3,18 @@ local M = {}
 
 hooks.add_hook("setup_done", function()
 	hooks.run_hook("add_command", {
-		id = "insert",
-		name = "Insert a citation",
+		id = "capture",
+		name = "Capture BibTeX from a source",
 		subcommands = {
 			{
-				id = "ref",
-				name = "Insert a reference",
-				callback = function()
-					require("nvim-ref.commands.insert.select")("", { type = "ref" })
-				end,
+				id = "doi",
+				name = "Capture using a DOI",
+				callback = function() end,
 			},
 			{
-				id = "citation",
-				name = "Insert a full citation",
-				callback = function()
-					require("nvim-ref.commands.insert.select")("", { type = "citation" })
-				end,
+				id = "isbn",
+				name = "Capture using an ISBN",
+				callback = function() end,
 			},
 		},
 	})
@@ -52,3 +48,4 @@ function M.insert(cite)
 end
 
 return M
+

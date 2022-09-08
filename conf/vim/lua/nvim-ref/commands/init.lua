@@ -2,24 +2,33 @@ local hooks = require("nvim-ref.hooks")
 local M = {}
 
 local commands = {}
+local top_level_commands = {}
 
 hooks.define_hook("add_command")
 hooks.add_hook("add_command", function(args)
-	local function add_command(command)
-		commands[command.id] = command
+	local function add_command(command, ns)
+		ns = ns and ns .. "." or ""
+		commands[ns .. command.id] = command
+		if command.subcommands and type(command.subcommands) == "table" then
+			for _, subcommand in pairs(command.subcommands) do
+				add_command(subcommand, ns .. command.id)
+			end
+		end
 	end
 	if args.id ~= nil then
 		add_command(args)
+		table.insert(top_level_commands, args.id)
 	else
 		for _, command in pairs(args) do
 			add_command(command)
+			table.insert(top_level_commands, command.id)
 		end
 	end
 end)
 
 function cmd(args)
 	if #args.fargs == 0 then
-		local choices = M.complete(".")
+		local choices = top_level_commands
 		vim.ui.select(choices, {
 			prompt = "Choose an nvim-ref command: ",
 			format_item = function(item)
@@ -31,6 +40,7 @@ function cmd(args)
 			})
 		end)
 	else
+		-- TODO: Fix nested subcommands
 		local command, subcommand = unpack(vim.fn.split(args.fargs[1], "\\."))
 		assert(commands[command] ~= nil, "Attempt to run unknown command, " .. command .. "!")
 		if subcommand == nil and #args.fargs > 1 then
