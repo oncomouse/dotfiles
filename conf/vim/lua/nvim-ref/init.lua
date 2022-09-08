@@ -6,7 +6,6 @@ function M.setup(opts)
 	M.config = config(opts)
 	M.hooks = require("nvim-ref.hooks")
 	M.hooks.define_hook("setup_done")
-	require("nvim-ref.commands").make_command()
 	M.commands = { 
 		run = require("nvim-ref.commands").run,
 	}
@@ -18,6 +17,7 @@ function M.setup(opts)
 		local ok = pcall(require, "nvim-ref.commands." .. cmd)
 		assert(ok, "Could not load default command, nvim-ref.commands." .. cmd .. "!")
 	end
+	-- TODO: Autocommand(s) to scan for and load bibliography files in document metadata
 	M.hooks.run_hook("setup_done")
 end
 

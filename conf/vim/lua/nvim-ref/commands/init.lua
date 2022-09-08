@@ -26,23 +26,31 @@ hooks.add_hook("add_command", function(args)
 	end
 end)
 
-function cmd(args)
-	if #args.fargs == 0 then
-		local choices = top_level_commands
-		vim.ui.select(choices, {
+-- Define default command:
+hooks.add_hook("setup_done", function()
+	vim.api.nvim_create_user_command("NvimRef", function(args)
+		M.run(args.fargs[1], vim.list_slice(args.fargs, 2))
+	end, {
+		force = true,
+		complete = M.complete,
+		nargs = "*",
+	})
+end)
+
+function M.run(command, args)
+	-- Run with no arguments
+	if command == nil then
+		vim.ui.select(top_level_commands, {
 			prompt = "Choose an nvim-ref command: ",
 			format_item = function(item)
 				return commands[item].name
 			end,
 		}, function(choice)
-			M.run(choice, vim.list_slice(args.fargs, 2))
+			M.run(choice, {})
 		end)
-	else
-		M.run(args.fargs[1], vim.list_slice(args.fargs, 2))
+		return
 	end
-end
 
-function M.run(command, args)
 	assert(commands[command] ~= nil, "Attempt to run unknown command, " .. command .. "!")
 
 	if commands[command].subcommands then -- We still have subcommands, so let the user choose one:
@@ -56,7 +64,10 @@ function M.run(command, args)
 			M.run(command .. "." .. choice.id, {})
 		end)
 	elseif commands[command].callback then -- Otherwise, we have a calllback function, so we run it:
-		assert(type(commands[command].callback) == "function", string.format("Callback for command, %s, is not a function!", command))
+		assert(
+			type(commands[command].callback) == "function",
+			string.format("Callback for command, %s, is not a function!", command)
+		)
 		commands[command].callback(args)
 	else -- Lastly, attempt to load a lua module with our function in it:
 		local ok, func = pcall(require, string.format("nvim-ref.commands.%s", command))
@@ -71,14 +82,6 @@ function M.complete(typed)
 	return vim.tbl_filter(function(x)
 		return string.match(x, "^" .. typed)
 	end, vim.tbl_keys(commands))
-end
-
-function M.make_command()
-	vim.api.nvim_create_user_command("NvimRef", cmd, {
-		force = true,
-		complete = M.complete,
-		nargs = "*",
-	})
 end
 
 return M
