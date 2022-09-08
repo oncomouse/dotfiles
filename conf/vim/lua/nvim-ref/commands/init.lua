@@ -4,7 +4,6 @@ local M = {}
 local commands = {}
 local top_level_commands = {}
 
-hooks.define_hook("add_command")
 hooks.add_hook("add_command", function(args)
 	local function add_command(command, ns)
 		ns = ns and ns .. "." or ""

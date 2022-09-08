@@ -6,31 +6,21 @@ end
 function M.get_ref(citation)
 	local bt = buffer_type()
 	if bt == "tex" or bt == "latex" then
-		return "\\cite{" .. citation.key .. "}"
+		return require("nvim-ref.filetypes.latex").ref(citation)
 	elseif bt == "org" then
-		return "[cite:@" .. citation.key .. ";]"
+		return require("nvim-ref.filetypes.org").ref(citation)
 	end
-	return "@" .. citation.key
+	return require("nvim-ref.filetypes.markdown").ref(citation)
 end
 
 function M.get_citation(citation)
 	local bt = buffer_type()
 	if bt == "tex" or bt == "latex" then
-		return {
-			before = "\\cite[",
-			after = "]{" .. citation.key "}"
-		}
+		return require("nvim-ref.filetypes.latex").citation(citation)
+	elseif bt == "org" then
+		return require("nvim-ref.filetypes.org").citation(citation)
 	end
-	if bt == "org" then
-		return {
-			before = "[cite:@" .. citation.key .. " ",
-			after = ";]"
-		}
-	end
-	return {
-		before = "[@" .. citation.key .. ", ",
-		after = "]",
-	}
+	return require("nvim-ref.filetypes.markdown").citation(citation)
 end
 
 function M.get_markdown_documentation(citation)

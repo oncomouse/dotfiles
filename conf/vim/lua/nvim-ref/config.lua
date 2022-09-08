@@ -4,7 +4,12 @@ local default_config = {
 		"insert",
 		"capture",
 		"edit",
-	}
+	},
+	filetypes = {
+		"latex",
+		"markdown",
+		"org",
+	},
 }
 local function config(opts)
 	if opts.bibfiles and type(opts.bibfiles) == "string" then
