@@ -20,7 +20,7 @@ return h.make_builtin({
 			if string.match(cword, "^@") then
 				cword = string.sub(cword, 2)
 			end
-			local results = bibtex.query_bibtex(require("nvim-ref").config.bibfiles, cword)
+			local results = require("nvim-ref.bibliography").query(cword)
 			if results[1].key == cword then
 				done({ require("nvim-ref.format").get_markdown_documentation(results[1]) })
 			else

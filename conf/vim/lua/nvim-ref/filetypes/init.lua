@@ -36,8 +36,9 @@ local function add_filetype(filetype)
 		callback = function(args)
 			hooks.run_hook("filetype", args)
 			local module = M.require(args.match)
+			-- Attach file bibliographies:
 			if module.find_bibliography and type(module.find_bibliography) == "function" then
-				print(vim.inspect(module.find_bibliography(args.buf)))
+				vim.b.nvim_ref_bibliographies = module.find_bibliography(args.buf)
 			end
 		end,
 	})

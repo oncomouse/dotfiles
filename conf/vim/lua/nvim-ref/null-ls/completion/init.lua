@@ -33,7 +33,7 @@ return h.make_builtin({
 				return
 			end
 
-			local results = bibtex.query_bibtex(require("nvim-ref").config.bibfiles, params.word_to_complete)
+			local results = require("nvim-ref.bibliography").query(params.word_to_complete)
 			local items = {}
 			for _, item in ipairs(results) do
 				table.insert(items, make_item(item))

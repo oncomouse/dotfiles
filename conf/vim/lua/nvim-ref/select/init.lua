@@ -5,7 +5,7 @@ M.citation = function(cb, query, opts)
 	opts = opts or {
 		prompt = "Select a citation"
 	}
-	local results = bibtex.query_bibtex(require("nvim-ref").config.bibfiles, query or "")
+	local results = require("nvim-ref.bibliography").query(query or "")
 	vim.ui.select(results, {
 		prompt = opts.prompt,
 		format_item = function(item)
