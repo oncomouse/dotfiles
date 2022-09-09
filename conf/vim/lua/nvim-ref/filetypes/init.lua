@@ -27,19 +27,32 @@ function M.require(ft)
 	end
 end
 
+local function scan_bibliography(buf)
+	buf = buf or 0
+	local module = M.require(vim.api.nvim_buf_get_option(buf, "filetype"))
+	-- Attach file bibliographies:
+	if module.find_bibliography and type(module.find_bibliography) == "function" then
+		vim.b.nvim_ref_bibliographies = module.find_bibliography(buf)
+	end
+end
+
 local function add_filetype(filetype)
 	M.filetypes[filetype.type] = filetype
-	-- TODO: Add filetype autocommands
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = filetype.type,
 		group = require("nvim-ref.augroup"),
 		callback = function(args)
 			hooks.run_hook("filetype", args)
-			local module = M.require(args.match)
-			-- Attach file bibliographies:
-			if module.find_bibliography and type(module.find_bibliography) == "function" then
-				vim.b.nvim_ref_bibliographies = module.find_bibliography(args.buf)
-			end
+			-- Check for bibliographies:
+			scan_bibliography(args.buf)
+			-- Check for changes to bibliographies after leaving insert:
+			vim.api.nvim_create_autocmd("InsertLeave", {
+				buffer = args.buf,
+				group = require("nvim-ref.augroup"),
+				callback = function()
+					scan_bibliography(args.buf)
+				end,
+			})
 		end,
 	})
 end
