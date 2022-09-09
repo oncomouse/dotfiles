@@ -9,6 +9,7 @@ M.filetypes = {}
 -- }
 
 hooks.define_hook("add_filetype")
+hooks.define_hook("filetype")
 
 function M.require(ft)
 	if not M.filetypes[ft] then
@@ -33,6 +34,7 @@ local function add_filetype(filetype)
 		pattern = filetype.type,
 		group = require("nvim-ref.augroup"),
 		callback = function(args)
+			hooks.run_hook("filetype", args)
 			local module = M.require(args.match)
 			if module.find_bibliography and type(module.find_bibliography) == "function" then
 				print(vim.inspect(module.find_bibliography(args.buf)))
