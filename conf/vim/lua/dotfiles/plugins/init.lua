@@ -411,16 +411,18 @@ local function plugins()
 									callback = function(args)
 										vim.keymap.set("i", "<C-d>", function()
 											local line = vim.api.nvim_get_current_line()
+											-- Check line for unordered list:
 											local match = string.match(line, "^[*-] ")
+											-- Check line for ordered list:
 											if not match then
 												match = string.match(line, "^%d+%. ")
 											end
 											if match then
 												local savepos = vim.fn.winsaveview().col
-												local jump = (savepos == #line) and "$" or savepos - #match .. "l"
-												return "<c-o>0<c-o>2dl<c-o>" .. jump
+												local jump = (savepos == #line) and "$a" or savepos - #match .. "li"
+												return "<Esc>02dl" .. jump
 											end
-											return "<c-d><cmd>lua require('autolist').detab()<cr>"
+											return "<C-d><Cmd>lua require('autolist').detab()<CR>"
 										end, {
 											expr = true,
 											buffer = args.buf,
