@@ -404,6 +404,29 @@ local function plugins()
 										ul_marker = "*",
 									},
 								})
+								-- <C-d> to delete list marker if that's all that's left
+								vim.api.nvim_create_autocmd("FileType", {
+									pattern = "markdown,text",
+									group = "dotfiles-settings",
+									callback = function(args)
+										vim.keymap.set("i", "<C-d>", function()
+											local line = vim.api.nvim_get_current_line()
+											local match = string.match(line, "^[*-] ")
+											if not match then
+												match = string.match(line, "^%d+%. ")
+											end
+											if match then
+												local savepos = vim.fn.winsaveview().col
+												local jump = (savepos == #line) and "$" or savepos - #match .. "l"
+												return "<c-o>0<c-o>2dl<c-o>" .. jump
+											end
+											return "<c-d><cmd>lua require('autolist').detab()<cr>"
+										end, {
+											expr = true,
+											buffer = args.buf,
+										})
+									end,
+								})
 							end,
 						},
 					},
