@@ -1,26 +1,23 @@
 local t = require("dotfiles.utils.termcode")
 local M = {}
-function toggle_line(lnum)
-	lnum = lnum or "."
-	local line = vim.fn.getline(lnum)
-	if vim.regex([[ X$]]):match_str(line) then
-		vim.fn.setline(lnum, vim.fn.substitute(line, " X$", "", ""))
-	elseif vim.regex([==[\[ \]]==]):match_str(line) then
-		vim.fn.setline(lnum, vim.fn.substitute(line, "[ ]", "[X]", ""))
-	elseif vim.regex([==[\[X\]]==]):match_str(line) then
-		vim.fn.setline(lnum, vim.fn.substitute(line, "[X]", "[ ]", ""))
-	else
-		vim.fn.setline(lnum, line .. " X")
-	end
-end
-function M.toggle_lines(sl, el)
+
+function toggle_lines(sl, el)
 	for lnum = sl, el do
-		toggle_line(lnum)
+		local line = vim.fn.getline(lnum)
+		if vim.regex([[ X$]]):match_str(line) then
+			vim.fn.setline(lnum, vim.fn.substitute(line, " X$", "", ""))
+		elseif vim.regex([==[\[ \]]==]):match_str(line) then
+			vim.fn.setline(lnum, vim.fn.substitute(line, "[ ]", "[X]", ""))
+		elseif vim.regex([==[\[X\]]==]):match_str(line) then
+			vim.fn.setline(lnum, vim.fn.substitute(line, "[X]", "[ ]", ""))
+		else
+			vim.fn.setline(lnum, line .. " X")
+		end
 	end
 end
 function M.toggle_done_opfunc(mode)
 	if mode == nil then
-		vim.opt.opfunc = "v:lua.require('todo').toggle_done_opfunc"
+		vim.opt.opfunc = "v:lua.require'todo'.toggle_done_opfunc" -- Can't have parentheses
 		return "g@"
 	end
 	-- This code is from mini.nvim's comment module
@@ -39,7 +36,7 @@ function M.toggle_done_opfunc(mode)
 	end
 	--- End code from mini.nvim
 
-	M.toggle_lines(line_left, line_right)
+	toggle_lines(line_left, line_right)
 	return ""
 end
 
@@ -169,11 +166,9 @@ function M.setup()
 		find_project("prev")
 	end)
 	vim.keymap.set("", "<Plug>todo-search-done", "/ X$<CR>")
-	vim.keymap.set("", "<Plug>todo-toggle-done", toggle_line)
+	vim.keymap.set("", "<Plug>todo-toggle-done", "v:lua.require'todo'.toggle_done_opfunc() . '$'", { expr = true })
 	vim.keymap.set("", "<Plug>todo-toggle-visual", ":<C-u>lua require('todo').toggle_done_opfunc('visual')<CR>")
-	vim.keymap.set("", "<Plug>todo-toggle-motion", function()
-		return M.toggle_done_opfunc()
-	end, { expr = true })
+	vim.keymap.set("", "<Plug>todo-toggle-motion", "v:lua.require'todo'.toggle_done_opfunc()", { expr = true })
 	vim.keymap.set("", "<Plug>todo-goto-project", goto_project)
 end
 
