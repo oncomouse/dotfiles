@@ -1,6 +1,6 @@
 if vim.fn.exists("g:enable_todo") == 1 then
-	local todo_augroup = vim.api.nvim_create_augroup("todo", { clear = true })
 	require("todo").setup()
+	local todo_augroup = vim.api.nvim_create_augroup("todo", { clear = true })
 	local function set_maps()
 		vim.keymap.set("n", "<leader>tdd", "<Plug>(todo-toggle-done)", { buffer = true, silent = true, noremap = true })
 		vim.keymap.set("n", "<leader>td", "<Plug>(todo-toggle-done-motion)", { buffer = true, silent = true, noremap = true })

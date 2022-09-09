@@ -7,9 +7,9 @@ function toggle_lines(sl, el)
 		if vim.regex([[ X$]]):match_str(line) then
 			vim.fn.setline(lnum, vim.fn.substitute(line, " X$", "", ""))
 		elseif vim.regex([==[\[ \]]==]):match_str(line) then
-			vim.fn.setline(lnum, vim.fn.substitute(line, "[ ]", "[X]", ""))
+			vim.fn.setline(lnum, vim.fn.substitute(line, "\\[ \\]", "[X]", ""))
 		elseif vim.regex([==[\[X\]]==]):match_str(line) then
-			vim.fn.setline(lnum, vim.fn.substitute(line, "[X]", "[ ]", ""))
+			vim.fn.setline(lnum, vim.fn.substitute(line, "\\[X\\]", "[ ]", ""))
 		else
 			vim.fn.setline(lnum, line .. " X")
 		end
