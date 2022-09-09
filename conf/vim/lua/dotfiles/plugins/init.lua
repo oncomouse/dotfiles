@@ -395,7 +395,9 @@ local function plugins()
 							config = function()
 								require("autolist").setup({
 									colon = {
-										preferred = "*",
+										preferred = "",
+										indent = false,
+										indent_raw = false,
 									},
 									invert = {
 										mapping = "",
