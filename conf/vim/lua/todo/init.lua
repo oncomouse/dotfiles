@@ -15,9 +15,9 @@ function toggle_lines(sl, el)
 		end
 	end
 end
-function M.toggle_done_opfunc(mode)
+function M.operatorfunc(mode)
 	if mode == nil then
-		vim.opt.opfunc = "v:lua.require'todo'.toggle_done_opfunc" -- Can't have parentheses
+		vim.opt.operatorfunc = "v:lua.require'todo'.operatorfunc" -- Can't have parentheses
 		return "g@"
 	end
 	-- This code is from mini.nvim's comment module
@@ -47,7 +47,7 @@ local function find_project(direction)
 		vim.fn.search([[^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$]], flag)
 	end
 	if vim.fn["repeat#set"] then
-		vim.fn["repeat#set"](t("<Plug>todo-" .. direction .. "-project"), vim.v.count)
+		vim.fn["repeat#set"](t("(<Plug>todo-" .. direction .. "-project)"), vim.v.count)
 	end
 end
 -- Search
@@ -159,17 +159,17 @@ local function goto_project()
 end
 
 function M.setup()
-	vim.keymap.set("", "<Plug>todo-next-project", function()
+	vim.keymap.set("", "<Plug>(todo-next-project)", function()
 		find_project("next")
 	end)
-	vim.keymap.set("", "<Plug>todo-prev-project", function()
+	vim.keymap.set("", "<Plug>(todo-prev-project)", function()
 		find_project("prev")
 	end)
-	vim.keymap.set("", "<Plug>todo-search-done", "/ X$<CR>")
-	vim.keymap.set("", "<Plug>todo-toggle-done", "v:lua.require'todo'.toggle_done_opfunc() . '$'", { expr = true })
-	vim.keymap.set("", "<Plug>todo-toggle-visual", ":<C-u>lua require('todo').toggle_done_opfunc('visual')<CR>")
-	vim.keymap.set("", "<Plug>todo-toggle-motion", "v:lua.require'todo'.toggle_done_opfunc()", { expr = true })
-	vim.keymap.set("", "<Plug>todo-goto-project", goto_project)
+	vim.keymap.set("", "<Plug>(todo-search-done)", "/ X$<CR>")
+	vim.keymap.set("", "<Plug>(todo-toggle-done)", "v:lua.require'todo'.operatorfunc() . '$'", { expr = true })
+	vim.keymap.set("", "<Plug>(todo-toggle-done-visual)", ":<C-u>lua require('todo').operatorfunc('visual')<CR>")
+	vim.keymap.set("", "<Plug>(todo-toggle-done-motion)", "v:lua.require'todo'.operatorfunc()", { expr = true })
+	vim.keymap.set("", "<Plug>(todo-goto-project)", goto_project)
 end
 
 return M
