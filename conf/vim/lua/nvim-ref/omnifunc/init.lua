@@ -1,0 +1,3 @@
+local omnifunc = function()
+
+end
