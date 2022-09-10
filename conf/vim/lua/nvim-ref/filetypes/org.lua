@@ -24,10 +24,14 @@ function M.find_bibliography(bufnum)
 	return bibliographies
 end
 
+function M.find_start()
+	return vim.fn.line(".")
+end
+
 function M.setup()
 	require("nvim-ref.hooks").run_hook("add_filetype", {
 		type = "org",
 	})
 end
 
-return M
+return require("nvim-ref.filetypes.utils").setmetatable(M)

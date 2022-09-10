@@ -41,9 +41,17 @@ local function scan_bibliography(buf)
 end
 
 local function add_filetype(filetype)
-	M.filetypes[filetype.type] = filetype
+	if type(filetype.type) == "string" then
+		M.filetypes[filetype.type] = filetype
+	else
+		for _,type in pairs(filetype.type) do
+			local ft = require("nvim-ref.utils.table").deep_copy(filetype)
+			ft.type = type
+			M.filetypes[type] = ft
+		end
+	end
 	vim.api.nvim_create_autocmd("FileType", {
-		pattern = filetype.type,
+		pattern = type(filetype.type) == "table" and vim.fn.join(filetype.type, ",") or filetype.type,
 		group = require("nvim-ref.augroup"),
 		callback = function(args)
 			hooks.run_hook("filetype", args)

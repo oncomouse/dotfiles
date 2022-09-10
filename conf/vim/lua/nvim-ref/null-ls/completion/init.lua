@@ -23,7 +23,7 @@ end
 
 return h.make_builtin({
 	method = COMPLETION,
-	filetypes = { "markdown", "latex" },
+	filetypes = vim.tbl_keys(require("nvim-ref").filetypes),
 	name = "bibtex",
 	generator = {
 		fn = function(params, done)

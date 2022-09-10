@@ -80,4 +80,4 @@ function M.setup()
 	})
 end
 
-return M
+return require("nvim-ref.filetypes.utils").setmetatable(M)

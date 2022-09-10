@@ -5,7 +5,7 @@ local HOVER = methods.internal.HOVER
 
 return h.make_builtin({
 	method = HOVER,
-	filetypes = { "markdown" },
+	filetypes = vim.tbl_keys(require("nvim-ref").filetypes),
 	name = "bibtex",
 	generator = {
 		fn = function(_, done)
