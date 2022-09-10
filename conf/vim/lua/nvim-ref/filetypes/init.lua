@@ -8,8 +8,8 @@ M.filetypes = {}
 -- type: string for filetype pattern
 -- }
 
-hooks.define_hook("add_filetype")
-hooks.define_hook("filetype")
+hooks.define("add_filetype")
+hooks.define("filetype")
 
 function M.require(ft)
 	ft = ft or 0
@@ -65,7 +65,7 @@ local function add_filetype(filetype)
 		pattern = type(filetype.type) == "table" and vim.fn.join(filetype.type, ",") or filetype.type,
 		group = require("nvim-ref.augroup"),
 		callback = function(args)
-			hooks.run_hook("filetype", args)
+			hooks.trigger("filetype", args)
 			-- Check for bibliographies:
 			scan_bibliography(args.buf)
 			-- Check for changes to bibliographies after leaving insert:
@@ -79,7 +79,7 @@ local function add_filetype(filetype)
 		end,
 	})
 end
-hooks.add_hook("add_filetype", function(args)
+hooks.listen("add_filetype", function(args)
 	if args.type then
 		add_filetype(args)
 	else

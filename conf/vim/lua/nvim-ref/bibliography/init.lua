@@ -15,4 +15,15 @@ function M.query(target)
 	return #bibliographies == 0 and {} or bibtex.query_bibtex(bibliographies, target)
 end
 
+setmetatable(M, {
+	__index = function(t, idx)
+		if idx == "bibliographies" then
+			return gather_bibliographies()
+		end
+		if t[idx] then
+			return t[idx]
+		end
+		return nil
+	end
+})
 return M

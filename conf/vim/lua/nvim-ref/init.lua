@@ -23,13 +23,13 @@ function M.setup(opts)
 	local open_first_file = false
 	M.config = config(opts)
 	M.hooks = require("nvim-ref.hooks")
-	M.hooks.define_hook("setup_done")
+	M.hooks.define("setup_done")
 	M.filetypes = require("nvim-ref.filetypes").filetypes
 	M.commands = {
 		run = require("nvim-ref.commands").run,
 	}
 	-- Load all our commands when we first encounter a file:
-	M.hooks.add_hook("filetype", function()
+	M.hooks.listen("filetype", function()
 		if not open_first_file then
 			load_defaults(vim.tbl_map(function(cmd)
 				if string.match(cmd, "[.]") then
@@ -43,7 +43,7 @@ function M.setup(opts)
 	-- Boot up default filetypes:
 	load_defaults(M.config.filetypes, "filetypes")
 	-- TODO: Autocommand(s) to scan for and load bibliography files in document metadata
-	M.hooks.run_hook("setup_done")
+	M.hooks.trigger("setup_done")
 end
 
 return M

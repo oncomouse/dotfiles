@@ -4,8 +4,8 @@ local M = {}
 local commands = {}
 local top_level_commands = {}
 
-hooks.define_hook("add_command")
-hooks.add_hook("add_command", function(args)
+hooks.define("add_command")
+hooks.listen("add_command", function(args)
 	local function add_command(command, ns)
 		ns = ns and ns .. "." or ""
 		commands[ns .. command.id] = command
@@ -26,10 +26,15 @@ hooks.add_hook("add_command", function(args)
 	end
 end)
 
+hooks.define("run_command")
+hooks.listen("run_command", function(args)
+	M.run(args[1], vim.list_slice(args, 2))
+end)
+
 -- Define default command:
-hooks.add_hook("setup_done", function()
+hooks.listen("setup_done", function()
 	vim.api.nvim_create_user_command("NvimRef", function(args)
-		M.run(args.fargs[1], vim.list_slice(args.fargs, 2))
+		hooks.trigger("run_command", args.fargs)
 	end, {
 		force = true,
 		complete = M.complete,

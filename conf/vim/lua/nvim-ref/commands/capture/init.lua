@@ -2,7 +2,7 @@ local hooks = require("nvim-ref.hooks")
 local M = {}
 
 function M.setup()
-	hooks.run_hook("add_command", {
+	hooks.trigger("add_command", {
 		id = "capture",
 		name = "Capture BibTeX from a source",
 		subcommands = {

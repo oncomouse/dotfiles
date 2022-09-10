@@ -48,7 +48,7 @@ function M.insert(cite)
 end
 
 function M.setup()
-	hooks.run_hook("add_command", {
+	hooks.trigger("add_command", {
 		id = "insert",
 		name = "Insert a citation",
 		subcommands = {

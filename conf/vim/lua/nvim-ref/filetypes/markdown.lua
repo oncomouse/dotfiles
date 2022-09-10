@@ -69,7 +69,7 @@ function M.find_start()
 end
 
 function M.setup()
-	require("nvim-ref.hooks").run_hook("add_filetype", {
+	require("nvim-ref.hooks").trigger("add_filetype", {
 		type = "markdown",
 	})
 end
