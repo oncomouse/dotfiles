@@ -44,7 +44,7 @@ end)
 
 function M.run(command, args)
 	if #commands == 0 then
-		require("nvim-ref.utils.output").info("There are no commands loaded; perhaps the plugin has not been .setup()'d yet?")
+		require("nvim-ref.utils.output").info("There are no commands loaded; perhaps require('nvim-ref').setup() has not been run?")
 		return
 	end
 	-- Run with no arguments

@@ -34,7 +34,6 @@ end
 function M.find_start(pattern)
 	local curline = vim.fn.line(".")
 	local line, col = unpack(vim.fn.searchpos(pattern, "bcn"))
-	print(curline, line, col)
 	if line == curline then
 		return col
 	end
@@ -68,6 +67,7 @@ local function add_filetype(filetype)
 			hooks.trigger("filetype", args)
 			-- Check for bibliographies:
 			scan_bibliography(args.buf)
+			vim.b.nvim_ref_loaded = true
 			-- Check for changes to bibliographies after leaving insert:
 			vim.api.nvim_create_autocmd("InsertLeave", {
 				buffer = args.buf,
