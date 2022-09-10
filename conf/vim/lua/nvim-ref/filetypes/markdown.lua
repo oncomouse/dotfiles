@@ -65,13 +65,7 @@ function M.find_bibliography(bufnum)
 end
 
 function M.find_start()
-	-- local line = vim.api.nvim_get_current_line()
-	local curline = vim.fn.line(".")
-	local line, col = unpack(vim.fn.searchpos([[@\k*\%#]], "bcn"))
-	if line == curline then
-		return col
-	end
-	return nil
+	return require("nvim-ref.filetypes").find_start([[@\k*\%#]])
 end
 
 function M.setup()

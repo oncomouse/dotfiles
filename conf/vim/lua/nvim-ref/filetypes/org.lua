@@ -25,7 +25,7 @@ function M.find_bibliography(bufnum)
 end
 
 function M.find_start()
-	return vim.fn.line(".")
+	return require("nvim-ref.filetypes").find_start([[\[cite[^:]*:[^@]*@[^, \t}\n]*\%#]])
 end
 
 function M.setup()

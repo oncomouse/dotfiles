@@ -31,6 +31,17 @@ function M.require(ft)
 	end
 end
 
+function M.find_start(pattern)
+	local curline = vim.fn.line(".")
+	local line, col = unpack(vim.fn.searchpos(pattern, "bcn"))
+	print(curline, line, col)
+	if line == curline then
+		return col
+	end
+	return nil
+end
+
+
 local function scan_bibliography(buf)
 	buf = buf or 0
 	local module = M.require(vim.api.nvim_buf_get_option(buf, "filetype"))

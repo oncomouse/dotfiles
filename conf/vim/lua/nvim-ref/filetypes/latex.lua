@@ -16,13 +16,7 @@ function M.find_bibliography(bufnum)
 end
 
 function M.find_start()
-	local curline = vim.fn.line(".")
-	local line, col = unpack(vim.fn.searchpos([[\\\w*cite[^{]*{[^, \t}\n]*\%#]], "bcn"))
-	print(curline, line, col)
-	if line == curline then
-		return col
-	end
-	return nil
+	return require("nvim-ref.filetypes").find_start([[\\\w*cite[^{]*{[^, \t}\n]*\%#]])
 end
 
 function M.setup()
