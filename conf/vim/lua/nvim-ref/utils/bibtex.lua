@@ -31,13 +31,17 @@ function M.query_bibtex(bibfiles, key)
 	bibfiles = M.parse_bibfiles(type(bibfiles) == "string" and { bibfiles } or bibfiles)
 	local results = {}
 	for _,bibfile in pairs(bibfiles) do
-		local fp = assert(io.open(bibfile, "rb"))
-		local contents = parser:match(fp:read("*a"))
-		fp:close()
-		for _,entry in pairs(contents) do
-			if entry.type == "entry" and ("@" .. entry.key):match("^" .. key) then
-				table.insert(results, entry)
+		local fp = io.open(bibfile, "rb")
+		if fp ~= nil then
+			local contents = parser:match(fp:read("*a"))
+			fp:close()
+			for _,entry in pairs(contents) do
+				if entry.type == "entry" and ("@" .. entry.key):match("^" .. key) then
+					table.insert(results, entry)
+				end
 			end
+		else
+			require("nvim-ref.utils.output").info("Unable to open bibliography file, " .. bibfile .. ".")
 		end
 	end
 	return M.parse_bibtex(results)

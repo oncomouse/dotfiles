@@ -64,6 +64,16 @@ function M.find_bibliography(bufnum)
 	return bibliographies
 end
 
+function M.find_start()
+	-- local line = vim.api.nvim_get_current_line()
+	local curline = vim.fn.line(".")
+	local line, col = unpack(vim.fn.searchpos([[@\k*\%#]], "bcn"))
+	if line == curline then
+		return col
+	end
+	return nil
+end
+
 function M.setup()
 	require("nvim-ref.hooks").run_hook("add_filetype", {
 		type = "markdown",

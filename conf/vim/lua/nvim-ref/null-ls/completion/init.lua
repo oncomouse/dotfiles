@@ -28,12 +28,14 @@ return h.make_builtin({
 	generator = {
 		fn = function(params, done)
 			-- TODO: This only works in Markdown
-			if not string.find(params.word_to_complete, "@", 1, true) then
+			-- if not string.find(params.word_to_complete, "@", 1, true) then
+			if require("nvim-ref.filetypes").require().find_start() == nil then
 				done({ { items = {}, isIncomplete = false } })
 				return
 			end
 
 			local results = require("nvim-ref.bibliography").query(params.word_to_complete)
+
 			local items = {}
 			for _, item in ipairs(results) do
 				table.insert(items, make_item(item))
