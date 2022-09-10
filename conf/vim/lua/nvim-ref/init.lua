@@ -42,7 +42,6 @@ function M.setup(opts)
 	end)
 	-- Boot up default filetypes:
 	load_defaults(M.config.filetypes, "filetypes")
-	-- TODO: Autocommand(s) to scan for and load bibliography files in document metadata
 	M.hooks.trigger("setup_done")
 end
 
