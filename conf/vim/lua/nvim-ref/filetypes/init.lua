@@ -12,6 +12,10 @@ hooks.define_hook("add_filetype")
 hooks.define_hook("filetype")
 
 function M.require(ft)
+	ft = ft or 0
+	if type(ft) == "number"  then
+		ft = vim.api.nvim_buf_get_option(ft, "filetype")
+	end
 	if not M.filetypes[ft] then
 		error(string.format("Unknown filetype, %s!", ft))
 	else
