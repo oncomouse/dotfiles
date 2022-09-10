@@ -3,10 +3,14 @@ local M = {}
 
 -- Collect the various sources of sources:
 local function gather_bibliographies()
-	return vim.tbl_deep_extend("keep",
+	local bibfiles = vim.tbl_deep_extend(
+		"keep",
 		require("nvim-ref").config.bibfiles or {},
 		vim.b.nvim_ref_bibliographies or {}
 	)
+	return vim.tbl_filter(function(x)
+		return vim.fn.filereadable(vim.fn.fnamemodify(x, ":p")) == 1
+	end, bibfiles)
 end
 
 -- Wrapper for the bibliography parser:
@@ -24,6 +28,6 @@ setmetatable(M, {
 			return t[idx]
 		end
 		return nil
-	end
+	end,
 })
 return M
