@@ -28,7 +28,6 @@ return h.make_builtin({
 	generator = {
 		fn = function(params, done)
 			-- TODO: This only works in Markdown
-			-- if not string.find(params.word_to_complete, "@", 1, true) then
 			if require("nvim-ref.filetypes").require().find_start() == nil then
 				done({ { items = {}, isIncomplete = false } })
 				return
