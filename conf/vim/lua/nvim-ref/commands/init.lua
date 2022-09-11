@@ -43,6 +43,10 @@ hooks.listen("setup_done", function()
 end)
 
 function M.run(command, args)
+	if #commands == 0 then
+		require("nvim-ref.utils.output").info("There are no commands loaded; perhaps require('nvim-ref').setup() has not been run?")
+		return
+	end
 	-- Run with no arguments
 	if command == nil then
 		vim.ui.select(top_level_commands, {

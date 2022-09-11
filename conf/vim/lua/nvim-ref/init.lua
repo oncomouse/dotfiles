@@ -31,18 +31,25 @@ function M.setup(opts)
 	-- Load all our commands when we first encounter a file:
 	M.hooks.listen("filetype", function()
 		if not open_first_file then
-			load_defaults(vim.tbl_map(function(cmd)
-				if string.match(cmd, "[.]") then
-					cmd = vim.fn.split(cmd, "\\.")[1]
-				end
-				return cmd
-			end, M.config.commands), "commands")
+			load_defaults(
+				vim.tbl_map(function(cmd)
+					if string.match(cmd, "[.]") then
+						cmd = vim.fn.split(cmd, "\\.")[1]
+					end
+					return cmd
+				end, M.config.commands),
+				"commands"
+			)
+			-- If cmp is available, register the cmp source
+			local ok, cmp = pcall(require, "cmp")
+			if ok then
+				cmp.register_source("nvim_ref", require("nvim-ref.cmp").new())
+			end
 			open_first_file = true
 		end
 	end)
 	-- Boot up default filetypes:
 	load_defaults(M.config.filetypes, "filetypes")
-	-- TODO: Autocommand(s) to scan for and load bibliography files in document metadata
 	M.hooks.trigger("setup_done")
 end
 

@@ -7,20 +7,20 @@ local function _echo_multiline(msg)
 end
 
 function M.info(msg)
-  vim.cmd('echohl Directory')
-  _echo_multiline("[Fzf-lua] " .. msg)
+  vim.cmd('echohl DiagnosticInfo')
+  _echo_multiline("[nvim-ref] " .. msg)
   vim.cmd('echohl None')
 end
 
 function M.warn(msg)
   vim.cmd('echohl WarningMsg')
-  _echo_multiline("[Fzf-lua] " .. msg)
+  _echo_multiline("[nvim-ref] " .. msg)
   vim.cmd('echohl None')
 end
 
 function M.err(msg)
   vim.cmd('echohl ErrorMsg')
-  _echo_multiline("[Fzf-lua] " .. msg)
+  _echo_multiline("[nvim-ref] " .. msg)
   vim.cmd('echohl None')
 end
 return M
