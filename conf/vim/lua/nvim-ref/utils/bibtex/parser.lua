@@ -1,7 +1,7 @@
 local parser = require("lpeg-bibtex")
 
 local M = {}
-function M.parse_bibtex(data)
+local function parse_bibtex(data)
 	local matches = {}
 	for _,entry in pairs(data) do
 		local entry_content = {
@@ -18,7 +18,7 @@ end
 local function escape_bibfile(file)
 	return vim.fn.fnamemodify(file, ":p")
 end
-function M.parse_bibfiles(bibfiles)
+local function parse_bibfiles(bibfiles)
 	if type(bibfiles) == "table" then
 		return vim.tbl_map(escape_bibfile, bibfiles)
 	end
@@ -28,7 +28,7 @@ function M.query_bibtex(bibfiles, key)
 	if not string.match(key, "^@") then
 		key = "@" .. key
 	end
-	bibfiles = M.parse_bibfiles(type(bibfiles) == "string" and { bibfiles } or bibfiles)
+	bibfiles = parse_bibfiles(type(bibfiles) == "string" and { bibfiles } or bibfiles)
 	local results = {}
 	for _,bibfile in pairs(bibfiles) do
 		local fp = io.open(bibfile, "rb")
@@ -44,7 +44,7 @@ function M.query_bibtex(bibfiles, key)
 			require("nvim-ref.utils.output").info("Unable to open bibliography file, " .. bibfile .. ".")
 		end
 	end
-	return M.parse_bibtex(results)
+	return parse_bibtex(results)
 end
 
 return M

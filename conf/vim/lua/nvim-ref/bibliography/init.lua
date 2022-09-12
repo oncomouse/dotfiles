@@ -1,4 +1,4 @@
-local bibtex = require("nvim-ref.utils.bibtex")
+local bibtex = require("nvim-ref.utils.bibtex").parser
 local M = {}
 
 -- Collect the various sources of sources:
