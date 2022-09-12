@@ -32,14 +32,18 @@ hooks.listen("run_command", function(args)
 end)
 
 -- Define default command:
-hooks.listen("setup_done", function()
-	vim.api.nvim_create_user_command("NvimRef", function(args)
-		hooks.trigger("run_command", args.fargs)
-	end, {
-		force = true,
-		complete = M.complete,
-		nargs = "*",
-	})
+local created_command = false
+hooks.listen("filetype", function()
+	if not created_command then
+		vim.api.nvim_create_user_command("NvimRef", function(args)
+			hooks.trigger("run_command", args.fargs)
+		end, {
+			force = true,
+			complete = M.complete,
+			nargs = "*",
+		})
+		created_command = true
+	end
 end)
 
 function M.run(command, args)
