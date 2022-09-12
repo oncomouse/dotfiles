@@ -1,8 +1,9 @@
 local hooks = require("nvim-ref.hooks")
+local writer = require("nvim-ref.utils.bibtex").writer
 local M = {}
 
 function M.edit(citation)
-	print(vim.inspect(citation))
+	print(vim.inspect(writer.convert(citation)))
 end
 
 function M.edit_file(files)

@@ -1,4 +1,4 @@
-local bibtex = require("nvim-ref.utils.bibtex").parser
+local bibtex = require("nvim-ref.utils.bibtex")
 local M = {}
 
 -- Collect the various sources of sources:
@@ -16,7 +16,12 @@ end
 -- Wrapper for the bibliography parser:
 function M.query(target)
 	local bibliographies = gather_bibliographies()
-	return #bibliographies == 0 and {} or bibtex.query_bibtex(bibliographies, target)
+	return #bibliographies == 0 and {} or bibtex.parser.query_bibtex(bibliographies, target)
+end
+
+function M.update(citation)
+	local file = citation.file
+	local citations = bibtex.parser.read_bibfile(file)
 end
 
 setmetatable(M, {
