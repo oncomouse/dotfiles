@@ -12,10 +12,7 @@ hooks.define("add_filetype")
 hooks.define("filetype")
 
 function M.require(ft)
-	ft = ft or 0
-	if type(ft) == "number"  then
-		ft = vim.api.nvim_buf_get_option(ft, "filetype")
-	end
+	ft = ft or M.buf_filetype(0)
 	if not M.filetypes[ft] then
 		error(string.format("Unknown filetype, %s!", ft))
 	else
@@ -31,7 +28,13 @@ function M.require(ft)
 	end
 end
 
+function M.buf_filetype(buf)
+	buf = buf or 0
+	return vim.api.nvim_buf_get_option(buf, "filetype")
+end
+
 function M.find_start(pattern)
+	pattern = pattern or M.require().start_pattern
 	local curline = vim.fn.line(".")
 	local line, col = unpack(vim.fn.searchpos(pattern, "bcn"))
 	if line == curline then
@@ -40,10 +43,6 @@ function M.find_start(pattern)
 	return nil
 end
 
-function M.buf_filetype(buf)
-	buf = buf or 0
-	return vim.api.nvim_buf_get_option(buf, "filetype")
-end
 
 local function scan_bibliography(buf)
 	buf = buf or 0
@@ -92,5 +91,20 @@ hooks.listen("add_filetype", function(args)
 		end
 	end
 end)
+
+local filetype_object_keys = {
+	"ref",
+	"citation",
+	"find_bibliography",
+}
+
+setmetatable(M, {
+	__index = function(t, idx)
+		if vim.tbl_contains(filetype_object_keys, idx) then
+			return t.require(t.buf_filetype())[idx]
+		end
+		return t[idx]
+	end
+})
 
 return M

@@ -15,9 +15,7 @@ function M.find_bibliography(bufnum)
 	bufnum = bufnum or 0
 end
 
-function M.find_start()
-	return require("nvim-ref.filetypes").find_start([[\\\w*cite[^{]*{[^, \t}\n]*\%#]])
-end
+M.start_pattern = [[\\\w*cite[^{]*{[^, \t}\n]*\%#]]
 
 function M.setup()
 	require("nvim-ref.hooks").trigger("add_filetype", {

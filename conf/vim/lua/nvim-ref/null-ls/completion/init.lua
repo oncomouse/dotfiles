@@ -16,7 +16,7 @@ return h.make_builtin({
 	name = "bibtex",
 	generator = {
 		fn = function(params, done)
-			if require("nvim-ref.filetypes").require().find_start() == nil then
+			if require("nvim-ref.filetypes").find_start() == nil then
 				done({ { items = {}, isIncomplete = false } })
 				return
 			end

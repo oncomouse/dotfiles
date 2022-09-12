@@ -43,7 +43,7 @@ hooks.listen("setup_done", function()
 end)
 
 function M.run(command, args)
-	if #commands == 0 then
+	if #vim.tbl_keys(commands) == 0 then
 		require("nvim-ref.utils.output").info("There are no commands loaded; perhaps require('nvim-ref').setup() has not been run?")
 		return
 	end

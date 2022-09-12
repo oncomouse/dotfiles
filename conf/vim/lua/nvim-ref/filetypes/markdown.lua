@@ -64,9 +64,7 @@ function M.find_bibliography(bufnum)
 	return bibliographies
 end
 
-function M.find_start()
-	return require("nvim-ref.filetypes").find_start([[@\k*\%#]])
-end
+M.start_pattern = [[@\k*\%#]]
 
 function M.setup()
 	require("nvim-ref.hooks").trigger("add_filetype", {

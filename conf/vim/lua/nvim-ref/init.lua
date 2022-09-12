@@ -16,8 +16,6 @@ function load_defaults(obj, t)
 	end
 end
 
--- TODO: cmp source
-
 function M.setup(opts)
 	opts = opts or {}
 	local open_first_file = false
