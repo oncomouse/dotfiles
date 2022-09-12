@@ -40,6 +40,10 @@ function M.find_start(pattern)
 	return nil
 end
 
+function M.buf_filetype(buf)
+	buf = buf or 0
+	return vim.api.nvim_buf_get_option(buf, "filetype")
+end
 
 local function scan_bibliography(buf)
 	buf = buf or 0

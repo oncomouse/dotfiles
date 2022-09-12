@@ -18,7 +18,7 @@ return h.make_builtin({
 
 			local results = require("nvim-ref.bibliography").query(cword)
 			if #results > 0 and results[1].key == cword then
-				done({ require("nvim-ref.format").get_markdown_documentation(results[1]) })
+				done({ require("nvim-ref.utils.lsp").get_markdown_documentation(results[1]) })
 			else
 				done()
 			end

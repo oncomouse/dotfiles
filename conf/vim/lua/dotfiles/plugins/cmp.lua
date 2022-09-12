@@ -56,12 +56,12 @@ local function config_cmp()
 			end, { "i", "s" }),
 		},
 		sources = cmp.config.sources({
-			{ name = "cmp" },
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lua" },
 			{ name = "luasnip" },
 			{ name = "fish" },
 			{ name = "neorg" },
+			-- { name = "nvim_ref" },
 		}),
 		completion = {
 			autocomplete = false,
