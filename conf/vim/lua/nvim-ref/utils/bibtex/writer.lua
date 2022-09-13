@@ -48,20 +48,38 @@ function M.convert(citation)
 	return output
 end
 
--- Accept, raw parsed BibTeX and a processed citation,
+-- @param citation ProcessedCitation
+-- @param add boolean
 -- return raw parsed BibTex
-function M.update(citation)
+local function mutate(citation, add)
 	local output = {}
 	local file = citation.file
 	local citations = parser.read_bibfile(file)
+	local inserted = false
 	for _,c in pairs(citations) do
-		if c.key and c.key == citation.key then
-			table.insert(output, deprocess(citation))
-		else
+		if add then
+			if not inserted and c.key > citation.key then
+				table.insert(output, deprocess(citation))
+				inserted = true
+			end
 			table.insert(output, c)
+		else
+			if c.key and c.key == citation.key then
+				table.insert(output, deprocess(citation))
+			else
+				table.insert(output, c)
+			end
 		end
 	end
 	write(file, output)
+end
+
+function M.update(citation)
+	mutate(citation, false)
+end
+
+function M.add(citation)
+	mutate(citation, true)
 end
 
 return M
