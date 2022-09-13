@@ -2,8 +2,23 @@ local hooks = require("nvim-ref.hooks")
 local writer = require("nvim-ref.utils.bibtex").writer
 local M = {}
 
+local function populate_luasnip(citation)
+	-- https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#on-the-fly-snippets
+	return citation
+end
+
 function M.edit(citation)
-	print(vim.inspect(writer.convert(citation)))
+	local ok = pcall(require, "luasnip")
+	-- create a tmp file
+	-- open it in a pop-up, tab, split, or new buffer
+	local cite_text = writer.convert(citation)
+	if ok then
+		populate_luasnip(citation)
+	else
+		-- just insert the citation as text
+	end
+	-- on exit, if changed, write to disk
+	print(vim.inspect(cite_text))
 end
 
 function M.edit_file(files)
