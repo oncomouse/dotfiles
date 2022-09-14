@@ -3,8 +3,9 @@ local M = {}
 
 -- Collect the various sources of sources:
 local function gather_bibliographies()
-	local bibfiles = vim.tbl_deep_extend(
-		"keep",
+	local bibfiles = {}
+	bibfiles = require("nvim-ref.utils.table").append(
+		bibfiles,
 		require("nvim-ref").config.bibfiles or {},
 		vim.b.nvim_ref_bibliographies or {}
 	)
