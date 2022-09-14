@@ -21,8 +21,7 @@ function M.query(target)
 end
 
 function M.update(citation)
-	local file = citation.file
-	local citations = bibtex.parser.read_bibfile(file)
+	bibtex.writer.update(citation)
 end
 
 setmetatable(M, {
