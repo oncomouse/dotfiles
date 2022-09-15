@@ -44,6 +44,9 @@ function M.convert(citation)
 			table.insert(values, string.format("    %s = {%s}", entry.key, entry.value))
 		end
 		output = output .. vim.fn.join(values, ",\n") .. "\n}"
+	elseif citation.type == "comment" then
+	elseif citation.type == "preamble" then
+	elseif citation.type == "string" then
 	end
 	return output
 end
