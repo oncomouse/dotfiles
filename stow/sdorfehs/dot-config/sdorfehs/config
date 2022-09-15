@@ -77,6 +77,8 @@ bind s-H exchangeleft
 bind s-J exchangedown
 bind s-K exchangeup
 bind s-L exchangeright
+bind s-n next
+bind s-p prev
 
 # [reverse splits]
 bind S hsplit
