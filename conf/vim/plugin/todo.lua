@@ -1,8 +1,8 @@
-if vim.fn.exists("g:enable_todo") == 1 then
+if vim.fn.exists("g:todo_disable") == 0 then
 	require("todo").setup()
 	local todo_augroup = vim.api.nvim_create_augroup("todo", { clear = true })
 	local function set_maps()
-		vim.keymap.set("n", "<leader>tdd", "<Plug>(todo-toggle-done)", { buffer = true, silent = true, noremap = true })
+		vim.keymap.set("n", "gtd", "<Plug>(todo-toggle-done)", { buffer = true, silent = true, noremap = true })
 		vim.keymap.set("n", "<leader>td", "<Plug>(todo-toggle-done-motion)", { buffer = true, silent = true, noremap = true })
 		vim.keymap.set("x", "<leader>td", "<Plug>(todo-toggle-done-visual)", { buffer = true, silent = true, noremap = true })
 		-- Go To Project:
@@ -21,7 +21,7 @@ if vim.fn.exists("g:enable_todo") == 1 then
 	})
 	vim.api.nvim_create_autocmd("FileType", {
 		group = todo_augroup,
-		pattern = "vimwiki",
+		pattern = "vimwiki,markdown",
 		callback = set_maps,
 	})
 end

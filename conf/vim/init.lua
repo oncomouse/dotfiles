@@ -81,9 +81,6 @@ vim.opt.dictionary = "/usr/share/dict/words"
 -- Default to hashtag-style comments, by default:
 vim.opt.commentstring = "# %s"
 
--- Enable Todo:
-vim.g.enable_todo = 1
-
 -- Disable Plugins {{{
 vim.g.load_black = "py1.0"
 vim.g.loaded_fzf = 1

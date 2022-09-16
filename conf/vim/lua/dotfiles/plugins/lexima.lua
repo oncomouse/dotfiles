@@ -12,6 +12,21 @@ local function lexima_rules()
 		filetype = "markdown",
 	}) -- Links
 
+	-- Tasks:
+	add_rule({
+		char = "[",
+		input = "[ ]",
+		at = [[^\s*[*-]\s*\%#]],
+		filetype = "markdown",
+	})
+	add_rule({
+		char = "<BS>",
+		delete = 3,
+		at = [[^\s*[*-]\s*\[.\]\%#]],
+		filetype = "markdown",
+	})
+
+
 	-- Handle bold/italic pairs:
 	local function make_markdown_bi_rule(char, escape)
 		local esc_char = escape and [[\]] .. char or char
