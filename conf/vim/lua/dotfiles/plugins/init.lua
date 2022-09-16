@@ -480,7 +480,7 @@ local function plugins()
 				}, -- Colorscheme
 
 				{
-					"oncomouse/nvim-colorizer.lua",
+					"NvChad/nvim-colorizer.lua",
 					module = "colorizer",
 					setup = function()
 						require("chad_loader").lazy_load({
@@ -494,28 +494,30 @@ local function plugins()
 					config = function()
 						if vim.opt.termguicolors:get() then
 							require("colorizer").setup({
-								"*", -- Load everywhere
-								"!packer", -- Except packer buffers
-								"!gina*", -- And commit buffers
-								html = { names = true, RRGGBBAA = false },
-								css = { css = true, RRGGBBAA = false },
-								scss = {
-									css = true,
-									RRGGBBAA = false,
-									custom_matcher = require("colorizer/sass").variable_matcher,
+								filetypes = {
+									"*", -- Load everywhere
+									"!packer", -- Except packer buffers
+									"!gina*", -- And commit buffers
+									html = { names = true, RRGGBBAA = false },
+									css = { css = true, RRGGBBAA = false },
+									scss = {
+										css = true,
+										RRGGBBAA = false,
+										-- custom_matcher = require("colorizer/sass").variable_matcher,
+									},
 								},
-							}, {
-								names = false, -- Turn off highlighting color words in non-HTML/CSS settings
-								RRGGBBAA = true,
-								mode = "background", -- Could be background, foreground, or virtualtext
+								user_default_options = {
+									names = false, -- Turn off highlighting color words in non-HTML/CSS settings
+									RRGGBBAA = true,
+									mode = "background", -- Could be background, foreground, or virtualtext
+									sass = {
+										enable = true,
+										parsers = {
+											css = true,
+										}
+									}
+								},
 							})
-							-- Attach the variable matcher to scss buffers:
-							vim.api.nvim_create_autocmd("FileType", {
-								group = "dotfiles-settings",
-								pattern = "scss",
-								callback = require("colorizer/sass").attach_to_buffer,
-							})
-							require("colorizer").setup_hook()
 						end
 					end,
 				}, -- Highlight colors in files
