@@ -404,9 +404,13 @@ local function plugins()
 										indent_raw = false,
 									},
 									invert = {
-										mapping = "",
 										ul_marker = "*",
 									},
+									insert_mappings = {
+										invert = {
+											""
+										}
+									}
 								})
 								-- <C-d> to delete list marker if that's all that's left
 								vim.api.nvim_create_autocmd("FileType", {
@@ -424,7 +428,7 @@ local function plugins()
 											if match then
 												local savepos = vim.fn.winsaveview().col
 												local jump = (savepos == #line) and "$a" or savepos - #match .. "li"
-												return "<Esc>02dl" .. jump
+												return "<Esc>0\"_2dl" .. jump
 											end
 											return "<C-d><Cmd>lua require('autolist').detab()<CR>"
 										end, {
