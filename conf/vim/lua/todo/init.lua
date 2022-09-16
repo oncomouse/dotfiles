@@ -41,7 +41,7 @@ function M.operatorfunc(mode)
 end
 
 -- Find Project
-local function find_project(direction)
+function M.find_project(direction)
 	local flag = direction == "next" and "w" or "bw"
 	for _ = 1, (vim.v.count == 0 and 1 or vim.v.count) do
 		vim.fn.search([[^\t*\zs.\+:\(\s\+@[^\s(]\+\(([^)]*)\)\?\)*$]], flag)
@@ -159,12 +159,8 @@ local function goto_project()
 end
 
 function M.setup()
-	vim.keymap.set("", "<Plug>(todo-next-project)", function()
-		find_project("next")
-	end)
-	vim.keymap.set("", "<Plug>(todo-prev-project)", function()
-		find_project("prev")
-	end)
+	vim.keymap.set("", "<Plug>(todo-next-project)", ":<C-u>lua require('todo').find_project('next')<CR>")
+	vim.keymap.set("", "<Plug>(todo-prev-project)", ":<C-u>lua require('todo').find_project('prev')<CR>")
 	vim.keymap.set("", "<Plug>(todo-search-done)", "/ X$<CR>")
 	vim.keymap.set("", "<Plug>(todo-toggle-done)", "v:lua.require'todo'.operatorfunc() . '$'", { expr = true })
 	vim.keymap.set("", "<Plug>(todo-toggle-done-visual)", ":<C-u>lua require('todo').operatorfunc('visual')<CR>")
