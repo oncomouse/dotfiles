@@ -81,15 +81,6 @@ local function plugins()
 				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai); mini.surround for surround (ys to add, cs to change, ds to delete)
 
 				{
-					"nvim-neorg/neorg",
-					after = "nvim-treesitter",
-					requires = { "nvim-lua/plenary.nvim", module = { "plenary.async", "plenary" } },
-					config = require("dotfiles.plugins.neorg"),
-					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/neorg.lua
-					-- Organization and note-taking
-				},
-
-				{
 					"ahmedkhalf/project.nvim",
 					config = function()
 						require("project_nvim").setup({
