@@ -17,10 +17,12 @@ action-add() {
 	#	Get a list of albums \
 	#	Select albums \
 	#	Get a list of songs in the selected albums \
+	#	Filter out playlists and cue files \
 	#	Add the songs to MPD
 	mpc -f "%file%" search any " " | cut -d "/" -f 1-2 | uniq | \
 		rofi_bar -multi-select | \
 		xargs -d "\n" -I{} mpc ls {} 2> /dev/null | \
+		grep "\.\(flac\|mp3\)\$" | \
 		xargs -d "\n" -I {} mpc add {} 2> /dev/null
 }
 
