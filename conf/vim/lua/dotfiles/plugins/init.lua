@@ -308,17 +308,6 @@ local function plugins()
 				}, -- Repeating keys mode (used for window resizing, atm)
 
 				{
-					"chentoast/marks.nvim",
-					module = "marks",
-					setup = function()
-						require("chad_loader").on_file_open("marks.nvim")
-					end,
-					config = function()
-						require("marks").setup({})
-					end,
-				}, -- Enhanced marks support
-
-				{
 					"Pocco81/true-zen.nvim",
 					module = "true-zen",
 					setup = function()
