@@ -24,7 +24,9 @@ end
 function M.setup()
 	-- Autoclose mapping:
 	vim.keymap.set("i", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>', { noremap = true })
+	-- Set rules:
 	M.loader()
+	-- Automatically reload rules when editing the rule file:
 	vim.api.nvim_create_autocmd("BufWritePost", {
 		pattern = "lexima.lua",
 		command = "source <afile> | lua require('dotfiles.plugins.lexima').loader()"
