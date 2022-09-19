@@ -5,16 +5,6 @@ local function config_lspconfig()
 	-- Install LSPs
 	require("dotfiles.plugins.mason").install_lsp()
 
-	vim.diagnostic.config({
-		underline = true,
-		virtual_text = true,
-		signs = false,
-		severity_sort = true,
-	})
-
-	-- LSP Logging:
-	-- vim.lsp.set_log_level("trace")
-
 	local handler_no_diagnostics = {
 		["textDocument/publishDiagnostics"] = function() end,
 	}

@@ -377,6 +377,18 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
 	end,
 })
 -- }}}
+-- LSP: {{{
+vim.diagnostic.config({
+	underline = true,
+	virtual_text = true,
+	signs = false,
+	severity_sort = true,
+})
+
+-- LSP Logging:
+-- vim.lsp.set_log_level("trace")
+
+-- }}}
 -- Filetypes {{{
 vim.filetype.add({
 	extension = {
