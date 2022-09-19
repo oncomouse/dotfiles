@@ -305,12 +305,14 @@ local function plugins()
 
 				{
 					"anuvyklack/hydra.nvim",
-					config = require("dotfiles.plugins.hydra"),
+					config = function()
+						require("dotfiles.plugins.hydra").setup()
+					end,
 					module = "hydra",
 					setup = function()
 						require("chad_loader").on_file_open("hydra.nvim")
 					end,
-					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/hydra.lua
+					-- Configured in ~/dotfiles/conf/vim/after/plugin/hydra.lua
 				}, -- Repeating keys mode (used for window resizing, atm)
 
 				{

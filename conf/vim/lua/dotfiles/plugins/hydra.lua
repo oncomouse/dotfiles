@@ -1,29 +1,26 @@
-local function config_hydra()
-	local Hydra = require("hydra")
-	Hydra({
-		name = "Side scroll",
-		mode = "n",
-		body = "z",
-		heads = {
-			{ "h", "5zh" },
-			{ "l", "5zl", { desc = "←/→" } },
-			{ "H", "zH" },
-			{ "L", "zL", { desc = "half screen ←/→" } },
-		},
-	})
+local M = {}
 
-	Hydra({
-		name = "Resize windows",
-		mode = "n",
-		body = "<C-w>",
-		heads = {
-			{ "+", "<C-w>+" },
-			{ "-", "<C-w>-", { desc = "height +/-" } },
-			{ ">", "2<C-w>>" },
-			{ "<", "2<C-w><", { desc = "width +/-" } },
-			{ "=", "<C-w>=", { desc = "equalize" } },
-		},
+function M.loader()
+	local hydra = require("hydra")
+	for _, definition in pairs(vim.g.dotfiles_hydras) do
+		if type(definition) == "table" then
+			if #definition > 0 then
+				for _, d in pairs(definition) do
+					hydra(d)
+				end
+			else
+				hydra(definition)
+			end
+		end
+	end
+end
+
+function M.setup()
+	M.loader()
+	vim.api.nvim_create_autocmd("BufWritePost", {
+		pattern = "hydra.lua",
+		command = "source <afile> | lua require('dotfiles.plugins.hydra').loader()"
 	})
 end
 
-return config_hydra
+return M
