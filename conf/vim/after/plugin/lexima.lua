@@ -30,30 +30,6 @@ local function make_markdown_bi_rule(char, escape)
 	} -- Delete pair
 end
 
-local function neorg_pair(char, esc_char)
-	esc_char = esc_char and esc_char or [[\]] .. char
-	return {
-		{
-			char = char,
-			leave = 1,
-			at = [[\%#]] .. esc_char,
-			filetype = "norg",
-		},
-		{
-			char = char,
-			input_after = char,
-			except = [[^\s*]] .. esc_char .. [[*\%#]],
-			filetype = "norg",
-		},
-		{
-			char = "<BS>",
-			at = esc_char .. [[\%#]] .. esc_char,
-			delete = 1,
-			filetype = "norg",
-		},
-	}
-end
-
 -- XML-style closetag:
 local function xml_closetag_rules()
 	if vim.g.lexima_disable_closetag == 0 then
@@ -129,50 +105,6 @@ vim.g.dotfiles_lexima_rules = {
 	-- Handle bold/italic pairs:
 	make_markdown_bi_rule("*", true),
 	make_markdown_bi_rule("_"),
-
-	-- Neorg Rules:
-	-- Bold / Italic:
-	neorg_pair("/"),
-	neorg_pair("*"),
-	neorg_pair("_", "_"),
-	neorg_pair("-"),
-	neorg_pair("<Bar>", "|"),
-	neorg_pair("`"),
-	neorg_pair("^"),
-	-- neorg_pair(","),
-	neorg_pair("$"),
-	-- neorg_pair("=", "="),
-	-- neorg_pair("+", "+"),
-
-	-- Tasks:
-	{
-		char = "[",
-		input = "[ ]",
-		at = [[^\s*-\+\s*\%#]],
-		filetype = "norg",
-	},
-	{
-		char = "<BS>",
-		delete = 3,
-		at = [[^\s*-\+\s*\[.\]\%#]],
-		filetype = "norg",
-	},
-
-	-- Lists
-	{
-		char = "<CR>",
-		at = [[^\s*\(-\+\)\s*\(\[.\]\)\{0,1\}.*\%#]],
-		input = [[<cr>\1 \2]],
-		with_submatch = 2,
-		filetype = "norg",
-	},
-	{
-		char = "<CR>",
-		at = [[^\s*\(\~\+\)\s*.*\%#]],
-		input = [[<cr>\1 ]],
-		with_submatch = 1,
-		filetype = "norg",
-	},
 
 	xml_closetag_rules(),
 	lua_endwise_rules(),
