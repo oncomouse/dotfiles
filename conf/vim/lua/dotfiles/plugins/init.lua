@@ -152,8 +152,25 @@ local function plugins()
 						vim.g.lexima_disable_closetag = 0
 					end,
 					event = "InsertEnter",
-					config = require("dotfiles.plugins.lexima"),
-					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/lexima.lua
+					config = function()
+						local add_rule = vim.fn["lexima#add_rule"]
+						for _,rule in pairs(vim.g.dotfiles_lexima_rules) do
+							if type(rule) == "table" then
+								if #rule == 0 then
+									add_rule(rule)
+								else
+									for _,r in pairs(rule) do
+										add_rule(r)
+									end
+								end
+							end
+						end
+						-- Autoclose mapping:
+						vim.keymap.set("i", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>', { noremap = true })
+						vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima)", { silent = true })
+					end
+					-- config = require("dotfiles.plugins.lexima"),
+					-- Configured in ~/dotfiles/conf/vim/after/plugin/lexima.lua
 				}, -- Endwise and autopairs
 
 				{
