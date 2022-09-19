@@ -1,16 +1,16 @@
 local M = {}
 M.packages = {
-	-- "black",
-	-- "flake8",
-	-- "prettier",
-	-- "rubocop",
-	-- "selene",
-	-- "shellcheck",
-	-- "shellharden",
-	-- "shfmt",
-	-- "standardrb",
-	-- "stylua",
-	-- "vint",
+	"black",
+	"flake8",
+	"prettier",
+	"rubocop",
+	"selene",
+	"shellcheck",
+	"shellharden",
+	"shfmt",
+	"standardrb",
+	"stylua",
+	"vint",
 }
 
 local function install_maybe(pkg)
@@ -29,8 +29,13 @@ local function install_maybe(pkg)
 	end
 end
 
+local run_setup = false
+
 local function configure_mason()
-	require("mason").setup()
+	if not run_setup then
+		require("mason").setup()
+		run_setup = true
+	end
 end
 
 function M.install_tools()
