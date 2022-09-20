@@ -4,7 +4,7 @@
 
 ---@alias ai_type "i" | "a"
 
-local function config_mini()
+if pcall(require, "mini.ai") then
 	-- vim-textobj-sentence configuration
 	-- vim.g["textobj#sentence#doubleDefault"] = "“”"
 	-- vim.g["textobj#sentence#singleDefault"] = "‘’"
@@ -180,5 +180,3 @@ local function config_mini()
 	--  ~/dotfiles/conf/vim/after/ftplugin/lua.lua
 	--  ~/dotfiles/conf/vim/after/ftplugin/markdown.lua
 end
-
-return config_mini

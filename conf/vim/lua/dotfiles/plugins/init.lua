@@ -24,6 +24,17 @@ local function plugins()
 
 				"sickill/vim-pasta", -- fix block paste for Neovim
 				"christoomey/vim-sort-motion", -- gs to sort
+				"tpope/vim-sleuth", -- Automatically set indent
+				"oncomouse/vim-lion", -- gl and gL to align
+
+				{
+					"vim-scripts/ReplaceWithRegister",
+					requires = { "tpope/vim-repeat" },
+				}, -- gr{motion} or grr or gr in visual to replace with register
+				{
+					"tpope/vim-unimpaired",
+					requires = { "tpope/vim-repeat" },
+				},
 
 				{
 					"echasnovski/mini.nvim",
@@ -53,11 +64,7 @@ local function plugins()
 						{ "preservim/vim-textobj-sentence", after = "mini.nvim" }, -- Sentence object
 						{ "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" }, -- Configuration for treesitter objects
 					},
-					setup = function()
-						require("chad_loader").on_file_open("mini.nvim")
-					end,
-					config = require("dotfiles.plugins.mini-nvim"),
-					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/mini-nvim.lua
+					-- Configured in ~/dotfiles/conf/vim/after/plugin/mini-nvim.lua
 				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai); mini.surround for surround (ys to add, cs to change, ds to delete)
 
 				{
@@ -78,10 +85,6 @@ local function plugins()
 					end,
 				}, -- Set project root
 
-				"tpope/vim-sleuth", -- Automatically set indent
-
-				"oncomouse/vim-lion", -- gl and gL to align
-
 				{
 					"haya14busa/vim-asterisk",
 					config = function()
@@ -93,11 +96,6 @@ local function plugins()
 					end,
 					requires = { "tpope/vim-repeat" },
 				}, -- Fancy * and # bindings
-
-				{
-					"vim-scripts/ReplaceWithRegister",
-					requires = { "tpope/vim-repeat" },
-				}, -- gr{motion} or grr or gr in visual to replace with register
 
 				{
 					"cohama/lexima.vim", -- Autopairs
@@ -116,11 +114,6 @@ local function plugins()
 					-- config = require("dotfiles.plugins.lexima"),
 					-- Configured in ~/dotfiles/conf/vim/after/plugin/lexima.lua
 				}, -- Endwise and autopairs
-
-				{
-					"tpope/vim-unimpaired",
-					requires = { "tpope/vim-repeat" },
-				},
 
 				-- Extra functionality + UI:
 
@@ -237,7 +230,6 @@ local function plugins()
 				{
 					"hrsh7th/nvim-cmp",
 					module = "cmp",
-					opt = true,
 					setup = function()
 						require("chad_loader").on_file_open("nvim-cmp")
 					end,
@@ -256,11 +248,7 @@ local function plugins()
 					config = function()
 						require("dotfiles.plugins.hydra").setup()
 					end,
-					module = "hydra",
-					setup = function()
-						require("chad_loader").on_file_open("hydra.nvim")
-					end,
-					-- Configured in ~/dotfiles/conf/vim/after/plugin/hydra.lua
+					-- Configured in ~/dotfiles/conf/vim/hydra.lua
 				}, -- Repeating keys mode (used for window resizing, atm)
 
 				{
@@ -354,6 +342,26 @@ local function plugins()
 				-- Appearance:
 
 				{
+					"preservim/vim-markdown",
+					ft = "markdown",
+					setup = function()
+						vim.g.vim_markdown_frontmatter = 1 -- Format YAML
+						vim.g.vim_markdown_strikethrough = 1 -- Don't format strikethrough
+						vim.g.vim_markdown_conceal = 0 -- Don't conceal
+						vim.g.vim_markdown_conceal_code_blocks = 0 -- Don't conceal code blocks
+						vim.g.vim_markdown_math = 1 -- Do process MathJaX and LaTeX math
+						vim.g.vim_markdown_auto_insert_bullets = 0 -- autoList handles bullet insertion now
+						vim.g.vim_markdown_new_list_item_indent = 0 -- autoList handles spacing for lists
+					end,
+					requires = {
+						{ -- Required for TableFormat in vim-markdown but also useful elsewhere
+							"godlygeek/tabular",
+							cmd = { "Tabularize" },
+						},
+					},
+				}, -- Markdown Syntax
+
+				{
 					"oncomouse/lushwal.nvim",
 					opt = true,
 					cmd = "LushwalCompile",
@@ -390,64 +398,20 @@ local function plugins()
 					requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 				}, -- Colorscheme
 
-				{
-					"NvChad/nvim-colorizer.lua",
-					config = function()
-						if vim.opt.termguicolors:get() then
-							require("colorizer").setup({
-								filetypes = {
-									"*", -- Load everywhere
-									"!packer", -- Except packer buffers
-									"!gina*", -- And commit buffers
-									html = { names = true, RRGGBBAA = false },
-									css = { css = true, RRGGBBAA = false },
-									scss = {
-										css = true,
-										RRGGBBAA = false,
-										-- custom_matcher = require("colorizer/sass").variable_matcher,
-									},
-								},
-								user_default_options = {
-									names = false, -- Turn off highlighting color words in non-HTML/CSS settings
-									RRGGBBAA = true,
-									mode = "background", -- Could be background, foreground, or virtualtext
-									sass = {
-										enable = true,
-										parsers = {
-											css = true,
-										},
-									},
-								},
-							})
-						end
-					end,
-				}, -- Highlight colors in files
+				"NvChad/nvim-colorizer.lua", -- Highlight colors in files
+				-- Configured in ~/dotfiles/conf/vim/plugin/nvim-colorizer.lua
 
 				{
 					"rebelot/heirline.nvim",
 					module = "heirline",
-					setup = function()
-						require("chad_loader").on_file_open("heirline.nvim")
-						require("chad_loader").do_not_defer("heirline.nvim")
-					end,
-					config = require("dotfiles.plugins.heirline"),
 				}, -- Statusline
-				-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/heirline.lua
+				-- Configured in ~/dotfiles/conf/vim/after/plugin/heirline.lua
 
 				{
 					"lukas-reineke/indent-blankline.nvim",
-					setup = function()
-						require("chad_loader").on_file_open("indent-blankline.nvim")
-					end,
-					config = function()
-						require("indent_blankline").setup({
-							show_end_of_line = true,
-							space_char_blankline = " ",
-							show_current_context = true,
-						})
-					end,
-					opt = true,
+					module = "indent_blankline",
 				}, -- Mark and highlight indentations
+				-- Configured in ~/dotfiles/conf/vim/after/plugin/indent-blankline.lua
 			})
 		end,
 		config = {
