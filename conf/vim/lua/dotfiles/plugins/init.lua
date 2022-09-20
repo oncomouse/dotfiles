@@ -157,7 +157,7 @@ local function plugins()
 						require("dotfiles.plugins.lexima").setup()
 						-- Autoclose mapping:
 						vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima)", { silent = true })
-					end
+					end,
 					-- config = require("dotfiles.plugins.lexima"),
 					-- Configured in ~/dotfiles/conf/vim/after/plugin/lexima.lua
 				}, -- Endwise and autopairs
@@ -181,13 +181,19 @@ local function plugins()
 
 				{
 					"ibhagwan/fzf-lua",
-					keys = { { "n", "<C-p>" }, { "n", "<leader>a" } },
+					keys = { { "n", "<C-p>" }, { "n", "<Leader>a" } },
 					cmd = { "FzfLua", "Files", "Buffers", "GitStatus" },
 					module = "fzf-lua",
-					setup = function()
-						require("chad_loader").on_file_open("fzf-lua")
+					setup = function() -- Shim vim.ui.select until we can load the plugin
+						vim.ui.select = function(...)
+							require("fzf-lua.providers.ui_select").ui_select(...)
+						end
 					end,
-					config = require("dotfiles.plugins.fzf-lua"),
+					config = function()
+						require("dotfiles.plugins.fzf-lua").setup()
+						vim.keymap.set("n", "<C-p>", "<Plug>(dotfiles-fzf-files)", { silent = true })
+						vim.keymap.set("n", "<Leader>a", "<Plug>(dotfiles-fzf-buffers)", { silent = true })
+					end,
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/fzf-lua.lua
 				}, -- FZF Client
 
@@ -217,15 +223,6 @@ local function plugins()
 						})
 					end,
 				}, -- Git support
-
-				{
-					"justinmk/vim-dirvish",
-					opt = true,
-					setup = function()
-						require("chad_loader").do_not_defer("vim-dirvish")
-						require("chad_loader").on_directory("vim-dirvish")
-					end,
-				}, -- Directory display
 
 				{
 					"L3MON4D3/LuaSnip",
@@ -316,16 +313,6 @@ local function plugins()
 				}, -- Repeating keys mode (used for window resizing, atm)
 
 				{
-					"Pocco81/true-zen.nvim",
-					module = "true-zen",
-					setup = function()
-						require("chad_loader").on_file_open("true-zen.nvim")
-					end,
-					config = require("dotfiles.plugins.true-zen"),
-					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/true-zen.lua
-				}, -- Zoomed, minimalist mode (<leader>z and gz<motion>)
-
-				{
 					"gaoDean/autolist.nvim",
 					ft = { "markdown", "text" },
 					config = function()
@@ -340,9 +327,12 @@ local function plugins()
 							},
 							insert_mappings = {
 								invert = {
-									""
-								}
-							}
+									"",
+								},
+								indent = {
+									"",
+								},
+							},
 						})
 						-- <C-d> to delete list marker if that's all that's left
 						vim.api.nvim_create_autocmd("FileType", {
@@ -360,7 +350,7 @@ local function plugins()
 									if match then
 										local savepos = vim.fn.winsaveview().col
 										local jump = (savepos == #line) and "$a" or savepos - #match .. "li"
-										return "<Esc>0\"_2dl" .. jump
+										return '<Esc>0"_2dl' .. jump
 									end
 									return "<C-d><Cmd>lua require('autolist').detab()<CR>"
 								end, {
@@ -508,8 +498,8 @@ local function plugins()
 										enable = true,
 										parsers = {
 											css = true,
-										}
-									}
+										},
+									},
 								},
 							})
 						end
