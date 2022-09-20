@@ -1,9 +1,6 @@
 local function config_cmp()
 	local cmp = require("cmp")
 
-	local feedkey = function(key, mode)
-		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode or "", true)
-	end
 	cmp.setup({
 		enabled = function()
 			-- disable completion in comments
@@ -23,15 +20,13 @@ local function config_cmp()
 		mapping = {
 			["<C-p>"] = cmp.mapping.select_prev_item(),
 			["<C-n>"] = cmp.mapping.select_next_item(),
-			-- ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-			-- ["<C-d>"] = cmp.mapping.scroll_docs(4),
 			["<C-x><C-o>"] = cmp.mapping.complete(),
 			["<C-c>"] = cmp.mapping.abort(),
 			["<C-e>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.mapping.close()
 				elseif require("luasnip").choice_active() then
-					feedkey("<Plug>luasnip-next-choice")
+					require("luasnip").change_choice(1)
 				else
 					fallback()
 				end
@@ -40,20 +35,6 @@ local function config_cmp()
 				behavior = cmp.ConfirmBehavior.Replace,
 				select = false,
 			}),
-			["<Tab>"] = cmp.mapping(function(fallback)
-				if require("luasnip").expand_or_locally_jumpable() then
-					feedkey("<Plug>luasnip-expand-or-jump")
-				else
-					fallback()
-				end
-			end, { "i", "s" }),
-			["<S-Tab>"] = cmp.mapping(function(fallback)
-				if require("luasnip").jumpable(-1) then
-					feedkey("<Plug>luasnip-jump-prev")
-				else
-					fallback()
-				end
-			end, { "i", "s" }),
 		},
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
