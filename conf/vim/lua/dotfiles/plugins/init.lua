@@ -400,28 +400,6 @@ local function plugins()
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/nvim-treesitter.lua
 				}, -- Treesitter-based Syntax
 
-				-- Non-Treesitter Syntax:
-
-				{
-					"preservim/vim-markdown",
-					ft = "markdown",
-					setup = function()
-						vim.g.vim_markdown_frontmatter = 1 -- Format YAML
-						vim.g.vim_markdown_strikethrough = 1 -- Don't format strikethrough
-						vim.g.vim_markdown_conceal = 0 -- Don't conceal
-						vim.g.vim_markdown_conceal_code_blocks = 0 -- Don't conceal code blocks
-						vim.g.vim_markdown_math = 1 -- Do process MathJaX and LaTeX math
-						vim.g.vim_markdown_auto_insert_bullets = 0 -- autoList handles bullet insertion now
-						vim.g.vim_markdown_new_list_item_indent = 0 -- autoList handles spacing for lists
-					end,
-					requires = {
-						{ -- Required for TableFormat in vim-markdown but also useful elsewhere
-							"godlygeek/tabular",
-							cmd = { "Tabularize" },
-						},
-					},
-				}, -- Markdown Syntax
-
 				-- Appearance:
 
 				{
@@ -429,17 +407,6 @@ local function plugins()
 					opt = true,
 					cmd = "LushwalCompile",
 					setup = function()
-						vim.api.nvim_create_autocmd("ColorSchemePre", {
-							group = "dotfiles-settings",
-							pattern = "lushwal",
-							command = "PackerLoad lushwal.nvim",
-						})
-					end,
-					run = function()
-						vim.cmd([[LushwalCompile]])
-					end,
-					requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
-					config = function()
 						vim.g.lushwal_configuration = {
 							-- Ayu Mirage is weird, so we do some overrides:
 							color_overrides = function(colors)
@@ -460,7 +427,16 @@ local function plugins()
 								nvim_cmp = true,
 							},
 						}
+						vim.api.nvim_create_autocmd("ColorSchemePre", {
+							group = "dotfiles-settings",
+							pattern = "lushwal",
+							command = "PackerLoad lushwal.nvim",
+						})
 					end,
+					run = function()
+						vim.cmd([[LushwalCompile]])
+					end,
+					requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 				}, -- Colorscheme
 
 				{
