@@ -24,25 +24,25 @@ local function config_luasnips()
 
 	-- Maps for LuaSnip:
 	local ok = pcall(require, "cmp") -- Do we have completion?
+	vim.keymap.set({ "i", "s" }, "<Tab>", function()
+		if ls.expand_or_locally_jumpable() then
+			return "<Plug>luasnip-expand-or-jump"
+		end
+		return t("<Tab>")
+	end, {
+		expr = true,
+		remap = true,
+	})
+	vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+		if ls.jumpable(-1) then
+			return "<Plug>luasnip-jump-prev"
+		end
+		return t("<S-Tab>")
+	end, {
+		expr = true,
+		remap = true,
+	})
 	if not ok then
-		vim.keymap.set({ "i", "s" }, "<Tab>", function()
-			if ls.expand_or_locally_jumpable() then
-				return "<Plug>luasnip-expand-or-jump"
-			end
-			return t("<Tab>")
-		end, {
-			expr = true,
-			remap = true,
-		})
-		vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
-			if ls.jumpable(-1) then
-				return "<Plug>luasnip-jump-prev"
-			end
-			return t("<S-Tab>")
-		end, {
-			expr = true,
-			remap = true,
-		})
 		vim.keymap.set({ "i", "s" }, "<C-E>", function()
 			if ls.choice_active() then
 				return "<Plug>luasnip-next-choice"
