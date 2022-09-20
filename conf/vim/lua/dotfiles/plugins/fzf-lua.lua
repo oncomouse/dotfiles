@@ -1,4 +1,6 @@
-local function config_fzf_lua()
+local M = {}
+
+function M.setup()
 	local wh = vim.api.nvim_win_get_height(0)
 	local ph = vim.o.previewheight
 	require("fzf-lua").setup({
@@ -108,8 +110,8 @@ local function config_fzf_lua()
 		force = true,
 	})
 
-	vim.keymap.set("n", "<c-p>", "<cmd>Files<CR>", { silent = true })
-	vim.keymap.set("n", "<leader>a", "<cmd>Buffers<CR>", { silent = true })
+	vim.keymap.set("n", "<Plug>(dotfiles-fzf-files)", "<cmd>Files<CR>", { silent = true })
+	vim.keymap.set("n", "<Plug>(dotfiles-fzf-buffers)", "<cmd>Buffers<CR>", { silent = true })
 end
 
-return config_fzf_lua
+return M
