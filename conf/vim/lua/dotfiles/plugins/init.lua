@@ -22,28 +22,8 @@ local function plugins()
 
 				-- Editor Enhancements:
 
-				{
-					"sickill/vim-pasta",
-					opt = true,
-					setup = function()
-						require("chad_loader").do_not_defer("vim-pasta")
-						require("chad_loader").lazy_load({
-							events = { "BufRead", "BufNewFile" },
-							plugins = "vim-pasta",
-							condition = function()
-								return true
-							end,
-						})
-					end,
-				}, -- fix block paste for Neovim
-
-				{
-					"christoomey/vim-sort-motion",
-					opt = true,
-					setup = function()
-						require("chad_loader").on_file_open("vim-sort-motion")
-					end,
-				}, -- gs to sort
+				"sickill/vim-pasta", -- fix block paste for Neovim
+				"christoomey/vim-sort-motion", -- gs to sort
 
 				{
 					"echasnovski/mini.nvim",
@@ -96,28 +76,11 @@ local function plugins()
 							},
 						})
 					end,
-					module = "project_nvim",
-					setup = function()
-						require("chad_loader").on_file_open("project.nvim")
-					end,
 				}, -- Set project root
 
-				{
-					"tpope/vim-sleuth",
-					opt = true,
-					setup = function()
-						require("chad_loader").do_not_defer("vim-sleuth")
-						require("chad_loader").on_file_open("vim-sleuth")
-					end,
-				}, -- Automatically set indent
+				"tpope/vim-sleuth", -- Automatically set indent
 
-				{
-					"oncomouse/vim-lion",
-					opt = true,
-					setup = function()
-						require("chad_loader").on_file_open("vim-lion")
-					end,
-				}, -- gl and gL to align
+				"oncomouse/vim-lion", -- gl and gL to align
 
 				{
 					"haya14busa/vim-asterisk",
@@ -129,19 +92,11 @@ local function plugins()
 						vim.g["asterisk#keeppos"] = 1
 					end,
 					requires = { "tpope/vim-repeat" },
-					opt = true,
-					setup = function()
-						require("chad_loader").on_file_open("vim-asterisk")
-					end,
 				}, -- Fancy * and # bindings
 
 				{
 					"vim-scripts/ReplaceWithRegister",
 					requires = { "tpope/vim-repeat" },
-					opt = true,
-					setup = function()
-						require("chad_loader").on_file_open("ReplaceWithRegister")
-					end,
 				}, -- gr{motion} or grr or gr in visual to replace with register
 
 				{
@@ -165,10 +120,6 @@ local function plugins()
 				{
 					"tpope/vim-unimpaired",
 					requires = { "tpope/vim-repeat" },
-					opt = true,
-					setup = function()
-						require("chad_loader").on_file_open("vim-unimpaired")
-					end,
 				},
 
 				-- Extra functionality + UI:
@@ -441,16 +392,6 @@ local function plugins()
 
 				{
 					"NvChad/nvim-colorizer.lua",
-					module = "colorizer",
-					setup = function()
-						require("chad_loader").lazy_load({
-							events = { "BufRead", "BufNewFile" },
-							plugins = "nvim-colorizer.lua",
-							condition = function()
-								return true
-							end,
-						})
-					end,
 					config = function()
 						if vim.opt.termguicolors:get() then
 							require("colorizer").setup({

@@ -362,19 +362,8 @@ vim.g.bibfiles = "~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/li
 -- }}}
 -- Plugins {{{
 require("dotfiles.plugins")
-local augroup = vim.api.nvim_create_augroup("LoaderNvimRef", {})
-vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
-	pattern = "*",
-	group = augroup,
-	callback = function()
-		vim.api.nvim_del_augroup_by_id(augroup)
-		vim.defer_fn(function()
-			-- Defer loading Nvim-ref:
-			require("nvim-ref").setup({
-				bibfiles = vim.g.bibfiles,
-			})
-		end, 0)
-	end,
+require("nvim-ref").setup({
+	bibfiles = vim.g.bibfiles,
 })
 -- }}}
 -- LSP: {{{
