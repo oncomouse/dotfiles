@@ -220,7 +220,7 @@ local function plugins()
 					config = function()
 						require("dotfiles.plugins.hydra").setup()
 					end,
-					-- Configured in ~/dotfiles/conf/vim/hydra.lua
+					-- Configured in ~/dotfiles/conf/vim/plugin/hydra.lua
 				}, -- Repeating keys mode (used for window resizing, atm)
 
 				{
