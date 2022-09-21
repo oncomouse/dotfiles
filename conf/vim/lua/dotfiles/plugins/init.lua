@@ -187,10 +187,7 @@ local function plugins()
 						{ "williamboman/mason.nvim", module = "mason" },
 					},
 					config = require("dotfiles.plugins.null-ls"),
-					module = "null-ls",
-					setup = function()
-						require("chad_loader").on_file_open("null-ls.nvim")
-					end,
+					module = "null-ls", -- Null-ls is loaded by the events created in nvim-lspconfig's configuration
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/null-ls/init.lua
 				}, -- Format and Diagnostics
 
@@ -200,29 +197,6 @@ local function plugins()
 						{ "williamboman/mason.nvim", module = "mason" },
 						{ "williamboman/mason-lspconfig.nvim", module = "mason-lspconfig" },
 					},
-					ft = {
-						"css",
-						"fish",
-						"html",
-						"javascript",
-						"javascriptreact",
-						"json",
-						"jsonc",
-						"latex",
-						"lua",
-						"markdown",
-						"org",
-						"plaintex",
-						"python",
-						"ruby",
-						"scss",
-						"sh",
-						"tex",
-						"typescript",
-						"typescriptreact",
-						"vim",
-						"yaml",
-					},
 					config = require("dotfiles.plugins.nvim-lspconfig"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/nvim-lspconfig/init.lua
 				}, -- LSP
@@ -230,9 +204,8 @@ local function plugins()
 				{
 					"hrsh7th/nvim-cmp",
 					module = "cmp",
-					setup = function()
-						require("chad_loader").on_file_open("nvim-cmp")
-					end,
+					event = "InsertEnter",
+					after = { "LuaSnip" },
 					requires = {
 						{ "hrsh7th/cmp-nvim-lsp" },
 						{ "saadparwaiz1/cmp_luasnip" },
@@ -303,7 +276,6 @@ local function plugins()
 
 				{
 					"nvim-treesitter/nvim-treesitter",
-					config = require("dotfiles.plugins.nvim-treesitter"),
 					run = function()
 						vim.cmd([[TSUpdate]])
 					end,
@@ -331,11 +303,7 @@ local function plugins()
 							end,
 						},
 					},
-					module = "nvim-treesitter",
-					setup = function()
-						require("chad_loader").do_not_defer("nvim-treesitter")
-						require("chad_loader").on_file_open("nvim-treesitter")
-					end,
+					config = require("dotfiles.plugins.nvim-treesitter"),
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/nvim-treesitter.lua
 				}, -- Treesitter-based Syntax
 

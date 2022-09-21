@@ -43,9 +43,8 @@ function M.install_tools()
 	vim.tbl_map(install_maybe, M.packages)
 end
 
-function M.install_lsp()
+function M.install_lsp(servers)
 	configure_mason()
-	local servers = require("dotfiles.plugins.nvim-lspconfig.servers")
 	require("mason-lspconfig").setup({
 		ensure_installed = vim.tbl_keys(servers),
 	})
