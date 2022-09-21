@@ -197,8 +197,7 @@ local function plugins()
 						{ "williamboman/mason.nvim", module = "mason" },
 						{ "williamboman/mason-lspconfig.nvim", module = "mason-lspconfig" },
 					},
-					config = require("dotfiles.plugins.nvim-lspconfig"),
-					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/nvim-lspconfig/init.lua
+					-- Configured in ~/dotfiles/conf/vim/plugin/nvim-lspconfig.lua
 				}, -- LSP
 
 				{
@@ -303,8 +302,7 @@ local function plugins()
 							end,
 						},
 					},
-					config = require("dotfiles.plugins.nvim-treesitter"),
-					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/nvim-treesitter.lua
+					-- Configured in ~/dotfiles/conf/vim/plugin/nvim-treesitter.lua
 				}, -- Treesitter-based Syntax
 
 				-- Appearance:
