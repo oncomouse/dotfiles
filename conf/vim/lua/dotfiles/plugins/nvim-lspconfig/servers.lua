@@ -173,10 +173,15 @@ local server_map = {
 	},
 }
 
+local cache = {}
 return setmetatable(server_map, {
 	__index = function(_, idx)
+		if cache[idx] ~= nil then
+			return cache[idx]
+		end
 		for _, server_block in pairs(server_map) do
 			if vim.fn.has_key(server_block.servers, idx) == 1 then
+				cache[idx] = server_block.servers[idx]
 				return server_block.servers[idx]
 			end
 		end
