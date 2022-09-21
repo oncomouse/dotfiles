@@ -19,9 +19,9 @@ for _, servers in pairs(server_maps) do
 				else
 					capabilities = vim.lsp.protocol.make_client_capabilities()
 				end
+				-- Install LSPs
+				require("dotfiles.plugins.mason").install_lsp()
 			end
-			-- Install LSPs
-			require("dotfiles.plugins.mason").install_lsp(servers.servers)
 			for lsp, settings in pairs(servers.servers) do
 				if lsp == "null-ls" then
 					vim.cmd.PackerLoad("null-ls.nvim")

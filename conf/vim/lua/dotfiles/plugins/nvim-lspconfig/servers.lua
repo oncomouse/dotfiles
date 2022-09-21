@@ -214,6 +214,16 @@ return setmetatable(server_map, {
 		if cache[idx] ~= nil then
 			return cache[idx]
 		end
+		if idx == "servers" then
+			local output = {}
+			for _, server_block in pairs(server_map) do
+				for name, server in pairs(server_block.servers) do
+					cache[name] = server
+					table.insert(output, name)
+				end
+			end
+			return output
+		end
 		for _, server_block in pairs(server_map) do
 			if vim.fn.has_key(server_block.servers, idx) == 1 then
 				cache[idx] = server_block.servers[idx]

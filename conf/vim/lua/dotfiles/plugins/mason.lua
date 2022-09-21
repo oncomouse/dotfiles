@@ -19,9 +19,6 @@ local function install_maybe(pkg)
 		local installed = false
 		if in_registry then
 			installed = spec:is_installed()
-		else
-			spec = M.local_packages[pkg]
-			installed = spec == nil and false or vim.fn.isdirectory(spec:get_install_path()) == 1
 		end
 		if not installed then
 			spec:install()
@@ -43,10 +40,11 @@ function M.install_tools()
 	vim.tbl_map(install_maybe, M.packages)
 end
 
-function M.install_lsp(servers)
+function M.install_lsp()
 	configure_mason()
+	local servers = require("dotfiles.plugins.nvim-lspconfig.servers").servers
 	require("mason-lspconfig").setup({
-		ensure_installed = vim.tbl_keys(servers),
+		ensure_installed = servers,
 	})
 end
 
