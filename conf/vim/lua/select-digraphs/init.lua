@@ -115,6 +115,7 @@ function M.select_digraph(mode)
 	if digraphs == nil then
 		digraphs = generate_digraphs()
 	end
+	local cursor_column = get_cursor_column()
 
 	vim.ui.select(digraphs, {
 		prompt = "Digraph: ",
@@ -133,7 +134,7 @@ function M.select_digraph(mode)
 
 		if string.match(mode, "^i$") then
 			if vim.fn.mode() ~= "i" then
-				if get_cursor_column() == (#vim.api.nvim_get_current_line() - 1) then
+				if cursor_column == #vim.api.nvim_get_current_line() then
 					vim.api.nvim_feedkeys("a", "", false)
 				else
 					vim.api.nvim_feedkeys("i", "", false)
