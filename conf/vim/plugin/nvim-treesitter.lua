@@ -69,5 +69,36 @@ require("nvim-treesitter.configs").setup({
 	endwise = { enable = true },
 	autotag = { enable = true },
 	matchup = { enable = true },
-})
+	textobjects = {
+		select = {
+			enable = true,
 
+			-- Automatically jump forward to textobj, similar to targets.vim
+			lookahead = true,
+			keymaps = {
+				-- You can use the capture groups defined in textobjects.scm
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ac"] = "@class.outer",
+				-- you can optionally set descriptions to the mappings (used in the desc parameter of nvim_buf_set_keymap
+				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+			},
+		},
+		move = {
+			enable = true,
+			set_jumps = true, -- whether to set jumps in the jumplist
+			goto_next_start = {
+				["]m"] = "@function.outer",
+			},
+			goto_next_end = {
+				["]M"] = "@function.outer",
+			},
+			goto_previous_start = {
+				["[m"] = "@function.outer",
+			},
+			goto_previous_end = {
+				["[M"] = "@function.outer",
+			},
+		},
+	},
+})

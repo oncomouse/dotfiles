@@ -62,7 +62,6 @@ local function plugins()
 					},
 					requires = {
 						{ "preservim/vim-textobj-sentence", after = "mini.nvim" }, -- Sentence object
-						{ "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" }, -- Configuration for treesitter objects
 					},
 					-- Configured in ~/dotfiles/conf/vim/after/plugin/mini-nvim.lua
 				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai); mini.surround for surround (ys to add, cs to change, ds to delete)
@@ -286,6 +285,7 @@ local function plugins()
 								})
 							end,
 						},
+						{ "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" }, -- Configuration for treesitter objects
 						{
 							"andymass/vim-matchup",
 							after = "nvim-treesitter",
