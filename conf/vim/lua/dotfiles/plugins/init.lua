@@ -40,6 +40,7 @@ local function plugins()
 					"echasnovski/mini.nvim",
 					module = {
 						"mini.ai",
+						"mini.align",
 						"mini.base16",
 						"mini.bufremove",
 						"mini.comment",
