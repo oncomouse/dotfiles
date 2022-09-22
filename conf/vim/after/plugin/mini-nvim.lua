@@ -144,6 +144,8 @@ if pcall(require, "mini.ai") then
 		search_method = "cover", -- Only use next and last mappings to search
 	})
 
+	require("mini.align").setup({})
+
 	-- gc for commenting/uncommenting:
 	require("mini.comment").setup({})
 
