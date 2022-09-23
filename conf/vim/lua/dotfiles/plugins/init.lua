@@ -109,7 +109,7 @@ local function plugins()
 					config = function()
 						require("dotfiles.plugins.lexima").setup()
 						-- Autoclose mapping:
-						vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima)", { silent = true })
+						vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima-leave-til-eol)", { silent = true })
 					end,
 					-- config = require("dotfiles.plugins.lexima"),
 					-- Configured in ~/dotfiles/conf/vim/after/plugin/lexima.lua

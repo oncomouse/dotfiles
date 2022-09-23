@@ -23,7 +23,7 @@ end
 
 function M.setup()
 	-- Autoclose mapping:
-	vim.keymap.set("i", "<Plug>(dotfiles-lexima)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>', { noremap = true })
+	vim.keymap.set("i", "<Plug>(dotfiles-lexima-leave-til-eol)", '<C-r>=lexima#insmode#leave_till_eol("")<CR>', { noremap = true })
 	-- Set rules:
 	M.loader()
 	-- Automatically reload rules when editing the rule file:
