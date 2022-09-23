@@ -14,6 +14,8 @@
 	"Lua.workspace.maxPreload": 2000,
 	"Lua.runtime.path": [
 		"./?.lua",
+		"/usr/share/lua/5.1/?.lua",
+		"/usr/share/lua/5.1/?/init.lua",
 		"/usr/local/share/lua/5.1/?.lua",
 		"/usr/local/share/lua/5.1/?/init.lua",
 		"$HOME/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua",
@@ -23,6 +25,7 @@
 	],
 	"Lua.workspace.library": [
 		"$HOME/.local/nvim-macos/share/nvim/runtime",
+		"$HOME/.local/nvim-linux/share/nvim/runtime",
 		"$HOME/.local/share/packer.nvim/pack/packer/opt/LuaSnip",
 		"$HOME/.local/share/packer.nvim/pack/packer/opt/autolist.nvim",
 		"$HOME/.local/share/packer.nvim/pack/packer/opt/cmp-fish",
