@@ -126,6 +126,7 @@ local function plugins()
 				{
 					"ibhagwan/fzf-lua",
 					keys = { { "n", "<C-p>" }, { "n", "<Leader>a" } },
+					cmd = { "GitStatus", "Files", "Buffers" },
 					module = "fzf-lua",
 					setup = function() -- Shim vim.ui.select until we can load the plugin
 						vim.ui.select = function(...)
