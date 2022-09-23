@@ -1,11 +1,7 @@
--- put this file somewhere in your nvim config, like: ~/.config/nvim/lua/config/lua-lsp.lua
--- usage: require'lspconfig'.sumneko_lua.setup(require("config.lua-lsp"))
-
 local library = {}
 
 local runtime_path = vim.split(package.path, ";")
 
--- this is the ONLY correct way to setup your path
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
@@ -18,16 +14,17 @@ local function add(lib)
 	end
 end
 
--- add runtime
+-- Neovim Runtime:
 add("$VIMRUNTIME")
 
--- add your config
+-- Dotfiles:
 add("~/dotfiles/conf/vim")
 
--- add plugins
--- if you're not using packer, then you might need to change the paths below
-add("~/.local/share/packer.nvim/pack/packer/opt/*")
-add("~/.local/share/packer.nvim/pack/packer/start/*")
+-- Load plugins (this causes huge CPU usage on macOS):
+if vim.fn.has("mac") ~= 1 then
+	add("~/.local/share/packer.nvim/pack/packer/opt/*")
+	add("~/.local/share/packer.nvim/pack/packer/start/*")
+end
 
 local server_map = {
 	{
