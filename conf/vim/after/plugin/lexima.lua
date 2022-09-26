@@ -75,9 +75,8 @@ local function lua_endwise_rules()
 end
 
 vim.g.dotfiles_lexima_rules = {
-
 	-- Markdown rules:
-	-- { char = "*", at = [[^\s*\%#]], input = "*<Space>", filetype = "markdown" }, -- Bulleted lists
+	-- Links:
 	{
 		char = "]",
 		at = [=[\[[^]]*\%#\]]=],
@@ -86,7 +85,8 @@ vim.g.dotfiles_lexima_rules = {
 		input = "(",
 		input_after = ")",
 		filetype = "markdown",
-	}, -- Links
+	},
+	-- Blockquotes:
 	{
 		char = "<BS>",
 		input = "<BS><BS>",
@@ -100,8 +100,12 @@ vim.g.dotfiles_lexima_rules = {
 		input = "<CR>> ",
 		filetype = "markdown",
 	},
-
-
+	{
+		char = ">",
+		input = "> ",
+		at = [[^\%#]],
+		filetype = "markdown",
+	},
 	-- Tasks:
 	{
 		char = "[",
@@ -116,11 +120,13 @@ vim.g.dotfiles_lexima_rules = {
 		at = [[^\s*[*-]\s*\[.\]\%#]],
 		filetype = "markdown",
 	},
-
-	-- Handle bold/italic pairs:
+	-- Bold/Italic Pairs:
 	make_markdown_bi_rule("*", true),
 	make_markdown_bi_rule("_"),
 
+	-- XML closing tags:
 	xml_closetag_rules(),
+
+	-- Insert Lua endwise rules:
 	lua_endwise_rules(),
 }
