@@ -87,6 +87,20 @@ vim.g.dotfiles_lexima_rules = {
 		input_after = ")",
 		filetype = "markdown",
 	}, -- Links
+	{
+		char = "<BS>",
+		input = "<BS><BS>",
+		at = [[^> \%#]],
+		delete = 2,
+		filetype = "markdown",
+	},
+	{
+		char = "<CR>",
+		at = "^> ",
+		input = "<CR>> ",
+		filetype = "markdown",
+	},
+
 
 	-- Tasks:
 	{
@@ -97,6 +111,7 @@ vim.g.dotfiles_lexima_rules = {
 	},
 	{
 		char = "<BS>",
+		input = "<BS><BS><BS>",
 		delete = 3,
 		at = [[^\s*[*-]\s*\[.\]\%#]],
 		filetype = "markdown",
