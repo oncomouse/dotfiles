@@ -232,6 +232,9 @@ local function plugins()
 								ul_marker = "*",
 							},
 							insert_mappings = {
+								detab = {
+									"",
+								},
 								invert = {
 									"",
 								},
