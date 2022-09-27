@@ -22,6 +22,14 @@ local get_cursor_column = function()
 	return col
 end
 
+local function restore_input(cursor_column)
+	if cursor_column == #vim.api.nvim_get_current_line() then
+		vim.api.nvim_feedkeys("a", "", false)
+	else
+		vim.api.nvim_feedkeys("i", "", false)
+	end
+end
+
 local match_digraph_table_header = function(line)
 	return string.match(line, "official name")
 end
@@ -72,7 +80,6 @@ local function is_valid_digraph(item)
 end
 
 local generate_digraphs = function()
-
 	local digraph_list = get_digraph_from_doc()
 	digraph_list = vim.tbl_map(get_digraph_from_line, digraph_list)
 	digraph_list = vim.tbl_filter(is_valid_digraph, digraph_list)
@@ -125,7 +132,7 @@ function M.select_digraph(mode)
 	}, function(choice)
 		if choice == nil then
 			if mode == "i" then -- Restore input
-				vim.api.nvim_feedkeys("i", "", false)
+				restore_input(cursor_column)
 			elseif mode == "gvr" then -- Restore visual selection
 				vim.api.nvim_feedkeys("gv", "", false)
 			end
@@ -134,11 +141,7 @@ function M.select_digraph(mode)
 
 		if string.match(mode, "^i$") then
 			if vim.fn.mode() ~= "i" then
-				if cursor_column == #vim.api.nvim_get_current_line() then
-					vim.api.nvim_feedkeys("a", "", false)
-				else
-					vim.api.nvim_feedkeys("i", "", false)
-				end
+				restore_input(cursor_column)
 			end
 			vim.api.nvim_feedkeys("" .. choice[2], "", false)
 		elseif string.match(mode, "^r$") then
@@ -146,6 +149,18 @@ function M.select_digraph(mode)
 		elseif string.match(mode, "^gvr$") then
 			vim.api.nvim_feedkeys((vim.fn.mode():match("^[vV]") and "" or "gv") .. "r" .. choice[2], "", false)
 		end
+	end)
+end
+
+function M.setup()
+	vim.keymap.set("i", "<Plug>(select-digraph-i)", function()
+		M.select_digraph("i")
+	end)
+	vim.keymap.set("n", "<Plug>(select-digraph-n)", function()
+		M.select_digraph("r")
+	end)
+	vim.keymap.set("v", "<Plug>(select-digraph-v)", function()
+		M.select_digraph("gvr")
 	end)
 end
 
