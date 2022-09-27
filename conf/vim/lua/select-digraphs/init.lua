@@ -17,32 +17,34 @@
 
 local M = {}
 
-local get_cursor_column = function()
+local function get_cursor_column()
 	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col
 end
 
 local function restore_input(cursor_column)
-	if cursor_column == #vim.api.nvim_get_current_line() then
-		vim.api.nvim_feedkeys("a", "", false)
-	else
-		vim.api.nvim_feedkeys("i", "", false)
+	if vim.fn.mode() ~= "i" then
+		if cursor_column == #vim.api.nvim_get_current_line() then
+			vim.api.nvim_feedkeys("a", "", false)
+		else
+			vim.api.nvim_feedkeys("i", "", false)
+		end
 	end
 end
 
-local match_digraph_table_header = function(line)
+local function match_digraph_table_header(line)
 	return string.match(line, "official name")
 end
 
-local is_empty_string = function(line)
+local function is_empty_string(line)
 	return line == ""
 end
 
-local match_digraph_table_footer = function(line)
+local function match_digraph_table_footer(line)
 	return string.match(line, "vim:tw=78:ts=8:noet:ft=help:norl:")
 end
 
-local get_digraph_from_doc = function()
+local function get_digraph_from_doc()
 	local digraph_doc = vim.fn.expand("$VIMRUNTIME/doc/digraph.txt")
 	local ok, f_lines = pcall(io.lines, digraph_doc)
 	if ok then
@@ -79,7 +81,7 @@ local function is_valid_digraph(item)
 	return #item == 3 and item[1] ~= nil and item[2] ~= nil and item[3] ~= nil
 end
 
-local generate_digraphs = function()
+local function generate_digraphs()
 	local digraph_list = get_digraph_from_doc()
 	digraph_list = vim.tbl_map(get_digraph_from_line, digraph_list)
 	digraph_list = vim.tbl_filter(is_valid_digraph, digraph_list)
@@ -140,9 +142,7 @@ function M.select_digraph(mode)
 		end
 
 		if string.match(mode, "^i$") then
-			if vim.fn.mode() ~= "i" then
-				restore_input(cursor_column)
-			end
+			restore_input(cursor_column)
 			vim.api.nvim_feedkeys("" .. choice[2], "", false)
 		elseif string.match(mode, "^r$") then
 			vim.api.nvim_feedkeys("r" .. choice[2], "", false)
