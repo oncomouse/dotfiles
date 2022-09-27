@@ -25,12 +25,12 @@ local function plugins()
 				"sickill/vim-pasta", -- fix block paste for Neovim
 				"christoomey/vim-sort-motion", -- gs to sort
 				"tpope/vim-sleuth", -- Automatically set indent
-				"oncomouse/vim-lion", -- gl and gL to align
 
 				{
 					"vim-scripts/ReplaceWithRegister",
 					requires = { "tpope/vim-repeat" },
 				}, -- gr{motion} or grr or gr in visual to replace with register
+
 				{
 					"tpope/vim-unimpaired",
 					requires = { "tpope/vim-repeat" },
