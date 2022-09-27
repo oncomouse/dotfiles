@@ -90,13 +90,6 @@ augroup minimal-vimrc
 	autocmd!
 augroup END
 
-" Line Number Colors:
-autocmd minimal-vimrc ColorScheme default hi LineNr ctermfg=7
-autocmd minimal-vimrc ColorScheme default hi LineNrAbove ctermfg=7
-autocmd minimal-vimrc ColorScheme default hi LineNrBelow ctermfg=7
-autocmd minimal-vimrc ColorScheme default hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE
-autocmd minimal-vimrc ColorScheme default hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE
-
 " Turn Off Line Numbering:
 if has('nvim')
 	autocmd minimal-vimrc TermOpen * setlocal nonumber norelativenumber
@@ -114,9 +107,6 @@ nnoremap <leader>vf ggVG
 " Clear Currently Highlighted Regexp:
 nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
 
-" Navigate Buffers:
-nnoremap <silent> ]b <cmd>bnext<CR>
-nnoremap <silent> [b <cmd>bprevious<CR>
 " Jump to the alternate buffer:
 nnoremap <silent> `` <cmd>e #<CR>
 
@@ -129,18 +119,6 @@ nnoremap <localleader>v :vert sfind *
 nnoremap <leader>a :buffers<CR>:buffer<Space> 
 nnoremap <localleader>a :buffer *
 nnoremap <localleader>A :sbuffer *
-
-" Better Matching:
-nnoremap [I [I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
-nnoremap ]I ]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
-
-" Navigate Quickfix:
-nnoremap <silent> ]q <cmd>cnext<CR>
-nnoremap <silent> [q <cmd>cprevious<CR>
-
-" Navigate Location List:
-nnoremap <silent> ]d <cmd>lnext<CR>
-nnoremap <silent> [d <cmd>lprev<CR>
 
 " Toggle Quickfix:
 nnoremap <silent> <leader>q <cmd>call ListToggle('c')<CR>
@@ -218,14 +196,17 @@ if !get(g:, 'skip_minimal_minpac', !has('patch-7.4.1384'))
 
 		if exists('g:loaded_minpac')
 			call minpac#init({'dir': l:minpac_dir})
-			call minpac#add('tpope/vim-sensible', {'type': 'opt'}) " Agreeable vim settings:
+			call minpac#add('k-takata/minpac', {'type': 'opt'})
+			call minpac#add('lodestone/lodestone.vim') " Theme
+			call minpac#add('tpope/vim-sensible', {'type': 'opt'}) " Agreeable vim settings
 			call minpac#add('xero/securemodelines', {'type': 'opt'}) " Secure modelines
 			call minpac#add('tpope/vim-repeat') " dot repeat for plugins
+			call minpac#add('tpope/vim-unimpaired') " paired mappings, ]b,]q,]l, etc
 			call minpac#add('tpope/vim-commentary') " gc to toggle comments
+			call minpac#add('tpope/vim-sleuth') " guess indentation
+			call minpac#add('christoomey/vim-sort-motion') " gs to sort
 			call minpac#add('oncomouse/vim-surround') " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-			call minpac#add('oncomouse/vim-lion') " gl and gL to align
 			call minpac#add('vim-scripts/ReplaceWithRegister') " gr{motion} or grr or gr in visual to replace with register
-			call minpac#add('k-takata/minpac', {'type': 'opt'})
 			call minpac#add('noahfrederick/vim-neovim-defaults', {'type': 'opt'}) " Set Vim with the same default as NeoVim
 		else
 			echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
@@ -272,7 +253,11 @@ if has('patch-7.4.1384') " packadd available
 		packadd! vim-neovim-defaults
 	endif
 	if !exists('g:skip_minimal_minpac')
-		colorscheme default
+		try
+			colorscheme lodestone
+		catch
+			colorscheme default
+		endtry
 	endif
 endif
 
