@@ -118,7 +118,7 @@ end
 
 local digraphs = nil
 
-function M.select_digraph(mode)
+function M.select(mode)
 	mode = mode or "i"
 
 	if digraphs == nil then
@@ -141,27 +141,21 @@ function M.select_digraph(mode)
 			return
 		end
 
-		if string.match(mode, "^i$") then
+		if mode == "i" then
 			restore_input(cursor_column)
 			vim.api.nvim_feedkeys("" .. choice[2], "", false)
-		elseif string.match(mode, "^r$") then
+		elseif mode == "r" then
 			vim.api.nvim_feedkeys("r" .. choice[2], "", false)
-		elseif string.match(mode, "^gvr$") then
+		elseif mode == "gvr" then
 			vim.api.nvim_feedkeys((vim.fn.mode():match("^[vV]") and "" or "gv") .. "r" .. choice[2], "", false)
 		end
 	end)
 end
 
 function M.setup()
-	vim.keymap.set("i", "<Plug>(select-digraph-i)", function()
-		M.select_digraph("i")
-	end)
-	vim.keymap.set("n", "<Plug>(select-digraph-n)", function()
-		M.select_digraph("r")
-	end)
-	vim.keymap.set("v", "<Plug>(select-digraph-v)", function()
-		M.select_digraph("gvr")
-	end)
+	vim.keymap.set("i", "<Plug>(select-digraphs-i)", "<cmd>lua require('select-digraphs').select('i')<CR>")
+	vim.keymap.set("n", "<Plug>(select-digraphs-n)", "<cmd>lua require('select-digraphs').select('r')<CR>")
+	vim.keymap.set("v", "<Plug>(select-digraphs-v)", "<cmd>lua require('select-digraphs').select('gvr')<CR>")
 end
 
 return M
