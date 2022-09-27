@@ -111,7 +111,6 @@ local function plugins()
 						-- Autoclose mapping:
 						vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima-leave-til-eol)", { silent = true })
 					end,
-					-- config = require("dotfiles.plugins.lexima"),
 					-- Configured in ~/dotfiles/conf/vim/after/plugin/lexima.lua
 				}, -- Endwise and autopairs
 
@@ -218,73 +217,8 @@ local function plugins()
 				"anuvyklack/hydra.nvim", -- Repeating keys mode (used for window resizing, atm)
 				-- Configured in ~/dotfiles/conf/vim/plugin/hydra.lua
 
-				{
-					"gaoDean/autolist.nvim",
-					ft = { "markdown", "text" },
-					config = function()
-						require("autolist").setup({
-							colon = {
-								preferred = "",
-								indent = false,
-								indent_raw = false,
-							},
-							invert = {
-								ul_marker = "*",
-							},
-							insert_mappings = {
-								invert = { "" },
-								new = { "" },
-								detab = { "" },
-								tab = { "" },
-								recal = { "" },
-								indent = { "" },
-							},
-						})
-						vim.keymap.set({"i", "n"}, "<Plug>(autolist-invert)", "<cmd>lua require('autolist').invert()<CR>")
-						vim.keymap.set({"i", "n"}, "<Plug>(autolist-new)", "<cmd>lua require('autolist').new()<CR>")
-						vim.keymap.set({"i", "n"}, "<Plug>(autolist-tab)", "<cmd>lua require('autolist').tab()<CR>")
-						vim.keymap.set({"i", "n"}, "<Plug>(autolist-detab)", "<cmd>lua require('autolist').detab()<CR>")
-						vim.keymap.set({"i", "n"}, "<Plug>(autolist-recal)", "<cmd>lua require('autolist').recal()<CR>")
-						vim.keymap.set(
-							{"i", "n"},
-							"<Plug>(autolist-indent-increase)",
-							"<cmd>lua require('autolist').indent('>>')<CR>"
-						)
-						vim.keymap.set(
-							{"i", "n"},
-							"<Plug>(autolist-indent-decrease)",
-							"<cmd>lua require('autolist').indent('<<')<CR>"
-						)
-						-- <C-d> to delete list marker if that's all that's left
-						vim.api.nvim_create_autocmd("FileType", {
-							pattern = "markdown,text",
-							group = "dotfiles-settings",
-							callback = function(args)
-								vim.keymap.set("i", "<C-z>", "<Plug>(autolist-recal)")
-								vim.keymap.set("i", "<C-t>", "<C-t><Plug>(autolist-tab)")
-								vim.keymap.set("i", "<CR>", "<CR><Plug>(autolist-new)")
-								vim.keymap.set("i", "<C-d>", function()
-									local line = vim.api.nvim_get_current_line()
-									-- Check line for unordered list:
-									local match = string.match(line, "^[*-] ")
-									-- Check line for ordered list:
-									if not match then
-										match = string.match(line, "^%d+%. ")
-									end
-									if match then
-										local savepos = vim.fn.winsaveview().col
-										local jump = (savepos == #line) and "$a" or savepos - #match .. "li"
-										return '<Esc>0"_2dl' .. jump
-									end
-									return "<C-d><Plug>(autolist-detab)"
-								end, {
-									expr = true,
-									buffer = args.buf,
-								})
-							end,
-						})
-					end,
-				}, -- Auto-increment and indent/dedent lists
+				"gaoDean/autolist.nvim", -- Auto-increment and indent/dedent lists
+				-- Configured in ~/dotfiles/conf/vim/after/plugin/autolist-nvim.lua
 
 				{
 					"nvim-treesitter/nvim-treesitter",
