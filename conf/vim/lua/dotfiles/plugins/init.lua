@@ -202,11 +202,9 @@ local function plugins()
 				{
 					"hrsh7th/nvim-cmp",
 					module = "cmp",
-					event = "InsertEnter",
-					after = { "LuaSnip" },
 					requires = {
 						{ "hrsh7th/cmp-nvim-lsp" },
-						{ "saadparwaiz1/cmp_luasnip" },
+						{ "saadparwaiz1/cmp_luasnip", after = "LuaSnip" },
 						{ "hrsh7th/cmp-nvim-lua" },
 						{ "mtoohey31/cmp-fish", ft = "fish" },
 					},
