@@ -29,12 +29,8 @@ defaults write -g CGFontRenderingFontSmoothingDisabled -bool false
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 ## Fix Homebrew's python3 mess:
-if test ! "/usr/local/bin/python"; then
-  ln -s "$(which python3)" /usr/local/bin/python
-fi
-if test ! "/usr/local/bin/pip"; then
-  ln -s "$(which pip3)" /usr/local/bin/pip
-fi
+ln -sf /usr/local/bin/python3 /usr/local/bin/python
+ln -sf /usr/local/bin/pip3 /usr/local/bin/pip
 
 ~/dotfiles/bootstrap/scripts/common.sh
 
