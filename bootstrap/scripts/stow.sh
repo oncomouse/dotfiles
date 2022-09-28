@@ -28,6 +28,10 @@ if [ -z "$SERVER" ]; then
 	dotfiles_stow rubocop
 	dotfiles_stow vale
 	dotfiles_stow wal
+	dotfiles_stow tridactyl
+	dotfiles_stow firefox
+	dotfiles_stow starship
+	dotfiles_stow selene
 	if [ "$os" == "macos" ]; then
 		dotfiles_stow homebrew
 		dotfiles_stow karabiner
