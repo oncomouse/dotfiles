@@ -12,6 +12,6 @@ else
     source "$HOME/.cargo/env"
   fi
 fi
-if [ "$os" != "arch" ]; then
-	cargo install stylua
-fi
+# if [ "$os" != "arch" ]; then
+# 	cargo install stylua
+# fi
