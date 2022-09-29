@@ -1,3 +1,4 @@
+-- stylua: ignore
 return {{
 	window_frame = {{
 		active_titlebar_bg = "{background}",
