@@ -14,7 +14,7 @@ end
 -- preservim/vim-markdown (which calls `:Tabularize /|`).
 local function tabular(pattern, start, stop)
 	-- Extract region
-	local lua_sub = pattern:gsub("^/", "")
+	local lua_sub, _ = unpack(vim.fn.split(pattern:gsub("^/", ""), "/")) -- second option holds formatting
 	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
 	while start >= 1 and string.match(lines[start], lua_sub) do
 		start = start - 1
@@ -24,9 +24,11 @@ local function tabular(pattern, start, stop)
 	end
 	start = start + 1
 	stop = stop - 1
-	lines = vim.list_slice(lines, start, stop)
-	lines = require("mini.align").align_strings(lines, { split_pattern = lua_sub, merge_delimiter = " " }, nil)
-	set_lines(start - 1, stop, lines)
+	if start <= stop then
+		lines = vim.list_slice(lines, start, stop)
+		lines = require("mini.align").align_strings(lines, { split_pattern = lua_sub, merge_delimiter = " " }, nil)
+		set_lines(start - 1, stop, lines)
+	end
 end
 
 vim.api.nvim_create_user_command("Tabularize", function(args)
