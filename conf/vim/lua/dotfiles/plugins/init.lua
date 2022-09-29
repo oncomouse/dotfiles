@@ -266,12 +266,6 @@ local function plugins()
 						vim.g.vim_markdown_auto_insert_bullets = 0 -- autoList handles bullet insertion now
 						vim.g.vim_markdown_new_list_item_indent = 0 -- autoList handles spacing for lists
 					end,
-					-- requires = {
-					-- 	{ -- Required for TableFormat in vim-markdown but also useful elsewhere
-					-- 		"godlygeek/tabular",
-					-- 		cmd = { "Tabularize" },
-					-- 	},
-					-- },
 				}, -- Markdown Syntax
 
 				{
