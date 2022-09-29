@@ -20,19 +20,11 @@ local function tabular(pattern, start, stop)
 	while stop < vim.api.nvim_buf_line_count(0) and string.match(vim.api.nvim_buf_get_lines(0, stop, stop + 1, false)[1], lua_sub) do
 		stop = stop + 1
 	end
-	local region = {
-		start = {
-			col = 0,
-			line = start + 1,
-		},
-		stop = {
-			col = #(vim.api.nvim_buf_get_lines(0, stop - 1, stop, false)[1]),
-			line = stop,
-		}
-	}
-	local lines = vim.api.nvim_buf_get_lines(0, region.start.line, region.stop.line, false)
+	local start_line = start + 1
+	local stop_line = stop
+	local lines = vim.api.nvim_buf_get_lines(0, start_line, stop_line, false)
 	lines = require("mini.align").align_strings(lines, { split_pattern = lua_sub, merge_delimiter = " " }, nil)
-	set_lines(region.start.line, region.stop.line, lines)
+	set_lines(start_line, stop_line, lines)
 end
 
 vim.api.nvim_create_user_command("Tabularize", function(args)
