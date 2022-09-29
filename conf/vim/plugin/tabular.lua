@@ -7,7 +7,6 @@ function set_lines(start_row, end_row, replacement)
   )
   vim.cmd(cmd)
 end
--- End section from mini.align
 
 -- Drop-in, basic replacement for godlygeek/tabular using mini.align
 local function tabular(pattern, start, stop)
@@ -31,7 +30,7 @@ local function tabular(pattern, start, stop)
 			line = stop,
 		}
 	}
-	local lines = vim.api.nvim_buf_get_lines(0, region.start.line, region.stop.line + 1, false)
+	local lines = vim.api.nvim_buf_get_lines(0, region.start.line, region.stop.line, false)
 	lines = require("mini.align").align_strings(lines, { split_pattern = lua_sub, merge_delimiter = " " }, nil)
 	set_lines(region.start.line, region.stop.line, lines)
 end
