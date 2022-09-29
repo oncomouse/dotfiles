@@ -174,6 +174,7 @@ local function plugins()
 					requires = {
 						{
 							"rafamadriz/friendly-snippets",
+							event = "InsertEnter",
 						}, -- Base Snippets
 					},
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/luasnip.lua
@@ -205,7 +206,7 @@ local function plugins()
 					requires = {
 						{ "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },
 						{ "saadparwaiz1/cmp_luasnip", after = "LuaSnip" },
-						{ "hrsh7th/cmp-nvim-lua" },
+						{ "hrsh7th/cmp-nvim-lua", ft = "lua" },
 						{ "mtoohey31/cmp-fish", ft = "fish" },
 					},
 					config = require("dotfiles.plugins.cmp"),
