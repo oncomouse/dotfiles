@@ -203,7 +203,7 @@ local function plugins()
 					"hrsh7th/nvim-cmp",
 					module = "cmp",
 					requires = {
-						{ "hrsh7th/cmp-nvim-lsp" },
+						{ "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },
 						{ "saadparwaiz1/cmp_luasnip", after = "LuaSnip" },
 						{ "hrsh7th/cmp-nvim-lua" },
 						{ "mtoohey31/cmp-fish", ft = "fish" },
@@ -265,12 +265,12 @@ local function plugins()
 						vim.g.vim_markdown_auto_insert_bullets = 0 -- autoList handles bullet insertion now
 						vim.g.vim_markdown_new_list_item_indent = 0 -- autoList handles spacing for lists
 					end,
-					requires = {
-						{ -- Required for TableFormat in vim-markdown but also useful elsewhere
-							"godlygeek/tabular",
-							cmd = { "Tabularize" },
-						},
-					},
+					-- requires = {
+					-- 	{ -- Required for TableFormat in vim-markdown but also useful elsewhere
+					-- 		"godlygeek/tabular",
+					-- 		cmd = { "Tabularize" },
+					-- 	},
+					-- },
 				}, -- Markdown Syntax
 
 				{
