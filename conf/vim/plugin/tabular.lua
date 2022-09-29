@@ -9,7 +9,7 @@ function set_lines(start_row, end_row, replacement)
 end
 
 -- Drop-in, basic replacement for godlygeek/tabular using mini.align
--- This does not support full tabular formatting, /<regex>/(r|c|l)[0-9], but is
+-- This does not support full tabular formatting, /<regex>/(r|c|l)[0-9]. It is
 -- only intended to support the `:TableFormat` command in 
 -- preservim/vim-markdown (which calls `:Tabularize /|`).
 local function tabular(pattern, start, stop)
