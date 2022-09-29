@@ -1,3 +1,4 @@
+-- Taken from mini.align's source code:
 function set_lines(start_row, end_row, replacement)
   --stylua: ignore
   local cmd = string.format(
@@ -6,6 +7,7 @@ function set_lines(start_row, end_row, replacement)
   )
   vim.cmd(cmd)
 end
+-- End section from mini.align
 
 -- Drop-in, basic replacement for godlygeek/tabular using mini.align
 local function tabular(pattern, start, stop)
