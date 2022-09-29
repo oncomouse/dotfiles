@@ -25,4 +25,3 @@ if vim.opt.termguicolors:get() then
 		},
 	})
 end
-

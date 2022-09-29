@@ -310,7 +310,10 @@ local function plugins()
 					requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
 				}, -- Colorscheme
 
-				"NvChad/nvim-colorizer.lua", -- Highlight colors in files
+				{
+					"NvChad/nvim-colorizer.lua",
+					commit = "fbb4c08cd0541fb8b295ebc75f35e2f975a55ad9",
+				}, -- Highlight colors in files
 				-- Configured in ~/dotfiles/conf/vim/plugin/nvim-colorizer.lua
 
 				{
