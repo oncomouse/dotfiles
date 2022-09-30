@@ -102,7 +102,11 @@ endif
 autocmd minimal-vimrc QuickFixCmdPost [^l]* call ListToggle('c', 1)
 autocmd minimal-vimrc QuickFixCmdPost l*    call ListToggle('l', 1)
 
+" Set Listchars For Space Indented Buffers:
 autocmd minimal-vimrc BufEnter * call SetListChars()
+
+" This Fixes A Mistake In Neovim:
+autocmd minimal-vimrc ColorScheme * hi link Whitespace SpecialKey
 " ==============================================================================
 " Basic Maps:
 " ==============================================================================

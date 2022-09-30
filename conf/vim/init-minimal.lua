@@ -201,6 +201,12 @@ vim.api.nvim_create_autocmd("CompleteDone", {
 	end,
 })
 
+-- This Fixes A Mistake In Neovim:
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = "dotfiles-settings",
+	command = "hi link Whitespace SpecialKey",
+	pattern = "*",
+})
 --------------------------------------------------------------------------------
 -- Maps:
 --------------------------------------------------------------------------------
