@@ -73,7 +73,7 @@ endif
 
 set dictionary=/usr/share/dict/words
 
-" Default to hashtag-style comments, by default:
+" Default to hashtag-style comments:
 set commentstring=#\ %s
 " ==============================================================================
 " Disable Plugins:
@@ -84,8 +84,6 @@ let g:loaded_zipPlugin = 1
 let g:loaded_2html_plugin = 1
 let g:loaded_rrhelper = 1
 let g:loaded_remote_plugins = 1
-" let g:loaded_netrw = 1
-" let g:loaded_netrwPlugin = 1
 " ==============================================================================
 " Autocommands:
 " ==============================================================================
@@ -237,44 +235,48 @@ end
 " ==============================================================================
 " Pack Settings:
 " ==============================================================================
-if has('patch-7.4.1384') " packadd available
-	if !has('patch-8.1.1365') && !has('nvim-0.4') " Securemodelines is needed:
-		set nomodeline
-		let g:secure_modelines_verbose = 0
-		let g:secure_modelines_modelines = 15
-		let g:secure_modelines_allowed_items = [
-			\ 'textwidth',	 'tw',
-			\ 'softtabstop', 'sts',
-			\ 'tabstop',     'ts',
-			\ 'shiftwidth',	 'sw',
-			\ 'expandtab',	 'et',	 'noexpandtab', 'noet',
-			\ 'filetype',    'ft',
-			\ 'foldmethod',	 'fdm',
-			\ 'foldlevel',	 'fdl',
-			\ 'readonly',    'ro',	 'noreadonly', 'noro',
-			\ 'rightleft',	 'rl',	 'norightleft', 'norl',
-			\ 'cindent',     'cin',	 'nocindent', 'nocin',
-			\ 'smartindent', 'si',	 'nosmartindent', 'nosi',
-			\ 'autoindent',	 'ai',	 'noautoindent', 'noai',
-			\ 'spell',       'nospell',
-			\ 'spelllang',
-			\ 'wrap',        'nowrap',
-			\ 'syntax'
-			\ ]
-		packadd! securemodelines
+try
+	if has('patch-7.4.1384') " packadd available
+		if !has('patch-8.1.1365') && !has('nvim-0.4') " Securemodelines is needed:
+			set nomodeline
+			let g:secure_modelines_verbose = 0
+			let g:secure_modelines_modelines = 15
+			let g:secure_modelines_allowed_items = [
+				\ 'textwidth',	 'tw',
+				\ 'softtabstop', 'sts',
+				\ 'tabstop',     'ts',
+				\ 'shiftwidth',	 'sw',
+				\ 'expandtab',	 'et',	 'noexpandtab', 'noet',
+				\ 'filetype',    'ft',
+				\ 'foldmethod',	 'fdm',
+				\ 'foldlevel',	 'fdl',
+				\ 'readonly',    'ro',	 'noreadonly', 'noro',
+				\ 'rightleft',	 'rl',	 'norightleft', 'norl',
+				\ 'cindent',     'cin',	 'nocindent', 'nocin',
+				\ 'smartindent', 'si',	 'nosmartindent', 'nosi',
+				\ 'autoindent',	 'ai',	 'noautoindent', 'noai',
+				\ 'spell',       'nospell',
+				\ 'spelllang',
+				\ 'wrap',        'nowrap',
+				\ 'syntax'
+				\ ]
+			packadd! securemodelines
+		endif
+		if !has('nvim') " Not using Neovim:
+			packadd! vim-sensible
+			packadd! vim-neovim-defaults
+		endif
+		if !exists('g:skip_minimal_minpac')
+			try
+				colorscheme lodestone
+			catch
+				colorscheme default
+			endtry
+		endif
 	endif
-	if !has('nvim') " Not using Neovim:
-		packadd! vim-sensible
-		packadd! vim-neovim-defaults
-	endif
-	if !exists('g:skip_minimal_minpac')
-		try
-			colorscheme lodestone
-		catch
-			colorscheme default
-		endtry
-	endif
-endif
+catch
+	PackUpdate 
+endtry
 
 " ==============================================================================
 " FZF:
