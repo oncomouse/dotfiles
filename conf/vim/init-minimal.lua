@@ -3,8 +3,10 @@ local plugins = {
 	"lodestone/lodestone.vim", -- colors
 	"tpope/vim-repeat", -- dot repeat for plugins
 	"tpope/vim-commentary", -- gc to toggle comments
+	"tpope/vim-unimpaired", -- paired mappings, ]b,]q,]l, etc
+	"tpope/vim-sleuth", -- guess indentation
+	"christoomey/vim-sort-motion", -- gs to sort
 	"oncomouse/vim-surround", -- ys to add, cs to change, ds to delete. f, F for function, t/T for tag
-	"oncomouse/vim-lion", -- gl and gL to align
 	"vim-scripts/ReplaceWithRegister", -- gr{motion} or grr or gr in visual to replace with register
 	{ "justinmk/vim-dirvish", opt = true }, -- Open directories
 }
@@ -44,7 +46,6 @@ vim.opt.inccommand = "split"
 vim.opt.previewheight = 14
 
 -- Listchars:
-vim.opt.listchars = "tab:│ ,nbsp:␣,trail:•,precedes:<,extends:>"
 vim.opt.list = true
 
 -- Completion:
@@ -115,6 +116,12 @@ vim.g.loaded_netrwPlugin = 1
 --------------------------------------------------------------------------------
 -- Functions:
 --------------------------------------------------------------------------------
+
+local function set_list_chars()
+	if vim.opt.expandtab:get() then
+		vim.opt_local.listchars = vim.opt_local.listchars + ("multispace:>" .. vim.fn["repeat"](" ", vim.opt.shiftwidth:get() - 1))
+	end
+end
 
 -- Open or close quickfix or loclist
 local function list_toggle(pfx, force_open)
@@ -205,6 +212,12 @@ vim.api.nvim_create_autocmd("CompleteDone", {
 vim.api.nvim_create_autocmd("ColorScheme", {
 	group = "dotfiles-settings",
 	command = "hi link Whitespace SpecialKey",
+	pattern = "*",
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	group = "dotfiles-settings",
+	callback = set_list_chars,
 	pattern = "*",
 })
 --------------------------------------------------------------------------------
