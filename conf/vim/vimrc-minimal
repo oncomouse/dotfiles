@@ -15,7 +15,6 @@ set number relativenumber
 
 " Indent Characters:
 set list
-set listchars+=tab:│\ 
 
 " Folds:
 set foldlevel=99
@@ -102,6 +101,8 @@ endif
 " Start QuickFix:
 autocmd minimal-vimrc QuickFixCmdPost [^l]* call ListToggle('c', 1)
 autocmd minimal-vimrc QuickFixCmdPost l*    call ListToggle('l', 1)
+
+autocmd minimal-vimrc BufEnter * call SetListChars()
 " ==============================================================================
 " Basic Maps:
 " ==============================================================================
@@ -142,6 +143,12 @@ command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab
 " ==============================================================================
 " Functions:
 " ==============================================================================
+
+function! SetListChars()
+	if &expandtab
+		exec 'setlocal listchars+=multispace:>' . repeat('\ ', &shiftwidth - 1)
+	endif
+endfunction
 
 function! ListToggle(pfx, ...)
 	let force_open = get(a:, 0, 0)
