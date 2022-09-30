@@ -13,6 +13,10 @@ set splitright
 " Line Numbering:
 set number relativenumber
 
+" Indent Characters:
+set list
+set listchars+=tab:│\ 
+
 " Folds:
 set foldlevel=99
 set foldmethod=manual
