@@ -109,8 +109,8 @@ autocmd minimal-vimrc ColorScheme * hi link Whitespace SpecialKey
 " Basic Maps:
 " ==============================================================================
 " Select Whole File:
-onoremap <silent> ae <cmd>normal! "gg0vG$"<CR>
-xnoremap <silent> ae <cmd>normal! "ogg0oG$"<CR>
+onoremap <silent> ae <cmd>normal! gg0vG$<CR>
+xnoremap <silent> ae <cmd>normal! ogg0oG$<CR>
 
 " Clear Currently Highlighted Regexp:
 nnoremap <silent> <leader>cr :let<C-u>let @/=""<CR>
