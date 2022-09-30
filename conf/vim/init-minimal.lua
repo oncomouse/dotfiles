@@ -269,12 +269,6 @@ vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
 vim.keymap.set("n", "j", "(v:count == 0 ? 'gj' : 'j')", { silent = true, noremap = true, expr = true })
 vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap = true, expr = true })
 
--- Textobjects:
-
--- Entire document:
--- vim.keymap.set("o", "ae", "<cmd>normal! gg0vG$<CR>", { silent = true, noremap = true })
--- vim.keymap.set("x", "ae", "<cmd>normal! ogg0oG$<CR>", { silent = true, noremap = true })
-
 --------------------------------------------------------------------------------
 -- Commands:
 --------------------------------------------------------------------------------
