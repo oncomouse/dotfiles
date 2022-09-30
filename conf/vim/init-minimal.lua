@@ -285,11 +285,8 @@ vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap
 -- Textobjects:
 
 -- Entire document:
-local function _map_buffer()
-	vim.api.nvim_feedkeys("gg0vG$", "x", true)
-end
-vim.keymap.set("o", "ae", _map_buffer, { silent = true, noremap = true })
-vim.keymap.set("x", "ae", _map_buffer, { silent = true, noremap = true })
+vim.keymap.set("o", "ae", "<cmd>normal! gg0vG$<CR>", { silent = true, noremap = true })
+vim.keymap.set("x", "ae", "<cmd>normal! ogg0oG$<CR>", { silent = true, noremap = true })
 
 --------------------------------------------------------------------------------
 -- Commands:
@@ -345,10 +342,6 @@ end
 
 function paq_init()
 	local paq_dir = paq_path()
-	local clone_path = paq_dir .. "/pack/paqs/opt/paq"
-	if vim.fn.empty(vim.fn.glob(clone_path)) == 1 then
-		os.execute("git clone --depth 1 https://github.com/savq/paq-nvim " .. clone_path)
-	end
 	vim.cmd([[packadd paq]])
 	local paq = require("paq")
 	paq:setup({
@@ -373,6 +366,14 @@ for _, command in pairs(commands) do
 	end, {
 		force = true,
 	})
+end
+
+local paq_dir = paq_path()
+local clone_path = paq_dir .. "/pack/paqs/opt/paq"
+if vim.fn.empty(vim.fn.glob(clone_path)) == 1 then
+	os.execute("git clone --depth 1 https://github.com/savq/paq-nvim " .. clone_path)
+	local paq = paq_init()
+	paq["install"]()
 end
 
 --------------------------------------------------------------------------------
