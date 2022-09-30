@@ -24,9 +24,8 @@ for _, servers in pairs(server_maps) do
 			end
 			for lsp, settings in pairs(servers.servers) do
 				if lsp == "null-ls" then
-					vim.cmd.PackerLoad("null-ls.nvim")
+					vim.cmd([[PackerLoad null-ls.nvim]])
 				else
-
 					local opts = {
 						on_attach = on_attach,
 						capabilities = capabilities,
@@ -40,6 +39,6 @@ for _, servers in pairs(server_maps) do
 					require("lspconfig")[lsp].setup(opts)
 				end
 			end
-		end
+		end,
 	})
 end
