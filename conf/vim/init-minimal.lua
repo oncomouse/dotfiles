@@ -2,13 +2,12 @@ local plugins = {
 	{ "savq/paq-nvim", opt = true, as = "paq" },
 	"lodestone/lodestone.vim", -- colors
 	"tpope/vim-repeat", -- dot repeat for plugins
-	"tpope/vim-commentary", -- gc to toggle comments
 	"tpope/vim-unimpaired", -- paired mappings, ]b,]q,]l, etc
 	"tpope/vim-sleuth", -- guess indentation
 	"christoomey/vim-sort-motion", -- gs to sort
-	"oncomouse/vim-surround", -- ys to add, cs to change, ds to delete. f, F for function, t/T for tag
 	"vim-scripts/ReplaceWithRegister", -- gr{motion} or grr or gr in visual to replace with register
-	{ "justinmk/vim-dirvish", opt = true }, -- Open directories
+	"echasnovski/mini.nvim", -- Various (see below)
+	"justinmk/vim-dirvish", -- Open directories
 }
 
 --------------------------------------------------------------------------------
@@ -92,7 +91,7 @@ if vim.fn.has("clipboard") == 1 then
 end
 
 --------------------------------------------------------------------------------
--- Tabs
+-- Tabs:
 --------------------------------------------------------------------------------
 
 vim.opt.tabstop = 4
@@ -119,7 +118,8 @@ vim.g.loaded_netrwPlugin = 1
 
 local function set_list_chars()
 	if vim.opt.expandtab:get() then
-		vim.opt_local.listchars = vim.opt_local.listchars + ("multispace:>" .. vim.fn["repeat"](" ", vim.opt.shiftwidth:get() - 1))
+		vim.opt_local.listchars = vim.opt_local.listchars
+			+ ("multispace:>" .. vim.fn["repeat"](" ", vim.opt.shiftwidth:get() - 1))
 	end
 end
 
@@ -166,12 +166,6 @@ end
 --------------------------------------------------------------------------------
 
 vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
-
--- Correct whitespace
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "lodestone", command = "hi Whitespace ctermfg=236 guifg=#202438" }
-)
 
 -- Turn Off Line Numbering:
 vim.api.nvim_create_autocmd("TermOpen", { group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" })
@@ -227,10 +221,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- Clear Currently Highlighted Regexp:
 vim.keymap.set("n", "<leader>cr", ':let<C-u>let @/=""<CR>', { silent = true, noremap = true })
 
--- Navigate Buffers:
-vim.keymap.set("n", "]b", "<cmd>bnext<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "[b", "<cmd>bprevious<CR>", { silent = true, noremap = true })
-
 -- Source https://github.com/romainl/minivimrc/blob/master/vimrc
 -- Minimal File Finding:
 vim.keymap.set("n", "<localleader>f", ":find *", { noremap = true })
@@ -238,20 +228,11 @@ vim.keymap.set("n", "<localleader>s", ":sfind *", { noremap = true })
 vim.keymap.set("n", "<localleader>v", ":vert sfind *", { noremap = true })
 -- Minimal Buffer Jumping:
 vim.keymap.set("n", "<leader>a", function()
-	vim.cmd([[buffers]])
 	local last = vim.fn.getbufinfo("#")[1]
 	return ":buffers<CR>:buffer<Space>" .. (last ~= nil and last.bufnr or "")
 end, { noremap = true, expr = true })
 vim.keymap.set("n", "<localleader>a", ":buffer *", { noremap = true })
 vim.keymap.set("n", "<localleader>A", ":sbuffer *", { noremap = true })
-
--- Navigate Quickfix:
-vim.keymap.set("n", "]q", "<cmd>cnext<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "[q", "<cmd>cprevious<CR>", { silent = true, noremap = true })
-
--- Navigate Location List:
-vim.keymap.set("n", "]d", "<cmd>lnext<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "[d", "<cmd>lprev<CR>", { silent = true, noremap = true })
 
 -- Toggle Quickfix:
 vim.keymap.set("n", "<leader>q", function()
@@ -285,8 +266,8 @@ vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap
 -- Textobjects:
 
 -- Entire document:
-vim.keymap.set("o", "ae", "<cmd>normal! gg0vG$<CR>", { silent = true, noremap = true })
-vim.keymap.set("x", "ae", "<cmd>normal! ogg0oG$<CR>", { silent = true, noremap = true })
+-- vim.keymap.set("o", "ae", "<cmd>normal! gg0vG$<CR>", { silent = true, noremap = true })
+-- vim.keymap.set("x", "ae", "<cmd>normal! ogg0oG$<CR>", { silent = true, noremap = true })
 
 --------------------------------------------------------------------------------
 -- Commands:
@@ -426,18 +407,147 @@ if vim.g.has_fzf ~= 0 then
 	vim.keymap.set("n", "<C-P>", "<cmd>FZF --reverse --info=inline<cr>", { silent = true, noremap = true })
 end
 
--- Paq Configuration
---
+--------------------------------------------------------------------------------
+-- Mini.nvim:
+--------------------------------------------------------------------------------
 
-function is_dir(path)
-	local f = io.open(path)
-	if f == nil then
-		return false
-	end
-	local _, _, code = f:read(0)
-	f:close()
-	return code == 21
+local function make_point()
+	local _, l, c, _ = unpack(vim.fn.getpos("."))
+	return {
+		line = l,
+		col = c,
+	}
 end
-if is_dir(vim.fn.expand("%:p")) then
-	vim.cmd([[packadd vim-dirvish]])
-end
+require("mini.ai").setup({
+	custom_textobjects = {
+
+		e = function() -- Whole buffer
+			local from = { line = 1, col = 1 }
+			local last_line_length = #vim.fn.getline("$")
+			local to = {
+				line = vim.fn.line("$"),
+				col = last_line_length == 0 and 1 or last_line_length,
+			}
+			return {
+				from = from,
+				to = to,
+			}
+		end,
+
+		z = function(type) -- Folds
+			vim.api.nvim_feedkeys("[z" .. (type == "i" and "j0" or ""), "x", true)
+			local from = make_point()
+			vim.api.nvim_feedkeys("]z" .. (type == "i" and "k$" or "$"), "x", true)
+			local to = make_point()
+
+			return {
+				from = from,
+				to = to,
+			}
+		end,
+
+		[","] = { -- Grammatically correct comma matching
+			{
+				"[%.?!][ ]*()()[^,%.?!]+(),[ ]*()", -- Start of sentence
+				"(),[ ]*()[^,%.?!]+()()[%.?!][ ]*", -- End of sentence
+				",[ ]*()[^,%.?!]+(),[ ]*", -- Dependent clause
+				"^()[A-Z][^,%.?!]+(),[ ]*", -- Start of line
+			},
+		},
+	},
+	mappings = {
+		around_last = "aN",
+		inside_last = "iN",
+	},
+	n_lines = 50,
+	search_method = "cover", -- Only use next and last mappings to search
+})
+
+-- Per-file textobjects:
+local spec_pair = require("mini.ai").gen_spec.pair
+local custom_textobjects = {
+	lua = {
+		["s"] = spec_pair("[[", "]]"),
+	},
+	markdown = {
+		["*"] = spec_pair("*", "*", { type = "greedy" }), -- Grab all asterisks when selecting
+		["_"] = spec_pair("_", "_", { type = "greedy" }), -- Grab all underscores when selecting
+	},
+}
+vim.api.nvim_create_autocmd("FileType", {
+	group = "dotfiles-settings",
+	pattern = vim.fn.join(vim.tbl_keys(custom_textobjects), ","),
+	callback = function()
+		local ft = vim.opt.filetype:get()
+		vim.b.miniai_config = {
+			custom_textobjects = custom_textobjects[ft],
+		}
+	end,
+})
+
+-- ga and gA for alignment:
+require("mini.align").setup({})
+
+-- gc for commenting/uncommenting:
+require("mini.comment").setup({})
+
+-- We just use this for the indent textobjects:
+require("mini.indentscope").setup({})
+vim.g.miniindentscope_disable = true
+
+-- Replace vim-surround:
+require("mini.surround").setup({
+	custom_surroundings = {
+		["q"] = {
+			input = { "“().-()”" },
+			output = { left = "“", right = "”" },
+		},
+	},
+	mappings = {
+		add = "ys",
+		delete = "ds",
+		find = "",
+		find_left = "",
+		highlight = "",
+		replace = "cs",
+		update_n_lines = "",
+		suffix_last = "N",
+	},
+	n_lines = 50,
+	search_method = "cover_or_next",
+})
+-- Remap adding surrounding to Visual mode selection
+vim.keymap.del("x", "ys")
+vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
+-- Make special mapping for "add surrounding for line"
+vim.keymap.set("n", "yss", "ys_", { noremap = false })
+
+-- Per-file surroundings:
+local custom_surroundings = {
+	lua = {
+		s = {
+			input = { "%[%[().-()%]%]" },
+			output = { left = "[[", right = "]]" },
+		},
+	},
+	markdown = {
+		["b"] = { -- Surround for bold
+			input = { "%*%*().-()%*%*" },
+			output = { left = "**", right = "**" },
+		},
+		["i"] = { -- Surround for italics
+			input = { "%*().-()%*" },
+			output = { left = "*", right = "*" },
+		},
+	},
+}
+vim.api.nvim_create_autocmd("FileType", {
+	group = "dotfiles-settings",
+	pattern = vim.fn.join(vim.tbl_keys(custom_surroundings), ","),
+	callback = function()
+		local ft = vim.opt.filetype:get()
+		vim.b.minisurround_config = {
+			custom_surroundings = custom_surroundings[ft],
+		}
+	end,
+})
