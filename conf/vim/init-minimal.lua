@@ -7,6 +7,12 @@ local plugins = {
 	"christoomey/vim-sort-motion", -- gs to sort
 	"vim-scripts/ReplaceWithRegister", -- gr{motion} or grr or gr in visual to replace with register
 	"echasnovski/mini.nvim", -- Various (see below)
+	{
+		"nvim-treesitter/nvim-treesitter",
+		run = function()
+			vim.cmd([[TSUpdate]])
+		end,
+	}, -- Syntax
 	"justinmk/vim-dirvish", -- Open directories
 }
 
@@ -550,4 +556,55 @@ vim.api.nvim_create_autocmd("FileType", {
 			custom_surroundings = custom_surroundings[ft],
 		}
 	end,
+})
+
+--------------------------------------------------------------------------------
+-- Treesitter:
+--------------------------------------------------------------------------------
+
+local parsers = {
+	"bash",
+	"bibtex",
+	"c",
+	"cmake",
+	"comment",
+	"cpp",
+	"css",
+	"dockerfile",
+	"fish",
+	"go",
+	"html",
+	"http",
+	"java",
+	"javascript",
+	"json",
+	"jsonc",
+	"jsdoc",
+	"latex",
+	"lua",
+	"markdown",
+	"markdown_inline",
+	"make",
+	"ninja",
+	"perl",
+	"php",
+	"python",
+	"ruby",
+	"typescript",
+	"vim",
+	"xml",
+	"yaml",
+}
+require("nvim-treesitter.parsers").list.xml = {
+	install_info = {
+		url = "https://github.com/Trivernis/tree-sitter-xml",
+		files = { "src/parser.c" },
+		generate_requires_npm = true,
+		branch = "main",
+	},
+	filetype = "xml",
+}
+require("nvim-treesitter.configs").setup({
+	ensure_installed = parsers,
+	highlight = { enable = true },
 })
