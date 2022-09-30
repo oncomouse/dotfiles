@@ -112,7 +112,7 @@ local function search_projects(projects)
 
 	return begin
 end
-function M.CompleteProject(lead)
+function M.complete_project(lead)
 	local lnum = 1
 	local list = {}
 	local stack = { "" }
@@ -151,7 +151,7 @@ function M.CompleteProject(lead)
 end
 
 local function goto_project()
-	local res = vim.fn.input("Project: ", "", "customlist,v:lua.require('todo').CompleteProject")
+	local res = vim.fn.input("Project: ", "", "customlist,v:lua.require'todo'.complete_project")
 
 	if res ~= "" then
 		search_projects(vim.fn.split(res, ":"))
