@@ -10,7 +10,9 @@ local plugins = {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
-			vim.cmd([[TSUpdate]])
+			if pcall(require, "nvim-treesitter.require") then
+				vim.cmd([[TSUpdate]])
+			end
 		end,
 	}, -- Syntax
 	"justinmk/vim-dirvish", -- Open directories
@@ -347,7 +349,7 @@ local commands = {
 for _, command in pairs(commands) do
 	vim.api.nvim_create_user_command("Paq" .. command:sub(1, 1):upper() .. command:sub(2), function()
 		local paq = paq_init()
-		paq[command](paq)
+		paq[command]()
 	end, {
 		force = true,
 	})
@@ -355,12 +357,23 @@ end
 
 local paq_dir = paq_path()
 local clone_path = paq_dir .. "/pack/paqs/opt/paq"
+local paq_available = true
 if vim.fn.empty(vim.fn.glob(clone_path)) == 1 then
 	os.execute("git clone --depth 1 https://github.com/savq/paq-nvim " .. clone_path)
+	paq_available = false
 	local paq = paq_init()
 	paq["install"]()
 end
 
+-- Try to reload configuration file when paq-nvim is done installing:
+vim.api.nvim_create_autocmd("User", {
+	pattern = "PaqDoneInstall",
+	callback = function()
+		if not paq_available then
+			vim.cmd([[source $MYVIMRC]])
+		end
+	end
+})
 --------------------------------------------------------------------------------
 -- Colorscheme
 --------------------------------------------------------------------------------
@@ -415,194 +428,198 @@ end
 -- Mini.nvim:
 --------------------------------------------------------------------------------
 
-local function make_point()
-	local _, l, c, _ = unpack(vim.fn.getpos("."))
-	return {
-		line = l,
-		col = c,
-	}
-end
-require("mini.ai").setup({
-	custom_textobjects = {
+if paq_available then
+	local function make_point()
+		local _, l, c, _ = unpack(vim.fn.getpos("."))
+		return {
+			line = l,
+			col = c,
+		}
+	end
+	require("mini.ai").setup({
+		custom_textobjects = {
 
-		e = function() -- Whole buffer
-			local from = { line = 1, col = 1 }
-			local last_line_length = #vim.fn.getline("$")
-			local to = {
-				line = vim.fn.line("$"),
-				col = last_line_length == 0 and 1 or last_line_length,
-			}
-			return {
-				from = from,
-				to = to,
-			}
-		end,
+			e = function() -- Whole buffer
+				local from = { line = 1, col = 1 }
+				local last_line_length = #vim.fn.getline("$")
+				local to = {
+					line = vim.fn.line("$"),
+					col = last_line_length == 0 and 1 or last_line_length,
+				}
+				return {
+					from = from,
+					to = to,
+				}
+			end,
 
-		z = function(type) -- Folds
-			vim.api.nvim_feedkeys("[z" .. (type == "i" and "j0" or ""), "x", true)
-			local from = make_point()
-			vim.api.nvim_feedkeys("]z" .. (type == "i" and "k$" or "$"), "x", true)
-			local to = make_point()
+			z = function(type) -- Folds
+				vim.api.nvim_feedkeys("[z" .. (type == "i" and "j0" or ""), "x", true)
+				local from = make_point()
+				vim.api.nvim_feedkeys("]z" .. (type == "i" and "k$" or "$"), "x", true)
+				local to = make_point()
 
-			return {
-				from = from,
-				to = to,
-			}
-		end,
+				return {
+					from = from,
+					to = to,
+				}
+			end,
 
-		[","] = { -- Grammatically correct comma matching
-			{
-				"[%.?!][ ]*()()[^,%.?!]+(),[ ]*()", -- Start of sentence
-				"(),[ ]*()[^,%.?!]+()()[%.?!][ ]*", -- End of sentence
-				",[ ]*()[^,%.?!]+(),[ ]*", -- Dependent clause
-				"^()[A-Z][^,%.?!]+(),[ ]*", -- Start of line
+			[","] = { -- Grammatically correct comma matching
+				{
+					"[%.?!][ ]*()()[^,%.?!]+(),[ ]*()", -- Start of sentence
+					"(),[ ]*()[^,%.?!]+()()[%.?!][ ]*", -- End of sentence
+					",[ ]*()[^,%.?!]+(),[ ]*", -- Dependent clause
+					"^()[A-Z][^,%.?!]+(),[ ]*", -- Start of line
+				},
 			},
 		},
-	},
-	mappings = {
-		around_last = "aN",
-		inside_last = "iN",
-	},
-	n_lines = 50,
-	search_method = "cover", -- Only use next and last mappings to search
-})
-
--- Per-file textobjects:
-local spec_pair = require("mini.ai").gen_spec.pair
-local custom_textobjects = {
-	lua = {
-		["s"] = spec_pair("[[", "]]"),
-	},
-	markdown = {
-		["*"] = spec_pair("*", "*", { type = "greedy" }), -- Grab all asterisks when selecting
-		["_"] = spec_pair("_", "_", { type = "greedy" }), -- Grab all underscores when selecting
-	},
-}
-vim.api.nvim_create_autocmd("FileType", {
-	group = "dotfiles-settings",
-	pattern = vim.fn.join(vim.tbl_keys(custom_textobjects), ","),
-	callback = function()
-		local ft = vim.opt.filetype:get()
-		vim.b.miniai_config = {
-			custom_textobjects = custom_textobjects[ft],
-		}
-	end,
-})
-
--- ga and gA for alignment:
-require("mini.align").setup({})
-
--- gc for commenting/uncommenting:
-require("mini.comment").setup({})
-
--- We just use this for the indent textobjects:
-require("mini.indentscope").setup({})
-vim.g.miniindentscope_disable = true
-
--- Replace vim-surround:
-require("mini.surround").setup({
-	custom_surroundings = {
-		["q"] = {
-			input = { "“().-()”" },
-			output = { left = "“", right = "”" },
+		mappings = {
+			around_last = "aN",
+			inside_last = "iN",
 		},
-	},
-	mappings = {
-		add = "ys",
-		delete = "ds",
-		find = "",
-		find_left = "",
-		highlight = "",
-		replace = "cs",
-		update_n_lines = "",
-		suffix_last = "N",
-	},
-	n_lines = 50,
-	search_method = "cover_or_next",
-})
--- Remap adding surrounding to Visual mode selection
-vim.keymap.del("x", "ys")
-vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
--- Make special mapping for "add surrounding for line"
-vim.keymap.set("n", "yss", "ys_", { noremap = false })
+		n_lines = 50,
+		search_method = "cover", -- Only use next and last mappings to search
+	})
 
--- Per-file surroundings:
-local custom_surroundings = {
-	lua = {
-		s = {
-			input = { "%[%[().-()%]%]" },
-			output = { left = "[[", right = "]]" },
+	-- Per-file textobjects:
+	local spec_pair = require("mini.ai").gen_spec.pair
+	local custom_textobjects = {
+		lua = {
+			["s"] = spec_pair("[[", "]]"),
 		},
-	},
-	markdown = {
-		["b"] = { -- Surround for bold
-			input = { "%*%*().-()%*%*" },
-			output = { left = "**", right = "**" },
+		markdown = {
+			["*"] = spec_pair("*", "*", { type = "greedy" }), -- Grab all asterisks when selecting
+			["_"] = spec_pair("_", "_", { type = "greedy" }), -- Grab all underscores when selecting
 		},
-		["i"] = { -- Surround for italics
-			input = { "%*().-()%*" },
-			output = { left = "*", right = "*" },
+	}
+	vim.api.nvim_create_autocmd("FileType", {
+		group = "dotfiles-settings",
+		pattern = vim.fn.join(vim.tbl_keys(custom_textobjects), ","),
+		callback = function()
+			local ft = vim.opt.filetype:get()
+			vim.b.miniai_config = {
+				custom_textobjects = custom_textobjects[ft],
+			}
+		end,
+	})
+
+	-- ga and gA for alignment:
+	require("mini.align").setup({})
+
+	-- gc for commenting/uncommenting:
+	require("mini.comment").setup({})
+
+	-- We just use this for the indent textobjects:
+	require("mini.indentscope").setup({})
+	vim.g.miniindentscope_disable = true
+
+	-- Replace vim-surround:
+	require("mini.surround").setup({
+		custom_surroundings = {
+			["q"] = {
+				input = { "“().-()”" },
+				output = { left = "“", right = "”" },
+			},
 		},
-	},
-}
-vim.api.nvim_create_autocmd("FileType", {
-	group = "dotfiles-settings",
-	pattern = vim.fn.join(vim.tbl_keys(custom_surroundings), ","),
-	callback = function()
-		local ft = vim.opt.filetype:get()
-		vim.b.minisurround_config = {
-			custom_surroundings = custom_surroundings[ft],
-		}
-	end,
-})
+		mappings = {
+			add = "ys",
+			delete = "ds",
+			find = "",
+			find_left = "",
+			highlight = "",
+			replace = "cs",
+			update_n_lines = "",
+			suffix_last = "N",
+		},
+		n_lines = 50,
+		search_method = "cover_or_next",
+	})
+	-- Remap adding surrounding to Visual mode selection
+	vim.keymap.del("x", "ys")
+	vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
+	-- Make special mapping for "add surrounding for line"
+	vim.keymap.set("n", "yss", "ys_", { noremap = false })
+
+	-- Per-file surroundings:
+	local custom_surroundings = {
+		lua = {
+			s = {
+				input = { "%[%[().-()%]%]" },
+				output = { left = "[[", right = "]]" },
+			},
+		},
+		markdown = {
+			["b"] = { -- Surround for bold
+				input = { "%*%*().-()%*%*" },
+				output = { left = "**", right = "**" },
+			},
+			["i"] = { -- Surround for italics
+				input = { "%*().-()%*" },
+				output = { left = "*", right = "*" },
+			},
+		},
+	}
+	vim.api.nvim_create_autocmd("FileType", {
+		group = "dotfiles-settings",
+		pattern = vim.fn.join(vim.tbl_keys(custom_surroundings), ","),
+		callback = function()
+			local ft = vim.opt.filetype:get()
+			vim.b.minisurround_config = {
+				custom_surroundings = custom_surroundings[ft],
+			}
+		end,
+	})
+end
 
 --------------------------------------------------------------------------------
 -- Treesitter:
 --------------------------------------------------------------------------------
 
-local parsers = {
-	"bash",
-	"bibtex",
-	"c",
-	"cmake",
-	"comment",
-	"cpp",
-	"css",
-	"dockerfile",
-	"fish",
-	"go",
-	"html",
-	"http",
-	"java",
-	"javascript",
-	"json",
-	"jsonc",
-	"jsdoc",
-	"latex",
-	"lua",
-	"markdown",
-	"markdown_inline",
-	"make",
-	"ninja",
-	"perl",
-	"php",
-	"python",
-	"ruby",
-	"typescript",
-	"vim",
-	"xml",
-	"yaml",
-}
-require("nvim-treesitter.parsers").list.xml = {
-	install_info = {
-		url = "https://github.com/Trivernis/tree-sitter-xml",
-		files = { "src/parser.c" },
-		generate_requires_npm = true,
-		branch = "main",
-	},
-	filetype = "xml",
-}
-require("nvim-treesitter.configs").setup({
-	ensure_installed = parsers,
-	highlight = { enable = true },
-})
+if paq_available then
+	local parsers = {
+		"bash",
+		"bibtex",
+		"c",
+		"cmake",
+		"comment",
+		"cpp",
+		"css",
+		"dockerfile",
+		"fish",
+		"go",
+		"html",
+		"http",
+		"java",
+		"javascript",
+		"json",
+		"jsonc",
+		"jsdoc",
+		"latex",
+		"lua",
+		"markdown",
+		"markdown_inline",
+		"make",
+		"ninja",
+		"perl",
+		"php",
+		"python",
+		"ruby",
+		"typescript",
+		"vim",
+		"xml",
+		"yaml",
+	}
+	require("nvim-treesitter.parsers").list.xml = {
+		install_info = {
+			url = "https://github.com/Trivernis/tree-sitter-xml",
+			files = { "src/parser.c" },
+			generate_requires_npm = true,
+			branch = "main",
+		},
+		filetype = "xml",
+	}
+	require("nvim-treesitter.configs").setup({
+		ensure_installed = parsers,
+		highlight = { enable = true },
+	})
+end
