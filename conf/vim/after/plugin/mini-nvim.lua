@@ -113,10 +113,9 @@ if pcall(require, "mini.ai") then
 					local results = vim.fn["textobj#sentence#select_i"]()
 
 					local start = (results[2][2] == results[3][2] and results[2][3] or 0)
-					local line = vim.api.nvim_buf_get_lines(0, results[3][2] - 1, results[3][2], false)[1]:sub(
-						start,
-						results[3][3]
-					)
+					local line = vim.api
+						.nvim_buf_get_lines(0, results[3][2] - 1, results[3][2], false)[1]
+						:sub(start, results[3][3])
 					results[3][3] = start + line:find("['\".?!]+$") - 2
 					return results
 				end,
@@ -142,6 +141,27 @@ if pcall(require, "mini.ai") then
 		},
 		n_lines = 50,
 		search_method = "cover", -- Only use next and last mappings to search
+	})
+	-- Per-file textobjects:
+	local spec_pair = require("mini.ai").gen_spec.pair
+	local custom_textobjects = {
+		lua = {
+			["s"] = spec_pair("[[", "]]"),
+		},
+		markdown = {
+			["*"] = spec_pair("*", "*", { type = "greedy" }), -- Grab all asterisks when selecting
+			["_"] = spec_pair("_", "_", { type = "greedy" }), -- Grab all underscores when selecting
+		},
+	}
+	vim.api.nvim_create_autocmd("FileType", {
+		group = "dotfiles-settings",
+		pattern = vim.fn.join(vim.tbl_keys(custom_textobjects), ","),
+		callback = function()
+			local ft = vim.opt.filetype:get()
+			vim.b.miniai_config = {
+				custom_textobjects = custom_textobjects[ft],
+			}
+		end,
 	})
 
 	-- ga,gA for alignment:
@@ -180,7 +200,35 @@ if pcall(require, "mini.ai") then
 	vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
 	-- Make special mapping for "add surrounding for line"
 	vim.keymap.set("n", "yss", "ys_", { noremap = false })
-	-- Custom mappings:
-	--  ~/dotfiles/conf/vim/after/ftplugin/lua.lua
-	--  ~/dotfiles/conf/vim/after/ftplugin/markdown.lua
+
+	--Per-file surroundings:
+	local custom_surroundings = {
+		lua = {
+			s = {
+				input = { "%[%[().-()%]%]" },
+				output = { left = "[[", right = "]]" },
+			},
+		},
+		markdown = {
+			["b"] = { -- Surround for bold
+				input = { "%*%*().-()%*%*" },
+				output = { left = "**", right = "**" },
+			},
+			["i"] = { -- Surround for italics
+				input = { "%*().-()%*" },
+				output = { left = "*", right = "*" },
+			},
+		},
+	}
+	vim.api.nvim_create_autocmd("FileType", {
+		group = "dotfiles-settings",
+		pattern = vim.fn.join(vim.tbl_keys(custom_surroundings), ","),
+		callback = function()
+			local ft = vim.opt.filetype:get()
+			vim.b.minisurround_config = {
+				custom_surroundings = custom_surroundings[ft],
+			}
+		end,
+	})
+
 end
