@@ -249,9 +249,7 @@ vim.keymap.set("n", "<leader>d", function()
 end, { silent = true, noremap = true })
 
 -- Project Grep:
-vim.keymap.set("n", "<leader>/", function()
-	grep_or_qfgrep()
-end, { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>/", grep_or_qfgrep, { silent = true, noremap = true })
 
 -- Highlight a block and type "@" to run a macro on the block:
 vim.keymap.set("x", "@", function()
