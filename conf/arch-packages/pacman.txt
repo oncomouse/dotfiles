@@ -25,6 +25,7 @@ pciutils
 python
 python-pip
 ripgrep
+rofi
 rsync
 ruby
 rustup
