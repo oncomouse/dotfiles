@@ -11,4 +11,4 @@ selene-linter
 shellcheck-bin
 stylua-bin
 tllocalmgr-git
-zotero
+zotero-bin
