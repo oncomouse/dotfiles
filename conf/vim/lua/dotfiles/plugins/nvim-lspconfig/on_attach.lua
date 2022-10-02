@@ -84,11 +84,24 @@ local function on_attach(client, buf_num)
 		buffer = true,
 		desc = "lua vim.lsp.buf.code_action()",
 	})
-	vim.keymap.set("v", "<leader>ga", vim.lsp.buf.range_code_action, {
+	vim.keymap.set("v", "<leader>ga", function()
+		local _,s_row,s_col,_ = unpack(vim.fn.getpos("v"))
+		local _,e_row,e_col,_ = unpack(vim.fn.getcurpos())
+		if vim.fn.mode() == "V" then
+			s_col = 1
+			e_col = #(vim.fn.getline(e_row))
+		end
+		vim.lsp.buf.code_action({
+			range = {
+				start = { s_row, s_col },
+				["end"] = { e_row, e_col },
+			}
+		})
+	end, {
 		silent = true,
 		noremap = true,
 		buffer = true,
-		desc = "lua vim.lsp.buf.range_code_action()",
+		desc = "'<,'>lua vim.lsp.buf.code_action()",
 	})
 	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, {
 		silent = true,
