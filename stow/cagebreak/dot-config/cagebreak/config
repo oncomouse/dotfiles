@@ -1,0 +1,211 @@
+# [settings]
+workspaces 6
+escape L-space
+# set startupmessage 0
+# set border 2
+# set barsticky 0
+# set bargravity c
+# set barborder 1
+# set barpadding 5 2
+# set vscreens 6
+# set padding 0 24 0 0
+# set onlyborder 0
+# set gap 0
+
+# [autostart]
+exec sf-autostart &
+
+# [hooks]
+# addhook deletewindow exec sf-zoom.sh check
+# addhook newwindow exec sf-zoom.sh check
+# addhook switchwin exec sf-zoom.sh check
+# addhook switchscreen exec sf-zoom.sh check
+# addhook switchvscreen exec sf-zoom.sh check
+# addhook deletewindow exec sf-lower-polybar.sh &
+# addhook newwindownewwindowexec sf-lower-polybar.sh &
+# addhook switchwin exec sf-lower-polybar.sh &
+# addhook switchscreen exec sf-lower-polybar.sh &
+# addhook switchvscreen exec sf-lower-polybar.sh &
+
+# [functionality]
+bind Escape abort
+bind q quit
+
+# [to be redefined]
+# unbind b
+# unbind c
+# unbind f
+# unbind h
+# unbind j
+# unbind k
+# unbind l
+# unbind t
+# unbind S
+# unbind s
+# unbind exclam
+# unbind C-h
+# unbind C-j
+# unbind C-k
+# unbind C-l
+
+# [launchers]
+# alias fm exec dotfiles-fm &
+# alias term exec dotfiles-term &
+# alias time exec sdorfehs -c "echo $(date +"%a %-m/%d %-I:%M %p")" &
+# alias default-brightness exec dotfiles-brightness default &
+bind c exec wezterm&
+bind f exec dotfiles-fm&
+bind L-f exec dotfiles-fm&
+# bind t time
+# bind L-t time
+bind B exec dotfiles-brightness default &
+
+# [switch frames]
+# bind Tab fselect
+bind n focus
+bind p focusprev
+bind h focusleft
+bind j focusdown
+bind k focusup
+bind l focusright
+bind H exchangeleft
+bind J exchangedown
+bind K exchangeup
+bind L exchangeright
+bind L-h focusleft
+bind L-j focusdown
+bind L-k focusup
+bind L-l focusright
+bind L-H exchangeleft
+bind L-J exchangedown
+bind L-K exchangeup
+bind L-L exchangeright
+bind L-n next
+bind L-p prev
+
+# [reverse splits]
+bind S vsplit
+bind s hsplit
+
+# [controls]
+# bind C-w delete
+# definekey top L-w delete
+
+# [zoom]
+# alias zoom exec sf-zoom.sh &
+# bind z zoom
+# bind L-z zoom
+
+# [windows]
+# alias sf-windows exec sf-windows.sh &
+# bind w sf-windows
+# bind L-w sf-windows
+
+# [launchers]
+definekey top A-L-r exec dotfiles-run &
+definekey top L-P exec dotfiles-powermenu &
+definekey top A-L-p exec rofimusic.sh &
+definekey top A-L-k exec dotfiles-unicode &
+definekey top C-L-space exec dotfiles-emoji &
+
+# Polybar fullscreen mess:
+definekey top L-b exec polybar-msg cmd toggle
+
+# [screenshots]
+bind Print exec dotfiles-screenshot
+
+# [workspaces]
+bind 1 workspace 1
+bind 2 workspace 2
+bind 3 workspace 3
+bind 4 workspace 4
+bind 5 workspace 5
+bind 6 workspace 6
+bind exclam movetoworkspace 1
+bind at movetoworkspace 2
+bind numbersign movetoworkspace 3
+bind dollar movetoworkspace 4
+bind percent movetoworkspace 5
+bind asciicircum movetoworkspace 6
+
+# [toggle fullscreen]
+definekey top F11 exec xdotool getactivewindow windowstate --toggle FULLSCREEN &
+
+# [mediakeys]
+definekey top XF86KbdBrightnessDown exec kbdlight down 5
+definekey top XF86KbdBrightnessUp exec kbdlight up 5
+definekey top XF86MonBrightnessUp exec dotfiles-brightness up &
+definekey top XF86MonBrightnessDown exec dotfiles-brightness down &
+definekey top XF86AudioMute exec dotfiles-volume mute &
+definekey top XF86AudioLowerVolume exec dotfiles-volume down &
+definekey top XF86AudioRaiseVolume exec dotfiles-volume up &
+definekey top XF86AudioPlay exec dotfiles-media play &
+definekey top XF86AudioPrev exec dotfiles-media prev &
+definekey top XF86AudioNext exec dotfiles-media next &
+definekey top XF86AudioStop exec dotfiles-media stop &
+definekey top XF86PowerOff exec dotfiles-power &
+
+# [unused keys]
+# unbind Left
+# unbind Right
+# unbind Up
+# unbind Down
+# unbind F1
+# unbind F2
+# unbind F3
+# unbind F4
+# unbind F5
+# unbind F6
+# unbind F7
+# unbind F8
+# unbind F9
+# unbind F10
+# unbind F11
+# unbind 0
+# unbind 7
+# unbind 8
+# unbind 9
+# unbind C-Left
+# unbind C-Right
+# unbind C-Up
+# unbind C-Down
+# unbind C-Return
+# unbind a
+
+# [Replaced w/ Super key bindings]
+# unbind C-A
+# unbind C-K
+# unbind C-S
+# unbind C-V
+# unbind C-a
+# unbind C-apostrophe
+# unbind C-b
+# unbind C-c
+# unbind C-f
+# unbind C-i
+# unbind C-m
+# unbind C-n
+# unbind C-p
+# unbind C-r
+# unbind C-s
+# unbind C-space
+# unbind C-u
+# unbind C-underscore
+# unbind C-v
+# unbind C-x
+
+# [unmanage]
+# exec dotfiles-polybar &
+# set barsticky 0
+
+# [resize]
+bind r setmode resize
+definekey resize h resizeleft
+definekey resize j resizedown
+definekey resize k resizeup
+definekey resize l resizeright
+definekey resize Return abort
+
+
+exec sf-colors.sh &
+# vim:ft=sdorfehs
