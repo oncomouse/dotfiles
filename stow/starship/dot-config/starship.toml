@@ -24,7 +24,7 @@ error_symbol = "[λ](red)"
 [status]
 format = "[\\[$symbol$status\\]]($style)"
 disabled = false
-symbol = ""
+symbol = "!"
 style = "red"
 
 [directory]
