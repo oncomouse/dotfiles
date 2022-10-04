@@ -1,7 +1,5 @@
 local function config_null_ls()
 	local b = require("null-ls").builtins
-	-- Mason stuff:
-	require("dotfiles.plugins.mason").install_tools()
 
 	local javascript_register = require("dotfiles.plugins.null-ls.helpers.javascript_register")
 	local sources = {

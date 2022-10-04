@@ -184,7 +184,6 @@ local function plugins()
 					"jose-elias-alvarez/null-ls.nvim",
 					requires = {
 						{ "nvim-lua/plenary.nvim", module = { "plenary.async", "plenary" } },
-						{ "williamboman/mason.nvim", module = "mason" },
 					},
 					config = require("dotfiles.plugins.null-ls"),
 					module = "null-ls", -- Null-ls is loaded by the events created in nvim-lspconfig's configuration
@@ -193,10 +192,6 @@ local function plugins()
 
 				{
 					"neovim/nvim-lspconfig",
-					requires = {
-						{ "williamboman/mason.nvim", module = "mason" },
-						{ "williamboman/mason-lspconfig.nvim", module = "mason-lspconfig" },
-					},
 					-- Configured in ~/dotfiles/conf/vim/plugin/nvim-lspconfig.lua
 				}, -- LSP
 
