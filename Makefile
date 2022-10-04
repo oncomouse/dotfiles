@@ -1,5 +1,5 @@
 desktop:
-	bash ./bootstrap/init.sh
+	env SERVER="" bash ./bootstrap/init.sh
 server:
 	env SERVER=true bash ./bootstrap/init.sh
 

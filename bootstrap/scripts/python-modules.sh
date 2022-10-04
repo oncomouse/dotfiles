@@ -32,6 +32,7 @@ else
 	pip3install 'pynvim'
 fi
 if [ -z "$SERVER" ]; then
+	pip3install 'colorama'
 	pip3install 'neovim'
 	pip3install 'reorder-python-imports'
 	pip3install 'bibparse'

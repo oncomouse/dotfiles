@@ -67,7 +67,7 @@ To connect to wifi, `nmcli device wifi --ask connect <SSID>`
 # Refind Configuration that works
 
 ```
-"Boot with standard options"  "root=/dev/nvme0n1p3 rw initrd=\amd-ucode.img initrd=\initramfs-linux.img"
-"Boot to single-user mode"    "root=/dev/nvme0n1p3 rw initrd=\amd-ucode.img initrd=\initramfs-linux-fallback.img"
-"Boot with minimal options"   "ro root=/dev/nvme0n1p3"
+"Boot with standard options"  "root=/dev/disk/by-partlabel/system rw initrd=\amd-ucode.img initrd=\initramfs-linux.img"
+"Boot to single-user mode"    "root=/dev/disk/by-partlabel/system rw initrd=\amd-ucode.img initrd=\initramfs-linux-fallback.img"
+"Boot with minimal options"   "ro root=/dev/disk/by-partlabel/system"
 ```

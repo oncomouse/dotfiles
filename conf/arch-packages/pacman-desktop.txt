@@ -7,6 +7,7 @@ dex
 dunst
 feh
 firefox
+flatpak
 gnome-keyring
 gnome-themes-extra
 gnu-free-fonts
