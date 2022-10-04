@@ -5,15 +5,17 @@
 # Install prerequisites
 paru --skipreview --noconfirm -S libsearpc --mflags "--skippgpcheck"
 
+# Install from git:
 mkdir -p ~/Projects
 git clone https://github.com/haiwen/seadrive-fuse ~/Projects/seadrive-fuse
 oldpwd=$(pwd)
-cd ~/Projects/seadrive-fuse
+cd ~/Projects/seadrive-fuse || exit
 ./autogen.sh
-./configure
+./configure --prefix=/usr
 make
 sudo make install
-cd "$oldpwd"
+cd "$oldpwd" || exit
+
 # Install the fuse client daemon
 mkdir -p ~/.config/seadrive
 mkdir -p ~/.local/share/seadrive/data
