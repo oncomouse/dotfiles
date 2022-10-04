@@ -49,9 +49,9 @@ systemctl --user enable ssh-agent.service
 # Enable UFW:
 sudo systemctl enable ufw.service
 sudo systemctl start ufw.service
-sudo ufw deny in
+sudo ufw deny in on any
 sudo ufw allow SSH
-sudo ufw allow out
+sudo ufw allow out on any
 sudo ufw enable
 
 # Set kernel flags:

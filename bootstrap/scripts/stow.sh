@@ -16,6 +16,7 @@ dotfiles_stow git
 dotfiles_stow ripgrep
 dotfiles_stow scripts
 dotfiles_stow tmux
+dotfiles_stow starship
 if [ "$os" == "arch" ]; then
 	dotfiles_stow systemd
 fi

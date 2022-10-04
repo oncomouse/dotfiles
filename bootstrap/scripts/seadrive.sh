@@ -3,18 +3,18 @@
 # Seadrive install for Arch
 
 # Install prerequisites
-gpg --recv-key 910397D88D29319A --keyserver hkp://keyserver.ubuntu.com:80
-paru --skipreview --noconfirm -S libevent-compat libsearpc
+paru --skipreview --noconfirm -S libsearpc --mflags "--skippgpcheck"
 
-# Install the fuse client daemon
+mkdir -p ~/Projects
+git clone https://github.com/haiwen/seadrive-fuse ~/Projects/seadrive-fuse
 oldpwd=$(pwd)
-mkdir -p ~/aur
-https://github.com/oncomouse/seadrive-daemon-git ~/aur/seadrive-daemon-git
-cd ~/aur/seadrive-daemon-git || exit
-makepkg -si
-cd "$oldpwd" || exit
-
-# Make directories
+cd ~/Projects/seadrive-fuse
+./autogen.sh
+./configure
+make
+sudo make install
+cd "$oldpwd"
+# Install the fuse client daemon
 mkdir -p ~/.config/seadrive
 mkdir -p ~/.local/share/seadrive/data
 mkdir -p ~/.local/share/seadrive/logs

@@ -63,3 +63,11 @@ To connect to wifi, `nmcli device wifi --ask connect <SSID>`
 # Keyring
 
 1. [Keyring PAM Configuration](https://wiki.archlinux.org/title/GNOME/Keyring#PAM_method)
+
+# Refind Configuration that works
+
+```
+"Boot with standard options"  "root=/dev/nvme0n1p3 rw initrd=\amd-ucode.img initrd=\initramfs-linux.img"
+"Boot to single-user mode"    "root=/dev/nvme0n1p3 rw initrd=\amd-ucode.img initrd=\initramfs-linux-fallback.img"
+"Boot with minimal options"   "ro root=/dev/nvme0n1p3"
+```
