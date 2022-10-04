@@ -35,7 +35,6 @@ if [ "$SERVER" = "" ]; then
 	systemctl --user enable wireplumber.service
 	systemctl --user enable seadrive.service
 	systemctl --user enable mpd.service
-	systemctl --user enable tmux.service
 	systemctl --user enable redshift.service
 fi
 
