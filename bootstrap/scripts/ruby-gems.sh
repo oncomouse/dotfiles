@@ -12,7 +12,8 @@ if which gem > /dev/null 2>&1; then
     geminstall 'neovim'
     geminstall 'rubocop'
     geminstall 'rufo'
-	geminstall 'standardrb'
+    geminstall 'standardrb'
+    geminstall 'solargraph'
   fi
   geminstall 'bundler'
 fi

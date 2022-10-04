@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 ## Install Node.js Modules
+os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 # Setup a local to user global npm path:
 function npminstall() {
   local repo=$1
@@ -20,8 +21,10 @@ if which npm > /dev/null 2>&1; then
     npminstall 'jsonlint' 
     npminstall 'prettier'
     npminstall 'prettier-semi-cli'
-    # Required by typescript-language-server:
-    npminstall 'typescript'
+    npminstall 'vscode-langservers-extracted'
+    if [ "$os" = "macos" ]; then
+      npminstall 'typescript-language-server'
+    fi
   fi
   npminstall '@bitwarden/cli'
 fi

@@ -1,5 +1,6 @@
 acpi
 arc-gtk-theme
+bash-language-server
 cups
 cups-pdf
 dex
@@ -14,6 +15,7 @@ gvfs
 hsetroot
 libnotify
 libsecret
+lua-language-server
 mpc
 mpd
 ncmpcpp
@@ -29,6 +31,7 @@ picom
 pipewire
 pipewire-alsa
 pipewire-pulse
+pyright
 redshift
 rofi
 shellharden
@@ -39,6 +42,7 @@ ttf-fira-code
 ttf-jetbrains-mono
 ttf-joypixels
 ttf-liberation
+typescript-language-server
 unclutter
 wireplumber
 xarchiver
@@ -55,6 +59,7 @@ xorg-xrdb
 xorg-xsetroot
 xscreensaver
 yajl
+yaml-language-server
 youtube-dl
 zathura
 zathura-pdf-poppler
