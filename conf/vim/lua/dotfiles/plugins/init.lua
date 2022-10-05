@@ -185,9 +185,7 @@ local function plugins()
 					requires = {
 						{ "nvim-lua/plenary.nvim", module = { "plenary.async", "plenary" } },
 					},
-					config = require("dotfiles.plugins.null-ls"),
-					module = "null-ls", -- Null-ls is loaded by the events created in nvim-lspconfig's configuration
-					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/null-ls/init.lua
+					-- Configured in ~/dotfiles/conf/vim/after/plugin/null-ls.lua
 				}, -- Format and Diagnostics
 
 				{

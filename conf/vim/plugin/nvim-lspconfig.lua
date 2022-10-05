@@ -21,9 +21,7 @@ for _, servers in pairs(server_maps) do
 				end
 			end
 			for lsp, settings in pairs(servers.servers) do
-				if lsp == "null-ls" then
-					vim.cmd([[PackerLoad null-ls.nvim]])
-				else
+				if lsp ~= "null-ls" then
 					local opts = {
 						on_attach = on_attach,
 						capabilities = capabilities,
