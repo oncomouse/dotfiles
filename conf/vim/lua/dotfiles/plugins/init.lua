@@ -88,10 +88,10 @@ local function plugins()
 				{
 					"haya14busa/vim-asterisk",
 					config = function()
-						vim.keymap.set("", "*", "<Plug>(asterisk-*)")
-						vim.keymap.set("", "#", "<Plug>(asterisk-#)")
-						vim.keymap.set("", "g*", "<Plug>(asterisk-g*)")
-						vim.keymap.set("", "g#", "<Plug>(asterisk-g#)")
+						vim.keymap.set("", "*", "<Plug>(asterisk-z*)")
+						vim.keymap.set("", "#", "<Plug>(asterisk-z#)")
+						vim.keymap.set("", "g*", "<Plug>(asterisk-gz*)")
+						vim.keymap.set("", "g#", "<Plug>(asterisk-gz#)")
 						vim.g["asterisk#keeppos"] = 1
 					end,
 					requires = { "tpope/vim-repeat" },
