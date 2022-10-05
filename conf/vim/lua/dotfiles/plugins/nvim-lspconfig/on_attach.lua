@@ -134,7 +134,6 @@ local function on_attach(client, buf_num)
 	end
 	-- Formatting:
 	if formatting_provider then
-		vim.opt_local.formatexpr = "v:lua.vim.lsp.formatexpr()"
 		vim.api.nvim_buf_create_user_command(buf_num, "Format", function()
 			vim.lsp.buf.format({
 				async = true,
