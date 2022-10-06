@@ -58,6 +58,7 @@ xorg-xmodmap
 xorg-xprop
 xorg-xrdb
 xorg-xsetroot
+xorg-xwininfo
 xscreensaver
 yajl
 yaml-language-server
