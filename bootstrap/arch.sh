@@ -11,13 +11,10 @@ fi
 ~/dotfiles/bootstrap/scripts/common.sh
 
 mkdir -p "$HOME/aur"
-# Install some AUR packages (including paru):
-~/dotfiles/bootstrap/scripts/aur.sh
-
-# Install AUR using Paru:
-cat "$HOME"/dotfiles/conf/arch-packages/aur.txt | paru --needed -S --skipreview --noconfirm -
 
 if [ "$SERVER" = "" ]; then
+	# Install some AUR packages (including paru):
+	~/dotfiles/bootstrap/scripts/aur.sh
 	sudo cat "$HOME/dotfiles/conf/arch-packages/pacman-desktop.txt" | sudo pacman -S --noconfirm --needed -
 	cat "$HOME"/dotfiles/conf/arch-packages/aur-desktop.txt | paru --needed -S --skipreview --noconfirm -
 	# Setup flatpak:
