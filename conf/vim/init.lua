@@ -155,6 +155,12 @@ end
 -- }}}
 -- Maps {{{
 
+-- Move lines:
+vim.keymap.set("n", "<A-j>", ":move .+1<CR>==", { silent = true, noremap = true })
+vim.keymap.set("n", "<A-k>", ":move .-2<CR>==", { silent = true, noremap = true })
+vim.keymap.set("v", "<A-j>", ":move '>+1<CR>gv=gv", { silent = true, noremap = true })
+vim.keymap.set("v", "<A-k>", ":move '<-2<CR>gv=gv", { silent = true, noremap = true })
+
 -- Clear Currently Highlighted Regexp:
 vim.keymap.set("n", "<leader>cr", ':let<C-u>let @/=""<CR>', { silent = true, noremap = true })
 
