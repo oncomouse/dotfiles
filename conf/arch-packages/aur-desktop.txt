@@ -1,7 +1,6 @@
-bibtool
+nerd-fonts-fira-code
 nerd-fonts-jetbrains-mono
 otf-hasklig
-otf-nerd-fonts-fira-code
 pandoc-bin
 perl-term-shellui
 polkit-dumb-agent-git
