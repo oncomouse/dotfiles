@@ -213,7 +213,7 @@ separator_padding = 0 0
 #----------------------------------
 # Executor 1: Weather
 execp = new
-execp_command = curl --connect-timeout 40 -s "https://wttr.in/?format=1" | sed -e "s/ +//" -e "s/Unknown.*\\$//"
+execp_command = /bin/sh -c 'curl --connect-timeout 40 -s "https://wttr.in/$(cat ~/.wttr.location 2> /dev/null)?format=1&u" | sed -e "s/ +//" -e "s/Unknown.*\$//"'
 execp_interval = 600
 execp_font_color = #d9d7ce 100
 execp_lclick_command = xdg-open "https://wttr.in"
