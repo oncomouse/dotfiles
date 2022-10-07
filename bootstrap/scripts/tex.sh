@@ -8,7 +8,6 @@ packages=(
 	ifmtarg
 	xifthen
 	varwidth
-	tabu
 	libertine
 	sectsty
 )
