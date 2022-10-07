@@ -2,14 +2,15 @@
 # Install the TeX plugins needed to compile the CV:
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 packages=(
-	titling
-	titlesec
 	enumitem
 	ifmtarg
-	xifthen
-	varwidth
 	libertine
+	ltablex
 	sectsty
+	titlesec
+	titling
+	varwidth
+	xifthen
 )
 if [ "$os" = "arch" ];then
   tllocalmgr install "${packages[@]}"
