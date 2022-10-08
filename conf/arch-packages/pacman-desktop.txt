@@ -45,6 +45,7 @@ ttf-joypixels
 ttf-liberation
 typescript-language-server
 unclutter
+wezterm
 wireplumber
 xarchiver
 xclip
