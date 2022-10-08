@@ -86,13 +86,6 @@ if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
                 home
             )
         )
-    if which("fish") is not None:
-        message("Configuring fish FZF colors")
-        system(
-            'fish -c "set -e FZF_COLORS; source {}/.cache/wal/colors-fzf.fish"'.format(
-                home
-            )
-        )
     if which("cava") is not None:
         message("Configure CAVA colors")
         system("mkdir -p {}/.config/cava".format(home))
