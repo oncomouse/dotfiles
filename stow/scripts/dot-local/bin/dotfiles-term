@@ -2,15 +2,14 @@
 # DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
 
 if [[ -n "$DISPLAY" ]]; then
-	exec st "$@"
-	# if [ "$DOTFILES_TARGET" == "desktop" ]; then
-	# 	exec st "$@"
-	# elif [ "$DOTFILES_TARGET" == "laptop" ]; then
-	# 	exec tabbed -r 2 -c st -w '' "$@"
+	if [ "$DOTFILES_TARGET" == "desktop" ]; then
+		exec wezterm
+	elif [ "$DOTFILES_TARGET" == "laptop" ]; then
+		exec st "$@"
 	# else
 	# 	exec xterm "$@"
-	# fi
+	fi
 elif [[ -n "$WAYLAND_DISPLAY" ]]; then
-	exec foot
+	exec wezterm
 fi
 # vim:ft=sh
