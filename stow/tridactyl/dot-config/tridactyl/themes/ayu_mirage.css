@@ -1,0 +1,133 @@
+:root {
+	/* Generic */
+	--tridactyl-font-family: monospace;
+	--tridactyl-font-family-sans: sans-serif;
+	--tridactyl-font-size: 16px;
+	--tridactyl-small-font-size: 14px;
+	--tridactyl-bg: #3b4857;
+	--tridactyl-fg: #c7c7c7;
+	--tridactyl-logo: url("moz-extension://__MSG_@@extension_id__/static/logo/Tridactyl_64px.png");
+	--tridactyl-scrollbar-color: auto;
+
+	/* Mode indicator */
+	--tridactyl-status-font-family: var(--tridactyl-font-family);
+	--tridactyl-status-font-size: var(--tridactyl-small-font-size);
+	--tridactyl-status-bg: var(--tridactyl-bg);
+	--tridactyl-status-fg: var(--tridactyl-fg);
+	--tridactyl-status-border: 1px #CBCCC6 solid;
+	--tridactyl-status-border-radius: 2px;
+
+	/* Search highlight */
+	--tridactyl-search-highlight-color: #fad07b;
+
+	/* Hinting */
+
+	/* Hint character tags */
+	--tridactyl-hintspan-font-family: var(--tridactyl-font-family-sans);
+	--tridactyl-hintspan-font-size: var(--tridactyl-small-font-size);
+	--tridactyl-hintspan-font-weight: bold;
+	--tridactyl-hintspan-fg: var(--tridactyl-bg);
+	--tridactyl-hintspan-bg: #6dcbfa;
+	--tridactyl-hintspan-border-color: ButtonShadow;
+	--tridactyl-hintspan-border-width: 0px;
+	--tridactyl-hintspan-border-style: solid;
+	--tridactyl-hintspan-js-background: hsla(0, 0%, 65%);
+
+	/* Element highlights */
+	--tridactyl-hint-active-fg: var(--tridactyl-fg);
+	--tridactyl-hint-active-bg: #95e6cb;
+	--tridactyl-hint-active-outline: 1px solid #D4BFFF;
+
+	--tridactyl-hint-bg: rgba(149, 230, 203, 0.25);
+	--tridactyl-hint-outline: 1px solid #6dcbfa;
+
+	/* :viewsource */
+	--tridactyl-vs-bg: var(--tridactyl-bg);
+	--tridactyl-vs-fg: var(--tridactyl-fg);
+	--tridactyl-vs-font-family: var(--tridactyl-font-family);
+
+	/*commandline*/
+
+	--tridactyl-cmdl-bg: var(--tridactyl-bg);
+	--tridactyl-cmdl-fg: var(--tridactyl-fg);
+	--tridactyl-cmdl-line-height: 1.5;
+	--tridactyl-cmdl-font-family: var(--tridactyl-font-family);
+	--tridactyl-cmdl-font-size: 9pt;
+
+	/*completions*/
+
+	--tridactyl-cmplt-option-height: 1.4em;
+	--tridactyl-cmplt-fg: var(--tridactyl-fg);
+	--tridactyl-cmplt-bg: var(--tridactyl-bg);
+	--tridactyl-cmplt-font-size: 10pt;
+	--tridactyl-cmplt-font-family: var(--tridactyl-font-family);
+	/* i don't think 0.5px is redered */
+	--tridactyl-cmplt-border-top: 1px solid #93979c;
+
+	/* need a better way for naming variables 
+	 *
+		- .Properties for .HistoryCompletionSource table
+		- .Properties for .BmarkCompletionSource table
+
+	*/
+
+	/*sectionHeader*/
+
+	--tridactyl-header-first-bg: #93979c;
+	--tridactyl-header-second-bg: #626973;
+	--tridactyl-header-third-bg: #3b4857;
+	/* eg. What if I dont want liner-gradient as bg?
+	 *
+	 * :root .sectionHeader { background: blue; }
+	 *
+	 * ????
+	 */
+
+	--tridactyl-header-font-size: inherit;
+	--tridactyl-header-font-weight: bold;
+	/* i don't think 0.5px is redered */
+	--tridactyl-header-border-bottom: 1px solid bottom;
+
+	/*url style*/
+
+	--tridactyl-url-text-decoration: none;
+	--tridactyl-url-fg: #95e6cb;
+	--tridactyl-url-bg: var(--tridactyl-bg);
+	--tridactyl-url-cursor: pointer;
+
+	/*option focused*/
+
+	--tridactyl-of-fg: var(--tridactyl-bg);
+	--tridactyl-of-bg: #FFC44C;
+
+	/*new tab spoiler box*/
+	--tridactyl-highlight-box-bg: rgba(0, 0, 0, 0.07);
+	--tridactyl-highlight-box-fg: var(--tridactyl-fg);
+
+	--tridactyl-private-window-icon-url: url("chrome://browser/skin/privatebrowsing/private-browsing.svg");
+
+	--tridactyl-container-fingerprint-url: url("resource://usercontext-content/fingerprint.svg");
+	--tridactyl-container-briefcase-url: url("resource://usercontext-content/briefcase.svg");
+	--tridactyl-container-dollar-url: url("resource://usercontext-content/dollar.svg");
+	--tridactyl-container-cart-url: url("resource://usercontext-content/cart.svg");
+	--tridactyl-container-circle-url: url("resource://usercontext-content/circle.svg");
+	--tridactyl-container-gift-url: url("resource://usercontext-content/gift.svg");
+	--tridactyl-container-vacation-url: url("resource://usercontext-content/vacation.svg");
+	--tridactyl-container-food-url: url("resource://usercontext-content/food.svg");
+	--tridactyl-container-fruit-url: url("resource://usercontext-content/fruit.svg");
+	--tridactyl-container-pet-url: url("resource://usercontext-content/pet.svg");
+	--tridactyl-container-tree-url: url("resource://usercontext-content/tree.svg");
+	--tridactyl-container-chill-url: url("resource://usercontext-content/chill.svg");
+
+	--tridactyl-container-color-blue: #6dcbfa;
+	--tridactyl-container-color-turquoise: #90e1c6;
+	--tridactyl-container-color-green: #a6cc70;
+	--tridactyl-container-color-yellow: #fad07b;
+	--tridactyl-container-color-orange: #FFAE57;
+	--tridactyl-container-color-red: #ed8274;
+	--tridactyl-container-color-pink: #ff4bda;
+	--tridactyl-container-color-purple: #D4BFFF;
+
+	--tridactyl-externaledit-bg: var(--tridactyl-logo) no-repeat center;
+}
+
