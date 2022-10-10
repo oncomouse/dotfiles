@@ -27,6 +27,7 @@ addhook newwindownewwindowexec sf-lower-polybar.sh &
 addhook switchwin exec sf-lower-polybar.sh &
 addhook switchscreen exec sf-lower-polybar.sh &
 addhook switchvscreen exec sf-lower-polybar.sh &
+addhook switchframe exec sf-lower-polybar.sh &
 
 # [functionality]
 bind Escape abort
