@@ -1,4 +1,2 @@
-1. `/usr/local/opt/ncurses/bin/infocmp -x tmux-256color > ~/tmux-256color.src`
-2. `nvim ~/tmux-256color.src`
-        * Change `pairs#0x10000` or `pairs#65536` TO `pairs#32767`
-3. `sudo /usr/bin/tic -x -o /usr/share/terminfo ~/tmux-256color.src`
+1. `curl -so tmux-256color.info https://gist.githubusercontent.com/nicm/ea9cf3c93f22e0246ec858122d9abea1/raw/37ae29fc86e88b48dbc8a674478ad3e7a009f357/tmux-256color`
+3. `sudo /usr/bin/tic -x ~/tmux-256color.info`
