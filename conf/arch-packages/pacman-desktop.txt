@@ -44,6 +44,7 @@ ttf-jetbrains-mono
 ttf-joypixels
 ttf-liberation
 typescript-language-server
+udiskie
 unclutter
 wezterm
 wireplumber
