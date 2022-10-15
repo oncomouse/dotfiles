@@ -23,8 +23,8 @@ entry {
     horizontal-align: 0;
     color: @foreground;
     border-radius: 7px;
-    placeholder: "Launch Application";
-    placeholder-color: #b3b7bd;
+    placeholder: "Search";
+    placeholder-color: @color7;
 }
 
 listview {

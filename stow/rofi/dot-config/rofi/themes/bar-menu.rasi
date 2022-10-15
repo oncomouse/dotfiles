@@ -1,0 +1,75 @@
+@import "~/.cache/wal/colors.rasi"
+
+* {
+  background-color: @background;
+  border-color: @border;
+  text-color: @foreground;
+}
+
+window {
+  anchor: north;
+  location: north;
+  width: 100%;
+  padding: 5px;
+  children: [ horibox ];
+}
+
+horibox {
+  orientation: horizontal;
+  children: [ inputbar, listview ];
+  padding: 4px;
+}
+
+inputbar {
+  orientation: horizontal;
+  children: [ prompt, entry ];
+  background-color: @alternate-normal-background;
+  border-radius: 7px;
+  margin: 0 1em 0 0;
+  spacing: 0;
+}
+
+listview {
+  layout: horizontal;
+  spacing: 5px;
+  lines: 100;
+}
+
+prompt,
+entry {
+  background-color: @alternate-normal-background;
+  border: 0;
+}
+
+prompt {
+  margin: 0;
+  foreground: @foreground;
+  horizontal-align: 1;
+}
+
+entry {
+  expand: false;
+  width: 6em;
+  margin: 0;
+}
+
+prompt,
+entry,
+element {
+  padding: 6px 12px;
+}
+
+element {
+  border-radius: 7px;
+  }
+
+element-icon selected {
+  background-color: @selected-normal-background;
+}
+element-text selected {
+  background-color: @selected-normal-background;
+  text-color: @selected-normal-foreground;
+}
+element selected {
+    background-color: @selected-normal-background;
+}

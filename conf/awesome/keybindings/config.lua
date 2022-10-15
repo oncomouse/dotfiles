@@ -23,7 +23,7 @@ beautiful.toggle_floating_on_moveresize = true
 local dmenucmd = {
 	"rofi",
 	"-theme",
-	"~/dotfiles/conf/rofi/barmenu.rasi",
+	"themes/bar-menu.rasi",
 	"-match",
 	"fuzzy",
 	"-auto-select",
@@ -38,7 +38,7 @@ local dmenucmd = {
 local rofiwincmd = {
 	"rofi",
 	"-theme",
-	"~/dotfiles/conf/rofi/barmenu.rasi",
+	"themes/bar-menu.rasi",
 	"-match",
 	"fuzzy",
 	"-auto-select",

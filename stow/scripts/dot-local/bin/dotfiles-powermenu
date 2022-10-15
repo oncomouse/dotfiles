@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 font="$(rofi-font "$1")"
 offset="$(rofi-offset)"
-choice="$(printf "Lock\nSuspend\nLogoff\nRestart\nShutdown" | rofi -dmenu -match fuzzy -auto-select -i -p Powermenu -font "$font"	-location 1 -theme-str "window { width: 100%; height: 8em; y-offset: $offset; }" -fixed-num-lines )"
+choice="$(printf "Lock\nSuspend\nLogoff\nRestart\nShutdown" | rofi -dmenu -match fuzzy -auto-select -i -p Powermenu -font "$font"	-location 1 -theme-str "window { y-offset: $offset; }" -theme themes/bar-menu.rasi -fixed-num-lines )"
 case $choice in
 	Lock)
 		xscreensaver-command -lock

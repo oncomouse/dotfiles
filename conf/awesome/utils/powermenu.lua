@@ -11,7 +11,7 @@ local commands = {
 local powermenu_cmd = 'echo "'
 	.. table.concat(gears.table.keys(commands), "\n")
 	.. '" | '
-	.. 'rofi -dmenu -theme ~/dotfiles/conf/rofi/barmenu.rasi -match fuzzy -auto-select -i -p Powermenu -font "'
+	.. 'rofi -dmenu -theme themes/bar-menu.rasi -match fuzzy -auto-select -i -p Powermenu -font "'
 	.. beautiful.font
 	.. '"'
 local function powermenu()

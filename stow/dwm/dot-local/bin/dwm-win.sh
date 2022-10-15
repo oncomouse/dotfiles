@@ -2,7 +2,7 @@
 font=${1:-"FiraCode Nerd Font 12"}
 # shellcheck disable=1083
 rofi \
-	-theme ~/dotfiles/conf/rofi/barmenu.rasi \
+	-theme themes/bar-menu.rasi \
 	-match fuzzy \
 	-auto-select \
 	-font "$font" \
