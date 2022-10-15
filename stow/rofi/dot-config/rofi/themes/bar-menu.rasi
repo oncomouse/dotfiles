@@ -63,6 +63,13 @@ element {
   border-radius: 7px;
   }
 
+element-icon {
+  background-color: transparent;
+  size: 24;
+  horizontal-align: 0.5;
+  cursor: inherit;
+}
+
 element-icon selected {
   background-color: @selected-normal-background;
 }
