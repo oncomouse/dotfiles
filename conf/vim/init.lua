@@ -155,6 +155,15 @@ end
 -- }}}
 -- Maps {{{
 
+-- Navigation in insert mode:
+vim.keymap.set("i", "<C-a>", "<C-o>^")
+vim.keymap.set("i", "<C-e>", "<C-o>$")
+vim.keymap.set("i", "<C-b>", "<C-o>h")
+vim.keymap.set("i", "<C-f>", "<C-o>l")
+vim.keymap.set("i", "<A-b>", "<C-o>b")
+-- This one doesn't work:
+vim.keymap.set("i", "<A-f>", "<C-o>w")
+
 -- Move lines:
 vim.keymap.set("n", "<A-j>", ":move .+1<CR>==", { silent = true, noremap = true })
 vim.keymap.set("n", "<A-k>", ":move .-2<CR>==", { silent = true, noremap = true })
@@ -191,7 +200,7 @@ vim.keymap.set("x", "@", function()
 end, { silent = true, noremap = true })
 
 -- Calculator:
-vim.keymap.set("i", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
+vim.keymap.set("i", "<C-X><C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
 
 -- Vertical split like in my Tmux config
 vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
