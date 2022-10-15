@@ -15,7 +15,7 @@ for _, servers in pairs(server_maps) do
 			if capabilities == nil then
 				local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 				if ok then
-					capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+					capabilities = cmp_nvim_lsp.default_capabilities()
 				else
 					capabilities = vim.lsp.protocol.make_client_capabilities()
 				end
