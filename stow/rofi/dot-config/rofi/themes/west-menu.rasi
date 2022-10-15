@@ -1,0 +1,67 @@
+@import "~/.cache/wal/colors.rasi"
+
+window {
+    width: 400px;
+    height: 100%;
+    location: west;
+}
+
+mainbox {
+    background-color: @background;
+}
+
+inputbar {
+    background-color: transparent;
+    children: [entry];
+    padding: 20px 0px;
+}
+
+entry {
+    background-color: @alternate-normal-background;
+    padding: 10px 20px;
+    margin: 0px 20px 0px 20px;
+    horizontal-align: 0;
+    color: @foreground;
+    border-radius: 7px;
+    placeholder: "Launch Application";
+    placeholder-color: #b3b7bd;
+}
+
+listview {
+    columns: 1;
+    spacing: 5px;
+    fixed-columns: true;
+    background-color: transparent;
+    padding: 20px;
+}
+
+element {
+    orientation: horizontal;
+    background-color: transparent;
+    padding: 10px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+element selected {
+    background-color: @active-background;
+}
+
+element-icon {
+    background-color: transparent;
+    size: 32;
+    horizontal-align: 0.5;
+    cursor: inherit;
+}
+element-text {
+    horizontal-align: 0;
+    vertical-align: 0.5;
+    color: @foreground;
+    background-color: transparent;
+    padding: 0px 5px;
+    cursor: inherit;
+}
+
+element-text selected {
+    color: @active-foreground;
+}

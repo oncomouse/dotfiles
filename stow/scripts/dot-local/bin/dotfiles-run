@@ -9,6 +9,7 @@ rofi \
 	-show drun \
 	-show-icons \
 	-location 1 \
-	-theme-str "window { width: 100%; y-offset: $offset; }" \
+	-theme themes/west-menu.rasi \
+	-theme-str "window { y-offset: $offset; }" \
 	-drun-display-format {name}
 # vim:ft=sh
