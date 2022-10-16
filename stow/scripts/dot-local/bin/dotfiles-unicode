@@ -10,5 +10,6 @@ rofi \
 -font "$font" \
 -p "Unicode Cheatsheet: " \
 -location 1 \
--theme-str "window { width: 100%; y-offset: $offset; }" | cut -d " " -f 1 | tr -d '\n' | xclip -i -selection clipboard
+-theme themes/char-menu.rasi \
+-theme-str "window { y-offset: $offset; }" | cut -d " " -f 1 | tr -d '\n' | xclip -i -selection clipboard
 # vim:ft=sh

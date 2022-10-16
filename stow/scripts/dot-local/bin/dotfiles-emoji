@@ -6,7 +6,9 @@ rofi \
 	-show emoji \
 	-modi emoji \
 	-location 1 \
-	-theme-str "window { width: 100%; y-offset: $offset; }" \
+	-theme themes/char-menu.rasi \
+	-theme-str "window { y-offset: $offset; }" \
+	-p "Select an Emoji:" \
 	-emoji-format "{emoji} <span weight='bold'>{name}</span> [<span size='small'>({keywords})</span>]" \
 	-font "$font"
 # vim:ft=sh

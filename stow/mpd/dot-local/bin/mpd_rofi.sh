@@ -5,7 +5,7 @@ offset="$(rofi-offset)"
 
 # shellcheck disable=SC2119,SC2120
 rofi_bar() {
-	rofi -match fuzzy -dmenu -i -font "$font" -location 1 -theme-str "window { width: 100%; y-offset: $offset; }" "$@"
+	rofi -match fuzzy -dmenu -i -font "$font" -location 1 -theme-str "window { y-offset: $offset; }" "$@"
 }
 
 action-search() {

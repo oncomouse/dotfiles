@@ -2,3 +2,7 @@
 @import "~/dotfiles/conf/rofi/defaults/style.rasi"
 @import "~/dotfiles/conf/rofi/defaults/settings.rasi"
 @import "~/dotfiles/conf/rofi/defaults/menu.rasi"
+
+listview {
+  columns: 4;
+}

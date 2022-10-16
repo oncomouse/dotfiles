@@ -20,8 +20,6 @@ choice="$(sdorfehs -c "windows (%n)%a:%t" | rofi \
 	-theme-str \
 	"window \
 	{ \
-	width: \
-	100%; \
 	y-offset: \
 	$offset; \
 	}" \

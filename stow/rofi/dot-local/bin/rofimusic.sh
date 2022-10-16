@@ -11,7 +11,7 @@ choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next%s" "$(if pgrep
 	-font "$font" \
 	-p "$(dotfiles-media status | sed -e "s/栗/栗 Stopped/")" \
 	-location 1 \
-	-theme-str "window { width: 100%; y-offset: $offset; }" \
+	-theme-str "window { y-offset: $offset; }" \
 )
 case "$choice" in
 	*Play*)

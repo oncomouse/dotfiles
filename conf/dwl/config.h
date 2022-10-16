@@ -80,7 +80,7 @@ static const char rofifont[]       = "FiraCode Nerd Font Regular 10";
 static const char *menucmd[] = {
 	"rofi",
 	"-theme",
-	"~/dotfiles/conf/rofi/barmenu.rasi",
+	"themes/bar-menu.rasi",
 	"-match",
 	"fuzzy",
 	"-auto-select",
@@ -96,7 +96,7 @@ static const char *menucmd[] = {
 static const char *rofiwincmd[] = {
 	"rofi",
 	"-theme",
-	"~/dotfiles/conf/rofi/barmenu.rasi",
+	"themes/bar-menu.rasi",
 	"-match",
 	"fuzzy",
 	"-auto-select",
@@ -117,8 +117,6 @@ static const char *rofiemojicmd[] = {
 	"emoji",
 	"-location",
 	"1",
-	"-theme-str",
-	"window { width: 100%; }",
 	"-font",
 	rofifont,
 	NULL
@@ -127,8 +125,6 @@ static const char *rofinetworkcmd[] = {
 	"networkmanager_dmenu",
 	"-location",
 	"1",
-	"-theme-str",
-	"window { width: 100%; }",
 	"-font",
 	rofifont, NULL
 };

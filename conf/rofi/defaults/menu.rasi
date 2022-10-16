@@ -1,0 +1,29 @@
+window {
+	background-color: @background;
+	border: 0;
+	padding: 5px;
+	anchor: north;
+	location: north;
+	width: 100%;
+}
+
+inputbar {
+	margin: 0 0 0.5em 0;
+	background-color: @background;
+	border-radius: 0;
+}
+
+entry,
+prompt {
+	background-color: @color8;
+}
+
+entry {
+	border-radius: 0 7px 7px 0;
+	expand: false;
+	width: 16em;
+}
+
+prompt {
+	border-radius: 7px 0 0 7px;
+}
