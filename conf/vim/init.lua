@@ -161,8 +161,7 @@ vim.keymap.set("i", "<C-e>", "<C-o>$")
 vim.keymap.set("i", "<C-b>", "<C-o>h")
 vim.keymap.set("i", "<C-f>", "<C-o>l")
 vim.keymap.set("i", "<A-b>", "<C-o>b")
--- This one doesn't work:
-vim.keymap.set("i", "<A-f>", "<C-o>w")
+vim.keymap.set("i", "<A-f>", [[<C-o>:call search('\>')<CR>]])
 
 -- Move lines:
 vim.keymap.set("n", "<A-j>", ":move .+1<CR>==", { silent = true, noremap = true })
