@@ -225,6 +225,35 @@ vim.api.nvim_create_autocmd("BufEnter", {
 --------------------------------------------------------------------------------
 -- Maps:
 --------------------------------------------------------------------------------
+-- Navigation in insert mode:
+vim.keymap.set("i", "<C-a>", "<C-o>^", { silent = true })
+vim.keymap.set("i", "<C-e>", "<C-o>$", { silent = true })
+local function move_char(backwards)
+	return function()
+		local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+		if (backwards and col == 0) or (not backwards and col == #vim.api.nvim_get_current_line()) then
+			return
+		end
+		return vim.api.nvim_win_set_cursor(0, {row, backwards and col - 1 or col + 1})
+	end
+end
+vim.keymap.set("i", "<C-b>", move_char(true))
+vim.keymap.set("i", "<C-f>", move_char())
+local function move_word(backwards)
+	return function()
+		local _, new_position =
+			unpack(vim.fn.searchpos(backwards and [[\<]] or [[\>]], backwards and "bn" or "n", vim.fn.line(".")))
+		local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+		if new_position == 0 then
+			col = backwards and 0 or #vim.api.nvim_get_current_line()
+		else
+			col = new_position - 1
+		end
+		vim.api.nvim_win_set_cursor(0, { row, col })
+	end
+end
+vim.keymap.set("i", "<A-b>", move_word(true))
+vim.keymap.set("i", "<A-f>", move_word())
 
 -- Clear Currently Highlighted Regexp:
 vim.keymap.set("n", "<leader>cr", ':let<C-u>let @/=""<CR>', { silent = true, noremap = true })
