@@ -322,27 +322,21 @@ if require("dotfiles.utils.use_termguicolors")() then
 	if not ok then
 		vim.cmd([[colorscheme default]])
 	else
+		-- Eventually replace these {{{
 		local hl = function(group, opts)
 			opts.default = true
 			vim.api.nvim_set_hl(0, group, opts)
 		end
 
-		-- Misc {{{
 		hl("@comment", { link = "TSComment" })
 		-- hl('@error', {link = 'Error'})
 		hl("@none", { bg = "NONE", fg = "NONE" })
 		hl("@preproc", { link = "PreProc" })
 		hl("@define", { link = "Define" })
 		hl("@operator", { link = "TSOperator" })
-		-- }}}
-
-		-- Punctuation {{{
 		hl("@punctuation.delimiter", { link = "TSPunctDelimiter" })
 		hl("@punctuation.bracket", { link = "TSPunctBracket" })
 		hl("@punctuation.special", { link = "TSPunctSpecial" })
-		-- }}}
-
-		-- Literals {{{
 		hl("@string", { link = "TSString" })
 		hl("@string.regex", { link = "TSStringRegex" })
 		hl("@string.escape", { link = "TSStringEscape" })
@@ -354,9 +348,6 @@ if require("dotfiles.utils.use_termguicolors")() then
 		hl("@boolean", { link = "TSBoolean" })
 		hl("@number", { link = "TSNumber" })
 		hl("@float", { link = "TSFloat" })
-		-- }}}
-
-		-- Functions {{{
 		hl("@function", { link = "TSFunction" })
 		hl("@function.call", { link = "TSFunction" })
 		hl("@function.builtin", { link = "TSFuncBuiltin" })
@@ -367,9 +358,6 @@ if require("dotfiles.utils.use_termguicolors")() then
 
 		hl("@constructor", { link = "TSConstructor" })
 		hl("@parameter", { link = "TSParameter" })
-		-- }}}
-
-		-- Keywords {{{
 		hl("@keyword", { link = "TSKeyword" })
 		hl("@keyword.function", { link = "TSKeywordFunction" })
 		hl("@keyword.operator", { link = "TSKeywordOperator" })
@@ -381,9 +369,6 @@ if require("dotfiles.utils.use_termguicolors")() then
 		hl("@label", { link = "TSLabel" })
 		hl("@include", { link = "TSInclude" })
 		hl("@exception", { link = "TSException" })
-		-- }}}
-
-		-- Types {{{
 		hl("@type", { link = "TSType" })
 		hl("@type.builtin", { link = "TSTypeBuiltin" })
 		hl("@type.qualifier", { link = "TSType" })
@@ -393,9 +378,6 @@ if require("dotfiles.utils.use_termguicolors")() then
 		hl("@attribute", { link = "TSAttribute" })
 		hl("@field", { link = "TSField" })
 		hl("@property", { link = "TSProperty" })
-		-- }}}
-
-		-- Identifiers {{{
 		hl("@variable", { link = "TSVariable" })
 		hl("@variable.builtin", { link = "TSVariableBuiltin" })
 
@@ -405,9 +387,6 @@ if require("dotfiles.utils.use_termguicolors")() then
 
 		hl("@namespace", { link = "TSNamespace" })
 		hl("@symbol", { link = "Identifier" })
-		-- }}}
-
-		-- Text {{{
 		hl("@text", { link = "TSText" })
 		hl("@text.strong", { bold = true })
 		hl("@text.emphasis", { italic = true })
@@ -425,9 +404,6 @@ if require("dotfiles.utils.use_termguicolors")() then
 		hl("@text.note", { link = "SpecialComment" })
 		hl("@text.warning", { link = "WarningMsg" })
 		hl("@text.danger", { link = "ErrorMsg" })
-		-- }}}
-
-		-- Tags {{{
 		hl("@tag", { link = "TSTag" })
 		hl("@tag.attribute", { link = "Identifier" })
 		hl("@tag.delimiter", { link = "TSTagDelimiter" })
