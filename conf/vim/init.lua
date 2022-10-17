@@ -164,7 +164,7 @@ local function move_char(backwards)
 		if (backwards and col == 0) or (not backwards and col == #vim.api.nvim_get_current_line()) then
 			return
 		end
-		return vim.api.nvim_win_set_cursor(0, {row, backwards and col - 1 or col + 1})
+		return vim.api.nvim_win_set_cursor(0, { row, backwards and col - 1 or col + 1 })
 	end
 end
 vim.keymap.set("i", "<C-b>", move_char(true))
@@ -321,6 +321,117 @@ if require("dotfiles.utils.use_termguicolors")() then
 	local ok = pcall(vim.cmd, [[colorscheme lushwal]])
 	if not ok then
 		vim.cmd([[colorscheme default]])
+	else
+		local hl = function(group, opts)
+			opts.default = true
+			vim.api.nvim_set_hl(0, group, opts)
+		end
+
+		-- Misc {{{
+		hl("@comment", { link = "TSComment" })
+		-- hl('@error', {link = 'Error'})
+		hl("@none", { bg = "NONE", fg = "NONE" })
+		hl("@preproc", { link = "PreProc" })
+		hl("@define", { link = "Define" })
+		hl("@operator", { link = "TSOperator" })
+		-- }}}
+
+		-- Punctuation {{{
+		hl("@punctuation.delimiter", { link = "TSPunctDelimiter" })
+		hl("@punctuation.bracket", { link = "TSPunctBracket" })
+		hl("@punctuation.special", { link = "TSPunctSpecial" })
+		-- }}}
+
+		-- Literals {{{
+		hl("@string", { link = "TSString" })
+		hl("@string.regex", { link = "TSStringRegex" })
+		hl("@string.escape", { link = "TSStringEscape" })
+		hl("@string.special", { link = "SpecialChar" })
+
+		hl("@character", { link = "TSCharacter" })
+		hl("@character.special", { link = "SpecialChar" })
+
+		hl("@boolean", { link = "TSBoolean" })
+		hl("@number", { link = "TSNumber" })
+		hl("@float", { link = "TSFloat" })
+		-- }}}
+
+		-- Functions {{{
+		hl("@function", { link = "TSFunction" })
+		hl("@function.call", { link = "TSFunction" })
+		hl("@function.builtin", { link = "TSFuncBuiltin" })
+		hl("@function.macro", { link = "TSFuncMacro" })
+
+		hl("@method", { link = "TSMethod" })
+		hl("@method.call", { link = "TSMethod" })
+
+		hl("@constructor", { link = "TSConstructor" })
+		hl("@parameter", { link = "TSParameter" })
+		-- }}}
+
+		-- Keywords {{{
+		hl("@keyword", { link = "TSKeyword" })
+		hl("@keyword.function", { link = "TSKeywordFunction" })
+		hl("@keyword.operator", { link = "TSKeywordOperator" })
+		hl("@keyword.return", { link = "TSKeyword" })
+
+		hl("@conditional", { link = "TSConditional" })
+		hl("@repeat", { link = "TSRepeat" })
+		hl("@debug", { link = "Debug" })
+		hl("@label", { link = "TSLabel" })
+		hl("@include", { link = "TSInclude" })
+		hl("@exception", { link = "TSException" })
+		-- }}}
+
+		-- Types {{{
+		hl("@type", { link = "TSType" })
+		hl("@type.builtin", { link = "TSTypeBuiltin" })
+		hl("@type.qualifier", { link = "TSType" })
+		hl("@type.definition", { link = "Typedef" })
+
+		hl("@storageclass", { link = "StorageClass" })
+		hl("@attribute", { link = "TSAttribute" })
+		hl("@field", { link = "TSField" })
+		hl("@property", { link = "TSProperty" })
+		-- }}}
+
+		-- Identifiers {{{
+		hl("@variable", { link = "TSVariable" })
+		hl("@variable.builtin", { link = "TSVariableBuiltin" })
+
+		hl("@constant", { link = "TSConstant" })
+		hl("@constant.builtin", { link = "Special" })
+		hl("@constant.macro", { link = "Define" })
+
+		hl("@namespace", { link = "TSNamespace" })
+		hl("@symbol", { link = "Identifier" })
+		-- }}}
+
+		-- Text {{{
+		hl("@text", { link = "TSText" })
+		hl("@text.strong", { bold = true })
+		hl("@text.emphasis", { italic = true })
+		hl("@text.underline", { underline = true })
+		hl("@text.strike", { strikethrough = true })
+		hl("@text.title", { link = "Title" })
+		hl("@text.literal", { link = "String" })
+		hl("@text.uri", { link = "Underlined" })
+		hl("@text.math", { link = "Special" })
+		hl("@text.environment", { link = "Macro" })
+		hl("@text.environment.name", { link = "Type" })
+		hl("@text.reference", { link = "Constant" })
+
+		hl("@text.todo", { link = "Todo" })
+		hl("@text.note", { link = "SpecialComment" })
+		hl("@text.warning", { link = "WarningMsg" })
+		hl("@text.danger", { link = "ErrorMsg" })
+		-- }}}
+
+		-- Tags {{{
+		hl("@tag", { link = "TSTag" })
+		hl("@tag.attribute", { link = "Identifier" })
+		hl("@tag.delimiter", { link = "TSTagDelimiter" })
+		-- }}}
 	end
 else
 	vim.cmd([[colorscheme default]])
