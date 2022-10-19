@@ -62,6 +62,7 @@ cask "font-fira-code-nerd-font"
 cask "font-hasklig"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
+cask "font-sf-mono"
 cask "font-tex-gyre-heros", args: { appdir: "/Applications" }
 cask "grandperspective", args: { appdir: "/Applications" }
 cask "karabiner-elements", args: { appdir: "/Applications" }
