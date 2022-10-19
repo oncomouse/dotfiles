@@ -269,8 +269,8 @@ if ok then
 		end,
 		{
 			condition = function(self)
-				self.forward = self.ls.jumpable(1) and "" or ""
-				self.backward = self.ls.jumpable(-1) and "" or ""
+				self.forward = self.ls.jumpable(1) and "→" or ""
+				self.backward = self.ls.jumpable(-1) and "←" or ""
 				self.choice = self.ls.choice_active() and "?" or ""
 				return #self.forward + #self.backward + #self.choice > 0
 			end,
