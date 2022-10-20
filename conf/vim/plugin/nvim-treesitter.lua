@@ -6,6 +6,7 @@ local parsers = {
 	"comment",
 	"cpp",
 	"css",
+	"diff",
 	"dockerfile",
 	"fennel",
 	"fish",
