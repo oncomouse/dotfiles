@@ -55,7 +55,7 @@ vim.api.nvim_create_autocmd("FileType", {
 			if match then
 				local savepos = vim.fn.winsaveview().col
 				local jump = (savepos == #line) and "$a" or savepos - #match .. "li"
-				return '<Esc>0"_2dl' .. jump
+				return '<Esc>0"_' .. #match .. 'dl' .. jump
 			end
 			return "<C-d><Plug>(autolist-detab)"
 		end, {
