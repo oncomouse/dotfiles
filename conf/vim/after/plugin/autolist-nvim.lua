@@ -1,3 +1,4 @@
+-- Turn off all the bindings in the plugin:
 require("autolist").setup({
 	colon = {
 		preferred = "",
@@ -22,14 +23,18 @@ require("autolist").setup({
 		indent = { "" },
 	},
 })
-vim.keymap.set("", "<Plug>(autolist-invert)", "<cmd>lua require('autolist').invert()<CR>")
-vim.keymap.set("", "<Plug>(autolist-new)", "<cmd>lua require('autolist').new()<CR>")
-vim.keymap.set("", "<Plug>(autolist-new-above)", "<cmd>lua require('autolist').new(true)<CR>")
-vim.keymap.set("", "<Plug>(autolist-tab)", "<cmd>lua require('autolist').tab()<CR>")
-vim.keymap.set("", "<Plug>(autolist-detab)", "<cmd>lua require('autolist').detab()<CR>")
-vim.keymap.set("", "<Plug>(autolist-recal)", "<cmd>lua require('autolist').recal()<CR>")
-vim.keymap.set("", "<Plug>(autolist-indent-increase)", "<cmd>lua require('autolist').indent('>>')<CR>")
-vim.keymap.set("", "<Plug>(autolist-indent-decrease)", "<cmd>lua require('autolist').indent('<<')<CR>")
+
+-- Set plug bindings:
+vim.keymap.set({ "i", "n" }, "<Plug>(autolist-invert)", "<cmd>lua require('autolist').invert()<CR>")
+vim.keymap.set({ "i", "n" }, "<Plug>(autolist-new)", "<cmd>lua require('autolist').new()<CR>")
+vim.keymap.set({ "i", "n" }, "<Plug>(autolist-new-above)", "<cmd>lua require('autolist').new(true)<CR>")
+vim.keymap.set({ "i", "n" }, "<Plug>(autolist-tab)", "<cmd>lua require('autolist').tab()<CR>")
+vim.keymap.set({ "i", "n" }, "<Plug>(autolist-detab)", "<cmd>lua require('autolist').detab()<CR>")
+vim.keymap.set({ "i", "n" }, "<Plug>(autolist-recal)", "<cmd>lua require('autolist').recal()<CR>")
+vim.keymap.set({ "i", "n" }, "<Plug>(autolist-indent-increase)", "<cmd>lua require('autolist').indent('>>')<CR>")
+vim.keymap.set({ "i", "n" }, "<Plug>(autolist-indent-decrease)", "<cmd>lua require('autolist').indent('<<')<CR>")
+
+-- Set bindings with a FileType autocmd:
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "markdown,text",
 	group = "dotfiles-settings",
@@ -43,6 +48,9 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.keymap.set("n", "o", "o<Plug>(autolist-new)", { buffer = args.buf })
 		vim.keymap.set("n", "O", "O<Plug>(autolist-new-above)", { buffer = args.buf })
 		vim.keymap.set("n", "<C-z>", "<Plug>(autolist-recal)", { buffer = args.buf })
+		vim.keymap.set("n", "dd", "dd<Plug>(autolist-recal)", { buffer = args.buf })
+		vim.keymap.set("n", "p", "p<Plug>(autolist-recal)", { buffer = args.buf })
+		vim.keymap.set("n", "P", "P<Plug>(autolist-recal)", { buffer = args.buf })
 		-- <C-d> to delete list marker if that's all that's left
 		local function get_match(regex, line)
 			local match = nil
