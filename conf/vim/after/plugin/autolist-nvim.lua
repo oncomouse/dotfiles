@@ -44,18 +44,26 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.keymap.set("n", "O", "O<Plug>(autolist-new-above)", { buffer = args.buf })
 		vim.keymap.set("n", "<C-z>", "<Plug>(autolist-recal)", { buffer = args.buf })
 		-- <C-d> to delete list marker if that's all that's left
+		local function get_match(regex, line)
+			local match = nil
+			local start, ed = vim.regex(regex):match_str(line)
+			if start ~= nil then
+				match = string.sub(line, start, ed + 1)
+			end
+			return match
+		end
 		vim.keymap.set("i", "<C-d>", function()
 			local line = vim.api.nvim_get_current_line()
 			-- Check line for unordered list:
-			local match = string.match(line, "^[*-] ")
+			local match = get_match([[^[*-] \(\[.\]\)\{0,1\}]], line)
 			-- Check line for ordered list:
 			if not match then
-				match = string.match(line, "^%d+%. ")
+				match = get_match([[^\d\+\. \(\[.\]\)\{0,1\}]], line)
 			end
 			if match then
 				local savepos = vim.fn.winsaveview().col
 				local jump = (savepos == #line) and "$a" or savepos - #match .. "li"
-				return '<Esc>0"_' .. #match .. 'dl' .. jump
+				return '<Esc>0"_' .. #match .. "dl" .. jump
 			end
 			return "<C-d><Plug>(autolist-detab)"
 		end, {
