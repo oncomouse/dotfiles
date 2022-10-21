@@ -22,14 +22,14 @@ require("autolist").setup({
 		indent = { "" },
 	},
 })
-vim.keymap.set({ "i", "n" }, "<Plug>(autolist-invert)", "<cmd>lua require('autolist').invert()<CR>")
-vim.keymap.set({ "i", "n" }, "<Plug>(autolist-new)", "<cmd>lua require('autolist').new()<CR>")
-vim.keymap.set({ "i", "n" }, "<Plug>(autolist-new-above)", "<cmd>lua require('autolist').new(true)<CR>")
-vim.keymap.set({ "i", "n" }, "<Plug>(autolist-tab)", "<cmd>lua require('autolist').tab()<CR>")
-vim.keymap.set({ "i", "n" }, "<Plug>(autolist-detab)", "<cmd>lua require('autolist').detab()<CR>")
-vim.keymap.set({ "i", "n" }, "<Plug>(autolist-recal)", "<cmd>lua require('autolist').recal()<CR>")
-vim.keymap.set({ "i", "n" }, "<Plug>(autolist-indent-increase)", "<cmd>lua require('autolist').indent('>>')<CR>")
-vim.keymap.set({ "i", "n" }, "<Plug>(autolist-indent-decrease)", "<cmd>lua require('autolist').indent('<<')<CR>")
+vim.keymap.set("", "<Plug>(autolist-invert)", "<cmd>lua require('autolist').invert()<CR>")
+vim.keymap.set("", "<Plug>(autolist-new)", "<cmd>lua require('autolist').new()<CR>")
+vim.keymap.set("", "<Plug>(autolist-new-above)", "<cmd>lua require('autolist').new(true)<CR>")
+vim.keymap.set("", "<Plug>(autolist-tab)", "<cmd>lua require('autolist').tab()<CR>")
+vim.keymap.set("", "<Plug>(autolist-detab)", "<cmd>lua require('autolist').detab()<CR>")
+vim.keymap.set("", "<Plug>(autolist-recal)", "<cmd>lua require('autolist').recal()<CR>")
+vim.keymap.set("", "<Plug>(autolist-indent-increase)", "<cmd>lua require('autolist').indent('>>')<CR>")
+vim.keymap.set("", "<Plug>(autolist-indent-decrease)", "<cmd>lua require('autolist').indent('<<')<CR>")
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "markdown,text",
 	group = "dotfiles-settings",
