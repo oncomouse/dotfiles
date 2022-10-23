@@ -1,12 +1,24 @@
 local ok, heirline = pcall(require, "heirline")
-if ok then
+if vim.opt.termguicolors:get() and ok then
+
+	-- No default commandline
+	vim.opt.cmdheight = 0
+
 	local utils = require("heirline.utils")
 	local conditions = require("heirline.conditions")
 
 	local function setup_colors()
 		return {
+			fg = utils.get_highlight("Winbar").fg,
+			bg = utils.get_highlight("DiffAdd").bg,
+			inactive = {
+				fg = utils.get_highlight("WinbarNC").fg,
+				bg = utils.get_highlight("DiffAdd").bg,
+			},
 			black = utils.get_highlight("Normal").bg,
 			yellow = utils.get_highlight("Label").fg,
+			green = utils.get_highlight("ModeMsg").fg,
+			orange = utils.get_highlight("IncSearch").bg,
 			cyan = utils.get_highlight("Identifier").fg,
 			error = utils.get_highlight("DiagnosticError").fg,
 			warn = utils.get_highlight("DiagnosticWarn").fg,
@@ -17,7 +29,57 @@ if ok then
 
 	local colors = setup_colors()
 
+	-- Override Default Statusline colors for fancy rounding effects
+	vim.api.nvim_set_hl(0, "Statusline", {
+		fg = colors.fg,
+		bg = colors.black,
+	})
+	vim.api.nvim_set_hl(0, "StatuslineNC", {
+		fg = colors.inactive.fg,
+		bg = colors.black,
+	})
+	vim.api.nvim_set_hl(0, "StatuslineTerm", {
+		fg = colors.fg,
+		bg = colors.black,
+	})
+	vim.api.nvim_set_hl(0, "StatuslineTermNC", {
+		fg = colors.inactive.fg,
+		bg = colors.black,
+	})
+
 	local Space = { provider = " " }
+
+	-- Calling any delimiter with (false) will turn off the active condition
+	local __accessor = {
+		__call = function(t, ...)
+			local args = { ... }
+			if args[1] == false then
+				return {
+					provider = t.provider,
+					hl = t.hl,
+				}
+			end
+			return t
+		end,
+	}
+	local Delimiter = {
+		left = setmetatable({
+			condition = conditions.is_active,
+			provider = "",
+			hl = {
+				fg = colors.bg,
+				bg = colors.black,
+			},
+		}, __accessor),
+		right = setmetatable({
+			provider = "",
+			condition = conditions.is_active,
+			hl = {
+				fg = colors.bg,
+				bg = colors.black,
+			},
+		}, __accessor),
+	}
 
 	local HighlightProvider = function(color)
 		return {
@@ -33,6 +95,7 @@ if ok then
 	end
 	local Highlight = HighlightProvider(colors.yellow)
 	local LuaSnipHighlight = HighlightProvider(colors.cyan)
+	local SearchHighlight = HighlightProvider(colors.fg)
 
 	local WordCount = {
 		condition = function()
@@ -226,7 +289,6 @@ if ok then
 			})
 			return not buf_ignore and self.di_ok
 		end,
-		Space,
 		{
 			provider = function(self)
 				return self.icon
@@ -237,6 +299,56 @@ if ok then
 				}
 			end,
 		},
+	}
+
+	local __m = {
+		["\22"] = "^V",
+		["\22s"] = "^V",
+		["\19"] = "^S",
+	}
+	local modes = setmetatable({}, {
+		__index = function(t, idx)
+			return __m[idx] or idx
+		end,
+	})
+	local Mode = {
+		condition = function(self)
+			self.mode = modes[vim.fn.mode(1)]
+			return not self.mode:match("^n")
+		end,
+		Space,
+		utils.surround({ "[", "]" }, nil, {
+			provider = function(self)
+				return self.mode
+			end,
+			hl = {
+				fg = colors.green,
+			},
+		}),
+	}
+
+	local Macro = {
+		condition = function(self)
+			self.macro = vim.fn.reg_recording()
+			return self.macro ~= ""
+		end,
+		Space,
+		{
+			provider = function(self)
+				return "辶" .. self.macro
+			end,
+			hl = {
+				fg = colors.green,
+			},
+		},
+	}
+
+	local CmdHeightZero = {
+		condition = function()
+			return vim.opt.cmdheight:get() == 0
+		end,
+		Mode,
+		Macro,
 	}
 
 	local FileType = {
@@ -275,7 +387,6 @@ if ok then
 				return #self.forward + #self.backward + #self.choice > 0
 			end,
 			{
-				Space,
 				utils.surround(
 					{ "[", "]" },
 					nil,
@@ -285,16 +396,24 @@ if ok then
 						end,
 					})
 				),
+				Space,
 			},
 		},
 	}
 
 	local Align = {
-		provider = "%=",
+		Delimiter.right,
+		{
+			provider = "%=",
+			hl = {
+				bg = colors.black,
+				fg = colors.black,
+			},
+		},
+		Delimiter.left,
 	}
 
 	local Position = {
-		Space,
 		{ provider = "%l:%c" },
 	}
 
@@ -303,27 +422,88 @@ if ok then
 		{ provider = "%p%%" },
 	}
 
+	local Search = {
+		condition = function(self)
+			self.searchcount = vim.fn.searchcount({ recompute = 1 })
+			return vim.opt.cmdheight:get() == 0 and vim.fn.empty(self.searchcount) == 0 and self.searchcount.total ~= 0
+		end,
+		init = function(self)
+			self.target = vim.fn.getreg("/")
+			if self.searchcount.incomplete == 1 then -- Timed out
+				self.current = "?"
+				self.total = "??"
+			elseif self.searchcount.incomplete == 2 then -- Max count exceed
+				if
+					self.searchcount.total > self.searchcount.maxcount
+					and self.searchcount.current > self.searchcount.maxcount
+				then
+					self.current = vim.fn.printf(">%d", self.searchcount.current)
+					self.total = vim.fn.printf(">%d", self.searchcount.total)
+				elseif self.searchcount.total > self.searchcount.maxcount then
+					self.current = vim.fn.printf("%d", self.searchcount.current)
+					self.total = vim.fn.printf(">%d", self.searchcount.total)
+				end
+			else
+				self.current = vim.fn.printf("%d", self.searchcount.current)
+				self.total = vim.fn.printf("%d", self.searchcount.total)
+			end
+		end,
+		{
+			{ provider = "/" },
+			utils.insert(SearchHighlight, {
+				provider = function(self)
+					return vim.fn.printf("%s", self.target)
+				end,
+			}),
+			utils.surround({ "[", "]" }, nil, {
+				utils.insert(SearchHighlight, {
+					provider = function(self)
+						return self.current
+					end,
+				}),
+				{ provider = "/" },
+				utils.insert(SearchHighlight, {
+					provider = function(self)
+						return self.total
+					end,
+				}),
+			}),
+		},
+		Space,
+	}
+
 	local StatuslineNC = {
 		condition = function()
 			return not conditions.is_active()
 		end,
-
 		Align,
+		Delimiter.left(false),
 		FileNameBlock,
+		Delimiter.right(false),
+		hl = {
+			bg = colors.bg,
+		},
 	}
 
 	local Statusline = {
+		Delimiter.left,
 		LuaSnip,
 		FileIcon,
 		Space,
 		FileNameBlock,
+		CmdHeightZero,
 		Align,
+		Search,
 		FileType,
 		WordCount,
+		Space,
 		Position,
 		Percentage,
 		Diagnostics,
-		Space,
+		Delimiter.right,
+		hl = {
+			bg = colors.bg,
+		},
 	}
 
 	local SpecialFileName = {
@@ -332,6 +512,9 @@ if ok then
 		FileNameQF,
 		FileNameFromFiletype,
 		FileNameNoName,
+		hl = {
+			bg = colors.bg,
+		},
 	}
 
 	local SpecialFileNameBlock = utils.insert(FileNameBlockComponent, SpecialFileName)
@@ -343,8 +526,12 @@ if ok then
 				filetype = { "packer", "^gina.*", "diff", "fugitive", "^git.*", "^$" },
 			})
 		end,
-		Space,
+		hl = {
+			bg = colors.bg,
+		},
+		Delimiter.left,
 		SpecialFileNameBlock,
+		CmdHeightZero,
 		{
 			condition = function()
 				return not conditions.buffer_matches({
@@ -354,8 +541,8 @@ if ok then
 			Align,
 			Position,
 			Percentage,
-			Space,
 		},
+		Delimiter.right,
 	}
 
 	local StatusLines = {
