@@ -257,13 +257,6 @@ if vim.opt.termguicolors:get() and ok then
 		),
 	}
 
-	local FileNameNoName = {
-		condition = function(self)
-			return self.filename == ""
-		end,
-		provider = "",
-	}
-
 	local FileName = {
 		fallthrough = false,
 		FileNameHelp,
@@ -562,7 +555,6 @@ if vim.opt.termguicolors:get() and ok then
 		FileNameTerminal,
 		FileNameQF,
 		FileNameFromFiletype,
-		FileNameNoName,
 		hl = {
 			bg = colors.bg,
 		},
@@ -580,20 +572,29 @@ if vim.opt.termguicolors:get() and ok then
 		hl = {
 			bg = colors.bg,
 		},
-		Delimiter.left,
-		SpecialFileNameBlock,
-		CmdHeightZero,
 		{
-			condition = function()
-				return not conditions.buffer_matches({
-					buftype = { "terminal" },
-				})
-			end,
-			Align,
-			Position,
-			Percentage,
+			Delimiter.left,
+			SpecialFileNameBlock,
+			CmdHeightZero,
+			{
+				condition = function()
+					return not conditions.buffer_matches({
+						buftype = { "terminal" },
+					})
+				end,
+				Align,
+				Position,
+				Percentage,
+			},
+			Delimiter.right,
 		},
-		Delimiter.right,
+	}
+
+	local StatusLineNoFileName = {
+		condition = function()
+			return vim.api.nvim_buf_get_name(0) == ""
+		end,
+		provider = "[New File]",
 	}
 
 	local StatusLines = {
@@ -607,6 +608,7 @@ if vim.opt.termguicolors:get() and ok then
 
 		fallthrough = false,
 
+		StatusLineNoFileName,
 		StatuslineNC,
 		StatuslineSpecial,
 		Statusline,
