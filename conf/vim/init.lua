@@ -59,6 +59,9 @@ else
 	vim.opt.grepprg = "grep -rn"
 end
 
+-- Minimal statusline (used if notermguicolors is set):
+vim.opt.statusline = " %0.45f%m%h%w%r%= %y %l:%c "
+
 -- Searching:
 vim.opt.wrapscan = true -- Start scan over at the top
 
