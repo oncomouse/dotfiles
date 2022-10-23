@@ -226,12 +226,17 @@ if vim.opt.termguicolors:get() and ok then
 					end,
 				})
 			),
-			Space,
 			{
-				provider = function()
-					local title = vim.w.quickfix_title or ""
-					return title
+				condition = function(self)
+					self.title = vim.w.quickfix_title
+					return self.title ~= nil
 				end,
+				Space,
+				{
+					provider = function(self)
+						return self.title
+					end
+				}
 			},
 		},
 	}
@@ -313,13 +318,14 @@ if vim.opt.termguicolors:get() and ok then
 		end,
 		condition = conditions.fn_and(conditions.hide_with_fewer_columns(45), function(self)
 			self.di_ok, self.di = pcall(require, "nvim-web-devicons")
-			local buf_ignore = conditions.buffer_matches({
+			return self.di_ok
+		end, function()
+			return not conditions.buffer_matches({
 				buftype = {
 					"quickfix",
 					"terminal",
 				},
 			})
-			return not buf_ignore and self.di_ok
 		end),
 		{
 			provider = function(self)
