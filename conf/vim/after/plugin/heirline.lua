@@ -235,8 +235,8 @@ if vim.opt.termguicolors:get() and ok then
 				{
 					provider = function(self)
 						return self.title
-					end
-				}
+					end,
+				},
 			},
 		},
 	}
@@ -351,9 +351,18 @@ if vim.opt.termguicolors:get() and ok then
 		end,
 	})
 	local Mode = {
+		init = function(self)
+			if not self.once then
+				vim.api.nvim_create_autocmd("ModeChanged", {
+					pattern = "*:*o",
+					command = "redrawstatus",
+				})
+				self.once = true
+			end
+		end,
 		condition = function(self)
 			self.mode = modes[vim.fn.mode(1)]
-			return not self.mode:match("^n")
+			return not self.mode:match("^n$")
 		end,
 		Space,
 		utils.surround({ "[", "]" }, nil, {
@@ -520,7 +529,6 @@ if vim.opt.termguicolors:get() and ok then
 		condition = function()
 			return not conditions.is_active()
 		end,
-		-- Align,
 		Delimiter.left(false),
 		FileNameBlock,
 		Delimiter.right(false),
@@ -599,8 +607,8 @@ if vim.opt.termguicolors:get() and ok then
 
 		fallthrough = false,
 
-		StatuslineSpecial,
 		StatuslineNC,
+		StatuslineSpecial,
 		Statusline,
 	}
 
