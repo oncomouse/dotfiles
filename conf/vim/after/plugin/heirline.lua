@@ -1,7 +1,7 @@
 local ok, heirline = pcall(require, "heirline")
 if vim.opt.termguicolors:get() and ok then
 	-- No default commandline
-	vim.opt.cmdheight = 0
+	-- vim.opt.cmdheight = 0
 
 	local utils = require("heirline.utils")
 	local conditions = require("heirline.conditions")
@@ -57,6 +57,8 @@ if vim.opt.termguicolors:get() and ok then
 	end
 
 	local colors = setup_colors()
+	colors.bg = colors.black
+	colors.inactive.bg = colors.black
 
 	-- Override Default Statusline colors for fancy rounding effects
 	vim.api.nvim_set_hl(0, "Statusline", {
