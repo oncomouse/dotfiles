@@ -23,6 +23,7 @@ action-add() {
 		rofi_bar -multi-select | \
 		xargs -d "\n" -I{} mpc ls {} 2> /dev/null | \
 		grep "\.\(flac\|mp3\)\$" | \
+		uniq | \
 		xargs -d "\n" -I {} mpc add {} 2> /dev/null
 }
 
