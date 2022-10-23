@@ -600,7 +600,7 @@ if vim.opt.termguicolors:get() and ok then
 				buftype = { "quickfix" },
 			})
 		end),
-		provider = "[New File]",
+		provider = "",
 	}
 
 	local StatusLines = {
