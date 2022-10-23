@@ -489,9 +489,9 @@ if vim.opt.termguicolors:get() and ok then
 			end
 		end,
 		{
+			{ provider = "/" },
 			{
 				condition = conditions.hide_with_fewer_columns(75),
-				{ provider = "/" },
 				utils.insert(SearchHighlight, {
 					provider = function(self)
 						return vim.fn.printf("%s", self.target)
@@ -591,9 +591,13 @@ if vim.opt.termguicolors:get() and ok then
 	}
 
 	local StatusLineNoFileName = {
-		condition = function()
+		condition = conditions.fn_and(function()
 			return vim.api.nvim_buf_get_name(0) == ""
-		end,
+		end, function()
+			return not conditions.buffer_matches({
+				buftype = { "quickfix" },
+			})
+		end),
 		provider = "[New File]",
 	}
 
