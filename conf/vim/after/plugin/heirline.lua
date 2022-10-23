@@ -1,11 +1,40 @@
 local ok, heirline = pcall(require, "heirline")
 if vim.opt.termguicolors:get() and ok then
-
 	-- No default commandline
 	vim.opt.cmdheight = 0
 
 	local utils = require("heirline.utils")
 	local conditions = require("heirline.conditions")
+
+	-- Logical function combinators:
+	conditions.fn_and = function(...)
+		local fns = { ... }
+		return function(...)
+			for _, fn in pairs(fns) do
+				if not fn(...) then
+					return false
+				end
+			end
+			return true
+		end
+	end
+	conditions.fn_or = function(...)
+		local fns = { ... }
+		return function(...)
+			for _, fn in pairs(fns) do
+				if fn(...) then
+					return true
+				end
+			end
+			return false
+		end
+	end
+
+	conditions.hide_with_fewer_columns = function(columns)
+		return function()
+			return vim.api.nvim_win_get_width(0) > columns
+		end
+	end
 
 	local function setup_colors()
 		return {
@@ -236,8 +265,11 @@ if vim.opt.termguicolors:get() and ok then
 		{
 			provider = function(self)
 				local filename = vim.fn.fnamemodify(self.filename, ":.")
-				if conditions.width_percent_below(#filename, 0.25) then
+				if not conditions.width_percent_below(#filename, 0.4) then
 					filename = vim.fn.pathshorten(filename)
+				end
+				if not conditions.width_percent_below(#filename, 0.4) then
+					filename = vim.fn.fnamemodify(filename, ":t")
 				end
 				return filename
 			end,
@@ -279,7 +311,7 @@ if vim.opt.termguicolors:get() and ok then
 				self.fg = icon_color
 			end
 		end,
-		condition = function(self)
+		condition = conditions.fn_and(conditions.hide_with_fewer_columns(45), function(self)
 			self.di_ok, self.di = pcall(require, "nvim-web-devicons")
 			local buf_ignore = conditions.buffer_matches({
 				buftype = {
@@ -288,7 +320,7 @@ if vim.opt.termguicolors:get() and ok then
 				},
 			})
 			return not buf_ignore and self.di_ok
-		end,
+		end),
 		{
 			provider = function(self)
 				return self.icon
@@ -299,6 +331,7 @@ if vim.opt.termguicolors:get() and ok then
 				}
 			end,
 		},
+		Space,
 	}
 
 	local __m = {
@@ -325,6 +358,9 @@ if vim.opt.termguicolors:get() and ok then
 				fg = colors.green,
 			},
 		}),
+		update = {
+			"ModeChanged",
+		},
 	}
 
 	local Macro = {
@@ -352,12 +388,7 @@ if vim.opt.termguicolors:get() and ok then
 	}
 
 	local FileType = {
-		condition = function()
-			return not conditions.buffer_matches({
-				buftype = { "quickfix", "terminal" },
-				filetype = { "^$" },
-			})
-		end,
+		condition = conditions.hide_with_fewer_columns(45),
 		init = function(self)
 			self.filetype = vim.bo.filetype
 		end,
@@ -418,6 +449,7 @@ if vim.opt.termguicolors:get() and ok then
 	}
 
 	local Percentage = {
+		condition = conditions.hide_with_fewer_columns(45),
 		Space,
 		{ provider = "%p%%" },
 	}
@@ -449,12 +481,15 @@ if vim.opt.termguicolors:get() and ok then
 			end
 		end,
 		{
-			{ provider = "/" },
-			utils.insert(SearchHighlight, {
-				provider = function(self)
-					return vim.fn.printf("%s", self.target)
-				end,
-			}),
+			{
+				condition = conditions.hide_with_fewer_columns(75),
+				{ provider = "/" },
+				utils.insert(SearchHighlight, {
+					provider = function(self)
+						return vim.fn.printf("%s", self.target)
+					end,
+				}),
+			},
 			utils.surround({ "[", "]" }, nil, {
 				utils.insert(SearchHighlight, {
 					provider = function(self)
@@ -469,14 +504,17 @@ if vim.opt.termguicolors:get() and ok then
 				}),
 			}),
 		},
-		Space,
+		{
+			condition = conditions.hide_with_fewer_columns(45),
+			Space,
+		},
 	}
 
 	local StatuslineNC = {
 		condition = function()
 			return not conditions.is_active()
 		end,
-		Align,
+		-- Align,
 		Delimiter.left(false),
 		FileNameBlock,
 		Delimiter.right(false),
@@ -489,7 +527,6 @@ if vim.opt.termguicolors:get() and ok then
 		Delimiter.left,
 		LuaSnip,
 		FileIcon,
-		Space,
 		FileNameBlock,
 		CmdHeightZero,
 		Align,
