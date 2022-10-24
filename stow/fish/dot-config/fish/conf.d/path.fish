@@ -9,9 +9,9 @@ if status --is-login
 	# Set up Poetry:
 	fish_add_path ~/.poetry/bin
 	# Set up ASDF:
-	fish_add_path ~/.asdf/shims
-	fish_add_path /usr/local/opt/asdf/bin
-	fish_add_path ~/.asdf/bin
+	fish_add_path --prepend ~/.asdf/shims
+	fish_add_path --prepend /usr/local/opt/asdf/bin
+	fish_add_path --prepend ~/.asdf/bin
 	# Sbin:
 	fish_add_path /usr/local/sbin
 	fish_add_path ~/.ghcup/bin
@@ -28,7 +28,7 @@ if status --is-login
 	fish_add_path --prepend ~/.local/nvim-linux64/bin/
 	fish_add_path --append /usr/local/bin
 	# Homebrew's Annoying Ruby Install:
-	fish_add_path /usr/local/opt/ruby/bin
+	fish_add_path --append /usr/local/opt/ruby/bin
 
 
 	# NPM Local manpath:
