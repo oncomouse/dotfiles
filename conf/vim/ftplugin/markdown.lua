@@ -34,37 +34,7 @@ end, {
 -- Markdown helper maps:
 
 -- Remove markdown markup when joining line
-local function match_all_lines(lines, pattern)
-	local test = nil
-	for _,line in pairs(lines) do
-		test = line:match(pattern)
-		if not test then
-			return false, nil
-		end
-	end
-	return true, test
-end
-local patterns = {
-	"^> ",
-	"^[0-9]+%. ",
-	"^[*-] ",
-}
-vim.keymap.set("n", "J", function()
-	local linenr = vim.fn.line(".") - 1
-	local start, next = unpack(vim.api.nvim_buf_get_lines(0, linenr, linenr + 2, false))
-	for _, pattern in pairs(patterns) do
-		local matches, match = match_all_lines({ start, next}, pattern)
-		if matches then
-			next = next:sub(#match + 1)
-			break
-		end
-	end
-	vim.api.nvim_buf_set_lines(0, linenr, linenr + 2, false, {
-		start .. " " .. next
-	})
-end, {
-	buffer = true,
-})
--- TODO: Make this work with gJ and v_J
+vim.keymap.set({ "n" }, "J", require("dotfiles.markdown").join, { buffer = true })
+vim.keymap.set({ "v" }, "J", require("dotfiles.markdown").join_opfunc, { expr = true, buffer = true })
 
 -- Continue markdown markup on "o" and "O"
