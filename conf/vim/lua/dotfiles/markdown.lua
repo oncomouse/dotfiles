@@ -27,7 +27,7 @@ end
 local function join_lines(linenr, end_linenr)
 	local active_pattern = nil
 	local lines = {}
-	for _,ln in pairs(vim.fn.range(linenr, end_linenr)) do
+	for _, ln in pairs(vim.fn.range(linenr, end_linenr)) do
 		local line = vim.fn.getline(ln)
 		local match = active_pattern and line:match(active_pattern) or nil
 		if match then
@@ -71,8 +71,38 @@ function M.join_opfunc(mode)
 	join_lines(linenr, end_linenr)
 end
 
+local detab_regexes = {
+	[[^[*-] \(\[.\]\)\{0,1\}]],
+	[[^\d\+\. \(\[.\]\)\{0,1\}]],
+	"^> ",
+}
+
+-- Works like string.match but for vim regexes:
+local function match_vimregex(line, regex)
+	local match = nil
+	local start, ed = vim.regex(regex):match_str(line)
+	if start ~= nil then
+		match = string.sub(line, start, ed)
+	end
+	return match
+end
+function M.detab()
+	local has_autolist = pcall(require, "autolist")
+	local line = vim.api.nvim_get_current_line()
+	for _, r in pairs(detab_regexes) do
+		local match = match_vimregex(line, r)
+		if match then
+			local savepos = vim.fn.winsaveview().col
+			local restore_input = (savepos == #line) and "$a" or savepos - #match .. "li"
+			return '<Esc>0"_' .. #match .. "dl" .. restore_input
+		end
+	end
+	return "<C-d>" .. (has_autolist and "<cmd>lua require('autolist').detab()<CR>" or "")
+end
+
 function M.set_buf_maps()
 	local has_autolist = pcall(require, "autolist")
+	-- autolist.nvim mappings:
 	if has_autolist then
 		vim.keymap.set("i", "<C-z>", "<cmd>lua require('autolist').invert()<CR>", { buffer = true })
 		vim.keymap.set("i", "<C-t>", "<C-t><cmd>lua require('autolist').tab()<CR>", { buffer = true })
@@ -86,33 +116,9 @@ function M.set_buf_maps()
 		vim.keymap.set("n", "p", "p<cmd>lua require('autolist').recal()<CR>", { buffer = true })
 		vim.keymap.set("n", "P", "P<cmd>lua require('autolist').recal()<CR>", { buffer = true })
 	end
-	vim.keymap.set("i", "<C-d>", function()
-		local function get_match(regex, line)
-			local match = nil
-			local start, ed = vim.regex(regex):match_str(line)
-			if start ~= nil then
-				match = string.sub(line, start, ed)
-			end
-			return match
-		end
-		local line = vim.api.nvim_get_current_line()
-		-- Check line for unordered list:
-		local match = get_match([[^[*-] \(\[.\]\)\{0,1\}]], line)
-		-- Check line for ordered list:
-		if not match then
-			match = get_match([[^\d\+\. \(\[.\]\)\{0,1\}]], line)
-		end
-		if match then
-			local savepos = vim.fn.winsaveview().col
-			local restore_input = (savepos == #line) and "$a" or savepos - #match .. "li"
-			print(match, #match)
-			return '<Esc>0"_' .. #match .. "dl" .. restore_input
-		end
-		return "<C-d>" .. (has_autolist and "<cmd>lua require('autolist').detab()<CR>" or "")
-	end, {
-		expr = true,
-		buffer = true,
-	})
+	vim.keymap.set("i", "<C-d>", M.detab, { expr = true, buffer = true })
+
+	-- Join line mappings (works like J and v_J but removes markdown markup)
 	vim.keymap.set({ "n" }, "J", M.join, { buffer = true })
 	vim.keymap.set({ "v" }, "J", M.join_opfunc, { expr = true, buffer = true })
 end
