@@ -65,5 +65,6 @@ vim.keymap.set("n", "J", function()
 end, {
 	buffer = true,
 })
+-- TODO: Make this work with gJ and v_J
 
 -- Continue markdown markup on "o" and "O"
