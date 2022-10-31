@@ -1,39 +1,39 @@
 local M = {}
+
 local join_patterns = {
-	"^> ",
-	"^[0-9]+%. ",
-	"^[*-] ",
+	"^> ", -- Block quotes
+	"^%s*[0-9]+%. ", -- Ordered lists
+	"^%s*[*-] ", -- Bulleted lists
 }
+
+local function find_active_pattern(line, sub)
+	local active_pattern = nil
+	for _, pattern in pairs(join_patterns) do
+		local match = line:match(pattern)
+		if match then
+			active_pattern = pattern
+			if sub then
+				line = line:sub(#match + 1)
+			end
+			break
+		end
+	end
+	if active_pattern == nil and sub then
+		line = line:gsub("^%s+", "")
+	end
+	return active_pattern, line
+end
 
 local function join_lines(linenr, end_linenr)
 	local active_pattern = nil
 	local lines = {}
 	for _,ln in pairs(vim.fn.range(linenr, end_linenr)) do
 		local line = vim.fn.getline(ln)
-		if active_pattern then
-			local match = line:match(active_pattern)
-			if match then
-				line = line:sub(#match + 1)
-			else
-				active_pattern = nil
-				if ln ~= linenr then
-					line = line:gsub("^%s+", "")
-				end
-			end
+		local match = active_pattern and line:match(active_pattern) or nil
+		if match then
+			line = line:sub(#match + 1)
 		else
-			for _, pattern in pairs(join_patterns) do
-				local match = line:match(pattern)
-				if match then
-					active_pattern = pattern
-					if ln ~= linenr then
-						line = line:sub(#match + 1)
-					end
-					break
-				end
-			end
-			if active_pattern == nil and ln ~= linenr then
-				line = line:gsub("^%s+", "")
-			end
+			active_pattern, line = find_active_pattern(line, ln ~= linenr)
 		end
 		if #line > 0 then
 			table.insert(lines, line)
