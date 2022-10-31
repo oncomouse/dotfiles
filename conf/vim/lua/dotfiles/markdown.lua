@@ -14,20 +14,30 @@ local function join_lines(linenr, end_linenr)
 			local match = line:match(active_pattern)
 			if match then
 				line = line:sub(#match + 1)
+			else
+				active_pattern = nil
+				if ln ~= linenr then
+					line = line:gsub("^%s+", "")
+				end
 			end
 		else
 			for _, pattern in pairs(join_patterns) do
 				local match = line:match(pattern)
 				if match then
 					active_pattern = pattern
+					if ln ~= linenr then
+						line = line:sub(#match + 1)
+					end
 					break
 				end
 			end
 			if active_pattern == nil and ln ~= linenr then
-				line = " " .. line:gsub("^%s+", " ")
+				line = line:gsub("^%s+", "")
 			end
 		end
-		table.insert(lines, line)
+		if #line > 0 then
+			table.insert(lines, line)
+		end
 	end
 	vim.api.nvim_buf_set_lines(0, linenr - 1, end_linenr, false, { vim.fn.join(lines, " ") })
 end
