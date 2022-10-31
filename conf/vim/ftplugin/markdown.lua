@@ -33,8 +33,4 @@ end, {
 
 -- Markdown helper maps:
 
--- Remove markdown markup when joining line
-vim.keymap.set({ "n" }, "J", require("dotfiles.markdown").join, { buffer = true })
-vim.keymap.set({ "v" }, "J", require("dotfiles.markdown").join_opfunc, { expr = true, buffer = true })
-
--- Continue markdown markup on "o" and "O"
+require("dotfiles.markdown").set_buf_maps()
