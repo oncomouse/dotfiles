@@ -100,6 +100,25 @@ function M.detab()
 	return "<C-d>" .. (has_autolist and "<cmd>lua require('autolist').detab()<CR>" or "")
 end
 
+local function insert_newline(above)
+	local action = above and "O" or "o"
+	local has_autolist = pcall(require, "autolist")
+	local line = vim.api.nvim_get_current_line()
+	if line:match("^> ") then
+		return action .. "> "
+	end
+	return action .. (has_autolist and "<cmd>lua require('autolist').new(" .. (above and "true" or "") .. ")<CR>" or "")
+end
+
+function M.newline(above)
+	if above then
+		return function()
+			return insert_newline(true)
+		end
+	end
+	return insert_newline()
+end
+
 function M.set_buf_maps()
 	local has_autolist = pcall(require, "autolist")
 	-- autolist.nvim mappings:
@@ -109,13 +128,15 @@ function M.set_buf_maps()
 		vim.keymap.set("i", "<CR>", "<CR><cmd>lua require('autolist').new()<CR>", { buffer = true })
 		vim.keymap.set("n", ">>", ">><cmd>lua require('autolist').tab()<CR>", { buffer = true })
 		vim.keymap.set("n", "<<", "<<<cmd>lua require('autolist').detab()<CR>", { buffer = true })
-		vim.keymap.set("n", "o", "o<cmd>lua require('autolist').new()<CR>", { buffer = true })
-		vim.keymap.set("n", "O", "O<cmd>lua require('autolist').new(true)<CR>", { buffer = true })
+		-- vim.keymap.set("n", "o", "o<cmd>lua require('autolist').new()<CR>", { buffer = true })
+		-- vim.keymap.set("n", "O", "O<cmd>lua require('autolist').new(true)<CR>", { buffer = true })
 		vim.keymap.set("n", "<C-z>", "<cmd>lua require('autolist').recal()<CR>", { buffer = true })
 		vim.keymap.set("n", "dd", "dd<cmd>lua require('autolist').recal()<CR>", { buffer = true })
 		vim.keymap.set("n", "p", "p<cmd>lua require('autolist').recal()<CR>", { buffer = true })
 		vim.keymap.set("n", "P", "P<cmd>lua require('autolist').recal()<CR>", { buffer = true })
 	end
+	vim.keymap.set("n", "o", M.newline, { expr = true, buffer = true })
+	vim.keymap.set("n", "O", M.newline(true), { expr = true, buffer = true })
 	vim.keymap.set("i", "<C-d>", M.detab, { expr = true, buffer = true })
 
 	-- Join line mappings (works like J and v_J but removes markdown markup)
