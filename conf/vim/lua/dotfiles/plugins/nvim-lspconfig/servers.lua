@@ -21,7 +21,7 @@ add("$VIMRUNTIME")
 add("~/dotfiles/conf/vim")
 
 -- Load plugins (this causes huge CPU usage on macOS):
-if vim.fn.has("mac") ~= 1 then
+if vim.fn.has("mac") ~= 1 and os.getenv("DOTFILES_TARGET") ~= "laptop" then
 	add("~/.local/share/packer.nvim/pack/packer/opt/*")
 	add("~/.local/share/packer.nvim/pack/packer/start/*")
 end
