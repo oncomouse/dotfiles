@@ -59,16 +59,16 @@ function M.join_opfunc(mode)
 		mark_left, mark_right = "<", ">"
 	end
 
-	local linenr, col_left = unpack(vim.api.nvim_buf_get_mark(0, mark_left))
-	local end_linenr, col_right = unpack(vim.api.nvim_buf_get_mark(0, mark_right))
+	local line_left, col_left = unpack(vim.api.nvim_buf_get_mark(0, mark_left))
+	local line_right, col_right = unpack(vim.api.nvim_buf_get_mark(0, mark_right))
 
 	-- Do nothing if "left" mark is not on the left (earlier in text) of "right"
 	-- mark (indicating that there is nothing to do, like in comment textobject).
-	if (linenr > end_linenr) or (linenr == end_linenr and col_left > col_right) then
+	if (line_left > line_right) or (line_left == line_right and col_left > col_right) then
 		return
 	end
 	--- End code from mini.nvim
-	join_lines(linenr, end_linenr)
+	join_lines(line_left, line_right)
 end
 
 local detab_regexes = {
@@ -128,8 +128,6 @@ function M.set_buf_maps()
 		vim.keymap.set("i", "<CR>", "<CR><cmd>lua require('autolist').new()<CR>", { buffer = true })
 		vim.keymap.set("n", ">>", ">><cmd>lua require('autolist').tab()<CR>", { buffer = true })
 		vim.keymap.set("n", "<<", "<<<cmd>lua require('autolist').detab()<CR>", { buffer = true })
-		-- vim.keymap.set("n", "o", "o<cmd>lua require('autolist').new()<CR>", { buffer = true })
-		-- vim.keymap.set("n", "O", "O<cmd>lua require('autolist').new(true)<CR>", { buffer = true })
 		vim.keymap.set("n", "<C-z>", "<cmd>lua require('autolist').recal()<CR>", { buffer = true })
 		vim.keymap.set("n", "dd", "dd<cmd>lua require('autolist').recal()<CR>", { buffer = true })
 		vim.keymap.set("n", "p", "p<cmd>lua require('autolist').recal()<CR>", { buffer = true })
