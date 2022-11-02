@@ -58,7 +58,7 @@ local function join_lines(linenr, end_linenr, no_indent)
 			table.insert(lines, line)
 		end
 	end
-	vim.api.nvim_buf_set_lines(0, linenr - 1, end_linenr, false, { vim.fn.join(lines, " ") })
+	vim.api.nvim_buf_set_lines(0, linenr - 1, end_linenr, false, { vim.fn.join(lines, no_indent and "" or " ") })
 end
 
 local function call_join(no_indent)
