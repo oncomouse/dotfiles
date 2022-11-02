@@ -67,12 +67,13 @@ local function call_join(no_indent)
 	join_lines(linenr, end_linenr, no_indent)
 end
 
-function M.join_ws()
-	call_join(true)
-end
-
-function M.join()
-	call_join()
+function M.join(indent)
+	if indent then
+		return function()
+			return call_join(true)
+		end
+	end
+	return call_join()
 end
 
 function M.join_opfunc(mode)
@@ -166,7 +167,8 @@ function M.set_buf_maps()
 
 	-- Join line mappings (works like J and v_J but removes markdown markup)
 	vim.keymap.set({ "n" }, "J", M.join, { buffer = true })
-	vim.keymap.set({ "n" }, "gJ", M.join_ws, { buffer = true })
+	vim.keymap.set({ "n" }, "gJ", M.join(true), { buffer = true })
 	vim.keymap.set({ "v" }, "J", M.join_opfunc, { expr = true, buffer = true })
+	-- TODO: vim.keymap.set({ "v" }, "gJ", M.join_opfunc, { expr = true, buffer = true })
 end
 return M
