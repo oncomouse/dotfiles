@@ -24,6 +24,7 @@ if which npm > /dev/null 2>&1; then
     npminstall 'vscode-langservers-extracted'
     if [ "$os" = "macos" ]; then
       npminstall 'typescript-language-server'
+      npminstall 'htmlhint'
     fi
   fi
   npminstall '@bitwarden/cli'

@@ -37,6 +37,7 @@ local sources = {
 	b.diagnostics.vint,
 	b.diagnostics.rubocop,
 	b.diagnostics.standardrb,
+	require("dotfiles.plugins.null-ls.builtins.diagnostics.htmlhint"),
 	b.code_actions.shellcheck,
 	require("nvim-ref.null-ls.hover"),
 	require("nvim-ref.null-ls.completion"),
