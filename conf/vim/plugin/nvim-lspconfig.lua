@@ -1,5 +1,5 @@
-local server_maps = require("dotfiles.plugins.nvim-lspconfig.servers")
-local on_attach = require("dotfiles.plugins.nvim-lspconfig.on_attach")
+local server_maps = require("dotfiles.plugins.nvim-lspconfig").servers
+local on_attach = require("dotfiles.plugins.nvim-lspconfig").on_attach
 
 local capabilities = nil
 local handler_no_diagnostics = {

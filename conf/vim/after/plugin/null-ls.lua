@@ -47,7 +47,7 @@ local sources = {
 }
 
 require("null-ls").setup({
-	on_attach = require("dotfiles.plugins.nvim-lspconfig.on_attach"),
+	on_attach = require("dotfiles.plugins.nvim-lspconfig").on_attach,
 	sources = sources,
 })
 
