@@ -5,7 +5,7 @@
 " Last Change:	2021-04-12 13:46:04
 " Previous Maintainer:	Doug Kearns <djkea2@gus.gscit.monash.edu.au>
 
-if exists("b:current_syntax")
+if exists('b:current_syntax')
   finish
 endif
 
