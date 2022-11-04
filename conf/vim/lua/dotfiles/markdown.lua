@@ -61,26 +61,42 @@ local function join_lines(linenr, end_linenr, no_indent)
 	vim.api.nvim_buf_set_lines(0, linenr - 1, end_linenr, false, { vim.fn.join(lines, no_indent and "" or " ") })
 end
 
-local function call_join(no_indent)
-	local linenr = vim.fn.line(".")
-	local end_linenr = linenr + (vim.v.count == 0 and 1 or vim.v.count)
-	join_lines(linenr, end_linenr, no_indent)
-end
-
 function M.join(indent)
+	local function call_join(no_indent)
+		local linenr = vim.fn.line(".")
+		local end_linenr = linenr + (vim.v.count == 0 and 1 or vim.v.count)
+		join_lines(linenr, end_linenr, no_indent)
+	end
+
 	if indent then
 		return function()
 			return call_join(true)
 		end
 	end
-	return call_join()
+	return call_join(false)
 end
 
 function M.join_opfunc(mode)
-	if mode == nil then
+
+	-- Handle J vs gJ:
+	local function do_opfunc(m)
+		vim.b.dotfiles_markdown_join_no_indent = m
 		vim.opt.operatorfunc = "v:lua.require'dotfiles.markdown'.join_opfunc" -- Can't have parentheses
 		return "g@"
 	end
+	if type(mode) == "nil" then
+		return do_opfunc(false)
+	end
+	if type(mode) == "boolean" then
+		return function()
+			return do_opfunc(mode)
+		end
+	end
+
+	-- Read whether we are running J or gJ:
+	local no_indent = vim.b.dotfiles_markdown_join_no_indent
+	vim.b.dotfiles_markdown_join_no_indent = nil
+
 	-- This code is from mini.nvim's comment module
 	local mark_left, mark_right = "[", "]"
 	if mode == "visual" then
@@ -96,7 +112,7 @@ function M.join_opfunc(mode)
 		return
 	end
 	--- End code from mini.nvim
-	join_lines(line_left, line_right)
+	join_lines(line_left, line_right, no_indent)
 end
 
 local detab_regexes = {
@@ -169,6 +185,6 @@ function M.set_buf_maps()
 	vim.keymap.set({ "n" }, "J", M.join, { buffer = true })
 	vim.keymap.set({ "n" }, "gJ", M.join(true), { buffer = true })
 	vim.keymap.set({ "v" }, "J", M.join_opfunc, { expr = true, buffer = true })
-	-- TODO: vim.keymap.set({ "v" }, "gJ", M.join_opfunc, { expr = true, buffer = true })
+	vim.keymap.set({ "v" }, "gJ", M.join_opfunc(true), { expr = true, buffer = true })
 end
 return M
