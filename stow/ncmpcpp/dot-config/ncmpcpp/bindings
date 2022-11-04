@@ -17,12 +17,12 @@ def_key "ctrl-e"
 	move_end
 def_key "ctrl-h"
 	move_home
-def_key "ctrl-d"
-	scroll_down_album
+# def_key "ctrl-d"
+# 	scroll_down_album
 def_key "ctrl-d"
 	page_down
-def_key "ctrl-u"
-	scroll_up_album
+# def_key "ctrl-u"
+# 	scroll_up_album
 def_key "ctrl-u"
 	page_up
 def_key "d"
