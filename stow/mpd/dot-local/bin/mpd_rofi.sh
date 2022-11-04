@@ -9,7 +9,7 @@ rofi_bar() {
 }
 
 action-search() {
-	mpc play "$(mpc playlist -f "%position%. %artist% - %title%" | rofi_bar | cut -d "." -f 1)" 2> /dev/null > /dev/null
+mpc play "$(mpc playlist -f "%position%. %artist% - %title% (%album%)" | rofi_bar | cut -d "." -f 1)" 2> /dev/null > /dev/null
 }
 
 action-add() {
