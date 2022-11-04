@@ -21,6 +21,7 @@ if which npm > /dev/null 2>&1; then
     npminstall 'jsonlint' 
     npminstall 'prettier'
     npminstall 'prettier-semi-cli'
+    npminstall 'vim-language-server'
     npminstall 'vscode-langservers-extracted'
     if [ "$os" = "macos" ]; then
       npminstall 'typescript-language-server'
