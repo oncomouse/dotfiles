@@ -37,8 +37,14 @@ local function xml_closetag_rules()
 		for _, ft in pairs({ "html", "xml", "javascript", "javascriptreact" }) do
 			table.insert(output, { char = "<", input_after = ">", filetype = ft })
 			table.insert(output, {
+				char = "<BS>",
+				at = [[<\%#>]],
+				delete = 1,
+				filetype = ft,
+			})
+			table.insert(output, {
 				char = ">",
-				at = [[<\(\w\+\)\%#>]],
+				at = [[<\(\w\+\)[^>]*\%#>]],
 				leave = 1,
 				input_after = [[</\1>]],
 				with_submatch = 1,
