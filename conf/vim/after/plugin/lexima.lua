@@ -81,22 +81,23 @@ local function lua_endwise_rules()
 end
 
 vim.g.dotfiles_lexima_rules = {
-	-- Correctly unbalanced pairs:
+	-- Correct unbalanced pairs:
 	{
 		char = "<BS>",
 		at = [[""\%#"]],
-		delete = 2,
+		delete = 1,
 		input = [[<BS><BS>"]],
 		input_after = [["]],
 	},
 	{
 		char = "<BS>",
 		at = [[((\%#)]],
-		delete = 2,
+		delete = 1,
 		input = [[<BS><BS>(]],
 		input_after = [[)]],
 	},
 	-- Markdown rules:
+	-- (()
 	-- Trigger autolist.new() from lexima:
 	{
 		char = "<CR>",
