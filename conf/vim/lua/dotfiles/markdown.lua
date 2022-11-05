@@ -169,8 +169,8 @@ function M.set_buf_maps()
 	if has_autolist then
 		vim.keymap.set("i", "<C-z>", "<cmd>lua require('autolist').invert()<CR>", { buffer = true })
 		vim.keymap.set("i", "<C-t>", "<C-t><cmd>lua require('autolist').tab()<CR>", { buffer = true })
-		vim.keymap.set("i", "<CR>", "<CR><cmd>lua require('autolist').new()<CR>", { buffer = true })
 		vim.keymap.set("n", ">>", ">><cmd>lua require('autolist').tab()<CR>", { buffer = true })
+		-- <CR> imap is set using lexima.vim
 		vim.keymap.set("n", "<<", "<<<cmd>lua require('autolist').detab()<CR>", { buffer = true })
 		vim.keymap.set("n", "<C-z>", "<cmd>lua require('autolist').recal()<CR>", { buffer = true })
 		vim.keymap.set("n", "dd", "dd<cmd>lua require('autolist').recal()<CR>", { buffer = true })
@@ -186,5 +186,7 @@ function M.set_buf_maps()
 	vim.keymap.set({ "n" }, "gJ", M.join(true), { buffer = true })
 	vim.keymap.set({ "v" }, "J", M.join_opfunc, { expr = true, buffer = true })
 	vim.keymap.set({ "v" }, "gJ", M.join_opfunc(true), { expr = true, buffer = true })
+
+	vim.opt_local.comments = vim.opt_local.comments - "n:>"
 end
 return M

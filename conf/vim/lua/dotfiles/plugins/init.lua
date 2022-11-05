@@ -248,7 +248,7 @@ local function plugins()
 				-- Appearance:
 
 				{
-					"preservim/vim-markdown",
+					"oncomouse/vim-markdown",
 					ft = "markdown",
 					setup = function()
 						vim.g.vim_markdown_frontmatter = 1 -- Format YAML

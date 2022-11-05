@@ -91,6 +91,12 @@ vim.g.dotfiles_lexima_rules = {
 		input_after = [[)]],
 	},
 	-- Markdown rules:
+	-- Trigger autolist.new() from lexima:
+	{
+		char = "<CR>",
+		input = "<CR><C-o>:lua require('autolist').new()<CR>",
+		filetype = "markdown",
+	},
 	-- Links:
 	{
 		char = "]",
