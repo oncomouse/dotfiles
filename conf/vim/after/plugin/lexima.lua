@@ -1,3 +1,4 @@
+-- Rule Making Functions:
 local function make_markdown_bi_rule(char, escape)
 	local esc_char = escape and [[\]] .. char or char
 	return {
@@ -80,6 +81,13 @@ local function lua_endwise_rules()
 	return nil
 end
 
+-- Lexima Settings:
+vim.g.lexima_enable_space_rules = 0
+vim.g.lexima_enable_endwise_rules = 1
+vim.g.lexima_disable_closetag = 0
+vim.g.lexima_no_default_rules = 1
+
+-- Lexima Rules
 vim.g.dotfiles_lexima_rules = {
 	-- Correct unbalanced pairs:
 	{
@@ -112,7 +120,6 @@ vim.g.dotfiles_lexima_rules = {
 		char = "<BS>",
 		input = "<BS><BS>",
 		at = [[^> \%#]],
-		delete = 2,
 		filetype = "markdown",
 	},
 	{
