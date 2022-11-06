@@ -27,8 +27,8 @@ local function make_markdown_bi_rule(char, escape)
 			at = esc_char .. [[\%#]] .. esc_char,
 			delete = char,
 			filetype = "markdown",
-		},
-	} -- Delete pair
+		}, -- Delete pair
+	}
 end
 
 -- XML-style closetag:
