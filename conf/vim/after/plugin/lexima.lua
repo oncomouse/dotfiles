@@ -151,7 +151,6 @@ vim.g.dotfiles_lexima_rules = {
 	{
 		char = "<BS>",
 		input = "<BS><BS><BS>",
-		delete = 3,
 		at = [[^\s*[*-]\s*\[.\]\%#]],
 		filetype = "markdown",
 	},
