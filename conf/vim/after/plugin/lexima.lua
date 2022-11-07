@@ -32,30 +32,30 @@ local function make_markdown_bi_rule(char, escape)
 end
 
 -- XML-style closetag:
-local function xml_closetag_rules()
-	if vim.g.lexima_disable_closetag == 0 then
-		local output = {}
-		for _, ft in pairs({ "html", "xml", "javascript", "javascriptreact" }) do
-			table.insert(output, { char = "<", input_after = ">", filetype = ft })
-			table.insert(output, {
-				char = "<BS>",
-				at = [[<\%#>]],
-				delete = 1,
-				filetype = ft,
-			})
-			table.insert(output, {
-				char = ">",
-				at = [[<\(\w\+\)[^>]*\%#>]],
-				leave = 1,
-				input_after = [[</\1>]],
-				with_submatch = 1,
-				filetype = ft,
-			})
-		end
-		return output
-	end
-	return nil
-end
+-- local function xml_closetag_rules()
+-- 	if vim.g.lexima_disable_closetag == 0 then
+-- 		local output = {}
+-- 		for _, ft in pairs({ "html", "xml", "javascript", "javascriptreact" }) do
+-- 			table.insert(output, { char = "<", input_after = ">", filetype = ft })
+-- 			table.insert(output, {
+-- 				char = "<BS>",
+-- 				at = [[<\%#>]],
+-- 				delete = 1,
+-- 				filetype = ft,
+-- 			})
+-- 			table.insert(output, {
+-- 				char = ">",
+-- 				at = [[<\(\w\+\)[^>]*\%#>]],
+-- 				leave = 1,
+-- 				input_after = [[</\1>]],
+-- 				with_submatch = 1,
+-- 				filetype = ft,
+-- 			})
+-- 		end
+-- 		return output
+-- 	end
+-- 	return nil
+-- end
 
 local function lua_endwise_rules()
 	-- Lua endwise rules:
@@ -159,7 +159,7 @@ vim.g.dotfiles_lexima_rules = {
 	make_markdown_bi_rule("_"),
 
 	-- XML closing tags:
-	xml_closetag_rules(),
+	-- xml_closetag_rules(),
 
 	-- Insert Lua endwise rules:
 	lua_endwise_rules(),

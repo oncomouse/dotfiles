@@ -67,6 +67,7 @@ require("nvim-treesitter.configs").setup({
 	ensure_installed = parsers,
 	highlight = { enable = true },
 	context_commentstring = { enable = true },
+	autotag = { enable = true },
 	matchup = { enable = true },
 	textobjects = {
 		select = {

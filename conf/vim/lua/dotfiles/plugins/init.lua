@@ -226,6 +226,7 @@ local function plugins()
 							end,
 						},
 						{ "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" }, -- Configuration for treesitter objects
+						{ "windwp/nvim-ts-autotag", after = "nvim-treesitter" },
 						{
 							"andymass/vim-matchup",
 							after = "nvim-treesitter",
