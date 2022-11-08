@@ -43,62 +43,64 @@ local parsers = {
 	"yaml",
 	"zig",
 }
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = vim.fn.join(parsers, ","),
-	group = "dotfiles-settings",
-	callback = function()
-		vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-		vim.opt_local.foldmethod = "expr"
-	end,
-	desc = "Set fold method for treesitter",
-})
+if pcall(require, "nvim-treesitter") then
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = vim.fn.join(parsers, ","),
+		group = "dotfiles-settings",
+		callback = function()
+			vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+			vim.opt_local.foldmethod = "expr"
+		end,
+		desc = "Set fold method for treesitter",
+	})
 
-require("nvim-treesitter.parsers").list.xml = {
-	install_info = {
-		url = "https://github.com/Trivernis/tree-sitter-xml",
-		files = { "src/parser.c" },
-		generate_requires_npm = true,
-		branch = "main",
-	},
-	filetype = "xml",
-}
+	require("nvim-treesitter.parsers").list.xml = {
+		install_info = {
+			url = "https://github.com/Trivernis/tree-sitter-xml",
+			files = { "src/parser.c" },
+			generate_requires_npm = true,
+			branch = "main",
+		},
+		filetype = "xml",
+	}
 
-require("nvim-treesitter.configs").setup({
-	ensure_installed = parsers,
-	highlight = { enable = true },
-	context_commentstring = { enable = true },
-	autotag = { enable = true },
-	matchup = { enable = true },
-	textobjects = {
-		select = {
-			enable = true,
+	require("nvim-treesitter.configs").setup({
+		ensure_installed = parsers,
+		highlight = { enable = true },
+		context_commentstring = { enable = true },
+		autotag = { enable = true },
+		matchup = { enable = true },
+		textobjects = {
+			select = {
+				enable = true,
 
-			-- Automatically jump forward to textobj, similar to targets.vim
-			lookahead = true,
-			keymaps = {
-				-- You can use the capture groups defined in textobjects.scm
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
-				["ac"] = "@class.outer",
-				-- you can optionally set descriptions to the mappings (used in the desc parameter of nvim_buf_set_keymap
-				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+				-- Automatically jump forward to textobj, similar to targets.vim
+				lookahead = true,
+				keymaps = {
+					-- You can use the capture groups defined in textobjects.scm
+					["af"] = "@function.outer",
+					["if"] = "@function.inner",
+					["ac"] = "@class.outer",
+					-- you can optionally set descriptions to the mappings (used in the desc parameter of nvim_buf_set_keymap
+					["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+				},
+			},
+			move = {
+				enable = true,
+				set_jumps = true, -- whether to set jumps in the jumplist
+				goto_next_start = {
+					["]m"] = "@function.outer",
+				},
+				goto_next_end = {
+					["]M"] = "@function.outer",
+				},
+				goto_previous_start = {
+					["[m"] = "@function.outer",
+				},
+				goto_previous_end = {
+					["[M"] = "@function.outer",
+				},
 			},
 		},
-		move = {
-			enable = true,
-			set_jumps = true, -- whether to set jumps in the jumplist
-			goto_next_start = {
-				["]m"] = "@function.outer",
-			},
-			goto_next_end = {
-				["]M"] = "@function.outer",
-			},
-			goto_previous_start = {
-				["[m"] = "@function.outer",
-			},
-			goto_previous_end = {
-				["[M"] = "@function.outer",
-			},
-		},
-	},
-})
+	})
+end
