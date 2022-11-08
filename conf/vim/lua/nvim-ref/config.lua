@@ -4,6 +4,7 @@ local default_config = {
 		"insert",
 		"capture",
 		"edit",
+		"import",
 	},
 	filetypes = {
 		"latex",
