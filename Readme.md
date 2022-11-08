@@ -1,4 +1,4 @@
-# <a rel="me" href="https://hcommons.social/@oncomouse">oncomouse</a> Dotfiles
+# oncomouse Dotfiles
 
 These dotfiles work for Mac OS, Arch, and Ubuntu. Ubuntu can also run for server or desktop configurations. Arch server configuration is on the todo list.
 
