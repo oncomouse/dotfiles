@@ -1,4 +1,4 @@
-# oncomouse Dotfiles
+# <a rel="me" href="https://hcommons.social/@oncomouse">oncomouse</a> Dotfiles
 
 These dotfiles work for Mac OS, Arch, and Ubuntu. Ubuntu can also run for server or desktop configurations. Arch server configuration is on the todo list.
 
@@ -19,3 +19,4 @@ The organization is as follows:
 ## Stow
 
 Packages are managed with a custom re-write of [GNU Stow](https://www.gnu.org/software/stow/). It's located in `scripts/stow.py`. The re-write implements all features of stow except: `--adopt`, `--ignore`, `--defer`, `--override`, and `--compat`. Also, importantly, it fixes [#33](https://github.com/aspiers/stow/issues/33), which has been documented since Apr 8, 2019 and fixed since May 24, 2020, but continues to be unpatched in stow.
+
