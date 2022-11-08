@@ -397,7 +397,7 @@ for type, icon in pairs(signs) do
 end
 -- }}}
 -- Writing {{{
-vim.g.bibfiles = "~/Seadrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
+vim.g.bibfiles = "~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
 -- }}}
 -- Plugins {{{
 require("dotfiles.plugins")
