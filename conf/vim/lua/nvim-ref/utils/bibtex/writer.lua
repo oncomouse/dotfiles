@@ -44,7 +44,7 @@ function M.convert(citation)
 		output = string.format("@%s{%s,\n", citation.kind, citation.key)
 		local values = {}
 		for _, entry in ipairs(citation.contents) do
-			table.insert(values, string.format("    %s = {%s}", entry.key, entry.value))
+			table.insert(values, string.format("    %s = %s", entry.key, entry.value))
 		end
 		output = output .. vim.fn.join(values, ",\n") .. "\n}"
 	elseif citation.type == "comment" then
@@ -54,46 +54,27 @@ function M.convert(citation)
 	return output
 end
 
-local function binary_search_insert(citations, citation)
-	local start = 1
-	local stop = #citations
-	while true do
-		local pick = math.ceil((stop - start) / 2)
-		local check = citations[pick]
-		if check.key < citation.key then
-			stop = pick - 1
-			if stop == 0 then
-				return 1
-			end
-			if citations[stop] > citation.key then
-				return stop
-			end
-		elseif check.key > citation.key then
-			start = pick + 1
-			if start > #citations then
-				return #citations
-			end
-			if citations[start] < citation.key then
-				return start
-			end
-		end
-	end
-end
-
 -- @param citation ProcessedCitation
 -- @param add boolean
 -- return raw parsed BibTex
 local function mutate(citation, add)
 	local file = citation.file
 	local citations = parser.read_bibfile(file)
-	if add then
-		table.insert(citations, binary_search_insert(citations, citation), citation)
-	else
-		for i, c in ipairs(citations) do
+	local inserted = false
+	for i, c in ipairs(citations) do
+		if add then
+			if not inserted and c.key > citation.key then
+				table.insert(citations, i, citation)
+				inserted = true
+			end
+		else
 			if c.key and c.key == citation.key then
 				citations[i] = deprocess(citation)
 			end
 		end
+	end
+	if add and not inserted then
+		table.insert(citations, citation)
 	end
 	write(file, citations)
 end
