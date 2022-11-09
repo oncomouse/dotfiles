@@ -18,7 +18,7 @@ end
 
 function M.setup(opts)
 	opts = opts or {}
-	local open_first_file = false
+	local first_file_opened = false
 	M.config = config(opts)
 	M.hooks = require("nvim-ref.hooks")
 	M.hooks.define("setup_done")
@@ -28,11 +28,11 @@ function M.setup(opts)
 	}
 	-- Load all our commands when we first encounter a file:
 	M.hooks.listen("filetype", function()
-		if not open_first_file then
+		if not first_file_opened then
 			load_defaults(M.config.commands, "commands")
 			-- If cmp is available, register the cmp source
 			require("nvim-ref.cmp").register()
-			open_first_file = true
+			first_file_opened = true
 		end
 	end)
 	-- Boot up default filetypes:
