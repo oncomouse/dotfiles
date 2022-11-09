@@ -76,6 +76,8 @@ local function add_bibtex_to_bib(bibtex)
 	-- Generate key:
 	bibtex.key = require("nvim-ref.utils.bibtex.helpers").make_key(bibtex)
 
+	-- TODO: Prompt to edit citation information before adding to file
+
 	require("nvim-ref.utils.bibtex.writer").add(bibtex)
 end
 
