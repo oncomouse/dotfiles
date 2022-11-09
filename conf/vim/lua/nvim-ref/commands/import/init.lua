@@ -50,7 +50,26 @@ local default_import_formats = {
 }
 
 local function add_bibtex_to_bib(bibtex)
-	print(vim.inspect(bibtex))
+	-- Lowercase all content entries:
+	for i, item in ipairs(bibtex.contents) do
+		local key = string.lower(item.key)
+		if item.key ~= key then
+			item.key = key
+			bibtex.contents[i] = item
+		end
+	end
+	local bibfiles = require("nvim-ref").config.bibfiles
+	local bibfile
+	if #bibfiles == 1 then
+		bibfile = bibfiles[1]
+	else
+		vim.ui.select(bibfiles, {
+			prompt = "Which bibliography to add entry to? ",
+		}, function(choice)
+			bibfile = choice
+		end)
+	end
+	print(vim.inspect(bibfile), vim.inspect(bibtex))
 end
 
 function M.setup()
