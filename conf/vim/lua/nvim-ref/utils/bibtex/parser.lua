@@ -3,8 +3,12 @@ local parser = require("lpeg-bibtex")
 local M = {}
 local entry_metatable = {
 	__index = function(entry, idx)
-		if entry.contents and entry.contents[idx] then
-			return entry.contents[idx]
+		if entry.contents then
+			for _,content in pairs(entry.contents) do
+				if content.key == idx then
+					return content.value
+				end
+			end
 		end
 		return nil
 	end,
