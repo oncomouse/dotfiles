@@ -31,7 +31,14 @@ function M.make_key(entry)
 		year = "nodate"
 	end
 	year = clean_key(year)
-	return string.format("%s_%s_%s", author, title, year)
+	local key = string.format("%s_%s_%s", author, title, year)
+	
+	local entries = require("nvim-ref.utils.bibtex.parser").query_bibtex(entry.file, key)
+	if #entries > 0 then
+		key = key .. #entries
+	end
+
+	return key
 end
 
 return M

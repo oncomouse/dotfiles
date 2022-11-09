@@ -8,8 +8,8 @@ local M = {}
 local entry_metatable = {
 	__index = function(entry, idx)
 		-- Generate a cache table:
-		if entry.__idx_cache == nil then
-			entry.__idx_cache = {}
+		if idx == "__idx_cache" then
+			return {}
 		end
 
 		-- If the entry is in cache, return it:

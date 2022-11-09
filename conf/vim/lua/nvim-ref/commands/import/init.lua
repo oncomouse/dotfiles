@@ -29,9 +29,9 @@ local default_import_formats = {
 		get = function(isbn, cb)
 			isbn = string.gsub(isbn, "[^0-9xX]", "")
 			curl.get(string.format("https://www.ebook.de/de/tools/isbn2bibtex?isbn=%s", isbn), {
-				callback = function(results)
+				callback = vim.schedule_wrap(function(results)
 					cb(parser.parse_bibtex_string(results.body)[1])
-				end,
+				end),
 			})
 		end,
 	},
@@ -41,9 +41,9 @@ local default_import_formats = {
 		get = function(doi, cb)
 			curl.get(string.format("https://doi.org/%s", doi), {
 				accept = "application/x-bibtex",
-				callback = function(results)
+				callback = vim.schedule_wrap(function(results)
 					cb(parser.parse_bibtex_string(results.body)[1])
-				end,
+				end),
 			})
 		end,
 	},
@@ -59,9 +59,6 @@ local function add_bibtex_to_bib(bibtex)
 		end
 	end
 
-	-- Generate key:
-	bibtex.key = require("nvim-ref.utils.bibtex.helpers").make_key(bibtex)
-
 	-- Which bibliography to insert into:
 	local bibfiles = require("nvim-ref").config.bibfiles
 	local bibfile
@@ -75,7 +72,12 @@ local function add_bibtex_to_bib(bibtex)
 		end)
 	end
 
-	print(vim.inspect(bibfile), vim.inspect(bibtex))
+	bibtex.file = bibfile
+
+	-- Generate key:
+	bibtex.key = require("nvim-ref.utils.bibtex.helpers").make_key(bibtex)
+
+	print(vim.inspect(bibtex))
 end
 
 function M.setup()
