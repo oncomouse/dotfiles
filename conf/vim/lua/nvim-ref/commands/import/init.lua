@@ -71,13 +71,12 @@ local function add_bibtex_to_bib(bibtex)
 			bibfile = choice
 		end)
 	end
-
 	bibtex.file = bibfile
 
 	-- Generate key:
 	bibtex.key = require("nvim-ref.utils.bibtex.helpers").make_key(bibtex)
 
-	print(vim.inspect(bibtex))
+	require("nvim-ref.utils.bibtex.writer").add(bibtex)
 end
 
 function M.setup()
