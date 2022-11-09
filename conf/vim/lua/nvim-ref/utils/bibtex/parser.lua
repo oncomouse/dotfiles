@@ -41,13 +41,6 @@ local function escape_bibfile(file)
 	return vim.fn.fnamemodify(file, ":p")
 end
 
-local function parse_bibfiles(bibfiles)
-	if type(bibfiles) == "table" then
-		return vim.tbl_map(escape_bibfile, bibfiles)
-	end
-	return escape_bibfile(bibfiles)
-end
-
 function M.parse_bibtex_string(bibtex)
 	local data = parser:match(bibtex)
 	local matches = {}
@@ -58,11 +51,13 @@ function M.parse_bibtex_string(bibtex)
 end
 
 function M.read_bibfile(bibfile)
-	local fp = io.open(bibfile, "rb")
+	local fp = io.open(escape_bibfile(bibfile), "rb")
 	if fp ~= nil then
 		local contents = M.parse_bibtex_string(fp:read("*a"))
 		fp:close()
 		return contents
+	else
+		require("nvim-ref.utils.notifications").warn("Unable to open bibliography file, " .. bibfile .. ".")
 	end
 	return nil
 end
@@ -71,9 +66,8 @@ function M.query_bibtex(bibfiles, key)
 	if not string.match(key, "^@") then
 		key = "@" .. key
 	end
-	bibfiles = parse_bibfiles(type(bibfiles) == "string" and { bibfiles } or bibfiles)
 	local results = {}
-	for _, bibfile in pairs(bibfiles) do
+	for _, bibfile in pairs(type(bibfiles) == "string" and { bibfiles } or bibfiles) do
 		local contents = M.read_bibfile(bibfile)
 		if contents ~= nil then
 			for _, entry in pairs(contents) do
@@ -82,8 +76,6 @@ function M.query_bibtex(bibfiles, key)
 					table.insert(results, entry)
 				end
 			end
-		else
-			require("nvim-ref.utils.notifications").info("Unable to open bibliography file, " .. bibfile .. ".")
 		end
 	end
 	return results
