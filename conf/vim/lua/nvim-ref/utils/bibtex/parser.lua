@@ -34,6 +34,9 @@ function M.read_bibfile(bibfile)
 	end
 	return nil
 end
+function M.parse_bibtex_string(bibtex)
+	return parser:match(bibtex)
+end
 function M.query_bibtex(bibfiles, key)
 	if not string.match(key, "^@") then
 		key = "@" .. key
@@ -50,7 +53,7 @@ function M.query_bibtex(bibfiles, key)
 				end
 			end
 		else
-			require("nvim-ref.utils.output").info("Unable to open bibliography file, " .. bibfile .. ".")
+			require("nvim-ref.utils.notifications").info("Unable to open bibliography file, " .. bibfile .. ".")
 		end
 	end
 	return parse_bibtex(results)

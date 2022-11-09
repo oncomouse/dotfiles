@@ -8,10 +8,21 @@ hooks.define("add_command")
 hooks.listen("add_command", function(args)
 	local function add_command(command, ns)
 		ns = ns and ns .. "." or ""
-		commands[ns .. command.id] = command
+		local cmd_id = ns .. command.id
+		-- Adding a subcommand directly:
+		if ns == "" and string.match(command.id, "%.") then
+			local parts = vim.fn.split(command.id, [[\.]])
+			ns = vim.fn.join(vim.list_slice(parts, 1, #parts - 1), ".")
+			if commands[ns].subcommands == nil then
+				commands[ns].subcommands = {}
+			end
+			table.insert(commands[ns].subcommands, vim.tbl_extend("keep", { id = parts[#parts] }, command))
+			cmd_id = command.id
+		end
+		commands[cmd_id] = command
 		if command.subcommands and type(command.subcommands) == "table" then
 			for _, subcommand in pairs(command.subcommands) do
-				add_command(subcommand, ns .. command.id)
+				add_command(subcommand, cmd_id)
 			end
 		end
 	end
@@ -25,6 +36,7 @@ hooks.listen("add_command", function(args)
 		end
 	end
 end)
+-- TODO: End reliance on subcommands
 
 hooks.define("run_command")
 hooks.listen("run_command", function(args)
@@ -48,7 +60,7 @@ end)
 
 function M.run(command, args)
 	if #vim.tbl_keys(commands) == 0 then
-		require("nvim-ref.utils.output").info("There are no commands loaded; perhaps require('nvim-ref').setup() has not been run?")
+		require("nvim-ref.utils.notifications").info("There are no commands loaded; perhaps require('nvim-ref').setup() has not been run?")
 		return
 	end
 	-- Run with no arguments
