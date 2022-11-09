@@ -1,19 +1,55 @@
 local parser = require("lpeg-bibtex")
 
 local M = {}
+
+-- Use a metatable to provide more object-y access to entry contents:
+-- e.g. entry.author instead of finding the item in entry.contents that has
+-- a "key" equal to "author" and returning that item's "value"
 local entry_metatable = {
 	__index = function(entry, idx)
+		-- Generate a cache table:
+		if entry.__idx_cache == nil then
+			entry.__idx_cache = {}
+		end
+
+		-- If the entry is in cache, return it:
+		if entry.__idx_cache[idx] == false then
+			return nil
+		end
+		if entry.__idx_cache[idx] ~= nil then
+			return entry.__idx_cache[idx]
+		end
+
+		-- Search for the item:
 		if entry.contents then
-			for _,content in pairs(entry.contents) do
+			for _, content in pairs(entry.contents) do
+				-- Item is found, cache it and return it:
 				if content.key == idx then
+					entry.__idx_cache[idx] = content.value
 					return content.value
 				end
 			end
 		end
+
+		-- Nothing found, cache and return that:
+		entry.__idx_cache[idx] = false
 		return nil
 	end,
 }
-function parse_bibtex(data)
+
+local function escape_bibfile(file)
+	return vim.fn.fnamemodify(file, ":p")
+end
+
+local function parse_bibfiles(bibfiles)
+	if type(bibfiles) == "table" then
+		return vim.tbl_map(escape_bibfile, bibfiles)
+	end
+	return escape_bibfile(bibfiles)
+end
+
+function M.parse_bibtex_string(bibtex)
+	local data = parser:match(bibtex)
 	local matches = {}
 	for _, entry in pairs(data) do
 		table.insert(matches, setmetatable(entry, entry_metatable))
@@ -21,18 +57,6 @@ function parse_bibtex(data)
 	return matches
 end
 
-local function escape_bibfile(file)
-	return vim.fn.fnamemodify(file, ":p")
-end
-local function parse_bibfiles(bibfiles)
-	if type(bibfiles) == "table" then
-		return vim.tbl_map(escape_bibfile, bibfiles)
-	end
-	return escape_bibfile(bibfiles)
-end
-function M.parse_bibtex_string(bibtex)
-	return parse_bibtex(parser:match(bibtex))
-end
 function M.read_bibfile(bibfile)
 	local fp = io.open(bibfile, "rb")
 	if fp ~= nil then
@@ -42,6 +66,7 @@ function M.read_bibfile(bibfile)
 	end
 	return nil
 end
+
 function M.query_bibtex(bibfiles, key)
 	if not string.match(key, "^@") then
 		key = "@" .. key
