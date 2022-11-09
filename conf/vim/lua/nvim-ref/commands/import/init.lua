@@ -58,6 +58,11 @@ local function add_bibtex_to_bib(bibtex)
 			bibtex.contents[i] = item
 		end
 	end
+
+	-- Generate key:
+	bibtex.key = require("nvim-ref.utils.bibtex.helpers").make_key(bibtex)
+
+	-- Which bibliography to insert into:
 	local bibfiles = require("nvim-ref").config.bibfiles
 	local bibfile
 	if #bibfiles == 1 then
@@ -69,6 +74,7 @@ local function add_bibtex_to_bib(bibtex)
 			bibfile = choice
 		end)
 	end
+
 	print(vim.inspect(bibfile), vim.inspect(bibtex))
 end
 
