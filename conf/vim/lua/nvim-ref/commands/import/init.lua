@@ -94,7 +94,7 @@ function M.setup()
 				end
 			end
 			table.insert(import_formats, format)
-			local id = string.lower(format.name)
+			local id = format.name:lower():gsub("%s+", "-"):gsub("[^0-9a-z-]", "")
 			hooks.trigger("add_command", {
 				id = string.format("import.%s", id),
 				name = "Import Citation from " .. format.name,
