@@ -14,7 +14,7 @@ hooks.define("filetype")
 function M.require(ft)
 	ft = ft or M.buf_filetype(0)
 	if not M.filetypes[ft] then
-		error(string.format("Unknown filetype, %s!", ft))
+		require("nvim-ref.utils.notifications").error(string.format("Unknown filetype, %s!", ft))
 	else
 		if M.filetypes[ft].module then
 			if type(M.filetypes[ft].module) == "string" then
