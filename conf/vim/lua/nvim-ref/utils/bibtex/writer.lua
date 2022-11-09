@@ -81,10 +81,12 @@ end
 
 function M.update(citation)
 	mutate(citation, false)
+	require("nvim-ref.utils.notifications").info(string.format("Citation, %s, has been updated in %s", citation.key, citation.file))
 end
 
 function M.add(citation)
 	mutate(citation, true)
+	require("nvim-ref.utils.notifications").info(string.format("Citation, %s, has been added to %s", citation.key, citation.file))
 end
 
 return M
