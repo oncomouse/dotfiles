@@ -3,6 +3,11 @@ local Editor = require("nvim-ref.commands.edit.editor")
 local M = {}
 
 function M.edit(citation, cb)
+	if cb == nil then
+		cb = function(new_citation)
+			require("nvim-ref.utils.bibtex.writer").update(new_citation)
+		end
+	end
 	local editor = Editor:new({
 		title = string.format("Edit %s", citation.key),
 	})
@@ -11,6 +16,14 @@ function M.edit(citation, cb)
 end
 
 function M.edit_file(files, cb)
+	if cb == nil then
+		cb = function(new_file_contents)
+			local fp = io.open(files, "a+")
+			fp:write(new_file_contents)
+			fp:close()
+			require("nvim-ref.utils.notifications").info(string.format("File, %s, has been updated.", files))
+		end
+	end
 	local editor = Editor:new({
 		title = string.format("Edit %s", files),
 	})
@@ -33,15 +46,9 @@ function M.setup()
 				name = "Edit a BibTeX Source",
 				callback = function(args)
 					if #args == 0 then
-						require("nvim-ref.select").citation(function(citation)
-							M.edit(citation, function(updated_bibtex)
-								require("nvim-ref.utils.bibtex.writer").update(updated_bibtex)
-							end)
-						end)
+						require("nvim-ref.select").citation(M.edit)
 					else
-						M.edit(require("nvim-ref.citations").get_citation(args), function(updated_bibtex)
-							require("nvim-ref.utils.bibtex.writer").update(updated_bibtex)
-						end)
+						M.edit(require("nvim-ref.citations").get_citation(args))
 					end
 				end,
 			},
