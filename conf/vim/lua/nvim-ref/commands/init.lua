@@ -91,6 +91,7 @@ function M.run(command, args)
 		require("nvim-ref.utils.notifications").info("There are no commands loaded; perhaps require('nvim-ref').setup() has not been run?")
 		return
 	end
+
 	-- Run with no arguments
 	if command == nil then
 		vim.ui.select(top_level_commands, {
