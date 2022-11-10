@@ -81,6 +81,7 @@ function Editor:on_close(cb)
 			if fp ~= nil then
 				local contents = fp:read("*a")
 				fp:close()
+				-- We don't run the callback if the user :q! from the editor buffer
 				if contents ~= "" then
 					if self.__kind == "citation" then
 						contents = parser.parse_bibtex_string(contents)[1]
@@ -88,6 +89,7 @@ function Editor:on_close(cb)
 					end
 					cb(contents)
 				end
+				-- TODO: It might be better to turn callback with false to signal this
 			end
 		end,
 	})
