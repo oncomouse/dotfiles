@@ -25,12 +25,12 @@ local function open_editor_window(title)
 	return win, buf
 end
 
-function M.edit(citation)
+function M.edit(citation, cb)
 	local win, buf = open_editor_window(string.format("Edit %s", citation.key))
 	vim.api.nvim_buf_set_lines(buf, 0, 0, true, vim.split(writer.convert(citation), "\n", {}))
 end
 
-function M.edit_file(files)
+function M.edit_file(files, cb)
 	print(vim.inspect(files))
 	open_editor_window("Edit File")
 end

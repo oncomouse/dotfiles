@@ -76,9 +76,16 @@ local function add_bibtex_to_bib(bibtex)
 	-- Generate key:
 	bibtex.key = require("nvim-ref.utils.bibtex.helpers").make_key(bibtex)
 
-	-- TODO: Prompt to edit citation information before adding to file
-
-	require("nvim-ref.utils.bibtex.writer").add(bibtex)
+	vim.ui.input({
+		prompt = "Would you like to edit the BibTeX before it is inserted? [Y/n]: "
+	}, function(input)
+		if input:match("^[Nn]") then
+			require("nvim-ref.utils.bibtex.writer").add(bibtex)
+		end
+		require("nvim-ref.commands.edit").edit(bibtex, function(updated_bibtex)
+			require("nvim-ref.utils.bibtex.writer").add(updated_bibtex)
+		end)
+	end)
 end
 
 function M.setup()
