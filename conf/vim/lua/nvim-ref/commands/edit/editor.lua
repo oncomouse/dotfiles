@@ -3,6 +3,18 @@ local writer = require("nvim-ref.utils.bibtex").writer
 
 local augroup = vim.api.nvim_create_augroup("__nvim-ref-editor-augroup", {})
 
+---@class Editor
+---@field tempfile string The temporary file used to save edits
+---@field opts table
+---@field is_open boolean Is the editor window open
+---@field buf number?
+---@field win number?
+---@field open fun() Open the window if it is not opened
+---@field set_contents fun(contents:string|table) Set the window contents
+---@field set_citation fun(citation:Citation) Set the window contents to a citation
+---@field set_file fun(file:string) Set the window contents to the content of file
+---@field on_close fun(cb:fun(new_contents:string|Citation)) Set a callback for when the editor is closed
+---@field close fun() Close the window if it is open (does not save or call cb)
 local Editor = {}
 function Editor:new(opts)
 	local o = {}
