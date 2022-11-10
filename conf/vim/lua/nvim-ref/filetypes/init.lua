@@ -1,5 +1,7 @@
 local hooks = require("nvim-ref.hooks")
 local M = {}
+
+---@type FileTypeDefinition[]
 M.filetypes = {}
 
 hooks.define("add_filetype")
@@ -8,7 +10,7 @@ hooks.define("filetype")
 ---@class FileTypeLibrary
 ---@field ref fun(citation:string):string Given a citation key, return a reference to that key
 ---@field citation fun(citation:string):string Given a citation key, return a full citation of that key
----@field bibliographies fun(bufnum:number?):<string>[] Gather all bibliographies defined in document metadata
+---@field bibliographies fun(bufnum:number?):string[] Gather all bibliographies defined in document metadata
 ---@field start_pattern string Vim regular expression to locate the beginning of a citation in the document
 ---@field setup fun():nil Run this at setup (usually used to trigger the `add_filetype` hook).
 
