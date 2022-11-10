@@ -1,0 +1,66 @@
+==============================================================================
+Welcome to nvim-ref						    *nvim-ref*
+
+|nvim-ref| is a complete bibliography management utility for Neovim. In addition
+to providing facilities to insert citations into documents (using |'omnifunc'|
+or |'nvim-cmp'|, for instance), |nvim-ref| also has the ability to edit
+`.bibtex` files, import citations into BibTeX from external sources (such as
+ISBN or DOI), and otherwise completely manage your BibTex bibliographies from
+within Neovim.
+
+The plugin is analogous to, though not based on, the Emacs package org-ref.
+
+Table of Contents:
+  
+------------------------------------------------------------------------------
+Why nvim-ref?							    *nvim-ref-justify*
+
+|nvim-ref| has three advantages over the myriad solutions available for working
+with BibTeX in Neovim.
+
+- <Fast> -- nvim-ref uses `lpeg-bibtex`, a very fast, Lua-native BibTeX
+  parser that allows for speedy bibliography parsing without relying on
+  external tools.
+- <Flexible> -- nvim-ref's only other dependency is `plenary.nvim`, which is
+  optional, but its modular nature means that, while it currently supports
+  |nvim-cmp| for completion, it could support any framework.
+- <Complete> -- There's no more relying on tools such as Zotero when working
+  with nvim-ref. You can edit your BibTeX files in Neovim, quickly and easily.
+
+------------------------------------------------------------------------------
+Installing nvim-ref						    *nvim-ref-install*
+
+
+|nvim-ref| has two requirements:
+
+- lpeg-bibtex, from luarocks
+- plenary.nvim (optional, but required for importing citations)
+
+If you are comfortable installing luarocks, feel free to use any package
+manager. However, packer.nvim can install luarocks and is therefore
+recommended.
+
+To install with packer.nvim, use the following:
+>
+    use({
+          "oncomouse/nvim-ref",
+          requires = "nvim-lua/plenary.nvim",
+          rocks = { "lpeg-bibtex", server = "https://luarocks.org/dev" }
+     })
+<
+------------------------------------------------------------------------------
+Configuring nvim-ref						    *nvim-ref-setup*
+
+------------------------------------------------------------------------------
+Importing sources						    *nvim-ref-import*
+
+------------------------------------------------------------------------------
+Using nvim-ref for Completion					    *nvim-ref-completion*
+
+								    *nvim-ref-completion-omni*
+								    *nvim-ref-completion-cmp*
+								    *nvim-ref-completion-null-ls*
+
+------------------------------------------------------------------------------
+Extending nvim-ref						    *nvim-ref-extend*
+ vim:tw=78:ts=8:noet:ft=help:norl:
