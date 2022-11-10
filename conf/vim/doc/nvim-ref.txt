@@ -25,7 +25,8 @@ with BibTeX in Neovim.
   optional, but its modular nature means that, while it currently supports
   |nvim-cmp| for completion, it could support any framework.
 - <Complete> -- There's no more relying on tools such as Zotero when working
-  with nvim-ref. You can edit your BibTeX files in Neovim, quickly and easily.
+  with nvim-ref. You can create and edit your BibTeX files in Neovim, quickly
+  and easily.
 
 ------------------------------------------------------------------------------
 Installing nvim-ref						    *nvim-ref-install*
@@ -64,7 +65,7 @@ Using nvim-ref for Completion					    *nvim-ref-completion*
 ------------------------------------------------------------------------------
 Working with nvim-ref                                               *nvim-ref-working*
 
-*nvim-hooks*
+                                                                    *nvim-hooks*
 
 ------------------------------------------------------------------------------
 Extending nvim-ref						    *nvim-ref-extend*
