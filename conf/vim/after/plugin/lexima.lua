@@ -104,6 +104,11 @@ vim.g.dotfiles_lexima_rules = {
 		input = [[<BS><BS>(]],
 		input_after = [[)]],
 	},
+	{
+		char = "<BS>",
+		at = [[[^(](\%#))]],
+		delete = 1,
+	},
 	-- Markdown rules:
 	-- Links:
 	{
