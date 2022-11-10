@@ -27,7 +27,7 @@ M.helpers.get = {}
 
 ---@param url string
 ---@param callback fun(results:string)
----@param opts table|nil
+---@param opts table?
 function M.helpers.get.url(url, callback, opts)
 	local curl_opts = vim.tbl_extend("keep", {
 		callback = vim.schedule_wrap(callback),
