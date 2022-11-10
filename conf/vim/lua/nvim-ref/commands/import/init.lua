@@ -6,6 +6,8 @@ local M = {}
 M.helpers = {}
 M.helpers.verification = {}
 
+---@param regex string
+---@return fun(check:string):boolean
 function M.helpers.verification.regex(regex)
 	regex = vim.regex(regex)
 	return function(check)
@@ -13,10 +15,24 @@ function M.helpers.verification.regex(regex)
 	end
 end
 
+---@param str string
+---@return fun(check:string):boolean
 function M.helpers.verification.str_match(str)
 	return function(check)
 		return check:match(str)
 	end
+end
+
+M.helpers.get = {}
+
+---@param url string
+---@param callback fun(results:string)
+---@param opts table|nil
+function M.helpers.get.url(url, callback, opts)
+	vim.tbl_extend("keep", {
+		callback = vim.schedule_wrap(callback),
+	}, opts or {})
+	curl.get(url, opts)
 end
 
 local import_formats = {}
@@ -28,22 +44,22 @@ local default_import_formats = {
 		),
 		get = function(isbn, cb)
 			isbn = string.gsub(isbn, "[^0-9xX]", "")
-			curl.get(string.format("https://www.ebook.de/de/tools/isbn2bibtex?isbn=%s", isbn), {
-				callback = vim.schedule_wrap(function(results)
+			M.helpers.get.url(
+				string.format("https://www.ebook.de/de/tools/isbn2bibtex?isbn=%s", isbn),
+				function(results)
 					cb(parser.parse_bibtex_string(results.body)[1])
-				end),
-			})
+				end
+			)
 		end,
 	},
 	{
 		name = "DOI",
 		verification = M.helpers.verification.regex([[\(doi\(:\)\{0,1\}\)\{0,1\}10\.[0-9]\{2,\}\(?:\.[0-9]\+\)*\/\S\+]]),
 		get = function(doi, cb)
-			curl.get(string.format("https://doi.org/%s", doi), {
+			M.helpers.get.url(string.format("https://doi.org/%s", doi), function(results)
+				cb(parser.parse_bibtex_string(results.body)[1])
+			end, {
 				accept = "application/x-bibtex",
-				callback = vim.schedule_wrap(function(results)
-					cb(parser.parse_bibtex_string(results.body)[1])
-				end),
 			})
 		end,
 	},
@@ -77,7 +93,7 @@ local function add_bibtex_to_bib(bibtex)
 	bibtex.key = require("nvim-ref.utils.bibtex.helpers").make_key(bibtex)
 
 	vim.ui.input({
-		prompt = "Would you like to edit the BibTeX before it is inserted? [Y/n]: "
+		prompt = "Would you like to edit the BibTeX before it is inserted? [Y/n]: ",
 	}, function(input)
 		if input:match("^[Nn]") then
 			require("nvim-ref.utils.bibtex.writer").add(bibtex)
