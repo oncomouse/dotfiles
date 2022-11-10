@@ -4,20 +4,31 @@ local M = {}
 local commands = {}
 local top_level_commands = {}
 
-local function find_subcommands(command)
+-- Dynamic subcommand lookup + caching
+local __subcommand_cache = {}
+local function find_subcommands(command_id)
+	if __subcommand_cache[command_id] then
+		return __subcommand_cache[command_id]
+	end
 	local subcommands = {}
-	local search_string = "^" .. command:gsub("%.", "%%%.") .. "%."
+	local search_string = "^" .. command_id:gsub("%.", "%%%.") .. "%."
 	for id,_ in pairs(commands) do
 		if id:match(search_string) then
 			table.insert(subcommands, commands[id])
 		end
 	end
+	__subcommand_cache[command_id] = subcommands
 	return subcommands
 end
 
 hooks.define("add_command")
 hooks.listen("add_command", function(args)
 	local function add_command(command, ns)
+
+		-- Reset subcommand cache, as it might change:
+		__subcommand_cache = {}
+		-- TODO: Can we be smarter about cache refreshing?
+
 		ns = ns and ns .. "." or ""
 		command.id = ns .. command.id
 
