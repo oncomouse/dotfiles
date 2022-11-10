@@ -100,7 +100,9 @@ local function add_bibtex_to_bib(bibtex)
 			require("nvim-ref.utils.bibtex.writer").add(bibtex)
 		end
 		require("nvim-ref.commands.edit").edit(bibtex, function(updated_bibtex)
-			require("nvim-ref.utils.bibtex.writer").add(updated_bibtex)
+			local citation = parser.parse_bibtex_string(updated_bibtex)[1]
+			citation.file = bibfile
+			require("nvim-ref.utils.bibtex.writer").add(citation)
 		end)
 	end)
 end

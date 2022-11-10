@@ -69,7 +69,7 @@ local function mutate(citation, add)
 			end
 		else
 			if c.key and c.key == citation.key then
-				citations[i] = deprocess(citation)
+				citations[i] = citation
 			end
 		end
 	end
