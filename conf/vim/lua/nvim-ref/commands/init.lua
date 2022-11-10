@@ -4,25 +4,46 @@ local M = {}
 local commands = {}
 local top_level_commands = {}
 
+local function find_subcommands(command)
+	local subcommands = {}
+	local search_string = "^" .. command:gsub("%.", "%%%.") .. "%."
+	for id,_ in pairs(commands) do
+		if id:match(search_string) then
+			table.insert(subcommands, commands[id])
+		end
+	end
+	return subcommands
+end
+
 hooks.define("add_command")
 hooks.listen("add_command", function(args)
 	local function add_command(command, ns)
 		ns = ns and ns .. "." or ""
-		local cmd_id = ns .. command.id
-		-- Adding a subcommand directly:
-		if ns == "" and string.match(command.id, "%.") then
-			local parts = vim.fn.split(command.id, [[\.]])
-			ns = vim.fn.join(vim.list_slice(parts, 1, #parts - 1), ".")
-			if commands[ns].subcommands == nil then
-				commands[ns].subcommands = {}
-			end
-			table.insert(commands[ns].subcommands, vim.tbl_extend("keep", { id = parts[#parts] }, command))
-			cmd_id = command.id
+		command.id = ns .. command.id
+
+		local subcommands = command.subcommands
+		command.subcommands = nil
+
+		setmetatable(command, {
+			__index = function(c, idx)
+				if idx == "subcommands" then
+					local sc = find_subcommands(c.id)
+					if #sc == 0 then
+						return nil
+					end
+					return sc
+				end
+				return nil
+			end,
+		})
+
+		commands[command.id] = command
+		if not command.id:match("%.") and ns == "" then
+			table.insert(top_level_commands, command.id)
 		end
-		commands[cmd_id] = command
-		if command.subcommands and type(command.subcommands) == "table" then
-			for _, subcommand in pairs(command.subcommands) do
-				add_command(subcommand, cmd_id)
+		if type(subcommands) == "table" then
+			for _, subcommand in pairs(subcommands) do
+				add_command(subcommand, command.id)
 			end
 		end
 	end
@@ -31,12 +52,8 @@ hooks.listen("add_command", function(args)
 	end
 	for _, command in pairs(args) do
 		add_command(command)
-		if not command.id:match("%.") then
-			table.insert(top_level_commands, command.id)
-		end
 	end
 end)
--- TODO: End reliance on subcommands
 
 hooks.define("run_command")
 hooks.listen("run_command", function(args)
@@ -81,15 +98,14 @@ function M.run(command, args)
 	assert(commands[command] ~= nil, "Attempt to run unknown command, " .. command .. "!")
 
 	if commands[command].subcommands then -- We still have subcommands, so let the user choose one:
-		local choices = commands[command].subcommands
-		vim.ui.select(choices, {
+		vim.ui.select(commands[command].subcommands, {
 			prompt = "Choose a subcommand for " .. command,
 			format_item = function(item)
 				return item.name
 			end,
 		}, function(choice)
 			if choice ~= nil then
-				M.run(command .. "." .. choice.id, {})
+				M.run(choice.id, {})
 			end
 		end)
 	elseif commands[command].callback then -- Otherwise, we have a calllback function, so we run it:
