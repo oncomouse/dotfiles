@@ -2,15 +2,22 @@ local hooks = require("nvim-ref.hooks")
 local M = {}
 M.filetypes = {}
 
--- Filetype:
--- {
--- module: string to require
--- type: string for filetype pattern
--- }
-
 hooks.define("add_filetype")
 hooks.define("filetype")
 
+---@class FileTypeLibrary
+---@field ref fun(citation:string):string Given a citation key, return a reference to that key
+---@field citation fun(citation:string):string Given a citation key, return a full citation of that key
+---@field bibliographies fun(bufnum:number?):<string>[] Gather all bibliographies defined in document metadata
+---@field start_pattern string Vim regular expression to locate the beginning of a citation in the document
+---@field setup fun():nil Run this at setup (usually used to trigger the `add_filetype` hook).
+
+---@class FileTypeDefinition
+---@field type string A vim filetype for which to load NvimRef
+---@field module string|FileTypeLibrary|nil A file to include or a module to use or, if nothing, we guess based on type.
+
+---@param ft string? A filetype (will be set to the current buffer's filetype if nil)
+---@return FileTypeLibrary
 function M.require(ft)
 	ft = ft or M.buf_filetype(0)
 	if not M.filetypes[ft] then
@@ -28,11 +35,15 @@ function M.require(ft)
 	end
 end
 
+---@param buf number? A buffer number
+---@return string The filetype of the buffer
 function M.buf_filetype(buf)
 	buf = buf or 0
 	return vim.api.nvim_buf_get_option(buf, "filetype")
 end
 
+---@param pattern string? A vim regular expression used to find the start of a citation (will be loaded from a FiletypeLibrary if nil)
+---@return number? The current column position if pattern is present on the current line; nil otherwise
 function M.find_start(pattern)
 	pattern = pattern or M.require().start_pattern
 	local curline = vim.fn.line(".")
@@ -43,7 +54,8 @@ function M.find_start(pattern)
 	return nil
 end
 
-
+---@param buf number? A buffer number to scan for metadata-defined bibliographies and attach to a buffer variable
+---@return nil
 local function scan_bibliography(buf)
 	buf = buf or 0
 	local module = M.require(vim.api.nvim_buf_get_option(buf, "filetype"))
@@ -53,6 +65,7 @@ local function scan_bibliography(buf)
 	end
 end
 
+---@param filetype FileTypeDefinition A new filetype to define
 local function add_filetype(filetype)
 	if type(filetype.type) == "string" then
 		M.filetypes[filetype.type] = filetype
@@ -82,7 +95,10 @@ local function add_filetype(filetype)
 		end,
 	})
 end
-hooks.listen("add_filetype", function(args)
+
+---@param args FileTypeDefinition The definition to attach
+---@return nil
+function filetype_listner(args)
 	if args.type then
 		add_filetype(args)
 	else
@@ -90,7 +106,8 @@ hooks.listen("add_filetype", function(args)
 			add_filetype(type)
 		end
 	end
-end)
+end
+hooks.listen("add_filetype", filetype_listner)
 
 local filetype_object_keys = {
 	"ref",

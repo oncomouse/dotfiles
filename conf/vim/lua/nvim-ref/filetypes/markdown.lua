@@ -1,3 +1,4 @@
+---@type FileTypeLibrary
 local M = {}
 
 function M.ref(citation)
