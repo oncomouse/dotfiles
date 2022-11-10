@@ -62,5 +62,62 @@ Using nvim-ref for Completion					    *nvim-ref-completion*
 								    *nvim-ref-completion-null-ls*
 
 ------------------------------------------------------------------------------
+Working with nvim-ref                                               *nvim-ref-working*
+
+*nvim-hooks*
+
+------------------------------------------------------------------------------
 Extending nvim-ref						    *nvim-ref-extend*
+
+                                                                    *nvim-ref-extend-filetype*
+
+Modules that add filetype support to nvim-ref need to export four methods and
+a string from a file stored in `lua/nvim-ref/filetypes/<filetype>.lua`. The
+four methods are:
+
+- `ref(citation:Citation):string` -- Given a citation object, return a string
+  representing a reference (without page number) for this filetype
+- `citation(citation:Citation):string` -- Given a citation object, return a
+  string representing a full citation (with page number) for this filetype.
+- `find_bibliography(bufnum:number)` -- For the buffer represnted by bufnum
+  return a table containing all bibliography files included in the document's
+  metadata. Reading and parsing the metadata is up to you. The returned table
+  can be empty.
+- `setup()` -- Perform any additional configuration; should, at a minimum,
+  trigger the `add_filetype` hook (see |nvim-ref-hooks|).
+
+The module should also include a string named `start_pattern`, which is a vim
+|regexp| used to locate citations in the current line, should any exist.
+
+Below is an example module, based on Markdown, that adds support to the `help`
+filetype:
+
+>
+    local M = {}
+
+    function M.ref(citation)
+	    return "@" .. citation.key
+    end
+
+    function M.citation(citation)
+	    return {
+		    before = "[@" .. citation.key .. ", ",
+		    after = "]",
+	    }
+    end
+
+    function M.find_bibliography(bufnum)
+	    return {}
+    end
+
+    M.start_pattern = [[@\k*\%#]]
+
+    function M.setup()
+	    require("nvim-ref.hooks").trigger("add_filetype", {
+		    type = "help",
+	    })
+    end
+    return require("nvim-ref.filetypes.utils").setmetatable(M)
+<
+
  vim:tw=78:ts=8:noet:ft=help:norl:
