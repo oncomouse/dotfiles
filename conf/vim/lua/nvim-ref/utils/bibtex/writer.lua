@@ -53,6 +53,7 @@ function M.convert(citation)
 	end
 	return output
 end
+-- TODO: Add conversions for comment, premble, and string
 
 -- @param citation ProcessedCitation
 -- @param add boolean
