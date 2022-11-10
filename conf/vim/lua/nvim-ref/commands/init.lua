@@ -27,11 +27,11 @@ hooks.listen("add_command", function(args)
 		end
 	end
 	if args.id ~= nil then
-		add_command(args)
-		table.insert(top_level_commands, args.id)
-	else
-		for _, command in pairs(args) do
-			add_command(command)
+		args = { args }
+	end
+	for _, command in pairs(args) do
+		add_command(command)
+		if not command.id:match("%.") then
 			table.insert(top_level_commands, command.id)
 		end
 	end
