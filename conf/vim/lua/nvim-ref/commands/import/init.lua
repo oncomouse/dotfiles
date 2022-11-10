@@ -29,10 +29,10 @@ M.helpers.get = {}
 ---@param callback fun(results:string)
 ---@param opts table|nil
 function M.helpers.get.url(url, callback, opts)
-	vim.tbl_extend("keep", {
+	local curl_opts = vim.tbl_extend("keep", {
 		callback = vim.schedule_wrap(callback),
 	}, opts or {})
-	curl.get(url, opts)
+	curl.get(url, curl_opts)
 end
 
 local import_formats = {}
@@ -47,6 +47,7 @@ local default_import_formats = {
 			M.helpers.get.url(
 				string.format("https://www.ebook.de/de/tools/isbn2bibtex?isbn=%s", isbn),
 				function(results)
+					vim.pretty_print(results)
 					cb(parser.parse_bibtex_string(results.body)[1])
 				end
 			)
