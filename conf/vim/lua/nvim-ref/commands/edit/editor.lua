@@ -100,8 +100,11 @@ function Editor:on_close(cb)
 						contents.file = self.__original.file
 					end
 					cb(contents)
+				else
+					require("nvim-ref.utils.notifications").info("Content did not change, cancelling edit.")
 				end
-				-- TODO: It might be better to turn callback with false to signal this
+			else
+				require("nvim-ref.utils.notifications").info("No changes were made in editor, cancelling edit.")
 			end
 		end,
 	})
