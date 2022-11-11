@@ -29,6 +29,8 @@ if status --is-login
 	fish_add_path --append /usr/local/bin
 	# Homebrew's Annoying Ruby Install:
 	fish_add_path --append /usr/local/opt/ruby/bin
+	# Local luarocks
+	fish_add_path --prepend ~/.luarocks/bin
 
 
 	# NPM Local manpath:
