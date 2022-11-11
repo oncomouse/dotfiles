@@ -88,7 +88,6 @@ function Editor:on_close(cb)
 		pattern = string.format("%d", self.win),
 		once = true,
 		callback = function()
-			self.is_open = false
 			local fp = io.open(self.tempfile)
 			if fp ~= nil then
 				local contents = fp:read("*a")
@@ -106,6 +105,7 @@ function Editor:on_close(cb)
 			else
 				require("nvim-ref.utils.notifications").info("No changes were made in editor, cancelling edit.")
 			end
+			self:close()
 		end,
 	})
 end
