@@ -168,4 +168,23 @@ vim.g.dotfiles_lexima_rules = {
 
 	-- Insert Lua endwise rules:
 	lua_endwise_rules(),
+
+	-- Rules for help files:
+	{
+		char = "<Bar>",
+		input_after = "<Bar>",
+		filetype = "help",
+	},
+	{
+		char = "<Bar>",
+		at = [[\%#|]],
+		leave = 1,
+		filetype = "help"
+	},
+	{
+		char = "<BS>",
+		at = [[|\%#|]],
+		delete = 1,
+		filetype = "help",
+	}
 }
