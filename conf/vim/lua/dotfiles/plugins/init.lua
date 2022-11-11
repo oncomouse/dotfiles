@@ -13,12 +13,10 @@ local function plugins()
 	end
 
 	return require("packer").startup({
-		function(use, use_rocks)
-			use_rocks({
-				{ "lpeg-bibtex", server = "https://luarocks.org/dev" },
-			})
+		function(use)
 			use({
 				{ "wbthomason/packer.nvim", opt = true },
+				{ "nvim-lua/plenary.nvim", module = { "plenary", "plenary.async", "plenary.curl" } },
 
 				-- Editor Enhancements:
 
@@ -160,6 +158,21 @@ local function plugins()
 						})
 					end,
 				}, -- Git support
+
+				{
+					"~/Projects/nvim-ref",
+					config = function()
+						require("nvim-ref").setup({
+							bibfiles = { vim.g.bibfiles },
+							-- bibfiles = {
+							-- 	"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib"
+							-- }
+						})
+					end,
+					rocks = {
+						{ "lpeg-bibtex", server = "https://luarocks.org/dev" },
+					}
+				},
 
 				{
 					"L3MON4D3/LuaSnip",

@@ -401,12 +401,6 @@ vim.g.bibfiles = "~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/li
 -- }}}
 -- Plugins {{{
 require("dotfiles.plugins")
-require("nvim-ref").setup({
-	bibfiles = { vim.g.bibfiles },
-	-- bibfiles = {
-	-- 	"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib"
-	-- }
-})
 -- }}}
 -- LSP: {{{
 vim.diagnostic.config({
