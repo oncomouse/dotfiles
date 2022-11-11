@@ -1,4 +1,4 @@
-vim.keymap.set({ "i" }, "<C-R>", function()
+vim.keymap.set({ "n", "i" }, "<C-]>", function()
 	local line = vim.api.nvim_get_current_line()
 	local regex = vim.regex([[\w\{0,1\}\s*\*]])
 	local start, stop = regex:match_str(line)
