@@ -4,6 +4,8 @@ local pack_path = packer_path .. "/pack"
 local install_path = pack_path .. "/packer/opt/packer.nvim"
 local compile_path = packer_path .. "/plugin"
 
+vim.g.nvim_ref_devel = false
+
 local function plugins()
 	pcall(vim.cmd, [[packadd packer.nvim]])
 	local ok, util = pcall(require, "packer.util")
@@ -159,20 +161,29 @@ local function plugins()
 					end,
 				}, -- Git support
 
-				{
+				(vim.g.nvim_ref_devel and {
 					"~/Projects/nvim-ref",
 					config = function()
 						require("nvim-ref").setup({
-							bibfiles = { vim.g.bibfiles },
-							-- bibfiles = {
-							-- 	"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib"
-							-- }
+							bibfiles = {
+								"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib"
+							}
 						})
 					end,
 					rocks = {
 						{ "lpeg-bibtex", server = "https://luarocks.org/dev" },
 					}
-				},
+				} or {
+					"oncomouse/nvim-ref",
+					config = function()
+						require("nvim-ref").setup({
+							bibfiles = { vim.g.bibfiles },
+						})
+					end,
+					rocks = {
+						{ "lpeg-bibtex", server = "https://luarocks.org/dev" },
+					}
+				}),
 
 				{
 					"L3MON4D3/LuaSnip",
