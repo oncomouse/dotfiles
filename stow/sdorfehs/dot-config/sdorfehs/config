@@ -100,6 +100,7 @@ bind s-z zoom
 alias sf-windows exec sf-windows.sh &
 bind w sf-windows
 bind s-w sf-windows
+definekey top s-Tab sf-windows
 
 # [launchers]
 definekey top M-s-r exec dotfiles-run &
