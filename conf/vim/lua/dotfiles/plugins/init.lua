@@ -316,7 +316,6 @@ local function plugins()
 
 				{
 					"NvChad/nvim-colorizer.lua",
-					commit = "fbb4c08cd0541fb8b295ebc75f35e2f975a55ad9",
 				}, -- Highlight colors in files
 				-- Configured in ~/dotfiles/conf/vim/plugin/nvim-colorizer.lua
 
