@@ -200,9 +200,6 @@ local function plugins()
 
 				{
 					"jose-elias-alvarez/null-ls.nvim",
-					requires = {
-						{ "nvim-lua/plenary.nvim", module = { "plenary.async", "plenary" } },
-					},
 					-- Configured in ~/dotfiles/conf/vim/after/plugin/null-ls.lua
 				}, -- Format and Diagnostics
 
