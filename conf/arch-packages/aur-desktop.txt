@@ -1,4 +1,3 @@
-nerd-fonts-fira-code
 nerd-fonts-jetbrains-mono
 otf-hasklig
 pandoc-bin

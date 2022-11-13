@@ -41,6 +41,7 @@ shfmt
 tex-gyre-fonts
 texlive-core
 ttf-fira-code
+ttf-fira-code-nerd
 ttf-jetbrains-mono
 ttf-joypixels
 ttf-liberation
