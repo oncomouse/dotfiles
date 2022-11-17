@@ -262,6 +262,7 @@ local server_map = {
 						workspace = {
 							-- Make the server aware of Neovim runtime files
 							library = library,
+							checkThirdParty = false, -- Turns off noise about luassert
 							maxPreload = 2000,
 							preloadFileSize = 50000,
 						},
