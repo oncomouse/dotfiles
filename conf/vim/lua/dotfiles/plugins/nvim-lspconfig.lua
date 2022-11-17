@@ -86,8 +86,8 @@ function M.on_attach(client, buf_num)
 		desc = "lua vim.lsp.buf.code_action()",
 	})
 	vim.keymap.set("v", "<leader>ga", function()
-		local _,s_row,s_col,_ = unpack(vim.fn.getpos("v"))
-		local _,e_row,e_col,_ = unpack(vim.fn.getcurpos())
+		local _, s_row, s_col, _ = unpack(vim.fn.getpos("v"))
+		local _, e_row, e_col, _ = unpack(vim.fn.getcurpos())
 		if vim.fn.mode() == "V" then
 			s_col = 1
 			e_col = #(vim.fn.getline(e_row))
@@ -96,7 +96,7 @@ function M.on_attach(client, buf_num)
 			range = {
 				start = { s_row, s_col },
 				["end"] = { e_row, e_col },
-			}
+			},
 		})
 	end, {
 		silent = true,
@@ -162,7 +162,7 @@ table.insert(runtime_path, "lua/?/init.lua")
 local function add(lib)
 	for _, p in pairs(vim.fn.expand(lib, false, true)) do
 		p = vim.loop.fs_realpath(p)
-		if p ~=nil then
+		if p ~= nil then
 			library[p] = true
 		end
 	end
@@ -173,6 +173,10 @@ add("$VIMRUNTIME")
 
 -- Dotfiles:
 add("~/dotfiles/conf/vim")
+
+-- Turns off complaining about luassert:
+library["${3rd}/luassert/library"] = true
+library["${3rd}/busted/library"] = true
 
 -- Load plugins (this causes huge CPU usage on macOS):
 if vim.fn.has("mac") ~= 1 and os.getenv("DOTFILES_TARGET") ~= "laptop" then
@@ -262,7 +266,6 @@ local server_map = {
 						workspace = {
 							-- Make the server aware of Neovim runtime files
 							library = library,
-							checkThirdParty = false, -- Turns off noise about luassert
 							maxPreload = 2000,
 							preloadFileSize = 50000,
 						},
