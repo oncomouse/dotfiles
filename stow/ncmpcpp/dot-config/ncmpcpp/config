@@ -31,7 +31,7 @@
 #
 ## Needed for tag editor and file operations to work.
 ##
-mpd_music_dir = /mnt/Media/Music/
+mpd_music_dir = /mnt/music
 #
 #mpd_crossfade_time = 5
 #
