@@ -74,7 +74,7 @@ local function plugins()
 						require("leap-spooky").setup({
 							affixes = {},
 						})
-						require("flit").setup()
+						-- require("flit").setup() -- Flit isn't quite ready for primetime
 
 						-- leap-spooky working with arbitrary textobjects!
 						local H = {}
@@ -159,25 +159,17 @@ local function plugins()
 						end
 						-- End copied from mini.nvim/ai
 
-						local ai_types = {
-							"a",
-							"i",
-						}
-						local types = {
-							"r",
-							"m",
-							"R",
-							"M",
-						}
+						local ai_types = { "a", "i" }
+						local leap_types = { "r", "m", "R", "M" }
 						local modes = { "x", "o" }
 
 						for _, ai_type in pairs(ai_types) do
 							for _, mode in pairs(modes) do
-								for _, type in pairs(types) do
-									vim.keymap.set(mode, string.format("%s%s", ai_type, type), function()
+								for _, leap_type in pairs(leap_types) do
+									vim.keymap.set(mode, string.format("%s%s", ai_type, leap_type), function()
 										local target_windows = nil
-										local keeppos = type == "r" or type == "R"
-										local target_curwin = type == "r" or type == "m"
+										local keeppos = leap_type == "r" or leap_type == "R"
+										local target_curwin = leap_type == "r" or leap_type == "m"
 										if target_curwin then
 											target_windows = { vim.fn.win_getid() }
 										else
