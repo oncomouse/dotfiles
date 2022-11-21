@@ -15,7 +15,6 @@ local plugins = {
 			end
 		end,
 	}, -- Syntax
-	"justinmk/vim-dirvish", -- Open directories
 }
 
 --------------------------------------------------------------------------------
@@ -117,8 +116,6 @@ vim.g.loaded_zipPlugin = 1
 vim.g.loaded_2html_plugin = 1
 vim.g.loaded_rrhelper = 1
 vim.g.loaded_remote_plugins = 1
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 
 --------------------------------------------------------------------------------
 -- Functions:
