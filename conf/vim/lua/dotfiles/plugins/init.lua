@@ -72,7 +72,7 @@ local function plugins()
 					config = function()
 						require("leap").add_default_mappings()
 						require("leap-spooky").setup({
-							affixes = {}
+							affixes = {},
 						})
 						require("flit").setup()
 
