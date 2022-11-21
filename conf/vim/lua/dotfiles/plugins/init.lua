@@ -68,6 +68,112 @@ local function plugins()
 				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai); mini.surround for surround (ys to add, cs to change, ds to delete)
 
 				{
+					"ggandor/leap.nvim",
+					config = function()
+						require("leap").add_default_mappings()
+						require("leap-spooky").setup()
+						require("flit").setup()
+						local builtin_textobjects = vim.tbl_extend("force", {
+							"(",
+							")",
+							"[",
+							"]",
+							"{",
+							"}",
+							"<",
+							">",
+							"'",
+							'"',
+							"`",
+							"?",
+							"a",
+							"b",
+							"f",
+							"t",
+							"q",
+						}, {
+							"s",
+							"S",
+							"z",
+							"e",
+							",",
+						})
+						local to_types = {
+							"a",
+							"i",
+						}
+						local types = {
+							"r",
+							"m",
+							"R",
+							"M",
+						}
+						local modes = { "x", "o" }
+
+						local v_exit = function()
+							local mode = vim.fn.mode(1)
+							if mode:match("o") then
+								return ""
+							end
+							-- v/V/<C-v> exits the corresponding Visual mode if already in it.
+							return mode:sub(1, 1)
+						end
+
+						local function get_motion_force()
+							local force = ""
+							local mode = vim.fn.mode(1)
+							if mode:sub(2) == "oV" then
+								force = "V"
+							elseif mode:sub(2) == "o" then
+								force = ""
+							end
+							return force
+						end
+
+						for _, to in pairs(builtin_textobjects) do
+							for _, to_type in pairs(to_types) do
+								for _, mode in pairs(modes) do
+									for _, type in pairs(types) do
+										vim.keymap.set(mode, string.format("%s%s%s", to_type, type, to), function()
+											local target_windows = nil
+											local keeppos = type == "r" or type == "R"
+											if type == "r" or type == "m" then
+												target_windows = { vim.fn.win_getid() }
+											elseif type == "R" or type == "M" then
+												target_windows = require("leap.util").get_enterable_windows()
+											end
+											local yank_paste = (
+												false
+												and keeppos
+												and vim.v.operator == "y"
+												and vim.v.register == '"'
+											)
+											require("leap").leap({
+												action = require("leap-spooky").spooky_action(function()
+													return v_exit()
+														.. "v"
+														.. vim.v.count1
+														.. string.format("%s%s", to_type, to)
+														.. get_motion_force()
+												end, {
+													keeppos = keeppos,
+													on_return = yank_paste and "p",
+												}),
+												target_windows = target_windows,
+											})
+										end)
+									end
+								end
+							end
+						end
+					end,
+					requires = {
+						{ "ggandor/leap-spooky.nvim" },
+						{ "ggandor/flit.nvim" },
+					},
+				},
+
+				{
 					"ahmedkhalf/project.nvim",
 					config = function()
 						require("project_nvim").setup({
@@ -166,13 +272,13 @@ local function plugins()
 					config = function()
 						require("nvim-ref").setup({
 							bibfiles = {
-								"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib"
-							}
+								"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib",
+							},
 						})
 					end,
 					rocks = {
 						{ "lpeg-bibtex", server = "https://luarocks.org/dev" },
-					}
+					},
 				} or {
 					"oncomouse/nvim-ref",
 					config = function()
@@ -182,7 +288,7 @@ local function plugins()
 					end,
 					rocks = {
 						{ "lpeg-bibtex", server = "https://luarocks.org/dev" },
-					}
+					},
 				}),
 
 				{
