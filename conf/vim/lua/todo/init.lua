@@ -150,7 +150,7 @@ function M.complete_project(lead)
 	return list
 end
 
-local function goto_project()
+function M.goto_project()
 	local res = vim.fn.input("Project: ", "", "customlist,v:lua.require'todo'.complete_project")
 
 	if res ~= "" then
@@ -165,7 +165,7 @@ function M.setup()
 	vim.keymap.set("", "<Plug>(todo-toggle-done)", "v:lua.require'todo'.operatorfunc() . '$'", { expr = true })
 	vim.keymap.set("", "<Plug>(todo-toggle-done-visual)", ":<C-u>lua require('todo').operatorfunc('visual')<CR>")
 	vim.keymap.set("", "<Plug>(todo-toggle-done-motion)", "v:lua.require'todo'.operatorfunc()", { expr = true })
-	vim.keymap.set("", "<Plug>(todo-goto-project)", goto_project)
+	vim.keymap.set("", "<Plug>(todo-goto-project)", ":<C-u>lua require('todo').goto_project()<CR>")
 end
 
 return M
