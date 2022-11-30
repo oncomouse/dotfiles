@@ -161,7 +161,7 @@ end
 function M.setup()
 	vim.keymap.set("", "<Plug>(todo-next-project)", ":<C-u>lua require('todo').find_project('next')<CR>")
 	vim.keymap.set("", "<Plug>(todo-prev-project)", ":<C-u>lua require('todo').find_project('prev')<CR>")
-	vim.keymap.set("", "<Plug>(todo-search-done)", "/ X$<CR>")
+	vim.keymap.set("", "<Plug>(todo-search-done)", [[/\(^\s*[-*] \[[xX]\].*$\|^.* X$\)<CR>]])
 	vim.keymap.set("", "<Plug>(todo-toggle-done)", "v:lua.require'todo'.operatorfunc() . '$'", { expr = true })
 	vim.keymap.set("", "<Plug>(todo-toggle-done-visual)", ":<C-u>lua require('todo').operatorfunc('visual')<CR>")
 	vim.keymap.set("", "<Plug>(todo-toggle-done-motion)", "v:lua.require'todo'.operatorfunc()", { expr = true })
