@@ -158,14 +158,34 @@ function M.goto_project()
 	end
 end
 
-function M.setup()
-	vim.keymap.set("", "<Plug>(todo-next-project)", ":<C-u>lua require('todo').find_project('next')<CR>")
-	vim.keymap.set("", "<Plug>(todo-prev-project)", ":<C-u>lua require('todo').find_project('prev')<CR>")
-	vim.keymap.set("", "<Plug>(todo-search-done)", [[/\(^\s*[-*] \[[xX]\].*$\|^.* X$\)<CR>]])
-	vim.keymap.set("", "<Plug>(todo-toggle-done)", "v:lua.require'todo'.operatorfunc() . '$'", { expr = true })
-	vim.keymap.set("", "<Plug>(todo-toggle-done-visual)", ":<C-u>lua require('todo').operatorfunc('visual')<CR>")
-	vim.keymap.set("", "<Plug>(todo-toggle-done-motion)", "v:lua.require'todo'.operatorfunc()", { expr = true })
-	vim.keymap.set("", "<Plug>(todo-goto-project)", ":<C-u>lua require('todo').goto_project()<CR>")
+local maps = nil
+local default_mappings = {
+	{ "n", "gtd", "<Plug>(todo-toggle-done)" },
+	{ "n", "gt", "<Plug>(todo-toggle-done-motion)" },
+	{ "x", "gt", "<Plug>(todo-toggle-done-visual)" },
+	{ "n", "gtg", "<Plug>(todo-goto-project)" },
+	-- Search For Done Tasks:
+	{ "n", "gt/", "<Plug>(todo-search-done)" },
+	-- Go To Next Project:
+	{ { "n", "v" }, "]t", "<Plug>(todo-next-project)" },
+	-- Go To Previous Project:
+	{ { "n", "v" }, "[t", "<Plug>(todo-prev-project)" },
+}
+
+function M.set_maps()
+	if maps == nil then
+		vim.keymap.set("", "<Plug>(todo-next-project)", ":<C-u>lua require('todo').find_project('next')<CR>")
+		vim.keymap.set("", "<Plug>(todo-prev-project)", ":<C-u>lua require('todo').find_project('prev')<CR>")
+		vim.keymap.set("", "<Plug>(todo-search-done)", [[/\(^\s*[-*] \[[xX]\].*$\|^.* X$\)<CR>]])
+		vim.keymap.set("", "<Plug>(todo-toggle-done)", "v:lua.require'todo'.operatorfunc() . '$'", { expr = true })
+		vim.keymap.set("", "<Plug>(todo-toggle-done-visual)", ":<C-u>lua require('todo').operatorfunc('visual')<CR>")
+		vim.keymap.set("", "<Plug>(todo-toggle-done-motion)", "v:lua.require'todo'.operatorfunc()", { expr = true })
+		vim.keymap.set("", "<Plug>(todo-goto-project)", ":<C-u>lua require('todo').goto_project()<CR>")
+		maps = vim.tbl_extend("keep", vim.g.todo_maps or {}, default_mappings)
+	end
+	for _,map in pairs(maps) do
+		vim.keymap.set(map[1], map[2], map[3], { buffer = true, silent = true, noremap = true })
+	end
 end
 
 return M
