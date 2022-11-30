@@ -160,16 +160,17 @@ end
 
 local maps = nil
 local default_mappings = {
-	{ "n", "gtd", "<Plug>(todo-toggle-done)" },
-	{ "n", "gt", "<Plug>(todo-toggle-done-motion)" },
-	{ "x", "gt", "<Plug>(todo-toggle-done-visual)" },
-	{ "n", "gtg", "<Plug>(todo-goto-project)" },
-	-- Search For Done Tasks:
-	{ "n", "gt/", "<Plug>(todo-search-done)" },
-	-- Go To Next Project:
-	{ { "n", "v" }, "]t", "<Plug>(todo-next-project)" },
-	-- Go To Previous Project:
-	{ { "n", "v" }, "[t", "<Plug>(todo-prev-project)" },
+	done = {
+		mark =  "gtd" ,
+		motion =  "gt" ,
+		visual =  "gt" ,
+	},
+	goto = {
+		by_name = "gtg",
+		next = "]t",
+		prev = "[t",
+		search = "gt/",
+	},
 }
 
 function M.set_maps()
@@ -181,11 +182,15 @@ function M.set_maps()
 		vim.keymap.set("", "<Plug>(todo-toggle-done-visual)", ":<C-u>lua require('todo').operatorfunc('visual')<CR>")
 		vim.keymap.set("", "<Plug>(todo-toggle-done-motion)", "v:lua.require'todo'.operatorfunc()", { expr = true })
 		vim.keymap.set("", "<Plug>(todo-goto-project)", ":<C-u>lua require('todo').goto_project()<CR>")
-		maps = vim.tbl_extend("keep", vim.g.todo_maps or {}, default_mappings)
+		maps = vim.tbl_deep_extend("keep", vim.g.todo_maps or {}, default_mappings)
 	end
-	for _,map in pairs(maps) do
-		vim.keymap.set(map[1], map[2], map[3], { buffer = true, silent = true, noremap = true })
-	end
+	vim.keymap.set("n", maps.done.mark, "<Plug>(todo-toggle-done)", { buffer = true, silent = true, noremap = true })
+	vim.keymap.set("x", maps.done.visual, "<Plug>(todo-toggle-done-visual)", { buffer = true, silent = true, noremap = true })
+	vim.keymap.set("n", maps.done.motion, "<Plug>(todo-toggle-done-motion)", { buffer = true, silent = true, noremap = true })
+	vim.keymap.set("n", maps.goto.next, "<Plug>(todo-next-project)", { buffer = true, silent = true, noremap = true })
+	vim.keymap.set("n", maps.goto.prev, "<Plug>(todo-prev-project)", { buffer = true, silent = true, noremap = true })
+	vim.keymap.set("n", maps.goto.search, "<Plug>(todo-search-done)", { buffer = true, silent = true, noremap = true })
+	vim.keymap.set("n", maps.goto.by_name, "<Plug>(todo-goto-project)", { buffer = true, silent = true, noremap = true })
 end
 
 return M
