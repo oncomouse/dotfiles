@@ -14,7 +14,6 @@ links
 lua
 luarocks
 man-db
-neofetch
 neovim
 networkmanager
 nodejs
