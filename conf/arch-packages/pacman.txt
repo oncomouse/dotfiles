@@ -4,7 +4,6 @@ cmake
 exa
 fd
 fish
-fuse2
 fzf
 gptfdisk
 htop
@@ -25,12 +24,10 @@ pciutils
 python
 python-pip
 ripgrep
-rofi
 rsync
 ruby
 rustup
 starship
-terminus-font
 tmux
 ufw
 unzip

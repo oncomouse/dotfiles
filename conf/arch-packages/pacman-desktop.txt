@@ -8,6 +8,7 @@ dunst
 feh
 firefox
 flatpak
+fuse2
 gnome-keyring
 gnome-themes-extra
 gnu-free-fonts
