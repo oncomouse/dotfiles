@@ -177,7 +177,7 @@ function M.set_maps()
 	if maps == nil then
 		maps = vim.tbl_deep_extend("keep", vim.g.todo_maps or {}, default_mappings)
 	end
-	if maps.done.mark ~= nil then
+	if maps.done.toggle ~= nil then
 		vim.keymap.set(
 			"n",
 			maps.done.toggle,
