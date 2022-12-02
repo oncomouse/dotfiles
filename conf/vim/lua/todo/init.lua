@@ -150,7 +150,7 @@ function M.complete_project(lead)
 	return list
 end
 
-function M.jump_project()
+function M.goto_project()
 	local res = vim.fn.input("Project: ", "", "customlist,v:lua.require'todo'.complete_project")
 
 	if res ~= "" then
