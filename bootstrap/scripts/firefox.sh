@@ -29,6 +29,22 @@ update_chrome() {
 	user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 	user_pref("browser.compactmode.show", true);
 	user_pref("svg.context-properties.content.enabled", true);
+	user_pref("extensions.pocket.enabled", false);
+	user_pref("extensions.pocket.api", "0.0.0.0");
+	user_pref("extensions.pocket.loggedOutVariant", "");
+	user_pref("extensions.pocket.oAuthConsumerKey", "");
+	user_pref("extensions.pocket.onSaveRecs", false);
+	user_pref("extensions.pocket.onSaveRecs.locales", "");
+	user_pref("extensions.pocket.showHome", false);
+	user_pref("extensions.pocket.site", "0.0.0.0");
+	user_pref("browser.newtabpage.activity-stream.pocketCta", "");
+	user_pref("browser.newtabpage.activity-stream.section.highlights.includePocket", false);
+	user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
+	// Set to false if you use sync
+	user_pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.section.highlights.includePocket", false);
+	user_pref("services.sync.prefs.sync-seen.services.sync.prefs.sync.browser.newtabpage.activity-stream.section.highlights.includePocket", false);
+	user_pref("services.sync.prefs.sync.browser.newtabpage.activity-stream.feeds.section.topstories", false);
+	user_pref("services.sync.prefs.sync-seen.services.sync.prefs.sync.browser.newtabpage.activity-stream.section.highlights.includePocket", false);
 EOF
 	fi
 }
