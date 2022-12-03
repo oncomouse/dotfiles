@@ -68,15 +68,6 @@ local function plugins()
 				}, -- Lots of plugins. We use mini.ai for textobjects; mini.comment for commenting; mini.indentscope for indent-based textobjects (ii, ai); mini.surround for surround (ys to add, cs to change, ds to delete)
 
 				{
-					"ggandor/leap.nvim",
-					requires = {
-						{ "ggandor/leap-spooky.nvim" },
-						{ "ggandor/flit.nvim" },
-					},
-					-- Configured in ~/dotfiles/conf/vim/after/plugin/leap.nvim.lua
-				},
-
-				{
 					"ahmedkhalf/project.nvim",
 					config = function()
 						require("project_nvim").setup({
