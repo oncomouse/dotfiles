@@ -4,7 +4,6 @@ if ok then
 	require("leap-spooky").setup({
 		affixes = {},
 	})
-	-- require("flit").setup() -- Flit isn't quite ready for primetime
 
 	-- leap-spooky working with arbitrary textobjects!
 	local H = {}
