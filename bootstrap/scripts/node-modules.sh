@@ -26,6 +26,7 @@ if which npm > /dev/null 2>&1; then
     if [ "$os" = "macos" ]; then
       npminstall 'typescript-language-server'
       npminstall 'htmlhint'
+      npminstall 'eslint_d'
     fi
   fi
   npminstall '@bitwarden/cli'
