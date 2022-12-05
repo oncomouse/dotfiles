@@ -1,9 +1,26 @@
 if pcall(require, "null-ls") then
+
+	local eslint_project = require("dotfiles.null-ls.helpers.eslint_project")
 	local b = require("null-ls").builtins
 
 	local sources = {
 		b.formatting.prettier.with({
 			update_on_insert = false,
+			filetypes = {
+				{
+					"vue",
+					"css",
+					"scss",
+					"less",
+					"html",
+					"json",
+					"jsonc",
+					"markdown",
+					"markdown.mdx",
+					"graphql",
+					"handlebars",
+				},
+			},
 			extra_args = { "--use-tabs" },
 			prefer_local = "node_modules/.bin",
 		}),
@@ -12,6 +29,19 @@ if pcall(require, "null-ls") then
 				"yaml",
 			},
 			prefer_local = "node_modules/.bin",
+		}),
+		b.formatting.prettier.with({
+			filetypes = {
+				"javascript",
+				"javascriptreact",
+				"typescript",
+				"typescriptreact",
+			},
+			extra_args = { "--use-tabs" },
+			prefer_local = "node_modules/.bin",
+			condition = function()
+				return not eslint_project()
+			end,
 		}),
 		b.formatting.stylua,
 		b.formatting.black.with({
