@@ -20,13 +20,11 @@ if which npm > /dev/null 2>&1; then
     npminstall 'neovim' 
     npminstall 'jsonlint' 
     npminstall 'prettier'
-    npminstall 'prettier-semi-cli'
     npminstall 'vim-language-server'
     npminstall 'vscode-langservers-extracted'
     if [ "$os" = "macos" ]; then
       npminstall 'typescript-language-server'
       npminstall 'htmlhint'
-      npminstall 'eslint_d'
     fi
   fi
   npminstall '@bitwarden/cli'

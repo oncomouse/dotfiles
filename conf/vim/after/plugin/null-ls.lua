@@ -1,7 +1,6 @@
 if pcall(require, "null-ls") then
 	local b = require("null-ls").builtins
 
-	local javascript_register = require("dotfiles.plugins.null-ls.helpers.javascript_register")
 	local sources = {
 		b.formatting.prettier.with({
 			update_on_insert = false,
@@ -43,9 +42,6 @@ if pcall(require, "null-ls") then
 		require("nvim-ref.null-ls.hover"),
 		require("nvim-ref.null-ls.completion"),
 		-- b.completion.luasnip,
-		javascript_register("formatting"),
-		javascript_register("diagnostics"),
-		javascript_register("code_actions"),
 	}
 
 	require("null-ls").setup({

@@ -5,7 +5,6 @@ cups
 cups-pdf
 dex
 dunst
-eslint_d
 feh
 firefox
 flatpak

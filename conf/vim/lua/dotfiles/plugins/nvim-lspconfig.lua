@@ -235,6 +235,15 @@ local server_map = {
 					debounce_text_changes = 500,
 				},
 			},
+			eslint = {
+				flags = {
+					debounce_text_changes = 500,
+				},
+				provides = {
+					"diagnostics",
+					"formatting",
+				},
+			},
 		},
 	},
 	{
