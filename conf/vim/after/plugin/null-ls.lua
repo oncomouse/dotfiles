@@ -32,6 +32,7 @@ if pcall(require, "null-ls") then
 		}),
 		b.formatting.prettier.with({
 			filetypes = {
+				"vue",
 				"javascript",
 				"javascriptreact",
 				"typescript",
@@ -42,6 +43,21 @@ if pcall(require, "null-ls") then
 			condition = function()
 				return not eslint_project()
 			end,
+		}),
+		b.formatting.eslint_d.with({
+			condition = function()
+				return eslint_project()
+			end
+		}),
+		b.diagnostics.eslint_d.with({
+			condition = function()
+				return eslint_project()
+			end
+		}),
+		b.code_actions.eslint_d.with({
+			condition = function()
+				return eslint_project()
+			end
 		}),
 		b.formatting.stylua,
 		b.formatting.black.with({
