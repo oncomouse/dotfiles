@@ -8,7 +8,6 @@ if pcall(require, "null-ls") then
 			update_on_insert = false,
 			filetypes = {
 				{
-					"vue",
 					"css",
 					"scss",
 					"less",
@@ -29,35 +28,6 @@ if pcall(require, "null-ls") then
 				"yaml",
 			},
 			prefer_local = "node_modules/.bin",
-		}),
-		b.formatting.prettier.with({
-			filetypes = {
-				"vue",
-				"javascript",
-				"javascriptreact",
-				"typescript",
-				"typescriptreact",
-			},
-			extra_args = { "--use-tabs" },
-			prefer_local = "node_modules/.bin",
-			condition = function()
-				return not eslint_project()
-			end,
-		}),
-		b.formatting.eslint_d.with({
-			condition = function()
-				return eslint_project()
-			end
-		}),
-		b.diagnostics.eslint_d.with({
-			condition = function()
-				return eslint_project()
-			end
-		}),
-		b.code_actions.eslint_d.with({
-			condition = function()
-				return eslint_project()
-			end
 		}),
 		b.formatting.stylua,
 		b.formatting.black.with({
@@ -88,6 +58,42 @@ if pcall(require, "null-ls") then
 		require("nvim-ref.null-ls.hover"),
 		require("nvim-ref.null-ls.completion"),
 		-- b.completion.luasnip,
+		-- JAVASCRIPT CONFIGURATION
+		-- Use standard and prettier for non-eslint projects:
+		b.diagnostics.standardjs.with({
+			condition = function()
+				return not eslint_project()
+			end,
+		}),
+		b.formatting.prettier_standard.with({
+			filetypes = {
+				"vue",
+				"javascript",
+				"javascriptreact",
+				"typescript",
+				"typescriptreact",
+			},
+			condition = function()
+				return not eslint_project()
+			end,
+		}),
+		-- Use eslint_d for eslint projects:
+		b.formatting.eslint_d.with({
+			condition = function()
+				return eslint_project()
+			end
+		}),
+		b.diagnostics.eslint_d.with({
+			condition = function()
+				return eslint_project()
+			end
+		}),
+		b.code_actions.eslint_d.with({
+			condition = function()
+				return eslint_project()
+			end
+		}),
+		-- END JAVASCRIPT CONFIGURATION
 	}
 
 	require("null-ls").setup({

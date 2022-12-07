@@ -20,6 +20,8 @@ if which npm > /dev/null 2>&1; then
     npminstall 'neovim' 
     npminstall 'jsonlint' 
     npminstall 'prettier'
+    npminstall 'prettier-standard'
+    npminstall 'standard'
     npminstall 'vim-language-server'
     npminstall 'vscode-langservers-extracted'
     if [ "$os" = "macos" ]; then
