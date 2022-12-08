@@ -1,9 +1,9 @@
 if pcall(require, "null-ls") then
-
 	local eslint_project = require("dotfiles.null-ls.helpers.eslint_project")
 	local b = require("null-ls").builtins
 
 	local sources = {
+		-- GENERAL PURPOSE
 		b.formatting.prettier.with({
 			update_on_insert = false,
 			filetypes = {
@@ -23,25 +23,18 @@ if pcall(require, "null-ls") then
 			extra_args = { "--use-tabs" },
 			prefer_local = "node_modules/.bin",
 		}),
+		-- b.completion.luasnip,
+
+		-- YAML
 		b.formatting.prettier.with({
 			filetypes = {
 				"yaml",
 			},
 			prefer_local = "node_modules/.bin",
 		}),
+
+		-- LUA
 		b.formatting.stylua,
-		b.formatting.black.with({
-			extra_args = { "-l", "79" }, -- PEP8 line lengths
-		}),
-		b.formatting.reorder_python_imports,
-		b.formatting.fish_indent,
-		b.formatting.shfmt,
-		b.formatting.shellharden,
-		b.formatting.rubocop,
-		b.formatting.standardrb,
-		b.diagnostics.shellcheck.with({
-			diagnostics_format = "#{m} [#{c}]",
-		}),
 		b.diagnostics.selene.with({
 			cwd = function(_params)
 				return vim.fs.dirname(
@@ -49,16 +42,42 @@ if pcall(require, "null-ls") then
 				) or vim.fn.expand("~/.config/selene/") -- fallback value
 			end,
 		}),
+
+		-- PYTHON
+		b.formatting.black.with({
+			extra_args = { "-l", "79" }, -- PEP8 line lengths
+		}),
+		b.formatting.reorder_python_imports,
 		b.diagnostics.flake8,
-		b.diagnostics.vint,
+
+		-- FISH
+		b.formatting.fish_indent,
+
+		-- RUBY
+		b.formatting.rubocop,
+		b.formatting.standardrb,
 		b.diagnostics.rubocop,
 		b.diagnostics.standardrb,
-		require("dotfiles.plugins.null-ls.builtins.diagnostics.htmlhint"),
+
+		-- SHELL
+		b.formatting.shfmt,
+		b.formatting.shellharden,
+		b.diagnostics.shellcheck.with({
+			diagnostics_format = "#{m} [#{c}]",
+		}),
 		b.code_actions.shellcheck,
+
+		-- VIML
+		b.diagnostics.vint,
+
+		-- HTML
+		require("dotfiles.plugins.null-ls.builtins.diagnostics.htmlhint"),
+
+		-- MARKDOWN
 		require("nvim-ref.null-ls.hover"),
 		require("nvim-ref.null-ls.completion"),
-		-- b.completion.luasnip,
-		-- JAVASCRIPT CONFIGURATION
+
+		-- JAVASCRIPT
 		-- Use standard and prettier for non-eslint projects:
 		b.diagnostics.standardjs.with({
 			condition = function()
@@ -81,19 +100,18 @@ if pcall(require, "null-ls") then
 		b.formatting.eslint_d.with({
 			condition = function()
 				return eslint_project()
-			end
+			end,
 		}),
 		b.diagnostics.eslint_d.with({
 			condition = function()
 				return eslint_project()
-			end
+			end,
 		}),
 		b.code_actions.eslint_d.with({
 			condition = function()
 				return eslint_project()
-			end
+			end,
 		}),
-		-- END JAVASCRIPT CONFIGURATION
 	}
 
 	require("null-ls").setup({
