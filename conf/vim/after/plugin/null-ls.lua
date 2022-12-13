@@ -54,9 +54,7 @@ if pcall(require, "null-ls") then
 		b.formatting.fish_indent,
 
 		-- RUBY
-		b.formatting.rubocop,
 		b.formatting.standardrb,
-		b.diagnostics.rubocop,
 		b.diagnostics.standardrb,
 
 		-- SHELL
