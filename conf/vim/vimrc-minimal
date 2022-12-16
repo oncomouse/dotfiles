@@ -105,6 +105,8 @@ autocmd minimal-vimrc BufEnter * call SetListChars()
 
 " This Fixes A Mistake In Neovim:
 autocmd minimal-vimrc ColorScheme * hi link Whitespace SpecialKey
+
+autocmd minimal-vimrc FileType yaml setlocal expandtab ts=2 sw=2 sts=2
 " ==============================================================================
 " Basic Maps:
 " ==============================================================================
