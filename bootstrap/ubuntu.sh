@@ -2,7 +2,7 @@
 
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get install -y vim fish ripgrep exa fzf fd-find bat
+sudo apt-get install -y buildessential vim fish ripgrep exa fzf fd-find bat
 
 mkdir -p ~/.local/bin
 ln -sf /usr/bin/batcat ~/.local/bin/bat
