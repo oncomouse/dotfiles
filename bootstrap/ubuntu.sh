@@ -2,7 +2,8 @@
 
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get install -y buildessential vim fish ripgrep exa fzf fd-find bat htop
+sudo apt-get install -y --no-install-recommends ruby nodejs python3 python3-pip npm
+sudo apt-get install -y --no-install-recommends buildessential vim fish ripgrep exa fzf fd-find bat htop
 
 mkdir -p ~/.local/bin
 ln -sf /usr/bin/batcat ~/.local/bin/bat
