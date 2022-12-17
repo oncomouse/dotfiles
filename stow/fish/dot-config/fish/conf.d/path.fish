@@ -20,10 +20,8 @@ if status --is-login
 	# Luarocks:
 	fish_add_path ~/.luarocks/bin
 	# Gems:
-	if test -e ruby
-		fish_add_path (ruby -e 'puts Gem.user_dir')/bin
-		fish_add_path --append (gem environment gemdir)/bin
-	end
+	which ruby && fish_add_path --append (ruby -e 'puts Gem.user_dir')/bin
+	which gem && fish_add_path --append (gem environment gemdir)/bin
 	# Lua5.3 for macOS:
 	fish_add_path /usr/local/opt/lua@5.3/bin/
 	fish_add_path /usr/local/opt/grep/libexec/gnubin/
