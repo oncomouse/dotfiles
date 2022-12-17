@@ -15,6 +15,9 @@ case $os in
   ubuntu)
     $env SERVER="$SERVER" "$bash" "$HOME/dotfiles/bootstrap/ubuntu.sh"
     ;;
+  debian)
+    $env SERVER="$SERVER" "$bash" "$HOME/dotfiles/bootstrap/ubuntu.sh"
+    ;;
   arch)
     $env SERVER="$SERVER" "$bash" "$HOME/dotfiles/bootstrap/arch.sh"
     ;;
