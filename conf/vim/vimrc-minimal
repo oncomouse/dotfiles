@@ -100,9 +100,6 @@ endif
 autocmd minimal-vimrc QuickFixCmdPost [^l]* call ListToggle('c', 1)
 autocmd minimal-vimrc QuickFixCmdPost l*    call ListToggle('l', 1)
 
-" Set Listchars For Space Indented Buffers:
-autocmd minimal-vimrc BufEnter * call SetListChars()
-
 " This Fixes A Mistake In Neovim:
 autocmd minimal-vimrc ColorScheme * hi link Whitespace SpecialKey
 
@@ -148,12 +145,6 @@ command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab
 " ==============================================================================
 " Functions:
 " ==============================================================================
-
-function! SetListChars()
-	if &expandtab
-		exec 'setlocal listchars+=multispace:>' . repeat('\ ', &shiftwidth - 1)
-	endif
-endfunction
 
 function! ListToggle(pfx, ...)
 	let force_open = get(a:, 0, 0)
