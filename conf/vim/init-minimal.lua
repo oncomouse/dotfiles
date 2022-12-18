@@ -413,6 +413,9 @@ if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then -- Homebrew
 elseif vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 then -- Arch, btw
 	vim.opt.runtimepath:append("/usr/share/vim/vimfiles")
 	vim.g.has_fzf = 1
+elseif vim.fn.isdirectory("/usr/share/doc/fzf/examples") == 1 then -- Debian
+	vim.opt.runtimepath:append("/usr/share/doc/fzf/examples")
+	vim.g.has_fzf = 1
 elseif vim.fn.isdirectory("~/.fzf") == 1 then -- Local install
 	vim.opt.runtimepath:append("~/.fzf")
 	vim.g.has_fzf = 1
