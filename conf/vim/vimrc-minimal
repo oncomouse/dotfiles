@@ -281,6 +281,9 @@ if isdirectory('/usr/local/opt/fzf') " Homebrew
 elseif isdirectory('/usr/share/vim/vimfiles') " Arch, btw
 	set runtimepath+=/usr/share/vim/vimfiles
 	let g:has_fzf = 1
+elseif isdirectory('/usr/share/doc/fzf/examples') " Debian
+	set runtimepath+=/usr/share/doc/fzf/examples
+	let g:has_fzf = 1
 elseif isdirectory('~/.fzf') " Local install
 	set runtimepath+=~/.fzf
 	let g:has_fzf = 1
