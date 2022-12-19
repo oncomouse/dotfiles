@@ -1,3 +1,17 @@
+let g:packages = [
+	\ [ 'k-takata/minpac', {'type': 'opt'} ],
+	\ [ 'lodestone/lodestone.vim' ],
+	\ [ 'tpope/vim-sensible', {'type': 'opt'} ],
+	\ [ 'xero/securemodelines', {'type': 'opt'} ],
+	\ [ 'tpope/vim-repeat' ],
+	\ [ 'tpope/vim-unimpaired' ],
+	\ [ 'tpope/vim-commentary' ],
+	\ [ 'tpope/vim-sleuth' ],
+	\ [ 'christoomey/vim-sort-motion' ],
+	\ [ 'oncomouse/vim-surround' ],
+	\ [ 'vim-scripts/ReplaceWithRegister' ],
+	\ [ 'noahfrederick/vim-neovim-defaults', {'type': 'opt'} ],
+	\ ]
 " ==============================================================================
 " Basic Settings:
 " ==============================================================================
@@ -203,18 +217,10 @@ if !get(g:, 'skip_minimal_minpac', !has('patch-7.4.1384'))
 
 		if exists('g:loaded_minpac')
 			call minpac#init({'dir': l:minpac_dir})
-			call minpac#add('k-takata/minpac', {'type': 'opt'})
-			call minpac#add('lodestone/lodestone.vim') " Theme
-			call minpac#add('tpope/vim-sensible', {'type': 'opt'}) " Agreeable vim settings
-			call minpac#add('xero/securemodelines', {'type': 'opt'}) " Secure modelines
-			call minpac#add('tpope/vim-repeat') " dot repeat for plugins
-			call minpac#add('tpope/vim-unimpaired') " paired mappings, ]b,]q,]l, etc
-			call minpac#add('tpope/vim-commentary') " gc to toggle comments
-			call minpac#add('tpope/vim-sleuth') " guess indentation
-			call minpac#add('christoomey/vim-sort-motion') " gs to sort
-			call minpac#add('oncomouse/vim-surround') " ys to add, cs to change, ds to delete. f, F for function, t, T for tag
-			call minpac#add('vim-scripts/ReplaceWithRegister') " gr{motion} or grr or gr in visual to replace with register
-			call minpac#add('noahfrederick/vim-neovim-defaults', {'type': 'opt'}) " Set Vim with the same default as NeoVim
+			for package in g:packages
+				let opts = get(package, 1, {})
+				call minpac#add(package[0], opts)
+			endfor
 		else
 			echoerr "Could not load minpac. Perhaps your Internet is not working or you don't have git?"
 		endif
