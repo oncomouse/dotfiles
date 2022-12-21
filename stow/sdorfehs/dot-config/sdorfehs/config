@@ -21,7 +21,7 @@ addhook newwindow exec sf-zoom.sh check
 addhook switchwin exec sf-zoom.sh check
 addhook switchscreen exec sf-zoom.sh check
 addhook switchvscreen exec sf-zoom.sh check
-# Place polybar last in the window stack for a variety of windo events:
+# Place polybar last in the window stack for a variety of window events:
 addhook deletewindow exec sf-lower-polybar.sh &
 addhook newwindownewwindowexec sf-lower-polybar.sh &
 addhook switchwin exec sf-lower-polybar.sh &
@@ -164,6 +164,7 @@ unbind F8
 unbind F9
 unbind F10
 unbind F11
+unbind F12
 unbind 0
 unbind 7
 unbind 8
