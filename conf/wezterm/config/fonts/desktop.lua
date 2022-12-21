@@ -9,5 +9,5 @@ return {
 		},
 	},
 	font_size = 18.0,
-	harfbuzz_features = { "zero", "ss02" },
+	-- harfbuzz_features = { "zero", "ss02" },
 }
