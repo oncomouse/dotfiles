@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 packages=(
-  "paru"
+  "paru-bin"
 )
 
 mkdir -p ~/aur
