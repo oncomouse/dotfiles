@@ -314,21 +314,6 @@ vim.api.nvim_create_autocmd("CompleteDone", {
 })
 
 -- }}}
--- Theme {{{
--- Fancy color for macs and X11 sessions:
-if require("dotfiles.utils.use_termguicolors")() then
-	vim.cmd([[let &t_8f='<Esc>[38;2;%lu;%lu;%lum']])
-	vim.cmd([[let &t_8b='<Esc>[48;2;%lu;%lu;%lum']])
-	vim.opt.termguicolors = true
-
-	local ok = pcall(vim.cmd, [[colorscheme lushwal]])
-	if not ok then
-		vim.cmd([[colorscheme default]])
-	end
-else
-	vim.cmd([[colorscheme default]])
-end
--- }}}
 -- Commands {{{
 
 -- Formatting and Diagnostic commands for LSP-less files
@@ -401,6 +386,21 @@ vim.g.bibfiles = "~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/li
 -- }}}
 -- Plugins {{{
 require("dotfiles.plugins")
+-- }}}
+-- Theme {{{
+-- Fancy color for macs and X11 sessions:
+if require("dotfiles.utils.use_termguicolors")() then
+	vim.cmd([[let &t_8f='<Esc>[38;2;%lu;%lu;%lum']])
+	vim.cmd([[let &t_8b='<Esc>[48;2;%lu;%lu;%lum']])
+	vim.opt.termguicolors = true
+
+	local ok = pcall(vim.cmd, [[colorscheme catppuccin-mocha]])
+	if not ok then
+		vim.cmd([[colorscheme default]])
+	end
+else
+	vim.cmd([[colorscheme default]])
+end
 -- }}}
 -- LSP: {{{
 vim.diagnostic.config({
