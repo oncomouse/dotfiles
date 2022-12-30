@@ -37,45 +37,38 @@ if vim.opt.termguicolors:get() and ok then
 	end
 
 	local function setup_colors()
-		return {
-			fg = utils.get_highlight("Winbar").fg,
-			bg = utils.get_highlight("DiffAdd").bg,
+		local theme = require("catppuccin").flavour
+		local catppuccin_colors = require("catppuccin.palettes." .. theme)
+		return vim.tbl_extend("force", catppuccin_colors, {
 			inactive = {
-				fg = utils.get_highlight("WinbarNC").fg,
-				bg = utils.get_highlight("DiffAdd").bg,
+				text = catppuccin_colors.surface0,
+				base = catppuccin_colors.base,
 			},
-			black = utils.get_highlight("Normal").bg,
-			yellow = utils.get_highlight("Label").fg,
-			green = utils.get_highlight("ModeMsg").fg,
-			orange = utils.get_highlight("IncSearch").bg,
-			cyan = utils.get_highlight("Identifier").fg,
-			error = utils.get_highlight("DiagnosticError").fg,
-			warn = utils.get_highlight("DiagnosticWarn").fg,
-			info = utils.get_highlight("DiagnosticInfo").fg,
-			hint = utils.get_highlight("DiagnosticHint").fg,
-		}
+			error = catppuccin_colors.red,
+			warn = catppuccin_colors.peach,
+			info = catppuccin_colors.sky,
+			hint = catppuccin_colors.lavender,
+		})
 	end
 
 	local colors = setup_colors()
-	colors.bg = colors.black
-	colors.inactive.bg = colors.black
 
 	-- Override Default Statusline colors for fancy rounding effects
 	vim.api.nvim_set_hl(0, "Statusline", {
-		fg = colors.fg,
-		bg = colors.black,
+		fg = colors.text,
+		bg = colors.base,
 	})
 	vim.api.nvim_set_hl(0, "StatuslineNC", {
-		fg = colors.inactive.fg,
-		bg = colors.black,
+		fg = colors.inactive.text,
+		bg = colors.inactive.base,
 	})
 	vim.api.nvim_set_hl(0, "StatuslineTerm", {
-		fg = colors.fg,
-		bg = colors.black,
+		fg = colors.text,
+		bg = colors.base,
 	})
 	vim.api.nvim_set_hl(0, "StatuslineTermNC", {
-		fg = colors.inactive.fg,
-		bg = colors.black,
+		fg = colors.inactive.text,
+		bg = colors.inactive.base,
 	})
 
 	local Space = { provider = " " }
@@ -98,16 +91,16 @@ if vim.opt.termguicolors:get() and ok then
 			condition = conditions.is_active,
 			provider = "",
 			hl = {
-				fg = colors.bg,
-				bg = colors.black,
+				fg = colors.base,
+				bg = colors.base,
 			},
 		}, __accessor),
 		right = setmetatable({
 			provider = "",
 			condition = conditions.is_active,
 			hl = {
-				fg = colors.bg,
-				bg = colors.black,
+				fg = colors.base,
+				bg = colors.base,
 			},
 		}, __accessor),
 	}
@@ -125,8 +118,8 @@ if vim.opt.termguicolors:get() and ok then
 		}
 	end
 	local Highlight = HighlightProvider(colors.yellow)
-	local LuaSnipHighlight = HighlightProvider(colors.cyan)
-	local SearchHighlight = HighlightProvider(colors.fg)
+	local LuaSnipHighlight = HighlightProvider(colors.sky)
+	local SearchHighlight = HighlightProvider(colors.text)
 
 	local WordCount = {
 		condition = function()
@@ -154,7 +147,7 @@ if vim.opt.termguicolors:get() and ok then
 			provider = function(self)
 				return self.symbols[type] .. self[type]
 			end,
-			hl = { bg = colors[type], fg = colors.black },
+			hl = { bg = colors[type], fg = colors.base },
 		}
 	end
 
@@ -447,8 +440,8 @@ if vim.opt.termguicolors:get() and ok then
 		{
 			provider = "%=",
 			hl = {
-				bg = colors.black,
-				fg = colors.black,
+				bg = colors.base,
+				fg = colors.base,
 			},
 		},
 		Delimiter.left,
@@ -528,7 +521,7 @@ if vim.opt.termguicolors:get() and ok then
 		FileNameBlock,
 		Delimiter.right(false),
 		hl = {
-			bg = colors.bg,
+			bg = colors.base,
 		},
 	}
 
@@ -548,7 +541,7 @@ if vim.opt.termguicolors:get() and ok then
 		Diagnostics,
 		Delimiter.right,
 		hl = {
-			bg = colors.bg,
+			bg = colors.base,
 		},
 	}
 
@@ -558,7 +551,7 @@ if vim.opt.termguicolors:get() and ok then
 		FileNameQF,
 		FileNameFromFiletype,
 		hl = {
-			bg = colors.bg,
+			bg = colors.base,
 		},
 	}
 
@@ -633,8 +626,7 @@ if vim.opt.termguicolors:get() and ok then
 	local stl_augroup = vim.api.nvim_create_augroup("Heirline", { clear = true })
 	vim.api.nvim_create_autocmd("ColorScheme", {
 		callback = function()
-			heirline.reset_highlights()
-			heirline.load_colors(setup_colors())
+			utils.on_colorscheme(setup_colors())
 		end,
 		group = stl_augroup,
 	})
