@@ -394,6 +394,16 @@ if require("dotfiles.utils.use_termguicolors")() then
 	vim.cmd([[let &t_8b='<Esc>[48;2;%lu;%lu;%lum']])
 	vim.opt.termguicolors = true
 
+	vim.api.nvim_create_autocmd("ColorScheme", {
+		pattern = "*",
+		callback = function()
+			local colors = require("catppuccin.palettes").get_palette()
+			require("catppuccin.lib.highlighter").syntax({
+				gitCommitOverflow = { fg = colors.red },
+				gitCommitSummary = { fg = colors.green },
+			})
+		end,
+	})
 	local ok = pcall(vim.cmd, [[colorscheme catppuccin-mocha]])
 	if not ok then
 		vim.cmd([[colorscheme default]])
