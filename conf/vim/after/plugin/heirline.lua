@@ -122,7 +122,6 @@ if vim.opt.termguicolors:get() and ok then
 			end,
 		}
 	end
-	local Highlight = HighlightProvider({ fg = colors.yellow })
 	local LuaSnipHighlight = HighlightProvider({ bg = colors.sky, fg = colors.surface0 })
 	local SearchHighlight = HighlightProvider({ fg = colors.rosewater })
 	local WordCountHighlight = HighlightProvider({ fg = colors.yellow })
@@ -289,19 +288,17 @@ if vim.opt.termguicolors:get() and ok then
 	}
 
 	local FileNameFromFiletype = {
-		condition = function()
-			return vim.bo.filetype ~= ""
-		end,
-		utils.surround(
-			{ "[", "]" },
-			nil,
-			utils.insert(Highlight, {
-				provider = function()
-					local ft = vim.bo.filetype
-					return vim.fn.toupper(ft:sub(1, 1)) .. ft:sub(2)
-				end,
+		condition = conditions.fn_and(function()
+			return conditions.buffer_matches({
+				filetype = { "packer", "^gina.*", "diff", "fugitive", "^git.*", "^$" },
 			})
-		),
+		end, function()
+			return vim.bo.filetype ~= ""
+		end),
+		provider = function()
+			local ft = vim.bo.filetype
+			return vim.fn.toupper(ft:sub(1, 1)) .. ft:sub(2)
+		end,
 	}
 
 	local FileNameNoFileName = {
@@ -318,7 +315,7 @@ if vim.opt.termguicolors:get() and ok then
 	local FileName = {
 		fallthrough = false,
 		FileNameNoFileName,
-		-- FileNameFromFiletype,
+		FileNameFromFiletype,
 		FileNameTerminal,
 		FileNameQF,
 		FileNameHelp,
@@ -418,6 +415,7 @@ if vim.opt.termguicolors:get() and ok then
 	local FileType = utils.insert(MetadataHighlight, {
 		condition = conditions.fn_and(function()
 			return not conditions.buffer_matches({
+				filetype = { "packer", "^gina.*", "diff", "fugitive", "^git.*", "^$" },
 				buftype = { "terminal", "quickfix", "help" },
 			})
 		end, conditions.hide_with_fewer_columns(45)),
@@ -590,57 +588,6 @@ if vim.opt.termguicolors:get() and ok then
 		hl = {
 			bg = colors.base,
 		},
-	}
-
-	local SpecialFileName = {
-		fallthrough = false,
-		FileNameTerminal,
-		FileNameQF,
-		FileNameFromFiletype,
-		hl = {
-			bg = colors.base,
-		},
-	}
-
-	-- local SpecialFileNameBlock = utils.insert(FileNameBlockComponent, SpecialFileName)
-
-	local StatuslineSpecial = {
-		condition = function()
-			return conditions.buffer_matches({
-				buftype = { "quickfix", "terminal" },
-				filetype = { "packer", "^gina.*", "diff", "fugitive", "^git.*", "^$" },
-			})
-		end,
-		hl = {
-			bg = colors.bg,
-		},
-		{
-			Delimiter.left,
-			utils.insert(ViMode, { FileNameBlock }),
-			CmdHeightZero,
-			{
-				condition = function()
-					return not conditions.buffer_matches({
-						buftype = { "terminal" },
-					})
-				end,
-				Align,
-				Position,
-				Percentage,
-			},
-			Delimiter.right,
-		},
-	}
-
-	local StatusLineNoFileName = {
-		condition = conditions.fn_and(function()
-			return vim.api.nvim_buf_get_name(0) == ""
-		end, function()
-			return not conditions.buffer_matches({
-				buftype = { "quickfix" },
-			})
-		end),
-		provider = "[scratch]",
 	}
 
 	local StatusLines = {
