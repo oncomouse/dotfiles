@@ -395,7 +395,7 @@ if require("dotfiles.utils.use_termguicolors")() then
 	vim.opt.termguicolors = true
 
 	vim.api.nvim_create_autocmd("ColorScheme", {
-		pattern = "*",
+		pattern = "catppuccin*",
 		callback = function()
 			local colors = require("catppuccin.palettes").get_palette()
 			require("catppuccin.lib.highlighter").syntax({
