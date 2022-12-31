@@ -15,7 +15,6 @@ dotfiles_stow fish
 dotfiles_stow git
 dotfiles_stow ripgrep
 dotfiles_stow scripts
-dotfiles_stow tmux
 dotfiles_stow starship
 if [ "$os" == "arch" ]; then
 	dotfiles_stow systemd
@@ -27,12 +26,13 @@ if [ -z "$SERVER" ]; then
 	dotfiles_stow neovim
 	dotfiles_stow proselint
 	dotfiles_stow rubocop
-	dotfiles_stow vale
-	dotfiles_stow wal
-	dotfiles_stow tridactyl
-	dotfiles_stow firefox
 	dotfiles_stow starship
 	dotfiles_stow selene
+	dotfiles_stow tmux
+	dotfiles_stow tridactyl
+	dotfiles_stow firefox
+	dotfiles_stow vale
+	dotfiles_stow wal
 	if [ "$os" == "macos" ]; then
 		dotfiles_stow homebrew
 		dotfiles_stow karabiner
@@ -60,4 +60,5 @@ if [ -z "$SERVER" ]; then
 	fi
 else
 	dotfiles_stow neovim-server
+	dotfiles_stow tmux-server
 fi
