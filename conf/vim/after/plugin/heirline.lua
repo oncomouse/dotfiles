@@ -184,12 +184,12 @@ if vim.opt.termguicolors:get() and ok then
 		end,
 		Space,
 		{
-			{ provider = "W:" },
 			utils.insert(WordCountHighlight, {
 				provider = function()
 					return vim.fn.wordcount().words
 				end,
 			}),
+			{ provider = "W" },
 			Space,
 		},
 	})
