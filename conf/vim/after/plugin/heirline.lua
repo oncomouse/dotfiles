@@ -1,6 +1,5 @@
-local ok, heirline = pcall(require, "heirline")
-if vim.opt.termguicolors:get() and ok then
-
+local heirline_loaded, heirline = pcall(require, "heirline")
+if vim.opt.termguicolors:get() and heirline_loaded then
 	local utils = require("heirline.utils")
 	local conditions = require("heirline.conditions")
 
@@ -245,13 +244,11 @@ if vim.opt.termguicolors:get() and ok then
 		provider = function()
 			local ft = vim.bo.filetype
 			return vim.fn.join(
-				vim.tbl_map(
-					function(x) return x:sub(1, 1):upper() .. x:sub(2) end,
-					vim.fn.split(ft, "[. -]")
-				),
+				vim.tbl_map(function(x)
+					return x:sub(1, 1):upper() .. x:sub(2)
+				end, vim.fn.split(ft, "[. -]")),
 				" "
 			)
-			-- return vim.fn.toupper(ft:sub(1, 1)) .. ft:sub(2)
 		end,
 	}
 
@@ -344,28 +341,30 @@ if vim.opt.termguicolors:get() and ok then
 		Space,
 	}
 
-	local Macro = utils.insert(MacroHighlight, {
-		condition = function(self)
-			self.macro = vim.fn.reg_recording()
-			return self.macro ~= ""
-		end,
-		{
-			Space,
-			{
-				provider = function(self)
-					return "@" .. self.macro
-				end,
-			},
-			Space,
-		},
-	})
-
 	local CmdHeightZero = {
 		condition = function()
 			return vim.opt.cmdheight:get() == 0
 		end,
-		Macro,
 	}
+
+	local Macro = utils.insert(
+		CmdHeightZero,
+		utils.insert(MacroHighlight, {
+			condition = function(self)
+				self.macro = vim.fn.reg_recording()
+				return self.macro ~= ""
+			end,
+			{
+				Space,
+				{
+					provider = function(self)
+						return "@" .. self.macro
+					end,
+				},
+				Space,
+			},
+		})
+	)
 
 	local FileType = utils.insert(MetadataHighlight, {
 		condition = conditions.fn_and(function()
@@ -448,46 +447,43 @@ if vim.opt.termguicolors:get() and ok then
 		}),
 	})
 
-	local Search = {
+	local Search = utils.insert(CmdHeightZero, {
 		static = {
-			remap_nN = vim.opt.cmdheight:get() == 0,
+			remap_nN = false,
 			hidden = false,
 			last_target = nil,
 		},
 		condition = function(self)
-			if vim.opt.cmdheight:get() == 0 then
-				if not self.remap_nN then
-					-- Set maps
-					vim.keymap.set("n", "n", function()
-						self.hidden = false
-						vim.cmd('exec "normal! ' .. (vim.v.count == 0 and "" or vim.v.count) .. 'n"')
-					end)
-					vim.keymap.set("n", "N", function()
-						self.hidden = false
-						vim.cmd('exec "normal! ' .. (vim.v.count == 0 and "" or vim.v.count) .. 'N"')
-					end)
-					self.remap_nN = true
-				end
-			else
-				if self.remap_nN then
-					-- Delete maps
-					vim.keymap.del("n", "n")
-					vim.keymap.del("n", "N")
-					self.remap_nN = false
-				end
-				return false
+			if not self.remap_nN then
+				-- Set maps
+				vim.keymap.set("n", "n", function()
+					self.hidden = false
+					if self.searchcount.total == 0 then return end
+					pcall(vim.cmd, 'exec "normal! ' .. (vim.v.count == 0 and "" or vim.v.count) .. 'n"')
+				end)
+				vim.keymap.set("n", "N", function()
+					self.hidden = false
+					if self.searchcount.total == 0 then return end
+					pcall(vim.cmd, 'exec "normal! ' .. (vim.v.count == 0 and "" or vim.v.count) .. 'N"')
+				end)
+				self.remap_nN = true
 			end
-			if vim.fn.mode():sub(1,1) ~= "n" then
+			if vim.fn.mode():sub(1, 1) ~= "n" then
 				self.hidden = true
 			end
 			self.target = vim.fn.getreg("/")
 			if self.target ~= self.last_target then
 				self.last_target = self.target
+				self.error = nil
 				self.hidden = false
 			end
 			if not self.hidden then
 				self.searchcount = vim.fn.searchcount({ recompute = 1 })
-				if vim.fn.empty(self.searchcount) == 0 and self.searchcount.total ~= 0 then
+				if
+					vim.fn.empty(self.searchcount) == 0
+					and self.searchcount.total ~= 0
+					and self.searchcount.current > 0
+				then
 					self.hidden = false
 				else
 					self.hidden = true
@@ -545,7 +541,7 @@ if vim.opt.termguicolors:get() and ok then
 			condition = conditions.hide_with_fewer_columns(45),
 			Space,
 		},
-	}
+	})
 
 	local StatuslineNC = {
 		condition = function()
@@ -562,7 +558,7 @@ if vim.opt.termguicolors:get() and ok then
 			utils.insert(ViMode, { { provider = " " }, FileIcon, FileNameBlock, { provider = " " } }),
 		},
 		LuaSnip,
-		CmdHeightZero,
+		Macro,
 		{
 			condition = function()
 				return not conditions.buffer_matches({
@@ -593,9 +589,7 @@ if vim.opt.termguicolors:get() and ok then
 
 		fallthrough = false,
 
-		-- StatusLineNoFileName,
 		StatuslineNC,
-		-- StatuslineSpecial,
 		Statusline,
 	}
 
