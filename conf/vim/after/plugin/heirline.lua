@@ -452,20 +452,23 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 			remap_nN = false,
 			hidden = false,
 			last_target = nil,
+			map = function(self, move)
+				vim.keymap.set("n", move, function()
+					self.hidden = false
+					-- Don't move if we have no search results:
+					if self.searchcount.total == 0 then return end
+					pcall(vim.cmd, 'exec "normal! ' .. (vim.v.count == 0 and "" or vim.v.count) .. move .. '"')
+				end)
+			end,
+			update_search = function(self)
+				self.searchcount = vim.fn.searchcount({ recompute = 1 })
+			end
 		},
 		condition = function(self)
 			if not self.remap_nN then
 				-- Set maps
-				vim.keymap.set("n", "n", function()
-					self.hidden = false
-					if self.searchcount.total == 0 then return end
-					pcall(vim.cmd, 'exec "normal! ' .. (vim.v.count == 0 and "" or vim.v.count) .. 'n"')
-				end)
-				vim.keymap.set("n", "N", function()
-					self.hidden = false
-					if self.searchcount.total == 0 then return end
-					pcall(vim.cmd, 'exec "normal! ' .. (vim.v.count == 0 and "" or vim.v.count) .. 'N"')
-				end)
+				self.map(self, "n")
+				self.map(self, "N")
 				self.remap_nN = true
 			end
 			if vim.fn.mode():sub(1, 1) ~= "n" then
@@ -478,7 +481,7 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 				self.hidden = false
 			end
 			if not self.hidden then
-				self.searchcount = vim.fn.searchcount({ recompute = 1 })
+				self.update_search(self)
 				if
 					vim.fn.empty(self.searchcount) == 0
 					and self.searchcount.total ~= 0
@@ -548,9 +551,6 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 			return not conditions.is_active()
 		end,
 		FileNameBlock,
-		hl = {
-			bg = colors.base,
-		},
 	}
 
 	local Statusline = {
