@@ -469,6 +469,12 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 				-- Set maps
 				self.map(self, "n")
 				self.map(self, "N")
+				-- Recaculate search results when entering a buffer:
+				vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" } , {
+					callback = function()
+						self.update_search(self)
+					end
+				})
 				self.remap_nN = true
 			end
 			if vim.fn.mode():sub(1, 1) ~= "n" then
