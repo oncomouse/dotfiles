@@ -1,7 +1,5 @@
 local ok, heirline = pcall(require, "heirline")
 if vim.opt.termguicolors:get() and ok then
-	-- No default commandline
-	-- vim.opt.cmdheight = 0
 
 	local utils = require("heirline.utils")
 	local conditions = require("heirline.conditions")
@@ -37,8 +35,7 @@ if vim.opt.termguicolors:get() and ok then
 	end
 
 	local function setup_colors()
-		local theme = require("catppuccin").flavour
-		local catppuccin_colors = require("catppuccin.palettes." .. theme)
+		local catppuccin_colors = require("catppuccin.palettes").get_palette()
 		return vim.tbl_extend("force", catppuccin_colors, {
 			inactive = {
 				text = catppuccin_colors.surface0,
@@ -54,22 +51,22 @@ if vim.opt.termguicolors:get() and ok then
 	local colors = setup_colors()
 
 	-- Override Default Statusline colors for fancy rounding effects
-	vim.api.nvim_set_hl(0, "Statusline", {
-		fg = colors.text,
-		bg = colors.base,
-	})
-	vim.api.nvim_set_hl(0, "StatuslineNC", {
-		fg = colors.inactive.text,
-		bg = colors.inactive.base,
-	})
-	vim.api.nvim_set_hl(0, "StatuslineTerm", {
-		fg = colors.text,
-		bg = colors.base,
-	})
-	vim.api.nvim_set_hl(0, "StatuslineTermNC", {
-		fg = colors.inactive.text,
-		bg = colors.inactive.base,
-	})
+	-- vim.api.nvim_set_hl(0, "Statusline", {
+	-- 	fg = colors.text,
+	-- 	bg = colors.base,
+	-- })
+	-- vim.api.nvim_set_hl(0, "StatuslineNC", {
+	-- 	fg = colors.inactive.text,
+	-- 	bg = colors.inactive.base,
+	-- })
+	-- vim.api.nvim_set_hl(0, "StatuslineTerm", {
+	-- 	fg = colors.text,
+	-- 	bg = colors.base,
+	-- })
+	-- vim.api.nvim_set_hl(0, "StatuslineTermNC", {
+	-- 	fg = colors.inactive.text,
+	-- 	bg = colors.inactive.base,
+	-- })
 
 	local Space = { provider = " " }
 
@@ -496,12 +493,53 @@ if vim.opt.termguicolors:get() and ok then
 	})
 
 	local Search = {
+		static = {
+			remap_nN = vim.opt.cmdheight:get() == 0,
+			hidden = false,
+			last_target = nil,
+		},
 		condition = function(self)
-			self.searchcount = vim.fn.searchcount({ recompute = 1 })
-			return vim.opt.cmdheight:get() == 0 and vim.fn.empty(self.searchcount) == 0 and self.searchcount.total ~= 0
+			if vim.opt.cmdheight:get() == 0 then
+				if not self.remap_nN then
+					-- Set maps
+					vim.keymap.set("n", "n", function()
+						self.hidden = false
+						vim.cmd('exec "normal! ' .. (vim.v.count == 0 and "" or vim.v.count) .. 'n"')
+					end)
+					vim.keymap.set("n", "N", function()
+						self.hidden = false
+						vim.cmd('exec "normal! ' .. (vim.v.count == 0 and "" or vim.v.count) .. 'N"')
+					end)
+					self.remap_nN = true
+				end
+			else
+				if self.remap_nN then
+					-- Delete maps
+					vim.keymap.del("n", "n")
+					vim.keymap.del("n", "N")
+					self.remap_nN = false
+				end
+				return false
+			end
+			if vim.fn.mode():sub(1,1) ~= "n" then
+				self.hidden = true
+			end
+			self.target = vim.fn.getreg("/")
+			if self.target ~= self.last_target then
+				self.last_target = self.target
+				self.hidden = false
+			end
+			if not self.hidden then
+				self.searchcount = vim.fn.searchcount({})
+				if vim.fn.empty(self.searchcount) == 0 and self.searchcount.total ~= 0 then
+					self.hidden = false
+				else
+					self.hidden = true
+				end
+			end
+			return not self.hidden
 		end,
 		init = function(self)
-			self.target = vim.fn.getreg("/")
 			if self.searchcount.incomplete == 1 then -- Timed out
 				self.current = "?"
 				self.total = "??"
