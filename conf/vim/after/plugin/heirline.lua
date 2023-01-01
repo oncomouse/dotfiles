@@ -201,7 +201,7 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 			})
 		end,
 		provider = function(self)
-			return vim.fn.fnamemodify(self.filename, ":t")
+			return vim.fn.fnamemodify(self.filename, ":t:r")
 		end,
 	}
 	local FileNameQF = {
@@ -272,7 +272,7 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 		FileNameHelp,
 		{
 			provider = function(self)
-				local filename = vim.fn.fnamemodify(self.filename, ":.")
+				local filename = vim.fn.fnamemodify(self.filename, ":~:.")
 				if not conditions.width_percent_below(#filename, 0.4) then
 					filename = vim.fn.pathshorten(filename)
 				end
