@@ -448,77 +448,11 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 	})
 
 	local Search = utils.insert(CmdHeightZero, {
-		static = {
-			remap_nN = false,
-			hidden = false,
-			last_target = nil,
-			map = function(self, move)
-				vim.keymap.set("n", move, function()
-					self.hidden = false
-					-- Don't move if we have no search results:
-					if self.searchcount.total == 0 then return end
-					pcall(vim.cmd, 'exec "normal! ' .. (vim.v.count == 0 and "" or vim.v.count) .. move .. '"')
-				end)
-			end,
-			update_search = function(self)
-				self.searchcount = vim.fn.searchcount({ recompute = 1 })
-			end
-		},
-		condition = function(self)
-			if not self.remap_nN then
-				-- Set maps
-				self.map(self, "n")
-				self.map(self, "N")
-				-- Recaculate search results when entering a buffer:
-				vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" } , {
-					callback = function()
-						self.update_search(self)
-					end
-				})
-				self.remap_nN = true
-			end
-			if vim.fn.mode():sub(1, 1) ~= "n" then
-				self.hidden = true
-			end
-			self.target = vim.fn.getreg("/")
-			if self.target ~= self.last_target then
-				self.last_target = self.target
-				self.error = nil
-				self.hidden = false
-			end
-			if not self.hidden then
-				self.update_search(self)
-				if
-					vim.fn.empty(self.searchcount) == 0
-					and self.searchcount.total ~= 0
-					and self.searchcount.current > 0
-				then
-					self.hidden = false
-				else
-					self.hidden = true
-				end
-			end
-			return not self.hidden
+		condition = function()
+			return require("czs").are_results_displayed()
 		end,
 		init = function(self)
-			if self.searchcount.incomplete == 1 then -- Timed out
-				self.current = "?"
-				self.total = "??"
-			elseif self.searchcount.incomplete == 2 then -- Max count exceed
-				if
-					self.searchcount.total > self.searchcount.maxcount
-					and self.searchcount.current > self.searchcount.maxcount
-				then
-					self.current = vim.fn.printf(">%d", self.searchcount.current)
-					self.total = vim.fn.printf(">%d", self.searchcount.total)
-				elseif self.searchcount.total > self.searchcount.maxcount then
-					self.current = vim.fn.printf("%d", self.searchcount.current)
-					self.total = vim.fn.printf(">%d", self.searchcount.total)
-				end
-			else
-				self.current = vim.fn.printf("%d", self.searchcount.current)
-				self.total = vim.fn.printf("%d", self.searchcount.total)
-			end
+			self.target, self.current, self.total = require("czs").output()
 		end,
 		utils.insert(SearchHighlight, {
 			Space,
