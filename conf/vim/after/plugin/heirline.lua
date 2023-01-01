@@ -50,57 +50,7 @@ if vim.opt.termguicolors:get() and ok then
 
 	local colors = setup_colors()
 
-	-- Override Default Statusline colors for fancy rounding effects
-	-- vim.api.nvim_set_hl(0, "Statusline", {
-	-- 	fg = colors.text,
-	-- 	bg = colors.base,
-	-- })
-	-- vim.api.nvim_set_hl(0, "StatuslineNC", {
-	-- 	fg = colors.inactive.text,
-	-- 	bg = colors.inactive.base,
-	-- })
-	-- vim.api.nvim_set_hl(0, "StatuslineTerm", {
-	-- 	fg = colors.text,
-	-- 	bg = colors.base,
-	-- })
-	-- vim.api.nvim_set_hl(0, "StatuslineTermNC", {
-	-- 	fg = colors.inactive.text,
-	-- 	bg = colors.inactive.base,
-	-- })
-
 	local Space = { provider = " " }
-
-	-- Calling any delimiter with (false) will turn off the active condition
-	local __accessor = {
-		__call = function(t, ...)
-			local args = { ... }
-			if args[1] == false then
-				return {
-					provider = t.provider,
-					hl = t.hl,
-				}
-			end
-			return t
-		end,
-	}
-	local Delimiter = {
-		left = setmetatable({
-			condition = conditions.is_active,
-			provider = "",
-			hl = {
-				fg = colors.base,
-				bg = colors.base,
-			},
-		}, __accessor),
-		right = setmetatable({
-			provider = "",
-			condition = conditions.is_active,
-			hl = {
-				fg = colors.base,
-				bg = colors.base,
-			},
-		}, __accessor),
-	}
 
 	local HighlightProvider = function(opts)
 		opts = vim.tbl_extend("keep", opts, {
@@ -451,7 +401,6 @@ if vim.opt.termguicolors:get() and ok then
 	}
 
 	local Align = {
-		Delimiter.right,
 		{
 			provider = "%=",
 			hl = {
@@ -459,7 +408,6 @@ if vim.opt.termguicolors:get() and ok then
 				fg = colors.base,
 			},
 		},
-		Delimiter.left,
 	}
 
 	local Position = utils.insert(MetadataHighlight, {
@@ -595,9 +543,7 @@ if vim.opt.termguicolors:get() and ok then
 		condition = function()
 			return not conditions.is_active()
 		end,
-		Delimiter.left(false),
 		FileNameBlock,
-		Delimiter.right(false),
 		hl = {
 			bg = colors.base,
 		},
