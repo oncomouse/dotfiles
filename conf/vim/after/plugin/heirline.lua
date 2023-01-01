@@ -244,7 +244,14 @@ if vim.opt.termguicolors:get() and ok then
 		end),
 		provider = function()
 			local ft = vim.bo.filetype
-			return vim.fn.toupper(ft:sub(1, 1)) .. ft:sub(2)
+			return vim.fn.join(
+				vim.tbl_map(
+					function(x) return x:sub(1, 1):upper() .. x:sub(2) end,
+					vim.fn.split(ft, "[. -]")
+				),
+				" "
+			)
+			-- return vim.fn.toupper(ft:sub(1, 1)) .. ft:sub(2)
 		end,
 	}
 
@@ -285,6 +292,7 @@ if vim.opt.termguicolors:get() and ok then
 		condition = function()
 			return not conditions.buffer_matches({
 				buftype = { "help", "quickfix", "terminal" },
+				filetype = { "packer", "^gina.*", "diff", "fugitive", "^git.*", "^$" },
 			})
 		end,
 		{
@@ -478,7 +486,7 @@ if vim.opt.termguicolors:get() and ok then
 				self.hidden = false
 			end
 			if not self.hidden then
-				self.searchcount = vim.fn.searchcount({})
+				self.searchcount = vim.fn.searchcount({ recompute = 1 })
 				if vim.fn.empty(self.searchcount) == 0 and self.searchcount.total ~= 0 then
 					self.hidden = false
 				else
