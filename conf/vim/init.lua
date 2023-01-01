@@ -37,6 +37,8 @@ vim.opt.inccommand = "split"
 -- Height Of The Preview Window:
 vim.opt.previewheight = 14
 
+vim.opt.cmdheight = 0
+
 -- Completion:
 vim.opt.completeopt = "menuone,noselect,noinsert,preview"
 vim.opt.shortmess = vim.opt.shortmess + "c"
