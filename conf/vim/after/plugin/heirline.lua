@@ -449,7 +449,7 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 
 	local Search = utils.insert(CmdHeightZero, {
 		condition = function()
-			return require("czs").are_results_displayed()
+			return require("czs").display_results()
 		end,
 		init = function(self)
 			self.target, self.current, self.total = require("czs").output()

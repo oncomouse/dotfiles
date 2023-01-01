@@ -11,7 +11,7 @@ local function update_searchcount()
 	searchcount = vim.fn.searchcount({ recompute = 1 })
 end
 
-function M.are_results_displayed()
+function M.display_results()
 	if vim.fn.mode():sub(1, 1) ~= "n" then
 		hidden = true
 	end
