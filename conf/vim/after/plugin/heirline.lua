@@ -1,8 +1,5 @@
-local ok, heirline = pcall(require, "heirline")
-if vim.opt.termguicolors:get() and ok then
-	-- No default commandline
-	-- vim.opt.cmdheight = 0
-
+local heirline_loaded, heirline = pcall(require, "heirline")
+if vim.opt.termguicolors:get() and heirline_loaded then
 	local utils = require("heirline.utils")
 	local conditions = require("heirline.conditions")
 
@@ -37,98 +34,91 @@ if vim.opt.termguicolors:get() and ok then
 	end
 
 	local function setup_colors()
-		return {
-			fg = utils.get_highlight("Winbar").fg,
-			bg = utils.get_highlight("DiffAdd").bg,
+		local catppuccin_colors = require("catppuccin.palettes").get_palette()
+		return vim.tbl_extend("force", catppuccin_colors, {
 			inactive = {
-				fg = utils.get_highlight("WinbarNC").fg,
-				bg = utils.get_highlight("DiffAdd").bg,
+				text = catppuccin_colors.surface0,
+				base = catppuccin_colors.base,
 			},
-			black = utils.get_highlight("Normal").bg,
-			yellow = utils.get_highlight("Label").fg,
-			green = utils.get_highlight("ModeMsg").fg,
-			orange = utils.get_highlight("IncSearch").bg,
-			cyan = utils.get_highlight("Identifier").fg,
-			error = utils.get_highlight("DiagnosticError").fg,
-			warn = utils.get_highlight("DiagnosticWarn").fg,
-			info = utils.get_highlight("DiagnosticInfo").fg,
-			hint = utils.get_highlight("DiagnosticHint").fg,
-		}
+			error = catppuccin_colors.red,
+			warn = catppuccin_colors.yellow,
+			info = catppuccin_colors.blue,
+			hint = catppuccin_colors.rosewater,
+		})
 	end
 
 	local colors = setup_colors()
-	colors.bg = colors.black
-	colors.inactive.bg = colors.black
-
-	-- Override Default Statusline colors for fancy rounding effects
-	vim.api.nvim_set_hl(0, "Statusline", {
-		fg = colors.fg,
-		bg = colors.black,
-	})
-	vim.api.nvim_set_hl(0, "StatuslineNC", {
-		fg = colors.inactive.fg,
-		bg = colors.black,
-	})
-	vim.api.nvim_set_hl(0, "StatuslineTerm", {
-		fg = colors.fg,
-		bg = colors.black,
-	})
-	vim.api.nvim_set_hl(0, "StatuslineTermNC", {
-		fg = colors.inactive.fg,
-		bg = colors.black,
-	})
 
 	local Space = { provider = " " }
 
-	-- Calling any delimiter with (false) will turn off the active condition
-	local __accessor = {
-		__call = function(t, ...)
-			local args = { ... }
-			if args[1] == false then
-				return {
-					provider = t.provider,
-					hl = t.hl,
-				}
-			end
-			return t
-		end,
-	}
-	local Delimiter = {
-		left = setmetatable({
-			condition = conditions.is_active,
-			provider = "",
-			hl = {
-				fg = colors.bg,
-				bg = colors.black,
-			},
-		}, __accessor),
-		right = setmetatable({
-			provider = "",
-			condition = conditions.is_active,
-			hl = {
-				fg = colors.bg,
-				bg = colors.black,
-			},
-		}, __accessor),
-	}
-
-	local HighlightProvider = function(color)
+	local HighlightProvider = function(opts)
+		opts = vim.tbl_extend("keep", opts, {
+			fg = nil,
+			bg = nil,
+			sp = nil,
+			bold = false,
+			underline = false,
+		})
 		return {
 			hl = function()
 				if conditions.is_active() then
-					return {
-						fg = color,
-					}
+					return opts
 				end
 				return {}
 			end,
 		}
 	end
-	local Highlight = HighlightProvider(colors.yellow)
-	local LuaSnipHighlight = HighlightProvider(colors.cyan)
-	local SearchHighlight = HighlightProvider(colors.fg)
+	local LuaSnipHighlight = HighlightProvider({ bg = colors.sky, fg = colors.surface0 })
+	local SearchHighlight = HighlightProvider({ fg = colors.rosewater })
+	local WordCountHighlight = HighlightProvider({ fg = colors.yellow })
+	local MetadataHighlight = HighlightProvider({ fg = colors.surface2 })
+	local MacroHighlight = HighlightProvider({ bg = colors.flamingo, fg = colors.surface0 })
 
-	local WordCount = {
+	local ViMode = {
+		-- get vim current mode, this information will be required by the provider
+		-- and the highlight functions, so we compute it only once per component
+		-- evaluation and store it as a component attribute
+		init = function(self)
+			self.mode = vim.fn.mode(1) -- :h mode()
+
+			if not self.once then
+				vim.api.nvim_create_autocmd("ModeChanged", {
+					pattern = "*:*o",
+					command = "redrawstatus",
+				})
+				self.once = true
+			end
+		end,
+		-- Now we define some dictionaries to map the output of mode() to the
+		-- corresponding string and color. We can put these into `static` to compute
+		-- them at initialisation time.
+		static = {
+			mode_colors = {
+				n = colors.subtext0,
+				i = colors.green,
+				v = colors.sapphire,
+				V = colors.sapphire,
+				["\22"] = colors.sapphire,
+				c = colors.orange,
+				s = colors.yellow,
+				S = colors.yellow,
+				["\19"] = colors.yellow,
+				R = colors.peach,
+				r = colors.peach,
+				["!"] = colors.red,
+				t = colors.mauve,
+			},
+		},
+		hl = function(self)
+			local mode = self.mode:sub(1, 1)
+			return { bg = self.mode_colors[mode] or colors.blue, fg = colors.surface0 }
+		end,
+		update = {
+			"ModeChanged",
+		},
+	}
+
+	local WordCount = utils.insert(MetadataHighlight, {
 		condition = function()
 			return conditions.buffer_matches({
 				filetype = {
@@ -140,11 +130,15 @@ if vim.opt.termguicolors:get() and ok then
 		end,
 		Space,
 		{
-			provider = function()
-				return "W:" .. vim.fn.wordcount().words
-			end,
+			utils.insert(WordCountHighlight, {
+				provider = function()
+					return vim.fn.wordcount().words
+				end,
+			}),
+			{ provider = "W" },
+			Space,
 		},
-	}
+	})
 
 	local DiagnosticComponent = function(type)
 		return {
@@ -154,7 +148,7 @@ if vim.opt.termguicolors:get() and ok then
 			provider = function(self)
 				return self.symbols[type] .. self[type]
 			end,
-			hl = { bg = colors[type], fg = colors.black },
+			hl = { bg = colors[type], fg = colors.base },
 		}
 	end
 
@@ -217,17 +211,13 @@ if vim.opt.termguicolors:get() and ok then
 			})
 		end,
 		{
-			utils.surround(
-				{ "[", "]" },
-				nil,
-				utils.insert(Highlight, {
-					provider = function()
-						local name = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "Location List"
-							or "Quickfix List"
-						return name
-					end,
-				})
-			),
+			utils.surround({ "[", "]" }, nil, {
+				provider = function()
+					local name = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "Location List"
+						or "Quickfix List"
+					return name
+				end,
+			}),
 			{
 				condition = function(self)
 					self.title = vim.w.quickfix_title
@@ -244,23 +234,41 @@ if vim.opt.termguicolors:get() and ok then
 	}
 
 	local FileNameFromFiletype = {
-		condition = function()
-			return vim.bo.filetype ~= ""
-		end,
-		utils.surround(
-			{ "[", "]" },
-			nil,
-			utils.insert(Highlight, {
-				provider = function()
-					local ft = vim.bo.filetype
-					return vim.fn.toupper(ft:sub(1, 1)) .. ft:sub(2)
-				end,
+		condition = conditions.fn_and(function()
+			return conditions.buffer_matches({
+				filetype = { "packer", "^gina.*", "diff", "fugitive", "^git.*", "^$" },
 			})
-		),
+		end, function()
+			return vim.bo.filetype ~= ""
+		end),
+		provider = function()
+			local ft = vim.bo.filetype
+			return vim.fn.join(
+				vim.tbl_map(function(x)
+					return x:sub(1, 1):upper() .. x:sub(2)
+				end, vim.fn.split(ft, "[. -]")),
+				" "
+			)
+		end,
+	}
+
+	local FileNameNoFileName = {
+		condition = conditions.fn_and(function()
+			return vim.api.nvim_buf_get_name(0) == ""
+		end, function()
+			return not conditions.buffer_matches({
+				buftype = { "quickfix" },
+			})
+		end),
+		provider = "[scratch]",
 	}
 
 	local FileName = {
 		fallthrough = false,
+		FileNameNoFileName,
+		FileNameFromFiletype,
+		FileNameTerminal,
+		FileNameQF,
 		FileNameHelp,
 		{
 			provider = function(self)
@@ -280,7 +288,8 @@ if vim.opt.termguicolors:get() and ok then
 		fallthrough = false,
 		condition = function()
 			return not conditions.buffer_matches({
-				buftype = { "help" },
+				buftype = { "help", "quickfix", "terminal" },
+				filetype = { "packer", "^gina.*", "diff", "fugitive", "^git.*", "^$" },
 			})
 		end,
 		{
@@ -306,9 +315,8 @@ if vim.opt.termguicolors:get() and ok then
 			if self.di_ok then
 				local filename = vim.api.nvim_buf_get_name(0)
 				local extension = vim.fn.fnamemodify(filename, ":e")
-				local icon, icon_color = self.di.get_icon_color(filename, extension, { default = true })
+				local icon = self.di.get_icon_color(filename, extension, { default = true })
 				self.icon = icon
-				self.fg = icon_color
 			end
 		end,
 		condition = conditions.fn_and(conditions.hide_with_fewer_columns(45), function(self)
@@ -324,96 +332,56 @@ if vim.opt.termguicolors:get() and ok then
 		end),
 		{
 			provider = function(self)
+				if vim.bo.filetype == "help" then
+					return ""
+				end
 				return self.icon
 			end,
-			hl = function(self)
-				return {
-					fg = self.fg,
-				}
-			end,
 		},
 		Space,
-	}
-
-	local __m = {
-		["\22"] = "^V",
-		["\22s"] = "^V",
-		["\19"] = "^S",
-	}
-	local modes = setmetatable({}, {
-		__index = function(t, idx)
-			return __m[idx] or idx
-		end,
-	})
-	local Mode = {
-		init = function(self)
-			if not self.once then
-				vim.api.nvim_create_autocmd("ModeChanged", {
-					pattern = "*:*o",
-					command = "redrawstatus",
-				})
-				self.once = true
-			end
-		end,
-		condition = function(self)
-			self.mode = modes[vim.fn.mode(1)]
-			return not self.mode:match("^n$")
-		end,
-		Space,
-		utils.surround({ "[", "]" }, nil, {
-			provider = function(self)
-				return self.mode
-			end,
-			hl = {
-				fg = colors.green,
-			},
-		}),
-		update = {
-			"ModeChanged",
-		},
-	}
-
-	local Macro = {
-		condition = function(self)
-			self.macro = vim.fn.reg_recording()
-			return self.macro ~= ""
-		end,
-		Space,
-		{
-			provider = function(self)
-				return "辶" .. self.macro
-			end,
-			hl = {
-				fg = colors.green,
-			},
-		},
 	}
 
 	local CmdHeightZero = {
 		condition = function()
 			return vim.opt.cmdheight:get() == 0
 		end,
-		Mode,
-		Macro,
 	}
 
-	local FileType = {
-		condition = conditions.hide_with_fewer_columns(45),
+	local Macro = utils.insert(
+		CmdHeightZero,
+		utils.insert(MacroHighlight, {
+			condition = function(self)
+				self.macro = vim.fn.reg_recording()
+				return self.macro ~= ""
+			end,
+			{
+				Space,
+				{
+					provider = function(self)
+						return "@" .. self.macro
+					end,
+				},
+				Space,
+			},
+		})
+	)
+
+	local FileType = utils.insert(MetadataHighlight, {
+		condition = conditions.fn_and(function()
+			return not conditions.buffer_matches({
+				filetype = { "packer", "^gina.*", "diff", "fugitive", "^git.*", "^$" },
+				buftype = { "terminal", "quickfix", "help" },
+			})
+		end, conditions.hide_with_fewer_columns(45)),
 		init = function(self)
 			self.filetype = vim.bo.filetype
 		end,
 		{
-			utils.surround(
-				{ "[", "]" },
-				nil,
-				utils.insert(Highlight, {
-					provider = function(self)
-						return self.filetype
-					end,
-				})
-			),
+			provider = function(self)
+				return " " .. self.filetype
+			end,
 		},
-	}
+	})
 
 	local LuaSnip = {
 		condition = function(self)
@@ -427,180 +395,127 @@ if vim.opt.termguicolors:get() and ok then
 				self.choice = self.ls.choice_active() and "?" or ""
 				return #self.forward + #self.backward + #self.choice > 0
 			end,
-			{
-				utils.surround(
-					{ "[", "]" },
-					nil,
-					utils.insert(LuaSnipHighlight, {
-						provider = function(self)
-							return " " .. self.backward .. self.forward .. self.choice
-						end,
-					})
-				),
+			utils.insert(LuaSnipHighlight, {
 				Space,
-			},
+				{
+					provider = function(self)
+						return " " .. self.backward .. self.forward .. self.choice
+					end,
+				},
+				Space,
+			}),
 		},
 	}
 
 	local Align = {
-		Delimiter.right,
 		{
 			provider = "%=",
 			hl = {
-				bg = colors.black,
-				fg = colors.black,
+				bg = colors.base,
+				fg = colors.base,
 			},
 		},
-		Delimiter.left,
 	}
 
-	local Position = {
-		{ provider = "%l:%c" },
-	}
+	local Position = utils.insert(MetadataHighlight, {
+		{
+			provider = "%l",
+			hl = {
+				fg = colors.mauve,
+			},
+		},
+		{ provider = ":" },
+		{
+			provider = "%c",
+			hl = {
+				fg = colors.sapphire,
+			},
+		},
+	})
 
-	local Percentage = {
+	local Percentage = utils.insert(MetadataHighlight, {
 		condition = conditions.hide_with_fewer_columns(45),
 		Space,
-		{ provider = "%p%%" },
-	}
+		utils.surround({ "(", ")" }, nil, {
+			{
+				provider = "%p%%",
+				hl = {
+					fg = colors.blue,
+				},
+			},
+			{ provider = " %LL" },
+		}),
+	})
 
-	local Search = {
-		condition = function(self)
-			self.searchcount = vim.fn.searchcount({ recompute = 1 })
-			return vim.opt.cmdheight:get() == 0 and vim.fn.empty(self.searchcount) == 0 and self.searchcount.total ~= 0
+	local Search = utils.insert(CmdHeightZero, {
+		condition = function()
+			return require("czs").display_results()
 		end,
 		init = function(self)
-			self.target = vim.fn.getreg("/")
-			if self.searchcount.incomplete == 1 then -- Timed out
-				self.current = "?"
-				self.total = "??"
-			elseif self.searchcount.incomplete == 2 then -- Max count exceed
-				if
-					self.searchcount.total > self.searchcount.maxcount
-					and self.searchcount.current > self.searchcount.maxcount
-				then
-					self.current = vim.fn.printf(">%d", self.searchcount.current)
-					self.total = vim.fn.printf(">%d", self.searchcount.total)
-				elseif self.searchcount.total > self.searchcount.maxcount then
-					self.current = vim.fn.printf("%d", self.searchcount.current)
-					self.total = vim.fn.printf(">%d", self.searchcount.total)
-				end
-			else
-				self.current = vim.fn.printf("%d", self.searchcount.current)
-				self.total = vim.fn.printf("%d", self.searchcount.total)
-			end
+			self.target, self.current, self.total = require("czs").output()
 		end,
-		{
+		utils.insert(SearchHighlight, {
+			Space,
 			{ provider = "/" },
 			{
 				condition = conditions.hide_with_fewer_columns(75),
-				utils.insert(SearchHighlight, {
+				{
 					provider = function(self)
 						return vim.fn.printf("%s", self.target)
 					end,
-				}),
+				},
 			},
 			utils.surround({ "[", "]" }, nil, {
-				utils.insert(SearchHighlight, {
+				{
 					provider = function(self)
 						return self.current
 					end,
-				}),
+				},
 				{ provider = "/" },
-				utils.insert(SearchHighlight, {
+				{
 					provider = function(self)
 						return self.total
 					end,
-				}),
+				},
 			}),
-		},
+			Space,
+		}),
 		{
 			condition = conditions.hide_with_fewer_columns(45),
 			Space,
 		},
-	}
+	})
 
 	local StatuslineNC = {
 		condition = function()
 			return not conditions.is_active()
 		end,
-		Delimiter.left(false),
 		FileNameBlock,
-		Delimiter.right(false),
-		hl = {
-			bg = colors.bg,
-		},
 	}
 
 	local Statusline = {
-		Delimiter.left,
-		LuaSnip,
-		FileIcon,
-		FileNameBlock,
-		CmdHeightZero,
-		Align,
-		Search,
-		FileType,
-		WordCount,
-		Space,
-		Position,
-		Percentage,
-		Diagnostics,
-		Delimiter.right,
-		hl = {
-			bg = colors.bg,
-		},
-	}
-
-	local SpecialFileName = {
-		fallthrough = false,
-		FileNameTerminal,
-		FileNameQF,
-		FileNameFromFiletype,
-		hl = {
-			bg = colors.bg,
-		},
-	}
-
-	local SpecialFileNameBlock = utils.insert(FileNameBlockComponent, SpecialFileName)
-
-	local StatuslineSpecial = {
-		condition = function()
-			return conditions.buffer_matches({
-				buftype = { "quickfix", "terminal" },
-				filetype = { "packer", "^gina.*", "diff", "fugitive", "^git.*", "^$" },
-			})
-		end,
-		hl = {
-			bg = colors.bg,
-		},
 		{
-			Delimiter.left,
-			SpecialFileNameBlock,
-			CmdHeightZero,
-			{
-				condition = function()
-					return not conditions.buffer_matches({
-						buftype = { "terminal" },
-					})
-				end,
-				Align,
-				Position,
-				Percentage,
-			},
-			Delimiter.right,
+			utils.insert(ViMode, { { provider = " " }, FileIcon, FileNameBlock, { provider = " " } }),
 		},
-	}
-
-	local StatusLineNoFileName = {
-		condition = conditions.fn_and(function()
-			return vim.api.nvim_buf_get_name(0) == ""
-		end, function()
-			return not conditions.buffer_matches({
-				buftype = { "quickfix" },
-			})
-		end),
-		provider = "",
+		LuaSnip,
+		Macro,
+		{
+			condition = function()
+				return not conditions.buffer_matches({
+					buftype = { "terminal" },
+				})
+			end,
+			Align,
+			Search,
+			WordCount,
+			Position,
+			Percentage,
+			FileType,
+			Diagnostics,
+		},
+		hl = {
+			bg = colors.base,
+		},
 	}
 
 	local StatusLines = {
@@ -614,9 +529,7 @@ if vim.opt.termguicolors:get() and ok then
 
 		fallthrough = false,
 
-		StatusLineNoFileName,
 		StatuslineNC,
-		StatuslineSpecial,
 		Statusline,
 	}
 
@@ -633,8 +546,7 @@ if vim.opt.termguicolors:get() and ok then
 	local stl_augroup = vim.api.nvim_create_augroup("Heirline", { clear = true })
 	vim.api.nvim_create_autocmd("ColorScheme", {
 		callback = function()
-			heirline.reset_highlights()
-			heirline.load_colors(setup_colors())
+			utils.on_colorscheme(setup_colors())
 		end,
 		group = stl_augroup,
 	})
