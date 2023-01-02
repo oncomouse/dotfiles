@@ -39,7 +39,9 @@ vim.opt.previewheight = 14
 
 -- Cmdheight=0 options:
 vim.opt.cmdheight = 0
-vim.opt.showcmdloc = "statusline"
+if vim.fn.has("nvim-0.9") == 1 then
+	vim.opt.showcmdloc = "statusline"
+end
 vim.opt.showmode = false
 
 -- Completion:
@@ -409,8 +411,7 @@ if require("dotfiles.utils.use_termguicolors")() then
 			})
 		end,
 	})
-	local ok = pcall(vim.cmd, [[colorscheme catppuccin-mocha]])
-	if not ok then
+	if not pcall(vim.cmd, [[colorscheme catppuccin-mocha]]) then
 		vim.cmd([[colorscheme default]])
 	end
 else
