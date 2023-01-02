@@ -408,6 +408,9 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 		end,
 		{
 			condition = function(self)
+				if vim.fn.mode() ~= "i" then
+					return false
+				end
 				self.forward = self.ls.jumpable(1) and "→" or ""
 				self.backward = self.ls.jumpable(-1) and "←" or ""
 				self.choice = self.ls.choice_active() and "?" or ""
@@ -517,13 +520,13 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 		},
 		LuaSnip,
 		Macro,
+		Align,
 		{
 			condition = function()
 				return not conditions.buffer_matches({
 					buftype = { "terminal" },
 				})
 			end,
-			Align,
 			Search,
 			ShowCmd,
 			WordCount,
