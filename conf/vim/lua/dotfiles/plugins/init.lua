@@ -323,6 +323,9 @@ local function plugins()
 				{
 					"rebelot/heirline.nvim",
 					module = "heirline",
+					requires = {
+						"oncomouse/czs.nvim",
+					},
 				}, -- Statusline
 				-- Configured in ~/dotfiles/conf/vim/after/plugin/heirline.lua
 
