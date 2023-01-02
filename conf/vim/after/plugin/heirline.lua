@@ -266,6 +266,7 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 
 	local FileName = {
 		fallthrough = false,
+		FileNameNoFileName,
 		{ -- Display just the tail of the filename when status is inactive
 			condition = function()
 				return not conditions.is_active()
@@ -274,7 +275,6 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 				return vim.fn.fnamemodify(self.filename, ":t")
 			end,
 		},
-		FileNameNoFileName,
 		FileNameFromFiletype,
 		FileNameTerminal,
 		FileNameQF,
