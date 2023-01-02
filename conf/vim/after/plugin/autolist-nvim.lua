@@ -1,5 +1,5 @@
 -- Turn off all the bindings in the plugin:
-local ok, autolist = pcall(require,"autolist")
+local ok, autolist = pcall(require, "autolist")
 if ok then
 	autolist.setup({
 		colon = {
