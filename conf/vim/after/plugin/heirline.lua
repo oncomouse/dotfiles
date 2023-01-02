@@ -73,6 +73,7 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 	local WordCountHighlight = HighlightProvider({ fg = colors.yellow })
 	local MetadataHighlight = HighlightProvider({ fg = colors.surface2 })
 	local MacroHighlight = HighlightProvider({ bg = colors.flamingo, fg = colors.surface0 })
+	local ShowCmdHighlight = HighlightProvider({ fg = colors.flamingo })
 
 	local ViMode = {
 		-- get vim current mode, this information will be required by the provider
@@ -374,6 +375,15 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 		})
 	)
 
+	local ShowCmd = utils.insert(
+		CmdHeightZero,
+		utils.insert(ShowCmdHighlight, {
+			{
+				provider = "%S ",
+			},
+		})
+	)
+
 	local FileType = utils.insert(MetadataHighlight, {
 		condition = conditions.fn_and(function()
 			return not conditions.buffer_matches({
@@ -515,6 +525,7 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 			end,
 			Align,
 			Search,
+			ShowCmd,
 			WordCount,
 			Position,
 			Percentage,

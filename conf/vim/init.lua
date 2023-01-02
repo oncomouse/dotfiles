@@ -37,7 +37,9 @@ vim.opt.inccommand = "split"
 -- Height Of The Preview Window:
 vim.opt.previewheight = 14
 
+-- Cmdheight=0 options
 vim.opt.cmdheight = 0
+vim.opt.showcmdloc = "statusline"
 
 -- Completion:
 vim.opt.completeopt = "menuone,noselect,noinsert,preview"
