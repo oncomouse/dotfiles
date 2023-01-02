@@ -560,8 +560,7 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 	local lushwal_available, lushwal = pcall(require, "lushwal")
 	if lushwal_available then
 		lushwal.add_reload_hook(function()
-			heirline.reset_highlights()
-			heirline.load_colors(setup_colors())
+			utils.on_colorscheme(setup_colors())
 		end)
 	end
 
