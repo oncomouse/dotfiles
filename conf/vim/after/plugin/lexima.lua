@@ -130,13 +130,13 @@ vim.g.dotfiles_lexima_rules = {
 	{
 		char = "<CR>",
 		at = [[^> .*\%#$]],
-		except = "^> $",
+		except = [[^> \%#$]],
 		input = "<CR>> ",
 		filetype = "markdown",
 	},
 	{
 		char = "<CR>",
-		at = "^> $",
+		at = [[^> \%#$]],
 		input = "<BS><BS><CR>",
 		filetype = "markdown",
 	},
