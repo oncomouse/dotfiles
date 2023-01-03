@@ -2,13 +2,12 @@
 # DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
 
 if [[ -n "$DISPLAY" ]]; then
-	if [ "$DOTFILES_TARGET" == "desktop" ]; then
-		exec wezterm
-	elif [ "$DOTFILES_TARGET" == "laptop" ]; then
-		exec st "$@"
-	# else
-	# 	exec xterm "$@"
-	fi
+	exec st "$@"
+	# if [ "$DOTFILES_TARGET" == "desktop" ]; then
+	# 	exec wezterm
+	# elif [ "$DOTFILES_TARGET" == "laptop" ]; then
+	# 	exec st "$@"
+	# fi
 elif [[ -n "$WAYLAND_DISPLAY" ]]; then
 	exec wezterm
 fi
