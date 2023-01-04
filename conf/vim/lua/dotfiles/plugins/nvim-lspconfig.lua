@@ -364,8 +364,9 @@ local server_map = {
 }
 
 local cache = {
-	on_attach = on_attach
+	on_attach = on_attach,
 }
+
 M = setmetatable(server_map, {
 	__index = function(_, idx)
 		if cache[idx] ~= nil then
@@ -385,9 +386,11 @@ M = setmetatable(server_map, {
 		if idx == "pattern" then
 			local output = {}
 			for _, server_block in pairs(server_map) do
-				for _, pattern in pairs(type(server_block.pattern) == "string" and { server_block.pattern } or server_block.pattern) do
+				for _, pattern in
+					pairs(type(server_block.pattern) == "string" and { server_block.pattern } or server_block.pattern)
+				do
 					table.insert(output, pattern)
-				end 
+				end
 			end
 			cache.pattern = table.concat(vim.fn.uniq(vim.fn.sort(output)), ",")
 			return cache.pattern
