@@ -1,6 +1,6 @@
 local M = {}
 
-function M.on_attach(client, buf_num)
+local function on_attach(client, buf_num)
 	-- Update codeLens:
 	if client.server_capabilities.codeLensProvider then
 		vim.api.nvim_create_autocmd("CursorHold,CursorHoldI,InsertLeave", {
@@ -110,8 +110,8 @@ function M.on_attach(client, buf_num)
 		buffer = true,
 		desc = "lua vim.lsp.buf.signature_help()",
 	})
-	local diagnostic_provider = vim.tbl_contains(M.servers[client.name].provides or {}, "diagnostics")
-	local formatting_provider = vim.tbl_contains(M.servers[client.name].provides or {}, "formatting")
+	local diagnostic_provider = vim.tbl_contains(M[client.name].provides or {}, "diagnostics")
+	local formatting_provider = vim.tbl_contains(M[client.name].provides or {}, "formatting")
 	if diagnostic_provider then
 		vim.api.nvim_create_autocmd("DiagnosticChanged,BufEnter", {
 			buffer = buf_num,
@@ -139,7 +139,7 @@ function M.on_attach(client, buf_num)
 			vim.lsp.buf.format({
 				async = true,
 				filter = function(c)
-					return vim.tbl_contains(M.servers[c.name].provides or {}, "formatting")
+					return vim.tbl_contains(M[c.name].provides or {}, "formatting")
 				end,
 			})
 		end, {
@@ -363,7 +363,9 @@ local server_map = {
 	},
 }
 
-local cache = {}
+local cache = {
+	on_attach = on_attach
+}
 M = setmetatable(server_map, {
 	__index = function(_, idx)
 		if cache[idx] ~= nil then
