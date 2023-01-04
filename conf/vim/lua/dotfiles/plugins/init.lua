@@ -224,21 +224,21 @@ local function plugins()
 				"anuvyklack/hydra.nvim", -- Repeating keys mode (used for window resizing, atm)
 				-- Configured in ~/dotfiles/conf/vim/plugin/hydra.lua
 
-				{
-					"gaoDean/autolist.nvim",
-					config = function()
-						require("autolist").setup({
-							colon = {
-								preferred = "",
-								indent = false,
-								indent_raw = false,
-							},
-							invert = {
-								ul_marker = "*",
-							},
-						})
-					end,
-				}, -- Auto-increment and indent/dedent lists
+				-- {
+				-- 	"gaoDean/autolist.nvim",
+				-- 	config = function()
+				-- 		require("autolist").setup({
+				-- 			colon = {
+				-- 				preferred = "",
+				-- 				indent = false,
+				-- 				indent_raw = false,
+				-- 			},
+				-- 			invert = {
+				-- 				ul_marker = "*",
+				-- 			},
+				-- 		})
+				-- 	end,
+				-- }, -- Auto-increment and indent/dedent lists
 
 				{
 					"nvim-treesitter/nvim-treesitter",
