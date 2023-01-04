@@ -55,8 +55,13 @@ local function config_luasnips()
 	end
 
 	-- Loaders:
-	require("luasnip.loaders.from_vscode").lazy_load()
-	require("luasnip.loaders.from_lua").lazy_load({ paths = "~/dotfiles/conf/vim/snippets" })
+	require("luasnip.loaders.from_vscode").lazy_load({
+		default_priority = 1000,
+	})
+	require("luasnip.loaders.from_lua").lazy_load({
+		paths = "~/dotfiles/conf/vim/snippets",
+		default_priotity = 2000,
+	})
 
 	local augroup = vim.api.nvim_create_augroup("dotfiles-settings-luasnips", { clear = true })
 	vim.api.nvim_create_autocmd("CompleteDone", {
