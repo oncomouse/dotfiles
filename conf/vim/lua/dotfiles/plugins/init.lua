@@ -97,16 +97,23 @@ local function plugins()
 					requires = { "tpope/vim-repeat" },
 				}, -- Fancy * and # bindings
 
+				-- {
+				-- 	"cohama/lexima.vim", -- Autopairs
+				-- 	event = "InsertEnter",
+				-- 	config = function()
+				-- 		require("dotfiles.plugins.lexima").setup()
+				-- 		-- Autoclose mapping:
+				-- 		vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima-leave-til-eol)", { silent = true })
+				-- 	end,
+				-- 	-- Configured in ~/dotfiles/conf/vim/after/plugin/lexima.lua
+				-- }, -- Endwise and autopairs
+
 				{
-					"cohama/lexima.vim", -- Autopairs
-					event = "InsertEnter",
+					"windwp/nvim-autopairs",
 					config = function()
-						require("dotfiles.plugins.lexima").setup()
-						-- Autoclose mapping:
-						vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima-leave-til-eol)", { silent = true })
+						require("nvim-autopairs").setup({})
 					end,
-					-- Configured in ~/dotfiles/conf/vim/after/plugin/lexima.lua
-				}, -- Endwise and autopairs
+				},
 
 				-- Extra functionality + UI:
 
