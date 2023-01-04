@@ -26,7 +26,6 @@ if ok then
 	end
 
 	npairs.add_rules({
-		Rule("*", " ", "markdown"):with_pair(at_pos(0)),
 		markdown_bold_italic_rule("*"),
 		markdown_bold_italic_rule("_"),
 	})
@@ -69,9 +68,7 @@ if ok then
 
 	-- Blockquotes
 	npairs.add_rules({
-		Rule(">", " ", "markdown"):with_pair(function(opts)
-			return opts.col == 1
-		end):set_end_pair_length(-1),
+		Rule(">", " ", "markdown"):with_pair(at_pos(1)):set_end_pair_length(-1),
 		Rule("> ", "", "markdown")
 			:use_regex(true)
 			:with_pair(function(opts)
@@ -84,23 +81,39 @@ if ok then
 				if opts.line == "> " then
 					return [[<BS><BS><CR>]]
 				end
-				return t([[<C-g>u<CR><C-c>O> ]])
+				return t([[<C-g>u<C-c>o> ]])
+			end),
+	})
+
+	-- Unordered Lists
+	npairs.add_rules({
+		Rule("*", " ", "markdown"):with_pair(at_pos(1)):set_end_pair_length(-1),
+		Rule("%* ", "", "markdown")
+			:use_regex(true)
+			:with_pair(function(opts)
+				return opts.col == 1
+			end)
+			:with_del(function(opts)
+				return opts.col == 2
+			end)
+			:replace_map_cr(function(opts)
+				if opts.line == "* " then
+					return [[<BS><BS><CR>]]
+				end
+				return t([[<C-g>u<C-c>o* ]])
 			end),
 	})
 
 	-- Tasks
 	npairs.add_rules({
-		Rule("[", " ]", "markdown")
-			:with_pair(function(opts)
-				return opts.line:match("^%s*[%*-]%s*")
-			end)
-			:set_end_pair_length(-2),
+		Rule("[", " ]", "markdown"):with_pair(function(opts)
+			return opts.line:match("^%s*[%*-]%s*")
+		end):set_end_pair_length(-2),
 		-- Rule("[ ]", "", "markdown")
 		-- 	:use_regex(true)
 		-- 	:with_pair(cond.none)
 		-- 	:with_del(function(opts)
 		-- 		return opts.line:match("^%s*[%*-]")
 		-- 	end)
-
 	})
 end
