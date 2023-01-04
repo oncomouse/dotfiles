@@ -1,4 +1,5 @@
 local M = {}
+local has_autolist = pcall(require, "autolist")
 
 local join_patterns = {
 	"^> ", -- Block quotes
@@ -130,7 +131,6 @@ local function match_vimregex(line, regex)
 	return match
 end
 function M.detab()
-	local has_autolist = pcall(require, "autolist")
 	local line = vim.api.nvim_get_current_line()
 	for _, r in pairs(detab_regexes) do
 		local match = match_vimregex(line, r)
@@ -148,7 +148,6 @@ end
 
 local function insert_newline(above)
 	local action = above and "O" or "o"
-	local has_autolist = pcall(require, "autolist")
 	local line = vim.api.nvim_get_current_line()
 	if line:match("^> ") then
 		return action .. "> "
@@ -173,7 +172,6 @@ function M.newline(above)
 end
 
 function M.set_buf_maps()
-	local has_autolist = pcall(require, "autolist")
 	-- autolist.nvim mappings:
 	if has_autolist then
 		function create_mapping_hook(mode, mapping, hook, alias)
