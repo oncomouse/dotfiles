@@ -225,22 +225,6 @@ local function plugins()
 				-- Configured in ~/dotfiles/conf/vim/plugin/hydra.lua
 
 				{
-					"gaoDean/autolist.nvim",
-					config = function()
-						require("autolist").setup({
-							colon = {
-								preferred = "",
-								indent = false,
-								indent_raw = false,
-							},
-							invert = {
-								ul_marker = "*",
-							},
-						})
-					end,
-				}, -- Auto-increment and indent/dedent lists
-
-				{
 					"nvim-treesitter/nvim-treesitter",
 					run = function()
 						vim.cmd([[TSUpdate]])

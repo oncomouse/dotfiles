@@ -1,5 +1,4 @@
 local M = {}
-local has_autolist = pcall(require, "autolist")
 
 local join_patterns = {
 	"^> ", -- Block quotes
@@ -140,9 +139,6 @@ function M.detab()
 			return '<Esc>0"_' .. #match .. "dl" .. restore_input
 		end
 	end
-	if has_autolist then
-		return require("autolist").indent(nil, "<c-d>")
-	end
 	return "<c-d>"
 end
 
@@ -151,13 +147,6 @@ local function insert_newline(above)
 	local line = vim.api.nvim_get_current_line()
 	if line:match("^> ") then
 		return action .. "> "
-	end
-	if has_autolist then
-		if above then
-			return require("autolist").new_before(nil, "O")
-		else
-			return require("autolist").new(nil, "o")
-		end
 	end
 	return action
 end
@@ -173,27 +162,6 @@ end
 
 function M.set_buf_maps()
 	-- autolist.nvim mappings:
-	if has_autolist then
-		function create_mapping_hook(mode, mapping, hook, alias)
-			vim.keymap.set(mode, mapping, function(motion)
-				local keys = hook(motion, alias or mapping)
-				if not keys then
-					keys = ""
-				end
-				return keys
-			end, { expr = true, buffer = true })
-		end
-		create_mapping_hook("n", "<leader>lx", require("autolist").invert_entry, "")
-		create_mapping_hook("i", "<C-t>", require("autolist").indent)
-		create_mapping_hook("n", ">>", require("autolist").indent)
-		create_mapping_hook("i", "<CR>", require("autolist").new)
-		create_mapping_hook("n", "<<", require("autolist").indent)
-		create_mapping_hook("i", "<C-z>", require("autolist").force_recalculate)
-		create_mapping_hook("n", "<leader>lr", require("autolist").force_recalculate)
-		create_mapping_hook("n", "dd", require("autolist").force_recalculate)
-		create_mapping_hook("n", "p", require("autolist").force_recalculate)
-		create_mapping_hook("n", "P", require("autolist").force_recalculate)
-	end
 	vim.keymap.set("n", "o", M.newline, { expr = true, buffer = true })
 	vim.keymap.set("n", "O", M.newline(true), { expr = true, buffer = true })
 	vim.keymap.set("i", "<C-d>", M.detab, { expr = true, buffer = true })
