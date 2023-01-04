@@ -198,13 +198,13 @@ local server_map = {
 			"*.bash",
 			"*.css",
 			"*.fish",
-			"*.html,",
+			"*.html",
 			"*.js",
 			"*.json",
 			"*.jsonc",
 			"*.jsx",
 			"*.less",
-			"*.lua,",
+			"*.lua",
 			"*.md",
 			"*.org",
 			"*.py",
@@ -216,7 +216,7 @@ local server_map = {
 			"*.tsx",
 			"*.vim",
 			"*.vue",
-			"*.yml,",
+			"*.yml",
 		},
 	},
 	{
@@ -342,7 +342,7 @@ local server_map = {
 		},
 	},
 	{
-		pattern = "*.bash, *.sh, *.zsh",
+		pattern = { "*.bash", "*.sh", "*.zsh" },
 		servers = {
 			bashls = {
 				flags = {
@@ -364,7 +364,7 @@ local server_map = {
 }
 
 local cache = {}
-M.servers = setmetatable(server_map, {
+M = setmetatable(server_map, {
 	__index = function(_, idx)
 		if cache[idx] ~= nil then
 			return cache[idx]
@@ -377,7 +377,18 @@ M.servers = setmetatable(server_map, {
 					table.insert(output, name)
 				end
 			end
+			cache.servers = output
 			return output
+		end
+		if idx == "pattern" then
+			local output = {}
+			for _, server_block in pairs(server_map) do
+				for _, pattern in pairs(type(server_block.pattern) == "string" and { server_block.pattern } or server_block.pattern) do
+					table.insert(output, pattern)
+				end 
+			end
+			cache.pattern = table.concat(vim.fn.uniq(vim.fn.sort(output)), ",")
+			return cache.pattern
 		end
 		for _, server_block in pairs(server_map) do
 			if vim.fn.has_key(server_block.servers, idx) == 1 then
