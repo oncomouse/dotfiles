@@ -13,15 +13,21 @@ if ok then
 	local function markdown_bold_italic_rule(char)
 		local c = vim.fn.fnameescape(char)
 		local regex = c .. c .. "[^" .. char .. "]*" .. [[\%#]] .. "[^" .. char .. "]*" .. c .. c
-		return Rule(char, char, "markdown"):with_pair(vim_regex_cond.not_line(regex)):with_del(function(opts)
+		return Rule(char, char, "markdown"):with_pair(cond.not_at_pos(1)):with_pair(vim_regex_cond.not_line(regex)):with_del(function(opts)
 			opts.col = utils.get_cursor()
 			return vim_regex_cond.not_line(regex)
 		end)
 	end
 
-	local function at_pos(col)
+	function cond.at_pos(col)
 		return function(opts)
 			return opts.col == col
+		end
+	end
+
+	function cond.not_at_pos(col)
+		return function(opts)
+			return opts.col ~= col
 		end
 	end
 
@@ -29,9 +35,13 @@ if ok then
 		markdown_bold_italic_rule("*"),
 		markdown_bold_italic_rule("_"),
 	})
-	npairs.add_rules(require("nvim-autopairs.rules.endwise-lua"))
+	-- npairs.add_rules(require("nvim-autopairs.rules.endwise-lua"))
+	local endwise = require('nvim-autopairs.ts-rule').endwise
+	npairs.add_rules({
+		endwise('then$', 'end', 'lua', nil),
+		endwise('function.*%(.*%)$', 'end', 'lua', nil),
+	})
 	npairs.add_rules(require("nvim-autopairs.rules.endwise-ruby"))
-	local endwise = require("nvim-autopairs.ts-rule").endwise
 
 	-- Shell Rules:
 	npairs.add_rules({
@@ -68,7 +78,7 @@ if ok then
 
 	-- Blockquotes
 	npairs.add_rules({
-		Rule(">", " ", "markdown"):with_pair(at_pos(1)):set_end_pair_length(-1),
+		Rule(">", " ", "markdown"):with_pair(cond.at_pos(1)):set_end_pair_length(-1),
 		Rule("> ", "", "markdown")
 			:use_regex(true)
 			:with_pair(function(opts)
@@ -87,7 +97,7 @@ if ok then
 
 	-- Unordered Lists
 	npairs.add_rules({
-		Rule("*", " ", "markdown"):with_pair(at_pos(1)):set_end_pair_length(-1),
+		Rule("*", " ", "markdown"):with_pair(cond.at_pos(1)):set_end_pair_length(-1),
 		Rule("%* ", "", "markdown")
 			:use_regex(true)
 			:with_pair(function(opts)
