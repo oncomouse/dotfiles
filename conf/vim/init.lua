@@ -211,6 +211,10 @@ vim.keymap.set("n", "``", "<cmd>e #<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "]d", "<cmd>lnext<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "[d", "<cmd>lprev<CR>", { silent = true, noremap = true })
 
+-- Tab navigation:
+vim.keymap.set("n", "]t", "<cmd>tabnext<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "[t", "<cmd>tabprev<CR>", { silent = true, noremap = true })
+
 -- Toggle Quickfix:
 vim.keymap.set("n", "<leader>q", function()
 	list_toggle("c")
