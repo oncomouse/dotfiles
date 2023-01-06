@@ -230,8 +230,6 @@ local function plugins()
 					-- Configured in ~/dotfiles/conf/vim/plugin/nvim-treesitter.lua
 				}, -- Treesitter-based Syntax
 
-				-- Appearance:
-
 				{
 					"oncomouse/vim-markdown",
 					ft = "markdown",
@@ -246,44 +244,9 @@ local function plugins()
 					end,
 				}, -- Markdown Syntax
 
-				{ "catppuccin/nvim", as = "catppuccin" },
+				-- Appearance:
 
-				-- {
-				-- 	"oncomouse/lushwal.nvim",
-				-- 	opt = true,
-				-- 	cmd = "LushwalCompile",
-				-- 	setup = function()
-				-- 		vim.g.lushwal_configuration = {
-				-- 			-- Ayu Mirage is weird, so we do some overrides:
-				-- 			color_overrides = function(colors)
-				-- 				local overrides = {
-				-- 					red = colors.color5,
-				-- 					orange = colors.color1,
-				-- 					amaranth = colors.color5.mix(colors.color4, 34).saturate(46).darken(5),
-				-- 				}
-				-- 				return vim.tbl_extend("force", colors, overrides)
-				-- 			end,
-				-- 			-- Here's all the addons we need:
-				-- 			addons = {
-				-- 				hydra_nvim = true,
-				-- 				indent_blankline_nvim = true,
-				-- 				gina = true,
-				-- 				markdown = true,
-				-- 				mini_nvim = true,
-				-- 				nvim_cmp = true,
-				-- 			},
-				-- 		}
-				-- 		vim.api.nvim_create_autocmd("ColorSchemePre", {
-				-- 			group = "dotfiles-settings",
-				-- 			pattern = "lushwal",
-				-- 			command = "PackerLoad lushwal.nvim",
-				-- 		})
-				-- 	end,
-				-- 	run = function()
-				-- 		vim.cmd([[LushwalCompile]])
-				-- 	end,
-				-- 	requires = { { "rktjmp/lush.nvim", opt = true }, { "rktjmp/shipwright.nvim", opt = true } },
-				-- }, -- Colorscheme
+				{ "catppuccin/nvim", as = "catppuccin" }, -- Theme
 
 				{
 					"NvChad/nvim-colorizer.lua",
