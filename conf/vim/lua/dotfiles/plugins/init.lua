@@ -108,13 +108,6 @@ local function plugins()
 					-- Configured in ~/dotfiles/conf/vim/after/plugin/lexima.lua
 				}, -- Endwise and autopairs
 
-				-- {
-				-- 	"windwp/nvim-autopairs",
-				-- 	config = function()
-				-- 		require("nvim-autopairs").setup({})
-				-- 	end,
-				-- },
-
 				-- Extra functionality + UI:
 
 				{
