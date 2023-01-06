@@ -41,8 +41,7 @@ local function config_cmp()
 			{ name = "nvim_lua" },
 			{ name = "luasnip" },
 			{ name = "fish" },
-			{ name = "neorg" },
-			-- { name = "nvim_ref" },
+			{ name = "nvim_ref" },
 		}),
 		completion = {
 			autocomplete = false,

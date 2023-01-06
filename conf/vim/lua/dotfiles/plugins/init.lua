@@ -192,7 +192,6 @@ local function plugins()
 					requires = {
 						{
 							"rafamadriz/friendly-snippets",
-							event = "InsertEnter",
 						}, -- Base Snippets
 					},
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/luasnip.lua
@@ -275,6 +274,7 @@ local function plugins()
 				}, -- Markdown Syntax
 
 				{ "catppuccin/nvim", as = "catppuccin" },
+
 				-- {
 				-- 	"oncomouse/lushwal.nvim",
 				-- 	opt = true,
