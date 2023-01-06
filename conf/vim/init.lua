@@ -233,8 +233,11 @@ end, { silent = true, noremap = true })
 -- Calculator:
 vim.keymap.set("i", "<C-X><C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
 
--- Vertical split like in my Tmux config
+-- Vertical split like in my Tmux config:
 vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
+
+-- Jump to last buffer:
+vim.keymap.set("n", "<leader>b", "<cmd>b#<cr>")
 
 -- Sourced from jessarcher/dotfiles {{{
 --  \ https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
