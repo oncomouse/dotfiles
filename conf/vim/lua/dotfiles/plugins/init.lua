@@ -134,33 +134,6 @@ local function plugins()
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/fzf-lua.lua
 				}, -- FZF Client
 
-				-- {
-				-- 	"lambdalisue/gina.vim",
-				-- 	cmd = "Gina",
-				-- 	config = function()
-				-- 		for _, command in pairs({
-				-- 			"branch",
-				-- 			"changes",
-				-- 			"commit",
-				-- 			"diff",
-				-- 			"log",
-				-- 			"status",
-				-- 		}) do
-				-- 			vim.fn["gina#custom#command#option"](
-				-- 				command,
-				-- 				"--opener",
-				-- 				vim.opt.previewheight:get() .. "split"
-				-- 			)
-				-- 			vim.fn["gina#custom#command#option"](command, "--group", "short")
-				-- 		end
-				-- 		-- Implement vim-fugitive commands in Gina:
-				-- 		vim.fn["gina#custom#mapping#nmap"]("status", "cc", ":<C-u>Gina commit<CR>", {
-				-- 			noremap = 1,
-				-- 			silent = 1,
-				-- 		})
-				-- 	end,
-				-- }, -- Git support
-
 				(vim.g.nvim_ref_devel and {
 					"~/Projects/nvim-ref",
 					config = function()
