@@ -24,6 +24,7 @@ brew "grep"
 brew "htop"
 brew "imagemagick"
 brew "jq"
+brew "lazygit"
 brew "lf"
 brew "lua@5.1", link: false
 brew "lua-language-server"
