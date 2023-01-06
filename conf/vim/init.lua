@@ -373,14 +373,13 @@ end, {
 
 -- :Git command
 vim.api.nvim_create_user_command("Git", function(args)
-	if args.args:match("^status") then
-		vim.cmd("GitStatus")
-	else
-		vim.cmd("Gina " .. args.args)
+	if args.args == "" then
+		vim.cmd("LazyGit")
 	end
+	vim.cmd("!git " .. args.args)
 end, {
 	force = true,
-	nargs = "+",
+	nargs = "*",
 })
 
 -- }}}
