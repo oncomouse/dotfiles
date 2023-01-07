@@ -26,7 +26,7 @@ local function tabular(pattern, start, stop)
 	stop = stop - 1
 	if start <= stop then
 		lines = vim.list_slice(lines, start, stop)
-		lines = require("mini.align").align_strings(lines, { split_pattern = lua_sub, merge_delimiter = " " }, nil)
+		lines = require("mini.align").align_strings(lines, { split_pattern = lua_sub, merge_delimiter = "" }, nil)
 		set_lines(start - 1, stop, lines)
 	end
 end
