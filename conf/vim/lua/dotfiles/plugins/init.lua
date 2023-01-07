@@ -23,7 +23,9 @@ local function plugins()
 				-- Editor Enhancements:
 
 				"sickill/vim-pasta", -- fix block paste for Neovim
+
 				"christoomey/vim-sort-motion", -- gs to sort
+
 				"tpope/vim-sleuth", -- Automatically set indent
 
 				{
@@ -170,15 +172,11 @@ local function plugins()
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/luasnip.lua
 				}, -- Snippets
 
-				{
-					"jose-elias-alvarez/null-ls.nvim",
-					-- Configured in ~/dotfiles/conf/vim/after/plugin/null-ls.lua
-				}, -- Format and Diagnostics
+				"jose-elias-alvarez/null-ls.nvim", -- Diagnostics and Formatting
+				-- Configured in ~/dotfiles/conf/vim/after/plugin/null-ls.lua
 
-				{
-					"neovim/nvim-lspconfig",
-					-- Configured in ~/dotfiles/conf/vim/plugin/nvim-lspconfig.lua
-				}, -- LSP
+				"neovim/nvim-lspconfig", -- LSP
+				-- Configured in ~/dotfiles/conf/vim/plugin/nvim-lspconfig.lua
 
 				{
 					"hrsh7th/nvim-cmp",
@@ -248,9 +246,7 @@ local function plugins()
 
 				{ "catppuccin/nvim", as = "catppuccin" }, -- Theme
 
-				{
-					"NvChad/nvim-colorizer.lua",
-				}, -- Highlight colors in files
+				 "NvChad/nvim-colorizer.lua", -- Highlight colors in files
 				-- Configured in ~/dotfiles/conf/vim/plugin/nvim-colorizer.lua
 
 				{
