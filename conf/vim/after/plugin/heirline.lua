@@ -73,6 +73,11 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 	local WordCountHighlight = HighlightProvider({ fg = colors.yellow })
 	local MetadataHighlight = HighlightProvider({ fg = colors.surface2 })
 	local MacroHighlight = HighlightProvider({ bg = colors.flamingo, fg = colors.surface0 })
+	local PositionHighlight = {
+		Column = HighlightProvider({ fg = colors.sapphire }),
+		Row = HighlightProvider({ fg = colors.mauve }),
+	}
+	local PercentageHighlight = HighlightProvider({ fg = colors.blue })
 	local ShowCmdHighlight = HighlightProvider({ fg = colors.flamingo })
 
 	local ViMode = {
@@ -439,31 +444,16 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 	}
 
 	local Position = utils.insert(MetadataHighlight, {
-		{
-			provider = "%l",
-			hl = {
-				fg = colors.mauve,
-			},
-		},
+		utils.insert(PositionHighlight.Row, { provider = "%l" }),
 		{ provider = ":" },
-		{
-			provider = "%c",
-			hl = {
-				fg = colors.sapphire,
-			},
-		},
+		utils.insert(PositionHighlight.Column, { provider = "%c" }),
 	})
 
 	local Percentage = utils.insert(MetadataHighlight, {
 		condition = conditions.hide_with_fewer_columns(45),
 		Space,
 		utils.surround({ "(", ")" }, nil, {
-			{
-				provider = "%p%%",
-				hl = {
-					fg = colors.blue,
-				},
-			},
+			utils.insert(PercentageHighlight, { provider = "%p%%" }),
 			{ provider = " %LL" },
 		}),
 	})
@@ -556,13 +546,6 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 	}
 
 	heirline.setup(StatusLines)
-
-	local lushwal_available, lushwal = pcall(require, "lushwal")
-	if lushwal_available then
-		lushwal.add_reload_hook(function()
-			utils.on_colorscheme(setup_colors())
-		end)
-	end
 
 	local stl_augroup = vim.api.nvim_create_augroup("Heirline", { clear = true })
 	vim.api.nvim_create_autocmd("ColorScheme", {
