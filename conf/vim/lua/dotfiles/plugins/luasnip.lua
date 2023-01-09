@@ -67,7 +67,7 @@ local function config_luasnips()
 	vim.api.nvim_create_autocmd("CompleteDone", {
 		group = augroup,
 		callback = function()
-			if ls.available(1) then
+			if ls.available() then
 				ls.expand()
 			end
 		end,
