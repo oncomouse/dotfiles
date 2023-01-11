@@ -545,7 +545,7 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 		Statusline,
 	}
 
-	heirline.setup(StatusLines)
+	heirline.setup({ statusline = StatusLines })
 
 	local stl_augroup = vim.api.nvim_create_augroup("Heirline", { clear = true })
 	vim.api.nvim_create_autocmd("ColorScheme", {
