@@ -167,6 +167,12 @@ if pcall(require, "mini.ai") then
 	-- ga,gA for alignment:
 	require("mini.align").setup({})
 
+	-- :Bd[!] for layout-safe bufdelete
+	require("mini.bufremove").setup({})
+	vim.api.nvim_create_user_command("Bd", function(args)
+		require("mini.bufremove").delete(0, not args.bang)
+	end, { bang = true })
+
 	-- gc for commenting/uncommenting:
 	require("mini.comment").setup({})
 
@@ -230,5 +236,4 @@ if pcall(require, "mini.ai") then
 			}
 		end,
 	})
-
 end
