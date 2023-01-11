@@ -188,17 +188,17 @@ if pcall(require, "mini.ai") then
 				output = { left = "“", right = "”" },
 			},
 		},
-		mappings = {
-			add = "sa",
-			delete = "sd",
-			find = "sf",
-			find_left = "sF",
-			highlight = "sh",
-			replace = "sc",
-			update_n_lines = "sn",
-			suffix_last = "l",
-			suffix_next = "n"
-		},
+		-- mappings = {
+		-- 	add = "sa",
+		-- 	delete = "sd",
+		-- 	find = "sf",
+		-- 	find_left = "sF",
+		-- 	highlight = "sh",
+		-- 	replace = "sc",
+		-- 	update_n_lines = "sn",
+		-- 	suffix_last = "l",
+		-- 	suffix_next = "n"
+		-- },
 		n_lines = 50,
 		search_method = "cover_or_next",
 	})
