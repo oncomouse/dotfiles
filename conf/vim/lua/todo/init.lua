@@ -158,81 +158,105 @@ function M.goto_project()
 	end
 end
 
-local maps
-local default_mappings = {
-	done = {
-		toggle = "gtd",
-		motion = "gt",
-		visual = "gt",
-	},
-	jump = {
-		by_name = "gtg",
-		next = "]t",
-		prev = "[t",
-		search = "gt/",
+M.config = nil
+local default_config = {
+	maps = {
+		done = {
+			toggle = "gtd",
+			motion = "gt",
+			visual = "gt",
+		},
+		jump = {
+			by_name = "gtg",
+			next = "]t",
+			prev = "[t",
+			search = "gt/",
+		},
 	},
 }
 
-function M.set_maps()
-	if maps == nil then
-		maps = vim.tbl_deep_extend("keep", vim.g.todo_maps or {}, default_mappings)
-	end
-	if maps.done.toggle ~= nil then
+local function set_maps()
+	if M.config.maps.done.toggle ~= "" then
 		vim.keymap.set(
 			"n",
-			maps.done.toggle,
+			M.config.maps.done.toggle,
 			"<Plug>(todo-toggle-done)",
 			{ buffer = true, silent = true, noremap = true }
 		)
 	end
-	if maps.done.visual ~= nil then
+	if M.config.maps.done.visual ~= "" then
 		vim.keymap.set(
 			"x",
-			maps.done.visual,
+			M.config.maps.done.visual,
 			"<Plug>(todo-toggle-done-visual)",
 			{ buffer = true, silent = true, noremap = true }
 		)
 	end
-	if maps.done.motion ~= nil then
+	if M.config.maps.done.motion ~= "" then
 		vim.keymap.set(
 			"n",
-			maps.done.motion,
+			M.config.maps.done.motion,
 			"<Plug>(todo-toggle-done-motion)",
 			{ buffer = true, silent = true, noremap = true }
 		)
 	end
-	if maps.jump.next ~= nil then
+	if M.config.maps.jump.next ~= "" then
 		vim.keymap.set(
 			"n",
-			maps.jump.next,
+			M.config.maps.jump.next,
 			"<Plug>(todo-next-project)",
 			{ buffer = true, silent = true, noremap = true }
 		)
 	end
-	if maps.jump.prev ~= nil then
+	if M.config.maps.jump.prev ~= "" then
 		vim.keymap.set(
 			"n",
-			maps.jump.prev,
+			M.config.maps.jump.prev,
 			"<Plug>(todo-prev-project)",
 			{ buffer = true, silent = true, noremap = true }
 		)
 	end
-	if maps.jump.search ~= nil then
+	if M.config.maps.jump.search ~= "" then
 		vim.keymap.set(
 			"n",
-			maps.jump.search,
+			M.config.maps.jump.search,
 			"<Plug>(todo-search-done)",
 			{ buffer = true, silent = true, noremap = true }
 		)
 	end
-	if maps.jump.by_name ~= nil then
+	if M.config.maps.jump.by_name ~= "" then
 		vim.keymap.set(
 			"n",
-			maps.jump.by_name,
+			M.config.maps.jump.by_name,
 			"<Plug>(todo-goto-project)",
 			{ buffer = true, silent = true, noremap = true }
 		)
 	end
 end
 
+function M.setup(opts)
+	if M.config == nil then
+		M.config = vim.tbl_deep_extend("keep", opts or {}, default_config)
+	end
+
+	vim.keymap.set("", "<Plug>(todo-next-project)", ":<C-u>lua require('todo').find_project('next')<CR>")
+	vim.keymap.set("", "<Plug>(todo-prev-project)", ":<C-u>lua require('todo').find_project('prev')<CR>")
+	vim.keymap.set("", "<Plug>(todo-search-done)", [[/\(^\s*[-*] \[[xX]\].*$\|^.* X$\)<CR>]])
+	vim.keymap.set("", "<Plug>(todo-toggle-done)", "v:lua.require'todo'.operatorfunc() . '$'", { expr = true })
+	vim.keymap.set("", "<Plug>(todo-toggle-done-visual)", ":<C-u>lua require('todo').operatorfunc('visual')<CR>")
+	vim.keymap.set("", "<Plug>(todo-toggle-done-motion)", "v:lua.require'todo'.operatorfunc()", { expr = true })
+	vim.keymap.set("", "<Plug>(todo-goto-project)", ":<C-u>lua require('todo').goto_project()<CR>")
+
+	local todo_augroup = vim.api.nvim_create_augroup("todo", { clear = true })
+	vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
+		group = todo_augroup,
+		pattern = "todo.*",
+		callback = set_maps,
+	})
+	vim.api.nvim_create_autocmd("FileType", {
+		group = todo_augroup,
+		pattern = "vimwiki,markdown",
+		callback = set_maps,
+	})
+end
 return M

@@ -399,6 +399,16 @@ vim.g.bibfiles = "~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/li
 -- }}}
 -- Plugins {{{
 require("dotfiles.plugins")
+-- todo {{{
+require("todo").setup({
+	maps = {
+		jumps = {
+			next = "",
+			prev = "",
+		},
+	},
+})
+-- }}}
 -- }}}
 -- Theme {{{
 -- Fancy color for macs and X11 sessions:
