@@ -529,12 +529,21 @@ if paq_available then
 	-- ga and gA for alignment:
 	require("mini.align").setup({})
 
+	-- :Bd[!] for layout-safe bufdelete
+	require("mini.bufremove").setup({})
+	vim.api.nvim_create_user_command("Bd", function(args)
+		require("mini.bufremove").delete(0, not args.bang)
+	end, { bang = true })
+
 	-- gc for commenting/uncommenting:
 	require("mini.comment").setup({})
 
 	-- We just use this for the indent textobjects:
 	require("mini.indentscope").setup({})
 	vim.g.miniindentscope_disable = true
+	
+	-- May as well setup a minimal autopair:
+	require("mini.pairs").setup({})
 
 	-- Replace vim-surround:
 	require("mini.surround").setup({
@@ -543,16 +552,6 @@ if paq_available then
 				input = { "“().-()”" },
 				output = { left = "“", right = "”" },
 			},
-		},
-		mappings = {
-			add = "ys",
-			delete = "ds",
-			find = "",
-			find_left = "",
-			highlight = "",
-			replace = "cs",
-			update_n_lines = "",
-			suffix_last = "N",
 		},
 		n_lines = 50,
 		search_method = "cover_or_next",
