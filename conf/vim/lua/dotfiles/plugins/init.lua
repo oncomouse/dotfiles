@@ -136,6 +136,30 @@ local function plugins()
 					-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/fzf-lua.lua
 				}, -- FZF Client
 
+				{
+					"monaqa/dial.nvim",
+					config = function()
+						local augend = require("dial.augend")
+						require("dial.config").augends:register_group({
+							-- default augends used when no group name is specified
+							default = {
+								augend.integer.alias.decimal, -- nonnegative decimal number (0, 1, 2, 3, ...)
+								augend.integer.alias.hex, -- nonnegative hex number  (0x01, 0x1a1f, etc.)
+								augend.constant.alias.bool, -- boolean value (true <-> false)
+								augend.date.alias["%Y/%m/%d"], -- date (2022/02/18, etc.)
+								-- augend.date.alias["%m/%d/%Y"], -- date (02/19/2022)
+							},
+
+						})
+						vim.keymap.set({ "n" }, "<C-a>", "<Plug>(dial-increment)")
+						vim.keymap.set({ "n" }, "<C-x>", "<Plug>(dial-decrement)")
+						vim.keymap.set({ "v" }, "<C-a>", "<Plug>(dial-increment)")
+						vim.keymap.set({ "v" }, "<C-x>", "<Plug>(dial-decrement)")
+						vim.keymap.set({ "v" }, "g<C-a>", "g<Plug>(dial-increment)")
+						vim.keymap.set({ "v" }, "g<C-x>", "g<Plug>(dial-decrement)")
+					end,
+				},
+
 				(vim.g.nvim_ref_devel and {
 					"~/Projects/nvim-ref",
 					config = function()
@@ -246,7 +270,7 @@ local function plugins()
 
 				{ "catppuccin/nvim", as = "catppuccin" }, -- Theme
 
-				 "NvChad/nvim-colorizer.lua", -- Highlight colors in files
+				"NvChad/nvim-colorizer.lua", -- Highlight colors in files
 				-- Configured in ~/dotfiles/conf/vim/plugin/nvim-colorizer.lua
 
 				{
