@@ -442,9 +442,8 @@ vim.diagnostic.config({
 	severity_sort = true,
 })
 
--- LSP Logging:
--- vim.lsp.set_log_level("trace")
-
+-- Set to true for debug logging in LSP:
+vim.g.dotfiles_lsp_debug = false
 -- }}}
 -- Filetypes {{{
 vim.filetype.add({

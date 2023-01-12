@@ -6,6 +6,11 @@ if pcall(require, "lspconfig") then
 		["textDocument/publishDiagnostics"] = function() end,
 	}
 
+	-- Turn on debug-level logging for LSP:
+	if vim.g.dotfiles_lsp_debug then
+		vim.lsp.set_log_level("trace")
+	end
+
 	vim.api.nvim_create_autocmd("BufReadPre", {
 		pattern = servers.pattern,
 		group = "dotfiles-settings",
