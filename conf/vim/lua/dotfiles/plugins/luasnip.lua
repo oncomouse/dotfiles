@@ -64,14 +64,14 @@ local function config_luasnips()
 	})
 
 	local augroup = vim.api.nvim_create_augroup("dotfiles-settings-luasnips", { clear = true })
-	vim.api.nvim_create_autocmd("CompleteDone", {
-		group = augroup,
-		callback = function()
-			if ls.available() then
-				ls.expand()
-			end
-		end,
-	})
+	-- vim.api.nvim_create_autocmd("CompleteDone", {
+	-- 	group = augroup,
+	-- 	callback = function()
+	-- 		if ls.available() then
+	-- 			ls.expand()
+	-- 		end
+	-- 	end,
+	-- })
 	vim.api.nvim_create_autocmd("InsertLeave", {
 		group = augroup,
 		callback = function()
