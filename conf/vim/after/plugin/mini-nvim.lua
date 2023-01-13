@@ -151,6 +151,8 @@ if pcall(require, "mini.ai") then
 		markdown = {
 			["*"] = spec_pair("*", "*", { type = "greedy" }), -- Grab all asterisks when selecting
 			["_"] = spec_pair("_", "_", { type = "greedy" }), -- Grab all underscores when selecting
+			["l"] = { "%b[]%b()", "^%[().-()%].*$" }, -- Link targeting name
+			["L"] = { "%b[]%b()", "^%[.-%]%(()[^)]+()%)$" }, -- Link targeting href
 		},
 	}
 	vim.api.nvim_create_autocmd("FileType", {
@@ -188,17 +190,17 @@ if pcall(require, "mini.ai") then
 				output = { left = "“", right = "”" },
 			},
 		},
-		-- mappings = {
-		-- 	add = "sa",
-		-- 	delete = "sd",
-		-- 	find = "sf",
-		-- 	find_left = "sF",
-		-- 	highlight = "sh",
-		-- 	replace = "sc",
-		-- 	update_n_lines = "sn",
-		-- 	suffix_last = "l",
-		-- 	suffix_next = "n"
-		-- },
+		mappings = {
+			add = "sa",
+			delete = "sd",
+			find = "sf",
+			find_left = "sF",
+			highlight = "sh",
+			replace = "sc",
+			update_n_lines = "sn",
+			suffix_last = "l",
+			suffix_next = "n",
+		},
 		n_lines = 50,
 		search_method = "cover_or_next",
 	})
@@ -217,13 +219,23 @@ if pcall(require, "mini.ai") then
 			},
 		},
 		markdown = {
-			["b"] = { -- Surround for bold
+			["B"] = { -- Surround for bold
 				input = { "%*%*().-()%*%*" },
 				output = { left = "**", right = "**" },
 			},
-			["i"] = { -- Surround for italics
+			["I"] = { -- Surround for italics
 				input = { "%*().-()%*" },
 				output = { left = "*", right = "*" },
+			},
+			["L"] = {
+				input = { "%[().-()%]%([^)]+%)" },
+				output = function()
+					local href = require("mini.surround").user_input("Href")
+					return {
+						left = "[",
+						right = "](" .. href .. ")",
+					}
+				end,
 			},
 		},
 	}
