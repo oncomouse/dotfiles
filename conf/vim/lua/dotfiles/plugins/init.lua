@@ -102,6 +102,9 @@ local function plugins()
 				{
 					"cohama/lexima.vim", -- Autopairs
 					event = "InsertEnter",
+					setup = function()
+						vim.g.lexima_map_escape = ""
+					end,
 					config = function()
 						require("dotfiles.plugins.lexima").setup()
 						-- Autoclose mapping:
