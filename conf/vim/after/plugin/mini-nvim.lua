@@ -151,7 +151,7 @@ if pcall(require, "mini.ai") then
 		markdown = {
 			["*"] = spec_pair("*", "*", { type = "greedy" }), -- Grab all asterisks when selecting
 			["_"] = spec_pair("_", "_", { type = "greedy" }), -- Grab all underscores when selecting
-			["l"] = { "%b[]%b()", "^%[().-()%].*$" }, -- Link targeting name
+			["l"] = { "%b[]%b()", "^%[().-()%]%([^)]+%)$" }, -- Link targeting name
 			["L"] = { "%b[]%b()", "^%[.-%]%(()[^)]+()%)$" }, -- Link targeting href
 		},
 	}
