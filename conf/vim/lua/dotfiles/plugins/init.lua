@@ -189,7 +189,7 @@ local function plugins()
 
 				{
 					"L3MON4D3/LuaSnip",
-					config = require("dotfiles.plugins.luasnip"),
+					-- config = require("dotfiles.plugins.luasnip"),
 					requires = {
 						{
 							"rafamadriz/friendly-snippets",

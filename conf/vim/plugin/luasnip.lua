@@ -1,5 +1,5 @@
-local function config_luasnips()
-	local ls = require("luasnip")
+local ok, ls = pcall(require, "luasnip")
+if ok then
 	local types = require("luasnip.util.types")
 	local t = require("dotfiles.utils.termcode")
 
@@ -23,7 +23,6 @@ local function config_luasnips()
 	})
 
 	-- Maps for LuaSnip:
-	local ok = pcall(require, "cmp") -- Do we have completion?
 	vim.keymap.set({ "i", "s" }, "<Tab>", function()
 		if ls.expand_or_locally_jumpable() then
 			return "<Plug>luasnip-expand-or-jump"
@@ -42,7 +41,8 @@ local function config_luasnips()
 		expr = true,
 		remap = true,
 	})
-	if not ok then
+	local has_cmp = pcall(require, "cmp") -- Do we have completion?
+	if not has_cmp then
 		vim.keymap.set({ "i", "s" }, "<C-E>", function()
 			if ls.choice_active() then
 				return "<Plug>luasnip-next-choice"
@@ -63,9 +63,9 @@ local function config_luasnips()
 		default_priotity = 2000,
 	})
 
-	-- Portions of this code (related to clearing the region) have been adapted from cmp_luasnip
 	local augroup = vim.api.nvim_create_augroup("dotfiles-settings-luasnips", { clear = true })
-	if not ok then
+	-- Portions of this code (related to clearing the region) have been adapted from cmp_luasnip
+	if not has_cmp then
 		local function make_clear_region(cursor, word)
 			return {
 				clear_region = {
@@ -96,14 +96,9 @@ local function config_luasnips()
 					-- null-ls luasnip provider:
 					if completion_item.data then
 						snippet = ls.get_id_snippet(completion_item.data.snip_id)
-
-						-- if trigger is a pattern, expand "pattern" instead of actual snippet.
 						if snippet.regTrig then
 							snippet = snippet:get_pattern_expand_helper()
 						end
-
-						-- text cannot be cleared before, as TM_CURRENT_LINE and
-						-- TM_CURRENT_WORD couldn't be set correctly.
 					-- VSCode LSPs:
 					elseif completion_item.textEdit then
 						snippet = get_lsp_snippet(completion_item.textEdit.newText)
@@ -128,4 +123,3 @@ local function config_luasnips()
 	})
 end
 
-return config_luasnips
