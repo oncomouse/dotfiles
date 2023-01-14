@@ -63,15 +63,63 @@ local function config_luasnips()
 		default_priotity = 2000,
 	})
 
+	-- Portions of this code (related to clearing the region) have been adapted from cmp_luasnip
 	local augroup = vim.api.nvim_create_augroup("dotfiles-settings-luasnips", { clear = true })
-	-- vim.api.nvim_create_autocmd("CompleteDone", {
-	-- 	group = augroup,
-	-- 	callback = function()
-	-- 		if ls.available() then
-	-- 			ls.expand()
-	-- 		end
-	-- 	end,
-	-- })
+	if not ok then
+		local function make_clear_region(cursor, word)
+			return {
+				clear_region = {
+					from = {
+						cursor[1],
+						cursor[2] - #word,
+					},
+					to = cursor,
+				},
+			}
+		end
+		local function get_lsp_snippet(body)
+			return ls.parser.parse_snippet(
+				"",
+				body,
+				{ trim_empty = false, dedent = false }
+			)
+		end
+		vim.api.nvim_create_autocmd("CompleteDone", {
+			group = augroup,
+			callback = function()
+				if type(vim.v.completed_item.user_data) == "table" then
+					local completion_item = vim.v.completed_item.user_data.nvim.lsp.completion_item
+					local cursor = vim.api.nvim_win_get_cursor(0)
+					cursor[1] = cursor[1] - 1
+					local word = vim.v.completed_item.word
+					local snippet = nil
+					-- null-ls luasnip provider:
+					if completion_item.data then
+						snippet = ls.get_id_snippet(completion_item.data.snip_id)
+
+						-- if trigger is a pattern, expand "pattern" instead of actual snippet.
+						if snippet.regTrig then
+							snippet = snippet:get_pattern_expand_helper()
+						end
+
+						-- text cannot be cleared before, as TM_CURRENT_LINE and
+						-- TM_CURRENT_WORD couldn't be set correctly.
+					-- VSCode LSPs:
+					elseif completion_item.textEdit then
+						snippet = get_lsp_snippet(completion_item.textEdit.newText)
+					-- Sumneko-lua:
+					elseif completion_item.insertTextFormat and completion_item.insertTextFormat == 2 then
+						snippet = get_lsp_snippet(completion_item.insertText)
+					else
+						vim.pretty_print(completion_item)
+					end
+					if snippet ~= nil then
+						ls.snip_expand(snippet, make_clear_region(cursor, word))
+					end
+				end
+			end,
+		})
+	end
 	vim.api.nvim_create_autocmd("InsertLeave", {
 		group = augroup,
 		callback = function()

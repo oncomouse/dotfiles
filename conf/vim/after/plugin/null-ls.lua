@@ -1,6 +1,7 @@
 if pcall(require, "null-ls") then
 	local eslint_project = require("dotfiles.null-ls.helpers.eslint_project")
 	local b = require("null-ls").builtins
+	local has_cmp = pcall(require, "cmp")
 
 	local sources = {
 		-- GENERAL PURPOSE
@@ -21,7 +22,8 @@ if pcall(require, "null-ls") then
 			extra_args = { "--use-tabs" },
 			prefer_local = "node_modules/.bin",
 		}),
-		-- b.completion.luasnip,
+		-- has_cmp and {} or b.completion.luasnip,
+		has_cmp and {} or require("dotfiles.null-ls.completion.luasnip"),
 
 		-- YAML
 		b.formatting.prettier.with({
@@ -71,7 +73,7 @@ if pcall(require, "null-ls") then
 
 		-- MARKDOWN
 		require("nvim-ref.null-ls.hover"),
-		-- require("nvim-ref.null-ls.completion"),
+		has_cmp and {} or require("nvim-ref.null-ls.completion"),
 
 		-- JAVASCRIPT
 		-- Use standard and prettier for non-eslint projects:

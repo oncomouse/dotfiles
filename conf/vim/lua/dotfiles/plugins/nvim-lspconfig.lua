@@ -12,9 +12,9 @@ local function on_attach(client, buf_num)
 		})
 	end
 	-- Use C+x C+o for completion:
-	-- if client.server_capabilities.completionProvider then
-	-- 	vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-	-- end
+	if client.server_capabilities.completionProvider then
+		vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
+	end
 	-- Use C+x C+] for tags:
 	if client.server_capabilities.definitionProvider then
 		vim.opt_local.tagfunc = "v:lua.vim.lsp.tagfunc"
