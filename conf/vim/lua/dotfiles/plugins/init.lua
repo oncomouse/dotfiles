@@ -190,7 +190,6 @@ local function plugins()
 				{
 					"L3MON4D3/LuaSnip",
 					config = require("dotfiles.plugins.luasnip"),
-					event = "InsertEnter",
 					requires = {
 						{
 							"rafamadriz/friendly-snippets",
