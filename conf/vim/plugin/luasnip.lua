@@ -66,6 +66,8 @@ if ok then
 	local augroup = vim.api.nvim_create_augroup("dotfiles-settings-luasnips", { clear = true })
 	-- Portions of this code (related to clearing the region) have been adapted from cmp_luasnip
 	if not has_cmp then
+		-- Set the region LuaSnip needs to overwrite the completion trigger
+		-- Adapted from cmp_luasnip
 		local function make_clear_region(cursor, word)
 			return {
 				clear_region = {
@@ -77,6 +79,7 @@ if ok then
 				},
 			}
 		end
+		-- Make a snippet from an LSP snippet:
 		local function get_lsp_snippet(body)
 			return ls.parser.parse_snippet(
 				"",
@@ -96,6 +99,7 @@ if ok then
 					-- null-ls luasnip provider:
 					if completion_item.data then
 						snippet = ls.get_id_snippet(completion_item.data.snip_id)
+						-- Sourced from cmp_luasnip:
 						if snippet.regTrig then
 							snippet = snippet:get_pattern_expand_helper()
 						end
@@ -106,6 +110,7 @@ if ok then
 					elseif completion_item.insertTextFormat and completion_item.insertTextFormat == 2 then
 						snippet = get_lsp_snippet(completion_item.insertText)
 					end
+					-- Expand the snippet, if one was found:
 					if snippet ~= nil then
 						ls.snip_expand(snippet, make_clear_region(cursor, word))
 					end
@@ -113,6 +118,8 @@ if ok then
 			end,
 		})
 	end
+
+	-- Exit snippet completion on leaving insert mode:
 	vim.api.nvim_create_autocmd("InsertLeave", {
 		group = augroup,
 		callback = function()
