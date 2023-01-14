@@ -110,8 +110,6 @@ local function config_luasnips()
 					-- Sumneko-lua:
 					elseif completion_item.insertTextFormat and completion_item.insertTextFormat == 2 then
 						snippet = get_lsp_snippet(completion_item.insertText)
-					else
-						vim.pretty_print(completion_item)
 					end
 					if snippet ~= nil then
 						ls.snip_expand(snippet, make_clear_region(cursor, word))
