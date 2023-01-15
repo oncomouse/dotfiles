@@ -193,13 +193,13 @@ if pcall(require, "mini.ai") then
 			},
 		},
 		mappings = {
-			add = "sa",
-			delete = "sd",
+			add = "ys",
+			delete = "ds",
 			find = "sf",
 			find_left = "sF",
-			highlight = "sh",
-			replace = "sc",
-			update_n_lines = "sn",
+			highlight = "hs",
+			replace = "cs",
+			update_n_lines = "",
 			suffix_last = "N",
 			suffix_next = "n",
 		},
@@ -207,10 +207,10 @@ if pcall(require, "mini.ai") then
 		search_method = "cover_or_next",
 	})
 	-- Remap adding surrounding to Visual mode selection
-	-- vim.keymap.del("x", "ys")
+	vim.keymap.del("x", "ys")
 	vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
 	-- Make special mapping for "add surrounding for line"
-	-- vim.keymap.set("n", "yss", "ys_", { noremap = false })
+	vim.keymap.set("n", "yss", "ys_", { noremap = false })
 
 	--Per-file surroundings:
 	local custom_surroundings = {

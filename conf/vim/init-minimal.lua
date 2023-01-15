@@ -497,8 +497,8 @@ if paq_available then
 			},
 		},
 		mappings = {
-			around_last = "al",
-			inside_last = "il",
+			around_last = "aN",
+			inside_last = "iN",
 		},
 		n_lines = 50,
 		search_method = "cover", -- Only use next and last mappings to search
@@ -557,11 +557,25 @@ if paq_available then
 				output = { left = "“", right = "”" },
 			},
 		},
+		mappings = {
+			add = "ys",
+			delete = "ds",
+			find = "sf",
+			find_left = "sF",
+			highlight = "hs",
+			replace = "cs",
+			update_n_lines = "",
+			suffix_last = "N",
+			suffix_next = "n",
+		},
 		n_lines = 50,
 		search_method = "cover_or_next",
 	})
 	-- Remap adding surrounding to Visual mode selection
+	vim.keymap.del("x", "ys")
 	vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
+	-- Make special mapping for "add surrounding for line"
+	vim.keymap.set("n", "yss", "ys_", { noremap = false })
 
 	-- Per-file surroundings:
 	local custom_surroundings = {
