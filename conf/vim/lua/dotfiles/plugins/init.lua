@@ -54,6 +54,7 @@ local function plugins()
 						"mini.jump",
 						"mini.jump2d",
 						"mini.misc",
+						"mini.move",
 						"mini.pairs",
 						"mini.sessions",
 						"mini.starter",

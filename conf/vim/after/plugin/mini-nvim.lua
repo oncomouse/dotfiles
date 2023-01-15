@@ -182,6 +182,8 @@ if pcall(require, "mini.ai") then
 	require("mini.indentscope").setup({})
 	vim.g.miniindentscope_disable = true
 
+	require("mini.move").setup({})
+
 	-- Replace vim-surround:
 	require("mini.surround").setup({
 		custom_surroundings = {
