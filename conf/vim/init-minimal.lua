@@ -513,6 +513,8 @@ if paq_available then
 		markdown = {
 			["*"] = spec_pair("*", "*", { type = "greedy" }), -- Grab all asterisks when selecting
 			["_"] = spec_pair("_", "_", { type = "greedy" }), -- Grab all underscores when selecting
+			["l"] = { "%b[]%b()", "^%[().-()%]%([^)]+%)$" }, -- Link targeting name
+			["L"] = { "%b[]%b()", "^%[.-%]%(()[^)]+()%)$" }, -- Link targeting href
 		},
 	}
 	vim.api.nvim_create_autocmd("FileType", {
@@ -570,13 +572,23 @@ if paq_available then
 			},
 		},
 		markdown = {
-			["b"] = { -- Surround for bold
+			["B"] = { -- Surround for bold
 				input = { "%*%*().-()%*%*" },
 				output = { left = "**", right = "**" },
 			},
-			["i"] = { -- Surround for italics
+			["I"] = { -- Surround for italics
 				input = { "%*().-()%*" },
 				output = { left = "*", right = "*" },
+			},
+			["L"] = {
+				input = { "%[().-()%]%([^)]+%)" },
+				output = function()
+					local href = require("mini.surround").user_input("Href")
+					return {
+						left = "[",
+						right = "](" .. href .. ")",
+					}
+				end,
 			},
 		},
 	}

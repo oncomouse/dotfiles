@@ -136,8 +136,8 @@ if pcall(require, "mini.ai") then
 			},
 		},
 		mappings = {
-			around_last = "aN",
-			inside_last = "iN",
+			around_last = "al",
+			inside_last = "il",
 		},
 		n_lines = 50,
 		search_method = "cover", -- Only use next and last mappings to search
