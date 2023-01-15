@@ -231,7 +231,7 @@ local function move_char(backwards)
 		if (backwards and col == 0) or (not backwards and col == #vim.api.nvim_get_current_line()) then
 			return
 		end
-		return vim.api.nvim_win_set_cursor(0, {row, backwards and col - 1 or col + 1})
+		return vim.api.nvim_win_set_cursor(0, { row, backwards and col - 1 or col + 1 })
 	end
 end
 vim.keymap.set("i", "<C-b>", move_char(true))
@@ -392,7 +392,7 @@ vim.api.nvim_create_autocmd("User", {
 		if not paq_available then
 			vim.cmd([[source $MYVIMRC]])
 		end
-	end
+	end,
 })
 --------------------------------------------------------------------------------
 -- Colorscheme
@@ -497,8 +497,8 @@ if paq_available then
 			},
 		},
 		mappings = {
-			around_last = "aN",
-			inside_last = "iN",
+			around_last = "al",
+			inside_last = "il",
 		},
 		n_lines = 50,
 		search_method = "cover", -- Only use next and last mappings to search
@@ -545,7 +545,7 @@ if paq_available then
 	vim.g.miniindentscope_disable = true
 
 	require("mini.move").setup({})
-	
+
 	-- May as well setup a minimal autopair:
 	require("mini.pairs").setup({})
 
