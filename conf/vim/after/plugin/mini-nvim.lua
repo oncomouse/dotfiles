@@ -200,7 +200,7 @@ if pcall(require, "mini.ai") then
 			highlight = "sh",
 			replace = "sc",
 			update_n_lines = "sn",
-			suffix_last = "l",
+			suffix_last = "N",
 			suffix_next = "n",
 		},
 		n_lines = 50,
