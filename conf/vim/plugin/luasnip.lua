@@ -1,7 +1,6 @@
 local ok, ls = pcall(require, "luasnip")
 if ok then
 	local types = require("luasnip.util.types")
-	local t = require("dotfiles.utils.termcode")
 
 	-- Configuration:
 	ls.config.set_config({
@@ -27,7 +26,7 @@ if ok then
 		if ls.expand_or_locally_jumpable() then
 			return "<Plug>luasnip-expand-or-jump"
 		end
-		return t("<Tab>")
+		return "<Tab>"
 	end, {
 		expr = true,
 		remap = true,
@@ -36,7 +35,7 @@ if ok then
 		if ls.jumpable(-1) then
 			return "<Plug>luasnip-jump-prev"
 		end
-		return t("<S-Tab>")
+		return "<S-Tab>"
 	end, {
 		expr = true,
 		remap = true,
@@ -47,7 +46,7 @@ if ok then
 			if ls.choice_active() then
 				return "<Plug>luasnip-next-choice"
 			end
-			return t("<C-E>")
+			return "<C-E>"
 		end, {
 			expr = true,
 			remap = true,
