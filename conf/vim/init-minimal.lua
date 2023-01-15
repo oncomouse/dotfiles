@@ -541,6 +541,8 @@ if paq_available then
 	-- We just use this for the indent textobjects:
 	require("mini.indentscope").setup({})
 	vim.g.miniindentscope_disable = true
+
+	require("mini.move").setup({})
 	
 	-- May as well setup a minimal autopair:
 	require("mini.pairs").setup({})
