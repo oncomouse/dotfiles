@@ -21,9 +21,7 @@ local function on_attach(client, buf_num)
 	end
 	-- Use K for hover (except in VimL):
 	if vim.opt_local.ft:get() ~= "vim" then
-		vim.api.nvim_buf_create_user_command(buf_num, "Hover", function()
-			vim.lsp.buf.hover()
-		end, {
+		vim.api.nvim_buf_create_user_command(buf_num, "Hover", vim.lsp.buf.hover, {
 			desc = "lua vim.lsp.buf.hover()",
 			force = true,
 			nargs = "+",
