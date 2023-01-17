@@ -22,8 +22,7 @@ if pcall(require, "null-ls") then
 			extra_args = { "--use-tabs" },
 			prefer_local = "node_modules/.bin",
 		}),
-		-- has_cmp and {} or b.completion.luasnip,
-		has_cmp and {} or require("dotfiles.plugins.null-ls.builtins.completion.luasnip"),
+		has_cmp and {} or b.completion.luasnip,
 
 		-- YAML
 		b.formatting.prettier.with({
