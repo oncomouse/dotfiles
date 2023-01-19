@@ -142,6 +142,7 @@ local function plugins()
 
 				{
 					"monaqa/dial.nvim",
+					keys = { { "n", "<C-a>" }, { "i", "<C-a>" } },
 					config = function()
 						local augend = require("dial.augend")
 						require("dial.config").augends:register_group({
@@ -153,7 +154,6 @@ local function plugins()
 								augend.date.alias["%Y/%m/%d"], -- date (2022/02/18, etc.)
 								-- augend.date.alias["%m/%d/%Y"], -- date (02/19/2022)
 							},
-
 						})
 						vim.keymap.set({ "n" }, "<C-a>", "<Plug>(dial-increment)")
 						vim.keymap.set({ "n" }, "<C-x>", "<Plug>(dial-decrement)")
