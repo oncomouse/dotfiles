@@ -142,7 +142,14 @@ local function plugins()
 
 				{
 					"monaqa/dial.nvim",
-					keys = { { "n", "<C-a>" }, { "i", "<C-a>" } },
+					keys = {
+						{ "n", "<C-a>" },
+						{ "n", "<C-x>" },
+						{ "v", "<C-a>" },
+						{ "v", "<C-x>" },
+						{ "v", "g<C-a>" },
+						{ "v", "g<C-x>" },
+					},
 					config = function()
 						local augend = require("dial.augend")
 						require("dial.config").augends:register_group({
