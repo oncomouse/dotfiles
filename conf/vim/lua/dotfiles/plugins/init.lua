@@ -24,8 +24,7 @@ local function plugins()
 
 				"sickill/vim-pasta", -- fix block paste for Neovim
 
-				-- "christoomey/vim-sort-motion", -- gs to sort
-				"zdcthomas/yop.nvim",
+				"zdcthomas/yop.nvim", -- Custom operators (gs for sort)
 				-- Configured in ~/dotfiles/conf/vim/after/plugin/yop-nvim.lua
 
 				"tpope/vim-sleuth", -- Automatically set indent
