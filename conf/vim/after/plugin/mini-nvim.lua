@@ -83,7 +83,11 @@ if pcall(require, "mini.ai") then
 		if target == nil then
 			return true
 		end
-		return vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1]:sub(1, #target) == target
+		local l = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1]
+		if #l == 0 then
+			return true
+		end
+		return l:sub(1, #target) == target
 	end
 
 	require("mini.ai").setup({
