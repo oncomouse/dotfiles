@@ -236,10 +236,6 @@ if pcall(require, "mini.ai") then
 	-- gc for commenting/uncommenting:
 	require("mini.comment").setup({})
 
-	-- We just use this for the indent textobjects:
-	-- require("mini.indentscope").setup({})
-	vim.g.miniindentscope_disable = true
-
 	require("mini.move").setup({})
 
 	-- Replace vim-surround:
