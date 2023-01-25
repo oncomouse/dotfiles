@@ -75,6 +75,17 @@ if pcall(require, "mini.ai") then
 		}
 	end
 
+	local function get_indentation(line)
+		return vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1]:match("^%s+")
+	end
+
+	local function check_indentation(line, target)
+		if target == nil then
+			return true
+		end
+		return vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1]:sub(1, #target) == target
+	end
+
 	require("mini.ai").setup({
 		custom_textobjects = {
 
@@ -88,6 +99,50 @@ if pcall(require, "mini.ai") then
 				return {
 					from = from,
 					to = to,
+				}
+			end,
+
+			i = function(type) -- Indentation
+				local _, line, _, _ = unpack(vim.fn.getpos("."))
+				local target_indentation = get_indentation(line)
+				local start = line - 1
+				local stop = line + 1
+				local _, end_line, _, _ = unpack(vim.fn.getpos("$"))
+				while true do
+					if start == 0 then
+						start = 1
+						break
+					end
+					if not check_indentation(start, target_indentation) then
+						start = start + 1
+						break
+					end
+					start = start - 1
+				end
+				while true do
+					if stop == end_line + 1 then
+						stop = end_line
+						break
+					end
+					if not check_indentation(stop, target_indentation) then
+						stop = stop - 1
+						break
+					end
+					stop = stop + 1
+				end
+				if type == "a" then
+					start = start == 1 and 1 or start - 1
+					stop = stop == end_line and end_line or stop + 1
+				end
+				return {
+					to = {
+						line = start,
+						col = 1,
+					},
+					from = {
+						line = stop,
+						col = #vim.api.nvim_buf_get_lines(0, stop - 1, stop, false)[1] + 1,
+					},
 				}
 			end,
 
@@ -113,9 +168,10 @@ if pcall(require, "mini.ai") then
 					local results = vim.fn["textobj#sentence#select_i"]()
 
 					local start = (results[2][2] == results[3][2] and results[2][3] or 0)
-					local line = vim.api
-						.nvim_buf_get_lines(0, results[3][2] - 1, results[3][2], false)[1]
-						:sub(start, results[3][3])
+					local line = vim.api.nvim_buf_get_lines(0, results[3][2] - 1, results[3][2], false)[1]:sub(
+						start,
+						results[3][3]
+					)
 					results[3][3] = start + line:find("['\".?!]+$") - 2
 					return results
 				end,
@@ -173,13 +229,15 @@ if pcall(require, "mini.ai") then
 	require("mini.bufremove").setup({})
 	vim.api.nvim_create_user_command("Bd", function(args)
 		require("mini.bufremove").delete(0, not args.bang)
-	end, { bang = true })
+	end, {
+		bang = true,
+	})
 
 	-- gc for commenting/uncommenting:
 	require("mini.comment").setup({})
 
 	-- We just use this for the indent textobjects:
-	require("mini.indentscope").setup({})
+	-- require("mini.indentscope").setup({})
 	vim.g.miniindentscope_disable = true
 
 	require("mini.move").setup({})
