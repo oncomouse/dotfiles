@@ -96,7 +96,7 @@ if ok then
 					local word = vim.v.completed_item.word
 					local snippet = nil
 					-- null-ls luasnip provider:
-					if completion_item.data then
+					if completion_item.data and completion_item.data.snip_id then
 						snippet = ls.get_id_snippet(completion_item.data.snip_id)
 						-- Sourced from cmp_luasnip:
 						if snippet.regTrig then
