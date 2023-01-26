@@ -70,7 +70,7 @@ if has_insx then
 	end
 
 	for _, at in pairs({ "aug", "augroup" }) do
-		table.insert(vim_endwise_rules.vim, endwise.simple([[^\s*]] .. at .. [[\>.*]], at .. " END"))
+		table.insert(vim_endwise_rules.vim, endwise.simple([[^\s*]] .. at .. [[\s\+.\+]], at .. " END"))
 	end
 	insx.add("<CR>", endwise.recipe(vim_endwise_rules))
 	local function for_ft(ft, recipe)
