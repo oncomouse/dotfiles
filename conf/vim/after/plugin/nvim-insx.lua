@@ -46,6 +46,33 @@ if has_insx then
 			},
 		})
 	)
+	local vim_endwise_rules = {
+		["vim"] = {},
+	}
+	for _, at in pairs({
+		"fu",
+		"fun",
+		"func",
+		"funct",
+		"functi",
+		"functio",
+		"function",
+		"if",
+		"wh",
+		"whi",
+		"whil",
+		"while",
+		"for",
+		"try",
+		"def",
+	}) do
+		table.insert(vim_endwise_rules.vim, endwise.simple([[^\s*]] .. at .. [[\>.*]], "end" .. at))
+	end
+
+	for _, at in pairs({ "aug", "augroup" }) do
+		table.insert(vim_endwise_rules.vim, endwise.simple([[^\s*]] .. at .. [[\>.*]], at .. " END"))
+	end
+	insx.add("<CR>", endwise.recipe(vim_endwise_rules))
 	local function for_ft(ft, recipe)
 		return {
 			action = recipe.action,
