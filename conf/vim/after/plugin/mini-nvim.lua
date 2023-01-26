@@ -170,12 +170,10 @@ if pcall(require, "mini.ai") then
 			s = from_textobject_user({
 				select_function_i = function() -- Rewrite selection results to remove trailing punctuation and quotes
 					local results = vim.fn["textobj#sentence#select_i"]()
-
 					local start = (results[2][2] == results[3][2] and results[2][3] or 0)
-					local line = vim.api.nvim_buf_get_lines(0, results[3][2] - 1, results[3][2], false)[1]:sub(
-						start,
-						results[3][3]
-					)
+					local line = vim.api
+						.nvim_buf_get_lines(0, results[3][2] - 1, results[3][2], false)[1]
+						:sub(start, results[3][3])
 					results[3][3] = start + line:find("['\".?!]+$") - 2
 					return results
 				end,
@@ -214,6 +212,7 @@ if pcall(require, "mini.ai") then
 			["l"] = { "%b[]%b()", "^%[().-()%]%([^)]+%)$" }, -- Link targeting name
 			["L"] = { "%b[]%b()", "^%[.-%]%(()[^)]+()%)$" }, -- Link targeting href
 		},
+
 	}
 	vim.api.nvim_create_autocmd("FileType", {
 		group = "dotfiles-settings",
