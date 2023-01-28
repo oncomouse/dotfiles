@@ -21,7 +21,7 @@ action-add() {
 	#	Add the songs to MPD
 	mpc -f "%file%" search any " " | cut -d "/" -f 1-2 | uniq | \
 		rofi_bar -multi-select | \
-		xargs -d "\n" -I{} mpc ls {} 2> /dev/null | sort | \
+		xargs -d "\n" -I{} mpc search filename {} 2> /dev/null | sort | \
 		grep "\.\(flac\|mp3\)\$" | \
 		uniq | \
 		xargs -d "\n" -I {} mpc add {} 2> /dev/null
