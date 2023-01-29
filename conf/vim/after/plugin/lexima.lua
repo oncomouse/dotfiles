@@ -161,6 +161,25 @@ vim.g.dotfiles_lexima_rules = {
 	-- Bold/Italic Pairs:
 	make_markdown_bi_rule("*", true),
 	make_markdown_bi_rule("_"),
+	{
+		char = "*",
+		input = "* ",
+		at = [[^\%#]],
+		filetype = "markdown",
+	},
+	{
+		char = "<CR>",
+		at = [[^\s*\([-*]\) \S\+.*\%#$]],
+		input = [[\<CR\>\1 ]],
+		filetype = "markdown",
+		with_submatch = 1,
+	},
+	{
+		char = "<BS>",
+		at = [[^\s*[-*] \%#]],
+		input = [[<BS><BS>]], -- in insx, this can be delete the whole line
+		filetype = "markdown",
+	},
 
 	-- XML closing tags:
 	-- xml_closetag_rules(),
