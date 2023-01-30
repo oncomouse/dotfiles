@@ -43,7 +43,7 @@ if vim.fn.has("nvim-0.9") == 1 then
 	vim.opt.showcmdloc = "statusline"
 	-- Add some other Neovim 0.9 things here:
 	vim.opt.shortmess:append("C")
-	vim.opt.splitskeep = "screen"
+	vim.opt.splitkeep = "screen"
 end
 vim.opt.showmode = false
 

@@ -105,7 +105,7 @@ vim.opt.formatoptions = "qjl1"
 if vim.fn.has("nvim-0.9") == 1 then
 	-- Add some other Neovim 0.9 things here:
 	vim.opt.shortmess = vim.opt.shortmess + "C"
-	vim.opt.splitskeep = "screen"
+	vim.opt.splitkeep = "screen"
 end
 
 --------------------------------------------------------------------------------
