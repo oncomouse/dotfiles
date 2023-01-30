@@ -212,9 +212,6 @@ local function plugins()
 				"neovim/nvim-lspconfig", -- LSP
 				-- Configured in ~/dotfiles/conf/vim/plugin/nvim-lspconfig.lua
 
-				"anuvyklack/hydra.nvim", -- Repeating keys mode (used for window resizing, atm)
-				-- Configured in ~/dotfiles/conf/vim/plugin/hydra.lua
-
 				{
 					"nvim-treesitter/nvim-treesitter",
 					run = function()

@@ -233,6 +233,7 @@ if pcall(require, "mini.ai") then
 		},
 		mappings = {
 			move_with_alt = true,
+			windows = true,
 		},
 	})
 
