@@ -56,7 +56,7 @@ vim.opt.list = true
 
 -- Completion:
 vim.opt.completeopt = "menuone,noselect,noinsert,preview"
-vim.opt.shortmess:append("c")
+vim.opt.shortmess:append("Wc")
 -- prevent a condition where vim lags due to searching include files.
 vim.opt.complete:remove("i")
 
@@ -95,6 +95,17 @@ if vim.fn.has("clipboard") == 1 then
 	else
 		vim.opt.clipboard = "unnamed"
 	end
+end
+
+-- Options taken from mini.basics, which does too many things I don't want:
+vim.opt.virtualedit = "block"
+vim.opt.formatoptions = "qjl1"
+
+-- Neovim 0.9 Dependent Settings:
+if vim.fn.has("nvim-0.9") == 1 then
+	-- Add some other Neovim 0.9 things here:
+	vim.opt.shortmess = vim.opt.shortmess + "C"
+	vim.opt.splitskeep = "screen"
 end
 
 --------------------------------------------------------------------------------
@@ -192,10 +203,10 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 })
 
 -- Highlighted Yank:
-vim.api.nvim_create_autocmd("TextYankPost", {
-	group = "dotfiles-settings",
-	command = [[silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}]],
-})
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+-- 	group = "dotfiles-settings",
+-- 	command = [[silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}]],
+-- })
 
 -- Close Preview Window:
 vim.api.nvim_create_autocmd("CompleteDone", {
@@ -292,8 +303,8 @@ vim.keymap.set("i", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, 
 vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
 
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
-vim.keymap.set("n", "j", "(v:count == 0 ? 'gj' : 'j')", { silent = true, noremap = true, expr = true })
-vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap = true, expr = true })
+-- vim.keymap.set("n", "j", "(v:count == 0 ? 'gj' : 'j')", { silent = true, noremap = true, expr = true })
+-- vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap = true, expr = true })
 
 --------------------------------------------------------------------------------
 -- Commands:
@@ -530,6 +541,17 @@ if paq_available then
 
 	-- ga and gA for alignment:
 	require("mini.align").setup({})
+
+	-- mini.basics:
+	require("mini.basics").setup({
+		options = {
+			basic = false,
+		},
+		mappings = {
+			move_with_alt = true,
+			windows = true,
+		},
+	})
 
 	-- :Bd[!] for layout-safe bufdelete
 	require("mini.bufremove").setup({})

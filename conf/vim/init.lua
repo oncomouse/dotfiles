@@ -42,16 +42,16 @@ vim.opt.cmdheight = 0
 if vim.fn.has("nvim-0.9") == 1 then
 	vim.opt.showcmdloc = "statusline"
 	-- Add some other Neovim 0.9 things here:
-	vim.opt.shortmess = vim.opt.shortmess + "C"
+	vim.opt.shortmess:append("C")
 	vim.opt.splitskeep = "screen"
 end
 vim.opt.showmode = false
 
 -- Completion:
 vim.opt.completeopt = "menuone,noselect,noinsert,preview"
-vim.opt.shortmess = vim.opt.shortmess + "Wc"
+vim.opt.shortmess:append("Wc")
 -- prevent a condition where vim lags due to searching include files.
-vim.opt.complete = vim.opt.complete - "i"
+vim.opt.complete:remove("i")
 
 -- <C-z> expands wildcards in command mode
 vim.cmd([[set wildcharm=<C-z>]])
