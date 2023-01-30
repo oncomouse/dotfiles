@@ -41,12 +41,15 @@ vim.opt.previewheight = 14
 vim.opt.cmdheight = 0
 if vim.fn.has("nvim-0.9") == 1 then
 	vim.opt.showcmdloc = "statusline"
+	-- Add some other Neovim 0.9 things here:
+	vim.opt.shortmess = vim.opt.shortmess + "C"
+	vim.opt.splitskeep = "screen"
 end
 vim.opt.showmode = false
 
 -- Completion:
 vim.opt.completeopt = "menuone,noselect,noinsert,preview"
-vim.opt.shortmess = vim.opt.shortmess + "c"
+vim.opt.shortmess = vim.opt.shortmess + "Wc"
 -- prevent a condition where vim lags due to searching include files.
 vim.opt.complete = vim.opt.complete - "i"
 
@@ -90,6 +93,10 @@ vim.opt.dictionary = "/usr/share/dict/words"
 
 -- Default to hashtag-style comments, by default:
 vim.opt.commentstring = "# %s"
+
+-- Options taken from mini.basics, which does too many things I don't want:
+vim.opt.virtualedit = "block"
+vim.opt.formatoptions = "qjl1"
 
 -- Disable Plugins {{{
 vim.g.load_black = "py1.0"
@@ -240,8 +247,8 @@ vim.keymap.set("n", "<leader>b", "<cmd>b#<cr>")
 -- Sourced from jessarcher/dotfiles {{{
 --  \ https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided
-vim.keymap.set("n", "j", "(v:count == 0 ? 'gj' : 'j')", { silent = true, noremap = true, expr = true })
-vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap = true, expr = true })
+-- vim.keymap.set("n", "j", "(v:count == 0 ? 'gj' : 'j')", { silent = true, noremap = true, expr = true })
+-- vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap = true, expr = true })
 -- }}}
 -- Sourced from romainl/minivimrc {{{
 --  \ https://github.com/romainl/minivimrc/blob/master/vimrc
@@ -304,12 +311,12 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 })
 
 -- Highlighted Yank:
-vim.api.nvim_create_autocmd("TextYankPost", {
-	group = "dotfiles-settings",
-	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 500 })
-	end,
-})
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+-- 	group = "dotfiles-settings",
+-- 	callback = function()
+-- 		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 500 })
+-- 	end,
+-- })
 
 -- Close Preview Window:
 vim.api.nvim_create_autocmd("CompleteDone", {

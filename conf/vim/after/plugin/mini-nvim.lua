@@ -212,7 +212,6 @@ if pcall(require, "mini.ai") then
 			["l"] = { "%b[]%b()", "^%[().-()%]%([^)]+%)$" }, -- Link targeting name
 			["L"] = { "%b[]%b()", "^%[.-%]%(()[^)]+()%)$" }, -- Link targeting href
 		},
-
 	}
 	vim.api.nvim_create_autocmd("FileType", {
 		group = "dotfiles-settings",
@@ -227,6 +226,15 @@ if pcall(require, "mini.ai") then
 
 	-- ga,gA for alignment:
 	require("mini.align").setup({})
+
+	require("mini.basics").setup({
+		options = {
+			basic = false,
+		},
+		mappings = {
+			move_with_alt = true,
+		},
+	})
 
 	-- :Bd[!] for layout-safe bufdelete
 	require("mini.bufremove").setup({})
