@@ -102,7 +102,7 @@ local function on_attach(client, buf_num)
 		buffer = true,
 		desc = "'<,'>lua vim.lsp.buf.code_action()",
 	})
-	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, {
+	vim.keymap.set("n", "<M-k>", vim.lsp.buf.signature_help, {
 		silent = true,
 		noremap = true,
 		buffer = true,
