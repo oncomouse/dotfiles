@@ -262,7 +262,16 @@ local function plugins()
 
 				-- Appearance:
 
-				{ "catppuccin/nvim", as = "catppuccin" }, -- Theme
+				{ "catppuccin/nvim", as = "catppuccin", config = function()
+					require("catppuccin").setup({
+						integrations = {
+							markdown = true,
+							indent_blankline = {
+								enabled = true,
+							}
+						}
+					})
+				end }, -- Theme
 
 				"NvChad/nvim-colorizer.lua", -- Highlight colors in files
 				-- Configured in ~/dotfiles/conf/vim/plugin/nvim-colorizer.lua
