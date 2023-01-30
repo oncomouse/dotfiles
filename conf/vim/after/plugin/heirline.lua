@@ -33,8 +33,44 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 		end
 	end
 
+	local catppuccin_gui_to_cterm = {
+		rosewater = { cterm = 230 },
+		flamingo = { cterm = 224 },
+		pink = { cterm = 5 },
+		mauve = { cterm = 131 },
+		red = { cterm = 1 },
+		maroon = { cterm = 217 },
+		peach = { cterm = 216 },
+		yellow = { cterm = 3 },
+		green = { cterm = 2 },
+		teal = { cterm = 6 },
+		sky = { cterm = 39 },
+		sapphire = { cterm = 81 },
+		blue = { cterm = 4 },
+		lavender = { cterm = 1 },
+
+		text = { cterm = 15 },
+		subtext1 = { cterm = 250 },
+		subtext0 = { cterm = 246 },
+		overlay2 = { cterm = 243 },
+		overlay1 = { cterm = 241 },
+		overlay0 = { cterm = 240 },
+		surface2 = { cterm = 239 },
+		surface1 = { cterm = 238 },
+		surface0 = { cterm = 237 },
+
+		base = { cterm = 0 },
+		mantle = { cterm = 233 },
+		crust = { cterm = 232 },
+	}
 	local function setup_colors()
 		local catppuccin_colors = require("catppuccin.palettes").get_palette()
+		for name, gui in pairs(catppuccin_colors) do
+			catppuccin_colors[name] = {
+				gui = gui,
+				cterm = catppuccin_gui_to_cterm[name].cterm,
+			}
+		end
 		return vim.tbl_extend("force", catppuccin_colors, {
 			inactive = {
 				text = catppuccin_colors.surface0,
@@ -68,17 +104,27 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 			end,
 		}
 	end
-	local LuaSnipHighlight = HighlightProvider({ bg = colors.sky, fg = colors.surface0 })
-	local SearchHighlight = HighlightProvider({ fg = colors.rosewater })
-	local WordCountHighlight = HighlightProvider({ fg = colors.yellow })
-	local MetadataHighlight = HighlightProvider({ fg = colors.surface2 })
-	local MacroHighlight = HighlightProvider({ bg = colors.flamingo, fg = colors.surface0 })
+	local LuaSnipHighlight = HighlightProvider({
+		bg = colors.sky.gui,
+		ctermbg = colors.sky.cterm,
+		fg = colors.surface0.gui,
+		ctermfg = colors.surface0.cterm,
+	})
+	local SearchHighlight = HighlightProvider({ fg = colors.rosewater.gui, ctermfg = colors.rosewater.cterm })
+	local WordCountHighlight = HighlightProvider({ fg = colors.yellow.gui, ctermfg = colors.yellow.cterm })
+	local MetadataHighlight = HighlightProvider({ fg = colors.surface2.gui, ctermfg = colors.surface2.cterm })
+	local MacroHighlight = HighlightProvider({
+		bg = colors.flamingo.gui,
+		ctermbg = colors.flamingo.cterm,
+		fg = colors.surface0.gui,
+		ctermfg = colors.surface0.cterm,
+	})
 	local PositionHighlight = {
-		Column = HighlightProvider({ fg = colors.sapphire }),
-		Row = HighlightProvider({ fg = colors.mauve }),
+		Column = HighlightProvider({ fg = colors.sapphire.gui, ctermfg = colors.sapphire.cterm }),
+		Row = HighlightProvider({ fg = colors.mauve.gui, ctermfg = colors.mauve.cterm }),
 	}
-	local PercentageHighlight = HighlightProvider({ fg = colors.blue })
-	local ShowCmdHighlight = HighlightProvider({ fg = colors.flamingo })
+	local PercentageHighlight = HighlightProvider({ fg = colors.blue.gui, ctermfg = colors.blue.cterm })
+	local ShowCmdHighlight = HighlightProvider({ fg = colors.flamingo.gui, ctermfg = colors.flamingo.cterm })
 
 	local ViMode = {
 		-- get vim current mode, this information will be required by the provider
@@ -117,7 +163,8 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 		},
 		hl = function(self)
 			local mode = self.mode:sub(1, 1)
-			return { bg = self.mode_colors[mode] or colors.blue, fg = colors.surface0 }
+			local color = self.mode_colors[mode] or colors.blue
+			return { bg = color.gui, ctermbg = color.cterm, fg = colors.surface0.gui, ctermfg = colors.surface0.cterm }
 		end,
 		update = {
 			"ModeChanged",
@@ -154,7 +201,7 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 			provider = function(self)
 				return self.symbols[type] .. self[type]
 			end,
-			hl = { bg = colors[type], fg = colors.base },
+			hl = { ctermbg = colors[type].cterm, bg = colors[type].gui, fg = colors.base.gui, ctermfg = colors.base.cterm, },
 		}
 	end
 
@@ -437,8 +484,10 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 		{
 			provider = "%=",
 			hl = {
-				bg = colors.base,
-				fg = colors.base,
+				ctermbg = colors.base.cterm,
+				ctermfg = colors.base.cterm,
+				bg = colors.base.gui,
+				fg = colors.base.gui,
 			},
 		},
 	}
@@ -526,7 +575,8 @@ if vim.opt.termguicolors:get() and heirline_loaded then
 			Diagnostics,
 		},
 		hl = {
-			bg = colors.base,
+			bg = colors.base.gui,
+			ctermbg = colors.base.cterm,
 		},
 	}
 
