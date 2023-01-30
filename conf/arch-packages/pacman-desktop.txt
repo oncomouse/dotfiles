@@ -19,6 +19,7 @@ hsetroot
 htmlhint
 libnotify
 libsecret
+libxres
 lua-language-server
 mpc
 mpd
