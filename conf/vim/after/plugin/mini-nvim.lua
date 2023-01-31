@@ -236,6 +236,7 @@ if pcall(require, "mini.ai") then
 			windows = true,
 		},
 	})
+	vim.keymap.del("t", "<C-w>")
 
 	-- :Bd[!] for layout-safe bufdelete
 	require("mini.bufremove").setup({})
