@@ -45,6 +45,7 @@ local function plugins()
 						"mini.ai",
 						"mini.align",
 						"mini.base16",
+						"mini.basics",
 						"mini.bufremove",
 						"mini.comment",
 						"mini.completion",
