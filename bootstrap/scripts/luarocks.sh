@@ -9,6 +9,8 @@ function luainstall() {
 		sudo luarocks --lua-version "$version" install "$repo"
 	fi
 }
+# Install lpeg-bibtex for Neovim:
+luarocks install --dev --lua-version=5.1 lpeg-bibtex --local
 # if [ -z "$SERVER" ];then
 	# luainstall 'luacheck'
 	# if [[ $os == "arch" ]]; then

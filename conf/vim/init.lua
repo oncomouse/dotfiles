@@ -399,6 +399,7 @@ end
 vim.g.bibfiles = "~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
 -- }}}
 -- Plugins {{{
+require("rocks") -- Add luarocks to the path
 require("dotfiles.plugins")
 -- todo {{{
 require("todo").setup({
