@@ -2,6 +2,47 @@
 -- Add Dotfiles To RTP:
 vim.opt.runtimepath:append("~/dotfiles/conf/vim")
 vim.opt.runtimepath:append("~/dotfiles/conf/vim/after")
+-- Autogroups {{{
+vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
+-- }}}
+local xdg = require("dotfiles.utils.xdg")
+local lazypath = xdg("XDG_DATA_HOME") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup(require("dotfiles.plugins"), {
+	performance = {
+		rtp = {
+			reset = true,
+			paths = {
+				"~/dotfiles/conf/vim",
+				"~/dotfiles/conf/vim/after",
+			},
+			disabled_plugins = {
+				"gzip",
+				"matchit",
+				"matchparen",
+				"netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
+})
+-- Set Leader:
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
 
 -- Set Spellfile Location:
 vim.opt.spellfile = "~/dotfiles/conf/vim/spell/en.utf-8.add"
@@ -26,10 +67,6 @@ vim.opt.foldmethod = "manual"
 
 -- Avoid Highlighting Large Files:
 vim.g.large_file = 20 * 1024 * 1024
-
--- Set Leader:
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
 
 -- Use split for search/replace preview:
 vim.opt.inccommand = "split"
@@ -263,9 +300,6 @@ vim.keymap.set("n", "<localleader>A", ":sbuffer *", { noremap = true })
 -- }}}
 
 -- }}}
--- Autogroups {{{
-vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
--- }}}
 -- Autocommands {{{
 -- Line Number Colors in default:
 vim.api.nvim_create_autocmd(
@@ -400,7 +434,6 @@ vim.g.bibfiles = "~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/li
 -- }}}
 -- Plugins {{{
 require("rocks") -- Add luarocks to the path
-require("dotfiles.plugins")
 -- todo {{{
 require("todo").setup({
 	maps = {
