@@ -5,6 +5,10 @@ vim.opt.runtimepath:append("~/dotfiles/conf/vim/after")
 -- Autogroups {{{
 vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
 -- }}}
+-- Set Leader:
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
 local xdg = require("dotfiles.utils.xdg")
 local lazypath = xdg("XDG_DATA_HOME") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -39,10 +43,6 @@ require("lazy").setup(require("dotfiles.plugins"), {
 		},
 	},
 })
--- Set Leader:
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
-
 
 -- Set Spellfile Location:
 vim.opt.spellfile = "~/dotfiles/conf/vim/spell/en.utf-8.add"
@@ -136,15 +136,15 @@ vim.opt.virtualedit = "block"
 vim.opt.formatoptions = "qjl1"
 
 -- Disable Plugins {{{
-vim.g.load_black = "py1.0"
-vim.g.loaded_fzf = 1
-vim.g.loaded_gzip = 1
-vim.g.loaded_tarPlugin = 1
-vim.g.loaded_zipPlugin = 1
-vim.g.loaded_2html_plugin = 1
-vim.g.loaded_rrhelper = 1
-vim.g.loaded_remote_plugins = 1
-vim.g.loaded_matchit = 1
+-- vim.g.load_black = "py1.0"
+-- vim.g.loaded_fzf = 1
+-- vim.g.loaded_gzip = 1
+-- vim.g.loaded_tarPlugin = 1
+-- vim.g.loaded_zipPlugin = 1
+-- vim.g.loaded_2html_plugin = 1
+-- vim.g.loaded_rrhelper = 1
+-- vim.g.loaded_remote_plugins = 1
+-- vim.g.loaded_matchit = 1
 -- }}}
 -- }}}
 -- Mac NeoVim Settings {{{

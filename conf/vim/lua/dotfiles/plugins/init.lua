@@ -81,7 +81,7 @@ return {
 
 	{
 		"ibhagwan/fzf-lua",
-		keys = { { mode = "n", "<C-p>" }, { mode = "n", "<Leader>a" } },
+		keys = { { mode = "n", "<C-p>", "<Plug>(dotfiles-fzf-files)" }, { mode = "n", "<Leader>a", "<Plug>(dotfiles-fzf-buffers)" } },
 		cmd = { "GitStatus", "Files", "Buffers" },
 		init = function() -- Shim vim.ui.select until we can load the plugin
 			vim.ui.select = function(...)
@@ -90,8 +90,6 @@ return {
 		end,
 		config = function()
 			require("dotfiles.plugins.fzf-lua").setup()
-			vim.keymap.set("n", "<C-p>", "<Plug>(dotfiles-fzf-files)", { silent = true })
-			vim.keymap.set("n", "<Leader>a", "<Plug>(dotfiles-fzf-buffers)", { silent = true })
 		end,
 		-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/fzf-lua.lua
 	}, -- FZF Client
@@ -99,12 +97,12 @@ return {
 	{
 		"monaqa/dial.nvim",
 		keys = {
-			{ mode = "n", "<C-a>" },
-			{ mode = "n", "<C-x>" },
-			{ mode = "v", "<C-a>" },
-			{ mode = "v", "<C-x>" },
-			{ mode = "v", "g<C-a>" },
-			{ mode = "v", "g<C-x>" },
+			{ "<C-a>", "<Plug>(dial-increment)", mode = "n" },
+			{ "<C-x>", "<Plug>(dial-decrement)", mode = "n" },
+			{ "<C-a>", "<Plug>(dial-increment)", mode = "v" },
+			{ "<C-x>", "<Plug>(dial-decrement)", mode = "v" },
+			{ "g<C-a>", "g<Plug>(dial-increment)", mode = "v" },
+			{ "g<C-x>", "g<Plug>(dial-decrement)", mode = "v" },
 		},
 		config = function()
 			local augend = require("dial.augend")
@@ -118,12 +116,6 @@ return {
 					-- augend.date.alias["%m/%d/%Y"], -- date (02/19/2022)
 				},
 			})
-			vim.keymap.set({ "n" }, "<C-a>", "<Plug>(dial-increment)")
-			vim.keymap.set({ "n" }, "<C-x>", "<Plug>(dial-decrement)")
-			vim.keymap.set({ "v" }, "<C-a>", "<Plug>(dial-increment)")
-			vim.keymap.set({ "v" }, "<C-x>", "<Plug>(dial-decrement)")
-			vim.keymap.set({ "v" }, "g<C-a>", "g<Plug>(dial-increment)")
-			vim.keymap.set({ "v" }, "g<C-x>", "g<Plug>(dial-decrement)")
 		end,
 	},
 
@@ -230,6 +222,7 @@ return {
 
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		event = "VeryLazy",
 	}, -- Mark and highlight indentations
 	-- Configured in ~/dotfiles/conf/vim/after/plugin/indent-blankline.lua
 }
