@@ -1,13 +1,24 @@
--- Add Dotfiles To RTP:
-vim.opt.runtimepath:append("~/dotfiles/conf/vim")
-vim.opt.runtimepath:append("~/dotfiles/conf/vim/after")
 -- Autogroups
 vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
 -- Set Leader:
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-local xdg = require("dotfiles.utils.xdg")
+local function xdg_default(v, d)
+	local o = os.getenv(v)
+	return o and o or os.getenv("HOME") .. d
+end
+local xdg = function(var_name)
+	if var_name == "XDG_CONFIG_HOME" then
+		return xdg_default("XDG_CONFIG_HOME", "/.config")
+	elseif var_name == "XDG_CACHE_HOME" then
+		return xdg_default("XDG_CACHE_HOME", "/.cache")
+	elseif var_name == "XDG_DATA_HOME" then
+		return xdg_default("XDG_DATA_HOME", "/.local/share")
+	end
+	return nil
+end
+
 local lazypath = xdg("XDG_DATA_HOME") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -20,10 +31,13 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-require("lazy").setup(require("dotfiles.plugins"), {
+require("lazy").setup({
+	spec = {
+		{ import = "dotfiles.plugins" },
+	},
 	performance = {
 		rtp = {
-			reset = true,
+			reset = false,
 			paths = {
 				"~/dotfiles/conf/vim",
 				"~/dotfiles/conf/vim/after",
@@ -41,27 +55,12 @@ require("lazy").setup(require("dotfiles.plugins"), {
 		},
 	},
 })
-local things_to_load = {
+for _, thing in pairs({
 	"options",
 	"autocmds",
 	"commands",
 	"maps",
-}
-local function load_things()
-	for _, thing in pairs(things_to_load) do
-		require("dotfiles." .. thing)
-	end
-end
-
-if vim.fn.argc(-1) == 0 then
-	-- autocmds and keymaps can wait to load
-	vim.api.nvim_create_autocmd("User", {
-		group = vim.api.nvim_create_augroup("LazyVim", { clear = true }),
-		pattern = "VeryLazy",
-		callback = load_things,
-	})
-else
-	-- load them now so they affect the opened buffers
-	load_things()
+}) do
+	require("dotfiles." .. thing)
 end
 -- # vim:foldmethod=marker:foldlevel=0
