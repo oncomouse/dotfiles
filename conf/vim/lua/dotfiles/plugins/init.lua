@@ -128,9 +128,6 @@ return {
 				},
 			})
 		end,
-		rocks = {
-			{ "lpeg-bibtex", server = "https://luarocks.org/dev" },
-		},
 	} or {
 		"oncomouse/nvim-ref",
 		config = function()
@@ -138,9 +135,6 @@ return {
 				bibfiles = { vim.g.bibfiles },
 			})
 		end,
-		rocks = {
-			{ "lpeg-bibtex", server = "https://luarocks.org/dev" },
-		},
 	}),
 
 	{
