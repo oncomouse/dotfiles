@@ -1,5 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
+	event = "BufReadPre",
 	config = function()
 		local servers = require("dotfiles.nvim-lspconfig")
 
