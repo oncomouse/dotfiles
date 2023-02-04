@@ -1,6 +1,6 @@
 return {
 	{ "folke/lazy.nvim", version = "*" },
-	{ "nvim-lua/plenary.nvim" },
+	"nvim-lua/plenary.nvim",
 
 	-- Editor Enhancements:
 
@@ -32,9 +32,7 @@ return {
 				".project-root",
 			},
 		},
-		config = function(_, opts)
-			require("project_nvim").setup(opts)
-		end,
+		name = "project_nvim",
 	}, -- Set project root
 
 	{
@@ -56,23 +54,15 @@ return {
 		cond = require("dotfiles.utils.use_termguicolors"),
 	}, -- Icons, used in the statusline
 
-	(vim.g.nvim_ref_devel and {
-		"~/Projects/nvim-ref",
-		config = function()
-			require("nvim-ref").setup({
-				bibfiles = {
-					"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib",
-				},
-			})
-		end,
-	} or {
+	{
 		"oncomouse/nvim-ref",
-		config = function()
-			require("nvim-ref").setup({
-				bibfiles = { vim.g.bibfiles },
-			})
-		end,
-	}),
+		dev = false,
+		opts = {
+			bibfiles = {
+				"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib",
+			}
+		}
+	},
 
 	{
 		"oncomouse/vim-markdown",
