@@ -16,4 +16,6 @@ if which gem > /dev/null 2>&1; then
     geminstall 'solargraph'
   fi
   geminstall 'bundler'
+  # Set gem path:
+  bundle config set --local path "/home/andrew/.gem"
 fi
