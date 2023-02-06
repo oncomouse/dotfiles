@@ -404,9 +404,9 @@ require("dotfiles.plugins")
 -- todo {{{
 require("todo").setup({
 	maps = {
-		jumps = {
-			next = "",
-			prev = "",
+		jump = {
+			next = "gt]",
+			prev = "gt[",
 		},
 	},
 })
