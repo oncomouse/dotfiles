@@ -36,6 +36,9 @@ require("lazy").setup({
 	defaults = {
 		lazy = true,
 	},
+	install = {
+		colorscheme = { "catppuccin-mocha" },
+	},
 	spec = {
 		{ import = "dotfiles.plugins" },
 	},
