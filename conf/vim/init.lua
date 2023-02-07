@@ -1,10 +1,66 @@
--- Dotfiles Settings {{{
--- Add Dotfiles To RTP:
-vim.opt.runtimepath:append("~/dotfiles/conf/vim")
-vim.opt.runtimepath:append("~/dotfiles/conf/vim/after")
+-- Minimal settings to get lazy.nvim working {{{
+-- Autogroups:
+vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
+-- Set Leader:
+vim.g.mapleader = " "
+-- }}}
+-- Load lazy.nvim {{{
+local function xdg_default(v, d)
+	local o = os.getenv(v)
+	return o and o or os.getenv("HOME") .. d
+end
+local xdg = function(var_name)
+	if var_name == "XDG_CONFIG_HOME" then
+		return xdg_default("XDG_CONFIG_HOME", "/.config")
+	elseif var_name == "XDG_CACHE_HOME" then
+		return xdg_default("XDG_CACHE_HOME", "/.cache")
+	elseif var_name == "XDG_DATA_HOME" then
+		return xdg_default("XDG_DATA_HOME", "/.local/share")
+	end
+	return nil
+end
 
--- Set Spellfile Location:
-vim.opt.spellfile = "~/dotfiles/conf/vim/spell/en.utf-8.add"
+local lazypath = xdg("XDG_DATA_HOME") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup({
+	defaults = {
+		lazy = true,
+	},
+	spec = {
+		{ import = "dotfiles.plugins" },
+	},
+	performance = {
+		dev = {
+			path = "~/Projects",
+		},
+		rtp = {
+			paths = {
+				vim.fn.expand("~/dotfiles/conf/vim"),
+				vim.fn.expand("~/dotfiles/conf/vim/after"),
+			},
+			disabled_plugins = {
+				"gzip",
+				"matchit",
+				"matchparen",
+				"netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
+})
 -- }}}
 -- Basic Settings {{{
 vim.cmd([[set visualbell t_vb=]]) -- Disable visual bell
@@ -26,10 +82,6 @@ vim.opt.foldmethod = "manual"
 
 -- Avoid Highlighting Large Files:
 vim.g.large_file = 20 * 1024 * 1024
-
--- Set Leader:
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
 
 -- Use split for search/replace preview:
 vim.opt.inccommand = "split"
@@ -98,17 +150,12 @@ vim.opt.commentstring = "# %s"
 vim.opt.virtualedit = "block"
 vim.opt.formatoptions = "qjl1"
 
--- Disable Plugins {{{
-vim.g.load_black = "py1.0"
-vim.g.loaded_fzf = 1
-vim.g.loaded_gzip = 1
-vim.g.loaded_tarPlugin = 1
-vim.g.loaded_zipPlugin = 1
-vim.g.loaded_2html_plugin = 1
-vim.g.loaded_rrhelper = 1
-vim.g.loaded_remote_plugins = 1
-vim.g.loaded_matchit = 1
--- }}}
+-- Set Spellfile Location:
+vim.opt.spellfile = "~/dotfiles/conf/vim/spell/en.utf-8.add"
+
+-- Localleader:
+vim.g.maplocalleader = ","
+
 -- }}}
 -- Mac NeoVim Settings {{{
 if vim.fn.has("mac") == 1 and vim.fn.has("nvim") == 1 then
@@ -170,8 +217,126 @@ local function grep_or_qfgrep()
 	end
 end
 -- }}}
--- Maps {{{
+-- Autocommands {{{
+-- Line Number Colors in default:
+vim.api.nvim_create_autocmd(
+	"ColorScheme",
+	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNr ctermfg=7" }
+)
+vim.api.nvim_create_autocmd(
+	"ColorScheme",
+	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNrAbove ctermfg=7" }
+)
+vim.api.nvim_create_autocmd(
+	"ColorScheme",
+	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNrBelow ctermfg=7" }
+)
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = "dotfiles-settings",
+	pattern = "default",
+	command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE gui=NONE",
+})
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = "dotfiles-settings",
+	pattern = "default",
+	command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE gui=NONE",
+})
 
+-- Turn Off Line Numbering:
+vim.api.nvim_create_autocmd("TermOpen", { group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" })
+
+-- Start QuickFix:
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+	group = "dotfiles-settings",
+	pattern = "[^l]*",
+	callback = function()
+		list_toggle("c", 1)
+	end,
+})
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+	group = "dotfiles-settings",
+	pattern = "l*",
+	callback = function()
+		list_toggle("l", 1)
+	end,
+})
+
+-- Highlighted Yank:
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+-- 	group = "dotfiles-settings",
+-- 	callback = function()
+-- 		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 500 })
+-- 	end,
+-- })
+
+-- Close Preview Window:
+vim.api.nvim_create_autocmd("CompleteDone", {
+	group = "dotfiles-settings",
+	callback = function()
+		if vim.fn.pumvisible() == 0 then
+			vim.cmd("pclose")
+		end
+	end,
+})
+--}}}
+-- Commands {{{
+-- Formatting and Diagnostic commands for LSP-less files
+vim.api.nvim_create_user_command("Diagnostics", function()
+	vim.cmd("silent lmake! %")
+	if #vim.fn.getloclist(0) == 0 then
+		vim.cmd("lopen")
+	else
+		vim.cmd("lclose")
+	end
+end, {
+	force = true,
+})
+vim.api.nvim_create_user_command("Format", function()
+	vim.api.nvim_feedkeys("mxgggqG`x", "x", true)
+end, {
+	force = true,
+})
+
+-- Adjust Spacing:
+vim.api.nvim_create_user_command("Spaces", function(args)
+	local wv = vim.fn.winsaveview()
+	vim.opt_local.expandtab = true
+	vim.opt_local.tabstop = tonumber(args.args)
+	vim.opt_local.softtabstop = tonumber(args.args)
+	vim.opt_local.shiftwidth = tonumber(args.args)
+	vim.cmd("silent execute '%!expand -it" .. args.args .. "'")
+	vim.fn.winrestview(wv)
+	vim.cmd("setlocal ts? sw? sts? et?")
+end, {
+	force = true,
+	nargs = 1,
+})
+vim.api.nvim_create_user_command("Tabs", function(args)
+	local wv = vim.fn.winsaveview()
+	vim.opt_local.expandtab = false
+	vim.opt_local.tabstop = tonumber(args.args)
+	vim.opt_local.softtabstop = tonumber(args.args)
+	vim.opt_local.shiftwidth = tonumber(args.args)
+	vim.cmd("silent execute '%!unexpand -t" .. args.args .. "'")
+	vim.fn.winrestview(wv)
+	vim.cmd("setlocal ts? sw? sts? et?")
+end, {
+	force = true,
+	nargs = 1,
+})
+
+-- :Git command
+vim.api.nvim_create_user_command("Git", function(args)
+	if args.args == "" then
+		vim.cmd("LazyGit")
+	end
+	vim.cmd("!git " .. args.args)
+end, {
+	force = true,
+	nargs = "*",
+})
+-- }}}
+-- Keymaps {{{
 -- Navigation in insert mode:
 vim.keymap.set("i", "<C-a>", "<C-o>^", { silent = true })
 vim.keymap.set("i", "<C-e>", "<C-o>$", { silent = true })
@@ -243,150 +408,6 @@ vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
 
 -- Jump to last buffer:
 vim.keymap.set("n", "<leader>b", "<cmd>b#<cr>")
-
--- Sourced from jessarcher/dotfiles {{{
---  \ https://github.com/jessarcher/dotfiles/blob/master/nvim/init.vim
--- When text is wrapped, move by terminal rows, not lines, unless a count is provided
--- vim.keymap.set("n", "j", "(v:count == 0 ? 'gj' : 'j')", { silent = true, noremap = true, expr = true })
--- vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap = true, expr = true })
--- }}}
--- Sourced from romainl/minivimrc {{{
---  \ https://github.com/romainl/minivimrc/blob/master/vimrc
--- Minimal File Finding:
-vim.keymap.set("n", "<localleader>f", ":find *", { noremap = true })
-vim.keymap.set("n", "<localleader>s", ":sfind *", { noremap = true })
-vim.keymap.set("n", "<localleader>v", ":vert sfind *", { noremap = true })
--- Minimal Buffer Jumping:
-vim.keymap.set("n", "<leader>a", ":buffers<CR>:buffer<Space> ", { noremap = true })
-vim.keymap.set("n", "<localleader>a", ":buffer *", { noremap = true })
-vim.keymap.set("n", "<localleader>A", ":sbuffer *", { noremap = true })
--- }}}
-
--- }}}
--- Autogroups {{{
-vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
--- }}}
--- Autocommands {{{
--- Line Number Colors in default:
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNr ctermfg=7" }
-)
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNrAbove ctermfg=7" }
-)
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNrBelow ctermfg=7" }
-)
-vim.api.nvim_create_autocmd("ColorScheme", {
-	group = "dotfiles-settings",
-	pattern = "default",
-	command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE gui=NONE",
-})
-vim.api.nvim_create_autocmd("ColorScheme", {
-	group = "dotfiles-settings",
-	pattern = "default",
-	command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE gui=NONE",
-})
-
--- Turn Off Line Numbering:
-vim.api.nvim_create_autocmd("TermOpen", { group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" })
-
--- Start QuickFix:
-vim.api.nvim_create_autocmd("QuickFixCmdPost", {
-	group = "dotfiles-settings",
-	pattern = "[^l]*",
-	callback = function()
-		list_toggle("c", 1)
-	end,
-})
-vim.api.nvim_create_autocmd("QuickFixCmdPost", {
-	group = "dotfiles-settings",
-	pattern = "l*",
-	callback = function()
-		list_toggle("l", 1)
-	end,
-})
-
--- Highlighted Yank:
--- vim.api.nvim_create_autocmd("TextYankPost", {
--- 	group = "dotfiles-settings",
--- 	callback = function()
--- 		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 500 })
--- 	end,
--- })
-
--- Close Preview Window:
-vim.api.nvim_create_autocmd("CompleteDone", {
-	group = "dotfiles-settings",
-	callback = function()
-		if vim.fn.pumvisible() == 0 then
-			vim.cmd("pclose")
-		end
-	end,
-})
-
--- }}}
--- Commands {{{
-
--- Formatting and Diagnostic commands for LSP-less files
-vim.api.nvim_create_user_command("Diagnostics", function()
-	vim.cmd("silent lmake! %")
-	if #vim.fn.getloclist(0) == 0 then
-		vim.cmd("lopen")
-	else
-		vim.cmd("lclose")
-	end
-end, {
-	force = true,
-})
-vim.api.nvim_create_user_command("Format", function()
-	vim.api.nvim_feedkeys("mxgggqG`x", "x", true)
-end, {
-	force = true,
-})
-
--- Adjust Spacing:
-vim.api.nvim_create_user_command("Spaces", function(args)
-	local wv = vim.fn.winsaveview()
-	vim.opt_local.expandtab = true
-	vim.opt_local.tabstop = tonumber(args.args)
-	vim.opt_local.softtabstop = tonumber(args.args)
-	vim.opt_local.shiftwidth = tonumber(args.args)
-	vim.cmd("silent execute '%!expand -it" .. args.args .. "'")
-	vim.fn.winrestview(wv)
-	vim.cmd("setlocal ts? sw? sts? et?")
-end, {
-	force = true,
-	nargs = 1,
-})
-vim.api.nvim_create_user_command("Tabs", function(args)
-	local wv = vim.fn.winsaveview()
-	vim.opt_local.expandtab = false
-	vim.opt_local.tabstop = tonumber(args.args)
-	vim.opt_local.softtabstop = tonumber(args.args)
-	vim.opt_local.shiftwidth = tonumber(args.args)
-	vim.cmd("silent execute '%!unexpand -t" .. args.args .. "'")
-	vim.fn.winrestview(wv)
-	vim.cmd("setlocal ts? sw? sts? et?")
-end, {
-	force = true,
-	nargs = 1,
-})
-
--- :Git command
-vim.api.nvim_create_user_command("Git", function(args)
-	if args.args == "" then
-		vim.cmd("LazyGit")
-	end
-	vim.cmd("!git " .. args.args)
-end, {
-	force = true,
-	nargs = "*",
-})
-
 -- }}}
 -- Signs {{{
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
@@ -400,7 +421,6 @@ vim.g.bibfiles = "~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/li
 -- }}}
 -- Plugins {{{
 require("rocks") -- Add luarocks to the path
-require("dotfiles.plugins")
 -- todo {{{
 require("todo").setup({
 	maps = {

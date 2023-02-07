@@ -1,4 +1,5 @@
-local function open_lazygit()
+-- LazyGit integration:
+local function lazygit()
 	if vim.fn.executable("lazygit") == 1 then
 		vim.cmd([[tab split +term\ lazygit]])
 		vim.keymap.set("n", "q", function()
@@ -9,7 +10,7 @@ local function open_lazygit()
 		vim.api.nvim_feedkeys("i", "n", false)
 		vim.api.nvim_create_autocmd("TermClose", {
 			buffer = vim.fn.bufnr(""),
-			command = "if !v:event.status | exe 'bdelete! '..expand('<abuf>') | endif"
+			command = "if !v:event.status | exe 'bdelete! '..expand('<abuf>') | endif",
 		})
 	else
 		vim.cmd([[echohl ErrorMsg
@@ -17,5 +18,6 @@ local function open_lazygit()
 		echohl NONE]])
 	end
 end
+vim.api.nvim_create_user_command("LazyGit", lazygit, {})
 
-vim.api.nvim_create_user_command("LazyGit", open_lazygit, {})
+

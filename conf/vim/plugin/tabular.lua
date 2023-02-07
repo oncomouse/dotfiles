@@ -1,3 +1,4 @@
+-- Tabularize:
 -- Taken from mini.align's source code:
 function set_lines(start_row, end_row, replacement)
 	--stylua: ignore
@@ -41,3 +42,4 @@ end, {
 	range = true,
 	nargs = "*",
 })
+
