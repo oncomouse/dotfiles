@@ -571,6 +571,8 @@ if paq_available then
 	-- May as well setup a minimal autopair:
 	require("mini.pairs").setup({})
 
+	require("mini.statusline").setup({})
+
 	-- Replace vim-surround:
 	require("mini.surround").setup({
 		custom_surroundings = {
