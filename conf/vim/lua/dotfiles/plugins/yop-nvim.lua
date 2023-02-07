@@ -1,5 +1,9 @@
 return {
 		"zdcthomas/yop.nvim",
+		keys = {
+			{ "gs", mode = { "n", "v" } },
+			{ "gS", mode = { "n", "v" } },
+		},
 		config = function()
 			local utils = require("yop.utils")
 			local function sort_without_leading_space(a, b)
