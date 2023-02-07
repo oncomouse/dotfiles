@@ -67,6 +67,14 @@ return {
 		dependencies = { "vim-repeat" },
 	}, -- Fancy * and # bindings
 
+	{
+		"dstein64/vim-startuptime",
+		cmd = "StartupTime",
+		config = function()
+			vim.g.startuptime_tries = 10
+		end,
+	},
+
 	-- Extra functionality + UI:
 
 	{
