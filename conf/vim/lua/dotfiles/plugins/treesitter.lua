@@ -115,7 +115,7 @@ return {
 		"windwp/nvim-ts-autotag",
 		{
 			"andymass/vim-matchup",
-			lazy = false,
+			event = "FileType",
 			init = function()
 				vim.g.matchup_matchparen_offscreen = {
 					method = "popup",
