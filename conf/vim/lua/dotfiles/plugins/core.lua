@@ -3,6 +3,11 @@ return {
 
 	"nvim-lua/plenary.nvim",
 
+	{
+		"tpope/vim-repeat",
+		event = "VeryLazy",
+	},
+
 	-- Editor Enhancements:
 
 	{
@@ -17,7 +22,7 @@ return {
 
 	{
 		"vim-scripts/ReplaceWithRegister",
-		dependencies = { "tpope/vim-repeat" },
+		dependencies = { "vim-repeat" },
 		keys = {
 			{ "gr", mode = { "x", "n" } },
 			{ "grr", mode = "n" },
@@ -26,7 +31,7 @@ return {
 
 	{
 		"tpope/vim-unimpaired",
-		dependencies = { "tpope/vim-repeat" },
+		dependencies = { "vim-repeat" },
 		event = "VeryLazy",
 	},
 
@@ -59,7 +64,7 @@ return {
 		config = function()
 			vim.g["asterisk#keeppos"] = 1
 		end,
-		dependencies = { "tpope/vim-repeat" },
+		dependencies = { "vim-repeat" },
 	}, -- Fancy * and # bindings
 
 	-- Extra functionality + UI:
