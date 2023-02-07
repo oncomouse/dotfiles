@@ -8,6 +8,7 @@ return {
 	dependencies = {
 		{ "preservim/vim-textobj-sentence" }, -- Sentence object
 	},
+	lazy = false,
 	config = function()
 
 		-- vim-textobj-sentence configuration
