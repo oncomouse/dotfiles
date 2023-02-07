@@ -18,7 +18,10 @@ return {
 	{
 		"vim-scripts/ReplaceWithRegister",
 		dependencies = { "tpope/vim-repeat" },
-		event = "VeryLazy",
+		keys = {
+			{ "gr", mode = { "x", "n" } },
+			{ "grr", mode = "n" },
+		},
 	}, -- gr{motion} or grr or gr in visual to replace with register
 
 	{
@@ -72,8 +75,8 @@ return {
 		opts = {
 			bibfiles = {
 				"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib",
-			}
-		}
+			},
+		},
 	},
 
 	{
