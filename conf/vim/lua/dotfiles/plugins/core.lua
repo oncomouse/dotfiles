@@ -1,10 +1,7 @@
 return {
 	{ "folke/lazy.nvim", version = "*" },
 
-	{
-		"nvim-lua/plenary.nvim",
-		event = "VeryLazy",
-	},
+	"nvim-lua/plenary.nvim",
 
 	-- Editor Enhancements:
 
