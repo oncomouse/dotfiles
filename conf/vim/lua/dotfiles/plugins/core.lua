@@ -1,5 +1,5 @@
 return {
-	{ "folke/lazy.nvim", version = "*", dev = true },
+	{ "folke/lazy.nvim", version = "*" },
 
 	{
 		"nvim-lua/plenary.nvim",
@@ -50,14 +50,15 @@ return {
 
 	{
 		"haya14busa/vim-asterisk",
+		keys = {
+			{ "*", "<Plug>(asterisk-z*)" },
+			{ "#", "<Plug>(asterisk-z#)" },
+			{ "g*", "<Plug>(asterisk-gz*)" },
+			{ "g#", "<Plug>(asterisk-gz#)" },
+		},
 		config = function()
-			vim.keymap.set("", "*", "<Plug>(asterisk-z*)")
-			vim.keymap.set("", "#", "<Plug>(asterisk-z#)")
-			vim.keymap.set("", "g*", "<Plug>(asterisk-gz*)")
-			vim.keymap.set("", "g#", "<Plug>(asterisk-gz#)")
 			vim.g["asterisk#keeppos"] = 1
 		end,
-		event = "VeryLazy",
 		dependencies = { "tpope/vim-repeat" },
 	}, -- Fancy * and # bindings
 
