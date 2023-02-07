@@ -5,6 +5,7 @@ return {
 	},
 	event = "VeryLazy",
 	config = function()
+		-- We don't load LuaSnip until InsertEnter, so we don't check for it until it could possibly be loaded.
 		local luasnip_might_have_loaded = false
 		vim.api.nvim_create_autocmd("InsertEnter", {
 			group = "dotfiles-settings",
@@ -13,6 +14,7 @@ return {
 				luasnip_might_have_loaded = true
 			end,
 		})
+
 		local heirline = require("heirline")
 		local utils = require("heirline.utils")
 		local conditions = require("heirline.conditions")
