@@ -113,28 +113,26 @@ return {
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		"windwp/nvim-ts-autotag",
-		"vim-matchup",
-		"nvim-ts-context-commentstring",
-	},
-	{
-		"andymass/vim-matchup",
-		lazy = false,
-		init = function()
-			vim.g.matchup_matchparen_offscreen = {
-				method = "popup",
-			}
-		end,
-	},
-	{
-		"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
-		config = function()
-			require("mini.comment").setup({
-				hooks = {
-					pre = function()
-						require("ts_context_commentstring.internal").update_commentstring()
-					end,
-				},
-			})
-		end,
+		{
+			"andymass/vim-matchup",
+			lazy = false,
+			init = function()
+				vim.g.matchup_matchparen_offscreen = {
+					method = "popup",
+				}
+			end,
+		},
+		{
+			"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
+			config = function()
+				require("mini.comment").setup({
+					hooks = {
+						pre = function()
+							require("ts_context_commentstring.internal").update_commentstring()
+						end,
+					},
+				})
+			end,
+		},
 	},
 }
