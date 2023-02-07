@@ -1,5 +1,6 @@
 return {
 	"jose-elias-alvarez/null-ls.nvim",
+	event = "BufReadPre",
 	opts = function()
 		local eslint_project = require("dotfiles.null-ls.helpers.eslint_project")
 		local b = require("null-ls").builtins

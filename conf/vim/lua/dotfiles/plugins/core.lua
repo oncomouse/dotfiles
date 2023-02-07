@@ -1,25 +1,38 @@
 return {
 	{ "folke/lazy.nvim", version = "*", dev = true },
-	"nvim-lua/plenary.nvim",
+
+	{
+		"nvim-lua/plenary.nvim",
+		event = "VeryLazy",
+	},
 
 	-- Editor Enhancements:
 
-	"sickill/vim-pasta", -- fix block paste for Neovim
+	{
+		"sickill/vim-pasta",
+		event = "VeryLazy",
+	}, -- fix block paste for Neovim
 
-	"tpope/vim-sleuth", -- Automatically set indent
+	{
+		"tpope/vim-sleuth",
+		event = "VeryLazy",
+	}, -- Automatically set indent
 
 	{
 		"vim-scripts/ReplaceWithRegister",
 		dependencies = { "tpope/vim-repeat" },
+		event = "VeryLazy",
 	}, -- gr{motion} or grr or gr in visual to replace with register
 
 	{
 		"tpope/vim-unimpaired",
 		dependencies = { "tpope/vim-repeat" },
+		event = "VeryLazy",
 	},
 
 	{
 		"ahmedkhalf/project.nvim",
+		event = "VeryLazy",
 		opts = {
 			patterns = {
 				".git/",
@@ -44,6 +57,7 @@ return {
 			vim.keymap.set("", "g#", "<Plug>(asterisk-gz#)")
 			vim.g["asterisk#keeppos"] = 1
 		end,
+		event = "VeryLazy",
 		dependencies = { "tpope/vim-repeat" },
 	}, -- Fancy * and # bindings
 
@@ -84,6 +98,7 @@ return {
 
 	{
 		"NvChad/nvim-colorizer.lua",
+		lazy = false,
 		opts = {
 			filetypes = {
 				"*", -- Load everywhere

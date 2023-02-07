@@ -5,6 +5,14 @@ return {
 	},
 	event = "VeryLazy",
 	config = function()
+		local luasnip_might_have_loaded = false
+		vim.api.nvim_create_autocmd("InsertEnter", {
+			group = "dotfiles-settings",
+			once = true,
+			callback = function()
+				luasnip_might_have_loaded = true
+			end,
+		})
 		local heirline = require("heirline")
 		local utils = require("heirline.utils")
 		local conditions = require("heirline.conditions")
@@ -471,8 +479,11 @@ return {
 
 		local LuaSnip = {
 			condition = function(self)
-				self.has_luasnip, self.ls = pcall(require, "luasnip")
-				return self.has_luasnip and self.ls.expand_or_locally_jumpable()
+				if luasnip_might_have_loaded then
+					self.has_luasnip, self.ls = pcall(require, "luasnip")
+					return self.has_luasnip and self.ls.expand_or_locally_jumpable()
+				end
+				return false
 			end,
 			{
 				condition = function(self)
