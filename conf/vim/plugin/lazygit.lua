@@ -19,5 +19,3 @@ local function lazygit()
 	end
 end
 vim.api.nvim_create_user_command("LazyGit", lazygit, {})
-
-
