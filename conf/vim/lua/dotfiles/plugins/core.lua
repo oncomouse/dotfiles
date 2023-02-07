@@ -80,6 +80,7 @@ return {
 	{
 		"oncomouse/nvim-ref",
 		dev = false,
+		cmd = "NvimRef",
 		opts = {
 			bibfiles = {
 				"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib",
