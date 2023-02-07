@@ -342,15 +342,24 @@ vim.keymap.set("i", "<C-a>", "<C-o>^", { silent = true })
 vim.keymap.set("i", "<C-e>", "<C-o>$", { silent = true })
 local function move_char(backwards)
 	return function()
-		local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+		local _, col = unpack(vim.api.nvim_win_get_cursor(0))
 		if (backwards and col == 0) or (not backwards and col == #vim.api.nvim_get_current_line()) then
-			return
+			return ""
 		end
-		return vim.api.nvim_win_set_cursor(0, { row, backwards and col - 1 or col + 1 })
+		if backwards and col == 1 then
+			return "<C-o>^"
+		end
+		if backwards and col == #vim.api.nvim_get_current_line() then
+			return "<C-o>i"
+		end
+		if not backwards and col == #vim.api.nvim_get_current_line() - 1 then
+			return "<C-o>$"
+		end
+		return "<C-o>" .. (backwards and "h" or "l")
 	end
 end
-vim.keymap.set("i", "<C-b>", move_char(true))
-vim.keymap.set("i", "<C-f>", move_char())
+vim.keymap.set("i", "<C-b>", move_char(true), { expr = true })
+vim.keymap.set("i", "<C-f>", move_char(), { expr = true })
 local function move_word(backwards)
 	return function()
 		local _, new_position =
