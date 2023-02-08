@@ -4,7 +4,15 @@
 
 local plugins = {
 	{ "folke/lazy.nvim" },
-	{ "lodestone/lodestone.vim", event = "VeryLazy" }, -- colors
+	{
+		"oncomouse/catppuccin.nvim",
+		event = "VeryLazy",
+		opts = {
+			integrations = {
+				mini = true,
+			},
+		},
+	}, -- colors
 	{ "tpope/vim-repeat", event = "VeryLazy" }, -- dot repeat for plugins
 	{ "tpope/vim-unimpaired", event = "VeryLazy" }, -- paired mappings, ]b,]q,]l, etc
 	{ "tpope/vim-sleuth", event = "VeryLazy" }, -- guess indentation
@@ -71,7 +79,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(plugins, {
 	root = vim.fn.stdpath("data") .. "lazy-minimal",
 	install = {
-		colorscheme = { "lodestone" },
+		colorscheme = { "catppuccin" },
 	},
 	performance = {
 		dev = {
@@ -440,7 +448,7 @@ end, {
 -- Colorscheme
 --------------------------------------------------------------------------------
 
-local ok = pcall(vim.cmd, [[colorscheme lodestone]])
+local ok = pcall(vim.cmd, [[colorscheme catppuccin-mocha]])
 if not ok then
 	vim.cmd([[colorscheme default]])
 end
