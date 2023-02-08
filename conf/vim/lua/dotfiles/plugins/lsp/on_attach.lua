@@ -106,8 +106,8 @@ local function on_attach(client, buf_num)
 		buffer = true,
 		desc = "lua vim.lsp.buf.signature_help()",
 	})
-	local diagnostic_provider = vim.tbl_contains(require("dotfiles.plugins.lsp/servers").provides or {}, "diagnostics")
-	local formatting_provider = vim.tbl_contains(require("dotfiles.plugins.lsp/servers").provides or {}, "formatting")
+	local diagnostic_provider = vim.tbl_contains(require("dotfiles.plugins.lsp.servers")[client.name].provides or {}, "diagnostics")
+	local formatting_provider = vim.tbl_contains(require("dotfiles.plugins.lsp.servers")[client.name].provides or {}, "formatting")
 	if diagnostic_provider then
 		vim.api.nvim_create_autocmd("DiagnosticChanged,BufEnter", {
 			buffer = buf_num,
