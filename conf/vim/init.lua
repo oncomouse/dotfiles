@@ -44,7 +44,7 @@ require("lazy").setup({
 	},
 	performance = {
 		dev = {
-			path = "~/Projects",
+			path = vim.fn.expand("~/Projects"),
 		},
 		rtp = {
 			paths = {

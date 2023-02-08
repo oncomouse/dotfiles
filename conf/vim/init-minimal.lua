@@ -45,7 +45,7 @@ elseif vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 then -- Arch, btw
 elseif vim.fn.isdirectory("/usr/share/doc/fzf/examples") == 1 then -- Debian
 	vim.g.fzf_dir = "/usr/share/doc/fzf/examples"
 elseif vim.fn.isdirectory("~/.fzf") == 1 then -- Local install
-	vim.g.fzf_dir = "~/.fzf"
+	vim.g.fzf_dir = vim.fn.expand("~/.fzf")
 end
 --------------------------------------------------------------------------------
 -- Load lazy.nvim
@@ -84,7 +84,7 @@ require("lazy").setup(plugins, {
 	},
 	performance = {
 		dev = {
-			path = "~/Projects",
+			path = vim.fn.expand("~/Projects"),
 		},
 		rtp = {
 			paths = {
