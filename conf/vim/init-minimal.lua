@@ -204,17 +204,6 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = false
 
 --------------------------------------------------------------------------------
--- Disable Plugins:
---------------------------------------------------------------------------------
-
-vim.g.loaded_gzip = 1
-vim.g.loaded_tarPlugin = 1
-vim.g.loaded_zipPlugin = 1
-vim.g.loaded_2html_plugin = 1
-vim.g.loaded_rrhelper = 1
-vim.g.loaded_remote_plugins = 1
-
---------------------------------------------------------------------------------
 -- Functions:
 --------------------------------------------------------------------------------
 
@@ -327,11 +316,20 @@ vim.keymap.set("i", "<C-a>", "<C-o>^", { silent = true })
 vim.keymap.set("i", "<C-e>", "<C-o>$", { silent = true })
 local function move_char(backwards)
 	return function()
-		local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+		local _, col = unpack(vim.api.nvim_win_get_cursor(0))
 		if (backwards and col == 0) or (not backwards and col == #vim.api.nvim_get_current_line()) then
-			return
+			return ""
 		end
-		return vim.api.nvim_win_set_cursor(0, { row, backwards and col - 1 or col + 1 })
+		if backwards and col == 1 then
+			return "<C-o>^"
+		end
+		if backwards and col == #vim.api.nvim_get_current_line() then
+			return "<C-o>i"
+		end
+		if not backwards and col == #vim.api.nvim_get_current_line() - 1 then
+			return "<C-o>$"
+		end
+		return "<C-o>" .. (backwards and "h" or "l")
 	end
 end
 vim.keymap.set("i", "<C-b>", move_char(true))
@@ -398,10 +396,8 @@ vim.keymap.set("i", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, 
 -- Vertical split like in my Tmux config
 vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
 
--- When text is wrapped, move by terminal rows, not lines, unless a count is provided
--- vim.keymap.set("n", "j", "(v:count == 0 ? 'gj' : 'j')", { silent = true, noremap = true, expr = true })
--- vim.keymap.set("n", "k", "(v:count == 0 ? 'gk' : 'k')", { silent = true, noremap = true, expr = true })
-
+-- Jump to last buffer:
+vim.keymap.set("n", "<leader>b", "<cmd>b#<cr>")
 --------------------------------------------------------------------------------
 -- Commands:
 --------------------------------------------------------------------------------
