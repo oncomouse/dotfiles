@@ -135,7 +135,7 @@ local function on_attach(client, buf_num)
 			vim.lsp.buf.format({
 				async = true,
 				filter = function(c)
-					return vim.tbl_contains(require("dotfiles.plugins.lsp/servers").provides or {}, "formatting")
+					return vim.tbl_contains(require("dotfiles.plugins.lsp.servers")[c.name].provides or {}, "formatting")
 				end,
 			})
 		end, {
