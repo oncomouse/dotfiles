@@ -213,6 +213,14 @@ return {
 		vim.g.lexima_map_escape = ""
 	end,
 	event = "InsertEnter",
+	keys = {
+		{
+			-- Autoclose mapping:
+			"<C-l>",
+			"<Plug>(dotfiles-lexima-leave-til-eol)",
+			mode = "i",
+		},
+	},
 	config = function()
 		vim.fn["lexima#set_default_rules"]()
 		local add_rule = vim.fn["lexima#add_rule"]
@@ -234,7 +242,5 @@ return {
 				end
 			end
 		end
-		-- Autoclose mapping:
-		vim.keymap.set("i", "<C-l>", "<Plug>(dotfiles-lexima-leave-til-eol)", { silent = true })
 	end,
 }
