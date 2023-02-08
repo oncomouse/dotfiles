@@ -145,4 +145,8 @@ return {
 			show_current_context = true,
 		},
 	}, -- Mark and highlight indentations
+	{
+		"oncomouse/lazygit.nvim",
+		cmd = "LazyGit",
+	}, -- :LazyGit for lazygit integration
 }

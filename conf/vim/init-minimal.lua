@@ -18,6 +18,7 @@ local plugins = {
 	{ "tpope/vim-sleuth", event = "VeryLazy" }, -- guess indentation
 	{ "christoomey/vim-sort-motion", event = "VeryLazy" }, -- gs to sort
 	{ "vim-scripts/ReplaceWithRegister", event = "VeryLazy" }, -- gr{motion} or grr or gr in visual to replace with register
+	{ "oncomouse/lazygit.nvim", cmd = "LazyGit" }, -- :LazyGit for lazygit integration
 	{ "echasnovski/mini.nvim", lazy = true }, -- Various (see below)
 	{
 		"nvim-treesitter/nvim-treesitter",
