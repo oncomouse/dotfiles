@@ -297,15 +297,7 @@ return {
 	-- Replace vim-surround:
 	{
 		"echasnovski/mini.surround",
-		keys = {
-			{ "ys", mode = "n" },
-			{ "yss", mode = "n" },
-			{ "ds", mode = "n" },
-			{ "sf", mode = "n" },
-			{ "sF", mode = "n" },
-			{ "hs", mode = "n" },
-			{ "cs", mode = "n" },
-		},
+		lazy = false,
 		opts = {
 			custom_surroundings = {
 				["q"] = {
