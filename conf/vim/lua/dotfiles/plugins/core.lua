@@ -148,6 +148,6 @@ return {
 	{
 		"oncomouse/lazygit.nvim",
 		cmd = "LazyGit",
-		keys = { "n", "<Plug>(lazygit.nvim)" },
+		keys = { "<Plug>(lazygit.nvim)" },
 	}, -- :LazyGit for lazygit integration
 }
