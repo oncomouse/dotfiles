@@ -35,6 +35,7 @@ local parsers = {
 	"ruby",
 	"rust",
 	"scss",
+	"svelte",
 	"tsx",
 	"typescript",
 	"vim",

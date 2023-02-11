@@ -59,6 +59,7 @@ local server_map = {
 			"*.rb",
 			"*.scss",
 			"*.sh",
+			"*.svelte",
 			"*.tex",
 			"*.ts",
 			"*.tsx",
