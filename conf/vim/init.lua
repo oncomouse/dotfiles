@@ -42,10 +42,10 @@ require("lazy").setup({
 	spec = {
 		{ import = "dotfiles.plugins" },
 	},
+	dev = {
+		path = vim.fn.expand("~/Projects"),
+	},
 	performance = {
-		dev = {
-			path = vim.fn.expand("~/Projects"),
-		},
 		rtp = {
 			paths = {
 				vim.fn.expand("~/dotfiles/conf/vim"),
