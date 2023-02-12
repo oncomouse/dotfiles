@@ -300,9 +300,28 @@ return {
 				end,
 			})
 			opts.draw = {
-				animation = require("mini.indentscope").gen_animation.none()
+				animation = require("mini.indentscope").gen_animation.none(),
 			}
 			require("mini.indentscope").setup(opts)
+		end,
+	},
+
+	{
+		"echasnovski/mini.misc",
+		lazy = false,
+		config = function()
+			require('mini.misc').setup()
+			require("mini.misc").setup_auto_root({
+				".git",
+				"Gemfile",
+				"Makefile",
+				"Rakefile",
+				"package.json",
+				"pyproject.toml",
+				"setup.py",
+				".project-root",
+			})
+			require("mini.misc").setup_restore_cursor()
 		end,
 	},
 

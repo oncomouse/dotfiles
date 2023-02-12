@@ -31,24 +31,6 @@ return {
 	},
 
 	{
-		"ahmedkhalf/project.nvim",
-		event = "VeryLazy",
-		opts = {
-			patterns = {
-				".git/",
-				"Gemfile",
-				"Makefile",
-				"Rakefile",
-				"package.json",
-				"pyproject.toml",
-				"setup.py",
-				".project-root",
-			},
-		},
-		name = "project_nvim",
-	}, -- Set project root
-
-	{
 		"haya14busa/vim-asterisk",
 		keys = {
 			{ "*", "<Plug>(asterisk-z*)" },
