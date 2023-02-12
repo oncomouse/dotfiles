@@ -89,7 +89,7 @@ local server_map = {
 	{
 		pattern = "*.lua",
 		servers = {
-			sumneko_lua = {
+			lua_ls = {
 				provides = {
 					"snippets",
 				},
