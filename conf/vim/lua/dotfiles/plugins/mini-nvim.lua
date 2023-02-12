@@ -308,7 +308,7 @@ return {
 
 	{
 		"echasnovski/mini.misc",
-		lazy = false,
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require('mini.misc').setup()
 			require("mini.misc").setup_auto_root({
