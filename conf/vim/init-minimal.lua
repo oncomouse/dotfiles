@@ -337,9 +337,8 @@ vim.keymap.set("i", "<C-b>", move_char(true))
 vim.keymap.set("i", "<C-f>", move_char())
 local function move_word(backwards)
 	return function()
-		local _, new_position = unpack(
-			vim.fn.searchpos(backwards and [[\<]] or [[\>]], backwards and "bn" or "n", vim.fn.line("."))
-		)
+		local _, new_position =
+			unpack(vim.fn.searchpos(backwards and [[\<]] or [[\>]], backwards and "bn" or "n", vim.fn.line(".")))
 		local row, col = unpack(vim.api.nvim_win_get_cursor(0))
 		if new_position == 0 then
 			col = backwards and 0 or #vim.api.nvim_get_current_line()
@@ -586,9 +585,34 @@ end, {
 -- gc for commenting/uncommenting:
 require("mini.comment").setup({})
 
--- We just use this for the indent textobjects:
-require("mini.indentscope").setup({})
-vim.g.miniindentscope_disable = true
+-- Indentscope:
+require("mini.indentscope").setup({
+	symbol = ">",
+	options = { try_as_border = true },
+	draw = {
+		animation = require("mini.indentscope").gen_animation.none(),
+	},
+})
+-- Disable:
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+	callback = function()
+		vim.b.miniindentscope_disable = true
+	end,
+})
+
+require("mini.misc").setup()
+require("mini.misc").setup_auto_root({
+	".git",
+	"Gemfile",
+	"Makefile",
+	"Rakefile",
+	"package.json",
+	"pyproject.toml",
+	"setup.py",
+	".project-root",
+})
+require("mini.misc").setup_restore_cursor()
 
 require("mini.move").setup({})
 
