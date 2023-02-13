@@ -81,21 +81,6 @@ return {
 				}
 			end
 
-			-- local function get_indentation(line)
-			-- 	return vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1]:match("^%s+")
-			-- end
-			--
-			-- local function check_indentation(line, target)
-			-- 	if target == nil then
-			-- 		return true
-			-- 	end
-			-- 	local l = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1]
-			-- 	if #l == 0 then
-			-- 		return true
-			-- 	end
-			-- 	return l:sub(1, #target) == target
-			-- end
-			--
 			return {
 				custom_textobjects = {
 
@@ -111,50 +96,6 @@ return {
 							to = to,
 						}
 					end,
-
-					-- i = function(type) -- Indentation
-					-- 	local _, line, _, _ = unpack(vim.fn.getpos("."))
-					-- 	local target_indentation = get_indentation(line)
-					-- 	local start = line - 1
-					-- 	local stop = line + 1
-					-- 	local _, end_line, _, _ = unpack(vim.fn.getpos("$"))
-					-- 	while true do
-					-- 		if start == 0 then
-					-- 			start = 1
-					-- 			break
-					-- 		end
-					-- 		if not check_indentation(start, target_indentation) then
-					-- 			start = start + 1
-					-- 			break
-					-- 		end
-					-- 		start = start - 1
-					-- 	end
-					-- 	while true do
-					-- 		if stop == end_line + 1 then
-					-- 			stop = end_line
-					-- 			break
-					-- 		end
-					-- 		if not check_indentation(stop, target_indentation) then
-					-- 			stop = stop - 1
-					-- 			break
-					-- 		end
-					-- 		stop = stop + 1
-					-- 	end
-					-- 	if type == "a" then
-					-- 		start = start == 1 and 1 or start - 1
-					-- 		stop = stop == end_line and end_line or stop + 1
-					-- 	end
-					-- 	return {
-					-- 		to = {
-					-- 			line = start,
-					-- 			col = 1,
-					-- 		},
-					-- 		from = {
-					-- 			line = stop,
-					-- 			col = #vim.api.nvim_buf_get_lines(0, stop - 1, stop, false)[1] + 1,
-					-- 		},
-					-- 	}
-					-- end,
 
 					z = function(type) -- Folds
 						vim.api.nvim_feedkeys("[z" .. (type == "i" and "j0" or ""), "x", true)
