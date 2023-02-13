@@ -327,8 +327,8 @@ local function move_char(backwards)
 		return "<C-o>" .. (backwards and "h" or "l")
 	end
 end
-vim.keymap.set("i", "<C-b>", move_char(true))
-vim.keymap.set("i", "<C-f>", move_char())
+vim.keymap.set("i", "<C-b>", move_char(true), { expr = true })
+vim.keymap.set("i", "<C-f>", move_char(), { expr = true })
 local function move_word(backwards)
 	return function()
 		local _, new_position =
@@ -385,7 +385,7 @@ end, {
 })
 
 -- Calculator:
-vim.keymap.set("i", "<C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
+vim.keymap.set("i", "<M-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
 
 -- Vertical split like in my Tmux config
 vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
