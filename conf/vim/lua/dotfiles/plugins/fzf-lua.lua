@@ -125,5 +125,4 @@ return {
 		vim.keymap.set("n", "<Plug>(dotfiles-fzf-files)", "<cmd>Files<CR>", { silent = true })
 		vim.keymap.set("n", "<Plug>(dotfiles-fzf-buffers)", "<cmd>Buffers<CR>", { silent = true })
 	end,
-	-- Configured in ~/dotfiles/conf/vim/lua/dotfiles/plugins/fzf-lua.lua
 }

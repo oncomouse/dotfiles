@@ -281,12 +281,6 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 	end,
 })
 
--- Highlighted Yank:
--- vim.api.nvim_create_autocmd("TextYankPost", {
--- 	group = "dotfiles-settings",
--- 	command = [[silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}]],
--- })
-
 -- Close Preview Window:
 vim.api.nvim_create_autocmd("CompleteDone", {
 	group = "dotfiles-settings",
