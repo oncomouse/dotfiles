@@ -23,7 +23,7 @@ return {
 				table.sort(split, sort_without_leading_space)
 				return { utils.join(split, delimeter) }
 			end
-			require("yop").op_map({ "n", "v" }, "gs", function(lines, opts)
+			require("yop").op_map({ "n", "v" }, "gs", function(lines)
 				-- We don't care about anything non alphanumeric here
 				if #lines == 1 then
 					return sort_by_delimiter(lines[1])
