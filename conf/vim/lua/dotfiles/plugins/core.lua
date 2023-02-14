@@ -25,8 +25,13 @@ return {
 	}, -- gr{motion} or grr or gr in visual to replace with register
 
 	{
-		"tpope/vim-unimpaired",
-		dependencies = { "tpope/vim-repeat" },
+		"liangxianzhe/nap.nvim",
+		opts = {
+			next_prefix = "]",
+			prev_prefix = "[",
+			next_repeat = "<cr>",
+			prev_repeat = "\\",
+		},
 		event = "VeryLazy",
 	},
 
