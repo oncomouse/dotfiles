@@ -50,6 +50,12 @@ return {
 	}, -- Fancy * and # bindings
 
 	{
+		"oncomouse/lazygit.nvim",
+		cmd = "LazyGit",
+		keys = { "<Plug>(lazygit.nvim)" },
+	}, -- :LazyGit for lazygit integration
+
+	{
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
 		config = function()
@@ -133,9 +139,5 @@ return {
 			filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
 		},
 	}, -- Mark and highlight indentations
-	{
-		"oncomouse/lazygit.nvim",
-		cmd = "LazyGit",
-		keys = { "<Plug>(lazygit.nvim)" },
-	}, -- :LazyGit for lazygit integration
+
 }
