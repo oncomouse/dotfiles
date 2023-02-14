@@ -50,15 +50,15 @@ return {
 		})
 		local has_cmp = pcall(require, "cmp") -- Do we have completion?
 		if not has_cmp then
-			-- vim.keymap.set({ "i", "s" }, "<C-E>", function()
-			-- 	if ls.choice_active() then
-			-- 		return "<Plug>luasnip-next-choice"
-			-- 	end
-			-- 	return "<C-E>"
-			-- end, {
-			-- 	expr = true,
-			-- 	remap = true,
-			-- })
+			vim.keymap.set({ "i", "s" }, "<C-N>", function()
+				if ls.choice_active() then
+					return "<Plug>luasnip-next-choice"
+				end
+				return "<C-N>"
+			end, {
+				expr = true,
+				remap = true,
+			})
 		end
 
 		-- Loaders:
