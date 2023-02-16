@@ -385,7 +385,7 @@ end, {
 })
 
 -- Calculator:
-vim.keymap.set("i", "<M-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
+vim.keymap.set("i", "<C-X><C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
 
 -- Vertical split like in my Tmux config
 vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
