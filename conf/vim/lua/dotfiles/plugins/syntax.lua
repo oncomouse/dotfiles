@@ -132,7 +132,7 @@ local current_buffer_base_highlight_disable_check = function()
 end
 
 nvim_treesitter.setup_config = function(opts)
-	local ts_foldexpr_augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_foldexpr")
+	local ts_foldexpr_augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_foldexpr", {})
 
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = vim.fn.join(opts.ensure_installed, ","),
