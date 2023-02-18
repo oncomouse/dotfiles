@@ -1,5 +1,74 @@
 -- Sourced from: https://github.com/mars90226/dotvim/blob/master/lua/vimrc/plugins/nvim_treesitter.lua
-local nvim_treesitter = {}
+local nvim_treesitter = {
+	installed_parser = {
+		"bash",
+		"bibtex",
+		"c",
+		"cmake",
+		"comment",
+		"cpp",
+		"css",
+		"diff",
+		"dockerfile",
+		"fennel",
+		"fish",
+		"go",
+		"graphql",
+		"html",
+		"http",
+		"java",
+		"javascript",
+		"jsdoc",
+		"json",
+		"jsonc",
+		"latex",
+		"lua",
+		"make",
+		"ninja",
+		"nix",
+		"norg",
+		"org",
+		"perl",
+		"php",
+		"python",
+		"r",
+		"rasi",
+		"regex",
+		"ruby",
+		"rust",
+		"scss",
+		"svelte",
+		"tsx",
+		"typescript",
+		"vim",
+		"vue",
+		"xml",
+		"yaml",
+		"zig",
+	},
+	parser_configs = {
+		xml = {
+			install_info = {
+				url = "https://github.com/Trivernis/tree-sitter-xml",
+				files = { "src/parser.c" },
+				generate_requires_npm = true,
+				branch = "main",
+			},
+			filetype = "xml",
+		},
+
+		-- TODO: Use repo in https://github.com/serenadeai/tree-sitter-scss/pull/19
+		scss = {
+			install_info = {
+				url = "https://github.com/goncharov/tree-sitter-scss",
+				files = { "src/parser.c", "src/scanner.c" },
+				branch = "placeholders",
+				revision = "30c9dc19d3292fa8d1134373f0f0abd8547076e8",
+			},
+			maintainers = { "@goncharov" },
+		},
+	},
+}
 local utils = {}
 utils.get_buffer_variable = function(buf, var)
 	local status, result = pcall(vim.api.nvim_buf_get_var, buf, var)
@@ -8,10 +77,6 @@ utils.get_buffer_variable = function(buf, var)
 	end
 	return nil
 end
-nvim_treesitter.enable_config = {
-	highlight_definitions = false,
-	highlight_current_scope = false,
-}
 
 nvim_treesitter.line_threshold = {
 	base = {
@@ -35,6 +100,7 @@ local buffer_toggle_force_disable = function(bufnr)
 	local force_disable = not (utils.get_buffer_variable(bufnr, force_disable_var) or false)
 	vim.api.nvim_buf_set_var(bufnr, force_disable_var, force_disable)
 end
+
 local disable_check = function(type, lang, bufnr)
 	if get_force_disable(bufnr) then
 		return true
@@ -58,6 +124,7 @@ end
 local base_disable_check = function(lang, bufnr)
 	return disable_check("base", lang, bufnr)
 end
+
 local current_buffer_base_highlight_disable_check = function()
 	local ft = vim.bo.ft
 	local bufnr = vim.fn.bufnr()
@@ -65,11 +132,11 @@ local current_buffer_base_highlight_disable_check = function()
 end
 
 nvim_treesitter.setup_config = function(opts)
-	local parsers = opts.ensure_installed
+	local ts_foldexpr_augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_foldexpr")
 
 	vim.api.nvim_create_autocmd("FileType", {
-		pattern = vim.fn.join(parsers, ","),
-		group = "dotfiles-settings",
+		pattern = vim.fn.join(opts.ensure_installed, ","),
+		group = ts_foldexpr_augroup_id,
 		callback = function()
 			vim.keymap.set("n", "<F6>", function()
 				buffer_toggle_force_disable(vim.api.nvim_get_current_buf())
@@ -86,27 +153,9 @@ end
 
 nvim_treesitter.setup_parser_config = function()
 	local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-
-	parser_configs.xml = {
-		install_info = {
-			url = "https://github.com/Trivernis/tree-sitter-xml",
-			files = { "src/parser.c" },
-			generate_requires_npm = true,
-			branch = "main",
-		},
-		filetype = "xml",
-	}
-
-	-- TODO: Use repo in https://github.com/serenadeai/tree-sitter-scss/pull/19
-	parser_configs.scss = {
-		install_info = {
-			url = "https://github.com/goncharov/tree-sitter-scss",
-			files = { "src/parser.c", "src/scanner.c" },
-			branch = "placeholders",
-			revision = "30c9dc19d3292fa8d1134373f0f0abd8547076e8",
-		},
-		maintainers = { "@goncharov" },
-	}
+	for f, c in pairs(nvim_treesitter.parser_configs) do
+		parser_configs[f] = c
+	end
 end
 
 nvim_treesitter.setup_extensions = function()
@@ -131,6 +180,7 @@ nvim_treesitter.setup_extensions = function()
 		end,
 	})
 end
+
 nvim_treesitter.setup_performance_trick = function()
 	local configs_commands = require("nvim-treesitter.configs").commands
 
@@ -251,52 +301,7 @@ return {
 			vim.cmd([[TSUpdate]])
 		end,
 		opts = {
-			ensure_installed = {
-				"bash",
-				"bibtex",
-				"c",
-				"cmake",
-				"comment",
-				"cpp",
-				"css",
-				"diff",
-				"dockerfile",
-				"fennel",
-				"fish",
-				"go",
-				"graphql",
-				"html",
-				"http",
-				"java",
-				"javascript",
-				"jsdoc",
-				"json",
-				"jsonc",
-				"latex",
-				"lua",
-				"make",
-				"ninja",
-				"nix",
-				"norg",
-				"org",
-				"perl",
-				"php",
-				"python",
-				"r",
-				"rasi",
-				"regex",
-				"ruby",
-				"rust",
-				"scss",
-				"svelte",
-				"tsx",
-				"typescript",
-				"vim",
-				"vue",
-				"xml",
-				"yaml",
-				"zig",
-			},
+			ensure_installed = nvim_treesitter.installed_parser,
 			highlight = { enable = true },
 			context_commentstring = { enable = true },
 			autotag = { enable = true },
