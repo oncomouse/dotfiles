@@ -110,7 +110,11 @@ return {
 						elseif completion_item.textEdit then
 							snippet = get_lsp_snippet(completion_item.textEdit.newText)
 							-- Sumneko-lua:
-						elseif completion_item.insertTextFormat and completion_item.insertTextFormat == 2 then
+						elseif
+							completion_item.insertTextFormat
+							and completion_item.insertTextFormat == 2
+							and completion_item.insertText ~= nil
+						then
 							snippet = get_lsp_snippet(completion_item.insertText)
 						end
 						-- Expand the snippet, if one was found:
