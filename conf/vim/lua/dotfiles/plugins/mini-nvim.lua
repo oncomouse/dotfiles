@@ -206,8 +206,8 @@ return {
 	{
 		"echasnovski/mini.bracketed",
 		event = "VeryLazy",
-		config = function()
-			require("mini.bracketed").setup()
+		config = function(_, opts)
+			require("mini.bracketed").setup(opts)
 		end,
 	},
 
