@@ -203,6 +203,14 @@ return {
 		end,
 	},
 
+	{
+		"echasnovski/mini.bracketed",
+		event = "VeryLazy",
+		config = function()
+			require("mini.bracketed").setup()
+		end,
+	},
+
 	-- :Bd[!] for layout-safe bufdelete
 	{
 		"echasnovski/mini.bufremove",

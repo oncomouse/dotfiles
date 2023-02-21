@@ -27,24 +27,6 @@ return {
 	}, -- gr{motion} or grr or gr in visual to replace with register
 
 	{
-		"liangxianzhe/nap.nvim",
-		opts = {
-			next_prefix = "]",
-			prev_prefix = "[",
-			next_repeat = "<cr>",
-			prev_repeat = "\\",
-		},
-		config = function(_, opts)
-			require("nap").setup(opts)
-			require("nap").nap("s", "normal! ]s", "normal! [s", "Next spelling error", "Previous spelling error")
-			require("nap").nap("t", "tabnext", "tabprev", "Next tab", "Previous tab")
-			require("nap").nap("T", "tablast", "tabfirst", "Last tab", "Next tab")
-
-		end,
-		event = "VeryLazy",
-	}, -- Paired mappings for buffers, quickfix, etc.
-
-	{
 		"haya14busa/vim-asterisk",
 		keys = {
 			{ "*", "<Plug>(asterisk-z*)" },
