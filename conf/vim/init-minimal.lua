@@ -568,6 +568,9 @@ require("mini.basics").setup({
 	},
 })
 
+-- mini.bracketed:
+require("mini.bracketed").setup({})
+
 -- :Bd[!] for layout-safe bufdelete
 require("mini.bufremove").setup({})
 vim.api.nvim_create_user_command("Bd", function(args)
