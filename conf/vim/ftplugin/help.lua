@@ -15,4 +15,6 @@ vim.keymap.set({ "n", "i" }, "<C-]>", function()
 		vim.api.nvim_win_get_cursor(0)[1],
 		#new_line
 	})
-end)
+end, {
+	buffer = true,
+})
