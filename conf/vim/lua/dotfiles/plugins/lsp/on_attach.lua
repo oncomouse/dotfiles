@@ -96,14 +96,6 @@ local function on_attach(client, buf_num)
 				vim.diagnostic.setloclist({ open = false })
 			end,
 		})
-		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {
-			buffer = buf_num,
-			desc = "lua vim.diagnostic.goto_next()",
-		})
-		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {
-			buffer = buf_num,
-			desc = "lua vim.diagnostic.goto_prev()",
-		})
 	end
 	-- Formatting:
 	if formatting_provider then
