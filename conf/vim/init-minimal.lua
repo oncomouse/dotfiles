@@ -567,6 +567,7 @@ require("mini.basics").setup({
 		windows = true,
 	},
 })
+vim.keymap.del("t", "<C-w>")
 
 -- mini.bracketed:
 require("mini.bracketed").setup({})
