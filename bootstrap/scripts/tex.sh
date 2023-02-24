@@ -7,6 +7,7 @@ packages=(
 	libertine
 	ltablex
 	sectsty
+	soul
 	titlesec
 	titling
 	varwidth
