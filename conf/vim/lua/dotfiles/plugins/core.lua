@@ -72,7 +72,16 @@ return {
 		cond = require("dotfiles.utils.use_termguicolors"),
 	}, -- Icons, used in the statusline
 
-	{ "oncomouse/catppuccin.nvim", name = "catppuccin" }, -- Theme (catppuccin with cterm support)
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		opts = {
+			integrations = {
+				fidget = true,
+				mini = true,
+			},
+		},
+	}, -- Theme (catppuccin with cterm support)
 
 	{
 		"NvChad/nvim-colorizer.lua",
@@ -114,5 +123,4 @@ return {
 			filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
 		},
 	}, -- Mark and highlight indentations
-
 }
