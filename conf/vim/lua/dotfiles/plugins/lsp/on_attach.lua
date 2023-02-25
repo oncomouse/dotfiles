@@ -1,12 +1,11 @@
 local function on_attach(client, buf_num)
 	-- Update codeLens:
 	if client.server_capabilities.codeLensProvider then
-		vim.api.nvim_create_autocmd("CursorHold,CursorHoldI,InsertLeave", {
+		vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", "InsertLeave" }, {
 			buffer = buf_num,
 			group = "dotfiles-settings",
-			callback = function()
-				vim.lsp.codelens.refresh()
-			end,
+			callback = vim.lsp.codelens.refresh,
+			desc = "lua vim.lsp.codelens.refresh()",
 		})
 	end
 	-- Use C+x C+o for completion:
@@ -86,7 +85,7 @@ local function on_attach(client, buf_num)
 	})
 
 	-- Add diagnostics to loclist:
-	vim.api.nvim_create_autocmd("DiagnosticChanged,BufEnter", {
+	vim.api.nvim_create_autocmd({ "DiagnosticChanged", "BufEnter" }, {
 		buffer = buf_num,
 		group = "dotfiles-settings",
 		callback = function()

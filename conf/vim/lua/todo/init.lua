@@ -248,7 +248,7 @@ function M.setup(opts)
 	vim.keymap.set("", "<Plug>(todo-goto-project)", ":<C-u>lua require('todo').goto_project()<CR>")
 
 	local todo_augroup = vim.api.nvim_create_augroup("todo", { clear = true })
-	vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
+	vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 		group = todo_augroup,
 		pattern = "todo.*",
 		callback = set_maps,
