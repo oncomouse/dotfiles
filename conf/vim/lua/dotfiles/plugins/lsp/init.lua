@@ -44,19 +44,17 @@ return {
 							return capabilities
 						end
 
-						if not vim.tbl_contains({ "null-ls", "pattern" }, lsp) then
-							local opts = {
-								on_attach = require("dotfiles.plugins.lsp.on_attach"),
-								capabilities = get_server_capabilities(servers[lsp]),
-							}
-							if #vim.tbl_keys(settings) > 0 then
-								opts = vim.tbl_extend("keep", opts, settings)
-							end
-							if not vim.tbl_contains(servers[lsp].provides or {}, "diagnostics") then
-								opts.handlers = handler_no_diagnostics
-							end
-							require("lspconfig")[lsp].setup(opts)
+						local opts = {
+							on_attach = require("dotfiles.plugins.lsp.on_attach"),
+							capabilities = get_server_capabilities(servers[lsp]),
+						}
+						if #vim.tbl_keys(settings) > 0 then
+							opts = vim.tbl_extend("keep", opts, settings)
 						end
+						if not vim.tbl_contains(servers[lsp].provides or {}, "diagnostics") then
+							opts.handlers = handler_no_diagnostics
+						end
+						require("lspconfig")[lsp].setup(opts)
 					end,
 				})
 			end
@@ -64,7 +62,31 @@ return {
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		event = "BufReadPre",
+		ft = {
+			"bash",
+			"css",
+			"fish",
+			"html",
+			"javascript",
+			"javascript.react",
+			"json",
+			"jsonc",
+			"less",
+			"lua",
+			"markdown",
+			"org",
+			"py",
+			"rb",
+			"scss",
+			"sh",
+			"svelte",
+			"tex",
+			"typescript",
+			"typescript.reac",
+			"vim",
+			"vue",
+			"yaml",
+		},
 		opts = function()
 			local eslint_project = require("dotfiles.null-ls.helpers.eslint_project")
 			local b = require("null-ls").builtins

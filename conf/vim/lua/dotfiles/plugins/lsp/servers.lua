@@ -31,33 +31,6 @@ if vim.fn.has("mac") ~= 1 and os.getenv("DOTFILES_TARGET") ~= "laptop" then
 end
 
 return {
-	["null-ls"] = {
-		pattern = {
-			"*.bash",
-			"*.css",
-			"*.fish",
-			"*.html",
-			"*.js",
-			"*.json",
-			"*.jsonc",
-			"*.jsx",
-			"*.less",
-			"*.lua",
-			"*.md",
-			"*.org",
-			"*.py",
-			"*.rb",
-			"*.scss",
-			"*.sh",
-			"*.svelte",
-			"*.tex",
-			"*.ts",
-			"*.tsx",
-			"*.vim",
-			"*.vue",
-			"*.yml",
-		},
-	},
 	tsserver = {
 		flags = {
 			debounce_text_changes = 500,
