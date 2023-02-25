@@ -26,8 +26,8 @@ library["${3rd}/busted/library"] = true
 
 -- Load plugins (this causes huge CPU usage on macOS):
 if vim.fn.has("mac") ~= 1 and os.getenv("DOTFILES_TARGET") ~= "laptop" then
-	add("~/.local/share/packer.nvim/pack/packer/opt/*")
-	add("~/.local/share/packer.nvim/pack/packer/start/*")
+	add("~/.local/share/nvim/lazy/*")
+	add("~/.local/share/nvim/lazy/*")
 end
 
 return {
