@@ -29,14 +29,10 @@ return {
 		i(0),
 	}),
 	postfix(".it", {
-		f(function(_, parent)
-			return "*" .. parent.env.POSTFIX_MATCH .. "*"
-		end),
+		l("*" .. l.POSTFIX_MATCH .. "*")
 	}),
 	postfix(".bd", {
-		f(function(_, parent)
-			return "**" .. parent.env.POSTFIX_MATCH .. "**"
-		end),
+		l("**" .. l.POSTFIX_MATCH .. "**")
 	}),
 	postfix(".link", {
 		d(1, function(_, parent)

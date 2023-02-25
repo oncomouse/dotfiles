@@ -26,9 +26,7 @@ return {
 		}),
 	}),
 	postfix(".pr", {
-		f(function(_, parent)
-			return "(" .. parent.env.POSTFIX_MATCH .. ")"
-		end),
+		l("(" .. l.POST_FIX_MATCH .. ")"),
 	}),
 	postfix(".fn", {
 		d(1, function(_, parent)
