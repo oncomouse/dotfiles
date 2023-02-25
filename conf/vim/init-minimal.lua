@@ -25,6 +25,9 @@ local plugins = {
 		build = function()
 			vim.cmd([[TSUpdate]])
 		end,
+		dependencies = {
+			"windwp/nvim-ts-autotag",
+		},
 	}, -- Syntax
 }
 
@@ -734,5 +737,6 @@ require("nvim-treesitter.parsers").list.xml = {
 }
 require("nvim-treesitter.configs").setup({
 	ensure_installed = parsers,
+	autotag = { enable = true },
 	highlight = { enable = true },
 })
