@@ -25,11 +25,7 @@ return {
 					group = "dotfiles-settings",
 					once = true,
 					callback = function()
-						local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 						local function get_server_capabilities(server)
-							if has_cmp then
-								return cmp_nvim_lsp.default_capabilities
-							end
 							local capabilities = vim.lsp.protocol.make_client_capabilities()
 							if server.snippets then
 								capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -93,7 +89,6 @@ return {
 		opts = function()
 			local eslint_project = require("dotfiles.null-ls.helpers.eslint_project")
 			local b = require("null-ls").builtins
-			local has_cmp = pcall(require, "cmp")
 
 			local sources = {
 				-- GENERAL PURPOSE
@@ -115,7 +110,7 @@ return {
 					extra_args = { "--use-tabs" },
 					prefer_local = "node_modules/.bin",
 				}),
-				has_cmp and {} or b.completion.luasnip,
+				b.completion.luasnip,
 
 				-- YAML
 				b.formatting.prettier.with({
@@ -165,7 +160,7 @@ return {
 
 				-- MARKDOWN
 				require("nvim-ref.null-ls.hover"),
-				has_cmp and {} or require("nvim-ref.null-ls.completion"),
+				require("nvim-ref.null-ls.completion"),
 
 				-- JAVASCRIPT
 				-- Use standard and prettier for non-eslint projects:
