@@ -300,7 +300,7 @@ return {
 				delete = "ds",
 				find = "sf",
 				find_left = "sF",
-				highlight = "hs",
+				highlight = "sh",
 				replace = "cs",
 				update_n_lines = "",
 				suffix_last = "N",
