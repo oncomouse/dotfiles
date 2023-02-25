@@ -67,6 +67,7 @@ return {
 			default_priotity = 2000,
 		})
 
+		-- Code to handle snippet completion from LSPs without cmp. I'm not sure why this is so complicated, but it seems to be the only way to make this work:
 		local augroup = vim.api.nvim_create_augroup("dotfiles-settings-luasnips", { clear = true })
 		-- Portions of this code (related to clearing the region) have been adapted from cmp_luasnip
 		-- Set the region LuaSnip needs to overwrite the completion trigger
