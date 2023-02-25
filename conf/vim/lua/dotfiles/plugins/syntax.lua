@@ -303,7 +303,10 @@ return {
 		opts = {
 			ensure_installed = nvim_treesitter.installed_parser,
 			highlight = { enable = true },
-			context_commentstring = { enable = true },
+			context_commentstring = {
+				enable = true,
+				enable_autocmd = false,
+			},
 			autotag = { enable = true },
 			matchup = { enable = true },
 			textobjects = {
@@ -358,15 +361,6 @@ return {
 			},
 			{
 				"JoosepAlviste/nvim-ts-context-commentstring", -- Contextual commentstring
-				config = function()
-					require("mini.comment").setup({
-						hooks = {
-							pre = function()
-								require("ts_context_commentstring.internal").update_commentstring()
-							end,
-						},
-					})
-				end,
 			},
 		},
 	},
