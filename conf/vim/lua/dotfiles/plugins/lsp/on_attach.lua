@@ -99,7 +99,7 @@ local function on_attach(client, buf_num)
 		client.server_capabilities.documentFormattingProvider
 		or client.server_capabilities.documentRangeFormattingProvider
 	then
-		-- Adapted from LazyVim, prefer null-ls, if available:
+		-- Adapted from LazyVim: prefer null-ls, if available:
 		vim.api.nvim_buf_create_user_command(buf_num, "Format", function()
 			local buf = vim.api.nvim_get_current_buf()
 			local ft = vim.opt_local.filetype:get()
