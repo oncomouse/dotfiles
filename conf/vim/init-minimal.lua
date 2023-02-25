@@ -5,8 +5,7 @@
 local plugins = {
 	{ "folke/lazy.nvim" },
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
+		"oncomouse/catppuccin.nvim",
 		event = "VeryLazy",
 		opts = {
 			integrations = {

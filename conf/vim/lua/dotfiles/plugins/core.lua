@@ -73,8 +73,8 @@ return {
 	}, -- Icons, used in the statusline
 
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
+		"oncomouse/catppuccin.nvim",
+		dev = false,
 		opts = {
 			integrations = {
 				fidget = true,
