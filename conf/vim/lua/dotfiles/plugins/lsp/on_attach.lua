@@ -84,38 +84,42 @@ local function on_attach(client, buf_num)
 		buffer = buf_num,
 		desc = "lua vim.lsp.buf.signature_help()",
 	})
-	local diagnostic_provider =
-		vim.tbl_contains(require("dotfiles.plugins.lsp.servers")[client.name].provides or {}, "diagnostics")
-	local formatting_provider =
-		vim.tbl_contains(require("dotfiles.plugins.lsp.servers")[client.name].provides or {}, "formatting")
-	if diagnostic_provider then
-		vim.api.nvim_create_autocmd("DiagnosticChanged,BufEnter", {
-			buffer = buf_num,
-			group = "dotfiles-settings",
-			callback = function()
-				vim.diagnostic.setloclist({ open = false })
-			end,
-		})
-	end
+
+	-- Add diagnostics to loclist:
+	vim.api.nvim_create_autocmd("DiagnosticChanged,BufEnter", {
+		buffer = buf_num,
+		group = "dotfiles-settings",
+		callback = function()
+			vim.diagnostic.setloclist({ open = false })
+		end,
+	})
+
 	-- Formatting:
-	if formatting_provider then
+	if
+		client.server_capabilities.documentFormattingProvider
+		or client.server_capabilities.documentRangeFormattingProvider
+	then
+		-- Adapted from LazyVim, prefer null-ls, if available:
 		vim.api.nvim_buf_create_user_command(buf_num, "Format", function()
-			vim.lsp.buf.format({
-				async = true,
+			local buf = vim.api.nvim_get_current_buf()
+			local ft = vim.opt_local.filetype:get()
+			local have_nls, have_nls_formatting = pcall(function()
+				return #require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") > 0
+			end)
+			have_nls = have_nls and have_nls_formatting
+			vim.lsp.buf.format(vim.tbl_deep_extend("force", {
+				bufnr = buf,
 				filter = function(c)
-					return vim.tbl_contains(
-						require("dotfiles.plugins.lsp.servers")[c.name].provides or {},
-						"formatting"
-					)
+					if have_nls then
+						return c.name == "null-ls"
+					end
+					return c.name ~= "null-ls"
 				end,
-			})
+			}, {}))
 		end, {
 			desc = "lua vim.lsp.buf.format()",
 			force = true,
 		})
-	else
-		client.server_capabilities.documentFormattingProvider = false
-		client.server_capabilities.documentRangeFormattingProvider = false
 	end
 end
 

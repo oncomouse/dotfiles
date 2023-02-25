@@ -5,16 +5,6 @@ return {
 		config = function()
 			local servers = require("dotfiles.plugins.lsp.servers")
 
-			local capabilities = nil
-			local snippet_capabilities = vim.lsp.protocol.make_client_capabilities()
-			snippet_capabilities.textDocument.completion.completionItem.snippetSupport = true
-			snippet_capabilities.textDocument.completion.completionItem.resolveSupport = {
-				properties = {
-					"documentation",
-					"detail",
-					"additionalTextEdits",
-				},
-			}
 			local handler_no_diagnostics = {
 				["textDocument/publishDiagnostics"] = function() end,
 			}
@@ -24,31 +14,37 @@ return {
 				vim.lsp.set_log_level("trace")
 			end
 
-			vim.api.nvim_create_autocmd("BufReadPre", {
-				pattern = servers.pattern,
-				group = "dotfiles-settings",
-				once = true,
-				callback = function()
-					local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-					local function get_server_capabilities(server)
-						if capabilities == nil then
+			-- Only attach each server once:
+			for lsp, settings in pairs(servers) do
+				local pattern = settings.pattern
+				if type(pattern) == "table" then
+					pattern = table.concat(vim.fn.uniq(vim.fn.sort(pattern)), ",")
+				end
+				vim.api.nvim_create_autocmd("BufReadPre", {
+					pattern = pattern,
+					group = "dotfiles-settings",
+					once = true,
+					callback = function()
+						local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+						local function get_server_capabilities(server)
 							if has_cmp then
-								capabilities = cmp_nvim_lsp.default_capabilities()
-							else
-								capabilities = vim.lsp.protocol.make_client_capabilities()
+								return cmp_nvim_lsp.default_capabilities
 							end
-						end
-						if has_cmp then
+							local capabilities = vim.lsp.protocol.make_client_capabilities()
+							if server.snippets then
+								capabilities.textDocument.completion.completionItem.snippetSupport = true
+								capabilities.textDocument.completion.completionItem.resolveSupport = {
+									properties = {
+										"documentation",
+										"detail",
+										"additionalTextEdits",
+									},
+								}
+							end
 							return capabilities
 						end
-						if vim.tbl_contains(server.provides or {}, "snippets") then
-							return snippet_capabilities
-						end
-						return capabilities
-					end
-					for _, lsp in pairs(servers.servers) do
-						local settings = servers[lsp]
-						if lsp ~= "null-ls" then
+
+						if not vim.tbl_contains({ "null-ls", "pattern" }, lsp) then
 							local opts = {
 								on_attach = require("dotfiles.plugins.lsp.on_attach"),
 								capabilities = get_server_capabilities(servers[lsp]),
@@ -61,9 +57,9 @@ return {
 							end
 							require("lspconfig")[lsp].setup(opts)
 						end
-					end
-				end,
-			})
+					end,
+				})
+			end
 		end,
 	},
 	{
