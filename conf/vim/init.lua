@@ -433,16 +433,6 @@ vim.g.bibfiles = "~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/li
 -- }}}
 -- Plugins {{{
 require("rocks") -- Add luarocks to the path
--- todo {{{
-require("todo").setup({
-	maps = {
-		jump = {
-			next = "gt]",
-			prev = "gt[",
-		},
-	},
-})
--- }}}
 -- }}}
 -- Theme {{{
 -- Fancy color for macs and X11 sessions:
