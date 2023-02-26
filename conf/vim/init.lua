@@ -433,6 +433,7 @@ vim.g.bibfiles = "~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/li
 -- }}}
 -- Plugins {{{
 require("rocks") -- Add luarocks to the path
+require("select-digraphs").setup({}) -- Configure select-digraphs
 -- }}}
 -- Theme {{{
 -- Fancy color for macs and X11 sessions:

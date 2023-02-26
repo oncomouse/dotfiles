@@ -17,6 +17,16 @@
 
 local M = {}
 
+M.config = nil
+
+local default_config = {
+	maps = {
+		i = "<C-k><C-k>",
+		n = "r<C-k><C-k>",
+		v = "r<C-k><C-k>",
+	}
+}
+
 local function get_cursor_column()
 	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col
@@ -152,10 +162,21 @@ function M.select(mode)
 	end)
 end
 
-function M.setup()
+function M.setup(opts)
+	if M.config == nil then
+		M.config = vim.tbl_deep_extend("keep", opts or {}, default_config)
+	end
+
 	vim.keymap.set("i", "<Plug>(select-digraphs-i)", "<cmd>lua require('select-digraphs').select('i')<CR>")
 	vim.keymap.set("n", "<Plug>(select-digraphs-n)", "<cmd>lua require('select-digraphs').select('r')<CR>")
 	vim.keymap.set("v", "<Plug>(select-digraphs-v)", "<cmd>lua require('select-digraphs').select('gvr')<CR>")
+
+	for mode, map in pairs(M.config.maps) do
+		-- Set a map to nil or "" to disable:
+		if type(map) == "string" and map ~= "" then
+			vim.keymap.set(mode, map, "<Plug>(select-digraphs-" .. mode .. ")")
+		end
+	end
 end
 
 return M
