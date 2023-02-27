@@ -4,7 +4,7 @@ return {
 		{ mode = "n", "<C-p>", "<Plug>(dotfiles-fzf-files)" },
 		{ mode = "n", "<Leader>a", "<Plug>(dotfiles-fzf-buffers)" },
 	},
-	cmd = { "GitStatus", "Files", "Buffers" },
+	cmd = { "Files", "Buffers" },
 	init = function() -- Shim vim.ui.select until we can load the plugin
 		vim.ui.select = function(...)
 			require("fzf-lua.providers.ui_select").ui_select(...)
@@ -111,13 +111,6 @@ return {
 		-- :Buffers command
 		vim.api.nvim_create_user_command("Buffers", function()
 			require("fzf-lua").buffers()
-		end, {
-			force = true,
-		})
-
-		-- :GitStatus command
-		vim.api.nvim_create_user_command("GitStatus", function()
-			require("fzf-lua").git_status()
 		end, {
 			force = true,
 		})
