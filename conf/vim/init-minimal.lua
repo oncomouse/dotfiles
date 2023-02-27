@@ -8,6 +8,7 @@ local plugins = {
 		"oncomouse/catppuccin.nvim",
 		event = "VeryLazy",
 		opts = {
+			transparent_background = true,
 			integrations = {
 				mini = true,
 			},

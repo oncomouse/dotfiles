@@ -88,6 +88,7 @@ return {
 		"oncomouse/catppuccin.nvim",
 		dev = false,
 		opts = {
+			transparent_background = true,
 			integrations = {
 				fidget = true,
 				mini = true,
