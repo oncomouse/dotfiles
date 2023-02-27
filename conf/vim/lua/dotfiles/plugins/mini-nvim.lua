@@ -9,7 +9,7 @@ return {
 		dependencies = {
 			{ "preservim/vim-textobj-sentence" }, -- Sentence object
 		},
-		event = "VeryLazy",
+		event = { "BufReadPre", "BufNewFile" },
 		opts = function()
 			-- vim-textobj-sentence configuration
 			-- vim.g["textobj#sentence#doubleDefault"] = "“”"
@@ -164,7 +164,7 @@ return {
 				},
 			}
 			vim.api.nvim_create_autocmd("FileType", {
-				group = "dotfiles-settings",
+				group = vim.api.nvim_create_augroup("dotfiles-miniai-custom-textobjects", {}),
 				pattern = vim.fn.join(vim.tbl_keys(custom_textobjects), ","),
 				callback = function()
 					local ft = vim.opt.filetype:get()
@@ -297,6 +297,46 @@ return {
 	{
 		"echasnovski/mini.surround",
 		keys = function(_, keys)
+
+			--Per-file surroundings:
+			local custom_surroundings = {
+				lua = {
+					s = {
+						input = { "%[%[().-()%]%]" },
+						output = { left = "[[", right = "]]" },
+					},
+				},
+				markdown = {
+					["B"] = { -- Surround for bold
+						input = { "%*%*().-()%*%*" },
+						output = { left = "**", right = "**" },
+					},
+					["I"] = { -- Surround for italics
+						input = { "%*().-()%*" },
+						output = { left = "*", right = "*" },
+					},
+					["L"] = {
+						input = { "%[().-()%]%([^)]+%)" },
+						output = function()
+							local href = require("mini.surround").user_input("Href")
+							return {
+								left = "[",
+								right = "](" .. href .. ")",
+							}
+						end,
+					},
+				},
+			}
+			vim.api.nvim_create_autocmd("FileType", {
+				group = "dotfiles-settings",
+				pattern = vim.fn.join(vim.tbl_keys(custom_surroundings), ","),
+				callback = function()
+					local ft = vim.opt.filetype:get()
+					vim.b.minisurround_config = {
+						custom_surroundings = custom_surroundings[ft],
+					}
+				end,
+			})
 			-- Populate the keys based on the user's options
 			local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
 			local opts = require("lazy.core.plugin").values(plugin, "opts", false)
@@ -342,46 +382,6 @@ return {
 			vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
 			-- Make special mapping for "add surrounding for line"
 			vim.keymap.set("n", "yss", "ys_", { noremap = false })
-
-			--Per-file surroundings:
-			local custom_surroundings = {
-				lua = {
-					s = {
-						input = { "%[%[().-()%]%]" },
-						output = { left = "[[", right = "]]" },
-					},
-				},
-				markdown = {
-					["B"] = { -- Surround for bold
-						input = { "%*%*().-()%*%*" },
-						output = { left = "**", right = "**" },
-					},
-					["I"] = { -- Surround for italics
-						input = { "%*().-()%*" },
-						output = { left = "*", right = "*" },
-					},
-					["L"] = {
-						input = { "%[().-()%]%([^)]+%)" },
-						output = function()
-							local href = require("mini.surround").user_input("Href")
-							return {
-								left = "[",
-								right = "](" .. href .. ")",
-							}
-						end,
-					},
-				},
-			}
-			vim.api.nvim_create_autocmd("FileType", {
-				group = "dotfiles-settings",
-				pattern = vim.fn.join(vim.tbl_keys(custom_surroundings), ","),
-				callback = function()
-					local ft = vim.opt.filetype:get()
-					vim.b.minisurround_config = {
-						custom_surroundings = custom_surroundings[ft],
-					}
-				end,
-			})
 		end,
 	},
 }
