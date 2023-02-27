@@ -18,7 +18,9 @@ return {
 	-- Mappings and Commands:
 
 	{
-		"vim-scripts/ReplaceWithRegister",
+		"oncomouse/ReplaceWithRegister",
+		dev = false,
+		branch = "lua",
 		dependencies = { "tpope/vim-repeat" },
 		keys = {
 			{ "gr", mode = { "x", "n" } },
