@@ -20,7 +20,6 @@ return {
 	{
 		"oncomouse/ReplaceWithRegister",
 		dev = false,
-		branch = "lua",
 		dependencies = { "tpope/vim-repeat" },
 		keys = {
 			{ "gr", mode = { "x", "n" } },
