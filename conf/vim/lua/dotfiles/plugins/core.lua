@@ -49,7 +49,7 @@ return {
 
 	{
 		"oncomouse/todo.nvim",
-		event = "VeryLazy",
+		event = { "BufReadPre", "BufNewFile" },
 		opts = {
 			maps = {
 				jump = {
