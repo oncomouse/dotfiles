@@ -49,6 +49,7 @@ return {
 
 	{
 		"oncomouse/todo.nvim",
+		event = "VeryLazy",
 		opts = {
 			maps = {
 				jump = {
