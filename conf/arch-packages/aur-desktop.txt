@@ -3,7 +3,6 @@ otf-hasklig
 pandoc-bin
 perl-term-shellui
 polkit-dumb-agent-git
-rofi-dmenu
 rofi-emoji
 selene-linter
 shellcheck-bin
