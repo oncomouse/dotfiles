@@ -7,7 +7,7 @@ return {
 	{
 		"echasnovski/mini.ai",
 		dependencies = {
-			{ "preservim/vim-textobj-sentence" }, -- Sentence object
+			{ "oncomouse/vim-textobj-sentence", branch = "lua", dev = true, }, -- Sentence object
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		opts = function()
@@ -116,7 +116,7 @@ return {
 					--   `aS` grabs ending punctuation and white space
 					s = from_textobject_user({
 						select_function_i = function() -- Rewrite selection results to remove trailing punctuation and quotes
-							local results = vim.fn["textobj#sentence#select_i"]()
+							local results = require("textobj-sentence").select_i()
 							local start = (results[2][2] == results[3][2] and results[2][3] or 0)
 							local line = vim.api
 								.nvim_buf_get_lines(0, results[3][2] - 1, results[3][2], false)[1]
@@ -124,11 +124,11 @@ return {
 							results[3][3] = start + (line:find("['\".?!]+$") or 0) - 2
 							return results
 						end,
-						select_function_a = vim.fn["textobj#sentence#select_i"],
+						select_function_a = require("textobj-sentence").select_i,
 					}),
 					S = from_textobject_user({
-						select_function_a = vim.fn["textobj#sentence#select_a"],
-						select_function_i = vim.fn["textobj#sentence#select_i"],
+						select_function_a = require("textobj-sentence").select_a,
+						select_function_i = require("textobj-sentence").select_i,
 					}),
 
 					[","] = { -- Grammatically correct comma matching
@@ -297,7 +297,6 @@ return {
 	{
 		"echasnovski/mini.surround",
 		keys = function(_, keys)
-
 			--Per-file surroundings:
 			local custom_surroundings = {
 				lua = {
