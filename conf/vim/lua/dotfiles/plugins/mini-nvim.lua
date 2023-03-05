@@ -7,7 +7,7 @@ return {
 	{
 		"echasnovski/mini.ai",
 		dependencies = {
-			{ "oncomouse/vim-textobj-sentence", branch = "lua", dev = true, }, -- Sentence object
+			{ "oncomouse/vim-textobj-sentence", branch = "lua", dev = true }, -- Sentence object
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		opts = function()
@@ -81,6 +81,44 @@ return {
 				}
 			end
 
+			local function select(pattern, count)
+				vim.fn.search(pattern, "bc")
+				local start = vim.fn.getpos(".")
+				local times = 1
+				vim.fn.search(vim.b.textobj_sentence_re_i, "ceW", 0, 0, function()
+					if times == count then
+						return 0
+					end
+					times = times + 1
+					return 1
+				end)
+				local ed = vim.fn.getpos(".")
+				return {
+					from = {
+						line = start[2],
+						col = start[3],
+					},
+					to = {
+						line = ed[2],
+						col = ed[3],
+					},
+				}
+			end
+
+			local function select_a(count)
+				if not vim.b.textobj_sentence_re_a then
+					require("textobj-sentence").setup()
+				end
+				return select(vim.b.textobj_sentence_re_a, count)
+			end
+
+			local function select_i(count)
+				if not vim.b.textobj_sentence_re_i then
+					require("textobj-sentence").setup()
+				end
+				return select(vim.b.textobj_sentence_re_i, count)
+			end
+
 			return {
 				custom_textobjects = {
 
@@ -114,22 +152,20 @@ return {
 					--   `as` grabs ending punctuation but not white space
 					--   `iS` works like `as`
 					--   `aS` grabs ending punctuation and white space
-					s = from_textobject_user({
-						select_function_i = function() -- Rewrite selection results to remove trailing punctuation and quotes
-							local results = require("textobj-sentence").select_i()
-							local start = (results[2][2] == results[3][2] and results[2][3] or 0)
+					s = function(type, _, opts)
+						return (type == "a" and select_i or function(count)
+							local results = select_i(count)
+							local start = (results.from.line == results.to.line and results.from.col or 0)
 							local line = vim.api
-								.nvim_buf_get_lines(0, results[3][2] - 1, results[3][2], false)[1]
-								:sub(start, results[3][3])
-							results[3][3] = start + (line:find("['\".?!]+$") or 0) - 2
+								.nvim_buf_get_lines(0, results.to.line - 1, results.to.line, false)[1]
+								:sub(start, results.to.col)
+							results.to.col = start + (line:find("['\".?!]+$") or 0) - 2
 							return results
-						end,
-						select_function_a = require("textobj-sentence").select_i,
-					}),
-					S = from_textobject_user({
-						select_function_a = require("textobj-sentence").select_a,
-						select_function_i = require("textobj-sentence").select_i,
-					}),
+						end)(opts.n_times)
+					end,
+					S = function(type, _, opts)
+						return (type == "a" and select_a or select_i)(opts.n_times)
+					end,
 
 					[","] = { -- Grammatically correct comma matching
 						{
