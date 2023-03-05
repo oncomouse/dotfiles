@@ -48,30 +48,6 @@ return {
 				"Messrs",
 			}
 
-			---@param map { [string]: fun() } A list of textobject functions
-			---@return fun(type:ai_type):Pair
-			local function from_textobject_user(map)
-				local function textobject_result_to_point(result)
-					return {
-						line = result[2],
-						col = result[3],
-					}
-				end
-
-				---@param type ai_type
-				---@return Pair
-				return function(type)
-					local results = map["select_function_" .. type]()
-					if results == 0 then
-						return nil
-					end
-					return {
-						from = textobject_result_to_point(results[2]),
-						to = textobject_result_to_point(results[3]),
-					}
-				end
-			end
-
 			---@return Pair #The Pair at the current cursor position
 			local function make_point()
 				local _, l, c, _ = unpack(vim.fn.getpos("."))
@@ -80,8 +56,9 @@ return {
 					col = c,
 				}
 			end
-
-			local function select(pattern, count)
+			
+			local Sentence = {}
+			function Sentence.select(pattern, count)
 				vim.fn.search(pattern, "bc")
 				local start = vim.fn.getpos(".")
 				local times = 1
@@ -104,19 +81,17 @@ return {
 					},
 				}
 			end
-
-			local function select_a(count)
+			function Sentence.select_a(count)
 				if not vim.b.textobj_sentence_re_a then
 					require("textobj-sentence").setup()
 				end
-				return select(vim.b.textobj_sentence_re_a, count)
+				return Sentence.select(vim.b.textobj_sentence_re_a, count)
 			end
-
-			local function select_i(count)
+			function Sentence.select_i(count)
 				if not vim.b.textobj_sentence_re_i then
 					require("textobj-sentence").setup()
 				end
-				return select(vim.b.textobj_sentence_re_i, count)
+				return Sentence.select(vim.b.textobj_sentence_re_i, count)
 			end
 
 			return {
@@ -153,8 +128,8 @@ return {
 					--   `iS` works like `as`
 					--   `aS` grabs ending punctuation and white space
 					s = function(type, _, opts)
-						return (type == "a" and select_i or function(count)
-							local results = select_i(count)
+						return (type == "a" and Sentence.select_i or function(count)
+							local results = Sentence.select_i(count)
 							local start = (results.from.line == results.to.line and results.from.col or 0)
 							local line = vim.api
 								.nvim_buf_get_lines(0, results.to.line - 1, results.to.line, false)[1]
@@ -164,7 +139,7 @@ return {
 						end)(opts.n_times)
 					end,
 					S = function(type, _, opts)
-						return (type == "a" and select_a or select_i)(opts.n_times)
+						return (type == "a" and Sentence.select_a or Sentence.select_i)(opts.n_times)
 					end,
 
 					[","] = { -- Grammatically correct comma matching
