@@ -214,8 +214,8 @@ return {
 	-- :Bd[!] for layout-safe bufdelete
 	{
 		"echasnovski/mini.bufremove",
-		event = "VeryLazy",
-		config = function()
+		cmd = "Bd",
+		init = function()
 			vim.api.nvim_create_user_command("Bd", function(args)
 				require("mini.bufremove").delete(0, not args.bang)
 			end, {
