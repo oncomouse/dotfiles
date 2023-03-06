@@ -100,12 +100,12 @@ return {
 
 	{
 		"NvChad/nvim-colorizer.lua",
-		lazy = false,
+		event = { "BufRead", "BufWinEnter", "BufNewFile" },
 		opts = {
 			filetypes = {
 				"*", -- Load everywhere
-				"!packer", -- Except packer buffers
-				"!gina*", -- And commit buffers
+				"!lazy", -- Except packer buffers
+				"!help", -- And help
 				html = { names = true, RRGGBBAA = false },
 				css = { css = true, RRGGBBAA = false },
 				scss = {
