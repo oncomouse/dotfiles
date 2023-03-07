@@ -111,25 +111,13 @@ require("lazy").setup(plugins, {
 -- Settings:
 --------------------------------------------------------------------------------
 
-vim.cmd([[set visualbell t_vb=]]) -- Disable visual bell
-vim.opt.autowrite = true --	 Autosave files
-vim.opt.hidden = true --	turn off buffer saving when switching
-vim.opt.lazyredraw = true --	Don't redraw between macro runs (may make terminal flicker)
-
--- Override Default Split Creation Locations:
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+vim.opt.lazyredraw = true -- Don't redraw between macro runs (may make terminal flicker)
 
 -- Line Numbering:
-vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Folds:
 vim.opt.foldlevel = 99
-vim.opt.foldmethod = "manual"
-
--- Avoid Highlighting Large Files:
-vim.g.large_file = 20 * 1024 * 1024
 
 -- Set Leader:
 vim.g.mapleader = " "
@@ -144,14 +132,9 @@ vim.opt.previewheight = 14
 -- Listchars:
 vim.opt.list = true
 
--- Completion:
-vim.opt.completeopt = "menuone,noselect,noinsert,preview"
-vim.opt.shortmess:append("Wc")
--- prevent a condition where vim lags due to searching include files.
-vim.opt.complete:remove("i")
-
 -- <C-z> expands wildcards in command mode
-vim.cmd([[set wildcharm=<C-z>]])
+vim.opt.wildcharm = vim.api.nvim_replace_termcodes("<C-z>", true, true, true):byte()
+
 -- Set path to current file direction and pwd:
 vim.opt.path = ".,,"
 
@@ -166,36 +149,21 @@ else
 	vim.opt.grepprg = "grep -rn"
 end
 
--- Searching:
-vim.opt.wrapscan = true -- Start scan over at the top
-
 vim.opt.dictionary = "/usr/share/dict/words"
 
--- Default to hashtag-style comments, by default:
+-- Default to hashtag-style comments:
 vim.opt.commentstring = "# %s"
 
 -- Minimal Statusbar:
 vim.opt.statusline = " %0.45f%m%h%w%r%= %y %l:%c "
 
--- Mouse And Clipboard:
-vim.opt.mouse = "a" -- Mouse support
+-- Clipboard:
 if vim.fn.has("clipboard") == 1 then
 	if vim.fn.has("unnamedplus") == 1 then
 		vim.opt.clipboard = "unnamedplus,unnamed"
 	else
 		vim.opt.clipboard = "unnamed"
 	end
-end
-
--- Options taken from mini.basics, which does too many things I don't want:
-vim.opt.virtualedit = "block"
-vim.opt.formatoptions = "qjl1"
-
--- Neovim 0.9 Dependent Settings:
-if vim.fn.has("nvim-0.9") == 1 then
-	-- Add some other Neovim 0.9 things here:
-	vim.opt.shortmess = vim.opt.shortmess + "C"
-	vim.opt.splitkeep = "screen"
 end
 
 --------------------------------------------------------------------------------
@@ -563,7 +531,7 @@ require("mini.align").setup({})
 -- mini.basics:
 require("mini.basics").setup({
 	options = {
-		basic = false,
+		basic = true,
 	},
 	mappings = {
 		move_with_alt = true,
@@ -571,6 +539,8 @@ require("mini.basics").setup({
 	},
 })
 vim.keymap.del("t", "<C-w>")
+vim.opt.completeopt:append("preview")
+vim.opt.shortmess:append("Wc")
 
 -- mini.bracketed:
 require("mini.bracketed").setup({})
