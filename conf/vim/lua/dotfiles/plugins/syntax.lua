@@ -303,7 +303,10 @@ return {
 		end,
 		opts = {
 			ensure_installed = nvim_treesitter.installed_parser,
-			highlight = { enable = true },
+			highlight = {
+				enable = true,
+				additional_vim_regex_highlighting = false,
+			},
 			context_commentstring = {
 				enable = true,
 				enable_autocmd = false,

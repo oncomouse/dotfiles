@@ -92,7 +92,8 @@ local function on_attach(client, buf_num)
 			vim.diagnostic.setloclist({ open = false })
 		end,
 	})
-
+	-- Turn off LSP semantic highlighting:
+	client.server_capabilities.semanticTokensProvider = nil
 	-- Formatting:
 	if
 		client.server_capabilities.documentFormattingProvider
