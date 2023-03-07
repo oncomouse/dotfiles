@@ -55,9 +55,6 @@ return {
 				})
 			end
 		end,
-		dependencies = {
-			{ "j-hui/fidget.nvim", opts = {} },
-		},
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
