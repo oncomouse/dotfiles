@@ -84,9 +84,6 @@ vim.opt.inccommand = "split"
 -- Height Of The Preview Window:
 vim.opt.previewheight = 14
 
--- Listchars:
-vim.opt.list = true
-
 -- <C-z> expands wildcards in command mode
 vim.opt.wildcharm = vim.api.nvim_replace_termcodes("<C-z>", true, true, true):byte()
 
