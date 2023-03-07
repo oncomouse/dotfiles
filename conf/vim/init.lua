@@ -109,7 +109,7 @@ vim.opt.shortmess:append("Wc")
 vim.opt.complete:remove("i")
 
 -- <C-z> expands wildcards in command mode
-vim.cmd([[set wildcharm=<C-z>]])
+vim.opt.wildcharm = vim.api.nvim_replace_termcodes("<C-z>", true, true, true):byte()
 -- Set path to current file direction and pwd:
 vim.opt.path = ".,,"
 
