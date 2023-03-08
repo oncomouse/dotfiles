@@ -16,8 +16,15 @@ local plugins = {
 	}, -- colors
 	{ "tpope/vim-repeat", event = "VeryLazy" }, -- dot repeat for plugins
 	{ "tpope/vim-sleuth", event = "VeryLazy" }, -- guess indentation
-	{ "christoomey/vim-sort-motion", event = "VeryLazy" }, -- gs to sort
-	{ "vim-scripts/ReplaceWithRegister", event = "VeryLazy" }, -- gr{motion} or grr or gr in visual to replace with register
+	{ "christoomey/vim-sort-motion", keys = {
+		{ "gs", mode = { "x", "n" } },
+		{ "gss", mode = "n" },
+	} }, -- gs to sort
+	{ "oncomouse/ReplaceWithRegister", keys = {
+			{ "gr", mode = { "x", "n" } },
+			{ "grr", mode = "n" },
+		},
+	}, -- gr{motion} or grr or gr in visual to replace with register
 	{ "oncomouse/lazygit.nvim", cmd = "LazyGit" }, -- :LazyGit for lazygit integration
 	{ "echasnovski/mini.nvim", lazy = true }, -- Various (see below)
 	{
