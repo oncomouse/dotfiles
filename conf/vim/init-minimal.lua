@@ -21,10 +21,9 @@ local plugins = {
 		{ "gss", mode = "n" },
 	} }, -- gs to sort
 	{ "oncomouse/ReplaceWithRegister", keys = {
-			{ "gr", mode = { "x", "n" } },
-			{ "grr", mode = "n" },
-		},
-	}, -- gr{motion} or grr or gr in visual to replace with register
+		{ "gr", mode = { "x", "n" } },
+		{ "grr", mode = "n" },
+	} }, -- gr{motion} or grr or gr in visual to replace with register
 	{ "oncomouse/lazygit.nvim", cmd = "LazyGit" }, -- :LazyGit for lazygit integration
 	{ "echasnovski/mini.nvim", lazy = true }, -- Various (see below)
 	{
