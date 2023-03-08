@@ -227,8 +227,9 @@ return {
 	-- :Bd[!] for layout-safe bufdelete
 	{
 		"echasnovski/mini.bufremove",
-		cmd = "Bd",
-		init = function()
+		event = "VeryLazy",
+		config = function(opts)
+			require("mini.bufremove").setup(opts)
 			vim.api.nvim_create_user_command("Bd", function(args)
 				require("mini.bufremove").delete(0, not args.bang)
 			end, {
@@ -304,6 +305,9 @@ return {
 			{ "<M-k>", mode = { "n", "v" } },
 			{ "<M-l>", mode = { "n", "v" } },
 		},
+		config = function(_, opts)
+			require("mini.move").setup(opts)
+		end
 	},
 
 	-- Replace vim-surround:
