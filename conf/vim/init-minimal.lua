@@ -94,6 +94,7 @@ require("lazy").setup(plugins, {
 				vim.g.fzf_dir,
 			},
 			disabled_plugins = {
+				"black",
 				"gzip",
 				-- "matchit",
 				-- "matchparen",
