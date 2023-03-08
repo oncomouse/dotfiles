@@ -159,10 +159,9 @@ vim.opt.statusline = " %0.45f%m%h%w%r%= %y %l:%c "
 
 -- Clipboard:
 if vim.fn.has("clipboard") == 1 then
+	vim.opt.clipboard = "unnamed"
 	if vim.fn.has("unnamedplus") == 1 then
-		vim.opt.clipboard = "unnamedplus,unnamed"
-	else
-		vim.opt.clipboard = "unnamed"
+		vim.opt.clipboard:prepend("unnamedplus")
 	end
 end
 
