@@ -598,6 +598,9 @@ require("mini.pairs").setup({})
 
 require("mini.statusline").setup({})
 
+-- use gS to split and join items in a list:
+require("mini.splitjoin").setup({})
+
 -- Replace vim-surround:
 require("mini.surround").setup({
 	custom_surroundings = {

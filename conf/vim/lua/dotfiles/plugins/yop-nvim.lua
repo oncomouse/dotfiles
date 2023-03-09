@@ -33,36 +33,36 @@ return {
 				return lines
 			end)
 			-- Chunkwise sort (works by sorting via the first line of a paragraph)
-			require("yop").op_map({ "n", "v" }, "gS", function(lines)
-				if #lines == 1 then
-					return sort_by_delimiter(lines[1])
-				end
-				local chunks = {}
-				local current_chunk = {}
-				for _, line in pairs(lines) do
-					if #line == 0 and #current_chunk > 0 then
-						table.insert(chunks, current_chunk)
-						current_chunk = {}
-					else
-						table.insert(current_chunk, line)
-					end
-				end
-				if #current_chunk > 0 then
-					table.insert(chunks, current_chunk)
-				end
-				vim.pretty_print(chunks)
-				if #chunks == 1 then
-					return lines
-				end
-				table.sort(chunks, sort_by_first_line)
-				local output = {}
-				for _, chunk in pairs(chunks) do
-					for _, line in pairs(chunk) do
-						table.insert(output, line)
-					end
-					table.insert(output, "")
-				end
-				return output
-			end)
+			-- require("yop").op_map({ "n", "v" }, "gS", function(lines)
+			-- 	if #lines == 1 then
+			-- 		return sort_by_delimiter(lines[1])
+			-- 	end
+			-- 	local chunks = {}
+			-- 	local current_chunk = {}
+			-- 	for _, line in pairs(lines) do
+			-- 		if #line == 0 and #current_chunk > 0 then
+			-- 			table.insert(chunks, current_chunk)
+			-- 			current_chunk = {}
+			-- 		else
+			-- 			table.insert(current_chunk, line)
+			-- 		end
+			-- 	end
+			-- 	if #current_chunk > 0 then
+			-- 		table.insert(chunks, current_chunk)
+			-- 	end
+			-- 	vim.pretty_print(chunks)
+			-- 	if #chunks == 1 then
+			-- 		return lines
+			-- 	end
+			-- 	table.sort(chunks, sort_by_first_line)
+			-- 	local output = {}
+			-- 	for _, chunk in pairs(chunks) do
+			-- 		for _, line in pairs(chunk) do
+			-- 			table.insert(output, line)
+			-- 		end
+			-- 		table.insert(output, "")
+			-- 	end
+			-- 	return output
+			-- end)
 		end,
 	}

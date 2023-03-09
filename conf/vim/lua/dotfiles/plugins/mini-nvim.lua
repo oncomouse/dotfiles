@@ -5,12 +5,12 @@
 ---@alias ai_type "i" | "a"
 return {
 	{
-		"echasnovski/mini.ai",
+		"echasnovski/mini.nvim",
 		dependencies = {
 			{ "oncomouse/vim-textobj-sentence", branch = "lua", dev = true }, -- Sentence object
 		},
-		event = { "BufReadPre", "BufNewFile" },
-		opts = function()
+		event = "VeryLazy",
+		config = function()
 			-- vim-textobj-sentence configuration
 			-- vim.g["textobj#sentence#doubleDefault"] = "“”"
 			-- vim.g["textobj#sentence#singleDefault"] = "‘’"
@@ -56,7 +56,7 @@ return {
 					col = c,
 				}
 			end
-			
+
 			local Sentence = {}
 			function Sentence.select(pattern, count)
 				vim.fn.search(pattern, "bc")
@@ -94,7 +94,8 @@ return {
 				return Sentence.select(vim.b.textobj_sentence_re_i, count)
 			end
 
-			return {
+			-- return
+			require("mini.ai").setup({
 				custom_textobjects = {
 
 					e = function() -- Whole buffer
@@ -157,10 +158,7 @@ return {
 				},
 				n_lines = 50,
 				search_method = "cover", -- Only use next and last mappings to search
-			}
-		end,
-		config = function(_, opts)
-			require("mini.ai").setup(opts)
+			})
 			-- Per-file textobjects:
 			local spec_pair = require("mini.ai").gen_spec.pair
 			local custom_textobjects = {
@@ -175,7 +173,7 @@ return {
 				},
 			}
 			vim.api.nvim_create_autocmd("FileType", {
-				group = vim.api.nvim_create_augroup("dotfiles-miniai-custom-textobjects", {}),
+				group = vim.api.nvim_create_augroup("dotfiles-mini_ai", {}),
 				pattern = vim.fn.join(vim.tbl_keys(custom_textobjects), ","),
 				callback = function()
 					local ft = vim.opt.filetype:get()
@@ -184,68 +182,33 @@ return {
 					}
 				end,
 			})
-		end,
-	},
 
-	-- ga,gA for alignment:
-	{
-		"echasnovski/mini.align",
-		keys = {
-			{ "ga", mode = { "n", "x" } },
-			{ "gA", mode = { "n", "x" } },
-		},
-	},
+			-- ga,gA for alignment:
+			require("mini.align").setup({})
 
-	{
-		"echasnovski/mini.basics",
-		lazy = false,
-		opts = {
-			options = {
-				basic = true,
-			},
-			mappings = {
-				move_with_alt = true,
-				windows = true,
-			},
-		},
-		config = function(_, opts)
-			require("mini.basics").setup(opts)
+			-- preferences:
+			require("mini.basics").setup({
+				mappings = {
+					move_with_alt = true,
+					windows = true,
+				},
+			})
 			vim.keymap.del("t", "<C-w>")
 			vim.opt.completeopt:append("preview")
 			vim.opt.shortmess:append("Wc")
-		end,
-	},
 
-	{
-		"echasnovski/mini.bracketed",
-		event = "VeryLazy",
-		config = function(_, opts)
-			require("mini.bracketed").setup(opts)
-		end,
-	},
+			-- Paired commands such as [q/]q
+			require("mini.bracketed").setup({})
 
-	-- :Bd[!] for layout-safe bufdelete
-	{
-		"echasnovski/mini.bufremove",
-		event = "VeryLazy",
-		config = function(opts)
-			require("mini.bufremove").setup(opts)
+			-- :Bd[!] for layout-safe bufdelete
+			require("mini.bufremove").setup({})
 			vim.api.nvim_create_user_command("Bd", function(args)
 				require("mini.bufremove").delete(0, not args.bang)
 			end, {
 				bang = true,
 			})
-		end,
-	},
 
-	-- gc for commenting/uncommenting:
-	{
-		"echasnovski/mini.comment",
-		keys = {
-			{ "gc", mode = { "o", "n", "x" } },
-			{ "gcc", mode = "n" },
-		},
-		config = function()
+			-- gc for commenting/uncommenting:
 			require("mini.comment").setup({
 				hooks = {
 					pre = function()
@@ -253,36 +216,24 @@ return {
 					end,
 				},
 			})
-		end,
-	},
 
-	{
-		"echasnovski/mini.indentscope",
-		event = { "BufReadPre", "BufNewFile" },
-		opts = {
-			-- symbol = "▏",
-			symbol = "│",
-			options = { try_as_border = true },
-		},
-		config = function(_, opts)
+			-- Show current indentation context:
+			require("mini.indentscope").setup({
+				symbol = "│",
+				options = { try_as_border = true },
+				draw = {
+					animation = require("mini.indentscope").gen_animation.none(),
+				},
+			})
 			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("dotfiles-mini_indentscope", {}),
 				pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
 				callback = function()
 					vim.b.miniindentscope_disable = true
 				end,
 			})
-			opts.draw = {
-				animation = require("mini.indentscope").gen_animation.none(),
-			}
-			require("mini.indentscope").setup(opts)
-		end,
-	},
-
-	{
-		"echasnovski/mini.misc",
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			require("mini.misc").setup()
+			-- Miscellaneous operations:
+			require("mini.misc").setup({})
 			require("mini.misc").setup_auto_root({
 				".git",
 				"Gemfile",
@@ -294,27 +245,40 @@ return {
 				".project-root",
 			})
 			require("mini.misc").setup_restore_cursor()
-		end,
-	},
 
-	{
-		"echasnovski/mini.move",
-		keys = {
-			{ "<M-h>", mode = { "n", "v" } },
-			{ "<M-j>", mode = { "n", "v" } },
-			{ "<M-k>", mode = { "n", "v" } },
-			{ "<M-l>", mode = { "n", "v" } },
-		},
-		config = function(_, opts)
-			require("mini.move").setup(opts)
-		end
-	},
+			-- Move lines with alt + hjkl:
+			require("mini.move").setup({})
 
-	-- Replace vim-surround:
-	{
-		"echasnovski/mini.surround",
-		keys = function(_, keys)
-			--Per-file surroundings:
+			-- use gS to split and join items in a list:
+			require("mini.splitjoin").setup({})
+
+			-- Use cs/ys/ds to manipulate surrounding delimiters:
+			require("mini.surround").setup({
+				custom_surroundings = {
+					["q"] = {
+						input = { "“().-()”" },
+						output = { left = "“", right = "”" },
+					},
+				},
+				mappings = {
+					add = "ys",
+					delete = "ds",
+					find = "sf",
+					find_left = "sF",
+					highlight = "sh",
+					replace = "cs",
+					update_n_lines = "",
+					suffix_last = "N",
+					suffix_next = "n",
+				},
+				n_lines = 50,
+				search_method = "cover_or_next",
+			})
+			-- Remap adding surrounding to Visual mode selection
+			vim.keymap.del("x", "ys")
+			vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
+			-- Make special mapping for "add surrounding for line"
+			vim.keymap.set("n", "yss", "ys_", { noremap = false })
 			local custom_surroundings = {
 				lua = {
 					s = {
@@ -344,7 +308,7 @@ return {
 				},
 			}
 			vim.api.nvim_create_autocmd("FileType", {
-				group = "dotfiles-settings",
+				group = vim.api.nvim_create_augroup("dotfiles-mini_surround", {}),
 				pattern = vim.fn.join(vim.tbl_keys(custom_surroundings), ","),
 				callback = function()
 					local ft = vim.opt.filetype:get()
@@ -353,51 +317,6 @@ return {
 					}
 				end,
 			})
-			-- Populate the keys based on the user's options
-			local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
-			local opts = require("lazy.core.plugin").values(plugin, "opts", false)
-			local mappings = {
-				{ opts.mappings.add, desc = "Add surrounding", mode = { "n", "v" } },
-				{ opts.mappings.delete, desc = "Delete surrounding" },
-				{ opts.mappings.find, desc = "Find right surrounding" },
-				{ opts.mappings.find_left, desc = "Find left surrounding" },
-				{ opts.mappings.highlight, desc = "Highlight surrounding" },
-				{ opts.mappings.replace, desc = "Replace surrounding" },
-				{ opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
-			}
-			mappings = vim.tbl_filter(function(m)
-				return m[1] and #m[1] > 0
-			end, mappings)
-			return vim.list_extend(mappings, keys)
-		end,
-		opts = {
-			custom_surroundings = {
-				["q"] = {
-					input = { "“().-()”" },
-					output = { left = "“", right = "”" },
-				},
-			},
-			mappings = {
-				add = "ys",
-				delete = "ds",
-				find = "sf",
-				find_left = "sF",
-				highlight = "sh",
-				replace = "cs",
-				update_n_lines = "",
-				suffix_last = "N",
-				suffix_next = "n",
-			},
-			n_lines = 50,
-			search_method = "cover_or_next",
-		},
-		config = function(_, opts)
-			require("mini.surround").setup(opts)
-			-- Remap adding surrounding to Visual mode selection
-			vim.keymap.del("x", "ys")
-			vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
-			-- Make special mapping for "add surrounding for line"
-			vim.keymap.set("n", "yss", "ys_", { noremap = false })
 		end,
 	},
 }
