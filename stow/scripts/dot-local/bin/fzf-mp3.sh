@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 music_dir=/mnt/music
-out_dir=/mnt/Media/Devices
+out_dir="$HOME/My Music/out"
 if [ ! -d "$music_dir" ]; then
 	music_dir="$HOME/Music"
-	out_dir="$HOME/My Music/out"
 fi
 
 # shellcheck disable=SC1083
