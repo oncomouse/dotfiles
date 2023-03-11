@@ -196,6 +196,7 @@ return {
 			vim.keymap.del("t", "<C-w>")
 			vim.opt.completeopt:append("preview")
 			vim.opt.shortmess:append("Wc")
+			vim.opt.wrap = true
 
 			-- Paired commands such as [q/]q
 			require("mini.bracketed").setup({})

@@ -547,6 +547,7 @@ require("mini.basics").setup({
 vim.keymap.del("t", "<C-w>")
 vim.opt.completeopt:append("preview")
 vim.opt.shortmess:append("Wc")
+vim.opt.wrap = true
 
 -- mini.bracketed:
 require("mini.bracketed").setup({})
