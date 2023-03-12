@@ -9,7 +9,7 @@ return {
 		dependencies = {
 			{ "oncomouse/vim-textobj-sentence", branch = "lua", dev = true }, -- Sentence object
 		},
-		event = "VeryLazy",
+		lazy = false,
 		config = function()
 			-- vim-textobj-sentence configuration
 			-- vim.g["textobj#sentence#doubleDefault"] = "“”"
@@ -263,6 +263,7 @@ return {
 				custom_surroundings = {
 					["q"] = {
 						input = {
+							{ "“().-()”", "‘().-()’" },
 							{ "“().-()”", "‘().-()’" },
 						},
 						output = { left = "“", right = "”" },
