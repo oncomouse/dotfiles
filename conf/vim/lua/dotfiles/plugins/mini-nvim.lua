@@ -111,6 +111,11 @@ return {
 						}
 					end,
 
+					["q"] = {
+						"“().-()”",
+						"‘().-()’",
+					},
+
 					z = function(type) -- Folds
 						vim.api.nvim_feedkeys("[z" .. (type == "i" and "j0" or ""), "x", true)
 						local from = make_point()
@@ -257,8 +262,15 @@ return {
 			require("mini.surround").setup({
 				custom_surroundings = {
 					["q"] = {
-						input = { "“().-()”" },
+						input = {
+							{ "“().-()”", "‘().-()’" },
+						},
 						output = { left = "“", right = "”" },
+					},
+
+					["Q"] = {
+						input = { "‘().-()’" },
+						output = { left = "‘", right = "’" },
 					},
 				},
 				mappings = {
