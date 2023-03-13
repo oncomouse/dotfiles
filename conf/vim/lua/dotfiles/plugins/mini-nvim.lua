@@ -295,6 +295,7 @@ return {
 				content = {
 					active = function()
 						local _, mode_hl = require("mini.statusline").section_mode({ trunc_width = 120 })
+						local icon = DotfilesStatusline.section_icon({ trunc_width = 140 })
 						local filename = DotfilesStatusline.section_filename({ trunc_width = 140 })
 						local fileinfo = DotfilesStatusline.section_fileinfo({ trunc_width = 120 })
 						local location = DotfilesStatusline.section_location({ trunc_width = 75 })
@@ -307,6 +308,7 @@ return {
 
 						return require("mini.statusline").combine_groups({
 							"%<", -- Mark general truncate point
+							{ hl = mode_hl, strings = { icon } },
 							{ hl = mode_hl, strings = { " ", filename, " " } },
 							{ hl = "MiniStatuslineLuaSnip", strings = { luasnip }},
 							{ hl = "MiniStatuslineMacro", strings = { macro } },
@@ -320,8 +322,9 @@ return {
 						})
 					end,
 					inactive = function()
+						local filename = DotfilesStatusline.section_filename({ trunc_width = 140 })
 						return require("mini.statusline").combine_groups({
-							{ hl = "StatuslineNC", strings = { "%t%m" } }
+							{ hl = "StatuslineNC", strings = { filename } }
 						})
 					end
 				},

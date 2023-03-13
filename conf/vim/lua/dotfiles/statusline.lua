@@ -59,33 +59,47 @@ end
 
 local M = {}
 
+M.section_icon = function(args)
+	if require("mini.statusline").is_truncated(args.trunc_width) then
+		return ""
+	end
+	local icon = H.get_filetype_icon()
+	if vim.bo.buftype == "help" then
+		icon = ""
+	end
+	if vim.bo.buftype == "terminal" then
+		icon = ""
+	end
+	if vim.bo.buftype == "quickfix" then
+		icon = ""
+	end
+	if icon == "" then
+		return ""
+	end
+	return string.format(" %s ", icon)
+end
+
 M.section_filename = function(args)
 	-- In terminal always use plain name
 	if args.inactive then
 		return "%t"
 	end
 	if vim.bo.buftype == "terminal" then
-		return " %t"
+		return "%t"
 	elseif vim.bo.buftype == "quickfix" then
 		local name = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "Location List" or "Quickfix List"
 		local title = vim.w.quickfix_title
 		title = title and " " .. title or ""
 		return string.format("[%s]%s", name, title)
 	else
-		-- Add filetype icon
 		local filename = (require("mini.statusline").is_truncated(args.trunc_width) and "%f" or "%F")
 		local flags = "%m%r"
-		local icon = H.get_filetype_icon()
 		if vim.bo.buftype == "help" then
 			flags = ""
-			icon = ""
-		end
-		if icon ~= "" then
-			filename = string.format("%s %s%s", icon, filename, flags)
 		end
 
 		-- Use fullpath if not truncated
-		return filename
+		return string.format("%s%s", filename, flags)
 	end
 end
 M.section_fileinfo = function(args)
