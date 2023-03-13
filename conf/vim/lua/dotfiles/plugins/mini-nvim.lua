@@ -261,6 +261,36 @@ return {
 
 			local DotfilesStatusline = require("dotfiles.statusline")
 
+			-- Override function used to make statsuline:
+			require("mini.statusline").combine_groups = function(groups)
+				local parts = vim.tbl_map(function(s)
+					if type(s) == "string" then
+						return s
+					end
+					if type(s) ~= "table" then
+						return ""
+					end
+
+					local string_arr = vim.tbl_filter(function(x)
+						return type(x) == "string" and x ~= ""
+					end, s.strings or {})
+					local str = table.concat(string_arr, "")
+
+					-- Use previous highlight group
+					if s.hl == nil then
+						return ("%s"):format(str)
+					end
+
+					-- Allow using this highlight group later
+					if str:len() == 0 then
+						return string.format("%%#%s#", s.hl)
+					end
+
+					return string.format("%%#%s#%s", s.hl, str)
+				end, groups)
+
+				return table.concat(parts, "")
+			end
 			require("mini.statusline").setup({
 				content = {
 					active = function()
@@ -294,35 +324,6 @@ return {
 					end
 				},
 			})
-			require("mini.statusline").combine_groups = function(groups)
-				local parts = vim.tbl_map(function(s)
-					if type(s) == "string" then
-						return s
-					end
-					if type(s) ~= "table" then
-						return ""
-					end
-
-					local string_arr = vim.tbl_filter(function(x)
-						return type(x) == "string" and x ~= ""
-					end, s.strings or {})
-					local str = table.concat(string_arr, "")
-
-					-- Use previous highlight group
-					if s.hl == nil then
-						return ("%s"):format(str)
-					end
-
-					-- Allow using this highlight group later
-					if str:len() == 0 then
-						return string.format("%%#%s#", s.hl)
-					end
-
-					return string.format("%%#%s#%s", s.hl, str)
-				end, groups)
-
-				return table.concat(parts, "")
-			end
 
 			-- Use cs/ys/ds to manipulate surrounding delimiters:
 			require("mini.surround").setup({
