@@ -166,6 +166,10 @@ M.section_location = function(args)
 		return H.hl("MiniStatuslineFileinfo", "%l:%v")
 	end
 
+	if vim.o.buftype == "terminal" or vim.o.buftype == "quickfix" then
+		return ""
+	end
+
 	-- Use `virtcol()` to correctly handle multi-byte characters
 
 	return table.concat(
