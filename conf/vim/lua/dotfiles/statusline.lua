@@ -170,8 +170,6 @@ M.section_location = function(args)
 		return ""
 	end
 
-	-- Use `virtcol()` to correctly handle multi-byte characters
-
 	return table.concat(
 		vim.tbl_map(function(component)
 			if type(component) == "string" then
@@ -188,8 +186,6 @@ M.section_location = function(args)
 		}),
 		""
 	)
-	-- return "%l:%v (%p%% %LL)"
-	-- return '%l|%L│%2v|%-2{virtcol("$") - 1}'
 end
 
 function M.section_macro()
@@ -246,7 +242,7 @@ function M.section_luasnip(args)
 	return ""
 end
 
-function M.section_wordcount(args)
+function M.section_wordcount()
 	if vim.tbl_contains({
 		"markdown",
 		"txt",
