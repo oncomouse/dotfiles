@@ -1,8 +1,65 @@
--- Minimal settings to get lazy.nvim working {{{
--- Autogroups:
-vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
+-- Basic Settings {{{
+vim.opt.lazyredraw = true -- Don't redraw between macro runs (may make terminal flicker)
+
+-- Line Numbering:
+vim.opt.relativenumber = true
+
+-- Folds:
+vim.opt.foldlevel = 99
+
 -- Set Leader:
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
+-- Use split for search/replace preview:
+vim.opt.inccommand = "split"
+
+-- Height Of The Preview Window:
+vim.opt.previewheight = 14
+
+-- <C-z> expands wildcards in command mode
+vim.opt.wildcharm = vim.api.nvim_replace_termcodes("<C-z>", true, true, true):byte()
+
+-- Set path to current file direction and pwd:
+vim.opt.path = ".,,"
+
+-- Use better grep, if available:
+if vim.fn.executable("rg") == 1 then
+	vim.opt.grepprg = "rg --vimgrep --smart-case"
+	vim.opt.grepformat = "%f:%l:%c:%m"
+elseif vim.fn.executable("ag") == 1 then
+	vim.opt.grepprg = "ag --vimgrep"
+	vim.opt.grepformat = "%f:%l:%c:%m"
+else
+	vim.opt.grepprg = "grep -rn"
+end
+
+vim.opt.dictionary = "/usr/share/dict/words"
+
+-- Default to hashtag-style comments:
+vim.opt.commentstring = "# %s"
+
+-- Minimal Statusbar:
+vim.opt.statusline = " %0.45f%m%h%w%r%= %y %l:%c "
+
+-- Clipboard:
+if vim.fn.has("clipboard") == 1 then
+	vim.opt.clipboard = "unnamed"
+	if vim.fn.has("unnamedplus") == 1 then
+		vim.opt.clipboard:prepend("unnamedplus")
+	end
+end
+
+-- Cmdheight=0 options:
+vim.opt.cmdheight = 0
+if vim.fn.has("nvim-0.9") == 1 then
+	vim.opt.showcmdloc = "statusline"
+end
+vim.opt.showmode = false
+
+-- }}}
+-- Autogroups: {{{
+vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
 -- }}}
 -- Load lazy.nvim {{{
 local function xdg_default(v, d)
@@ -64,66 +121,6 @@ require("lazy").setup({
 		},
 	},
 })
--- }}}
--- Basic Settings {{{
-vim.opt.lazyredraw = true -- Don't redraw between macro runs (may make terminal flicker)
-
--- Line Numbering:
-vim.opt.relativenumber = true
-
--- Folds:
-vim.opt.foldlevel = 99
-
--- Set Leader:
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
-
--- Use split for search/replace preview:
-vim.opt.inccommand = "split"
-
--- Height Of The Preview Window:
-vim.opt.previewheight = 14
-
--- <C-z> expands wildcards in command mode
-vim.opt.wildcharm = vim.api.nvim_replace_termcodes("<C-z>", true, true, true):byte()
-
--- Set path to current file direction and pwd:
-vim.opt.path = ".,,"
-
--- Use better grep, if available:
-if vim.fn.executable("rg") == 1 then
-	vim.opt.grepprg = "rg --vimgrep --smart-case"
-	vim.opt.grepformat = "%f:%l:%c:%m"
-elseif vim.fn.executable("ag") == 1 then
-	vim.opt.grepprg = "ag --vimgrep"
-	vim.opt.grepformat = "%f:%l:%c:%m"
-else
-	vim.opt.grepprg = "grep -rn"
-end
-
-vim.opt.dictionary = "/usr/share/dict/words"
-
--- Default to hashtag-style comments:
-vim.opt.commentstring = "# %s"
-
--- Minimal Statusbar:
-vim.opt.statusline = " %0.45f%m%h%w%r%= %y %l:%c "
-
--- Clipboard:
-if vim.fn.has("clipboard") == 1 then
-	vim.opt.clipboard = "unnamed"
-	if vim.fn.has("unnamedplus") == 1 then
-		vim.opt.clipboard:prepend("unnamedplus")
-	end
-end
-
--- Cmdheight=0 options:
-vim.opt.cmdheight = 0
-if vim.fn.has("nvim-0.9") == 1 then
-	vim.opt.showcmdloc = "statusline"
-end
-vim.opt.showmode = false
-
 -- }}}
 -- Mac NeoVim Settings {{{
 if vim.fn.has("mac") == 1 and vim.fn.has("nvim") == 1 then
@@ -349,10 +346,6 @@ vim.keymap.set("n", "<leader>cr", ':let<C-u>let @/=""<CR>', { silent = true, nor
 
 -- Jump to last buffer:
 vim.keymap.set("n", "``", "<cmd>e #<CR>", { silent = true, noremap = true })
-
--- Navigate Location List:
-vim.keymap.set("n", "]d", "<cmd>lnext<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "[d", "<cmd>lprev<CR>", { silent = true, noremap = true })
 
 -- Tab navigation:
 vim.keymap.set("n", "]t", "<cmd>tabnext<CR>", { silent = true, noremap = true })
