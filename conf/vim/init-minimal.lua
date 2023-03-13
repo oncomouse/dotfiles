@@ -12,6 +12,28 @@ local plugins = {
 			integrations = {
 				mini = true,
 			},
+			custom_highlights = function(colors)
+				return {
+					Folded = {
+						fg = colors.subtext0,
+						bg = colors.surface0,
+					},
+					MiniStatuslineFilename = {
+						fg = colors.subtext1,
+						bg = colors.base,
+					},
+					MiniStatuslineFileinfo = {
+						fg = colors.surface2,
+						bg = colors.base,
+					},
+					MiniStatuslineModeNormal = { style = {} },
+					MiniStatuslineModeInsert = { style = {} },
+					MiniStatuslineModeVisual = { style = {} },
+					MiniStatuslineModeReplace = { style = {} },
+					MiniStatuslineModeCommand = { style = {} },
+					MiniStatuslineModeOther = { style = {} },
+				}
+			end,
 		},
 	}, -- colors
 	{ "tpope/vim-repeat", event = "VeryLazy" }, -- dot repeat for plugins
@@ -597,7 +619,15 @@ require("mini.move").setup({})
 -- May as well setup a minimal autopair:
 require("mini.pairs").setup({})
 
-require("mini.statusline").setup({})
+require("mini.statusline").setup({
+	content = {
+		inactive = function()
+			return require("mini.statusline").combine_groups({
+				{ hl = "StatuslineNC", strings = { "%t%m" } },
+			})
+		end,
+	},
+})
 
 -- use gS to split and join items in a list:
 require("mini.splitjoin").setup({})

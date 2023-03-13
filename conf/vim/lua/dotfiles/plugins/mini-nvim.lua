@@ -319,7 +319,7 @@ return {
 					end,
 					inactive = function()
 						return require("mini.statusline").combine_groups({
-							{ hl = "StatuslineNC", strings = { "%t" } }
+							{ hl = "StatuslineNC", strings = { "%t%m" } }
 						})
 					end
 				},
