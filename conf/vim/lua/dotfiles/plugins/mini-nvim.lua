@@ -7,7 +7,8 @@ return {
 	{
 		"echasnovski/mini.nvim",
 		dependencies = {
-			{ "oncomouse/vim-textobj-sentence", branch = "lua", dev = true }, -- Sentence object
+			{ "oncomouse/vim-textobj-sentence", branch = "lua", dev = false }, -- Sentence object
+			{ "oncomouse/czs.nvim", dev = true }, -- cmdheight=0 search information
 		},
 		lazy = false,
 		config = function()
@@ -195,7 +196,7 @@ return {
 			require("mini.basics").setup({
 				mappings = {
 					move_with_alt = true,
-					windows = true,
+					windows = true, -- Move <C-hjkl>; Resize <C-movearrows>
 				},
 			})
 			vim.keymap.del("t", "<C-w>")
@@ -257,6 +258,71 @@ return {
 
 			-- use gS to split and join items in a list:
 			require("mini.splitjoin").setup({})
+
+			local DotfilesStatusline = require("dotfiles.statusline")
+
+			require("mini.statusline").setup({
+				content = {
+					active = function()
+						local _, mode_hl = require("mini.statusline").section_mode({ trunc_width = 120 })
+						local filename = DotfilesStatusline.section_filename({ trunc_width = 140 })
+						local fileinfo = DotfilesStatusline.section_fileinfo({ trunc_width = 120 })
+						local location = DotfilesStatusline.section_location({ trunc_width = 75 })
+						local diagnostics = DotfilesStatusline.section_diagnostics({ trunc_width = 75 })
+						local luasnip = DotfilesStatusline.section_luasnip({ trunc_width = 75})
+						local macro = DotfilesStatusline.section_macro()
+						local showcmd = DotfilesStatusline.section_showcmd()
+						local search = DotfilesStatusline.section_search({ trunc_width = 75 })
+
+						return require("mini.statusline").combine_groups({
+							"%<", -- Mark general truncate point
+							{ hl = mode_hl, strings = { " ", filename, " " } },
+							{ hl = "MiniStatuslineLuaSnip", strings = { luasnip }},
+							{ hl = "MiniStatuslineMacro", strings = { macro } },
+							{ hl = "Statusline", strings = { "%=" } }, -- End left alignment
+							{ hl = "MiniStatuslineShowcmd", strings = { showcmd } },
+							{ hl = "MiniStatuslineSearch", strings = { search } },
+							location,
+							{ hl = "MiniStatuslineFileinfo", strings = { " ", fileinfo, " " } },
+							diagnostics,
+						})
+					end,
+					inactive = function()
+						return require("mini.statusline").combine_groups({
+							{ hl = "StatuslineNC", strings = { "%t" } }
+						})
+					end
+				},
+			})
+			require("mini.statusline").combine_groups = function(groups)
+				local parts = vim.tbl_map(function(s)
+					if type(s) == "string" then
+						return s
+					end
+					if type(s) ~= "table" then
+						return ""
+					end
+
+					local string_arr = vim.tbl_filter(function(x)
+						return type(x) == "string" and x ~= ""
+					end, s.strings or {})
+					local str = table.concat(string_arr, "")
+
+					-- Use previous highlight group
+					if s.hl == nil then
+						return ("%s"):format(str)
+					end
+
+					-- Allow using this highlight group later
+					if str:len() == 0 then
+						return string.format("%%#%s#", s.hl)
+					end
+
+					return string.format("%%#%s#%s", s.hl, str)
+				end, groups)
+
+				return table.concat(parts, "")
+			end
 
 			-- Use cs/ys/ds to manipulate surrounding delimiters:
 			require("mini.surround").setup({
