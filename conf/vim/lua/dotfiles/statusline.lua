@@ -245,4 +245,16 @@ function M.section_luasnip(args)
 	end
 	return ""
 end
+
+function M.section_wordcount(args)
+	if vim.tbl_contains({
+		"markdown",
+		"txt",
+		"vimiwiki"
+	}, vim.o.filetype) then
+		return string.format("W%d ", vim.fn.wordcount().words)
+	end
+	return ""
+end
+
 return M

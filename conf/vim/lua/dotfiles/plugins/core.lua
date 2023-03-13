@@ -150,6 +150,9 @@ return {
 						bg = colors.sky,
 						fg = colors.surface0,
 					},
+					MiniStatuslineWordcount = {
+						fg = colors.yellow,
+					}
 				}
 			end,
 		},
