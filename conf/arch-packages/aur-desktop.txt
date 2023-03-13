@@ -4,7 +4,6 @@ pandoc-bin
 perl-term-shellui
 polkit-dumb-agent-git
 rofi-emoji
-selene-linter
 shellcheck-bin
 stylua-bin
 tllocalmgr-git

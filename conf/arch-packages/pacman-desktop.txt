@@ -40,6 +40,7 @@ pipewire-pulse
 pyright
 redshift
 rofi
+selene
 shellharden
 shfmt
 tex-gyre-fonts
