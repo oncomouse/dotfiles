@@ -382,6 +382,7 @@ return {
 	{
 		"echasnovski/mini.statusline",
 		dependencies = { "oncomouse/czs.nvim" },
+		lazy = false,
 		opts = function()
 			local DotfilesStatusline = require("dotfiles.statusline")
 			return {
@@ -454,7 +455,6 @@ return {
 
 				return table.concat(parts, "")
 			end
-			vim.g.dotfiles_status_current_buffer = nil
 			require("mini.statusline").setup(opts)
 		end,
 	},
