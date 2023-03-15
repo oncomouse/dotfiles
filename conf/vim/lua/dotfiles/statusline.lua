@@ -80,13 +80,15 @@ M.section_icon = function(args)
 end
 
 M.section_filename = function(args)
-	-- In terminal always use plain name
 	if args.inactive then
 		return "%t"
 	end
-	if vim.bo.buftype == "terminal" then
+
+	local buftype = vim.bo.buftype
+	-- In terminal always use plain name
+	if buftype == "terminal" then
 		return "%t"
-	elseif vim.bo.buftype == "quickfix" then
+	elseif buftype == "quickfix" then
 		local name = vim.fn.getwininfo(vim.fn.win_getid())[1].loclist == 1 and "Location List" or "Quickfix List"
 		local title = vim.w.quickfix_title
 		title = title and " " .. title or ""
@@ -94,7 +96,7 @@ M.section_filename = function(args)
 	else
 		local filename = (require("mini.statusline").is_truncated(args.trunc_width) and "%f" or "%F")
 		local flags = "%m%r"
-		if vim.bo.buftype == "help" then
+		if buftype == "help" then
 			flags = ""
 		end
 

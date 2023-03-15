@@ -291,6 +291,7 @@ return {
 
 				return table.concat(parts, "")
 			end
+			vim.g.dotfiles_status_current_buffer = nil
 			require("mini.statusline").setup({
 				content = {
 					active = function()
@@ -322,7 +323,7 @@ return {
 						})
 					end,
 					inactive = function()
-						local filename = DotfilesStatusline.section_filename({ trunc_width = 140 })
+						local filename = DotfilesStatusline.section_filename({ trunc_width = 140, inactive = true })
 						return require("mini.statusline").combine_groups({
 							{ hl = "StatuslineNC", strings = { filename } }
 						})
