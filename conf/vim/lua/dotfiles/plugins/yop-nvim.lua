@@ -2,7 +2,6 @@ return {
 		"zdcthomas/yop.nvim",
 		keys = {
 			{ "gs", mode = { "n", "v" } },
-			{ "gS", mode = { "n", "v" } },
 		},
 		config = function()
 			local utils = require("yop.utils")
