@@ -437,4 +437,23 @@ vim.filetype.add({
 	pattern = {},
 })
 -- }}}
+-- Neovim API Overrides {{{
+local orig_print = print
+
+function vim.print(...)
+	if vim.in_fast_event() then
+		return orig_print(...)
+	end
+	vim.api.nvim_out_write(table.concat(
+		vim.tbl_map(function(x)
+			if type(x) == "string" then
+				return x
+			end
+			return vim.inspect(x, { newline = " ", indent = "" })
+		end, { ... }),
+		"    "
+	))
+	vim.api.nvim_out_write("\n")
+end
+-- }}}
 -- # vim:foldmethod=marker:foldlevel=0
