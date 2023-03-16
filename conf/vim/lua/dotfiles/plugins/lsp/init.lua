@@ -18,8 +18,7 @@ return {
 			vim.api.nvim_create_autocmd({ "DiagnosticChanged" }, {
 				group = vim.api.nvim_create_augroup("dotfiles-lsp-attach_diagnostics", {}),
 				pattern = "*",
-				callback = function(opts)
-					vim.print("Attaching Diagnostics", opts.event)
+				callback = function()
 					vim.diagnostic.setloclist({ open = false })
 				end,
 			})
