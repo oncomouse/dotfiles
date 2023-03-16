@@ -13,6 +13,16 @@ return {
 			if vim.g.dotfiles_lsp_debug then
 				vim.lsp.set_log_level("trace")
 			end
+			
+			-- Add diagnostics to loclist:
+			vim.api.nvim_create_autocmd({ "DiagnosticChanged" }, {
+				group = vim.api.nvim_create_augroup("dotfiles-lsp-attach_diagnostics", {}),
+				pattern = "*",
+				callback = function(opts)
+					vim.print("Attaching Diagnostics", opts.event)
+					vim.diagnostic.setloclist({ open = false })
+				end,
+			})
 
 			-- Only attach each server once:
 			for lsp, settings in pairs(servers) do

@@ -84,14 +84,6 @@ local function on_attach(client, buf_num)
 		desc = "lua vim.lsp.buf.signature_help()",
 	})
 
-	-- Add diagnostics to loclist:
-	vim.api.nvim_create_autocmd({ "DiagnosticChanged", "BufEnter" }, {
-		buffer = buf_num,
-		group = vim.api.nvim_create_augroup("dotfiles-lsp-attach_diagnostics", {}),
-		callback = function()
-			vim.diagnostic.setloclist({ open = false })
-		end,
-	})
 	-- Turn off LSP semantic highlighting:
 	client.server_capabilities.semanticTokensProvider = nil
 	-- Formatting:
