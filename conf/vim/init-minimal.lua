@@ -221,7 +221,7 @@ local function list_toggle(pfx, force_open)
 			vim.cmd(pfx .. "close")
 			return
 		end
-		if pfx == "l" and vim.fn.len(vim.fn.getloclist(0)) == 0 then
+		if pfx == "l" and #vim.fn.getloclist(0) == 0 then
 			vim.cmd([[echohl ErrorMsg
 			echo 'Location List is Empty.'
 			echohl NONE]])
