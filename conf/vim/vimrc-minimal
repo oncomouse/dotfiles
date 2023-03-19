@@ -161,10 +161,15 @@ command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab
 " ==============================================================================
 
 function! ListToggle(pfx, ...)
+	let status = 0
+	if a:pfx ==# 'c'
+		let status = getqflist({ 'winid': 0 }).winid != 0
+	else
+		let status = getloclist(0, { 'winid': 0 }).winid != 0
+	end
 	let force_open = get(a:, 0, 0)
 	if !force_open
-		if get(g:, 'dotfiles_' . a:pfx . 'open', 0)
-			let g:['dotfiles_' . a:pfx . 'open'] = 0
+		if status
 			exec(a:pfx.'close')
 			return
 		endif
@@ -175,7 +180,6 @@ function! ListToggle(pfx, ...)
 			return
 		endif
 	endif
-	let g:['dotfiles_' . a:pfx . 'open'] = 1
 	exec(a:pfx.'open')
 endfunction
 
