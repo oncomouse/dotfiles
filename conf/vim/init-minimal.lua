@@ -214,10 +214,14 @@ end
 
 -- Open or close quickfix or loclist
 local function list_toggle(pfx, force_open)
+	local status
+	if pfx == "c" then
+		status = vim.fn.getqflist({ winid = 0 }).winid ~= 0
+	else
+		status = vim.fn.getloclist(0, { winid = 0 }).winid ~= 0
+	end
 	if not force_open then
-		local status = vim.g["dotfiles_" .. pfx .. "open"] or 0
-		if status ~= 0 then
-			vim.g["dotfiles_" .. pfx .. "open"] = 0
+		if status then
 			vim.cmd(pfx .. "close")
 			return
 		end
@@ -228,7 +232,6 @@ local function list_toggle(pfx, force_open)
 			return
 		end
 	end
-	vim.g["dotfiles_" .. pfx .. "open"] = 1
 	vim.cmd(pfx .. "open")
 end
 
