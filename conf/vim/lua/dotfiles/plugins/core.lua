@@ -63,7 +63,7 @@ return {
 	{
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
-		config = function()
+		init = function()
 			vim.g.startuptime_tries = 10
 		end,
 	}, -- :StartupTime for profiling startup
@@ -79,126 +79,9 @@ return {
 		},
 	}, -- For BibTeX sources
 
-	-- Appearance:
-
 	{
 		"kyazdani42/nvim-web-devicons",
 		cond = require("dotfiles.utils.use_termguicolors"),
 	}, -- Icons, used in the statusline
 
-	{
-		"oncomouse/catppuccin.nvim",
-		dev = false,
-		opts = {
-			transparent_background = true,
-			integrations = {
-				fidget = true,
-				mini = true,
-			},
-			custom_highlights = function(colors)
-				return {
-					Folded = {
-						fg = colors.subtext0,
-						bg = colors.surface0,
-					},
-					MiniStatuslineFileinfo = {
-						fg = colors.surface2,
-						bg = colors.base,
-					},
-					MiniStatuslineModeNormal = { style = {} },
-					MiniStatuslineModeInsert = { style = {} },
-					MiniStatuslineModeVisual = { style = {} },
-					MiniStatuslineModeReplace = { style = {} },
-					MiniStatuslineModeCommand = { style = {} },
-					MiniStatuslineModeOther = { style = {} },
-					MiniStatuslineLocationRow = {
-						fg = colors.mauve,
-					},
-					MiniStatuslineLocationColumn = {
-						fg = colors.sapphire,
-					},
-					MiniStatuslineLocationPercentage = {
-						fg = colors.blue,
-					},
-					MiniStatsulineDiagnosticError = {
-						bg = colors.red,
-						fg = colors.base,
-					},
-					MiniStatsulineDiagnosticWarn = {
-						bg = colors.yellow,
-						fg = colors.base,
-					},
-					MiniStatsulineDiagnosticInfo = {
-						bg = colors.blue,
-						fg = colors.base,
-					},
-					MiniStatsulineDiagnosticHint = {
-						bg = colors.rosewater,
-						fg = colors.base,
-					},
-					MiniStatuslineMacro = {
-						bg = colors.flamingo,
-						fg = colors.surface0,
-					},
-					MiniStatuslineSearch = {
-						fg = colors.rosewater,
-					},
-					MiniStatuslineShowcmd = {
-						fg = colors.flamingo,
-					},
-					MiniStatuslineLuaSnip = {
-						bg = colors.sky,
-						fg = colors.surface0,
-					},
-					MiniStatuslineWordcount = {
-						fg = colors.yellow,
-					}
-				}
-			end,
-		},
-	}, -- Theme (catppuccin with cterm support)
-
-	{
-		"NvChad/nvim-colorizer.lua",
-		event = { "BufRead", "BufWinEnter", "BufNewFile" },
-		opts = {
-			filetypes = {
-				"*", -- Load everywhere
-				"!lazy", -- Except packer buffers
-				"!help", -- And help
-				html = { names = true, RRGGBBAA = false },
-				css = { css = true, RRGGBBAA = false },
-				scss = {
-					css = true,
-					RRGGBBAA = false,
-					sass = {
-						enable = true,
-					},
-				},
-				sass = {
-					css = true,
-					RRGGBBAA = false,
-					sass = {
-						enable = true,
-					},
-				},
-			},
-			user_default_options = {
-				names = false, -- Turn off highlighting color words in non-HTML/CSS settings
-				RRGGBBAA = true,
-				mode = "background", -- Could be background, foreground, or virtualtext
-			},
-		},
-	}, -- Highlight colors in files
-
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = "VeryLazy",
-		opts = {
-			show_end_of_line = true,
-			space_char_blankline = " ",
-			show_current_context = false,
-			filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
-		},
-	}, -- Mark and highlight indentations
 }
