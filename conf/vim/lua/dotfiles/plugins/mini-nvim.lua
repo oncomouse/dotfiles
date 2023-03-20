@@ -389,7 +389,7 @@ return {
 				content = {
 					active = function()
 						local _, mode_hl = require("mini.statusline").section_mode({ trunc_width = 120 })
-						local icon = DotfilesStatusline.section_icon({ trunc_width = 140 })
+						local icon = DotfilesStatusline.section_icon({ trunc_width = 75 })
 						local filename = DotfilesStatusline.section_filename({ trunc_width = 140 })
 						local fileinfo = DotfilesStatusline.section_fileinfo({ trunc_width = 120 })
 						local location = DotfilesStatusline.section_location({ trunc_width = 75 })

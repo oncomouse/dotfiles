@@ -76,7 +76,7 @@ M.section_icon = function(args)
 	if icon == "" then
 		return ""
 	end
-	return string.format(" %s ", icon)
+	return string.format(" %s", icon)
 end
 
 M.section_filename = function(args)
