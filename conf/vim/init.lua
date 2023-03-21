@@ -34,6 +34,9 @@ else
 	vim.opt.grepprg = "grep -rn"
 end
 
+-- Linewrap:
+vim.opt.showbreak = "↳ " -- Show a line has wrapped
+
 vim.opt.dictionary = "/usr/share/dict/words"
 
 -- Default to hashtag-style comments:
