@@ -18,12 +18,28 @@ return {
 						fg = colors.surface2,
 						bg = colors.base,
 					},
-					MiniStatuslineModeNormal = { style = {} },
-					MiniStatuslineModeInsert = { style = {} },
-					MiniStatuslineModeVisual = { style = {} },
+					MiniStatuslineModeNormal = {
+						bg = colors.subtext0,
+						fg = colors.base,
+						style = {},
+					},
+					MiniStatuslineModeInsert = {
+						bg = colors.green,
+						fg = colors.base,
+						style = {},
+					},
+					MiniStatuslineModeVisual = {
+						bg = colors.sapphire,
+						fg = colors.base,
+						style = {},
+					},
 					MiniStatuslineModeReplace = { style = {} },
 					MiniStatuslineModeCommand = { style = {} },
-					MiniStatuslineModeOther = { style = {} },
+					MiniStatuslineModeOther = {
+						bg = colors.mauve,
+						fg = colors.base,
+						style = {},
+					},
 					MiniStatuslineLocationRow = {
 						fg = colors.mauve,
 					},
