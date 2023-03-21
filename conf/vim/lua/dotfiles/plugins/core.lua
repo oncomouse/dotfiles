@@ -35,7 +35,7 @@ return {
 			{ "g*", "<Plug>(asterisk-gz*)" },
 			{ "g#", "<Plug>(asterisk-gz#)" },
 		},
-		config = function()
+		init = function()
 			vim.g["asterisk#keeppos"] = 1
 		end,
 		dependencies = { "tpope/vim-repeat" },
