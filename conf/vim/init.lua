@@ -19,6 +19,17 @@ vim.opt.previewheight = 14
 
 -- <C-z> expands wildcards in command mode
 vim.opt.wildcharm = vim.api.nvim_replace_termcodes("<C-z>", true, true, true):byte()
+vim.opt.wildignore = "*.o,*.obj,*~" -- stuff to ignore when tab completing
+vim.opt.wildignore:append("*vim/backups*")
+vim.opt.wildignore:append("*sass-cache*")
+vim.opt.wildignore:append("*DS_Store*")
+vim.opt.wildignore:append("vendor/rails/**")
+vim.opt.wildignore:append("vendor/cache/**")
+vim.opt.wildignore:append("node_modules/**")
+vim.opt.wildignore:append("*.gem")
+vim.opt.wildignore:append("log/**")
+vim.opt.wildignore:append("tmp/**")
+vim.opt.wildignore:append("*.png,*.jpg,*.gif")
 
 -- Set path to current file direction and pwd:
 vim.opt.path = ".,,"
