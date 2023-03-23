@@ -24,6 +24,8 @@ local nvim_treesitter = {
 		"latex",
 		"lua",
 		"make",
+		"markdown",
+		"markdown_inline",
 		"ninja",
 		"nix",
 		"norg",
