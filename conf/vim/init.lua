@@ -455,22 +455,23 @@ vim.filetype.add({
 })
 -- }}}
 -- Neovim API Overrides {{{
-local orig_print = print
-
 function vim.print(...)
 	if vim.in_fast_event() then
-		return orig_print(...)
+		print(...)
+		return ...
 	end
-	vim.api.nvim_out_write(table.concat(
-		vim.tbl_map(function(x)
-			if type(x) == "string" then
-				return x
-			end
-			return vim.inspect(x, { newline = " ", indent = "" })
-		end, { ... }),
-		"    "
-	))
+	local output={}
+	for i = 1, select('#', ...) do
+		local o = select(i, ...)
+		if type(o) == "string" then
+			table.insert(output, o)
+		else
+			table.insert(output, vim.inspect(o, { newline = " ", indent = "" }))
+		end
+	end
+	vim.api.nvim_out_write(table.concat(output, "    "))
 	vim.api.nvim_out_write("\n")
+	return ...
 end
 -- }}}
 -- # vim:foldmethod=marker:foldlevel=0
