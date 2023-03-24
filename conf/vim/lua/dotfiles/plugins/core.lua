@@ -83,4 +83,10 @@ return {
 		cond = require("dotfiles.utils.use_termguicolors"),
 	}, -- Icons, used in the statusline
 
+	{
+		"oncomouse/markdown.nvim",
+		dev = false,
+		ft = "markdown",
+	},
+
 }
