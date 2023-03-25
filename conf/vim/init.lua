@@ -46,6 +46,7 @@ else
 end
 
 -- Linewrap:
+vim.opt.wrap = true
 vim.opt.showbreak = "↳ " -- Show a line has wrapped
 
 vim.opt.dictionary = "/usr/share/dict/words"
