@@ -145,6 +145,36 @@ vim.g.dotfiles_lexima_rules = {
 		at = [[^\%#]],
 		filetype = "markdown",
 	},
+	-- Unordered Lists:
+	{
+		char = "<CR>",
+		at = [[^\s*\([*-]\).*\%#$]],
+		filetype = "markdown",
+		with_submatch = true,
+		input = [[<CR>\1 ]],
+		except = [[^\s*\([*-]\) \%#$]],
+	},
+	{
+		char = "<CR>",
+		at = [[^\s*\([*-]\) \%#$]],
+		filetype = "markdown",
+		input = "<Home><C-O>Di<CR>",
+	},
+	-- Ordered Lists (including automatic increment):
+	{
+		char = "<CR>",
+		at = [[^\s*\([0-9]\+\)\..*\%#$]],
+		filetype = "markdown",
+		with_submatch = true,
+		input = [[<CR>\1<Home><C-O><C-A><End>i. ]],
+		except = [[^\s*\([0-9]\)\. \%#$]],
+	},
+	{
+		char = "<CR>",
+		at = [[^\s*\([0-9]\+\)\. \%#$]],
+		filetype = "markdown",
+		input = "<Home><C-O>Di<CR>",
+	},
 	-- Tasks:
 	{
 		char = "[",
