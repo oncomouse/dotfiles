@@ -99,7 +99,7 @@ local get_force_disable = function(bufnr)
 end
 
 local buffer_toggle_force_disable = function(bufnr)
-	local force_disable = not (utils.get_buffer_variable(bufnr, force_disable_var) or false)
+	local force_disable = not (get_force_disable(bufnr))
 	vim.api.nvim_buf_set_var(bufnr, force_disable_var, force_disable)
 end
 
