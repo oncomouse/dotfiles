@@ -158,14 +158,14 @@ vim.g.dotfiles_lexima_rules = {
 		char = "<CR>",
 		at = [[^\s*\([*-]\) \%#$]],
 		filetype = "markdown",
-		input = "<Home><C-O>Di<CR>",
+		input = "<Home><C-O>D<CR>",
 	},
 	{
 		char = "<BS>",
 		at = [[^\(\s*\)[*-] \%#$]],
 		filetype = "markdown",
 		with_submatch = true,
-		input = [[<Home><C-O>Di\1]],
+		input = [[<Home><C-O>D\1]],
 	},
 	-- Ordered Lists (including automatic increment):
 	{
@@ -173,21 +173,21 @@ vim.g.dotfiles_lexima_rules = {
 		at = [[^\s*\([0-9]\+\)\..*\%#$]],
 		filetype = "markdown",
 		with_submatch = true,
-		input = [[<CR>\1<Home><C-O><C-A><End>i. ]],
+		input = [[<CR>\1. <Home><C-o>:exec "normal! \<c-a\>" "$"<CR>]],
 		except = [[^\s*\([0-9]\)\. \%#$]],
 	},
 	{
 		char = "<CR>",
 		at = [[^\s*\([0-9]\+\)\. \%#$]],
 		filetype = "markdown",
-		input = "<Home><C-O>Di<CR>",
+		input = "<Home><C-O>D<CR>",
 	},
 	{
 		char = "<BS>",
 		at = [[^\(\s*\)[0-9]\+\. \%#$]],
 		filetype = "markdown",
 		with_submatch = true,
-		input = [[<Home><C-O>Di\1]],
+		input = [[<Home><C-O>D\1]],
 	},
 	-- Tasks:
 	{
