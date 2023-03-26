@@ -160,6 +160,13 @@ vim.g.dotfiles_lexima_rules = {
 		filetype = "markdown",
 		input = "<Home><C-O>Di<CR>",
 	},
+	{
+		char = "<BS>",
+		at = [[^\(\s*\)[*-] \%#$]],
+		filetype = "markdown",
+		with_submatch = true,
+		input = [[<Home><C-O>Di\1]],
+	},
 	-- Ordered Lists (including automatic increment):
 	{
 		char = "<CR>",
@@ -174,6 +181,13 @@ vim.g.dotfiles_lexima_rules = {
 		at = [[^\s*\([0-9]\+\)\. \%#$]],
 		filetype = "markdown",
 		input = "<Home><C-O>Di<CR>",
+	},
+	{
+		char = "<BS>",
+		at = [[^\(\s*\)[0-9]\+\. \%#$]],
+		filetype = "markdown",
+		with_submatch = true,
+		input = [[<Home><C-O>Di\1]],
 	},
 	-- Tasks:
 	{
@@ -191,25 +205,25 @@ vim.g.dotfiles_lexima_rules = {
 	-- Bold/Italic Pairs:
 	make_markdown_bi_rule("*", true),
 	make_markdown_bi_rule("_"),
-	{
-		char = "*",
-		input = "* ",
-		at = [[^\%#]],
-		filetype = "markdown",
-	},
-	{
-		char = "<CR>",
-		at = [[^\s*\([-*]\) \S\+.*\%#$]],
-		input = [[\<CR\>\1 ]],
-		filetype = "markdown",
-		with_submatch = 1,
-	},
-	{
-		char = "<BS>",
-		at = [[^\s*[-*] \%#]],
-		input = [[<BS><BS>]], -- in insx, this can be delete the whole line
-		filetype = "markdown",
-	},
+	-- {
+	-- 	char = "*",
+	-- 	input = "* ",
+	-- 	at = [[^\%#]],
+	-- 	filetype = "markdown",
+	-- },
+	-- {
+	-- 	char = "<CR>",
+	-- 	at = [[^\s*\([-*]\) \S\+.*\%#$]],
+	-- 	input = [[\<CR\>\1 ]],
+	-- 	filetype = "markdown",
+	-- 	with_submatch = 1,
+	-- },
+	-- {
+	-- 	char = "<BS>",
+	-- 	at = [[^\s*[-*] \%#]],
+	-- 	input = [[<BS><BS>]], -- in insx, this can be delete the whole line
+	-- 	filetype = "markdown",
+	-- },
 
 	-- XML closing tags:
 	-- xml_closetag_rules(),
