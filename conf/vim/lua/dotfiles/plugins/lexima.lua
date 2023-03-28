@@ -148,7 +148,7 @@ vim.g.dotfiles_lexima_rules = {
 	-- Unordered Lists:
 	{
 		char = "<CR>",
-		at = [[^\s*\([*-]\).*\%#$]],
+		at = [[^\s*\([*-]\) .*\%#$]],
 		filetype = "markdown",
 		with_submatch = true,
 		input = [[<CR>\1 ]],
