@@ -4,7 +4,7 @@ return {
 		{ mode = "n", "<C-p>", "<Plug>(dotfiles-fzf-files)" },
 		{ mode = "n", "<Leader>a", "<Plug>(dotfiles-fzf-buffers)" },
 	},
-	cmd = { "Files", "Buffers" },
+	cmd = { "Files", "Buffers", "FzfLua" },
 	init = function() -- Shim vim.ui.select until we can load the plugin
 		vim.ui.select = function(...)
 			require("fzf-lua.providers.ui_select").ui_select(...)
