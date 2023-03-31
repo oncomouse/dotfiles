@@ -3,6 +3,7 @@ return {
 	keys = {
 		{ mode = "n", "<C-p>", "<Plug>(dotfiles-fzf-files)" },
 		{ mode = "n", "<Leader>a", "<Plug>(dotfiles-fzf-buffers)" },
+		{ mode = "n", "<C-h>", "<cmd>FzfLua help_tags<CR>" },
 	},
 	cmd = { "Files", "Buffers", "FzfLua" },
 	init = function() -- Shim vim.ui.select until we can load the plugin
