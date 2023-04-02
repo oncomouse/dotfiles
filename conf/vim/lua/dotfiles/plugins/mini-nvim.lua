@@ -253,6 +253,10 @@ return {
 		end,
 		config = function(_, opts)
 			require("mini.bracketed").setup(opts)
+			vim.keymap.set("n", "[t", "<cmd>tabprevious<cr>", {})
+			vim.keymap.set("n", "]t", "<cmd>tabnext<cr>", {})
+			vim.keymap.set("n", "[T", "<cmd>tabfirst<cr>", {})
+			vim.keymap.set("n", "]T", "<cmd>tablast<cr>", {})
 		end,
 	},
 	-- :Bd[!] for layout-safe bufdelete
