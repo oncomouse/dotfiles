@@ -27,6 +27,14 @@ return {
 	}, -- gr{motion} or grr or gr in visual to replace with register
 
 	{
+		"christoomey/vim-sort-motion",
+		keys = {
+			{ "gs", mode = { "x", "n" } },
+			{ "gss", mode = { "n" } },
+		},
+	},
+
+	{
 		"haya14busa/vim-asterisk",
 		keys = {
 			{ "*", "<Plug>(asterisk-z*)" },
@@ -88,5 +96,4 @@ return {
 		dev = false,
 		ft = "markdown",
 	},
-
 }
