@@ -305,6 +305,10 @@ return {
 				draw = {
 					animation = require("mini.indentscope").gen_animation.none(),
 				},
+				mappings = {
+					object_scope = "",
+					object_scope_with_border = "ai",
+				},
 			}
 		end,
 		init = function()
