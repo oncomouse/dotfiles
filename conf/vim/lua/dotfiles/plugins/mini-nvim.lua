@@ -301,12 +301,15 @@ return {
 		opts = function()
 			return {
 				symbol = "│",
-				options = { try_as_border = true },
+				options = {
+					indent_at_cursor = false,
+					try_as_border = true,
+				},
 				draw = {
 					animation = require("mini.indentscope").gen_animation.none(),
 				},
 				mappings = {
-					object_scope = "",
+					object_scope = "ii",
 					object_scope_with_border = "ai",
 				},
 			}
