@@ -27,7 +27,8 @@ return {
 	}, -- gr{motion} or grr or gr in visual to replace with register
 
 	{
-		"christoomey/vim-sort-motion",
+		"oncomouse/sort-motion.nvim",
+		dev = true,
 		keys = {
 			{ "gs", mode = { "x", "n" } },
 			{ "gss", mode = { "n" } },
