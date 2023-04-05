@@ -112,18 +112,18 @@ return {
 			return {
 				custom_textobjects = {
 
-					e = function() -- Whole buffer
-						local from = { line = 1, col = 1 }
-						local last_line_length = #vim.fn.getline("$")
-						local to = {
-							line = vim.fn.line("$"),
-							col = last_line_length == 0 and 1 or last_line_length,
-						}
-						return {
-							from = from,
-							to = to,
-						}
-					end,
+					-- e = function() -- Whole buffer
+					-- 	local from = { line = 1, col = 1 }
+					-- 	local last_line_length = #vim.fn.getline("$")
+					-- 	local to = {
+					-- 		line = vim.fn.line("$"),
+					-- 		col = last_line_length == 0 and 1 or last_line_length,
+					-- 	}
+					-- 	return {
+					-- 		from = from,
+					-- 		to = to,
+					-- 	}
+					-- end,
 
 					["q"] = {
 						"“().-()”",
