@@ -23,7 +23,7 @@ EntireTextobject.inner = function(visual)
 	vim.cmd("normal! $")
 end
 
-vim.keymap.set("o", "ae", "<cmd>call v:lua.EntireTextobject.outer(v:false)<cr>")
-vim.keymap.set("o", "ie", "<cmd>call v:lua.EntireTextobject.inner(v:false)<cr>")
-vim.keymap.set("x", "ae", "<cmd>call v:lua.EntireTextobject.outer(v:true)<cr>")
-vim.keymap.set("x", "ie", "<cmd>call v:lua.EntireTextobject.inner(v:true)<cr>")
+vim.keymap.set("o", "ae", "<cmd>lua EntireTextobject.outer(false)<cr>")
+vim.keymap.set("o", "ie", "<cmd>lua EntireTextobject.inner(false)<cr>")
+vim.keymap.set("x", "ae", "<cmd>lua EntireTextobject.outer(true)<cr>")
+vim.keymap.set("x", "ie", "<cmd>lua EntireTextobject.inner(true)<cr>")
