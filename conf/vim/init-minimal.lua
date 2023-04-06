@@ -37,7 +37,7 @@ local plugins = {
 		},
 	}, -- colors
 	{ "tpope/vim-repeat", lazy = true }, -- dot repeat for plugins
-	{ "tpope/vim-sleuth", event = "VeryLazy" }, -- guess indentation
+	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost", "FileType" } }, -- guess indentation
 	{ "christoomey/vim-sort-motion", keys = {
 		{ "gs", mode = { "x", "n" } },
 		{ "gss", mode = "n" },

@@ -12,7 +12,7 @@ return {
 
 	{
 		"tpope/vim-sleuth",
-		event = "VeryLazy",
+		event = { "BufNewFile", "BufReadPost", "BufFilePost", "FileType" },
 	}, -- Automatically set indent
 
 	-- Mappings and Commands:
