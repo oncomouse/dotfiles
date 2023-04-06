@@ -36,16 +36,20 @@ local plugins = {
 			end,
 		},
 	}, -- colors
-	{ "tpope/vim-repeat", event = "VeryLazy" }, -- dot repeat for plugins
+	{ "tpope/vim-repeat", lazy = true }, -- dot repeat for plugins
 	{ "tpope/vim-sleuth", event = "VeryLazy" }, -- guess indentation
 	{ "christoomey/vim-sort-motion", keys = {
 		{ "gs", mode = { "x", "n" } },
 		{ "gss", mode = "n" },
 	} }, -- gs to sort
-	{ "oncomouse/ReplaceWithRegister", keys = {
-		{ "gr", mode = { "x", "n" } },
-		{ "grr", mode = "n" },
-	} }, -- gr{motion} or grr or gr in visual to replace with register
+	{
+		"vim-scripts/ReplaceWithRegister",
+		keys = {
+			{ "gr", mode = { "x", "n" } },
+			{ "grr", mode = "n" },
+		},
+		dependencies = { "vim-repeat" },
+	}, -- gr{motion} or grr or gr in visual to replace with register
 	{ "oncomouse/lazygit.nvim", cmd = "LazyGit" }, -- :LazyGit for lazygit integration
 	{ "echasnovski/mini.nvim", lazy = true }, -- Various (see below)
 	{
@@ -444,6 +448,31 @@ if not ok then
 end
 
 --------------------------------------------------------------------------------
+-- Select All Textobject
+--------------------------------------------------------------------------------
+EntireTextobject = function(visual, inner)
+	vim.cmd("normal! m'")
+	vim.cmd("keepjumps normal! gg0")
+	if inner then
+		vim.fn.search("^.", "cW")
+	end
+	if not visual then
+		vim.cmd("normal! V")
+	end
+	vim.cmd("normal! o")
+	vim.cmd("keepjumps normal! G$")
+	if inner then
+		vim.fn.search("^.", "bcW")
+		vim.cmd("normal! $")
+	end
+end
+
+vim.keymap.set("o", "ae", "<cmd>lua EntireTextobject(false)<cr>")
+vim.keymap.set("o", "ie", "<cmd>lua EntireTextobject(false, true)<cr>")
+vim.keymap.set("x", "ae", "<cmd>lua EntireTextobject(true)<cr>")
+vim.keymap.set("x", "ie", "<cmd>lua EntireTextobject(true, true)<cr>")
+
+--------------------------------------------------------------------------------
 -- FZF:
 --------------------------------------------------------------------------------
 
@@ -488,18 +517,18 @@ end
 require("mini.ai").setup({
 	custom_textobjects = {
 
-		e = function() -- Whole buffer
-			local from = { line = 1, col = 1 }
-			local last_line_length = #vim.fn.getline("$")
-			local to = {
-				line = vim.fn.line("$"),
-				col = last_line_length == 0 and 1 or last_line_length,
-			}
-			return {
-				from = from,
-				to = to,
-			}
-		end,
+		-- e = function() -- Whole buffer
+		-- 	local from = { line = 1, col = 1 }
+		-- 	local last_line_length = #vim.fn.getline("$")
+		-- 	local to = {
+		-- 		line = vim.fn.line("$"),
+		-- 		col = last_line_length == 0 and 1 or last_line_length,
+		-- 	}
+		-- 	return {
+		-- 		from = from,
+		-- 		to = to,
+		-- 	}
+		-- end,
 
 		z = function(type) -- Folds
 			vim.api.nvim_feedkeys("[z" .. (type == "i" and "j0" or ""), "x", true)
@@ -573,6 +602,10 @@ vim.opt.shortmess:append("Wc")
 
 -- mini.bracketed:
 require("mini.bracketed").setup({})
+vim.keymap.set("n", "[t", "<cmd>tabprevious<cr>", {})
+vim.keymap.set("n", "]t", "<cmd>tabnext<cr>", {})
+vim.keymap.set("n", "[T", "<cmd>tabfirst<cr>", {})
+vim.keymap.set("n", "]T", "<cmd>tablast<cr>", {})
 
 -- :Bd[!] for layout-safe bufdelete
 require("mini.bufremove").setup({})
