@@ -1,5 +1,4 @@
-EntireTextobject = {}
-
+-- selene: allow(unused_variable, unscoped_variables)
 EntireTextobject = function(visual, inner)
 	vim.cmd("normal! m'")
 	vim.cmd("keepjumps normal! gg0")
