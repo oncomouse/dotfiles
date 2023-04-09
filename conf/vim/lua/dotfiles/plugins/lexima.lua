@@ -193,13 +193,13 @@ vim.g.dotfiles_lexima_rules = {
 	{
 		char = "[",
 		input = "[ ]",
-		at = [[^\s*[*-]\s*\%#]],
+		at = [[^\s*[*-\d]\+\.\{0,1\} \s*\%#]],
 		filetype = "markdown",
 	},
 	{
 		char = "<BS>",
 		input = "<BS><BS><BS>",
-		at = [[^\s*[*-]\s*\[.\]\%#]],
+		at = [[^\s*[*-\d]\+\.\{0,1\} \s*\[.\]\%#]],
 		filetype = "markdown",
 	},
 	-- Bold/Italic Pairs:
