@@ -1,3 +1,6 @@
+if type(vim.loader) == "table" then
+	vim.loader.enable()
+end
 -- Basic Settings {{{
 vim.opt.lazyredraw = true -- Don't redraw between macro runs (may make terminal flicker)
 
@@ -461,8 +464,8 @@ function vim.print(...)
 		print(...)
 		return ...
 	end
-	local output={}
-	for i = 1, select('#', ...) do
+	local output = {}
+	for i = 1, select("#", ...) do
 		local o = select(i, ...)
 		if type(o) == "string" then
 			table.insert(output, o)
