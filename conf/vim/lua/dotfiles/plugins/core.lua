@@ -95,6 +95,7 @@ return {
 	{
 		"oncomouse/markdown.nvim",
 		branch = "simplified",
+		dev = false,
 		ft = "markdown",
 	},
 }
