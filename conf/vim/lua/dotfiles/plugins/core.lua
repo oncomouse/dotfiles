@@ -96,16 +96,5 @@ return {
 		"oncomouse/markdown.nvim",
 		dev = false,
 		ft = "markdown",
-		init = function()
-			-- Load markdown.nvim for todo files:
-			vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-				group = "dotfiles-settings",
-				pattern = "todo.*",
-				callback = function()
-					vim.b.markdown_nvim_unordered_default = "-"
-					require("markdown").setup()
-				end,
-			})
-		end,
 	},
 }
