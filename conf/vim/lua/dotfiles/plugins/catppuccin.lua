@@ -83,7 +83,7 @@ return {
 						fg = colors.yellow,
 					},
 					MiniTablineCurrent = {
-						fg = colors.text,
+						fg = colors.subtext0,
 						style = {},
 					},
 					MiniTablineVisible = {
@@ -93,7 +93,7 @@ return {
 						fg = colors.surface1
 					},
 					MiniTablineModifiedCurrent = {
-						fg = colors.text,
+						fg = colors.subtext0,
 						style = {
 							'bold'
 						},
