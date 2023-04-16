@@ -566,4 +566,15 @@ return {
 			vim.keymap.set("n", "yss", "ys_", { noremap = false })
 		end,
 	},
+	{
+		"echasnovski/mini.tabline",
+		lazy = false,
+		opts = {
+			set_vim_settings = false,
+			tabpage_section = 'none',
+		},
+		config = function(_, opts)
+			require("mini.tabline").setup(opts)
+		end,
+	},
 }

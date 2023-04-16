@@ -82,6 +82,34 @@ return {
 					MiniStatuslineWordcount = {
 						fg = colors.yellow,
 					},
+					MiniTablineCurrent = {
+						fg = colors.text,
+						style = {},
+					},
+					MiniTablineVisible = {
+						fg = colors.surface1
+					},
+					MiniTablineHidden = {
+						fg = colors.surface1
+					},
+					MiniTablineModifiedCurrent = {
+						fg = colors.text,
+						style = {
+							'bold'
+						},
+					},
+					MiniTablineModifiedVisible = {
+						fg = colors.surface1,
+						style = {
+							'bold'
+						},
+					},
+					MiniTablineModifiedHidden = {
+						fg = colors.surface1,
+						style = {
+							'bold'
+						},
+					},
 				}
 			end,
 		},
