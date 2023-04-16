@@ -94,7 +94,7 @@ M.section_filename = function(args)
 		title = title and " " .. title or ""
 		return string.format("[%s]%s", name, title)
 	else
-		local filename = (require("mini.statusline").is_truncated(args.trunc_width) and "%f" or "%F")
+		local filename = (require("mini.statusline").is_truncated(args.trunc_width) and "%t" or "%f")
 		local flags = "%m%r"
 		if buftype == "help" then
 			flags = ""
