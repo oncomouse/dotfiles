@@ -49,19 +49,19 @@ return {
 					MiniStatuslineLocationPercentage = {
 						fg = colors.blue,
 					},
-					MiniStatsulineDiagnosticError = {
+					MiniStatuslineDiagnosticError = {
 						bg = colors.red,
 						fg = colors.base,
 					},
-					MiniStatsulineDiagnosticWarn = {
+					MiniStatuslineDiagnosticWarn = {
 						bg = colors.yellow,
 						fg = colors.base,
 					},
-					MiniStatsulineDiagnosticInfo = {
+					MiniStatuslineDiagnosticInfo = {
 						bg = colors.blue,
 						fg = colors.base,
 					},
-					MiniStatsulineDiagnosticHint = {
+					MiniStatuslineDiagnosticHint = {
 						bg = colors.rosewater,
 						fg = colors.base,
 					},
