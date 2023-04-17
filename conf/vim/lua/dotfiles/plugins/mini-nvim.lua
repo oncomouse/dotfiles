@@ -18,6 +18,7 @@ return {
 			vim.keymap.del("t", "<C-w>")
 			vim.opt.completeopt:append("preview")
 			vim.opt.shortmess:append("Wc")
+			vim.opt.undofile = false
 		end,
 	},
 	{
