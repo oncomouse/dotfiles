@@ -6,14 +6,14 @@
 
 config_version: 2
 settings:
-  bindings.commands:
-    global:
-      normal:
-        <Ctrl+Shift+u>: spawn --userscript qute-bitwarden
+  auto_save.session:
+    global: true
   content.blocking.method:
     global: both
   content.canvas_reading:
     global: false
+  content.headers.accept_language:
+    global: en-US,en;q=0.5
   content.headers.custom:
     global:
       accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
