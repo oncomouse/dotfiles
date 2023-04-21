@@ -1,0 +1,246 @@
+#!/usr/bin/env python3
+
+USAGE = """To use in qutebrowser, run: `spawn --userscript qute-bitwarden`"""
+
+EPILOG = """Dependencies: tldextract (Python 3 module), osascript(Python 3 module), Bitwarden CLI (1.16.0 is known to work
+but older versions may well also work)
+
+WARNING: The login details are viewable as plaintext in qutebrowser's debug log
+(qute://log) and might be shared if you decide to submit a crash report!"""
+
+import argparse
+import enum
+import functools
+import os
+import subprocess
+import sys
+import json
+import tldextract
+import osascript
+import getpass
+import os
+import calendar;
+import time;
+
+# support intel and m1 based mac paths
+os.environ['PATH'] = os.pathsep + '/usr/local/bin:/usr/bin:/opt/homebrew/bin'
+
+# get the current user
+current_user = getpass.getuser()
+
+# build argument parser
+argument_parser = argparse.ArgumentParser(
+    description=__doc__,
+    usage=USAGE,
+    epilog=EPILOG,
+)
+argument_parser.add_argument('url', nargs='?', default=os.getenv('QUTE_URL'))
+
+stderr = functools.partial(print, file=sys.stderr)
+
+class ExitCodes(enum.IntEnum):
+    SUCCESS = 0
+    FAILURE = 1
+    NO_ITEMS_FOUND = 2
+
+def qute_command(command):
+    with open(os.environ['QUTE_FIFO'], 'w') as fifo:
+        fifo.write(command + '\n')
+        fifo.flush()
+
+
+def ask_password():
+    _, out, err = osascript.run(
+        'Tell application "System Events" to display dialog "Enter your Bitwarden master password: " with hidden answer default answer ""'
+    )
+
+    if err:
+        raise Exception('Could not unlock vault')
+
+    last_semicolon_index = out.rfind(':')
+    password = out[last_semicolon_index + 1:]
+
+    bitwarden_process = subprocess.Popen(
+        ['bw', 'unlock', '--raw', password.strip()],
+        universal_newlines=True,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE
+    )
+
+    session_key, _ = bitwarden_process.communicate()
+
+    if bitwarden_process.returncode > 0:
+        raise Exception('Some error ocurred when unlocking vault. Might be wrong password')
+
+    return session_key.strip()
+
+def find_from_keychain(name):
+    process = subprocess.Popen(
+        ['security', 'find-generic-password', '-a', current_user, '-s', name, '-w'],
+        universal_newlines=True,
+        stdout=subprocess.PIPE,
+    )
+    output, _ = process.communicate()
+
+    if process.returncode > 0:
+        return ''
+
+    return output.strip()
+
+def save_to_keychain(name, value):
+    subprocess.run(
+        ['security', 'add-generic-password', '-U', '-a', current_user, '-s', name, '-w', str(value)],
+        universal_newlines=True,
+    )
+
+def has_key_expired(): 
+    current_timestamp = int(calendar.timegm(time.gmtime()))
+    lock_timestamp = find_from_keychain('bw_session_lock')
+
+    if not lock_timestamp:
+        return True
+
+    print(current_timestamp, lock_timestamp)
+
+    return current_timestamp >= int(lock_timestamp)
+
+def add_key_expiration_to_keychain():
+    current_timestamp = int(calendar.timegm(time.gmtime()))
+    # set to 15 minutes lock
+    save_to_keychain('bw_session_lock', current_timestamp + 900)
+
+def get_session_key():
+    session_key = find_from_keychain('bw_session')
+
+    if not session_key or has_key_expired():
+        session_key = ask_password() 
+
+        save_to_keychain('bw_session', session_key)
+        add_key_expiration_to_keychain()
+
+    return session_key.strip()
+
+
+def get_bitwarden_items(domain):
+    session_key = get_session_key()
+    process = subprocess.Popen(
+        ['bw', 'list', 'items', '--session', session_key, '--url', domain],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+
+    output, error = process.communicate()
+
+    if error:
+        msg = 'Bitwarden CLI returned for {:s} - {:s}'.format(domain, error)
+        stderr(msg)
+
+    if process.returncode:
+        return '[]'
+
+    return output
+
+
+def run_chooser(items):
+    encoding = 'UTF-8'
+
+    process = subprocess.run(
+        ['choose'],
+        input='\n'.join(items).encode(encoding),
+        stdout=subprocess.PIPE
+    )
+
+    return process.stdout.decode(encoding).strip()
+
+
+def type_information_in_qute_browser(text):
+    for character in text:
+        # Escape all characters by default, space requires special handling
+        sequence = '" "' if character == ' ' else '\{}'.format(character)
+        qute_command('fake-key {}'.format(sequence))
+
+def get_selected_item(items):
+    # if we have 1 item available we just use it as the default 
+    if len(items) == 1:
+        return items.pop()
+
+    choices = [
+        '{:s} | {:s} | {:s}'.format(
+            item['name'],
+            item['login']['username'],
+            item['id']
+        ) for item in items
+    ]
+    choice = run_chooser(choices)
+    choice_tokens = choice.split('|')
+    choice_id = choice_tokens[2].strip()
+    choice_name = choice_tokens[0].strip()
+    choice_username = choice_tokens[1].strip()
+
+    for item in items:
+        if (
+            item['name'] == choice_name and 
+            item['id'] == choice_id and 
+            item['login']['username'] == choice_username
+        ):
+            return item
+
+    return None
+
+def main(arguments):
+    if not arguments.url:
+        argument_parser.print_help()
+        return ExitCodes.FAILURE
+
+    extract_result = tldextract.extract(arguments.url)
+    url_parts = filter(None, [
+        extract_result.fqdn,
+        extract_result.registered_domain,
+        extract_result.subdomain + extract_result.domain,
+        extract_result.domain,
+        extract_result.ipv4
+    ])
+
+    # find items for given url
+    items = []
+    for part in url_parts:
+        found_items = json.loads(get_bitwarden_items(part))
+
+        if not found_items:
+            continue
+
+        # get the fist found items and break
+        items = found_items 
+        break
+
+
+    if not items:
+        stderr('No items found for URL {!r} found!'.format(arguments.url))
+        return ExitCodes.NO_ITEMS_FOUND
+
+    selection = get_selected_item(items)
+
+    # Nothing was selected, simply return
+    if not selection:
+        return ExitCodes.SUCCESS
+
+    username = selection['login']['username']
+    password = selection['login']['password']
+
+    print(username, password)
+
+    # enter the username and password in the qutebrowser
+    type_information_in_qute_browser(username)
+    qute_command('fake-key <Tab>')
+    type_information_in_qute_browser(password)
+
+    # enter insert mode
+    qute_command('mode-enter insert')
+
+    return ExitCodes.SUCCESS
+
+
+if __name__ == '__main__':
+    arguments = argument_parser.parse_args()
+    sys.exit(main(arguments))
+
