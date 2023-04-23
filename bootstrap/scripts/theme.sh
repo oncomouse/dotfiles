@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-/usr/bin/env python ~/dotfiles/scripts/wal/custom_wal.py --theme tempus_classic
+pip3 install pywal
+/usr/bin/env python ~/dotfiles/scripts/wal/custom_wal.py --theme catppuccin-mocha
