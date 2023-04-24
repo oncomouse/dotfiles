@@ -144,8 +144,8 @@ nvim_treesitter.setup_config = function(opts)
 				buffer_toggle_force_disable(vim.api.nvim_get_current_buf())
 				vim.cmd([[TSBufToggle highlight]])
 			end, { buffer = true })
-			vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-			vim.opt_local.foldmethod = "expr"
+			-- vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+			-- vim.opt_local.foldmethod = "expr"
 		end,
 		desc = "Set fold method for treesitter",
 	})
