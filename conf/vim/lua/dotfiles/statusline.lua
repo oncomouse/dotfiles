@@ -134,17 +134,17 @@ M.section_diagnostics = function(args)
 			{
 				id = vim.diagnostic.severity.ERROR,
 				sign = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
-				hl = "MiniStatsulineDiagnosticError",
+				hl = "MiniStatuslineDiagnosticError",
 			},
 			{
 				id = vim.diagnostic.severity.WARN,
 				sign = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
-				hl = "MiniStatsulineDiagnosticWarn",
+				hl = "MiniStatuslineDiagnosticWarn",
 			},
 			{
 				id = vim.diagnostic.severity.INFO,
 				sign = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
-				hl = "MiniStatsulineDiagnosticInfo",
+				hl = "MiniStatuslineDiagnosticInfo",
 			},
 			{
 				id = vim.diagnostic.severity.HINT,
