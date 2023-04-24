@@ -65,6 +65,13 @@ local plugins = {
 			"windwp/nvim-ts-autotag",
 		},
 	}, -- Syntax
+	{
+		"kevinhwang91/nvim-ufo",
+		lazy = true,
+		dependencies = {
+			"kevinhwang91/promise-async",
+		},
+	},
 }
 
 --------------------------------------------------------------------------------
@@ -787,3 +794,16 @@ require("nvim-treesitter.configs").setup({
 	autotag = { enable = true },
 	highlight = { enable = true },
 })
+
+--------------------------------------------------------------------------------
+-- UFO for Fancy Folds
+--------------------------------------------------------------------------------
+require("ufo").setup({
+	provider_selector = function(bufnr, filetype, buftype)
+		return { "treesitter", "indent" }
+	end,
+})
+vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
+vim.keymap.set("n", "zm", require("ufo").closeFoldsWith)
