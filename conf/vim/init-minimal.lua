@@ -35,6 +35,34 @@ local plugins = {
 					MiniStatuslineModeReplace = { style = {} },
 					MiniStatuslineModeCommand = { style = {} },
 					MiniStatuslineModeOther = { style = {} },
+					MiniTablineCurrent = {
+						fg = colors.subtext0,
+						style = {},
+					},
+					MiniTablineVisible = {
+						fg = colors.surface1
+					},
+					MiniTablineHidden = {
+						fg = colors.surface1
+					},
+					MiniTablineModifiedCurrent = {
+						fg = colors.subtext0,
+						style = {
+							'bold'
+						},
+					},
+					MiniTablineModifiedVisible = {
+						fg = colors.surface1,
+						style = {
+							'bold'
+						},
+					},
+					MiniTablineModifiedHidden = {
+						fg = colors.surface1,
+						style = {
+							'bold'
+						},
+					},
 				}
 			end,
 		},
@@ -741,6 +769,11 @@ vim.api.nvim_create_autocmd("FileType", {
 			custom_surroundings = custom_surroundings[ft],
 		}
 	end,
+})
+
+require("mini.tabline").setup({
+	set_vim_settings = false,
+	tabpage_section = "none",
 })
 
 --------------------------------------------------------------------------------
