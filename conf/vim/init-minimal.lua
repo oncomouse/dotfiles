@@ -240,10 +240,11 @@ vim.opt.expandtab = false
 -- Functions:
 --------------------------------------------------------------------------------
 
+vim.opt.listchars:append("tab:│ ")
 local function set_list_chars()
 	if vim.opt.expandtab:get() then
 		vim.opt_local.listchars = vim.opt_local.listchars
-			+ ("multispace:>" .. vim.fn["repeat"](" ", vim.opt.shiftwidth:get() - 1))
+			+ ("multispace:│" .. vim.fn["repeat"](" ", vim.opt.shiftwidth:get() - 1))
 	end
 end
 
@@ -652,7 +653,7 @@ require("mini.comment").setup({})
 
 -- Indentscope:
 require("mini.indentscope").setup({
-	symbol = ">",
+	symbol = "│",
 	options = { try_as_border = true },
 	draw = {
 		animation = require("mini.indentscope").gen_animation.none(),
