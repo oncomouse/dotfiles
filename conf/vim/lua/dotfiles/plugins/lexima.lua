@@ -5,28 +5,28 @@ local function make_markdown_bi_rule(char, escape)
 		{
 			char = char,
 			input_after = char,
-			filetype = "markdown",
+			filetype = { "text", "markdown" },
 			except = [[^]] .. esc_char .. [[\{0,1\}\%#]],
 		}, -- Create italic pair
 		{
 			char = char,
 			at = [[\%#]] .. esc_char,
 			leave = char,
-			filetype = "markdown",
+			filetype = { "text", "markdown" },
 			except = esc_char .. [[\{1\}\%#]],
 		}, -- Leave italic pair
 		{
 			char = char,
 			at = esc_char .. esc_char .. [[.\+\%#]] .. esc_char,
 			leave = 2,
-			filetype = "markdown",
+			filetype = { "text", "markdown" },
 			except = esc_char .. [[\{1\}\%#]],
 		}, -- Leave bold pair
 		{
 			char = "<BS>",
 			at = esc_char .. [[\%#]] .. esc_char,
 			delete = char,
-			filetype = "markdown",
+			filetype = { "text", "markdown" },
 		}, -- Delete pair
 	}
 end
@@ -118,38 +118,38 @@ vim.g.dotfiles_lexima_rules = {
 		leave = "]",
 		input = "(",
 		input_after = ")",
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 	},
 	-- Blockquotes:
 	{
 		char = "<BS>",
 		input = "<BS><BS>",
 		at = [[^> \%#]],
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 	},
 	{
 		char = "<CR>",
 		at = [[^> .\+\%#$]],
 		input = "<CR>> ",
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 	},
 	{
 		char = "<CR>",
 		at = [[^> \%#$]],
 		input = "<BS><BS><CR>",
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 	},
 	{
 		char = ">",
 		input = "> ",
 		at = [[^\%#]],
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 	},
 	-- Unordered Lists:
 	{
 		char = "<CR>",
 		at = [[^\s*\([*-]\) .*\%#$]],
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 		with_submatch = true,
 		input = [[<CR>\1 ]],
 		except = [[^\s*\([*-]\) \%#$]],
@@ -157,13 +157,13 @@ vim.g.dotfiles_lexima_rules = {
 	{
 		char = "<CR>",
 		at = [[^\s*\([*-]\) \%#$]],
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 		input = [[<Home><C-O>"_D<CR>]],
 	},
 	{
 		char = "<BS>",
 		at = [[^\(\s*\)[*-] \%#$]],
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 		with_submatch = true,
 		input = [[<Home><C-O>"_D\1]],
 	},
@@ -171,7 +171,7 @@ vim.g.dotfiles_lexima_rules = {
 	{
 		char = "<CR>",
 		at = [[^\s*\([0-9]\+\)\..*\%#$]],
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 		with_submatch = true,
 		input = [[<CR>\1. <Home><C-o>:exec "normal! \<c-a\>" "$"<CR>]],
 		except = [[^\s*\([0-9]\)\. \%#$]],
@@ -179,13 +179,13 @@ vim.g.dotfiles_lexima_rules = {
 	{
 		char = "<CR>",
 		at = [[^\s*\([0-9]\+\)\. \%#$]],
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 		input = [[<Home><C-O>"_D<CR>]],
 	},
 	{
 		char = "<BS>",
 		at = [[^\(\s*\)[0-9]\+\. \%#$]],
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 		with_submatch = true,
 		input = [[<Home><C-O>"_D\1]],
 	},
@@ -194,13 +194,13 @@ vim.g.dotfiles_lexima_rules = {
 		char = "[",
 		input = "[ ]",
 		at = [[^\s*[*-\d]\+\.\{0,1\} \s*\%#]],
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 	},
 	{
 		char = "<BS>",
 		input = "<BS><BS><BS>",
 		at = [[^\s*[*-\d]\+\.\{0,1\} \s*\[.\]\%#]],
-		filetype = "markdown",
+		filetype = { "text", "markdown" },
 	},
 	-- Bold/Italic Pairs:
 	make_markdown_bi_rule("*", true),
@@ -209,20 +209,20 @@ vim.g.dotfiles_lexima_rules = {
 	-- 	char = "*",
 	-- 	input = "* ",
 	-- 	at = [[^\%#]],
-	-- 	filetype = "markdown",
+	-- 	filetype = { "text", "markdown" },
 	-- },
 	-- {
 	-- 	char = "<CR>",
 	-- 	at = [[^\s*\([-*]\) \S\+.*\%#$]],
 	-- 	input = [[\<CR\>\1 ]],
-	-- 	filetype = "markdown",
+	-- 	filetype = { "text", "markdown" },
 	-- 	with_submatch = 1,
 	-- },
 	-- {
 	-- 	char = "<BS>",
 	-- 	at = [[^\s*[-*] \%#]],
 	-- 	input = [[<BS><BS>]], -- in insx, this can be delete the whole line
-	-- 	filetype = "markdown",
+	-- 	filetype = { "text", "markdown" },
 	-- },
 
 	-- XML closing tags:
