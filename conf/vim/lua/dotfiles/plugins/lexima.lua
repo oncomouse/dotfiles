@@ -1,260 +1,12 @@
--- Rule Making Functions:
-local function make_markdown_bi_rule(char, escape)
-	local esc_char = escape and [[\]] .. char or char
-	return {
-		{
-			char = char,
-			input_after = char,
-			filetype = { "text", "markdown" },
-			except = [[^]] .. esc_char .. [[\{0,1\}\%#]],
-		}, -- Create italic pair
-		{
-			char = char,
-			at = [[\%#]] .. esc_char,
-			leave = char,
-			filetype = { "text", "markdown" },
-			except = esc_char .. [[\{1\}\%#]],
-		}, -- Leave italic pair
-		{
-			char = char,
-			at = esc_char .. esc_char .. [[.\+\%#]] .. esc_char,
-			leave = 2,
-			filetype = { "text", "markdown" },
-			except = esc_char .. [[\{1\}\%#]],
-		}, -- Leave bold pair
-		{
-			char = "<BS>",
-			at = esc_char .. [[\%#]] .. esc_char,
-			delete = char,
-			filetype = { "text", "markdown" },
-		}, -- Delete pair
-	}
-end
-
--- XML-style closetag:
--- local function xml_closetag_rules()
--- 	if vim.g.lexima_disable_closetag == 0 then
--- 		local output = {}
--- 		for _, ft in pairs({ "html", "xml", "javascript", "javascriptreact" }) do
--- 			table.insert(output, { char = "<", input_after = ">", filetype = ft })
--- 			table.insert(output, {
--- 				char = "<BS>",
--- 				at = [[<\%#>]],
--- 				delete = 1,
--- 				filetype = ft,
--- 			})
--- 			table.insert(output, {
--- 				char = ">",
--- 				at = [[<\(\w\+\)[^>]*\%#>]],
--- 				leave = 1,
--- 				input_after = [[</\1>]],
--- 				with_submatch = 1,
--- 				filetype = ft,
--- 			})
--- 		end
--- 		return output
--- 	end
--- 	return nil
--- end
-
-local function lua_endwise_rules()
-	-- Lua endwise rules:
-	if vim.g.lexima_enable_endwise_rules == 1 then
-		-- local output = {}
-		local function make_endwise_rule(at, ed, ft, syn)
-			return {
-				char = "<CR>",
-				input = "<CR>",
-				input_after = "<CR>" .. ed,
-				at = at,
-				except = [[\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1]] .. ed,
-				filetype = ft,
-				syntax = syn,
-			}
-		end
-		return {
-			make_endwise_rule([[^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}),
-			make_endwise_rule([[^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}),
-			make_endwise_rule([[^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}),
-		}
-	end
-	return nil
-end
-
--- Lexima Settings:
-vim.g.lexima_enable_space_rules = 0
-vim.g.lexima_enable_endwise_rules = 1
-vim.g.lexima_disable_closetag = 0
-vim.g.lexima_no_default_rules = 1
-
--- Lexima Rules
-vim.g.dotfiles_lexima_rules = {
-	-- Correct unbalanced pairs:
-	{
-		char = "<BS>",
-		at = [[""\%#"]],
-		delete = 1,
-		input = [[<BS><BS>"]],
-		input_after = [["]],
-	},
-	{
-		char = "<BS>",
-		at = [[((\%#)]],
-		delete = 1,
-		input = [[<BS><BS>(]],
-		input_after = [[)]],
-	},
-	{
-		char = "<BS>",
-		at = [[[^(](\%#))]],
-		delete = 1,
-	},
-	-- Markdown rules:
-	-- Links:
-	{
-		char = "]",
-		at = [=[\[[^]]*\%#\]]=],
-		except = [=[\[@[^]]*\%#\]]=],
-		leave = "]",
-		input = "(",
-		input_after = ")",
-		filetype = { "text", "markdown" },
-	},
-	-- Blockquotes:
-	{
-		char = "<BS>",
-		input = "<BS><BS>",
-		at = [[^> \%#]],
-		filetype = { "text", "markdown" },
-	},
-	{
-		char = "<CR>",
-		at = [[^> .\+\%#$]],
-		input = "<CR>> ",
-		filetype = { "text", "markdown" },
-	},
-	{
-		char = "<CR>",
-		at = [[^> \%#$]],
-		input = "<BS><BS><CR>",
-		filetype = { "text", "markdown" },
-	},
-	{
-		char = ">",
-		input = "> ",
-		at = [[^\%#]],
-		filetype = { "text", "markdown" },
-	},
-	-- Unordered Lists:
-	{
-		char = "<CR>",
-		at = [[^\s*\([*-]\) .*\%#$]],
-		filetype = { "text", "markdown" },
-		with_submatch = true,
-		input = [[<CR>\1 ]],
-		except = [[^\s*\([*-]\) \%#$]],
-	},
-	{
-		char = "<CR>",
-		at = [[^\s*\([*-]\) \%#$]],
-		filetype = { "text", "markdown" },
-		input = [[<Home><C-O>"_D<CR>]],
-	},
-	{
-		char = "<BS>",
-		at = [[^\(\s*\)[*-] \%#$]],
-		filetype = { "text", "markdown" },
-		with_submatch = true,
-		input = [[<Home><C-O>"_D\1]],
-	},
-	-- Ordered Lists (including automatic increment):
-	{
-		char = "<CR>",
-		at = [[^\s*\([0-9]\+\)\..*\%#$]],
-		filetype = { "text", "markdown" },
-		with_submatch = true,
-		input = [[<CR>\1. <Home><C-o>:exec "normal! \<c-a\>" "$"<CR>]],
-		except = [[^\s*\([0-9]\)\. \%#$]],
-	},
-	{
-		char = "<CR>",
-		at = [[^\s*\([0-9]\+\)\. \%#$]],
-		filetype = { "text", "markdown" },
-		input = [[<Home><C-O>"_D<CR>]],
-	},
-	{
-		char = "<BS>",
-		at = [[^\(\s*\)[0-9]\+\. \%#$]],
-		filetype = { "text", "markdown" },
-		with_submatch = true,
-		input = [[<Home><C-O>"_D\1]],
-	},
-	-- Tasks:
-	{
-		char = "[",
-		input = "[ ]",
-		at = [[^\s*[*-\d]\+\.\{0,1\} \s*\%#]],
-		filetype = { "text", "markdown" },
-	},
-	{
-		char = "<BS>",
-		input = "<BS><BS><BS>",
-		at = [[^\s*[*-\d]\+\.\{0,1\} \s*\[.\]\%#]],
-		filetype = { "text", "markdown" },
-	},
-	-- Bold/Italic Pairs:
-	make_markdown_bi_rule("*", true),
-	make_markdown_bi_rule("_"),
-	-- {
-	-- 	char = "*",
-	-- 	input = "* ",
-	-- 	at = [[^\%#]],
-	-- 	filetype = { "text", "markdown" },
-	-- },
-	-- {
-	-- 	char = "<CR>",
-	-- 	at = [[^\s*\([-*]\) \S\+.*\%#$]],
-	-- 	input = [[\<CR\>\1 ]],
-	-- 	filetype = { "text", "markdown" },
-	-- 	with_submatch = 1,
-	-- },
-	-- {
-	-- 	char = "<BS>",
-	-- 	at = [[^\s*[-*] \%#]],
-	-- 	input = [[<BS><BS>]], -- in insx, this can be delete the whole line
-	-- 	filetype = { "text", "markdown" },
-	-- },
-
-	-- XML closing tags:
-	-- xml_closetag_rules(),
-
-	-- Insert Lua endwise rules:
-	lua_endwise_rules(),
-
-	-- Rules for help files:
-	{
-		char = "<Bar>",
-		input_after = "<Bar>",
-		filetype = "help",
-	},
-	{
-		char = "<Bar>",
-		at = [[\%#|]],
-		leave = 1,
-		filetype = "help",
-	},
-	{
-		char = "<BS>",
-		at = [[|\%#|]],
-		delete = 1,
-		filetype = "help",
-	},
-}
-
 return {
 	"cohama/lexima.vim", -- Autopairs
 	init = function()
+		-- Lexima Settings:
 		vim.g.lexima_map_escape = ""
+		vim.g.lexima_enable_space_rules = 0
+		vim.g.lexima_enable_endwise_rules = 1
+		vim.g.lexima_disable_closetag = 0
+		vim.g.lexima_no_default_rules = 1
 	end,
 	event = "InsertEnter",
 	keys = {
@@ -266,25 +18,210 @@ return {
 		},
 	},
 	config = function()
+		-- Load default rules:
 		vim.fn["lexima#set_default_rules"]()
+
+		-- Utilities:
 		local add_rule = vim.fn["lexima#add_rule"]
+		local function make_endwise_rule(at, ed, ft, syn)
+			add_rule({
+				char = "<CR>",
+				input = "<CR>",
+				input_after = "<CR>" .. ed,
+				at = at,
+				except = [[\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1]] .. ed,
+				filetype = ft,
+				syntax = syn,
+			})
+		end
+
+		-- Map leave to eol:
 		vim.keymap.set(
 			"i",
 			"<Plug>(dotfiles-lexima-leave-til-eol)",
 			'<C-r>=lexima#insmode#leave_till_eol("")<CR>',
 			{ noremap = true }
 		)
-
-		for _, rule in pairs(vim.g.dotfiles_lexima_rules) do
-			if type(rule) == "table" then
-				if #rule == 0 then
-					add_rule(rule)
-				else
-					for _, r in pairs(rule) do
-						add_rule(r)
-					end
-				end
-			end
+		-- Rule Making Functions:
+		local function make_markdown_bi_rule(char, escape)
+			local esc_char = escape and [[\]] .. char or char
+			add_rule({
+				char = char,
+				input_after = char,
+				filetype = { "text", "markdown" },
+				except = [[^]] .. esc_char .. [[\{0,1\}\%#]],
+			}) -- Create italic pair
+			add_rule({
+				char = char,
+				at = [[\%#]] .. esc_char,
+				leave = char,
+				filetype = { "text", "markdown" },
+				except = esc_char .. [[\{1\}\%#]],
+			}) -- Leave italic pair
+			add_rule({
+				char = char,
+				at = esc_char .. esc_char .. [[.\+\%#]] .. esc_char,
+				leave = 2,
+				filetype = { "text", "markdown" },
+				except = esc_char .. [[\{1\}\%#]],
+			}) -- Leave bold pair
+			add_rule({
+				char = "<BS>",
+				at = esc_char .. [[\%#]] .. esc_char,
+				delete = char,
+				filetype = { "text", "markdown" },
+			}) -- Delete pair
 		end
+
+		local function lua_endwise_rules()
+			-- Lua endwise rules:
+			if vim.g.lexima_enable_endwise_rules == 1 then
+				make_endwise_rule([[^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
+				make_endwise_rule([[^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
+				make_endwise_rule([[^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
+			end
+			return nil
+		end
+
+		-- Lexima Rules
+		-- Correct unbalanced pairs:
+		add_rule({
+			char = "<BS>",
+			at = [[""\%#"]],
+			delete = 1,
+			input = [[<BS><BS>"]],
+			input_after = [["]],
+		})
+		add_rule({
+			char = "<BS>",
+			at = [[((\%#)]],
+			delete = 1,
+			input = [[<BS><BS>(]],
+			input_after = [[)]],
+		})
+		add_rule({
+			char = "<BS>",
+			at = [[[^(](\%#))]],
+			delete = 1,
+		})
+
+		-- Markdown rules:
+		-- Links:
+		add_rule({
+			char = "]",
+			at = [=[\[[^]]*\%#\]]=],
+			except = [=[\[@[^]]*\%#\]]=],
+			leave = "]",
+			input = "(",
+			input_after = ")",
+			filetype = { "text", "markdown" },
+		})
+		-- Blockquotes:
+		add_rule({
+			char = "<BS>",
+			input = "<BS><BS>",
+			at = [[^> \%#]],
+			filetype = { "text", "markdown" },
+		})
+		add_rule({
+			char = "<CR>",
+			at = [[^> .\+\%#$]],
+			input = "<CR>> ",
+			filetype = { "text", "markdown" },
+		})
+		add_rule({
+			char = "<CR>",
+			at = [[^> \%#$]],
+			input = "<BS><BS><CR>",
+			filetype = { "text", "markdown" },
+		})
+		add_rule({
+			char = ">",
+			input = "> ",
+			at = [[^\%#]],
+			filetype = { "text", "markdown" },
+		})
+		-- Unordered Lists:
+		add_rule({
+			char = "<CR>",
+			at = [[^\s*\([*-]\) .*\%#$]],
+			filetype = { "text", "markdown" },
+			with_submatch = true,
+			input = [[<CR>\1 ]],
+			except = [[^\s*\([*-]\) \%#$]],
+		})
+		add_rule({
+			char = "<CR>",
+			at = [[^\s*\([*-]\) \%#$]],
+			filetype = { "text", "markdown" },
+			input = [[<Home><C-O>"_D<CR>]],
+		})
+		add_rule({
+			char = "<BS>",
+			at = [[^\(\s*\)[*-] \%#$]],
+			filetype = { "text", "markdown" },
+			with_submatch = true,
+			input = [[<Home><C-O>"_D\1]],
+		})
+		-- Ordered Lists (including automatic increment):
+		add_rule({
+			char = "<CR>",
+			at = [[^\s*\([0-9]\+\)\..*\%#$]],
+			filetype = { "text", "markdown" },
+			with_submatch = true,
+			input = [[<CR>\1. <Home><C-o>:exec "normal! \<c-a\>" "$"<CR>]],
+			except = [[^\s*\([0-9]\)\. \%#$]],
+		})
+		add_rule({
+			char = "<CR>",
+			at = [[^\s*\([0-9]\+\)\. \%#$]],
+			filetype = { "text", "markdown" },
+			input = [[<Home><C-O>"_D<CR>]],
+		})
+		add_rule({
+			char = "<BS>",
+			at = [[^\(\s*\)[0-9]\+\. \%#$]],
+			filetype = { "text", "markdown" },
+			with_submatch = true,
+			input = [[<Home><C-O>"_D\1]],
+		})
+		-- Tasks:
+		add_rule({
+			char = "[",
+			input = "[ ]",
+			at = [[^\s*[*-\d]\+\.\{0,1\} \s*\%#]],
+			filetype = { "text", "markdown" },
+		})
+		add_rule({
+			char = "<BS>",
+			input = "<BS><BS><BS>",
+			at = [[^\s*[*-\d]\+\.\{0,1\} \s*\[.\]\%#]],
+			filetype = { "text", "markdown" },
+		})
+		-- Bold/Italic Pairs:
+		make_markdown_bi_rule("*", true)
+		make_markdown_bi_rule("_")
+
+		-- Lua endwise rules:
+		lua_endwise_rules()
+
+		-- Rules for help files:
+		add_rule({
+			char = "<Bar>",
+			input_after = "<Bar>",
+			filetype = "help",
+		})
+		add_rule({
+			char = "<Bar>",
+			at = [[\%#|]],
+			leave = 1,
+			filetype = "help",
+		})
+		add_rule({
+			char = "<BS>",
+			at = [[|\%#|]],
+			delete = 1,
+			filetype = "help",
+		})
 	end,
 }
