@@ -832,6 +832,7 @@ require("nvim-treesitter.configs").setup({
 -- UFO for Fancy Folds
 --------------------------------------------------------------------------------
 require("ufo").setup({
+	-- selene: allow(unused_variable)
 	provider_selector = function(bufnr, filetype, buftype)
 		return { "treesitter", "indent" }
 	end,

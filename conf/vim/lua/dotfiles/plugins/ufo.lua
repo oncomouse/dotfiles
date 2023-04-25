@@ -2,6 +2,7 @@ return {
 	"kevinhwang91/nvim-ufo",
 	event = "VeryLazy",
 	opts = {
+		-- selene: allow(unused_variable)
 		provider_selector = function(bufnr, filetype, buftype)
 			return { "treesitter", "indent" }
 		end,
