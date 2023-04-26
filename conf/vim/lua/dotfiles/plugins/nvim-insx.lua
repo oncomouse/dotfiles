@@ -1,0 +1,377 @@
+return {
+	-- "hrsh7th/nvim-insx", -- Autopairs
+	-- event = "InsertEnter",
+	-- config = function()
+	-- 	require("insx.preset.standard").setup()
+	--
+	-- 	-- Map leave to eol:
+	-- 	vim.keymap.set(
+	-- 		"i",
+	-- 		"<Plug>(dotfiles-lexima-leave-til-eol)",
+	-- 		'<C-r>=lexima#insmode#leave_till_eol("")<CR>',
+	-- 		{ noremap = true }
+	-- 	)
+	--
+	-- 	local function get_indent_chars(indent_depth)
+	-- 		if vim.opt.expandtab:get() then
+	-- 			return vim.fn["repeat"](" ", indent_depth)
+	-- 		else
+	-- 			return vim.fn["repeat"]("\t", indent_depth / vim.opt.tabstop:get())
+	-- 				.. vim.fn["repeat"](" ", indent_depth % vim.opt.tabstop:get())
+	-- 		end
+	-- 	end
+	-- 	local insx = require("insx")
+	-- 	local function add_rule(rule)
+	-- 		insx.add(rule.char, {
+	-- 			action = function(ctx)
+	-- 				local output = ""
+	--
+	-- 				local base_string, pattern
+	-- 				if rule.with_submatch then
+	-- 					local at = type(rule.at) == "function" and rule.at(ctx) or rule.at
+	-- 					local at_start_pos = ctx.search(at)
+	-- 					at_start_pos[1] = at_start_pos[1] + 1
+	-- 					at_start_pos[2] = at_start_pos[2] + 1
+	-- 					local search_limit = vim.fn.max({ 0, ctx:row() - 20 })
+	-- 					local at_end_pos = vim.fn.searchpos(at, "bcWne", search_limit)
+	-- 					if at_end_pos[1] == 0 and at_end_pos[2] == 0 then
+	-- 						at_end_pos = vim.fn.searchpos(at, "cWne", search_limit)
+	-- 					end
+	-- 					local context = vim.fn
+	-- 						.join(vim.fn.getline(at_start_pos[1], at_end_pos[1]), "\n")
+	-- 						:sub(at_start_pos[2] - 1, at_end_pos[2])
+	-- 					pattern = vim.fn.substitute(at, "\\\\%#", "", "")
+	-- 					base_string = vim.fn.matchstr(context, pattern)
+	-- 				end
+	-- 				if rule.input then
+	-- 					local input = type(rule.input) == "function" and rule.input(ctx) or rule.input
+	-- 					if base_string then
+	-- 						input = vim.fn.substitute(base_string, pattern, input, "")
+	-- 					end
+	--
+	-- 					output = output .. input
+	-- 				else
+	-- 					output = rule.char
+	-- 				end
+	--
+	-- 				if rule.delete then
+	-- 					local count = 0
+	-- 					local delete = type(rule.delete) == "string" and string.find(ctx.after(), rule.delete)
+	-- 						or rule.delete
+	-- 					while count < delete do
+	-- 						output = output .. "<Del>"
+	-- 						count = count + 1
+	-- 					end
+	-- 				end
+	--
+	-- 				if rule.input_after then
+	-- 					local input_after = type(rule.input_after) == "function" and rule.input_after(ctx)
+	-- 						or rule.input_after
+	-- 					if base_string then
+	-- 						input_after = vim.fn.substitute(base_string, pattern, rule.input_after, "")
+	-- 					end
+	-- 					output = output .. input_after
+	-- 					local count = 0
+	-- 					while count < #input_after do
+	-- 						output = output .. "<Left>"
+	-- 						count = count + 1
+	-- 					end
+	-- 					-- if vim.fn.match(input_after, [[<CR>\c]]) then
+	-- 					-- 	local lines = vim.fn.split(input_after, [[<CR>\c]], true)
+	-- 					-- 	local count = 0
+	-- 					-- 	while count < #lines - 1 do
+	-- 					-- 		output = output .. "<Up>"
+	-- 					-- 		count = count + 1
+	-- 					-- 	end
+	-- 					-- 	-- ctx.send(output)
+	-- 					-- 	-- output = ""
+	-- 					-- 	local indentexpr = vim.opt.indentexpr:get()
+	-- 					-- 	local indent
+	-- 					-- 	if indentexpr == "" or indentexpr == nil then
+	-- 					-- 		if vim.opt.smartindent:get() or vim.opt.cindent:get() then
+	-- 					-- 			indent = vim.fn.cindent(ctx.row() + 1)
+	-- 					-- 		elseif vim.opt.autoindent:get() then
+	-- 					-- 			indent = vim.fn.indent(ctx.row())
+	-- 					-- 		end
+	-- 					-- 	else
+	-- 					-- 		indent = vim.api.nvim_cmd(
+	-- 					-- 			vim.api.nvim_parse_cmd("echo " .. vim.opt.indentexpr:get(), {}),
+	-- 					-- 			{ output = true }
+	-- 					-- 		)
+	-- 					-- 	end
+	-- 					-- 	output = output .. get_indent_chars(indent)
+	-- 					-- end
+	-- 					-- if vim.fn.match(input_after, [[<CR>\c]]) then
+	-- 					-- 	local lines = vim.fn.split(input_after, [[<CR>\c]], true)
+	-- 					-- 	local first_line = lines[1]
+	-- 					-- 	table.remove(lines, 1)
+	-- 					-- 	output = output .. first_line
+	-- 					-- 	local count = 0
+	-- 					-- 	while count < #first_line do
+	-- 					-- 		output = output .. "<Left>"
+	-- 					-- 		count = count + 1
+	-- 					-- 	end
+	-- 					--
+	-- 					-- 	ctx.send(output)
+	-- 					-- 	output = ""
+	-- 					-- 	local indentexpr = vim.opt.indentexpr:get()
+	-- 					-- 	local indent
+	-- 					-- 	if indentexpr == "" or indentexpr == nil then
+	-- 					-- 		if vim.opt.smartindent:get() or vim.opt.cindent:get() then
+	-- 					-- 			indent = vim.fn.cindent(ctx.row() + 1)
+	-- 					-- 		elseif vim.opt.autoindent:get() then
+	-- 					-- 			indent = vim.fn.indent(ctx.row())
+	-- 					-- 		end
+	-- 					-- 	else
+	-- 					-- 		indent = vim.api.nvim_cmd(
+	-- 					-- 			vim.api.nvim_parse_cmd("echo " .. vim.opt.indentexpr:get(), {}),
+	-- 					-- 			{ output = true }
+	-- 					-- 		)
+	-- 					-- 	end
+	-- 					-- 	ctx.send(get_indent_chars(indent))
+	-- 					-- 	-- if #lines > 0 then
+	-- 					-- 	-- 	vim.print(lines)
+	-- 					-- 	-- 	for _, line in pairs(lines) do
+	-- 					-- 	-- 		ctx.send(line .. "<CR>")
+	-- 					-- 	-- 		output = output .. "<Up>"
+	-- 					-- 	-- 	end
+	-- 					-- 	-- end
+	-- 					-- else
+	-- 					-- 	local count = 0
+	-- 					-- 	while count < #input_after do
+	-- 					-- 		output = output .. "<Left>"
+	-- 					-- 		count = count + 1
+	-- 					-- 	end
+	-- 					-- end
+	-- 				end
+	--
+	-- 				if rule.leave then
+	-- 					local count = 0
+	-- 					while count < rule.leave do
+	-- 						output = output .. "<Right>"
+	-- 						count = count + 1
+	-- 					end
+	-- 				end
+	--
+	-- 				ctx.send(#output == 0 and rule.char or output)
+	-- 			end,
+	-- 			enabled = function(ctx)
+	-- 				if rule.filetype then
+	-- 					local ft = type(rule.filetype) == "table" and rule.filetype or { rule.filetype }
+	-- 					if not vim.tbl_contains(ft, ctx.filetype) then
+	-- 						return false
+	-- 					end
+	-- 				end
+	--
+	-- 				if rule.at then
+	-- 					local at = type(rule.at) == "function" and rule.at(ctx) or rule.at
+	-- 					if not ctx.match(at) then
+	-- 						return false
+	-- 					end
+	-- 				end
+	--
+	-- 				if rule.except then
+	-- 					local except = type(rule.except) == "function" and rule.except(ctx) or rule.except
+	-- 					if ctx.match(except) then
+	-- 						return false
+	-- 					end
+	-- 				end
+	--
+	-- 				return true
+	-- 			end,
+	-- 		})
+	-- 	end
+	-- 	local function make_endwise_rule(at, ed, ft, syn)
+	-- 		add_rule({
+	-- 			char = "<CR>",
+	-- 			input = "<CR>",
+	-- 			input_after = "<CR>" .. ed,
+	-- 			at = at,
+	-- 			except = [[\C\v^(\s*)\S.*\%#\n%(%(\s*|\1\s.+)\n)*\1]] .. ed,
+	-- 			filetype = ft,
+	-- 			syntax = syn,
+	-- 		})
+	-- 	end
+	-- 	-- Rule Making Functions:
+	-- 	local function make_markdown_bi_rule(char, escape)
+	-- 		local esc_char = escape and [[\]] .. char or char
+	-- 		add_rule({
+	-- 			char = char,
+	-- 			input_after = char,
+	-- 			filetype = { "text", "markdown" },
+	-- 			except = [[^]] .. esc_char .. [[\{0,1\}\%#]],
+	-- 		}) -- Create italic pair
+	-- 		add_rule({
+	-- 			char = char,
+	-- 			at = [[\%#]] .. esc_char,
+	-- 			leave = char,
+	-- 			filetype = { "text", "markdown" },
+	-- 			except = esc_char .. [[\{1\}\%#]],
+	-- 		}) -- Leave italic pair
+	-- 		add_rule({
+	-- 			char = char,
+	-- 			at = esc_char .. esc_char .. [[.\+\%#]] .. esc_char,
+	-- 			leave = 2,
+	-- 			filetype = { "text", "markdown" },
+	-- 			except = esc_char .. [[\{1\}\%#]],
+	-- 		}) -- Leave bold pair
+	-- 		add_rule({
+	-- 			char = "<BS>",
+	-- 			at = esc_char .. [[\%#]] .. esc_char,
+	-- 			delete = char,
+	-- 			filetype = { "text", "markdown" },
+	-- 		}) -- Delete pair
+	-- 	end
+	--
+	-- 	local function lua_endwise_rules()
+	-- 		-- Lua endwise rules:
+	-- 		-- if vim.g.lexima_enable_endwise_rules == 1 then
+	-- 		make_endwise_rule([[^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
+	-- 		make_endwise_rule([[^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
+	-- 		make_endwise_rule([[^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
+	-- 		-- end
+	-- 		return nil
+	-- 	end
+	--
+	-- 	-- Lexima Rules
+	-- 	-- Correct unbalanced pairs:
+	-- 	add_rule({
+	-- 		char = "<BS>",
+	-- 		at = [[""\%#"]],
+	-- 		delete = 1,
+	-- 		input = [[<BS><BS>"]],
+	-- 		input_after = [["]],
+	-- 	})
+	-- 	add_rule({
+	-- 		char = "<BS>",
+	-- 		at = [[((\%#)]],
+	-- 		delete = 1,
+	-- 		input = [[<BS><BS>(]],
+	-- 		input_after = [[)]],
+	-- 	})
+	-- 	add_rule({
+	-- 		char = "<BS>",
+	-- 		at = [[[^(](\%#))]],
+	-- 		delete = 1,
+	-- 	})
+	--
+	-- 	-- Markdown rules:
+	-- 	-- Links:
+	-- 	add_rule({
+	-- 		char = "]",
+	-- 		at = [=[\[[^]]*\%#\]]=],
+	-- 		except = [=[\[@[^]]*\%#\]]=],
+	-- 		leave = "]",
+	-- 		input = "(",
+	-- 		input_after = ")",
+	-- 		filetype = { "text", "markdown" },
+	-- 	})
+	-- 	-- Blockquotes:
+	-- 	add_rule({
+	-- 		char = "<BS>",
+	-- 		input = "<BS><BS>",
+	-- 		at = [[^> \%#]],
+	-- 		filetype = { "text", "markdown" },
+	-- 	})
+	-- 	add_rule({
+	-- 		char = "<CR>",
+	-- 		at = [[^> .\+\%#$]],
+	-- 		input = "<CR>> ",
+	-- 		filetype = { "text", "markdown" },
+	-- 	})
+	-- 	add_rule({
+	-- 		char = "<CR>",
+	-- 		at = [[^> \%#$]],
+	-- 		input = "<BS><BS><CR>",
+	-- 		filetype = { "text", "markdown" },
+	-- 	})
+	-- 	add_rule({
+	-- 		char = ">",
+	-- 		input = "> ",
+	-- 		at = [[^\%#]],
+	-- 		filetype = { "text", "markdown" },
+	-- 	})
+	-- 	-- Unordered Lists:
+	-- 	add_rule({
+	-- 		char = "<CR>",
+	-- 		at = [[^\s*\([*-]\) .*\%#$]],
+	-- 		filetype = { "text", "markdown" },
+	-- 		with_submatch = true,
+	-- 		input = [[<CR>\1 ]],
+	-- 		except = [[^\s*\([*-]\) \%#$]],
+	-- 	})
+	-- 	add_rule({
+	-- 		char = "<CR>",
+	-- 		at = [[^\s*\([*-]\) \%#$]],
+	-- 		filetype = { "text", "markdown" },
+	-- 		input = [[<Home><C-O>"_D<CR>]],
+	-- 	})
+	-- 	add_rule({
+	-- 		char = "<BS>",
+	-- 		at = [[^\(\s*\)[*-] \%#$]],
+	-- 		filetype = { "text", "markdown" },
+	-- 		with_submatch = true,
+	-- 		input = [[<Home><C-O>"_D\1]],
+	-- 	})
+	-- 	-- Ordered Lists (including automatic increment):
+	-- 	add_rule({
+	-- 		char = "<CR>",
+	-- 		at = [[^\s*\([0-9]\+\)\..*\%#$]],
+	-- 		filetype = { "text", "markdown" },
+	-- 		with_submatch = true,
+	-- 		input = [[<CR>\1. <Home><C-o>:exec "normal! \<c-a\>" "$"<CR>]],
+	-- 		except = [[^\s*\([0-9]\)\. \%#$]],
+	-- 	})
+	-- 	add_rule({
+	-- 		char = "<CR>",
+	-- 		at = [[^\s*\([0-9]\+\)\. \%#$]],
+	-- 		filetype = { "text", "markdown" },
+	-- 		input = [[<Home><C-O>"_D<CR>]],
+	-- 	})
+	-- 	add_rule({
+	-- 		char = "<BS>",
+	-- 		at = [[^\(\s*\)[0-9]\+\. \%#$]],
+	-- 		filetype = { "text", "markdown" },
+	-- 		with_submatch = true,
+	-- 		input = [[<Home><C-O>"_D\1]],
+	-- 	})
+	-- 	-- Tasks:
+	-- 	add_rule({
+	-- 		char = "[",
+	-- 		input = "[ ]",
+	-- 		at = [[^\s*[*-0-9]\+\.\{0,1\} \s*\%#]],
+	-- 		filetype = { "text", "markdown" },
+	-- 	})
+	-- 	add_rule({
+	-- 		char = "<BS>",
+	-- 		input = "<BS><BS><BS>",
+	-- 		at = [[^\s*[*-\d]\+\.\{0,1\} \s*\[.\]\%#]],
+	-- 		filetype = { "text", "markdown" },
+	-- 	})
+	-- 	-- Bold/Italic Pairs:
+	-- 	make_markdown_bi_rule("*", true)
+	-- 	make_markdown_bi_rule("_")
+	--
+	-- 	-- Lua endwise rules:
+	-- 	lua_endwise_rules()
+	--
+	-- 	-- Rules for help files:
+	-- 	add_rule({
+	-- 		char = "<Bar>",
+	-- 		input_after = "<Bar>",
+	-- 		filetype = "help",
+	-- 	})
+	-- 	add_rule({
+	-- 		char = "<Bar>",
+	-- 		at = [[\%#|]],
+	-- 		leave = 1,
+	-- 		filetype = "help",
+	-- 	})
+	-- 	add_rule({
+	-- 		char = "<BS>",
+	-- 		at = [[|\%#|]],
+	-- 		delete = 1,
+	-- 		filetype = "help",
+	-- 	})
+	-- end,
+}
