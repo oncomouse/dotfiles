@@ -25,6 +25,12 @@ return {
 	-- 		insx.add(rule.char, {
 	-- 			action = function(ctx)
 	-- 				local output = ""
+	-- 				local move = {
+	-- 					right = 0,
+	-- 					left = 0,
+	-- 					up = 0,
+	-- 					down = 0,
+	-- 				}
 	--
 	-- 				local base_string, pattern
 	-- 				if rule.with_submatch then
@@ -71,89 +77,29 @@ return {
 	-- 						input_after = vim.fn.substitute(base_string, pattern, rule.input_after, "")
 	-- 					end
 	-- 					output = output .. input_after
-	-- 					local count = 0
-	-- 					while count < #input_after do
-	-- 						output = output .. "<Left>"
-	-- 						count = count + 1
+	-- 					local newlines = vim.fn.count(input_after, "<cr>", true)
+	-- 					if newlines > 0 then
+	-- 						local lines = vim.fn.split(input_after, [[<cr>\c]], true)
+	-- 						move.left = move.left + #lines[#lines]
+	-- 						move.up = move.up + newlines
+	-- 					else
+	-- 						move.left = move.left + #input_after
 	-- 					end
-	-- 					-- if vim.fn.match(input_after, [[<CR>\c]]) then
-	-- 					-- 	local lines = vim.fn.split(input_after, [[<CR>\c]], true)
-	-- 					-- 	local count = 0
-	-- 					-- 	while count < #lines - 1 do
-	-- 					-- 		output = output .. "<Up>"
-	-- 					-- 		count = count + 1
-	-- 					-- 	end
-	-- 					-- 	-- ctx.send(output)
-	-- 					-- 	-- output = ""
-	-- 					-- 	local indentexpr = vim.opt.indentexpr:get()
-	-- 					-- 	local indent
-	-- 					-- 	if indentexpr == "" or indentexpr == nil then
-	-- 					-- 		if vim.opt.smartindent:get() or vim.opt.cindent:get() then
-	-- 					-- 			indent = vim.fn.cindent(ctx.row() + 1)
-	-- 					-- 		elseif vim.opt.autoindent:get() then
-	-- 					-- 			indent = vim.fn.indent(ctx.row())
-	-- 					-- 		end
-	-- 					-- 	else
-	-- 					-- 		indent = vim.api.nvim_cmd(
-	-- 					-- 			vim.api.nvim_parse_cmd("echo " .. vim.opt.indentexpr:get(), {}),
-	-- 					-- 			{ output = true }
-	-- 					-- 		)
-	-- 					-- 	end
-	-- 					-- 	output = output .. get_indent_chars(indent)
-	-- 					-- end
-	-- 					-- if vim.fn.match(input_after, [[<CR>\c]]) then
-	-- 					-- 	local lines = vim.fn.split(input_after, [[<CR>\c]], true)
-	-- 					-- 	local first_line = lines[1]
-	-- 					-- 	table.remove(lines, 1)
-	-- 					-- 	output = output .. first_line
-	-- 					-- 	local count = 0
-	-- 					-- 	while count < #first_line do
-	-- 					-- 		output = output .. "<Left>"
-	-- 					-- 		count = count + 1
-	-- 					-- 	end
-	-- 					--
-	-- 					-- 	ctx.send(output)
-	-- 					-- 	output = ""
-	-- 					-- 	local indentexpr = vim.opt.indentexpr:get()
-	-- 					-- 	local indent
-	-- 					-- 	if indentexpr == "" or indentexpr == nil then
-	-- 					-- 		if vim.opt.smartindent:get() or vim.opt.cindent:get() then
-	-- 					-- 			indent = vim.fn.cindent(ctx.row() + 1)
-	-- 					-- 		elseif vim.opt.autoindent:get() then
-	-- 					-- 			indent = vim.fn.indent(ctx.row())
-	-- 					-- 		end
-	-- 					-- 	else
-	-- 					-- 		indent = vim.api.nvim_cmd(
-	-- 					-- 			vim.api.nvim_parse_cmd("echo " .. vim.opt.indentexpr:get(), {}),
-	-- 					-- 			{ output = true }
-	-- 					-- 		)
-	-- 					-- 	end
-	-- 					-- 	ctx.send(get_indent_chars(indent))
-	-- 					-- 	-- if #lines > 0 then
-	-- 					-- 	-- 	vim.print(lines)
-	-- 					-- 	-- 	for _, line in pairs(lines) do
-	-- 					-- 	-- 		ctx.send(line .. "<CR>")
-	-- 					-- 	-- 		output = output .. "<Up>"
-	-- 					-- 	-- 	end
-	-- 					-- 	-- end
-	-- 					-- else
-	-- 					-- 	local count = 0
-	-- 					-- 	while count < #input_after do
-	-- 					-- 		output = output .. "<Left>"
-	-- 					-- 		count = count + 1
-	-- 					-- 	end
-	-- 					-- end
+	--
 	-- 				end
 	--
 	-- 				if rule.leave then
 	-- 					local count = 0
 	-- 					while count < rule.leave do
-	-- 						output = output .. "<Right>"
+	-- 						-- output = output .. "<Right>"
+	-- 						move.right = move.right + 1
 	-- 						count = count + 1
 	-- 					end
 	-- 				end
 	--
 	-- 				ctx.send(#output == 0 and rule.char or output)
+	-- 				local row, col = ctx.row(), ctx.col()
+	-- 				ctx.move(row + move.down - move.up, col + move.right - move.left)
 	-- 			end,
 	-- 			enabled = function(ctx)
 	-- 				if rule.filetype then
