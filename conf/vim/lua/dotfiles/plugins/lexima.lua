@@ -49,8 +49,14 @@ return {
 				char = char,
 				input_after = char,
 				filetype = { "text", "markdown" },
-				except = [[^]] .. esc_char .. [[\{0,1\}\%#]],
+				except = esc_char .. esc_char .. [[.*\%#]] .. esc_char .. esc_char,
 			}) -- Create italic pair
+			add_rule({
+				char = "<Space>",
+				delete = 1,
+				filetype = { "text", "markdown" },
+				except = "^" .. esc_char .. [[\%#]] .. esc_char
+			}) -- Handle bulleted item
 			add_rule({
 				char = char,
 				at = [[\%#]] .. esc_char,
@@ -60,10 +66,9 @@ return {
 			}) -- Leave italic pair
 			add_rule({
 				char = char,
-				at = esc_char .. esc_char .. [[.\+\%#]] .. esc_char,
+				at = esc_char .. esc_char .. [[.*\%#]] .. esc_char .. esc_char,
 				leave = 2,
 				filetype = { "text", "markdown" },
-				except = esc_char .. [[\{1\}\%#]],
 			}) -- Leave bold pair
 			add_rule({
 				char = "<BS>",
