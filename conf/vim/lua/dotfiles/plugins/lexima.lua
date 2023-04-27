@@ -55,7 +55,7 @@ return {
 				char = "<Space>",
 				delete = 1,
 				filetype = { "text", "markdown" },
-				except = "^" .. esc_char .. [[\%#]] .. esc_char
+				at = "^" .. esc_char .. [[\%#]] .. esc_char
 			}) -- Handle bulleted item
 			add_rule({
 				char = char,
