@@ -115,7 +115,7 @@ return {
 		add_rule({
 			char = "]",
 			at = [=[\[[^]]*\%#\]]=],
-			except = [=[\[@[^]]*\%#\]]=],
+			except = [==[\[@[^]]*\%#[^]]*\]]==],
 			leave = "]",
 			input = "(",
 			input_after = ")",
