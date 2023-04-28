@@ -24,7 +24,7 @@ return {
 		-- Utilities:
 		local add_rule = vim.fn["lexima#add_rule"]
 		local function make_endwise_rule(at, ed, ft, syn)
-			add_rule({
+			return {
 				char = "<CR>",
 				input = "<CR>",
 				input_after = "<CR>" .. ed,
@@ -32,7 +32,7 @@ return {
 				except = [[\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1]] .. ed,
 				filetype = ft,
 				syntax = syn,
-			})
+			}
 		end
 
 		-- Map leave to eol:
@@ -76,16 +76,6 @@ return {
 				delete = char,
 				filetype = { "text", "markdown" },
 			}) -- Delete pair
-		end
-
-		local function lua_endwise_rules()
-			-- Lua endwise rules:
-			if vim.g.lexima_enable_endwise_rules == 1 then
-				make_endwise_rule([[^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
-				make_endwise_rule([[^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
-				make_endwise_rule([[^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {})
-			end
-			return nil
 		end
 
 		-- Lexima Rules
@@ -208,7 +198,11 @@ return {
 		make_markdown_bi_rule("_")
 
 		-- Lua endwise rules:
-		lua_endwise_rules()
+		if vim.g.lexima_enable_endwise_rules == 1 then
+			add_rule(make_endwise_rule([[^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
+			add_rule(make_endwise_rule([[^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
+			add_rule(make_endwise_rule([[^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
+		end
 
 		-- Rules for help files:
 		add_rule({
