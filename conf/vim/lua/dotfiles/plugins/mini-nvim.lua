@@ -316,8 +316,16 @@ return {
 			}
 		end,
 		init = function()
+			local augroup = vim.api.nvim_create_augroup("dotfiles-mini_indentscope", {})
+			vim.api.nvim_create_autocmd("TermOpen", {
+				group = augroup,
+				pattern = "*",
+				callback = function()
+					vim.b.miniindentscope_disable = true
+				end,
+			})
 			vim.api.nvim_create_autocmd("FileType", {
-				group = vim.api.nvim_create_augroup("dotfiles-mini_indentscope", {}),
+				group = augroup,
 				pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
 				callback = function()
 					vim.b.miniindentscope_disable = true
