@@ -4,7 +4,12 @@ return {
 	opts = {
 		-- selene: allow(unused_variable)
 		provider_selector = function(bufnr, filetype, buftype)
-			return { "treesitter", "indent" }
+			local lspWithOutFolding = { "markdown", "bash", "sh", "bash", "zsh", "css" }
+			if vim.tbl_contains(lspWithOutFolding, filetype) then
+				return { "treesitter", "indent" }
+			else
+				return { "lsp", "indent" }
+			end
 		end,
 	},
 	dependencies = {
