@@ -184,7 +184,13 @@ return {
 		add_rule({
 			char = "[",
 			input = "[ ]",
-			at = [[^\s*[*-0-9]\+\.\{0,1\} \s*\%#]],
+			at = [[^\s*[*-] \s*\%#]],
+			filetype = { "text", "markdown" },
+		})
+		add_rule({
+			char = "[",
+			input = "[ ]",
+			at = [[^\s*\d\+\. \s*\%#]],
 			filetype = { "text", "markdown" },
 		})
 		add_rule({
