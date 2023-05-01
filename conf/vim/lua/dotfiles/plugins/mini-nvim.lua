@@ -3,6 +3,65 @@
 ---@field col integer
 
 ---@alias ai_type "i" | "a"
+
+local augroup = vim.api.nvim_create_augroup("dotfiles-mini-disable", {})
+-- disable_mini_module(module, opts)
+-- opts == nil -> disable globally
+-- type(opts) == "number" -> disable for buffer number
+-- {
+--	buffer = <buffer number> or true for current buffer,
+--	buftype = { <buftype> } or <buftype>
+--	filetype = { <filetype> } or <filetype>
+--	terminal = true
+-- }
+local function disable_mini_module(module, opts)
+	if opts == nil then
+		vim.g[string.format("mini%s_disable", module)] = true
+		return
+	end
+	if type(opts) == "number" then
+		opts = { buffer = opts }
+	end
+	local var_name = string.format("b:mini%s_disable", module)
+	local buf_disable = string.format("let %s = v:true", var_name)
+	if opts.filetype then
+		opts.filetype = type(opts.filetype) == "string" and { opts.filetype } or opts.filetype
+
+		vim.api.nvim_create_autocmd("FileType", {
+			group = augroup,
+			pattern = opts.filetype,
+			command = buf_disable,
+		})
+	end
+	if opts.terminal then
+		vim.api.nvim_create_autocmd("TermOpen", {
+			group = augroup,
+			pattern = "*",
+			command = buf_disable,
+		})
+	end
+	if opts.buftype then
+		opts.buftype = type(opts.buftype) == "string" and { opts.buftype } or opts.buftype
+		vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+			group = augroup,
+			callback = function()
+				if vim.tbl_contains(opts.buftype, vim.bo.buftype) then
+					vim.cmd(buf_disable)
+				end
+			end,
+		})
+	end
+	if opts.buffer then
+		if vim.tbl_contains({ "boolean", "number" }, opts.buffer) then
+			if opts.buffer == true or opts.buffer == 0 then
+				vim.cmd(buf_disable)
+			else
+				vim.api.nvim_buf_set_var(opts.buffer, var_name, true)
+			end
+		end
+	end
+end
+
 return {
 	{
 		"echasnovski/mini.basics",
@@ -316,20 +375,10 @@ return {
 			}
 		end,
 		init = function()
-			local augroup = vim.api.nvim_create_augroup("dotfiles-mini_indentscope", {})
-			vim.api.nvim_create_autocmd("TermOpen", {
-				group = augroup,
-				pattern = "*",
-				callback = function()
-					vim.b.miniindentscope_disable = true
-				end,
-			})
-			vim.api.nvim_create_autocmd("FileType", {
-				group = augroup,
-				pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
-				callback = function()
-					vim.b.miniindentscope_disable = true
-				end,
+			disable_mini_module("indentscope", {
+				terminal = true,
+				filetype = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+				buftype = { "quickfix" },
 			})
 		end,
 		config = function(_, opts)
@@ -580,7 +629,7 @@ return {
 		lazy = false,
 		opts = {
 			set_vim_settings = false,
-			tabpage_section = 'none',
+			tabpage_section = "none",
 		},
 		config = function(_, opts)
 			require("mini.tabline").setup(opts)
