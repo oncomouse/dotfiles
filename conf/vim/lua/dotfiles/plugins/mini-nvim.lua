@@ -407,7 +407,7 @@ return {
 			local mappings = {}
 			for name, map in pairs(default_mappings) do
 				local m = (opts.mappings and opts.mappings[name]) or map
-				local mode = string.find("^line_", name) and "x" or "n"
+				local mode = string.find(name, "^line_") and "x" or "n"
 				table.insert(mappings, { m, mode = { mode } })
 			end
 
