@@ -45,6 +45,7 @@ return {
 	-- 			end
 	-- 			return ctx.match([==[\%#[^]]*\]]==])
 	-- 		end,
+	-- 		priority = 2,
 	-- 	})
 	-- end,
 -- 	local function add_rule(rule)
