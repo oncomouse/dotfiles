@@ -87,11 +87,11 @@ function action-status {
 	info="$(echo "$output" | head -n 1)"
 	status="$(echo "$output" | head -n 2 | sed -e "s/\[//" -e "s/\].*//" | tail -n 1)"
 	if [ "$status" = "playing" ]; then
-		status="契 "
+		status="󰐊 "
 	elif [ "$status" = "paused" ]; then
-		status=" "
+		status="󰏤 "
 	elif [ "$(echo "$output" | grep -c "\[")" -eq 0 ]; then
-		status="栗"
+		status="󰓛"
 		info=""
 	fi
 	echo "$status$info"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 font="$(rofi-font "$1")"
 offset="$(rofi-offset)"
-choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next%s" "$(if pgrep -x mpd &> /dev/null || pgrep -x mopidy &> /dev/null; then printf "\n Search\n Add Album\n Remove Album"; fi)" | \
+choice=$(printf "󰐊 Play/Pause\n󰓛 Stop\n󰒮 Previous\n󰒭 Next%s" "$(if pgrep -x mpd &> /dev/null || pgrep -x mopidy &> /dev/null; then printf "\n󱁴 Search\n󰷞 Add Album\n Remove Album"; fi)" | \
 	rofi \
 	-match fuzzy \
 	-auto-select \
@@ -9,7 +9,7 @@ choice=$(printf "契 Play/Pause\n栗 Stop\n玲 Previous\n怜 Next%s" "$(if pgrep
 	-dmenu \
 	-i \
 	-font "$font" \
-	-p "$(dotfiles-media status | sed -e "s/栗/栗 Stopped/")" \
+	-p "$(dotfiles-media status | sed -e "s/󰓛/󰓛 Stopped/")" \
 	-location 1 \
 	-theme-str "window { y-offset: $offset; }" \
 )
