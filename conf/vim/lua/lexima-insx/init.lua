@@ -1,6 +1,12 @@
 local M = {}
 
+M.rules = {}
 function M.add_rule(rule)
+    local rule_char = string.lower(rule.char)
+    if M.rules[rule_char] == nil then
+        M.rules[rule_char] = {}
+    end
+    table.insert(M.rules[rule_char], rule)
     require("insx").add(rule.char, require("insx.recipe.lexima")(rule))
 end
 
