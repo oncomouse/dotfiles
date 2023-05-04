@@ -18,9 +18,9 @@ local function calc_indent_depth(lnum)
 	local indent_depth = 0
 	if vim.opt.indentexpr:get() == "" then
 		if vim.opt.smartindent:get() or vim.opt.cindent:get() then
-			indent_depth =  vim.fn.cindent(lnum)
+			indent_depth = vim.fn.cindent(lnum)
 		elseif vim.opt.autoindent:get() then
-			indent_depth =  vim.fn.indent(lnum - 1)
+			indent_depth = vim.fn.indent(lnum - 1)
 		end
 	else
 		vim.v.lnum = lnum
@@ -42,8 +42,12 @@ end
 local function calculate_input_length(input)
 	return #string.gsub(input, "<[^>]+>", ".")
 end
+
+local priority = 0
 return function(rule)
+	priority = priority + 1
 	return {
+		priority = priority,
 		action = function(ctx)
 			local output = ""
 			local move = {
@@ -103,9 +107,11 @@ return function(rule)
 				end
 			end
 
+			-- Leave needs to happen right away:
 			if rule.leave then
 				local leave = type(rule.leave) == "string" and string.find(ctx.after(), rule.leave) or rule.leave
-				move.right = move.right + leave
+				local row, col = ctx.row(), ctx.col()
+				ctx.move(row, col + leave)
 			end
 
 			if #output > 0 then
@@ -130,7 +136,6 @@ return function(rule)
 			end
 		end,
 		enabled = function(ctx)
-
 			if rule.filetype then
 				local ft = type(rule.filetype) == "table" and rule.filetype or { rule.filetype }
 				if not vim.tbl_contains(ft, ctx.filetype) then
