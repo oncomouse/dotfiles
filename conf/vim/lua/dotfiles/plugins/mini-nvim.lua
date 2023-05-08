@@ -422,7 +422,7 @@ return {
 	{
 		"echasnovski/mini.splitjoin",
 		keys = {
-			{ "gS", mode = { "o", "x", "n" } },
+			{ "gS", mode = { "o", "x", "n" }, desc = "Toggle splitting and joining arguments" },
 		},
 		config = function(_, opts)
 			require("mini.splitjoin").setup(opts)

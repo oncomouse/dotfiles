@@ -355,7 +355,12 @@ vim.keymap.set("i", "<A-b>", move_word(true))
 vim.keymap.set("i", "<A-f>", move_word())
 
 -- Clear Currently Highlighted Regexp:
-vim.keymap.set("n", "<leader>cr", ':let<C-u>let @/=""<CR>', { silent = true, noremap = true })
+vim.keymap.set(
+	"n",
+	"<leader>cr",
+	':let<C-u>let @/=""<CR>',
+	{ silent = true, noremap = true, desc = "Clear current regexp" }
+)
 
 -- Jump to last buffer:
 vim.keymap.set("n", "``", "<cmd>e #<CR>", { silent = true, noremap = true })
@@ -367,15 +372,15 @@ vim.keymap.set("n", "[t", "<cmd>tabprev<CR>", { silent = true, noremap = true })
 -- Toggle Quickfix:
 vim.keymap.set("n", "<leader>q", function()
 	list_toggle("c")
-end, { silent = true, noremap = true })
+end, { silent = true, noremap = true, desc = "Display quickfix list" })
 vim.keymap.set("n", "<leader>d", function()
 	list_toggle("l")
-end, { silent = true, noremap = true })
+end, { silent = true, noremap = true, desc = "Display location list" })
 
 -- Project Grep:
 vim.keymap.set("n", "<leader>/", function()
 	grep_or_qfgrep()
-end, { silent = true, noremap = true })
+end, { silent = true, noremap = true, desc = "Search in current project using grep()" })
 
 -- Highlight a block and type "@" to run a macro on the block:
 vim.keymap.set("x", "@", function()
@@ -390,7 +395,7 @@ vim.keymap.set("i", "<C-X><C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = t
 vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
 
 -- Jump to last buffer:
-vim.keymap.set("n", "<leader>b", "<cmd>b#<cr>")
+vim.keymap.set("n", "<leader>b", "<cmd>b#<cr>", { desc = "Jump to last buffer" })
 -- }}}
 -- Signs {{{
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }

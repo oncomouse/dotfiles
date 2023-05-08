@@ -1,9 +1,9 @@
 return {
 	"ibhagwan/fzf-lua",
 	keys = {
-		{ mode = "n", "<C-p>", "<Plug>(dotfiles-fzf-files)" },
-		{ mode = "n", "<Leader>a", "<Plug>(dotfiles-fzf-buffers)" },
-		{ mode = "n", "<C-h>", "<cmd>FzfLua help_tags<CR>" },
+		{ mode = "n", "<C-p>", "<Plug>(dotfiles-fzf-files)", desc = "<Plug>(dotfiles-fzf-files)" },
+		{ mode = "n", "<Leader>a", "<Plug>(dotfiles-fzf-buffers)", desc = "<Plug>(dotfiles-fzf-buffers)" },
+		{ mode = "n", "<C-h>", "<cmd>FzfLua help_tags<CR>", desc = "<cmd>FzfLua help_tags<CR>" },
 	},
 	cmd = { "Files", "Buffers", "FzfLua" },
 	init = function() -- Shim vim.ui.select until we can load the plugin
