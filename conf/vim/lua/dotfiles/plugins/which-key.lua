@@ -3,7 +3,7 @@ return {
 	event = "VeryLazy",
 	init = function()
 		vim.o.timeout = true
-		vim.o.timeoutlen = 150
+		vim.o.timeoutlen = 250
 	end,
 	opts = {
 		icons = {
