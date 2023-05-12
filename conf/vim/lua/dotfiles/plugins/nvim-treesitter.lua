@@ -302,37 +302,6 @@ return {
 			},
 			autotag = { enable = true },
 			matchup = { enable = true },
-			textobjects = {
-				select = {
-					enable = true,
-					-- Automatically jump forward to textobj, similar to targets.vim
-					lookahead = true,
-					keymaps = {
-						-- You can use the capture groups defined in textobjects.scm
-						["af"] = "@function.outer",
-						["if"] = "@function.inner",
-						["ac"] = "@class.outer",
-						-- you can optionally set descriptions to the mappings (used in the desc parameter of nvim_buf_set_keymap
-						["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-					},
-				},
-				move = {
-					enable = true,
-					set_jumps = true, -- whether to set jumps in the jumplist
-					goto_next_start = {
-						["]m"] = "@function.outer",
-					},
-					goto_next_end = {
-						["]M"] = "@function.outer",
-					},
-					goto_previous_start = {
-						["[m"] = "@function.outer",
-					},
-					goto_previous_end = {
-						["[M"] = "@function.outer",
-					},
-				},
-			},
 		},
 		config = function(_, opts)
 			nvim_treesitter.setup_config(opts)
@@ -341,7 +310,26 @@ return {
 			nvim_treesitter.setup_performance_trick()
 		end,
 		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
+			{
+				"nvim-treesitter/nvim-treesitter-textobjects",
+				init = function()
+					-- PERF: no need to load the plugin, if we only need its queries for mini.ai
+					local plugin = require("lazy.core.config").spec.plugins["nvim-treesitter"]
+					local opts = require("lazy.core.plugin").values(plugin, "opts", false)
+					local enabled = false
+					if opts.textobjects then
+						for _, mod in ipairs({ "move", "select", "swap", "lsp_interop" }) do
+							if opts.textobjects[mod] and opts.textobjects[mod].enable then
+								enabled = true
+								break
+							end
+						end
+					end
+					if not enabled then
+						require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
+					end
+				end,
+			},
 			"windwp/nvim-ts-autotag",
 			{
 				"andymass/vim-matchup",

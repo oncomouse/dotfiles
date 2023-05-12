@@ -185,6 +185,14 @@ return {
 					-- 	}
 					-- end,
 
+					-- Treesitter objects from LazyVim:
+					o = require("mini.ai").gen_spec.treesitter({
+						a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+						i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+					}, {}),
+					f = require("mini.ai").gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
+					c = require("mini.ai").gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
+
 					q = {
 						"“().-()”",
 						"‘().-()’",
@@ -264,6 +272,51 @@ return {
 						custom_textobjects = custom_textobjects[ft],
 					}
 				end,
+			})
+
+			-- Document in which-key.nvim
+			local i = {
+				[" "] = "Whitespace",
+				[","] = "Comma",
+				['"'] = 'Balanced "',
+				["'"] = "Balanced '",
+				["`"] = "Balanced `",
+				["("] = "Balanced (",
+				[")"] = "Balanced ) including white-space",
+				[">"] = "Balanced > including white-space",
+				["<lt>"] = "Balanced <",
+				["]"] = "Balanced ] including white-space",
+				["["] = "Balanced [",
+				["}"] = "Balanced } including white-space",
+				["{"] = "Balanced {",
+				["?"] = "User Prompt",
+				_ = "Underscore",
+				a = "Argument",
+				b = "Balanced ), ], }",
+				c = "Class",
+				f = "Function",
+				o = "Block, conditional, loop",
+				q = "Smartquote",
+				s = "Sentence including punctuation",
+				S = "Sentence with punctuation including whitespace",
+				z = "Fold",
+				t = "Tag",
+			}
+			local a = vim.deepcopy(i)
+			for k, v in pairs(a) do
+				a[k] = v:gsub(" including.*", "")
+			end
+
+			local ic = vim.deepcopy(i)
+			local ac = vim.deepcopy(a)
+			for key, name in pairs({ n = "Next", N = "Last" }) do
+				i[key] = vim.tbl_extend("force", { name = "Inside " .. name .. " textobject" }, ic)
+				a[key] = vim.tbl_extend("force", { name = "Around " .. name .. " textobject" }, ac)
+			end
+			require("which-key").register({
+				mode = { "o", "x" },
+				i = i,
+				a = a,
 			})
 		end,
 	},
