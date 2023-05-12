@@ -80,10 +80,6 @@ return {
 				-- FISH
 				b.formatting.fish_indent,
 
-				-- RUBY
-				b.formatting.standardrb,
-				b.diagnostics.standardrb,
-
 				-- SHELL
 				b.formatting.shfmt,
 				b.formatting.shellharden,

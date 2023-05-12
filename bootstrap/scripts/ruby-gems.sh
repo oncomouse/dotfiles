@@ -12,8 +12,7 @@ if which gem > /dev/null 2>&1; then
     geminstall 'neovim'
     geminstall 'rubocop'
     geminstall 'rufo'
-    geminstall 'standardrb'
-    geminstall 'solargraph'
+    geminstall 'standard'
   fi
   geminstall 'bundler'
   # Set gem path:

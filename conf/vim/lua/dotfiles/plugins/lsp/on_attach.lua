@@ -87,32 +87,27 @@ local function on_attach(client, buf_num)
 	-- Turn off LSP semantic highlighting:
 	client.server_capabilities.semanticTokensProvider = nil
 	-- Formatting:
-	if
-		client.server_capabilities.documentFormattingProvider
-		or client.server_capabilities.documentRangeFormattingProvider
-	then
-		-- Adapted from LazyVim: prefer null-ls, if available:
-		vim.api.nvim_buf_create_user_command(buf_num, "Format", function()
-			local buf = vim.api.nvim_get_current_buf()
-			local ft = vim.opt_local.filetype:get()
-			local have_nls, have_nls_formatting = pcall(function()
-				return #require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") > 0
-			end)
-			have_nls = have_nls and have_nls_formatting
-			vim.lsp.buf.format(vim.tbl_deep_extend("force", {
-				bufnr = buf,
-				filter = function(c)
-					if have_nls then
-						return c.name == "null-ls"
-					end
-					return c.name ~= "null-ls"
-				end,
-			}, {}))
-		end, {
-			desc = "lua vim.lsp.buf.format()",
-			force = true,
-		})
-	end
+	-- Adapted from LazyVim: prefer null-ls, if available:
+	vim.api.nvim_buf_create_user_command(buf_num, "Format", function()
+		local buf = vim.api.nvim_get_current_buf()
+		local ft = vim.opt_local.filetype:get()
+		local have_nls, have_nls_formatting = pcall(function()
+			return #require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") > 0
+		end)
+		have_nls = have_nls and have_nls_formatting
+		vim.lsp.buf.format(vim.tbl_deep_extend("force", {
+			bufnr = buf,
+			filter = function(c)
+				if have_nls then
+					return c.name == "null-ls"
+				end
+				return c.name ~= "null-ls"
+			end,
+		}, {}))
+	end, {
+		desc = "lua vim.lsp.buf.format()",
+		force = true,
+	})
 end
 
 return on_attach

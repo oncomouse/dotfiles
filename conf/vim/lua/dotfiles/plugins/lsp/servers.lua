@@ -98,8 +98,9 @@ return {
 		pattern = { "*.jsonc", "*.json" },
 		snippets = true,
 	},
-	solargraph = {
+	standardrb = {
 		pattern = "*.rb",
+		single_file_support = true,
 	},
 	vimls = {
 		flags = {
