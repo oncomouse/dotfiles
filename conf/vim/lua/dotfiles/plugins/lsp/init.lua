@@ -1,7 +1,7 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		event = "BufReadPre",
+		event = { "BufNewFile", "BufReadPre" },
 		config = function()
 			local servers = require("dotfiles.plugins.lsp.servers")
 
@@ -29,7 +29,7 @@ return {
 				if type(pattern) == "table" then
 					pattern = table.concat(vim.fn.uniq(vim.fn.sort(pattern)), ",")
 				end
-				vim.api.nvim_create_autocmd("BufReadPre", {
+				vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPre" }, {
 					pattern = pattern,
 					group = "dotfiles-settings",
 					once = true,

@@ -15,7 +15,7 @@ return {
 			"markdown",
 			"org",
 			"py",
-			"rb",
+			"ruby",
 			"scss",
 			"sh",
 			"svelte",
