@@ -343,13 +343,7 @@ return {
 			{ "gc", mode = { "n" }, desc = "Comment" },
 			{ "gcc", desc = "Comment line" },
 		},
-		opts = {
-			hooks = {
-				pre = function()
-					require("ts_context_commentstring.internal").update_commentstring({})
-				end,
-			},
-		},
+		opts = {},
 		config = function(_, opts)
 			require("mini.comment").setup(opts)
 		end,
