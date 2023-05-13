@@ -45,10 +45,6 @@ return {
 									},
 								}
 							end
-							capabilities.textDocument.foldingRange = {
-								dynamicRegistration = false,
-								lineFoldingOnly = true,
-							}
 							return capabilities
 						end
 
