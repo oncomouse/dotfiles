@@ -9,6 +9,7 @@ vim.opt.relativenumber = true
 
 -- Folds:
 vim.opt.foldlevel = 99
+vim.opt.foldmethod = "indent"
 
 -- Set Leader:
 vim.g.mapleader = " "
