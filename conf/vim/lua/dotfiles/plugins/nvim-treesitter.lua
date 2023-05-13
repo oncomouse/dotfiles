@@ -5,7 +5,7 @@ local nvim_treesitter = {
 		"bibtex",
 		"c",
 		"cmake",
-		"comment",
+		-- "comment",
 		"cpp",
 		"css",
 		"diff",

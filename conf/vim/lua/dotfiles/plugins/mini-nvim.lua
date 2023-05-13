@@ -65,7 +65,6 @@ end
 return {
 	{
 		"echasnovski/mini.basics",
-		lazy = false,
 		opts = {
 			mappings = {
 				move_with_alt = true,
@@ -404,7 +403,6 @@ return {
 	-- Show current indentation context:
 	{
 		"echasnovski/mini.indentscope",
-		event = "VeryLazy",
 		opts = function()
 			return {
 				symbol = "│",
@@ -477,7 +475,6 @@ return {
 	},
 	{
 		"echasnovski/mini.misc",
-		lazy = false,
 		config = function(_, opts)
 			-- Miscellaneous operations:
 			require("mini.misc").setup(opts)
@@ -497,7 +494,6 @@ return {
 	{
 		"echasnovski/mini.statusline",
 		dependencies = { "oncomouse/czs.nvim" },
-		lazy = false,
 		opts = function()
 			local DotfilesStatusline = require("dotfiles.statusline")
 			return {
@@ -673,7 +669,6 @@ return {
 	},
 	{
 		"echasnovski/mini.tabline",
-		lazy = false,
 		opts = {
 			set_vim_settings = false,
 			tabpage_section = "none",

@@ -2,6 +2,7 @@ return {
 	{
 		"oncomouse/catppuccin.nvim",
 		dev = false,
+		lazy = true,
 		opts = {
 			transparent_background = true,
 			integrations = {

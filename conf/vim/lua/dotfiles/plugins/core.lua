@@ -9,7 +9,6 @@ return {
 
 	{
 		"sickill/vim-pasta",
-		event = "VeryLazy",
 	}, -- fix block paste for Neovim
 
 	{

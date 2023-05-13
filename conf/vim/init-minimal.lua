@@ -9,7 +9,7 @@ local plugins = {
 	{ "folke/lazy.nvim" },
 	{
 		"oncomouse/catppuccin.nvim",
-		event = "VeryLazy",
+		lazy = true,
 		opts = {
 			transparent_background = true,
 			integrations = {
