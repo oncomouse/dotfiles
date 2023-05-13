@@ -5,7 +5,7 @@ local nvim_treesitter = {
 		"bibtex",
 		"c",
 		"cmake",
-		-- "comment",
+		"comment",
 		"cpp",
 		"css",
 		"diff",
@@ -196,7 +196,6 @@ nvim_treesitter.setup_performance_trick = function()
 		return module ~= nil
 	end, {
 		"highlight",
-		"context_commentstring",
 		"matchup",
 		"navigation",
 		"smart_rename",
@@ -296,10 +295,6 @@ return {
 			highlight = {
 				enable = true,
 				additional_vim_regex_highlighting = false,
-			},
-			context_commentstring = {
-				enable = true,
-				enable_autocmd = false,
 			},
 			autotag = { enable = true },
 			matchup = { enable = true },
