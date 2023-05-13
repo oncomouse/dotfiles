@@ -2,12 +2,11 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufNewFile", "BufReadPre" },
+		dependencies = {
+			{ "folke/neodev.nvim", opts = {} },
+		},
 		config = function()
 			local servers = require("dotfiles.plugins.lsp.servers")
-
-			-- local handler_no_diagnostics = {
-			-- 	["textDocument/publishDiagnostics"] = function() end,
-			-- }
 
 			-- Turn on debug-level logging for LSP:
 			if vim.g.dotfiles_lsp_debug then
@@ -60,9 +59,6 @@ return {
 						if #vim.tbl_keys(settings) > 0 then
 							opts = vim.tbl_extend("keep", opts, settings)
 						end
-						-- if not vim.tbl_contains(servers[lsp].provides or {}, "diagnostics") then
-						-- 	opts.handlers = handler_no_diagnostics
-						-- end
 						require("lspconfig")[lsp].setup(opts)
 					end,
 				})
