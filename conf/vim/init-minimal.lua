@@ -794,6 +794,7 @@ local parsers = {
 	"jsdoc",
 	"latex",
 	"lua",
+	"luap",
 	"markdown",
 	"markdown_inline",
 	"make",
