@@ -24,9 +24,9 @@ local function calc_indent_depth(lnum)
 		end
 	else
 		vim.v.lnum = lnum
-		indent_depth = vim.api.nvim_cmd(vim.api.nvim_parse_cmd("echo " .. vim.opt.indentexpr:get(), {}), {
+		indent_depth = tonumber(vim.api.nvim_cmd(vim.api.nvim_parse_cmd("echo " .. vim.opt.indentexpr:get(), {}), {
 			output = true,
-		})
+		})) or 0
 	end
 	return indent_depth
 end
