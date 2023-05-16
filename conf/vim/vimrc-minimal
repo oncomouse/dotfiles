@@ -88,7 +88,10 @@ endif
 set dictionary=/usr/share/dict/words
 
 " Default to hashtag-style comments:
-set commentstring=#\ %s
+if !has('nvim')
+	set commentstring=#\ %s
+endif
+
 " ==============================================================================
 " Disable Plugins:
 " ==============================================================================
