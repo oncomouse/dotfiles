@@ -144,6 +144,12 @@ nnoremap <leader>a :buffers<CR>:buffer<Space>
 nnoremap <localleader>a :buffer *
 nnoremap <localleader>A :sbuffer *
 
+" Select entire document:
+onoremap <silent> ae <cmd>call EntireTextobject(0)<cr>
+onoremap <silent> ie <cmd>call EntireTextobject(0, 1)<cr>
+xnoremap <silent> ae <cmd>call EntireTextobject(1)<cr>
+xnoremap <silent> ie <cmd>call EntireTextobject(1, 1)<cr>
+
 " Toggle Quickfix:
 nnoremap <silent> <leader>q <cmd>call ListToggle('c')<CR>
 nnoremap <silent> <leader>d <cmd>call ListToggle('l')<CR>
@@ -162,6 +168,23 @@ command! -nargs=1 Tabs	 let b:wv = winsaveview() | execute "setlocal noexpandtab
 " ==============================================================================
 " Functions:
 " ==============================================================================
+function! EntireTextobject(visual, ...)
+	let inner = get(a:, 0, 0)
+	normal! m
+	keepjumps normal! gg0
+	if inner
+		call search('^.', 'cW')
+	endif
+	if !a:visual
+		normal! V
+	endif
+	normal! o
+	keepjumps normal! G$
+	if inner
+		call search('^.', 'bcW')
+		normal! $
+	endif
+endfunction
 
 function! ListToggle(pfx, ...)
 	let status = 0
