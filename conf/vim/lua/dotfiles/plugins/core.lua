@@ -40,10 +40,26 @@ return {
 	{
 		"haya14busa/vim-asterisk",
 		keys = {
-			{ "*", "<Plug>(asterisk-z*)", desc = "Search forward for the [count]'th occurrence of the word nearest to the cursor" },
-			{ "#", "<Plug>(asterisk-z#)", desc = "Search backward for the [count]'th occurrence of the word nearest to the cursor" },
-			{ "g*", "<Plug>(asterisk-gz*)", desc = "Search forward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor" },
-			{ "g#", "<Plug>(asterisk-gz#)", desc = "Search backward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor" },
+			{
+				"*",
+				"<Plug>(asterisk-z*)",
+				desc = "Search forward for the [count]'th occurrence of the word nearest to the cursor",
+			},
+			{
+				"#",
+				"<Plug>(asterisk-z#)",
+				desc = "Search backward for the [count]'th occurrence of the word nearest to the cursor",
+			},
+			{
+				"g*",
+				"<Plug>(asterisk-gz*)",
+				desc = "Search forward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor",
+			},
+			{
+				"g#",
+				"<Plug>(asterisk-gz#)",
+				desc = "Search backward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor",
+			},
 		},
 		init = function()
 			vim.g["asterisk#keeppos"] = 1
@@ -82,11 +98,13 @@ return {
 		"oncomouse/nvim-ref",
 		dev = false,
 		cmd = "NvimRef",
-		opts = {
-			bibfiles = {
-				"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib",
-			},
-		},
+		init = function()
+			vim.g.nvim_ref_options = {
+				bibfiles = {
+					"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib",
+				},
+			}
+		end,
 	}, -- For BibTeX sources
 
 	{
