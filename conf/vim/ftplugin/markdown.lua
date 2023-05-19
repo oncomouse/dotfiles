@@ -33,3 +33,11 @@ vim.api.nvim_create_user_command("Pandoc", function(args)
 end, {
 	nargs = 1,
 })
+
+if not vim.g.nvim_ref_registered then
+	vim.g.nvim_ref_registered = true
+	require("null-ls").register({
+		require("nvim-ref.null-ls.hover"),
+		require("nvim-ref.null-ls.completion"),
+	})
+end

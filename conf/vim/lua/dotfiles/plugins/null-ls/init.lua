@@ -95,8 +95,8 @@ return {
 				require("dotfiles.null-ls.builtins.diagnostics.htmlhint"),
 
 				-- MARKDOWN
-				require("nvim-ref.null-ls.hover"),
-				require("nvim-ref.null-ls.completion"),
+				-- require("nvim-ref.null-ls.hover"),
+				-- require("nvim-ref.null-ls.completion"),
 
 				-- JAVASCRIPT
 				-- Use standard and prettier for non-eslint projects:
