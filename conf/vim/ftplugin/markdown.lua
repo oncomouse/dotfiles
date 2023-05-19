@@ -13,6 +13,9 @@ end, {
 	silent = true,
 })
 
+-- Remap gd to follow footnotes
+vim.keymap.set("n", "gd", "<Plug>(markdown-nvim-footnote)", { buffer = true })
+
 vim.cmd([[compiler markdown_combo]])
 
 -- vim.opt_local.iskeyword = vim.opt_local.iskeyword + "',-,@-@"
