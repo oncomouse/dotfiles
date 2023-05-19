@@ -82,7 +82,6 @@ return {
 		"oncomouse/nvim-ref",
 		dev = false,
 		cmd = "NvimRef",
-		event = { "BufNewFile", "BufReadPre" },
 		opts = {
 			bibfiles = {
 				"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib",
