@@ -5,6 +5,9 @@ return {
 			"echasnovski/mini.colors",
 		},
 		name = "catppuccin",
+		build = function()
+			vim.cmd([[CatppuccinBuild]])
+		end,
 		lazy = true,
 		opts = {
 			transparent_background = true,
@@ -120,11 +123,16 @@ return {
 		config = function(_, opts)
 			require("catppuccin").setup(opts)
 
-			vim.api.nvim_create_autocmd("ColorScheme", {
-				group = "dotfiles-settings",
-				pattern = "catppuccin*",
-				command = "lua require('mini.colors').get_colorscheme():add_cterm_attributes():apply()",
+			vim.api.nvim_create_user_command("CatppuccinBuild", function()
+				for name, _ in pairs(require("catppuccin").flavours) do
+					local colorscheme_name = string.format("catppuccin-%s", name)
+					require("mini.colors").get_colorscheme(colorscheme_name):add_cterm_attributes():write({
+						name = colorscheme_name,
+					})
+				end
+			end, {
+				force = true,
 			})
-		end
+		end,
 	}, -- Theme
 }

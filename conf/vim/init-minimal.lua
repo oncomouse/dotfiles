@@ -10,6 +10,9 @@ local plugins = {
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
+		build = function()
+			vim.cmd([[CatppuccinBuild]])
+		end,
 		lazy = true,
 		opts = {
 			transparent_background = true,
@@ -41,30 +44,44 @@ local plugins = {
 						style = {},
 					},
 					MiniTablineVisible = {
-						fg = colors.surface1
+						fg = colors.surface1,
 					},
 					MiniTablineHidden = {
-						fg = colors.surface1
+						fg = colors.surface1,
 					},
 					MiniTablineModifiedCurrent = {
 						fg = colors.subtext0,
 						style = {
-							'bold'
+							"bold",
 						},
 					},
 					MiniTablineModifiedVisible = {
 						fg = colors.surface1,
 						style = {
-							'bold'
+							"bold",
 						},
 					},
 					MiniTablineModifiedHidden = {
 						fg = colors.surface1,
 						style = {
-							'bold'
+							"bold",
 						},
 					},
 				}
+			end,
+			config = function(_, opts)
+				require("catppuccin").setup(opts)
+
+				vim.api.nvim_create_user_command("CatppuccinBuild", function()
+					for name, _ in pairs(require("catppuccin").flavours) do
+						local colorscheme_name = string.format("catppuccin-%s", name)
+						require("mini.colors").get_colorscheme(colorscheme_name):add_cterm_attributes():write({
+							name = colorscheme_name,
+						})
+					end
+				end, {
+					force = true,
+				})
 			end,
 		},
 	}, -- colors
@@ -649,13 +666,7 @@ end, {
 	bang = true,
 })
 
--- Add cterm attributes to catppuccin
 require("mini.colors").setup({})
-vim.api.nvim_create_autocmd("ColorScheme", {
-	group = "dotfiles-settings",
-	pattern = "catppuccin*",
-	command = "lua MiniColors.get_colorscheme():add_cterm_attributes():apply()",
-})
 
 -- gc for commenting/uncommenting:
 require("mini.comment").setup({})
