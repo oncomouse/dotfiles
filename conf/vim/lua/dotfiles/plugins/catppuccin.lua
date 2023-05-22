@@ -1,9 +1,7 @@
 return {
+	{ "echasnovski/mini.colors", lazy = true },
 	{
 		"catppuccin/nvim",
-		dependencies = {
-			"echasnovski/mini.colors",
-		},
 		name = "catppuccin",
 		build = function()
 			vim.cmd([[CatppuccinBuild]])
@@ -124,7 +122,7 @@ return {
 
 			vim.api.nvim_create_user_command("CatppuccinBuild", function()
 				vim.notify("Updating catppuccin cterm information.", vim.log.levels.INFO, {
-					title = "catppuccin-cterm.nvim"
+					title = "catppuccin-cterm.nvim",
 				})
 				for name, _ in pairs(require("catppuccin").flavours) do
 					local colorscheme_name = string.format("catppuccin-%s", name)
