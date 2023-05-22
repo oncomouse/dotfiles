@@ -124,6 +124,9 @@ return {
 			require("catppuccin").setup(opts)
 
 			vim.api.nvim_create_user_command("CatppuccinBuild", function()
+				vim.notify("Updating catppuccin cterm information.", vim.log.levels.INFO, {
+					title = "catppuccin-cterm.nvim"
+				})
 				for name, _ in pairs(require("catppuccin").flavours) do
 					local colorscheme_name = string.format("catppuccin-%s", name)
 					require("mini.colors").get_colorscheme(colorscheme_name):add_cterm_attributes():write({
