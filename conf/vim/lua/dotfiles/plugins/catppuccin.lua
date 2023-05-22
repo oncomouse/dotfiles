@@ -12,7 +12,6 @@ return {
 		opts = {
 			transparent_background = true,
 			integrations = {
-				fidget = true,
 				mini = true,
 			},
 			custom_highlights = function(colors)
