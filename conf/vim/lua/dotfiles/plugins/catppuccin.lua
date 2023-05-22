@@ -1,7 +1,10 @@
 return {
 	{
-		"oncomouse/catppuccin.nvim",
-		dev = false,
+		"catppuccin/nvim",
+		dependencies = {
+			"echasnovski/mini.colors",
+		},
+		name = "catppuccin",
 		lazy = true,
 		opts = {
 			transparent_background = true,
@@ -88,31 +91,40 @@ return {
 						style = {},
 					},
 					MiniTablineVisible = {
-						fg = colors.surface1
+						fg = colors.surface1,
 					},
 					MiniTablineHidden = {
-						fg = colors.surface1
+						fg = colors.surface1,
 					},
 					MiniTablineModifiedCurrent = {
 						fg = colors.subtext0,
 						style = {
-							'bold'
+							"bold",
 						},
 					},
 					MiniTablineModifiedVisible = {
 						fg = colors.surface1,
 						style = {
-							'bold'
+							"bold",
 						},
 					},
 					MiniTablineModifiedHidden = {
 						fg = colors.surface1,
 						style = {
-							'bold'
+							"bold",
 						},
 					},
 				}
 			end,
 		},
-	}, -- Theme (catppuccin with cterm support)
+		config = function(_, opts)
+			require("catppuccin").setup(opts)
+
+			vim.api.nvim_create_autocmd("ColorScheme", {
+				group = "dotfiles-settings",
+				pattern = "catppuccin*",
+				command = "lua require('mini.colors').get_colorscheme():add_cterm_attributes():apply()",
+			})
+		end
+	}, -- Theme
 }

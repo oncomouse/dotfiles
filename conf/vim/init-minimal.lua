@@ -8,7 +8,8 @@ end
 local plugins = {
 	{ "folke/lazy.nvim" },
 	{
-		"oncomouse/catppuccin.nvim",
+		"catppuccin/nvim",
+		name = "catppuccin",
 		lazy = true,
 		opts = {
 			transparent_background = true,
@@ -646,6 +647,14 @@ vim.api.nvim_create_user_command("Bd", function(args)
 	require("mini.bufremove").delete(0, not args.bang)
 end, {
 	bang = true,
+})
+
+-- Add cterm attributes to catppuccin
+require("mini.colors").setup({})
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = "dotfiles-settings",
+	pattern = "catppuccin*",
+	command = "lua MiniColors.get_colorscheme():add_cterm_attributes():apply()",
 })
 
 -- gc for commenting/uncommenting:
