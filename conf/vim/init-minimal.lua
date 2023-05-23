@@ -157,9 +157,6 @@ end
 
 vim.opt.dictionary = "/usr/share/dict/words"
 
--- Default to hashtag-style comments:
-vim.opt.commentstring = "# %s"
-
 -- Minimal Statusbar:
 vim.opt.statusline = " %0.45f%m%h%w%r%= %y %l:%c "
 
