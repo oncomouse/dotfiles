@@ -26,6 +26,7 @@ return {
 					only_valid = true,
 					word = false,
 				}),
+				augend.misc.alias.markdown_header,
 			},
 		})
 	end,
