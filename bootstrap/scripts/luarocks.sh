@@ -9,7 +9,7 @@ function luainstall() {
 		sudo luarocks --lua-version "$version" install "$repo"
 	fi
 }
-if [ "$os" == "macos" ] && [ ! -d /usr/local/include/lua5.1 ]; then
+if [ "$os" == "macos" ] && [ ! -d $(brew --prefix)/include/lua5.1 ]; then
 	brew link lua@5.1
 fi
 # Install lpeg-bibtex for Neovim:

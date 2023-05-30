@@ -17,5 +17,6 @@ if [ "$os" = "arch" ];then
   tllocalmgr install "${packages[@]}"
   sudo texhash
 else
+  sudo chown -R "$(whoami)" /usr/local/texlive
   sudo tlmgr install "${packages[@]}"
 fi

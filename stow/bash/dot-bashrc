@@ -20,6 +20,7 @@ fi
 alias ls='exa --group-directories-first'
 PS1='[\u@\h \W]\$ '
 
+[[ -d /opt/homebrew ]] && PATH="${PATH}:/opt/homebrew/bin"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 if command -v starship > /dev/null; then
 	eval "$(starship init bash)"

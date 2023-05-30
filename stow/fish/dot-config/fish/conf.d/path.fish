@@ -1,4 +1,5 @@
 if status --is-login
+	fish_add_path --prepend /opt/homebrew/bin
 	# Custom paths:
 	fish_add_path ~/bin
 	fish_add_path ~/.local/bin
@@ -11,9 +12,11 @@ if status --is-login
 	# Set up ASDF:
 	fish_add_path --prepend ~/.asdf/shims
 	fish_add_path --prepend /usr/local/opt/asdf/bin
+	fish_add_path --prepend /opt/homebrew/opt/asdf/bin
 	fish_add_path --prepend ~/.asdf/bin
 	# Sbin:
 	fish_add_path /usr/local/sbin
+	fish_add_path /opt/homebrew/sbin
 	fish_add_path ~/.ghcup/bin
 	# NPM Local:
 	fish_add_path ~/.npm-packages/bin
@@ -30,6 +33,7 @@ if status --is-login
 	fish_add_path --append /usr/local/bin
 	# Homebrew's Annoying Ruby Install:
 	fish_add_path --append /usr/local/opt/ruby/bin
+	fish_add_path --append /opt/homebrew/opt/ruby/bin
 	# Local luarocks
 	fish_add_path --prepend ~/.luarocks/bin
 

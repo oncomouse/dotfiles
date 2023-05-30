@@ -7,7 +7,7 @@ if [[ $os != "macos" ]]; then
   mkdir -p "$HOME/.config/fish/completions"
   ln -sf ~/.asdf/completions/asdf.fish ~/.config/fish/completions/
 fi
-ruby_env=$([ "$os" == "macos" ] && echo "--with-openssl-dir=/usr/local/opt/openssl@1.1")
+ruby_env=$([ "$os" == "macos" ] && echo "--with-openssl-dir=$(brew --prefix)/opt/openssl@1.1")
 asdf plugin add ruby
 asdf plugin add nodejs
 # asdf plugin add lua https://github.com/Stratus3D/asdf-lua.git
