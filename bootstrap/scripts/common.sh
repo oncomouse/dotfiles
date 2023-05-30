@@ -8,7 +8,6 @@ os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 ~/dotfiles/bootstrap/scripts/luarocks.sh
 ~/dotfiles/bootstrap/scripts/node-modules.sh
 ~/dotfiles/bootstrap/scripts/python-modules.sh
-~/dotfiles/bootstrap/scripts/ruby-gems.sh
 ~/dotfiles/bootstrap/scripts/fisher.sh
 ~/dotfiles/bootstrap/scripts/rustup.sh
 ~/dotfiles/bootstrap/scripts/tmux.sh
@@ -21,6 +20,7 @@ if [ -z "$SERVER" ]; then
 	~/dotfiles/bootstrap/scripts/csl.sh
 	~/dotfiles/bootstrap/scripts/tex.sh
 fi
+~/dotfiles/bootstrap/scripts/ruby-gems.sh
 
 if [ "$os" == "arch" ]; then
 	if [ -z "$SERVER" ]; then
