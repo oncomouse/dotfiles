@@ -1,0 +1,1 @@
+conf/vim/lua/dotfiles/credentials.lua filter=git-crypt diff=git-crypt
