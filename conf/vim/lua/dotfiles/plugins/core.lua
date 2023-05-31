@@ -109,6 +109,7 @@ return {
 
 	{
 		"kyazdani42/nvim-web-devicons",
+		lazy = true,
 		cond = require("dotfiles.utils.use_termguicolors"),
 	}, -- Icons, used in the statusline
 
