@@ -114,6 +114,7 @@ bind C-exclam colon exec dotfiles-term -e
 definekey top s-b exec polybar-msg cmd toggle
 
 # [screenshots]
+definekey top Print exec dotfiles-screenshot &
 bind Print exec dotfiles-screenshot &
 bind M-p exec dotfiles-screenshot &
 
