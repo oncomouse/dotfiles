@@ -301,8 +301,8 @@ return {
 			matchup = { enable = true },
 		},
 		config = function(_, opts)
-			nvim_treesitter.setup_config(opts)
 			nvim_treesitter.setup_parser_config()
+			nvim_treesitter.setup_config(opts)
 			nvim_treesitter.setup_extensions()
 			nvim_treesitter.setup_performance_trick()
 		end,
