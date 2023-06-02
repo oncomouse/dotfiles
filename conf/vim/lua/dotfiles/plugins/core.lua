@@ -1,5 +1,11 @@
 return {
-	{ "folke/lazy.nvim", version = "*" },
+	{
+		"folke/lazy.nvim", version = "*",
+		keys = {
+			{ "<leader>la", "<cmd>Lazy<cr>", desc = "Lazy.nvim" },
+			{ "<leader>lu", "<cmd>Lazy update<cr>", desc = "Update Lazy.nvim plugins" },
+		}
+	},
 
 	"nvim-lua/plenary.nvim",
 
@@ -70,7 +76,9 @@ return {
 	{
 		"oncomouse/lazygit.nvim",
 		cmd = "LazyGit",
-		keys = { "<Plug>(lazygit.nvim)" },
+		keys = {
+			{ "<leader>lg", "<Plug>(lazygit.nvim)", desc = "LazyGit Integration" },
+		},
 	}, -- :LazyGit for lazygit integration
 
 	{
