@@ -6,4 +6,7 @@ return {
 		vim.g.calendar_google_task = 0
 	end,
 	cmd = "Calendar",
+	keys = {
+		{ "<leader>gc", "<Plug>(calendar)" },
+	},
 }
