@@ -7,6 +7,6 @@ return {
 	end,
 	cmd = "Calendar",
 	keys = {
-		{ "<leader>gc", "<Plug>(calendar)" },
+		{ "<leader>gc", "<Plug>(calendar)", desc = "Google Calendar integration" },
 	},
 }
