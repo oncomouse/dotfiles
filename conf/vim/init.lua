@@ -314,8 +314,8 @@ end, {
 -- }}}
 -- Keymaps {{{
 -- Navigation in insert mode:
-vim.keymap.set("i", "<C-a>", "<C-o>^", { silent = true })
-vim.keymap.set("i", "<C-e>", "<C-o>$", { silent = true })
+vim.keymap.set("i", "<C-a>", "<C-o>^", { silent = true, desc = "Move to end o f line" })
+vim.keymap.set("i", "<C-e>", "<C-o>$", { silent = true, desc = "Move to start of line" })
 local function move_char(backwards)
 	return function()
 		local _, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -334,8 +334,8 @@ local function move_char(backwards)
 		return "<C-o>" .. (backwards and "h" or "l")
 	end
 end
-vim.keymap.set("i", "<C-b>", move_char(true), { expr = true })
-vim.keymap.set("i", "<C-f>", move_char(), { expr = true })
+vim.keymap.set("i", "<C-b>", move_char(true), { expr = true, desc = "Move back one character" })
+vim.keymap.set("i", "<C-f>", move_char(), { expr = true, desc = "Move forward one character" })
 local function move_word(backwards)
 	return function()
 		local _, new_position =
@@ -349,8 +349,8 @@ local function move_word(backwards)
 		vim.api.nvim_win_set_cursor(0, { row, col })
 	end
 end
-vim.keymap.set("i", "<A-b>", move_word(true))
-vim.keymap.set("i", "<A-f>", move_word())
+vim.keymap.set("i", "<A-b>", move_word(true), { desc = "Move back one word" })
+vim.keymap.set("i", "<A-f>", move_word(), { desc = "Move forward one word" })
 
 -- Clear Currently Highlighted Regexp:
 vim.keymap.set(
@@ -361,11 +361,11 @@ vim.keymap.set(
 )
 
 -- Jump to last buffer:
-vim.keymap.set("n", "``", "<cmd>e #<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "``", "<cmd>e #<CR>", { silent = true, noremap = true, desc = "Jump to last buffer" })
 
 -- Tab navigation:
-vim.keymap.set("n", "]t", "<cmd>tabnext<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "[t", "<cmd>tabprev<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "]t", "<cmd>tabnext<CR>", { silent = true, noremap = true, desc = "Jump to next tab" })
+vim.keymap.set("n", "[t", "<cmd>tabprev<CR>", { silent = true, noremap = true, desc = "Jump to previous tab" })
 
 -- Toggle Quickfix:
 vim.keymap.set("n", "<leader>q", function()
@@ -387,10 +387,15 @@ vim.keymap.set("x", "@", function()
 end, { silent = true, noremap = true })
 
 -- Calculator:
-vim.keymap.set("i", "<C-X><C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
+vim.keymap.set(
+	"i",
+	"<C-X><C-A>",
+	"<C-O>yiW<End>=<C-R>=<C-R>0<CR>",
+	{ silent = true, noremap = true, desc = "Calculate" }
+)
 
 -- Vertical split like in my Tmux config:
-vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
+vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>", { desc = "Split vertically" })
 
 -- Jump to last buffer:
 vim.keymap.set("n", "<leader>b", "<cmd>b#<cr>", { desc = "Jump to last buffer" })
