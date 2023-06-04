@@ -1,13 +1,14 @@
 return {
 	{
-		"folke/lazy.nvim", version = "*",
+		"folke/lazy.nvim",
+		version = "*",
 		keys = {
 			{ "<leader>la", "<cmd>Lazy<cr>", desc = "Lazy.nvim" },
 			{ "<leader>lu", "<cmd>Lazy update<cr>", desc = "Update Lazy.nvim plugins" },
-		}
+		},
 	},
 
-	{ "nvim-lua/plenary.nvim", lazy = true, },
+	{ "nvim-lua/plenary.nvim", lazy = true },
 
 	"tpope/vim-repeat",
 
@@ -104,7 +105,7 @@ return {
 
 	{
 		"oncomouse/nvim-ref",
-		dev = false,
+		dev = true,
 		cmd = "NvimRef",
 		init = function()
 			vim.g.nvim_ref_options = {
@@ -114,8 +115,8 @@ return {
 			}
 		end,
 		dependencies = {
-			"plenary"
-		}
+			"plenary.nvim",
+		},
 	}, -- For BibTeX sources
 
 	{
