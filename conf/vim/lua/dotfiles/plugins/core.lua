@@ -7,7 +7,7 @@ return {
 		}
 	},
 
-	"nvim-lua/plenary.nvim",
+	{ "nvim-lua/plenary.nvim", lazy = true, },
 
 	"tpope/vim-repeat",
 
@@ -113,6 +113,9 @@ return {
 				},
 			}
 		end,
+		dependencies = {
+			"plenary"
+		}
 	}, -- For BibTeX sources
 
 	{
