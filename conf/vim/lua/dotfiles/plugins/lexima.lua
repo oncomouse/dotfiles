@@ -183,13 +183,13 @@ return {
 		-- Tasks:
 		add_rule({
 			char = "[",
-			input = "[ ]",
+			input = "[ ] ",
 			at = [[^\s*[*-] \s*\%#]],
 			filetype = { "text", "markdown" },
 		})
 		add_rule({
 			char = "[",
-			input = "[ ]",
+			input = "[ ] ",
 			at = [[^\s*\d\+\. \s*\%#]],
 			filetype = { "text", "markdown" },
 		})
