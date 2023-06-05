@@ -83,6 +83,7 @@ local function toggle_markdown_image()
 	local ts_utils = require("nvim-treesitter.ts_utils")
 	local row, col = unpack(vim.api.nvim_win_get_cursor(0))
 	local root, _, langtree = ts_utils.get_root_for_position(row - 1, col)
+	if not langtree then return nil end
 	local lang = langtree:lang()
 	if lang == "html" then
 		return html_to_md(row - 1, root)
