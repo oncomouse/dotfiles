@@ -105,7 +105,7 @@ return {
 
 	{
 		"oncomouse/nvim-ref",
-		dev = true,
+		dev = false,
 		cmd = "NvimRef",
 		init = function()
 			vim.g.nvim_ref_options = {
