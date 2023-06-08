@@ -20,6 +20,9 @@ return {
 
 	{
 		"tpope/vim-sleuth",
+		init = function()
+			vim.g.sleuth_org_heuristics = false
+		end,
 		event = { "BufNewFile", "BufReadPost", "BufFilePost", "FileType" },
 	}, -- Automatically set indent
 

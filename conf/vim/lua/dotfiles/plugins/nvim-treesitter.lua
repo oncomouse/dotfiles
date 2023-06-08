@@ -295,7 +295,8 @@ return {
 			ensure_installed = nvim_treesitter.installed_parser,
 			highlight = {
 				enable = true,
-				additional_vim_regex_highlighting = false,
+				-- additional_vim_regex_highlighting = false,
+				additional_vim_regex_highlighting = { "org" },
 			},
 			autotag = { enable = true },
 			matchup = { enable = true },
