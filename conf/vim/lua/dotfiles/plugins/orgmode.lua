@@ -1,5 +1,6 @@
 return {
 	"nvim-orgmode/orgmode",
+	dev = false,
 	ft = "org",
 	keys = {
 		{ "<leader>oa", "<Cmd>lua require('orgmode').action('agenda.prompt')<CR>", desc = "org agenda" },
@@ -11,6 +12,11 @@ return {
 			"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/Associate Head Work/**/*.org",
 		},
 		org_indent_mode = "noindent",
+		mappings = {
+			org = {
+				org_toggle_checkbox = { "<C-space>", "<leader>o<space>", "gtd" },
+			},
+		},
 	},
 	config = function(_, opts)
 		require("orgmode").setup_ts_grammar()
