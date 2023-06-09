@@ -95,10 +95,6 @@ return {
 					prev = "gt[",
 				},
 			},
-			filetypes = {
-				"markdown",
-				"org",
-			}
 		},
 	}, -- My todo manager
 
