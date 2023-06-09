@@ -11,7 +11,12 @@ return {
 			"~/SeaDrive/My Libraries/Todo/*.org",
 			"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/Associate Head Work/**/*.org",
 		},
+		org_default_notes_file = "~/SeaDrive/My Libraries/Todo/todo.org",
 		org_indent_mode = "noindent",
+		org_capture_templates = {
+			t = { description = "Todo Item", template = "* TODO %?\n  %u" },
+			p = { description = "Paste Todo Item", template = "* TODO %x%?\n  %u"},
+		},
 		mappings = {
 			org = {
 				org_toggle_checkbox = { "<C-space>", "<leader>o<space>", "gtd" },
