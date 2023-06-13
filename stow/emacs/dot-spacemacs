@@ -258,7 +258,7 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("FiraCode Nerd Font"
-                               :size 18.0
+                               :size 16.0
                                :weight normal
                                :powerline-scale 1.0
                                :width normal)
@@ -571,7 +571,17 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (eval-after-load "helm" '(set-face-attribute 'helm-selection nil :background (catppuccin-get-color 'surface0)))
+  ;; (eval-after-load "evil" (define-key evil-normal-state-map (kbd "C-w S") 'evil-window-vsplit))
+  (eval-after-load 'org (
+  ))
+  
 )
+(setq org-directory "~/SeaDrive/My Libraries/org")
+(setq org-agenda-files '(
+  "~/SeaDrive/My Libraries/org/"
+))
+(setq org-default-notes-file "~/SeaDrive/My Libraries/org/inbox.org")
+(setq org-indent-mode 'noindent)
 
 ;; vim:ft=lisp:commentstring=;;\ %s
 ;; Do not write anything past this comment. This is where Emacs will

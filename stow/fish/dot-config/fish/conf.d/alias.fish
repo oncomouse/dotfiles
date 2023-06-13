@@ -28,4 +28,4 @@ function stow;eval (if command -sq python3; echo "python3"; else; echo "python";
 # SSH to Dreamhost:
 function pilsch.com; ssh eschaton@birkenfeld.dreamhost.com; end
 # default to terminal emacs with all the fixins':
-function emacs; eval env TERM=st-direct (which emacs) -nw $arg; end
+# function emacs; eval env TERM=st-direct (which emacs) -nw $arg; end

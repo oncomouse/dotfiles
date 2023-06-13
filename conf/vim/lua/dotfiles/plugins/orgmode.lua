@@ -8,10 +8,9 @@ return {
 	},
 	opts = {
 		org_agenda_files = {
-			"~/SeaDrive/My Libraries/Todo/*.org",
-			"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/Associate Head Work/**/*.org",
+			"~/SeaDrive/My Libraries/org/**/*.org",
 		},
-		org_default_notes_file = "~/SeaDrive/My Libraries/Todo/todo.org",
+		org_default_notes_file = "~/SeaDrive/My Libraries/org/inbox.org",
 		org_indent_mode = "noindent",
 		org_capture_templates = {
 			t = { description = "Todo Item", template = "* TODO %?\n  %u" },
