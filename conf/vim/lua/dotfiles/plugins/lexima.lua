@@ -236,6 +236,11 @@ return {
 		make_pair({ "*" }, true, {
 			filetype = "org",
 		})
+		add_rule({
+			char = "*",
+			at = [[^\**\%#]],
+			filetype = "org"
+		})
 
 		-- Lua endwise rules:
 		if vim.g.lexima_enable_endwise_rules == 1 then
