@@ -261,6 +261,7 @@ end
 function M.section_wordcount()
 	if vim.tbl_contains({
 		"markdown",
+		"org",
 		"txt",
 		"vimiwiki"
 	}, vim.o.filetype) then
@@ -269,4 +270,12 @@ function M.section_wordcount()
 	return ""
 end
 
+function M.section_orgheadline()
+	if vim.tbl_contains({
+		"org"
+	}, vim.o.filetype) then
+		return string.gsub(orgmode.statusline(), "%(Org%) ", "") .. " "
+	end
+	return ""
+end
 return M
