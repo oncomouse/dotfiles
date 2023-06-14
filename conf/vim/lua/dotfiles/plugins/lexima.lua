@@ -77,6 +77,32 @@ return {
 				filetype = { "text", "markdown" },
 			}) -- Delete pair
 		end
+		-- Take a string or list of strings, produce a basic pair
+		local function make_pair(chars, escape, opts)
+			chars = type(chars) == "table" and chars or { chars }
+			opts = opts or {}
+			if type(escape) == "table" then
+				opts = escape
+				escape = false
+			end
+			for _, char in pairs(chars) do
+				local esc_char = escape and [[\]] .. char or char
+				add_rule(vim.tbl_extend("keep", {
+					char = char,
+					input_after = char,
+				}, opts))
+				add_rule(vim.tbl_extend("keep", {
+					char = char,
+					at = [[\%#]] .. esc_char,
+					leave = 1,
+				}, opts))
+				add_rule(vim.tbl_extend("keep", {
+					char = "<BS>",
+					at = esc_char .. [[\%#]] .. esc_char,
+					delete = 1,
+				}, opts))
+			end
+		end
 
 		-- Lexima Rules
 		-- Correct unbalanced pairs:
@@ -185,23 +211,31 @@ return {
 			char = "[",
 			input = "[ ] ",
 			at = [[^\s*[*-] \s*\%#]],
-			filetype = { "text", "markdown" },
+			filetype = { "text", "markdown", "org" },
 		})
 		add_rule({
 			char = "[",
 			input = "[ ] ",
 			at = [[^\s*\d\+\. \s*\%#]],
-			filetype = { "text", "markdown" },
+			filetype = { "text", "markdown", "org" },
 		})
 		add_rule({
 			char = "<BS>",
 			input = "<BS><BS><BS>",
 			at = [[^\s*[*-\d]\+\.\{0,1\} \s*\[.\]\%#]],
-			filetype = { "text", "markdown" },
+			filetype = { "text", "markdown", "org" },
 		})
 		-- Bold/Italic Pairs:
 		make_markdown_bi_rule("*", true)
 		make_markdown_bi_rule("_")
+
+		-- Org-only rules:
+		make_pair({ "/", "_", "~", "+" }, {
+			filetype = "org",
+		})
+		make_pair({ "*" }, true, {
+			filetype = "org",
+		})
 
 		-- Lua endwise rules:
 		if vim.g.lexima_enable_endwise_rules == 1 then
