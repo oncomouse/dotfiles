@@ -271,9 +271,7 @@ function M.section_wordcount()
 end
 
 function M.section_orgheadline()
-	if vim.tbl_contains({
-		"org"
-	}, vim.o.filetype) then
+	if orgmode ~= nil then
 		return string.gsub(orgmode.statusline(), "%(Org%) ", "") .. " "
 	end
 	return ""
