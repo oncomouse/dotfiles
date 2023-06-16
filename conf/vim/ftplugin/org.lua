@@ -3,6 +3,8 @@ vim.opt_local.tabstop = 2
 vim.opt_local.shiftwidth = 2
 vim.opt_local.softtabstop = 2
 vim.opt_local.expandtab = true
+-- Turn on conceal:
+vim.opt_local.conceallevel = 2
 
 -- Do a better >>/<< for my editing style
 local translation = {
