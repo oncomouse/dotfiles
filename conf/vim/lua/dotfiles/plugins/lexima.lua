@@ -236,10 +236,24 @@ return {
 		make_pair({ "~", "*" }, true, {
 			filetype = "org",
 		})
+		-- Don't pair asterisks for headlines:
 		add_rule({
 			char = "*",
 			at = [[^\**\%#]],
-			filetype = "org"
+			filetype = "org",
+		})
+		-- Handle cookies properly:
+		add_rule({
+			char = "/",
+			input = "/<Right>",
+			at = [==[\[\%#\]]==],
+			filetype = "org",
+		})
+		add_rule({
+			char = "%",
+			input = "%<Right>",
+			at = [==[\[\%#\]]==],
+			filetype = "org",
 		})
 
 		-- Lua endwise rules:
