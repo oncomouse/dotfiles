@@ -8,5 +8,8 @@ return {
 		icons = {
 			separator = "→",
 		},
+		window = {
+			margin = { 1, 0, 0, 0 },
+		}
 	},
 }
