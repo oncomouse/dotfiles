@@ -6,5 +6,4 @@ polkit-dumb-agent-git
 rofi-emoji
 shellcheck-bin
 stylua-bin
-tllocalmgr-git
 zotero-bin
