@@ -109,6 +109,9 @@ return {
 							"bold",
 						},
 					},
+					NotifyBackground = {
+						bg = colors.base,
+					},
 				}
 			end,
 		},
