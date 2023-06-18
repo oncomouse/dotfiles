@@ -11,6 +11,7 @@ return {
 			transparent_background = true,
 			integrations = {
 				mini = true,
+				notify = true,
 			},
 			custom_highlights = function(colors)
 				return {
@@ -72,12 +73,6 @@ return {
 					MiniStatuslineMacro = {
 						bg = colors.flamingo,
 						fg = colors.surface0,
-					},
-					MiniStatuslineSearch = {
-						fg = colors.rosewater,
-					},
-					MiniStatuslineShowcmd = {
-						fg = colors.flamingo,
 					},
 					MiniStatuslineLuaSnip = {
 						bg = colors.sky,

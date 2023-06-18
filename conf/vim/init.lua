@@ -67,10 +67,10 @@ if vim.fn.has("clipboard") == 1 then
 end
 
 -- Cmdheight=0 options:
-vim.opt.cmdheight = 0
-if vim.fn.has("nvim-0.9") == 1 then
-	vim.opt.showcmdloc = "statusline"
-end
+vim.opt.cmdheight = 1
+-- if vim.fn.has("nvim-0.9") == 1 then
+-- 	vim.opt.showcmdloc = "statusline"
+-- end
 vim.opt.showmode = false
 
 -- }}}

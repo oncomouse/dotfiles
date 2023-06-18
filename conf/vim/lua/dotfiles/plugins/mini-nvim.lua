@@ -493,7 +493,7 @@ return {
 	},
 	{
 		"echasnovski/mini.statusline",
-		dependencies = { "oncomouse/czs.nvim" },
+		-- dependencies = { "oncomouse/czs.nvim" },
 		opts = function()
 			local DotfilesStatusline = require("dotfiles.statusline")
 			return {
@@ -507,10 +507,8 @@ return {
 						local diagnostics = DotfilesStatusline.section_diagnostics({ trunc_width = 75 })
 						local luasnip = DotfilesStatusline.section_luasnip({ trunc_width = 75 })
 						local macro = DotfilesStatusline.section_macro()
-						local showcmd = DotfilesStatusline.section_showcmd()
 						local org_headline = DotfilesStatusline.section_orgheadline()
 						local wordcount = DotfilesStatusline.section_wordcount()
-						local search = DotfilesStatusline.section_search({ trunc_width = 75 })
 
 						return require("mini.statusline").combine_groups({
 							"%<", -- Mark general truncate point
@@ -519,10 +517,8 @@ return {
 							{ hl = "MiniStatuslineLuaSnip", strings = { luasnip } },
 							{ hl = "MiniStatuslineMacro", strings = { macro } },
 							{ hl = "Statusline", strings = { "%=" } }, -- End left alignment
-							{ hl = "MiniStatuslineShowcmd", strings = { showcmd } },
 							{ strings = { org_headline } },
 							{ hl = "MiniStatuslineWordcount", strings = { wordcount } },
-							{ hl = "MiniStatuslineSearch", strings = { search } },
 							location,
 							{ hl = "MiniStatuslineFileinfo", strings = { " ", fileinfo, " " } },
 							diagnostics,

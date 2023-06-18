@@ -212,20 +212,20 @@ function M.section_macro()
 	return macro
 end
 
-function M.section_search(args)
-	if not require("czs").display_results() then
-		return ""
-	end
-
-	local target, current, total = require("czs").output()
-
-	local output = ""
-	if not require("mini.statusline").is_truncated(args.trunc_width) then
-		output = string.format("%s", target)
-	end
-	output = output .. string.format("[%s]/%s ", current, total)
-	return output
-end
+-- function M.section_search(args)
+-- 	if not require("czs").display_results() then
+-- 		return ""
+-- 	end
+--
+-- 	local target, current, total = require("czs").output()
+--
+-- 	local output = ""
+-- 	if not require("mini.statusline").is_truncated(args.trunc_width) then
+-- 		output = string.format("%s", target)
+-- 	end
+-- 	output = output .. string.format("[%s]/%s ", current, total)
+-- 	return output
+-- end
 
 function M.section_showcmd()
 	return "%S "
