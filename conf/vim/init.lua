@@ -73,6 +73,9 @@ vim.opt.cmdheight = 1
 -- end
 vim.opt.showmode = false
 
+-- Enable termguicolors by default
+vim.opt.termguicolors = true
+
 -- }}}
 -- Autogroups: {{{
 vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
@@ -416,25 +419,7 @@ require("select-digraphs").setup({}) -- Configure select-digraphs
 -- }}}
 -- Theme {{{
 -- Fancy color for macs and X11 sessions:
-if require("dotfiles.utils.use_termguicolors")() then
-	vim.cmd([[let &t_8f='<Esc>[38;2;%lu;%lu;%lum']])
-	vim.cmd([[let &t_8b='<Esc>[48;2;%lu;%lu;%lum']])
-	vim.opt.termguicolors = true
-
-	vim.api.nvim_create_autocmd("ColorScheme", {
-		pattern = "catppuccin*",
-		callback = function()
-			local colors = require("catppuccin.palettes").get_palette()
-			require("catppuccin.lib.highlighter").syntax({
-				gitCommitOverflow = { fg = colors.red },
-				gitCommitSummary = { fg = colors.green },
-			})
-		end,
-	})
-	if not pcall(vim.cmd, [[colorscheme catppuccin-mocha]]) then
-		vim.cmd([[colorscheme default]])
-	end
-else
+if not pcall(vim.cmd, [[colorscheme catppuccin-mocha]]) then
 	vim.cmd([[colorscheme default]])
 end
 -- }}}
