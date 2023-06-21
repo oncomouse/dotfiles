@@ -112,6 +112,8 @@ return {
 					NotifyBackground = {
 						bg = colors.base,
 					},
+					gitCommitOverflow = { fg = colors.red },
+					gitCommitSummary = { fg = colors.green },
 				}
 			end,
 		},
