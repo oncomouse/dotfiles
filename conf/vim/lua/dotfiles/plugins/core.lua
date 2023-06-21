@@ -113,7 +113,7 @@ return {
 		init = function()
 			vim.g.nvim_ref_options = {
 				bibfiles = {
-					"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library-test.bib",
+					"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib",
 				},
 			}
 		end,
