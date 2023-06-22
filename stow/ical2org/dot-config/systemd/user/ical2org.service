@@ -1,0 +1,8 @@
+[Unit]
+Description=Sync Google Calendar with org-mode
+
+[Service]
+Type=simple
+ExecSearchPath=/usr/bin:%h/.local/bin
+ExecStart=/usr/bin/node ical2org.js
+WorkingDirectory=%h/dotfiles/scripts
