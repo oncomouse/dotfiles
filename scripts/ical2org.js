@@ -29,20 +29,38 @@ const hasIcal2OrgPy = isExecutable('ical2orgpy 2> /dev/null')
 if (!hasIcal2OrgPy) {
   exec('pipx install ical2orgpy')
 }
-const events = exec(`curl -s "${URL}" | ical2orgpy - -`)
-const cacheFile = `${process.env.HOME}/.cache/ical2org`
-exec(`touch "${cacheFile}"`)
-exec(`touch "${OUTFILE}"`)
-const cache = fs
-  .readFileSync(cacheFile)
-  .toString()
-  .trim()
-  .split(/\n/)
-events.toString().split(/\n\n\*/g).forEach(async function (event) {
-  event = `*${event}`
-  const md5hash = exec(`echo "${event}" | md5sum`).toString().trim().split(/\s+/)[0]
-  if (cache.indexOf(md5hash) < 0) {
-    fs.appendFileSync(cacheFile, `${md5hash}\n`)
-    fs.appendFileSync(OUTFILE, `${event}\n\n`)
-  }
-})
+function processUrl (url) {
+  const events = exec(`curl -s "${url}" | ical2orgpy - -`)
+  const cacheFile = `${os.homedir()}/.cache/ical2org`
+  exec(`touch "${cacheFile}"`)
+  exec(`touch "${OUTFILE}"`)
+  const cache = fs
+    .readFileSync(cacheFile)
+    .toString()
+    .trim()
+    .split(/\n/)
+  return events
+    .toString()
+    .split(/\n\n\*/g)
+    .forEach(async function (event) {
+      event = `*${event}`
+      const md5hash = exec(`echo "${event}" | md5sum`)
+        .toString()
+        .trim()
+        .split(/\s+/)[0]
+      if (cache.indexOf(md5hash) < 0) {
+        fs.appendFileSync(cacheFile, `${md5hash}\n`)
+        fs.appendFileSync(OUTFILE, `${event}\n\n`)
+        return true
+      }
+      return false
+    })
+}
+
+if (typeof URL === 'string') {
+  processUrl(URL)
+} else {
+  URL.forEach(function (url) {
+    processUrl(url)
+  })
+}
