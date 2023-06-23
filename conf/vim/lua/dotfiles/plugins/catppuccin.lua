@@ -117,6 +117,7 @@ return {
 				}
 			end,
 		},
+		cmd = { "CatppuccinBuild" },
 		config = function(_, opts)
 			require("catppuccin").setup(opts)
 
