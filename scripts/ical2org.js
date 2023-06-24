@@ -1,6 +1,7 @@
 const fs = require('fs')
 const os = require('os')
-const exec = require('child_process').execSync
+const { execSync } = require('child_process')
+const { createHash } = require('node:crypto')
 const URL = require('./url')
 
 const OUTFILE = resolveTilde('~/SeaDrive/My Libraries/Todo/inbox.org')
@@ -18,7 +19,7 @@ function resolveTilde (filePath) {
 
 async function isExecutable (name) {
   try {
-    exec(name)
+    execSync(name)
     return true
   } catch (err) {
     return false
@@ -27,16 +28,16 @@ async function isExecutable (name) {
 
 const hasIcal2OrgPy = isExecutable('ical2orgpy 2> /dev/null')
 if (!hasIcal2OrgPy) {
-  exec('pipx install ical2orgpy')
+  execSync('pipx install ical2orgpy')
 }
 function processUrl (url) {
-  const events = exec(`curl -s "${url}" | ical2orgpy - -`)
+  const events = execSync(`curl -s "${url}" | ical2orgpy - -`)
   const cacheFile = `${os.homedir()}/.cache/ical2org`
   if (!fs.existsSync(cacheFile)) {
-    exec(`touch "${cacheFile}"`)
+    execSync(`touch "${cacheFile}"`)
   }
   if (!fs.existsSync(OUTFILE)) {
-    exec(`touch "${OUTFILE}"`)
+    execSync(`touch "${OUTFILE}"`)
   }
   const cache = fs
     .readFileSync(cacheFile)
@@ -46,12 +47,15 @@ function processUrl (url) {
   return events
     .toString()
     .split(/\n\n\*/g)
-    .forEach(async function (event) {
+    .filter(function (event) {
       event = `*${event}`
-      const md5hash = exec(`echo "${event}" | md5sum`)
-        .toString()
-        .trim()
-        .split(/\s+/)[0]
+      const hash = createHash('md5')
+      hash.update(event)
+      const md5hash = hash.copy().digest('hex')
+      // const md5hash = execSync(`echo "${event}" | md5sum`)
+      //   .toString()
+      //   .trim()
+      //   .split(/\s+/)[0]
       if (cache.indexOf(md5hash) < 0) {
         fs.appendFileSync(cacheFile, `${md5hash}\n`)
         fs.appendFileSync(OUTFILE, `${event}\n\n`)
@@ -61,10 +65,4 @@ function processUrl (url) {
     })
 }
 
-if (typeof URL === 'string') {
-  processUrl(URL)
-} else {
-  URL.forEach(function (url) {
-    processUrl(url)
-  })
-}
+;(typeof URL === 'string' ? [URL] : URL).forEach(processUrl)
