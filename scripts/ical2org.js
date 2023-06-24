@@ -32,8 +32,12 @@ if (!hasIcal2OrgPy) {
 function processUrl (url) {
   const events = exec(`curl -s "${url}" | ical2orgpy - -`)
   const cacheFile = `${os.homedir()}/.cache/ical2org`
-  exec(`touch "${cacheFile}"`)
-  exec(`touch "${OUTFILE}"`)
+  if (!fs.existsSync(cacheFile)) {
+    exec(`touch "${cacheFile}"`)
+  }
+  if (!fs.existsSync(OUTFILE)) {
+    exec(`touch "${OUTFILE}"`)
+  }
   const cache = fs
     .readFileSync(cacheFile)
     .toString()
