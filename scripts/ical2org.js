@@ -52,10 +52,6 @@ function processUrl (url) {
       const hash = createHash('md5')
       hash.update(event)
       const md5hash = hash.copy().digest('hex')
-      // const md5hash = execSync(`echo "${event}" | md5sum`)
-      //   .toString()
-      //   .trim()
-      //   .split(/\s+/)[0]
       if (cache.indexOf(md5hash) < 0) {
         fs.appendFileSync(cacheFile, `${md5hash}\n`)
         fs.appendFileSync(OUTFILE, `${event}\n\n`)
