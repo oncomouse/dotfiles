@@ -401,7 +401,7 @@ vim.keymap.set(
 vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>", { desc = "Split vertically" })
 
 -- Jump to last buffer:
-vim.keymap.set("n", "<leader>b", "<cmd>b#<cr>", { desc = "Jump to last buffer" })
+vim.keymap.set("n", "<leader><leader>", "<cmd>b#<cr>", { desc = "Jump to last buffer" })
 -- }}}
 -- Signs {{{
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
