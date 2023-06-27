@@ -5,6 +5,8 @@ vim.opt_local.softtabstop = 2
 vim.opt_local.expandtab = true
 -- Turn on conceal:
 vim.opt_local.conceallevel = 2
+-- Spell
+vim.opt_local.spell = true
 
 -- Do a better >>/<< for my editing style
 local translation = {
