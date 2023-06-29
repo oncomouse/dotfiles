@@ -117,10 +117,7 @@ return {
 				}
 			end,
 		},
-		cmd = { "CatppuccinBuild" },
-		config = function(_, opts)
-			require("catppuccin").setup(opts)
-
+		init = function()
 			vim.api.nvim_create_user_command("CatppuccinBuild", function()
 				vim.notify("Updating catppuccin cterm information.", vim.log.levels.INFO, {
 					title = "catppuccin-cterm.nvim",
@@ -135,5 +132,5 @@ return {
 				force = true,
 			})
 		end,
-	}, -- Theme
+	},
 }
