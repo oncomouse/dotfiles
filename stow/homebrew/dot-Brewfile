@@ -69,7 +69,6 @@ cask "grandperspective", args: { appdir: "/Applications" }
 cask "karabiner-elements", args: { appdir: "/Applications" }
 cask "keycast"
 cask "licecap"
-cask "mullvadvpn"
 cask "seadrive"
 cask "slack", args: { appdir: "/Applications" }
 cask "wezterm"
