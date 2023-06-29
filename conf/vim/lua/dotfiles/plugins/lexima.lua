@@ -21,8 +21,18 @@ return {
 		-- Load default rules:
 		vim.fn["lexima#set_default_rules"]()
 
+		-- Map leave to eol:
+		vim.keymap.set(
+			"i",
+			"<Plug>(dotfiles-lexima-leave-til-eol)",
+			'<C-r>=lexima#insmode#leave_till_eol("")<CR>',
+			{ noremap = true }
+		)
+
 		-- Utilities:
 		local add_rule = vim.fn["lexima#add_rule"]
+
+		-- Rule Making Functions:
 		local function make_endwise_rule(at, ed, ft, syn)
 			return {
 				char = "<CR>",
@@ -35,14 +45,6 @@ return {
 			}
 		end
 
-		-- Map leave to eol:
-		vim.keymap.set(
-			"i",
-			"<Plug>(dotfiles-lexima-leave-til-eol)",
-			'<C-r>=lexima#insmode#leave_till_eol("")<CR>',
-			{ noremap = true }
-		)
-		-- Rule Making Functions:
 		local function make_markdown_bi_rule(char, escape)
 			local esc_char = escape and [[\]] .. char or char
 			add_rule({
