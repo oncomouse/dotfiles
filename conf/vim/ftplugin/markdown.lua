@@ -5,14 +5,6 @@ vim.opt_local.list = false
 vim.opt_local.spell = true
 vim.opt_local.showbreak = "NONE"
 
--- Turn conceal on and off in a buffer:
-vim.keymap.set("n", "<leader>cc", function()
-	vim.opt_local.conceallevel = vim.opt_local.conceallevel == 0 and 2 or 0
-end, {
-	buffer = true,
-	silent = true,
-})
-
 -- Remap gd to follow footnotes
 vim.keymap.set("n", "gd", "<Plug>(markdown-nvim-footnote)", { buffer = true })
 
