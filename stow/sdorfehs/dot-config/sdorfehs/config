@@ -135,6 +135,9 @@ bind asciicircum vmove 5
 # [toggle fullscreen]
 definekey top F11 exec xdotool getactivewindow windowstate --toggle FULLSCREEN &
 
+# [lock screen]
+definekey top C-s-q exec xscreensaver-command -lock &
+
 # [mediakeys]
 definekey top XF86KbdBrightnessDown exec kbdlight down 5
 definekey top XF86KbdBrightnessUp exec kbdlight up 5
