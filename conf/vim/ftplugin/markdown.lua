@@ -10,7 +10,7 @@ vim.keymap.set("n", "gd", "<Plug>(markdown-nvim-footnote)", { buffer = true })
 
 vim.cmd([[compiler markdown_combo]])
 
--- vim.opt_local.iskeyword = vim.opt_local.iskeyword + "',-,@-@"
+vim.opt_local.iskeyword = vim.opt_local.iskeyword + "',-,@-@"
 
 -- Pandoc <format> to compile documents quickly and easily:
 vim.api.nvim_create_user_command("Pandoc", function(args)
