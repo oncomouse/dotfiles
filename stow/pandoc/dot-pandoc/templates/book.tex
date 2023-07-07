@@ -1,0 +1,251 @@
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$]{memoir}
+\usepackage{graphicx} % Used for including graphics
+\usepackage{wrapfig} % If you want figures that text wraps around, you can.
+\usepackage{bookmark}
+\makeatletter
+\let\@currsize\normalsize
+\makeatother
+\usepackage{mdwlist}
+\usepackage{ifxetex}
+
+% Document title
+\title{Transhumanism: Evolutionary Futurism, Technical Rhetoric, and Digital Utopia}
+% Author name:
+\author{Andrew Pilsch}
+
+% Custom If Statements:
+% These custom if statements control certain aspects of the document. To turn on the feature, uncomment the line after
+% the \newif\if<X> statement. To turn off the feature, comment this same line.
+
+% Are We Converting to RTF Using Latex2doc?
+\newif\ifconvert
+%\converttrue
+
+% Is This Document a Draft?
+\newif\ifdraft
+%\drafttrue
+
+% Should We Use Endnotes?
+\newif\ifendnotes
+%\endnotestrue
+
+% Do You Want End Notes After Each Chapter?
+\newif\ifchapterendnotes
+%\chapterendnotestrue
+
+% Don't change this if statement:
+\newif\ifstandalone
+%\standalonetrue
+
+% End Custom If Statements
+
+% Uncomment the two lines below to insert line numbers:
+%\usepackage{lineno}
+%\linenumbers
+
+\usepackage{url} % Required for biblatex
+\urlstyle{same}
+
+\usepackage{titlesec} % Control title formatting
+
+\usepackage{hyperref}
+
+\usepackage[paper=letterpaper,
+            %includefoot, % Uncomment to put page number above margin
+            margin=1in,               % 1 inch margins
+            ]{geometry}
+
+\ifendnotes
+	\makepagenote
+
+	\let\footnote\pagenote
+	\ifchapterendnotes
+		\renewcommand*{\notedivision}{\section*{\notesname\ to Chapter~\thechapter}}
+		\renewcommand*{\pagenotesubhead}[2]{}
+	\fi
+\fi
+
+\ifxetex
+	\usepackage{xltxtra}
+	$if(mainfont)$
+	    \setmainfont{$mainfont$}
+	$endif$
+	$if(sansfont)$
+	    \setsansfont{$sansfont$}
+	$endif$
+	$if(monofont)$
+	    \setmonofont{$monofont$}
+	$endif$
+	$if(mathfont)$
+	    \setmathfont{$mathfont$}
+	$endif$
+	
+	% Using XeTeX, we can produce a nice summary of chapter statistics
+	\usepackage{xesearch}
+	\newcounter{words}
+	\newenvironment{wordcount}{%
+	  \setcounter{words}{0}
+	  \SearchList!{wordcount}{\stepcounter{words}}
+	    {a?,b?,c?,d?,e?,f?,g?,h?,i?,j?,k?,l?,m?,
+	    n?,o?,p?,q?,r?,s?,t?,u?,v?,w?,x?,y?,z?}
+	  \UndoBoundary{'}
+	  \SearchOrder{p;}}{%
+	  \StopSearching}
+
+	\newcommand{\ChapterStatistics}[1]{%
+		\ifconvert
+		\else
+			\ifdraft
+				\section{Chapter Statistics}
+				\noindent This chapter is \arabic{#1} words long.
+			\fi
+		\fi
+	}
+		
+	% Map to fancy characters using Wingdings!
+	\usepackage{fontspec}
+	\newfontface\wingdings{Wingdings}
+
+	\renewcommand{\rightarrow}{{\wingdings \char240 }} % \char232
+\else
+	% We have to load some font packages if not using XeTeX:
+	\usepackage[utf8]{inputenc}
+	\usepackage[T1]{fontenc} % Fix font problems
+	%\usepackage{ae,aecompl} % Use the Type 1 versions of LaTeX fonts
+	\usepackage{pslatex} % Use times instead of the default (better looking)
+	
+	
+	% Define some of the XeTeX stuff we use below as empty commands for LaTeX compilation:
+	\newenvironment{wordcount}{}{}
+	\newcommand{\ChapterStatistics}[1]{}
+\fi
+
+\newcommand{\sub}[1]{{\footnotesize \ensuremath{_{\textrm{#1}}}}} % Shortcut for subscript
+
+%\setlength{\parskip}{2ex} % More spacing after a paragraph
+\setlength{\footnotesep}{10pt} % More spacing after a footnote
+%\renewcommand{\baselinestretch}{1.2} % Better spacing between lines
+
+% Define a new 'leo' style for the package that will use a smaller font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+%\urlstyle{leo}
+\ifconvert
+	\renewcommand{\emph}[1]{\textbackslash emph\{#1\}}
+	\newcommand{\epigraph}[2]{#1 --- #2}
+\else
+	% Set up headers and footers for drafts if we are making a draft:
+	\ifdraft
+		\newcommand{\draftmessage}{\MakeUppercase{\textbf{Draft}--Do not cite or quote without permission.}\\ Contact andrew@pilsch.com}
+		\copypagestyle{chapter}{plain}
+		%\makeevenhead{chapter}{}{\draftmessage}{}
+		%\makeoddhead{chapter}{}{\draftmessage}{}
+		
+		%\copypagestyle{section}{plain}
+		\makeevenfoot{headings}{}{}{\textit{Draft: \today}}
+		\makeoddfoot{headings}{\textit{Draft: \today}}{}{}
+		%\makeevenfoot{headings}{}{\draftmessage}{}
+		%\makeoddfoot{headings}{}{\draftmessage}{}
+		
+		
+		
+	\fi
+	
+	% Epigraph Package
+	\usepackage{epigraph}
+	\setlength{\epigraphwidth}{5in}
+	\setlength{\epigraphrule}{0pt}
+	\renewcommand{\epigraphflush}{center}
+	\renewcommand{\sourceflush}{flushright}
+	\renewcommand{\textflush}{flushleft}
+	\renewcommand{\epigraphsize}{\normalsize}
+	\setlength{\beforeepigraphskip}{0in}
+	\setlength{\afterepigraphskip}{0.25in}
+
+	% Single Space Epigraphs:
+	\let\tmpepigraph=\epigraph
+	\renewcommand{\epigraph}[2]%
+	{{\SingleSpace\tmpepigraph{#1}{---#2}}}
+	% End Epigraph Package
+	
+	% fancyhdr is not need for the memoir class.
+	% We load fancyhdr and fncychap if we are not creating an RTF document using latex2doc.
+	%%%%%%%%%%%%%%%%%%%%%%%%
+	% Setting for fancyhdr %
+	%%%%%%%%%%%%%%%%%%%%%%%%
+	%\usepackage{fancyhdr}%,lastpage}
+	%\pagestyle{fancy}
+	%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+	%\addtolength{\headheight}{3pt}
+	%\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+	%\fancyfootoffset{\marginparsep+\marginparwidth}
+	%\newlength{\footpageshift}
+	%\setlength{\footpageshift}
+	%          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+	%\rhead{%\hspace{\footpageshift}%
+	       %\parbox{4in}{\, \hfill %
+	%                    {\footnotesize Pilsch \arabic{page}}% +LP
+	%                    \arabic{page}                               % -LP
+	%                    }%\hfill \,}%}
+	%\cfoot{}
+	%\lhead{}
+	%\renewcommand{\headrulewidth}{0pt}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%
+	% Setting for fncychap %
+	%%%%%%%%%%%%%%%%%%%%%%%%
+	% Comment out or remove the next two lines and you will get
+	% the standard LaTeX chapter titles. We like these A LOT
+	% better.
+	%\usepackage[Lenny]{fncychap} % Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
+	%\ChTitleVar{\Huge\sffamily\bfseries\SingleSpacing} % Changed form \Huge\sffamily\bfseries
+	\chapterstyle{dash}
+\fi
+
+\ifconvert
+\else
+	\usepackage{quoting}
+	\quotingsetup{indentfirst=false,vskip=12pt,font={SingleSpacing}}
+
+
+	\renewenvironment*{quote}
+		{\begin{quoting}\setlength{\parindent}{0in}\setlength{\parskip}{12pt}}
+		{\end{quoting}}
+
+\fi
+
+\begin{document}
+	%\titleformat*{\section}{\bfseries \SingleSpacing \large}{}
+	%\titlespacing*{\section}{0em}{20pt}{14pt}
+	%\titleformat*{\subsection}{\normal \bfseries \SingleSpacing}{}
+	%\titlespacing*{\subsection}{0em}{12pt}{12pt}
+
+	\raggedright
+	\DoubleSpacing
+	\thispagestyle{empty}
+	\setlength{\parindent}{0.5in}
+
+	\frontmatter
+
+	\ifconvert
+	\else
+		\maketitle
+
+	\fi
+
+	\newpage
+
+	\tableofcontents
+	
+	\newpage
+	
+	\listoffigures
+
+	\mainmatter
+
+	$body$
+	
+\end{document}

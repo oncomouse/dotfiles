@@ -24,6 +24,7 @@ if [ -z "$SERVER" ]; then
 	dotfiles_stow mpd
 	dotfiles_stow ncmpcpp
 	dotfiles_stow neovim
+	dotfiles_stow pandoc
 	dotfiles_stow proselint
 	dotfiles_stow rubocop
 	dotfiles_stow starship
