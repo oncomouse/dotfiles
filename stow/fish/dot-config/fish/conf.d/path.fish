@@ -36,6 +36,8 @@ if status --is-login
 	fish_add_path --append /opt/homebrew/opt/ruby/bin
 	# Local luarocks
 	fish_add_path --prepend ~/.luarocks/bin
+	# Doom Emacs installer:
+	fish_add_path --append ~/.config/emacs/bin
 
 
 	# NPM Local manpath:
