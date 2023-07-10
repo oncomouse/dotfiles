@@ -9,6 +9,8 @@
 (setq user-full-name "Andrew Pilsch"
       user-mail-address "apilsch@tamu.edu")
 
+
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 18))
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
