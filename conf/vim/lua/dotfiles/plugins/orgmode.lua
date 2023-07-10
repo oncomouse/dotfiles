@@ -1,6 +1,6 @@
 return {
 	"nvim-orgmode/orgmode",
-	dev = false,
+	dev = true,
 	ft = "org",
 	keys = {
 		{ "<leader>oa", "<Cmd>lua require('orgmode').action('agenda.prompt')<CR>", desc = "org agenda" },
