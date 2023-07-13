@@ -49,7 +49,7 @@ return {
 					extra_args = { "--use-tabs" },
 					prefer_local = "node_modules/.bin",
 				}),
-				b.completion.luasnip,
+				-- b.completion.luasnip,
 
 				-- YAML
 				b.formatting.prettier.with({

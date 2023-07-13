@@ -3,12 +3,11 @@ local function get_documentation(snip, data)
 	local docstring = { "", "```" .. vim.bo.filetype, snip:get_docstring(), "```" }
 	local documentation = { header .. "---", (snip.dscr or ""), docstring }
 	documentation = require("vim.lsp.util").convert_input_to_markdown_lines(documentation)
-	documentation = table.concat(documentation, "\n")
-	return documentation
+	return table.concat(documentation, "\n")
 end
+
 local handlers = {
-	initialize = function(_, callback)
-        vim.print("LuaSnip LSP")
+	["initialize"] = function(_, callback)
 		callback(nil, {
 			capabilities = {
 				completionProvider = {
@@ -21,13 +20,13 @@ local handlers = {
 		})
 	end,
 	["textDocument/completion"] = function(params, done)
-        local curline = vim.fn.line(".")
-        local line, col = unpack(vim.fn.searchpos([[\k*]], "bcn"))
-        if line ~= curline then
-            done()
-            return
-        end
-        local word_to_complete = vim.api.nvim_get_current_line():sub(col - 1, params.position.character)
+		local curline = vim.fn.line(".")
+		local line, col = unpack(vim.fn.searchpos([[\k*]], "bcn"))
+		if line ~= curline then
+			done()
+			return
+		end
+		local word_to_complete = vim.api.nvim_get_current_line():sub(col - 1, params.position.character)
 		local filetypes = require("luasnip.util.util").get_snippet_filetypes()
 		local items = {}
 
@@ -60,21 +59,16 @@ local handlers = {
 			end
 		end
 		local line_to_cursor = require("luasnip.util.util").get_current_line_to_cursor()
-		done({
-			{
-				items = vim.tbl_filter(function(item)
-					return vim.startswith(item.word, word_to_complete)
-						and item.data.show_condition(line_to_cursor)
-				end, items),
-				isIncomplete = #items == 0,
-			},
-		})
+		items = vim.tbl_filter(function(item)
+			return vim.startswith(item.word, word_to_complete) and item.data.show_condition(line_to_cursor)
+		end, items)
+		pcall(done, nil, items)
 	end,
 }
 setmetatable(handlers, {
 	__index = function()
 		return function(_, callback)
-			callback(nil, {})
+			callback()
 		end
 	end,
 })
