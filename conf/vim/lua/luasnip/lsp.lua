@@ -1,3 +1,5 @@
+local Lsp = require("lspize")
+
 local function get_documentation(snip, data)
 	local header = (snip.name or "") .. " _ `[" .. data.filetype .. "]`\n"
 	local docstring = { "", "```" .. vim.bo.filetype, snip:get_docstring(), "```" }
@@ -7,19 +9,7 @@ local function get_documentation(snip, data)
 end
 
 local handlers = {
-	["initialize"] = function(_, callback)
-		callback(nil, {
-			capabilities = {
-				completionProvider = {
-					resolveProvider = false,
-					completionItem = {
-						labelDetailsSupport = true,
-					},
-				},
-			},
-		})
-	end,
-	["textDocument/completion"] = function(params, done)
+	[Lsp.methods.COMPLETION] = function(params, done)
 		local curline = vim.fn.line(".")
 		local line, col = unpack(vim.fn.searchpos([[\k*]], "bcn"))
 		if line ~= curline then
@@ -65,31 +55,5 @@ local handlers = {
 		pcall(done, nil, items)
 	end,
 }
-setmetatable(handlers, {
-	__index = function()
-		return function(_, callback)
-			callback()
-		end
-	end,
-})
 
-local server = function(dispatchers)
-	local closing = false
-	return {
-		request = function(method, params, callback)
-			handlers[method](params, callback)
-		end,
-		notify = function(...) end,
-		is_closing = function()
-			return closing
-		end,
-		terminate = function()
-			if not closing then
-				closing = true
-				dispatchers.on_exit(0, 0)
-			end
-		end,
-	}
-end
-
-vim.lsp.start({ name = "nvim_ref", cmd = server })
+Lsp:new(handlers)
