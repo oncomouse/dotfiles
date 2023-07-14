@@ -17,10 +17,10 @@ end
 
 local function attach_filetype(opts, filetype, formatter)
 	local new_opts = vim.tbl_extend("keep", opts, {})
-	if type(new_opts.filetypes[filetype]) == "nil" then
-		new_opts.filetypes[filetype] = { formatter }
+	if type(new_opts.filetype[filetype]) == "nil" then
+		new_opts.filetype[filetype] = { formatter }
 	else
-		table.insert(new_opts.filetypes[filetype], formatter)
+		table.insert(new_opts.filetype[filetype], formatter)
 	end
 	return new_opts
 end
@@ -28,7 +28,7 @@ return {
 	"mhartington/formatter.nvim",
 	opts = function()
 		local opts = {
-			filetypes = {},
+			filetype = {},
 		}
 		local prettier = require("formatter.defaults").prettier
 		for _, ft in pairs({
@@ -49,6 +49,8 @@ return {
 			opts = attach_filetype(opts, ft, parser)
 		end
 		opts = attach_filetype(opts, "yaml", prettier("yaml"))
+
+		opts = attach_filetype(opts, "lua", require("formatter.filetypes.lua").stylua)
 
 		local black = function()
 			local b = require("formatter.filetypes.python").black()

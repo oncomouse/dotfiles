@@ -276,7 +276,7 @@ vim.api.nvim_create_user_command("Format", function()
 	local buf = vim.api.nvim_get_current_buf()
 	local ft = vim.opt_local.filetype:get()
 	local config = require("formatter.config").values
-	if config.filetypes[ft] ~= nil then
+	if config.filetype[ft] ~= nil then
 		require("formatter.format").format("", "", 1, vim.api.nvim_buf_line_count(buf))
 	elseif pcall(require, "lspconfig") then
 		vim.lsp.buf.format({
