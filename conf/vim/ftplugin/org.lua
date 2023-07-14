@@ -34,4 +34,3 @@ end, {
 
 -- Map org-mode's <M-CR> behavior into nvim-orgmode
 vim.keymap.set("i", "<M-CR>", "<c-o><leader><cr>", { buffer = true, remap = true })
-

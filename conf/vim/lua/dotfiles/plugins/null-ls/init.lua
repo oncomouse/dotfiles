@@ -1,17 +1,6 @@
 return {
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		ft = {
-			"html",
-			"javascript",
-			"javascript.react",
-			"lua",
-			"py",
-			"sh",
-			"typescript",
-			"typescript.react",
-			"vim",
-		},
 		opts = function()
 			local eslint_project = require("dotfiles.null-ls.helpers.eslint_project")
 			local b = require("null-ls").builtins
@@ -19,6 +8,7 @@ return {
 			local sources = {
 				-- HTML
 				require("dotfiles.null-ls.builtins.diagnostics.htmlhint"),
+				b.completion.luasnip,
 
 				-- JAVASCRIPT
 				-- Use standard and prettier for non-eslint projects:

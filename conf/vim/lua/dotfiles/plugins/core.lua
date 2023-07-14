@@ -3,12 +3,14 @@ return {
 		"folke/lazy.nvim",
 		version = "*",
 		keys = {
-			{ "<leader>la", "<cmd>Lazy<cr>", desc = "Lazy.nvim" },
+			{ "<leader>la", "<cmd>Lazy<cr>",        desc = "Lazy.nvim" },
 			{ "<leader>lu", "<cmd>Lazy update<cr>", desc = "Update Lazy.nvim plugins" },
 		},
 	},
 
+	-- Utilities
 	{ "nvim-lua/plenary.nvim", lazy = true },
+	-- { "oncomouse/lspize.nvim", lazy = true, dev = false },
 
 	"tpope/vim-repeat",
 
@@ -32,8 +34,8 @@ return {
 		"vim-scripts/ReplaceWithRegister",
 		dependencies = { "vim-repeat" },
 		keys = {
-			{ "gr", mode = { "x", "n" }, desc = "Replace region with register" },
-			{ "grr", mode = "n", desc = "Replace line with register" },
+			{ "gr",  mode = { "x", "n" }, desc = "Replace region with register" },
+			{ "grr", mode = "n",          desc = "Replace line with register" },
 		},
 	}, -- gr{motion} or grr or gr in visual to replace with register
 
@@ -41,8 +43,8 @@ return {
 		"oncomouse/sort-motion.nvim",
 		dev = false,
 		keys = {
-			{ "gs", mode = { "x", "n" }, desc = "Sort region" },
-			{ "gss", mode = { "n" }, desc = "Sort line" },
+			{ "gs",  mode = { "x", "n" }, desc = "Sort region" },
+			{ "gss", mode = { "n" },      desc = "Sort line" },
 		},
 		dependencies = { "vim-repeat" },
 	},
@@ -63,12 +65,14 @@ return {
 			{
 				"g*",
 				"<Plug>(asterisk-gz*)",
-				desc = "Search forward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor",
+				desc =
+				"Search forward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor",
 			},
 			{
 				"g#",
 				"<Plug>(asterisk-gz#)",
-				desc = "Search backward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor",
+				desc =
+				"Search backward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor",
 			},
 		},
 		init = function()
