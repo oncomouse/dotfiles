@@ -113,14 +113,20 @@ return {
 	{
 		"oncomouse/nvim-ref",
 		dev = false,
+		ft = {
+			"latex",
+			"markdown",
+			"org",
+		},
 		cmd = "NvimRef",
-		init = function()
-			vim.g.nvim_ref_options = {
-				bibfiles = {
-					"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib",
-				},
-			}
-		end,
+		opts = {
+			bibfiles = {
+				"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib",
+			},
+			lsp = {
+				on_attach = require("dotfiles.plugins.lsp.on_attach")
+			},
+		},
 		dependencies = {
 			"plenary.nvim",
 		},
