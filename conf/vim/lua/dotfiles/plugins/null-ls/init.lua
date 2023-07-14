@@ -30,37 +30,7 @@ return {
 			local b = require("null-ls").builtins
 
 			local sources = {
-				-- GENERAL PURPOSE
-				b.formatting.prettier.with({
-					update_on_insert = false,
-					filetypes = {
-						"css",
-						"graphql",
-						"handlebars",
-						"html",
-						"json",
-						"jsonc",
-						"less",
-						"markdown",
-						"markdown.mdx",
-						"scss",
-						"svelte",
-					},
-					extra_args = { "--use-tabs" },
-					prefer_local = "node_modules/.bin",
-				}),
-				-- b.completion.luasnip,
-
-				-- YAML
-				b.formatting.prettier.with({
-					filetypes = {
-						"yaml",
-					},
-					prefer_local = "node_modules/.bin",
-				}),
-
 				-- LUA
-				b.formatting.stylua,
 				b.diagnostics.selene.with({
 					cwd = function(_params)
 						return vim.fs.dirname(
@@ -70,18 +40,9 @@ return {
 				}),
 
 				-- PYTHON
-				b.formatting.black.with({
-					extra_args = { "-l", "79" }, -- PEP8 line lengths
-				}),
-				b.formatting.reorder_python_imports,
 				b.diagnostics.flake8,
 
-				-- FISH
-				b.formatting.fish_indent,
-
 				-- SHELL
-				b.formatting.shfmt,
-				b.formatting.shellharden,
 				b.diagnostics.shellcheck.with({
 					diagnostics_format = "#{m} [#{c}]",
 				}),
@@ -93,33 +54,11 @@ return {
 				-- HTML
 				require("dotfiles.null-ls.builtins.diagnostics.htmlhint"),
 
-				-- MARKDOWN
-				-- require("nvim-ref.null-ls.hover"),
-				-- require("nvim-ref.null-ls.completion"),
-
 				-- JAVASCRIPT
 				-- Use standard and prettier for non-eslint projects:
 				b.diagnostics.standardjs.with({
 					condition = function()
 						return not eslint_project()
-					end,
-				}),
-				b.formatting.prettier_standard.with({
-					filetypes = {
-						"vue",
-						"javascript",
-						"javascriptreact",
-						"typescript",
-						"typescriptreact",
-					},
-					condition = function()
-						return not eslint_project()
-					end,
-				}),
-				-- Use eslint_d for eslint projects:
-				b.formatting.eslint_d.with({
-					condition = function()
-						return eslint_project()
 					end,
 				}),
 				b.diagnostics.eslint_d.with({

@@ -259,7 +259,7 @@ vim.api.nvim_create_autocmd("CompleteDone", {
 })
 --}}}
 -- Commands {{{
--- Formatting and Diagnostic commands for LSP-less files
+-- Diagnostic commands for LSP-less files
 vim.api.nvim_create_user_command("Diagnostics", function()
 	vim.cmd("silent lmake! %")
 	if #vim.fn.getloclist(0) == 0 then
@@ -270,9 +270,23 @@ vim.api.nvim_create_user_command("Diagnostics", function()
 end, {
 	force = true,
 })
+
+-- Formatting:
 vim.api.nvim_create_user_command("Format", function()
-	vim.api.nvim_feedkeys("mxgggqG`x", "x", true)
+	local buf = vim.api.nvim_get_current_buf()
+	local ft = vim.opt_local.filetype:get()
+	local config = require("formatter.config").values
+	if config.filetypes[ft] ~= nil then
+		require("formatter.format").format("", "", 1, vim.api.nvim_buf_line_count(buf))
+	elseif pcall(require, "lspconfig") then
+		vim.lsp.buf.format({
+			bufnr = buf,
+		})
+	else
+		vim.api.nvim_feedkeys("mxgggqG`x", "x", true)
+	end
 end, {
+	desc = "Format using formatter.nvim or LSP",
 	force = true,
 })
 
@@ -414,7 +428,7 @@ end
 vim.g.bibfiles = "~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
 -- }}}
 -- Plugins {{{
-require("rocks") -- Add luarocks to the path
+require("rocks")                     -- Add luarocks to the path
 require("select-digraphs").setup({}) -- Configure select-digraphs
 -- }}}
 -- Theme {{{
@@ -462,5 +476,6 @@ function vim.print(...)
 	vim.api.nvim_out_write("\n")
 	return ...
 end
+
 -- }}}
 -- # vim:foldmethod=marker:foldlevel=0
