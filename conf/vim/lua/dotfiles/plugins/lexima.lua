@@ -244,6 +244,34 @@ return {
 			at = [[^\**\%#]],
 			filetype = "org",
 		})
+		-- Ordered List:
+		add_rule({
+			char = "+",
+			input = "+ ",
+			at = [[^\s*\%#]],
+			filetype = "org",
+		})
+		add_rule({
+			char = "<BS>",
+			at = [[^\(\s*\)[+-] \%#$]],
+			filetype = "org",
+			with_submatch = true,
+			input = [[<Home><C-O>"_D\1]],
+		})
+		add_rule({
+			char = "<CR>",
+			at = [[^\s*\([+-]\) .*\%#$]],
+			filetype = "org",
+			with_submatch = true,
+			input = [[<CR>\1 <C-d>]],
+			except = [[^\s*\([+-]\) \%#$]],
+		})
+		add_rule({
+			char = "<CR>",
+			at = [[^\s*\([+-]\) \%#$]],
+			filetype = "org",
+			input = [[<Home><C-O>"_D]],
+		})
 		-- Handle cookies properly:
 		add_rule({
 			char = "/",

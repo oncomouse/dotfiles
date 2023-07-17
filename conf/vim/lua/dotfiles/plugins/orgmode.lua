@@ -19,6 +19,7 @@ return {
 		mappings = {
 			org = {
 				org_toggle_checkbox = { "<C-space>", "<leader>o<space>", "gtd" },
+				org_return = "<leader>VVVVV", -- Can't disable maps and this continues to mess with Lexima
 			},
 		},
 	},
@@ -27,6 +28,8 @@ return {
 		require("orgmode").setup(opts)
 		if vim.bo.filetype == "org" then
 			require("orgmode").reload(vim.fn.expand("<afile>:p"))
+			-- Neovim won't let me override orgmode's indentexpr (which, for me, never works right), so we just delete the function:
+			require("orgmode.org.indent").indentexpr = function() end
 		end
 	end,
 }
