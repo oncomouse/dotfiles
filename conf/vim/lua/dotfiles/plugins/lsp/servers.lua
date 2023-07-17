@@ -74,4 +74,7 @@ return {
 		pattern = "*.vim",
 		snippets = true,
 	},
+	yamlls = {
+		pattern = { "*.yaml", "*.yml" },
+	}
 }
