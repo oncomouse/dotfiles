@@ -8,7 +8,6 @@ return {
 			local sources = {
 				-- HTML
 				require("dotfiles.null-ls.builtins.diagnostics.htmlhint"),
-				b.completion.luasnip,
 
 				-- JAVASCRIPT
 				-- Use standard and prettier for non-eslint projects:

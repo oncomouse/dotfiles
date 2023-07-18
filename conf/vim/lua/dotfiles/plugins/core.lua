@@ -10,7 +10,7 @@ return {
 
 	-- Utilities
 	{ "nvim-lua/plenary.nvim", lazy = true },
-	-- { "oncomouse/lspize.nvim", lazy = true, dev = false },
+	{ "oncomouse/lspize.nvim", lazy = true, dev = false },
 
 	"tpope/vim-repeat",
 
