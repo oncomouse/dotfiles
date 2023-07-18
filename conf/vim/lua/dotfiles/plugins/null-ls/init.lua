@@ -10,7 +10,7 @@ return {
 				require("dotfiles.null-ls.builtins.diagnostics.htmlhint"),
 
 				-- JAVASCRIPT
-				-- Use standard and prettier for non-eslint projects:
+				-- Use standard for non-eslint projects:
 				b.diagnostics.standardjs.with({
 					condition = function()
 						return not eslint_project()
@@ -29,7 +29,7 @@ return {
 
 				-- LUA
 				b.diagnostics.selene.with({
-					cwd = function(_params)
+					cwd = function()
 						return vim.fs.dirname(
 							vim.fs.find({ "selene.toml" }, { upward = true, path = vim.api.nvim_buf_get_name(0) })[1]
 						) or vim.fn.expand("~/.config/selene/") -- fallback value
