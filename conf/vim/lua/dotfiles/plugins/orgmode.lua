@@ -19,7 +19,7 @@ return {
 		mappings = {
 			org = {
 				org_toggle_checkbox = { "<C-space>", "<leader>o<space>", "gtd" },
-				org_return = "<leader>VVVVV", -- Can't disable maps and this continues to mess with Lexima
+				org_return = "<C-1>", -- Can't disable maps and this continues to mess with Lexima
 			},
 		},
 	},
