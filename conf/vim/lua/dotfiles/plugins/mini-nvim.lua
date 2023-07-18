@@ -73,7 +73,6 @@ return {
 		},
 		config = function(_, opts)
 			require("mini.basics").setup(opts)
-			vim.keymap.del("t", "<C-w>")
 			vim.opt.completeopt:append("preview")
 			vim.opt.shortmess:append("Wc")
 			vim.opt.undofile = false
