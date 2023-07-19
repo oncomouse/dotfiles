@@ -18,3 +18,5 @@ vim.keymap.set({ "n", "i" }, "<C-]>", function()
 end, {
 	buffer = true,
 })
+
+vim.bo.keywordprg = ":help"

@@ -17,7 +17,7 @@ local function on_attach(client, buf_num)
 		vim.opt_local.tagfunc = "v:lua.vim.lsp.tagfunc"
 	end
 	-- Use K for hover (except in VimL):
-	if vim.opt_local.ft:get() ~= "vim" then
+	if not vim.tbl_contains({"vim", "help"}, vim.bo.filetype) then
 		vim.api.nvim_buf_create_user_command(buf_num, "Hover", vim.lsp.buf.hover, {
 			desc = "lua vim.lsp.buf.hover()",
 			force = true,
