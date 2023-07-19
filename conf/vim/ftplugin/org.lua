@@ -34,3 +34,17 @@ end, {
 
 -- Map org-mode's <M-CR> behavior into nvim-orgmode
 vim.keymap.set("i", "<M-CR>", "<c-o><leader><cr>", { buffer = true, remap = true })
+
+-- Pandoc <format> to compile documents quickly and easily:
+vim.api.nvim_create_user_command("Pandoc", function(args)
+	vim.cmd(
+		"!pandoc -i "
+		.. vim.fn.fnameescape(vim.fn.expand("%"))
+		.. " -o "
+		.. vim.fn.fnameescape(vim.fn.expand("%:r"))
+		.. "."
+		.. args.args
+	)
+end, {
+	nargs = 1,
+})
