@@ -9,7 +9,6 @@ local root_file = {
 }
 local function is_eslint_project()
 	local fname = require("formatter.util").get_current_buffer_file_path()
-	vim.print(fname)
 	root_file = require("lspconfig.util").insert_package_json(root_file, "eslintConfig", fname)
 	local root = require("lspconfig.util").root_pattern(unpack(root_file))(fname)
 	return root ~= nil
