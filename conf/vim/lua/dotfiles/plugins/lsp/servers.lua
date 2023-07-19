@@ -39,6 +39,9 @@ return {
 				},
 				-- Do not send telemetry data containing a randomized but unique identifier
 				telemetry = { enable = false },
+				runtime = {
+					version = "LuaJIT",
+				},
 			},
 		},
 		flags = {
@@ -76,5 +79,5 @@ return {
 	},
 	yamlls = {
 		pattern = { "*.yaml", "*.yml" },
-	}
+	},
 }
