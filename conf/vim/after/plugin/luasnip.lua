@@ -57,8 +57,6 @@ local handlers = {
 }
 
 Lsp.create(handlers, {
-	on_attach = function()
-		vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
-	end,
+	on_attach = require("dotfiles.plugins.lsp.on_attach"),
 	name = "luasnip",
 })
