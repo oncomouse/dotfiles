@@ -141,7 +141,6 @@ return {
 	{
 		"oncomouse/markdown.nvim",
 		dev = false,
-		ft = "markdown",
 	},
 
 	{
