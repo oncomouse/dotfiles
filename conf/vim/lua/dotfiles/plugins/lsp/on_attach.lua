@@ -84,23 +84,6 @@ local function on_attach(client, buf_num)
 		desc = "lua vim.lsp.buf.signature_help()",
 	})
 
-	if client.server_capabilities.documentFormattingProvider then
-		vim.api.nvim_create_user_command("Format", function()
-			local has_formatter = require("formatter.config").formatters_for_filetype(vim.bo.filetype)
-			vim.lsp.buf.format({
-				filter = function(c)
-					if #has_formatter > 0 then
-						return c.name == "formatter.nvim"
-					end
-					return true
-				end
-			})
-		end, {
-			desc = "LSP Formatting",
-			force = true,
-		})
-	end
-
 	-- Turn off LSP semantic highlighting:
 	client.server_capabilities.semanticTokensProvider = nil
 end
