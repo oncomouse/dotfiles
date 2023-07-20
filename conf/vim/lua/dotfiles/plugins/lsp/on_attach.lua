@@ -17,7 +17,7 @@ local function on_attach(client, buf_num)
 		vim.opt_local.tagfunc = "v:lua.vim.lsp.tagfunc"
 	end
 	-- Use K for hover (except in VimL):
-	if not vim.tbl_contains({"vim", "help"}, vim.bo.filetype) then
+	if not vim.tbl_contains({ "vim", "help" }, vim.bo.filetype) then
 		vim.api.nvim_buf_create_user_command(buf_num, "Hover", vim.lsp.buf.hover, {
 			desc = "lua vim.lsp.buf.hover()",
 			force = true,
@@ -83,6 +83,23 @@ local function on_attach(client, buf_num)
 		buffer = buf_num,
 		desc = "lua vim.lsp.buf.signature_help()",
 	})
+
+	if client.server_capabilities.documentFormattingProvider then
+		vim.api.nvim_create_user_command("Format", function()
+			local has_formatter = require("formatter.config").formatters_for_filetype(vim.bo.filetype)
+			vim.lsp.buf.format({
+				filter = function(c)
+					if #has_formatter > 0 then
+						return c.name == "formatter.nvim"
+					end
+					return true
+				end
+			})
+		end, {
+			desc = "LSP Formatting",
+			force = true,
+		})
+	end
 
 	-- Turn off LSP semantic highlighting:
 	client.server_capabilities.semanticTokensProvider = nil

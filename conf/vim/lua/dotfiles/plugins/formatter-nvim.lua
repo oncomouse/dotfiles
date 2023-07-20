@@ -25,6 +25,7 @@ local function attach_filetype(opts, filetype, formatter)
 end
 return {
 	"mhartington/formatter.nvim",
+	lazy = true,
 	opts = function()
 		local opts = {
 			filetype = {},
