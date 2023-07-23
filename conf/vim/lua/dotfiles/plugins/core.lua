@@ -16,9 +16,7 @@ return {
 
 	-- Editor Enhancements:
 
-	{
-		"sickill/vim-pasta",
-	}, -- fix block paste for Neovim
+	"sickill/vim-pasta", -- fix block paste for Neovim
 
 	{
 		"tpope/vim-sleuth",
