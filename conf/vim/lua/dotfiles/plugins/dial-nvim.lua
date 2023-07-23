@@ -83,7 +83,9 @@ local function toggle_markdown_image()
 	local ts_utils = require("nvim-treesitter.ts_utils")
 	local row, col = unpack(vim.api.nvim_win_get_cursor(0))
 	local root, _, langtree = ts_utils.get_root_for_position(row - 1, col)
-	if not langtree then return nil end
+	if not langtree then
+		return nil
+	end
 	local lang = langtree:lang()
 	if lang == "html" then
 		return html_to_md(row - 1, root)
@@ -123,12 +125,18 @@ return {
 				augend.misc.alias.markdown_header,
 				augend.user.new({
 					find = function()
-						return toggle_markdown_image() and { from = 0, to = 0} or nil
+						return toggle_markdown_image() and { from = 0, to = 0 } or nil
 					end,
 					add = function(text, _, cursor)
 						return { text = text, cursor = cursor }
-					end
-				})
+					end,
+				}),
+				augend.date.new({ -- Orgmode dates
+					pattern = "%Y-%m-%d %a",
+					default_kind = "day",
+					only_valid = true,
+					word = false,
+				}),
 			},
 		})
 	end,
