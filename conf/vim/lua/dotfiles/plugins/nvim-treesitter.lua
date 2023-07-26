@@ -162,123 +162,123 @@ nvim_treesitter.setup_parser_config = function()
 end
 
 nvim_treesitter.setup_extensions = function()
-	local ts_highlight_check_augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_highlight_check", {})
-	-- FIXME: Currently this doesn't disable the modules as they are enabled in
-	-- nvim-treesitter attach callback, which is executed after this autocmd.
-	-- But this can fix the error that highlight is disabled on startup and also
-	-- enables modules after startup.
-	vim.api.nvim_create_autocmd({ "BufEnter" }, {
-		group = ts_highlight_check_augroup_id,
-		pattern = "*",
-		callback = function()
-			if current_buffer_base_highlight_disable_check() then
-				vim.schedule(function()
-					vim.cmd([[NoMatchParen]])
-				end)
-			else
-				vim.schedule(function()
-					vim.cmd([[DoMatchParen]])
-				end)
-			end
-		end,
-	})
+	-- local ts_highlight_check_augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_highlight_check", {})
+	-- -- FIXME: Currently this doesn't disable the modules as they are enabled in
+	-- -- nvim-treesitter attach callback, which is executed after this autocmd.
+	-- -- But this can fix the error that highlight is disabled on startup and also
+	-- -- enables modules after startup.
+	-- vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	-- 	group = ts_highlight_check_augroup_id,
+	-- 	pattern = "*",
+	-- 	callback = function()
+	-- 		if current_buffer_base_highlight_disable_check() then
+	-- 			vim.schedule(function()
+	-- 				vim.cmd([[NoMatchParen]])
+	-- 			end)
+	-- 		else
+	-- 			vim.schedule(function()
+	-- 				vim.cmd([[DoMatchParen]])
+	-- 			end)
+	-- 		end
+	-- 	end,
+	-- })
 end
 
 nvim_treesitter.setup_performance_trick = function()
-	local configs_commands = require("nvim-treesitter.configs").commands
-
-	-- TODO: Check if these actually help performance, initial test reveals that these may reduce highlighter time, but increase "[string]:0" time which is probably the time spent on autocmd & syntax enable/disable.
-	-- TODO: These config help reduce memory usage, see if there's other way to fix high memory usage.
-	-- TODO: Change to tab based toggling
-	local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_settings", {})
-
-	local global_idle_disabled_modules = vim.tbl_filter(function(module)
-		return module ~= nil
-	end, {
-		"highlight",
-		"matchup",
-		"navigation",
-		"smart_rename",
-	})
-	local tab_idle_disabled_modules = global_idle_disabled_modules
-
-	local global_trick_delay_enable = false
-	local global_trick_delay = 10 * 1000 -- 10 seconds
-	vim.api.nvim_create_autocmd({ "FocusGained" }, {
-		group = augroup_id,
-		pattern = "*",
-		callback = function()
-			if global_trick_delay_enable then
-				global_trick_delay_enable = false
-			else
-				for _, module in ipairs(global_idle_disabled_modules) do
-					configs_commands.TSEnable.run(module)
-				end
-			end
-		end,
-	})
-	-- NOTE: We want to disable highlight if FocusLost is caused by following reasons:
-	-- 1. neovim goes to background
-	-- 2. tmux switch window, client
-	-- 3. Terminal emulator switch tab
-	-- We don't want to disable highlight if FocusLost is caused by following reasons:
-	-- 1. tmux switch pane
-	-- 2. Terminal emulator switch pane
-	-- 3. OS switch application
-	-- In other words, we want treesitter highlight if the buffer is actually displayed on the screen.
-	vim.api.nvim_create_autocmd({ "FocusLost" }, {
-		group = augroup_id,
-		pattern = "*",
-		callback = function()
-			global_trick_delay_enable = true
-
-			vim.defer_fn(function()
-				if global_trick_delay_enable then
-					for _, module in ipairs(global_idle_disabled_modules) do
-						configs_commands.TSDisable.run(module)
-					end
-
-					global_trick_delay_enable = false
-				end
-			end, global_trick_delay)
-		end,
-	})
-
-	local tab_trick_enable = false
-	local tab_trick_debounce = 200
-	-- FIXME: Open buffer in other tab doesn't have highlight
-	vim.api.nvim_create_autocmd({ "TabEnter" }, {
-		group = augroup_id,
-		pattern = "*",
-		callback = function()
-			tab_trick_enable = true
-
-			vim.defer_fn(function()
-				if tab_trick_enable then
-					local winids = vim.api.nvim_tabpage_list_wins(0)
-
-					for _, module in ipairs(tab_idle_disabled_modules) do
-						for _, winid in ipairs(winids) do
-							configs_commands.TSBufEnable.run(module, vim.api.nvim_win_get_buf(winid))
-						end
-					end
-
-					tab_trick_enable = false
-				end
-			end, tab_trick_debounce)
-		end,
-	})
-	vim.api.nvim_create_autocmd({ "TabLeave" }, {
-		group = augroup_id,
-		pattern = "*",
-		callback = function()
-			for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-				for _, module in ipairs(tab_idle_disabled_modules) do
-					configs_commands.TSBufDisable.run(module, vim.api.nvim_win_get_buf(winid))
-				end
-			end
-		end,
-	})
+	-- local configs_commands = require("nvim-treesitter.configs").commands
+	--
+	-- -- TODO: Check if these actually help performance, initial test reveals that these may reduce highlighter time, but increase "[string]:0" time which is probably the time spent on autocmd & syntax enable/disable.
+	-- -- TODO: These config help reduce memory usage, see if there's other way to fix high memory usage.
+	-- -- TODO: Change to tab based toggling
+	-- local augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_settings", {})
+	--
+	-- local global_idle_disabled_modules = vim.tbl_filter(function(module)
+	-- 	return module ~= nil
+	-- end, {
+	-- 	"highlight",
+	-- 	"matchup",
+	-- 	"navigation",
+	-- 	"smart_rename",
+	-- })
+	-- local tab_idle_disabled_modules = global_idle_disabled_modules
+	--
+	-- local global_trick_delay_enable = false
+	-- local global_trick_delay = 10 * 1000 -- 10 seconds
+	-- vim.api.nvim_create_autocmd({ "FocusGained" }, {
+	-- 	group = augroup_id,
+	-- 	pattern = "*",
+	-- 	callback = function()
+	-- 		if global_trick_delay_enable then
+	-- 			global_trick_delay_enable = false
+	-- 		else
+	-- 			for _, module in ipairs(global_idle_disabled_modules) do
+	-- 				configs_commands.TSEnable.run(module)
+	-- 			end
+	-- 		end
+	-- 	end,
+	-- })
+	-- -- NOTE: We want to disable highlight if FocusLost is caused by following reasons:
+	-- -- 1. neovim goes to background
+	-- -- 2. tmux switch window, client
+	-- -- 3. Terminal emulator switch tab
+	-- -- We don't want to disable highlight if FocusLost is caused by following reasons:
+	-- -- 1. tmux switch pane
+	-- -- 2. Terminal emulator switch pane
+	-- -- 3. OS switch application
+	-- -- In other words, we want treesitter highlight if the buffer is actually displayed on the screen.
+	-- vim.api.nvim_create_autocmd({ "FocusLost" }, {
+	-- 	group = augroup_id,
+	-- 	pattern = "*",
+	-- 	callback = function()
+	-- 		global_trick_delay_enable = true
+	--
+	-- 		vim.defer_fn(function()
+	-- 			if global_trick_delay_enable then
+	-- 				for _, module in ipairs(global_idle_disabled_modules) do
+	-- 					configs_commands.TSDisable.run(module)
+	-- 				end
+	--
+	-- 				global_trick_delay_enable = false
+	-- 			end
+	-- 		end, global_trick_delay)
+	-- 	end,
+	-- })
+	--
+	-- local tab_trick_enable = false
+	-- local tab_trick_debounce = 200
+	-- -- FIXME: Open buffer in other tab doesn't have highlight
+	-- vim.api.nvim_create_autocmd({ "TabEnter" }, {
+	-- 	group = augroup_id,
+	-- 	pattern = "*",
+	-- 	callback = function()
+	-- 		tab_trick_enable = true
+	--
+	-- 		vim.defer_fn(function()
+	-- 			if tab_trick_enable then
+	-- 				local winids = vim.api.nvim_tabpage_list_wins(0)
+	--
+	-- 				for _, module in ipairs(tab_idle_disabled_modules) do
+	-- 					for _, winid in ipairs(winids) do
+	-- 						configs_commands.TSBufEnable.run(module, vim.api.nvim_win_get_buf(winid))
+	-- 					end
+	-- 				end
+	--
+	-- 				tab_trick_enable = false
+	-- 			end
+	-- 		end, tab_trick_debounce)
+	-- 	end,
+	-- })
+	-- vim.api.nvim_create_autocmd({ "TabLeave" }, {
+	-- 	group = augroup_id,
+	-- 	pattern = "*",
+	-- 	callback = function()
+	-- 		for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+	-- 			for _, module in ipairs(tab_idle_disabled_modules) do
+	-- 				configs_commands.TSBufDisable.run(module, vim.api.nvim_win_get_buf(winid))
+	-- 			end
+	-- 		end
+	-- 	end,
+	-- })
 end
 -- End sourced material
 
