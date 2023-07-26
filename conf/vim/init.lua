@@ -261,12 +261,12 @@ vim.api.nvim_create_autocmd("CompleteDone", {
 -- Commands {{{
 
 -- Formatting:
-vim.api.nvim_create_user_command("Format", function()
+vim.api.nvim_create_user_command("Format", function(args)
 	local buf = vim.api.nvim_get_current_buf()
 	local ft = vim.opt_local.filetype:get()
 	local config = require("formatter.config").values
 	if config.filetype[ft] ~= nil then
-		require("formatter.format").format("", "", 1, vim.api.nvim_buf_line_count(buf))
+		require("formatter.format").format(args.args, args.mod, args.line1, args.line2)
 	elseif vim.b.dotfiles_lsp_can_format then
 		vim.lsp.buf.format({
 			bufnr = buf,
@@ -277,6 +277,8 @@ vim.api.nvim_create_user_command("Format", function()
 end, {
 	desc = "Formatting with formatter.nvim, lsp, fallback",
 	force = true,
+	range = "%",
+	nargs="?",
 })
 
 -- Adjust Spacing:
