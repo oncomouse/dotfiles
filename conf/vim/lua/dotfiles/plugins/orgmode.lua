@@ -16,6 +16,7 @@ return {
 			t = { description = "Todo Item", template = "* TODO %?\n  %u" },
 			p = { description = "Paste Todo Item", template = "* TODO %x%?\n  %u"},
 		},
+		org_tags_column = 0,
 		mappings = {
 			org = {
 				org_toggle_checkbox = { "<C-space>", "<leader>o<space>", "gtd" },
