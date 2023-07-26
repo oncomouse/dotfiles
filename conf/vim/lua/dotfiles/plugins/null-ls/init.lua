@@ -50,7 +50,6 @@ return {
 			}
 
 			return {
-				on_attach = require("dotfiles.plugins.lsp.on_attach"),
 				sources = sources,
 			}
 		end,
