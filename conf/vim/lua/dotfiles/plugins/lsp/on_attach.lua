@@ -103,6 +103,10 @@ local function on_attach(client, buf_num)
 		})
 	end
 
+	if client.server_capabilities.formattingProvider then
+		vim.b.dotfiles_lsp_can_format = true
+	end
+
 	-- Turn off LSP semantic highlighting:
 	client.server_capabilities.semanticTokensProvider = nil
 end

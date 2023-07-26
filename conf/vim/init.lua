@@ -259,17 +259,6 @@ vim.api.nvim_create_autocmd("CompleteDone", {
 })
 --}}}
 -- Commands {{{
--- Diagnostic commands for LSP-less files
-vim.api.nvim_create_user_command("Diagnostics", function()
-	vim.cmd("silent lmake! %")
-	if #vim.fn.getloclist(0) == 0 then
-		vim.cmd("lopen")
-	else
-		vim.cmd("lclose")
-	end
-end, {
-	force = true,
-})
 
 -- Formatting:
 vim.api.nvim_create_user_command("Format", function()
@@ -278,7 +267,7 @@ vim.api.nvim_create_user_command("Format", function()
 	local config = require("formatter.config").values
 	if config.filetype[ft] ~= nil then
 		require("formatter.format").format("", "", 1, vim.api.nvim_buf_line_count(buf))
-	elseif pcall(require, "lspconfig") then
+	elseif vim.b.dotfiles_lsp_can_format then
 		vim.lsp.buf.format({
 			bufnr = buf,
 		})
@@ -417,18 +406,11 @@ vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>", { desc = "Split vertically" })
 -- Jump to last buffer:
 vim.keymap.set("n", "<leader><leader>", "<cmd>b#<cr>", { desc = "Jump to last buffer" })
 -- }}}
--- Signs {{{
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
--- }}}
 -- Writing {{{
 vim.g.bibfiles = "~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
 -- }}}
 -- Plugins {{{
-require("rocks")                     -- Add luarocks to the path
+require("rocks") -- Add luarocks to the path
 require("select-digraphs").setup({}) -- Configure select-digraphs
 -- }}}
 -- Theme {{{
@@ -437,7 +419,9 @@ if not pcall(vim.cmd, [[colorscheme catppuccin-mocha]]) then
 	vim.cmd([[colorscheme default]])
 end
 -- }}}
--- LSP: {{{
+-- Diagnostics {{{
+
+-- Configuration
 vim.diagnostic.config({
 	underline = true,
 	virtual_text = true,
@@ -445,6 +429,24 @@ vim.diagnostic.config({
 	severity_sort = true,
 })
 
+--Signs
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
+-- Add diagnostics to loclist:
+vim.api.nvim_create_autocmd({ "DiagnosticChanged" }, {
+	group = vim.api.nvim_create_augroup("dotfiles-lsp-attach_diagnostics", {}),
+	pattern = "*",
+	callback = function()
+		vim.diagnostic.setloclist({ open = false })
+	end,
+})
+
+-- }}}
+-- LSP: {{{
 -- Set to true for debug logging in LSP:
 vim.g.dotfiles_lsp_debug = false
 -- }}}
