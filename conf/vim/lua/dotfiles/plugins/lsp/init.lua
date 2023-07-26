@@ -40,7 +40,6 @@ return {
 						end
 
 						local opts = {
-							on_attach = require("dotfiles.plugins.lsp.on_attach"),
 							capabilities = get_server_capabilities(servers[lsp]),
 						}
 						if #vim.tbl_keys(settings) > 0 then

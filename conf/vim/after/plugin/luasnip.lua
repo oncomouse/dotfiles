@@ -57,6 +57,5 @@ local handlers = {
 }
 
 Lsp.create(handlers, {
-	on_attach = require("dotfiles.plugins.lsp.on_attach"),
 	name = "luasnip",
 })

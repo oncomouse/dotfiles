@@ -121,9 +121,6 @@ return {
 			bibfiles = {
 				"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib",
 			},
-			lsp = {
-				on_attach = require("dotfiles.plugins.lsp.on_attach")
-			},
 		},
 		dependencies = {
 			"plenary.nvim",

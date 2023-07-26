@@ -449,6 +449,14 @@ vim.api.nvim_create_autocmd({ "DiagnosticChanged" }, {
 -- LSP: {{{
 -- Set to true for debug logging in LSP:
 vim.g.dotfiles_lsp_debug = false
+
+-- Use LspAttach event:
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("dotfiles-lsp-on-attach", {}),
+	callback = function(ev)
+		require("dotfiles.plugins.lsp.on_attach")(vim.lsp.get_client_by_id(ev.data.client_id), ev.buf)
+	end,
+})
 -- }}}
 -- Filetypes {{{
 vim.filetype.add({

@@ -31,5 +31,4 @@ local handlers = {
 Lsp.create(handlers, {
 	filetype = { "org", "markdown", "text" },
 	name = "hover_definition",
-	on_attach = require("dotfiles.plugins.lsp.on_attach"),
 })
