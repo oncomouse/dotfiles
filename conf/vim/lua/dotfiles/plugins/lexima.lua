@@ -264,10 +264,10 @@ return {
 		})
 		add_rule({
 			char = "<CR>",
-			at = [[^\(\s*\)\([+-]\) .*\%#$]],
+			at = [[^\s*\([+-]\) .*\%#$]],
 			filetype = "org",
 			with_submatch = true,
-			input = [[<CR>\1\2 ]],
+			input = [[<CR><C-d>\1 ]],
 			except = [[^\s*\([+-]\) \%#$]],
 		})
 		add_rule({

@@ -30,8 +30,6 @@ return {
 		require("orgmode").setup(opts)
 		if vim.bo.filetype == "org" then
 			require("orgmode").reload(vim.fn.expand("<afile>:p"))
-			-- Neovim won't let me override orgmode's indentexpr (which, for me, never works right), so we just delete the function:
-			require("orgmode.org.indent").indentexpr = function() end
 		end
 	end,
 }
