@@ -2,30 +2,11 @@ return {
 	{
 		"jose-elias-alvarez/null-ls.nvim",
 		opts = function()
-			local eslint_project = require("dotfiles.null-ls.helpers.eslint_project")
 			local b = require("null-ls").builtins
 
 			local sources = {
 				-- HTML
 				require("dotfiles.null-ls.builtins.diagnostics.htmlhint"),
-
-				-- JAVASCRIPT
-				-- Use standard for non-eslint projects:
-				b.diagnostics.standardjs.with({
-					condition = function()
-						return not eslint_project()
-					end,
-				}),
-				b.diagnostics.eslint_d.with({
-					condition = function()
-						return eslint_project()
-					end,
-				}),
-				b.code_actions.eslint_d.with({
-					condition = function()
-						return eslint_project()
-					end,
-				}),
 
 				-- LUA
 				b.diagnostics.selene.with({

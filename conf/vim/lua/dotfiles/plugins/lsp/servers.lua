@@ -12,6 +12,13 @@ return {
 		pattern = { "*.css", "*.scss" },
 		snippets = true,
 	},
+	eslint = {
+		flags = {
+			debounce_text_changes = 500,
+		},
+		pattern = { "*.jsx", "*.js", "*.ts", "*.tsx" },
+		snippets = true,
+	},
 	html = {
 		flags = {
 			debounce_text_changes = 500,
