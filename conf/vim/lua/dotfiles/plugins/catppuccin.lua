@@ -112,6 +112,12 @@ return {
 					NotifyBackground = {
 						bg = colors.base,
 					},
+					TreesitterContext = {
+						bg = colors.surface0,
+						style = {
+							"bold",
+						},
+					},
 					gitCommitOverflow = { fg = colors.red },
 					gitCommitSummary = { fg = colors.green },
 				}
