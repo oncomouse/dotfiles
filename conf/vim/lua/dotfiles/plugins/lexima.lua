@@ -232,7 +232,7 @@ return {
 		make_markdown_bi_rule("_")
 
 		-- Org-only rules:
-		make_pair({ "/", "_" }, {
+		make_pair({ "_" }, {
 			filetype = "org",
 		})
 		make_pair({ "+" }, {
