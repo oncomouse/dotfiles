@@ -212,7 +212,7 @@ return {
 		add_rule({
 			char = "[",
 			input = "[ ] ",
-			at = [[^\s*[*-] \s*\%#]],
+			at = [[^\s*[*-+] \s*\%#]],
 			filetype = { "text", "markdown", "org" },
 		})
 		add_rule({
@@ -224,7 +224,7 @@ return {
 		add_rule({
 			char = "<BS>",
 			input = "<BS><BS><BS>",
-			at = [[^\s*[*-\d]\+\.\{0,1\} \s*\[.\]\%#]],
+			at = [[^\s*[*-+\d]\+\.\{0,1\} \s*\[.\]\%#]],
 			filetype = { "text", "markdown", "org" },
 		})
 		-- Bold/Italic Pairs:
