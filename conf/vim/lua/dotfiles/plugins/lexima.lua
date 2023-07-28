@@ -232,12 +232,8 @@ return {
 		make_markdown_bi_rule("_")
 
 		-- Org-only rules:
-		make_pair({ "_" }, {
+		make_pair({ "_", "+" }, {
 			filetype = "org",
-		})
-		make_pair({ "+" }, {
-			filetype = "org",
-			except = [[\%#>]],
 		})
 		make_pair({ "~", "*" }, true, {
 			filetype = "org",
@@ -246,6 +242,12 @@ return {
 		add_rule({
 			char = "*",
 			at = [[^\**\%#]],
+			filetype = "org",
+		})
+		-- Don't pair pluses in dates:
+		add_rule({
+			char = "+",
+			at = [[\%#>]],
 			filetype = "org",
 		})
 		-- Ordered List:
