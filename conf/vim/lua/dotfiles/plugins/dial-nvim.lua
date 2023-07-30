@@ -131,12 +131,6 @@ return {
 						return { text = text, cursor = cursor }
 					end,
 				}),
-				augend.date.new({ -- Orgmode dates
-					pattern = "%Y-%m-%d %a",
-					default_kind = "day",
-					only_valid = true,
-					word = false,
-				}),
 			},
 		})
 	end,
