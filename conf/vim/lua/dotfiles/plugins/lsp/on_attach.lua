@@ -104,6 +104,7 @@ local features = {
 		end,
 	},
 }
+
 local function on_attach(client, bufnr)
 	for feature, _ in pairs(client.server_capabilities) do
 		if type(features[feature]) == "function" then
