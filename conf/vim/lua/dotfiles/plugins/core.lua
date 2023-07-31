@@ -1,12 +1,5 @@
 return {
-	{
-		"folke/lazy.nvim",
-		version = "*",
-		keys = {
-			{ "<leader>la", "<cmd>Lazy<cr>",        desc = "Lazy.nvim" },
-			{ "<leader>lu", "<cmd>Lazy update<cr>", desc = "Update Lazy.nvim plugins" },
-		},
-	},
+	{ "folke/lazy.nvim", version = "*" },
 
 	-- Utilities
 	{ "nvim-lua/plenary.nvim", lazy = true },
@@ -32,8 +25,8 @@ return {
 		"vim-scripts/ReplaceWithRegister",
 		dependencies = { "vim-repeat" },
 		keys = {
-			{ "gr",  mode = { "x", "n" }, desc = "Replace region with register" },
-			{ "grr", mode = "n",          desc = "Replace line with register" },
+			{ "gr", mode = { "x", "n" }, desc = "Replace region with register" },
+			{ "grr", mode = "n", desc = "Replace line with register" },
 		},
 	}, -- gr{motion} or grr or gr in visual to replace with register
 
@@ -41,8 +34,8 @@ return {
 		"oncomouse/sort-motion.nvim",
 		dev = false,
 		keys = {
-			{ "gs",  mode = { "x", "n" }, desc = "Sort region" },
-			{ "gss", mode = { "n" },      desc = "Sort line" },
+			{ "gs", mode = { "x", "n" }, desc = "Sort region" },
+			{ "gss", mode = { "n" }, desc = "Sort line" },
 		},
 		dependencies = { "vim-repeat" },
 	},
@@ -63,14 +56,12 @@ return {
 			{
 				"g*",
 				"<Plug>(asterisk-gz*)",
-				desc =
-				"Search forward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor",
+				desc = "Search forward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor",
 			},
 			{
 				"g#",
 				"<Plug>(asterisk-gz#)",
-				desc =
-				"Search backward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor",
+				desc = "Search backward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor",
 			},
 		},
 		init = function()
@@ -109,25 +100,6 @@ return {
 	}, -- :StartupTime for profiling startup
 
 	{
-		"oncomouse/nvim-ref",
-		dev = false,
-		ft = {
-			"latex",
-			"markdown",
-			"org",
-		},
-		cmd = "NvimRef",
-		opts = {
-			bibfiles = {
-				"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib",
-			},
-		},
-		dependencies = {
-			"plenary.nvim",
-		},
-	}, -- For BibTeX sources
-
-	{
 		"kyazdani42/nvim-web-devicons",
 		lazy = true,
 		cond = require("dotfiles.utils.use_termguicolors"),
@@ -137,23 +109,4 @@ return {
 		"oncomouse/markdown.nvim",
 		dev = false,
 	},
-
-	{
-		"dimfeld/section-wordcount.nvim",
-		lazy = true,
-		opts = {
-			highlight = "String",
-			virt_text_pos = "eol",
-		},
-		init = function()
-			local ag = vim.api.nvim_create_augroup("dotfiles-wordcount-autocmd", { clear = true })
-
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = "markdown",
-				group = ag,
-				callback = function() require("section-wordcount").wordcounter() end,
-			})
-		end
-	},
-
 }
