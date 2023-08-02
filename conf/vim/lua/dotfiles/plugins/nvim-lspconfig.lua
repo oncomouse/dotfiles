@@ -13,12 +13,12 @@ return {
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("dotfiles-lsp-on-attach", {}),
 				callback = function(ev)
-					require("dotfiles.plugins.lsp.on_attach")(vim.lsp.get_client_by_id(ev.data.client_id), ev.buf)
+					require("dotfiles.lsp.on_attach")(vim.lsp.get_client_by_id(ev.data.client_id), ev.buf)
 				end,
 			})
 		end,
 		config = function()
-			local servers = require("dotfiles.plugins.lsp.servers")
+			local servers = require("dotfiles.lsp.servers")
 
 			-- Turn on debug-level logging for LSP:
 			if vim.g.dotfiles_lsp_debug then
