@@ -19,6 +19,7 @@ return {
 		end,
 		config = function()
 			local servers = require("dotfiles.lsp.servers")
+			local augroup = vim.api.nvim_create_augroup("dotfiles-lsp-config-lsp", {})
 
 			-- Turn on debug-level logging for LSP:
 			if vim.g.dotfiles_lsp_debug then
@@ -33,7 +34,7 @@ return {
 				end
 				vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPre" }, {
 					pattern = pattern,
-					group = vim.api.nvim_create_augroup("dotfiles-lsp-config-lsp", {}),
+					group = augroup,
 					once = true,
 					callback = function()
 						local function get_server_capabilities(server)
