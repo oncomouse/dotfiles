@@ -13,17 +13,3 @@ vim.cmd([[compiler markdown_combo]])
 
 -- This messes up null-ls completion if uncommented:
 -- vim.opt_local.iskeyword = vim.opt_local.iskeyword + "',-,@-@"
-
--- Pandoc <format> to compile documents quickly and easily:
-vim.api.nvim_create_user_command("Pandoc", function(args)
-	vim.cmd(
-		"!pandoc -i "
-		.. vim.fn.fnameescape(vim.fn.expand("%"))
-		.. " -o "
-		.. vim.fn.fnameescape(vim.fn.expand("%:r"))
-		.. "."
-		.. args.args
-	)
-end, {
-	nargs = 1,
-})

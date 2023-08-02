@@ -37,17 +37,3 @@ vim.keymap.set("i", "<M-CR>", "<c-o><leader><cr>", { buffer = true, remap = true
 
 -- Use old todo manager mapping for checkbox toggles:
 vim.keymap.set("n", "gtd", "<cmd>lua require('orgmode').action('org_mappings.toggle_checkbox')<cr>", { buffer = true })
-
--- Pandoc <format> to compile documents quickly and easily:
-vim.api.nvim_create_user_command("Pandoc", function(args)
-	vim.cmd(
-		"!pandoc -i "
-		.. vim.fn.fnameescape(vim.fn.expand("%"))
-		.. " -o "
-		.. vim.fn.fnameescape(vim.fn.expand("%:r"))
-		.. "."
-		.. args.args
-	)
-end, {
-	nargs = 1,
-})
