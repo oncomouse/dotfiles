@@ -5,6 +5,18 @@ return {
 		dependencies = {
 			{ "folke/neodev.nvim", opts = {} },
 		},
+		init = function()
+			-- Set to true for debug logging in LSP:
+			vim.g.dotfiles_lsp_debug = false
+
+			-- Use LspAttach event:
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("dotfiles-lsp-on-attach", {}),
+				callback = function(ev)
+					require("dotfiles.plugins.lsp.on_attach")(vim.lsp.get_client_by_id(ev.data.client_id), ev.buf)
+				end,
+			})
+		end,
 		config = function()
 			local servers = require("dotfiles.plugins.lsp.servers")
 
@@ -21,7 +33,7 @@ return {
 				end
 				vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPre" }, {
 					pattern = pattern,
-					group = "dotfiles-settings",
+					group = vim.api.nvim_create_augroup("dotfiles-lsp-config-lsp", {}),
 					once = true,
 					callback = function()
 						local function get_server_capabilities(server)
