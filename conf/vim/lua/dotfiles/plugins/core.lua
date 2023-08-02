@@ -79,19 +79,6 @@ return {
 	}, -- :LazyGit for lazygit integration
 
 	{
-		"oncomouse/todo.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		opts = {
-			maps = {
-				jump = {
-					next = "gt]",
-					prev = "gt[",
-				},
-			},
-		},
-	}, -- My todo manager
-
-	{
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
 		init = function()
