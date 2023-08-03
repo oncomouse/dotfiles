@@ -153,7 +153,7 @@ M.section_diagnostics = function(args)
 			},
 		}
 	end
-	local hasnt_attached_client = next(vim.lsp.buf_get_clients()) == nil
+	local hasnt_attached_client = next(vim.lsp.get_clients({ bufnr = 0 })) == nil
 	local dont_show_lsp = require("mini.statusline").is_truncated(args.trunc_width)
 		or H.isnt_normal_buffer()
 		or hasnt_attached_client
