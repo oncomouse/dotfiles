@@ -78,7 +78,7 @@ vim.opt.termguicolors = true
 
 -- }}}
 -- Autogroups: {{{
-vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
+local augroup = vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
 -- }}}
 -- Load lazy.nvim {{{
 local function xdg_default(v, d)
@@ -208,40 +208,40 @@ end
 -- Line Number Colors in default:
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNr ctermfg=7" }
+	{ group = augroup, pattern = "default", command = "hi LineNr ctermfg=7" }
 )
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNrAbove ctermfg=7" }
+	{ group = augroup, pattern = "default", command = "hi LineNrAbove ctermfg=7" }
 )
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
-	{ group = "dotfiles-settings", pattern = "default", command = "hi LineNrBelow ctermfg=7" }
+	{ group = augroup, pattern = "default", command = "hi LineNrBelow ctermfg=7" }
 )
 vim.api.nvim_create_autocmd("ColorScheme", {
-	group = "dotfiles-settings",
+	group = augroup,
 	pattern = "default",
 	command = "hi StatusLine ctermbg=8 ctermfg=7 cterm=NONE gui=NONE",
 })
 vim.api.nvim_create_autocmd("ColorScheme", {
-	group = "dotfiles-settings",
+	group = augroup,
 	pattern = "default",
 	command = "hi StatusLineNC ctermbg=8 ctermfg=240 cterm=NONE gui=NONE",
 })
 
 -- Turn Off Line Numbering:
-vim.api.nvim_create_autocmd("TermOpen", { group = "dotfiles-settings", command = "setlocal nonumber norelativenumber" })
+vim.api.nvim_create_autocmd("TermOpen", { group = augroup, command = "setlocal nonumber norelativenumber" })
 
 -- Start QuickFix:
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
-	group = "dotfiles-settings",
+	group = augroup,
 	pattern = "[^l]*",
 	callback = function()
 		list_toggle("c", 1)
 	end,
 })
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
-	group = "dotfiles-settings",
+	group = augroup,
 	pattern = "l*",
 	callback = function()
 		list_toggle("l", 1)
@@ -250,7 +250,7 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 
 -- Close Preview Window:
 vim.api.nvim_create_autocmd("CompleteDone", {
-	group = "dotfiles-settings",
+	group = augroup,
 	callback = function()
 		if vim.fn.pumvisible() == 0 then
 			vim.cmd("pclose")
@@ -408,16 +408,12 @@ vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>", { desc = "Split vertically" })
 -- Jump to last buffer:
 vim.keymap.set("n", "<leader><leader>", "<cmd>b#<cr>", { desc = "Jump to last buffer" })
 -- }}}
--- Writing {{{
-vim.g.bibfiles = "~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"
--- }}}
 -- Plugins {{{
 require("rocks") -- Add luarocks to the path
 require("select-digraphs").setup({}) -- Configure select-digraphs
 -- }}}
 -- Theme {{{
--- Fancy color for macs and X11 sessions:
-if not pcall(vim.cmd, [[colorscheme catppuccin-mocha]]) then
+if not pcall(vim.cmd.colorscheme, "catppuccin-mocha") then
 	vim.cmd([[colorscheme default]])
 end
 -- }}}
@@ -440,7 +436,7 @@ end
 
 -- Add diagnostics to loclist:
 vim.api.nvim_create_autocmd({ "DiagnosticChanged" }, {
-	group = vim.api.nvim_create_augroup("dotfiles-lsp-attach_diagnostics", {}),
+	group = vim.api.nvim_create_augroup("dotfiles-attach_diagnostics", {}),
 	pattern = "*",
 	callback = function()
 		vim.diagnostic.setloclist({ open = false })
