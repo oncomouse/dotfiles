@@ -3,6 +3,7 @@ return {
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
+		cmd = { "Catppuccin", "CatppuccinBuild" },
 		build = function()
 			vim.cmd([[CatppuccinBuild]])
 		end,
