@@ -172,7 +172,7 @@ end
 -- Minimal settings to get lazy.nvim workin
 --------------------------------------------------------------------------------
 -- Autogroups:
-vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
+local augroup = vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
 -- FZF Path:
 vim.g.fzf_dir = nil
 if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then -- Homebrew
@@ -308,24 +308,22 @@ end
 -- Autocommands:
 --------------------------------------------------------------------------------
 
-vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
-
 -- Turn Off Line Numbering:
 vim.api.nvim_create_autocmd("TermOpen", {
-	group = "dotfiles-settings",
+	group = augroup,
 	command = "setlocal nonumber norelativenumber",
 })
 
 -- Start QuickFix:
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
-	group = "dotfiles-settings",
+	group = augroup,
 	pattern = "[^l]*",
 	callback = function()
 		list_toggle("c", 1)
 	end,
 })
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
-	group = "dotfiles-settings",
+	group = augroup,
 	pattern = "l*",
 	callback = function()
 		list_toggle("l", 1)
@@ -334,7 +332,7 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 
 -- Close Preview Window:
 vim.api.nvim_create_autocmd("CompleteDone", {
-	group = "dotfiles-settings",
+	group = augroup,
 	callback = function()
 		if vim.fn.pumvisible() == 0 then
 			vim.cmd("pclose")
@@ -344,13 +342,13 @@ vim.api.nvim_create_autocmd("CompleteDone", {
 
 -- This Fixes A Mistake In Neovim:
 vim.api.nvim_create_autocmd("ColorScheme", {
-	group = "dotfiles-settings",
+	group = augroup,
 	command = "hi link Whitespace SpecialKey",
 	pattern = "*",
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {
-	group = "dotfiles-settings",
+	group = augroup,
 	callback = set_list_chars,
 	pattern = "*",
 })
