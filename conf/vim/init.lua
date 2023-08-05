@@ -308,17 +308,6 @@ end, {
 	force = true,
 	nargs = 1,
 })
-
--- :Git command
-vim.api.nvim_create_user_command("Git", function(args)
-	if args.args == "" then
-		vim.cmd("LazyGit")
-	end
-	vim.cmd("!git " .. args.args)
-end, {
-	force = true,
-	nargs = "*",
-})
 -- }}}
 -- Keymaps {{{
 -- Navigation in insert mode:
