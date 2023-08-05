@@ -27,12 +27,11 @@ if [ "$DESKTOP_SESSION" = "xfce4" ]; then
 	WM_EXEC=startxfce4
 	run_dex=0
 else
-	lxsession&
 	WM_EXEC="$DESKTOP_SESSION"
 fi
 
 if [ "$run_dex" -eq 1 ]; then
-	dex -a
+	lxsession &
 fi
 
 mkdir -p ~/.cache/"$DESKTOP_SESSION"
