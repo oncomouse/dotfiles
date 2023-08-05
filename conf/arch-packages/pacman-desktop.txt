@@ -3,7 +3,6 @@ arc-gtk-theme
 bash-language-server
 cups
 cups-pdf
-dex
 dunst
 eslint_d
 feh
