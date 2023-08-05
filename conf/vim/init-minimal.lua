@@ -619,7 +619,7 @@ local custom_textobjects = {
 	},
 }
 vim.api.nvim_create_autocmd("FileType", {
-	group = "dotfiles-settings",
+	group = augroup,
 	pattern = vim.fn.join(vim.tbl_keys(custom_textobjects), ","),
 	callback = function()
 		local ft = vim.opt.filetype:get()
@@ -770,7 +770,7 @@ local custom_surroundings = {
 	},
 }
 vim.api.nvim_create_autocmd("FileType", {
-	group = "dotfiles-settings",
+	group = augroup,
 	pattern = vim.fn.join(vim.tbl_keys(custom_surroundings), ","),
 	callback = function()
 		local ft = vim.opt.filetype:get()
