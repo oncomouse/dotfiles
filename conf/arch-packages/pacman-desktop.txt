@@ -21,6 +21,7 @@ libnotify
 libsecret
 libxres
 lua-language-server
+lxsession
 mpc
 mpd
 ncmpcpp

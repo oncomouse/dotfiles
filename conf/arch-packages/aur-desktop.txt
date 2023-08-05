@@ -2,7 +2,6 @@ nerd-fonts-jetbrains-mono
 otf-hasklig
 pandoc-bin
 perl-term-shellui
-polkit-dumb-agent-git
 rofi-emoji
 shellcheck-bin
 stylua-bin
