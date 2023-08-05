@@ -642,7 +642,6 @@ require("mini.basics").setup({
 		windows = true,
 	},
 })
-vim.keymap.del("t", "<C-w>")
 vim.opt.completeopt:append("preview")
 vim.opt.shortmess:append("Wc")
 
