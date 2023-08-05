@@ -357,9 +357,6 @@ vim.keymap.set(
 	{ silent = true, noremap = true, desc = "Clear current regexp" }
 )
 
--- Jump to last buffer:
-vim.keymap.set("n", "``", "<cmd>e #<CR>", { silent = true, noremap = true, desc = "Jump to last buffer" })
-
 -- Tab navigation:
 vim.keymap.set("n", "]t", "<cmd>tabnext<CR>", { silent = true, noremap = true, desc = "Jump to next tab" })
 vim.keymap.set("n", "[t", "<cmd>tabprev<CR>", { silent = true, noremap = true, desc = "Jump to previous tab" })
