@@ -45,13 +45,15 @@ vim.keymap.set("n", "<leader>o#", function()
 	local tree_utils = require("orgmode.utils.treesitter")
 
 	local current_node = tree_utils.get_node_at_cursor()
-	local listitem = tree_utils.find_parent_type(current_node, "list")
-	if listitem then
-		if listitem:parent() and listitem:parent():type() == "listitem" then
+	local is_ok, listitem = pcall(tree_utils.find_parent_type, current_node, "list")
+	if is_ok then
+		if listitem and listitem:parent() and listitem:parent():type() == "listitem" then
 			listitem = listitem:parent()
 		else
 			listitem = nil
 		end
+	else
+		listitem = nil
 	end
 	local headline = tree_utils.closest_headline()
 
@@ -66,6 +68,7 @@ vim.keymap.set("n", "<leader>o#", function()
 		local Headline = require("orgmode.treesitter.headline")
 		target = Headline:new(headline)
 		local cookie = target:cookie()
+		if not cookie then return end
 
 		local total = 0
 		local done = 0
