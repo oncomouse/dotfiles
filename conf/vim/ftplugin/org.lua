@@ -38,20 +38,32 @@ vim.keymap.set("i", "<M-CR>", "<cmd>lua require('orgmode').action('org_mappings.
 -- Use old todo manager mapping for checkbox toggles:
 vim.keymap.set("n", "gtd", "<cmd>lua require('orgmode').action('org_mappings.toggle_checkbox')<cr>", { buffer = true })
 
+local Listitem = require("orgmode.treesitter.listitem")
+local tree_utils = require("orgmode.utils.treesitter")
+function Listitem:update_cookie(total_child_checkboxes, checked_child_checkboxes)
+	local cookie = self:cookie()
+	if cookie then
+		local new_cookie_val
+		local old_cookie_val = vim.treesitter.get_node_text(cookie, 0)
+		if old_cookie_val:find("%%") then
+			new_cookie_val = ("[%d%%]"):format((#checked_child_checkboxes / #total_child_checkboxes) * 100)
+		else
+			new_cookie_val = ("[%d/%d]"):format(#checked_child_checkboxes, #total_child_checkboxes)
+		end
+		if old_cookie_val ~= new_cookie_val then
+			tree_utils.set_node_text(cookie, new_cookie_val)
+		end
+	end
+end
 
 -- Update cookie statistics:
 vim.keymap.set("n", "<leader>o#", function()
 	local ts_utils = require("nvim-treesitter.ts_utils")
-	local tree_utils = require("orgmode.utils.treesitter")
 
 	local current_node = tree_utils.get_node_at_cursor()
 	local is_ok, listitem = pcall(tree_utils.find_parent_type, current_node, "list")
-	if is_ok then
-		if listitem and listitem:parent() and listitem:parent():type() == "listitem" then
-			listitem = listitem:parent()
-		else
-			listitem = nil
-		end
+	if is_ok and type(listitem) == "userdata" and listitem:parent() and listitem:parent():type() == "listitem" then
+		listitem = listitem:parent()
 	else
 		listitem = nil
 	end
@@ -59,7 +71,6 @@ vim.keymap.set("n", "<leader>o#", function()
 
 	local target
 	if listitem then
-		local Listitem = require("orgmode.treesitter.listitem")
 		target = Listitem:new(listitem)
 		target:update_checkbox("children")
 		return
@@ -68,7 +79,9 @@ vim.keymap.set("n", "<leader>o#", function()
 		local Headline = require("orgmode.treesitter.headline")
 		target = Headline:new(headline)
 		local cookie = target:cookie()
-		if not cookie then return end
+		if not cookie then
+			return
+		end
 
 		local total = 0
 		local done = 0
