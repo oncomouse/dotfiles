@@ -128,8 +128,9 @@ function Headline:update_cookie(list_node)
 	end
 end
 
--- Update cookie statistics:
-vim.keymap.set("n", "<leader>o#", function()
+local OrgMappings = require("orgmode.org.mappings")
+
+function OrgMappings:update_statistics_cookie()
 	local current_node = tree_utils.get_node_at_cursor()
 	local is_ok, listitem = pcall(tree_utils.find_parent_type, current_node, "list")
 	if is_ok and type(listitem) == "userdata" and listitem:parent() and listitem:parent():type() == "listitem" then
@@ -149,4 +150,10 @@ vim.keymap.set("n", "<leader>o#", function()
 		target = Headline:new(headline)
 		target:update_cookie()
 	end
-end, { buffer = true })
+end
+
+local m = require("orgmode.config.mappings.map_entry")
+local mappings = require("orgmode.config.mappings")
+mappings.org.org_update_statistics_cookie = m.action('org_mappings.update_statistics_cookie', { opts = { desc = 'org promote headline' } })
+-- Update cookie statistics:
+vim.keymap.set("n", "<leader>o#", "<cmd>lua require('orgmode').action('org_mappings.update_statistics_cookie')<CR>", { buffer = true })
