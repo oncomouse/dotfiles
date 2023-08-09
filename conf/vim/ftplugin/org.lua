@@ -38,6 +38,12 @@ vim.keymap.set("i", "<M-CR>", "<cmd>lua require('orgmode').action('org_mappings.
 -- Use old todo manager mapping for checkbox toggles:
 vim.keymap.set("n", "gtd", "<cmd>lua require('orgmode').action('org_mappings.toggle_checkbox')<cr>", { buffer = true })
 
+-- TODO: This does not correctly update the following:
+-- * Foobar [0/1]
+-- + Task [0/2]
+--    + [ ] Subtask 1
+--    + [ ] Subtask 2
+-- The headline is not gettting updated. Need to fix that
 local Listitem = require("orgmode.treesitter.listitem")
 local tree_utils = require("orgmode.utils.treesitter")
 local Headline = require("orgmode.treesitter.headline")
