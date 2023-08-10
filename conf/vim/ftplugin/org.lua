@@ -13,24 +13,20 @@ local translation = {
 	["<<"] = "promote",
 	[">>"] = "demote",
 }
-local function do_demote_promote(symbol)
-	local line = vim.api.nvim_get_current_line()
-	if line:match("^%*+") then
-		require("orgmode").action("org_mappings.do_" .. translation[symbol])
-	else
-		vim.cmd("exe 'normal! " .. vim.v.count1 .. symbol .. "'")
-	end
+for _, lhs in pairs(vim.tbl_keys(translation)) do
+	vim.keymap.set("n", lhs, function()
+		local line = vim.api.nvim_get_current_line()
+		-- If line is a headline, promote/demote using orgmode:
+		if line:match("^%*+") then
+			require("orgmode").action("org_mappings.do_" .. translation[lhs])
+		else
+			vim.cmd("exe 'normal! " .. vim.v.count1 .. lhs .. "'")
+		end
+	end, {
+		buffer = true,
+		desc = "Promote/Demote or indent/undent",
+	})
 end
-vim.keymap.set("n", "<<", function()
-	do_demote_promote("<<")
-end, {
-	buffer = true,
-})
-vim.keymap.set("n", ">>", function()
-	do_demote_promote(">>")
-end, {
-	buffer = true,
-})
 
 -- Map org-mode's <M-CR> behavior into nvim-orgmode
 vim.keymap.set("i", "<M-CR>", "<cmd>lua require('orgmode').action('org_mappings.handle_return')<cr>", { buffer = true })
@@ -43,6 +39,7 @@ local tree_utils = require("orgmode.utils.treesitter")
 local Headline = require("orgmode.treesitter.headline")
 local ts_utils = require("nvim-treesitter.ts_utils")
 local ts = require("orgmode.treesitter.compat")
+local OrgMappings = require("orgmode.org.mappings")
 
 function Listitem:update_cookie(total_child_checkboxes, checked_child_checkboxes)
 	local cookie = self:cookie()
@@ -122,34 +119,42 @@ function Headline:update_cookie(list_node)
 	end
 end
 
-local OrgMappings = require("orgmode.org.mappings")
-
 function OrgMappings:update_statistics_cookie()
 	local current_node = tree_utils.get_node_at_cursor()
-	local is_ok, listitem = pcall(tree_utils.find_parent_type, current_node, "list")
-	if is_ok and type(listitem) == "userdata" and listitem:parent() and listitem:parent():type() == "listitem" then
-		listitem = listitem:parent()
+	-- Wrap this with pcall() because it throws errors sometimes:
+	local is_ok, nearest_list = pcall(tree_utils.find_parent_type, current_node, "list")
+	if
+		is_ok
+		and type(nearest_list) == "userdata"
+		and nearest_list:parent()
+		and nearest_list:parent():type() == "listitem"
+	then
+		nearest_list = nearest_list:parent()
 	else
-		listitem = nil
+		nearest_list = nil
 	end
-	local headline = tree_utils.closest_headline()
+	local nearest_headline = tree_utils.closest_headline()
 
 	local target
-	if listitem then
-		target = Listitem:new(listitem)
+	if nearest_list then
+		target = Listitem:new(nearest_list)
 		target:update_checkbox("children")
-		return
-	end
-	if headline then
-		target = Headline:new(headline)
+	elseif nearest_headline then
+		target = Headline:new(nearest_headline)
 		target:update_cookie()
 	end
 end
 
 local m = require("orgmode.config.mappings.map_entry")
 local mappings = require("orgmode.config.mappings")
-mappings.org.org_update_statistics_cookie = m.action('org_mappings.update_statistics_cookie', { opts = { desc = 'org promote headline' } })
+mappings.org.org_update_statistics_cookie =
+	m.action("org_mappings.update_statistics_cookie", { opts = { desc = "org promote headline" } })
 
 local defaults = require("orgmode.config.defaults")
 defaults.mappings.org.org_update_statistics_cookie = "<prefix>#"
-vim.keymap.set("n", "<leader>o#", "<cmd>lua require('orgmode').action('org_mappings.update_statistics_cookie')<CR>", { buffer = true })
+vim.keymap.set(
+	"n",
+	"<leader>o#",
+	"<cmd>lua require('orgmode').action('org_mappings.update_statistics_cookie')<CR>",
+	{ buffer = true }
+)
