@@ -152,9 +152,3 @@ mappings.org.org_update_statistics_cookie =
 
 local defaults = require("orgmode.config.defaults")
 defaults.mappings.org.org_update_statistics_cookie = "<prefix>#"
-vim.keymap.set(
-	"n",
-	"<leader>o#",
-	"<cmd>lua require('orgmode').action('org_mappings.update_statistics_cookie')<CR>",
-	{ buffer = true }
-)
