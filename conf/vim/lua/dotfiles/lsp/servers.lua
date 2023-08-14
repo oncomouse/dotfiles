@@ -62,7 +62,7 @@ return {
 		pattern = "*.py",
 	},
 	standardrb = {
-		pattern = "*.rb",
+		pattern = { "*.rb", "Rakefile" },
 		single_file_support = true,
 	},
 	tsserver = {
