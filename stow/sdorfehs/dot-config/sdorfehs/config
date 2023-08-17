@@ -151,6 +151,8 @@ definekey top XF86AudioPrev exec dotfiles-media prev &
 definekey top XF86AudioNext exec dotfiles-media next &
 definekey top XF86AudioStop exec dotfiles-media stop &
 definekey top XF86PowerOff exec dotfiles-power &
+definekey top s-Up exec mpc volume +5 &
+definekey top s-Down exec mpc volume -5 &
 
 # [unused keys]
 unbind Left
