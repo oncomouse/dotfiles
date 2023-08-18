@@ -49,15 +49,6 @@ local nvim_treesitter = {
 		"zig",
 	},
 	parser_configs = {
-		xml = {
-			install_info = {
-				url = "https://github.com/Trivernis/tree-sitter-xml",
-				files = { "src/parser.c" },
-				generate_requires_npm = true,
-				branch = "main",
-			},
-			filetype = "xml",
-		},
 
 		-- TODO: Use repo in https://github.com/serenadeai/tree-sitter-scss/pull/19
 		scss = {
