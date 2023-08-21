@@ -50,6 +50,20 @@ return {
 			end
 		end
 
+		local function count_checkboxes(container)
+			local total = 0
+			local done = 0
+			local total_boxes = vim.tbl_filter(function(box)
+				return box:match("%[.%]")
+			end, container)
+			local checked_boxes = vim.tbl_filter(function(box)
+				return box:match("%[%w%]")
+			end, total_boxes)
+			total = total + #total_boxes
+			done = done + #checked_boxes
+			return total, done
+		end
+
 		function Headline:update_cookie(list_node)
 			local done = 0
 			local total = 0
@@ -58,14 +72,7 @@ return {
 				return
 			end
 			if type(list_node) == "userdata" then
-				local total_boxes = vim.tbl_filter(function(box)
-					return box:match("%[.%]")
-				end, self:child_checkboxes(list_node))
-				local checked_boxes = vim.tbl_filter(function(box)
-					return box:match("%[%w%]")
-				end, total_boxes)
-				total = total + #total_boxes
-				done = done + #checked_boxes
+				total, done = count_checkboxes(self:child_checkboxes(list_node))
 			else
 				local node_type
 				-- Parse the children of the headline's parent section for child headlines and lists:
@@ -76,14 +83,9 @@ return {
 							node_type = "list"
 						end
 						if node_type == "list" then
-							local total_boxes = vim.tbl_filter(function(box)
-								return box:match("%[.%]")
-							end, self:child_checkboxes(node:child(0)))
-							local checked_boxes = vim.tbl_filter(function(box)
-								return box:match("%[%w%]")
-							end, total_boxes)
-							total = total + #total_boxes
-							done = done + #checked_boxes
+							local t,d = count_checkboxes(self:child_checkboxes(node:child(0)))
+							total = total + t
+							done = done + d
 						end
 					end
 					-- The child is a section:
