@@ -19,7 +19,7 @@ return {
 		org_tags_column = 0,
 		mappings = {
 			org = {
-				org_toggle_checkbox = { "<C-space>", "<leader>o<space>", "gtd" },
+				org_toggle_checkbox = { "<leader>o<space>", "gtd" },
 				org_return = false,
 			},
 		},

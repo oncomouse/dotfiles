@@ -30,7 +30,3 @@ end
 
 -- Map org-mode's <M-CR> behavior into nvim-orgmode
 vim.keymap.set("i", "<M-CR>", "<cmd>lua require('orgmode').action('org_mappings.handle_return')<cr>", { buffer = true })
-
--- Use old todo manager mapping for checkbox toggles:
-vim.keymap.set("n", "gtd", "<cmd>lua require('orgmode').action('org_mappings.toggle_checkbox')<cr>", { buffer = true })
-
