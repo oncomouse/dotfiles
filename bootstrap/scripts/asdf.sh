@@ -11,7 +11,6 @@ ruby_env=$([ "$os" == "macos" ] && echo "--with-openssl-dir=$(brew --prefix)/opt
 asdf plugin add ruby
 asdf plugin add nodejs
 # asdf plugin add lua https://github.com/Stratus3D/asdf-lua.git
-env RUBY_CONFIGURE_OPTS="$ruby_env" asdf install ruby 2.6.6
 env RUBY_CONFIGURE_OPTS="$ruby_env" asdf install ruby 2.7.2
 asdf global ruby system
 asdf global nodejs system
