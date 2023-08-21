@@ -83,7 +83,7 @@ return {
 							node_type = "list"
 						end
 						if node_type == "list" then
-							local t,d = count_checkboxes(self:child_checkboxes(node:child(0)))
+							local t, d = count_checkboxes(self:child_checkboxes(node:child(0)))
 							total = total + t
 							done = done + d
 						end
