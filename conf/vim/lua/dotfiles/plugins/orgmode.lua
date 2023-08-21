@@ -14,7 +14,7 @@ return {
 		org_indent_mode = "noindent",
 		org_capture_templates = {
 			t = { description = "Todo Item", template = "* TODO %?\n  %u" },
-			p = { description = "Paste Todo Item", template = "* TODO %x%?\n  %u"},
+			p = { description = "Paste Todo Item", template = "* TODO %x%?\n  %u" },
 		},
 		org_tags_column = 0,
 		mappings = {
@@ -58,7 +58,9 @@ return {
 				return
 			end
 			if type(list_node) == "userdata" then
-				local total_boxes = self:child_checkboxes(list_node)
+				local total_boxes = vim.tbl_filter(function(box)
+					return box:match("%[.%]")
+				end, self:child_checkboxes(list_node))
 				local checked_boxes = vim.tbl_filter(function(box)
 					return box:match("%[%w%]")
 				end, total_boxes)
@@ -74,7 +76,9 @@ return {
 							node_type = "list"
 						end
 						if node_type == "list" then
-							local total_boxes = self:child_checkboxes(node:child(0))
+							local total_boxes = vim.tbl_filter(function(box)
+								return box:match("%[.%]")
+							end, self:child_checkboxes(node:child(0)))
 							local checked_boxes = vim.tbl_filter(function(box)
 								return box:match("%[%w%]")
 							end, total_boxes)
@@ -99,16 +103,16 @@ return {
 						end
 					end
 				end
-				local old_cookie_val = ts.get_node_text(cookie, 0)
-				local new_cookie_val
-				if ts.get_node_text(cookie, 0):find("%%") then
-					new_cookie_val = ("[%d%%]"):format((total == 0 and 0 or done / total) * 100)
-				else
-					new_cookie_val = ("[%d/%d]"):format(done, total)
-				end
-				if old_cookie_val ~= new_cookie_val then
-					tree_utils.set_node_text(cookie, new_cookie_val)
-				end
+			end
+			local old_cookie_val = ts.get_node_text(cookie, 0)
+			local new_cookie_val
+			if ts.get_node_text(cookie, 0):find("%%") then
+				new_cookie_val = ("[%d%%]"):format((total == 0 and 0 or done / total) * 100)
+			else
+				new_cookie_val = ("[%d/%d]"):format(done, total)
+			end
+			if old_cookie_val ~= new_cookie_val then
+				tree_utils.set_node_text(cookie, new_cookie_val)
 			end
 		end
 
