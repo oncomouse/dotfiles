@@ -21,7 +21,9 @@ require("lazy").setup({
     {
       "nvim-orgmode/orgmode",
       dev = true,
-      opts = {},
+      opts = {
+        org_default_notes_file = "~/org/inbox.org",
+      },
       config = function(_, opts)
         require("orgmode").setup_ts_grammar()
         require("nvim-treesitter.configs").setup({
