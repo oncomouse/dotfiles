@@ -39,13 +39,12 @@ return {
 		local time_format = "%H:%M"
 		local date_format = "%Y-%m-%d"
 		function Date:to_string()
-			local date = ""
 			local format = date_format
 			if self.dayname then
 				format = format .. " %a"
 			end
 
-			date = os.date(format, self.timestamp)
+			local date = os.date(format, self.timestamp)
 			if not self.date_only then
 				date = date .. " " .. self:format_time()
 			end
