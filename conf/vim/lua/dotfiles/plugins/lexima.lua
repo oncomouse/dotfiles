@@ -269,7 +269,7 @@ return {
 			at = [[^\s*\([+-]\) .*\%#$]],
 			filetype = "org",
 			with_submatch = true,
-			input = [[<CR><C-d>\1 ]],
+			input = [[<CR>\1 ]],
 			except = [[^\s*\([+-]\) \%#$]],
 		})
 		add_rule({
