@@ -247,7 +247,7 @@ return {
 		-- Don't pair pluses in dates:
 		add_rule({
 			char = "+",
-			at = [[\%#>]],
+			at = [[<[^>]\+\%#]],
 			filetype = "org",
 		})
 		-- Ordered List:
