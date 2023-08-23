@@ -1,7 +1,7 @@
 -- Pandoc <format> to compile documents quickly and easily:
 vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("dotfiles-pandoc-cmd", {}),
-	pattern = "markdown, org",
+	pattern = "markdown,org",
 	callback = function(ev)
 		vim.api.nvim_buf_create_user_command(ev.buf, "Pandoc", function(args)
 			vim.cmd(
