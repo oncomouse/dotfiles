@@ -68,7 +68,6 @@ local plugins = {
 			end,
 		},
 	}, -- colors
-	{ "tpope/vim-repeat", lazy = true }, -- dot repeat for plugins
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost", "FileType" } }, -- guess indentation
 	{ "oncomouse/lazygit.nvim", cmd = "LazyGit" }, -- :LazyGit for lazygit integration
 	{ "echasnovski/mini.nvim", lazy = true }, -- Various (see below)
