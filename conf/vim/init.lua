@@ -490,7 +490,7 @@ vim.g.dotfiles_lsp = {
 		snippets = true,
 	},
 }
--- To boot a server, run: require("dotfiles.lsp.").start_server(<lspconfig configuration name>) in the appropriate ftplugins file
+-- To boot a server, run: require("dotfiles.lsp").start_server(<lspconfig configuration name>) in the appropriate ftplugins file
 
 -- Turn on debug-level logging for LSP:
 if vim.g.dotfiles_lsp_debug then
