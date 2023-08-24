@@ -53,26 +53,25 @@ local function mini_autocmd(cmd, opts)
 	if opts.buftype then
 		if not callbacks.buftype then
 			callbacks.buftype = {}
+			vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+				group = augroup,
+				callback = function(ev)
+					if vim.tbl_contains(vim.tbl_keys(callbacks.buftype), vim.bo.buftype) then
+						for _, func in pairs(callbacks.buftype[vim.bo.buftype]) do
+							if type(func) == "string" then
+								vim.cmd(func)
+							else
+								func(ev)
+							end
+						end
+					end
+				end,
+			})
 		end
 		opts.buftype = type(opts.buftype) == "string" and { opts.buftype } or opts.buftype
 
 		for _, bt in pairs(opts.buftype) do
 			if not callbacks.buftype[bt] then
-				vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
-					group = augroup,
-					pattern = bt,
-					callback = function(ev)
-						if vim.tbl_contains(bt, vim.bo.buftype) then
-							for _, func in pairs(callbacks.buftype[ev.match]) do
-								if type(func) == "string" then
-									vim.cmd(func)
-								else
-									func(ev)
-								end
-							end
-						end
-					end,
-				})
 				callbacks.buftype[bt] = {}
 			end
 			table.insert(callbacks.buftype[bt], cmd)
