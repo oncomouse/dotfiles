@@ -70,18 +70,6 @@ local plugins = {
 	}, -- colors
 	{ "tpope/vim-repeat", lazy = true }, -- dot repeat for plugins
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost", "FileType" } }, -- guess indentation
-	{ "christoomey/vim-sort-motion", keys = {
-		{ "gs", mode = { "x", "n" } },
-		{ "gss", mode = "n" },
-	} }, -- gs to sort
-	{
-		"vim-scripts/ReplaceWithRegister",
-		keys = {
-			{ "gr", mode = { "x", "n" } },
-			{ "grr", mode = "n" },
-		},
-		dependencies = { "vim-repeat" },
-	}, -- gr{motion} or grr or gr in visual to replace with register
 	{ "oncomouse/lazygit.nvim", cmd = "LazyGit" }, -- :LazyGit for lazygit integration
 	{ "echasnovski/mini.nvim", lazy = true }, -- Various (see below)
 	{
@@ -661,6 +649,8 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.b.miniindentscope_disable = true
 	end,
 })
+
+require("mini.operators").setup()
 
 require("mini.misc").setup()
 require("mini.misc").setup_auto_root({

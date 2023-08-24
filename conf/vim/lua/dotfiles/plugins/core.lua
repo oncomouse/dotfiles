@@ -22,25 +22,6 @@ return {
 	-- Mappings and Commands:
 
 	{
-		"vim-scripts/ReplaceWithRegister",
-		dependencies = { "vim-repeat" },
-		keys = {
-			{ "gr", mode = { "x", "n" }, desc = "Replace region with register" },
-			{ "grr", mode = "n", desc = "Replace line with register" },
-		},
-	}, -- gr{motion} or grr or gr in visual to replace with register
-
-	{
-		"oncomouse/sort-motion.nvim",
-		dev = false,
-		keys = {
-			{ "gs", mode = { "x", "n" }, desc = "Sort region" },
-			{ "gss", mode = { "n" }, desc = "Sort line" },
-		},
-		dependencies = { "vim-repeat" },
-	},
-
-	{
 		"haya14busa/vim-asterisk",
 		keys = {
 			{

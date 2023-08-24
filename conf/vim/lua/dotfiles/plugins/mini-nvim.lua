@@ -538,6 +538,13 @@ return {
 		end,
 	},
 	{
+		"echasnovski/mini.operators",
+		opts = {},
+		config = function(_, opts)
+			require("mini.operators").setup(opts)
+		end
+	},
+	{
 		"echasnovski/mini.statusline",
 		-- dependencies = { "oncomouse/czs.nvim" },
 		opts = function()
