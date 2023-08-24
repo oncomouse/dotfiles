@@ -17,6 +17,7 @@ return {
 		vim.opt.completeopt:append("preview")
 		vim.opt.shortmess:append("Wc")
 		vim.opt.undofile = false
+
 		-- mini.ai
 		-- vim-textobj-sentence configuration
 		-- vim.g["textobj#sentence#doubleDefault"] = "“”"
@@ -388,6 +389,8 @@ return {
 		})
 		require("mini.misc").setup_restore_cursor()
 
+		-- Useful text operators
+		-- g= for calcuation; gx for exchanging regions (use twice to select and replace); gm multiply; gr for replace with register; gs for sorting
 		require("mini.operators").setup()
 
 		local DotfilesStatusline = require("dotfiles.statusline")
