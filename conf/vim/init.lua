@@ -403,6 +403,99 @@ if not pcall(vim.cmd.colorscheme, "catppuccin-mocha") then
 	vim.cmd([[colorscheme default]])
 end
 -- }}}
+-- LSP {{{
+-- Set to true for debug logging in LSP:
+vim.g.dotfiles_lsp_debug = false
+
+-- Use LspAttach event:
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("dotfiles-lsp-on-attach", {}),
+	callback = function(ev)
+		require("dotfiles.lsp.on_attach")(vim.lsp.get_client_by_id(ev.data.client_id), ev.buf)
+	end,
+})
+
+-- Configure servers here:
+vim.g.dotfiles_lsp = {
+	bashls = {
+		flags = {
+			debounce_text_changes = 500,
+		},
+	},
+	cssls = {
+		flags = {
+			debounce_text_changes = 500,
+		},
+		snippets = true,
+	},
+	eslint = {
+		flags = {
+			debounce_text_changes = 500,
+		},
+		snippets = true,
+	},
+	html = {
+		flags = {
+			debounce_text_changes = 500,
+		},
+		snippets = true,
+	},
+	jsonls = {
+		filetypes = { "json", "jsonc" },
+		flags = {
+			debounce_text_changes = 500,
+		},
+		snippets = true,
+	},
+	lua_ls = {
+		snippets = true,
+		settings = {
+			Lua = {
+				completion = { callSnippet = "Both" },
+				workspace = {
+					-- Make the server aware of Neovim runtime files
+					checkThirdParty = false,
+				},
+				-- Do not send telemetry data containing a randomized but unique identifier
+				telemetry = { enable = false },
+				runtime = {
+					version = "LuaJIT",
+				},
+			},
+		},
+		flags = {
+			debounce_text_changes = 500,
+		},
+	},
+	pyright = {
+		flags = {
+			debounce_text_changes = 500,
+		},
+	},
+	standardrb = {
+		single_file_support = true,
+	},
+	tsserver = {
+		flags = {
+			debounce_text_changes = 500,
+		},
+	},
+	vimls = {
+		flags = {
+			debounce_text_changes = 500,
+		},
+		init_options = {
+			isNeovim = true,
+			diagnostic = {
+				enable = false,
+			},
+		},
+		snippets = true,
+	},
+	yamlls = {},
+}
+-- To boot a server, run: require("dotfiles.lsp.start_server")(<server-name>) in the appropriate ftplugins file
+-- }}}
 -- Diagnostics {{{
 
 -- Configuration

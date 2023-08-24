@@ -26,6 +26,8 @@ local function setup_javascript_environment()
 	require("null-ls").register({
 		require("null-ls").builtins.diagnostics.standardjs,
 	})
+	require("dotfiles.lsp.start_server")("eslint")
+	require("dotfiles.lsp.start_server")("tsserver")
 end
 
 return setup_javascript_environment
