@@ -323,6 +323,8 @@ return {
 		})
 		require("dotfiles.utils.mini").disable_mini_module("hipatterns", {
 			filetypes = { "help", "lazy", "markdown", "text" },
+			buftype = { "quickfix" },
+			terminal = true,
 		})
 		-- HTML Words:
 		local names = vim.tbl_map(function(x)
