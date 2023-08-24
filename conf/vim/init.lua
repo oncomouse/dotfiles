@@ -206,10 +206,7 @@ end
 -- }}}
 -- Autocommands {{{
 -- Line Number Colors in default:
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{ group = augroup, pattern = "default", command = "hi LineNr ctermfg=7" }
-)
+vim.api.nvim_create_autocmd("ColorScheme", { group = augroup, pattern = "default", command = "hi LineNr ctermfg=7" })
 vim.api.nvim_create_autocmd(
 	"ColorScheme",
 	{ group = augroup, pattern = "default", command = "hi LineNrAbove ctermfg=7" }
@@ -278,7 +275,7 @@ end, {
 	desc = "Formatting with formatter.nvim, lsp, fallback",
 	force = true,
 	range = "%",
-	nargs="?",
+	nargs = "?",
 })
 
 -- Adjust Spacing:
@@ -411,7 +408,7 @@ vim.g.dotfiles_lsp_debug = false
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("dotfiles-lsp-on-attach", {}),
 	callback = function(ev)
-		require("dotfiles.lsp.on_attach")(vim.lsp.get_client_by_id(ev.data.client_id), ev.buf)
+		require("dotfiles.lsp").on_attach(vim.lsp.get_client_by_id(ev.data.client_id), ev.buf)
 	end,
 })
 
@@ -493,7 +490,7 @@ vim.g.dotfiles_lsp = {
 		snippets = true,
 	},
 }
--- To boot a server, run: require("dotfiles.lsp.start_server")(<lspconfig configuration name>) in the appropriate ftplugins file
+-- To boot a server, run: require("dotfiles.lsp.").start_server(<lspconfig configuration name>) in the appropriate ftplugins file
 
 -- Turn on debug-level logging for LSP:
 if vim.g.dotfiles_lsp_debug then
