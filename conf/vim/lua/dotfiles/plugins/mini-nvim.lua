@@ -423,7 +423,7 @@ return {
 			require("mini.files").setup(opts)
 
 			local show_dotfiles = true
-			local filter_show = function(fs_entry)
+			local filter_show = function()
 				return true
 			end
 			local filter_hide = function(fs_entry)
