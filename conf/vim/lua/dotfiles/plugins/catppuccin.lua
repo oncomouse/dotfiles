@@ -1,5 +1,4 @@
 return {
-	{ "echasnovski/mini.colors", lazy = true },
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
