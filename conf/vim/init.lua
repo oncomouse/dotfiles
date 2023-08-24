@@ -492,7 +492,6 @@ vim.g.dotfiles_lsp = {
 		},
 		snippets = true,
 	},
-	yamlls = {},
 }
 -- To boot a server, run: require("dotfiles.lsp.start_server")(<server-name>) in the appropriate ftplugins file
 -- }}}

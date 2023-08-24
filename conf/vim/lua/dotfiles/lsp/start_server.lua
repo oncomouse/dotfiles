@@ -1,7 +1,7 @@
 local __running = {}
 local function start_server(server)
 	if vim.g.dotfiles_lsp[server] and not __running[server] then
-		local config = vim.g.dotfiles_lsp[server]
+		local config = vim.g.dotfiles_lsp[server] or {}
 		config.autostart = false
 		__running[server] = true
 		require("lspconfig")[server].setup(config)
