@@ -1,12 +1,10 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufNewFile", "BufReadPre" },
+		lazy = true,
 		dependencies = {
-			{ "folke/neodev.nvim", opts = {} },
+			{ "folke/neodev.nvim", lazy = true, opts = {} },
 		},
-		init = function()
-		end,
 		config = function()
 			-- Turn on debug-level logging for LSP:
 			if vim.g.dotfiles_lsp_debug then
