@@ -494,6 +494,11 @@ vim.g.dotfiles_lsp = {
 	},
 }
 -- To boot a server, run: require("dotfiles.lsp.start_server")(<lspconfig configuration name>) in the appropriate ftplugins file
+
+-- Turn on debug-level logging for LSP:
+if vim.g.dotfiles_lsp_debug then
+	vim.lsp.set_log_level("trace")
+end
 -- }}}
 -- Diagnostics {{{
 
