@@ -3,113 +3,9 @@
 ---@field col integer
 
 ---@alias ai_type "i" | "a"
-local callbacks = {}
-local augroup = vim.api.nvim_create_augroup("dotfiles-mini-disable", {})
-local function mini_autocmd(cmd, opts)
-	if type(opts) == "number" then
-		opts = { buffer = opts }
-	end
-	if opts.filetype then
-		if not callbacks.filetype then
-			callbacks.filetype = {}
-		end
-		opts.filetype = type(opts.filetype) == "string" and { opts.filetype } or opts.filetype
-
-		for _, ft in pairs(opts.filetype) do
-			if not callbacks.filetype[ft] then
-				vim.api.nvim_create_autocmd("FileType", {
-					group = augroup,
-					pattern = ft,
-					callback = function(ev)
-						for _, func in pairs(callbacks.filetype[ev.match]) do
-							if type(func) == "string" then
-								vim.cmd(func)
-							else
-								func(ev)
-							end
-						end
-					end,
-				})
-				callbacks.filetype[ft] = {}
-			end
-			table.insert(callbacks.filetype[ft], cmd)
-		end
-	end
-	if opts.terminal then
-		if not callbacks.terminal then
-			vim.api.nvim_create_autocmd("TermOpen", {
-				group = augroup,
-				pattern = "*",
-				callback = function(ev)
-					for _, func in pairs(callbacks.terminal) do
-						if type(func) == "string" then
-							vim.cmd(func)
-						else
-							func(ev)
-						end
-					end
-				end,
-			})
-			callbacks.terminal = {}
-		end
-		table.insert(callbacks.terminal, cmd)
-	end
-	if opts.buftype then
-		if not callbacks.buftype then
-			callbacks.buftype = {}
-		end
-		opts.buftype = type(opts.buftype) == "string" and { opts.buftype } or opts.buftype
-
-		for _, bt in pairs(opts.buftype) do
-			if not callbacks.buftype[bt] then
-				vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
-					group = augroup,
-					pattern = bt,
-					callback = function(ev)
-						if vim.tbl_contains(bt, vim.bo.buftype) then
-							for _, func in pairs(callbacks.buftype[ev.match]) do
-								if type(func) == "string" then
-									vim.cmd(func)
-								else
-									func(ev)
-								end
-							end
-						end
-					end,
-				})
-				callbacks.buftype[bt] = {}
-			end
-			table.insert(callbacks.buftype[bt], cmd)
-		end
-	end
-end
-local function disable_mini_module(module, opts)
-	if opts == nil then
-		vim.g[string.format("mini%s_disable", module)] = true
-		return
-	end
-	local var_name = string.format("b:mini%s_disable", module)
-	local buf_disable = string.format("let %s = v:true", var_name)
-	mini_autocmd(buf_disable, opts)
-end
-local function configure_mini_module(module, config, opts)
-	if type(config) == "function" then
-		config = config()
-	end
-	if opts == nil then
-		require("mini." .. module).setup(config or {})
-	end
-	local callback = function()
-		vim.b["mini" .. module .. "_config"] = config
-	end
-	mini_autocmd(callback, opts)
-end
 
 return {
 	"echasnovski/mini.nvim",
-	dependencies = {
-		{ "oncomouse/vim-textobj-sentence", branch = "lua", dev = false }, -- Sentence object
-	},
 	config = function()
 		-- mini.basics
 		require("mini.basics").setup({
@@ -324,7 +220,7 @@ return {
 			a = a,
 		})
 		local spec_pair = require("mini.ai").gen_spec.pair
-		configure_mini_module("ai", {
+		require("dotfiles.utils.mini").configure_mini_module("ai", {
 			custom_textobjects = {
 				["*"] = spec_pair("*", "*", { type = "greedy" }), -- Grab all asterisks when selecting
 				["_"] = spec_pair("_", "_", { type = "greedy" }), -- Grab all underscores when selecting
@@ -334,7 +230,7 @@ return {
 		}, {
 			filetype = "markdown",
 		})
-		configure_mini_module("ai", {
+		require("dotfiles.utils.mini").configure_mini_module("ai", {
 			custom_textobjects = {
 				["s"] = spec_pair("[[", "]]"),
 			},
@@ -424,7 +320,7 @@ return {
 				hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
 			},
 		})
-		disable_mini_module("hipatterns", {
+		require("dotfiles.utils.mini").disable_mini_module("hipatterns", {
 			filetypes = { "help", "lazy", "markdown", "text" },
 		})
 		-- HTML Words:
@@ -444,7 +340,7 @@ return {
 			return require("mini.hipatterns").compute_hex_color_group(color, "bg")
 		end
 		-- Support short hex in
-		configure_mini_module("hipatterns", {
+		require("dotfiles.utils.mini").configure_mini_module("hipatterns", {
 			highlighters = {
 				word = { pattern = "%w+", group = html_words },
 			},
@@ -467,7 +363,7 @@ return {
 				object_scope_with_border = "ai",
 			},
 		})
-		disable_mini_module("indentscope", {
+		require("dotfiles.utils.mini").disable_mini_module("indentscope", {
 			terminal = true,
 			filetype = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
 			buftype = { "quickfix" },
@@ -596,7 +492,7 @@ return {
 		vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
 		-- Make special mapping for "add surrounding for line"
 		vim.keymap.set("n", "yss", "ys_", { noremap = false })
-		configure_mini_module("surround", {
+		require("dotfiles.utils.mini").configure_mini_module("surround", {
 			custom_surroundings = {
 				["B"] = { -- Surround for bold
 					input = { "%*%*().-()%*%*" },
@@ -620,7 +516,7 @@ return {
 		}, {
 			filetype = "markdown",
 		})
-		configure_mini_module("surround", {
+		require("dotfiles.utils.mini").configure_mini_module("surround", {
 			custom_surroundings = {
 				s = {
 					input = { "%[%[().-()%]%]" },
@@ -636,4 +532,7 @@ return {
 			tabpage_section = "none",
 		})
 	end,
+	dependencies = {
+		{ "oncomouse/vim-textobj-sentence", branch = "lua", dev = false }, -- Sentence object
+	},
 }
