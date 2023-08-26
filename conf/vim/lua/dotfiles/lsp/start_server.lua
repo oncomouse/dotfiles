@@ -4,9 +4,9 @@ local function start_server(server)
 		local config = vim.g.dotfiles_lsp[server] or {}
 		config.autostart = false
 		__running[server] = true
-		local function get_server_capabilities(server)
+		local function get_server_capabilities(server_config)
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			if server.snippets then
+			if server_config.snippets then
 				capabilities.textDocument.completion.completionItem.snippetSupport = true
 				capabilities.textDocument.completion.completionItem.resolveSupport = {
 					properties = {
@@ -16,6 +16,8 @@ local function start_server(server)
 					},
 				}
 			end
+			-- See: https://github.com/neovim/neovim/issues/23291
+			capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 			return capabilities
 		end
 
