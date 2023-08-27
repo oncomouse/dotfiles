@@ -1,6 +1,3 @@
--- Track which servers have already started:
-local __running = {}
-
 local function get_server_capabilities(server_config)
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	if server_config.snippets then
@@ -19,10 +16,10 @@ local function get_server_capabilities(server_config)
 end
 
 local function start_server(server)
-	if not __running[server] then
+	local running = vim.lsp.get_clients({ name = server })
+	if #running == 0 then
 		local config = vim.g.dotfiles_lsp[server] or {}
 		config.autostart = false
-		__running[server] = true
 
 		local opts = vim.tbl_extend("keep", {
 			capabilities = get_server_capabilities(vim.g.dotfiles_lsp[server]),
@@ -30,6 +27,8 @@ local function start_server(server)
 
 		require("lspconfig")[server].setup(opts)
 		require("lspconfig")[server].launch()
+	else
+		vim.lsp.buf_attach_client(0, running[1].id)
 	end
 end
 return start_server
