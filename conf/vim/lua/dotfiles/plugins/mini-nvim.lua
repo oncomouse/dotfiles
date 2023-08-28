@@ -536,6 +536,6 @@ return {
 		})
 	end,
 	dependencies = {
-		{ "oncomouse/vim-textobj-sentence", branch = "lua", dev = false }, -- Sentence object
+		{ "preservim/vim-textobj-sentence" }, -- Sentence object
 	},
 }
