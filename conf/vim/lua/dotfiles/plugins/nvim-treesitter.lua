@@ -141,9 +141,7 @@ return {
 				pattern = vim.fn.join(opts.ensure_installed, ","),
 				group = ts_foldexpr_augroup_id,
 				callback = function()
-					if vim.bo.filetype ~= "org" then
-						vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-					end
+					vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
 					vim.opt_local.foldmethod = "expr"
 				end,
 				desc = "Set fold method for treesitter",
