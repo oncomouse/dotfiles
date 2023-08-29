@@ -3,36 +3,8 @@ return {
 	keys = {
 		{ "<C-a>", "<Plug>(dial-increment)", mode = { "n", "v" } },
 		{ "<C-x>", "<Plug>(dial-decrement)", mode = { "n", "v" } },
-		-- { "g<C-a>", "g<Plug>(dial-increment)", mode = { "n", "v" } },
-		-- { "g<C-x>", "g<Plug>(dial-decrement)", mode = { "n", "v" } },
-		{
-			"g<C-a>",
-			function()
-				require("dial.map").manipulate("increment", "gnormal")
-			end,
-			mode = "n",
-		},
-		{
-			"g<C-a>",
-			function()
-				require("dial.map").manipulate("increment", "gvisual")
-			end,
-			mode = "v",
-		},
-		{
-			"g<C-x>",
-			function()
-				require("dial.map").manipulate("decrement", "gnormal")
-			end,
-			mode = "n",
-		},
-		{
-			"g<C-x>",
-			function()
-				require("dial.map").manipulate("decrement", "gvisual")
-			end,
-			mode = "v",
-		},
+		{ "g<C-a>", "g<Plug>(dial-increment)", mode = { "n", "v" }, remap = true },
+		{ "g<C-x>", "g<Plug>(dial-decrement)", mode = { "n", "v" }, remap = true },
 	},
 	config = function()
 		local augend = require("dial.augend")
