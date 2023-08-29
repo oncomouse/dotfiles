@@ -30,7 +30,6 @@ return {
 				url
 			)
 		end
-		local opts = { noremap = true, silent = true }
-		vim.keymap.set({ "n", "v" }, "<Plug>(gx.nvim)", search_for_url, opts)
+		vim.keymap.set({ "n", "v" }, "<Plug>(gx.nvim)", search_for_url, { noremap = true, silent = true })
 	end,
 } -- Better URL opening, binds to gx
