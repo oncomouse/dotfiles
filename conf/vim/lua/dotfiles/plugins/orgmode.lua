@@ -19,6 +19,10 @@ return {
 		org_tags_column = 0,
 		mappings = {
 			org = {
+				org_timestamp_down_day = { "<S-Left>" },
+				org_timestamp_up_day = { "<S-Right>" },
+				org_timestamp_up = { "<C-A>", "<S-Up>" },
+				org_timestamp_down = { "<C-X>", "<S-Down>" },
 				org_toggle_checkbox = { "<prefix><space>", "gtd" },
 				org_return = false,
 			},
