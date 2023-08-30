@@ -30,3 +30,8 @@ end
 
 -- Map org-mode's <M-CR> behavior into nvim-orgmode
 vim.keymap.set("i", "<M-CR>", "<cmd>lua require('orgmode').action('org_mappings.handle_return')<cr>", { buffer = true })
+
+-- Load markdown.nvim for org:
+vim.b.markdown_nvim_unordered_list_chars = "[+-]"
+vim.b.markdown_nvim_unordered_default = "+"
+require("markdown").setup()
