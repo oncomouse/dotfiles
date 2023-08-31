@@ -91,13 +91,13 @@ return {
 		end
 		function Sentence.select_a(count)
 			if not vim.b.textobj_sentence_re_a then
-				require("textobj-sentence").setup()
+				vim.fn["textobj#sentence#init"]()
 			end
 			return Sentence.select(vim.b.textobj_sentence_re_a, count)
 		end
 		function Sentence.select_i(count)
 			if not vim.b.textobj_sentence_re_i then
-				require("textobj-sentence").setup()
+				vim.fn["textobj#sentence#init"]()
 			end
 			return Sentence.select(vim.b.textobj_sentence_re_i, count)
 		end
