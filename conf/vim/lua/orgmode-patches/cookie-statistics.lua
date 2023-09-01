@@ -118,7 +118,7 @@ end
 local m = require("orgmode.config.mappings.map_entry")
 local mappings = require("orgmode.config.mappings")
 mappings.org.org_update_statistics_cookie =
-    m.action("org_mappings.update_statistics_cookie", { opts = { desc = "org promote headline" } })
+    m.action("org_mappings.update_statistics_cookie", { opts = { desc = "Update statistics cookies" } })
 
 local defaults = require("orgmode.config.defaults")
 defaults.mappings.org.org_update_statistics_cookie = "<prefix>#"
