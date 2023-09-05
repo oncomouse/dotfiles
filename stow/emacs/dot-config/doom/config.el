@@ -42,9 +42,15 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org")
+(setq org-directory "~/SeaDrive/My Libraries/Todo/org")
 
-(setq org-default-notes-file "~/org/inbox.org")
+(setq org-agenda-files '(
+	"~/SeaDrive/My Libraries/Todo/todo.org"
+	"~/SeaDrive/My Libraries/Todo/inbox.org"
+	"~/SeaDrive/My Libraries/Todo/org"
+))
+
+(setq org-default-notes-file "~/SeaDrive/My Libraries/Todo/inbox.org")
 (setq org-indent-mode "noindent")
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an

@@ -8,7 +8,9 @@ return {
 	},
 	opts = {
 		org_agenda_files = {
-			"~/SeaDrive/My Libraries/Todo/**/*.org",
+			"~/SeaDrive/My Libraries/Todo/todo.org",
+			"~/SeaDrive/My Libraries/Todo/inbox.org",
+			"~/SeaDrive/My Libraries/Todo/org/*.org",
 		},
 		org_default_notes_file = "~/SeaDrive/My Libraries/Todo/inbox.org",
 		org_indent_mode = "noindent",
