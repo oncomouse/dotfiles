@@ -190,7 +190,7 @@ return {
 		add_rule({
 			char = "<CR>",
 			at = [[^\s*\([0-9]\+\)\..*\%#$]],
-			filetype = { "text", "markdown" },
+			filetype = { "text", "markdown", "org" },
 			with_submatch = true,
 			input = [[<CR>\1. <Home><C-o>:exec "normal! \<c-a\>" "$"<CR>]],
 			except = [[^\s*\([0-9]\)\. \%#$]],
@@ -198,13 +198,13 @@ return {
 		add_rule({
 			char = "<CR>",
 			at = [[^\s*\([0-9]\+\)\. \%#$]],
-			filetype = { "text", "markdown" },
+			filetype = { "text", "markdown", "org" },
 			input = [[<Home><C-O>"_D<CR>]],
 		})
 		add_rule({
 			char = "<BS>",
 			at = [[^\(\s*\)[0-9]\+\. \%#$]],
-			filetype = { "text", "markdown" },
+			filetype = { "text", "markdown", "org" },
 			with_submatch = true,
 			input = [[<Home><C-O>"_D\1]],
 		})
