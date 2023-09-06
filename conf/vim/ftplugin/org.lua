@@ -8,6 +8,9 @@ vim.opt_local.conceallevel = 2
 -- Spell
 vim.opt_local.spell = true
 
+-- Use org-lint for debugging:
+vim.cmd([[compiler org-lint]])
+
 -- Do a better >>/<< for my editing style
 local translation = {
 	["<<"] = "promote",
