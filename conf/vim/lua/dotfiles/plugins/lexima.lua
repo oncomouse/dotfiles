@@ -244,6 +244,12 @@ return {
 			at = [[^\**\%#]],
 			filetype = "org",
 		})
+		-- Also don't pair if we are actually starting a line with italics:
+		add_rule({
+			char = "*",
+			at = [[^\*\+\w[^*]\+\%#]],
+			filetype = "org",
+		})
 		-- Don't pair pluses in dates:
 		add_rule({
 			char = "+",
