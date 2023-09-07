@@ -6,6 +6,8 @@ local ts = require("orgmode.treesitter.compat")
 local OrgMappings = require("orgmode.org.mappings")
 local TodoState = require("orgmode.objects.todo_state")
 
+-- TODO: Make this code work whenever a todo item is updated
+
 -- Used to set the headline to DONE
 function TodoState:get_done()
 	local first = self.todos.DONE[1]
