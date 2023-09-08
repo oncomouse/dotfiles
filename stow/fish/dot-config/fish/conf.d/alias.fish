@@ -1,5 +1,3 @@
-# Universal ignore for ag
-function ag; /usr/bin/env ag --path-to-ignore ~/.ignore --hidden $argv; end
 # Other Command Aliases:
 function cat;bat --paging=never --theme=wal $argv;end
 function ls;eval (if command -sq exa; echo "exa"; else; echo "eza"; end) -g --group-directories-first $argv;end
