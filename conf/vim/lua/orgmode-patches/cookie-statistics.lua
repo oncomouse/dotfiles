@@ -6,8 +6,6 @@ local ts = require("orgmode.treesitter.compat")
 local OrgMappings = require("orgmode.org.mappings")
 local TodoState = require("orgmode.objects.todo_state")
 
--- TODO: Make this code work whenever a todo item is updated
-
 -- Used to set the headline to DONE
 function TodoState:get_done()
 	local first = self.todos.DONE[1]
@@ -47,10 +45,14 @@ end
 function Headline:update_cookie(list_node)
 	local done = 0
 	local total = 0
-	local cookie = self:cookie()
-	if not cookie then
+
+	-- If the headline does not have a cookie and does not have a TODO, we can skip this headline:
+	local cookie_node = self:cookie()
+	local todo_node, current_keyword, is_done = self:todo()
+	if cookie_node == nil and todo_node == nil then
 		return
 	end
+
 	if type(list_node) == "userdata" then
 		total, done = count_checkboxes(self:child_checkboxes(list_node))
 	else
@@ -87,29 +89,30 @@ function Headline:update_cookie(list_node)
 		end
 	end
 
-    -- Detect if there is a TODO state and if the TODO state does not match
-    -- the amount of done tasks (TODO -> DONE if done == total; DONE -> TODO if done ~= total)
-    local node, current_keyword, is_done = self:todo()
-    if node ~= nil then
-        if not is_done and total > 0 and total == done then
-            local todo_state = TodoState:new({ current_state = current_keyword })
-            self:set_todo(todo_state:get_done().value)
-        elseif is_done and total > 0 and total ~= done then
-            local todo_state = TodoState:new({ current_state = current_keyword })
-            self:set_todo(todo_state:get_todo().value)
-        end
-    end
-
-    -- Write the new cookie value:
-	local old_cookie_val = ts.get_node_text(cookie, 0)
-	local new_cookie_val
-	if ts.get_node_text(cookie, 0):find("%%") then
-		new_cookie_val = ("[%d%%]"):format((total == 0 and 0 or done / total) * 100)
-	else
-		new_cookie_val = ("[%d/%d]"):format(done, total)
+	-- Detect if there is a TODO state and if the TODO state does not match
+	-- the amount of done tasks (TODO -> DONE if done == total; DONE -> TODO if done ~= total)
+	if todo_node ~= nil then
+		if not is_done and total > 0 and total == done then
+			local todo_state = TodoState:new({ current_state = current_keyword })
+			self:set_todo(todo_state:get_done().value)
+		elseif is_done and total > 0 and total ~= done then
+			local todo_state = TodoState:new({ current_state = current_keyword })
+			self:set_todo(todo_state:get_todo().value)
+		end
 	end
-	if old_cookie_val ~= new_cookie_val then
-		tree_utils.set_node_text(cookie, new_cookie_val)
+
+	-- Write the new cookie value:
+	if cookie_node then
+		local old_cookie_val = ts.get_node_text(cookie_node, 0)
+		local new_cookie_val
+		if ts.get_node_text(cookie_node, 0):find("%%") then
+			new_cookie_val = ("[%d%%]"):format((total == 0 and 0 or done / total) * 100)
+		else
+			new_cookie_val = ("[%d/%d]"):format(done, total)
+		end
+		if old_cookie_val ~= new_cookie_val then
+			tree_utils.set_node_text(cookie_node, new_cookie_val)
+		end
 	end
 end
 
