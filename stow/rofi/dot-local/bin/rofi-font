@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 font=${1:-"FiraCode Nerd Font 12"}
-if pgrep sdorfehs > /dev/null; then
+if [ "$(pgrep -c sdorfehs)" -gt 0 ]; then
 	font="$(sdorfehs -c 'set font')"
 	font="${font/:size=/ }"
 fi
