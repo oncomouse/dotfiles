@@ -7,6 +7,8 @@ return {
 		vim.g.lexima_enable_endwise_rules = 1
 		vim.g.lexima_disable_closetag = 0
 		vim.g.lexima_no_default_rules = 1
+		-- Electric Quotes
+		vim.api.nvim_create_user_command("ToggleElectricQuotes", [[let b:use_electric_quotes = !get(b:, "use_electric_quotes", v:false)]], {})
 	end,
 	event = "InsertEnter",
 	keys = {
@@ -322,6 +324,38 @@ return {
 			at = [[|\%#|]],
 			delete = 1,
 			filetype = "help",
+		})
+
+		-- Electric Quotes
+		add_rule({
+			char = "`",
+			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "‘" : "`", "n")<CR>]],
+			filetype = { "markdown", "org" },
+		})
+		add_rule({
+			char = "`",
+			at = [[‘\%#]],
+			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>“" : "`", "n")<CR>]],
+			filetype = { "markdown", "org" },
+		})
+		add_rule({
+			char = "'",
+			at = [[[‘“][^‘“]*\%#]],
+			except = [[’\%#]],
+			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "’" : "'", "n")<CR>]],
+			filetype = { "markdown", "org" },
+		})
+		add_rule({
+			char = "'",
+			at = [[’\%#]],
+			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>”" : "'", "n")<CR>]],
+			filetype = { "markdown", "org" },
+		})
+		add_rule({
+			char = "<BS>",
+			at = [[”\%#]],
+			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>’" : "\<BS\>", "n")<CR>]],
+			filetype = { "markdown", "org" },
 		})
 	end,
 }
