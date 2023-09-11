@@ -330,32 +330,27 @@ return {
 		add_rule({
 			char = "`",
 			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "‘" : "`", "n")<CR>]],
-			filetype = { "markdown", "org" },
 		})
 		add_rule({
 			char = "`",
 			at = [[‘\%#]],
 			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>“" : "`", "n")<CR>]],
-			filetype = { "markdown", "org" },
 		})
 		add_rule({
 			char = "'",
 			at = [[[‘“][^‘“]*\%#]],
 			except = [[’\%#]],
 			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "’" : "'", "n")<CR>]],
-			filetype = { "markdown", "org" },
 		})
 		add_rule({
 			char = "'",
 			at = [[’\%#]],
 			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>”" : "'", "n")<CR>]],
-			filetype = { "markdown", "org" },
 		})
 		add_rule({
 			char = "<BS>",
 			at = [[”\%#]],
 			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>’" : "\<BS\>", "n")<CR>]],
-			filetype = { "markdown", "org" },
 		})
 	end,
 }
