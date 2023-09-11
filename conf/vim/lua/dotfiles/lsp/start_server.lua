@@ -22,7 +22,7 @@ local function start_server(server)
 		config.autostart = false
 
 		local opts = vim.tbl_extend("keep", {
-			capabilities = get_server_capabilities(vim.g.dotfiles_lsp[server]),
+			capabilities = get_server_capabilities(config),
 		}, config)
 
 		require("lspconfig")[server].setup(opts)
