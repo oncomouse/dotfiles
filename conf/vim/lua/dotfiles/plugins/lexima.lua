@@ -329,23 +329,29 @@ return {
 		-- Electric Quotes
 		add_rule({
 			char = "`",
-			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "‘" : "`", "n")<CR>]],
+			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "‘" : (g:lexima_enable_basic_rules ? "``\<Left\>" : "`"), "n")<CR>]],
+			except = [[\%#`]],
+		})
+		add_rule({
+			char = "`",
+			at = [[\%#`]],
+			delete = 1,
 		})
 		add_rule({
 			char = "`",
 			at = [[‘\%#]],
-			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>“" : "`", "n")<CR>]],
+			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>“" : (g:lexima_enable_basic_rules ? "``\<Left\>" : "`"), "n")<CR>]],
 		})
 		add_rule({
 			char = "'",
 			at = [[[‘“][^‘“]*\%#]],
 			except = [[’\%#]],
-			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "’" : "'", "n")<CR>]],
+			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "’" : (g:lexima_enable_basic_rules ? "''\<Left\>" : "'"), "n")<CR>]],
 		})
 		add_rule({
 			char = "'",
 			at = [[’\%#]],
-			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>”" : "'", "n")<CR>]],
+			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>”" : (g:lexima_enable_basic_rules ? "''\<Left\>" : "'"), "n")<CR>]],
 		})
 		add_rule({
 			char = "<BS>",
