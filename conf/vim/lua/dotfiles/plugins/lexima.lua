@@ -8,7 +8,11 @@ return {
 		vim.g.lexima_disable_closetag = 0
 		vim.g.lexima_no_default_rules = 1
 		-- Electric Quotes (https://www.gnu.org/software/emacs/manual/html_node/emacs/Quotation-Marks.html)
-		vim.api.nvim_create_user_command("ToggleElectricQuotes", [[let b:use_electric_quotes = !get(b:, "use_electric_quotes", v:false)]], {})
+		vim.api.nvim_create_user_command(
+			"ToggleElectricQuotes",
+			[[let b:use_electric_quotes = !get(b:, "use_electric_quotes", v:false)]],
+			{}
+		)
 	end,
 	event = "InsertEnter",
 	keys = {
@@ -325,6 +329,21 @@ return {
 			delete = 1,
 			filetype = "help",
 		})
+
+		-- Links:
+		add_rule({
+			char = "[",
+			at = [[^[+-] \[ \] \%#]],
+			input = "<BS><Left><BS>[",
+			input_after = "]",
+			filetype = "org",
+		}) -- Convert a todo item into a link
+		add_rule({
+			char = "]",
+			at = [==[\%#\]]==],
+			input = "<Right>",
+			filetype="org"
+		}) -- Leave a square bracket
 
 		-- Electric Quotes
 		add_rule({
