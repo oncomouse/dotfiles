@@ -13,130 +13,171 @@ return {
 	-- 	local insx = require("insx")
 	-- 	local kit = require("insx.kit")
 	--
+	-- 	_G.insx_lexima_rules = {}
+	-- 	local chars = {}
+	--
+	-- 	local function make_rule(spec)
+	-- 		return {
+	-- 			action = function(ctx)
+	-- 				local open = ""
+	-- 				local close = ""
+	-- 				if not spec.leave and not spec.input then
+	-- 					open = open .. spec.char
+	-- 				end
+	-- 				if spec.leave then
+	-- 					local leave = spec.leave
+	-- 					if type(leave) == "string" then
+	-- 						local s, _ = ctx.match(leave)
+	-- 						if s then
+	-- 							leave = s
+	-- 						end
+	-- 					elseif type(leave) == "function" then
+	-- 						leave = leave(ctx)
+	-- 					end
+	-- 					if type(leave) == "number" then
+	-- 						open = open .. vim.fn["repeat"]("<Right>", leave)
+	-- 					end
+	-- 				end
+	-- 				if spec.delete then
+	-- 					local delete = spec.leave
+	-- 					if type(delete) == "string" then
+	-- 						local s, _ = ctx.match(delete)
+	-- 						if s then
+	-- 							delete = s
+	-- 						end
+	-- 					elseif type(delete) == "function" then
+	-- 						delete = delete(ctx)
+	-- 					end
+	-- 					if type(delete) == "number" then
+	-- 						open = open .. vim.fn["repeat"]("<Del>", delete)
+	-- 					end
+	-- 				end
+	-- 				if spec.input then
+	-- 					local input = type(spec.input) == "function" and spec.input(ctx) or spec.input
+	-- 					if spec.with_submatch then
+	-- 						local line = ctx.text()
+	-- 						local submatch_at = spec.at:gsub([[\%%%#]], "")
+	-- 						local captures = vim.fn.matchlist(line, submatch_at)
+	-- 						if #captures > 0 then
+	-- 							for i, match in ipairs(captures) do
+	-- 								input = input:gsub("\\" .. (i - 1), match)
+	-- 							end
+	-- 						end
+	-- 					end
+	-- 					open = open .. input
+	-- 				end
+	-- 				if spec.input_after then
+	-- 					local input_after = type(spec.input_after) == "function" and spec.input_after(ctx)
+	-- 						or spec.input_after
+	-- 					close = close .. input_after .. ("<Left>"):rep(vim.fn.strchars(input_after, true))
+	-- 				end
+	-- 				return open .. close
+	-- 			end,
+	-- 			enabled = function(ctx)
+	-- 				if spec.filetype then
+	-- 					local ft = kit.to_array(spec.filetype)
+	-- 					if not vim.tbl_contains(ft, vim.bo.filetype, {}) then
+	-- 						return false
+	-- 					end
+	-- 				end
+	-- 				if spec.enabled then
+	-- 					if type(spec.enabled) == "function" then
+	-- 						if not spec.enabled(ctx) then
+	-- 							return false
+	-- 						end
+	-- 					end
+	-- 					if type(spec.enabled) == "boolean" and spec.enabled == false then
+	-- 						return false
+	-- 					end
+	-- 					if type(spec.enabled) == "nil" then
+	-- 						return false
+	-- 					end
+	-- 				end
+	-- 				if spec.at then
+	-- 					local at = spec.at
+	-- 					if type(at) == "function" then
+	-- 						at = at(ctx)
+	-- 						if type(at) == "boolean" and at == false then
+	-- 							return false
+	-- 						end
+	-- 						if type(at) == "nil" then
+	-- 							return false
+	-- 						end
+	-- 					end
+	-- 					if type(at) == "string" then
+	-- 						if not ctx.match(at) then
+	-- 							return false
+	-- 						end
+	-- 					end
+	-- 				end
+	-- 				if spec.except then
+	-- 					local except = spec.except
+	-- 					if type(except) == "function" then
+	-- 						except = except(ctx)
+	-- 						if type(except) == "boolean" and except == true then
+	-- 							return false
+	-- 						end
+	-- 					end
+	-- 					if type(except) == "string" and ctx.match(except) then
+	-- 						return false
+	-- 					end
+	-- 				end
+	-- 				return true
+	-- 			end,
+	-- 		}
+	-- 	end
+	--
 	-- 	local function add_rule(spec)
 	-- 		if not spec.char then
 	-- 			return
 	-- 		end
-	-- 		insx.add(
-	-- 			spec.char,
-	-- 			insx.with({
-	-- 				action = function(ctx)
-	-- 					local open = ""
-	-- 					local close = ""
-	-- 					if not spec.leave and not spec.input then
-	-- 						open = open .. spec.char
-	-- 					end
-	-- 					if spec.leave then
-	-- 						local leave = spec.leave
-	-- 						if type(leave) == "string" then
-	-- 							local s, _ = ctx.match(leave)
-	-- 							if s then
-	-- 								leave = s
-	-- 							end
-	-- 						elseif type(leave) == "function" then
-	-- 							leave = leave(ctx)
-	-- 						end
-	-- 						if type(leave) == "number" then
-	-- 							open = open .. vim.fn["repeat"]("<Right>", leave)
-	-- 						end
-	-- 					end
-	-- 					if spec.delete then
-	-- 						local delete = spec.leave
-	-- 						if type(delete) == "string" then
-	-- 							local s, _ = ctx.match(delete)
-	-- 							if s then
-	-- 								delete = s
-	-- 							end
-	-- 						elseif type(delete) == "function" then
-	-- 							delete = delete(ctx)
-	-- 						end
-	-- 						if type(delete) == "number" then
-	-- 							open = open .. vim.fn["repeat"]("<Del>", delete)
-	-- 						end
-	-- 					end
-	-- 					if spec.input then
-	-- 						local input = type(spec.input) == "function" and spec.input(ctx) or spec.input
-	-- 						if spec.with_submatch then
-	-- 							spec.__capture_cache = spec.__capture_cache or {}
-	-- 							local line = ctx.text()
-	-- 							if spec.__capture_cache[line] then
-	-- 								for i, match in ipairs(spec.__capture_cache[line]) do
-	-- 									input = input:gsub("\\" .. (i - 1), match)
+	-- 		if not chars[spec.char] then
+	-- 			chars[spec.char] = true
+	-- 			insx.add(
+	-- 				spec.char,
+	-- 				insx.with({
+	-- 					action = function(ctx)
+	-- 						local output = spec.char
+	-- 						for _, rule in pairs(_G.insx_lexima_rules["_"] or {}) do
+	-- 							if rule.char == spec.char then
+	-- 								local r = make_rule(rule)
+	-- 								if r.enabled(ctx) then
+	-- 									output = r.action(ctx)
+	-- 									vim.print(output, rule)
 	-- 								end
 	-- 							end
 	-- 						end
-	-- 						open = open .. input
-	-- 					end
-	-- 					if spec.input_after then
-	-- 						local input_after = type(spec.input_after) == "function" and spec.input_after(ctx)
-	-- 							or spec.input_after
-	-- 						close = close .. input_after .. ("<Left>"):rep(vim.fn.strchars(input_after, true))
-	-- 					end
-	-- 					ctx.send(open .. close)
-	-- 				end,
-	-- 				enabled = function(ctx)
-	-- 					if spec.filetype then
-	-- 						local ft = kit.to_array(spec.filetype)
-	-- 						if not vim.tbl_contains(ft, vim.bo.filetype, {}) then
-	-- 							return false
-	-- 						end
-	-- 					end
-	-- 					if spec.enabled then
-	-- 						if type(spec.enabled) == "function" then
-	-- 							if not spec.enabled(ctx) then
-	-- 								return false
-	-- 							end
-	-- 						end
-	-- 						if type(spec.enabled) == "boolean" and spec.enabled == false then
-	-- 							return false
-	-- 						end
-	-- 						if type(spec.enabled) == "nil" then
-	-- 							return false
-	-- 						end
-	-- 					end
-	-- 					if spec.at then
-	-- 						local at = spec.at
-	-- 						if type(at) == "function" then
-	-- 							at = at(ctx)
-	-- 							if type(at) == "boolean" and at == false then
-	-- 								return false
-	-- 							end
-	-- 							if type(at) == "nil" then
-	-- 								return false
-	-- 							end
-	-- 						end
-	-- 						if type(at) == "string" then
-	-- 							if not ctx.match(at) then
-	-- 								return false
-	-- 							elseif spec.with_submatch then
-	-- 								local line = ctx.text()
-	-- 								local submatch_at = spec.at:gsub([[\%%%#]], "")
-	-- 								local captures = vim.fn.matchlist(line, submatch_at)
-	-- 								if #captures > 0 then
-	-- 									spec.__capture_cache = spec.__capture_cache or {}
-	-- 									spec.__capture_cache[line] = captures
-	-- 								else
-	-- 									return false
+	-- 						for _, rule in pairs(_G.insx_lexima_rules[vim.bo.filetype] or {}) do
+	-- 							if rule.char == spec.char then
+	-- 								local r = make_rule(rule)
+	-- 								if r.enabled(ctx) then
+	-- 									output = r.action(ctx)
+	-- 									vim.print(output, rule)
 	-- 								end
 	-- 							end
 	-- 						end
+	-- 						ctx.send(output)
+	-- 					end,
+	-- 					enabled = function(_)
+	-- 						return true
+	-- 					end,
+	-- 				}, {})
+	-- 			)
+	-- 			if spec.filetype then
+	-- 				local fts = kit.to_array(spec.filetype)
+	-- 				for _, ft in pairs(fts) do
+	-- 					if not _G.insx_lexima_rules[ft] then
+	-- 						_G.insx_lexima_rules[ft] = {}
 	-- 					end
-	-- 					if spec.except then
-	-- 						local except = spec.except
-	-- 						if type(except) == "function" then
-	-- 							except = except(ctx)
-	-- 							if type(except) == "boolean" and except == true then
-	-- 								return false
-	-- 							end
-	-- 						end
-	-- 						if type(except) == "string" and ctx.match(except) then
-	-- 							return false
-	-- 						end
-	-- 					end
-	-- 					return true
-	-- 				end,
-	-- 			}, {})
-	-- 		)
+	-- 					table.insert(_G.insx_lexima_rules[ft], spec)
+	-- 				end
+	-- 			else
+	-- 				if not _G.insx_lexima_rules["_"] then
+	-- 					_G.insx_lexima_rules["_"] = {}
+	-- 				end
+	-- 				table.insert(_G.insx_lexima_rules["_"], spec)
+	-- 			end
+	-- 		end
 	-- 	end
 	-- 	require("insx.preset.standard").setup()
 	--
@@ -468,23 +509,35 @@ return {
 	-- 	add_rule({
 	-- 		char = "`",
 	-- 		at = [[‘\%#]],
-	-- 		input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>“" : (g:lexima_enable_basic_rules ? "``\<Left\>" : "`"), "n")<CR>]],
+	-- 		input = "<BS>“",
+	-- 		enabled = function()
+	-- 			return vim.b.use_electric_quotes
+	-- 		end,
 	-- 	})
 	-- 	add_rule({
 	-- 		char = "'",
 	-- 		at = [[[‘“][^‘“]*\%#]],
 	-- 		except = [[’\%#]],
-	-- 		input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "’" : (g:lexima_enable_basic_rules ? "''\<Left\>" : "'"), "n")<CR>]],
+	-- 		input = "’",
+	-- 		enabled = function()
+	-- 			return vim.b.use_electric_quotes
+	-- 		end,
 	-- 	})
 	-- 	add_rule({
 	-- 		char = "'",
 	-- 		at = [[’\%#]],
-	-- 		input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>”" : (g:lexima_enable_basic_rules ? "''\<Left\>" : "'"), "n")<CR>]],
+	-- 		input = "<BS>”",
+	-- 		enabled = function()
+	-- 			return vim.b.use_electric_quotes
+	-- 		end,
 	-- 	})
 	-- 	add_rule({
 	-- 		char = "<BS>",
 	-- 		at = [[”\%#]],
-	-- 		input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>’" : "\<BS\>", "n")<CR>]],
+	-- 		input = "<BS>’",
+	-- 		enabled = function()
+	-- 			return vim.b.use_electric_quotes
+	-- 		end,
 	-- 	})
 	-- end,
 }
