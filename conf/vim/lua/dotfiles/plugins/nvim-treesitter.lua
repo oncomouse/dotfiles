@@ -105,9 +105,8 @@ return {
 				disable = nvim_treesitter.should_highlight_disable,
 			},
 			autotag = { enable = true },
-			context_commentstring = {
-				enable = true,
-			},
+			context_commentstring = { enable = true },
+			endwise = { enable = true },
 			matchup = {
 				enable = nvim_treesitter.should_buffer_higlight_disable,
 			},
@@ -151,6 +150,7 @@ return {
 		end,
 		dependencies = {
 			{ "JoosepAlviste/nvim-ts-context-commentstring" },
+			{ "RRethy/nvim-treesitter-endwise" },
 			{
 				"nvim-treesitter/nvim-treesitter-textobjects",
 				init = function()

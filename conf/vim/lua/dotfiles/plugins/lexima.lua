@@ -4,7 +4,7 @@ return {
 		-- Lexima Settings:
 		vim.g.lexima_map_escape = ""
 		vim.g.lexima_enable_space_rules = 0
-		vim.g.lexima_enable_endwise_rules = 1
+		vim.g.lexima_enable_endwise_rules = 0
 		vim.g.lexima_disable_closetag = 0
 		vim.g.lexima_no_default_rules = 1
 		-- Electric Quotes (https://www.gnu.org/software/emacs/manual/html_node/emacs/Quotation-Marks.html)
@@ -37,19 +37,6 @@ return {
 
 		-- Utilities:
 		local add_rule = vim.fn["lexima#add_rule"]
-
-		-- Rule Making Functions:
-		local function make_endwise_rule(at, ed, ft, syn)
-			return {
-				char = "<CR>",
-				input = "<CR>",
-				input_after = "<CR>" .. ed,
-				at = at,
-				except = [[\C\v^(\s*)\S.*%#\n%(%(\s*|\1\s.+)\n)*\1]] .. ed,
-				filetype = ft,
-				syntax = syn,
-			}
-		end
 
 		local function make_markdown_bi_rule(char, escape)
 			local esc_char = escape and [[\]] .. char or char
@@ -303,13 +290,6 @@ return {
 			at = [==[\[\%#\]]==],
 			filetype = "org",
 		})
-
-		-- Lua endwise rules:
-		if vim.g.lexima_enable_endwise_rules == 1 then
-			add_rule(make_endwise_rule([[^\s*if\>.*then\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
-			add_rule(make_endwise_rule([[^\s*\%(for\|while\)\>.*do\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
-			add_rule(make_endwise_rule([[^\s*\%(local\)\=.*function\>\%(.*[^.:@$]\<end\>\)\@!.*\%#]], "end", "lua", {}))
-		end
 
 		-- Rules for help files:
 		add_rule({
