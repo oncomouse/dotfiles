@@ -323,63 +323,63 @@ return {
 			char = "]",
 			at = [==[\%#\]]==],
 			input = "<Right>",
-			filetype="org"
+			filetype = "org",
 		}) -- Leave a square bracket
 
-			-- Electric Quotes
-			add_rule({
-				char = "`",
-				input = "‘",
-				enabled = function()
-					return vim.b.use_electric_quotes
-				end,
-				except = [[\%#`]],
-			})
-			add_rule({
-				char = "`",
-				at = [[\%#`]],
-				delete = 1,
-			})
-			add_rule({
-				char = "`",
-				at = [[‘\%#]],
-				input = "<BS>“",
-				enabled = function()
-					return vim.b.use_electric_quotes
-				end,
-			})
-			add_rule({
-				char = "'",
-				at = [[[‘“][^‘“]*\%#]],
-				except = [[’\%#]],
-				input = "’",
-				enabled = function()
-					return vim.b.use_electric_quotes
-				end,
-			})
-			add_rule({
-				char = "'",
-				at = [[’\%#]],
-				input = "<BS>”",
-				enabled = function()
-					return vim.b.use_electric_quotes
-				end,
-			})
-			add_rule({
-				char = "<BS>",
-				at = [[“\%#]],
-				input = "<BS>‘",
-				enabled = function()
-					return vim.b.use_electric_quotes
-				end,
-			})
-			add_rule({
-				char = "<BS>",
-				at = [[”\%#]],
-				input = "<BS>’",
-				enabled = function()
-					return vim.b.use_electric_quotes
-				end,
-			})
+		-- Electric Quotes
+		add_rule({
+			char = "`",
+			input = "‘",
+			enabled = function()
+				return vim.b.use_electric_quotes
+			end,
+			except = [[\%#`]],
+		})
+		add_rule({
+			char = "`",
+			at = [[\%#`]],
+			delete = 1,
+		})
+		add_rule({
+			char = "`",
+			at = [[‘\%#]],
+			input = "<BS>“",
+			enabled = function()
+				return vim.b.use_electric_quotes
+			end,
+		})
+		add_rule({
+			char = "'",
+			at = [[[‘“][^‘“]*\%#]],
+			except = [[’\%#]],
+			input = "’",
+			enabled = function()
+				return vim.b.use_electric_quotes
+			end,
+		})
+		add_rule({
+			char = "'",
+			at = [[’\%#]],
+			input = "<BS>”",
+			enabled = function()
+				return vim.b.use_electric_quotes
+			end,
+		})
+		add_rule({
+			char = "<BS>",
+			at = [[“\%#]],
+			input = "<BS>‘",
+			enabled = function()
+				return vim.b.use_electric_quotes
+			end,
+		})
+		add_rule({
+			char = "<BS>",
+			at = [[”\%#]],
+			input = "<BS>’",
+			enabled = function()
+				return vim.b.use_electric_quotes
+			end,
+		})
 	end,
 }
