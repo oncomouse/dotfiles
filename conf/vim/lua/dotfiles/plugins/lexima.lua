@@ -1,5 +1,6 @@
 return {
-	"cohama/lexima.vim", -- Autopairs
+	"oncomouse/lexima.vim", -- Autopairs
+	dev = false,
 	init = function()
 		-- Lexima Settings:
 		vim.g.lexima_map_escape = ""
@@ -325,37 +326,60 @@ return {
 			filetype="org"
 		}) -- Leave a square bracket
 
-		-- Electric Quotes
-		add_rule({
-			char = "`",
-			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "‘" : (g:lexima_enable_basic_rules ? "``\<Left\>" : "`"), "n")<CR>]],
-			except = [[\%#`]],
-		})
-		add_rule({
-			char = "`",
-			at = [[\%#`]],
-			delete = 1,
-		})
-		add_rule({
-			char = "`",
-			at = [[‘\%#]],
-			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>“" : (g:lexima_enable_basic_rules ? "``\<Left\>" : "`"), "n")<CR>]],
-		})
-		add_rule({
-			char = "'",
-			at = [[[‘“][^‘“]*\%#]],
-			except = [[’\%#]],
-			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "’" : (g:lexima_enable_basic_rules ? "''\<Left\>" : "'"), "n")<CR>]],
-		})
-		add_rule({
-			char = "'",
-			at = [[’\%#]],
-			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>”" : (g:lexima_enable_basic_rules ? "''\<Left\>" : "'"), "n")<CR>]],
-		})
-		add_rule({
-			char = "<BS>",
-			at = [[”\%#]],
-			input = [[<C-o>:call feedkeys(get(b:, "use_electric_quotes", v:false) ? "\<BS\>’" : "\<BS\>", "n")<CR>]],
-		})
+			-- Electric Quotes
+			add_rule({
+				char = "`",
+				input = "‘",
+				enabled = function()
+					return vim.b.use_electric_quotes
+				end,
+				except = [[\%#`]],
+			})
+			add_rule({
+				char = "`",
+				at = [[\%#`]],
+				delete = 1,
+			})
+			add_rule({
+				char = "`",
+				at = [[‘\%#]],
+				input = "<BS>“",
+				enabled = function()
+					return vim.b.use_electric_quotes
+				end,
+			})
+			add_rule({
+				char = "'",
+				at = [[[‘“][^‘“]*\%#]],
+				except = [[’\%#]],
+				input = "’",
+				enabled = function()
+					return vim.b.use_electric_quotes
+				end,
+			})
+			add_rule({
+				char = "'",
+				at = [[’\%#]],
+				input = "<BS>”",
+				enabled = function()
+					return vim.b.use_electric_quotes
+				end,
+			})
+			add_rule({
+				char = "<BS>",
+				at = [[“\%#]],
+				input = "<BS>‘",
+				enabled = function()
+					return vim.b.use_electric_quotes
+				end,
+			})
+			add_rule({
+				char = "<BS>",
+				at = [[”\%#]],
+				input = "<BS>’",
+				enabled = function()
+					return vim.b.use_electric_quotes
+				end,
+			})
 	end,
 }
