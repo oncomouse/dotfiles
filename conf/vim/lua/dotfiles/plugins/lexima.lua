@@ -291,6 +291,21 @@ return {
 			at = [==[\[\%#\]]==],
 			filetype = "org",
 		})
+		-- Links:
+		add_rule({
+			char = "[",
+			at = [[^[+-] \[ \] \%#]],
+			input = "<BS><Left><BS>[",
+			input_after = "]",
+			filetype = "org",
+		}) -- Convert a todo item into a link
+		add_rule({
+			char = "]",
+			at = [==[\%#\]]==],
+			input = "<Right>",
+			filetype = "org",
+		}) -- Leave a square bracket
+
 
 		-- Rules for help files:
 		add_rule({
@@ -310,21 +325,6 @@ return {
 			delete = 1,
 			filetype = "help",
 		})
-
-		-- Links:
-		add_rule({
-			char = "[",
-			at = [[^[+-] \[ \] \%#]],
-			input = "<BS><Left><BS>[",
-			input_after = "]",
-			filetype = "org",
-		}) -- Convert a todo item into a link
-		add_rule({
-			char = "]",
-			at = [==[\%#\]]==],
-			input = "<Right>",
-			filetype = "org",
-		}) -- Leave a square bracket
 
 		-- Electric Quotes
 		add_rule({
