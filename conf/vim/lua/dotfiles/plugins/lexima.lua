@@ -11,7 +11,7 @@ return {
 		-- Electric Quotes (https://www.gnu.org/software/emacs/manual/html_node/emacs/Quotation-Marks.html)
 		vim.api.nvim_create_user_command(
 			"ToggleElectricQuotes",
-			[[let b:use_electric_quotes = !get(b:, "use_electric_quotes", v:false)]],
+			[[lua vim.b.use_electric_quotes = not (vim.b.use_electric_quotes or false)]],
 			{}
 		)
 	end,
