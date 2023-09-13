@@ -306,7 +306,6 @@ return {
 			filetype = "org",
 		}) -- Leave a square bracket
 
-
 		-- Rules for help files:
 		add_rule({
 			char = "<Bar>",
@@ -381,5 +380,26 @@ return {
 				return vim.b.use_electric_quotes
 			end,
 		})
+
+		-- XML-style closetag:
+		if vim.g.lexima_disable_closetag == 0 then
+			for _, ft in pairs({ "html", "xml", "javascript", "javascriptreact" }) do
+				add_rule({ char = "<", input_after = ">", filetype = ft })
+				add_rule({
+					char = "<BS>",
+					at = [[<\%#>]],
+					delete = 1,
+					filetype = ft,
+				})
+				add_rule({
+					char = ">",
+					at = [[<\(\w\+\)[^>]*\%#>]],
+					leave = 1,
+					input_after = [[</\1>]],
+					with_submatch = 1,
+					filetype = ft,
+				})
+			end
+		end
 	end,
 }

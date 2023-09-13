@@ -168,7 +168,6 @@ return {
 					end
 				end,
 			},
-			"windwp/nvim-ts-autotag",
 			{
 				"andymass/vim-matchup",
 				init = function()
