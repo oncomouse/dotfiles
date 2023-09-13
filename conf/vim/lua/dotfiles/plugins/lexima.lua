@@ -380,6 +380,7 @@ return {
 				return vim.b.use_electric_quotes
 			end,
 		})
+		-- TODO: Electric ... -> …, -- -> –, and --- -> —
 
 		-- XML-style closetag:
 		if vim.g.lexima_disable_closetag == 0 then
