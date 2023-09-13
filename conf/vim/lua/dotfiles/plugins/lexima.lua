@@ -380,7 +380,23 @@ return {
 				return vim.b.use_electric_quotes
 			end,
 		})
-		-- TODO: Electric ... -> …, -- -> –, and --- -> —
+		add_rule({
+			char = ".",
+			at = [[\.\.\%#]],
+			input = "<BS><BS>…",
+			enabled = function()
+				return vim.b.use_electric_quotes
+			end,
+		})
+		add_rule({
+			char = "<BS>",
+			at = [[…\%#]],
+			input = "<BS>..",
+			enabled = function()
+				return vim.b.use_electric_quotes
+			end,
+		})
+		-- TODO: Electric -- -> – and --- -> —
 
 		-- XML-style closetag:
 		if vim.g.lexima_disable_closetag == 0 then
