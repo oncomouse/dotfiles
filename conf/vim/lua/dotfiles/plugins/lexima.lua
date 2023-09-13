@@ -5,7 +5,7 @@ return {
 		-- Lexima Settings:
 		vim.g.lexima_map_escape = ""
 		vim.g.lexima_enable_space_rules = 0
-		vim.g.lexima_enable_endwise_rules = 0
+		vim.g.lexima_enable_endwise_rules = 1
 		vim.g.lexima_disable_closetag = 0
 		vim.g.lexima_no_default_rules = 1
 		-- Electric Quotes (https://www.gnu.org/software/emacs/manual/html_node/emacs/Quotation-Marks.html)
