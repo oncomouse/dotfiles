@@ -305,6 +305,12 @@ return {
 			input = "<Right>",
 			filetype = "org",
 		}) -- Leave a square bracket
+		add_rule({
+			char = "/",
+			at = [==[/\%#]==],
+			input = "/<Left>",
+			filetype = "org",
+		}) -- Autocomplete italics from //
 
 		-- Rules for help files:
 		add_rule({
