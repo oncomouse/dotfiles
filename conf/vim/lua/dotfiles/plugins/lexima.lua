@@ -308,7 +308,8 @@ return {
 		add_rule({
 			char = "/",
 			at = [==[/\%#]==],
-			input = "/<Left>",
+			input = "",
+			input_after = "/",
 			filetype = "org",
 		}) -- Autocomplete italics from //
 		add_rule({
