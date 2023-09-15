@@ -311,6 +311,13 @@ return {
 			input = "/<Left>",
 			filetype = "org",
 		}) -- Autocomplete italics from //
+		add_rule({
+			char = "<BS>",
+			at = [==[/\%#/]==],
+			input = "<BS>",
+			delete = 1,
+			filetype = "org",
+		}) -- Autocomplete italics from //
 
 		-- Rules for help files:
 		add_rule({
