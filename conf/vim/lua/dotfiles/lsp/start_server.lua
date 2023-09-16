@@ -15,10 +15,10 @@ local function get_server_capabilities(server_config)
 	return capabilities
 end
 
-local function start_server(server)
+local function start_server(server, conf)
 	local running = vim.lsp.get_clients({ name = server })
 	if #running == 0 then
-		local config = vim.g.dotfiles_lsp[server] or {}
+		local config = vim.g.dotfiles_lsp[server] or conf or {}
 		config.autostart = false
 
 		local opts = vim.tbl_extend("keep", {

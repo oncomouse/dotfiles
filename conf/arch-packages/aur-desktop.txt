@@ -6,3 +6,4 @@ rofi-emoji
 shellcheck-bin
 stylua-bin
 zotero-bin
+efm-langserver
