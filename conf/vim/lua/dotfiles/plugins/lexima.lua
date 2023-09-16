@@ -1,6 +1,6 @@
 return {
 	"oncomouse/lexima.vim", -- Autopairs
-	dev = false,
+	dev = true,
 	init = function()
 		-- Lexima Settings:
 		vim.g.lexima_map_escape = ""
@@ -12,6 +12,11 @@ return {
 		vim.api.nvim_create_user_command(
 			"ToggleElectricQuotes",
 			[[lua vim.b.use_electric_quotes = not (vim.b.use_electric_quotes or false)]],
+			{}
+		)
+		vim.api.nvim_create_user_command(
+			"ToggleElectricDashes",
+			[[lua vim.b.use_electric_dashes = not (vim.b.use_electric_dashes or false)]],
 			{}
 		)
 	end,
@@ -402,7 +407,40 @@ return {
 				return vim.b.use_electric_quotes
 			end,
 		})
-		-- TODO: Electric -- -> – and --- -> —
+
+		-- Electric dashes
+		add_rule({
+			char = "-",
+			input = "<BS>–",
+			at = [[-\%#]],
+			enabled = function()
+				return vim.b.use_electric_dashes
+			end,
+		})
+		add_rule({
+			char = "-",
+			input = "<BS>—",
+			at = [[–\%#]],
+			enabled = function()
+				return vim.b.use_electric_dashes
+			end,
+		})
+		add_rule({
+			char = "<BS>",
+			input = "<BS>–",
+			at = [[—\%#]],
+			enabled = function()
+				return vim.b.use_electric_dashes
+			end,
+		})
+		add_rule({
+			char = "<BS>",
+			input = "<BS>-",
+			at = [[–\%#]],
+			enabled = function()
+				return vim.b.use_electric_dashes
+			end,
+		})
 
 		-- XML-style closetag:
 		if vim.g.lexima_disable_closetag == 0 then
