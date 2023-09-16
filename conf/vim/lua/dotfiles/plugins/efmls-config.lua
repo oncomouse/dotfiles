@@ -1,13 +1,19 @@
 return {
 	"creativenull/efmls-configs-nvim",
 	opts = function()
-		local eslint = require("efmls-configs.linters.eslint")
-		local selene = require("efmls-configs.linters.selene")
 		local flake8 = require("efmls-configs.linters.flake8")
+		local htmlhint = {
+			prefix = "htmlhint",
+			lintSource = require("efmls-configs.utils").sourceText("htmlhint"),
+			lintCommand = "htmlhint -f unix stdin",
+			lintStdin = true,
+			lintFormat = "stdin:%l:%c: %m",
+		}
+		local selene = require("efmls-configs.linters.selene")
 		local shellcheck = require("efmls-configs.linters.shellcheck")
 		local vint = require("efmls-configs.linters.vint")
 		local languages = {
-			typescript = { eslint },
+			html = { htmlhint },
 			lua = { selene },
 			python = { flake8 },
 			sh = { shellcheck },
@@ -19,12 +25,6 @@ return {
 			settings = {
 				rootMarkers = {
 					".git/",
-					"Makefile",
-					"selene.toml",
-					"package.json",
-					".flake8",
-					"tox.ini",
-					"poetry.toml",
 				},
 				languages = languages,
 			},
