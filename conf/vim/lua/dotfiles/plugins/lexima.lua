@@ -14,11 +14,6 @@ return {
 			[[lua vim.b.use_electric_quotes = not (vim.b.use_electric_quotes or false)]],
 			{}
 		)
-		vim.api.nvim_create_user_command(
-			"ToggleElectricDashes",
-			[[lua vim.b.use_electric_dashes = not (vim.b.use_electric_dashes or false)]],
-			{}
-		)
 	end,
 	event = "InsertEnter",
 	keys = {
@@ -416,13 +411,13 @@ return {
 			end,
 		})
 
-		-- Electric dashes
+		-- Electric quotes
 		add_rule({
 			char = "-",
 			input = "<BS>–",
 			at = [[-\%#]],
 			enabled = function()
-				return vim.b.use_electric_dashes
+				return vim.b.use_electric_quotes
 			end,
 		})
 		add_rule({
@@ -430,7 +425,7 @@ return {
 			input = "<BS>—",
 			at = [[–\%#]],
 			enabled = function()
-				return vim.b.use_electric_dashes
+				return vim.b.use_electric_quotes
 			end,
 		})
 		add_rule({
@@ -438,7 +433,7 @@ return {
 			input = "<BS>–",
 			at = [[—\%#]],
 			enabled = function()
-				return vim.b.use_electric_dashes
+				return vim.b.use_electric_quotes
 			end,
 		})
 		add_rule({
@@ -446,7 +441,23 @@ return {
 			input = "<BS>-",
 			at = [[–\%#]],
 			enabled = function()
-				return vim.b.use_electric_dashes
+				return vim.b.use_electric_quotes
+			end,
+		})
+		add_rule({
+			char = ".",
+			input = "<BS><BS>…",
+			at = [[..\%#]],
+			enabled = function()
+				return vim.b.use_electric_quotes
+			end,
+		})
+		add_rule({
+			char = "<BS>",
+			input = "<BS>..",
+			at = [[…\%#]],
+			enabled = function()
+				return vim.b.use_electric_quotes
 			end,
 		})
 
