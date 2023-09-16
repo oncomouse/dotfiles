@@ -1,3 +1,15 @@
+local function find_root(files)
+	local found = vim.fs.find(files, {
+		upward = true,
+		stop = vim.uv.os_homedir(),
+		path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+	})
+	if #found > 0 then
+		return true
+	end
+	return false
+end
+
 local function setup_javascript_environment()
 	vim.cmd([[compiler eslint]])
 	vim.opt_local.formatprg = "prettier --parser babel"
@@ -8,25 +20,54 @@ local function setup_javascript_environment()
 	vim.opt_local.listchars = vim.opt_local.listchars - "tab:| "
 	vim.opt_local.listchars = vim.opt_local.listchars + "multispace:│ "
 
-	-- if vim.tbl_contains({ "javascript", "javascriptreact" }, vim.bo.filetype) then
-	-- 	if require("null-ls.utils").make_conditional_utils().root_has_file({ ".flowconfig" }) then
-	-- 		vim.cmd("LspStart flow")
-	-- 	end
-	-- end
-
-	vim.api.nvim_create_autocmd("LspAttach", {
-		group = vim.api.nvim_create_augroup("dotfiles-javascript-detector", {}),
-		callback = function(args)
-			-- local client = vim.lsp.get_client_by_id(args.data.client_id)
-			-- if client and client.name == "eslint" then
-			-- 	require("null-ls").deregister("standardjs")
-			-- end
+	if vim.tbl_contains({ "javascript", "javascriptreact" }, vim.bo.filetype) then
+		if find_root(".flowconfig") then
+			require("dotfiles.lsp").start_server("flow")
 		end
-	})
+	end
+
+	-- vim.api.nvim_create_autocmd("LspAttach", {
+	-- 	group = vim.api.nvim_create_augroup("dotfiles-javascript-detector", {}),
+	-- 	callback = function(args)
+	-- 		local client = vim.lsp.get_client_by_id(args.data.client_id)
+	-- 		if client and client.name == "eslint" then
+	-- 			require("null-ls").deregister("standardjs")
+	-- 		end
+	-- 	end
+	-- })
 	-- require("null-ls").register({
 	-- 	require("null-ls").builtins.diagnostics.standardjs,
 	-- })
-	require("dotfiles.lsp.start_server")("eslint")
+	local eslint_project = false
+	if
+		find_root({
+			"eslint.config.js",
+			".eslintrc",
+			".eslintrc.js",
+			".eslintrc.cjs",
+			".eslintrc.yaml",
+			".eslintrc.yml",
+			".eslintrc.json",
+			"package.json",
+		})
+	then
+		eslint_project = true
+	else
+	end
+	local root_dir = vim.fs.find("package.json", {
+		upward = true,
+		stop = vim.uv.os_homedir(),
+		path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+	})
+	if #root_dir > 0 then
+		local package_json = vim.json.decode(table.join(vim.fn.readfile(root_dir[1]), "\n"))
+		if package_json.eslintConfig then
+			eslint_project = true
+		end
+	end
+	if eslint_project then
+		require("dotfiles.lsp.start_server")("eslint")
+	end
 	require("dotfiles.lsp.start_server")("tsserver")
 end
 
