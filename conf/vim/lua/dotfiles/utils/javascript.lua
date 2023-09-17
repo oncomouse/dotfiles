@@ -21,18 +21,17 @@ function M.eslint_project()
 			".eslintrc.yaml",
 			".eslintrc.yml",
 			".eslintrc.json",
-			"package.json",
 		})
 	then
 		return true
 	end
-	local root_dir = vim.fs.find("package.json", {
+	local package_json_path = vim.fs.find("package.json", {
 		upward = true,
 		stop = vim.uv.os_homedir(),
 		path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
 	})
-	if #root_dir > 0 then
-		local package_json = vim.json.decode(table.concat(vim.fn.readfile(root_dir[1]), "\n"))
+	if #package_json_path > 0 then
+		local package_json = vim.json.decode(table.concat(vim.fn.readfile(package_json_path[1]), "\n"))
 		if package_json.eslintConfig then
 			return true
 		end
@@ -50,17 +49,12 @@ local function setup_javascript_environment()
 	vim.opt_local.listchars = vim.opt_local.listchars - "tab:| "
 	vim.opt_local.listchars = vim.opt_local.listchars + "multispace:│ "
 
-	if vim.tbl_contains({ "javascript", "javascriptreact" }, vim.bo.filetype) then
-		if find_root(".flowconfig") then
-			require("dotfiles.lsp").start_server("flow")
-		end
-	end
-
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("dotfiles-javascript-detector", {}),
 		callback = function(args)
 			local client = vim.lsp.get_client_by_id(args.data.client_id)
 			if client and client.name == "null-ls" then
+				vim.b.dotfiles_lsp_can_format = true
 				if M.eslint_project() then
 					require("null-ls").deregister("standardjs")
 					require("null-ls").register({
@@ -72,6 +66,13 @@ local function setup_javascript_environment()
 			end
 		end,
 	})
+
+	if vim.tbl_contains({ "javascript", "javascriptreact" }, vim.bo.filetype) then
+		if find_root(".flowconfig") then
+			require("dotfiles.lsp").start_server("flow")
+		end
+	end
+
 	require("dotfiles.lsp.start_server")("tsserver")
 end
 
