@@ -56,21 +56,22 @@ local function setup_javascript_environment()
 		end
 	end
 
-	-- vim.api.nvim_create_autocmd("LspAttach", {
-	-- 	group = vim.api.nvim_create_augroup("dotfiles-javascript-detector", {}),
-	-- 	callback = function(args)
-	-- 		local client = vim.lsp.get_client_by_id(args.data.client_id)
-	-- 		if client and client.name == "eslint" then
-	-- 			require("null-ls").deregister("standardjs")
-	-- 		end
-	-- 	end
-	-- })
-	-- require("null-ls").register({
-	-- 	require("null-ls").builtins.diagnostics.standardjs,
-	-- })
-	if M.eslint_project() then
-		require("dotfiles.lsp.start_server")("eslint")
-	end
+	vim.api.nvim_create_autocmd("LspAttach", {
+		group = vim.api.nvim_create_augroup("dotfiles-javascript-detector", {}),
+		callback = function(args)
+			local client = vim.lsp.get_client_by_id(args.data.client_id)
+			if client and client.name == "null-ls" then
+				if M.eslint_project() then
+					require("null-ls").deregister("standardjs")
+					require("null-ls").register({
+						require("null-ls").builtins.formatting.eslint_d,
+						require("null-ls").builtins.diagnostics.eslint_d,
+						require("null-ls").builtins.code_actions.eslint_d,
+					})
+				end
+			end
+		end,
+	})
 	require("dotfiles.lsp.start_server")("tsserver")
 end
 
