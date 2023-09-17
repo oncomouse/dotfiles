@@ -98,7 +98,7 @@ local features = {
 			{ "<leader>k", vim.lsp.buf.signature_help, desc = "lua vim.lsp.buf.signature_help()" },
 		},
 	},
-	formattingProvider = {
+	documentFormattingProvider = {
 		function()
 			vim.b.dotfiles_lsp_can_format = true
 		end,

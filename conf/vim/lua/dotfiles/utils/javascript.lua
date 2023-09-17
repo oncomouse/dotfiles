@@ -54,7 +54,6 @@ local function setup_javascript_environment()
 		callback = function(args)
 			local client = vim.lsp.get_client_by_id(args.data.client_id)
 			if client and client.name == "null-ls" then
-				vim.b.dotfiles_lsp_can_format = true
 				if M.eslint_project() then
 					require("null-ls").deregister("standardjs")
 					require("null-ls").register({

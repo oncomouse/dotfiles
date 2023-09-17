@@ -46,7 +46,6 @@ return {
 					extra_args = { "--use-tabs" },
 					prefer_local = "node_modules/.bin",
 				}),
-				-- require("null-ls").builtins.completion.luasnip,
 
 				-- YAML
 				require("null-ls").builtins.formatting.prettier.with({
