@@ -1,3 +1,4 @@
+local M = {}
 local function find_root(files)
 	local found = vim.fs.find(files, {
 		upward = true,
@@ -6,6 +7,35 @@ local function find_root(files)
 	})
 	if #found > 0 then
 		return true
+	end
+	return false
+end
+
+function M.eslint_project()
+	if
+		find_root({
+			"eslint.config.js",
+			".eslintrc",
+			".eslintrc.js",
+			".eslintrc.cjs",
+			".eslintrc.yaml",
+			".eslintrc.yml",
+			".eslintrc.json",
+			"package.json",
+		})
+	then
+		return true
+	end
+	local root_dir = vim.fs.find("package.json", {
+		upward = true,
+		stop = vim.uv.os_homedir(),
+		path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+	})
+	if #root_dir > 0 then
+		local package_json = vim.json.decode(table.concat(vim.fn.readfile(root_dir[1]), "\n"))
+		if package_json.eslintConfig then
+			return true
+		end
 	end
 	return false
 end
@@ -38,37 +68,12 @@ local function setup_javascript_environment()
 	-- require("null-ls").register({
 	-- 	require("null-ls").builtins.diagnostics.standardjs,
 	-- })
-	local eslint_project = false
-	if
-		find_root({
-			"eslint.config.js",
-			".eslintrc",
-			".eslintrc.js",
-			".eslintrc.cjs",
-			".eslintrc.yaml",
-			".eslintrc.yml",
-			".eslintrc.json",
-			"package.json",
-		})
-	then
-		eslint_project = true
-	else
-	end
-	local root_dir = vim.fs.find("package.json", {
-		upward = true,
-		stop = vim.uv.os_homedir(),
-		path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
-	})
-	if #root_dir > 0 then
-		local package_json = vim.json.decode(table.join(vim.fn.readfile(root_dir[1]), "\n"))
-		if package_json.eslintConfig then
-			eslint_project = true
-		end
-	end
-	if eslint_project then
+	if M.eslint_project() then
 		require("dotfiles.lsp.start_server")("eslint")
 	end
 	require("dotfiles.lsp.start_server")("tsserver")
 end
 
-return setup_javascript_environment
+return setmetatable(M, {
+	__call = setup_javascript_environment,
+})

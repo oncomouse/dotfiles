@@ -1,18 +1,18 @@
-local root_file = {
-	".eslintrc",
-	".eslintrc.js",
-	".eslintrc.cjs",
-	".eslintrc.yaml",
-	".eslintrc.yml",
-	".eslintrc.json",
-	"eslint.config.js",
-}
-local function is_eslint_project()
-	local fname = require("formatter.util").get_current_buffer_file_path()
-	root_file = require("lspconfig.util").insert_package_json(root_file, "eslintConfig", fname)
-	local root = require("lspconfig.util").root_pattern(unpack(root_file))(fname)
-	return root ~= nil
-end
+-- local root_file = {
+-- 	".eslintrc",
+-- 	".eslintrc.js",
+-- 	".eslintrc.cjs",
+-- 	".eslintrc.yaml",
+-- 	".eslintrc.yml",
+-- 	".eslintrc.json",
+-- 	"eslint.config.js",
+-- }
+-- local function is_eslint_project()
+-- 	local fname = require("formatter.util").get_current_buffer_file_path()
+-- 	root_file = require("lspconfig.util").insert_package_json(root_file, "eslintConfig", fname)
+-- 	local root = require("lspconfig.util").root_pattern(unpack(root_file))(fname)
+-- 	return root ~= nil
+-- end
 
 local function attach_filetype(opts, filetype, formatter)
 	local new_opts = vim.tbl_extend("keep", opts, {})
@@ -82,7 +82,7 @@ return {
 			"typescriptreact",
 		}) do
 			opts = attach_filetype(opts, ft, function()
-				if is_eslint_project() then
+				if require("dotfiles.utils.javascript").eslint_project() then
 					return require("formatter.filetypes.javascript").eslint_d
 				end
 				return require("formatter.filetypes.javascript").standard
