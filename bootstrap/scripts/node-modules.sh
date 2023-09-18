@@ -19,12 +19,9 @@ if which npm >/dev/null 2>&1; then
 			npminstall jsonlint prettier vscode-langservers-extracted standard diff-so-fancy trash-cli
 		fi
 		if [ "$os" != "arch" ]; then
-			npminstall vim-language-server
+			npminstall vim-language-server eslint_d htmlhint
 		fi
-		npminstall mf-cli empty-trash-cli  neovim 
-		if [ "$os" == "macos" ]; then
-			npminstall eslint_d htmlhint
-		fi
+		npminstall mf-cli empty-trash-cli neovim
 	fi
 	if [ "$os" != "macos" ] && [ "$os" != "arch" ]; then
 		npminstall '@bitwarden/cli'

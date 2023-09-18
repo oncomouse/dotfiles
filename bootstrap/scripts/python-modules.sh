@@ -21,7 +21,6 @@ if [ "$os" != "macos" ] && [ "$os" != "arch" ]; then
 	pip3install virtualfish
 fi
 
-# General installers
 if [ -z "$SERVER" ]; then
 	if [ "$os" != "arch" ]; then
 		pip3install colorama pywal
