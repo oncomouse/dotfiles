@@ -411,7 +411,7 @@ return {
 			end,
 		})
 
-		-- Electric quotes
+		-- Electric dashes and dots
 		add_rule({
 			char = "-",
 			input = "<BS>–",
