@@ -1,9 +1,14 @@
+efm-langserver
 nerd-fonts-jetbrains-mono
+nodejs-jsonlint
 otf-hasklig
 pandoc-bin
 perl-term-shellui
 rofi-emoji
 shellcheck-bin
+standard
 stylua-bin
+vim-language-server
+vscode-langservers-extracted
 zotero-bin
-efm-langserver
+python-reorder-python-imports

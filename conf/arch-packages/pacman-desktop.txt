@@ -1,12 +1,15 @@
 acpi
 arc-gtk-theme
 bash-language-server
+bitwarden-cli
 cups
 cups-pdf
+diff-so-fancy
 dunst
 eslint_d
 feh
 firefox
+flake8
 flatpak
 fuse2
 gnome-keyring
@@ -37,7 +40,11 @@ picom
 pipewire
 pipewire-alsa
 pipewire-pulse
+prettier
 pyright
+python-black
+python-colorama
+python-pywal
 redshift
 rofi
 selene
@@ -45,6 +52,7 @@ shellharden
 shfmt
 tex-gyre-fonts
 texlive-core
+trash-cli
 ttf-fira-code
 ttf-fira-code-nerd
 ttf-jetbrains-mono
@@ -53,6 +61,7 @@ ttf-liberation
 typescript-language-server
 udiskie
 unclutter
+vint
 wezterm
 wireplumber
 xarchiver
@@ -71,6 +80,7 @@ xorg-xwininfo
 xscreensaver
 yajl
 yaml-language-server
+yamllint
 youtube-dl
 zathura
 zathura-pdf-poppler

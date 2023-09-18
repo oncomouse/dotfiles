@@ -23,6 +23,8 @@ openssh
 pciutils
 python
 python-pip
+python-poetry
+python-pynvim
 ripgrep
 rsync
 ruby

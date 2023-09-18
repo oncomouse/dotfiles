@@ -12,20 +12,7 @@ function pip3install() {
 	done
 }
 
-# Use package manager wherever possible:
-if [ "$os" == 'macos' ]; then
-	if [ -z "$SERVER" ]; then
-		brew install flake8 black vint yamllint mackup reorder-python-imports
-	fi
-	brew install poetry virtualfish
-elif [ "$os" == "arch" ]; then
-	if [ -z "$SERVER" ]; then
-		sudo pacman -S --noconfirm vint flake8 python-black yamllint python-pywal python-colorama
-		paru -S --noconfirm python-reorder-python-imports
-	fi
-	sudo pacman -S --noconfirm python-poetry python-pynvim
-	paru -S --noconfirm virtualfish
-else
+if [ "$os" != "macos" ] && [ "$os" != "arch" ]; then
 	if [ -z "$SERVER" ]; then
 		pip3install vim-vint flake8 black yamllint reorder-python-imports
 	fi
