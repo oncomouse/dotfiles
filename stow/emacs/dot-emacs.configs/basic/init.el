@@ -11,6 +11,14 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
+
+; Fonts
+(add-to-list 'default-frame-alist
+             '(font . "FiraCode Nerd Font-18"))
+
+; Load Catppuccin
 (straight-use-package 'catppuccin-theme)
 (setq catppuccin-flavor 'mocha)
 (load-theme 'catppuccin :no-confirm)
+
+(provide 'init)
