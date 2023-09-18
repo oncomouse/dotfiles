@@ -1,3 +1,4 @@
+(defconst *is-a-mac* (eq system-type 'darwin))
 ; Install straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -20,5 +21,18 @@
 (straight-use-package 'catppuccin-theme)
 (setq catppuccin-flavor 'mocha)
 (load-theme 'catppuccin :no-confirm)
+
+; Load which-key
+(straight-use-package 'which-key)
+(which-key-mode)
+
+; Disable visual elements:
+(setq use-file-dialog nil)
+(setq use-dialog-box nil)
+(setq inhibit-startup-screen t)
+
+(when *is-a-mac*
+  (when (straight-use-package 'ns-auto-titlebar)
+    (ns-auto-titlebar-mode)))
 
 (provide 'init)
