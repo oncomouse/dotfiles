@@ -95,4 +95,10 @@
 ;; Recommended keymap prefix on Windows/Linux
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
+(straight-use-package 'tree-sitter)
+(straight-use-package 'tree-sitter-langs)
+(require 'tree-sitter)
+(require 'tree-sitter-langs)
+(global-tree-sitter-mode)
+
 (provide 'init)
