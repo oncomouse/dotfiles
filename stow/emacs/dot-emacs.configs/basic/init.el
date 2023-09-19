@@ -38,6 +38,8 @@
 (straight-use-package 'corfu-prescient)
 (straight-use-package 'ivy-prescient)
 (corfu-prescient-mode)
+ (with-eval-after-load 'corfu
+    (corfu-popupinfo-mode))
 
 (when *is-a-mac*
   (when (straight-use-package 'ns-auto-titlebar)
@@ -60,6 +62,7 @@
 
 ; Ivy + Counsel + Swiper
 (straight-use-package 'ivy)
+(ivy-prescient-mode)
 (straight-use-package 'swiper)
 (straight-use-package 'counsel)
 (ivy-mode)
