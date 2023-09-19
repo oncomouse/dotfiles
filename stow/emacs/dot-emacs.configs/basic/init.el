@@ -36,6 +36,7 @@
 (global-corfu-mode)
 (straight-use-package 'prescient)
 (straight-use-package 'corfu-prescient)
+(straight-use-package 'ivy-prescient)
 (corfu-prescient-mode)
 
 (when *is-a-mac*
