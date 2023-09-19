@@ -28,6 +28,15 @@ return {
 			files = {
 				actions = {
 					["default"] = require("fzf-lua.actions").file_edit,
+					["ctrl-o"] = function(selected, opts)
+						vim.cmd(string.format("!open %s", table.concat(
+							vim.tbl_map(function(x)
+								vim.print(vim.fn.shellescape(require("fzf-lua.path").entry_to_file(x, opts, opts.force_uri).path))
+								return vim.fn.shellescape(require("fzf-lua.path").entry_to_file(x, opts, opts.force_uri).path)
+							end, selected),
+							" "
+						)))
+					end
 				},
 			},
 			git = {
