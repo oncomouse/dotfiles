@@ -42,9 +42,25 @@
   (when (straight-use-package 'ns-auto-titlebar)
     (ns-auto-titlebar-mode)))
 
+(setq-default
+ window-resize-pixelwise t
+ frame-resize-pixelwise t)
+
+(when (fboundp 'tool-bar-mode)
+  (tool-bar-mode -1))
+(when (fboundp 'set-scroll-bar-mode)
+  (set-scroll-bar-mode nil))
+
+(menu-bar-mode -1)
+
+(let ((no-border '(internal-border-width . 0)))
+  (add-to-list 'default-frame-alist no-border)
+  (add-to-list 'initial-frame-alist no-border))
+
+; Ivy + Counsel + Swiper
 (straight-use-package 'ivy)
-(straight-use-package 'counsel)
 (straight-use-package 'swiper)
+(straight-use-package 'counsel)
 (ivy-mode)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
@@ -67,7 +83,6 @@
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
-
 
 (straight-use-package 'projectile)
 (projectile-mode +1)

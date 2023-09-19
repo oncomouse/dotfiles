@@ -10,5 +10,4 @@ if [ ! -d ~/.emacs.configs/doom ]; then
   git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.configs/doom
 fi
 ~/.emacs.configs/doom/bin/doom sync
-~/.emacs.configs/doom/bindoom env
-emacs --batch -f all-the-icons-install-fonts
+~/.emacs.configs/doom/bin/doom env
