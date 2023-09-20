@@ -15,6 +15,7 @@ links
 lua
 luarocks
 man-db
+mlocate
 neovim
 networkmanager
 nodejs
