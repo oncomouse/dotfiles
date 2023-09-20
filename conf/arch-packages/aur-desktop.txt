@@ -4,11 +4,12 @@ nodejs-jsonlint
 otf-hasklig
 pandoc-bin
 perl-term-shellui
+python-reorder-python-imports
 rofi-emoji
+sdorfehs-git
 shellcheck-bin
 standard
 stylua-bin
 vim-language-server
 vscode-langservers-extracted
 zotero-bin
-python-reorder-python-imports
