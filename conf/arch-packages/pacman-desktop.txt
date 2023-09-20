@@ -23,7 +23,7 @@ libnotify
 libsecret
 libxres
 lua-language-server
-lxsession
+lxsession-gtk3
 mpc
 mpd
 ncmpcpp
