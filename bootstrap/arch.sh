@@ -77,6 +77,8 @@ if [ "$SERVER" = "" ]; then
 	# Configure xdg-utils
 	xdg-settings set default-web-browser firefox.desktop
 	xdg-mime default org.pwmt.zathura.desktop application/pdf
+	xdg-mime default feh.desktop image/png
+	xdg-mime default feh.desktop image/jpeg
 
 	# Configure Seadrive:
 	~/dotfiles/bootstrap/scripts/seadrive.sh
