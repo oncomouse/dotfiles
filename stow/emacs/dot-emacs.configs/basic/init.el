@@ -114,4 +114,10 @@
 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 
+;; So that RefTeX finds my bibliography
+(setq reftex-default-bibliography '("~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"))
+(eval-after-load 'reftex-vars
+  '(progn 
+     (setq reftex-cite-format '((?\C-m . "[@%l]")))))
+
 (provide 'init)
