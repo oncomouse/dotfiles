@@ -22,6 +22,7 @@ local nvim_treesitter = {
 		"jsonc",
 		"latex",
 		"lua",
+		"luadoc",
 		"luap",
 		"make",
 		"markdown",
