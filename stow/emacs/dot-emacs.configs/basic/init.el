@@ -119,9 +119,17 @@
 (eval-after-load 'reftex-vars
   '(progn 
      (setq reftex-cite-format '((?\C-m . "[@%l]")))))
+(add-hook 'markdown-mode-hook
+      (lambda () (define-key markdown-mode-map "\C-c["
+                   (lambda ()
+                     (interactive)
+                     (let ((reftex-cite-format "[@%l]"))
+                       (reftex-citation))))))
 
 (setq user-full-name "Andrew Pilsch"
       user-mail-address "apilsch@tamu.edu")
+
+(straight-use-package 'markdown-mode)
 
 ; Org
 (global-set-key (kbd "C-c l") #'org-store-link)
