@@ -120,4 +120,22 @@
   '(progn 
      (setq reftex-cite-format '((?\C-m . "[@%l]")))))
 
+(setq user-full-name "Andrew Pilsch"
+      user-mail-address "apilsch@tamu.edu")
+
+; Org
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c c") #'org-capture)
+(setq org-directory "~/SeaDrive/My Libraries/Todo/org")
+
+(setq org-agenda-files '(
+                         "~/SeaDrive/My Libraries/Todo/todo.org"
+                         "~/SeaDrive/My Libraries/Todo/inbox.org"
+                         "~/SeaDrive/My Libraries/Todo/org"))
+
+
+(setq org-default-notes-file "~/SeaDrive/My Libraries/Todo/inbox.org")
+(setq org-indent-mode "noindent")
+
 (provide 'init)
