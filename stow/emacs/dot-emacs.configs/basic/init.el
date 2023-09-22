@@ -136,14 +136,31 @@
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 (setq org-directory "~/SeaDrive/My Libraries/Todo/org")
-
 (setq org-agenda-files '(
                          "~/SeaDrive/My Libraries/Todo/todo.org"
                          "~/SeaDrive/My Libraries/Todo/inbox.org"
                          "~/SeaDrive/My Libraries/Todo/org"))
-
-
 (setq org-default-notes-file "~/SeaDrive/My Libraries/Todo/inbox.org")
 (setq org-indent-mode "noindent")
+
+; Evil
+(setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+(setq evil-want-keybinding nil)
+(straight-use-package 'evil)
+(evil-mode 1)
+(straight-use-package 'evil-surround)
+(global-evil-surround-mode 1)
+(straight-use-package 'evil-collection)
+(evil-collection-init)
+(straight-use-package 'evil-leader)
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
+(evil-leader/set-key
+  "p" 'counsel-find-file
+  "a" 'counsel-switch-buffer
+  "oa" 'org-agenda
+  "oc" 'org-capture
+  "ol" 'org-store-link
+  "k" 'kill-buffer)
 
 (provide 'init)
