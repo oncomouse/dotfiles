@@ -414,34 +414,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- Configure servers here:
 vim.g.dotfiles_lsp = {
-	bashls = {
-		flags = {
-			debounce_text_changes = 500,
-		},
-	},
 	cssls = {
-		flags = {
-			debounce_text_changes = 500,
-		},
 		snippets = true,
 	},
 	eslint = {
-		flags = {
-			debounce_text_changes = 500,
-		},
 		snippets = true,
 	},
 	html = {
-		flags = {
-			debounce_text_changes = 500,
-		},
 		snippets = true,
 	},
 	jsonls = {
 		filetypes = { "json", "jsonc" },
-		flags = {
-			debounce_text_changes = 500,
-		},
 		snippets = true,
 	},
 	lua_ls = {
@@ -463,27 +446,11 @@ vim.g.dotfiles_lsp = {
 				},
 			},
 		},
-		flags = {
-			debounce_text_changes = 500,
-		},
-	},
-	pyright = {
-		flags = {
-			debounce_text_changes = 500,
-		},
 	},
 	standardrb = {
 		single_file_support = true,
 	},
-	tsserver = {
-		flags = {
-			debounce_text_changes = 500,
-		},
-	},
 	vimls = {
-		flags = {
-			debounce_text_changes = 500,
-		},
 		init_options = {
 			isNeovim = true,
 			diagnostic = {

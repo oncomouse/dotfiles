@@ -23,6 +23,9 @@ local function start_server(server, conf)
 
 		local opts = vim.tbl_extend("keep", {
 			capabilities = get_server_capabilities(config),
+			flags = {
+				debounce_text_changes = 500,
+			},
 		}, config)
 
 		require("lspconfig")[server].setup(opts)
