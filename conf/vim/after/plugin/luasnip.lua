@@ -36,7 +36,7 @@ local handlers = {
 						items[#items + 1] = {
 							word = snip.trigger,
 							label = snip.trigger,
-							detail = snip.description,
+							detail = type(snip.description) == "table" and table.concat(snip.description, "\n") or snip.description,
 							kind = vim.lsp.protocol.CompletionItemKind.Snippet,
 							data = data,
 							documentation = {
