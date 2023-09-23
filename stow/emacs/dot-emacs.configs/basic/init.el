@@ -1,6 +1,18 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 
-; Install straight.el
+; Whoami
+(setq user-full-name "Andrew Pilsch"
+      user-mail-address "apilsch@tamu.edu")
+
+; Set ido to use fuzzy matching
+(ido-mode t)
+(setq ido-enable-flex-matching t)
+
+; Line numbers + relative line numbers
+(display-line-numbers-mode)
+(setq display-line-numbers 'relative)
+
+					; Install straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -13,6 +25,7 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
+(straight-use-package 'use-package)
 
 ; Fonts
 (add-to-list 'default-frame-alist
@@ -77,7 +90,7 @@
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "<f6>") 'ivy-resume)
 (global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-x C-f") 'projectile-find-file)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
@@ -86,7 +99,7 @@
 (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
 (global-set-key (kbd "C-c g") 'counsel-git)
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-rg)
+(global-set-key (kbd "C-c k") 'projectile-ripgrep)
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
@@ -126,9 +139,6 @@
                      (let ((reftex-cite-format "[@%l]"))
                        (reftex-citation))))))
 
-(setq user-full-name "Andrew Pilsch"
-      user-mail-address "apilsch@tamu.edu")
-
 (straight-use-package 'markdown-mode)
 
 ; Org
@@ -144,23 +154,36 @@
 (setq org-indent-mode "noindent")
 
 ; Evil
-(setq evil-want-integration t) ;; This is optional since it's already set to t by default.
 (setq evil-want-keybinding nil)
-(straight-use-package 'evil)
+(mapcar #'straight-use-package '(evil
+				 evil-surround
+				 evil-collection
+				 evil-leader
+				 evil-commentary))
+(straight-use-package
+ '(evil-org-mode :type git :host github :repo "Somelauw/evil-org-mode"))
 (evil-mode 1)
-(straight-use-package 'evil-surround)
 (global-evil-surround-mode 1)
-(straight-use-package 'evil-collection)
 (evil-collection-init)
-(straight-use-package 'evil-leader)
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
-  "p" 'counsel-find-file
-  "a" 'counsel-switch-buffer
+  "p"  'projectile-find-file
+  "a"  'ido-switch-buffer
   "oa" 'org-agenda
   "oc" 'org-capture
   "ol" 'org-store-link
+  "/"  'projectile-ripgrep
   "k" 'kill-buffer)
-
+(evil-commentary-mode)
+(use-package evil-org
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook
+   'evil-org-mode-hook
+   (lambda ()
+     (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 (provide 'init)
