@@ -12,7 +12,7 @@
 (display-line-numbers-mode)
 (setq display-line-numbers 'relative)
 
-					; Install straight.el
+; Install straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -156,10 +156,10 @@
 ; Evil
 (setq evil-want-keybinding nil)
 (mapcar #'straight-use-package '(evil
-				 evil-surround
-				 evil-collection
-				 evil-leader
-				 evil-commentary))
+                                 evil-surround
+                                 evil-collection
+                                 evil-leader
+                                 evil-commentary))
 (straight-use-package
  '(evil-org-mode :type git :host github :repo "Somelauw/evil-org-mode"))
 (evil-mode 1)
@@ -186,4 +186,5 @@
      (evil-org-set-key-theme)))
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+
 (provide 'init)
