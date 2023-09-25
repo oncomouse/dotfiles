@@ -187,4 +187,7 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
+(straight-use-package 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+
 (provide 'init)
