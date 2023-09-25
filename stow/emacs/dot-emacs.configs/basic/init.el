@@ -4,6 +4,12 @@
 (setq user-full-name "Andrew Pilsch"
       user-mail-address "apilsch@tamu.edu")
 
+; https://stackoverflow.com/questions/29934968/how-to-remove-the-temporary-files-starting-and-ending-with-created-by-emacs
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 ; Set ido to use fuzzy matching
 (ido-mode t)
 (setq ido-enable-flex-matching t)
