@@ -308,28 +308,16 @@ end, {
 -- }}}
 -- Keymaps {{{
 -- Navigation in insert mode:
-vim.keymap.set("i", "<C-a>", "<C-o>^", { silent = true, desc = "Move to end o f line" })
-vim.keymap.set("i", "<C-e>", "<C-o>$", { silent = true, desc = "Move to start of line" })
-local function move_char(backwards)
-	return function()
-		local _, col = unpack(vim.api.nvim_win_get_cursor(0))
-		if (backwards and col == 0) or (not backwards and col == #vim.api.nvim_get_current_line()) then
-			return ""
-		end
-		if backwards and col == 1 then
-			return "<C-o>^"
-		end
-		if backwards and col == #vim.api.nvim_get_current_line() then
-			return "<C-o>i"
-		end
-		if not backwards and col == #vim.api.nvim_get_current_line() - 1 then
-			return "<C-o>$"
-		end
-		return "<C-o>" .. (backwards and "h" or "l")
+vim.keymap.set("i", "<C-a>", function()
+	local sc = vim.fn.col(".")
+	vim.cmd("normal! ^")
+	if vim.fn.col(".") == sc then
+		vim.cmd("normal! 0")
 	end
-end
-vim.keymap.set("i", "<C-b>", move_char(true), { expr = true, desc = "Move back one character" })
-vim.keymap.set("i", "<C-f>", move_char(), { expr = true, desc = "Move forward one character" })
+end, { silent = true, desc = "Move to start of line" })
+vim.keymap.set("i", "<C-e>", "<End>", { silent = true, desc = "Move to end of line" })
+vim.keymap.set("i", "<C-b>", "<Left>", { desc = "Move back one character" })
+vim.keymap.set("i", "<C-f>", "<Right>", { desc = "Move forward one character" })
 local function move_word(backwards)
 	return function()
 		local _, new_position =
@@ -345,6 +333,14 @@ local function move_word(backwards)
 end
 vim.keymap.set("i", "<A-b>", move_word(true), { desc = "Move back one word" })
 vim.keymap.set("i", "<A-f>", move_word(), { desc = "Move forward one word" })
+vim.keymap.set("i", "<C-k>", function()
+	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+	if col == #vim.api.nvim_get_current_line() then
+		return "<c-o>J"
+	else
+		return "<c-o>D"
+	end
+end, { expr = true, desc = "Kill rest of line" })
 
 -- Clear Currently Highlighted Regexp:
 vim.keymap.set(
