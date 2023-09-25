@@ -15,6 +15,11 @@ fi
 if [ ! -d ~/.emacs.configs/purcell ]; then
   git clone https://github.com/purcell/emacs.d ~/.emacs.configs/purcell
 fi
+#
+# Install Prelude for Chemacs2:
+if [ ! -d ~/.emacs.configs/prelude ]; then
+  git clone https://github.com/bbatsov/prelude ~/.emacs.configs/prelude
+fi
 
 # Stow our configuration
   /usr/bin/env python "$HOME/dotfiles/scripts/stow.py" -d "$HOME/dotfiles/stow" -t "$HOME" --no-folding --dotfiles --overwrite  -R emacs
