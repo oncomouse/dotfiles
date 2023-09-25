@@ -162,8 +162,6 @@
                                  evil-commentary))
 (straight-use-package
  '(evil-org-mode :type git :host github :repo "Somelauw/evil-org-mode"))
-(straight-use-package
-  '(target-el :type git :host github :repo "noctuid/targets.el"))
 (evil-mode 1)
 (global-evil-surround-mode 1)
 (evil-collection-init)
@@ -188,11 +186,13 @@
      (evil-org-set-key-theme)))
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
-; (targets-setup t
-;                :last-key 'N
-;                :inside-key nil
-;                :around-key nil
-;                :remote-key nil)
+;; (straight-use-package
+;;   '(target-el :type git :host github :repo "noctuid/targets.el"))
+;; (targets-setup t
+;;                :last-key 'N
+;;                :inside-key nil
+;;                :around-key nil
+;;                :remote-key nil)
 ;; https://blog.meain.io/2020/emacs-highlight-yanked/
 (defun meain/evil-yank-advice (orig-fn beg end &rest args)
   (pulse-momentary-highlight-region beg end)
