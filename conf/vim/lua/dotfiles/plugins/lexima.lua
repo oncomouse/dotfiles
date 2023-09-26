@@ -294,7 +294,7 @@ return {
 		-- Links:
 		add_rule({
 			char = "[",
-			at = [[^[+-] \[ \] \%#]],
+			at = [[^\s*[+-] \[ \] \%#]],
 			input = "<BS><Left><BS>[",
 			input_after = "]",
 			filetype = "org",
