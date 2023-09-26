@@ -299,6 +299,14 @@ return {
 			input_after = "]",
 			filetype = "org",
 		}) -- Convert a todo item into a link
+		-- Links:
+		add_rule({
+			char = "[",
+			at = [[^\s*[0-9]\. \[ \] \%#]],
+			input = "<BS><Left><BS>[",
+			input_after = "]",
+			filetype = "org",
+		}) -- Convert a todo item into a link
 		add_rule({
 			char = "]",
 			at = [==[\%#\]]==],
