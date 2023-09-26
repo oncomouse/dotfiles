@@ -52,9 +52,9 @@ vim.b.markdown_nvim_unordered_default = "+"
 require("markdown").setup()
 
 -- Use to Pandoc to compile EC minutes
-vim.api.nvim_buf_create_user_command(0, "ECMinutes", function()
-	local bn = vim.api.nvim_buf_get_name(0)
-	if type(bn) == "string" and string.match(bn, "meetings.*executive") then
+local bn = vim.api.nvim_buf_get_name(0)
+if type(bn) == "string" and string.match(bn, "meetings.*executive") then
+	vim.api.nvim_buf_create_user_command(0, "ECMinutes", function()
 		vim.cmd(
 			string.format(
 				"silent !pandoc -i %s -o %s/ec-minutes/ec-minutes-%s.docx",
@@ -70,7 +70,7 @@ vim.api.nvim_buf_create_user_command(0, "ECMinutes", function()
 				os.date("%Y-%m-%d")
 			)
 		)
-	end
-end, {
-	force = true,
-})
+	end, {
+		force = true,
+	})
+end
