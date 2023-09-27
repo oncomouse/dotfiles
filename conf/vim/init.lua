@@ -333,14 +333,6 @@ local function move_word(backwards)
 end
 vim.keymap.set("i", "<A-b>", move_word(true), { desc = "Move back one word" })
 vim.keymap.set("i", "<A-f>", move_word(), { desc = "Move forward one word" })
-vim.keymap.set("i", "<C-k>", function()
-	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
-	if col == #vim.api.nvim_get_current_line() then
-		return "<c-o>J"
-	else
-		return "<c-o>D"
-	end
-end, { expr = true, desc = "Kill rest of line" })
 
 -- Clear Currently Highlighted Regexp:
 vim.keymap.set(
