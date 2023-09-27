@@ -2,7 +2,6 @@ local Listitem = require("orgmode.treesitter.listitem")
 local tree_utils = require("orgmode.utils.treesitter")
 local Headline = require("orgmode.treesitter.headline")
 local ts_utils = require("nvim-treesitter.ts_utils")
-local ts = require("orgmode.treesitter.compat")
 local OrgMappings = require("orgmode.org.mappings")
 local TodoState = require("orgmode.objects.todo_state")
 
@@ -16,7 +15,7 @@ function Listitem:update_cookie(total_child_checkboxes, checked_child_checkboxes
 	local cookie = self:cookie()
 	if cookie then
 		local new_cookie_val
-		local old_cookie_val = ts.get_node_text(cookie, 0)
+		local old_cookie_val = vim.treesitter.get_node_text(cookie, 0)
 		if old_cookie_val:find("%%") then
 			new_cookie_val = ("[%d%%]"):format((#checked_child_checkboxes / #total_child_checkboxes) * 100)
 		else
@@ -103,9 +102,9 @@ function Headline:update_cookie(list_node)
 
 	-- Write the new cookie value:
 	if cookie_node then
-		local old_cookie_val = ts.get_node_text(cookie_node, 0)
+		local old_cookie_val = vim.treesitter.get_node_text(cookie_node, 0)
 		local new_cookie_val
-		if ts.get_node_text(cookie_node, 0):find("%%") then
+		if vim.treesitter.get_node_text(cookie_node, 0):find("%%") then
 			new_cookie_val = ("[%d%%]"):format((total == 0 and 0 or done / total) * 100)
 		else
 			new_cookie_val = ("[%d/%d]"):format(done, total)

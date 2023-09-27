@@ -1,4 +1,3 @@
-local ts = require('orgmode.treesitter.compat')
 local config = require('orgmode.config')
 local ts_utils = require('nvim-treesitter.ts_utils')
 local query = nil
@@ -26,7 +25,7 @@ local get_matches = ts_utils.memoize_by_buf_tick(function(bufnr)
       }
 
       if type == 'headline' then
-        opts.stars = ts.get_node_text(node:field('stars')[1], bufnr):len()
+        opts.stars = vim.treesitter.get_node_text(node:field('stars')[1], bufnr):len()
         opts.indent = opts.indent + opts.stars + 1
         matches[range.start.line + 1] = opts
       end
@@ -41,7 +40,7 @@ local get_matches = ts_utils.memoize_by_buf_tick(function(bufnr)
         end
         if not opts.overhang then
           local bullet = node:named_child(0)
-          opts.overhang = ts.get_node_text(bullet, bufnr):len() + 1
+          opts.overhang = vim.treesitter.get_node_text(bullet, bufnr):len() + 1
         end
 
         local parent = node:parent()
@@ -63,7 +62,7 @@ local get_matches = ts_utils.memoize_by_buf_tick(function(bufnr)
         end
         if parent then
           local headline = parent:named_child('headline')
-          local stars = ts.get_node_text(headline:field('stars')[1], bufnr):len()
+          local stars = vim.treesitter.get_node_text(headline:field('stars')[1], bufnr):len()
           opts.indent = stars + 1
           for i = range.start.line, range['end'].line - 1 do
             matches[i + 1] = opts
@@ -78,7 +77,7 @@ end)
 
 local prev_section = nil
 local function foldexpr()
-  query = query or ts.get_query('org', 'org_indent')
+  query = query or vim.treesitter.query.get('org', 'org_indent')
   local matches = get_matches(0)
   local match = matches[vim.v.lnum]
   local next_match = matches[vim.v.lnum + 1]
@@ -121,7 +120,7 @@ local function indentexpr(linenr, mode)
   linenr = linenr or vim.v.lnum
   mode = mode or vim.fn.mode()
   local noindent_mode = config.org_indent_mode == 'noindent'
-  query = query or ts.get_query('org', 'org_indent')
+  query = query or vim.treesitter.query.get('org', 'org_indent')
 
   local prev_linenr = vim.fn.prevnonblank(linenr - 1)
 
