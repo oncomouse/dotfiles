@@ -326,28 +326,16 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- Maps:
 --------------------------------------------------------------------------------
 -- Navigation in insert mode:
-vim.keymap.set("i", "<C-a>", "<C-o>^", { silent = true })
-vim.keymap.set("i", "<C-e>", "<C-o>$", { silent = true })
-local function move_char(backwards)
-	return function()
-		local _, col = unpack(vim.api.nvim_win_get_cursor(0))
-		if (backwards and col == 0) or (not backwards and col == #vim.api.nvim_get_current_line()) then
-			return ""
-		end
-		if backwards and col == 1 then
-			return "<C-o>^"
-		end
-		if backwards and col == #vim.api.nvim_get_current_line() then
-			return "<C-o>i"
-		end
-		if not backwards and col == #vim.api.nvim_get_current_line() - 1 then
-			return "<C-o>$"
-		end
-		return "<C-o>" .. (backwards and "h" or "l")
+vim.keymap.set("i", "<C-a>", function()
+	local sc = vim.fn.col(".")
+	vim.cmd("normal! ^")
+	if vim.fn.col(".") == sc then
+		vim.cmd("normal! 0")
 	end
-end
-vim.keymap.set("i", "<C-b>", move_char(true), { expr = true })
-vim.keymap.set("i", "<C-f>", move_char(), { expr = true })
+end, { silent = true, desc = "Move to start of line" })
+vim.keymap.set("i", "<C-e>", "<End>", { silent = true, desc = "Move to end of line" })
+vim.keymap.set("i", "<C-b>", "<Left>", { desc = "Move back one character" })
+vim.keymap.set("i", "<C-f>", "<Right>", { desc = "Move forward one character" })
 local function move_word(backwards)
 	return function()
 		local _, new_position =
@@ -403,14 +391,11 @@ end, {
 	noremap = true,
 })
 
--- Calculator:
-vim.keymap.set("i", "<C-X><C-A>", "<C-O>yiW<End>=<C-R>=<C-R>0<CR>", { silent = true, noremap = true })
-
 -- Vertical split like in my Tmux config
 vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
 
 -- Jump to last buffer:
-vim.keymap.set("n", "<leader>b", "<cmd>b#<cr>")
+vim.keymap.set("n", "<leader><leader>", "<cmd>b#<cr>", { desc = "Jump to last buffer" })
 --------------------------------------------------------------------------------
 -- Commands:
 --------------------------------------------------------------------------------
