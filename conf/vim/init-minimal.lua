@@ -758,40 +758,6 @@ require("mini.tabline").setup({
 -- Treesitter:
 --------------------------------------------------------------------------------
 
-local parsers = {
-	"bash",
-	"bibtex",
-	"c",
-	"cmake",
-	"comment",
-	"cpp",
-	"css",
-	"dockerfile",
-	"fish",
-	"go",
-	"html",
-	"http",
-	"java",
-	"javascript",
-	"json",
-	"jsonc",
-	"jsdoc",
-	"latex",
-	"lua",
-	"luap",
-	"markdown",
-	"markdown_inline",
-	"make",
-	"ninja",
-	"perl",
-	"php",
-	"python",
-	"ruby",
-	"typescript",
-	"vim",
-	"xml",
-	"yaml",
-}
 require("nvim-treesitter.parsers").list.xml = {
 	install_info = {
 		url = "https://github.com/Trivernis/tree-sitter-xml",
@@ -802,7 +768,7 @@ require("nvim-treesitter.parsers").list.xml = {
 	filetype = "xml",
 }
 require("nvim-treesitter.configs").setup({
-	ensure_installed = parsers,
+	ensure_installed = "all",
 	autotag = { enable = true },
 	highlight = { enable = true },
 })
