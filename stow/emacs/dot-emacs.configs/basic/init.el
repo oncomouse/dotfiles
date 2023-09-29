@@ -160,54 +160,52 @@
 (setq org-indent-mode "noindent")
 
 ; Evil
-(setq evil-want-keybinding nil)
-(mapcar #'straight-use-package '(evil
-                                 evil-surround
-                                 evil-collection
-                                 evil-leader
-                                 evil-commentary))
-(straight-use-package
- '(evil-org-mode :type git :host github :repo "Somelauw/evil-org-mode"))
-(evil-mode 1)
-(global-evil-surround-mode 1)
-(evil-collection-init)
-(global-evil-leader-mode)
-(evil-leader/set-leader "<SPC>")
-(evil-leader/set-key
-  "p"  'projectile-find-file
-  "a"  'ido-switch-buffer
-  "oa" 'org-agenda
-  "oc" 'org-capture
-  "ol" 'org-store-link
-  "/"  'projectile-ripgrep
-  "k" 'kill-buffer)
-(evil-commentary-mode)
-(use-package evil-org
-  :after org
-  :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook
-   'evil-org-mode-hook
-   (lambda ()
-     (evil-org-set-key-theme)))
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
-;; (straight-use-package
-;;   '(target-el :type git :host github :repo "noctuid/targets.el"))
-;; (targets-setup t
-;;                :last-key 'N
-;;                :inside-key nil
-;;                :around-key nil
-;;                :remote-key nil)
-;; https://blog.meain.io/2020/emacs-highlight-yanked/
-(defun meain/evil-yank-advice (orig-fn beg end &rest args)
-  (pulse-momentary-highlight-region beg end)
-  (apply orig-fn beg end args))
-(advice-add 'evil-yank :around 'meain/evil-yank-advice)
+; (setq evil-want-keybinding nil)
+; (mapcar #'straight-use-package '(evil
+;                                  evil-surround
+;                                  evil-collection
+;                                  evil-leader
+;                                  evil-commentary))
+; (straight-use-package
+;  '(evil-org-mode :type git :host github :repo "Somelauw/evil-org-mode"))
+; (evil-mode 1)
+; (global-evil-surround-mode 1)
+; (evil-collection-init)
+; (global-evil-leader-mode)
+; (evil-leader/set-leader "<SPC>")
+; (evil-leader/set-key
+;   "p"  'projectile-find-file
+;   "a"  'ido-switch-buffer
+;   "oa" 'org-agenda
+;   "oc" 'org-capture
+;   "ol" 'org-store-link
+;   "/"  'projectile-ripgrep
+;   "k" 'kill-buffer)
+; (evil-commentary-mode)
+; (use-package evil-org
+;   :after org
+;   :config
+;   (add-hook 'org-mode-hook 'evil-org-mode)
+;   (add-hook
+;    'evil-org-mode-hook
+;    (lambda ()
+;      (evil-org-set-key-theme)))
+;   (require 'evil-org-agenda)
+;   (evil-org-agenda-set-keys))
+; ;; (straight-use-package
+; ;;   '(target-el :type git :host github :repo "noctuid/targets.el"))
+; ;; (targets-setup t
+; ;;                :last-key 'N
+; ;;                :inside-key nil
+; ;;                :around-key nil
+; ;;                :remote-key nil)
+; ;; https://blog.meain.io/2020/emacs-highlight-yanked/
+; (defun meain/evil-yank-advice (orig-fn beg end &rest args)
+;   (pulse-momentary-highlight-region beg end)
+;   (apply orig-fn beg end args))
+; (advice-add 'evil-yank :around 'meain/evil-yank-advice)
 
 (straight-use-package 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
-
-
 
 (provide 'init)
