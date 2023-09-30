@@ -185,7 +185,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(plugins, {
-	root = vim.fn.stdpath("data") .. "lazy-minimal",
+	root = vim.fn.stdpath("data") .. "/lazy-minimal",
 	install = {
 		colorscheme = { "catppuccin" },
 	},
