@@ -1,6 +1,4 @@
 return {
-	{ "folke/lazy.nvim" },
-
 	-- Utilities
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "oncomouse/lspize.nvim", lazy = true, dev = false },
