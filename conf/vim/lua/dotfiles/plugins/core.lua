@@ -1,5 +1,5 @@
 return {
-	{ "folke/lazy.nvim", version = "*" },
+	{ "folke/lazy.nvim" },
 
 	-- Utilities
 	{ "nvim-lua/plenary.nvim", lazy = true },
