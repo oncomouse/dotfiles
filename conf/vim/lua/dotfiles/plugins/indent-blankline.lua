@@ -18,7 +18,7 @@ return {
 			},
 		},
 	},
-	main = "ibl",
+	-- main = "ibl", -- This doesn't work
 	config = function(_, opts)
 		require("ibl").setup(opts)
 	end
