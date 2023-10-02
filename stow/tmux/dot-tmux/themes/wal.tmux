@@ -49,7 +49,7 @@ main() {
 
   # Current Window Label (w/ Teal title):
   set window-status-format "#[fg=$thm_bg,bg=$thm_blue] #I #[bg=default,fg=default] #W#{?window_flags,#{window_flags}, } "
-  set window-status-current-format "#[fg=$thm_bg,bg=$thm_orange] #I #[bg=$thm_black4]#[fg=default] #W#{?window_flags,#{window_flags}, } "
+  set window-status-current-format "#[fg=$thm_bg,bg=$thm_yellow] #I #[bg=$thm_black4]#[fg=default] #W#{?window_flags,#{window_flags}, } "
   set window-status-separator ""
 
   tmux "${tmux_commands[@]}"
