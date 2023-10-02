@@ -13,7 +13,7 @@ return {
 			org_path .. "/inbox.org",
 			org_path .. "/org/*.org",
 		},
-		org_default_notes_file = "~/SeaDrive/My Libraries/Todo/inbox.org",
+		org_default_notes_file = org_path .. "/inbox.org",
 		org_indent_mode = "noindent",
 		org_capture_templates = {
 			t = { description = "Todo Item", template = "* TODO %?\n  %u" },
