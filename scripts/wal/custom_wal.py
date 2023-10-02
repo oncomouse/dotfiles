@@ -56,6 +56,7 @@ def pgrep(process):
 if re.search("(-R|-i|--(theme|backend) [^-])", new_args) is not None:
     message("New background")
     system("convert ~/.cache/wal/background.svg ~/.cache/wal/background.png")
+    system("tmux run '~/.tmux/themes/wal.tmux'")
     if which("hsetroot") is not None:
         system("hsetroot -tile ~/.cache/wal/background.png")
 

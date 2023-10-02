@@ -25,14 +25,14 @@ setw() {
   tmux_commands+=(set-window-option -gq "$option" "$value" ";")
 }
 main() {
-  local theme
-  theme="$(get_tmux_option "@catppuccin_flavour" "mocha")"
+  # local theme
+  # theme="$(get_tmux_option "@catppuccin_flavour" "mocha")"
 
   # Aggregate all commands in one array
   local tmux_commands=()
 
   # shellcheck source=catppuccin-frappe.tmuxtheme
-  source /dev/stdin <<<"$(sed -e "/^[^#].*=/s/^/local /" "${HOME}/.tmux/themes/catppuccin-${theme}.tmuxtheme")"
+  source /dev/stdin <<<"$(sed -e "/^[^#].*=/s/^/local /" "${HOME}/.cache/wal/wal.tmuxtheme")"
 
   # Standard Status Colors
   set status-fg $thm_fg
