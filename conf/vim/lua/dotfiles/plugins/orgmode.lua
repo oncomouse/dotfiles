@@ -1,3 +1,4 @@
+local org_path = vim.fn.has("mac") == 1 and "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries/Todo" or "~/SeaDrive/My Libraries/Todo"
 return {
 	"nvim-orgmode/orgmode",
 	dev = false,
@@ -8,9 +9,9 @@ return {
 	},
 	opts = {
 		org_agenda_files = {
-			"~/SeaDrive/My Libraries/Todo/todo.org",
-			"~/SeaDrive/My Libraries/Todo/inbox.org",
-			"~/SeaDrive/My Libraries/Todo/org/*.org",
+			org_path .. "/todo.org",
+			org_path .. "/inbox.org",
+			org_path .. "/org/*.org",
 		},
 		org_default_notes_file = "~/SeaDrive/My Libraries/Todo/inbox.org",
 		org_indent_mode = "noindent",
