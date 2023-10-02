@@ -107,28 +107,9 @@ return {
 				additional_vim_regex_highlighting = { "org" },
 				disable = nvim_treesitter.should_highlight_disable,
 			},
-			autotag = { enable = true },
 			context_commentstring = { enable = true },
 			matchup = {
 				enable = nvim_treesitter.should_buffer_higlight_disable,
-			},
-			playground = {
-				enable = true,
-				disable = {},
-				updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-				persist_queries = false, -- Whether the query persists across vim sessions
-				keybindings = {
-					toggle_query_editor = "o",
-					toggle_hl_groups = "i",
-					toggle_injected_languages = "t",
-					toggle_anonymous_nodes = "a",
-					toggle_language_display = "I",
-					focus_language = "f",
-					unfocus_language = "F",
-					update = "R",
-					goto_node = "<cr>",
-					show_help = "?",
-				},
 			},
 		},
 		config = function(_, opts)
@@ -142,7 +123,7 @@ return {
 				pattern = vim.fn.join(opts.ensure_installed, ","),
 				group = ts_foldexpr_augroup_id,
 				callback = function()
-					vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+					vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 					vim.opt_local.foldmethod = "expr"
 				end,
 				desc = "Set fold method for treesitter",
