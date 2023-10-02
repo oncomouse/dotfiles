@@ -6,68 +6,6 @@ end
 --------------------------------------------------------------------------------
 
 local plugins = {
-	{ "folke/lazy.nvim" },
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		lazy = true,
-		opts = {
-			transparent_background = true,
-			integrations = {
-				mini = true,
-			},
-			custom_highlights = function(colors)
-				return {
-					Folded = {
-						fg = colors.subtext0,
-						bg = colors.surface0,
-					},
-					MiniStatuslineFilename = {
-						fg = colors.subtext1,
-						bg = colors.base,
-					},
-					MiniStatuslineFileinfo = {
-						fg = colors.surface2,
-						bg = colors.base,
-					},
-					MiniStatuslineModeNormal = { style = {} },
-					MiniStatuslineModeInsert = { style = {} },
-					MiniStatuslineModeVisual = { style = {} },
-					MiniStatuslineModeReplace = { style = {} },
-					MiniStatuslineModeCommand = { style = {} },
-					MiniStatuslineModeOther = { style = {} },
-					MiniTablineCurrent = {
-						fg = colors.subtext0,
-						style = {},
-					},
-					MiniTablineVisible = {
-						fg = colors.surface1,
-					},
-					MiniTablineHidden = {
-						fg = colors.surface1,
-					},
-					MiniTablineModifiedCurrent = {
-						fg = colors.subtext0,
-						style = {
-							"bold",
-						},
-					},
-					MiniTablineModifiedVisible = {
-						fg = colors.surface1,
-						style = {
-							"bold",
-						},
-					},
-					MiniTablineModifiedHidden = {
-						fg = colors.surface1,
-						style = {
-							"bold",
-						},
-					},
-				}
-			end,
-		},
-	}, -- colors
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost", "FileType" } }, -- guess indentation
 	{ "oncomouse/lazygit.nvim", cmd = "LazyGit" }, -- :LazyGit for lazygit integration
 	{ "echasnovski/mini.nvim", lazy = true }, -- Various (see below)
@@ -185,10 +123,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(plugins, {
-	root = vim.fn.stdpath("data") .. "lazy-minimal",
-	install = {
-		colorscheme = { "catppuccin" },
-	},
+	root = vim.fn.stdpath("data") .. "/lazy-minimal",
 	performance = {
 		dev = {
 			path = vim.fn.expand("~/Projects"),
@@ -202,6 +137,7 @@ require("lazy").setup(plugins, {
 				"gzip",
 				-- "matchit",
 				-- "matchparen",
+				"man",
 				"netrwPlugin",
 				"tarPlugin",
 				"tohtml",
@@ -439,41 +375,6 @@ end, {
 })
 
 --------------------------------------------------------------------------------
--- Colorscheme
---------------------------------------------------------------------------------
-
-local ok = pcall(vim.cmd, [[colorscheme catppuccin-mocha]])
-if not ok then
-	vim.cmd([[colorscheme default]])
-end
-
---------------------------------------------------------------------------------
--- Select All Textobject
---------------------------------------------------------------------------------
--- selene: allow(unused_variable, unscoped_variables)
-EntireTextobject = function(visual, inner)
-	vim.cmd("normal! m'")
-	vim.cmd("keepjumps normal! gg0")
-	if inner then
-		vim.fn.search("^.", "cW")
-	end
-	if not visual then
-		vim.cmd("normal! V")
-	end
-	vim.cmd("normal! o")
-	vim.cmd("keepjumps normal! G$")
-	if inner then
-		vim.fn.search("^.", "bcW")
-		vim.cmd("normal! $")
-	end
-end
-
-vim.keymap.set("o", "ae", "<cmd>lua EntireTextobject(false)<cr>")
-vim.keymap.set("o", "ie", "<cmd>lua EntireTextobject(false, true)<cr>")
-vim.keymap.set("x", "ae", "<cmd>lua EntireTextobject(true)<cr>")
-vim.keymap.set("x", "ie", "<cmd>lua EntireTextobject(true, true)<cr>")
-
---------------------------------------------------------------------------------
 -- FZF:
 --------------------------------------------------------------------------------
 
@@ -518,18 +419,15 @@ end
 require("mini.ai").setup({
 	custom_textobjects = {
 
-		-- e = function() -- Whole buffer
-		-- 	local from = { line = 1, col = 1 }
-		-- 	local last_line_length = #vim.fn.getline("$")
-		-- 	local to = {
-		-- 		line = vim.fn.line("$"),
-		-- 		col = last_line_length == 0 and 1 or last_line_length,
-		-- 	}
-		-- 	return {
-		-- 		from = from,
-		-- 		to = to,
-		-- 	}
-		-- end,
+		e = function() -- Whole buffer
+			local from = { line = 1, col = 1 }
+			local last_line_length = #vim.fn.getline("$")
+			local to = {
+				line = vim.fn.line("$"),
+				col = last_line_length == 0 and 1 or last_line_length,
+			}
+			return { from = from, to = to, vis_mode = "V" }
+		end,
 
 		z = function(type) -- Folds
 			vim.api.nvim_feedkeys("[z" .. (type == "i" and "j0" or ""), "x", true)
@@ -586,6 +484,29 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- ga and gA for alignment:
 require("mini.align").setup({})
+
+-- Colors (catppuccin):
+require("mini.base16").setup({
+	palette = {
+		base00 = "#1e1e2e", -- base
+		base01 = "#181825", -- mantle
+		base02 = "#313244", -- surface0
+		base03 = "#45475a", -- surface1
+		base04 = "#585b70", -- surface2
+		base05 = "#cdd6f4", -- text
+		base06 = "#f5e0dc", -- rosewater
+		base07 = "#b4befe", -- lavender
+		base08 = "#f38ba8", -- red
+		base09 = "#fab387", -- peach
+		base0A = "#f9e2af", -- yellow
+		base0B = "#a6e3a1", -- green
+		base0C = "#94e2d5", -- teal
+		base0D = "#89b4fa", -- blue
+		base0E = "#cba6f7", -- mauve
+		base0F = "#f2cdcd", -- flamingo
+	},
+	use_cterm = true,
+})
 
 -- mini.basics:
 require("mini.basics").setup({

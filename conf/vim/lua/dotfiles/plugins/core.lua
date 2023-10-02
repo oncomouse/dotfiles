@@ -1,15 +1,11 @@
 return {
-	{ "folke/lazy.nvim", version = "*" },
-
 	-- Utilities
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "oncomouse/lspize.nvim", lazy = true, dev = false },
 
-	"tpope/vim-repeat",
-
 	-- Editor Enhancements:
 
-	"sickill/vim-pasta", -- fix block paste for Neovim
+	"ku1ik/vim-pasta", -- fix block paste for Neovim
 
 	{
 		"tpope/vim-sleuth",
@@ -48,7 +44,6 @@ return {
 		init = function()
 			vim.g["asterisk#keeppos"] = 1
 		end,
-		dependencies = { "vim-repeat" },
 	}, -- Fancy * and # bindings
 
 	{

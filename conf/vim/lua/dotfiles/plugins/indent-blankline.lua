@@ -1,9 +1,22 @@
 return {
 	"lukas-reineke/indent-blankline.nvim",
 	opts = {
-		show_end_of_line = true,
-		space_char_blankline = " ",
-		show_current_context = false,
-		filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+		indent = { char = "│" },
+		scope = { enabled = false },
+		exclude = {
+			filetypes = {
+				"help",
+				"alpha",
+				"dashboard",
+				"neo-tree",
+				"Trouble",
+				"lazy",
+				"mason",
+				"notify",
+				"toggleterm",
+				"lazyterm",
+			},
+		},
 	},
-} -- Mark and highlight indentations
+	main = "ibl", -- This doesn't work
+}
