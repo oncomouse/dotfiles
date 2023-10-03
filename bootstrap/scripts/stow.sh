@@ -55,6 +55,7 @@ if [ -z "$SERVER" ]; then
 		dotfiles_stow redshift
 		dotfiles_stow rofi
 		dotfiles_stow sdorfehs
+		dotfiles_stow st
 		dotfiles_stow xorg
 		dotfiles_stow xscreensaver
 		dotfiles_stow zathura
