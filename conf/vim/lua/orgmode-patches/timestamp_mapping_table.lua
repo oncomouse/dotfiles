@@ -1,3 +1,4 @@
+-- Patch to fix the problem that timestamp mappings can return tables
 local OrgMappings = require("orgmode.org.mappings")
 local config = require("orgmode.config")
 

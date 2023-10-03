@@ -1,3 +1,5 @@
+-- Patch to, when jumping to an item from the agenda, close the agenda window if they
+-- item's file is already open.
 local Agenda = require("orgmode.agenda")
 
 local function get_all_buffers()

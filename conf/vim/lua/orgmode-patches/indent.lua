@@ -1,3 +1,4 @@
+-- Patch for a better indent experience
 local config = require('orgmode.config')
 local ts_utils = require('nvim-treesitter.ts_utils')
 local query = nil
