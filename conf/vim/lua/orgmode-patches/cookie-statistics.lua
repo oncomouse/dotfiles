@@ -1,3 +1,4 @@
+-- Patch to generate cookie statistics
 local Listitem = require("orgmode.treesitter.listitem")
 local tree_utils = require("orgmode.utils.treesitter")
 local Headline = require("orgmode.treesitter.headline")
@@ -39,6 +40,27 @@ local function count_checkboxes(container)
 	total = total + #total_boxes
 	done = done + #checked_boxes
 	return total, done
+end
+
+-- Update TODO based cookies, if they exist
+function Headline:set_todo(keyword)
+	local current_todo = self:todo()
+	if current_todo then
+		tree_utils.set_node_text(current_todo, keyword)
+	else
+		local stars = self:stars()
+		local text = vim.treesitter.get_node_text(stars, 0)
+		tree_utils.set_node_text(stars, string.format("%s %s", text, keyword))
+	end
+	self:refresh()
+	local parent = self.headline:parent()
+	if parent then
+		parent = parent:parent()
+		if parent and parent:type() == "section" and parent:child(0):type() == "headline" then
+			local hl = Headline:new(parent:child(0))
+			hl:update_cookie()
+		end
+	end
 end
 
 function Headline:update_cookie(list_node)
