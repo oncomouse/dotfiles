@@ -302,7 +302,7 @@ return {
 		-- Links:
 		add_rule({
 			char = "[",
-			at = [[^\s*[0-9]\.\s\+\[ \] \%#]],
+			at = [[^\s*[0-9]\.\s\+\[ \]\s\+\%#]],
 			input = "<BS><Left><BS>[",
 			input_after = "]",
 			filetype = "org",
