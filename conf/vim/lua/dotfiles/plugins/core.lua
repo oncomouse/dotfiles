@@ -1,7 +1,8 @@
 return {
 	-- Utilities
-	{ "nvim-lua/plenary.nvim", lazy = true },
-	{ "oncomouse/lspize.nvim", lazy = true, dev = false },
+	{ "nvim-lua/plenary.nvim", lazy = true }, -- Lua Utilities
+	{ "oncomouse/lspize.nvim", lazy = true, dev = false }, -- LSP generator
+	{ "kyazdani42/nvim-web-devicons", lazy = true }, -- Icons, used in the statusline
 
 	-- Editor Enhancements:
 
@@ -63,13 +64,7 @@ return {
 	}, -- :StartupTime for profiling startup
 
 	{
-		"kyazdani42/nvim-web-devicons",
-		lazy = true,
-		cond = require("dotfiles.utils.use_termguicolors"),
-	}, -- Icons, used in the statusline
-
-	{
 		"oncomouse/markdown.nvim",
 		dev = false,
-	},
+	}, -- My custom Markdown plugin
 }
