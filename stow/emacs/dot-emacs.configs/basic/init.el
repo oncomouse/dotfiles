@@ -1,7 +1,6 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 
-; (setq dotfiles-seadrive-path (if *is-a-mac* "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries" "~/SeaDrive/My Libraries"))
-(cond (*is-a-mac* (setq dotfiles-seadrive-path "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries")) (t (setq "~/SeaDrive/My Libraries")))
+(setq dotfiles-seadrive-path (cond (*is-a-mac* "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries") (t "~/SeaDrive/My Libraries")))
 
 ; Whoami
 (setq user-full-name "Andrew Pilsch"
