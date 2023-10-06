@@ -2,11 +2,7 @@
 " This opens and closes folds using the <Tab> key
 function! s:cycle() abort
 	if foldlevel('.') > 0
-		if foldclosed('.') != -1
-			silent! norm!zo
-		else
-			silent! norm!za
-		end
+		exe 'silent! norm!z' . (foldclosed('.') >= 0 ? 'o' : 'a')
 	endif
 endfunction
 
