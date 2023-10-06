@@ -1,5 +1,8 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 
+; (setq dotfiles-seadrive-path (if *is-a-mac* "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries" "~/SeaDrive/My Libraries"))
+(cond (*is-a-mac* (setq dotfiles-seadrive-path "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries")) (t (setq "~/SeaDrive/My Libraries")))
+
 ; Whoami
 (setq user-full-name "Andrew Pilsch"
       user-mail-address "apilsch@tamu.edu")
@@ -134,7 +137,7 @@
 (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 
 ;; So that RefTeX finds my bibliography
-(setq reftex-default-bibliography '("~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib"))
+(setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
 (eval-after-load 'reftex-vars
   '(progn 
      (setq reftex-cite-format '((?\C-m . "[@%l]")))))
@@ -151,12 +154,12 @@
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
-(setq org-directory "~/SeaDrive/My Libraries/Todo/org")
-(setq org-agenda-files '(
-                         "~/SeaDrive/My Libraries/Todo/todo.org"
-                         "~/SeaDrive/My Libraries/Todo/inbox.org"
-                         "~/SeaDrive/My Libraries/Todo/org"))
-(setq org-default-notes-file "~/SeaDrive/My Libraries/Todo/inbox.org")
+(setq org-directory (concat dotfiles-seadrive-path "/Todo/org"))
+(setq org-agenda-files (list
+                        (concat dotfiles-seadrive-path "/Todo/todo.org")
+                        (concat dotfiles-seadrive-path "/Todo/inbox.org")
+                        (concat dotfiles-seadrive-path "/Todo/org")))
+(setq org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org"))
 (setq org-indent-mode "noindent")
 
 ; Evil

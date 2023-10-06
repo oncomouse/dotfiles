@@ -10,7 +10,7 @@ return {
 		cmd = "NvimRef",
 		opts = {
 			bibfiles = {
-				"~/SeaDrive/My Libraries/My Library/Documents/Academic Stuff/library.bib",
+				vim.fs.joinpath(vim.g.seadrive_path, "My Library/Documents/Academic Stuff/library.bib"),
 			},
 		},
 		dependencies = {

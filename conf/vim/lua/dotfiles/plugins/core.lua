@@ -65,6 +65,7 @@ return {
 
 	{
 		"oncomouse/markdown.nvim",
+		ft = { "markdown" },
 		dev = false,
 	}, -- My custom Markdown plugin
 }

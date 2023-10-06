@@ -80,6 +80,9 @@ vim.opt.termguicolors = true
 -- Autogroups: {{{
 local augroup = vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
 -- }}}
+-- Custom Path {{{
+vim.g.seadrive_path = vim.fn.has("mac") == 1 and "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries" or "~/SeaDrive/My Libraries"
+-- }}}
 -- Load lazy.nvim {{{
 local function xdg_default(v, d)
 	local o = os.getenv(v)

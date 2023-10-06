@@ -1,4 +1,4 @@
-local org_path = vim.fn.has("mac") == 1 and "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries/Todo" or "~/SeaDrive/My Libraries/Todo"
+local org_path = vim.fs.joinpath(vim.g.seadrive_path, "Todo")
 return {
 	"nvim-orgmode/orgmode",
 	dev = false,
