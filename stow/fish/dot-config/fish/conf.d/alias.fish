@@ -8,7 +8,7 @@ function cat
 end
 function ls
   if test (command -sq exa) -o (command -sq eza)
-    eval (if command -sq exa; echo "exa"; else; echo "eza"; end) -g --group-directories-first (string escape -- $argv)
+    eval (if command -sq exa; echo "exa"; else; echo "eza"; end) -g --group-directories-first --no-quotes (string escape -- $argv)
   else
     ls $argv
   end
