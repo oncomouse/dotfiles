@@ -351,7 +351,7 @@ return {
 
 		-- Show current indentation context:
 		require("mini.indentscope").setup({
-			symbol = "│",
+			symbol = "▏",
 			options = {
 				indent_at_cursor = false,
 				try_as_border = true,
