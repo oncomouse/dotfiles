@@ -1,7 +1,7 @@
 return {
 	"lukas-reineke/indent-blankline.nvim",
 	opts = {
-		indent = { char = "│" },
+		indent = { char = "▏" },
 		scope = { enabled = false },
 		exclude = {
 			filetypes = {
