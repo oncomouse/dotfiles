@@ -53,7 +53,7 @@ bind q quit
 # alias term exec dotfiles-term &
 # alias time exec sdorfehs -c "echo $(date +"%a %-m/%d %-I:%M %p")" &
 # alias default-brightness exec dotfiles-brightness default &
-bind c exec wezterm&
+bind c exec foot&
 bind f exec dotfiles-fm&
 bind L-f exec dotfiles-fm&
 # bind t time
