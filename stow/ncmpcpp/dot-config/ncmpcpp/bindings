@@ -15,6 +15,8 @@ def_key "K"
 	scroll_up
 def_key "ctrl-e"
 	move_end
+def_key "G"
+	move_end
 def_key "ctrl-h"
 	move_home
 # def_key "ctrl-d"
@@ -32,9 +34,14 @@ def_key "n"
 def_key "N"
 	previous_found_item
 def_key ","
-  move_sort_order_down
+	move_sort_order_down
 def_key ","
-  move_selected_items_down
+	move_selected_items_down
+
+def_key "D"
+	jump_to_browser
+def_key "D"
+	jump_to_playlist_editor
 
 ##############################################################
 ## This is the example bindings file. Copy it to            ##
