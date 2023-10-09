@@ -211,4 +211,4 @@ exec dotfiles-polybar &
 set barsticky 0
 
 exec sf-colors.sh &
-# vim:ft=sdorfehs
+# vim:ft=sdorfehs:commentstring=#\ %s
