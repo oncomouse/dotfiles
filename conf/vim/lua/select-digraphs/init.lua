@@ -141,7 +141,7 @@ function M.select(mode)
 		format_item = function(item)
 			return item[1] .. " (" .. item[2] .. "): " .. item[3]
 		end,
-	}, function(choice)
+	}, vim.schedule_wrap(function(choice)
 		if choice == nil then
 			if mode == "i" then -- Restore input
 				restore_input(cursor_column)
@@ -159,7 +159,7 @@ function M.select(mode)
 		elseif mode == "gvr" then
 			vim.api.nvim_feedkeys((vim.fn.mode():match("^[vV]") and "" or "gv") .. "r" .. choice[2], "", false)
 		end
-	end)
+	end))
 end
 
 function M.setup(opts)
