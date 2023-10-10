@@ -3,9 +3,10 @@ return {
 	version = false,
 	cmd = "Telescope",
 	keys = {
-		{ "<C-H>", "<cmd>Telescope help_tags<cr>" },
-		{ "<C-P>", "<cmd>Telescope find_files<cr>" },
-		{ "<leader>a", "<cmd>Telescope buffers<cr>" },
+		{ "<C-H>", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
+		{ "<C-P>", "<cmd>Telescope find_files<cr>", desc = "Files" },
+		{ "<leader>a", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+		{ "<leader>*", "<cmd>Telescope grep_string<cr>", mode = { "n", "v" }, desc = "Search current word" },
 	},
 	dependencies = {
 		{ "nvim-telescope/telescope-ui-select.nvim" },
@@ -84,7 +85,7 @@ return {
 						n = {
 							["<cr>"] = single_or_multi_selection,
 						},
-					}
+					},
 				},
 				["help_tags"] = {
 					mappings = {
