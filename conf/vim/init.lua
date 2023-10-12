@@ -81,7 +81,9 @@ vim.opt.termguicolors = true
 local augroup = vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
 -- }}}
 -- Custom Path {{{
-vim.g.seadrive_path = vim.fn.has("mac") == 1 and "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries" or "~/SeaDrive/My Libraries"
+vim.g.seadrive_path = vim.fn.has("mac") == 1
+		and "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries"
+	or "~/SeaDrive/My Libraries"
 -- }}}
 -- Load lazy.nvim {{{
 local function xdg_default(v, d)
@@ -382,6 +384,8 @@ vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>", { desc = "Split vertically" })
 
 -- Jump to last buffer:
 vim.keymap.set("n", "<leader><leader>", "<cmd>b#<cr>", { desc = "Jump to last buffer" })
+
+vim.keymap.set("i", "<C-X><C-S>", "<c-o>:silent! w<cr>", { desc = "Save current buffer" })
 -- }}}
 -- Plugins {{{
 require("rocks") -- Add luarocks to the path
