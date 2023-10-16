@@ -395,14 +395,9 @@ return {
 				mark_and_move = {
 					char = "<C-X>",
 					func = function()
-						vim.api.nvim_input(
-							vim.api.nvim_replace_termcodes(
-								string.format("%s%s", MiniPick.config.mappings.mark, MiniPick.config.mappings.move_down),
-								true,
-								true,
-								true
-							)
-						)
+						local mappings = MiniPick.get_picker_opts().mappings
+						local keys = mappings.mark .. mappings.move_down
+						vim.api.nvim_input(vim.api.nvim_replace_termcodes(keys, true, true, true))
 					end,
 				},
 			},
