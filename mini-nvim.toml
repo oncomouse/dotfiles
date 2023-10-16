@@ -1,0 +1,46 @@
+[selene]
+base = "lua51"
+name = "mini-nvim"
+
+[MiniAi]
+any = true
+
+[MiniAlign]
+any = true
+
+[MiniBasics]
+any = true
+
+[MiniBracketed]
+any = true
+
+[MiniBufremove]
+any = true
+
+[MiniComment]
+any = true
+
+[MiniFiles]
+any = true
+
+[MiniHipatterns]
+any = true
+
+[MiniIndentscope]
+any = true
+
+[MiniMisc]
+any = true
+
+[MiniMove]
+any = true
+
+[MiniOperators]
+any = true
+
+[MiniPick]
+any = true
+
+[MiniSplitjoin]
+any = true
+

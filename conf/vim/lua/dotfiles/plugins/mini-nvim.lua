@@ -89,18 +89,21 @@ return {
 				},
 			}
 		end
+
 		function Sentence.select_a(count)
 			if not vim.b.textobj_sentence_re_a then
 				vim.fn["textobj#sentence#init"]()
 			end
 			return Sentence.select(vim.b.textobj_sentence_re_a, count)
 		end
+
 		function Sentence.select_i(count)
 			if not vim.b.textobj_sentence_re_i then
 				vim.fn["textobj#sentence#init"]()
 			end
 			return Sentence.select(vim.b.textobj_sentence_re_i, count)
 		end
+
 		require("mini.ai").setup({
 			custom_textobjects = {
 
@@ -252,7 +255,7 @@ return {
 		-- :Bd[!] for layout-safe bufdelete
 		require("mini.bufremove").setup()
 		vim.api.nvim_create_user_command("Bd", function(args)
-			require("mini.bufremove").delete(0, not args.bang)
+			MinBufremove.delete(0, not args.bang)
 		end, {
 			bang = true,
 		})
@@ -276,7 +279,7 @@ return {
 		local toggle_dotfiles = function()
 			show_dotfiles = not show_dotfiles
 			local new_filter = show_dotfiles and filter_show or filter_hide
-			require("mini.files").refresh({ content = { filter = new_filter } })
+			MiniFiles.refresh({ content = { filter = new_filter } })
 		end
 		vim.api.nvim_create_autocmd("User", {
 			pattern = "MiniFilesBufferCreate",
@@ -286,14 +289,10 @@ return {
 				vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
 			end,
 		})
-		vim.keymap.set("n", "<leader>fm", function()
-			require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
-		end, {
+		vim.keymap.set("n", "<leader>fm", "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0), true)<cr>", {
 			desc = "Open mini.files (directory of current file)",
 		})
-		vim.keymap.set("n", "<leader>fM", function()
-			require("mini.files").open(vim.loop.cwd(), true)
-		end, {
+		vim.keymap.set("n", "<leader>fM", "<cmd>lua MiniFiles.open(vim.loop.cwd(), true)<cr>", {
 			desc = "Open mini.files (cwd)",
 		})
 
@@ -373,9 +372,6 @@ return {
 		-- Move lines with alt + hjkl:
 		require("mini.move").setup()
 
-		-- use gS to split and join items in a list:
-		require("mini.splitjoin").setup()
-
 		require("mini.misc").setup()
 		require("mini.misc").setup_auto_root({
 			".git",
@@ -392,6 +388,60 @@ return {
 		-- Useful text operators
 		-- g= for calcuation; gx for exchanging regions (use twice to select and replace); gm multiply; gr for replace with register; gs for sorting
 		require("mini.operators").setup()
+
+		require("mini.pick").setup({
+			mappings = {
+				mark = "<C-D>",
+				mark_and_move = {
+					char = "<C-X>",
+					func = function()
+						vim.api.nvim_input(
+							vim.api.nvim_replace_termcodes(
+								string.format("%s%s", MiniPick.config.mappings.mark, MiniPick.config.mappings.move_down),
+								true,
+								true,
+								true
+							)
+						)
+					end,
+				},
+			},
+		})
+		vim.ui.select = MiniPick.ui_select
+		local function open_multiple_files(results)
+			for _, filepath in ipairs(results) do
+				-- not the same as vim.fn.bufadd!
+				vim.cmd.badd({ args = { filepath } })
+			end
+
+			-- switch to newly loaded buffers if on an empty buffer
+			if vim.fn.bufname() == "" and not vim.bo.modified then
+				vim.cmd.bwipeout()
+				vim.cmd.buffer(results[1])
+			end
+		end
+		local function open_files(item)
+			local results = MiniPick.get_picker_matches().marked
+			if #results > 1 then
+				open_multiple_files(results)
+				return
+			end
+			MiniPick.default_choose(item)
+		end
+		vim.keymap.set("n", "<C-H>", "<cmd>Pick help<cr>", { desc = "Help Tags" })
+		vim.keymap.set("n", "<C-P>", function()
+			MiniPick.builtin.files({}, { source = { choose = open_files, choose_marked = open_multiple_files } })
+		end, { desc = "Files" })
+		vim.keymap.set("n", "<leader>a", "<cmd>Pick buffers<cr>", { desc = "Buffers" })
+		vim.keymap.set(
+			{ "n", "v" },
+			"<leader>*",
+			"<cmd>Pick grep pattern='<cword>'<cr>",
+			{ desc = "Search current word" }
+		)
+
+		-- use gS to split and join items in a list:
+		require("mini.splitjoin").setup()
 
 		local DotfilesStatusline = require("dotfiles.statusline")
 		-- Override function used to make statusline:
