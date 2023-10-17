@@ -207,6 +207,10 @@
 ;   (apply orig-fn beg end args))
 ; (advice-add 'evil-yank :around 'meain/evil-yank-advice)
 
+(straight-use-package 'devil)
+(global-devil-mode)
+(global-set-key (kbd "C-,") 'global-devil-mode)
+
 (straight-use-package 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
