@@ -429,7 +429,10 @@ return {
 				{ sort_lastused = false, sort_mru = false, include_current = true, include_unlisted = false },
 				local_opts or {}
 			)
-			local buffers_output = vim.api.nvim_exec("buffers" .. (local_opts.include_unlisted and "!" or ""), true)
+			local buffers_output = vim.api.nvim_exec2(
+				"buffers" .. (local_opts.include_unlisted and "!" or ""),
+				{ output = true }
+			).output
 			local cur_buf_id, include_current = vim.api.nvim_get_current_buf(), local_opts.include_current
 			local items = {}
 			local default_selection_idx = 1
