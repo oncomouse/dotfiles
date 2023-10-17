@@ -5,12 +5,12 @@ vim.api.nvim_create_autocmd("FileType", {
 	callback = function(ev)
 		vim.api.nvim_buf_create_user_command(ev.buf, "Pandoc", function(args)
 			vim.cmd(
-				"!pandoc -i "
-				.. vim.fn.fnameescape(vim.fn.expand("%"))
-				.. " -o "
-				.. vim.fn.fnameescape(vim.fn.expand("%:r"))
+				"!pandoc -i \""
+				.. vim.fn.expand("%")
+				.. "\" -o \""
+				.. vim.fn.expand("%:r")
 				.. "."
-				.. args.args
+				.. args.args .. "\""
 			)
 		end, {
 			nargs = 1,
