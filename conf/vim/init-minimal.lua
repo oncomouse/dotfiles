@@ -289,34 +289,24 @@ vim.keymap.set("i", "<A-b>", move_word(true))
 vim.keymap.set("i", "<A-f>", move_word())
 
 -- Clear Currently Highlighted Regexp:
-vim.keymap.set("n", "<leader>cr", ':let<C-u>let @/=""<CR>', { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>cr", ':let<C-u>let @/=""<CR>', { silent = true, noremap = true, desc = "Clear current regexp search" })
 
 -- Source https://github.com/romainl/minivimrc/blob/master/vimrc
 -- Minimal File Finding:
 vim.keymap.set("n", "<localleader>f", ":find *", { noremap = true })
 vim.keymap.set("n", "<localleader>s", ":sfind *", { noremap = true })
 vim.keymap.set("n", "<localleader>v", ":vert sfind *", { noremap = true })
--- Minimal Buffer Jumping:
-vim.keymap.set("n", "<leader>a", function()
-	local last = vim.fn.getbufinfo("#")[1]
-	return ":buffers<CR>:buffer<Space>" .. (last ~= nil and last.bufnr or "")
-end, {
-	noremap = true,
-	expr = true,
-})
-vim.keymap.set("n", "<localleader>a", ":buffer *", { noremap = true })
-vim.keymap.set("n", "<localleader>A", ":sbuffer *", { noremap = true })
 
 -- Toggle Quickfix:
 vim.keymap.set("n", "<leader>q", function()
 	list_toggle("c")
-end, { silent = true, noremap = true })
+end, { silent = true, noremap = true, desc = "Toggle quickfix list" })
 vim.keymap.set("n", "<leader>d", function()
 	list_toggle("l")
-end, { silent = true, noremap = true })
+end, { silent = true, noremap = true, desc = "Toggle location list" })
 
 -- Project Grep:
-vim.keymap.set("n", "<leader>/", grep_or_qfgrep, { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>/", grep_or_qfgrep, { silent = true, noremap = true, desc = "Grep search in project or refine quickfix list" })
 
 -- Highlight a block and type "@" to run a macro on the block:
 vim.keymap.set("x", "@", function()
@@ -328,7 +318,7 @@ end, {
 })
 
 -- Vertical split like in my Tmux config
-vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>")
+vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>", { desc = "Split vertically" })
 
 -- Jump to last buffer:
 vim.keymap.set("n", "<leader><leader>", "<cmd>b#<cr>", { desc = "Jump to last buffer" })
