@@ -271,7 +271,12 @@ vim.keymap.set("i", "<A-b>", move_word(true))
 vim.keymap.set("i", "<A-f>", move_word())
 
 -- Clear Currently Highlighted Regexp:
-vim.keymap.set("n", "<leader>cr", ':let<C-u>let @/=""<CR>', { silent = true, noremap = true, desc = "Clear current regexp search" })
+vim.keymap.set(
+	"n",
+	"<leader>cr",
+	':let<C-u>let @/=""<CR>',
+	{ silent = true, noremap = true, desc = "Clear current regexp search" }
+)
 
 -- Source https://github.com/romainl/minivimrc/blob/master/vimrc
 -- Minimal File Finding:
@@ -288,7 +293,12 @@ vim.keymap.set("n", "<leader>d", function()
 end, { silent = true, noremap = true, desc = "Toggle location list" })
 
 -- Project Grep:
-vim.keymap.set("n", "<leader>/", grep_or_qfgrep, { silent = true, noremap = true, desc = "Grep search in project or refine quickfix list" })
+vim.keymap.set(
+	"n",
+	"<leader>/",
+	grep_or_qfgrep,
+	{ silent = true, noremap = true, desc = "Grep search in project or refine quickfix list" }
+)
 
 -- Highlight a block and type "@" to run a macro on the block:
 vim.keymap.set("x", "@", function()
@@ -566,14 +576,14 @@ require("mini.pick").setup({
 		mark_and_move = {
 			char = "<C-X>",
 			func = function()
-				local mappings = MiniPick.get_picker_opts().mappings
+				local mappings = require("mini.pick").get_picker_opts().mappings
 				local keys = mappings.mark .. mappings.move_down
 				vim.api.nvim_input(vim.api.nvim_replace_termcodes(keys, true, true, true))
 			end,
 		},
 	},
 })
-vim.ui.select = MiniPick.ui_select
+vim.ui.select = require("mini.pick").ui_select
 local function open_multiple_files(results)
 	for _, filepath in ipairs(results) do
 		-- not the same as vim.fn.bufadd!
@@ -586,14 +596,14 @@ local function open_multiple_files(results)
 	end
 end
 local function open_files(item)
-	local results = MiniPick.get_picker_matches().marked
+	local results = require("mini.pick").get_picker_matches().marked
 	if #results > 1 then
 		open_multiple_files(results)
 		return
 	end
-	MiniPick.default_choose(item)
+	require("mini.pick").default_choose(item)
 end
-MiniPick.registry.buffers = function(local_opts, opts)
+require("mini.pick").registry.buffers = function(local_opts, opts)
 	local_opts = vim.tbl_deep_extend(
 		"force",
 		{ sort_lastused = false, sort_mru = false, include_current = true, include_unlisted = false },
@@ -627,7 +637,7 @@ MiniPick.registry.buffers = function(local_opts, opts)
 	end
 
 	local show = function(buf_id, items, query)
-		MiniPick.default_show(buf_id, items, query, { show_icons = true })
+		require("mini.pick").default_show(buf_id, items, query, { show_icons = true })
 	end
 	local default_opts = { source = { name = "Buffers", show = show } }
 	opts = vim.tbl_deep_extend("force", default_opts, opts or {}, { source = { items = items } })
@@ -636,17 +646,17 @@ MiniPick.registry.buffers = function(local_opts, opts)
 			pattern = "MiniPickStart",
 			once = true,
 			callback = function()
-				local mappings = MiniPick.get_picker_opts().mappings
+				local mappings = require("mini.pick").get_picker_opts().mappings
 				local keys = vim.fn["repeat"](mappings.move_down, default_selection_idx - 1)
 				vim.api.nvim_input(vim.api.nvim_replace_termcodes(keys, true, true, true))
 			end,
 		})
 	end
-	return MiniPick.start(opts)
+	return require("mini.pick").start(opts)
 end
 vim.keymap.set("n", "<C-H>", "<cmd>Pick help<cr>", { desc = "Help Tags" })
 vim.keymap.set("n", "<C-P>", function()
-	MiniPick.builtin.files({}, { source = { choose = open_files, choose_marked = open_multiple_files } })
+	require("mini.pick").builtin.files({}, { source = { choose = open_files, choose_marked = open_multiple_files } })
 end, { desc = "Files" })
 vim.keymap.set("n", "<leader>a", "<cmd>Pick buffers sort_lastused=true<cr>", { desc = "Buffers" })
 vim.keymap.set({ "n", "v" }, "<leader>*", "<cmd>Pick grep pattern='<cword>'<cr>", { desc = "Search current word" })
