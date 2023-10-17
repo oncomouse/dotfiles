@@ -81,17 +81,6 @@ end
 --------------------------------------------------------------------------------
 -- Autogroups:
 local augroup = vim.api.nvim_create_augroup("dotfiles-settings", { clear = true })
--- FZF Path:
-vim.g.fzf_dir = nil
-if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then -- Homebrew
-	vim.g.fzf_dir = "/usr/local/opt/fzf"
-elseif vim.fn.isdirectory("/usr/share/vim/vimfiles") == 1 then -- Arch, btw
-	vim.g.fzf_dir = "/usr/share/vim/vimfiles"
-elseif vim.fn.isdirectory("/usr/share/doc/fzf/examples") == 1 then -- Debian
-	vim.g.fzf_dir = "/usr/share/doc/fzf/examples"
-elseif vim.fn.isdirectory("~/.fzf") == 1 then -- Local install
-	vim.g.fzf_dir = vim.fn.expand("~/.fzf")
-end
 --------------------------------------------------------------------------------
 -- Load lazy.nvim
 --------------------------------------------------------------------------------
@@ -129,9 +118,6 @@ require("lazy").setup(plugins, {
 			path = vim.fn.expand("~/Projects"),
 		},
 		rtp = {
-			paths = {
-				vim.g.fzf_dir,
-			},
 			disabled_plugins = {
 				"black",
 				"gzip",
@@ -363,37 +349,6 @@ end, {
 	force = true,
 	nargs = 1,
 })
-
---------------------------------------------------------------------------------
--- FZF:
---------------------------------------------------------------------------------
-
-vim.g.fzf_layout = { window = { width = 1, height = 0.4, yoffset = 1, border = "top" } }
-vim.g.fzf_action = {
-	["ctrl-s"] = "split",
-	["ctrl-v"] = "vsplit",
-	["ctrl-t"] = "tabnew",
-	["ctrl-e"] = "edit",
-}
-vim.g.fzf_nvim_statusline = 0
-vim.g.fzf_colors = {
-	fg = { "fg", "Normal" },
-	bg = { "bg", "Normal" },
-	hl = { "fg", "Comment" },
-	["fg+"] = { "fg", "CursorLine", "CursorColumn", "Normal" },
-	["bg+"] = { "bg", "CursorLine", "CursorColumn" },
-	["hl+"] = { "fg", "Statement" },
-	info = { "fg", "PreProc" },
-	border = { "fg", "Ignore" },
-	prompt = { "fg", "Conditional" },
-	pointer = { "fg", "Exception" },
-	marker = { "fg", "Keyword" },
-	spinner = { "fg", "Label" },
-	header = { "fg", "Comment" },
-}
-if vim.g.has_fzf ~= 0 then
-	vim.keymap.set("n", "<C-P>", "<cmd>FZF --reverse --info=inline<cr>", { silent = true, noremap = true })
-end
 
 --------------------------------------------------------------------------------
 -- Mini.nvim:
