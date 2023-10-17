@@ -575,6 +575,102 @@ require("mini.move").setup({})
 -- May as well setup a minimal autopair:
 require("mini.pairs").setup({})
 
+require("mini.pick").setup({
+	mappings = {
+		mark = "<C-D>",
+		mark_and_move = {
+			char = "<C-X>",
+			func = function()
+				local mappings = MiniPick.get_picker_opts().mappings
+				local keys = mappings.mark .. mappings.move_down
+				vim.api.nvim_input(vim.api.nvim_replace_termcodes(keys, true, true, true))
+			end,
+		},
+	},
+})
+vim.ui.select = MiniPick.ui_select
+local function open_multiple_files(results)
+	for _, filepath in ipairs(results) do
+		-- not the same as vim.fn.bufadd!
+		vim.cmd.badd({ args = { filepath } })
+	end
+	-- switch to newly loaded buffers if on an empty buffer
+	if vim.fn.bufname() == "" and not vim.bo.modified then
+		vim.cmd.bwipeout()
+		vim.cmd.buffer(results[1])
+	end
+end
+local function open_files(item)
+	local results = MiniPick.get_picker_matches().marked
+	if #results > 1 then
+		open_multiple_files(results)
+		return
+	end
+	MiniPick.default_choose(item)
+end
+MiniPick.registry.buffers = function(local_opts, opts)
+	local_opts = vim.tbl_deep_extend(
+		"force",
+		{ sort_lastused = false, sort_mru = false, include_current = true, include_unlisted = false },
+		local_opts or {}
+	)
+	local buffers_output = vim.api.nvim_exec("buffers" .. (local_opts.include_unlisted and "!" or ""), true)
+	local cur_buf_id, include_current = vim.api.nvim_get_current_buf(), local_opts.include_current
+	local items = {}
+	local default_selection_idx = 1
+	for _, l in ipairs(vim.split(buffers_output, "\n")) do
+		local buf_str, name = l:match("^%s*%d+"), l:match('"(.*)"')
+		local buf_id = tonumber(buf_str)
+		local flag = buf_id == vim.fn.bufnr("") and "%" or (buf_id == vim.fn.bufnr("#") and "#" or " ")
+		local item = { text = name, bufnr = buf_id, flag = flag }
+		if buf_id ~= cur_buf_id or include_current then
+			if local_opts.sort_lastused and not local_opts.ignore_current_buffer and flag == "#" then
+				default_selection_idx = 2
+			end
+			if local_opts.sort_lastused and (flag == "#" or flag == "%") then
+				local idx = ((items[1] ~= nil and items[1].flag == "%") and 2 or 1)
+				table.insert(items, idx, item)
+			else
+				table.insert(items, item)
+			end
+		end
+	end
+	if local_opts.sort_mru then
+		table.sort(items, function(a, b)
+			return vim.fn.getbufinfo(a.bufnr)[1].lastused > vim.fn.getbufinfo(b.bufnr)[1].lastused
+		end)
+	end
+
+	local show = function(buf_id, items, query)
+		MiniPick.default_show(buf_id, items, query, { show_icons = true })
+	end
+	local default_opts = { source = { name = "Buffers", show = show } }
+	opts = vim.tbl_deep_extend("force", default_opts, opts or {}, { source = { items = items } })
+	if default_selection_idx > 1 then
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "MiniPickStart",
+			once = true,
+			callback = function()
+				local mappings = MiniPick.get_picker_opts().mappings
+				local keys = vim.fn["repeat"](mappings.move_down, default_selection_idx - 1)
+				vim.api.nvim_input(vim.api.nvim_replace_termcodes(keys, true, true, true))
+			end,
+		})
+	end
+	return MiniPick.start(opts)
+end
+vim.keymap.set("n", "<C-H>", "<cmd>Pick help<cr>", { desc = "Help Tags" })
+vim.keymap.set("n", "<C-P>", function()
+	MiniPick.builtin.files({}, { source = { choose = open_files, choose_marked = open_multiple_files } })
+end, { desc = "Files" })
+vim.keymap.set("n", "<leader>a", "<cmd>Pick buffers sort_lastused=true<cr>", { desc = "Buffers" })
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>*",
+	"<cmd>Pick grep pattern='<cword>'<cr>",
+	{ desc = "Search current word" }
+)
+
 require("mini.statusline").setup({
 	content = {
 		inactive = function()
