@@ -68,9 +68,9 @@ end
 
 -- Cmdheight=0 options:
 vim.opt.cmdheight = 1
--- if vim.fn.has("nvim-0.9") == 1 then
--- 	vim.opt.showcmdloc = "statusline"
--- end
+if vim.fn.has("nvim-0.9") == 1 and vim.opt.cmdheight == 0 then
+	vim.opt.showcmdloc = "statusline"
+end
 vim.opt.showmode = false
 
 -- Enable termguicolors by default
