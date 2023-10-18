@@ -628,6 +628,16 @@ return {
 		}, {
 			filetype = "lua",
 		})
+		require("dotfiles.utils.mini").configure_mini_module("surround", {
+			custom_surroundings = {
+				l = {
+					input = { "%[%[().-()%]%]" },
+					output = { left = "[[", right = "]]" },
+				},
+			},
+		}, {
+			filetype = "org",
+		})
 
 		require("mini.tabline").setup({
 			set_vim_settings = false,
