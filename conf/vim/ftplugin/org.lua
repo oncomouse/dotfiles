@@ -57,9 +57,9 @@ if type(bn) == "string" and string.match(bn, "meetings.*executive") then
 	vim.api.nvim_buf_create_user_command(0, "ECMinutes", function()
 		vim.cmd(
 			string.format(
-				"silent !pandoc -i %s -o %s/ec-minutes/ec-minutes-%s.docx",
-				vim.fn.fnameescape(vim.fn.expand("%")),
-				vim.fn.fnameescape(vim.fn.expand("%:h")),
+				"!pandoc -i \"%s\" -o \"%s\"/ec-minutes/ec-minutes-%s.docx",
+				vim.fn.expand("%"),
+				vim.fn.expand("%:h"),
 				os.date("%Y-%m-%d")
 			)
 		)
