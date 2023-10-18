@@ -390,6 +390,9 @@ return {
 		require("mini.operators").setup()
 
 		require("mini.pick").setup({
+			options = {
+				cache = true,
+			},
 			mappings = {
 				mark = "<C-D>",
 				mark_and_move = {
