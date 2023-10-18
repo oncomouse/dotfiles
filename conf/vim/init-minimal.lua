@@ -1,22 +1,6 @@
 if type(vim.loader) == "table" then
 	vim.loader.enable()
 end
---------------------------------------------------------------------------------
--- Plugins for lazy.nvim
---------------------------------------------------------------------------------
-
-local plugins = {
-	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost", "FileType" } }, -- guess indentation
-	{ "echasnovski/mini.nvim", lazy = true }, -- Various (see below)
-	{
-		"nvim-treesitter/nvim-treesitter",
-		lazy = true,
-		build = function()
-			vim.cmd([[TSUpdate]])
-		end,
-	}, -- Syntax
-}
-
 
 --------------------------------------------------------------------------------
 -- Settings:
