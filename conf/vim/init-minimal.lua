@@ -74,7 +74,6 @@ end
 -- Minimal Specific Things:
 --------------------------------------------------------------------------------
 
-vim.keymap.set("n", "<leader>lg", "<cmd>terminal lazygit<cr>", { noremap = true, silent = true, desc = "Lazygit" })
 vim.opt.list = true
 --------------------------------------------------------------------------------
 -- Load lazy.nvim
@@ -302,6 +301,9 @@ vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>", { desc = "Split vertically" })
 
 -- Jump to last buffer:
 vim.keymap.set("n", "<leader><leader>", "<cmd>b#<cr>", { desc = "Jump to last buffer" })
+
+-- Open lazygit:
+vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { noremap = true, silent = true, desc = "Lazygit" })
 --------------------------------------------------------------------------------
 -- Commands:
 --------------------------------------------------------------------------------
@@ -344,6 +346,9 @@ end, {
 	nargs = 1,
 })
 
+vim.api.nvim_create_user_command("LazyGit", ":terminal lazygit<cr>", {
+	force = true
+})
 --------------------------------------------------------------------------------
 -- Mini.nvim:
 --------------------------------------------------------------------------------

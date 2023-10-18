@@ -48,14 +48,6 @@ return {
 	}, -- Fancy * and # bindings
 
 	{
-		"oncomouse/lazygit.nvim",
-		cmd = "LazyGit",
-		keys = {
-			{ "<leader>lg", "<Plug>(lazygit.nvim)", desc = "LazyGit Integration" },
-		},
-	}, -- :LazyGit for lazygit integration
-
-	{
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
 		init = function()

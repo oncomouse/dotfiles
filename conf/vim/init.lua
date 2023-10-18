@@ -317,6 +317,10 @@ end, {
 	force = true,
 	nargs = 1,
 })
+
+vim.api.nvim_create_user_command("LazyGit", ":terminal lazygit<cr>", {
+	force = true
+})
 -- }}}
 -- Keymaps {{{
 -- Navigation in insert mode:
@@ -392,6 +396,9 @@ vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>", { desc = "Split vertically" })
 vim.keymap.set("n", "<leader><leader>", "<cmd>b#<cr>", { desc = "Jump to last buffer" })
 
 vim.keymap.set("i", "<C-X><C-S>", "<c-o>:silent! w<cr>", { desc = "Save current buffer", silent = true })
+
+-- LazyGit:
+vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { noremap = true, silent = true, desc = "Lazygit" })
 -- }}}
 -- Plugins {{{
 require("rocks") -- Add luarocks to the path
