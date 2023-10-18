@@ -235,6 +235,12 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 -- Turn Off Line Numbering:
 vim.api.nvim_create_autocmd("TermOpen", { group = augroup, command = "setlocal nonumber norelativenumber" })
 
+-- Close terminals when finished:
+vim.api.nvim_create_autocmd("TermClose", {
+	group = augroup,
+	command = "bdelete",
+})
+
 -- Start QuickFix:
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 	group = augroup,
