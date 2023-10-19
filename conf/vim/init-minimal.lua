@@ -238,56 +238,59 @@ local function move_word(backwards)
 		vim.api.nvim_win_set_cursor(0, { row, col })
 	end
 end
-vim.keymap.set("i", "<A-b>", move_word(true))
-vim.keymap.set("i", "<A-f>", move_word())
+vim.keymap.set("i", "<A-b>", move_word(true), { desc = "Move back one word" })
+vim.keymap.set("i", "<A-f>", move_word(), { desc = "Move forward one word" })
 
 -- Clear Currently Highlighted Regexp:
 vim.keymap.set(
 	"n",
 	"<leader>cr",
 	':let<C-u>let @/=""<CR>',
-	{ silent = true, noremap = true, desc = "Clear current regexp search" }
+	{ silent = true, noremap = true, desc = "Clear current regexp" }
 )
 
--- Source https://github.com/romainl/minivimrc/blob/master/vimrc
--- Minimal File Finding:
-vim.keymap.set("n", "<localleader>f", ":find *", { noremap = true })
-vim.keymap.set("n", "<localleader>s", ":sfind *", { noremap = true })
-vim.keymap.set("n", "<localleader>v", ":vert sfind *", { noremap = true })
+-- Tab navigation:
+vim.keymap.set("n", "]t", "<cmd>tabnext<CR>", { silent = true, noremap = true, desc = "Jump to next tab" })
+vim.keymap.set("n", "[t", "<cmd>tabprev<CR>", { silent = true, noremap = true, desc = "Jump to previous tab" })
 
 -- Toggle Quickfix:
 vim.keymap.set("n", "<leader>q", function()
 	list_toggle("c")
-end, { silent = true, noremap = true, desc = "Toggle quickfix list" })
+end, { silent = true, noremap = true, desc = "Display quickfix list" })
 vim.keymap.set("n", "<leader>d", function()
 	list_toggle("l")
-end, { silent = true, noremap = true, desc = "Toggle location list" })
+end, { silent = true, noremap = true, desc = "Display location list" })
 
 -- Project Grep:
-vim.keymap.set(
-	"n",
-	"<leader>/",
-	grep_or_qfgrep,
-	{ silent = true, noremap = true, desc = "Grep search in project or refine quickfix list" }
-)
+vim.keymap.set("n", "<leader>/", function()
+	grep_or_qfgrep()
+end, { silent = true, noremap = true, desc = "Search in current project using grep()" })
 
 -- Highlight a block and type "@" to run a macro on the block:
 vim.keymap.set("x", "@", function()
 	vim.cmd([[echo '@'.getcmdline()
 	execute ":'<,'>normal @".nr2char(getchar())]])
-end, {
-	silent = true,
-	noremap = true,
-})
+end, { silent = true, noremap = true })
 
--- Vertical split like in my Tmux config
+-- Calculator:
+vim.keymap.set(
+	"i",
+	"<C-X><C-A>",
+	"<C-O>yiW<End>=<C-R>=<C-R>0<CR>",
+	{ silent = true, noremap = true, desc = "Calculate" }
+)
+
+-- Vertical split like in my Tmux config:
 vim.keymap.set("n", "<C-W>S", "<cmd>vsplit<cr>", { desc = "Split vertically" })
 
 -- Jump to last buffer:
 vim.keymap.set("n", "<leader><leader>", "<cmd>b#<cr>", { desc = "Jump to last buffer" })
 
--- Open lazygit:
-vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { noremap = true, silent = true, desc = "Lazygit" })
+-- Emacs-style save in insert:
+vim.keymap.set("i", "<C-X><C-S>", "<c-o>:silent! w<cr>", { desc = "Save current buffer" })
+
+-- Load lazygit:
+vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Load lazygit" })
 --------------------------------------------------------------------------------
 -- Commands:
 --------------------------------------------------------------------------------
