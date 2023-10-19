@@ -477,6 +477,14 @@ require("lazy").setup({
 
 			-- Use mini.clue for assisting with keybindings:
 			require("mini.clue").setup({
+				window = {
+					config = {
+						anchor = "SW",
+						width = math.floor(0.618 * vim.o.columns),
+						row = "auto",
+						col = "auto",
+					},
+				},
 				triggers = {
 					-- Leader triggers
 					{ mode = "n", keys = "<Leader>" },

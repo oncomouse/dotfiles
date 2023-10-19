@@ -179,50 +179,6 @@ return {
 			search_method = "cover", -- Only use next and last mappings to search
 		})
 
-		-- Document in which-key.nvim
-		local i = {
-			[" "] = "Whitespace",
-			[","] = "Comma",
-			['"'] = 'Balanced "',
-			["'"] = "Balanced '",
-			["`"] = "Balanced `",
-			["("] = "Balanced (",
-			[")"] = "Balanced ) including white-space",
-			[">"] = "Balanced > including white-space",
-			["<lt>"] = "Balanced <",
-			["]"] = "Balanced ] including white-space",
-			["["] = "Balanced [",
-			["}"] = "Balanced } including white-space",
-			["{"] = "Balanced {",
-			["?"] = "User Prompt",
-			_ = "Underscore",
-			a = "Argument",
-			b = "Balanced ), ], }",
-			c = "Class",
-			f = "Function",
-			o = "Block, conditional, loop",
-			q = "Smartquote",
-			s = "Sentence including punctuation",
-			S = "Sentence with punctuation including whitespace",
-			z = "Fold",
-			t = "Tag",
-		}
-		local a = vim.deepcopy(i)
-		for k, v in pairs(a) do
-			a[k] = v:gsub(" including.*", "")
-		end
-
-		local ic = vim.deepcopy(i)
-		local ac = vim.deepcopy(a)
-		for key, name in pairs({ n = "Next", N = "Last" }) do
-			i[key] = vim.tbl_extend("force", { name = "Inside " .. name .. " textobject" }, ic)
-			a[key] = vim.tbl_extend("force", { name = "Around " .. name .. " textobject" }, ac)
-		end
-		require("which-key").register({
-			mode = { "o", "x" },
-			i = i,
-			a = a,
-		})
 		local spec_pair = require("mini.ai").gen_spec.pair
 		require("dotfiles.utils.mini").configure_mini_module("ai", {
 			custom_textobjects = {
@@ -260,6 +216,57 @@ return {
 			bang = true,
 		})
 
+		-- Use mini.clue for assisting with keybindings:
+		require("mini.clue").setup({
+			window = {
+				config = {
+					anchor = "SW",
+					width = math.floor(0.618 * vim.o.columns),
+					row = "auto",
+					col = "auto",
+				},
+			},
+			triggers = {
+				-- Leader triggers
+				{ mode = "n", keys = "<Leader>" },
+				{ mode = "x", keys = "<Leader>" },
+
+				-- Built-in completion
+				{ mode = "i", keys = "<C-x>" },
+
+				-- `g` key
+				{ mode = "n", keys = "g" },
+				{ mode = "x", keys = "g" },
+
+				-- Marks
+				{ mode = "n", keys = "'" },
+				{ mode = "n", keys = "`" },
+				{ mode = "x", keys = "'" },
+				{ mode = "x", keys = "`" },
+
+				-- Registers
+				{ mode = "n", keys = '"' },
+				{ mode = "x", keys = '"' },
+				{ mode = "i", keys = "<C-r>" },
+				{ mode = "c", keys = "<C-r>" },
+
+				-- Window commands
+				{ mode = "n", keys = "<C-w>" },
+
+				-- `z` key
+				{ mode = "n", keys = "z" },
+				{ mode = "x", keys = "z" },
+			},
+			clues = {
+				-- Enhance this by adding descriptions for <Leader> mapping groups
+				require("mini.clue").gen_clues.builtin_completion(),
+				require("mini.clue").gen_clues.g(),
+				require("mini.clue").gen_clues.marks(),
+				require("mini.clue").gen_clues.registers(),
+				require("mini.clue").gen_clues.windows(),
+				require("mini.clue").gen_clues.z(),
+			},
+		})
 		-- gc for Comments
 		require("mini.comment").setup()
 
