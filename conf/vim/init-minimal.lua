@@ -530,6 +530,41 @@ require("lazy").setup({
 			-- gc for commenting/uncommenting:
 			require("mini.comment").setup({})
 
+			-- file browser <leader>fm / <leader>fM
+			require("mini.files").setup({
+				windows = {
+					preview = true,
+				},
+			})
+			local show_dotfiles = true
+			local filter_show = function()
+				return true
+			end
+			local filter_hide = function(fs_entry)
+				return not vim.startswith(fs_entry.name, ".")
+			end
+			local toggle_dotfiles = function()
+				show_dotfiles = not show_dotfiles
+				local new_filter = show_dotfiles and filter_show or filter_hide
+				MiniFiles.refresh({ content = { filter = new_filter } })
+			end
+			-- Set buffer specific maps in minifiles:
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "MiniFilesBufferCreate",
+				callback = function(args)
+					local buf_id = args.data.buf_id
+					vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
+					vim.keymap.set("n", "<C-P>", "<C-P>", { buffer = buf_id }) -- nmap <buffer> <C-P> <C-P>
+					vim.keymap.set("n", "<Esc>", "<cmd>lua MiniFiles.close()<cr>", { buffer = buf_id })
+				end,
+			})
+			vim.keymap.set("n", "<leader>fm", "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0), true)<cr>", {
+				desc = "Open mini.files (directory of current file)",
+			})
+			vim.keymap.set("n", "<leader>fM", "<cmd>lua MiniFiles.open(vim.loop.cwd(), true)<cr>", {
+				desc = "Open mini.files (cwd)",
+			})
+
 			-- Indentscope:
 			require("mini.indentscope").setup({
 				symbol = "│",
