@@ -536,7 +536,6 @@ require("lazy").setup({
 					preview = true,
 				},
 			})
-			local show_dotfiles = true
 			local filter_show = function()
 				return true
 			end
@@ -544,8 +543,8 @@ require("lazy").setup({
 				return not vim.startswith(fs_entry.name, ".")
 			end
 			local toggle_dotfiles = function()
-				show_dotfiles = not show_dotfiles
-				local new_filter = show_dotfiles and filter_show or filter_hide
+				vim.b.show_dotfiles = not (vim.b.show_dotfiles or true)
+				local new_filter = vim.b.show_dotfiles and filter_show or filter_hide
 				MiniFiles.refresh({ content = { filter = new_filter } })
 			end
 			-- Set buffer specific maps in minifiles:
