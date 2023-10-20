@@ -219,12 +219,14 @@ return {
 		-- Use mini.clue for assisting with keybindings:
 		require("mini.clue").setup({
 			window = {
-				config = {
-					anchor = "SW",
-					width = math.floor(0.618 * vim.o.columns),
-					row = "auto",
-					col = "auto",
-				},
+				config = function()
+					return {
+						anchor = "SW",
+						width = math.floor(0.618 * vim.o.columns),
+						row = "auto",
+						col = "auto",
+					}
+				end,
 			},
 			triggers = {
 				-- Leader triggers
