@@ -301,7 +301,7 @@ return {
 					local fs_info = MiniFiles.get_fs_entry(buf_id)
 					vim.fn.system({
 						"open",
-						fs_info.path
+						fs_info.path,
 					})
 				end, { buffer = buf_id })
 			end,
@@ -449,10 +449,8 @@ return {
 				{ sort_lastused = false, sort_mru = false, include_current = true, include_unlisted = false },
 				local_opts or {}
 			)
-			local buffers_output = vim.api.nvim_exec2(
-				"buffers" .. (local_opts.include_unlisted and "!" or ""),
-				{ output = true }
-			).output
+			local buffers_output =
+				vim.api.nvim_exec2("buffers" .. (local_opts.include_unlisted and "!" or ""), { output = true }).output
 			local cur_buf_id, include_current = vim.api.nvim_get_current_buf(), local_opts.include_current
 			local items = {}
 			local default_selection_idx = 1
@@ -499,7 +497,28 @@ return {
 		end
 		vim.keymap.set("n", "<C-H>", "<cmd>Pick help<cr>", { desc = "Help Tags" })
 		vim.keymap.set("n", "<C-P>", function()
-			MiniPick.builtin.files({}, { source = { choose = open_files, choose_marked = open_multiple_files } })
+			MiniPick.builtin.files({}, {
+				mappings = {
+					open_binary = {
+						char = "<C-O>",
+						func = function()
+							local file_path = vim.fs.joinpath(
+								MiniPick.get_picker_opts().source.cwd,
+								MiniPick.get_picker_matches().current
+							)
+							vim.fn.system({
+								"open",
+								file_path,
+							})
+							MiniPick.stop()
+						end,
+					},
+				},
+				source = {
+					choose = open_files,
+					choose_marked = open_multiple_files,
+				},
+			})
 		end, { desc = "Files" })
 		vim.keymap.set("n", "<leader>a", "<cmd>Pick buffers sort_lastused=true<cr>", { desc = "Buffers" })
 		vim.keymap.set(
