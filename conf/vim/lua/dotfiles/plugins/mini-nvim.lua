@@ -288,12 +288,22 @@ return {
 			local new_filter = show_dotfiles and filter_show or filter_hide
 			MiniFiles.refresh({ content = { filter = new_filter } })
 		end
+		-- Set buffer specific maps in minifiles:
 		vim.api.nvim_create_autocmd("User", {
 			pattern = "MiniFilesBufferCreate",
 			callback = function(args)
 				local buf_id = args.data.buf_id
 				-- Tweak left-hand side of mapping to your liking
 				vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
+				vim.keymap.set("n", "<C-P>", "<C-P>", { buffer = buf_id }) -- nmap <buffer> <C-P> <C-P>
+				vim.keymap.set("n", "<Esc>", "<cmd>lua MiniFiles.close()<cr>", { buffer = buf_id })
+				vim.keymap.set("n", "<C-O>", function()
+					local fs_info = MiniFiles.get_fs_entry(buf_id)
+					vim.fn.system({
+						"open",
+						fs_info.path
+					})
+				end, { buffer = buf_id })
 			end,
 		})
 		vim.keymap.set("n", "<leader>fm", "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0), true)<cr>", {
