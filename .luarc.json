@@ -1,0 +1,42 @@
+{
+	"diagnostics": {
+		"globals": [
+			"MiniAi",
+			"MiniAlign",
+			"MiniBasics",
+			"MiniBracketed",
+			"MiniBufremove",
+			"MiniComment",
+			"MiniFiles",
+			"MiniHipatterns",
+			"MiniIndentscope",
+			"MiniMisc",
+			"MiniMove",
+			"MiniOperators",
+			"MiniPick",
+			"MiniSplitjoin",
+			"s",
+			"sn",
+			"t",
+			"f",
+			"i",
+			"c",
+			"d",
+			"r",
+			"l",
+			"rep",
+			"p",
+			"m",
+			"n",
+			"dl",
+			"fmt",
+			"fmta",
+			"conds",
+			"types",
+			"events",
+			"parse",
+			"ai",
+			"postfix"
+		]
+	}
+}
