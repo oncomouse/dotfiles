@@ -455,6 +455,7 @@ vim.g.dotfiles_lsp = {
 				},
 				diagnostics = {
 					globals = {
+						-- mini.nvim
 						"MiniAi",
 						"MiniAlign",
 						"MiniBasics",
@@ -469,6 +470,29 @@ vim.g.dotfiles_lsp = {
 						"MiniOperators",
 						"MiniPick",
 						"MiniSplitjoin",
+						-- LuaSnip
+						"s",
+						"sn",
+						"t",
+						"f",
+						"i",
+						"c",
+						"d",
+						"r",
+						"l",
+						"rep",
+						"p",
+						"m",
+						"n",
+						"dl",
+						"fmt",
+						"fmta",
+						"conds",
+						"types",
+						"events",
+						"parse",
+						"ai",
+						"postfix",
 					}
 				}
 			},
