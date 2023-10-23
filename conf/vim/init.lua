@@ -453,6 +453,24 @@ vim.g.dotfiles_lsp = {
 				runtime = {
 					version = "LuaJIT",
 				},
+				diagnostics = {
+					globals = {
+						"MiniAi",
+						"MiniAlign",
+						"MiniBasics",
+						"MiniBracketed",
+						"MiniBufremove",
+						"MiniComment",
+						"MiniFiles",
+						"MiniHipatterns",
+						"MiniIndentscope",
+						"MiniMisc",
+						"MiniMove",
+						"MiniOperators",
+						"MiniPick",
+						"MiniSplitjoin",
+					}
+				}
 			},
 		},
 	},
