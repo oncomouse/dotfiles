@@ -42,4 +42,7 @@ return {
 			require("orgmode").reload(vim.fn.expand("<afile>:p"))
 		end
 	end,
+	dependencies = {
+		{ "tpope/vim-repeat" }
+	}
 }
