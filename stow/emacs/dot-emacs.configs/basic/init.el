@@ -160,6 +160,9 @@
                         (concat dotfiles-seadrive-path "/Todo/org")))
 (setq org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org"))
 (setq org-indent-mode "noindent")
+(setq org-refile-targets
+      '((nil :maxlevel . 2)
+        (org-agenda-files :maxlevel . 2)))
 
 ; Evil
 ; (setq evil-want-keybinding nil)
