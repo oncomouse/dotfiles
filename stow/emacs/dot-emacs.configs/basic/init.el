@@ -14,9 +14,12 @@
 
 ; Set ido to use fuzzy matching
 (ido-mode t)
+(setq ido-everywhere t)
 (setq ido-enable-flex-matching t)
 
-; Line numbers + relative line numbers
+(setq completions-detailed t)
+
+					; Line numbers + relative line numbers
 (display-line-numbers-mode)
 (setq display-line-numbers 'relative)
 
@@ -111,6 +114,10 @@
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+
+;; ivy-rich mode
+(straight-use-package 'ivy-rich)
+(ivy-rich-mode 1)
 
 (straight-use-package 'projectile)
 (projectile-mode +1)
@@ -216,5 +223,7 @@
 
 (straight-use-package 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
+
+(straight-use-package 'magit)
 
 (provide 'init)
