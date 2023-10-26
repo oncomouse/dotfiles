@@ -279,7 +279,7 @@
 
 (use-package evil-org
 		:after org
-		:hook (org-mode-hook . (lambda () evil-org-mode))
+		:hook (org-mode . (lambda () evil-org-mode))
 		:config
 		(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
 		; (evil-set-initial-state 'org-agenda-mode 'motion)
@@ -302,10 +302,10 @@
 		  ;; https://blog.meain.io/2020/emacs-highlight-yanked/
 
 (use-package devil
-  :after evil-org
+  :after evil
   :hook
-  ((evil-insert-state-entry-hook . devil-mode)
-   (evil-insert-state-exit-hook . devil-mode)))
+   ((evil-insert-state-entry . devil-mode)
+   (evil-insert-state-exit . devil-mode)))
 
 (use-package expand-region
 			 :bind
