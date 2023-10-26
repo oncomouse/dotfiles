@@ -81,13 +81,13 @@
   ;; (setq vertico-scroll-margin 0)
 
   ;; Show more candidates
-  ;; (setq vertico-count 20)
+  (setq vertico-count 20)
 
   ;; Grow and shrink the Vertico minibuffer
   ;; (setq vertico-resize t)
 
   ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-  ;; (setq vertico-cycle t)
+  (setq vertico-cycle t)
   )
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
@@ -126,9 +126,9 @@
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
   :init
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
-  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+   ;; Configure a custom style dispatcher (see the Consult wiki)
+   ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
+   ;;       orderless-component-separator #'orderless-escapable-split-on-space)
   (setq completion-styles '(orderless basic)
 		completion-category-defaults nil
 		completion-category-overrides '((file (styles partial-completion)))))
@@ -195,6 +195,19 @@
 (use-package consult-projectile
   :after projectile)
 
+;; Company for completion (works like omnifunc in vim)
+(use-package company
+	     :bind (:map company-active-map
+			 ("RET" . nil)
+			 ("C-y" . company-complete-selection)
+		    :map evil-insert-state-map
+		    ("C-x C-o" . company-complete))
+	     :config
+	     (setq company-idle-delay nil)
+	     (global-company-mode t))
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+
 (use-package paredit)
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
 (add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
@@ -241,33 +254,34 @@
 (use-package evil-leader)
 (use-package evil-commentary)
 (with-eval-after-load 'evil
-					  (evil-mode 1)
-					  (global-evil-surround-mode 1)
-					  (evil-collection-init)
-					  (global-evil-leader-mode)
-					  (evil-leader/set-leader "<SPC>")
-					  (evil-leader/set-key
-								  "ff" 'consult-projectile-find-file
-				  "fF" 'consult-find
-				  "fp" 'consult-projectile-switch-project
-								  "a"  'consult-buffer
-								  "oa" 'org-agenda
-								  "oc" 'org-capture
-								  "ol" 'org-store-link
-				  "or" 'org-refile
-								  "/"  'projectile-ripgrep
-								  "k"  'kill-buffer)
-					  (evil-commentary-mode)
-					  (defun meain/evil-yank-advice (orig-fn beg end &rest args)
-						(pulse-momentary-highlight-region beg end)
-						(apply orig-fn beg end args))
-					  (advice-add 'evil-yank :around 'meain/evil-yank-advice))
+  (evil-mode 1)
+  (global-evil-surround-mode 1)
+  (evil-collection-init)
+  (global-evil-leader-mode)
+  (evil-leader/set-leader "<SPC>")
+  (evil-leader/set-key
+    "fr" 'consult-recent-file
+    "ff" 'consult-projectile-find-file
+    "fF" 'consult-find
+    "fp" 'consult-projectile-switch-project
+    "a"  'consult-buffer
+    "oa" 'org-agenda
+    "oc" 'org-capture
+    "ol" 'org-store-link
+    "or" 'org-refile
+    "/"  'projectile-ripgrep
+    "k"  'kill-buffer)
+  (evil-commentary-mode)
+  (defun meain/evil-yank-advice (orig-fn beg end &rest args)
+    (pulse-momentary-highlight-region beg end)
+    (apply orig-fn beg end args))
+    (advice-add 'evil-yank :around 'meain/evil-yank-advice))
 
 (use-package evil-org
-			:after org
+		:after org
 		:hook (org-mode-hook . (lambda () evil-org-mode))
 		:config
-			(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+		(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
 		; (evil-set-initial-state 'org-agenda-mode 'motion)
 		; 	(evil-define-key 'motion org-agenda-mode-map
 		; 	   "j" 'org-agenda-next-line
