@@ -92,14 +92,14 @@
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
-  :init
   :elpaca nil
+  :init
   (savehist-mode 1))
 
 ;; A few more useful configurations...
 (use-package emacs
-  :init
   :elpaca nil
+  :init
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
   (defun crm-indicator (args)
@@ -137,7 +137,7 @@
   ;; available in the *Completions* buffer, add it to the
   ;; `completion-list-mode-map'.
   :bind (:map minibuffer-local-map
-		 ("M-A" . marginalia-cycle))
+	      ("M-A" . marginalia-cycle))
 
   ;; The :init section is always executed.
   :init
@@ -248,34 +248,46 @@
 
 ; Evil
 (setq evil-want-keybinding nil)
-(use-package evil)
+(use-package evil
+	     :custom (evil-undo-system 'undo-redo)
+	     :config
+	    (evil-mode 1)
+	    (global-evil-surround-mode 1)
+	    (evil-collection-init)
+	    (global-evil-leader-mode)
+	    (evil-leader/set-leader "<SPC>")
+	    (evil-leader/set-key
+	      "fr" 'consult-recent-file
+	      "ff" 'consult-projectile-find-file
+	      "fF" 'consult-find
+	      "fp" 'consult-projectile-switch-project
+	      "a"  'consult-buffer
+	      "oa" 'org-agenda
+	      "oc" 'org-capture
+	      "ol" 'org-store-link
+	      "or" 'org-refile
+	      "/"  'projectile-ripgrep
+	      "k"  'kill-buffer))
 (use-package evil-surround)
 (use-package evil-collection)
 (use-package evil-leader)
-(use-package evil-commentary)
+(use-package evil-commentary
+	     :config   (evil-commentary-mode))
 (with-eval-after-load 'evil
-  (evil-mode 1)
-  (global-evil-surround-mode 1)
-  (evil-collection-init)
-  (global-evil-leader-mode)
-  (evil-leader/set-leader "<SPC>")
-  (evil-leader/set-key
-    "fr" 'consult-recent-file
-    "ff" 'consult-projectile-find-file
-    "fF" 'consult-find
-    "fp" 'consult-projectile-switch-project
-    "a"  'consult-buffer
-    "oa" 'org-agenda
-    "oc" 'org-capture
-    "ol" 'org-store-link
-    "or" 'org-refile
-    "/"  'projectile-ripgrep
-    "k"  'kill-buffer)
-  (evil-commentary-mode)
   (defun meain/evil-yank-advice (orig-fn beg end &rest args)
     (pulse-momentary-highlight-region beg end)
     (apply orig-fn beg end args))
     (advice-add 'evil-yank :around 'meain/evil-yank-advice))
+(use-package evil-numbers
+  :bind (:map evil-normal-state-map
+	      ("C-c C-A" . evil-numbers/inc-at-pt)
+	      ("C-c C-X" . evil-numbers/dec-at-pt)
+	 :map evil-visual-state-map
+	      ("C-c C-A" . evil-numbers/inc-at-pt)
+	      ("C-c C-X" . evil-numbers/dec-at-pt)
+	      ("g C-A" . evil-numbers/inc-at-pt-incremental)
+	      ("g C-X" . evil-numbers/dec-at-pt-incremental)
+	 ))
 
 (use-package evil-org
 		:after org
