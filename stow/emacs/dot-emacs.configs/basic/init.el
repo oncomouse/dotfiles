@@ -245,6 +245,7 @@
   :after projectile
   )
 
+(package-install 'paredit)
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
 (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
@@ -298,8 +299,9 @@
                       (global-evil-leader-mode)
                       (evil-leader/set-leader "<SPC>")
                       (evil-leader/set-key
-                                  "ff" 'projectile-find-file
+                                  "ff" 'consult-projectile-find-file
 				  "fF" 'consult-find
+				  "fp" 'consult-projectile-switch-project
                                   "a"  'consult-buffer
                                   "oa" 'org-agenda
                                   "oc" 'org-capture
@@ -311,12 +313,24 @@
                         (pulse-momentary-highlight-region beg end)
                         (apply orig-fn beg end args))
                       (advice-add 'evil-yank :around 'meain/evil-yank-advice))
+(defun dotfiles/evil-org-agenda ()
+  "set motion state keys for 'org-agenda'"
+  (evil-set-initial-state 'org-agenda-mode 'motion)
+  (evil-define-key 'motion org-agenda-mode-map
+        "j" 'org-agenda-next-line
+    "k" 'org-agenda-previous-line
+    "gj" 'org-agenda-next-item
+    "gk" 'org-agenda-previous-item
+    "gH" 'evil-window-top
+    "gM" 'evil-window-middle
+    "gL" 'evil-window-bottom))
 (use-package evil-org
             :after org
 	    :hook
-	    (
-	     (org-mode-hook . evil-org-mode)
-	     (evil-org-mode-hook . evil-org-set-key-theme)))
+	    ((org-mode-hook . evil-org-mode)
+	     (evil-org-mode-hook . evil-org-set-key-theme))
+	    :config
+	    ((dotfile/evil-org-agenda)))
             ;; (require 'evil-org-agenda)
             ;; (evil-org-agenda-set-keys))
           ;; (straight-use-package
@@ -344,7 +358,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(global-display-line-numbers-mode t))
+ '(global-display-line-numbers-mode t)
+ '(package-selected-packages '(paredit)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
