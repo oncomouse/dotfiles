@@ -23,11 +23,16 @@
 
 (setq completions-detailed t)
 
-          ; Line numbers + relative line numbers
+;; Recent Files
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(setq recentf-max-saved-items 25)
+
+;; Line numbers + relative line numbers
 (display-line-numbers-mode)
 (setq display-line-numbers 'relative)
 
-; Install straight.el
+;; Install elpaca
 (defvar elpaca-installer-version 0.5)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
@@ -90,24 +95,10 @@
              (which-key-mode))
 
 
-; Disable visual elements:
+;; Disable visual elements:
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 (setq inhibit-startup-screen t)
-
-;; (use-package 'corfu
-;;   :init
-;;   (global-corfu-mode))
-;; (with-eval-after-load 'corfu
-;;                       (corfu-popupinfo-mode))
-
-;; (mapcar #'straight-use-package '(prescient
-;; 				 corfu-prescient
-;; 				 ivy-prescient))
-;; (with-eval-after-load 'corfu
-;;                       (corfu-prescient-mode))
-;; (with-eval-after-load 'ivy
-;;                       (ivy-prescient-mode))
 
 (when *is-a-mac*
   (when (use-package ns-auto-titlebar)
@@ -128,42 +119,118 @@
   (add-to-list 'default-frame-alist no-border)
   (add-to-list 'initial-frame-alist no-border))
 
-;; ; Ivy + Counsel + Swiper
-;; (use-package ivy)
-;; (use-package swiper)
-;; (use-package counsel)
-;; (ivy-mode)
-;; (setq ivy-use-virtual-buffers t)
-;; (setq enable-recursive-minibuffers t)
-;; ;; enable this if you want `swiper' to use it
-;; ;; (setq search-default-mode #'char-fold-to-regexp)
-;; (global-set-key "\C-s" 'swiper)
-;; (global-set-key (kbd "C-c C-r") 'ivy-resume)
-;; (global-set-key (kbd "<f6>") 'ivy-resume)
-;; (global-set-key (kbd "M-x") 'counsel-M-x)
-;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-;; (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-;; (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-;; (global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
-;; (global-set-key (kbd "<f1> l") 'counsel-find-library)
-;; (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-;; (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-;; (global-set-key (kbd "C-c g") 'counsel-git)
-;; (global-set-key (kbd "C-c j") 'counsel-git-grep)
-;; (global-set-key (kbd "C-c k") 'projectile-ripgrep)
-;; (global-set-key (kbd "C-x l") 'counsel-locate)
-;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-;; (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+;; Enable vertico
+(use-package vertico
+  :init
+  (vertico-mode)
 
-;; ;; ivy-rich mode
-;; (use-package ivy-rich)
-;; (ivy-rich-mode 1)
+  ;; Different scroll margin
+  ;; (setq vertico-scroll-margin 0)
+
+  ;; Show more candidates
+  ;; (setq vertico-count 20)
+
+  ;; Grow and shrink the Vertico minibuffer
+  ;; (setq vertico-resize t)
+
+  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+  ;; (setq vertico-cycle t)
+  )
+
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :init
+  :elpaca nil
+  (savehist-mode 1))
+
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  :elpaca nil
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
+
+  ;; Enable recursive minibuffers
+  (setq enable-recursive-minibuffers t))
+;; Optionally use the `orderless' completion style.
 (use-package orderless
+  :init
+  ;; Configure a custom style dispatcher (see the Consult wiki)
+  ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
+  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+(use-package marginalia
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+
+  ;; The :init section is always executed.
+  :init
+
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode))
+
+(use-package consult
+  :bind
+  (("C-x b" . 'consult-buffer)
+   ("C-x C-r" . 'consult-recent-file))
+  )
+
+(use-package embark
   :ensure t
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
-(use-package consult)
+
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
+  ;; strategy, if you want to see the documentation from multiple providers.
+  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+
+  :config
+
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t ; only need to install it, embark loads it after consult if found
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package projectile
              :config
@@ -172,8 +239,10 @@
             (when *is-a-mac* (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map))
             ;; Recommended keymap prefix on Windows/Linux
             (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+(use-package consult-projectile
+  :after projectile
+  )
 
-(use-package paredit)
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
 (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
@@ -227,13 +296,14 @@
                       (global-evil-leader-mode)
                       (evil-leader/set-leader "<SPC>")
                       (evil-leader/set-key
-                                  "p"  'projectile-find-file
-                                  "a"  'ido-switch-buffer
+                                  "ff" 'projectile-find-file
+				  "fF" 'consult-find
+                                  "a"  'consult-buffer
                                   "oa" 'org-agenda
                                   "oc" 'org-capture
                                   "ol" 'org-store-link
                                   "/"  'projectile-ripgrep
-                                  "k" 'kill-buffer)
+                                  "k"  'kill-buffer)
                       (evil-commentary-mode)
                       (defun meain/evil-yank-advice (orig-fn beg end &rest args)
                         (pulse-momentary-highlight-region beg end)
@@ -241,14 +311,12 @@
                       (advice-add 'evil-yank :around 'meain/evil-yank-advice))
 (use-package evil-org
             :after org
-            :config
-            (add-hook 'org-mode-hook 'evil-org-mode)
-            (add-hook
-             'evil-org-mode-hook
-             (lambda ()
-               (evil-org-set-key-theme)))
-            (require 'evil-org-agenda)
-            (evil-org-agenda-set-keys))
+	    :hook
+	    (
+	     (org-mode-hook . evil-org-mode)
+	     (evil-org-mode-hook . evil-org-set-key-theme)))
+            ;; (require 'evil-org-agenda)
+            ;; (evil-org-agenda-set-keys))
           ;; (straight-use-package
           ;;   '(target-el :type git :host github :repo "noctuid/targets.el"))
           ;; (targets-setup t
