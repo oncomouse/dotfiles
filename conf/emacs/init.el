@@ -249,14 +249,21 @@
 ; Evil
 (setq evil-want-keybinding nil)
 (use-package evil
+  :bind (:map evil-normal-state-map
+	      ("M-j" . evil-collection-unimpaired-move-text-down)
+	      ("M-k" . evil-collection-unimpaired-move-text-up))
 	     :custom (evil-undo-system 'undo-redo)
 	     :config
 	    (evil-mode 1)
 	    (global-evil-surround-mode 1)
 	    (evil-collection-init)
 	    (global-evil-leader-mode)
-	    (evil-leader/set-leader "<SPC>")
-	    (evil-leader/set-key
+	    (evil-leader/set-leader "<SPC>"))
+(use-package evil-surround)
+(use-package evil-collection)
+(use-package evil-leader
+  :config
+  (evil-leader/set-key
 	      "fr" 'consult-recent-file
 	      "ff" 'consult-projectile-find-file
 	      "fF" 'consult-find
@@ -265,12 +272,11 @@
 	      "oa" 'org-agenda
 	      "oc" 'org-capture
 	      "ol" 'org-store-link
+	      "oo" 'org-open-at-point
+	      "o*" 'org-toggle-heading
 	      "or" 'org-refile
 	      "/"  'projectile-ripgrep
 	      "k"  'kill-buffer))
-(use-package evil-surround)
-(use-package evil-collection)
-(use-package evil-leader)
 (use-package evil-commentary
 	     :config   (evil-commentary-mode))
 (with-eval-after-load 'evil
