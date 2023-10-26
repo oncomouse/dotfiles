@@ -22,6 +22,7 @@
 (ido-mode t)
 (setq ido-everywhere t)
 (setq ido-enable-flex-matching t)
+(fido-mode)
 
 (setq completions-detailed t)
 
@@ -245,14 +246,14 @@
   :after projectile
   )
 
-(package-install 'paredit)
-(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+; (unless (package-installed-p 'paredit(package-install 'paredit)))
+; (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+; (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+; (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+; (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+; (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+; (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 
 ;; So that RefTeX finds my bibliography
 (setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
@@ -342,9 +343,11 @@
           ;;                :remote-key nil)
           ;; https://blog.meain.io/2020/emacs-highlight-yanked/
 
-; (use-package devil)
-; (global-devil-mode)
-; (global-set-key (kbd "C-,") 'global-devil-mode)
+(use-package devil
+  :after evil-org
+  :hook
+  ((evil-insert-state-entry-hook . devil-mode)
+   (evil-insert-state-exit-hook . devil-mode)))
 
 (use-package expand-region
              :bind
