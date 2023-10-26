@@ -243,17 +243,14 @@
             ;; Recommended keymap prefix on Windows/Linux
             (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 (use-package consult-projectile
-  :after projectile
-  )
+  :after projectile)
 
-; (unless (package-installed-p 'paredit(package-install 'paredit)))
-; (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-; (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-; (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-; (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-; (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-; (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+(use-package paredit)
+(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
+(add-hook 'ielm-mode-hook 'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+(add-hook 'lisp-mode-hook 'enable-paredit-mode)
 
 ;; So that RefTeX finds my bibliography
 (setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
@@ -314,26 +311,22 @@
                         (pulse-momentary-highlight-region beg end)
                         (apply orig-fn beg end args))
                       (advice-add 'evil-yank :around 'meain/evil-yank-advice))
-(defun dotfiles/evil-org-agenda ()
-  "set motion state keys for 'org-agenda'"
-  (evil-set-initial-state 'org-agenda-mode 'motion)
-  (evil-define-key 'motion org-agenda-mode-map
-        "j" 'org-agenda-next-line
-    "k" 'org-agenda-previous-line
-    "gj" 'org-agenda-next-item
-    "gk" 'org-agenda-previous-item
-    "gH" 'evil-window-top
-    "gM" 'evil-window-middle
-    "gL" 'evil-window-bottom))
+
 (use-package evil-org
             :after org
-	    :hook
-	    ((org-mode-hook . evil-org-mode)
-	     (evil-org-mode-hook . evil-org-set-key-theme))
+	    :hook (org-mode-hook . (lambda () evil-org-mode))
 	    :config
-	    ((dotfile/evil-org-agenda)))
-            ;; (require 'evil-org-agenda)
-            ;; (evil-org-agenda-set-keys))
+            (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+	    (evil-set-initial-state 'org-agenda-mode 'motion)
+            (evil-define-key 'motion org-agenda-mode-map
+               "j" 'org-agenda-next-line
+	       "k" 'org-agenda-previous-line
+	       "gj" 'org-agenda-next-item
+	       "gk" 'org-agenda-previous-item
+	       "gH" 'evil-window-top
+	       "gM" 'evil-window-middle
+	       "gL" 'evil-window-bottom)
+	    )
           ;; (straight-use-package
           ;;   '(target-el :type git :host github :repo "noctuid/targets.el"))
           ;; (targets-setup t
