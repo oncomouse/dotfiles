@@ -29,6 +29,7 @@
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
 (setq recentf-max-saved-items 25)
+(global-set-key (kbd "C-x C-r") 'recentf) ; Load recent-files
 
 (require 'elpaca)
 
@@ -277,6 +278,7 @@
   (evil-leader/set-key
 	      "fr" 'recentf
 	      "ff" 'projectile-find-file
+	      "fF" 'ido-find-file
 	      "fp" 'projectile-switch-project
 	      "a"  'switch-to-buffer
 	      "oa" 'org-agenda
