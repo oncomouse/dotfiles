@@ -26,7 +26,7 @@
 (setq completions-detailed t)
 
 ;; Show stray whitespace.
-(setq-default show-trailing-whitespace t)
+(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 (setq-default indicate-empty-lines t)
 (setq-default indicate-buffer-boundaries 'left)
 
@@ -232,7 +232,7 @@
     (apply orig-fn beg end args))
   (advice-add 'evil-yank :around 'meain/evil-yank-advice))
 ;; Enable embark-act instead of evil-repeat-op
-(with-eval-after-load 'evil-map
+(with-eval-after-load 'evil-maps
   (evil-define-key 'normal 'global (kbd "C-.") 'embark-act))
 
 (use-package evil-surround
