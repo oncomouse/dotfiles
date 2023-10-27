@@ -297,14 +297,19 @@
 	     (evil-want-C-u-scroll t)
 	     :config
 	    (evil-mode 1)
-	    (global-evil-surround-mode 1)
-	    (evil-collection-init)
-	    (global-evil-leader-mode)
-	    (evil-leader/set-leader "<SPC>"))
-(use-package evil-surround)
-(use-package evil-collection)
+	    (with-eval-after-load 'evil-maps ; avoid conflict with company tooltip selection
+		(define-key evil-insert-state-map (kbd "C-n") nil)
+		(define-key evil-insert-state-map (kbd "C-p") nil)))
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1))
+(use-package evil-collection
+  :config
+  (evil-collection-init))
 (use-package evil-leader
   :config
+  (global-evil-leader-mode)
+  (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
 	      "fr" 'consult-recent-file
 	      "ff" 'consult-projectile-find-file
