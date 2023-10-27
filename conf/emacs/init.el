@@ -8,10 +8,14 @@
 	  user-mail-address "apilsch@tamu.edu")
 
 ;; Line numbers + relative line numbers
-(display-line-numbers-mode)
-(setq display-line-numbers 'relative)
 (setq display-line-numbers-type 'relative)
-(setq global-linum-mode t)
+;; Disable for the following modes
+(dolist (mode '(term-mode-hook
+		vterm-mode-hook
+		shell-mode-hook
+		treemacs-mode-hook
+		eshell-mode-hook))
+    (add-hook mode (lambda() (display-line-numbers-mode 0))))
 
 ; https://stackoverflow.com/questions/29934968/how-to-remove-the-temporary-files-starting-and-ending-with-created-by-emacs
 (setq backup-directory-alist
@@ -31,10 +35,6 @@
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
 (setq recentf-max-saved-items 25)
-
-;; Line numbers + relative line numbers
-(display-line-numbers-mode)
-(setq display-line-numbers 'relative)
 
 (require 'elpaca)
 
@@ -330,6 +330,10 @@
 			 ("C-=" . 'er/expand-region))
 
 (use-package magit)
+
+(use-package vterm
+  :config
+  (evil-collection-vterm-setup))
 
 (provide 'init)
 (custom-set-variables
