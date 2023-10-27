@@ -149,19 +149,19 @@
   ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
 
   :config
-
+  (setq embark-indicators '(embark-minimal-indicator))
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
-			   '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-				 nil
-				 (window-parameters (mode-line-format . none)))))
+	       '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+		 nil
+		 (window-parameters (mode-line-format . none)))))
 
 
 (use-package projectile
-			 :config
-			(projectile-mode +1)
-			;; Recommended keymap prefix on macOS
-			(when *is-a-mac* (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map))
+  :config
+  (projectile-mode +1)
+  ;; Recommended keymap prefix on macOS
+  (when *is-a-mac* (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map))
 			;; Recommended keymap prefix on Windows/Linux
 			(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
@@ -177,53 +177,6 @@
 	     (global-company-mode t))
 (use-package company-box
   :hook (company-mode . company-box-mode))
-
-(use-package lispy
-  :hook ((lisp-mode . lispy-mode)
-         (emacs-lisp-mode . lispy-mode)
-         (ielm-mode . lispy-mode)
-         (scheme-mode . lispy-mode)
-         (racket-mode . lispy-mode)
-         (hy-mode . lispy-mode)
-         (lfe-mode . lispy-mode)
-         (dune-mode . lispy-mode)
-         (clojure-mode . lispy-mode)
-         (fennel-mode . lispy-mode))
-  :init
-  (add-hook 'eval-expression-minibuffer-setup-hook
-    (lambda ()
-      "Enable `lispy-mode' in the minibuffer for `eval-expression'."
-      (lispy-mode)
-      ;; When `lispy-key-theme' has `parinfer', the TAB key doesn't do
-      ;; completion, neither (kbd "<tab>"/"TAB"/"C-i")/[tab]/"\C-i" works in
-      ;; terminal as tested so remapping is used as a workaround
-      (local-set-key (vector 'remap (lookup-key lispy-mode-map (kbd "TAB"))) #'completion-at-point)))
-  :config
-  (setq lispy-close-quotes-at-end-p t))
-
-  ;; (setq lispy-outline
-  ;;         (concat
-  ;;          ;; `lispy-mode' requires `lispy-outline' start with ^
-  ;;          (unless (string-prefix-p "^" +emacs-lisp-outline-regexp) "^")
-  ;;          +emacs-lisp-outline-regexp))
-  ;;   (advice-add #'lispy-outline-level :override #'+emacs-lisp-outline-level))
-(use-package lispyville
-  :after evil
-  :hook (lispy-mode . lispyville-mode)
-  :init
-  (setq lispyville-key-theme
-        '((operators normal)
-          c-w
-          (prettify insert)
-          (atom-movement t)
-          slurp/barf-lispy
-          additional
-          additional-insert))
-  :config
-  (lispyville-set-key-theme)
-  (add-hook 'evil-escape-inhibit-functions
-    (lambda ()
-      (and lispy-mode (evil-insert-state-p)))))
 
 ;; So that RefTeX finds my bibliography
 (setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
@@ -357,8 +310,10 @@
   (dtrt-indent-global-mode)
   (push '(t tab-width) dtrt-indent-hook-generic-mapping-list))
 
+;; Flyspell
 (dolist (hook '(text-mode-hook markdown-mode-hook org-mode-hook))
-      (add-hook hook (lambda () (flyspell-mode 1))))
+  (add-hook hook (lambda () (flyspell-mode 1)))
+  (add-hook hook 'turn-on-visual-line-mode))
 
 (provide 'init)
 (custom-set-variables
