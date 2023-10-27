@@ -228,14 +228,14 @@
 ;; So that RefTeX finds my bibliography
 (setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
 (eval-after-load 'reftex-vars
-  '(progn 
-	 (setq reftex-cite-format '((?\C-m . "[@%l]")))))
+  '(progn
+     (setq reftex-cite-format '((?\C-m . "[@%l]")))))
 (add-hook 'markdown-mode-hook
 	  (lambda () (define-key markdown-mode-map "\C-c["
-				   (lambda ()
-					 (interactive)
-					 (let ((reftex-cite-format "[@%l]"))
-					   (reftex-citation))))))
+				 (lambda ()
+				   (interactive)
+				   (let ((reftex-cite-format "[@%l]"))
+				     (reftex-citation))))))
 
 (use-package markdown-mode)
 
@@ -245,14 +245,14 @@
 (global-set-key (kbd "C-c c") #'org-capture)
 (setq org-directory (concat dotfiles-seadrive-path "/Todo/org"))
 (setq org-agenda-files (list
-						(concat dotfiles-seadrive-path "/Todo/todo.org")
-						(concat dotfiles-seadrive-path "/Todo/inbox.org")
-						(concat dotfiles-seadrive-path "/Todo/org")))
+			(concat dotfiles-seadrive-path "/Todo/todo.org")
+			(concat dotfiles-seadrive-path "/Todo/inbox.org")
+			(concat dotfiles-seadrive-path "/Todo/org")))
 (setq org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org"))
 (setq org-indent-mode "noindent")
 (setq org-refile-targets
-	  '((nil :maxlevel . 2)
-		(org-agenda-files :maxlevel . 2)))
+      '((nil :maxlevel . 2)
+	(org-agenda-files :maxlevel . 2)))
 
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 
@@ -267,15 +267,17 @@
 	    (evil-want-C-u-scroll t)
 	    :config
 	    (evil-mode 1)
+	    (evil-define-key 'normal 'global "ESC" 'keyboard-quit)
 	    (with-eval-after-load 'evil-maps ; avoid conflict with company tooltip selection
 		(define-key evil-insert-state-map (kbd "C-n") nil)
-		(define-key evil-insert-state-map (kbd "C-p") nil))
-	    ;; https://blog.meain.io/2020/emacs-highlight-yanked/
-	    (with-eval-after-load 'evil
-		(defun meain/evil-yank-advice (orig-fn beg end &rest args)
-		    (pulse-momentary-highlight-region beg end)
-		    (apply orig-fn beg end args))
-		    (advice-add 'evil-yank :around 'meain/evil-yank-advice)))
+		(define-key evil-insert-state-map (kbd "C-p") nil)))
+
+;; https://blog.meain.io/2020/emacs-highlight-yanked/
+(with-eval-after-load 'evil
+  (defun meain/evil-yank-advice (orig-fn beg end &rest args)
+    (pulse-momentary-highlight-region beg end)
+    (apply orig-fn beg end args))
+  (advice-add 'evil-yank :around 'meain/evil-yank-advice))
 (use-package evil-surround
   :config
   (global-evil-surround-mode 1))
