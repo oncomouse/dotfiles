@@ -382,7 +382,8 @@
   (dtrt-indent-max-lines 2000)
   (dtrt-indent-run-after-smie t)
   :config
-  (dtrt-indent-global-mode))
+  (dtrt-indent-global-mode)
+  (push '(t tab-width) dtrt-indent-hook-generic-mapping-list))
 
 (provide 'init)
 (custom-set-variables
