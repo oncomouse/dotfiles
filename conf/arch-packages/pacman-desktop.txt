@@ -19,6 +19,8 @@ gtk-engine-murrine
 gvfs
 hsetroot
 htmlhint
+hunspell
+hunspell-en_us
 libnotify
 libsecret
 libxres
