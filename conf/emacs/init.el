@@ -3,7 +3,7 @@
 
 (setq dotfiles-seadrive-path (cond (*is-a-mac* "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries") (t "~/SeaDrive/My Libraries")))
 
-; Whoami
+;; Whoami
 (setq user-full-name "Andrew Pilsch"
 	  user-mail-address "apilsch@tamu.edu")
 
@@ -208,12 +208,52 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-(use-package paredit)
-(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
-(add-hook 'ielm-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
-(add-hook 'lisp-mode-hook 'enable-paredit-mode)
+(use-package lispy
+  :hook ((lisp-mode . lispy-mode)
+         (emacs-lisp-mode . lispy-mode)
+         (ielm-mode . lispy-mode)
+         (scheme-mode . lispy-mode)
+         (racket-mode . lispy-mode)
+         (hy-mode . lispy-mode)
+         (lfe-mode . lispy-mode)
+         (dune-mode . lispy-mode)
+         (clojure-mode . lispy-mode)
+         (fennel-mode . lispy-mode))
+  :init
+  (add-hook 'eval-expression-minibuffer-setup-hook
+    (lambda ()
+      "Enable `lispy-mode' in the minibuffer for `eval-expression'."
+      (lispy-mode)
+      ;; When `lispy-key-theme' has `parinfer', the TAB key doesn't do
+      ;; completion, neither (kbd "<tab>"/"TAB"/"C-i")/[tab]/"\C-i" works in
+      ;; terminal as tested so remapping is used as a workaround
+      (local-set-key (vector 'remap (lookup-key lispy-mode-map (kbd "TAB"))) #'completion-at-point)))
+  :config
+  (setq lispy-close-quotes-at-end-p t))
+
+  ;; (setq lispy-outline
+  ;;         (concat
+  ;;          ;; `lispy-mode' requires `lispy-outline' start with ^
+  ;;          (unless (string-prefix-p "^" +emacs-lisp-outline-regexp) "^")
+  ;;          +emacs-lisp-outline-regexp))
+  ;;   (advice-add #'lispy-outline-level :override #'+emacs-lisp-outline-level))
+(use-package lispyville
+  :after evil
+  :hook (lispy-mode . lispyville-mode)
+  :init
+  (setq lispyville-key-theme
+        '((operators normal)
+          c-w
+          (prettify insert)
+          (atom-movement t)
+          slurp/barf-lispy
+          additional
+          additional-insert))
+  :config
+  (lispyville-set-key-theme)
+  (add-hook 'evil-escape-inhibit-functions
+    (lambda ()
+      (and lispy-mode (evil-insert-state-p)))))
 
 ;; So that RefTeX finds my bibliography
 (setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
@@ -347,8 +387,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(global-display-line-numbers-mode t)
- '(package-selected-packages '(paredit)))
+ '(global-display-line-numbers-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
