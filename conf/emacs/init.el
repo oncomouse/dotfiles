@@ -23,12 +23,6 @@
 (setq auto-save-file-name-transforms
 	  `((".*" ,temporary-file-directory t)))
 
-; Set ido to use fuzzy matching
-(ido-mode t)
-(setq ido-everywhere t)
-(setq ido-enable-flex-matching t)
-(fido-mode)
-
 (setq completions-detailed t)
 
 ;; Recent Files
@@ -72,23 +66,23 @@
   (add-to-list 'default-frame-alist no-border)
   (add-to-list 'initial-frame-alist no-border))
 
-;; Enable vertico
-(use-package vertico
-  :init
-  (vertico-mode)
+(use-package ido
+  :elpaca nil
+  :config
+  (ido-mode +1)
+  (fido-mode)
+  (setq ido-everywhere t
+	ido-enable-flex-matching t))
 
-  ;; Different scroll margin
-  ;; (setq vertico-scroll-margin 0)
+(use-package ido-vertical-mode
+  :config
+  (ido-vertical-mode +1)
+  (setq ido-vertical-define-keys 'C-n-C-p-up-and-down))
 
-  ;; Show more candidates
-  (setq vertico-count 20)
+(use-package ido-completing-read+
+  :config (ido-ubiquitous-mode +1))
 
-  ;; Grow and shrink the Vertico minibuffer
-  ;; (setq vertico-resize t)
-
-  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-  (setq vertico-cycle t)
-  )
+(use-package flx-ido :config (flx-ido-mode +1))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
@@ -123,35 +117,6 @@
 
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t))
-;; Optionally use the `orderless' completion style.
-(use-package orderless
-  :init
-   ;; Configure a custom style dispatcher (see the Consult wiki)
-   ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
-   ;;       orderless-component-separator #'orderless-escapable-split-on-space)
-  (setq completion-styles '(orderless basic)
-		completion-category-defaults nil
-		completion-category-overrides '((file (styles partial-completion)))))
-(use-package marginalia
-  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
-  ;; available in the *Completions* buffer, add it to the
-  ;; `completion-list-mode-map'.
-  :bind (:map minibuffer-local-map
-	      ("M-A" . marginalia-cycle))
-
-  ;; The :init section is always executed.
-  :init
-
-  ;; Marginalia must be activated in the :init section of use-package such that
-  ;; the mode gets enabled right away. Note that this forces loading the
-  ;; package.
-  (marginalia-mode))
-
-(use-package consult
-  :bind
-  (("C-x b" . 'consult-buffer)
-   ("C-x C-r" . 'consult-recent-file))
-  )
 
 (use-package embark
   :ensure t
@@ -179,11 +144,6 @@
 				 nil
 				 (window-parameters (mode-line-format . none)))))
 
-;; Consult users will also want the embark-consult package.
-(use-package embark-consult
-  :ensure t ; only need to install it, embark loads it after consult if found
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package projectile
 			 :config
@@ -192,8 +152,6 @@
 			(when *is-a-mac* (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map))
 			;; Recommended keymap prefix on Windows/Linux
 			(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
-(use-package consult-projectile
-  :after projectile)
 
 ;; Company for completion (works like omnifunc in vim)
 (use-package company
@@ -317,11 +275,10 @@
   (global-evil-leader-mode)
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
-	      "fr" 'consult-recent-file
-	      "ff" 'consult-projectile-find-file
-	      "fF" 'consult-find
-	      "fp" 'consult-projectile-switch-project
-	      "a"  'consult-buffer
+	      "fr" 'recentf
+	      "ff" 'projectile-find-file
+	      "fp" 'projectile-switch-project
+	      "a"  'switch-to-buffer
 	      "oa" 'org-agenda
 	      "oc" 'org-capture
 	      "ol" 'org-store-link
