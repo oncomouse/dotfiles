@@ -252,7 +252,9 @@
   :bind (:map evil-normal-state-map
 	      ("M-j" . evil-collection-unimpaired-move-text-down)
 	      ("M-k" . evil-collection-unimpaired-move-text-up))
-	     :custom (evil-undo-system 'undo-redo)
+	     :custom
+	     (evil-undo-system 'undo-redo)
+	     (evil-want-C-u-scroll t)
 	     :config
 	    (evil-mode 1)
 	    (global-evil-surround-mode 1)
