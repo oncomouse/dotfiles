@@ -337,6 +337,10 @@
   :config
   (evil-collection-vterm-setup))
 
+(use-package dtrt-indent
+  :config
+  (dtrt-indent-global-mode))
+
 (provide 'init)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
