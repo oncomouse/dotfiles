@@ -378,6 +378,9 @@
   (evil-collection-vterm-setup))
 
 (use-package dtrt-indent
+  :custom
+  (dtrt-indent-max-lines 2000)
+  (dtrt-indent-run-after-smie t)
   :config
   (dtrt-indent-global-mode))
 
