@@ -317,7 +317,7 @@
 
 (use-package evil-org
 		:after org
-		:hook (org-mode . (lambda () evil-org-mode))
+		:hook (org-mode . evil-org-mode)
 		:bind (:map org-agenda-mode-map
 			    ("q" . org-agenda-exit))
 		:config
@@ -356,6 +356,9 @@
   :config
   (dtrt-indent-global-mode)
   (push '(t tab-width) dtrt-indent-hook-generic-mapping-list))
+
+(dolist (hook '(text-mode-hook markdown-mode-hook org-mode-hook))
+      (add-hook hook (lambda () (flyspell-mode 1))))
 
 (provide 'init)
 (custom-set-variables
