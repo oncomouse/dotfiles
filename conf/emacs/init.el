@@ -350,3 +350,11 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; TODO
+;; Lsp
+;; Treesitter
+;; Formatting
+;; Linting
+;; lexima
+;; mini.surround custom targets
+;; statusline
