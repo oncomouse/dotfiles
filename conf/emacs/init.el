@@ -149,7 +149,7 @@
   ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
 
   :config
-  (setq embark-indicators '(embark-minimal-indicator))
+
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
 	       '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
@@ -231,6 +231,10 @@
     (pulse-momentary-highlight-region beg end)
     (apply orig-fn beg end args))
   (advice-add 'evil-yank :around 'meain/evil-yank-advice))
+;; Enable embark-act instead of evil-repeat-op
+(with-eval-after-load 'evil-map
+  (evil-define-key 'normal 'global (kbd "C-.") 'embark-act))
+
 (use-package evil-surround
   :config
   (global-evil-surround-mode 1))
