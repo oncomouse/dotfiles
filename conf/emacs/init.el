@@ -346,6 +346,8 @@
 (use-package evil-org
 		:after org
 		:hook (org-mode . (lambda () evil-org-mode))
+		:bind (:map org-agenda-mode-map
+			    ("q" . org-agenda-exit))
 		:config
 		(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
 		; (evil-set-initial-state 'org-agenda-mode 'motion)
@@ -358,13 +360,6 @@
 		;    "gM" 'evil-window-middle
 		;    "gL" 'evil-window-bottom)
 		)
-		  ;; (straight-use-package
-		  ;;   '(target-el :type git :host github :repo "noctuid/targets.el"))
-		  ;; (targets-setup t
-		  ;;                :last-key 'N
-		  ;;                :inside-key nil
-		  ;;                :around-key nil
-		  ;;                :remote-key nil)
 
 (use-package devil
   :after evil
