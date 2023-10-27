@@ -292,14 +292,19 @@
   :bind (:map evil-normal-state-map
 	      ("M-j" . evil-collection-unimpaired-move-text-down)
 	      ("M-k" . evil-collection-unimpaired-move-text-up))
-	     :custom
-	     (evil-undo-system 'undo-redo)
-	     (evil-want-C-u-scroll t)
-	     :config
+	    :custom
+	    (evil-undo-system 'undo-redo)
+	    (evil-want-C-u-scroll t)
+	    :config
 	    (evil-mode 1)
 	    (with-eval-after-load 'evil-maps ; avoid conflict with company tooltip selection
 		(define-key evil-insert-state-map (kbd "C-n") nil)
-		(define-key evil-insert-state-map (kbd "C-p") nil)))
+		(define-key evil-insert-state-map (kbd "C-p") nil))
+	    (with-eval-after-load 'evil
+		(defun meain/evil-yank-advice (orig-fn beg end &rest args)
+		    (pulse-momentary-highlight-region beg end)
+		    (apply orig-fn beg end args))
+		    (advice-add 'evil-yank :around 'meain/evil-yank-advice)))
 (use-package evil-surround
   :config
   (global-evil-surround-mode 1))
@@ -326,11 +331,6 @@
 	      "k"  'kill-buffer))
 (use-package evil-commentary
 	     :config   (evil-commentary-mode))
-(with-eval-after-load 'evil
-  (defun meain/evil-yank-advice (orig-fn beg end &rest args)
-    (pulse-momentary-highlight-region beg end)
-    (apply orig-fn beg end args))
-    (advice-add 'evil-yank :around 'meain/evil-yank-advice))
 (use-package evil-numbers
   :bind (:map evil-normal-state-map
 	      ("C-c C-A" . evil-numbers/inc-at-pt)
