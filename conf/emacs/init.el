@@ -218,9 +218,6 @@
   (evil-mode 1)
   (evil-define-key 'normal 'global "ESC" 'keyboard-quit))
 
-(with-eval-after-load 'evil-maps ; avoid conflict with company tooltip selection
-    (define-key evil-insert-state-map (kbd "C-n") nil)
-    (define-key evil-insert-state-map (kbd "C-p") nil))
 ;; https://blog.meain.io/2020/emacs-highlight-yanked/
 (with-eval-after-load 'evil
   (defun meain/evil-yank-advice (orig-fn beg end &rest args)
