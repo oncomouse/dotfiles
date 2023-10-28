@@ -204,14 +204,12 @@
 (setq org-directory (concat dotfiles-seadrive-path "/Todo/org"))
 (setq org-agenda-files (list
       (concat dotfiles-seadrive-path "/Todo/todo.org")
-      (concat dotfiles-seadrive-path "/Todo/inbox.org")
-      (concat dotfiles-seadrive-path "/Todo/org")))
+      (concat dotfiles-seadrive-path "/Todo/inbox.org")))
 (setq org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org"))
 (setq org-indent-mode "noindent")
 (setq org-refile-targets
       '((nil :maxlevel . 2)
   (org-agenda-files :maxlevel . 2)))
-
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 
 ; Evil
