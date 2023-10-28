@@ -38,7 +38,7 @@
   :config
   (general-define-key
    :keymaps '(completion-list-mode-map minibuffer-local-map)
-   "M-a" marginalia-cycle)
+   "M-a" 'marginalia-cycle))
 
 (use-package consult
   :config

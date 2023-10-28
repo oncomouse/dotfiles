@@ -84,8 +84,23 @@
   (add-to-list 'default-frame-alist no-border)
   (add-to-list 'initial-frame-alist no-border))
 
-(require 'init-ido)
-; (require 'init-consult)
+(require 'init-icomplete)
+;; (require 'init-ido)
+;; (require 'init-consult)
+
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless basic)
+		completion-category-defaults nil
+		completion-category-overrides '((file (styles partial-completion)))))
+
+(use-package marginalia
+  :init
+  (marginalia-mode)
+  :config
+  (general-define-key
+   :keymaps '(completion-list-mode-map minibuffer-local-map)
+   "M-a" 'marginalia-cycle))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
