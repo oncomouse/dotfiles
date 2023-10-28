@@ -127,12 +127,6 @@
   (setq minibuffer-prompt-properties
     '(read-only t cursor-intangible t face minibuffer-prompt))
   (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-
-  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
-  ;; Vertico commands are hidden in normal buffers.
-  ;; (setq read-extended-command-predicate
-  ;;       #'command-completion-default-include-p)
-
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t))
 
@@ -167,20 +161,21 @@
       ;; Recommended keymap prefix on Windows/Linux
       (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
-;; Company for completion (works like omnifunc in vim)
-(use-package company
-       :config
-       (setq company-idle-delay nil)
-       (global-company-mode t)
-       (general-define-key
-        :keymaps 'company-active-map
-        "RET" nil
-        "C-y" 'company-complete-selection)
-       (general-define-key
-        :states 'insert
-        "C-x C-o" 'company-complete))
-(use-package company-box
-  :hook (company-mode . company-box-mode))
+;; ;; Company for completion (works like omnifunc in vim)
+;; (use-package company
+;;        :config
+;;        (setq company-idle-delay nil)
+;;        (global-company-mode t)
+;;        (general-define-key
+;;         :keymaps 'company-active-map
+;;         "RET" nil
+;;         "C-y" 'company-complete-selection)
+;;        (general-define-key
+;;         :states 'insert
+;;         "C-x C-o" 'company-complete))
+;; (use-package company-box
+;;   :hook (company-mode . company-box-mode))
+
 ;; So that RefTeX finds my bibliography
 (setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
 (eval-after-load 'reftex-vars
@@ -192,6 +187,23 @@
            (interactive)
            (let ((reftex-cite-format "[@%l]"))
              (reftex-citation))))))
+
+(use-package corfu
+  :custom
+  (corfu-cycle t)
+  (corfu-separator ?\s)
+  :init
+  (global-corfu-mode)
+  :config
+  (require 'corfu-popupinfo)
+  (corfu-popupinfo-mode)
+  (general-define-key
+   :states 'insert
+   "C-x C-o" 'completion-at-point)
+  (general-define-key
+   :keymaps 'corfu-map
+   "C-y" 'corfu-insert
+   "C-c" 'corfu-quit))
 
 (use-package markdown-mode)
 
