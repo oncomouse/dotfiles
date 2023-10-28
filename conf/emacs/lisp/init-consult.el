@@ -53,4 +53,4 @@
 (use-package consult-projectile
   :after projectile)
 
-(provide 'consult)
+(provide 'init-consult)
