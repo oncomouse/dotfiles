@@ -11,7 +11,6 @@ return {
 		org_agenda_files = {
 			org_path .. "/todo.org",
 			org_path .. "/inbox.org",
-			org_path .. "/org/*.org",
 		},
 		org_default_notes_file = org_path .. "/inbox.org",
 		org_indent_mode = "noindent",
