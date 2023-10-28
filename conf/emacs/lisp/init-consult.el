@@ -28,22 +28,23 @@
   ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
   ;; available in the *Completions* buffer, add it to the
   ;; `completion-list-mode-map'.
-  :bind (:map minibuffer-local-map
-	      ("M-A" . marginalia-cycle))
-
   ;; The :init section is always executed.
   :init
 
   ;; Marginalia must be activated in the :init section of use-package such that
   ;; the mode gets enabled right away. Note that this forces loading the
   ;; package.
-  (marginalia-mode))
+  (marginalia-mode)
+  :config
+  (general-define-key
+   :keymaps '(completion-list-mode-map minibuffer-local-map)
+   "M-a" marginalia-cycle)
 
 (use-package consult
-  :bind
-  (("C-x b" . 'consult-buffer)
-   ("C-x C-r" . 'consult-recent-file))
-  )
+  :config
+  (general-define-key
+   "C-x b" 'consult-buffer
+   "C-x C-r" 'consult-recent-file))
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
@@ -52,5 +53,12 @@
   (embark-collect-mode . consult-preview-at-point-mode))
 (use-package consult-projectile
   :after projectile)
+
+(defun ap/find-file ()
+  (interactive)
+  (call-interactively 'consult-find-file))
+(defun ap/find-recent-file ()
+  (interactive)
+  (call-interactively 'consult-recent-file))
 
 (provide 'init-consult)

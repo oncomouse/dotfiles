@@ -86,12 +86,6 @@
 
 (require 'init-ido)
 ; (require 'init-consult)
-(defun ap/find-file ()
-  (interactive)
-  (call-interactively 'ido-find-file))
-(defun ap/find-recent-file ()
-  (interactive)
-  (call-interactively 'recentf))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist

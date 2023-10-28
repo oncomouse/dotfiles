@@ -16,4 +16,11 @@
 
 (use-package flx-ido :config (flx-ido-mode +1))
 
+(defun ap/find-file ()
+  (interactive)
+  (call-interactively 'ido-find-file))
+(defun ap/find-recent-file ()
+  (interactive)
+  (call-interactively 'recentf))
+
 (provide 'init-ido)
