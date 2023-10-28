@@ -44,6 +44,12 @@
 
 (require 'elpaca)
 
+(use-package general
+  :demand t
+  :config
+  (general-evil-setup))
+(elpaca-wait)
+
 ; Fonts
 (add-to-list 'default-frame-alist
        '(font . "FiraCode Nerd Font-18"))
@@ -133,23 +139,19 @@
 (use-package embark
   :ensure t
 
-  :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-
   :init
-
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
-
   ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
   ;; strategy, if you want to see the documentation from multiple providers.
   (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
   ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
 
   :config
-
+  (general-define-key
+   "C-." 'embark-act
+   "C-;" 'embark-dwim
+   "C-h B" 'embark-bindings)
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
          '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
@@ -167,16 +169,18 @@
 
 ;; Company for completion (works like omnifunc in vim)
 (use-package company
-       :bind (:map company-active-map
-       ("RET" . nil)
-       ("C-y" . company-complete-selection))
        :config
        (setq company-idle-delay nil)
-       (global-company-mode t))
+       (global-company-mode t)
+       (general-define-key
+        :keymaps 'company-active-map
+        "RET" nil
+        "C-y" 'company-complete-selection)
+       (general-define-key
+        :states 'insert
+        "C-x C-o" 'company-complete))
 (use-package company-box
   :hook (company-mode . company-box-mode))
-(with-eval-after-load 'evil
-         (evil-define-key 'insert 'global (kbd "C-x C-o") 'company-complete))
 ;; So that RefTeX finds my bibliography
 (setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
 (eval-after-load 'reftex-vars
@@ -192,9 +196,11 @@
 (use-package markdown-mode)
 
 ; Org
-(global-set-key (kbd "C-c l") #'org-store-link)
-(global-set-key (kbd "C-c a") #'org-agenda)
-(global-set-key (kbd "C-c c") #'org-capture)
+(general-define-key
+ :prefix "C-c"
+ "a" 'org-agenda
+ "c" 'org-capture
+ "l" 'org-store-link)
 (setq org-directory (concat dotfiles-seadrive-path "/Todo/org"))
 (setq org-agenda-files (list
       (concat dotfiles-seadrive-path "/Todo/todo.org")
@@ -216,7 +222,22 @@
   (evil-want-C-u-scroll t)
   :config
   (evil-mode 1)
-  (evil-define-key 'normal 'global "ESC" 'keyboard-quit))
+  (general-define-key
+   :states 'normal
+   :prefix "SPC"
+   "fr" 'recentf
+   "ff" 'projectile-find-file
+   "fF" 'ido-find-file
+   "fp" 'projectile-switch-project
+   "a"  'switch-to-buffer
+   "oa" 'org-agenda
+   "oc" 'org-capture
+   "ol" 'org-store-link
+   "oo" 'org-open-at-point
+   "o*" 'org-toggle-heading
+   "or" 'org-refile
+   "/"  'projectile-ripgrep
+   "k"  'kill-buffer))
 
 ;; https://blog.meain.io/2020/emacs-highlight-yanked/
 (with-eval-after-load 'evil
@@ -226,53 +247,45 @@
   (advice-add 'evil-yank :around 'meain/evil-yank-advice))
 ;; Enable embark-act instead of evil-repeat-op
 (with-eval-after-load 'evil-maps
-  (evil-define-key 'normal 'global (kbd "C-.") 'embark-act))
+  (general-define-key
+   :states 'normal
+   "C-." 'embark-act))
+;; Evil bindings for elpaca-ui:
+(with-eval-after-load 'evil
+  (with-eval-after-load 'elpaca-ui   (evil-make-intercept-map elpaca-ui-mode-map))
+  (with-eval-after-load 'elpaca-info (evil-make-intercept-map elpaca-info-mode-map)))
+
 
 (use-package evil-surround
   :config
   (global-evil-surround-mode 1))
 (use-package evil-collection
   :config
-  (evil-define-key 'normal 'global (kbd "M-j") 'evil-collection-unimpaired-move-text-down)
-  (evil-define-key 'normal 'global (kbd "M-k") 'evil-collection-unimpaired-move-text-up)
+  (general-define-key
+   :states 'normal
+   "M-j" 'evil-collection-unimpaired-move-text-down
+   "M-k" 'evil-collection-unimpaired-move-text-up)
   (evil-collection-init))
-(use-package evil-leader
-  :config
-  (global-evil-leader-mode)
-  (evil-leader/set-leader "<SPC>")
-  (evil-leader/set-key
-        "fr" 'recentf
-        "ff" 'projectile-find-file
-        "fF" 'ido-find-file
-        "fp" 'projectile-switch-project
-        "a"  'switch-to-buffer
-        "oa" 'org-agenda
-        "oc" 'org-capture
-        "ol" 'org-store-link
-        "oo" 'org-open-at-point
-        "o*" 'org-toggle-heading
-        "or" 'org-refile
-        "/"  'projectile-ripgrep
-        "k"  'kill-buffer))
 (use-package evil-commentary
        :config   (evil-commentary-mode))
 (use-package evil-numbers
-  :bind (:map evil-normal-state-map
-        ("C-c C-A" . evil-numbers/inc-at-pt)
-        ("C-c C-X" . evil-numbers/dec-at-pt)
-   :map evil-visual-state-map
-        ("C-c C-A" . evil-numbers/inc-at-pt)
-        ("C-c C-X" . evil-numbers/dec-at-pt)
-        ("g C-A" . evil-numbers/inc-at-pt-incremental)
-        ("g C-X" . evil-numbers/dec-at-pt-incremental)
-   ))
+  :config
+  (general-define-key
+   :states '(normal visual)
+        "C-c C-A" 'evil-numbers/inc-at-pt
+        "C-c C-X" 'evil-numbers/dec-at-pt)
+  (general-define-key
+   :states 'visual
+   "g C-A" 'evil-numbers/inc-at-pt-incremental
+   "g C-X" 'evil-numbers/dec-at-pt-incremental))
 
 (use-package evil-org
     :after org
     :hook (org-mode . evil-org-mode)
-    :bind (:map org-agenda-mode-map
-          ("q" . org-agenda-exit))
     :config
+    (general-define-key
+     :keymaps 'org-agenda-mode-map
+     "q" 'org-agenda-exit)
     (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
     ; (evil-set-initial-state 'org-agenda-mode 'motion)
     ;   (evil-define-key 'motion org-agenda-mode-map
