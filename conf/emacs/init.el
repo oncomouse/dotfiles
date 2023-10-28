@@ -278,23 +278,19 @@
    "g C-X" 'evil-numbers/dec-at-pt-incremental))
 
 (use-package evil-org
-    :after org
-    :hook (org-mode . evil-org-mode)
-    :config
-    (general-define-key
-     :keymaps 'org-agenda-mode-map
-     "q" 'org-agenda-exit)
-    (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-    ; (evil-set-initial-state 'org-agenda-mode 'motion)
-    ;   (evil-define-key 'motion org-agenda-mode-map
-    ;      "j" 'org-agenda-next-line
-    ;    "k" 'org-agenda-previous-line
-    ;    "gj" 'org-agenda-next-item
-    ;    "gk" 'org-agenda-previous-item
-    ;    "gH" 'evil-window-top
-    ;    "gM" 'evil-window-middle
-    ;    "gL" 'evil-window-bottom)
-    )
+  :ensure t
+  :after org
+  :hook (org-mode . evil-org-mode)
+  :config
+  (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys)
+  (general-define-key
+   :keymaps 'org-agenda-mode-map
+   :states 'motion
+     "q" 'org-agenda-exit
+     "f" 'org-agenda-later
+     "b" 'org-agenda-earlier))
 
 (use-package devil
   :after evil
