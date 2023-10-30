@@ -36,13 +36,6 @@
 ;; Consider a period followed by a single space to be end of sentence.
 (setq sentence-end-double-space nil)
 
-;; Recent Files
-(recentf-mode 1)
-(setq recentf-max-menu-items 25)
-(setq recentf-max-saved-items 25)
-(general-define-key
- "C-x C-r" 'recentf)
-
 (require 'elpaca)
 
 (use-package general
@@ -50,6 +43,13 @@
   :config
   (general-evil-setup))
 (elpaca-wait)
+
+;; Recent Files
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(setq recentf-max-saved-items 25)
+(general-define-key
+ "C-x C-r" 'recentf)
 
 ; Fonts
 (add-to-list 'default-frame-alist
