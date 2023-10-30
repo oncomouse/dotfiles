@@ -99,6 +99,13 @@
   :init
   (marginalia-mode)
   :config
+  (setq marginalia-command-categories
+        (append '((projectile-find-file . project-file)
+                  (projectile-find-dir . project-file)
+                  (projectile-switch-project . file)
+                  (projectile-recentf . project-file)
+                  (projectile-switch-to-buffer . buffer))
+                marginalia-command-categories))
   (general-define-key
    :keymaps '(completion-list-mode-map minibuffer-local-map)
    "M-a" 'marginalia-cycle))
