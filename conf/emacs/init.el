@@ -226,11 +226,19 @@
 
 (require 'init-evil)
 
-(use-package devil
-  :after evil
-  :hook
-   ((evil-insert-state-entry . devil-mode)
-   (evil-insert-state-exit . devil-mode)))
+;; (use-package devil
+;;   :after evil
+;;   :hook
+;;    ((evil-insert-state-entry . devil-mode)
+;;    (evil-insert-state-exit . devil-mode)))
+
+;; (use-package highlight-indent-guides
+;;   :hook (prog-mode . highlight-indent-guides-mode)
+;;   :custom
+;;   (highlight-indent-guides-responsive 'top)
+;;   (highlight-indent-guides-method 'character)
+;;   (highlight-indent-guides-auto-character-face-perc 75)
+;;   (highlight-indent-guides-auto-top-character-face-perc 80))
 
 (use-package expand-region
        :bind
