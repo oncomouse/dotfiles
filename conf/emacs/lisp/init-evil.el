@@ -6,6 +6,7 @@
   (evil-want-C-u-scroll t)
   :config
   (evil-mode 1)
+  ;; Use general to define our evil-leader
   (general-define-key
    :states 'normal
    :prefix "SPC"
@@ -21,7 +22,10 @@
    "o*" 'org-toggle-heading
    "or" 'org-refile
    "/"  'projectile-ripgrep
-   "k"  'kill-buffer))
+   "k"  'kill-buffer)
+  (general-define-key
+    :state 'insert
+    "C-S-v" 'evil-paste-after-cursor-after))
 
 ;; https://blog.meain.io/2020/emacs-highlight-yanked/
 (with-eval-after-load 'evil
