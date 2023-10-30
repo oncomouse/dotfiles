@@ -24,7 +24,8 @@
    "/"  'projectile-ripgrep
    "k"  'kill-buffer)
   (general-define-key
-    :state 'insert
+    :states 'insert
+    "C-H" 'delete-backward-char
     "C-S-v" 'evil-paste-after-cursor-after))
 
 ;; https://blog.meain.io/2020/emacs-highlight-yanked/
