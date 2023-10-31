@@ -184,7 +184,23 @@
      (window-parameters (mode-line-format . none)))))
 
 (use-package projectile
-  :diminish projectile-mode
+  :custom
+  (projectile-globally-ignored-directories . '(".idea"
+					       ".vscode"
+					       ".ensime_cache"
+					       ".eunit"
+					       ".git"
+					       ".hg"
+					       ".fslckout"
+					       "_FOSSIL_"
+					       ".bzr"
+					       "_darcs"
+					       ".tox"
+					       ".svn"
+					       ".stack-work"
+					       ".ccls-cache"
+					       ".cache"
+					       ".clangd"))
   :config
   (projectile-mode +1)
   ;; Recommended keymap prefix on macOS
