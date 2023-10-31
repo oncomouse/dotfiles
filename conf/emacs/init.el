@@ -25,6 +25,9 @@
 
 (setq completions-detailed t)
 
+;; Tabs
+(setq tab-width 4)
+
 ;; Show stray whitespace.
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 (setq-default indicate-empty-lines t)
@@ -214,6 +217,11 @@
    "C-c" 'corfu-quit))
 
 (use-package markdown-mode)
+(use-package lua-mode
+  :init
+  (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+    (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+    (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
 
 ; Org
 (general-define-key
