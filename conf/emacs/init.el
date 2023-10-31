@@ -244,6 +244,7 @@
   (corfu-quit-at-boundary 'separator)
   (corfu-quit-no-match 'separator)
   (corfu-preview-current 'insert)
+  (corfu-popupinfo-delay (cons nil 1.0))
   :init
   (global-corfu-mode)
   :config
