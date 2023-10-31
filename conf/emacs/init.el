@@ -59,7 +59,9 @@
 
 ; Fonts
 (add-to-list 'default-frame-alist
-       '(font . "FiraCode Nerd Font-18"))
+       (cond
+         (*is-a-mac* '(font . "FiraCode Nerd Font-18"))
+         (t '(font . "FiraCode Nerd Font-16"))))
 
 ; Load Catppuccin
 (use-package catppuccin-theme
