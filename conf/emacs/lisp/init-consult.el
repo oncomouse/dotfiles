@@ -28,6 +28,8 @@
 
   ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
   (setq vertico-cycle t)
+  (setq vertico-multiform-categories
+        '((t reverse))) ;; Reverse everything by default
   :config
   (vertico-multiform-mode)
   (general-define-key
