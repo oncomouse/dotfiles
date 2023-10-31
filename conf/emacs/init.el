@@ -47,6 +47,12 @@
   (general-evil-setup))
 (elpaca-wait)
 
+(use-package diminish
+  :config
+  (diminish flyspell-mode)
+  (diminish eldoc-mode))
+(elpaca-wait)
+
 ;; Recent Files
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
@@ -177,8 +183,8 @@
      nil
      (window-parameters (mode-line-format . none)))))
 
-
 (use-package projectile
+  :diminish projectile-mode
   :config
   (projectile-mode +1)
   ;; Recommended keymap prefix on macOS
@@ -280,6 +286,7 @@
 (with-eval-after-load 'evil-collection (evil-collection-vterm-setup))
 
 (use-package dtrt-indent
+  :diminish dtrt-indent-mode
   :custom
   (dtrt-indent-max-lines 2000)
   (dtrt-indent-run-after-smie t)

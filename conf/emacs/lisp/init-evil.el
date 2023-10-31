@@ -1,6 +1,7 @@
 ; Evil
 (setq evil-want-keybinding nil)
 (use-package evil
+  :diminish evil-mode
   :custom
   (evil-undo-system 'undo-redo)
   (evil-want-C-u-scroll t)
@@ -49,6 +50,7 @@
   :config
   (global-evil-surround-mode 1))
 (use-package evil-collection
+  :diminish evil-collection-unimpaired-mode
   :config
   (general-define-key
    :states 'normal
@@ -69,6 +71,7 @@
    "g C-X" 'evil-numbers/dec-at-pt-incremental))
 
 (use-package evil-org
+  :diminish evil-org-mode
   :ensure t
   :after org
   :hook (org-mode . evil-org-mode)
