@@ -113,6 +113,18 @@
    :keymaps '(completion-list-mode-map minibuffer-local-map)
    "M-a" 'marginalia-cycle))
 
+(use-package eglot
+  :elpaca nil
+  :hook
+  (
+   (lua-mode . eglot)
+   (html-mode . eglot)
+   (css-mode . eglot)
+   (ruby-mode . eglot)
+   (json-mode . eglot)
+   (javascript-mode . eglot)
+   ))
+
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
   :elpaca nil
