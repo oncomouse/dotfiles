@@ -122,8 +122,10 @@
    (css-mode . eglot)
    (ruby-mode . eglot)
    (json-mode . eglot)
-   (javascript-mode . eglot)
-   ))
+   (javascript-mode . eglot))
+  :config
+  (add-to-list 'eglot-server-programs
+                '(ruby-mode . ("standardrb" "--lsp"))))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
