@@ -183,26 +183,29 @@
      nil
      (window-parameters (mode-line-format . none)))))
 
+(use-package rg)
+
 (use-package projectile
-  :custom
-  (projectile-globally-ignored-directories . '(".idea"
-					       ".vscode"
-					       ".ensime_cache"
-					       ".eunit"
-					       ".git"
-					       ".hg"
-					       ".fslckout"
-					       "_FOSSIL_"
-					       ".bzr"
-					       "_darcs"
-					       ".tox"
-					       ".svn"
-					       ".stack-work"
-					       ".ccls-cache"
-					       ".cache"
-					       ".clangd"))
+  :diminish projectile-mode
   :config
   (projectile-mode +1)
+  (setq projectile-globally-ignored-directories
+  '(".idea"
+    ".vscode"
+    ".ensime_cache"
+    ".eunit"
+    ".git"
+    ".hg"
+    ".fslckout"
+    "_FOSSIL_"
+    ".bzr"
+    "_darcs"
+    ".tox"
+    ".svn"
+    ".stack-work"
+    ".ccls-cache"
+    ".cache"
+    ".clangd"))
   ;; Recommended keymap prefix on macOS
   (when *is-a-mac* (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map))
       ;; Recommended keymap prefix on Windows/Linux
