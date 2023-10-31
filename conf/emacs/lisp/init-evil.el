@@ -12,10 +12,10 @@
    :states 'normal
    :prefix "SPC"
    "fr" 'ap/find-recent-file
-   "ff" 'projectile-find-file
    "fF" 'ap/find-file
+   "a"  'ap/switch-to-buffer
+   "ff" 'projectile-find-file
    "fp" 'projectile-switch-project
-   "a"  'switch-to-buffer
    "oa" 'org-agenda
    "oc" 'org-capture
    "ol" 'org-store-link

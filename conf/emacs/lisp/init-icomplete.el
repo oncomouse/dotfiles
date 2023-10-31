@@ -9,6 +9,12 @@
   (icomplete-mode)
   (icomplete-vertical-mode)
   (general-define-key
+   :states 'normal
+   :prefix "SPC"
+   "fr" 'recentf
+   "fF" 'ido-find-file
+   "a"  'switch-to-buffer)
+  (general-define-key
    :keymaps 'icomplete-minibuffer-map
      "<down>" 'icomplete-forward-completions
      "C-n"    'icomplete-forward-completions
@@ -16,12 +22,5 @@
      "C-p"    'icomplete-backward-completions
      "RET"    'icomplete-force-complete-and-exit
      "C-v"    'icomplete-vertical-toggle))
-
-(defun ap/find-file ()
-  (interactive)
-  (call-interactively 'ido-find-file))
-(defun ap/find-recent-file ()
-  (interactive)
-  (call-interactively 'recentf))
 
 (provide 'init-icomplete)

@@ -93,9 +93,9 @@
   (add-to-list 'default-frame-alist no-border)
   (add-to-list 'initial-frame-alist no-border))
 
-(require 'init-icomplete)
+;; (require 'init-icomplete)
 ;; (require 'init-ido)
-;; (require 'init-consult)
+(require 'init-consult)
 
 (use-package orderless
   :init
