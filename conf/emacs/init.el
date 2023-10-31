@@ -255,6 +255,18 @@
    "C-y" 'corfu-insert
    "C-c" 'corfu-quit))
 
+(use-package cape
+  :config
+  (general-define-key
+   :states 'insert
+   :prefix "C-x"
+   "C-t" 'complete-tag
+   "C-n" 'cape-dabbrev
+   "C-p" 'cape-abbrev
+   "C-f" 'cape-file
+   "C-l" 'cape-line
+   "C-k" 'cape-dict))
+
 (use-package markdown-mode)
 (use-package lua-mode
   :init
