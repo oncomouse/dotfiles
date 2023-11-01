@@ -28,25 +28,24 @@
 
   ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
   (setq vertico-cycle t)
-  (setq vertico-multiform-categories
-        '((t reverse))) ;; Reverse everything by default
+  (setq vertico-multiform-commands
+        '((execute-extended-command flat)))
   :general
   (:states '(normal insert visual motion)
    "M-." #'vertico-repeat)
-  (:states 'normal
-    :prefix "SPC"
-    "fr" 'consult-recent-file
-    "fF" 'consult-find
-    "a"  'consult-buffer
-    "i"  'consult-imenu)
   (:keymaps 'vertico-map
    "C-M-n" #'vertico-next-group
    "C-M-p" #'vertico-previous-group
    "<backspace>" #'vertico-directory-delete-char
    "C-w" #'vertico-directory-delete-word
    "C-<backspace>" #'vertico-directory-delete-word
-   "RET" #'vertico-directory-enter)
-  ("M-g i" 'consult-imenu) ;; Use consult-imenu instead of imenu
+   "RET" #'vertico-directory-enter
+   "C-i" #'vertico-quick-insert
+   "C-o" #'vertico-quick-exit
+   "M-G" #'vertico-multiform-grid
+   "M-F" #'vertico-multiform-flat
+   "M-R" #'vertico-multiform-reverse
+   "M-U" #'vertico-multiform-unobtrusive)
   :config
   (vertico-multiform-mode)
   (advice-add #'vertico--format-candidate :around
@@ -66,16 +65,21 @@
   (all-the-icons-completion-mode))
 
 (use-package consult
-  :config
-
-  (general-define-key
-   :states 'normal
+  :general
+  (:states 'normal
    :prefix "SPC"
-   "fr" 'consult-recent-file
-   "a"  'consult-buffer)
-  (general-define-key
+    "fr" 'consult-recent-file
+    "fF" 'consult-find
+    "a"  'consult-buffer
+    "i"  'consult-imenu)
+  ("M-g i" 'consult-imenu ;; Use consult-imenu instead of imenu
    "C-x b" 'consult-buffer
-   "C-x C-r" 'consult-recent-file))
+   "C-x C-r" 'consult-recent-file)
+  :config
+  ;; Disable preview without M-.
+  (consult-customize
+   consult-buffer consult-recent-file consult-buffer
+   :preview-key "M-."))
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
