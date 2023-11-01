@@ -36,6 +36,12 @@
    :states '(normal insert visual motion)
    "M-." #'vertico-repeat)
   (general-define-key
+   :states 'normal
+   :prefix "SPC"
+   "fr" 'consult-recent-file
+   "fF" 'consult-find
+   "a"  'consult-buffer)
+  (general-define-key
    :keymaps 'vertico-map
    "C-M-n" #'vertico-next-group
    "C-M-p" #'vertico-previous-group
@@ -66,7 +72,6 @@
    :states 'normal
    :prefix "SPC"
    "fr" 'consult-recent-file
-   "fF" 'consult-find-file
    "a"  'consult-buffer)
   (general-define-key
    "C-x b" 'consult-buffer

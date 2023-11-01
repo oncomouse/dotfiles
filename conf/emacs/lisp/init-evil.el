@@ -11,10 +11,8 @@
   (general-define-key
    :states 'normal
    :prefix "SPC"
-   "fr" 'ap/find-recent-file
-   "fF" 'ap/find-file
-   "a"  'ap/switch-to-buffer
    "ff" 'projectile-find-file
+   "fF" 'ido-find-file
    "fp" 'projectile-switch-project
    "oa" 'org-agenda
    "oc" 'org-capture

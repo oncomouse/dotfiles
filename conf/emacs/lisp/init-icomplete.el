@@ -12,7 +12,6 @@
    :states 'normal
    :prefix "SPC"
    "fr" 'recentf
-   "fF" 'ido-find-file
    "a"  'switch-to-buffer)
   (general-define-key
    :keymaps 'icomplete-minibuffer-map
