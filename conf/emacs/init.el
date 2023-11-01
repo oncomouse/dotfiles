@@ -116,6 +116,13 @@
   (:keymaps '(completion-list-mode-map minibuffer-local-map)
    "M-a" 'marginalia-cycle))
 
+(use-package nerd-icons-completion
+  :after (marginalia nerd-icons)
+  :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
+  :init
+  (nerd-icons-completion-mode))
+
+
 (use-package eglot
   :elpaca nil
   :hook
@@ -209,18 +216,6 @@
       ;; Recommended keymap prefix on Windows/Linux
       (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
-;; So that RefTeX finds my bibliography
-(setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
-(eval-after-load 'reftex-vars
-  '(progn
-     (setq reftex-cite-format '((?\C-m . "[@%l]")))))
-(add-hook 'markdown-mode-hook
-    (lambda () (define-key markdown-mode-map "\C-c["
-         (lambda ()
-           (interactive)
-           (let ((reftex-cite-format "[@%l]"))
-             (reftex-citation))))))
-
 (use-package corfu
   :custom
   (corfu-cycle t)
@@ -264,8 +259,20 @@
   :config
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
-(use-package markdown-mode)
+;; Bibliography
+;; So that RefTeX finds my bibliography
+(setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
+(eval-after-load 'reftex-vars
+  '(progn
+     (setq reftex-cite-format '((?\C-m . "[@%l]")))))
+(add-hook 'markdown-mode-hook
+    (lambda () (define-key markdown-mode-map "\C-c["
+         (lambda ()
+           (interactive)
+           (let ((reftex-cite-format "[@%l]"))
+             (reftex-citation))))))
 
+;; Citar for advanced citation:
 (use-package citar
   :custom
   (citar-bibliography reftex-default-bibliography)
@@ -278,14 +285,15 @@
   :no-require
   :config (citar-embark-mode))
 
-
+;; Other filetype modes:
+(use-package markdown-mode)
 (use-package lua-mode
   :init
   (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
     (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
     (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
 
-; Org
+;; Org
 (general-define-key
  :prefix "C-c"
  "a" 'org-agenda
@@ -303,12 +311,6 @@
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 
 (require 'init-evil)
-
-;; (use-package devil
-;;   :after evil
-;;   :hook
-;;    ((evil-insert-state-entry . devil-mode)
-;;    (evil-insert-state-exit . devil-mode)))
 
 ;; (use-package highlight-indent-guides
 ;;   :hook (prog-mode . highlight-indent-guides-mode)
