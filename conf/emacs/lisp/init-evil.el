@@ -87,7 +87,30 @@
 (use-package targets
   :elpaca (targets :host github :repo "noctuid/targets.el")
   :config
+  (targets-define-composite-to anyblock
+    (("(" ")" pair)
+    ("[" "]" pair)
+    ("{" "}" pair)
+    ("<" ">" pair)
+    ("\"" "\"" quote)
+    ("'" "'" quote)
+    ("`" "`" quote)
+    ("“" "”" quote))
+    :bind t
+    :keys "b")
   (targets-setup t
                 :last-key "N"))
+
+;; ii/ai textobjects
+(use-package evil-indent-plus
+  :general
+  (:keymaps 'evil-inner-text-objects-map
+            "i" 'evil-indent-plus-i-indent
+            "I" 'evil-indent-plus-i-indent-up
+            "J" 'evil-indent-plus-i-indent-up-down)
+  (:keymaps 'evil-outer-text-objects-map
+            "i" 'evil-indent-plus-a-indent
+            "I" 'evil-indent-plus-a-indent-up
+            "J" 'evil-indent-plus-a-indent-up-down))
 
 (provide 'init-evil)
