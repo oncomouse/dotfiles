@@ -247,17 +247,16 @@
   (corfu-popupinfo-delay (cons nil 1.0))
   :init
   (global-corfu-mode)
+  :general
+  (:states 'insert
+   "C-x C-o" 'completion-at-point)
+  (:keymaps 'corfu-map
+   "SPC" #'corfu-insert-separator
+   "C-y" #'corfu-insert
+   "C-c" #'corfu-quit)
   :config
   (require 'corfu-popupinfo)
   (corfu-popupinfo-mode)
-  (general-define-key
-   :states 'insert
-   "C-x C-o" 'completion-at-point)
-  (general-define-key
-   :keymaps 'corfu-map
-   "SPC" #'corfu-insert-separator
-   "C-y" 'corfu-insert
-   "C-c" 'corfu-quit)
   (advice-add 'corfu--setup :after 'evil-normalize-keymaps)
   (advice-add 'corfu--teardown :after 'evil-normalize-keymaps))
 
