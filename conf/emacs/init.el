@@ -181,6 +181,7 @@
      (window-parameters (mode-line-format . none)))))
 
 (use-package rg)
+(use-package wgrep)
 
 (use-package projectile
   :diminish projectile-mode
