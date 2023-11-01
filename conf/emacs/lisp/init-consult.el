@@ -67,18 +67,15 @@
 (use-package consult
   :general
   (:states 'normal
-   :prefix "SPC"
-    "fr" 'consult-recent-file
-    "fF" 'consult-find
-    "a"  'consult-buffer
-    "i"  'consult-imenu)
+   :prefix "SPC")
   ("M-g i" 'consult-imenu ;; Use consult-imenu instead of imenu
    "C-x b" 'consult-buffer
    "C-x C-r" 'consult-recent-file)
   :config
   ;; Disable preview without M-.
   (consult-customize
-   consult-buffer consult-recent-file consult-buffer
+   consult-buffer consult-recent-file consult-buffer consult-ripgrep
+   consult-projectile
    :preview-key "M-."))
 
 ;; Consult users will also want the embark-consult package.

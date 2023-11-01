@@ -13,15 +13,19 @@
    :prefix "SPC"
    "ff" 'projectile-find-file
    "fF" 'ido-find-file
-   "fp" 'projectile-switch-project
+   "fp" 'consult-projectile
    "oa" 'org-agenda
    "oc" 'org-capture
    "ol" 'org-store-link
    "oo" 'org-open-at-point
    "o*" 'org-toggle-heading
    "or" 'org-refile
-   "/"  'projectile-ripgrep
-   "k"  'kill-buffer)
+   "k"  'kill-buffer
+   "fr" 'consult-recent-file
+   "fF" 'consult-find
+   "a"  'consult-buffer
+   "i"  'consult-imenu
+   "/"  'consult-ripgrep)
   (:states 'insert
     "C-H" 'delete-backward-char
     "C-S-v" 'evil-paste-after-cursor-after))
@@ -52,10 +56,9 @@
   (:states 'normal
    "M-j" 'evil-collection-unimpaired-move-text-down
    "M-k" 'evil-collection-unimpaired-move-text-up)
-  :config
-  (evil-collection-init))
+  :config (evil-collection-init))
 (use-package evil-commentary
-       :config   (evil-commentary-mode))
+       :config (evil-commentary-mode))
 (use-package evil-numbers
   :general
   (:states '(normal visual)
