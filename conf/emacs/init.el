@@ -235,7 +235,10 @@
   (:states 'insert
    "C-x C-o" 'completion-at-point)
   (:keymaps 'corfu-map
+   :states 'insert
    "SPC" #'corfu-insert-separator
+   "C-n" #'corfu-next
+   "C-p" #'corfu-previous
    "C-y" #'corfu-insert
    "C-c" #'corfu-quit)
   :config
