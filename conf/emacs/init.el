@@ -372,6 +372,11 @@
 (dolist (hook '(text-mode-hook markdown-mode-hook org-mode-hook))
   (add-hook hook (lambda () (flyspell-mode 1)))
   (add-hook hook 'turn-on-visual-line-mode))
+(use-package flyspell-correct
+  :after flyspell
+  :general
+  (:states 'normal
+            "z=" 'flyspell-correct-wrapper))
 
 (provide 'init)
 (custom-set-variables
