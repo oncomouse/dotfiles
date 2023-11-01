@@ -84,4 +84,10 @@
      "f" 'org-agenda-later
      "b" 'org-agenda-earlier))
 
+(use-package targets
+  :elpaca (targets :host github :repo "noctuid/targets.el")
+  :config
+  (targets-setup t
+                :last-key "N"))
+
 (provide 'init-evil)
