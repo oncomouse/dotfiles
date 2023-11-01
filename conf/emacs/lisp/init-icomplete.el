@@ -12,7 +12,8 @@
    :states 'normal
    :prefix "SPC"
    "fr" 'recentf
-   "a"  'switch-to-buffer)
+   "a"  'switch-to-buffer
+   "i"  'imenu)
   (general-define-key
    :keymaps 'icomplete-minibuffer-map
      "<down>" 'icomplete-forward-completions

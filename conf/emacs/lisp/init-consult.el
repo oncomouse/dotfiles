@@ -30,25 +30,25 @@
   (setq vertico-cycle t)
   (setq vertico-multiform-categories
         '((t reverse))) ;; Reverse everything by default
-  :config
-  (vertico-multiform-mode)
-  (general-define-key
-   :states '(normal insert visual motion)
+  :general
+  (:states '(normal insert visual motion)
    "M-." #'vertico-repeat)
-  (general-define-key
-   :states 'normal
-   :prefix "SPC"
-   "fr" 'consult-recent-file
-   "fF" 'consult-find
-   "a"  'consult-buffer)
-  (general-define-key
-   :keymaps 'vertico-map
+  (:states 'normal
+    :prefix "SPC"
+    "fr" 'consult-recent-file
+    "fF" 'consult-find
+    "a"  'consult-buffer
+    "i"  'consult-imenu)
+  (:keymaps 'vertico-map
    "C-M-n" #'vertico-next-group
    "C-M-p" #'vertico-previous-group
    "<backspace>" #'vertico-directory-delete-char
    "C-w" #'vertico-directory-delete-word
    "C-<backspace>" #'vertico-directory-delete-word
    "RET" #'vertico-directory-enter)
+  ("M-g i" 'consult-imenu) ;; Use consult-imenu instead of imenu
+  :config
+  (vertico-multiform-mode)
   (advice-add #'vertico--format-candidate :around
               (lambda (orig cand prefix suffix index _start)
               (setq cand (funcall orig cand prefix suffix index _start))
