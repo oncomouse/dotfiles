@@ -378,6 +378,9 @@
   (:states 'normal
             "z=" 'flyspell-correct-wrapper))
 
+;; Electric Pair
+(electric-pair-mode)
+
 (provide 'init)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
