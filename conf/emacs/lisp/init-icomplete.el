@@ -8,14 +8,13 @@
   :config
   (icomplete-mode)
   (icomplete-vertical-mode)
-  (general-define-key
-   :states 'normal
+  :general
+  (:states 'normal
    :prefix "SPC"
    "fr" 'recentf
    "a"  'switch-to-buffer
    "i"  'imenu)
-  (general-define-key
-   :keymaps 'icomplete-minibuffer-map
+  (:keymaps 'icomplete-minibuffer-map
      "<down>" 'icomplete-forward-completions
      "C-n"    'icomplete-forward-completions
      "<up>"   'icomplete-backward-completions

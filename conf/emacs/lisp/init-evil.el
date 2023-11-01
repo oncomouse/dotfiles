@@ -8,8 +8,8 @@
   :config
   (evil-mode 1)
   ;; Use general to define our evil-leader
-  (general-define-key
-   :states 'normal
+  :general
+  (:states 'normal
    :prefix "SPC"
    "ff" 'projectile-find-file
    "fF" 'ido-find-file
@@ -22,8 +22,7 @@
    "or" 'org-refile
    "/"  'projectile-ripgrep
    "k"  'kill-buffer)
-  (general-define-key
-    :states 'insert
+  (:states 'insert
     "C-H" 'delete-backward-char
     "C-S-v" 'evil-paste-after-cursor-after))
 
@@ -49,22 +48,20 @@
   (global-evil-surround-mode 1))
 (use-package evil-collection
   :diminish evil-collection-unimpaired-mode
-  :config
-  (general-define-key
-   :states 'normal
+  :general
+  (:states 'normal
    "M-j" 'evil-collection-unimpaired-move-text-down
    "M-k" 'evil-collection-unimpaired-move-text-up)
+  :config
   (evil-collection-init))
 (use-package evil-commentary
        :config   (evil-commentary-mode))
 (use-package evil-numbers
-  :config
-  (general-define-key
-   :states '(normal visual)
+  :general
+  (:states '(normal visual)
         "C-c C-A" 'evil-numbers/inc-at-pt
         "C-c C-X" 'evil-numbers/dec-at-pt)
-  (general-define-key
-   :states 'visual
+  (:states 'visual
    "g C-A" 'evil-numbers/inc-at-pt-incremental
    "g C-X" 'evil-numbers/dec-at-pt-incremental))
 
@@ -77,8 +74,8 @@
   (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)
-  (general-define-key
-   :keymaps 'org-agenda-mode-map
+  :general
+  (:keymaps 'org-agenda-mode-map
    :states 'motion
      "q" 'org-agenda-exit
      "f" 'org-agenda-later

@@ -114,8 +114,8 @@
                   (projectile-recentf . project-file)
                   (projectile-switch-to-buffer . buffer))
                 marginalia-command-categories))
-  (general-define-key
-   :keymaps '(completion-list-mode-map minibuffer-local-map)
+  :general
+  (:keymaps '(completion-list-mode-map minibuffer-local-map)
    "M-a" 'marginalia-cycle))
 
 (use-package eglot
@@ -171,11 +171,11 @@
   (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
   ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
 
-  :config
-  (general-define-key
-   "C-." 'embark-act
+  :general
+  ("C-." 'embark-act
    "C-;" 'embark-dwim
    "C-h B" 'embark-bindings)
+  :config
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
          '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
@@ -209,21 +209,6 @@
   (when *is-a-mac* (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map))
       ;; Recommended keymap prefix on Windows/Linux
       (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
-
-;; ;; Company for completion (works like omnifunc in vim)
-;; (use-package company
-;;        :config
-;;        (setq company-idle-delay nil)
-;;        (global-company-mode t)
-;;        (general-define-key
-;;         :keymaps 'company-active-map
-;;         "RET" nil
-;;         "C-y" 'company-complete-selection)
-;;        (general-define-key
-;;         :states 'insert
-;;         "C-x C-o" 'company-complete))
-;; (use-package company-box
-;;   :hook (company-mode . company-box-mode))
 
 ;; So that RefTeX finds my bibliography
 (setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
@@ -261,9 +246,8 @@
   (advice-add 'corfu--teardown :after 'evil-normalize-keymaps))
 
 (use-package cape
-  :config
-  (general-define-key
-   :states 'insert
+  :general
+  (:states 'insert
    :prefix "C-x"
    "C-t" 'complete-tag
    "C-n" 'cape-dabbrev
