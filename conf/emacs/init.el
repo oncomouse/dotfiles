@@ -339,7 +339,6 @@
 (use-package magit)
 
 (use-package vterm :config)
-(with-eval-after-load 'evil-collection (evil-collection-vterm-setup))
 
 (use-package dtrt-indent
   :diminish dtrt-indent-mode
