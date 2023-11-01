@@ -33,6 +33,9 @@
 ;; Consider a period followed by a single space to be end of sentence.
 (setq sentence-end-double-space nil)
 
+;; Run a server, so we can open things from the command line:
+(server-start)
+
 (require 'elpaca)
 
 (use-package general
