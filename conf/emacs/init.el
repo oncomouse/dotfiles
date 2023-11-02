@@ -127,17 +127,18 @@
   :init
   (nerd-icons-completion-mode))
 
-
 (use-package eglot
   :elpaca nil
   :hook
   (
-   (lua-mode . eglot)
-   (html-mode . eglot)
-   (css-mode . eglot)
-   (ruby-mode . eglot)
-   (json-mode . eglot)
-   (javascript-mode . eglot))
+   (lua-mode . (lambda ()
+                 (setq flycheck-eglot-exclusive nil)
+                 (eglot-ensure)))
+   (html-mode . eglot-ensure)
+   (css-mode . eglot-ensure)
+   (ruby-mode . eglot-ensure)
+   (json-mode . eglot-ensure)
+   (javascript-mode . eglot-ensure))
   :config
   (add-to-list 'eglot-server-programs
                 '(ruby-mode . ("standardrb" "--lsp"))))
@@ -147,8 +148,17 @@
   (:states 'normal
            "] d" 'flycheck-next-error
            "[ d" 'flycheck-previous-error)
-  :hook (
-         (after-init . global-flycheck-mode)))
+  :config
+  (global-flycheck-mode)
+  (flycheck-define-checker lua-selene
+    "A lua syntax checker using selene"
+    :command ("selene" "--display-style" "quiet" source)
+    :enable t
+    :error-patterns
+    ((warning line-start (file-name) ":" line ":" column ": warning" (message) line-end)
+    (error line-start (file-name) ":" line ":" column ": error" (message) line-end))
+    :modes (lua-mode))
+  (push 'lua-selene flycheck-checkers))
 
 (use-package flycheck-eglot
   :ensure t
