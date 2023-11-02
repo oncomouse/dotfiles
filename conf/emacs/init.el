@@ -44,9 +44,10 @@
   (general-evil-setup))
 
 (use-package diminish
+  :hook (
+         (auto-revert-mode . (lambda () (diminish 'auto-revert-mode))))
   :config
   (diminish 'flyspell-mode)
-  (diminish 'auto-revert-mode)
   (diminish 'eldoc-mode))
 
 (use-package no-littering
@@ -408,3 +409,4 @@
 ;; lexima
 ;; mini.surround custom targets
 ;; statusline
+;;; init.el ends here
