@@ -58,7 +58,8 @@
    "M-k" 'evil-collection-unimpaired-move-text-up)
   :config (evil-collection-init))
 (use-package evil-commentary
-       :config (evil-commentary-mode))
+  :diminish evil-commentary-mode
+  :config (evil-commentary-mode))
 (use-package evil-numbers
   :general
   (:states '(normal visual)

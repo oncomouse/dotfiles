@@ -46,6 +46,7 @@
 (use-package diminish
   :config
   (diminish 'flyspell-mode)
+  (diminish 'auto-revert-mode)
   (diminish 'eldoc-mode))
 
 (use-package no-littering
@@ -74,8 +75,9 @@
 
 ; Load which-key
 (use-package which-key
-       :init
-       (which-key-mode))
+  :diminish which-key-mode
+  :init
+  (which-key-mode))
 
 ;; Disable visual elements:
 (setq use-file-dialog nil)
