@@ -45,8 +45,8 @@
 
 (use-package diminish
   :config
-  (diminish flyspell-mode)
-  (diminish eldoc-mode))
+  (diminish 'flyspell-mode)
+  (diminish 'eldoc-mode))
 
 (use-package no-littering
   :config
