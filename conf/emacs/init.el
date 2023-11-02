@@ -304,6 +304,7 @@
   (org-mode . citar-capf-setup)
   (markdown-mode . citar-capf-setup))
 (use-package citar-embark
+  :diminish citar-embark-mode
   :after citar embark
   :no-require
   :config (citar-embark-mode))
