@@ -87,6 +87,8 @@
 (use-package targets
   :elpaca (targets :host github :repo "noctuid/targets.el")
   :config
+  (targets-setup t
+                 :last-key "N")
   (targets-define-composite-to anyblock
     (("(" ")" pair)
     ("[" "]" pair)
@@ -97,9 +99,7 @@
     ("`" "`" quote)
     ("“" "”" quote))
     :bind t
-    :keys "b")
-  (targets-setup t
-                :last-key "N"))
+    :keys "b"))
 
 ;; ii/ai textobjects
 (use-package evil-indent-plus
