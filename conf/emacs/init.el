@@ -140,6 +140,26 @@
   (add-to-list 'eglot-server-programs
                 '(ruby-mode . ("standardrb" "--lsp"))))
 
+(use-package flycheck
+  :general
+  (:states 'normal
+           "] d" 'flycheck-next-error
+           "[ d" 'flycheck-previous-error)
+  :hook (
+         (after-init . global-flycheck-mode)))
+
+(use-package flycheck-eglot
+  :ensure t
+  :after (flycheck eglot)
+  :config
+  (global-flycheck-eglot-mode 1))
+
+(use-package consult-flycheck
+  :after (flycheck consult)
+  :general
+  (:states 'normal :prefix "SPC"
+           "d" 'consult-flycheck))
+
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
   :elpaca nil
