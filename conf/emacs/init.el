@@ -270,7 +270,8 @@
    "C-n" #'corfu-next
    "C-p" #'corfu-previous
    "C-y" #'corfu-insert
-   "C-c" #'corfu-quit)
+   "C-c" #'corfu-quit
+   "M-a" #'corfu-popupinfo-toggle)
   :config
   (require 'corfu-popupinfo)
   (corfu-popupinfo-mode)
