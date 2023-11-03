@@ -228,6 +228,9 @@
 
 (use-package projectile
   :diminish projectile-mode
+  :general
+  (:keymaps 'project-mode-map
+            "C-c p"  'projectile-command-map)
   :config
   (projectile-mode +1)
   (setq projectile-globally-ignored-directories
