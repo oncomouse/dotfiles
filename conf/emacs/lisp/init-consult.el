@@ -34,13 +34,14 @@
   (:states '(normal insert visual motion)
    "M-." #'vertico-repeat)
   (:keymaps 'vertico-map
+   "TAB" #'vertico-insert
    "C-M-n" #'vertico-next-group
    "C-M-p" #'vertico-previous-group
    "<backspace>" #'vertico-directory-delete-char
    "C-w" #'vertico-directory-delete-word
    "C-<backspace>" #'vertico-directory-delete-word
    "RET" #'vertico-directory-enter
-   "C-i" #'vertico-quick-insert
+   "M-i" #'vertico-quick-insert
    "C-o" #'vertico-quick-exit
    "M-G" #'vertico-multiform-grid
    "M-F" #'vertico-multiform-flat
