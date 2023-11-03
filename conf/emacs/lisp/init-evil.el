@@ -53,19 +53,27 @@
   (with-eval-after-load 'elpaca-info (evil-make-intercept-map elpaca-info-mode-map)))
 
 (use-package evil-surround
+  :after evil
   :config
   (global-evil-surround-mode 1))
+
 (use-package evil-collection
+  :ensure t
+  :after evil
   :diminish evil-collection-unimpaired-mode
   :general
   (:states 'normal
    "M-j" 'evil-collection-unimpaired-move-text-down
    "M-k" 'evil-collection-unimpaired-move-text-up)
-  :config (evil-collection-init))
+  :init
+  (evil-collection-init))
+
 (use-package evil-commentary
+  :after evil
   :diminish evil-commentary-mode
   :config (evil-commentary-mode))
 (use-package evil-numbers
+  :after evil
   :general
   (:states '(normal visual)
         "C-c C-A" 'evil-numbers/inc-at-pt
@@ -77,7 +85,7 @@
 (use-package evil-org
   :diminish evil-org-mode
   :ensure t
-  :after org
+  :after (evil org)
   :hook (org-mode . evil-org-mode)
   :config
   (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
@@ -109,6 +117,7 @@
 
 ;; ii/ai textobjects
 (use-package evil-indent-plus
+  :after evil
   :general
   (:keymaps 'evil-inner-text-objects-map
             "i" 'evil-indent-plus-i-indent
