@@ -11,6 +11,11 @@
   ;; Use general to define our evil-leader
   :general
   (:states 'normal
+           "C-f" 'universal-argument)
+  (:keymaps 'universal-argument-map
+            "C-u" nil
+            "C-f" 'universal-argument-more)
+  (:states 'normal
    :prefix "SPC"
    "ff" 'projectile-find-file
    "fF" 'ido-find-file
