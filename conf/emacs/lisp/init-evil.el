@@ -47,7 +47,6 @@
   (with-eval-after-load 'elpaca-ui   (evil-make-intercept-map elpaca-ui-mode-map))
   (with-eval-after-load 'elpaca-info (evil-make-intercept-map elpaca-info-mode-map)))
 
-
 (use-package evil-surround
   :config
   (global-evil-surround-mode 1))

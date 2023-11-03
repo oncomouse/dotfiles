@@ -249,11 +249,7 @@
     ".stack-work"
     ".ccls-cache"
     ".cache"
-    ".clangd"))
-  ;; Recommended keymap prefix on macOS
-  (when *is-a-mac* (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map))
-      ;; Recommended keymap prefix on Windows/Linux
-      (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+    ".clangd")))
 
 (use-package corfu
   :custom
