@@ -63,10 +63,9 @@
  "C-x C-r" 'recentf)
 
 ; Fonts
-(add-to-list 'default-frame-alist
-       (cond
-         (*is-a-mac* '(font . "FiraCode Nerd Font-18"))
-         (t '(font . "FiraCode Nerd Font-16"))))
+(cond
+ (*is-a-mac* (set-frame-font "FiraCode Nerd Font 18"))
+ (t (set-frame-font "FiraCode Nerd Font 16")))
 
 ; Load Catppuccin
 (use-package catppuccin-theme
@@ -391,6 +390,10 @@
 
 ;; Electric Pair
 (electric-pair-mode)
+
+(use-package doom-modeline
+  :ensure t
+  :Hook (after-init . doom-modeline-mode))
 
 (provide 'init)
 (custom-set-variables
