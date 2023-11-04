@@ -363,7 +363,12 @@
 
 (use-package magit)
 
-(use-package vterm :config)
+(use-package vterm
+  :general
+  (:keymaps 'vterm-mode-map
+   "C-p" #'vterm--self-insert
+   "M-." #'vterm--self-insert
+   "M-," #'vterm--self-insert))
 
 (use-package dtrt-indent
   :diminish dtrt-indent-mode

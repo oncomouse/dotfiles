@@ -31,7 +31,7 @@
   (setq vertico-multiform-commands
         '((execute-extended-command flat)))
   :general
-  (:states '(normal insert visual motion)
+  (:states '(normal)
    "M-." #'vertico-repeat)
   (:keymaps 'vertico-map
    "TAB" #'vertico-insert
