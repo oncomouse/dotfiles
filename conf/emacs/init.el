@@ -354,6 +354,33 @@
       '((nil :maxlevel . 2)
 	(org-agenda-files :maxlevel . 2)))
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
+(setq-default org-pretty-entities t
+              org-use-sub-superscripts "{}"
+              org-hide-emphasis-markers t
+              org-startup-with-inline-images t
+              org-image-actual-width '(300))
+(use-package org-appear
+  :custom
+  (org-appear-trigger 'manual)
+  (org-appear-autolinks t)
+  (org-appear-autoentities t)
+  (org-appear-autosubmarkers t)
+  :hook
+  (org-mode . org-appear-mode)
+  :config
+  (add-hook 'org-mode-hook (lambda ()
+                             (add-hook 'evil-insert-state-entry-hook
+                                       #'org-appear-manual-start
+                                       nil
+                                       t)
+                             (add-hook 'evil-insert-state-exit-hook
+                                       #'org-appear-manual-stop
+                                       nil
+                                       t))))
+
+;; Writeroom mode for distraction-free writing
+(use-package writeroom-mode
+  :requires visual-fill-column)
 
 (require 'init-evil)
 
