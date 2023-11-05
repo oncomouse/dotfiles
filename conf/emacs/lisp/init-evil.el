@@ -37,8 +37,6 @@
 	   "i"  'consult-imenu
 	   "/"  'consult-ripgrep)
   (:states 'insert
-	   "C-n"   'next-line
-	   "C-p"   'previous-line
 	   "C-S-v" 'evil-paste-after-cursor-after))
 
 ;; https://blog.meain.io/2020/emacs-highlight-yanked/
@@ -51,6 +49,8 @@
 (with-eval-after-load 'evil-maps
   (general-define-key
    :states 'normal
+   "C-n"   'next-line
+   "C-p"   'previous-line
    "C-." 'embark-act))
 ;; Evil bindings for elpaca-ui:
 (with-eval-after-load 'evil
