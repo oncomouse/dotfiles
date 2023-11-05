@@ -427,6 +427,8 @@
 ;; Electric Pair
 (electric-pair-mode)
 
+(setq column-number-mode t)
+(setq mode-line-position-column-line-format '("%l:%c"))
 (use-package doom-modeline
   :ensure t
   :init
