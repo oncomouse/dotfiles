@@ -37,6 +37,8 @@
 	   "i"  'consult-imenu
 	   "/"  'consult-ripgrep)
   (:states 'insert
+	   "C-n"   'next-line
+	   "C-p"   'previous-line
 	   "C-S-v" 'evil-paste-after-cursor-after))
 
 ;; https://blog.meain.io/2020/emacs-highlight-yanked/
