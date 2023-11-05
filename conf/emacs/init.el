@@ -449,9 +449,9 @@
  )
 
 ;; TODO
-;; Treesitter
 ;; lexima
 ;; mini.surround custom targets
 ;; statusline
+;; Relative line numbering and evil jumping doesn't work
 
 ;;; init.el ends here
