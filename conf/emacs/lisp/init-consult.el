@@ -37,6 +37,9 @@
    "TAB" #'vertico-insert
    "C-M-n" #'vertico-next-group
    "C-M-p" #'vertico-previous-group
+   "C-d"   #'vertico-scroll-up
+   "C-u"   #'vertico-scroll-down
+   "C-f"   'universal-argument ;; Use C-f (alt universal) here too
    "<backspace>" #'vertico-directory-delete-char
    "C-w" #'vertico-directory-delete-word
    "C-<backspace>" #'vertico-directory-delete-word
