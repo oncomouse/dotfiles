@@ -173,6 +173,10 @@
   (:states 'normal :prefix "SPC"
            "d" 'consult-flycheck))
 
+;; Format with format-all
+
+(use-package format-all)
+
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
   :elpaca nil
