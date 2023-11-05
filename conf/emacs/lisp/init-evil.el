@@ -4,10 +4,12 @@
 (defvar evil-want-keybinding nil)
 (use-package evil
   :diminish evil-mode
-  :custom
-  (evil-undo-system 'undo-redo)
-  (evil-want-C-u-scroll t)
-  (evil-want-Y-yank-to-eol t)
+  :init
+  (setq
+   evil-undo-system 'undo-redo
+   evil-want-C-u-scroll t
+   evil-want-Y-yank-to-eol t
+   evil-want-C-h-delete nil)
   :config
   (evil-mode 1)
   ;; Use general to define our evil-leader
@@ -35,7 +37,6 @@
 	   "i"  'consult-imenu
 	   "/"  'consult-ripgrep)
   (:states 'insert
-	   "C-H" 'delete-backward-char
 	   "C-S-v" 'evil-paste-after-cursor-after))
 
 ;; https://blog.meain.io/2020/emacs-highlight-yanked/
