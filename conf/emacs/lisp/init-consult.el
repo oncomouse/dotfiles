@@ -62,6 +62,8 @@
                cand))))
 
 (use-package consult
+  :custom
+  (completion-in-region-function 'consult-completion-in-region)
   :general
   (:states 'normal
    :prefix "SPC")
