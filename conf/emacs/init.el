@@ -460,5 +460,6 @@
 ;; mini.surround custom targets
 ;; statusline
 ;; Relative line numbering and evil jumping doesn't work
+;; hydra?
 
 ;;; init.el ends here
