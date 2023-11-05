@@ -70,6 +70,18 @@
  (*is-a-mac* (set-frame-font "FiraCode Nerd Font 18"))
  (t (set-frame-font "FiraCode Nerd Font 16")))
 
+;; Other filetype modes:
+(use-package markdown-mode)
+(use-package lua-mode
+  :init
+  (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+  (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
+(use-package json-mode)
+(use-package toml-mode)
+(use-package js2-mode)
+(use-package php-mode)
+
 					; Load Catppuccin
 (use-package catppuccin-theme
   :init
@@ -329,18 +341,6 @@
   :after citar embark
   :no-require
   :config (citar-embark-mode))
-
-;; Other filetype modes:
-(use-package markdown-mode)
-(use-package lua-mode
-  :init
-  (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
-  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
-  (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
-(use-package json-mode)
-(use-package toml-mode)
-(use-package js2-mode)
-(use-package php-mode)
 
 ;; Treesitter
 (require 'init-treesitter)
