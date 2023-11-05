@@ -449,9 +449,7 @@
  )
 
 ;; TODO
-;; Lsp
 ;; Treesitter
-;; Formatting
 ;; lexima
 ;; mini.surround custom targets
 ;; statusline
