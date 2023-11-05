@@ -433,6 +433,14 @@
 
 ;; Electric Pair
 (electric-pair-mode)
+;; Add electric-pairs for major-modes
+(defmacro spw/add-mode-pairs (hook pairs)
+  `(add-hook ,hook
+             (lambda ()
+               (setq-local electric-pair-pairs (append electric-pair-pairs ,pairs))
+               (setq-local electric-pair-text-pairs electric-pair-pairs))))
+(spw/add-mode-pairs 'emacs-lisp-mode-hook '((?` . ?')))
+(spw/add-mode-pairs 'markdown-mode-hook '((?* . ?*)))
 
 (setq column-number-mode t)
 (setq mode-line-position-column-line-format '("%l:%c"))
