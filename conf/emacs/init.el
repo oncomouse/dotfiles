@@ -1,21 +1,24 @@
+;;; init.el -- Custom init file
+;;; Commentary:
+;;; Code:
 (add-to-list 'load-path "~/dotfiles/conf/emacs/lisp/")
 (defconst *is-a-mac* (eq system-type 'darwin))
 
-(setq dotfiles-seadrive-path (cond (*is-a-mac* "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries") (t "~/SeaDrive/My Libraries")))
+(defvar dotfiles-seadrive-path (cond (*is-a-mac* "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries") (t "~/SeaDrive/My Libraries")))
 
 ;; Whoami
 (setq user-full-name "Andrew Pilsch"
-    user-mail-address "apilsch@tamu.edu")
+      user-mail-address "apilsch@tamu.edu")
 
 ;; Line numbers + relative line numbers
-(setq display-line-numbers-type 'relative)
+(defvar display-line-numbers-type 'relative)
 ;; Disable for the following modes
 (dolist (mode '(term-mode-hook
-    vterm-mode-hook
-    shell-mode-hook
-    treemacs-mode-hook
-    eshell-mode-hook))
-    (add-hook mode (lambda() (display-line-numbers-mode 0))))
+		vterm-mode-hook
+		shell-mode-hook
+		treemacs-mode-hook
+		eshell-mode-hook))
+  (add-hook mode (lambda() (display-line-numbers-mode 0))))
 
 (setq completions-detailed t)
 
@@ -36,7 +39,7 @@
 ;; Run a server, so we can open things from the command line:
 (server-start)
 
-(require 'elpaca)
+(require 'init-elpaca)
 
 (use-package general
   :demand t
@@ -62,18 +65,18 @@
 (general-define-key
  "C-x C-r" 'recentf)
 
-; Fonts
+					; Fonts
 (cond
  (*is-a-mac* (set-frame-font "FiraCode Nerd Font 18"))
  (t (set-frame-font "FiraCode Nerd Font 16")))
 
-; Load Catppuccin
+					; Load Catppuccin
 (use-package catppuccin-theme
-       :init
-      (setq catppuccin-flavor 'mocha)
-      (load-theme 'catppuccin :no-confirm))
+  :init
+  (setq catppuccin-flavor 'mocha)
+  (load-theme 'catppuccin :no-confirm))
 
-; Load which-key
+					; Load which-key
 (use-package which-key
   :diminish which-key-mode
   :init
@@ -85,7 +88,7 @@
 (setq inhibit-startup-screen t)
 (when *is-a-mac*
   (when (use-package ns-auto-titlebar)
-  (ns-auto-titlebar-mode)))
+    (ns-auto-titlebar-mode)))
 (setq-default
  window-resize-pixelwise t
  frame-resize-pixelwise t)
@@ -103,8 +106,8 @@
 (use-package orderless
   :init
   (setq completion-styles '(orderless basic)
-		completion-category-defaults nil
-		completion-category-overrides '((file (styles partial-completion)))))
+	completion-category-defaults nil
+	completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package marginalia
   :init
@@ -119,7 +122,7 @@
                 marginalia-command-categories))
   :general
   (:keymaps '(completion-list-mode-map minibuffer-local-map)
-   "M-a" 'marginalia-cycle))
+	    "M-a" 'marginalia-cycle))
 
 (use-package nerd-icons-completion
   :after (marginalia nerd-icons)
@@ -141,7 +144,7 @@
    (javascript-mode . eglot-ensure))
   :config
   (add-to-list 'eglot-server-programs
-                '(ruby-mode . ("standardrb" "--lsp"))))
+               '(ruby-mode . ("standardrb" "--lsp"))))
 
 (use-package flycheck
   :init
@@ -157,7 +160,7 @@
     :enable t
     :error-patterns
     ((warning line-start (file-name) ":" line ":" column ": warning" (message) line-end)
-    (error line-start (file-name) ":" line ":" column ": error" (message) line-end))
+     (error line-start (file-name) ":" line ":" column ": error" (message) line-end))
     :modes (lua-mode))
   (push 'lua-selene flycheck-checkers))
 
@@ -191,17 +194,17 @@
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
   (defun crm-indicator (args)
-  (cons (format "[CRM%s] %s"
-          (replace-regexp-in-string
-           "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-           crm-separator)
-          (car args))
-      (cdr args)))
+    (cons (format "[CRM%s] %s"
+		  (replace-regexp-in-string
+		   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+		   crm-separator)
+		  (car args))
+	  (cdr args)))
   (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
   ;; Do not allow the cursor in the minibuffer prompt
   (setq minibuffer-prompt-properties
-    '(read-only t cursor-intangible t face minibuffer-prompt))
+	'(read-only t cursor-intangible t face minibuffer-prompt))
   (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t))
@@ -224,9 +227,9 @@
   :config
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
-         '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-     nil
-     (window-parameters (mode-line-format . none)))))
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+		 nil
+		 (window-parameters (mode-line-format . none)))))
 
 (use-package rg)
 (use-package wgrep)
@@ -239,22 +242,22 @@
   :config
   (projectile-mode +1)
   (setq projectile-globally-ignored-directories
-  '(".idea"
-    ".vscode"
-    ".ensime_cache"
-    ".eunit"
-    ".git"
-    ".hg"
-    ".fslckout"
-    "_FOSSIL_"
-    ".bzr"
-    "_darcs"
-    ".tox"
-    ".svn"
-    ".stack-work"
-    ".ccls-cache"
-    ".cache"
-    ".clangd")))
+	'(".idea"
+	  ".vscode"
+	  ".ensime_cache"
+	  ".eunit"
+	  ".git"
+	  ".hg"
+	  ".fslckout"
+	  "_FOSSIL_"
+	  ".bzr"
+	  "_darcs"
+	  ".tox"
+	  ".svn"
+	  ".stack-work"
+	  ".ccls-cache"
+	  ".cache"
+	  ".clangd")))
 
 (use-package corfu
   :custom
@@ -268,15 +271,15 @@
   (global-corfu-mode)
   :general
   (:states 'insert
-   "C-x C-o" 'completion-at-point)
+	   "C-x C-o" 'completion-at-point)
   (:keymaps 'corfu-map
-   :states 'insert
-   "SPC" #'corfu-insert-separator
-   "C-n" #'corfu-next
-   "C-p" #'corfu-previous
-   "C-y" #'corfu-insert
-   "C-c" #'corfu-quit
-   "M-a" #'corfu-popupinfo-toggle)
+	    :states 'insert
+	    "SPC" #'corfu-insert-separator
+	    "C-n" #'corfu-next
+	    "C-p" #'corfu-previous
+	    "C-y" #'corfu-insert
+	    "C-c" #'corfu-quit
+	    "M-a" #'corfu-popupinfo-toggle)
   :config
   (require 'corfu-popupinfo)
   (corfu-popupinfo-mode)
@@ -286,13 +289,13 @@
 (use-package cape
   :general
   (:states 'insert
-   :prefix "C-x"
-   "C-t" 'complete-tag
-   "C-n" 'cape-dabbrev
-   "C-p" 'cape-abbrev
-   "C-f" 'cape-file
-   "C-l" 'cape-line
-   "C-k" 'cape-dict))
+	   :prefix "C-x"
+	   "C-t" 'complete-tag
+	   "C-n" 'cape-dabbrev
+	   "C-p" 'cape-abbrev
+	   "C-f" 'cape-file
+	   "C-l" 'cape-line
+	   "C-k" 'cape-dict))
 
 (use-package nerd-icons)
 (use-package nerd-icons-corfu
@@ -307,11 +310,11 @@
   '(progn
      (setq reftex-cite-format '((?\C-m . "[@%l]")))))
 (add-hook 'markdown-mode-hook
-    (lambda () (define-key markdown-mode-map "\C-c["
-         (lambda ()
-           (interactive)
-           (let ((reftex-cite-format "[@%l]"))
-             (reftex-citation))))))
+	  (lambda () (define-key markdown-mode-map "\C-c["
+				 (lambda ()
+				   (interactive)
+				   (let ((reftex-cite-format "[@%l]"))
+				     (reftex-citation))))))
 
 ;; Citar for advanced citation:
 (use-package citar
@@ -332,8 +335,8 @@
 (use-package lua-mode
   :init
   (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
-    (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
-    (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
+  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+  (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
 
 ;; Org
 (general-define-key
@@ -343,13 +346,13 @@
  "l" 'org-store-link)
 (setq org-directory (concat dotfiles-seadrive-path "/Todo/org"))
 (setq org-agenda-files (list
-      (concat dotfiles-seadrive-path "/Todo/todo.org")
-      (concat dotfiles-seadrive-path "/Todo/inbox.org")))
+			(concat dotfiles-seadrive-path "/Todo/todo.org")
+			(concat dotfiles-seadrive-path "/Todo/inbox.org")))
 (setq org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org"))
 (setq org-indent-mode "noindent")
 (setq org-refile-targets
       '((nil :maxlevel . 2)
-  (org-agenda-files :maxlevel . 2)))
+	(org-agenda-files :maxlevel . 2)))
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 
 (require 'init-evil)
@@ -363,17 +366,17 @@
 ;;   (highlight-indent-guides-auto-top-character-face-perc 80))
 
 (use-package expand-region
-       :bind
-       ("C-=" . 'er/expand-region))
+  :bind
+  ("C-=" . 'er/expand-region))
 
 (use-package magit)
 
 (use-package vterm
   :general
   (:keymaps 'vterm-mode-map
-   "C-p" #'vterm--self-insert
-   "M-." #'vterm--self-insert
-   "M-," #'vterm--self-insert))
+	    "C-p" #'vterm--self-insert
+	    "M-." #'vterm--self-insert
+	    "M-," #'vterm--self-insert))
 
 (use-package dtrt-indent
   :diminish dtrt-indent-mode
@@ -392,7 +395,7 @@
   :after flyspell
   :general
   (:states 'normal
-            "z=" 'flyspell-correct-wrapper))
+           "z=" 'flyspell-correct-wrapper))
 
 ;; Electric Pair
 (electric-pair-mode)
@@ -422,4 +425,5 @@
 ;; lexima
 ;; mini.surround custom targets
 ;; statusline
+
 ;;; init.el ends here

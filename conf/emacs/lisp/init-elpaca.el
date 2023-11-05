@@ -1,4 +1,8 @@
-;; Install elpaca
+;;; init-elpaca.el -- Install elpaca
+;;; Commentary:
+;; This is the boilplate code from elpaca's repo:
+;; https://github.com/progfolio/elpaca
+;;; Code:
 (defvar elpaca-installer-version 0.5)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
@@ -45,4 +49,5 @@
 ;; Block until current queue processed.
 (elpaca-wait)
 
-(provide 'elpaca)
+(provide 'init-elpaca)
+;;; init-elpaca.el ends here
