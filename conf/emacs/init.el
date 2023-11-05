@@ -11,7 +11,7 @@
       user-mail-address "apilsch@tamu.edu")
 
 ;; Line numbers + relative line numbers
-(defvar display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'visual)
 ;; Disable for the following modes
 (dolist (mode '(term-mode-hook
 		vterm-mode-hook
