@@ -144,12 +144,13 @@
                 '(ruby-mode . ("standardrb" "--lsp"))))
 
 (use-package flycheck
+  :init
+  (global-flycheck-mode)
   :general
   (:states 'normal
            "] d" 'flycheck-next-error
            "[ d" 'flycheck-previous-error)
   :config
-  (global-flycheck-mode)
   (flycheck-define-checker lua-selene
     "A lua syntax checker using selene"
     :command ("selene" "--display-style" "quiet" source)
@@ -393,7 +394,7 @@
 
 (use-package doom-modeline
   :ensure t
-  :Hook (after-init . doom-modeline-mode))
+  :hook (after-init . doom-modeline-mode))
 
 (provide 'init)
 (custom-set-variables
