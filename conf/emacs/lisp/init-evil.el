@@ -118,7 +118,21 @@
      ("`" "`" quote)
      ("“" "”" quote))
     :bind t
-    :keys "b"))
+    :hooks (prog-mode-hook)
+    :keys "b")
+  (targets-define-composite-to anyblock-org
+    (("*" "*" quote)
+     ("*" "*" quote)
+     ("/" "/" quote)
+     ("+" "+" quote)
+     ("~" "~" quote))
+    :bind t
+    :hooks (org-mode-hook)
+    :keys "b")
+  (targets-define-to italics-raw
+		     "*" nil quote :hooks (markdown-mode-hook))
+  (targets-define-to italics
+		     "*" nil quote :bind t :hooks (markdown-mode-hook) :keys "i"))
 
 ;; ii/ai textobjects
 (use-package evil-indent-plus
