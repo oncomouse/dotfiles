@@ -339,6 +339,8 @@
   (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
 (use-package json-mode)
 (use-package toml-mode)
+(use-package js2-mode)
+(use-package php-mode)
 
 ;; Treesitter
 (require 'init-treesitter)
