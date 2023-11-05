@@ -413,7 +413,6 @@
 ;; Lsp
 ;; Treesitter
 ;; Formatting
-;; Linting
 ;; lexima
 ;; mini.surround custom targets
 ;; statusline
