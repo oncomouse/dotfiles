@@ -174,8 +174,9 @@
            "d" 'consult-flycheck))
 
 ;; Format with format-all
-
 (use-package format-all)
+(eval-after-load 'evil-ex
+  '(evil-ex-define-cmd "Format" 'format-all-region-or-buffer))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
