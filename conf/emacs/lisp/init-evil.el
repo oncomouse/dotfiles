@@ -1,5 +1,7 @@
-; Evil
-(setq evil-want-keybinding nil)
+;;; init-evil.el -- Configure evil-mode
+;;; Commentary:
+;;; Code:
+(defvar evil-want-keybinding nil)
 (use-package evil
   :diminish evil-mode
   :custom
@@ -16,25 +18,25 @@
             "C-u" nil
             "C-f" 'universal-argument-more)
   (:states 'normal
-   :prefix "SPC"
-   "ff" 'projectile-find-file
-   "fF" 'ido-find-file
-   "fp" 'consult-projectile
-   "oa" 'org-agenda
-   "oc" 'org-capture
-   "ol" 'org-store-link
-   "oo" 'org-open-at-point
-   "o*" 'org-toggle-heading
-   "or" 'org-refile
-   "k"  'kill-buffer
-   "fr" 'consult-recent-file
-   "fF" 'consult-find
-   "a"  'consult-buffer
-   "i"  'consult-imenu
-   "/"  'consult-ripgrep)
+	   :prefix "SPC"
+	   "ff" 'projectile-find-file
+	   "fF" 'ido-find-file
+	   "fp" 'consult-projectile
+	   "oa" 'org-agenda
+	   "oc" 'org-capture
+	   "ol" 'org-store-link
+	   "oo" 'org-open-at-point
+	   "o*" 'org-toggle-heading
+	   "or" 'org-refile
+	   "k"  'kill-buffer
+	   "fr" 'consult-recent-file
+	   "fF" 'consult-find
+	   "a"  'consult-buffer
+	   "i"  'consult-imenu
+	   "/"  'consult-ripgrep)
   (:states 'insert
-    "C-H" 'delete-backward-char
-    "C-S-v" 'evil-paste-after-cursor-after))
+	   "C-H" 'delete-backward-char
+	   "C-S-v" 'evil-paste-after-cursor-after))
 
 ;; https://blog.meain.io/2020/emacs-highlight-yanked/
 (with-eval-after-load 'evil
@@ -63,8 +65,8 @@
   :diminish evil-collection-unimpaired-mode
   :general
   (:states 'normal
-   "M-j" 'evil-collection-unimpaired-move-text-down
-   "M-k" 'evil-collection-unimpaired-move-text-up)
+	   "M-j" 'evil-collection-unimpaired-move-text-down
+	   "M-k" 'evil-collection-unimpaired-move-text-up)
   :init
   (evil-collection-init))
 
@@ -76,11 +78,11 @@
   :after evil
   :general
   (:states '(normal visual)
-        "C-c C-A" 'evil-numbers/inc-at-pt
-        "C-c C-X" 'evil-numbers/dec-at-pt)
+           "C-c C-A" 'evil-numbers/inc-at-pt
+           "C-c C-X" 'evil-numbers/dec-at-pt)
   (:states 'visual
-   "g C-A" 'evil-numbers/inc-at-pt-incremental
-   "g C-X" 'evil-numbers/dec-at-pt-incremental))
+	   "g C-A" 'evil-numbers/inc-at-pt-incremental
+	   "g C-X" 'evil-numbers/dec-at-pt-incremental))
 
 (use-package evil-org
   :diminish evil-org-mode
@@ -93,10 +95,10 @@
   (evil-org-agenda-set-keys)
   :general
   (:keymaps 'org-agenda-mode-map
-   :states 'motion
-     "q" 'org-agenda-exit
-     "f" 'org-agenda-later
-     "b" 'org-agenda-earlier))
+	    :states 'motion
+	    "q" 'org-agenda-exit
+	    "f" 'org-agenda-later
+	    "b" 'org-agenda-earlier))
 
 (use-package targets
   :elpaca (targets :host github :repo "noctuid/targets.el")
@@ -105,13 +107,13 @@
                  :last-key "N")
   (targets-define-composite-to anyblock
     (("(" ")" pair)
-    ("[" "]" pair)
-    ("{" "}" pair)
-    ("<" ">" pair)
-    ("\"" "\"" quote)
-    ("'" "'" quote)
-    ("`" "`" quote)
-    ("“" "”" quote))
+     ("[" "]" pair)
+     ("{" "}" pair)
+     ("<" ">" pair)
+     ("\"" "\"" quote)
+     ("'" "'" quote)
+     ("`" "`" quote)
+     ("“" "”" quote))
     :bind t
     :keys "b"))
 
@@ -129,3 +131,4 @@
             "J" 'evil-indent-plus-a-indent-up-down))
 
 (provide 'init-evil)
+;;; init-evil.el ends here

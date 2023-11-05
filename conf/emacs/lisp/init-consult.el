@@ -1,4 +1,6 @@
-;; Enable vertico
+;;; init-consult.el -- Enable vertico + consult
+;;; Commentary:
+;;; Code:
 (use-package vertico
   :hook (minibuffer-setup . vertico-repeat-save)
   :elpaca (vertico :files (:defaults "extensions/*")
@@ -32,41 +34,41 @@
         '((execute-extended-command flat)))
   :general
   (:states '(normal)
-   "M-." #'vertico-repeat)
+	   "M-." #'vertico-repeat)
   (:keymaps 'vertico-map
-   "TAB" #'vertico-insert
-   "C-M-n" #'vertico-next-group
-   "C-M-p" #'vertico-previous-group
-   "C-d"   #'vertico-scroll-up
-   "C-u"   #'vertico-scroll-down
-   "C-f"   'universal-argument ;; Use C-f (alt universal) here too
-   "<backspace>" #'vertico-directory-delete-char
-   "C-w" #'vertico-directory-delete-word
-   "C-<backspace>" #'vertico-directory-delete-word
-   "RET" #'vertico-directory-enter
-   "M-i" #'vertico-quick-insert
-   "C-o" #'vertico-quick-exit
-   "M-G" #'vertico-multiform-grid
-   "M-F" #'vertico-multiform-flat
-   "M-R" #'vertico-multiform-reverse
-   "M-U" #'vertico-multiform-unobtrusive)
+	    "TAB" #'vertico-insert
+	    "C-M-n" #'vertico-next-group
+	    "C-M-p" #'vertico-previous-group
+	    "C-d"   #'vertico-scroll-up
+	    "C-u"   #'vertico-scroll-down
+	    "C-f"   'universal-argument ;; Use C-f (alt universal) here too
+	    "<backspace>" #'vertico-directory-delete-char
+	    "C-w" #'vertico-directory-delete-word
+	    "C-<backspace>" #'vertico-directory-delete-word
+	    "RET" #'vertico-directory-enter
+	    "M-i" #'vertico-quick-insert
+	    "C-o" #'vertico-quick-exit
+	    "M-G" #'vertico-multiform-grid
+	    "M-F" #'vertico-multiform-flat
+	    "M-R" #'vertico-multiform-reverse
+	    "M-U" #'vertico-multiform-unobtrusive)
   :config
   (vertico-multiform-mode)
   (advice-add #'vertico--format-candidate :around
               (lambda (orig cand prefix suffix index _start)
-              (setq cand (funcall orig cand prefix suffix index _start))
-              (concat
-               (if (= vertico--index index)
-                   (propertize "» " 'face 'vertico-current)
-                 "  ")
-               cand))))
+		(setq cand (funcall orig cand prefix suffix index _start))
+		(concat
+		 (if (= vertico--index index)
+                     (propertize "» " 'face 'vertico-current)
+                   "  ")
+		 cand))))
 
 (use-package consult
   :custom
   (completion-in-region-function 'consult-completion-in-region)
   :general
   (:states 'normal
-   :prefix "SPC")
+	   :prefix "SPC")
   ("M-g i" 'consult-imenu ;; Use consult-imenu instead of imenu
    "C-x b" 'consult-buffer
    "C-x C-r" 'consult-recent-file)
@@ -86,3 +88,4 @@
   :after projectile)
 
 (provide 'init-consult)
+;;; init-consult.el ends here
