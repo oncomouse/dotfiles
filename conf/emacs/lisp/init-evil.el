@@ -59,6 +59,24 @@
   (with-eval-after-load 'elpaca-ui   (evil-make-intercept-map elpaca-ui-mode-map))
   (with-eval-after-load 'elpaca-info (evil-make-intercept-map elpaca-info-mode-map)))
 
+;; mini.nvim's Bdelete command, which preserves window layout
+(with-eval-after-load 'evil
+  (evil-define-command dotfiles/evil-delete-buffer (buffer &optional bang)
+    "Delete a buffer.
+Don't close any open windows."
+    (interactive "<b><!>")
+    (with-current-buffer (or buffer (current-buffer))
+      (when bang
+	(set-buffer-modified-p nil)
+	(dolist (process (process-list))
+          (when (eq (process-buffer process) (current-buffer))
+            (set-process-query-on-exit-flag process nil))))
+      (if (and (bound-and-true-p server-buffer-clients)
+               (fboundp 'server-edit))
+          (server-edit)
+        (kill-buffer nil))))
+  (evil-ex-define-cmd "Bd[elete]" 'dotfiles/evil-delete-buffer))
+
 (use-package evil-surround
   :after evil
   :config
