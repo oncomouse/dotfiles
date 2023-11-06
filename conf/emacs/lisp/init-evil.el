@@ -88,8 +88,8 @@ Don't close any open windows."
   :diminish evil-collection-unimpaired-mode
   :general
   (:states 'normal
-	   "M-j" 'evil-collection-unimpaired-move-text-down
-	   "M-k" 'evil-collection-unimpaired-move-text-up)
+	   "M-j" #'evil-collection-unimpaired-move-text-down
+	   "M-k" #'evil-collection-unimpaired-move-text-up)
   :init
   (evil-collection-init))
 
