@@ -443,6 +443,7 @@
                (setq-local electric-pair-text-pairs electric-pair-pairs))))
 (spw/add-mode-pairs 'emacs-lisp-mode-hook '((?` . ?')))
 (spw/add-mode-pairs 'markdown-mode-hook '((?* . ?*)))
+(spw/add-mode-pairs 'org-mode-hook '((?* . ?*)(?/ . ?/)))
 
 (setq column-number-mode t)
 (setq mode-line-position-column-line-format '("%l:%c"))
