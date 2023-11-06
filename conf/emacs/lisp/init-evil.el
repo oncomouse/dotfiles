@@ -10,12 +10,13 @@
    evil-undo-system 'undo-redo
    evil-want-C-u-scroll t
    evil-want-Y-yank-to-eol t
-   evil-want-C-h-delete nil)
+   evil-want-C-h-delete t)
   :config
   (evil-mode 1)
   ;; Use general to define our evil-leader
   :general
   (:states 'normal
+	   "C-w S" 'evil-window-vsplit
            "C-f" 'universal-argument)
   (:keymaps 'universal-argument-map
             "C-u" nil
