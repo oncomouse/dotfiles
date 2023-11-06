@@ -6,6 +6,7 @@
   :diminish evil-mode
   :init
   (setq
+   evil-respect-visual-line-mode t
    evil-undo-system 'undo-redo
    evil-want-C-u-scroll t
    evil-want-Y-yank-to-eol t
@@ -102,8 +103,13 @@
 	    "q" 'org-agenda-exit
 	    "f" 'org-agenda-later
 	    "b" 'org-agenda-earlier))
+(defun dotfiles/evil-append-line (count)
+  "Use end of line + append to make append-line work correctly"
+  (interactive "p")
+  (evil-end-of-line count) (evil-append count))
 (with-eval-after-load 'evil-org
   (advice-add 'evil-org-end-of-line :override 'evil-end-of-line)
+  (advice-add 'evil-org-append-line :override 'dotfiles/evil-append-line)
   (advice-add 'evil-org-beginning-of-line :override 'evil-beginning-of-line))
 
 (use-package targets
