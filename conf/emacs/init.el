@@ -430,6 +430,8 @@
   :general
   (:states 'normal
            "z=" 'flyspell-correct-wrapper))
+(eval-after-load "flyspell"
+  '(define-key flyspell-mode-map (kbd "C-c $") nil))
 
 ;; Electric Pair
 (electric-pair-mode)
