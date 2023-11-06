@@ -102,6 +102,9 @@
 	    "q" 'org-agenda-exit
 	    "f" 'org-agenda-later
 	    "b" 'org-agenda-earlier))
+(with-eval-after-load 'evil-org
+  (advice-add 'evil-org-end-of-line :override 'evil-end-of-line)
+  (advice-add 'evil-org-beginning-of-line :override 'evil-beginning-of-line))
 
 (use-package targets
   :elpaca (targets :host github :repo "noctuid/targets.el")
