@@ -6,7 +6,7 @@
   :diminish evil-mode
   :init
   (setq
-   evil-respect-visual-line-mode t
+   evil-respect-visual-line-mode nil
    evil-undo-system 'undo-redo
    evil-want-C-u-scroll t
    evil-want-Y-yank-to-eol t
@@ -122,14 +122,19 @@ Don't close any open windows."
 	    "q" 'org-agenda-exit
 	    "f" 'org-agenda-later
 	    "b" 'org-agenda-earlier))
-(defun dotfiles/evil-append-line (count)
-  "Use end of line + append to make append-line work correctly"
-  (interactive "p")
-  (evil-end-of-line count) (evil-append count))
+;; (defun dotfiles/evil-append-line (count)
+;;   "Use end of line + append to make append-line work correctly"
+;;   (interactive "p")
+;;   (evil-end-of-line count) (evil-append count))
+;; (with-eval-after-load 'evil-org
+;;   (advice-add 'evil-org-end-of-line :override 'evil-end-of-line)
+;;   (advice-add 'evil-org-append-line :override 'dotfiles/evil-append-line)
+;;   (advice-add 'evil-org-beginning-of-line :override 'evil-beginning-of-line))
+;; Use visual j/k (but nothing else) when in visual-line-mode
 (with-eval-after-load 'evil-org
-  (advice-add 'evil-org-end-of-line :override 'evil-end-of-line)
-  (advice-add 'evil-org-append-line :override 'dotfiles/evil-append-line)
-  (advice-add 'evil-org-beginning-of-line :override 'evil-beginning-of-line))
+  (evil-define-key 'normal 'visual-line-mode
+		      "j" 'evil-next-visual-line
+		      "k" 'evil-previous-visual-line))
 
 (use-package targets
   :elpaca (targets :host github :repo "noctuid/targets.el")
