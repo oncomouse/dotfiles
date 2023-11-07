@@ -351,6 +351,10 @@
  "a" 'org-agenda
  "c" 'org-capture
  "l" 'org-store-link)
+(general-define-key
+ :states 'insert
+ :keymaps 'org-mode-map
+ "C-z" 'org-cycle-list-bullet)
 (setq org-directory (concat dotfiles-seadrive-path "/Todo/org"))
 (setq org-agenda-files (list
 			(concat dotfiles-seadrive-path "/Todo/todo.org")
