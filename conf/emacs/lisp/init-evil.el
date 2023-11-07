@@ -18,6 +18,8 @@
   (:states 'normal
 	   "C-w S" 'evil-window-vsplit
            "C-f" 'universal-argument)
+  (:states 'insert
+	   "C-e" 'end-of-line)
   (:keymaps 'universal-argument-map
             "C-u" nil
             "C-f" 'universal-argument-more)
@@ -133,8 +135,8 @@ Don't close any open windows."
 ;; Use visual j/k (but nothing else) when in visual-line-mode
 (with-eval-after-load 'evil-org
   (evil-define-key 'normal 'visual-line-mode
-		      "j" 'evil-next-visual-line
-		      "k" 'evil-previous-visual-line))
+    "j" 'evil-next-visual-line
+    "k" 'evil-previous-visual-line))
 
 (use-package targets
   :elpaca (targets :host github :repo "noctuid/targets.el")
