@@ -136,7 +136,9 @@ Don't close any open windows."
 (with-eval-after-load 'evil-org
   (evil-define-key 'normal 'visual-line-mode
     "j" 'evil-next-visual-line
-    "k" 'evil-previous-visual-line))
+    "k" 'evil-previous-visual-line)
+  (evil-define-key 'normal 'evil-org-mode
+    "c" 'evil-change))
 
 (use-package targets
   :elpaca (targets :host github :repo "noctuid/targets.el")
