@@ -28,9 +28,8 @@
 	   "ff" 'projectile-find-file
 	   "fF" 'ido-find-file
 	   "fp" 'consult-projectile
-	   "k"  'kill-buffer
 	   "fr" 'consult-recent-file
-	   "fF" 'consult-find
+	   "k"  'kill-buffer
 	   "a"  'consult-buffer
 	   "i"  'consult-imenu
 	   "/"  'consult-ripgrep)
