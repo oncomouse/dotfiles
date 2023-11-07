@@ -384,6 +384,10 @@
                                        #'org-appear-manual-stop
                                        nil
                                        t))))
+;; nvim-orgmode bindings:
+(with-eval-after-load 'org
+  (general-define-key :states 'normal :keymaps 'org-mode-map "cit" 'org-todo))
+
 (with-eval-after-load 'org
   (defun dotfiles/org-summary-todo (n-done n-not-done)
     "Switch entry to DONE when all subentries are done, to TODO otherwise."
