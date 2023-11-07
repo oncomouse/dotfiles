@@ -28,12 +28,6 @@
 	   "ff" 'projectile-find-file
 	   "fF" 'ido-find-file
 	   "fp" 'consult-projectile
-	   "oa" 'org-agenda
-	   "oc" 'org-capture
-	   "ol" 'org-store-link
-	   "oo" 'org-open-at-point
-	   "o*" 'org-toggle-heading
-	   "or" 'org-refile
 	   "k"  'kill-buffer
 	   "fr" 'consult-recent-file
 	   "fF" 'consult-find

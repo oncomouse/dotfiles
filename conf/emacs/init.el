@@ -346,86 +346,38 @@
 (require 'init-treesitter)
 
 ;; Org
-(general-define-key
- :prefix "C-c"
- "a" 'org-agenda
- "c" 'org-capture
- "l" 'org-store-link)
-(general-define-key
- :states 'insert
- :keymaps 'org-mode-map
- "C-z" 'org-cycle-list-bullet)
-(setq org-directory (concat dotfiles-seadrive-path "/Todo/org"))
-(setq org-agenda-files (list
-			(concat dotfiles-seadrive-path "/Todo/todo.org")
-			(concat dotfiles-seadrive-path "/Todo/inbox.org")))
-(setq org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org"))
-(setq org-indent-mode "noindent")
-(setq org-refile-targets
-      '((nil :maxlevel . 2)
-	(org-agenda-files :maxlevel . 2)))
-(add-hook 'org-mode-hook 'turn-on-visual-line-mode)
-(setq-default org-pretty-entities t
-              org-use-sub-superscripts "{}"
-              org-hide-emphasis-markers t
-              org-startup-with-inline-images t
-              org-image-actual-width '(300))
-(use-package org-appear
-  :custom
-  (org-appear-trigger 'manual)
-  (org-appear-autolinks t)
-  (org-appear-autoentities t)
-  (org-appear-autosubmarkers t)
-  :hook
-  (org-mode . org-appear-mode)
-  :config
-  (add-hook 'org-mode-hook (lambda ()
-                             (add-hook 'evil-insert-state-entry-hook
-                                       #'org-appear-manual-start
-                                       nil
-                                       t)
-                             (add-hook 'evil-insert-state-exit-hook
-                                       #'org-appear-manual-stop
-                                       nil
-                                       t))))
-;; nvim-orgmode bindings:
-(with-eval-after-load 'org
-  (general-define-key :states 'normal :keymaps 'org-mode-map "cit" 'org-todo))
 
-(with-eval-after-load 'org
-  (defun dotfiles/org-summary-todo (n-done n-not-done)
-    "Switch entry to DONE when all subentries are done, to TODO otherwise."
-    (let (org-log-done org-log-states)   ; turn off logging
-      (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+(defun dotfiles/org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-  (add-hook 'org-after-todo-statistics-hook 'dotfiles/org-summary-todo)
-
-  (defun dotfiles/org-checkbox-todo ()
-    "Switch header TODO state to DONE when all checkboxes are ticked, to TODO otherwise"
-    (let ((todo-state (org-get-todo-state)) beg end)
-      (unless (not todo-state)
-	(save-excursion
-	  (org-back-to-heading t)
-	  (setq beg (point))
-	  (end-of-line)
-	  (setq end (point))
-	  (goto-char beg)
-	  (if (re-search-forward "\\[\\([0-9]*%\\)\\]\\|\\[\\([0-9]*\\)/\\([0-9]*\\)\\]"
-				 end t)
-              (if (match-end 1)
-		  (if (equal (match-string 1) "100%")
-		      (unless (string-equal todo-state "DONE")
-			(org-todo 'done))
-		    (unless (string-equal todo-state "TODO")
-		      (org-todo 'todo)))
-		(if (and (> (match-end 2) (match-beginning 2))
-			 (equal (match-string 2) (match-string 3)))
+(defun dotfiles/org-checkbox-todo ()
+  "Switch header TODO state to DONE when all checkboxes are ticked, to TODO otherwise"
+  (let ((todo-state (org-get-todo-state)) beg end)
+    (unless (not todo-state)
+      (save-excursion
+	(org-back-to-heading t)
+	(setq beg (point))
+	(end-of-line)
+	(setq end (point))
+	(goto-char beg)
+	(if (re-search-forward "\\[\\([0-9]*%\\)\\]\\|\\[\\([0-9]*\\)/\\([0-9]*\\)\\]"
+			       end t)
+            (if (match-end 1)
+		(if (equal (match-string 1) "100%")
 		    (unless (string-equal todo-state "DONE")
 		      (org-todo 'done))
 		  (unless (string-equal todo-state "TODO")
-		    (org-todo 'todo)))))))))
+		    (org-todo 'todo)))
+	      (if (and (> (match-end 2) (match-beginning 2))
+		       (equal (match-string 2) (match-string 3)))
+		  (unless (string-equal todo-state "DONE")
+		    (org-todo 'done))
+		(unless (string-equal todo-state "TODO")
+		  (org-todo 'todo)))))))))
 
-  (add-hook 'org-checkbox-statistics-hook 'dotfiles/org-checkbox-todo))
+(require 'init-org)
 
 ;; Writeroom mode for distraction-free writing
 (use-package writeroom-mode
