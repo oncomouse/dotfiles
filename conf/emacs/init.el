@@ -517,6 +517,18 @@
   ;; per mode with `ligature-mode'.
   (global-ligature-mode t))
 
+(use-package helpful
+  :general
+  (:states 'normal
+   :prefix "C-h"
+   "f" #'helpful-callable
+   "v" #'helpful-variable
+   "k" #'helpful-key
+   "x" #'helpful-command
+   "F" #'helpful-function)
+  (:prefix "C-c"
+   "C-d" #helpful-at-point))
+
 (provide 'init)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
