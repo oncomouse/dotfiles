@@ -20,6 +20,7 @@ if [ "$os" == "arch" ]; then
 	dotfiles_stow systemd
 fi
 if [ -z "$SERVER" ]; then
+	dotfiles_stow doom
 	dotfiles_stow mopidy
 	dotfiles_stow mpd
 	dotfiles_stow ncmpcpp

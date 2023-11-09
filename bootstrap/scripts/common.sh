@@ -19,6 +19,7 @@ if [ -z "$SERVER" ]; then
 	~/dotfiles/bootstrap/scripts/asdf.sh
 	~/dotfiles/bootstrap/scripts/csl.sh
 	~/dotfiles/bootstrap/scripts/tex.sh
+	~/dotfiles/bootstrap/scripts/doom.sh
 fi
 ~/dotfiles/bootstrap/scripts/ruby-gems.sh
 

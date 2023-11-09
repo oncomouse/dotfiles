@@ -1,0 +1,315 @@
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+(defconst *is-a-mac* (eq system-type 'darwin))
+(defvar dotfiles-seadrive-path (cond (*is-a-mac* "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries") (t "~/SeaDrive/My Libraries")))
+;; Place your private configuration here! Remember, you do not need to run 'doom
+;; sync' after modifying this file!
+
+
+(setq doom-localleader-key ",")
+
+;; Whoami
+(setq user-full-name "Andrew Pilsch"
+      user-mail-address "apilsch@tamu.edu")
+
+;; Doom exposes five (optional) variables for controlling fonts in Doom:
+;;
+;; - `doom-font' -- the primary font to use
+;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
+;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
+;;   presentations or streaming.
+;; - `doom-symbol-font' -- for symbols
+;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
+;;
+;; See 'C-h v doom-font' for documentation and more examples of what they
+;; accept. For example:
+;;
+;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
+;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+;;
+;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
+;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
+;; refresh your font settings. If Emacs still can't find your font, it likely
+;; wasn't installed correctly. Font issues are rarely Doom issues!
+
+;; There are two ways to load a theme. Both assume the theme is installed and
+;; available. You can either set `doom-theme' or manually load a theme with the
+;; `load-theme' function. This is the default:
+(setq doom-theme 'doom-one)
+
+(use-package! catppuccin-theme
+  :init
+  (setq catppuccin-flavor 'mocha)
+  :config
+  (load-theme 'catppuccin :no-confirm))
+
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size (if *is-a-mac* 16 18))
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size (if *is-a-mac* 16 18)))
+
+;; This determines the style of line numbers in effect. If set to `nil', line
+;; numbers are disabled. For relative line numbers, set this to `relative'.
+;; Line numbers + relative line numbers
+(setq display-line-numbers-type 'visual)
+;; Disable for the following modes
+(dolist (mode '(term-mode-hook
+		vterm-mode-hook
+		shell-mode-hook
+		treemacs-mode-hook
+		eshell-mode-hook))
+  (add-hook mode (lambda() (display-line-numbers-mode 0))))
+
+;; company configuration
+(setq company-idle-delay nil)
+(after! company (map!
+                 (:map company-active-map
+                       "RET" nil
+                       "C-y" 'company-complete-selection)
+                 (:i "C-x C-o" 'company-complete)))
+
+;; consult configuration
+(after! consult
+  (consult-customize
+   consult-buffer consult-recent-file consult-buffer consult-ripgrep
+   consult-projectile
+   :preview-key "M-."))
+
+(map!
+ (:leader
+  "a" 'consult-buffer
+  "e" 'embark-act
+  "fp" 'consult-projectile)
+ "C-x C-r" 'consult-recent-file)
+
+;; org configuration
+(defun dotfiles/org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+
+(defun dotfiles/org-checkbox-todo ()
+  "Switch header TODO state to DONE when all checkboxes are ticked, to TODO otherwise"
+  (let ((todo-state (org-get-todo-state)) beg end)
+    (unless (not todo-state)
+      (save-excursion
+	(org-back-to-heading t)
+	(setq beg (point))
+	(end-of-line)
+	(setq end (point))
+	(goto-char beg)
+	(if (re-search-forward "\\[\\([0-9]*%\\)\\]\\|\\[\\([0-9]*\\)/\\([0-9]*\\)\\]"
+			       end t)
+            (if (match-end 1)
+		(if (equal (match-string 1) "100%")
+		    (unless (string-equal todo-state "DONE")
+		      (org-todo 'done))
+		  (unless (string-equal todo-state "TODO")
+		    (org-todo 'todo)))
+	      (if (and (> (match-end 2) (match-beginning 2))
+		       (equal (match-string 2) (match-string 3)))
+		  (unless (string-equal todo-state "DONE")
+		    (org-todo 'done))
+		(unless (string-equal todo-state "TODO")
+		  (org-todo 'todo)))))))))
+
+(after! org
+  (setq
+   org-hide-leading-stars nil
+   org-startup-indented nil))
+
+(setq org-directory (concat dotfiles-seadrive-path "/Todo/org")
+      org-agenda-files (list
+			(concat dotfiles-seadrive-path "/Todo/todo.org")
+			(concat dotfiles-seadrive-path "/Todo/inbox.org"))
+      org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org")
+      org-indent-mode "noindent"
+      org-refile-targets
+      '((nil :maxlevel . 2)
+	(org-agenda-files :maxlevel . 2)))
+
+(add-hook! 'org-mode-hook 'turn-on-visual-line-mode)
+(add-hook! 'org-after-todo-statistics-hook 'dotfiles/org-summary-todo)
+(add-hook! 'org-checkbox-statistics-hook 'dotfiles/org-checkbox-todo)
+
+(use-package! org-appear
+  :custom
+  (org-appear-trigger 'manual)
+  (org-appear-autoentities t)
+  (org-appear-autolinks t)
+  (org-appear-autosubmarkers t)
+  :hook
+  (org-mode . org-appear-mode)
+  :config
+  (add-hook 'org-mode-hook (lambda ()
+                             (add-hook 'evil-insert-state-entry-hook
+                                       #'org-appear-manual-start
+                                       nil
+                                       t)
+                             (add-hook 'evil-insert-state-exit-hook
+                                       #'org-appear-manual-stop
+                                       nil
+                                       t))))
+(after! org (map!
+             (:n
+              "C-c a" 'org-agenda
+              "C-c c" 'org-capture
+              "C-c l" 'org-store-link)
+             (:leader
+              :desc "Agenda View" "oaa" 'org-agenda-list)
+             (:map org-mode-map :leader
+	      "oo" 'org-open-at-point
+	      "o*" 'org-toggle-heading
+	      :desc "Org Refile" "or" 'org-refile)
+             (:map org-mode-map
+	      :i "C-z" 'org-cycle-list-bullet)
+             (:map org-mode-map
+	      :n "cit" 'org-todo)))
+
+(map! :after org-agenda
+      :map org-agenda-mode-map
+      "q" 'org-agenda-exit
+      "f" 'org-agenda-later
+      "b" 'org-agenda-earlier)
+
+(after! evil-org
+  (evil-define-key 'motion 'org-agenda-mode
+    "f" 'org-agenda-later)
+  (evil-define-key 'normal 'visual-line-mode
+    "j" 'evil-next-visual-line
+    "k" 'evil-previous-visual-line)
+  (evil-define-key 'normal 'evil-org-mode
+    "c" 'evil-change))
+
+;; mini.nvim's Bdelete command, which preserves window layout
+(after! evil
+  (evil-define-command dotfiles/evil-delete-buffer (buffer &optional bang)
+    "Delete a buffer.
+Don't close any open windows."
+    (interactive "<b><!>")
+    (with-current-buffer (or buffer (current-buffer))
+      (when bang
+	(set-buffer-modified-p nil)
+	(dolist (process (process-list))
+          (when (eq (process-buffer process) (current-buffer))
+            (set-process-query-on-exit-flag process nil))))
+      (if (and (bound-and-true-p server-buffer-clients)
+               (fboundp 'server-edit))
+          (server-edit)
+        (kill-buffer nil))))
+  (evil-ex-define-cmd "Bd[elete]" 'dotfiles/evil-delete-buffer))
+
+;; https://stackoverflow.com/questions/2423834/move-line-region-up-and-down-in-emacs
+(after! evil
+  (defun evil-collection-unimpaired--move-text (arg)
+    "Move text down if ARG is positive, otherwise move text up."
+    (cond
+     ((and mark-active transient-mark-mode)
+      (when (> (point) (mark))
+        (exchange-point-and-mark))
+      (let ((column (current-column))
+            (text (delete-and-extract-region (point) (mark))))
+        (forward-line arg)
+        (move-to-column column :force)
+        (set-mark (point))
+        (insert text)
+        (exchange-point-and-mark)
+        (setq deactivate-mark nil)))
+     (t
+      (let ((column (current-column)))
+        (beginning-of-line)
+        (when (or (> arg 0) (not (bobp)))
+          (forward-line)
+          (when (or (< arg 0) (not (eobp)))
+            (transpose-lines arg))
+          (forward-line -1))
+        (move-to-column column)))))
+
+  (defun evil-collection-unimpaired-move-text-down (arg)
+    "Move region (transient-mark-mode active) or current line ARG lines down."
+    (interactive "*p")
+    (evil-collection-unimpaired--move-text arg))
+
+  (defun evil-collection-unimpaired-move-text-up (arg)
+    "Move region (transient-mark-mode active) or current line ARG lines up."
+    (interactive "*p")
+    (evil-collection-unimpaired--move-text (- arg)))
+  (map!
+   (:n
+    "M-j" #'evil-collection-unimpaired-move-text-down
+    "M-k" #'evil-collection-unimpaired-move-text-up)))
+
+(after! evil
+  (evil-ex-define-cmd "Format" 'apheleia-format-buffer))
+
+(after! evil
+  (evil-define-operator evil-operator-replace (beg end _ register)
+    :move-point nil
+    (interactive "<R>")
+    (let* ((text (if register
+                     (evil-get-register register)
+                   (current-kill 0))))
+
+      (save-excursion
+        (delete-region beg end)
+        (goto-char beg)
+        (insert text))))
+  (map! :n "gr" 'evil-operator-replace))
+
+(after! flycheck
+  (flycheck-define-checker lua-selene
+    "A lua syntax checker using selene"
+    :command ("selene" "--display-style" "quiet" source)
+    :enable t
+    :error-patterns
+    ((warning line-start (file-name) ":" line ":" column ": warning" (message) line-end)
+     (error line-start (file-name) ":" line ":" column ": error" (message) line-end))
+    :modes (lua-mode))
+  (push 'lua-selene flycheck-checkers))
+
+(map!
+ :after evil-numbers
+ :nv "C-A" 'evil-numbers/inc-at-pt
+ :nv "C-c C-A" 'evil-numbers/inc-at-pt
+ :nv "C-c C-X" 'evil-numbers/dec-at-pt
+ :v "g C-A" 'evil-numbers/inc-at-pt-incremental
+ :v "g C-X" 'evil-numbers/dec-at-pt-incremental)
+
+(map!
+ :n "]d" 'next-error
+ "[d" 'previous-error)
+
+(map!
+ :after consult-flycheck
+ :leader
+ "d" 'consult-flycheck)
+
+;; Whenever you reconfigure a package, make sure to wrap your config in an
+;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
+;;
+;;   (after! PACKAGE
+;;     (setq x y))
+;;
+;; The exceptions to this rule:
+;;
+;;   - Setting file/directory variables (like `org-directory')
+;;   - Setting variables which explicitly tell you to set them before their
+;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
+;;   - Setting doom variables (which start with 'doom-' or '+').
+;;
+;; Here are some additional functions/macros that will help you configure Doom.
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package!' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
+;; etc).
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
