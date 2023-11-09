@@ -36,6 +36,21 @@
   (:states 'insert
 	   "C-S-v" 'evil-paste-after-cursor-after))
 
+;; Replace operator
+(with-eval-after-load 'evil
+  (evil-define-operator evil-operator-replace (beg end _ register)
+    :move-point nil
+    (interactive "<R>")
+    (let* ((text (if register
+                     (evil-get-register register)
+                   (current-kill 0))))
+
+      (save-excursion
+        (delete-region beg end)
+        (goto-char beg)
+        (insert text))))
+  (general-define-key :states 'normal "gr" 'evil-operatro-replace))
+
 ;; https://blog.meain.io/2020/emacs-highlight-yanked/
 (with-eval-after-load 'evil
   (defun meain/evil-yank-advice (orig-fn beg end &rest args)
