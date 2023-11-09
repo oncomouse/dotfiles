@@ -10,6 +10,10 @@
 (package! org-appear)
 (package! consult-projectile)
 
+(package! corfu)
+(package! cape)
+(package! nerd-icons-corfu)
+
 (package! evil-snipe :disable t)
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)

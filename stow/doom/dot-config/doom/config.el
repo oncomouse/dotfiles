@@ -148,21 +148,23 @@
                                        #'org-appear-manual-stop
                                        nil
                                        t))))
-(after! org (map!
-             (:n
-              "C-c a" 'org-agenda
-              "C-c c" 'org-capture
-              "C-c l" 'org-store-link)
-             (:leader
-              :desc "Agenda View" "oaa" 'org-agenda-list)
-             (:map org-mode-map :leader
-	      "oo" 'org-open-at-point
-	      "o*" 'org-toggle-heading
-	      :desc "Org Refile" "or" 'org-refile)
-             (:map org-mode-map
-	      :i "C-z" 'org-cycle-list-bullet)
-             (:map org-mode-map
-	      :n "cit" 'org-todo)))
+;; org-mode keys
+(map!
+ (:n
+  "C-c a" 'org-agenda
+  "C-c c" 'org-capture
+  "C-c l" 'org-store-link)
+ (:leader
+  :desc "Agenda View" "oaa" 'org-agenda-list)
+ (:after org
+         (:map org-mode-map :leader
+          "oo" 'org-open-at-point
+          "o*" 'org-toggle-heading
+          :desc "Org Refile" "or" 'org-refile)
+         (:map org-mode-map
+          :i "C-z" 'org-cycle-list-bullet)
+         (:map org-mode-map
+          :n "cit" 'org-todo)))
 
 (map! :after org-agenda
       :map org-agenda-mode-map
@@ -281,6 +283,54 @@ Don't close any open windows."
  :after consult-flycheck
  :leader
  "d" 'consult-flycheck)
+
+(use-package! corfu
+  :custom
+  (corfu-cycle t)
+  (corfu-separator ?\s)
+  (corfu-quit-at-boundary 'separator)
+  (corfu-quit-no-match 'separator)
+  (corfu-preview-current 'insert)
+  (corfu-popupinfo-delay (cons nil 1.0))
+  :init
+  (global-corfu-mode)
+  :config
+  (require 'corfu-popupinfo)
+  (corfu-popupinfo-mode)
+  (advice-add 'corfu--setup :after 'evil-normalize-keymaps)
+  (advice-add 'corfu--teardown :after 'evil-normalize-keymaps))
+
+(map!
+  :after (corfu evil)
+ (:i
+  "C-y" nil ;; For some reason, this needs to be disabled
+  "C-x C-o" 'completion-at-point)
+ (:map corfu-map
+  :i
+  "SPC" #'corfu-insert-separator
+  "C-n" #'corfu-next
+  "C-p" #'corfu-previous
+  "C-y" #'corfu-insert
+  "C-c" #'corfu-quit
+  "M-a" #'corfu-popupinfo-toggle
+  "C-u" #'corfu-popupinfo-scroll-up
+  "C-d" #'corfu-popupinfo-scroll-down))
+
+(use-package! cape)
+(map!
+ (:prefix "C-x"
+  :i
+  "C-t" 'complete-tag
+  "C-n" 'cape-dabbrev
+  "C-p" 'cape-abbrev
+  "C-f" 'cape-file
+  "C-l" 'cape-line
+  "C-k" 'cape-dict))
+
+(use-package! nerd-icons-corfu
+  :after (nerd-icons corfu)
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
