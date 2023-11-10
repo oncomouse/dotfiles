@@ -76,6 +76,7 @@ cask "basictex"
 cask "firefox"
 cask "flux", args: { appdir: "/Applications" }
 cask "font-fira-code", args: { appdir: "/Applications" }
+cask "font-fira-sans"
 cask "font-fira-code-nerd-font"
 cask "font-hasklig"
 cask "font-jetbrains-mono"
