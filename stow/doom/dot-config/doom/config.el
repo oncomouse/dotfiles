@@ -350,6 +350,21 @@ Don't close any open windows."
 (after! vterm
   (map! :map vterm-mode-map "C-c C-c" (lambda (_) (interactive "p") (vterm-send "C-c"))))
 
+;; (after! marginalia
+;;   (setq marginalia-command-categories
+;;         (append '((projectile-find-file . project-file)
+;;                   (projectile-find-dir . project-file)
+;;                   (projectile-switch-project . file)
+;;                   (projectile-recentf . project-file)
+;;                   (projectile-switch-to-buffer . buffer))
+;;                 marginalia-command-categories))
+;;   (map! :map minibuffer-local-map
+;;         "M-a" 'marginalia-cycle))
+
+(use-package! vertico-truncate
+  :config
+  (vertico-truncate-mode 1))
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
