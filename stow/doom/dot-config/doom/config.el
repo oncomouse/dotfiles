@@ -62,8 +62,8 @@
 (setq company-idle-delay nil)
 (after! company (map!
                  (:map company-active-map
-                       "RET" nil
-                       "C-y" 'company-complete-selection)
+                  :i "RET" nil
+                  :i "C-y" 'company-complete-selection)
                  (:i "C-x C-o" 'company-complete)))
 
 ;; consult configuration
@@ -75,10 +75,10 @@
 
 (map!
  (:leader
-  "a" 'consult-buffer
-  "e" 'embark-act
-  "fp" 'consult-projectile)
- "C-x C-r" 'consult-recent-file)
+  :n "a" 'consult-buffer
+  :n "e" 'embark-act
+  :n "fp" 'consult-projectile)
+ :nvi "C-x C-r" 'consult-recent-file)
 
 ;; org configuration
 (defun dotfiles/org-summary-todo (n-done n-not-done)
@@ -152,16 +152,16 @@
                                        t))))
 ;; org-mode keys
 (map!
- (:n
-  "C-c a" 'org-agenda
-  "C-c c" 'org-capture
-  "C-c l" 'org-store-link)
+ (:n "C-c a" 'org-agenda
+  :n "C-c c" 'org-capture
+  :n "C-c l" 'org-store-link)
  (:leader
-  :desc "Agenda View" "oaa" 'org-agenda-list)
+  :desc "Agenda View" :n "oaa" 'org-agenda-list)
  (:after org
          (:map org-mode-map :leader
-          "oo" 'org-open-at-point
-          "o*" 'org-toggle-heading
+          :n "oo" 'org-open-at-point
+          :n "o*" 'org-toggle-heading
+	  :n "oc" 'org-capture
           :desc "Org Refile" "or" 'org-refile)
          (:map org-mode-map
           :i "C-z" 'org-cycle-list-bullet)
@@ -170,9 +170,9 @@
 
 (map! :after org-agenda
       :map org-agenda-mode-map
-      "q" 'org-agenda-exit
-      "f" 'org-agenda-later
-      "b" 'org-agenda-earlier)
+      :nvm "q" 'org-agenda-exit
+      :nvm "f" 'org-agenda-later
+      :nvm "b" 'org-agenda-earlier)
 
 (after! evil-org
   (evil-define-key 'motion 'org-agenda-mode
@@ -237,9 +237,8 @@ Don't close any open windows."
     (interactive "*p")
     (evil-collection-unimpaired--move-text (- arg)))
   (map!
-   (:n
-    "M-j" #'evil-collection-unimpaired-move-text-down
-    "M-k" #'evil-collection-unimpaired-move-text-up)))
+   (:n "M-j" #'evil-collection-unimpaired-move-text-down
+    :n "M-k" #'evil-collection-unimpaired-move-text-up)))
 
 (after! evil
   (evil-ex-define-cmd "Format" 'apheleia-format-buffer))
@@ -279,12 +278,12 @@ Don't close any open windows."
 
 (map!
  :n "]d" 'next-error
- "[d" 'previous-error)
+ :n "[d" 'previous-error)
 
 (map!
  :after consult-flycheck
  :leader
- "d" 'consult-flycheck)
+ :n "d" 'consult-flycheck)
 
 (use-package! corfu
   :custom
@@ -303,31 +302,27 @@ Don't close any open windows."
   (advice-add 'corfu--teardown :after 'evil-normalize-keymaps))
 
 (map!
-  :after (corfu evil)
- (:i
-  "C-y" nil ;; For some reason, this needs to be disabled
-  "C-x C-o" 'completion-at-point)
+ :after (corfu evil)
+ (:i "C-x C-o" 'completion-at-point)
  (:map corfu-map
-  :i
-  "SPC" #'corfu-insert-separator
-  "C-n" #'corfu-next
-  "C-p" #'corfu-previous
-  "C-y" #'corfu-insert
-  "C-c" #'corfu-quit
-  "M-a" #'corfu-popupinfo-toggle
-  "C-u" #'corfu-popupinfo-scroll-up
-  "C-d" #'corfu-popupinfo-scroll-down))
+  :i "SPC" #'corfu-insert-separator
+  :i "C-n" #'corfu-next
+  :i "C-p" #'corfu-previous
+  :i "C-y" #'corfu-insert
+  :i "C-c" #'corfu-quit
+  :i "M-a" #'corfu-popupinfo-toggle
+  :i "C-u" #'corfu-popupinfo-scroll-up
+  :i "C-d" #'corfu-popupinfo-scroll-down))
 
 (use-package! cape)
 (map!
  (:prefix "C-x"
-  :i
-  "C-t" 'complete-tag
-  "C-n" 'cape-dabbrev
-  "C-p" 'cape-abbrev
-  "C-f" 'cape-file
-  "C-l" 'cape-line
-  "C-k" 'cape-dict))
+  :i "C-t" 'complete-tag
+  :i "C-n" 'cape-dabbrev
+  :i "C-p" 'cape-abbrev
+  :i "C-f" 'cape-file
+  :i "C-l" 'cape-line
+  :i "C-k" 'cape-dict))
 
 (use-package! nerd-icons-corfu
   :after (nerd-icons corfu)
