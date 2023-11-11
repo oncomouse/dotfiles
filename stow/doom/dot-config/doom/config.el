@@ -314,6 +314,16 @@ Don't close any open windows."
   :i "C-u" #'corfu-popupinfo-scroll-up
   :i "C-d" #'corfu-popupinfo-scroll-down))
 
+(use-package lsp-mode
+  :custom
+  (lsp-completion-provider :none) ;; we use Corfu!
+  :init
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless))) ;; Configure orderless
+  :hook
+  (lsp-completion-mode . my/lsp-mode-setup-completion))
+
 (use-package! cape)
 (map!
  (:prefix "C-x"
