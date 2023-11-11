@@ -114,17 +114,19 @@
 (after! org
   (setq
    org-hide-leading-stars nil
-   org-startup-indented nil))
-
-(setq org-directory (concat dotfiles-seadrive-path "/Todo/org")
-      org-agenda-files (list
-			(concat dotfiles-seadrive-path "/Todo/todo.org")
-			(concat dotfiles-seadrive-path "/Todo/inbox.org"))
-      org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org")
-      org-indent-mode "noindent"
-      org-refile-targets
-      '((nil :maxlevel . 2)
-	(org-agenda-files :maxlevel . 2)))
+   org-startup-indented nil
+   org-directory (concat dotfiles-seadrive-path "/Todo/org")
+   org-agenda-files (list
+		     (concat dotfiles-seadrive-path "/Todo/todo.org")
+		     (concat dotfiles-seadrive-path "/Todo/inbox.org"))
+   org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org")
+   org-indent-mode "noindent"
+   org-refile-targets
+   '((nil :maxlevel . 2)
+     (org-agenda-files :maxlevel . 2))
+   org-agenda-span 7
+   org-agenda-start-on-weekday 1
+   org-agenda-start-day nil))
 
 (add-hook! 'org-mode-hook 'turn-on-visual-line-mode)
 (add-hook! 'org-after-todo-statistics-hook 'dotfiles/org-summary-todo)
