@@ -380,6 +380,7 @@ Don't close any open windows."
 (after! vertico
   (vertico-multiform-mode)
   (map! :map vertico-map
+        "C-u" 'universal-argument
 	"M-i" 'vertico-quick-insert
 	"C-o" 'vertico-quick-exit
 	"M-G" 'vertico-multiform-grid
