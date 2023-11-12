@@ -499,6 +499,11 @@
   (:prefix "C-c"
    "C-d" #helpful-at-point))
 
+(use-package vertico-truncate
+  :elpaca '(vertico-truncat :host github :repo "jdtsmith/vertico-truncate")
+  :config
+  (vertico-truncate-mode 1))
+
 (provide 'init)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

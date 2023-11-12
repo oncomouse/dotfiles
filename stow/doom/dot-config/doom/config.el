@@ -370,6 +370,16 @@ Don't close any open windows."
   :config
   (vertico-truncate-mode 1))
 
+(after! vertico
+  (vertico-multiform-mode)
+  (map! :map vertico-map
+	"M-i" 'vertico-quick-insert
+	"C-o" 'vertico-quick-exit
+	"M-G" 'vertico-multiform-grid
+	"M-F" 'vertico-multiform-flat
+	"M-R" 'vertico-multiform-reverse
+	"M-U" 'vertico-multiform-unobtrusive))
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
