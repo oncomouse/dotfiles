@@ -269,22 +269,22 @@ Don't close any open windows."
   (push 'lua-selene flycheck-checkers))
 
 (map!
- :after evil-numbers
  :nv "C-A" 'evil-numbers/inc-at-pt
  :nv "C-c C-A" 'evil-numbers/inc-at-pt
  :nv "C-c C-X" 'evil-numbers/dec-at-pt
  :v "g C-A" 'evil-numbers/inc-at-pt-incremental
  :v "g C-X" 'evil-numbers/dec-at-pt-incremental)
 
+;; Preferred diagnostic mappings:
 (map!
  :n "]d" 'next-error
  :n "[d" 'previous-error)
-
 (map!
  :after consult-flycheck
  :leader
  :n "d" 'consult-flycheck)
 
+;; CORFU
 (use-package! corfu
   :custom
   (corfu-cycle t)
@@ -314,16 +314,6 @@ Don't close any open windows."
   :i "C-u" #'corfu-popupinfo-scroll-up
   :i "C-d" #'corfu-popupinfo-scroll-down))
 
-;; (use-package lsp-mode
-;;   :custom
-;;   (lsp-completion-provider :none) ;; we use Corfu!
-;;   :init
-;;   (defun my/lsp-mode-setup-completion ()
-;;     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-;;           '(orderless))) ;; Configure orderless
-;;   :hook
-;;   (lsp-completion-mode . my/lsp-mode-setup-completion))
-
 (after! lsp-mode
   (setq lsp-completion-provider :none)
   (defun my/lsp-mode-setup-completion ()
@@ -341,29 +331,40 @@ Don't close any open windows."
   :i "C-f" 'cape-file
   :i "C-l" 'cape-line
   :i "C-k" 'cape-dict))
+;; END CORFU
 
+;; Add nerd-icons to corfu
 (use-package! nerd-icons-corfu
   :after (nerd-icons corfu)
   :config
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
+;; Add nerd-icons to completion
 (use-package! nerd-icons-completion
   :after (marginalia nerd-icons)
   :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
   :init
   (nerd-icons-completion-mode))
+
+;; Send C-c with C-c C-c
 (after! vterm
   (map! :map vterm-mode-map "C-c C-c" (lambda (_) (interactive "p") (vterm-send "C-c"))))
 
+;; Use orderless-flex
 (after! orderless
   (setq orderless-matching-styles '(orderless-literal orderless-flex orderless-regexp)))
 
+;; affe provides native-emacs FZF-like searching
 (after! affe
   (defun affe-orderless-regexp-compiler (input _type _ignorecase)
     (setq input (orderless-pattern-compiler input))
     (cons input (apply-partially #'orderless--highlight input t)))
-  (setq affe-regexp-compiler #'affe-orderless-regexp-compiler))
+  (setq affe-regexp-compiler #'affe-orderless-regexp-compiler)
+  (map!
+   :leader
+   :nv "ff" 'affe-find))
 
+;; configure additional marginalia settings:
 (after! marginalia
   (setq marginalia-command-categories
         (append '((projectile-find-file . project-file)
@@ -375,6 +376,7 @@ Don't close any open windows."
   (map! :map minibuffer-local-map
         "M-a" 'marginalia-cycle))
 
+;; additional vertico bindings and enable multiform-mode
 (after! vertico
   (vertico-multiform-mode)
   (map! :map vertico-map
