@@ -13,6 +13,7 @@
 (package! corfu)
 (package! cape)
 (package! nerd-icons-corfu)
+(package! nerd-icons-completion)
 (package! vertico-truncate :recipe '(:host github :repo "jdtsmith/vertico-truncate"))
 
 (package! evil-snipe :disable t)
