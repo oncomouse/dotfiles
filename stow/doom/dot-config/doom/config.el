@@ -355,20 +355,19 @@ Don't close any open windows."
 (after! vterm
   (map! :map vterm-mode-map "C-c C-c" (lambda (_) (interactive "p") (vterm-send "C-c"))))
 
-;; (after! marginalia
-;;   (setq marginalia-command-categories
-;;         (append '((projectile-find-file . project-file)
-;;                   (projectile-find-dir . project-file)
-;;                   (projectile-switch-project . file)
-;;                   (projectile-recentf . project-file)
-;;                   (projectile-switch-to-buffer . buffer))
-;;                 marginalia-command-categories))
-;;   (map! :map minibuffer-local-map
-;;         "M-a" 'marginalia-cycle))
+(after! orderless
+  (setq orderless-matching-styles '(orderless-literal orderless-flex orderless-regexp)))
 
-(use-package! vertico-truncate
-  :config
-  (vertico-truncate-mode 1))
+(after! marginalia
+  (setq marginalia-command-categories
+        (append '((projectile-find-file . project-file)
+                  (projectile-find-dir . project-file)
+                  (projectile-switch-project . file)
+                  (projectile-recentf . project-file)
+                  (projectile-switch-to-buffer . buffer))
+                marginalia-command-categories))
+  (map! :map minibuffer-local-map
+        "M-a" 'marginalia-cycle))
 
 (after! vertico
   (vertico-multiform-mode)
