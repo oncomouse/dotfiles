@@ -14,7 +14,6 @@
 (package! cape)
 (package! nerd-icons-corfu)
 (package! nerd-icons-completion)
-(package! affe)
 
 (package! evil-snipe :disable t)
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:

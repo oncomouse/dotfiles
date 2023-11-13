@@ -354,16 +354,6 @@ Don't close any open windows."
 (after! orderless
   (setq orderless-matching-styles '(orderless-literal orderless-flex orderless-regexp)))
 
-;; affe provides native-emacs FZF-like searching
-(after! affe
-  (defun affe-orderless-regexp-compiler (input _type _ignorecase)
-    (setq input (orderless-pattern-compiler input))
-    (cons input (apply-partially #'orderless--highlight input t)))
-  (setq affe-regexp-compiler #'affe-orderless-regexp-compiler)
-  (map!
-   :leader
-   :nv "ff" 'affe-find))
-
 ;; configure additional marginalia settings:
 (after! marginalia
   (setq marginalia-command-categories
