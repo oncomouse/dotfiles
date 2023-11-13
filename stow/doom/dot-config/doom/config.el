@@ -237,8 +237,8 @@ Don't close any open windows."
     (interactive "*p")
     (evil-collection-unimpaired--move-text (- arg)))
   (map!
-   (:n "M-j" #'evil-collection-unimpaired-move-text-down
-    :n "M-k" #'evil-collection-unimpaired-move-text-up)))
+   (:n "M-j" 'evil-collection-unimpaired-move-text-down
+    :n "M-k" 'evil-collection-unimpaired-move-text-up)))
 
 (after! evil
   (evil-ex-define-cmd "Format" 'apheleia-format-buffer))
