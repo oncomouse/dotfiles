@@ -350,9 +350,8 @@ Don't close any open windows."
 (after! vterm
   (map! :map vterm-mode-map "C-c C-c" (lambda (_) (interactive "p") (vterm-send "C-c"))))
 
-;; Use orderless-flex
-(after! orderless
-  (setq orderless-matching-styles '(orderless-literal orderless-flex orderless-regexp)))
+;; Reload files when the change on disk
+(global-auto-revert-mode t)
 
 ;; affe provides native-emacs FZF-like searching
 (after! affe
