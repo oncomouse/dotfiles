@@ -387,6 +387,19 @@ Don't close any open windows."
 	"M-R" 'vertico-multiform-reverse
 	"M-U" 'vertico-multiform-unobtrusive))
 
+;; Electric Pair
+(electric-pair-mode)
+;; Add electric-pairs for major-modes
+(defmacro spw/add-mode-pairs (hook pairs)
+  `(add-hook ,hook
+             (lambda ()
+               (setq-local electric-pair-pairs (append electric-pair-pairs ,pairs))
+               (setq-local electric-pair-text-pairs electric-pair-pairs))))
+(spw/add-mode-pairs 'emacs-lisp-mode-hook '((?` . ?')))
+(spw/add-mode-pairs 'markdown-mode-hook '((?* . ?*)))
+(spw/add-mode-pairs 'org-mode-hook '((?* . ?*)))
+
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
