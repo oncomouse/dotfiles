@@ -241,7 +241,9 @@ Don't close any open windows."
     :n "M-k" 'evil-collection-unimpaired-move-text-up)))
 
 (after! evil
-  (evil-ex-define-cmd "Format" 'apheleia-format-buffer))
+  (evil-ex-define-cmd "Format" 'apheleia-format-buffer)
+  (map!
+   :textobj "e" #'+evil:whole-buffer-txtobj         #'+evil:whole-buffer-txtobj))
 
 (after! evil
   (evil-define-operator evil-operator-replace (beg end _ register)
