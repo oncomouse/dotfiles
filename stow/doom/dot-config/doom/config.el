@@ -124,6 +124,7 @@
    org-refile-targets
    '((nil :maxlevel . 2)
      (org-agenda-files :maxlevel . 2))
+   org-imenu-depth 2
    org-agenda-span 7
    org-agenda-start-on-weekday 1
    org-agenda-start-day nil))
