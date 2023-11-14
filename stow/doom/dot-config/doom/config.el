@@ -237,11 +237,13 @@ Don't close any open windows."
     (interactive "*p")
     (evil-collection-unimpaired--move-text (- arg)))
   (map!
-   (:n "M-j" #'evil-collection-unimpaired-move-text-down
-    :n "M-k" #'evil-collection-unimpaired-move-text-up)))
+   (:n "M-j" 'evil-collection-unimpaired-move-text-down
+    :n "M-k" 'evil-collection-unimpaired-move-text-up)))
 
 (after! evil
-  (evil-ex-define-cmd "Format" 'apheleia-format-buffer))
+  (evil-ex-define-cmd "Format" 'apheleia-format-buffer)
+  (map!
+   :textobj "e" #'+evil:whole-buffer-txtobj         #'+evil:whole-buffer-txtobj))
 
 (after! evil
   (evil-define-operator evil-operator-replace (beg end _ register)
@@ -322,15 +324,16 @@ Don't close any open windows."
   (add-hook! lsp-completion-mode #'my/lsp-mode-setup-completion)
   )
 
-(use-package! cape)
-(map!
- (:prefix "C-x"
-  :i "C-t" 'complete-tag
-  :i "C-n" 'cape-dabbrev
-  :i "C-p" 'cape-abbrev
-  :i "C-f" 'cape-file
-  :i "C-l" 'cape-line
-  :i "C-k" 'cape-dict))
+(use-package! cape
+  :config
+  (map!
+   (:prefix "C-x"
+    :i "C-t" 'complete-tag
+    :i "C-n" 'cape-dabbrev
+    :i "C-p" 'cape-abbrev
+    :i "C-f" 'cape-file
+    :i "C-l" 'cape-line
+    :i "C-k" 'cape-dict)))
 ;; END CORFU
 
 ;; Add nerd-icons to corfu
@@ -350,9 +353,8 @@ Don't close any open windows."
 (after! vterm
   (map! :map vterm-mode-map "C-c C-c" (lambda (_) (interactive "p") (vterm-send "C-c"))))
 
-;; Use orderless-flex
-(after! orderless
-  (setq orderless-matching-styles '(orderless-literal orderless-flex orderless-regexp)))
+;; Reload files when the change on disk
+(global-auto-revert-mode t)
 
 ;; configure additional marginalia settings:
 (after! marginalia
@@ -377,6 +379,19 @@ Don't close any open windows."
 	"M-F" 'vertico-multiform-flat
 	"M-R" 'vertico-multiform-reverse
 	"M-U" 'vertico-multiform-unobtrusive))
+
+;; Electric Pair
+(electric-pair-mode)
+;; Add electric-pairs for major-modes
+(defmacro spw/add-mode-pairs (hook pairs)
+  `(add-hook ,hook
+    (lambda ()
+      (setq-local electric-pair-pairs (append electric-pair-pairs ,pairs))
+      (setq-local electric-pair-text-pairs electric-pair-pairs))))
+(spw/add-mode-pairs 'emacs-lisp-mode-hook '((?` . ?')))
+(spw/add-mode-pairs 'markdown-mode-hook '((?* . ?*)))
+(spw/add-mode-pairs 'org-mode-hook '((?* . ?*)))
+
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
