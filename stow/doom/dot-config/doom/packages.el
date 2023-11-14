@@ -17,6 +17,7 @@
 (package! affe)
 
 (package! evil-snipe :disable t)
+(package! evil-easymotion :disable t)
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 
