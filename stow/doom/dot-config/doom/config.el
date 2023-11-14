@@ -324,15 +324,16 @@ Don't close any open windows."
   (add-hook! lsp-completion-mode #'my/lsp-mode-setup-completion)
   )
 
-(use-package! cape)
-(map!
- (:prefix "C-x"
-  :i "C-t" 'complete-tag
-  :i "C-n" 'cape-dabbrev
-  :i "C-p" 'cape-abbrev
-  :i "C-f" 'cape-file
-  :i "C-l" 'cape-line
-  :i "C-k" 'cape-dict))
+(use-package! cape
+  :config
+  (map!
+   (:prefix "C-x"
+    :i "C-t" 'complete-tag
+    :i "C-n" 'cape-dabbrev
+    :i "C-p" 'cape-abbrev
+    :i "C-f" 'cape-file
+    :i "C-l" 'cape-line
+    :i "C-k" 'cape-dict)))
 ;; END CORFU
 
 ;; Add nerd-icons to corfu
