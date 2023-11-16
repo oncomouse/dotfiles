@@ -217,6 +217,10 @@
          (:map org-mode-map
           :n "cit" 'org-todo)))
 
+;; Use Word / libreoffice to bypass doc-view-mode when opening docx files from org:
+(after! org
+  (add-to-list 'org-file-apps '("\\.docx\\'" . "open %s")))
+
 (map! :after org-agenda
       :map org-agenda-mode-map
       :nvm "q" 'org-agenda-exit
