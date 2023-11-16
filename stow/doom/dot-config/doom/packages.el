@@ -16,6 +16,7 @@
 (package! nerd-icons-completion)
 
 (package! pandoc-mode)
+(package! biblio)
 
 (package! evil-snipe :disable t)
 (package! evil-easymotion :disable t)
