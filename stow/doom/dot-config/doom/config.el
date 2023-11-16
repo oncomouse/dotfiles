@@ -237,7 +237,12 @@
     "c" 'evil-change))
 
 (defun dotfiles/evil-org-meta-return (count)
-  "Enter insert if not in insert state"
+  "Insert a new heading or wrap a region in a table.
+Calls `org-insert-heading', `org-insert-item' or
+`org-table-wrap-region', depending on context.  When called with
+an argument, unconditionally call `org-insert-heading'.
+
+For evil-mode, if executed in normal state, enter insert state."
   (interactive "p")
   (org-meta-return)
   (when (eq evil-state 'normal)
