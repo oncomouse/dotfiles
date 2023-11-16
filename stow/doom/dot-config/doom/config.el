@@ -58,13 +58,10 @@
 		eshell-mode-hook))
   (add-hook mode (lambda() (display-line-numbers-mode 0))))
 
-;; company configuration
-(setq company-idle-delay nil)
-(after! company (map!
-                 (:map company-active-map
-                  :i "RET" nil
-                  :i "C-y" 'company-complete-selection)
-                 (:i "C-x C-o" 'company-complete)))
+;; Restore yank function:
+(map!
+ :after evil
+ :i "C-y" 'yank)
 
 ;; consult configuration
 (after! consult
