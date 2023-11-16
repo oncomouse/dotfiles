@@ -236,6 +236,17 @@
   (evil-define-key 'normal 'evil-org-mode
     "c" 'evil-change))
 
+(defun dotfiles/evil-org-meta-return (count)
+  "Enter insert if not in insert state"
+  (interactive "p")
+  (org-meta-return)
+  (when (eq evil-state 'normal)
+         (evil-append-line count)))
+(map!
+ :after evil-org
+ :mode evil-org-mode
+ :nvi "M-RET" #'dotfiles/evil-org-meta-return)
+
 (after! markdown-mode
   (add-hook 'markdown-mode-hook 'pandoc-mode)
   (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
