@@ -236,6 +236,10 @@
   (evil-define-key 'normal 'evil-org-mode
     "c" 'evil-change))
 
+(after! markdown-mode
+  (add-hook 'markdown-mode-hook 'pandoc-mode)
+  (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
+
 ;; mini.nvim's Bdelete command, which preserves window layout
 (after! evil
   (evil-define-command dotfiles/evil-delete-buffer (buffer &optional bang)

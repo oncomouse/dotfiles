@@ -15,6 +15,8 @@
 (package! nerd-icons-corfu)
 (package! nerd-icons-completion)
 
+(package! pandoc-mode)
+
 (package! evil-snipe :disable t)
 (package! evil-easymotion :disable t)
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
