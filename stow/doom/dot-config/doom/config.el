@@ -252,11 +252,6 @@ For evil-mode, if executed in normal state, enter insert state."
  :mode evil-org-mode
  :nvi "M-RET" #'dotfiles/evil-org-meta-return)
 
-(add-load-path! "lisp")
-(use-package! biblio
-  :config
-  (require 'biblio-zotero))
-
 (after! markdown-mode
   (add-hook 'markdown-mode-hook 'pandoc-mode)
   (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
