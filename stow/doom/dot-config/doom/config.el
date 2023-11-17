@@ -61,6 +61,7 @@
 ;; Restore yank function:
 (map!
  :after evil
+ :i "C-S-v" 'yank
  :i "C-y" 'yank)
 
 ;; consult configuration
