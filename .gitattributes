@@ -1,1 +1,2 @@
 scripts/url.js filter=git-crypt diff=git-crypt
+conf/doom/lisp/config-secret.el filter=git-crypt diff=git-crypt
