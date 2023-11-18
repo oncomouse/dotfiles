@@ -789,58 +789,6 @@ require("lazy").setup({
 			})
 		end,
 	}, -- Various (see below)
-	{
-		"nvim-treesitter/nvim-treesitter",
-		config = function()
-			local parsers = {
-				"bash",
-				"bibtex",
-				"c",
-				"cmake",
-				"comment",
-				"cpp",
-				"css",
-				"diff",
-				"dockerfile",
-				"fennel",
-				"fish",
-				"html",
-				"http",
-				"javascript",
-				"jsdoc",
-				"json",
-				"jsonc",
-				"latex",
-				"lua",
-				"luadoc",
-				"luap",
-				"make",
-				"markdown",
-				"markdown_inline",
-				"org",
-				"perl",
-				"php",
-				"python",
-				"query",
-				"rasi",
-				"regex",
-				"ruby",
-				"rust",
-				"vim",
-				"vimdoc",
-				"vue",
-				"xml",
-				"yaml",
-			}
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = parsers,
-				highlight = { enable = true },
-			})
-		end,
-		build = function()
-			vim.cmd([[TSUpdate]])
-		end,
-	}, -- Syntax
 }, {
 	root = vim.fn.stdpath("data") .. "/lazy-minimal",
 	performance = {
