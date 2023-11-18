@@ -60,6 +60,7 @@
 (map!
  :after evil
  :i "C-S-v" 'yank
+ :nv "C-w S" 'evil-window-vsplit
  :i "C-y" 'yank)
 
 ;; consult configuration
