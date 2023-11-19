@@ -151,17 +151,17 @@ Don't close any open windows."
 
 ;; gs/gS for sorting and reverse sorting:
 (after! evil
-;; https://www.emacswiki.org/emacs/SortWords
-(defun sort-words (reverse beg end)
-  "Sort words in region alphabetically, in REVERSE if negative.
+  ;; https://www.emacswiki.org/emacs/SortWords
+  (defun sort-words (reverse beg end)
+    "Sort words in region alphabetically, in REVERSE if negative.
     Prefixed with negative \\[universal-argument], sorts in reverse.
 
     The variable `sort-fold-case' determines whether alphabetic case
     affects the sort order.
 
     See `sort-regexp-fields'."
-  (interactive "*P\nr")
-  (sort-regexp-fields reverse "\\w+" "\\&" beg end))
+    (interactive "*P\nr")
+    (sort-regexp-fields reverse "\\w+" "\\&" beg end))
   (defun __sort-lines (reverse beg end)
     (if (= 1 (count-lines beg end)) (sort-words reverse beg end) (sort-lines reverse beg end)))
   (evil-define-operator evil-operator-sort (beg end _)
