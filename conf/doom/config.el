@@ -1,8 +1,8 @@
-(defconst *is-a-mac* (eq system-type 'darwin))
-(defvar dotfiles-seadrive-path (cond (*is-a-mac* "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries") (t "~/SeaDrive/My Libraries")))
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
 (add-to-list 'load-path "~/dotfiles/conf/doom/lisp/")
+
+;; Detect system type:
+(defconst *is-a-mac* (eq system-type 'darwin))
+(require 'config-secret)
 
 (setq doom-localleader-key ",")
 
@@ -285,8 +285,6 @@ Don't close any open windows."
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
-
-(require 'config-secret)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
