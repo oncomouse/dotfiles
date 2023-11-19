@@ -10,6 +10,9 @@
 (setq user-full-name "Andrew Pilsch"
       user-mail-address "apilsch@tamu.edu")
 
+;; Reload files when the change on disk
+(global-auto-revert-mode t)
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -60,8 +63,12 @@
 (map!
  :after evil
  :i "C-S-v" 'yank
- :nv "C-w S" 'evil-window-vsplit
  :i "C-y" 'yank)
+
+;; tmux-style vsplit
+(map!
+ :after evil
+ :nv "C-w S" 'evil-window-vsplit)
 
 ;; consult configuration
 (after! consult
@@ -69,22 +76,26 @@
    consult-buffer consult-recent-file consult-buffer consult-ripgrep
    consult-projectile
    :preview-key "M-."))
-
 (map!
  (:leader
   :n "a" 'consult-buffer
-  :n "e" 'embark-act
   :n "fp" 'consult-projectile)
  :nvi "C-x C-r" 'consult-recent-file)
 
+;; localleader bindings:
+(map!
+ :localleader
+ :n ":"  'eval-expression
+ :nv ";" 'embark-act)
+
 (require 'config-org)
 
+;; configure markdown-mode for pandoc:
 (after! markdown-mode
   (add-hook 'markdown-mode-hook 'pandoc-mode)
   (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
 
 (require 'config-bibliography)
-
 
 ;; mini.nvim's Bdelete command, which preserves window layout
 (after! evil
@@ -143,11 +154,14 @@ Don't close any open windows."
    (:n "M-j" 'evil-collection-unimpaired-move-text-down
     :n "M-k" 'evil-collection-unimpaired-move-text-up)))
 
+;; :Format to format buffer
 (after! evil
-  (evil-ex-define-cmd "Format" 'apheleia-format-buffer)
+  (evil-ex-define-cmd "Format" 'apheleia-format-buffer))
+
+;; Select the whole region with the ie/ae textobject:
+(after! evil
   (map!
    :textobj "e" #'+evil:whole-buffer-txtobj         #'+evil:whole-buffer-txtobj))
-
 
 ;; gs/gS for sorting and reverse sorting:
 (after! evil
@@ -216,14 +230,12 @@ Don't close any open windows."
 
 (require 'config-corfu)
 
+;; Configure vterm
 ;; Send C-c with C-c C-c
 (after! vterm
   (map! :map vterm-mode-map "C-c C-c" (lambda (_) (interactive "p") (vterm-send "C-c"))))
 
-;; Reload files when the change on disk
-(global-auto-revert-mode t)
-
-;; configure additional marginalia settings:
+;; configure marginalia:
 (after! marginalia
   (setq marginalia-command-categories
         (append '((projectile-find-file . project-file)
@@ -254,7 +266,7 @@ Don't close any open windows."
   :init
   (nerd-icons-completion-mode))
 
-;; Electric Pair
+;; Configure electric pairs
 (electric-pair-mode)
 ;; Add electric-pairs for major-modes
 (defmacro spw/add-mode-pairs (hook pairs)
