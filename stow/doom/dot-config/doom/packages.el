@@ -18,6 +18,11 @@
 (package! pandoc-mode)
 (package! ebib)
 
+(package! treesit-auto)
+
+;; (package! lua-ts-mode
+;;          :recipe (:host sourcehut :repo "johnmuhl/lua-ts-mode"))
+
 (package! evil-snipe :disable t)
 (package! evil-easymotion :disable t)
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
