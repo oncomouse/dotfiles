@@ -148,8 +148,33 @@ Don't close any open windows."
   (map!
    :textobj "e" #'+evil:whole-buffer-txtobj         #'+evil:whole-buffer-txtobj))
 
+
+;; gs/gS for sorting and reverse sorting:
 (after! evil
-  (evil-define-operator evil-operator-replace (beg end _ register)
+;; https://www.emacswiki.org/emacs/SortWords
+(defun sort-words (reverse beg end)
+  "Sort words in region alphabetically, in REVERSE if negative.
+    Prefixed with negative \\[universal-argument], sorts in reverse.
+
+    The variable `sort-fold-case' determines whether alphabetic case
+    affects the sort order.
+
+    See `sort-regexp-fields'."
+  (interactive "*P\nr")
+  (sort-regexp-fields reverse "\\w+" "\\&" beg end))
+  (defun __sort-lines (reverse beg end)
+    (if (= 1 (count-lines beg end)) (sort-words reverse beg end) (sort-lines reverse beg end)))
+  (evil-define-operator evil-operator-sort (beg end _)
+    (__sort-lines nil beg end))
+  (evil-define-operator evil-operator-sort-reverse (beg end _)
+    (__sort-lines t beg end))
+  (map!
+   :n "gs" 'evil-operator-sort
+   :n "gS" 'evil-operator-sort-reverse))
+
+;; gr for replace with register
+(after! evil
+  (evil-define-operator evil-operator-replace-with-register (beg end _ register)
     :move-point nil
     (interactive "<R>")
     (let* ((text (if register
@@ -160,7 +185,7 @@ Don't close any open windows."
         (delete-region beg end)
         (goto-char beg)
         (insert text))))
-  (map! :n "gr" 'evil-operator-replace))
+  (map! :n "gr" 'evil-operator-replace-with-register))
 
 (after! flycheck
   (flycheck-define-checker lua-selene
