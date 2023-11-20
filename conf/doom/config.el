@@ -286,6 +286,36 @@ Don't close any open windows."
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
+(use-package! targets
+  :config
+  (targets-setup t
+                 :last-key "N")
+  (targets-define-composite-to anyblock
+    (("(" ")" pair)
+     ("[" "]" pair)
+     ("{" "}" pair)
+     ("<" ">" pair)
+     ("\"" "\"" quote)
+     ("'" "'" quote)
+     ("`" "`" quote)
+     ("“" "”" quote))
+    :bind t
+    :hooks (prog-mode-hook)
+    :keys "b")
+  (targets-define-composite-to anyblock-org
+    (("*" "*" quote)
+     ("*" "*" quote)
+     ("/" "/" quote)
+     ("+" "+" quote)
+     ("~" "~" quote))
+    :bind t
+    :hooks (org-mode-hook)
+    :keys "b")
+  (targets-define-to italics-raw
+		     "*" nil quote :hooks (markdown-mode-hook org-mode-hook))
+  (targets-define-to italics
+		     "*" nil quote :bind t :hooks (markdown-mode-hook) :keys "i"))
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;

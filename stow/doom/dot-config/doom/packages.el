@@ -20,11 +20,11 @@
 
 (package! treesit-auto)
 
-;; (package! lua-ts-mode
-;;          :recipe (:host sourcehut :repo "johnmuhl/lua-ts-mode"))
+(package! targets.el :recipe (:host github :repo "noctuid/targets.el"))
 
 (package! evil-snipe :disable t)
 (package! evil-easymotion :disable t)
+(package! evil-textobj-anyblock :disable t)
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 
