@@ -17,6 +17,9 @@
   (add-hook! (LaTex-mode org-mode markdown-mode) 'citar-capf-setup)
   (citar-embark-mode))
 
+(after! org
+  (setq org-cite-global-bibliography reftex-default-bibliography))
+
 (defcustom ebib-zotero-translation-server "http://127.0.0.1:1969"
   "The address of Zotero translation server."
   :group 'ebib
