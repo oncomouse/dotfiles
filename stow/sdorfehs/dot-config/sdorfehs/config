@@ -63,7 +63,6 @@ bind s-t time
 bind B default-brightness
 
 # [switch frames]
-bind Tab fselect
 bind h focusleft
 bind j focusdown
 bind k focusup
@@ -83,6 +82,19 @@ bind s-L exchangeright
 bind s-n next
 bind s-p prev
 
+# [select frames]
+bind Tab fselect
+bind parenright fselect 0
+bind exclam fselect 1
+bind at fselect 2
+bind numbersign fselect 3
+bind dollar fselect 4
+bind percent fselect 5
+bind asciicircum fselect 6
+bind ampersand fselect 7
+bind asterisk fselect 8
+bind parenleft fselect 9
+
 # [reverse splits]
 bind S hsplit
 bind s split
@@ -97,10 +109,17 @@ bind z zoom
 bind s-z zoom
 
 # [windows]
-alias sf-windows exec sf-windows.sh &
-bind w sf-windows
-bind s-w sf-windows
 definekey top s-Tab sf-windows
+bind w windows
+bind 0 select 0
+bind 1 select 1
+bind 2 select 2
+bind 3 select 3
+bind 4 select 4
+bind 5 select 5
+bind 6 select 6
+bind 7 select 7
+bind 8 select 8
 
 # [launchers]
 definekey top M-s-r exec dotfiles-run &
@@ -118,19 +137,19 @@ definekey top Print exec dotfiles-screenshot &
 bind Print exec dotfiles-screenshot &
 bind M-p exec dotfiles-screenshot &
 
-# [workspaces]
-bind 1 vselect 0
-bind 2 vselect 1
-bind 3 vselect 2
-bind 4 vselect 3
-bind 5 vselect 4
-bind 6 vselect 5
-bind exclam vmove 0
-bind at vmove 1
-bind numbersign vmove 2
-bind dollar vmove 3
-bind percent vmove 4
-bind asciicircum vmove 5
+# [switch & move between workspaces]
+bind F1 vselect 0
+bind F2 vselect 1
+bind F3 vselect 2
+bind F4 vselect 3
+bind F5 vselect 4
+bind F6 vselect 5
+bind S-F1 vmove 0
+bind S-F2 vmove 1
+bind S-F3 vmove 2
+bind S-F4 vmove 3
+bind S-F5 vmove 4
+bind S-F6 vmove 5
 
 # [toggle fullscreen]
 definekey top F11 exec xdotool getactivewindow windowstate --toggle FULLSCREEN &
