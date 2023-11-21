@@ -64,7 +64,9 @@
  :after evil
  :mode (visual-line-mode evil-org-mode markdown-mode)
  :n "j" 'evil-next-visual-line
- :n "k" 'evil-previous-visual-line)
+ :n "<down>" 'evil-next-visual-line
+ :n "k" 'evil-previous-visual-line
+ :n "<up>" 'evil-previous-visual-line)
 
 ;; Restore yank function:
 (map!
@@ -264,7 +266,12 @@ Don't close any open windows."
 	"M-G" 'vertico-multiform-grid
 	"M-F" 'vertico-multiform-flat
 	"M-R" 'vertico-multiform-reverse
-	"M-U" 'vertico-multiform-unobtrusive))
+	"M-U" 'vertico-multiform-unobtrusive
+        ;; PageUp / PageDown for vertico
+        "<next>" (lambda () (interactive) (vertico-next vertico-count))
+        "<prior>" (lambda () (interactive) (vertico-previous vertico-count))
+        "C-d" (lambda () (interactive) (vertico-next vertico-count))
+        "C-u" (lambda () (interactive) (vertico-previous vertico-count))))
 
 ;; Add nerd-icons to completion
 (use-package! nerd-icons-completion
