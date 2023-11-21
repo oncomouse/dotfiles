@@ -148,9 +148,6 @@
 (after! evil-org
   (evil-define-key 'motion 'org-agenda-mode
     "f" 'org-agenda-later)
-  (evil-define-key 'normal 'visual-line-mode
-    "j" 'evil-next-visual-line
-    "k" 'evil-previous-visual-line)
   (evil-define-key 'normal 'evil-org-mode
     "c" 'evil-change))
 
