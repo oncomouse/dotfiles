@@ -150,20 +150,7 @@
   (evil-define-key 'normal 'evil-org-mode
     "c" 'evil-change))
 
-(defun dotfiles/evil-org-meta-return (count)
-  "Insert a new heading or wrap a region in a table.
-Calls `org-insert-heading', `org-insert-item' or
-`org-table-wrap-region', depending on context.  When called with
-an argument, unconditionally call `org-insert-heading'.
-
-For evil-mode, if executed in normal state, enter insert state."
-  (interactive "p")
-  (org-meta-return)
-  (when (eq evil-state 'normal)
-    (evil-append-line count)))
-(map!
- :after evil-org
- :mode evil-org-mode
- :nvi "M-RET" #'dotfiles/evil-org-meta-return)
+(advice-add 'org-meta-return :after (lambda (&optional _)
+                                      (when (eq evil-state 'normal) (evil-append-line 1))))
 
 (provide 'config-org)
