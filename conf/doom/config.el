@@ -5,6 +5,7 @@
 (require 'config-secret)
 
 (setq doom-localleader-key ",")
+(setq doom-localleader-alt-key "M-,")
 
 ;; Whoami
 (setq user-full-name "Andrew Pilsch"
