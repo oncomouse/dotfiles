@@ -15,7 +15,14 @@
 (after! citar
   (setq citar-bibliography reftex-default-bibliography)
   (add-hook! (LaTex-mode org-mode markdown-mode) 'citar-capf-setup)
-  (citar-embark-mode))
+  (citar-embark-mode)
+  ;; Run `citar-org-update-pre-suffix' after inserting a citation to immediately
+  ;; set its prefix and suffix
+  (advice-add 'org-cite-insert :after #'(lambda (args)
+                                          (save-excursion
+                                            (left-char) ; First move point inside citation
+                                            (citar-org-update-pre-suffix))))
+  )
 
 (after! org
   (setq org-cite-global-bibliography (list reftex-default-bibliography)))
