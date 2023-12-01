@@ -296,16 +296,21 @@ of a line (ie. an org-mode headline)."
   (when (eq action 'insert)
     (sp--looking-back-p (concat "^\\**" (regexp-quote id)))))
 
+(defun dotfiles/point-at-org-mode-list-p ()
+  (or
+   (general-electric/match-before-point (concat "^\\s-*[0-9]\\.\\s-+" (regexp-quote id) "$"))
+   (general-electric/match-before-point (concat "^\\s-*[+-]\\s-+" (regexp-quote id) "$"))))
+
 (defun dotfiles/sp-handle-checkbox (id action _context)
   "When a bracket is inserted after a bullet, create a checkbox and move on."
-  (when (and (eq action 'insert) (general-electric/match-before-point (concat "^\\s-*[+-]\\s-+" (regexp-quote id) "$")))
+  (when (and (eq action 'insert) (dotfiles/point-at-org-mode-list-p))
     (insert " ")
     (right-char 1)
     (insert " ")))
 
 (defun dotfiles/delete-org-checkbox (_arg &optional _killp)
   "Remove the rest of an org-mode checkbox when the closing bracket is removed."
-  (when (and (eq major-mode 'org-mode) (general-electric/match-before-point "^\\s-*[+-]\\s-\\[ $"))
+  (when (and (eq major-mode 'org-mode) (dotfiles/point-at-org-mode-list-p))
     (delete-char -2)))
 
 ;; TODO: delete bullets
