@@ -277,11 +277,17 @@ Don't close any open windows."
 ;; (defun dotfiles/sp-not-in-cookie-p (_id _action _context)
 ;;   (message (format "%s" (sp--looking-back "[[]" 1)))
 ;;   (not (sp--looking-back "[[]" 1)))
+(defun dotfiles/sp-point-at-headline-p (id action _context)
+  "Return t if the point is after a set of 0 or more asterisks at the start
+of a line (ie. an org-mode headline)."
+  (when (eq action 'insert)
+    (message (format "%s" (concat "^\\**" (regexp-quote id))))
+    (sp--looking-back-p (concat "^\\**" (regexp-quote id)))))
 
 (after! smartparens
   (sp-with-modes 'org-mode
     (sp-local-pair "*" "*"
-                   :unless '(sp-point-at-bol-p))
+                   :unless '(dotfiles/sp-point-at-headline-p))
     (sp-local-pair "/" "/"
                    :post-handlers '(("[d1]" "SPC"))
                    :unless '(sp-point-after-word-p)
