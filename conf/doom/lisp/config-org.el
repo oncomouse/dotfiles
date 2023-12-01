@@ -154,3 +154,4 @@
                                       (when (eq evil-state 'normal) (evil-append-line 1))))
 
 (provide 'config-org)
+;;; config-org.el ends here
