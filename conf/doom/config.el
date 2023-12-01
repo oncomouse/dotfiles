@@ -315,14 +315,32 @@ of a line (ie. an org-mode headline)."
 
 ;; TODO: delete bullets
 
+;; TODO: insert spaces after bullet points
+
+(defun dotfiles/sp-handle-bullets (id action _context)
+  (when (and (eq action 'insert) (sp-point-after-bol-p id action _context))
+    (delete-char 1)
+    (insert " ")))
+
+(defun dotfiles/sp-right-one (&rest _r)
+  "Move the point right one"
+  (right-char 1))
+
 (after! smartparens
   (advice-add 'delete-backward-char :after 'dotfiles/delete-org-checkbox)
 
   (sp-with-modes 'org-mode
+    (sp-local-pair "-" " "
+                   :when '(sp-point-after-bol-p)
+                   :post-handlers '(dotfiles/sp-handle-dash))
+    (sp-local-pair "+" "+"
+                   :post-handlers '(dotfiles/sp-handle-bullets))
     (sp-local-pair "[" nil
                    :post-handlers '(dotfiles/sp-handle-checkbox))
     (sp-local-pair "*" "*"
                    :unless '(dotfiles/sp-point-at-headline-p))
+    (sp-local-pair "~" "~"
+                   :unless '(sp-point-after-word-p))
     (sp-local-pair "/" "/"
                    :post-handlers '(("[d1]" "SPC"))
                    :unless '(sp-point-after-word-p dotfiles/sp-point-in-org-cookie-p)
