@@ -303,7 +303,16 @@ of a line (ie. an org-mode headline)."
     (right-char 1)
     (insert " ")))
 
+(defun dotfiles/delete-org-checkbox (_arg &optional _killp)
+  "Remove the rest of an org-mode checkbox when the closing bracket is removed."
+  (when (and (eq major-mode 'org-mode) (general-electric/match-before-point "^\\s-*[+-]\\s-\\[ $"))
+    (delete-char -2)))
+
+;; TODO: delete bullets
+
 (after! smartparens
+  (advice-add 'delete-backward-char :after 'dotfiles/delete-org-checkbox)
+
   (sp-with-modes 'org-mode
     (sp-local-pair "[" nil
                    :post-handlers '(dotfiles/sp-handle-checkbox))
