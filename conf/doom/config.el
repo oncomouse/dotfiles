@@ -298,7 +298,7 @@ of a line (ie. an org-mode headline)."
 
 (defun dotfiles/sp-handle-checkbox (id action _context)
   "When a bracket is inserted after a bullet, create a checkbox and move on."
-  (when (and (eq action 'insert) (sp--looking-back-p (concat "^\\s-*[+-]\\s-+" (regexp-quote id))))
+  (when (and (eq action 'insert) (general-electric/match-before-point (concat "^\\s-*[+-]\\s-+" (regexp-quote id) "$")))
     (insert " ")
     (right-char 1)
     (insert " ")))
