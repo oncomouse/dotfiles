@@ -296,21 +296,25 @@ of a line (ie. an org-mode headline)."
   (when (eq action 'insert)
     (sp--looking-back-p (concat "^\\**" (regexp-quote id)))))
 
-(defun dotfiles/point-at-org-mode-list-p ()
+(defun dotfiles/point-at-org-mode-list-p (id)
   (or
    (general-electric/match-before-point (concat "^\\s-*[0-9]\\.\\s-+" (regexp-quote id) "$"))
    (general-electric/match-before-point (concat "^\\s-*[+-]\\s-+" (regexp-quote id) "$"))))
 
 (defun dotfiles/sp-handle-checkbox (id action _context)
   "When a bracket is inserted after a bullet, create a checkbox and move on."
-  (when (and (eq action 'insert) (dotfiles/point-at-org-mode-list-p))
+  (when (and (eq action 'insert) (dotfiles/point-at-org-mode-list-p id))
     (insert " ")
     (right-char 1)
     (insert " ")))
 
 (defun dotfiles/delete-org-checkbox (_arg &optional _killp)
   "Remove the rest of an org-mode checkbox when the closing bracket is removed."
-  (when (and (eq major-mode 'org-mode) (dotfiles/point-at-org-mode-list-p))
+  (when (and
+         (eq major-mode 'org-mode)
+         (or
+          (general-electric/match-before-point (concat "^\\s-*[0-9]\\.\\s-+\\[ $"))
+          (general-electric/match-before-point (concat "^\\s-*[+-]\\s-+\\[ $"))))
     (delete-char -2)))
 
 ;; TODO: delete bullets
@@ -320,7 +324,7 @@ of a line (ie. an org-mode headline)."
     (delete-char 1)
     (insert " ")))
 
-(defun dotfiles/sp-right-one (&rest _r)
+(defun dotfiles/sp-move-point-right (&rest _r)
   "Move the point right one"
   (right-char 1))
 
@@ -330,7 +334,7 @@ of a line (ie. an org-mode headline)."
   (sp-with-modes 'org-mode
     (sp-local-pair "-" " "
                    :when '(sp-point-after-bol-p)
-                   :post-handlers '(dotfiles/sp-handle-dash))
+                   :post-handlers '(dotfiles/sp-move-point-right))
     (sp-local-pair "+" "+"
                    :post-handlers '(dotfiles/sp-handle-bullets))
     (sp-local-pair "[" nil
