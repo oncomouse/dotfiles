@@ -274,23 +274,44 @@ Don't close any open windows."
         "C-d" (lambda () (interactive) (vertico-next vertico-count))
         "C-u" (lambda () (interactive) (vertico-previous vertico-count))))
 
-;; (defun dotfiles/sp-not-in-cookie-p (_id _action _context)
-;;   (message (format "%s" (sp--looking-back "[[]" 1)))
-;;   (not (sp--looking-back "[[]" 1)))
+;; Match before, after, and around point with regexp:
+(defun general-electric/match-before-point (pattern)
+  "Compare the line from up to point against pattern using (string-match)"
+  (string-match pattern (buffer-substring (line-beginning-position) (point))))
+(defun general-electric/match-after-point (pattern)
+  "Compare the line after point against pattern using (string-match)"
+  (string-match pattern (buffer-substring (point) (line-end-position))))
+(defun general-electric/match-around-point (before after)
+  "Compare the line before point to before and the line after point using after."
+  (and (general-electric/match-after-point after) (general-electric/match-before-point before)))
+
+(defun dotfiles/sp-point-in-org-cookie-p (id action _context)
+  "Return t if the point is inside an org-mode statistics cookie."
+  (when (eq action 'insert)
+    (general-electric/match-around-point (concat "\\[" (regexp-quote id) "$") "^\\]")))
+
 (defun dotfiles/sp-point-at-headline-p (id action _context)
   "Return t if the point is after a set of 0 or more asterisks at the start
 of a line (ie. an org-mode headline)."
   (when (eq action 'insert)
-    (message (format "%s" (concat "^\\**" (regexp-quote id))))
     (sp--looking-back-p (concat "^\\**" (regexp-quote id)))))
+
+(defun dotfiles/sp-handle-checkbox (id action _context)
+  "When a bracket is inserted after a bullet, create a checkbox and move on."
+  (when (and (eq action 'insert) (sp--looking-back-p (concat "^\\s-*[+-]\\s-+" (regexp-quote id))))
+    (insert " ")
+    (right-char 1)
+    (insert " ")))
 
 (after! smartparens
   (sp-with-modes 'org-mode
+    (sp-local-pair "[" nil
+                   :post-handlers '(dotfiles/sp-handle-checkbox))
     (sp-local-pair "*" "*"
                    :unless '(dotfiles/sp-point-at-headline-p))
     (sp-local-pair "/" "/"
                    :post-handlers '(("[d1]" "SPC"))
-                   :unless '(sp-point-after-word-p)
+                   :unless '(sp-point-after-word-p dotfiles/sp-point-in-org-cookie-p)
                    :actions '(insert autoskip wrap navigate))))
 
 ;; Add nerd-icons to completion
@@ -299,70 +320,6 @@ of a line (ie. an org-mode headline)."
   :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
   :init
   (nerd-icons-completion-mode))
-
-;; Configure electric pairs
-;; (electric-pair-mode)
-;; Add electric-pairs for major-modes
-;; (defmacro spw/add-mode-pairs (hook pairs)
-;;   `(add-hook ,hook
-;;     (lambda ()
-;;       (setq-local electric-pair-pairs (append electric-pair-pairs ,pairs))
-;;       (setq-local electric-pair-text-pairs electric-pair-pairs))))
-;; (spw/add-mode-pairs 'emacs-lisp-mode-hook '((?` . ?')))
-
-;; This is a TERRIBLE way to do this, but it's a start on getting General Electric (ie. electric mode but
-;; for anything) going.
-;;
-;; TODO: figure out how data strcutures in lisp work and use datastrcutures to do all this:
-;; (defun general-electric/match-before-point (pattern)
-;;   (string-match pattern (buffer-substring (line-beginning-position) (point))))
-;; (defun general-electric/match-after-point (pattern)
-;;   (string-match pattern (buffer-substring (point) (line-end-position))))
-;; (defun general-electric/match-around-point (before after)
-;;   (and (general-electric/match-after-point after) (general-electric/match-before-point before)))
-;; (defun dotfiles/general-electric (&rest r)
-;;   "Function to advice self-insert-command on matters of the heart"
-;;   (catch 'rule-match
-;;     (dotfiles/general-electric--impl r)))
-;; (defun dotfiles/general-electric--impl (&rest r)
-;;   (save-excursion
-;;     (let ((kv (this-command-keys-vector)))
-;;       (when (length> kv 0)
-;;         (let ((n (nth 0 r))
-;;               (c (aref kv (1- (length kv)))))
-;;           (cond
-;;            ;; Handle *
-;;            ((equal c ?*)
-;;             (when
-;;                 ;; Org mode only
-;;                 (memq major-mode '(org-mode))
-;;               (cond
-;;                ;; Do nothing if we're at the start of a line:
-;;                ((general-electric/match-around-point "^\**$" "^$") (throw 'rule-match t))
-;;                ;; Jump to the end if we're already in a pair:
-;;                ((general-electric/match-around-point "\*[^* ]*$" "\*")
-;;                 (delete-char 1)
-;;                 (right-char)
-;;                 (throw 'rule-match t))
-;;                ))
-;;             ;; Autocomplete pair
-;;             (when (memq major-mode '(markdown-mode org-mode)))
-;;             (cond
-
-;;              (t (insert "*") (left-char)(throw 'rule-match t)))
-;;             )
-;;            ((equal c ?\[)
-;;             (when
-;;                 (memq major-mode '(org-mode))
-;;               (cond
-;;                ((general-electric/match-before-point "^\s*[+]\s+[[]$")(insert " ")(right-char)(throw 'rule-match t))
-;;                )
-;;               )
-;;             )
-
-;;            )
-;;           )))))
-;; (advice-add 'self-insert-command :after 'dotfiles/general-electric)
 
 ;; Configure treesit-auto
 (use-package! treesit-auto
