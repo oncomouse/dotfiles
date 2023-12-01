@@ -315,8 +315,6 @@ of a line (ie. an org-mode headline)."
 
 ;; TODO: delete bullets
 
-;; TODO: insert spaces after bullet points
-
 (defun dotfiles/sp-handle-bullets (id action _context)
   (when (and (eq action 'insert) (sp-point-after-bol-p id action _context))
     (delete-char 1)
