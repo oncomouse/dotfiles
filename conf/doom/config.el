@@ -327,6 +327,9 @@ of a line (ie. an org-mode headline)."
 (defun dotfiles/sp-move-point-right (&rest _r)
   "Move the point right one"
   (right-char 1))
+(defun dotfiles/sp-delete (&rest _r)
+  "Delete one character after the point"
+  (delete-char 1))
 
 (after! smartparens
   (advice-add 'delete-backward-char :after 'dotfiles/delete-org-checkbox)
@@ -334,8 +337,9 @@ of a line (ie. an org-mode headline)."
   (sp-with-modes 'org-mode
     (sp-local-pair "-" " "
                    :when '(sp-point-after-bol-p)
+
                    :post-handlers '(dotfiles/sp-move-point-right))
-    (sp-local-pair "+" "+"
+    (sp-local-pair "+" "+" ;; TODO: don't pair when inside a date
                    :post-handlers '(dotfiles/sp-handle-bullets))
     (sp-local-pair "[" nil
                    :post-handlers '(dotfiles/sp-handle-checkbox))
@@ -343,8 +347,12 @@ of a line (ie. an org-mode headline)."
                    :unless '(dotfiles/sp-point-at-headline-p))
     (sp-local-pair "~" "~"
                    :unless '(sp-point-after-word-p))
-    (sp-local-pair "/" "/"
-                   :post-handlers '(("[d1]" "SPC"))
+    (sp-local-pair "_" "_"
+                   :unless '(sp-point-after-word-p))
+    (sp-local-pair "%" " "
+                   :when '(dotfiles/sp-point-in-org-cookie-p)
+                   :post-handlers '(dotfiles/sp-delete dotfiles/sp-move-point-right))
+    (sp-local-pair "/" "/" ;; TODO: insert one slash and move right when inside a cookie
                    :unless '(sp-point-after-word-p dotfiles/sp-point-in-org-cookie-p)
                    :actions '(insert autoskip wrap navigate))))
 
