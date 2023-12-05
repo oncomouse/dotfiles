@@ -327,9 +327,19 @@ of a line (ie. an org-mode headline)."
 (defun dotfiles/sp-move-point-right (&rest _r)
   "Move the point right one"
   (right-char 1))
+
 (defun dotfiles/sp-delete (&rest _r)
   "Delete one character after the point"
   (delete-char 1))
+
+(defun dotfiles/sp-handle-org-fraction-cookie (id action _context)
+  "If // is inserted inside an org cookie, remove trailing slash and exit cookie."
+  (when (and (eq action 'insert)
+             (general-electric/match-around-point
+              (concat "\\[" (regexp-quote id) "$")
+              (concat "^" (regexp-quote id) "\\]")))
+    (delete-char 1)
+    (right-char 1)))
 
 (after! smartparens
   (advice-add 'delete-backward-char :after 'dotfiles/delete-org-checkbox)
@@ -353,7 +363,8 @@ of a line (ie. an org-mode headline)."
                    :when '(dotfiles/sp-point-in-org-cookie-p)
                    :post-handlers '(dotfiles/sp-delete dotfiles/sp-move-point-right))
     (sp-local-pair "/" "/" ;; TODO: insert one slash and move right when inside a cookie
-                   :unless '(sp-point-after-word-p dotfiles/sp-point-in-org-cookie-p)
+                   :post-handlers '(dotfiles/sp-handle-org-fraction-cookie)
+                   :unless '(sp-point-after-word-p)
                    :actions '(insert autoskip wrap navigate))))
 
 ;; Add nerd-icons to completion
