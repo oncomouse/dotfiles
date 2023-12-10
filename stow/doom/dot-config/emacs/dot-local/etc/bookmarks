@@ -1,0 +1,34 @@
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("meetings"
+ (filename . "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries/Todo/todo.org")
+ (front-context-string . "** Spring 2024 M")
+ (rear-context-string . " the first time\n")
+ (position . 52496)
+ (last-modified 25974 11233 199036 0))
+("executive-committee"
+ (filename . "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries/Todo/todo.org")
+ (front-context-string . "*** Executive Co")
+ (rear-context-string . "Meeting Notes]]\n")
+ (position . 52713)
+ (last-modified 25974 11054 74333 0))
+("org-capture-last-stored-marker"
+ (filename . "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries/Todo/todo.org")
+ (front-context-string . "** TODO Janet Ch")
+ (rear-context-string . "r Three Years]]\n")
+ (position . 62408)
+ (last-modified 25971 28996 853001 0))
+("org-refile-last-stored"
+ (filename . "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries/Todo/todo.org")
+ (front-context-string . "** TODO Coffee w")
+ (rear-context-string . "s/96057001487]]\n")
+ (position . 62504)
+ (last-modified 25971 34379 679578 0))
+("org-capture-last-stored"
+ (filename . "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries/Todo/inbox.org")
+ (front-context-string . "** TODO Janet Ch")
+ (rear-context-string . "MC investigates\n")
+ (position . 1421)
+ (last-modified 25971 28994 823691 0)))
