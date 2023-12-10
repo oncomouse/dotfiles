@@ -411,6 +411,12 @@ of a line (ie. an org-mode headline)."
 		     "*" nil quote :hooks (markdown-mode-hook org-mode-hook))
   (targets-define-to italics
 		     "*" nil quote :bind t :hooks (markdown-mode-hook) :keys "i"))
+(use-package! cyclekey
+  :config
+  (setq cyclekey-languages '("Spanish" "German" "French")))
+(map!
+ :after cyclekey
+ :i "M-o" 'cyclekey-cycle)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.

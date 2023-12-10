@@ -21,6 +21,7 @@
 (package! treesit-auto)
 
 (package! targets.el :recipe (:host github :repo "noctuid/targets.el"))
+(package! cyclekey :recipe (:host github :repo "shankar2k/cyclekey"))
 
 (package! evil-snipe :disable t)
 (package! evil-easymotion :disable t)
