@@ -10,7 +10,7 @@ function ls
   if command -sq exa eza
     eval (if command -sq exa; echo "exa"; else; echo "eza"; end) -g --group-directories-first --no-quotes (string escape -- $argv)
   else
-    ls $argv
+    /bin/ls $argv
   end
 end
 function wal;eval (if command -sq python3; echo "python3"; else; echo "python"; end) $HOME/dotfiles/scripts/wal/custom_wal.py $argv;end
