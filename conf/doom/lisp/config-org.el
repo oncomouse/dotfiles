@@ -124,11 +124,8 @@
  (:leader
   :desc "Agenda View" :n "oaa" 'org-agenda-list)
  (:after org
-         (:map org-mode-map :leader
-          :n "oo" 'org-open-at-point
-          :n "o*" 'org-toggle-heading
-	  :n "oc" 'org-capture
-          :desc "Org Refile" "or" 'org-refile)
+         (:leader
+	  :n :desc "Org Capture" "oc" 'org-capture)
          (:map org-mode-map
           :i "C-z" 'org-cycle-list-bullet)
          (:map org-mode-map
@@ -152,6 +149,21 @@
 
 (advice-add 'org-meta-return :after (lambda (&optional _)
                                       (when (eq evil-state 'normal) (evil-append-line 1))))
+
+(use-package! org-roam
+  :config
+  (setq org-roam-directory (concat dotfiles-seadrive-path "/org-roam"))
+  (org-roam-db-autosync-mode))
+
+(map! :after org-roam
+      (:leader
+       (:prefix "o" "r" nil)
+       (:prefix ("or" . "org-roam")
+        "b" #'org-roam-buffer-togglemap
+        "f" #'org-roam-node-find
+        "c" #'org-roam-capture))
+      (:localleader :prefix ("R" . "org-roam")
+       "i" #'org-roam-node-insert))
 
 (provide 'config-org)
 ;;; config-org.el ends here

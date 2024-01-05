@@ -7,13 +7,15 @@
 
 
 (package! catppuccin-theme)
-(package! org-appear)
-(package! consult-projectile)
 
+(package! consult-projectile)
 (package! corfu)
 (package! cape)
 (package! nerd-icons-corfu)
 (package! nerd-icons-completion)
+
+(package! org-appear)
+(package! org-roam)
 
 (package! pandoc-mode)
 (package! ebib)
