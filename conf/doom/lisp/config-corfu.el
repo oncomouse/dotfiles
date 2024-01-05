@@ -10,10 +10,27 @@
   :init
   (global-corfu-mode)
   :config
+  (defun +corfu--enable-in-minibuffer ()
+    "Enable Corfu completion in the minibuffer, e.g., `eval-expression'."
+    (when (where-is-internal #'completion-at-point (list (current-local-map)))
+      (setq-local corfu-auto t)
+      (corfu-mode 1)))
+  (defun corfu-move-to-minibuffer ()
+      "Move current completions to the minibuffer"
+      (interactive)
+      (let ((completion-extra-properties corfu--extra)
+            completion-cycle-threshold completion-cycling)
+        (apply #'consult-completion-in-region completion-in-region--data)))
   (require 'corfu-popupinfo)
   (corfu-popupinfo-mode)
-  (advice-add 'corfu--setup :after 'evil-normalize-keymaps)
-  (advice-add 'corfu--teardown :after 'evil-normalize-keymaps))
+  (add-hook 'minibuffer-setup-hook #'+corfu--enable-in-minibuffer)
+
+  ;; Temporary fix for 'corfu--setup having a new signature
+  (after! evil
+    (advice-remove 'corfu--setup 'evil-normalize-keymaps)
+    (advice-remove 'corfu--teardown 'evil-normalize-keymaps)
+    (advice-add 'corfu--setup :after (lambda (&rest r) (evil-normalize-keymaps)))
+    (advice-add 'corfu--teardown :after  (lambda (&rest r) (evil-normalize-keymaps)))))
 
 (map!
  :after (corfu evil)
@@ -24,6 +41,7 @@
   :i "C-p" #'corfu-previous
   :i "C-y" #'corfu-insert
   :i "C-c" #'corfu-quit
+  :i "M-m" #'corfu-move-to-minibuffer
   :i "M-a" #'corfu-popupinfo-toggle
   :i "C-u" #'corfu-popupinfo-scroll-up
   :i "C-d" #'corfu-popupinfo-scroll-down))
