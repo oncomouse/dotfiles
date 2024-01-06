@@ -18,7 +18,6 @@
 (package! org-roam)
 
 (package! pandoc-mode)
-(package! ebib)
 
 (package! treesit-auto)
 
