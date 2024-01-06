@@ -404,6 +404,9 @@ return {
 		})
 		require("mini.misc").setup_restore_cursor()
 
+        require("mini.notify").setup()
+		vim.keymap.set("n", "<leader>nn", MiniNotify.show_history, { desc = "Help Tags" })
+
 		-- Useful text operators
 		-- g= for calcuation; gx for exchanging regions (use twice to select and replace); gm multiply; gr for replace with register; gs for sorting
 		require("mini.operators").setup()
