@@ -107,7 +107,6 @@ return {
 				additional_vim_regex_highlighting = { "org" },
 				disable = nvim_treesitter.should_highlight_disable,
 			},
-			context_commentstring = { enable = true },
 			matchup = {
 				enable = nvim_treesitter.should_buffer_higlight_disable,
 			},
@@ -132,7 +131,12 @@ return {
 			require("nvim-treesitter.configs").setup(opts)
 		end,
 		dependencies = {
-			{ "JoosepAlviste/nvim-ts-context-commentstring" },
+			{
+				"JoosepAlviste/nvim-ts-context-commentstring",
+				init = function()
+					vim.g.skip_ts_context_commentstring_module = true
+				end,
+			},
 			{
 				"nvim-treesitter/nvim-treesitter-textobjects",
 				init = function()
