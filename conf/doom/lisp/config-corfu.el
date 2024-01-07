@@ -1,4 +1,6 @@
-;; CORFU
+;;; config-corfu  --- Corfu configuration for Doom Emacs
+;;; Commentary:
+;;; Code:
 (use-package! corfu
   :custom
   (corfu-cycle t)
@@ -59,7 +61,6 @@
     :i "C-f" 'cape-file
     :i "C-l" 'cape-line
     :i "C-k" 'cape-dict)))
-;; END CORFU
 
 ;; Add nerd-icons to corfu
 (use-package! nerd-icons-corfu
@@ -68,3 +69,4 @@
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (provide 'config-corfu)
+;;; config-corfu.el ends here
