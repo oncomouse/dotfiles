@@ -11,12 +11,13 @@
   (global-corfu-mode)
   :config
   (defun corfu-move-to-minibuffer ()
-      "Move current completions to the minibuffer"
-      (interactive)
-      (let ((completion-extra-properties corfu--extra)
+    (interactive)
+    (when completion-in-region--data
+      (let ((completion-extra-properties (nth 4 completion-in-region--data))
             completion-cycle-threshold completion-cycling)
-        (apply #'consult-completion-in-region completion-in-region--data)))
+        (apply #'consult-completion-in-region (butlast completion-in-region--data)))))
   (require 'corfu-popupinfo)
+  (add-to-list 'corfu-continue-commands #'corfu-move-to-minibuffer)
   (corfu-popupinfo-mode)
 
   ;; Temporary fix for 'corfu--setup having a new signature
