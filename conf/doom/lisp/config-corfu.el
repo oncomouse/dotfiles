@@ -10,11 +10,6 @@
   :init
   (global-corfu-mode)
   :config
-  (defun +corfu--enable-in-minibuffer ()
-    "Enable Corfu completion in the minibuffer, e.g., `eval-expression'."
-    (when (where-is-internal #'completion-at-point (list (current-local-map)))
-      (setq-local corfu-auto t)
-      (corfu-mode 1)))
   (defun corfu-move-to-minibuffer ()
       "Move current completions to the minibuffer"
       (interactive)
@@ -23,7 +18,6 @@
         (apply #'consult-completion-in-region completion-in-region--data)))
   (require 'corfu-popupinfo)
   (corfu-popupinfo-mode)
-  (add-hook 'minibuffer-setup-hook #'+corfu--enable-in-minibuffer)
 
   ;; Temporary fix for 'corfu--setup having a new signature
   (after! evil
