@@ -39,9 +39,15 @@
   :i "C-y" #'corfu-insert
   :i "C-c" #'corfu-quit
   :i "M-m" #'corfu-move-to-minibuffer
-  :i "M-a" #'corfu-popupinfo-toggle
-  :i "C-u" #'corfu-popupinfo-scroll-up
-  :i "C-d" #'corfu-popupinfo-scroll-down))
+  :i "M-a" #'corfu-popupinfo-toggle)
+ (:after corfu-popupinfo
+  :map corfu-popupinfo-map
+  "C-<up>" #'corfu-popupinfo-scroll-down
+  "C-<down>" #'corfu-popupinfo-scroll-up
+  "C-S-p" #'corfu-popupinfo-scroll-down
+  "C-S-n" #'corfu-popupinfo-scroll-up
+  "C-S-u" (cmd! (funcall-interactively #'corfu-popupinfo-scroll-down corfu-popupinfo-min-height))
+  "C-S-d" (cmd! (funcall-interactively #'corfu-popupinfo-scroll-up corfu-popupinfo-min-height))))
 
 (after! lsp-mode
   (setq lsp-completion-provider :none)
