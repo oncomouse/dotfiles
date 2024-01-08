@@ -127,12 +127,11 @@
          (:leader
 	  :n :desc "Org Capture" "oc" 'org-capture)
          (:map org-mode-map
-          :i "C-z" 'org-cycle-list-bullet)
-         (:map org-mode-map
-          :n "cit" 'org-todo)
+          :i "C-z" 'org-cycle-list-bullet
+          :n "cit" 'org-todo
          (:localleader
           "&" 'org-mark-ring-goto
-          "%" 'org-mark-ring-push)))
+          "%" 'org-mark-ring-push))))
 
 ;; Use Word / libreoffice to bypass doc-view-mode when opening docx files from org:
 (after! org
