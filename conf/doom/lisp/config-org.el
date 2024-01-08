@@ -129,7 +129,9 @@
          (:map org-mode-map
           :i "C-z" 'org-cycle-list-bullet)
          (:map org-mode-map
-          :n "cit" 'org-todo)))
+          :n "cit" 'org-todo)
+         (:localleader
+          "&" 'org-mark-ring-goto)))
 
 ;; Use Word / libreoffice to bypass doc-view-mode when opening docx files from org:
 (after! org
