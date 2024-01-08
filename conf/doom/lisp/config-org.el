@@ -161,11 +161,14 @@
       (:leader
        (:prefix "o" "r" nil)
        (:prefix ("or" . "org-roam")
-        "b" #'org-roam-buffer-togglemap
-        "f" #'org-roam-node-find
-        "c" #'org-roam-capture))
-      (:localleader :prefix ("R" . "org-roam")
-       "i" #'org-roam-node-insert))
+                "b" #'org-roam-buffer-togglemap
+                "f" #'org-roam-node-find
+                "c" #'org-roam-capture))
+      (:localleader
+       (:prefix "l"
+                "o" #'org-open-at-point)
+       (:prefix ("R" . "org-roam")
+                "i" #'org-roam-node-insert)))
 
 (provide 'config-org)
 ;;; config-org.el ends here
