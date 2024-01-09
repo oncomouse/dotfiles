@@ -27,7 +27,9 @@
     (advice-remove 'corfu--setup 'evil-normalize-keymaps)
     (advice-remove 'corfu--teardown 'evil-normalize-keymaps)
     (advice-add 'corfu--setup :after (lambda (&rest r) (evil-normalize-keymaps)))
-    (advice-add 'corfu--teardown :after  (lambda (&rest r) (evil-normalize-keymaps)))))
+    (advice-add 'corfu--teardown :after  (lambda (&rest r) (evil-normalize-keymaps))))
+  (after! orderless
+    (setq orderless-component-separator #'orderless-escapable-split-on-space)))
 
 (map!
  :after (corfu evil)
