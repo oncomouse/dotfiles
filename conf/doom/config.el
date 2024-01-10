@@ -396,7 +396,8 @@ of a line (ie. an org-mode headline)."
      (("\"" "\"" quote)
      ("'" "'" quote)
      ("`" "`" quote)
-     ("“" "”" quote))
+     ("“" "”" pair)
+     ("‘" "’" pair))
     :bind t
     :keys "q")
   (targets-define-composite-to anyblock
