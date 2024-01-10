@@ -31,6 +31,7 @@
 
 (after! org
   (setq
+   org-complete-tags-always-offer-all-agenda-tags t ;; Always use all tags from Agenda files in capture
    org-hide-leading-stars nil
    org-startup-indented nil
    org-directory (concat dotfiles-seadrive-path "/Todo/org")
