@@ -88,9 +88,13 @@
    :preview-key "M-."))
 (map!
  (:leader
-  :n "a" 'consult-buffer
   :n "fp" 'consult-projectile)
  :nvi "C-x C-r" 'consult-recent-file)
+
+;; Better utilize workspaces
+(map!
+ :leader "a" '+vertico/switch-workspace-buffer
+ (:prefix "TAB" "TAB" '+workspace/switch-to))
 
 ;; localleader bindings:
 (map!
