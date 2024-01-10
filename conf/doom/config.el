@@ -94,7 +94,9 @@
 ;; Better utilize workspaces
 (map!
  :leader "a" '+vertico/switch-workspace-buffer
- (:prefix "TAB" "TAB" '+workspace/switch-to))
+ (:prefix "TAB"
+          "TAB" '+workspace/switch-to
+          "." '+workspace/display))
 
 ;; localleader bindings:
 (map!
