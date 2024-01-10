@@ -392,6 +392,13 @@ of a line (ie. an org-mode headline)."
   :config
   (targets-setup t
                  :last-key "N")
+  (targets-define-composite-to anyquote
+     (("\"" "\"" quote)
+     ("'" "'" quote)
+     ("`" "`" quote)
+     ("“" "”" quote))
+    :bind t
+    :keys "q")
   (targets-define-composite-to anyblock
     (("(" ")" pair)
      ("[" "]" pair)
