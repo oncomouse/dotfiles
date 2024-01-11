@@ -91,16 +91,17 @@
    :preview-key "M-."))
 (map!
  (:leader
-  :n "fp" 'consult-projectile)
- :nvi "C-x C-r" 'consult-recent-file)
+  :desc "Find file in project" :n "fp" 'consult-projectile)
+ :desc "Find recent files" :nvi "C-x C-r" 'consult-recent-file)
 
 ;; Better utilize workspaces
 (map!
- :leader "a" '+vertico/switch-workspace-buffer
- :leader "A" 'consult-buffer
+ (:leader
+  :desc "Select workspace buffers" "a" '+vertico/switch-workspace-buffer
+  :desc "Select all buffers" "A" 'consult-buffer)
  (:prefix "TAB"
-          :desc "Switch workspace" "TAB" '+workspace/switch-to
-          :desc "Display workspace bar" "." '+workspace/display))
+  :desc "Switch workspace" "TAB" '+workspace/switch-to
+  :desc "Display workspace bar" "." '+workspace/display))
 
 ;; localleader bindings:
 (map!
@@ -392,7 +393,7 @@ of a line (ie. an org-mode headline)."
   (targets-setup t
                  :last-key "N")
   (targets-define-composite-to anyquote
-     (("\"" "\"" quote)
+    (("\"" "\"" quote)
      ("'" "'" quote)
      ("`" "`" quote)
      ("“" "”" pair)
