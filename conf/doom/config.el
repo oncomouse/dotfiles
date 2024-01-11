@@ -409,7 +409,8 @@ of a line (ie. an org-mode headline)."
      ("\"" "\"" quote)
      ("'" "'" quote)
      ("`" "`" quote)
-     ("“" "”" quote))
+     ("“" "”" pair)
+     ("‘" "’" pair))
     :bind t
     :hooks (prog-mode-hook)
     :keys "b")
