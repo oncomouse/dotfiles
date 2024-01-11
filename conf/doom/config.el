@@ -60,6 +60,9 @@
 		eshell-mode-hook))
   (add-hook mode (lambda() (display-line-numbers-mode 0))))
 
+;; Enable word count in modeline:
+(setq doom-modeline-enable-word-count t)
+
 ;; Use visual line movements in visual-line-mode
 (map!
  :after evil
