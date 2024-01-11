@@ -24,6 +24,12 @@
                                             (citar-org-update-pre-suffix))))
   )
 
+(map!
+ :after citar
+ :mode org-mode
+ :mode markdown-mode
+ :i "C-c c" 'citar-insert-citation)
+
 (after! org
   (setq org-cite-global-bibliography (list reftex-default-bibliography)))
 
