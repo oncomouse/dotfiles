@@ -99,8 +99,8 @@
  :leader "a" '+vertico/switch-workspace-buffer
  :leader "A" 'consult-buffer
  (:prefix "TAB"
-          "TAB" '+workspace/switch-to
-          "." '+workspace/display))
+          :desc "Switch workspace" "TAB" '+workspace/switch-to
+          :desc "Display workspace bar" "." '+workspace/display))
 
 ;; localleader bindings:
 (map!
