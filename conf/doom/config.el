@@ -178,11 +178,6 @@ Don't close any open windows."
 (after! evil
   (evil-ex-define-cmd "Format" 'apheleia-format-buffer))
 
-;; Select the whole region with the ie/ae textobject:
-(after! evil
-  (map!
-   :textobj "e" #'+evil:whole-buffer-txtobj         #'+evil:whole-buffer-txtobj))
-
 ;; gs/gS for sorting and reverse sorting:
 (after! evil
   ;; https://www.emacswiki.org/emacs/SortWords
