@@ -106,8 +106,8 @@
 ;; localleader bindings:
 (map!
  :localleader
- :n ":"  'eval-expression
- :nv ";" 'embark-act)
+ ":"  'eval-expression
+ ";" 'embark-act)
 
 (require 'config-org)
 
