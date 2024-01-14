@@ -98,10 +98,10 @@
 (map!
  (:leader
   :desc "Select workspace buffers" "a" '+vertico/switch-workspace-buffer
-  :desc "Select all buffers" "A" 'consult-buffer)
+  :desc "Select all buffers" "A" 'consult-buffer
  (:prefix "TAB"
   :desc "Switch workspace" "TAB" '+workspace/switch-to
-  :desc "Display workspace bar" "." '+workspace/display))
+  :desc "Display workspace bar" "." '+workspace/display)))
 
 ;; localleader bindings:
 (map!
