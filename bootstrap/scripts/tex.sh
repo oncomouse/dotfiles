@@ -2,6 +2,8 @@
 # Install the TeX plugins needed to compile the CV:
 os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 packages=(
+	biblatex
+	capt-of
 	enumitem
 	ifmtarg
 	libertine
@@ -11,6 +13,7 @@ packages=(
 	titlesec
 	titling
 	varwidth
+	wrapfig
 	xifthen
 )
 if [ "$os" != "arch" ];then
