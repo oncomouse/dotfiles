@@ -53,7 +53,10 @@ selene
 shellharden
 shfmt
 tex-gyre-fonts
+texlive-bibtexextra
 texlive-core
+texlive-latexextra
+texlive-plaingeneric
 trash-cli
 ttf-fira-code
 ttf-fira-code-nerd
