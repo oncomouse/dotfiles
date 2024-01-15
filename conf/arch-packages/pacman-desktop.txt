@@ -55,8 +55,10 @@ shfmt
 tex-gyre-fonts
 texlive-bibtexextra
 texlive-core
+texlive-fontsrecommended
 texlive-latexextra
 texlive-plaingeneric
+texlive-xetex
 trash-cli
 ttf-fira-code
 ttf-fira-code-nerd
