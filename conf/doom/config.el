@@ -217,6 +217,7 @@ Don't close any open windows."
         (insert text))))
   (map! :n "gr" 'evil-operator-replace-with-register))
 
+(setq flycheck-global-modes '(not org-mode))
 (after! flycheck
   (flycheck-define-checker lua-selene
     "A lua syntax checker using selene"
