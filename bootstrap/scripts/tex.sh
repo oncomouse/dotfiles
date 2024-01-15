@@ -13,11 +13,7 @@ packages=(
 	varwidth
 	xifthen
 )
-if [ "$os" = "macos" ];then
+if [ "$os" != "arch" ];then
   sudo chown -R "$(whoami)" "$(brew --prefix)"/texlive
-elif [ "$os" = "arch" ]; then
-  sudo mkdir -p /usr/share/tlpkg/backups
-  sudo mkdir -p /usr/share/tlpkg/tlpobj
-  sudo tlmgr option repository http://mirrors.rit.edu/CTAN/systems/texlive/tlnet
+  sudo tlmgr install "${packages[@]}"
 fi
-sudo tlmgr install "${packages[@]}"
