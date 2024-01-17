@@ -581,6 +581,9 @@ require("lazy").setup({
 				end,
 			})
 
+			require("mini.notify").setup()
+			vim.keymap.set("n", "<leader>nn", MiniNotify.show_history, { desc = "Help Tags" })
+
 			require("mini.operators").setup()
 
 			require("mini.misc").setup()
