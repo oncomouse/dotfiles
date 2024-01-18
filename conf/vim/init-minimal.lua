@@ -334,7 +334,7 @@ end, {
 })
 
 vim.api.nvim_create_user_command("LazyGit", ":terminal lazygit<cr>", {
-	force = true
+	force = true,
 })
 --------------------------------------------------------------------------------
 -- Mini.nvim:
@@ -530,6 +530,8 @@ require("lazy").setup({
 			-- gc for commenting/uncommenting:
 			require("mini.comment").setup({})
 
+			require("mini.extra").setup({})
+
 			-- file browser <leader>fm / <leader>fM
 			require("mini.files").setup({
 				windows = {
@@ -691,13 +693,33 @@ require("lazy").setup({
 				end
 				return require("mini.pick").start(opts)
 			end
-			vim.keymap.set("n", "<C-H>", "<cmd>Pick help<cr>", { desc = "Help Tags" })
-			vim.keymap.set("n", "<C-P>", function()
-				require("mini.pick").builtin.files(
-					{},
-					{ source = { choose = open_files, choose_marked = open_multiple_files } }
-				)
-			end, { desc = "Files" })
+
+			vim.keymap.set("n", "<leader>hf", "<cmd>Pick help<cr>", { desc = "Search help tags" })
+			vim.keymap.set("n", "<leader>fp", function()
+				MiniPick.builtin.files({}, {
+					mappings = {
+						open_binary = {
+							char = "<C-O>",
+							func = function()
+								local file_path = vim.fs.joinpath(
+									MiniPick.get_picker_opts().source.cwd,
+									MiniPick.get_picker_matches().current
+								)
+								vim.fn.system({
+									"open",
+									file_path,
+								})
+								MiniPick.stop()
+							end,
+						},
+					},
+					source = {
+						choose = open_files,
+						choose_marked = open_multiple_files,
+					},
+				})
+			end, { desc = "Find files in project" })
+			vim.keymap.set("n", "<leader>ff", "<cmd>Pick explorer<CR>", { desc = "Find file" })
 			vim.keymap.set("n", "<leader>a", "<cmd>Pick buffers sort_lastused=true<cr>", { desc = "Buffers" })
 			vim.keymap.set(
 				{ "n", "v" },
