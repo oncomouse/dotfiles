@@ -272,6 +272,8 @@ return {
 		-- gc for Comments
 		require("mini.comment").setup()
 
+        require("mini.extra").setup()
+
 		-- <leader>fm / <leader>fM for file manager
 		require("mini.files").setup({
 			windows = {
@@ -299,6 +301,7 @@ return {
 				vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
 				vim.keymap.set("n", "<C-P>", "<C-P>", { buffer = buf_id }) -- nmap <buffer> <C-P> <C-P>
 				vim.keymap.set("n", "<Esc>", "<cmd>lua MiniFiles.close()<cr>", { buffer = buf_id })
+				vim.keymap.set("n", "<C-g>", "<cmd>lua MiniFiles.close()<cr>", { buffer = buf_id })
 				vim.keymap.set("n", "<C-O>", function()
 					local fs_info = MiniFiles.get_fs_entry(buf_id)
 					vim.fn.system({
@@ -500,8 +503,16 @@ return {
 			end
 			return MiniPick.start(opts)
 		end
-		vim.keymap.set("n", "<C-H>", "<cmd>Pick help<cr>", { desc = "Help Tags" })
-		vim.keymap.set("n", "<C-P>", function()
+
+		-- Map <C-g> (along with <ESC>) to cancel picker
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "MiniPickStart",
+			callback = function(args)
+				vim.keymap.set("ni", "<C-g>", MiniPick.stop, { buf = args.buf })
+			end,
+		})
+		vim.keymap.set("n", "<leader>hf", "<cmd>Pick help<cr>", { desc = "Search help tags" })
+		vim.keymap.set("n", "<leader>fp", function()
 			MiniPick.builtin.files({}, {
 				mappings = {
 					open_binary = {
@@ -524,7 +535,8 @@ return {
 					choose_marked = open_multiple_files,
 				},
 			})
-		end, { desc = "Files" })
+		end, { desc = "Find files in project" })
+        vim.keymap.set("n", "<leader>ff", "<cmd>Pick explorer<CR>", { desc = "Find file" })
 		vim.keymap.set("n", "<leader>a", "<cmd>Pick buffers sort_lastused=true<cr>", { desc = "Buffers" })
 		vim.keymap.set(
 			{ "n", "v" },
