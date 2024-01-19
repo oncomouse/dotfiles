@@ -95,8 +95,6 @@
  :desc "Find recent files" :nvi "C-x C-r" 'consult-recent-file)
 
 ;; Better utilize workspaces
-  ;; :desc "Select workspace buffers" "a" '+vertico/switch-workspace-buffer
-  ;; :desc "Select all buffers" "A" 'consult-buffer
 (map!
  (:leader :prefix "TAB"
   :desc "Switch workspace" "TAB" '+workspace/switch-to
