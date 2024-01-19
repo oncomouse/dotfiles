@@ -1,5 +1,5 @@
-static char *font = "FiraCode Nerd Font:size=18";
+static char *font = "FiraCode Nerd Font:size=16";
 static char *font2[] = {
-	"JoyPixels:size=17"
+	"JoyPixels:size=15"
 };
 

@@ -162,7 +162,7 @@ return {
 					return (type == "a" and Sentence.select_a or Sentence.select_i)(opts.n_times)
 				end,
 
-				[","] = { -- Grammatically correct comma matching
+				[","] = {                 -- Grammatically correct comma matching
 					{
 						"[%.?!][ ]*()()[^,%.?!]+(),[ ]*()", -- Start of sentence
 						"(),[ ]*()[^,%.?!]+()()[%.?!][ ]*", -- End of sentence
@@ -272,6 +272,8 @@ return {
 		-- gc for Comments
 		require("mini.comment").setup()
 
+		require("mini.extra").setup()
+
 		-- <leader>fm / <leader>fM for file manager
 		require("mini.files").setup({
 			windows = {
@@ -299,6 +301,7 @@ return {
 				vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
 				vim.keymap.set("n", "<C-P>", "<C-P>", { buffer = buf_id }) -- nmap <buffer> <C-P> <C-P>
 				vim.keymap.set("n", "<Esc>", "<cmd>lua MiniFiles.close()<cr>", { buffer = buf_id })
+				vim.keymap.set("n", "<C-g>", "<cmd>lua MiniFiles.close()<cr>", { buffer = buf_id })
 				vim.keymap.set("n", "<C-O>", function()
 					local fs_info = MiniFiles.get_fs_entry(buf_id)
 					vim.fn.system({
@@ -404,7 +407,7 @@ return {
 		})
 		require("mini.misc").setup_restore_cursor()
 
-        require("mini.notify").setup()
+		require("mini.notify").setup()
 		vim.keymap.set("n", "<leader>nn", MiniNotify.show_history, { desc = "Help Tags" })
 
 		-- Useful text operators
@@ -500,8 +503,9 @@ return {
 			end
 			return MiniPick.start(opts)
 		end
-		vim.keymap.set("n", "<C-H>", "<cmd>Pick help<cr>", { desc = "Help Tags" })
-		vim.keymap.set("n", "<C-P>", function()
+
+		vim.keymap.set("n", "<leader>hf", "<cmd>Pick help<cr>", { desc = "Search help tags" })
+		vim.keymap.set("n", "<leader>fp", function()
 			MiniPick.builtin.files({}, {
 				mappings = {
 					open_binary = {
@@ -524,7 +528,8 @@ return {
 					choose_marked = open_multiple_files,
 				},
 			})
-		end, { desc = "Files" })
+		end, { desc = "Find files in project" })
+		vim.keymap.set("n", "<leader>ff", "<cmd>Pick explorer<CR>", { desc = "Find file" })
 		vim.keymap.set("n", "<leader>a", "<cmd>Pick buffers sort_lastused=true<cr>", { desc = "Buffers" })
 		vim.keymap.set(
 			{ "n", "v" },
@@ -583,11 +588,11 @@ return {
 
 					return require("mini.statusline").combine_groups({
 						"%<", -- Mark general truncate point
-						{ hl = mode_hl, strings = { icon } },
-						{ hl = mode_hl, strings = { " ", filename, " " } },
-						{ hl = "MiniStatuslineLuaSnip", strings = { luasnip } },
-						{ hl = "MiniStatuslineMacro", strings = { macro } },
-						{ hl = "Statusline", strings = { "%=" } }, -- End left alignment
+						{ hl = mode_hl,                   strings = { icon } },
+						{ hl = mode_hl,                   strings = { " ", filename, " " } },
+						{ hl = "MiniStatuslineLuaSnip",   strings = { luasnip } },
+						{ hl = "MiniStatuslineMacro",     strings = { macro } },
+						{ hl = "Statusline",              strings = { "%=" } }, -- End left alignment
 						{ strings = { org_headline } },
 						{ hl = "MiniStatuslineWordcount", strings = { wordcount } },
 						location,

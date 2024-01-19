@@ -1,6 +1,7 @@
 acpi
 arc-gtk-theme
 bash-language-server
+biber
 bitwarden-cli
 cups
 cups-pdf
@@ -53,7 +54,13 @@ selene
 shellharden
 shfmt
 tex-gyre-fonts
+texlive-basic
+texlive-bibtexextra
 texlive-core
+texlive-fontsrecommended
+texlive-latexextra
+texlive-plaingeneric
+texlive-xetex
 trash-cli
 ttf-fira-code
 ttf-fira-code-nerd
