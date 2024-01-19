@@ -19,4 +19,4 @@ else
 fi
 git config --global pull.rebase false
 git config --global init.defaultBranch master
-git config --global core.editor "nvim"
+git config --global core.editor "emacsclient -n"
