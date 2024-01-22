@@ -106,6 +106,12 @@
  ":"  'eval-expression
  ";" 'embark-act)
 
+;; Restore C-d for delete
+(map! :after org :map evil-org-mode-map :i "C-d" (lambda (&rest _) (interactive "p") (delete-char -1)))
+(map! :i "C-d" (lambda (&rest _) (interactive "p") (delete-char -1)))
+;; Other indentation bindings
+(map! :i "C->" 'evil-shift-right-line)
+(map! :i "C-<" 'evil-shift-left-line)
 (require 'config-org)
 
 ;; configure markdown-mode for pandoc:
