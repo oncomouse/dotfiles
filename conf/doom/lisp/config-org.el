@@ -163,7 +163,7 @@
       (:leader
        (:prefix "o" "r" nil)
        (:prefix ("or" . "org-roam")
-                "b" #'org-roam-buffer-togglemap
+                "b" #'org-roam-buffer-toggle
                 "f" #'org-roam-node-find
                 "c" #'org-roam-capture))
       (:localleader
