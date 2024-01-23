@@ -6,7 +6,7 @@
 ;; use 'M-x doom/reload'.
 
 
-;; (package! catppuccin-theme)
+(package! catppuccin-theme)
 
 (package! consult-projectile)
 (package! corfu)
