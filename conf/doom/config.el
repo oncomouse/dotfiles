@@ -100,6 +100,9 @@
   :desc "Switch workspace" "TAB" '+workspace/switch-to
   :desc "Display workspace bar" "." '+workspace/display))
 
+;; <leader>SPC switches buffers, not finds files:
+(map! :leader "SPC" '+vertico/switch-workspace-buffer)
+
 ;; localleader bindings:
 (map!
  :localleader
