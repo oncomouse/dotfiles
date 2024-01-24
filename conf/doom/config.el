@@ -90,8 +90,8 @@
    consult-projectile
    :preview-key "M-."))
 (map!
- (:leader
-  :desc "Find file in project" :n "fp" 'consult-projectile)
+ (:leader :prefix "f"
+  :desc "Find file in project" :n "p" 'consult-projectile)
  :desc "Find recent files" :nvi "C-x C-r" 'consult-recent-file)
 
 ;; Better utilize workspaces
@@ -110,7 +110,7 @@
  ";" 'embark-act)
 
 ;; Restore C-d for delete
-(map! :after org :map evil-org-mode-map :i "C-d" (lambda (&rest _) (interactive "p") (delete-char -1)))
+(map! :after evil-org :map evil-org-mode-map :i "C-d" (lambda (&rest _) (interactive "p") (delete-char 1)))
 (map! :i "C-d" (lambda (&rest _) (interactive "p") (delete-char -1)))
 ;; Other indentation bindings
 (map! :i "C->" 'evil-shift-right-line)
