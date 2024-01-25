@@ -114,7 +114,7 @@
       :i "C-d" (lambda (&rest _) (interactive "p") (delete-char 1))
       :i "C->" 'org-shiftmetaright
       :i "C-<" 'org-shiftmetaleft)
-(map! :i "C-d" (lambda (&rest _) (interactive "p") (delete-char -1))
+(map! :i "C-d" (lambda (&rest _) (interactive "p") (delete-char 1))
       :i "C->" 'evil-shift-right-line
       :i "C-<" 'evil-shift-left-line)
 
