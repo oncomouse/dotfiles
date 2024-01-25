@@ -109,12 +109,14 @@
  ":"  'eval-expression
  ";" 'embark-act)
 
-;; Restore C-d for delete
-(map! :after evil-org :map evil-org-mode-map :i "C-d" (lambda (&rest _) (interactive "p") (delete-char 1)))
-(map! :i "C-d" (lambda (&rest _) (interactive "p") (delete-char -1)))
-;; Other indentation bindings
-(map! :i "C->" 'evil-shift-right-line)
-(map! :i "C-<" 'evil-shift-left-line)
+;; Restore C-d for delete and add backup indentation bindings
+(map! :after evil-org :map evil-org-mode-map
+      :i "C-d" (lambda (&rest _) (interactive "p") (delete-char 1))
+      :i "C->" 'org-shiftmetaright
+      :i "C-<" 'org-shiftmetaleft)
+(map! :i "C-d" (lambda (&rest _) (interactive "p") (delete-char -1))
+      :i "C->" 'evil-shift-right-line
+      :i "C-<" 'evil-shift-left-line)
 
 (require 'config-org)
 
