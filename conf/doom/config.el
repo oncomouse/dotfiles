@@ -449,9 +449,8 @@ of a line (ie. an org-mode headline)."
 ;; copilot.el
 (use-package! copilot
   :diminish
-  :init
-  (setq copilot--base-dir "/Users/apilsch/.config/emacs/.local/straight/repos/copilot.el/")
   :config
+  (setq copilot--base-dir "/Users/apilsch/.config/emacs/.local/straight/repos/copilot.el/")
   (add-to-list 'copilot-disable-predicates #'rk/copilot-disable-predicate))
 
 (defun rk/no-copilot-mode ()
