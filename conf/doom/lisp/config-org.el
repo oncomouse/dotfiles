@@ -1,10 +1,10 @@
 ;; org configuration
-(defun dotfiles/org-summary-todo (n-done n-not-done)
+(defun ap/org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)   ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-(defun dotfiles/org-checkbox-todo ()
+(defun ap/org-checkbox-todo ()
   "Switch header TODO state to DONE when all checkboxes are ticked, to TODO otherwise"
   (let ((todo-state (org-get-todo-state)) beg end)
     (unless (not todo-state)
@@ -94,11 +94,12 @@
       "* %U %?\n %i\n %a"
       :heading "Changelog"
       :prepend t))
-   +org-capture-todo-file "../inbox.org"))
+   +org-capture-todo-file "../inbox.org")
+  (require 'org-indent))
 
 (add-hook! 'org-mode-hook 'turn-on-visual-line-mode)
-(add-hook! 'org-after-todo-statistics-hook 'dotfiles/org-summary-todo)
-(add-hook! 'org-checkbox-statistics-hook 'dotfiles/org-checkbox-todo)
+(add-hook! 'org-after-todo-statistics-hook 'ap/org-summary-todo)
+(add-hook! 'org-checkbox-statistics-hook 'ap/org-checkbox-todo)
 
 (use-package! org-appear
   :custom
