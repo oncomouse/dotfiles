@@ -24,8 +24,6 @@
 (package! targets.el :recipe (:host github :repo "noctuid/targets.el"))
 (package! cyclekey :recipe (:host github :repo "shankar2k/cyclekey"))
 
-(package! copilot.el :recipe (:host github :repo "copilot-emacs/copilot.el"))
-
 (package! evil-snipe :disable t)
 (package! evil-easymotion :disable t)
 (package! evil-textobj-anyblock :disable t)
