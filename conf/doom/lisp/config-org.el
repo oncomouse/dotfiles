@@ -234,7 +234,7 @@
       :mode org-mode
       :localleader
       :prefix "l"
-      "0" #'org-open-at-point)
+      "o" #'org-open-at-point)
 
 (advice-add 'org-meta-return :after (lambda (&optional _)
                                       (when (eq evil-state 'normal) (evil-append-line 1))))
