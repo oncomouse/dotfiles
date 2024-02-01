@@ -160,26 +160,76 @@
   (evil-define-key 'normal 'evil-org-mode
     "c" 'evil-change))
 
+(map! :after evil-org
+      :mode org-mode
+      :localleader
+      :prefix "l"
+      "0" #'org-open-at-point)
+
 (advice-add 'org-meta-return :after (lambda (&optional _)
                                       (when (eq evil-state 'normal) (evil-append-line 1))))
 
-(use-package! org-roam
-  :config
-  (setq org-roam-directory (concat dotfiles-seadrive-path "/org-roam"))
-  (org-roam-db-autosync-mode))
 
-(map! :after org-roam
-      (:leader
-       (:prefix "o" "r" nil)
-       (:prefix ("or" . "org-roam")
-                "b" #'org-roam-buffer-toggle
-                "f" #'org-roam-node-find
-                "c" #'org-roam-capture))
-      (:localleader
-       (:prefix "l"
-                "o" #'org-open-at-point)
-       (:prefix ("R" . "org-roam")
-                "i" #'org-roam-node-insert)))
+;; denote.el
+(use-package! denote
+  :hook (doom-first-buffer . denote-modules-global-mode)
+  :config
+  (setq denote-known-keywords '("emacs" "nvim" "elisp" "macOS")
+        denote-infer-keywords t
+        denote-sort-keywords t
+        denote-directory (concat dotfiles-seadrive-path "/My Libraries/Todo/org/denote")
+        denote-date-prompt-use-org-read-date t))
+(after! dired
+  (add-hook 'dired-mode-hook #'denote-dired-mode-in-directories))
+(after! xref
+  (setq xref-search-program 'ripgrep))
+(after! org-capture
+  (setq denote-org-capture-specifiers "%l\n%i\n%?")
+  (setq org-capture-templates
+        (doct-add-to org-capture-templates
+                     '("Denote" :keys "N"
+                       :type plain
+                       :icon ("sticky-note-o" :set "faicon" :color "lblue")
+                       :file denote-last-path
+                       :template denote-org-capture
+                       :no-save t
+                       :immediate-finish nil
+                       :kill-buffer t
+                       :jump-to-captured t)
+                     'append)))
+(map!
+ (:mode org-mode
+  :localleader
+  :prefix ("n" . "denote")
+  "N" #'denote-type
+  "d" #'denote-date
+  "s" #'denote-subdirectory
+  "i"  #'denote-link ; "insert" mnemonic
+  "I"  #'denote-link-add-links
+  "b"  #'denote-link-backlinks
+  (:prefix ("f" . "find note")
+           "f" #'denote-link-find-file
+           "b" #'denote-link-find-backlink))
+ (:leader
+  :prefix "n"
+  "n" #'denote
+  "r" #'denote-rename-file)
+ (:map dired-mode-map
+  "C-c C-d C-i" #'denote-link-dired-marked-notes
+  "C-c C-d C-r" #'denote-dired-rename-marked-files))
+
+(use-package! consult-notes
+  :hook (denote-modules-mode . consult-notes-denote-mode)
+  :init
+  (setq consult-notes-use-rg t)
+  (setq consult-notes-max-relative-age (* 60 60 24 7))
+  :config
+  (map!
+   :leader
+   :prefix "n"
+   "." #'consult-notes
+   ";" #'consult-notes-search-in-all-notes))
+
 
 (provide 'config-org)
 ;;; config-org.el ends here

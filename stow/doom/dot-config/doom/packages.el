@@ -15,7 +15,11 @@
 (package! nerd-icons-completion)
 
 (package! org-appear)
-(package! org-roam)
+;; (package! org-roam)
+(package! denote)
+(package! denote-menu)
+(package! consult-notes)
+(package! doct)
 
 (package! pandoc-mode)
 
