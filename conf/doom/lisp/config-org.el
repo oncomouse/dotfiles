@@ -239,7 +239,6 @@
 (advice-add 'org-meta-return :after (lambda (&optional _)
                                       (when (eq evil-state 'normal) (evil-append-line 1))))
 
-
 (after! (:and org doct)
   (ap/set-org-capture-templates)
   (unless (display-graphic-p)
@@ -265,9 +264,7 @@
   (setq xref-search-program 'ripgrep))
 (after! org-capture
   (setq denote-org-capture-specifiers "%l\n%i\n%?"))
-;; org-capture-templates (doct-add-to org-capture-templates
-;;                                    '
-;;                                    'append)))
+
 (map!
  :after denote
  (:mode (org-mode markdown-mode text-mode)
