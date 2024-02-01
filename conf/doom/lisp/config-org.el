@@ -272,7 +272,8 @@
  :after denote
  (:mode (org-mode markdown-mode text-mode)
   :localleader
-  :prefix ("n" . "denote")
+  "n" nil
+  (:prefix ("n" . "denote")
   "N" #'denote-type
   "d" #'denote-date
   "s" #'denote-subdirectory
@@ -281,7 +282,7 @@
   "b"  #'denote-link-backlinks
   (:prefix ("f" . "find note")
            "f" #'denote-link-find-file
-           "b" #'denote-link-find-backlink))
+           "b" #'denote-link-find-backlink)))
  (:leader
   :prefix "n"
   "n" #'denote
