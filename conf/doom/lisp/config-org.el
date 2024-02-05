@@ -271,15 +271,15 @@
   :localleader
   "n" nil
   (:prefix ("n" . "denote")
-  "N" #'denote-type
-  "d" #'denote-date
-  "s" #'denote-subdirectory
-  "i"  #'denote-link ; "insert" mnemonic
-  "I"  #'denote-link-add-links
-  "b"  #'denote-link-backlinks
-  (:prefix ("f" . "find note")
-           "f" #'denote-link-find-file
-           "b" #'denote-link-find-backlink)))
+           "N" #'denote-type
+           "d" #'denote-date
+           "s" #'denote-subdirectory
+           "i"  #'denote-link ; "insert" mnemonic
+           "I"  #'denote-link-add-links
+           "b"  #'denote-link-backlinks
+           (:prefix ("f" . "find note")
+                    "f" #'denote-link-find-file
+                    "b" #'denote-link-find-backlink)))
  (:leader
   :prefix "n"
   "n" #'denote
