@@ -37,7 +37,14 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-one-light)
+
+;; (set-face-foreground 'org-scheduled-today "#50a14f")
+;; (set-face-foreground 'org-scheduled "#50a14f")
+;; (set-face-foreground 'org-scheduled-previously "#0184bc")
+;; (set-face-foreground 'org-upcoming-deadline "#e45649")
+;; (set-face-foreground 'org-todo "#da8548")
+;; (set-face-background 'corfu-current "#b332b332b332")
 
 (use-package! catppuccin-theme
   :init
