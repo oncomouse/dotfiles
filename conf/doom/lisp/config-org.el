@@ -239,7 +239,7 @@
 (advice-add 'org-meta-return :after (lambda (&optional _)
                                       (when (eq evil-state 'normal) (evil-append-line 1))))
 
-(after! (:and org doct)
+(after! (:and org)
   (ap/set-org-capture-templates)
   (unless (display-graphic-p)
     (add-hook 'server-after-make-frame-hook
