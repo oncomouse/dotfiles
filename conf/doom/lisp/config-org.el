@@ -434,7 +434,8 @@ is selected, only the bare key is returned."
 
 (defun ap/bookmark-before-org-agenda (&rest _)
   "Set a bookmark before opening org-agenda, for jumping across workspaces"
-  (bookmark-set "org-agenda-lastpos"))
+  (when (buffer-file-name) (bookmark-set "org-agenda-lastpos"))
+  )
 
 (defun ap/jump-to-admin-workspace (&rest _)
   "Move to the admin workspace when opening agenda, rather than open agenda in the current workspace"
