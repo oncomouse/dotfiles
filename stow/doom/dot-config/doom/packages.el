@@ -20,6 +20,7 @@
 (package! denote-menu)
 (package! consult-notes)
 (package! doct)
+(package! codeium :recipe (:host github :repo "Exafunction/codeium.el"))
 
 (package! pandoc-mode)
 
