@@ -72,6 +72,7 @@
 
 ;; Use visual line movements in visual-line-mode
 (map!
+ :when (modulep! :editor evil)
  :after evil
  :mode (visual-line-mode evil-org-mode markdown-mode)
  :n "j" 'evil-next-visual-line
@@ -87,6 +88,7 @@
 
 ;; tmux-style vsplit
 (map!
+ :when (modulep! :editor evil)
  :after evil
  :nv "C-w S" 'evil-window-vsplit)
 
@@ -117,10 +119,12 @@
  ";" 'embark-act)
 
 ;; Restore C-d for delete and add backup indentation bindings
-(map! :after evil-org :map evil-org-mode-map
-      :i "C-d" (lambda (&rest _) (interactive "p") (delete-char 1))
-      :i "C->" 'org-shiftmetaright
-      :i "C-<" 'org-shiftmetaleft)
+(map!
+ :when (modulep! :editor evil)
+ :after evil-org :map evil-org-mode-map
+ :i "C-d" (lambda (&rest _) (interactive "p") (delete-char 1))
+ :i "C->" 'org-shiftmetaright
+ :i "C-<" 'org-shiftmetaleft)
 (map! :i "C-d" (lambda (&rest _) (interactive "p") (delete-char 1))
       :i "C->" 'evil-shift-right-line
       :i "C-<" 'evil-shift-left-line)
@@ -188,6 +192,7 @@ Don't close any open windows."
     (interactive "*p")
     (evil-collection-unimpaired--move-text (- arg)))
   (map!
+   :when (modulep! :editor evil)
    (:n "M-j" 'evil-collection-unimpaired-move-text-down
     :n "M-k" 'evil-collection-unimpaired-move-text-up)))
 
@@ -231,7 +236,7 @@ Don't close any open windows."
         (delete-region beg end)
         (goto-char beg)
         (insert text))))
-  (map! :n "gr" 'evil-operator-replace-with-register))
+  (map! :when (modulep! :editor evil) :n "gr" 'evil-operator-replace-with-register))
 
 (setq flycheck-global-modes '(not org-mode))
 (after! flycheck
@@ -246,6 +251,7 @@ Don't close any open windows."
   (push 'lua-selene flycheck-checkers))
 
 (map!
+ :when (modulep! :editor evil)
  :nv "C-A" 'evil-numbers/inc-at-pt
  :nv "C-c C-A" 'evil-numbers/inc-at-pt
  :nv "C-c C-X" 'evil-numbers/dec-at-pt
@@ -254,6 +260,7 @@ Don't close any open windows."
 
 ;; Preferred diagnostic mappings:
 (map!
+ :when (modulep! :editor evil)
  :n "]d" 'next-error
  :n "[d" 'previous-error)
 (map!
@@ -471,6 +478,23 @@ of a line (ie. an org-mode headline)."
           "w" 'er/mark-word
           "f" 'er/mark-defun
           "p" 'er/mark-paragraph))
+
+;; Transient-mark-mode supporting push-mark
+;; Source: https://www.masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
+(defun push-mark-no-activate ()
+  "Pushes `point' to `mark-ring' and does not activate the region
+   Equivalent to \\[set-mark-command] when \\[transient-mark-mode] is disabled"
+  (interactive)
+  (push-mark (point) t nil)
+  (message "Pushed mark to ring"))
+(defun jump-to-mark ()
+  "Jumps to the local mark, respecting the `mark-ring' order.
+  This is the same as using \\[set-mark-command] with the prefix argument."
+  (interactive)
+  (set-mark-command 1))
+(map!
+ "C-`" 'push-mark-no-activate
+ "M-`" 'jump-to-mark)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.

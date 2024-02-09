@@ -180,15 +180,16 @@
   :hook
   (org-mode . org-appear-mode)
   :config
-  (add-hook 'org-mode-hook (lambda ()
-                             (add-hook 'evil-insert-state-entry-hook
-                                       #'org-appear-manual-start
-                                       nil
-                                       t)
-                             (add-hook 'evil-insert-state-exit-hook
-                                       #'org-appear-manual-stop
-                                       nil
-                                       t))))
+  (when (modulep! :editor evil)
+    (add-hook 'org-mode-hook (lambda ()
+                               (add-hook 'evil-insert-state-entry-hook
+                                         #'org-appear-manual-start
+                                         nil
+                                         t)
+                               (add-hook 'evil-insert-state-exit-hook
+                                         #'org-appear-manual-stop
+                                         nil
+                                         t)))))
 ;; org-mode keys
 (map!
  (:n "C-c a" 'org-agenda
@@ -199,15 +200,15 @@
  (:after org
          (:leader
 	  :n :desc "Org Capture" "oc" 'org-capture)
-         (:map evil-org-mode-map
-          :i "C-z" 'org-cycle-list-bullet
-          :n "cit" 'org-todo
-          (:localleader
-           "&" 'org-mark-ring-goto
-           "%" 'org-mark-ring-push))))
+         (:when (modulep! :editor evil) :map evil-org-mode-map
+           :i "C-z" 'org-cycle-list-bullet
+           (:localleader
+            "&" 'org-mark-ring-goto
+            "%" 'org-mark-ring-push))))
 
 (map!
  (:after org
+  :when (modulep! :editor evil)
   :map evil-org-mode-map
   :mn "[h" 'org-previous-visible-heading
   :mn "]h" 'org-next-visible-heading
@@ -236,8 +237,9 @@
       :prefix "l"
       "o" #'org-open-at-point)
 
-(advice-add 'org-meta-return :after (lambda (&optional _)
-                                      (when (eq evil-state 'normal) (evil-append-line 1))))
+(when (modulep! :editor evil)
+  (advice-add 'org-meta-return :after (lambda (&optional _)
+                                        (when (eq evil-state 'normal) (evil-append-line 1)))))
 
 (after! (:and org)
   (ap/set-org-capture-templates)
