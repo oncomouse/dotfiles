@@ -22,6 +22,8 @@
 (package! doct)
 (package! codeium :recipe (:host github :repo "Exafunction/codeium.el"))
 
+(package! yasnippet-capf)
+
 (package! pandoc-mode)
 
 (package! treesit-auto)

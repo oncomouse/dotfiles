@@ -455,8 +455,22 @@ of a line (ie. an org-mode headline)."
 
 ;; codeium
 (use-package! codeium
-      :hook (prog-mode . (lambda ()
-            (setq-local completion-at-point-functions '(codeium-completion-at-point)))))
+  :config
+  (add-hook! prog-mode (add-hook 'completion-at-point-functions #'codeium-completion-at-point 100 t)))
+
+;; midnight-mode, to run code repeatedly
+(use-package! midnight
+  :config
+  (midnight-mode))
+
+;; Expand-region map
+(map!
+ (:prefix "M-m"
+          "r" 'er/expand-region
+          "s" 'er/mark-sentence
+          "w" 'er/mark-word
+          "f" 'er/mark-defun
+          "p" 'er/mark-paragraph))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
