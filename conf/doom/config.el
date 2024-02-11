@@ -4,8 +4,9 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 (require 'config-secret)
 
-(setq doom-localleader-key ",")
-(setq doom-localleader-alt-key "M-,")
+(when (modulep! :editor evil)
+  (setq doom-localleader-key ",")
+  (setq doom-localleader-alt-key "M-,"))
 
 ;; Whoami
 (setq user-full-name "Andrew Pilsch"
@@ -82,9 +83,18 @@
 
 ;; Restore yank function:
 (map!
+ :when (modulep! :editor evil)
  :after evil
  :i "C-S-v" 'yank
  :i "C-y" 'yank)
+
+(map!
+ :when (not (modulep! :editor evil))
+ :prefix "C-w"
+ "C-h" 'windmove-left
+ "C-j" 'windmove-down
+ "C-k" 'windmove-up
+ "C-l" 'window-righj)
 
 ;; tmux-style vsplit
 (map!
