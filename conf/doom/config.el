@@ -300,6 +300,13 @@ Don't close any open windows."
  :v "g C-A" 'evil-numbers/inc-at-pt-incremental
  :v "g C-X" 'evil-numbers/dec-at-pt-incremental)
 
+(map!
+ :when (not (modulep! :editor evil))
+ :leader
+ :after org
+ "C-A" 'org-increase-number-at-point
+ "C-X" 'org-decrease-number-at-point)
+
 ;; Preferred diagnostic mappings:
 (map!
  :when (modulep! :editor evil)
