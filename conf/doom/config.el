@@ -105,9 +105,9 @@
    (defhydra hydra-window-manager
      (:color blue)
      "
-^Movement^
+^Movement^    ^Actions^
 ^^^^^^^^^^^^---------------
-_h_: left
+_h_: left    _r_: resize
 _j_: down
 _k_: up
 _l_: right
@@ -115,7 +115,22 @@ _l_: right
      ("h"   windmove-left)
      ("j"   windmove-down)
      ("k"   windmove-up)
-     ("l"   windmove-right))))
+     ("l"   windmove-right)
+     ("r"   hydra-window-resizer/body))))
+
+;; Resize window using hydras
+(defhydra hydra-window-resizer nil
+  "
+^Sizing^
+^^^^^^^^^-----------------
+_-_: shrink horizontally
+_=_: grow horizontally
+___: shrink vertically
+_+_: grow vertically"
+  ("-" shrink-window-horizontally)
+  ("=" enlarge-window-horizontally)
+  ("_" shrink-window)
+  ("+" enlarge-window))
 
 (map!
  :when (modulep! :editor evil)
