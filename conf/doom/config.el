@@ -461,44 +461,45 @@ of a line (ie. an org-mode headline)."
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
-(use-package! targets
-  :config
-  (targets-setup t
-                 :last-key "N")
-  (targets-define-composite-to anyquote
-                               (("\"" "\"" quote)
-                                ("'" "'" quote)
-                                ("`" "`" quote)
-                                ("“" "”" pair)
-                                ("‘" "’" pair))
-                               :bind t
-                               :keys "q")
-  (targets-define-composite-to anyblock
-                               (("(" ")" pair)
-                                ("[" "]" pair)
-                                ("{" "}" pair)
-                                ("<" ">" pair)
-                                ("\"" "\"" quote)
-                                ("'" "'" quote)
-                                ("`" "`" quote)
-                                ("“" "”" pair)
-                                ("‘" "’" pair))
-                               :bind t
-                               :hooks (prog-mode-hook)
-                               :keys "b")
-  (targets-define-composite-to anyblock-org
-                               (("*" "*" quote)
-                                ("*" "*" quote)
-                                ("/" "/" quote)
-                                ("+" "+" quote)
-                                ("~" "~" quote))
-                               :bind t
-                               :hooks (org-mode-hook)
-                               :keys "b")
-  (targets-define-to italics-raw
-		     "*" nil quote :hooks (markdown-mode-hook org-mode-hook))
-  (targets-define-to italics
-		     "*" nil quote :bind t :hooks (markdown-mode-hook) :keys "i"))
+(when (modulep! :editor evil)
+  (use-package! targets
+    :config
+    (targets-setup t
+                   :last-key "N")
+    (targets-define-composite-to anyquote
+                                 (("\"" "\"" quote)
+                                  ("'" "'" quote)
+                                  ("`" "`" quote)
+                                  ("“" "”" pair)
+                                  ("‘" "’" pair))
+                                 :bind t
+                                 :keys "q")
+    (targets-define-composite-to anyblock
+                                 (("(" ")" pair)
+                                  ("[" "]" pair)
+                                  ("{" "}" pair)
+                                  ("<" ">" pair)
+                                  ("\"" "\"" quote)
+                                  ("'" "'" quote)
+                                  ("`" "`" quote)
+                                  ("“" "”" pair)
+                                  ("‘" "’" pair))
+                                 :bind t
+                                 :hooks (prog-mode-hook)
+                                 :keys "b")
+    (targets-define-composite-to anyblock-org
+                                 (("*" "*" quote)
+                                  ("*" "*" quote)
+                                  ("/" "/" quote)
+                                  ("+" "+" quote)
+                                  ("~" "~" quote))
+                                 :bind t
+                                 :hooks (org-mode-hook)
+                                 :keys "b")
+    (targets-define-to italics-raw
+		       "*" nil quote :hooks (markdown-mode-hook org-mode-hook))
+    (targets-define-to italics
+		       "*" nil quote :bind t :hooks (markdown-mode-hook) :keys "i")))
 (use-package! cyclekey
   :config
   (setq cyclekey-languages '("Spanish" "German" "French")))
