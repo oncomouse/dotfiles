@@ -553,6 +553,29 @@ of a line (ie. an org-mode headline)."
  "C-`" 'push-mark-no-activate
  "M-`" 'jump-to-mark)
 
+;; Avy
+(defhydra hyrda-avy (global-map "M-g" :color blue)
+  "avy-goto"
+  ("c" avy-goto-char "char")
+  ("C" avy-goto-char-2 "char-2")
+  ("w" avy-goto-word-1 "word")
+  ("s" avy-goto-subword-1 "subword")
+  ("u" link-hint-open-link "open-URI")
+  ("U" link-hint-copy-link "copy-URI"))
+
+;; Corral
+(when (not (modulep! :editor evil))
+  (use-package! corral
+    :config
+    (defhydra hydra-corral (global-map "C-c c" :columns 4)
+      "Corral"
+      ("(" corral-parentheses-backward "Back")
+      (")" corral-parentheses-forward "Forward")
+      ("[" corral-brackets-backward "Back")
+      ("]" corral-brackets-forward "Forward")
+      ("{" corral-braces-backward "Back")
+      ("}" corral-braces-forward "Forward")
+      ("." hydra-repeat "Repeat"))))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
