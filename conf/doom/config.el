@@ -108,29 +108,26 @@
 ^Movement^    ^Actions^
 ^^^^^^^^^^^^---------------
 _h_: left    _r_: resize
-_j_: down
-_k_: up
-_l_: right
+_j_: down    _s_: split vertical
+_k_: up      _S_: split horizontal
+_l_: right   _q_: close window
 "
      ("h"   windmove-left)
      ("j"   windmove-down)
      ("k"   windmove-up)
      ("l"   windmove-right)
+     ("s"   split-window-below)
+     ("S"   split-window-right)
+     ("q"   +workspace/close-window-or-workspace)
      ("r"   hydra-window-resizer/body))))
 
 ;; Resize window using hydras
-(defhydra hydra-window-resizer nil
-  "
-^Sizing^
-^^^^^^^^^-----------------
-_-_: shrink horizontally
-_=_: grow horizontally
-___: shrink vertically
-_+_: grow vertically"
-  ("-" shrink-window-horizontally)
-  ("=" enlarge-window-horizontally)
-  ("_" shrink-window)
-  ("+" enlarge-window))
+(defhydra hydra-window-resizer (:columns 2)
+  "Window Sizing"
+  ("-" shrink-window-horizontally "horizontal shrink")
+  ("=" enlarge-window-horizontally "horizontal enlarge")
+  ("_" shrink-window "vertical shrink")
+  ("+" enlarge-window "vertical enlarge"))
 
 (map!
  :when (modulep! :editor evil)
