@@ -446,5 +446,11 @@ is selected, only the bare key is returned."
 (advice-add 'org-agenda-list :before 'ap/bookmark-before-org-agenda)
 (advice-add 'org-agenda-switch-to :before 'ap/jump-to-admin-workspace)
 
+(map!
+ :when (not (modulep! :editor evil))
+ :leader
+ :prefix "o"
+ "a" 'org-agenda)
+
 (provide 'config-org)
 ;;; config-org.el ends here
