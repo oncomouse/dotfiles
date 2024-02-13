@@ -312,10 +312,11 @@ Don't close any open windows."
  :when (modulep! :editor evil)
  :n "]d" 'next-error
  :n "[d" 'previous-error)
+
 (map!
  :after consult-flycheck
  :leader
- :n "d" 'consult-flycheck)
+ "d" 'consult-flycheck)
 
 (require 'config-corfu)
 
