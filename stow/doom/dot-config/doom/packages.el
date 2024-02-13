@@ -9,13 +9,10 @@
 (package! catppuccin-theme)
 
 (package! consult-projectile)
-(package! corfu)
-(package! cape)
 (package! nerd-icons-corfu)
 (package! nerd-icons-completion)
 
 (package! org-appear)
-;; (package! org-roam)
 (package! denote)
 (package! denote-menu)
 (package! consult-notes)
