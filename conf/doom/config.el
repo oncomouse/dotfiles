@@ -90,13 +90,33 @@
 
 (map!
  :when (not (modulep! :editor evil))
- :prefix "C-w"
- "C-h" 'windmove-left
- "C-j" 'windmove-down
- "C-k" 'windmove-up
- "C-l" 'window-righj)
+ :leader
+ :prefix "w"
+ "`"   '+workspace/other
+ "."   '+workspace/display
+ "n"   '+workspace/new
+ "d"   '+workspace/delete
+ "TAB" '+workspace/switch-to)
 
-;; tmux-style vsplit
+;; Override other-window with vim bindings
+(when (not (modulep! :editor evil))
+  (global-set-key
+   (kbd "C-x o")
+   (defhydra hydra-window-manager
+     (:color blue)
+     "
+^Movement^
+^^^^^^^^^^^^---------------
+_h_: left
+_j_: down
+_k_: up
+_l_: right
+"
+     ("h"   windmove-left)
+     ("j"   windmove-down)
+     ("k"   windmove-up)
+     ("l"   windmove-right))))
+
 (map!
  :when (modulep! :editor evil)
  :after evil
@@ -115,7 +135,7 @@
 
 ;; Better utilize workspaces
 (map!
- (:leader :prefix "TAB"
+ (:leader :prefix "TAB" :when (modulep! :editor evil)
   :desc "Switch workspace" "TAB" '+workspace/switch-to
   :desc "Display workspace bar" "." '+workspace/display))
 
@@ -151,19 +171,19 @@
 ;; mini.nvim's Bdelete command, which preserves window layout
 (after! evil
   (evil-define-command dotfiles/evil-delete-buffer (buffer &optional bang)
-    "Delete a buffer.
+                       "Delete a buffer.
 Don't close any open windows."
-    (interactive "<b><!>")
-    (with-current-buffer (or buffer (current-buffer))
-      (when bang
-	(set-buffer-modified-p nil)
-	(dolist (process (process-list))
-          (when (eq (process-buffer process) (current-buffer))
-            (set-process-query-on-exit-flag process nil))))
-      (if (and (bound-and-true-p server-buffer-clients)
-               (fboundp 'server-edit))
-          (server-edit)
-        (kill-buffer nil))))
+                       (interactive "<b><!>")
+                       (with-current-buffer (or buffer (current-buffer))
+                         (when bang
+	                   (set-buffer-modified-p nil)
+	                   (dolist (process (process-list))
+                             (when (eq (process-buffer process) (current-buffer))
+                               (set-process-query-on-exit-flag process nil))))
+                         (if (and (bound-and-true-p server-buffer-clients)
+                                  (fboundp 'server-edit))
+                             (server-edit)
+                           (kill-buffer nil))))
   (evil-ex-define-cmd "Bd[elete]" 'dotfiles/evil-delete-buffer))
 
 ;; https://stackoverflow.com/questions/2423834/move-line-region-up-and-down-in-emacs
@@ -226,9 +246,9 @@ Don't close any open windows."
   (defun __sort-lines (reverse beg end)
     (if (= 1 (count-lines beg end)) (sort-words reverse beg end) (sort-lines reverse beg end)))
   (evil-define-operator evil-operator-sort (beg end _)
-    (__sort-lines nil beg end))
+                        (__sort-lines nil beg end))
   (evil-define-operator evil-operator-sort-reverse (beg end _)
-    (__sort-lines t beg end))
+                        (__sort-lines t beg end))
   (map!
    :n "gs" 'evil-operator-sort
    :n "gS" 'evil-operator-sort-reverse))
@@ -236,16 +256,16 @@ Don't close any open windows."
 ;; gr for replace with register
 (after! evil
   (evil-define-operator evil-operator-replace-with-register (beg end _ register)
-    :move-point nil
-    (interactive "<R>")
-    (let* ((text (if register
-                     (evil-get-register register)
-                   (current-kill 0))))
+                        :move-point nil
+                        (interactive "<R>")
+                        (let* ((text (if register
+                                         (evil-get-register register)
+                                       (current-kill 0))))
 
-      (save-excursion
-        (delete-region beg end)
-        (goto-char beg)
-        (insert text))))
+                          (save-excursion
+                            (delete-region beg end)
+                            (goto-char beg)
+                            (insert text))))
   (map! :when (modulep! :editor evil) :n "gr" 'evil-operator-replace-with-register))
 
 (setq flycheck-global-modes '(not org-mode))
@@ -427,35 +447,35 @@ of a line (ie. an org-mode headline)."
   (targets-setup t
                  :last-key "N")
   (targets-define-composite-to anyquote
-    (("\"" "\"" quote)
-     ("'" "'" quote)
-     ("`" "`" quote)
-     ("“" "”" pair)
-     ("‘" "’" pair))
-    :bind t
-    :keys "q")
+                               (("\"" "\"" quote)
+                                ("'" "'" quote)
+                                ("`" "`" quote)
+                                ("“" "”" pair)
+                                ("‘" "’" pair))
+                               :bind t
+                               :keys "q")
   (targets-define-composite-to anyblock
-    (("(" ")" pair)
-     ("[" "]" pair)
-     ("{" "}" pair)
-     ("<" ">" pair)
-     ("\"" "\"" quote)
-     ("'" "'" quote)
-     ("`" "`" quote)
-     ("“" "”" pair)
-     ("‘" "’" pair))
-    :bind t
-    :hooks (prog-mode-hook)
-    :keys "b")
+                               (("(" ")" pair)
+                                ("[" "]" pair)
+                                ("{" "}" pair)
+                                ("<" ">" pair)
+                                ("\"" "\"" quote)
+                                ("'" "'" quote)
+                                ("`" "`" quote)
+                                ("“" "”" pair)
+                                ("‘" "’" pair))
+                               :bind t
+                               :hooks (prog-mode-hook)
+                               :keys "b")
   (targets-define-composite-to anyblock-org
-    (("*" "*" quote)
-     ("*" "*" quote)
-     ("/" "/" quote)
-     ("+" "+" quote)
-     ("~" "~" quote))
-    :bind t
-    :hooks (org-mode-hook)
-    :keys "b")
+                               (("*" "*" quote)
+                                ("*" "*" quote)
+                                ("/" "/" quote)
+                                ("+" "+" quote)
+                                ("~" "~" quote))
+                               :bind t
+                               :hooks (org-mode-hook)
+                               :keys "b")
   (targets-define-to italics-raw
 		     "*" nil quote :hooks (markdown-mode-hook org-mode-hook))
   (targets-define-to italics
@@ -489,12 +509,12 @@ of a line (ie. an org-mode headline)."
           "f" 'er/mark-defun
           "p" 'er/mark-paragraph)
  (:prefix "M-m"
-          :when (modulep! :editor evil)
-          "r" 'er/expand-region
-          "s" 'er/mark-sentence
-          "w" 'er/mark-word
-          "f" 'er/mark-defun
-          "p" 'er/mark-paragraph))
+  :when (modulep! :editor evil)
+  "r" 'er/expand-region
+  "s" 'er/mark-sentence
+  "w" 'er/mark-word
+  "f" 'er/mark-defun
+  "p" 'er/mark-paragraph))
 
 ;; Transient-mark-mode supporting push-mark
 ;; Source: https://www.masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
@@ -512,6 +532,7 @@ of a line (ie. an org-mode headline)."
 (map!
  "C-`" 'push-mark-no-activate
  "M-`" 'jump-to-mark)
+
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
