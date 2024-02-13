@@ -482,7 +482,14 @@ of a line (ie. an org-mode headline)."
 
 ;; Expand-region map
 (map!
+ (:leader :prefix "m" :when (not (modulep! :editor evil))
+          "r" 'er/expand-region
+          "s" 'er/mark-sentence
+          "w" 'er/mark-word
+          "f" 'er/mark-defun
+          "p" 'er/mark-paragraph)
  (:prefix "M-m"
+          :when (modulep! :editor evil)
           "r" 'er/expand-region
           "s" 'er/mark-sentence
           "w" 'er/mark-word
