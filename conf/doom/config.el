@@ -622,7 +622,7 @@ If mark is active, merge lines in the current region."
 
 (map!
  :when (not (modulep! :editor evil))
- "M-^" 'ap/join-line)
+ "C-^" 'ap/join-line)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
