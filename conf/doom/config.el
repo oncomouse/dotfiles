@@ -576,7 +576,30 @@ of a line (ie. an org-mode headline)."
       ("]" corral-brackets-forward "Forward")
       ("{" corral-braces-backward "Back")
       ("}" corral-braces-forward "Forward")
-      ("." hydra-repeat "Repeat"))))
+      ("." hydra-repeat "Repeat")))
+
+  (use-package! surround
+    :config
+    (defhydra hydra-surround (global-map "M-'" :color blue)
+      "surround"
+      ("\"" (lambda (&rest _) (surround-mark "\"")) "inner-quote")
+      ("'" (lambda (&rest _) (surround-mark "'")) "inner-squote")
+      ("(" (lambda (&rest _) (surround-mark "(")) "inner-paren")
+      (")" (lambda (&rest _) (surround-mark-outer "(")) "outer-paren")
+      ("`" (lambda (&rest _) (surround-mark "`")) "inner-tick")
+      ("\"" (lambda (&rest _) (surround-mark "\"")) "inner-brace")
+      ("\"" (lambda (&rest _) (surround-mark "\"")) "outer-brace")
+      ("\"" (lambda (&rest _) (surround-mark "\"")) "inner-bracket")
+      ("\"" (lambda (&rest _) (surround-mark "\"")) "outer-bracket")
+      ("\"" (lambda (&rest _) (surround-mark "\"")) "inner-abracket")
+      ("\"" (lambda (&rest _) (surround-mark "\"")) "outer-abracket")
+
+
+      ))
+  )
+;; (use-package! surround
+;;   :ensure t
+;;   :bind-keymap ("M-'" . surround-keymap)))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.

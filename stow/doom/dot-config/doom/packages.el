@@ -27,6 +27,7 @@
 
 (when (not (modulep! :editor evil))
   (package! jump-char)
+  (package! surround)
   (package! corral))
 
 (package! cyclekey :recipe (:host github :repo "shankar2k/cyclekey"))
