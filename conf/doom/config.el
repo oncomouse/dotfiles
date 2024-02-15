@@ -595,6 +595,14 @@ of a line (ie. an org-mode headline)."
      "C-k" 'crux-smart-kill-line
      "C-o" 'crux-smart-open-line
      "C-S-o" 'crux-smart-open-line-above
+     (:leader :prefix "o" "o" 'crux-open-with)
+     "C-<backspace>" 'crux-kill-line-backwards
+     (:prefix "C-x"
+              "C-u" 'crux-upcase-region
+              "C-l" 'crux-downcase-region
+              "M-c" 'crux-capitalize-region)
+     [remap move-beginning-of-line] #'crux-move-beginning-of-line
+     [remap kill-whole-line] #'crux-kill-whole-line
      )
     ))
 
