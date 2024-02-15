@@ -71,25 +71,6 @@
 ;; Enable word count in modeline:
 (setq doom-modeline-enable-word-count t)
 
-;; Better (more vim-like) newline with C-o/C-S-o
-(defun ap/open-line-above ()
-  (interactive)
-  (back-to-indentation)
-  (newline-and-indent)
-  (previous-line)
-  (indent-according-to-mode))
-
-(defun ap/open-line ()
-  (interactive)
-  (end-of-line)
-  (newline-and-indent)
-  (indent-according-to-mode))
-
-(map!
- :when (not (modulep! :editor evil))
- "C-o" 'ap/open-line
- "C-S-o" 'ap/open-line-above)
-
 ;; Use visual line movements in visual-line-mode
 (map!
  :when (modulep! :editor evil)
@@ -599,7 +580,6 @@ of a line (ie. an org-mode headline)."
 
 (when (not (modulep! :editor evil))
   (use-package! surround
-    :ensure t
     :bind-keymap ("M-'" . surround-keymap)
     :config
     (map!
@@ -607,6 +587,16 @@ of a line (ie. an org-mode headline)."
      "*" (lambda (&rest _) (interactive) (surround-mark "*")
            "/" (lambda (&rest _) (interactive) (surround-mark "/")))
      )))
+
+(when (not (modulep! :editor evil))
+  (use-package! crux
+    :config
+    (map!
+     "C-k" 'crux-smart-kill-line
+     "C-o" 'crux-smart-open-line
+     "C-S-o" 'crux-smart-open-line-above
+     )
+    ))
 
 (defun ap/join-line (&optional c)
   "Vim-style join-line, that merges lines to the end of the line at point.
