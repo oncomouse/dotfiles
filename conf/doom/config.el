@@ -71,6 +71,25 @@
 ;; Enable word count in modeline:
 (setq doom-modeline-enable-word-count t)
 
+;; Better (more vim-like) newline with C-o/C-S-o
+(defun ap/open-line-above ()
+  (interactive)
+  (back-to-indentation)
+  (newline-and-indent)
+  (previous-line)
+  (indent-according-to-mode))
+
+(defun ap/open-line ()
+  (interactive)
+  (end-of-line)
+  (newline-and-indent)
+  (indent-according-to-mode))
+
+(map!
+ :when (not (modulep! :editor evil))
+ "C-o" 'ap/open-line
+ "C-S-o" 'ap/open-line-above)
+
 ;; Use visual line movements in visual-line-mode
 (map!
  :when (modulep! :editor evil)
