@@ -583,7 +583,7 @@ of a line (ie. an org-mode headline)."
   ("u" link-hint-open-link "open-URI")
   ("U" link-hint-copy-link "copy-URI"))
 
-;; Corral
+;; Surround mappings; still WIP
 (when (not (modulep! :editor evil))
   (use-package! corral
     :config
@@ -598,27 +598,32 @@ of a line (ie. an org-mode headline)."
       ("." hydra-repeat "Repeat")))
 
   (use-package! surround
+    :ensure t
+    :bind-keymap ("M-'" . surround-keymap)
     :config
-    (defhydra hydra-surround (global-map "M-'" :color blue)
-      "surround"
-      ("\"" (lambda (&rest _) (surround-mark "\"")) "inner-quote")
-      ("'" (lambda (&rest _) (surround-mark "'")) "inner-squote")
-      ("(" (lambda (&rest _) (surround-mark "(")) "inner-paren")
-      (")" (lambda (&rest _) (surround-mark-outer "(")) "outer-paren")
-      ("`" (lambda (&rest _) (surround-mark "`")) "inner-tick")
-      ("\"" (lambda (&rest _) (surround-mark "\"")) "inner-brace")
-      ("\"" (lambda (&rest _) (surround-mark "\"")) "outer-brace")
-      ("\"" (lambda (&rest _) (surround-mark "\"")) "inner-bracket")
-      ("\"" (lambda (&rest _) (surround-mark "\"")) "outer-bracket")
-      ("\"" (lambda (&rest _) (surround-mark "\"")) "inner-abracket")
-      ("\"" (lambda (&rest _) (surround-mark "\"")) "outer-abracket")
+    (map!
+     :map surround-keymap
+     "*" (lambda (&rest _) (interactive) (surround-mark "*")
+           "/" (lambda (&rest _) (interactive) (surround-mark "/")))
+     )))
 
+(defun ap/join-line (&optional c)
+  "Vim-style join-line, that merges lines to the end of the line at point.
 
-      ))
-  )
-;; (use-package! surround
-;;   :ensure t
-;;   :bind-keymap ("M-'" . surround-keymap)))
+If mark is active, merge lines in the current region."
+  (interactive "p")
+  (if mark-active
+      (let ((beg (region-beginning))
+            (end (copy-marker (region-end))))
+        (goto-char beg)
+        (while (< (point) end)
+          (join-line 1))))
+  (dotimes (_ c)
+    (join-line t)))
+
+(map!
+ :when (not (modulep! :editor evil))
+ "M-^" 'ap/join-line)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
