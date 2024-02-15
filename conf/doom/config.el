@@ -595,8 +595,9 @@ of a line (ie. an org-mode headline)."
       ("]" corral-brackets-forward "Forward")
       ("{" corral-braces-backward "Back")
       ("}" corral-braces-forward "Forward")
-      ("." hydra-repeat "Repeat")))
+      ("." hydra-repeat "Repeat"))))
 
+(when (not (modulep! :editor evil))
   (use-package! surround
     :ensure t
     :bind-keymap ("M-'" . surround-keymap)
