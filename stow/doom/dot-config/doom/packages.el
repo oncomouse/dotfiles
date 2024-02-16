@@ -12,6 +12,18 @@
 (package! nerd-icons-corfu)
 (package! nerd-icons-completion)
 
+(when (not (modulep! :completion vertico))
+  (package! vertico)
+  (package! orderless)
+  (package! consult)
+  (package! consult-dir)
+  (package! consult-flycheck)
+  (package! embark)
+  (package! embark-consult)
+  (package! marginalia)
+  (package! wgrep)
+  (package! nerd-icons-completion))
+
 (package! org-appear)
 (package! denote)
 (package! denote-menu)

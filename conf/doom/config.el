@@ -343,6 +343,10 @@ Don't close any open windows."
  :leader
  "d" 'consult-flycheck)
 
+;; (require 'config-vertico)
+;; Disable which-key support for embark (I think this speeds it up)
+(after! embark
+  (cl-nsubstitute #'embark-mixed-indicator #'+vertico-embark-which-key-indicator embark-indicators))
 (require 'config-corfu)
 
 ;; Configure vterm
