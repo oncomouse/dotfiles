@@ -452,5 +452,26 @@ is selected, only the bare key is returned."
  :prefix "o"
  "a" 'org-agenda)
 
+;; Use C-S-Up/Down to navigate headlines when not using to change clocks
+(defun ap/shiftcontroldown (&optional n)
+  "Re-implement 'org-shiftcontroldown' and pass N to it.
+If not in a clock, move to next headline."
+  (interactive "p")
+  (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
+      (org-shiftcontroldown n)
+    (dotimes (_ n) (outline-next-heading))))
+
+(defun ap/shiftcontrolup (&optional n)
+  "Re-implement 'org-shiftcontrolup' and pass N to it.
+If not in a clock, move to next headline."
+  (interactive "p")
+  (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
+      (org-shiftcontrolup n)
+    (dotimes (_ n) (outline-previous-heading))))
+
+(map! :map org-mode-map
+ "C-S-<down>" 'ap/shiftcontroldown
+ "C-S-<up>" 'ap/shiftcontrolup)
+
 (provide 'config-org)
 ;;; config-org.el ends here
