@@ -68,9 +68,6 @@
 		eshell-mode-hook))
   (add-hook mode (lambda() (display-line-numbers-mode 0))))
 
-;; Enable word count in modeline:
-(setq doom-modeline-enable-word-count t)
-
 ;; Better (more vim-like) newline with C-o/C-S-o
 (defun ap/open-line-above ()
   (interactive)
