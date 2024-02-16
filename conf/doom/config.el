@@ -209,9 +209,8 @@ _l_: right   _q_: close window
         (server-edit)
       (kill-buffer nil))))
 
-;; Kill buffer and preserve layout in vanilla
-(map! :when (not (modulep! :editor evil))
-      :leader
+;; Kill buffer and preserve layout
+(map! :leader
       :prefix "b"
       "d" 'ap/kill-buffer-preserve-layout)
 
