@@ -580,7 +580,7 @@ of a line (ie. an org-mode headline)."
   ("u" link-hint-open-link "open-URI")
   ("U" link-hint-copy-link "copy-URI"))
 
-;; Corral
+;; Surround mappings; still WIP
 (when (not (modulep! :editor evil))
   (use-package! corral
     :config
@@ -593,6 +593,52 @@ of a line (ie. an org-mode headline)."
       ("{" corral-braces-backward "Back")
       ("}" corral-braces-forward "Forward")
       ("." hydra-repeat "Repeat"))))
+
+(when (not (modulep! :editor evil))
+  (use-package! surround
+    :bind-keymap ("M-'" . surround-keymap)
+    :config
+    (map!
+     :map surround-keymap
+     "*" (lambda (&rest _) (interactive) (surround-mark "*")
+           "/" (lambda (&rest _) (interactive) (surround-mark "/")))
+     )))
+
+(when (not (modulep! :editor evil))
+  (use-package! crux
+    :config
+    (map!
+     "C-k" 'crux-smart-kill-line
+     "C-o" 'crux-smart-open-line
+     "C-S-o" 'crux-smart-open-line-above
+     (:leader :prefix "o" "o" 'crux-open-with)
+     "C-<backspace>" 'crux-kill-line-backwards
+     (:prefix "C-x"
+              "C-u" 'crux-upcase-region
+              "C-l" 'crux-downcase-region
+              "M-c" 'crux-capitalize-region)
+     [remap move-beginning-of-line] #'crux-move-beginning-of-line
+     [remap kill-whole-line] #'crux-kill-whole-line
+     )
+    ))
+
+(defun ap/join-line (&optional c)
+  "Vim-style join-line, that merges lines to the end of the line at point.
+
+If mark is active, merge lines in the current region."
+  (interactive "p")
+  (if mark-active
+      (let ((beg (region-beginning))
+            (end (copy-marker (region-end))))
+        (goto-char beg)
+        (while (< (point) end)
+          (join-line 1))))
+  (dotimes (_ c)
+    (join-line t)))
+
+(map!
+ :when (not (modulep! :editor evil))
+ "C-^" 'ap/join-line)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
