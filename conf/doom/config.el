@@ -196,22 +196,32 @@ _l_: right   _q_: close window
 
 (require 'config-bibliography)
 
+(defun ap/kill-buffer-preserve-layout (&optional buffer bang)
+  (interactive)
+  (with-current-buffer (or buffer (current-buffer))
+    (when bang
+      (set-buffer-modified-p nil)
+      (dolist (process (process-list))
+        (when (eq (process-buffer process) (current-buffer))
+          (set-process-query-on-exit-flag process nil))))
+    (if (and (bound-and-true-p server-buffer-clients)
+             (fboundp 'server-edit))
+        (server-edit)
+      (kill-buffer nil))))
+
+;; Kill buffer and preserve layout in vanilla
+(map! :when (not (modulep! :editor evil))
+      :leader
+      :prefix "b"
+      "d" 'ap/kill-buffer-preserve-layout)
+
 ;; mini.nvim's Bdelete command, which preserves window layout
 (after! evil
   (evil-define-command dotfiles/evil-delete-buffer (buffer &optional bang)
                        "Delete a buffer.
 Don't close any open windows."
                        (interactive "<b><!>")
-                       (with-current-buffer (or buffer (current-buffer))
-                         (when bang
-	                   (set-buffer-modified-p nil)
-	                   (dolist (process (process-list))
-                             (when (eq (process-buffer process) (current-buffer))
-                               (set-process-query-on-exit-flag process nil))))
-                         (if (and (bound-and-true-p server-buffer-clients)
-                                  (fboundp 'server-edit))
-                             (server-edit)
-                           (kill-buffer nil))))
+                       (ap/kill-buffer-preserve-layout buffer bang))
   (evil-ex-define-cmd "Bd[elete]" 'dotfiles/evil-delete-buffer))
 
 ;; https://stackoverflow.com/questions/2423834/move-line-region-up-and-down-in-emacs
