@@ -1,7 +1,8 @@
-;; org configuration
-
+;;; config-org.el -- org configuration
+;;; Commentary:
+;;; Code:
 (defun ap/set-org-capture-templates(&rest _)
-  "(Re)load org-capture templates."
+  "(Re)load 'org-capture' templates."
   (interactive "p")
   (setq org-capture-templates
         (doct `(("Personal todo" :keys "t"
@@ -138,12 +139,17 @@
   (require 'org-indent))
 
 (defun ap/org-summary-todo (n-done n-not-done)
-  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  "Switch entry to DONE when all subentries are done, to TODO otherwise.
+
+N-DONE is the number of done elements; N-NOT-DONE is the number of
+not done."
   (let (org-log-done org-log-states)   ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
 (defun ap/org-checkbox-todo ()
-  "Switch header TODO state to DONE when all checkboxes are ticked, to TODO otherwise"
+  "Switch header TODO state to DONE when all checkboxes are ticked.
+
+Switch to TODO otherwise"
   (let ((todo-state (org-get-todo-state)) beg end)
     (unless (not todo-state)
       (save-excursion
@@ -227,9 +233,9 @@
 
 (after! evil-org
   (evil-define-key 'motion 'org-agenda-mode
-    "f" 'org-agenda-later)
+                   "f" 'org-agenda-later)
   (evil-define-key 'normal 'evil-org-mode
-    "c" 'evil-change))
+                   "c" 'evil-change))
 
 (map! :after evil-org
       :mode org-mode
@@ -326,8 +332,7 @@
   (setq doct-after-conversion-functions '(+doct-iconify-capture-templates)))
 
 (defun org-capture-select-template-prettier (&optional keys)
-  "Select a capture template, in a prettier way than default
-Lisp programs can force the template by setting KEYS to a string."
+  "Select a capture template, in a prettier way than default Lisp programs can force the template by setting KEYS to a string."
   (let ((org-capture-templates
          (or (org-contextualize-keys
               (org-capture-upgrade-templates org-capture-templates)
@@ -435,12 +440,12 @@ is selected, only the bare key is returned."
 (advice-add 'org-mks :override #'org-mks-pretty)
 
 (defun ap/bookmark-before-org-agenda (&rest _)
-  "Set a bookmark before opening org-agenda, for jumping across workspaces"
+  "Set a bookmark before opening 'org-agenda', for jumping across workspaces."
   (when (buffer-file-name) (bookmark-set "org-agenda-lastpos"))
   )
 
 (defun ap/jump-to-admin-workspace (&rest _)
-  "Move to the admin workspace when opening agenda, rather than open agenda in the current workspace"
+  "Move to the admin workspace when opening agenda, rather than open agenda in the current workspace."
   (interactive "p")
   (+workspace-switch "admin"))
 (advice-add 'org-agenda-list :before 'ap/bookmark-before-org-agenda)
@@ -469,9 +474,10 @@ If not in a clock, move to next headline."
       (org-shiftcontrolup n)
     (dotimes (_ n) (outline-previous-heading))))
 
-(map! :map org-mode-map
- "C-S-<down>" 'ap/shiftcontroldown
- "C-S-<up>" 'ap/shiftcontrolup)
+(after! org
+  (map! :map org-mode-map
+        "C-S-<down>" 'ap/shiftcontroldown
+        "C-S-<up>" 'ap/shiftcontrolup))
 
 (provide 'config-org)
 ;;; config-org.el ends here
