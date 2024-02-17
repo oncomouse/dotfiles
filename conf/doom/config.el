@@ -344,7 +344,8 @@ Don't close any open windows."
  "d" 'consult-flycheck)
 
 ;; (require 'config-vertico)
-;; Disable which-key support for embark (I think this speeds it up)
+;; Swap out the version of which-key support found in the embark wiki for the
+;; one included with Doom. I think the slowness problem is coming from there.
 (after! embark
   (defun embark-which-key-indicator ()
     "An embark indicator that displays keymaps using which-key.
@@ -381,6 +382,8 @@ targets."
            (remq #'embark-which-key-indicator embark-indicators)))
       (apply fn args)))
 
+  (advice-remove #'embark-completing-read-prompter
+                 #'+vertico--embark-which-key-prompt-a)
   (advice-add #'embark-completing-read-prompter
               :around #'embark-hide-which-key-indicator))
 (require 'config-corfu)
