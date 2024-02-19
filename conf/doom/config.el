@@ -632,6 +632,23 @@ of a line (ie. an org-mode headline)."
   ("u" link-hint-open-link "open-URI")
   ("U" link-hint-copy-link "copy-URI"))
 
+;; Navigate headings in the outline with universal arguments
+(defun ap/outline-next-heading (&optional c)
+  "Interactive, count-able heading motion"
+  (interactive "p")
+  (dotimes (_ c)
+    (outline-next-heading)))
+
+(defun ap/outline-previous-heading (&optional c)
+  "Interactive, count-able heading motion"
+  (interactive "p")
+  (dotimes (_ c)
+    (outline-previous-heading)))
+
+(map! :prefix "M-g"
+      "h" 'ap/outline-next-heading
+      "H" 'ap/outline-previous-heading)
+
 ;; Surround mappings; still WIP
 (when (not (modulep! :editor evil))
   (use-package! corral
