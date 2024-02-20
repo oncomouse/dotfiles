@@ -125,6 +125,24 @@
  "d"   '+workspace/delete
  "TAB" '+workspace/switch-to)
 
+;; Window Movements
+(map!
+ :prefix "M-g w"
+ "h"   'windmove-left
+ "j"   'windmove-down
+ "k"   'windmove-up
+ "l"   'windmove-right
+ "s"   'split-window-below
+ "S"   'split-window-right
+ "q"   '+workspace/close-window-or-workspace
+ "r"   'hydra-window-resizer/body)
+(defvar-keymap windmove-repeat-map
+  :repeat t
+  "h"   'windmove-left
+  "j"   'windmove-down
+  "k"   'windmove-up
+  "l"   'windmove-right)
+
 ;; Resize window using hydras
 (defhydra hydra-window-resizer (:columns 2)
   "Window Sizing"
@@ -637,17 +655,10 @@ of a line (ie. an org-mode headline)."
       "h" 'ap/outline-next-heading
       "H" 'ap/outline-previous-heading)
 
-;; Window Movements
-(map!
- :prefix "M-g"
-     "h"   'windmove-left
-     "j"   'windmove-down
-     "k"   'windmove-up
-     "l"   'windmove-right
-     "s"   'split-window-below
-     "S"   'split-window-right
-     "q"   '+workspace/close-window-or-workspace
-     "r"   'hydra-window-resizer/body)
+(defvar-keymap outline-heading-repeat-map
+  :repeat t
+  "h" 'ap/outline-next-heading
+  "H" 'ap/outline-previous-heading)
 
 ;; Surround mappings; still WIP
 (when (not (modulep! :editor evil))
