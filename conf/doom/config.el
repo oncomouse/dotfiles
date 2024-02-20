@@ -17,6 +17,14 @@
 
 ;; Enable repeat-mode
 (repeat-mode)
+;; Enable repeat for the mark-ring
+(setq set-mark-command-repeat-pop t)
+
+;; Repeat isearch with s/r
+(defvar-keymap isearch-repeat-map
+  :repeat t
+  "s" #'isearch-repeat-forward
+  "r" #'isearch-repeat-backward)
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
