@@ -15,6 +15,9 @@
 ;; Reload files when the change on disk
 (global-auto-revert-mode t)
 
+;; Enable repeat-mode
+(repeat-mode)
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
