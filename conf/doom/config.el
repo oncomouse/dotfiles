@@ -114,29 +114,6 @@
  "d"   '+workspace/delete
  "TAB" '+workspace/switch-to)
 
-;; Override other-window with vim bindings
-(when (not (modulep! :editor evil))
-  (global-set-key
-   (kbd "C-x o")
-   (defhydra hydra-window-manager
-     (:color blue)
-     "
-^Movement^    ^Actions^
-^^^^^^^^^^^^---------------
-_h_: left    _r_: resize
-_j_: down    _s_: split vertical
-_k_: up      _S_: split horizontal
-_l_: right   _q_: close window
-"
-     ("h"   windmove-left)
-     ("j"   windmove-down)
-     ("k"   windmove-up)
-     ("l"   windmove-right)
-     ("s"   split-window-below)
-     ("S"   split-window-right)
-     ("q"   +workspace/close-window-or-workspace)
-     ("r"   hydra-window-resizer/body))))
-
 ;; Resize window using hydras
 (defhydra hydra-window-resizer (:columns 2)
   "Window Sizing"
@@ -648,6 +625,18 @@ of a line (ie. an org-mode headline)."
 (map! :prefix "M-g"
       "h" 'ap/outline-next-heading
       "H" 'ap/outline-previous-heading)
+
+;; Window Movements
+(map!
+ :prefix "M-g"
+     "h"   'windmove-left
+     "j"   'windmove-down
+     "k"   'windmove-up
+     "l"   'windmove-right
+     "s"   'split-window-below
+     "S"   'split-window-right
+     "q"   '+workspace/close-window-or-workspace
+     "r"   'hydra-window-resizer/body)
 
 ;; Surround mappings; still WIP
 (when (not (modulep! :editor evil))
