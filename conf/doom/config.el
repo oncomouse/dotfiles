@@ -397,7 +397,9 @@ targets."
 ;; Configure vterm
 ;; Send C-c with C-c C-c
 (after! vterm
-  (map! :map vterm-mode-map "C-c C-c" (lambda (_) (interactive "p") (vterm-send "C-c"))))
+  (map! :map vterm-mode-map
+        "C-c C-c" (lambda (_) (interactive "p") (vterm-send "C-c"))
+        "M-g" nil))
 
 ;; configure marginalia:
 (after! marginalia
