@@ -53,6 +53,7 @@ rofi
 selene
 shellharden
 shfmt
+stylua
 tex-gyre-fonts
 texlive-basic
 texlive-bibtexextra

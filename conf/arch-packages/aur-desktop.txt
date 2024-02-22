@@ -9,7 +9,6 @@ rofi-emoji
 sdorfehs-git
 shellcheck-bin
 standard
-stylua-bin
 vim-language-server
 vscode-langservers-extracted
 zotero-bin
