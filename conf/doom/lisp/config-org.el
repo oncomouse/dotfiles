@@ -479,5 +479,16 @@ If not in a clock, move to next headline."
         "C-S-<down>" 'ap/shiftcontroldown
         "C-S-<up>" 'ap/shiftcontrolup))
 
+(defun ap/wrap-dotimes (fn)
+  "Wrap FN in a dotimes loop to make it repeatable with universal arguments."
+  (lexical-let ((fn fn)) #'(lambda (&optional c)
+                             (interactive "p")
+                             (dotimes (_ c) (funcall fn)))))
+
+(after! org
+  (map! :map org-mode-map
+        "M-<up>" (ap/wrap-dotimes 'org-metaup)
+        "M-<down>" (ap/wrap-dotimes 'org-metadown)))
+
 (provide 'config-org)
 ;;; config-org.el ends here
