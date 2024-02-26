@@ -490,5 +490,9 @@ If not in a clock, move to next headline."
         "M-<up>" (ap/wrap-dotimes 'org-metaup)
         "M-<down>" (ap/wrap-dotimes 'org-metadown)))
 
+(after! org
+  (map! :map org-mode-map
+        "C-z" 'org-cycle-list-bullet))
+
 (provide 'config-org)
 ;;; config-org.el ends here
