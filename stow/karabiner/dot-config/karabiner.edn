@@ -10,7 +10,7 @@
     {:des "layer triggers",
      :rules [[[:s :d] ["hotkey-layer" 1] nil {:afterup ["hotkey-layer" 0]}]
              [[:w :e] ["delete-layer" 1] nil {:afterup ["delete-layer" 0]}]]}
-    {:des "hotkey-layer",
+    {:des "SuperDuper mode (movement with s+d)",
      :rules [[:##h :left_arrow ["hotkey-layer" 1]]
              [:##j :down_arrow ["hotkey-layer" 1]]
              [:##k :up_arrow ["hotkey-layer" 1]]
@@ -21,7 +21,7 @@
              [:##o :page_down ["hotkey-layer" 1]]
              [:comma :page_down ["hotkey-layer" 1]]
              [:period :page_up ["hotkey-layer" 1]]]}
-    {:des "delete-layer",
+    {:des "WordEater mode (delete with w+e)",
      :rules [[:##h :delete_or_backspace ["delete-layer" 1]]
              [:##l :delete_forward ["delete-layer" 1]]
              [:##j :!Odelete_or_backspace ["delete-layer" 1]]
