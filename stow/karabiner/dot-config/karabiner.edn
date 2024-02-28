@@ -1,0 +1,51 @@
+
+{
+ :devices {:apple [{:product_id 2, :vendor_id 7847}
+                   {:is_built_in_keyboard true}],
+           :gmmk-pro [{:product_id 25903, :vendor_id 3141}],
+           :tester68 [{:product_id 4137, :vendor_id 39658}]},
+ :main
+   [{:des "Replace capslock with control",
+     :rules [[:condi :apple :gmmk-pro :tester68] [:##caps_lock :left_control]]}
+    {:des "layer triggers",
+     :rules [[[:s :d] ["hotkey-layer" 1] nil {:afterup ["hotkey-layer" 0]}]
+             [[:w :e] ["delete-layer" 1] nil {:afterup ["delete-layer" 0]}]]}
+    {:des "hotkey-layer",
+     :rules [[:##h :left_arrow ["hotkey-layer" 1]]
+             [:##j :down_arrow ["hotkey-layer" 1]]
+             [:##k :up_arrow ["hotkey-layer" 1]]
+             [:##l :right_arrow ["hotkey-layer" 1]]
+             [:##n :down_arrow ["hotkey-layer" 1]]
+             [:##p :up_arrow ["hotkey-layer" 1]]
+             [:##u :page_up ["hotkey-layer" 1]]
+             [:##o :page_down ["hotkey-layer" 1]]
+             [:comma :page_down ["hotkey-layer" 1]]
+             [:period :page_up ["hotkey-layer" 1]]]}
+    {:des "delete-layer",
+     :rules [[:##h :delete_or_backspace ["delete-layer" 1]]
+             [:##l :delete_forward ["delete-layer" 1]]
+             [:##j :!Odelete_or_backspace ["delete-layer" 1]]
+             [:##k :!Odelete_forward ["delete-layer" 1]]
+             [:##u :!Cdelete_or_backspace ["delete-layer" 1]]
+             [:##i :!Cdelete_forward ["delete-layer" 1]]]}],
+ :profiles {:Default {:default true,
+                      :sim 50,    ;; simultaneous_threshold_milliseconds
+                                  ;; (def: 50)
+                                  ;; keys need to be pressed within this
+                                  ;; threshold to be considered
+                                  ;; simultaneous
+                      :delay 300, ;; to_delayed_action_delay_milliseconds
+                                  ;; (def: 500)
+                                  ;; basically it means time after which
+                                  ;; the key press is count delayed
+                      :alone 300, ;; to_if_alone_timeout_milliseconds (def:
+                                  ;; 1000)
+                                  ;; hold for 995s and single tap
+                                  ;; registered; hold for 1005s and seen as
+                                  ;; modifier
+                      :held 500   ;; to_if_held_down_threshold_milliseconds
+                                  ;; (def: 500)
+                                  ;; key is fired twice when 500 ms is
+                                  ;; elapsed (otherwise seen as a hold
+                                  ;; command)
+                     }}}
