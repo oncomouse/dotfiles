@@ -11,7 +11,9 @@
      :rules [[[:s :d] ["hotkey-layer" 1] nil {:afterup ["hotkey-layer" 0]}]
              [[:w :e] ["delete-layer" 1] nil {:afterup ["delete-layer" 0]}]]}
     {:des "SuperDuper mode (movement with s+d)",
-     :rules [[:##h :left_arrow ["hotkey-layer" 1]]
+     :rules [[:##a :home ["hotkey-layer" 1]]
+             [:##e :end ["hotkey-layer" 1]]
+             [:##h :left_arrow ["hotkey-layer" 1]]
              [:##j :down_arrow ["hotkey-layer" 1]]
              [:##k :up_arrow ["hotkey-layer" 1]]
              [:##l :right_arrow ["hotkey-layer" 1]]
