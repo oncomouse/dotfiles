@@ -21,8 +21,8 @@
              [:##p :up_arrow ["hotkey-layer" 1]]
              [:##u :page_up ["hotkey-layer" 1]]
              [:##o :page_down ["hotkey-layer" 1]]
-             [:comma :page_down ["hotkey-layer" 1]]
-             [:period :page_up ["hotkey-layer" 1]]]}
+             [:comma :home ["hotkey-layer" 1]]
+             [:period :end ["hotkey-layer" 1]]]}
     {:des "WordEater mode (delete with w+e)",
      :rules [[:##h :delete_or_backspace ["delete-layer" 1]]
              [:##l :delete_forward ["delete-layer" 1]]
