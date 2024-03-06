@@ -447,52 +447,53 @@ is selected, only the bare key is returned."
 (defun ap/jump-to-admin-workspace (&rest _)
   "Move to the admin workspace when opening agenda, rather than open agenda in the current workspace."
   (interactive "p")
-  (+workspace-switch "admin"))
-(advice-add 'org-agenda-list :before 'ap/bookmark-before-org-agenda)
-(advice-add 'org-agenda-switch-to :before 'ap/jump-to-admin-workspace)
+  (let ((inhibit-message t))
+        (+workspace/switch-to 0)))
+  (advice-add 'org-agenda-list :before 'ap/bookmark-before-org-agenda)
+  (advice-add 'org-agenda-switch-to :before 'ap/jump-to-admin-workspace)
 
-(map!
- :when (not (modulep! :editor evil))
- :leader
- :prefix "o"
- "a" 'org-agenda)
+  (map!
+   :when (not (modulep! :editor evil))
+   :leader
+   :prefix "o"
+   "a" 'org-agenda)
 
-;; Use C-S-Up/Down to navigate headlines when not using to change clocks
-(defun ap/shiftcontroldown (&optional n)
-  "Re-implement 'org-shiftcontroldown' and pass N to it.
+  ;; Use C-S-Up/Down to navigate headlines when not using to change clocks
+  (defun ap/shiftcontroldown (&optional n)
+    "Re-implement 'org-shiftcontroldown' and pass N to it.
 If not in a clock, move to next headline."
-  (interactive "p")
-  (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
-      (org-shiftcontroldown n)
-    (dotimes (_ n) (outline-next-heading))))
+    (interactive "p")
+    (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
+        (org-shiftcontroldown n)
+      (dotimes (_ n) (outline-next-heading))))
 
-(defun ap/shiftcontrolup (&optional n)
-  "Re-implement 'org-shiftcontrolup' and pass N to it.
+  (defun ap/shiftcontrolup (&optional n)
+    "Re-implement 'org-shiftcontrolup' and pass N to it.
 If not in a clock, move to next headline."
-  (interactive "p")
-  (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
-      (org-shiftcontrolup n)
-    (dotimes (_ n) (outline-previous-heading))))
+    (interactive "p")
+    (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
+        (org-shiftcontrolup n)
+      (dotimes (_ n) (outline-previous-heading))))
 
-(after! org
-  (map! :map org-mode-map
-        "C-S-<down>" 'ap/shiftcontroldown
-        "C-S-<up>" 'ap/shiftcontrolup))
+  (after! org
+    (map! :map org-mode-map
+          "C-S-<down>" 'ap/shiftcontroldown
+          "C-S-<up>" 'ap/shiftcontrolup))
 
-(defun ap/wrap-dotimes (fn)
-  "Wrap FN in a dotimes loop to make it repeatable with universal arguments."
-  (lexical-let ((fn fn)) #'(lambda (&optional c)
-                             (interactive "p")
-                             (dotimes (_ c) (funcall fn)))))
+  (defun ap/wrap-dotimes (fn)
+    "Wrap FN in a dotimes loop to make it repeatable with universal arguments."
+    (lexical-let ((fn fn)) #'(lambda (&optional c)
+                               (interactive "p")
+                               (dotimes (_ c) (funcall fn)))))
 
-(after! org
-  (map! :map org-mode-map
-        "M-<up>" (ap/wrap-dotimes 'org-metaup)
-        "M-<down>" (ap/wrap-dotimes 'org-metadown)))
+  (after! org
+    (map! :map org-mode-map
+          "M-<up>" (ap/wrap-dotimes 'org-metaup)
+          "M-<down>" (ap/wrap-dotimes 'org-metadown)))
 
-(after! org
-  (map! :map org-mode-map
-        "C-z" 'org-cycle-list-bullet))
+  (after! org
+    (map! :map org-mode-map
+          "C-z" 'org-cycle-list-bullet))
 
-(provide 'config-org)
+  (provide 'config-org)
 ;;; config-org.el ends here
