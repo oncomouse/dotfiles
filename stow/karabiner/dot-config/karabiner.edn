@@ -21,8 +21,14 @@
              [:##p :up_arrow ["hotkey-layer" 1]]
              [:##u :page_up ["hotkey-layer" 1]]
              [:##o :page_down ["hotkey-layer" 1]]
-             [:comma :page_down ["hotkey-layer" 1]]
-             [:period :page_up ["hotkey-layer" 1]]]}
+             [:comma :home ["hotkey-layer" 1]]
+             [:period :end ["hotkey-layer" 1]]
+             [:up_arrow {:mkey {:y -1500}} ["hotkey-layer" 1]]
+             [:down_arrow {:mkey {:y 1500}} ["hotkey-layer" 1]]
+             [:left_arrow {:mkey {:x -1500}} ["hotkey-layer" 1]]
+             [:right_arrow {:mkey {:x 1500}} ["hotkey-layer" 1]]
+             [:spacebar {:pkey :button1} ["hotkey-layer" 1]]
+             [:left_shift {:pkey :button3} ["hotkey-layer" 1]]]}
     {:des "WordEater mode (delete with w+e)",
      :rules [[:##h :delete_or_backspace ["delete-layer" 1]]
              [:##l :delete_forward ["delete-layer" 1]]
@@ -50,4 +56,5 @@
                                   ;; key is fired twice when 500 ms is
                                   ;; elapsed (otherwise seen as a hold
                                   ;; command)
-                     }}}
+
+                      }}}
