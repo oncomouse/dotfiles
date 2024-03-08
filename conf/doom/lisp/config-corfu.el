@@ -19,17 +19,17 @@
 
 (map! :when (modulep! :completion corfu)
       :after corfu
-      (:map corfu-mode-map
-            "C-M-i" #'completion-at-point
-            (:prefix "C-x"
-             :i "C-l" #'cape-line
-             :i "C-k" #'cape-keyword
-             :i "C-f" #'cape-file
-             :i "s"   #'cape-dict
-             :i "C-s" #'yasnippet-capf
-             :i "C-o" #'completion-at-point
-             :i "C-n" #'cape-dabbrev
-             :i "C-p" #'cape-history))
+      ;; (:map corfu-mode-map
+      ;;       "C-M-i" #'completion-at-point
+      ;;       (:prefix "C-x"
+      ;;        :i "C-l" #'cape-line
+      ;;        :i "C-k" #'cape-keyword
+      ;;        :i "C-f" #'cape-file
+      ;;        :i "s"   #'cape-dict
+      ;;        :i "C-s" #'yasnippet-capf
+      ;;        :i "C-o" #'completion-at-point
+      ;;        :i "C-n" #'cape-dabbrev
+      ;;        :i "C-p" #'cape-history))
       (:map corfu-map
             "SPC" #'corfu-insert-separator
             "C-y" #'corfu-insert
@@ -197,6 +197,7 @@
 ;;   :after (nerd-icons corfu)
 ;;   :config
 ;;   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
 
 (provide 'config-corfu)
 ;;; config-corfu.el ends here

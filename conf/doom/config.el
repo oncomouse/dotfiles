@@ -592,6 +592,15 @@ of a line (ie. an org-mode headline)."
   :config
   (add-hook! prog-mode (add-hook 'completion-at-point-functions #'codeium-completion-at-point 100 t)))
 
+;; Correctly bind completion-at-point
+(after! flyspell
+  (map! (:map flyspell-mode-map "C-M-i" nil)
+   "C-M-i" 'completion-at-point))
+
+;; Include capf definitions
+(after! corfu
+  (require 'config-capf))
+
 ;; midnight-mode, to run code repeatedly
 (use-package! midnight
   :config
