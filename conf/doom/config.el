@@ -731,6 +731,9 @@ If mark is active, merge lines in the current region."
  :when (not (modulep! :editor evil))
  "C-^" 'ap/join-line)
 
+;; Proper help navigation
+(map! :map help-map "C-C C-b" 'help-go-back "C-c C-f" 'help-go-forward)
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
