@@ -595,7 +595,7 @@ of a line (ie. an org-mode headline)."
 ;; Correctly bind completion-at-point
 (after! flyspell
   (map! (:map flyspell-mode-map "C-M-i" nil)
-   "C-M-i" 'completion-at-point))
+        "C-M-i" 'completion-at-point))
 
 ;; Include capf definitions
 (after! corfu
@@ -639,15 +639,8 @@ of a line (ie. an org-mode headline)."
  "C-`" 'push-mark-no-activate
  "M-`" 'jump-to-mark)
 
-;; Avy
-(defhydra hyrda-avy (global-map "M-g" :color blue)
-  "avy-goto"
-  ("c" avy-goto-char "char")
-  ("C" avy-goto-char-2 "char-2")
-  ("W" avy-goto-word-1 "word")
-  ("s" avy-goto-subword-1 "subword")
-  ("u" link-hint-open-link "open-URI")
-  ("U" link-hint-copy-link "copy-URI"))
+
+(require 'config-avy)
 
 ;; Navigate headings in the outline with universal arguments
 (defun ap/outline-next-heading (&optional c)
@@ -695,6 +688,7 @@ of a line (ie. an org-mode headline)."
            "/" (lambda (&rest _) (interactive) (surround-mark "/")))
      )))
 
+;; Crux: helpful updates of many commands
 (when (not (modulep! :editor evil))
   (use-package! crux
     :config
