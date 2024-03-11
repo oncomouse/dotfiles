@@ -665,20 +665,6 @@ of a line (ie. an org-mode headline)."
   "h" 'ap/outline-next-heading
   "H" 'ap/outline-previous-heading)
 
-;; Surround mappings; still WIP
-(when (not (modulep! :editor evil))
-  (use-package! corral
-    :config
-    (defhydra hydra-corral (global-map "C-c c" :columns 4)
-      "Corral"
-      ("(" corral-parentheses-backward "Back")
-      (")" corral-parentheses-forward "Forward")
-      ("[" corral-brackets-backward "Back")
-      ("]" corral-brackets-forward "Forward")
-      ("{" corral-braces-backward "Back")
-      ("}" corral-braces-forward "Forward")
-      ("." hydra-repeat "Repeat"))))
-
 (when (not (modulep! :editor evil))
   (use-package! surround
     :bind-keymap ("M-'" . surround-keymap)
