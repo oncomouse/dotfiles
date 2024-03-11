@@ -125,6 +125,18 @@
  "d"   '+workspace/delete
  "TAB" '+workspace/switch-to)
 
+;; Resize window using hydras
+(defhydra hydra-window-resizer (:columns 2)
+  "Window Sizing"
+  ("-" shrink-window-horizontally "horizontal shrink")
+  ("=" enlarge-window-horizontally "horizontal enlarge")
+  ("_" shrink-window "vertical shrink")
+  ("+" enlarge-window "vertical enlarge"))
+
+(defun aw-window-resize (window)
+  (aw-switch-to-window window)
+  (hydra-window-resizer/body))
+
 (use-package! ace-window
   :config
   (map!
@@ -143,33 +155,14 @@
     (?v aw-split-window-vert "Split Vert Window")
     (?b aw-split-window-horz "Split Horz Window")
     (?o delete-other-windows "Delete Other Windows")
+    (?r aw-window-resize "Resize Window")
     (?? aw-show-dispatch-help))))
 
 ;; Window Movements
 (map!
- :prefix "M-g w"
- "h"   'windmove-left
- "j"   'windmove-down
- "k"   'windmove-up
- "l"   'windmove-right
+ :prefix "M-g"
  "s"   'split-window-below
- "S"   'split-window-right
- "q"   '+workspace/close-window-or-workspace
- "r"   'hydra-window-resizer/body)
-(defvar-keymap windmove-repeat-map
-  :repeat t
-  "h"   'windmove-left
-  "j"   'windmove-down
-  "k"   'windmove-up
-  "l"   'windmove-right)
-
-;; Resize window using hydras
-(defhydra hydra-window-resizer (:columns 2)
-  "Window Sizing"
-  ("-" shrink-window-horizontally "horizontal shrink")
-  ("=" enlarge-window-horizontally "horizontal enlarge")
-  ("_" shrink-window "vertical shrink")
-  ("+" enlarge-window "vertical enlarge"))
+ "S"   'split-window-right)
 
 (map!
  :when (modulep! :editor evil)
