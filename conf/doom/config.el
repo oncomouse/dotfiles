@@ -392,6 +392,7 @@ targets."
                  #'+vertico--embark-which-key-prompt-a)
   (advice-add #'embark-completing-read-prompter
               :around #'embark-hide-which-key-indicator))
+
 (require 'config-corfu)
 
 ;; Configure vterm
@@ -684,8 +685,8 @@ of a line (ie. an org-mode headline)."
     :config
     (map!
      :map surround-keymap
-     "*" (lambda (&rest _) (interactive) (surround-mark "*")
-           "/" (lambda (&rest _) (interactive) (surround-mark "/")))
+     "*" (lambda (&rest _) (interactive) (surround-mark "*"))
+     "/" (lambda (&rest _) (interactive) (surround-mark "/"))
      )))
 
 ;; Crux: helpful updates of many commands
@@ -709,14 +710,14 @@ of a line (ie. an org-mode headline)."
 
 ;; Use isearch in other windows
 (defun isearch-forward-other-window (prefix)
-    "Function to isearch-forward in other-window."
-    (interactive "P")
-    (unless (one-window-p)
-      (save-excursion
-        (let ((next (if prefix -1 1)))
-          (other-window next)
-          (isearch-forward)
-          (other-window (- next))))))
+  "Function to isearch-forward in other-window."
+  (interactive "P")
+  (unless (one-window-p)
+    (save-excursion
+      (let ((next (if prefix -1 1)))
+        (other-window next)
+        (isearch-forward)
+        (other-window (- next))))))
 
 (defun isearch-backward-other-window (prefix)
   "Function to isearch-backward in other-window."
