@@ -39,6 +39,7 @@
 
 (when (not (modulep! :editor evil))
   (package! surround)
+  (package! ace-window)
   (package! crux))
 
 (package! cyclekey :recipe (:host github :repo "shankar2k/cyclekey"))
