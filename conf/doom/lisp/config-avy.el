@@ -52,19 +52,20 @@
      (cdr (ring-ref avy-ring 0))))
   t)
 
-(setf (alist-get ?y avy-dispatch-alist) 'avy-action-yank
-      (alist-get ?w avy-dispatch-alist) 'avy-action-copy
-      (alist-get ?W avy-dispatch-alist) 'avy-action-copy-whole-line
-      (alist-get ?t avy-dispatch-alist) 'avy-action-teleport
-      (alist-get ?T avy-dispatch-alist) 'avy-action-teleport-whole-line
-      (alist-get ?Y avy-dispatch-alist) 'avy-action-yank-whole-line
-      (alist-get ?k avy-dispatch-alist) 'avy-action-kill-stay
-      (alist-get ?K avy-dispatch-alist) 'avy-action-kill-whole-line
-      (alist-get ?  avy-dispatch-alist) 'avy-action-mark-to-char
-      (alist-get ?. avy-dispatch-alist) 'avy-action-flyspell
-      (alist-get ?. avy-dispatch-alist) 'avy-action-embark)
+(after! avy
+  (setf (alist-get ?y avy-dispatch-alist) 'avy-action-yank
+        (alist-get ?w avy-dispatch-alist) 'avy-action-copy
+        (alist-get ?W avy-dispatch-alist) 'avy-action-copy-whole-line
+        (alist-get ?t avy-dispatch-alist) 'avy-action-teleport
+        (alist-get ?T avy-dispatch-alist) 'avy-action-teleport-whole-line
+        (alist-get ?Y avy-dispatch-alist) 'avy-action-yank-whole-line
+        (alist-get ?k avy-dispatch-alist) 'avy-action-kill-stay
+        (alist-get ?K avy-dispatch-alist) 'avy-action-kill-whole-line
+        (alist-get ?  avy-dispatch-alist) 'avy-action-mark-to-char
+        (alist-get ?. avy-dispatch-alist) 'avy-action-flyspell
+        (alist-get ?. avy-dispatch-alist) 'avy-action-embark)
 
-(setq avy-keys (delete ?k avy-keys))
+  (setq avy-keys (delete ?k avy-keys)))
 
 ;; Quick binding
 (map! "M-j" 'avy-goto-char-timer)
