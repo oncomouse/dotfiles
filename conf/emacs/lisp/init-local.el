@@ -1,218 +1,5 @@
-;;; init.el --- Load the full configuration -*- lexical-binding: t -*-
+;;; init-local.el --- Load the full configuration -*- lexical-binding: t -*-
 ;;; Commentary:
-
-;; This file bootstraps the configuration, which is divided into
-;; a number of other files.
-
-;;; Code:
-
-;; Produce backtraces when errors occur: can be helpful to diagnose startup issues
-;;(setq debug-on-error t)
-
-(let ((minver "27.1"))
-  (when (version< emacs-version minver)
-    (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
-(when (version< emacs-version "28.1")
-  (message "Your Emacs is old, and some functionality in this config will be disabled. Please upgrade if possible."))
-
-;; Auto generate site-lisp directory:
-(let ((site-lisp-dir (expand-file-name "site-lisp" user-emacs-directory)))
-  (unless (file-directory-p site-lisp-dir)
-    (make-directory site-lisp-dir)))
-
-;; Update purcell's configuration:
-(defun ap/update-purcell ()
-  "Update purcell/emacs.d on this computer, if possible"
-  (interactive)
-  (start-process-shell-command "Updating purcell/emacs.d" (get-buffer-create "*git log*")
-                               (format "cd %s && git pull" (expand-file-name "purcell-emacs" user-emacs-directory))))
-
-;; Load purcell's emacs config:
-(let ((purcell-path (expand-file-name "purcell-emacs" user-emacs-directory)))
-  (unless (file-directory-p purcell-path) (call-process-shell-command
-                                           (format "git clone https://github.com/purcell/emacs.d %s" purcell-path)))
-  (add-to-list 'load-path (format "%s/lisp" purcell-path)))
-
-;; Set the location for our custom configuration:
-(add-to-list 'load-path  "~/dotfiles/conf/emacs/lisp")
-
-(require 'init-benchmarking) ;; Measure startup time
-
-(defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
-(defconst *is-a-mac* (eq system-type 'darwin))
-
-;; Adjust garbage collection threshold for early startup (see use of gcmh below)
-(setq gc-cons-threshold (* 128 1024 1024))
-
-;; Process performance tuning
-
-(setq read-process-output-max (* 4 1024 1024))
-(setq process-adaptive-read-buffering nil)
-
-;; Bootstrap config
-
-;; Line numbers + relative line numbers
-(setq display-line-numbers-type 'visual)
-;; Disable for the following modes
-(dolist (mode '(term-mode-hook
-		vterm-mode-hook
-		shell-mode-hook
-		treemacs-mode-hook
-		eshell-mode-hook))
-  (add-hook mode (lambda() (display-line-numbers-mode 0))))
-
-(setq custom-file (locate-user-emacs-file "custom.el"))
-(require 'init-utils)
-(require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
-;; Calls (package-initialize)
-;; (require 'init-elpa)      ;; Machinery for installing required packages
-(require 'init-straight)
-(require 'init-exec-path) ;; Set up $PATH
-
-;; General performance tuning
-(when (require-package 'gcmh)
-  (setq gcmh-high-cons-threshold (* 128 1024 1024))
-  (add-hook 'after-init-hook (lambda ()
-                               (gcmh-mode)
-                               (diminish 'gcmh-mode))))
-
-(setq jit-lock-defer-time 0)
-
-;; Allow users to provide an optional "init-preload-local.el"
-(require 'init-preload-local nil t)
-
-;; Load configs for specific features and modes
-(require-package 'diminish)
-(maybe-require-package 'scratch)
-(require-package 'command-log-mode)
-
-(require 'init-frame-hooks)
-(require 'init-xterm)
-(require 'init-themes)
-
-(require 'init-osx-keys)
-(require 'init-gui-frames)
-(require 'init-dired)
-(require 'init-isearch)
-(require 'init-grep)
-(require 'init-uniquify)
-(require 'init-ibuffer)
-(require 'init-flymake)
-(require 'init-eglot)
-
-(require 'init-recentf)
-(require 'init-minibuffer)
-(require 'init-hippie-expand)
-(require 'init-corfu)
-(require 'init-windows)
-(require 'init-sessions)
-;; (require 'init-mmm)
-
-(require 'init-editing-utils)
-(require 'init-whitespace)
-
-(require 'init-vc)
-;; (require 'init-darcs)
-(require 'init-git)
-(require 'init-github)
-
-(require 'init-projectile)
-
-(require 'init-compile)
-(require 'init-crontab)
-(require 'init-textile)
-(require 'init-markdown)
-(require 'init-csv)
-;; (require 'init-erlang)
-(require 'init-javascript)
-;; (require 'init-php)
-(require 'init-org)
-;; (require 'init-nxml)
-(require 'init-html)
-(require 'init-css)
-;; (require 'init-haml)
-(require 'init-http)
-(require 'init-python)
-;; (require 'init-haskell)
-;; (require 'init-elm)
-;; (require 'init-purescript)
-;; (require 'init-ruby)
-;; (require 'init-rails)
-;; (require 'init-sql)
-;; (require 'init-ocaml)
-;; (require 'init-j)
-;; (require 'init-nim)
-;; (require 'init-rust)
-;; (require 'init-toml)
-(require 'init-yaml)
-(require 'init-docker)
-;; (require 'init-terraform)
-;; (require 'init-nix)
-(maybe-require-package 'nginx-mode)
-;; (maybe-require-package 'just-mode)
-;; (maybe-require-package 'justl)
-
-(require 'init-paredit)
-(require 'init-lisp)
-(require 'init-sly)
-;; (require 'init-clojure)
-;; (require 'init-clojure-cider)
-
-(when *spell-check-support-enabled*
-  (require 'init-spelling))
-
-(require 'init-misc)
-
-(require 'init-folding)
-;; (require 'init-dash)
-
-;; (require 'init-ledger)
-(require 'init-lua)
-;; (require 'init-uiua)
-;; (require 'init-terminals)
-
-;; Extra packages which don't require any configuration
-
-(require-package 'sudo-edit)
-;; (require-package 'gnuplot)
-(require-package 'htmlize)
-(when *is-a-mac*
-  (require-package 'osx-location))
-;; (maybe-require-package 'dotenv-mode)
-;; (maybe-require-package 'shfmt)
-
-(when (maybe-require-package 'uptimes)
-  (setq-default uptimes-keep-count 200)
-  (add-hook 'after-init-hook (lambda () (require 'uptimes))))
-
-(when (fboundp 'global-eldoc-mode)
-  (add-hook 'after-init-hook 'global-eldoc-mode))
-
-(require 'init-direnv)
-
-(when (and (require 'treesit nil t)
-           (fboundp 'treesit-available-p)
-           (treesit-available-p))
-  (require 'init-treesitter))
-
-(require 'init-ligature)
-
-
-
-;; Allow access from emacsclient
-(add-hook 'after-init-hook
-          (lambda ()
-            (require 'server)
-            (unless (server-running-p)
-              (server-start))))
-
-;; Variables configured via the interactive 'customize' interface
-(when (file-exists-p custom-file)
-  (load custom-file))
-
-;; Locales (setting them earlier in this file doesn't work in X)
-(require 'init-locales)
-
 
 ;; Set font
 (set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 140)
@@ -246,7 +33,6 @@
 
 (define-key global-map (kbd "C-c c") nil)
 (define-key global-map (kbd "C-c a") nil)
-
 (defvar ap/leader-code-map (make-sparse-keymap))
 (define-key ap/leader-map (kbd "c") ap/leader-code-map)
 
@@ -319,13 +105,13 @@
 (require 'init-format)
 (require 'init-electric)
 
-;; Restore default move-dup bindings:
-(global-set-key (kbd "M-<up>") 'move-dup-move-lines-up)
-(global-set-key (kbd "M-<down>") 'move-dup-move-lines-down)
-(global-set-key (kbd "C-M-<up>") 'move-dup-duplicate-up)
-(global-set-key (kbd "C-M-<down>") 'move-dup-duplicate-down)
+(when (require-package 'drag-stuff)
+  (drag-stuff-global-mode 1)
+  (drag-stuff-define-keys))
 
 (define-key global-map (kbd "C-;") 'embark-act)
+(define-key ap/leader-map (kbd "a") nil)
+(define-key ap/leader-map (kbd "c") nil)
 
 (define-key ap/leader-open-map (kbd "a") 'org-agenda)
 (define-key ap/leader-open-map (kbd "c") 'org-capture)
@@ -462,10 +248,4 @@ If mark is active, merge lines in the current region."
         ".cache"
         ".clangd"))
 
-(provide 'init)
-
-;; Local Variables:
-;; coding: utf-8
-;; no-byte-compile: t
-;; End:
-;;; init.el ends here
+(provide 'init-local)

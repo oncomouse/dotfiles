@@ -52,15 +52,11 @@
      (cdr (ring-ref avy-ring 0))))
   t)
 
-(use-package avy
-  :straight t
-  :general
-  ("M-j" 'avy-goto-char-timer)
-  (:prefix "M-g"
-           "b" 'avy-pop-mark
-           "l" 'avy-goto-line
-           "g" 'avy-goto-char-timer)
-  :config
+(define-key global-map (kbd "M-j") 'avy-goto-char-timer)
+(define-key ap/move-map (kbd "b") 'avy-pop-mark)
+(define-key ap/move-map (kbd "l") 'avy-goto-line)
+(define-key ap/move-map (kbd "g") 'avy-goto-char-timer)
+(with-eval-after-load 'avy
   (setf (alist-get ?y avy-dispatch-alist) 'avy-action-yank
         (alist-get ?w avy-dispatch-alist) 'avy-action-copy
         (alist-get ?W avy-dispatch-alist) 'avy-action-copy-whole-line
@@ -72,9 +68,7 @@
         (alist-get ?  avy-dispatch-alist) 'avy-action-mark-to-char
         (alist-get ?. avy-dispatch-alist) 'avy-action-flyspell
         (alist-get ?. avy-dispatch-alist) 'avy-action-embark)
-
-  (setq avy-keys (delete ?k avy-keys))
-  )
+  (setq avy-keys (delete ?k avy-keys)))
 
 (provide 'init-avy)
 ;;; init-avy.el ends here
