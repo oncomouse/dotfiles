@@ -154,7 +154,7 @@
 
 (require 'init-paredit)
 (require 'init-lisp)
-(require 'init-sly)
+;; (require 'init-sly)
 ;; (require 'init-clojure)
 ;; (require 'init-clojure-cider)
 
@@ -229,7 +229,6 @@
     (corfu-mode 1)))
 (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
 
-;;; Code:
 (require-package 'hydra)
 
 (defvar ap/leader-map (make-sparse-keymap))
@@ -327,8 +326,8 @@
 
 (define-key global-map (kbd "C-;") 'embark-act)
 
-(define-key ap/leader-open-map (kbd "a") 'org-agenda)
-(define-key ap/leader-open-map (kbd "c") 'org-capture)
+(define-key sanityinc/org-global-prefix-map (kbd "a") 'org-agenda)
+(define-key sanityinc/org-global-prefix-map (kbd "c") 'org-capture)
 
 (when (require-package 'crux)
   (define-key global-map (kbd "C-k") 'crux-smart-kill-line)
