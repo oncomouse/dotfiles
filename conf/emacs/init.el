@@ -469,7 +469,6 @@ If mark is active, merge lines in the current region."
         ".cache"
         ".clangd"))
 
-
 ;; Doom's version control menu
 (defvar ap/vc-map (make-sparse-keymap))
 (define-key ap/leader-map (kbd "v") ap/vc-map)
@@ -519,6 +518,116 @@ If mark is active, merge lines in the current region."
 (define-key ap/vc-map (kbd "c f") #'magit-commit-fixup)
 (define-key ap/vc-map (kbd "c i") #'forge-create-issue)
 (define-key ap/vc-map (kbd "c p") #'forge-create-pullreq)
+
+
+(with-eval-after-load 'org
+  (setq org-capture-templates
+        `(("t" "todo" entry (file+headline "" "Inbox")  ; "" => `org-default-notes-file'
+           "* TODO %?\n%U\n%i\n")
+          ("n" "note" entry (file "")
+           "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
+          ))
+  (setq
+   org-beamer-mode t ;; Export to beamer
+   org-complete-tags-always-offer-all-agenda-tags t ;; Always use all tags from Agenda files in capture
+   org-hide-leading-stars nil
+   org-startup-indented nil
+   org-directory (concat dotfiles-seadrive-path "/Todo/org")
+   org-agenda-files (list
+		     (concat dotfiles-seadrive-path "/Todo/todo.org")
+		     (concat dotfiles-seadrive-path "/Todo/inbox.org"))
+   org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org")
+   org-indent-mode "noindent"
+   org-refile-targets
+   '((nil :maxlevel . 2)
+     (org-agenda-files :maxlevel . 2))
+   org-imenu-depth 2
+   org-agenda-span 7
+   org-agenda-start-on-weekday 1
+   org-agenda-start-day nil)
+  (defun ap/org-summary-todo (n-done n-not-done)
+    "Switch entry to DONE when all subentries are done, to TODO otherwise.
+
+N-DONE is the number of done elements; N-NOT-DONE is the number of
+not done."
+    (let (org-log-done org-log-states)   ; turn off logging
+      (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+
+  (defun ap/org-checkbox-todo ()
+    "Switch header TODO state to DONE when all checkboxes are ticked.
+
+Switch to TODO otherwise"
+    (let ((todo-state (org-get-todo-state)) beg end)
+      (unless (not todo-state)
+        (save-excursion
+	  (org-back-to-heading t)
+	  (setq beg (point))
+	  (end-of-line)
+	  (setq end (point))
+	  (goto-char beg)
+	  (if (re-search-forward "\\[\\([0-9]*%\\)\\]\\|\\[\\([0-9]*\\)/\\([0-9]*\\)\\]"
+			         end t)
+              (if (match-end 1)
+		  (if (equal (match-string 1) "100%")
+		      (unless (string-equal todo-state "DONE")
+		        (org-todo 'done))
+		    (unless (string-equal todo-state "TODO")
+		      (org-todo 'todo)))
+	        (if (and (> (match-end 2) (match-beginning 2))
+		         (equal (match-string 2) (match-string 3)))
+		    (unless (string-equal todo-state "DONE")
+		      (org-todo 'done))
+		  (unless (string-equal todo-state "TODO")
+		    (org-todo 'todo)))))))))
+
+  (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
+  (add-hook 'org-after-todo-statistics-hook 'ap/org-summary-todo)
+  (add-hook 'org-checkbox-statistics-hook 'ap/org-checkbox-todo)
+  (add-to-list 'org-file-apps '("\\.docx\\'" . "open %s"))
+  (defun ap/bookmark-before-org-agenda (&rest _)
+    "Set a bookmark before opening 'org-agenda', for jumping across workspaces."
+    (when (buffer-file-name) (bookmark-set "org-agenda-lastpos"))
+    )
+
+  (defun ap/jump-to-admin-workspace (&rest _)
+    "Move to the admin workspace when opening agenda, rather than open agenda in the current workspace."
+    (interactive "p")
+    (let ((inhibit-message t))
+      ;; (+workspace/switch-to 0)
+      ))
+  (advice-add 'org-agenda-list :before 'ap/bookmark-before-org-agenda)
+  (advice-add 'org-agenda-switch-to :before 'ap/jump-to-admin-workspace)
+
+  ;; Use C-S-Up/Down to navigate headlines when not using to change clocks
+  (defun ap/shiftcontroldown (&optional n)
+    "Re-implement 'org-shiftcontroldown' and pass N to it.
+If not in a clock, move to next headline."
+    (interactive "p")
+    (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
+        (org-shiftcontroldown n)
+      (dotimes (_ n) (outline-next-heading))))
+
+  (defun ap/shiftcontrolup (&optional n)
+    "Re-implement 'org-shiftcontrolup' and pass N to it.
+If not in a clock, move to next headline."
+    (interactive "p")
+    (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
+        (org-shiftcontrolup n)
+      (dotimes (_ n) (outline-previous-heading))))
+
+  (define-key org-mode-map (kbd "C-S-<down>") 'ap/shiftcontroldown)
+  (define-key org-mode-map (kbd "C-S-<up>") 'ap/shiftcontrolup)
+
+  (defun ap/wrap-dotimes (fn)
+    "Wrap FN in a dotimes loop to make it repeatable with universal arguments."
+    (lexical-let ((fn fn)) #'(lambda (&optional c)
+                               (interactive "p")
+                               (dotimes (_ c) (funcall fn)))))
+
+  (define-key org-mode-map (kbd "M-<up>") 'org-metaup)
+  (define-key org-mode-map (kbd "M-<up>") 'org-metaup)
+  (define-key org-mode-map (kbd "C-z") 'org-cycle-list-bullet)
+  )
 
 (provide 'init)
 
