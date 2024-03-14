@@ -520,9 +520,10 @@ If mark is active, merge lines in the current region."
 (define-key ap/vc-map (kbd "c p") #'forge-create-pullreq)
 
 
+
 (with-eval-after-load 'org
   (setq org-capture-templates
-        `(("t" "todo" entry (file+headline "" "Inbox")  ; "" => `org-default-notes-file'
+        `(("t" "todo" entry (file+headline "" "Inbox") ; "" => `org-default-notes-file'
            "* TODO %?\n%U\n%i\n")
           ("n" "note" entry (file "")
            "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
@@ -534,8 +535,8 @@ If mark is active, merge lines in the current region."
    org-startup-indented nil
    org-directory (concat dotfiles-seadrive-path "/Todo/org")
    org-agenda-files (list
-		     (concat dotfiles-seadrive-path "/Todo/todo.org")
-		     (concat dotfiles-seadrive-path "/Todo/inbox.org"))
+                     (concat dotfiles-seadrive-path "/Todo/todo.org")
+                     (concat dotfiles-seadrive-path "/Todo/inbox.org"))
    org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org")
    org-indent-mode "noindent"
    org-refile-targets
@@ -550,7 +551,7 @@ If mark is active, merge lines in the current region."
 
 N-DONE is the number of done elements; N-NOT-DONE is the number of
 not done."
-    (let (org-log-done org-log-states)   ; turn off logging
+    (let (org-log-done org-log-states)  ; turn off logging
       (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
   (defun ap/org-checkbox-todo ()
@@ -560,25 +561,25 @@ Switch to TODO otherwise"
     (let ((todo-state (org-get-todo-state)) beg end)
       (unless (not todo-state)
         (save-excursion
-	  (org-back-to-heading t)
-	  (setq beg (point))
-	  (end-of-line)
-	  (setq end (point))
-	  (goto-char beg)
-	  (if (re-search-forward "\\[\\([0-9]*%\\)\\]\\|\\[\\([0-9]*\\)/\\([0-9]*\\)\\]"
-			         end t)
+          (org-back-to-heading t)
+          (setq beg (point))
+          (end-of-line)
+          (setq end (point))
+          (goto-char beg)
+          (if (re-search-forward "\\[\\([0-9]*%\\)\\]\\|\\[\\([0-9]*\\)/\\([0-9]*\\)\\]"
+                                 end t)
               (if (match-end 1)
-		  (if (equal (match-string 1) "100%")
-		      (unless (string-equal todo-state "DONE")
-		        (org-todo 'done))
-		    (unless (string-equal todo-state "TODO")
-		      (org-todo 'todo)))
-	        (if (and (> (match-end 2) (match-beginning 2))
-		         (equal (match-string 2) (match-string 3)))
-		    (unless (string-equal todo-state "DONE")
-		      (org-todo 'done))
-		  (unless (string-equal todo-state "TODO")
-		    (org-todo 'todo)))))))))
+                  (if (equal (match-string 1) "100%")
+                      (unless (string-equal todo-state "DONE")
+                        (org-todo 'done))
+                    (unless (string-equal todo-state "TODO")
+                      (org-todo 'todo)))
+                (if (and (> (match-end 2) (match-beginning 2))
+                         (equal (match-string 2) (match-string 3)))
+                    (unless (string-equal todo-state "DONE")
+                      (org-todo 'done))
+                  (unless (string-equal todo-state "TODO")
+                    (org-todo 'todo)))))))))
 
   (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
   (add-hook 'org-after-todo-statistics-hook 'ap/org-summary-todo)
@@ -626,83 +627,49 @@ If not in a clock, move to next headline."
 
   (define-key org-mode-map (kbd "M-<up>") (ap/wrap-dotimes 'org-metaup))
   (define-key org-mode-map (kbd "M-<down>") (ap/wrap-dotimes 'org-metadown))
-  (define-key org-mode-map (kbd "C-z") 'org-cycle-list-bullet)
-  )
+  (define-key org-mode-map (kbd "C-z") 'org-cycle-list-bullet))
 
 
-(when (require-package 'helpful)
-  (global-set-key (kbd "C-h f") #'helpful-callable)
+(require 'init-undo)
+(require 'init-helpful)
 
-  (global-set-key (kbd "C-h v") #'helpful-variable)
-  (global-set-key (kbd "C-h k") #'helpful-key)
-  (global-set-key (kbd "C-h x") #'helpful-command)
-  
-  ;; Source: https://github.com/Wilfred/helpful/issues/250
-  (defvar *helpful-buffer-ring-size 5
-    "How many buffers are stored for use with `*helpful-next'.")
+;; Configure projectile
+(with-eval-after-load 'projectile
 
-  (defvar *helpful--buffer-ring (make-ring *helpful-buffer-ring-size)
-    "Ring that stores the current Helpful buffer history.")
+  ;; Combined project search instead of individual programs:
+  (defun ap/project-search (search-term &optional arg)
+    (interactive (list (projectile--read-search-string-with-default
+                        (format "%s for" (if current-prefix-arg "Regexp search" "Search")))
+                       current-prefix-arg))
+    "Run a searching with SEARCH-TERM at current project root using best search program.
 
-  (defun *helpful--buffer-index (&optional buffer)
-    "If BUFFER is a Helpful buffer, return it’s index in the buffer ring."
-    (let ((buf (or buffer (current-buffer))))
-      (and (eq (buffer-local-value 'major-mode buf) 'helpful-mode)
-           (seq-position (ring-elements *helpful--buffer-ring) buf #'eq))))
+With an optional prefix argument ARG SEARCH-TERM is interpreted as a
+regular expression.
 
-  (advice-add 'helpful--buffer
-              :filter-return (lambda (help-buf)
-                               (let ((buf-ring *helpful--buffer-ring))
-                                 (let ((newer-buffers (or (*helpful--buffer-index) 0)))
-                                   (dotimes (_ newer-buffers) (ring-remove buf-ring 0)))
-                                 (when (/= (ring-size buf-ring) *helpful-buffer-ring-size)
-                                   (ring-resize buf-ring *helpful-buffer-ring-size))
-                                 (ring-insert buf-ring help-buf))))
+This command depends on of the Emacs packages ripgrep or rg being
+installed to work."
+    (cond
+     ((executable-find "rg") (projectile-ripgrep search-term arg))
+     ((executable-find "ag") (projectile-ag search-term arg))
+     ((executable-find "grep") (projectile-grep search-term arg))
+     (t (projectile-find-references search-term arg))))
 
-  (defun *helpful--next (&optional buffer)
-    "Return the next live Helpful buffer relative to BUFFER."
-    (let ((buf-ring *helpful--buffer-ring)
-          (index (or (*helpful--buffer-index buffer) -1)))
-      (cl-block nil
-        (while (> index 0)
-          (cl-decf index)
-          (let ((buf (ring-ref buf-ring index)))
-            (if (buffer-live-p buf) (cl-return buf)))
-          (ring-remove buf-ring index)))))
+  ;; Override search menu:
+  (define-key projectile-command-map (kbd "s") 'ap/project-search)
 
-  (defun *helpful--previous (&optional buffer)
-    "Return the previous live Helpful buffer relative to BUFFER."
-    (let ((buf-ring *helpful--buffer-ring)
-          (index (1+ (or (*helpful--buffer-index buffer) -1))))
-      (cl-block nil
-        (while (< index (ring-length buf-ring))
-          (let ((buf (ring-ref buf-ring index)))
-            (if (buffer-live-p buf) (cl-return buf)))
-          (ring-remove buf-ring index)))))
-
-  (defun *helpful-next ()
-    "Go to the next Helpful buffer."
-    (interactive)
-    (when-let (buf (*helpful--next))
-      (funcall helpful-switch-buffer-function buf)))
-
-  (defun *helpful-previous ()
-    "Go to the previous Helpful buffer."
-    (interactive)
-    (when-let (buf (*helpful--previous))
-      (funcall helpful-switch-buffer-function buf)))
-  
-  (define-key helpful-mode-map (kbd "C-x C-b") '*helpful-previous)
-  (define-key helpful-mode-map (kbd "C-x C-f") '*helpful-next))
-
-;; Pop-up support for documentation windows
-(add-to-list 'display-buffer-alist
-             '("^\\*\\([Hh]elp\\|Apropos\\|info\\)" (display-buffer-reuse-window display-buffer-in-side-window)
-               (quit . t)
-               (transient . t)
-               (side . bottom)
-               (slot . 0)
-               (window-height . 0.33)))
+  ;; Configure marginalia for projectile
+  (with-eval-after-load 'marginalia
+    (setq marginalia-command-categories
+          (append '((projectile-find-file . project-file)
+                    (projectile-find-dir . project-file)
+                    (projectile-switch-project . file)
+                    (projectile-recentf . project-file)
+                    (projectile-switch-to-buffer . buffer)
+                    (projectile-find-file . project-file)
+                    (projectile-recentf . project-file)
+                    (projectile-switch-to-buffer . buffer)
+                    (projectile-switch-project . project-file))
+                  marginalia-command-categories))))
 
 (provide 'init)
 
