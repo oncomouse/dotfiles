@@ -126,6 +126,7 @@
 ;; (require 'init-erlang)
 (require 'init-javascript)
 ;; (require 'init-php)
+(require-package 'org)
 (require 'init-org)
 ;; (require 'init-nxml)
 (require 'init-html)
@@ -334,8 +335,8 @@
 
 (define-key global-map (kbd "C-;") 'embark-act)
 
-(define-key sanityinc/org-global-prefix-map (kbd "a") 'org-agenda)
-(define-key sanityinc/org-global-prefix-map (kbd "c") 'org-capture)
+(define-key ap/leader-open-map (kbd "a") 'org-agenda)
+(define-key ap/leader-open-map (kbd "c") 'org-capture)
 
 (when (require-package 'crux)
   (define-key global-map (kbd "C-k") 'crux-smart-kill-line)
@@ -627,7 +628,14 @@ If not in a clock, move to next headline."
 
   (define-key org-mode-map (kbd "M-<up>") (ap/wrap-dotimes 'org-metaup))
   (define-key org-mode-map (kbd "M-<down>") (ap/wrap-dotimes 'org-metadown))
-  (define-key org-mode-map (kbd "C-z") 'org-cycle-list-bullet))
+  (define-key org-mode-map (kbd "C-z") 'org-cycle-list-bullet)
+
+  (when (require-package 'org-appear)
+    (setq org-appear-trigger 'always)
+    (setq org-appear-autoentities t)
+    (setq org-appear-autolinks t)
+    (setq org-appear-autosubmarkers t)
+    (add-hook 'org-mode-hook 'org-appear-mode)))
 
 
 (require 'init-undo)
