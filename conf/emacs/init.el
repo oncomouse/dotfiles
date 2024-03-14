@@ -213,6 +213,14 @@
 ;; Locales (setting them earlier in this file doesn't work in X)
 (require 'init-locales)
 
+
+;; Local
+
+(require 'init-secret)
+
+;; Whoami
+(setq user-full-name "Andrew Pilsch"
+      user-mail-address "apilsch@tamu.edu")
 
 ;; Set font
 (set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 140)
