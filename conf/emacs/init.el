@@ -620,12 +620,12 @@ If not in a clock, move to next headline."
 
   (defun ap/wrap-dotimes (fn)
     "Wrap FN in a dotimes loop to make it repeatable with universal arguments."
-    (lexical-let ((fn fn)) #'(lambda (&optional c)
-                               (interactive "p")
-                               (dotimes (_ c) (funcall fn)))))
+    (let ((fn fn)) #'(lambda (&optional c)
+                       (interactive "p")
+                       (dotimes (_ c) (funcall fn)))))
 
-  (define-key org-mode-map (kbd "M-<up>") 'org-metaup)
-  (define-key org-mode-map (kbd "M-<up>") 'org-metaup)
+  (define-key org-mode-map (kbd "M-<up>") (ap/wrap-dotimes 'org-metaup))
+  (define-key org-mode-map (kbd "M-<down>") (ap/wrap-dotimes 'org-metadown))
   (define-key org-mode-map (kbd "C-z") 'org-cycle-list-bullet)
   )
 
