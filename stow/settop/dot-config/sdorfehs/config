@@ -1,0 +1,96 @@
+# [settings]
+# escape s-space
+set startupmessage 0
+set border 2
+set barsticky 0
+set bargravity c
+set barborder 1
+set barpadding 5 2
+set vscreens 1
+set padding 0 0 0 0
+set onlyborder 0
+set gap 0
+
+# [autostart]
+exec sf-autostart &
+
+# [functionality]
+bind Escape abort
+
+# [launchers]
+alias fm exec dotfiles-fm &
+alias term exec dotfiles-term &
+alias time exec sdorfehs -c "echo $(date +"%a %-m/%d %-I:%M %p")" &
+alias default-brightness exec dotfiles-brightness default &
+bind c term
+bind s-c term
+bind f fm
+bind s-f fm
+bind t time
+bind s-t time
+bind B default-brightness
+
+# [switch frames]
+bind h focusleft
+bind j focusdown
+bind k focusup
+bind l focusright
+bind Left focusleft
+bind Down focusdown
+bind Up focusup
+bind Right focusright
+bind H exchangeleft
+bind J exchangedown
+bind K exchangeup
+bind L exchangeright
+bind s-h focusleft
+bind s-j focusdown
+bind s-k focusup
+bind s-l focusright
+bind s-H exchangeleft
+bind s-J exchangedown
+bind s-K exchangeup
+bind s-L exchangeright
+bind s-n next
+bind s-p prev
+
+# [select frames]
+bind Tab fselect
+bind parenright fselect 0
+bind exclam fselect 1
+bind at fselect 2
+bind numbersign fselect 3
+bind dollar fselect 4
+bind percent fselect 5
+bind asciicircum fselect 6
+bind ampersand fselect 7
+bind asterisk fselect 8
+bind parenleft fselect 9
+
+# [reverse splits]
+bind S hsplit
+bind s split
+
+# [windows]
+definekey top s-Tab sf-windows
+bind w windows
+bind 0 select 0
+bind 1 select 1
+bind 2 select 2
+bind 3 select 3
+bind 4 select 4
+bind 5 select 5
+bind 6 select 6
+bind 7 select 7
+bind 8 select 8
+
+# [launchers]
+definekey top M-s-r exec dotfiles-run &
+definekey top s-P exec dotfiles-powermenu &
+definekey top M-s-p exec rofimusic.sh &
+definekey top M-s-k exec dotfiles-unicode &
+definekey top C-s-space exec dotfiles-emoji &
+bind C-exclam colon exec dotfiles-term -e
+
+exec sf-colors.sh &
+# vim:ft=sdorfehs:commentstring=#\ %s
