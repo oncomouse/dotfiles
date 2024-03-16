@@ -7,11 +7,11 @@ XF86Audio{Raise,Lower}Volume
   ~/.local/bin/button.sh vol_{up,down}
 
 # Main, Notifications / Search / Settings / Action Center / File Explorer / Desktop / Tasks
-super + {x,n,q,i,e,d,Tab}
+super + {x,b,q,a,e,d,Tab}
   ~/.local/bin/button.sh {main,notification,search,settings,action_center,file_explorer,desktop,tasks}
 
 # Screen Partition Buttons
-super + {Up/Down/Left/Right}
+super + {Up,Down,Left,Right}
   ~/.local/bin/button.sh split_{up,down,left,right}
 
 # Refresh

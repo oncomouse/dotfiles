@@ -1,0 +1,13 @@
+[Unit]
+Description=sxhkd init service
+Documentation=man:sxhkd(1)
+After=xdg-desktop-portal.service
+Wants=xdg-desktop-portal.service
+
+[Service]
+Type=simple
+ExecReload=/usr/bin/kill -SIGUSR1 $MAINPID
+ExecStart=/usr/bin/sxhkd
+
+[Install]
+WantedBy=default.target
