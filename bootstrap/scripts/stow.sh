@@ -16,6 +16,7 @@ dotfiles_stow git
 dotfiles_stow ripgrep
 dotfiles_stow scripts
 dotfiles_stow starship
+dotfiles_stow neovim-server
 if [ "$os" == "arch" ]; then
 	dotfiles_stow systemd
 fi
@@ -24,16 +25,17 @@ if [ -z "$SERVER" ]; then
 	dotfiles_stow mopidy
 	dotfiles_stow mpd
 	dotfiles_stow ncmpcpp
-	dotfiles_stow neovim
 	dotfiles_stow pandoc
-	dotfiles_stow proselint
 	dotfiles_stow rubocop
 	dotfiles_stow starship
 	dotfiles_stow selene
-	dotfiles_stow tmux
+	if [ "$DOTFILES_TARGET" = "desktop" ]; then
+		dotfiles_stow tmux
+	else
+		dotfiles_stow tmux-server
+	fi
 	dotfiles_stow tridactyl
 	dotfiles_stow firefox
-	dotfiles_stow vale
 	dotfiles_stow wal
 	if [ "$os" == "macos" ]; then
 		dotfiles_stow homebrew
@@ -42,8 +44,6 @@ if [ -z "$SERVER" ]; then
 		dotfiles_stow wezterm
 	elif [ "$os" == "arch" ]; then
 		# Other setup files:
-		dotfiles_stow dunst
-		dotfiles_stow dwm
 		dotfiles_stow fontconfig
 		dotfiles_stow gtk
 		dotfiles_stow mpd
@@ -53,15 +53,19 @@ if [ -z "$SERVER" ]; then
 		dotfiles_stow picom
 		dotfiles_stow polybar
 		dotfiles_stow pulse
-		dotfiles_stow redshift
 		dotfiles_stow rofi
-		dotfiles_stow sdorfehs
+		if [ "$DOTFILES_TARGET" = "settop" ]; then
+			dotfiles_stow settop
+		else
+			dotfiles_stow dunst
+			dotfiles_stow redshift
+			dotfiles_stow sdorfehs
+			dotfiles_stow xscreensaver
+		fi
 		dotfiles_stow st
 		dotfiles_stow xorg
-		dotfiles_stow xscreensaver
 		dotfiles_stow zathura
 	fi
 else
-	dotfiles_stow neovim-server
 	dotfiles_stow tmux-server
 fi

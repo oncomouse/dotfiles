@@ -8,6 +8,7 @@ echo -n "Name this target: "
 read -r target
 mkdir -p ~/.local/share/dotfiles
 echo "$target" > ~/.local/share/dotfiles/target
+export DOTFILES_TARGET="$target"
 case $os in
   macos)
     $env SERVER="$SERVER" "$bash" "$HOME/dotfiles/bootstrap/macos.sh"

@@ -6,23 +6,34 @@
 sudo cat "$HOME/dotfiles/conf/arch-packages/pacman.txt" | sudo pacman -S --noconfirm --needed --assume-installed=ttf-font-nerd -
 if [ "$SERVER" = "" ]; then
 	sudo cat "$HOME/dotfiles/conf/arch-packages/pacman-desktop.txt" | sudo pacman -S --noconfirm --needed -
+	if [ "$DOTFILES_TARGET" = "desktop" ]; then
+		sudo cat "$HOME/dotfiles/conf/arch-packages/pacman-dev.txt" | sudo pacman -S --noconfirm --needed -
+	fi
 fi
 
 ~/dotfiles/bootstrap/scripts/common.sh
 
 mkdir -p "$HOME/aur"
+# Install some AUR packages (including paru):
+~/dotfiles/bootstrap/scripts/aur.sh
+cat "$HOME"/dotfiles/conf/arch-packages/aur.txt | paru --needed -S --skipreview --noconfirm -
 
 if [ "$SERVER" = "" ]; then
-	# Install some AUR packages (including paru):
-	~/dotfiles/bootstrap/scripts/aur.sh
-	sudo cat "$HOME/dotfiles/conf/arch-packages/pacman-desktop.txt" | sudo pacman -S --noconfirm --needed -
 	cat "$HOME"/dotfiles/conf/arch-packages/aur-desktop.txt | paru --needed -S --skipreview --noconfirm -
+	if [ "$DOTFILES_TARGET" = "desktop" ]; then
+		cat "$HOME"/dotfiles/conf/arch-packages/aur-dev.txt | paru --needed -S --skipreview --noconfirm -
+	fi
 	# Setup flatpak:
-	flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+		flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	# Install Flatpaks:
-	grep -v -e "^#" <"$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
-	# Link rofi to dmenu:
-	sudo ln -sf (which rofi) /usr/local/bin/dmenu
+	if [ "$DOTFILES_TARGET" = "desktop" ]; then
+		grep -v -e "^#" <"$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
+	fi
+fi
+
+# Link rofi to dmenu:
+if [ "$SERVER" = "" ]; then
+	sudo ln -sf "$(which rofi)" /usr/local/bin/dmenu
 fi
 
 sudo systemctl daemon-reload
@@ -32,9 +43,11 @@ if [ "$SERVER" = "" ]; then
 	## User systemd services
 	systemctl --user enable pipewire-pulse
 	systemctl --user enable wireplumber.service
-	systemctl --user enable seadrive.service
 	systemctl --user enable mpd.service
-	systemctl --user enable redshift.service
+	if [ "$DOTFILES_TARGET" = "desktop" ]; then
+		systemctl --user enable seadrive.service
+		systemctl --user enable redshift.service
+	fi
 fi
 
 sudo systemctl enable NetworkManager.service
@@ -66,7 +79,7 @@ fi
 # Configure Root Environment:
 sudo mkdir -p /root/.config/nvim
 sudo cp ~/dotfiles/conf/vim/init-minimal.lua /root/.config/nvim/init.lua
-sudo nvim +PaqInstall +qall
+# sudo nvim +PaqInstall +qall
 sudo cp ~/dotfiles/stow/tmux/dot-tmux.conf /root/.tmux.conf
 sudo mkdir -p /root/.tmux/plugins
 sudo cp -r ~/.tmux/plugins/tpm /root/.tmux/plugins
@@ -81,5 +94,7 @@ if [ "$SERVER" = "" ]; then
 	xdg-mime default feh.desktop image/jpeg
 
 	# Configure Seadrive:
-	~/dotfiles/bootstrap/scripts/seadrive.sh
+	if [ "$DOTFILES_TARGET" = "desktop" ]; then
+		~/dotfiles/bootstrap/scripts/seadrive.sh
+	fi
 fi
