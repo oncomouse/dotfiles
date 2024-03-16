@@ -62,7 +62,15 @@ To connect to wifi, `nmcli device wifi --ask connect <SSID>`
  
 # Keyring
 
-1. [Keyring PAM Configuration](https://wiki.archlinux.org/title/GNOME/Keyring#PAM_method)
+1. [Keyring PAM Configuration](https://wiki.archlinux.org/title/GNOME/Keyring#PAM_step)
+
+# Dotfiles key
+
+1. On already configured machine `gpg --export-secret-key -a > secretkey.asc`
+1. On new machine
+        1. Use `scp` to copy `secretkey.asc`
+        1. `gpg --import secretkey.asc`
+        1. `shred --remove secretkey.asc`
 
 # Refind Configuration that works
 
