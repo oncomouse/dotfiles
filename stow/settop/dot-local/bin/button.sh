@@ -1,20 +1,15 @@
-#!/usr/bin/env bash
+#!/bin/bash
+shopt -s nocasematch #sets case insensitive option for the shell
+
+websites=("youtube" "pbs")
 
 __activate_tridactyl() {
     xdotool key ctrl+comma
     sleep 0.5s
 }
 
-action_prev() {
-    return
-}
-
-action_next() {
-    return
-}
-
-action_play() {
-    return
+helper_message() {
+    sdorfehs -c "echo ${1}"
 }
 
 helper_volume() {
@@ -49,6 +44,64 @@ helper_volume() {
     __pulseaudio "$1"
 }
 
+helper_find_or_open() {
+    windows=$(wmctrl -l)
+	if [[ "$windows" == *"$1"* ]]; then
+        xdotool windowactivate "$(wmctrl -l | grep -i $1 | cut -d " " -f 1)"
+    else
+        nohup $1 >/dev/null 2>&1 &
+    fi
+}
+
+
+action_prev() {
+	# helper_message "called: prev"
+    case "$target" in
+        *kodi*)
+            kodi-send --action="StepBack"
+            ;;
+        *freetube*)
+            sleep 0.1 && \
+                xdotool key --clearmodifiers "l"
+            ;;
+        # *)
+        #     helper_message "no action taken for $target"
+        #     ;;
+    esac
+}
+
+action_next() {
+	# helper_message "called: next"
+    case "$target" in
+        *kodi*)
+            kodi-send --action="StepForward"
+            ;;
+        *freetube*)
+            sleep 0.1 && \
+                xdotool key --clearmodifiers "j"
+            ;;
+        # *)
+        #     helper_message "no action taken for $target"
+        #     ;;
+    esac
+}
+
+action_play() {
+	# helper_message "called: play"
+    case "$target" in
+        *kodi*)
+            kodi-send --action="Pause"
+            ;;
+        *freetube*)
+            sleep 0.1 && \
+                xdotool key --clearmodifiers "space"
+            ;;
+        # *)
+        #     helper_message "no action taken for $target"
+        #     ;;
+    esac
+}
+
 action_vol_up() {
     helper_volume up
 }
@@ -58,97 +111,177 @@ action_vol_down() {
 }
 
 action_main() {
-    return
+    helper_find_or_open kodi
 }
 
 action_notification() {
-    return
+	helper_message "called: notification"
 }
 
 action_search() {
-    if [[ "$target" == "firefox" ]]; then
-        xdotool key Escape colon sleep 0.1 &&
-            xdotool type --delay 15 "focusinput" &&
-            xdotool key Return
-    fi
-    return
+    # helper_message "called: search"
+    case "$target" in
+        *kodi*)
+            kodi-send --action="VideoLibrary.Search"
+            ;;
+        *freetube*)
+            sleep 0.1 && \
+                xdotool key --clearmodifiers ctrl+l
+            ;;
+    esac
 }
 
+# Subtitles
 action_settings() {
-    return
+	# helper_message "called: settings"
+    case "$target" in
+        *kodi*)
+            kodi-send --action="ShowSubtitles"
+            ;;
+        *freetube*)
+            sleep 0.1 && \
+                xdotool key --clearmodifiers c
+            ;;
+    esac
 }
 
 action_action_center() {
-    return
+	helper_message "called: action_center"
 }
 
 action_file_explorer() {
-    return
+	helper_message "called: file_explorer"
 }
 
+# Home
 action_desktop() {
-    return
+    # helper_message "called: desktop"
+    case "$target" in
+        *firefox*)
+            xdg-open "https://www.youtube.com" && \
+                sleep 0.1s && \
+                xdotool key --clearmodifiers ctrl+Prior ctrl+w
+            ;;
+        *kodi*)
+            kodi-send --action="PreviousMenu"
+            ;;
+        *freetube*)
+            xdotool mousemove 25 100 click 1
+            ;;
+    esac
 }
 
+# Playlist
 action_tasks() {
-    return
+	# helper_message "called: tasks"
+    case "$target" in
+        *freetube*)
+            kodi-send --action="Playlist"
+            ;;
+    esac
 }
 
+# Fullscreen
 action_split_up() {
-    return
+	# helper_message "called: split_up"
+    case "$target" in
+        *freetube*)
+            sleep 0.1s && \
+                xdotool key --clearmodifiers f
+            ;;
+        *firefox_youtube*)
+            xdotool key --clearmodifiers ctrl+comma sleep 0.75 key colon sleep 0.1 && \
+                xdotool type  --delay 0.25 --clearmodifiers "hint -Jc .ytp-fullscreen-button" && \
+                xdotool key --clearmodifiers Return
+            ;;
+    esac
 }
 
 action_split_down() {
-    return
+	helper_message "called: split_down"
 }
 
 action_split_left() {
-    return
+	helper_message "called: split_left"
 }
 
 action_split_right() {
+	helper_message "called: split_right"
+}
+
+action_refresh() {
+	# helper_message "called: refresh"
+    case "$target" in
+        kodi)
+            ;;
+        *)
+            sleep 0.1s && \
+                xdotool key --clearmodifiers ctrl+r
+            ;;
+    esac
     return
 }
 
-action_split_refresh() {
-    if [[ "$target" == "firefox" ]]; then
-        xdotool key --clearmodifiers ctrl+r
+action_close() {
+    # helper_message "called: close"
+    if [[ "$target" == *"firefox"* ]]; then
+        if [[ "$target" == *"youtube"* ]]; then
+            xdg-open "https://www.youtube.com"
+            sleep 0.1s
+            xdotool key --clearmodifiers ctrl+Prior ctrl+w
+        else
+             xdotool key --clearmodifiers ctrl+t ctrl+Prior ctrl+w
+        fi
     fi
-    return
-}
-
-action_split_close() {
     return
 }
 
 action_browser() {
-    firefox --new-window "https://www.youtube.com" &
-    disown
-    xdotool search --sync --limit 1 --name "Mozilla Firefox" windowclose
+    helper_find_or_open "freetube"
     return
 }
 
 action_task_manager() {
-    return
+	helper_message "called: task_manager"
 }
 
+# Using as "stop"
 action_move_up() {
-    return
+    # helper_message "called: move_up"
+	case "$target" in
+        *kodi*)
+            kodi-send --action="Stop"
+            ;;
+        *freetube*)
+            xdotool key --clearmodifiers "space"
+            ;;
+    esac
 }
 
 action_move_down() {
-    return
+	helper_message "called: move_down"
 }
 
 action_move_left() {
-    return
+	helper_message "called: move_left"
 }
 
 action_move_right() {
-    return
+	helper_message "called: move_right"
 }
 
-target="$(xdotool getwindowclassname "$(xdotool getactivewindow)")"
+target="$(xdotool getactivewindow getwindowclassname)"
+
+if [[ "$target" == *"firefox"* ]]; then
+    name="$(xdotool getactivewindow getwindowname)"
+    for ws in ${websites[@]}; do
+        if [[ "$name" == *"$ws"* ]]; then
+            target+="_$ws"
+        fi
+    done
+fi
+
+printf "action: %s\ntarget: %s\n" $1 $target
 
 if [[ $(type -t "action_${1-}") == function ]]; then
     "action_$1" "${target}"
@@ -156,5 +289,3 @@ else
     echo "unexpected action: ${1-}"
 fi
 # vim:ft=sh
-
-# xdotool search "Mozilla Firefox" windowactivate --sync key --clearmodifiers ctrl+l key Delete type "https://youtube.com" && xdotool key Return
