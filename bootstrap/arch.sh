@@ -9,6 +9,9 @@ if [ "$SERVER" = "" ]; then
 	if [ "$DOTFILES_TARGET" = "desktop" ]; then
 		sudo cat "$HOME/dotfiles/conf/arch-packages/pacman-dev.txt" | sudo pacman -S --noconfirm --needed -
 	fi
+	if [ "$DOTFILES_TARGET" = "settop" ]; then
+		sudo cat "$HOME/dotfiles/conf/arch-packages/pacman-settop.txt" | sudo pacman -S --noconfirm --needed -
+	fi
 fi
 
 ~/dotfiles/bootstrap/scripts/common.sh
@@ -67,6 +70,7 @@ sudo systemctl start ufw.service
 sudo ufw deny in on any
 sudo ufw allow SSH
 sudo ufw allow out on any
+sudo ufw allow from 192.168.1.0/24
 sudo ufw enable
 
 # Set kernel flags:

@@ -1,0 +1,3 @@
+kodi
+kodi-eventclients
+kodi-addon-inputstream-adaptive
