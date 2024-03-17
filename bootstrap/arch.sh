@@ -41,12 +41,13 @@ systemctl --user daemon-reload
 
 if [ "$SERVER" = "" ]; then
 	## User systemd services
-	systemctl --user enable pipewire-pulse
-	systemctl --user enable wireplumber.service
-	systemctl --user enable mpd.service
+	systemctl --user enable --now pipewire-pulse
+	systemctl --user enable --now wireplumber.service
+	systemctl --user enable --now mpd.service
+	systemctl --user enable --now unclutter.service
 	if [ "$DOTFILES_TARGET" = "desktop" ]; then
-		systemctl --user enable seadrive.service
-		systemctl --user enable redshift.service
+		systemctl --user enable --now seadrive.service
+		systemctl --user enable --now redshift.service
 	fi
 fi
 

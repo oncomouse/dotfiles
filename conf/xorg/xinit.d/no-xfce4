@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-pkill unclutter; unclutter -root&
-pkill redshift; redshift&
+# pkill unclutter; unclutter -root&
+# pkill redshift; redshift&
 #vim: ft=sh
