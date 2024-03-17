@@ -3,7 +3,9 @@ diff-so-fancy
 dunst
 feh
 firefox
+firefox-decentraleyes
 firefox-tridactyl
+firefox-ublock-origin
 flatpak
 fuse2
 gnome-keyring
@@ -19,6 +21,7 @@ lxsession-gtk3
 mpc
 mpd
 ncmpcpp
+nfs-utils
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
@@ -46,6 +49,7 @@ ttf-liberation
 udiskie
 unclutter
 wireplumber
+wmctrl
 xarchiver
 xclip
 xcolor
