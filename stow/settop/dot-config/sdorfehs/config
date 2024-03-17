@@ -89,8 +89,8 @@ definekey top M-s-r exec dotfiles-run &
 definekey top s-P exec dotfiles-powermenu &
 definekey top M-s-p exec rofimusic.sh &
 definekey top M-s-k exec dotfiles-unicode &
-definekey top C-s-space exec dotfiles-emoji &
-bind C-exclam colon exec dotfiles-term -e
 
+# Set theme colors
 exec sf-colors.sh &
+
 # vim:ft=sdorfehs:commentstring=#\ %s

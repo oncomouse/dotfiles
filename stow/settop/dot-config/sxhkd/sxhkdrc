@@ -1,5 +1,5 @@
 # Audio Controls
-XF86Audio{Prev,Next,Play}
+XF86Audio{Rewind,Forward,Play}
   ~/.local/bin/button.sh {prev,next,play}
 
 # Volume Controls
@@ -7,7 +7,7 @@ XF86Audio{Raise,Lower}Volume
   ~/.local/bin/button.sh vol_{up,down}
 
 # Main, Notifications / Search / Settings / Action Center / File Explorer / Desktop / Tasks
-super + {x,b,q,a,e,d,Tab}
+super + {x,b,q,i,a,e,d,Tab}
   ~/.local/bin/button.sh {main,notification,search,settings,action_center,file_explorer,desktop,tasks}
 
 # Screen Partition Buttons
@@ -27,9 +27,9 @@ XF86HomePage
   ~/.local/bin/button.sh browser
 
 # Task Manager
-alt + Delete
+control + alt + Delete
   ~/.local/bin/button.sh task_manager
 
-# Move Up, Back, Forward
-alt + {Up,Left,Right}
-  ~/.local/bin/button.sh move_{up,left,right}
+# Move Up
+alt + Up
+  ~/.local/bin/button.sh move_up
