@@ -259,7 +259,6 @@ Switch to TODO otherwise"
 
 ;; denote.el
 (use-package! denote
-  :hook (doom-first-buffer . denote-modules-global-mode)
   :config
   (setq denote-known-keywords '("emacs" "nvim" "elisp" "macOS")
         denote-infer-keywords t
