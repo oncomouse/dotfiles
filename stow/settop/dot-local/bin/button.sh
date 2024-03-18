@@ -61,7 +61,7 @@ action_prev() {
             kodi-send --action="StepBack"
             ;;
         *freetube*)
-            sleep 0.1 && \
+            sleep 0.2 && \
                 xdotool key --clearmodifiers "l"
             ;;
         # *)
@@ -77,7 +77,7 @@ action_next() {
             kodi-send --action="StepForward"
             ;;
         *freetube*)
-            sleep 0.1 && \
+            sleep 0.2 && \
                 xdotool key --clearmodifiers "j"
             ;;
         # *)
@@ -93,7 +93,7 @@ action_play() {
             kodi-send --action="Pause"
             ;;
         *freetube*)
-            sleep 0.1 && \
+            sleep 0.2 && \
                 xdotool key --clearmodifiers "space"
             ;;
         # *)
@@ -125,7 +125,7 @@ action_search() {
             kodi-send --action="VideoLibrary.Search"
             ;;
         *freetube*)
-            sleep 0.1 && \
+            sleep 0.2s && \
                 xdotool key --clearmodifiers ctrl+l
             ;;
     esac
@@ -139,7 +139,7 @@ action_settings() {
             kodi-send --action="ShowSubtitles"
             ;;
         *freetube*)
-            sleep 0.1 && \
+            sleep 0.2 && \
                 xdotool key --clearmodifiers c
             ;;
     esac
@@ -175,7 +175,7 @@ action_desktop() {
 action_tasks() {
 	# helper_message "called: tasks"
     case "$target" in
-        *freetube*)
+        *kodi*)
             kodi-send --action="Playlist"
             ;;
     esac
@@ -186,7 +186,7 @@ action_split_up() {
 	# helper_message "called: split_up"
     case "$target" in
         *freetube*)
-            sleep 0.1s && \
+            sleep 0.2s && \
                 xdotool key --clearmodifiers f
             ;;
         *firefox_youtube*)
@@ -253,7 +253,8 @@ action_move_up() {
             kodi-send --action="Stop"
             ;;
         *freetube*)
-            xdotool key --clearmodifiers "space"
+            sleep 0.2s && \
+                xdotool key --clearmodifiers "space"
             ;;
     esac
 }
