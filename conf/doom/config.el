@@ -286,6 +286,13 @@ Don't close any open windows."
 (after! evil
   (evil-ex-define-cmd "Format" 'apheleia-format-buffer))
 
+(after! apheleia
+  (setf (alist-get 'clj-zprint apheleia-formatters)
+        '("clj-zprint"
+          "{:style [:community :justified] :map {:comma? false}} <"
+          file))
+  (add-to-list 'apheleia-mode-alist '(clojure-mode . clj-zprint)))
+
 ;; gs/gS for sorting and reverse sorting:
 (after! evil
   ;; https://www.emacswiki.org/emacs/SortWords
