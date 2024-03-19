@@ -234,15 +234,20 @@ action_refresh() {
 
 action_close() {
     # helper_message "called: close"
-    if [[ "$target" == *"firefox"* ]]; then
-        if [[ "$target" == *"youtube"* ]]; then
-            xdg-open "https://www.youtube.com"
-            sleep 0.1s
-            xdotool key --clearmodifiers ctrl+Prior ctrl+w
-        else
-             xdotool key --clearmodifiers ctrl+t ctrl+Prior ctrl+w
-        fi
-    fi
+    case "$target" in
+        kodi*)
+            sleep 0.2s && \
+                xdotool key -clearmodifiers BackSpace
+        firefox*)
+            if [[ "$target" == *"youtube"* ]]; then
+                xdg-open "https://www.youtube.com"
+                sleep 0.1s
+                xdotool key --clearmodifiers ctrl+Prior ctrl+w
+            else
+                 xdotool key --clearmodifiers ctrl+t ctrl+Prior ctrl+w
+            fi
+            ;;
+    esac
     return
 }
 
