@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #shellcheck disable=1090
-picom -b --config ~/dotfiles/conf/picom/dwm.conf
+picom -b
 pkill dwmblocks
 dwmblocks &
 

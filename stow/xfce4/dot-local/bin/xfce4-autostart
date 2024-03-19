@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-picom -b --config ~/dotfiles/conf/picom/common.conf
+picom -b
 
 ## Appareance:
 

@@ -2,7 +2,7 @@
 
 source ~/dotfiles/conf/xorg/xinit.d/no-xfce4
 
-picom -b --config ~/dotfiles/conf/picom/awesome.conf
+picom
 
 DOTFILES_TARGET="$( [ -e ~/.local/share/dotfiles/target ] && /bin/cat ~/.local/share/dotfiles/target)"
 if [ "$DOTFILES_TARGET" == "laptop" ]; then
