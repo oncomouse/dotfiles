@@ -1,5 +1,5 @@
 # [settings]
-# escape s-space
+escape s-space
 set startupmessage 0
 set border 2
 set barsticky 0

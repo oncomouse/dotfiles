@@ -26,8 +26,11 @@ if [ "$SERVER" = "" ]; then
 	if [ "$DOTFILES_TARGET" = "desktop" ]; then
 		cat "$HOME"/dotfiles/conf/arch-packages/aur-dev.txt | paru --needed -S --skipreview --noconfirm -
 	fi
+	if [ "$DOTFILES_TARGET" = "settop" ]; then
+		cat "$HOME"/dotfiles/conf/arch-packages/aur-settop.txt | paru --needed -S --skipreview --noconfirm -
+	fi
 	# Setup flatpak:
-		flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+	flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	# Install Flatpaks:
 	if [ "$DOTFILES_TARGET" = "desktop" ]; then
 		grep -v -e "^#" <"$HOME"/dotfiles/conf/arch-packages/flatpak.txt | sed -e "s/\s*#.*\$//g" | flatpak --user install -
@@ -51,6 +54,8 @@ if [ "$SERVER" = "" ]; then
 	if [ "$DOTFILES_TARGET" = "desktop" ]; then
 		systemctl --user enable --now seadrive.service
 		systemctl --user enable --now redshift.service
+	elif [ "$DOTFILES_TARGET" = "settop" ]; then
+		systemctl --user enable --now sxhkd.service
 	fi
 fi
 

@@ -1,11 +1,12 @@
 [Unit]
 Description=sxhkd init service
 Documentation=man:sxhkd(1)
-After=xdg-desktop-portal.service
-Wants=xdg-desktop-portal.service
+PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
-Type=simple
+Restart=always
+RestartSec=2
 ExecReload=/usr/bin/kill -SIGUSR1 $MAINPID
 ExecStart=/usr/bin/sxhkd
 

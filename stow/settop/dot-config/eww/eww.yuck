@@ -1,0 +1,79 @@
+; OSD
+(defwindow osdBg
+    :monitor 0
+    :stacking "overlay"
+    :focusable false
+    :excluse false
+    :geometry (geometry :width "20%" :height "100%" :anchor "top left")
+    (box :class "osd__bg"))
+(defwindow osdWindow
+    :monitor 0
+    :stacking "overlay"
+    :focusable false
+    :exclusive false
+    :geometry (geometry :width "20%" :anchor "top left")
+    (box
+        :class "osd__container"
+        :spacing 15
+        :orientation "v"
+        :space-evenly false
+        (clock)
+        (weather)))
+;; Time vars
+(defpoll DAY :interval "5s" `date +\"%A\"`)
+(defpoll DATE :interval "5s" `date +\"%m/%d/%Y\"`)
+(defpoll TIME :interval "5s" `date +\"%I:%M%p\"`)
+
+; Weather vars
+(defpoll ICON :interval "15m" `~/.local/bin/weather.sh --icon`)
+(defpoll STAT :interval "15m" `~/.local/bin/weather.sh --stat`)
+(defpoll TEMP :interval "15m" `~/.local/bin/weather.sh --temp`)
+(defpoll HEX :interval "15m" `~/.local/bin/weather.sh --hex`)
+(defpoll QUOTE :interval "15m" `~/.local/bin/weather.sh --quote`)
+(defpoll QUOTE2 :interval "15m" `~/.local/bin/weather.sh --quote2`)
+
+;; weather
+(defwidget weather [] 
+	(box :class "genwin weather" 
+		(box :orientation "v" :spacing 10 :space-evenly "false" :vexpand "false" :hexpand "false" 
+			(box :orientation "h" :vexpand "false" :hexpand "false" 
+				(label :class "weather__icon" :halign "start" :style "color: ${HEX};" :text ICON)
+				(label :class "weather__temp" :halign "end" :text TEMP))
+			(box :orientation "v" :spacing 10 :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(label :class "weather__stat" :text STAT)
+				(label :class "weather__quote" :text QUOTE)
+				(label :class "weather__quote weather__quote--last" :text QUOTE2)))))
+
+;; clock
+(defwidget clock [] 
+	(box :valign "center" :class "genwin time" :orientation "v" :spacing 10 :space-evenly false :vexpand "false" :hexpand "false"
+        (label :class "time__time" :justify "center" :text TIME)
+        (label :class "time__day" :justify "center" :xalign 0.5 :text DAY)
+        (label :class "time__date" :justify "center" :xalign 0.5 :text DATE)))
+
+; Progress bar
+(defvar barIcon "󰃠")
+(defvar barPercent 0)
+(defvar barCount 0)
+
+(defwindow progressWindow
+    :monitor 0
+    :stacking "overlay"
+    :focusable false
+    :exclusive false
+    :geometry (geometry :width "20%" :height "100%" :anchor "top right")
+    (progressBar :icon barIcon :percent barPercent))
+
+(defwidget progressBar [icon percent]
+    (box
+        :class "progressBar"
+        :orientation "v"
+        :halign "center"
+        :valign "center"
+        :space-evenly false
+        (label :text icon :yalign 0.5 :valign "center")
+        (progress
+            :valign "center"
+            :flipped true
+            :value percent
+            :orientation "v")))

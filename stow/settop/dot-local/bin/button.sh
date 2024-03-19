@@ -102,12 +102,22 @@ action_play() {
     esac
 }
 
+__muted=0
+
+helper_feed_xob() {
+    echo "$(pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | awk '{print substr($5, 1, length($5)-1)}')" >> /tmp/xobpipe
+}
+
 action_vol_up() {
     helper_volume up
+    # launch-eww.sh volume up
+    helper_feed_xob
 }
 
 action_vol_down() {
     helper_volume down
+    # launch-eww.sh volume down
+    helper_feed_xob
 }
 
 action_main() {
@@ -115,7 +125,7 @@ action_main() {
 }
 
 action_notification() {
-	helper_message "called: notification"
+	launch-eww.sh osd
 }
 
 action_search() {

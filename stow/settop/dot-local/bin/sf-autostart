@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#shellcheck disable=1090
+
+picom -b
+
+source ~/dotfiles/conf/xorg/xinit.d/no-xfce4
+source ~/dotfiles/conf/xorg/xinit.d/dunst
+
+# Start eww
+eww daemon > /dev/null
+
+# Solid Background
+source ~/.cache/wal/colors.sh
+hsetroot -solid "$background"
+
+# XOB
+mkfifo /tmp/xobpipe
+tail -f /tmp/xobpipe | xob > /dev/null &
+
+sdorfehs -c 'set font "FiraCode Nerd Font:size=16"'
+
+# vim:ft=sh
