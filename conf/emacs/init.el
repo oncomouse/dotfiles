@@ -785,6 +785,9 @@ If not in a clock, move to next headline."
 (require 'init-undo)
 (require 'init-helpful)
 
+(with-eval-after-load 'consult
+  (setq consult-narrow-key "<"))
+
 ;; Configure projectile
 (with-eval-after-load 'projectile
 
@@ -831,6 +834,18 @@ installed to work."
                     (projectile-switch-project . project-file))
                   marginalia-command-categories))))
 
+(require 'init-workspaces)
+
+(defun ap/project-buffers (&optional sources)
+  "Display buffers using consult-buffer, narrowed to only project files.
+
+Pass SOURCES to consult-buffer, if provided."
+  (interactive)
+  (setq unread-command-events (append unread-command-events (list ?p 32)))
+  (consult-buffer sources))
+
+(define-key global-map (kbd "C-x b") 'ap/project-buffers)
+(define-key global-map (kbd "C-x B") 'consult-buffer)
 (provide 'init)
 
 ;; Local Variables:
