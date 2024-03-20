@@ -462,20 +462,20 @@ If mark is active, merge lines in the current region."
                                (define-key vterm-mode-map (kdb "s-p") 'vterm-toggle-backward)))
   (setq vterm-toggle-fullscreen-p nil)
 
-  ;; DIsplay vterm at the bottom:
+  ;; Display vterm at the bottom:
   (add-to-list 'display-buffer-alist
                '((lambda (buffer-or-name _)
                    (let ((buffer (get-buffer buffer-or-name)))
                      (with-current-buffer buffer
                        (or (equal major-mode 'vterm-mode)
-                           (string-prefix-p vterm-buffer-name (buffer-name buffer))))))
+                           (string-prefix-p "*vterm*" (buffer-name buffer))))))
                  (display-buffer-reuse-window display-buffer-at-bottom)
                  ;;(display-buffer-reuse-window display-buffer-in-direction)
                  ;;display-buffer-in-direction/direction/dedicated is added in emacs27
                  ;;(direction . bottom)
                  ;;(dedicated . t) ;dedicated is supported in emacs27
                  (reusable-frames . visible)
-                 (window-height . 0.35t))))
+                 (window-height . 0.35))))
 
 ;; Patch for fish and ripgrep
 (setq projectile-globally-ignored-directories
@@ -818,7 +818,7 @@ installed to work."
     (if
         (null (projectile-project-buffer-files))
         (projectile-find-file)
-      (projectile-switch-to-buffer)))
+      (call-interactively #'projectile-switch-to-buffer)))
   (setq projectile-switch-project-action #'ap/projectile-smart-switch)
   ;; Configure marginalia for projectile
   (with-eval-after-load 'marginalia
