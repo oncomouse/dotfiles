@@ -809,6 +809,14 @@ installed to work."
   ;; Override search menu:
   (define-key projectile-command-map (kbd "s") 'ap/project-search)
 
+  ;; Switch to a project buffer if one is open, otherwise run find files:
+  (defun ap/projectile-smart-switch ()
+    "Open latest edited buffer when switched the  exist project, find files when switched to a new project."
+    (if
+        (null (projectile-project-buffer-files))
+        (projectile-find-file)
+      (projectile-switch-to-buffer)))
+  (setq projectile-switch-project-action #'ap/projectile-smart-switch)
   ;; Configure marginalia for projectile
   (with-eval-after-load 'marginalia
     (setq marginalia-command-categories
