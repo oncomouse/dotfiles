@@ -216,9 +216,9 @@
 
 
 ;; Local
-
+;;; :
 (when *is-a-mac*
-  (when (use-package ns-auto-titlebar)
+  (when (require-package 'ns-auto-titlebar)
     (ns-auto-titlebar-mode)))
 
 (require 'init-secret)
