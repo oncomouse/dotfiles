@@ -233,14 +233,18 @@
 ;; This file bootstraps the configuration, which is divided into
 ;; a number of other files.
 
-(defun corfu-enable-in-minibuffer ()
-  "Enable Corfu in the minibuffer."
-  (when (local-variable-p 'completion-at-point-functions)
-    ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
-    (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
-                corfu-popupinfo-delay nil)
-    (corfu-mode 1)))
-(add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+(with-eval-after-load 'corfu
+  (defun corfu-enable-in-minibuffer ()
+    "Enable Corfu in the minibuffer."
+    (when (local-variable-p 'completion-at-point-functions)
+      ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
+      (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
+                  corfu-popupinfo-delay nil)
+      (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+
+  (define-key corfu-map (kbd "C-c") 'corfu-quit)
+  (define-key corfu-map (kbd "C-y") 'corfu-insert))
 
 (require-package 'hydra)
 
@@ -293,10 +297,8 @@
   (hydra-window-resizer/body))
 
 (when (require-package 'ace-window)
-  (define-key global-map (kbd "M-o") 'ace-window)
-  (define-key global-map (kbd "C-x o") 'other-window)
+  (define-key global-map (kbd "C-x o") 'ace-window)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
-        aw-dispatch-always t
         aw-dispatch-alist
         '((?x aw-delete-window "Delete Window")
           (?m aw-swap-window "Swap Windows")
@@ -457,7 +459,23 @@ If mark is active, merge lines in the current region."
   (define-key ap/leader-open-map (kbd "T") 'vterm-toggle-cd)
   (add-hook 'vterm-mode-hook (lambda () ""
                                (define-key vterm-mode-map (kdb "s-n") 'vterm-toggle-forward)
-                               (define-key vterm-mode-map (kdb "s-p") 'vterm-toggle-backward))))
+                               (define-key vterm-mode-map (kdb "s-p") 'vterm-toggle-backward)))
+  (setq vterm-toggle-fullscreen-p nil)
+
+  ;; DIsplay vterm at the bottom:
+  (add-to-list 'display-buffer-alist
+               '((lambda (buffer-or-name _)
+                   (let ((buffer (get-buffer buffer-or-name)))
+                     (with-current-buffer buffer
+                       (or (equal major-mode 'vterm-mode)
+                           (string-prefix-p vterm-buffer-name (buffer-name buffer))))))
+                 (display-buffer-reuse-window display-buffer-at-bottom)
+                 ;;(display-buffer-reuse-window display-buffer-in-direction)
+                 ;;display-buffer-in-direction/direction/dedicated is added in emacs27
+                 ;;(direction . bottom)
+                 ;;(dedicated . t) ;dedicated is supported in emacs27
+                 (reusable-frames . visible)
+                 (window-height . 0.35t))))
 
 ;; Patch for fish and ripgrep
 (setq projectile-globally-ignored-directories
