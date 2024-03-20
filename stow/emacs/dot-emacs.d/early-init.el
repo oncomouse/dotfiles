@@ -6,9 +6,6 @@
 (setq use-file-dialog nil)
 (setq use-dialog-box nil)
 (setq inhibit-startup-screen t)
-(when *is-a-mac*
-  (when (use-package ns-auto-titlebar)
-    (ns-auto-titlebar-mode)))
 (setq-default
  window-resize-pixelwise t
  frame-resize-pixelwise t)

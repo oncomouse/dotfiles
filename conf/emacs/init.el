@@ -90,7 +90,7 @@
 (require 'init-xterm)
 (require 'init-themes)
 
-(require 'init-osx-keys)
+;; (require 'init-osx-keys)
 (require 'init-gui-frames)
 (require 'init-dired)
 (require 'init-isearch)
@@ -216,6 +216,10 @@
 
 
 ;; Local
+
+(when *is-a-mac*
+  (when (use-package ns-auto-titlebar)
+    (ns-auto-titlebar-mode)))
 
 (require 'init-secret)
 
@@ -410,7 +414,6 @@ If mark is active, merge lines in the current region."
 ;; Indent with C-</>
 (global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
 (global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
-
 
 (require 'init-avy)
 
