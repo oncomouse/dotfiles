@@ -407,6 +407,11 @@ If mark is active, merge lines in the current region."
 (define-key global-map (kbd "C-`") 'push-mark-no-activate)
 (define-key global-map (kbd "M-`") 'jump-to-mark)
 
+;; Indent with C-</>
+(global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
+(global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
+
+
 (require 'init-avy)
 
 ;; Navigate headings in the outline with universal arguments

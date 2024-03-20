@@ -98,6 +98,10 @@
  "C-o" 'ap/open-line
  "C-S-o" 'ap/open-line-above)
 
+;; Indent with C-</>
+(global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
+(global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
+
 ;; Use visual line movements in visual-line-mode
 (map!
  :when (modulep! :editor evil)
