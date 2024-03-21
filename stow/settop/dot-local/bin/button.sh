@@ -291,10 +291,10 @@ printf "action: %s\ntarget: %s\n" "$1" "$target"
 
 if [[ $(type -t "action_${1-}") == function ]]; then
 	# Focus takes a second application
-	if [[ "${action}" == "focus" ]]; then
+	if [[ "$1" == "focus" ]]; then
 		target="$2"
 	fi
-	"action_$1" "${1}"
+	"action_$1" "${target}"
 else
 	echo "unexpected action: ${1-}"
 fi
