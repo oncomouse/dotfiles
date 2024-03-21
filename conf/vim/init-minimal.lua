@@ -68,8 +68,8 @@ local mini_path = path_package .. 'pack/deps/start/mini.nvim'
 if not vim.loop.fs_stat(mini_path) then
   vim.cmd('echo "Installing `mini.nvim`" | redraw')
   local clone_cmd = {
-    'git', 'clone', '--filter=blob:none',
-    'https://github.com/echasnovski/mini.nvim', mini_path
+	'git', 'clone', '--filter=blob:none',
+	'https://github.com/echasnovski/mini.nvim', mini_path
   }
   vim.fn.system(clone_cmd)
   vim.cmd('packadd mini.nvim | helptags ALL')
@@ -327,10 +327,6 @@ vim.api.nvim_create_user_command("LazyGit", ":terminal lazygit<cr>", {
 })
 --------------------------------------------------------------------------------
 -- Mini.nvim:
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
--- Treesitter:
 --------------------------------------------------------------------------------
 
 MiniDeps.add("tpope/vim-sleuth")
@@ -667,14 +663,14 @@ vim.keymap.set("n", "<leader>fM", "<cmd>lua MiniFiles.open(vim.loop.cwd(), true)
 local hipatterns = require('mini.hipatterns')
 hipatterns.setup({
   highlighters = {
-    -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-    fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-    hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
-    todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
-    note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
+	-- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+	fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+	hack  = { pattern = '%f[%w]()HACK()%f[%W]',	 group = 'MiniHipatternsHack'  },
+	todo  = { pattern = '%f[%w]()TODO()%f[%W]',	 group = 'MiniHipatternsTodo'  },
+	note  = { pattern = '%f[%w]()NOTE()%f[%W]',	 group = 'MiniHipatternsNote'  },
 
-    -- Highlight hex color strings (`#rrggbb`) using that color
-    hex_color = hipatterns.gen_highlighter.hex_color(),
+	-- Highlight hex color strings (`#rrggbb`) using that color
+	hex_color = hipatterns.gen_highlighter.hex_color(),
   },
 })
 
