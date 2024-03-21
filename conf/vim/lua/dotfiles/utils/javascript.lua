@@ -58,9 +58,9 @@ local function setup_javascript_environment()
 					vim.b.dotfiles_eslint_project = true
 					require("null-ls").deregister("standardjs")
 					require("null-ls").register({
-						require("null-ls").builtins.formatting.eslint_d,
-						require("null-ls").builtins.diagnostics.eslint_d,
-						require("null-ls").builtins.code_actions.eslint_d,
+						require("none-ls.formatting.eslint_d"),
+						require("none-ls.diagnostics.eslint_d"),
+						require("none-ls.code_actions.eslint_d"),
 					})
 				end
 			end

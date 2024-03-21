@@ -1,6 +1,5 @@
 efm-langserver
 nodejs-jsonlint
-python-reorder-python-imports
 sdorfehs-git
 shellcheck-bin
 standard

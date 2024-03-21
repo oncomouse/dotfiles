@@ -1,9 +1,7 @@
-bash-language-server
 biber
 cups
 cups-pdf
 eslint_d
-flake8
 htmlhint
 hunspell
 hunspell-en_us
@@ -12,9 +10,8 @@ lua-language-server
 neofetch
 prettier
 pyright
-python-black
+python-ruff
 selene
-shellharden
 shfmt
 stylua
 texlive-basic

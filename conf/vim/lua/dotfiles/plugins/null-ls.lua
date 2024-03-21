@@ -1,6 +1,9 @@
 return {
 	{
 		"nvimtools/none-ls.nvim",
+		dependencies = {
+			"nvimtools/none-ls-extras.nvim",
+		},
 		ft = {
 			"bash",
 			"css",
@@ -70,22 +73,14 @@ return {
 				}),
 
 				-- PYTHON
-				require("null-ls").builtins.formatting.black.with({
-					extra_args = { "-l", "79" }, -- PEP8 line lengths
-				}),
-				require("null-ls").builtins.formatting.reorder_python_imports,
-				require("null-ls").builtins.diagnostics.flake8,
+				require("none-ls.formatting.ruff"),
+				require("none-ls.diagnostics.ruff"),
 
 				-- FISH
 				require("null-ls").builtins.formatting.fish_indent,
 
 				-- SHELL
 				require("null-ls").builtins.formatting.shfmt,
-				require("null-ls").builtins.formatting.shellharden,
-				require("null-ls").builtins.diagnostics.shellcheck.with({
-					diagnostics_format = "#{m} [#{c}]",
-				}),
-				require("null-ls").builtins.code_actions.shellcheck,
 
 				-- VIML
 				require("null-ls").builtins.diagnostics.vint,
