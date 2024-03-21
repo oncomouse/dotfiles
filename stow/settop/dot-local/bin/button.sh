@@ -238,6 +238,7 @@ action_close() {
         kodi*)
             sleep 0.2s && \
                 xdotool key -clearmodifiers BackSpace
+            ;;
         firefox*)
             if [[ "$target" == *"youtube"* ]]; then
                 xdg-open "https://www.youtube.com"
