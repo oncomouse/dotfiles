@@ -28,6 +28,8 @@ if [ "$SERVER" = "" ]; then
 	fi
 	if [ "$DOTFILES_TARGET" = "settop" ]; then
 		cat "$HOME"/dotfiles/conf/arch-packages/aur-settop.txt | paru --needed -S --skipreview --noconfirm -
+		curl -sLO https://github.com/complexlogic/flex-launcher/releases/download/v2.1/flex-launcher-2.1-1-x86_64.pkg.tar.zst
+		sudo pacman -U --noconfirm flex-launcher-2.1-1-x86_64.pkg.tar.zst
 	fi
 	# Setup flatpak:
 	flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
