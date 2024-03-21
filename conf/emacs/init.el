@@ -547,6 +547,10 @@ If mark is active, merge lines in the current region."
 (define-key ap/vc-map (kbd "c i") #'forge-create-issue)
 (define-key ap/vc-map (kbd "c p") #'forge-create-pullreq)
 
+;; Run markdown in visual line mode:
+(with-eval-after-load 'markdown-mode
+  (add-hook 'markdown-mode-hook 'visual-line-mode))
+
 (with-eval-after-load 'org
   (setq org-capture-templates
         `(("t" "todo" entry (file+headline "" "Inbox") ; "" => `org-default-notes-file'
@@ -577,7 +581,7 @@ If mark is active, merge lines in the current region."
 
 N-DONE is the number of done elements; N-NOT-DONE is the number of
 not done."
-    (let (org-log-done org-log-states) ; turn off logging
+    (let (org-log-done org-log-states)  ; turn off logging
       (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
   (defun ap/org-checkbox-todo ()
