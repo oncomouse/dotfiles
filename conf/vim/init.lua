@@ -1,6 +1,15 @@
 if type(vim.loader) == "table" then
 	vim.loader.enable()
 end
+-- Shims for neovim 0.9.5:
+if type(vim.fs.joinpath) ~= "function" then
+	vim.fs.joinpath = function(...)
+		return (table.concat({ ... }, '/'):gsub('//+', '/'))
+	end
+end
+if type(vim.lsp.get_clients) ~= "function" then
+	vim.lsp.get_clients = vim.lsp.get_active_clients
+end
 -- Basic Settings {{{
 vim.opt.lazyredraw = true -- Don't redraw between macro runs (may make terminal flicker)
 
