@@ -167,21 +167,20 @@ action_file_explorer() {
 
 # Home
 action_desktop() {
-	helper_find_or_open flex-launcher
-	# # helper_message "called: desktop"
-	# case "$1" in
-	# *firefox*)
-	# 	xdg-open "https://www.youtube.com" &&
-	# 		sleep 0.1s &&
-	# 		xdotool key --clearmodifiers ctrl+Prior ctrl+w
-	# 	;;
-	# *kodi*)
-	# 	kodi-send --action="PreviousMenu"
-	# 	;;
-	# *freetube*)
-	# 	xdotool mousemove 25 100 click 1
-	# 	;;
-	# esac
+	# helper_message "called: desktop"
+	case "$1" in
+	*firefox*)
+		xdg-open "https://www.youtube.com" &&
+			sleep 0.1s &&
+			xdotool key --clearmodifiers ctrl+Prior ctrl+w
+		;;
+	*kodi*)
+		kodi-send --action="PreviousMenu"
+		;;
+	*freetube*)
+		xdotool mousemove 25 100 click 1
+		;;
+	esac
 }
 
 # Playlist
