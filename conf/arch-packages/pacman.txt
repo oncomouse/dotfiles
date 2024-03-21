@@ -28,7 +28,7 @@ python-poetry
 ripgrep
 rsync
 ruby
-rustup
+rust
 starship
 tmux
 ufw
