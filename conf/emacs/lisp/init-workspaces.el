@@ -1,4 +1,7 @@
-;;   ;; use this next line only if you also use straight, otherwise ignore it.
+;;; init-workspaces.el --- Workspace management using bufler and tab-bar
+;;; Commentary:
+;;; Code:
+;; use this next line only if you also use straight, otherwise ignore it.
 ;;   :straight (:type git :host github :repo "mclear-tools/tabspaces")
 ;;   :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup.
 ;;   :commands (tabspaces-switch-or-create-workspace
@@ -30,3 +33,4 @@
 ;;     "Keymap for tabspace/workspace commands after `tabspaces-keymap-prefix'."))
 
 (provide 'init-workspaces)
+;;; init-workspaces.el ends here
