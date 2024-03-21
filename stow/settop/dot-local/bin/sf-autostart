@@ -9,6 +9,9 @@ source ~/dotfiles/conf/xorg/xinit.d/dunst
 # Start eww
 eww daemon > /dev/null
 
+# Start flex-launcher
+flex-launcher &
+
 # Solid Background
 source ~/.cache/wal/colors.sh
 hsetroot -solid "$background"

@@ -258,7 +258,7 @@ action_browser() {
 }
 
 action_task_manager() {
-	helper_message "called: task_manager"
+    helper_find_or_open "flex-launcher"
 }
 
 # Using as "stop"
