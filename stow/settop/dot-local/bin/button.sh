@@ -110,13 +110,11 @@ helper_feed_xob() {
 
 action_vol_up() {
     helper_volume up
-    # launch-eww.sh volume up
     helper_feed_xob
 }
 
 action_vol_down() {
     helper_volume down
-    # launch-eww.sh volume down
     helper_feed_xob
 }
 
@@ -125,7 +123,7 @@ action_main() {
 }
 
 action_notification() {
-	launch-eww.sh osd
+	# helper_message "called: notification"
 }
 
 action_search() {
