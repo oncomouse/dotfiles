@@ -4,7 +4,7 @@
     :stacking "overlay"
     :focusable false
     :excluse false
-    :geometry (geometry :width "20%" :height "100%" :anchor "top left")
+    :geometry (geometry :width "21%" :height "100%" :anchor "top left")
     (box :class "osd__bg"))
 (defwindow osdWindow
     :monitor 0
