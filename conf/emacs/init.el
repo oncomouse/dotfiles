@@ -244,7 +244,8 @@
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
 
   (define-key corfu-map (kbd "C-c") 'corfu-quit)
-  (define-key corfu-map (kbd "C-y") 'corfu-insert))
+  (define-key corfu-map (kbd "C-y") 'corfu-insert)
+  (define-key global-map (kbd "C-M-i") 'completion-at-point))
 
 (require-package 'hydra)
 
@@ -546,6 +547,10 @@ If mark is active, merge lines in the current region."
 (define-key ap/vc-map (kbd "c i") #'forge-create-issue)
 (define-key ap/vc-map (kbd "c p") #'forge-create-pullreq)
 
+;; Run markdown in visual line mode:
+(with-eval-after-load 'markdown-mode
+  (add-hook 'markdown-mode-hook 'visual-line-mode))
+
 (with-eval-after-load 'org
   (setq org-capture-templates
         `(("t" "todo" entry (file+headline "" "Inbox") ; "" => `org-default-notes-file'
@@ -576,7 +581,7 @@ If mark is active, merge lines in the current region."
 
 N-DONE is the number of done elements; N-NOT-DONE is the number of
 not done."
-    (let (org-log-done org-log-states) ; turn off logging
+    (let (org-log-done org-log-states)  ; turn off logging
       (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
   (defun ap/org-checkbox-todo ()
@@ -662,7 +667,7 @@ If not in a clock, move to next headline."
     (add-hook 'org-mode-hook 'org-appear-mode))
   ;; Doom local-leader for org-mode
   (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "#") #'org-update-statistics-cookies)
+    (define-key org-mode-map (kbd "C-c #") #'org-update-statistics-cookies)
     (define-key org-mode-map (kbd "C-c l '") #'org-edit-special)
     (define-key org-mode-map (kbd "C-c l *") #'org-ctrl-c-star)
     (define-key org-mode-map (kbd "C-c l +") #'org-ctrl-c-minus)
@@ -786,7 +791,8 @@ If not in a clock, move to next headline."
 (require 'init-helpful)
 
 (with-eval-after-load 'consult
-  (setq consult-narrow-key "<"))
+  (setq consult-narrow-key "<")
+  (setq consult-widen-key ">"))
 
 ;; Configure projectile
 (with-eval-after-load 'projectile
@@ -860,6 +866,21 @@ Pass SOURCES to consult-buffer, if provided."
 
 (define-key global-map (kbd "C-x b") 'ap/project-buffers)
 (define-key global-map (kbd "C-x B") 'consult-buffer)
+
+;; Bufler
+;; (when (require-package 'bufler)
+;;   (keymap-set global-map "<remap> <ibuffer>" 'bufler)
+;;   (setq marginalia-command-categories
+;;         (append '((bufler-switch-buffer . buffer))
+;;                 marginalia-command-categories)))
+
+;; Configure cape
+(when (require-package 'cape)
+  (add-hook 'org-mode-hook (add-hook
+                            'completion-at-point-functions
+                            (cape-capf-super #'cape-dict #'cape-dabbrev #'cape-keyword) 0 t)))
+
+
 (provide 'init)
 
 ;; Local Variables:
