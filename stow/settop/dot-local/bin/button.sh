@@ -123,7 +123,7 @@ action_main() {
 }
 
 action_notification() {
-	# helper_message "called: notification"
+    helper_message "called: notification"
 }
 
 action_search() {
