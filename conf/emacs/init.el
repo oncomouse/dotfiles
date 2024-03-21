@@ -791,7 +791,8 @@ If not in a clock, move to next headline."
 (require 'init-helpful)
 
 (with-eval-after-load 'consult
-  (setq consult-narrow-key "<"))
+  (setq consult-narrow-key "<")
+  (setq consult-widen-key ">"))
 
 ;; Configure projectile
 (with-eval-after-load 'projectile
