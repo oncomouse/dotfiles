@@ -54,12 +54,12 @@ helper_find_or_open() {
 }
 
 action_focus() {
-	helper_find_or_open "$target"
+	helper_find_or_open "$1"
 }
 
 action_prev() {
 	# helper_message "called: prev"
-	case "$target" in
+	case "$1" in
 	*kodi*)
 		kodi-send --action="StepBack"
 		;;
@@ -68,14 +68,14 @@ action_prev() {
 			xdotool key --clearmodifiers "l"
 		;;
 		# *)
-		#     helper_message "no action taken for $target"
+		#     helper_message "no action taken for $1"
 		#     ;;
 	esac
 }
 
 action_next() {
 	# helper_message "called: next"
-	case "$target" in
+	case "$1" in
 	*kodi*)
 		kodi-send --action="StepForward"
 		;;
@@ -91,7 +91,7 @@ action_next() {
 
 action_play() {
 	# helper_message "called: play"
-	case "$target" in
+	case "$1" in
 	*kodi*)
 		kodi-send --action="Pause"
 		;;
@@ -100,7 +100,7 @@ action_play() {
 			xdotool key --clearmodifiers "space"
 		;;
 		# *)
-		#     helper_message "no action taken for $target"
+		#     helper_message "no action taken for $1"
 		#     ;;
 	esac
 }
@@ -131,7 +131,7 @@ action_notification() {
 
 action_search() {
 	# helper_message "called: search"
-	case "$target" in
+	case "$1" in
 	*kodi*)
 		kodi-send --action="VideoLibrary.Search"
 		;;
@@ -146,7 +146,7 @@ action_search() {
 action_settings() {
 	helper_find_or_open flex-launcher
 	# # helper_message "called: settings"
-	# case "$target" in
+	# case "$1" in
 	# *kodi*)
 	# 	kodi-send --action="ShowSubtitles"
 	# 	;;
@@ -169,7 +169,7 @@ action_file_explorer() {
 action_desktop() {
 	helper_find_or_open flex-launcher
 	# # helper_message "called: desktop"
-	# case "$target" in
+	# case "$1" in
 	# *firefox*)
 	# 	xdg-open "https://www.youtube.com" &&
 	# 		sleep 0.1s &&
@@ -192,7 +192,7 @@ action_tasks() {
 # Fullscreen
 action_split_up() {
 	# helper_message "called: split_up"
-	case "$target" in
+	case "$1" in
 	*freetube*)
 		sleep 0.2s &&
 			xdotool key --clearmodifiers f
@@ -224,13 +224,13 @@ action_refresh() {
 action_close() {
 	helper_find_or_open flex-launcher
 	# # helper_message "called: close"
-	# case "$target" in
+	# case "$1" in
 	# kodi*)
 	# 	sleep 0.2s &&
 	# 		xdotool key -clearmodifiers BackSpace
 	# 	;;
 	# firefox*)
-	# 	if [[ "$target" == *"youtube"* ]]; then
+	# 	if [[ "$1" == *"youtube"* ]]; then
 	# 		xdg-open "https://www.youtube.com"
 	# 		sleep 0.1s
 	# 		xdotool key --clearmodifiers ctrl+Prior ctrl+w
@@ -253,7 +253,7 @@ action_task_manager() {
 # Using as "stop"
 action_move_up() {
 	# helper_message "called: move_up"
-	case "$target" in
+	case "$1" in
 	*kodi*)
 		kodi-send --action="Stop"
 		;;
@@ -290,7 +290,11 @@ fi
 printf "action: %s\ntarget: %s\n" "$1" "$target"
 
 if [[ $(type -t "action_${1-}") == function ]]; then
-	"action_$1" "${target}"
+	# Focus takes a second application
+	if [[ "${action}" == "focus" ]]; then
+		target="$2"
+	fi
+	"action_$1" "${1}"
 else
 	echo "unexpected action: ${1-}"
 fi
