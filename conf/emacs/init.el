@@ -244,7 +244,8 @@
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
 
   (define-key corfu-map (kbd "C-c") 'corfu-quit)
-  (define-key corfu-map (kbd "C-y") 'corfu-insert))
+  (define-key corfu-map (kbd "C-y") 'corfu-insert)
+  (define-key global-map (kbd "C-M-i") 'completion-at-point))
 
 (require-package 'hydra)
 
@@ -662,7 +663,7 @@ If not in a clock, move to next headline."
     (add-hook 'org-mode-hook 'org-appear-mode))
   ;; Doom local-leader for org-mode
   (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "#") #'org-update-statistics-cookies)
+    (define-key org-mode-map (kbd "C-c #") #'org-update-statistics-cookies)
     (define-key org-mode-map (kbd "C-c l '") #'org-edit-special)
     (define-key org-mode-map (kbd "C-c l *") #'org-ctrl-c-star)
     (define-key org-mode-map (kbd "C-c l +") #'org-ctrl-c-minus)
@@ -860,6 +861,21 @@ Pass SOURCES to consult-buffer, if provided."
 
 (define-key global-map (kbd "C-x b") 'ap/project-buffers)
 (define-key global-map (kbd "C-x B") 'consult-buffer)
+
+;; Bufler
+;; (when (require-package 'bufler)
+;;   (keymap-set global-map "<remap> <ibuffer>" 'bufler)
+;;   (setq marginalia-command-categories
+;;         (append '((bufler-switch-buffer . buffer))
+;;                 marginalia-command-categories)))
+
+;; Configure cape
+(when (require-package 'cape)
+  (add-hook 'org-mode-hook (add-hook
+                            'completion-at-point-functions
+                            (cape-capf-super #'cape-dict #'cape-dabbrev #'cape-keyword) 0 t)))
+
+
 (provide 'init)
 
 ;; Local Variables:
