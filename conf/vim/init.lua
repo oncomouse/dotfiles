@@ -11,6 +11,9 @@ if type(vim.lsp.get_clients) ~= "function" then
 	vim.lsp.get_clients = vim.lsp.get_active_clients
 end
 -- Basic Settings {{{
+vim.opt.runtimepath:append(vim.fn.expand("~/dotfiles/conf/vim"))
+vim.opt.runtimepath:append(vim.fn.expand("~/dotfiles/conf/vim/after"))
+
 vim.opt.lazyredraw = true -- Don't redraw between macro runs (may make terminal flicker)
 
 -- Line Numbering:
@@ -94,67 +97,28 @@ vim.g.seadrive_path = vim.fn.has("mac") == 1
 		and "~/Library/CloudStorage/SeaDrive-oncomouse(seafile.jetbear.us)/My Libraries"
 	or "~/SeaDrive/My Libraries"
 -- }}}
--- Load lazy.nvim {{{
-local function xdg_default(v, d)
-	local o = os.getenv(v)
-	return o and o or os.getenv("HOME") .. d
-end
-local xdg = function(var_name)
-	if var_name == "XDG_CONFIG_HOME" then
-		return xdg_default("XDG_CONFIG_HOME", "/.config")
-	elseif var_name == "XDG_CACHE_HOME" then
-		return xdg_default("XDG_CACHE_HOME", "/.cache")
-	elseif var_name == "XDG_DATA_HOME" then
-		return xdg_default("XDG_DATA_HOME", "/.local/share")
-	end
-	return nil
-end
+-- Load mini.nvim + configure mini.deps {{{
+local path_package = vim.fn.stdpath("data") .. "/mini.nvim/"
+vim.opt.packpath:append(path_package)
+vim.cmd("packloadall!")
 
-local lazypath = xdg("XDG_DATA_HOME") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
+local mini_path = path_package .. "pack/deps/start/mini.nvim"
+if not vim.loop.fs_stat(mini_path) then
+	vim.cmd('echo "Installing `mini.nvim`" | redraw')
+	local clone_cmd = {
 		"git",
 		"clone",
 		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
+		"https://github.com/echasnovski/mini.nvim",
+		mini_path,
+	}
+	vim.fn.system(clone_cmd)
+	vim.cmd("packadd mini.nvim | helptags ALL")
+	vim.cmd('echo "Installed `mini.nvim`" | redraw')
 end
-vim.opt.rtp:prepend(lazypath)
-require("lazy").setup({
-	install = {
-		colorscheme = { "catppuccin" },
-	},
-	spec = {
-		{ import = "dotfiles.plugins" },
-	},
-	dev = {
-		path = vim.fn.expand("~/Projects"),
-	},
-	performance = {
-		rtp = {
-			paths = {
-				vim.fn.expand("~/dotfiles/conf/vim"),
-				vim.fn.expand("~/dotfiles/conf/vim/after"),
-			},
-			disabled_plugins = {
-				"gzip",
-				"matchit",
-				"matchparen",
-				-- "netrwPlugin",
-				"tarPlugin",
-				"tohtml",
-				"tutor",
-				"zipPlugin",
-			},
-		},
-	},
-	change_detection = {
-		enabled = true,
-		notify = false,
-	},
-})
+
+-- Set up 'mini.deps' (customize to your liking)
+require("mini.deps").setup({ path = { package = path_package } })
 -- }}}
 -- Mac NeoVim Settings {{{
 if vim.fn.has("mac") == 1 and vim.fn.has("nvim") == 1 then
@@ -412,6 +376,1445 @@ vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { noremap = true, silent =
 -- Plugins {{{
 require("rocks") -- Add luarocks to the path
 require("select-digraphs").setup({}) -- Configure select-digraphs
+
+-- Editor Enhancements:
+MiniDeps.add("nvim-lua/plenary.nvim")
+MiniDeps.add("oncomouse/lspize.nvim")
+MiniDeps.add("kyazdani42/nvim-web-devicons")
+MiniDeps.add("ku1ik/vim-pasta") -- fix block paste for Neovim
+vim.g.sleuth_org_heuristics = false
+MiniDeps.add("tpope/vim-sleuth") -- Automatically set indent
+vim.g["asterisk#keeppos"] = 1
+MiniDeps.add("haya14busa/vim-asterisk") -- Fancy * and # bindings
+MiniDeps.later(function()
+	vim.keymap.set("", "*", "<Plug>(asterisk-z*)", {
+		desc = "Search forward for the [count]'th occurrence of the word nearest to the cursor",
+	})
+	vim.keymap.set("", "#", "<Plug>(asterisk-z#)", {
+		desc = "Search backward for the [count]'th occurrence of the word nearest to the cursor",
+	})
+	vim.keymap.set("", "g*", "<Plug>(asterisk-gz*)", {
+		desc = "Search forward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor",
+	})
+	vim.keymap.set("", "g#", "<Plug>(asterisk-gz#)", {
+		desc = "Search backward for the [count]'th occurrence of the word (or part of a word) nearest to the cursor",
+	})
+end)
+MiniDeps.add("oncomouse/markdown.nvim")
+-- Theme: {{{
+MiniDeps.add({
+	source = "catppuccin/nvim",
+	hooks = {
+		post_checkout = function()
+			vim.cmd("CatppuccinBuild")
+		end,
+	},
+})
+
+MiniDeps.now(function()
+	require("catppuccin").setup({
+		flavour = "latte",
+		transparent_background = true,
+		integrations = {
+			mini = true,
+			notify = true,
+		},
+		custom_highlights = function(colors)
+			return {
+				Folded = {
+					fg = colors.subtext0,
+					bg = colors.surface0,
+				},
+				MiniStatuslineFileinfo = {
+					fg = colors.surface2,
+					bg = colors.base,
+				},
+				MiniStatuslineModeNormal = {
+					bg = colors.subtext0,
+					fg = colors.base,
+					style = {},
+				},
+				MiniStatuslineModeInsert = {
+					bg = colors.green,
+					fg = colors.base,
+					style = {},
+				},
+				MiniStatuslineModeVisual = {
+					bg = colors.sapphire,
+					fg = colors.base,
+					style = {},
+				},
+				MiniStatuslineModeReplace = { style = {} },
+				MiniStatuslineModeCommand = { style = {} },
+				MiniStatuslineModeOther = {
+					bg = colors.mauve,
+					fg = colors.base,
+					style = {},
+				},
+				MiniStatuslineLocationRow = {
+					fg = colors.mauve,
+				},
+				MiniStatuslineLocationColumn = {
+					fg = colors.sapphire,
+				},
+				MiniStatuslineLocationPercentage = {
+					fg = colors.blue,
+				},
+				MiniStatuslineDiagnosticError = {
+					bg = colors.red,
+					fg = colors.base,
+				},
+				MiniStatuslineDiagnosticWarn = {
+					bg = colors.yellow,
+					fg = colors.base,
+				},
+				MiniStatuslineDiagnosticInfo = {
+					bg = colors.blue,
+					fg = colors.base,
+				},
+				MiniStatuslineDiagnosticHint = {
+					bg = colors.rosewater,
+					fg = colors.base,
+				},
+				MiniStatuslineMacro = {
+					bg = colors.flamingo,
+					fg = colors.surface0,
+				},
+				MiniStatuslineLuaSnip = {
+					bg = colors.sky,
+					fg = colors.surface0,
+				},
+				MiniStatuslineWordcount = {
+					fg = colors.yellow,
+				},
+				MiniTablineCurrent = {
+					fg = colors.subtext0,
+					style = {},
+				},
+				MiniTablineVisible = {
+					fg = colors.surface1,
+				},
+				MiniTablineHidden = {
+					fg = colors.surface1,
+				},
+				MiniTablineModifiedCurrent = {
+					fg = colors.subtext0,
+					style = {
+						"bold",
+					},
+				},
+				MiniTablineModifiedVisible = {
+					fg = colors.surface1,
+					style = {
+						"bold",
+					},
+				},
+				MiniTablineModifiedHidden = {
+					fg = colors.surface1,
+					style = {
+						"bold",
+					},
+				},
+				NotifyBackground = {
+					bg = colors.base,
+				},
+				gitCommitOverflow = { fg = colors.red },
+				gitCommitSummary = { fg = colors.green },
+			}
+		end,
+	})
+
+	vim.cmd("colorscheme catppuccin")
+end)
+
+MiniDeps.later(function()
+	vim.api.nvim_create_user_command("CatppuccinBuild", function()
+		vim.notify("Updating catppuccin cterm information.", vim.log.levels.INFO, {
+			title = "catppuccin-cterm.nvim",
+		})
+		for name, _ in pairs(require("catppuccin").flavours) do
+			local colorscheme_name = string.format("catppuccin-%s", name)
+			require("mini.colors").get_colorscheme(colorscheme_name):add_cterm_attributes():write({
+				name = colorscheme_name,
+			})
+		end
+	end, {
+	force = true,
+})
+end)
+-- }}}
+-- mini.nvim {{{
+MiniDeps.later(function()
+	local function make_point()
+		local _, l, c, _ = unpack(vim.fn.getpos("."))
+		return {
+			line = l,
+			col = c,
+		}
+	end
+	require("mini.ai").setup({
+		custom_textobjects = {
+			e = function() -- Whole buffer
+				local from = { line = 1, col = 1 }
+				local last_line_length = #vim.fn.getline("$")
+				local to = {
+					line = vim.fn.line("$"),
+					col = last_line_length == 0 and 1 or last_line_length,
+				}
+				return { from = from, to = to, vis_mode = "V" }
+			end,
+
+			z = function(type) -- Folds
+				vim.api.nvim_feedkeys("[z" .. (type == "i" and "j0" or ""), "x", true)
+				local from = make_point()
+				vim.api.nvim_feedkeys("]z" .. (type == "i" and "k$" or "$"), "x", true)
+				local to = make_point()
+
+				return {
+					from = from,
+					to = to,
+				}
+			end,
+
+			[","] = { -- Grammatically correct comma matching
+			{
+				"[%.?!][ ]*()()[^,%.?!]+(),[ ]*()", -- Start of sentence
+				"(),[ ]*()[^,%.?!]+()()[%.?!][ ]*", -- End of sentence
+				",[ ]*()[^,%.?!]+(),[ ]*", -- Dependent clause
+				"^()[A-Z][^,%.?!]+(),[ ]*", -- Start of line
+			},
+		},
+	},
+	mappings = {
+		around_last = "aN",
+		inside_last = "iN",
+	},
+	n_lines = 50,
+	search_method = "cover", -- Only use next and last mappings to search
+})
+
+-- Per-file textobjects:
+local spec_pair = require("mini.ai").gen_spec.pair
+local custom_textobjects = {
+	lua = {
+		["s"] = spec_pair("[[", "]]"),
+	},
+	markdown = {
+		["*"] = spec_pair("*", "*", { type = "greedy" }), -- Grab all asterisks when selecting
+		["_"] = spec_pair("_", "_", { type = "greedy" }), -- Grab all underscores when selecting
+		["l"] = { "%b[]%b()", "^%[().-()%]%([^)]+%)$" }, -- Link targeting name
+		["L"] = { "%b[]%b()", "^%[.-%]%(()[^)]+()%)$" }, -- Link targeting href
+	},
+}
+vim.api.nvim_create_autocmd("FileType", {
+	group = augroup,
+	pattern = vim.fn.join(vim.tbl_keys(custom_textobjects), ","),
+	callback = function()
+		local ft = vim.opt.filetype:get()
+		vim.b.miniai_config = {
+			custom_textobjects = custom_textobjects[ft],
+		}
+	end,
+})
+end)
+
+MiniDeps.later(function()
+	-- ga and gA for alignment:
+	require("mini.align").setup({})
+end)
+
+MiniDeps.now(function()
+	-- mini.basics:
+	require("mini.basics").setup({
+		options = {
+			basic = true,
+		},
+		mappings = {
+			move_with_alt = true,
+			windows = true,
+		},
+	})
+	vim.opt.completeopt:append("preview")
+	vim.opt.shortmess:append("Wc")
+end)
+
+MiniDeps.later(function()
+	-- mini.bracketed:
+	require("mini.bracketed").setup({})
+	vim.keymap.set("n", "[t", "<cmd>tabprevious<cr>", {})
+	vim.keymap.set("n", "]t", "<cmd>tabnext<cr>", {})
+	vim.keymap.set("n", "[T", "<cmd>tabfirst<cr>", {})
+	vim.keymap.set("n", "]T", "<cmd>tablast<cr>", {})
+end)
+
+MiniDeps.later(function()
+	-- :Bd[!] for layout-safe bufdelete
+	require("mini.bufremove").setup({})
+	vim.api.nvim_create_user_command("Bd", function(args)
+		require("mini.bufremove").delete(0, not args.bang)
+	end, {
+	bang = true,
+})
+		end)
+
+		MiniDeps.later(function()
+			-- Use mini.clue for assisting with keybindings:
+			require("mini.clue").setup({
+				window = {
+					config = {
+						anchor = "SW",
+						width = math.floor(0.618 * vim.o.columns),
+						row = "auto",
+						col = "auto",
+					},
+				},
+				triggers = {
+					-- Leader triggers
+					{ mode = "n", keys = "<Leader>" },
+					{ mode = "x", keys = "<Leader>" },
+
+					-- Built-in completion
+					{ mode = "i", keys = "<C-x>" },
+
+					-- `g` key
+					{ mode = "n", keys = "g" },
+					{ mode = "x", keys = "g" },
+
+					-- Marks
+					{ mode = "n", keys = "'" },
+					{ mode = "n", keys = "`" },
+					{ mode = "x", keys = "'" },
+					{ mode = "x", keys = "`" },
+
+					-- Registers
+					{ mode = "n", keys = '"' },
+					{ mode = "x", keys = '"' },
+					{ mode = "i", keys = "<C-r>" },
+					{ mode = "c", keys = "<C-r>" },
+
+					-- Window commands
+					{ mode = "n", keys = "<C-w>" },
+
+					-- `z` key
+					{ mode = "n", keys = "z" },
+					{ mode = "x", keys = "z" },
+				},
+				clues = {
+					-- Enhance this by adding descriptions for <Leader> mapping groups
+					require("mini.clue").gen_clues.builtin_completion(),
+					require("mini.clue").gen_clues.g(),
+					require("mini.clue").gen_clues.marks(),
+					require("mini.clue").gen_clues.registers(),
+					require("mini.clue").gen_clues.windows(),
+					require("mini.clue").gen_clues.z(),
+				},
+			})
+		end)
+
+		MiniDeps.later(function()
+			-- gc for commenting/uncommenting:
+			require("mini.comment").setup({})
+		end)
+
+		MiniDeps.later(function()
+			require("mini.extra").setup({})
+		end)
+
+		MiniDeps.later(function()
+			-- file browser <leader>fm / <leader>fM
+			require("mini.files").setup({
+				windows = {
+					preview = true,
+				},
+			})
+			local show_dotfiles = true
+			local filter_show = function()
+				return true
+			end
+			local filter_hide = function(fs_entry)
+				return not vim.startswith(fs_entry.name, ".")
+			end
+			local toggle_dotfiles = function()
+				show_dotfiles = not show_dotfiles
+				local new_filter = show_dotfiles and filter_show or filter_hide
+				MiniFiles.refresh({ content = { filter = new_filter } })
+			end
+			-- Set buffer specific maps in minifiles:
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "MiniFilesBufferCreate",
+				callback = function(args)
+					local buf_id = args.data.buf_id
+					vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
+					vim.keymap.set("n", "<C-P>", "<C-P>", { buffer = buf_id }) -- nmap <buffer> <C-P> <C-P>
+					vim.keymap.set("n", "<Esc>", "<cmd>lua MiniFiles.close()<cr>", { buffer = buf_id })
+				end,
+			})
+			vim.keymap.set("n", "<leader>fm", "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0), true)<cr>", {
+				desc = "Open mini.files (directory of current file)",
+			})
+			vim.keymap.set("n", "<leader>fM", "<cmd>lua MiniFiles.open(vim.loop.cwd(), true)<cr>", {
+				desc = "Open mini.files (cwd)",
+			})
+		end)
+
+		MiniDeps.later(function()
+			-- Highlight patterns:
+			local hipatterns = require("mini.hipatterns")
+			hipatterns.setup({
+				highlighters = {
+					-- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+					fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+					hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+					note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+
+					-- Highlight hex color strings (`#rrggbb`) using that color
+					hex_color = hipatterns.gen_highlighter.hex_color(),
+				},
+			})
+		end)
+
+		MiniDeps.later(function()
+			-- Indentscope:
+			require("mini.indentscope").setup({
+				symbol = "│",
+				options = { try_as_border = true },
+				draw = {
+					animation = require("mini.indentscope").gen_animation.none(),
+				},
+			})
+			-- Disable:
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+				callback = function()
+					vim.b.miniindentscope_disable = true
+				end,
+			})
+		end)
+
+		MiniDeps.later(function()
+			require("mini.notify").setup()
+			vim.keymap.set("n", "<leader>nn", MiniNotify.show_history, { desc = "Help Tags" })
+		end)
+
+		MiniDeps.later(function()
+			require("mini.operators").setup()
+		end)
+
+		MiniDeps.now(function()
+			require("mini.misc").setup()
+			require("mini.misc").setup_auto_root({
+				".git",
+				"Gemfile",
+				"Makefile",
+				"Rakefile",
+				"package.json",
+				"pyproject.toml",
+				"setup.py",
+				".project-root",
+			})
+			require("mini.misc").setup_restore_cursor()
+		end)
+
+		MiniDeps.later(function()
+			require("mini.move").setup({})
+		end)
+
+		MiniDeps.later(function()
+			require("mini.pick").setup({
+				options = {
+					cache = true,
+				},
+				mappings = {
+					mark = "<C-D>",
+					mark_and_move = {
+						char = "<C-X>",
+						func = function()
+							local mappings = require("mini.pick").get_picker_opts().mappings
+							local keys = mappings.mark .. mappings.move_down
+							vim.api.nvim_input(vim.api.nvim_replace_termcodes(keys, true, true, true))
+						end,
+					},
+				},
+			})
+			vim.ui.select = require("mini.pick").ui_select
+			local function open_multiple_files(results)
+				for _, filepath in ipairs(results) do
+					-- not the same as vim.fn.bufadd!
+					vim.cmd.badd({ args = { filepath } })
+				end
+				-- switch to newly loaded buffers if on an empty buffer
+				if vim.fn.bufname() == "" and not vim.bo.modified then
+					vim.cmd.bwipeout()
+					vim.cmd.buffer(results[1])
+				end
+			end
+			local function open_files(item)
+				local results = require("mini.pick").get_picker_matches().marked
+				if #results > 1 then
+					open_multiple_files(results)
+					return
+				end
+				require("mini.pick").default_choose(item)
+			end
+			require("mini.pick").registry.buffers = function(local_opts, opts)
+				local_opts = vim.tbl_deep_extend(
+				"force",
+				{ sort_lastused = false, sort_mru = false, include_current = true, include_unlisted = false },
+				local_opts or {}
+				)
+				local buffers_output = vim.api.nvim_exec("buffers" .. (local_opts.include_unlisted and "!" or ""), true)
+				local cur_buf_id, include_current = vim.api.nvim_get_current_buf(), local_opts.include_current
+				local items = {}
+				local default_selection_idx = 1
+				for _, l in ipairs(vim.split(buffers_output, "\n")) do
+					local buf_str, name = l:match("^%s*%d+"), l:match('"(.*)"')
+					local buf_id = tonumber(buf_str)
+					local flag = buf_id == vim.fn.bufnr("") and "%" or (buf_id == vim.fn.bufnr("#") and "#" or " ")
+					local item = { text = name, bufnr = buf_id, flag = flag }
+					if buf_id ~= cur_buf_id or include_current then
+						if local_opts.sort_lastused and not local_opts.ignore_current_buffer and flag == "#" then
+							default_selection_idx = 2
+						end
+						if local_opts.sort_lastused and (flag == "#" or flag == "%") then
+							local idx = ((items[1] ~= nil and items[1].flag == "%") and 2 or 1)
+							table.insert(items, idx, item)
+						else
+							table.insert(items, item)
+						end
+					end
+				end
+				if local_opts.sort_mru then
+					table.sort(items, function(a, b)
+						return vim.fn.getbufinfo(a.bufnr)[1].lastused > vim.fn.getbufinfo(b.bufnr)[1].lastused
+					end)
+				end
+
+				local show = function(buf_id, items, query)
+					require("mini.pick").default_show(buf_id, items, query, { show_icons = true })
+				end
+				local default_opts = { source = { name = "Buffers", show = show } }
+				opts = vim.tbl_deep_extend("force", default_opts, opts or {}, { source = { items = items } })
+				if default_selection_idx > 1 then
+					vim.api.nvim_create_autocmd("User", {
+						pattern = "MiniPickStart",
+						once = true,
+						callback = function()
+							local mappings = require("mini.pick").get_picker_opts().mappings
+							local keys = vim.fn["repeat"](mappings.move_down, default_selection_idx - 1)
+							vim.api.nvim_input(vim.api.nvim_replace_termcodes(keys, true, true, true))
+						end,
+					})
+				end
+				return require("mini.pick").start(opts)
+			end
+
+			vim.keymap.set("n", "<leader>hf", "<cmd>Pick help<cr>", { desc = "Search help tags" })
+			vim.keymap.set("n", "<leader>pf", function()
+				MiniPick.builtin.files({}, {
+					mappings = {
+						open_binary = {
+							char = "<C-O>",
+							func = function()
+								local file_path = vim.fs.joinpath(
+								MiniPick.get_picker_opts().source.cwd,
+								MiniPick.get_picker_matches().current
+								)
+								vim.fn.system({
+									"open",
+									file_path,
+								})
+								MiniPick.stop()
+							end,
+						},
+					},
+					source = {
+						choose = open_files,
+						choose_marked = open_multiple_files,
+					},
+				})
+			end, { desc = "Find files in project" })
+			vim.keymap.set("n", "<leader>ff", "<cmd>Pick explorer<CR>", { desc = "Find file" })
+			vim.keymap.set("n", "<leader>a", "<cmd>Pick buffers sort_lastused=true<cr>", { desc = "Buffers" })
+			vim.keymap.set({ "n", "v" }, "<leader>*", "<cmd>Pick grep pattern='<cword>'<cr>", { desc = "Search current word" })
+		end)
+
+		MiniDeps.later(function()
+			-- use gS to split and join items in a list:
+			require("mini.splitjoin").setup({})
+		end)
+
+		MiniDeps.now(function()
+			require("mini.statusline").setup({
+				content = {
+					inactive = function()
+						return require("mini.statusline").combine_groups({
+							{ hl = "StatuslineNC", strings = { "%t%m" } },
+						})
+					end,
+				},
+			})
+		end)
+
+		MiniDeps.later(function()
+			-- Replace vim-surround:
+			require("mini.surround").setup({
+				custom_surroundings = {
+					["q"] = {
+						input = { "“().-()”" },
+						output = { left = "“", right = "”" },
+					},
+				},
+				mappings = {
+					add = "ys",
+					delete = "ds",
+					find = "sf",
+					find_left = "sF",
+					highlight = "hs",
+					replace = "cs",
+					update_n_lines = "",
+					suffix_last = "N",
+					suffix_next = "n",
+				},
+				n_lines = 50,
+				search_method = "cover_or_next",
+			})
+			-- Remap adding surrounding to Visual mode selection
+			vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
+			-- Make special mapping for "add surrounding for line"
+			vim.keymap.set("n", "yss", "ys_", { noremap = false })
+
+			-- Per-file surroundings:
+			local custom_surroundings = {
+				lua = {
+					s = {
+						input = { "%[%[().-()%]%]" },
+						output = { left = "[[", right = "]]" },
+					},
+				},
+				markdown = {
+					["B"] = { -- Surround for bold
+					input = { "%*%*().-()%*%*" },
+					output = { left = "**", right = "**" },
+				},
+				["I"] = { -- Surround for italics
+				input = { "%*().-()%*" },
+				output = { left = "*", right = "*" },
+			},
+			["L"] = {
+				input = { "%[().-()%]%([^)]+%)" },
+				output = function()
+					local href = require("mini.surround").user_input("Href")
+					return {
+						left = "[",
+						right = "](" .. href .. ")",
+					}
+				end,
+			},
+		},
+	}
+	vim.api.nvim_create_autocmd("FileType", {
+		group = augroup,
+		pattern = vim.fn.join(vim.tbl_keys(custom_surroundings), ","),
+		callback = function()
+			local ft = vim.opt.filetype:get()
+			vim.b.minisurround_config = {
+				custom_surroundings = custom_surroundings[ft],
+			}
+		end,
+	})
+end)
+
+MiniDeps.now(function()
+	require("mini.tabline").setup({
+		set_vim_settings = false,
+		tabpage_section = "none",
+	})
+end)
+-- }}}
+-- dial.nvim {{{
+MiniDeps.add("monaqa/dial.nvim")
+MiniDeps.later(function()
+	vim.keymap.set({ "n", "v" }, "<C-a>", "<Plug>(dial-increment)")
+	vim.keymap.set({ "n", "v" }, "<C-x>", "<Plug>(dial-decrement)")
+	vim.keymap.set({ "n", "v" }, "g<C-a>", "g<Plug>(dial-increment)")
+	vim.keymap.set({ "n", "v" }, "g<C-x>", "g<Plug>(dial-decrement)")
+	local augend = require("dial.augend")
+	require("dial.config").augends:register_group({
+		-- default augends used when no group name is specified
+		default = {
+			augend.integer.alias.decimal, -- nonnegative decimal number (0, 1, 2, 3, ...)
+			augend.integer.alias.hex, -- nonnegative hex number	 (0x01, 0x1a1f, etc.)
+			augend.constant.alias.bool, -- boolean value (true <-> false)
+			augend.date.alias["%Y/%m/%d"], -- date (2022/02/18, etc.)
+			augend.date.alias["%m/%d/%Y"], -- date (02/19/2022)
+			-- augend.date.alias["%m-%d-%Y"], -- date (02-19-2022)
+			-- augend.date.alias["%Y-%m-%d"], -- date (02-19-2022)
+			augend.date.new({
+				pattern = "%m.%d.%Y",
+				default_kind = "day",
+				only_valid = true,
+				word = false,
+			}),
+			augend.misc.alias.markdown_header,
+		},
+	})
+end)
+-- }}}
+-- LSP: {{{
+MiniDeps.add("neovim/nvim-lspconfig")
+MiniDeps.add("folke/neodev.nvim")
+-- }}}
+-- Treesitter {{{
+local nvim_treesitter = {
+	installed_parser = {
+		"bash",
+		"bibtex",
+		"c",
+		"cmake",
+		"comment",
+		"cpp",
+		"css",
+		"diff",
+		"dockerfile",
+		"fennel",
+		"fish",
+		"go",
+		"graphql",
+		"html",
+		"http",
+		"java",
+		"javascript",
+		"jsdoc",
+		"json",
+		"jsonc",
+		"latex",
+		"lua",
+		"luadoc",
+		"luap",
+		"make",
+		"markdown",
+		"markdown_inline",
+		"ninja",
+		"nix",
+		"norg",
+		"org",
+		"perl",
+		"php",
+		"python",
+		"query",
+		"r",
+		"rasi",
+		"regex",
+		"ruby",
+		"rust",
+		"scss",
+		"svelte",
+		"tsx",
+		"typescript",
+		"vim",
+		"vimdoc",
+		"vue",
+		"xml",
+		"yaml",
+		"zig",
+	},
+	parser_configs = {
+
+		-- TODO: Use repo in https://github.com/serenadeai/tree-sitter-scss/pull/19
+		scss = {
+			install_info = {
+				url = "https://github.com/goncharov/tree-sitter-scss",
+				files = { "src/parser.c", "src/scanner.c" },
+				branch = "placeholders",
+				revision = "30c9dc19d3292fa8d1134373f0f0abd8547076e8",
+			},
+			maintainers = { "@goncharov" },
+		},
+	},
+	line_threshold = {
+		base = {
+			cpp = 30000,
+			javascript = 30000,
+			perl = 10000,
+		},
+		extension = {
+			cpp = 10000,
+			javascript = 3000,
+			perl = 3000,
+		},
+	}, -- Disable check for highlight, highlight usage, highlight context module
+}
+
+nvim_treesitter.should_highlight_disable = function(lang, bufnr)
+	local line_count = vim.api.nvim_buf_line_count(bufnr or 0)
+
+	return nvim_treesitter.line_threshold[lang] ~= nil and line_count > nvim_treesitter.line_threshold[lang].base
+end
+
+nvim_treesitter.should_buffer_higlight_disable = function()
+	local ft = vim.bo.ft
+	local bufnr = vim.fn.bufnr()
+	return nvim_treesitter.should_highlight_disable(ft, bufnr)
+end
+
+MiniDeps.add({
+	source = "nvim-treesitter/nvim-treesitter",
+	hooks = {
+		post_checkout = function()
+			vim.cmd("TSUpdate")
+		end,
+	},
+	depends = {
+		"andymass/vim-matchup",
+	}
+})
+vim.g.matchup_matchparen_offscreen = {
+	method = "popup",
+}
+MiniDeps.later(function()
+	local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+	for f, c in pairs(nvim_treesitter.parser_configs) do
+		parser_configs[f] = c
+	end
+	local ts_foldexpr_augroup_id = vim.api.nvim_create_augroup("nvim_treesitter_foldexpr", {})
+
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = vim.fn.join(nvim_treesitter.installed_parser, ","),
+		group = ts_foldexpr_augroup_id,
+		callback = function()
+			vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+			vim.opt_local.foldmethod = "expr"
+		end,
+		desc = "Set fold method for treesitter",
+	})
+
+	require("nvim-treesitter.configs").setup({
+		ensure_installed = nvim_treesitter.installed_parser,
+		highlight = {
+			enable = true,
+			-- additional_vim_regex_highlighting = false,
+			additional_vim_regex_highlighting = { "org" },
+			disable = nvim_treesitter.should_highlight_disable,
+		},
+		matchup = {
+			enable = nvim_treesitter.should_buffer_higlight_disable,
+		},
+	})
+end)
+
+-- }}}
+-- lexima.vim {{{
+-- Lexima Settings:
+vim.g.dotfiles_load_lexima = false
+vim.g.lexima_map_escape = ""
+vim.g.lexima_enable_space_rules = 0
+vim.g.lexima_enable_endwise_rules = 1
+vim.g.lexima_disable_closetag = 0
+vim.g.lexima_no_default_rules = 1
+-- Electric Quotes (https://www.gnu.org/software/emacs/manual/html_node/emacs/Quotation-Marks.html)
+vim.api.nvim_create_user_command(
+	"ToggleElectricQuotes",
+	[[lua vim.b.use_electric_quotes = not (vim.b.use_electric_quotes or false)]],
+	{}
+)
+local function load_lexima()
+	-- Load default rules:
+	vim.fn["lexima#set_default_rules"]()
+
+	-- Utilities:
+	local add_rule = vim.fn["lexima#add_rule"]
+
+	local function make_markdown_bi_rule(char, escape)
+		local esc_char = escape and [[\]] .. char or char
+		add_rule({
+			char = char,
+			input_after = char,
+			filetype = { "text", "markdown" },
+			except = esc_char .. esc_char .. [[.*\%#]] .. esc_char .. esc_char,
+		}) -- Create italic pair
+		add_rule({
+			char = "<Space>",
+			delete = 1,
+			filetype = { "text", "markdown" },
+			at = "^" .. esc_char .. [[\%#]] .. esc_char,
+		}) -- Handle bulleted item
+		add_rule({
+			char = char,
+			at = [[\%#]] .. esc_char,
+			leave = char,
+			filetype = { "text", "markdown" },
+			except = esc_char .. [[\{1\}\%#]],
+		}) -- Leave italic pair
+		add_rule({
+			char = char,
+			at = esc_char .. esc_char .. [[.*\%#]] .. esc_char .. esc_char,
+			leave = 2,
+			filetype = { "text", "markdown" },
+		}) -- Leave bold pair
+		add_rule({
+			char = "<BS>",
+			at = esc_char .. [[\%#]] .. esc_char,
+			delete = char,
+			filetype = { "text", "markdown" },
+		}) -- Delete pair
+	end
+	-- Take a string or list of strings, produce a basic pair
+	local function make_pair(chars, escape, opts)
+		chars = type(chars) == "table" and chars or { chars }
+		opts = opts or {}
+		if type(escape) == "table" then
+			opts = escape
+			escape = false
+		end
+		for _, char in pairs(chars) do
+			local esc_char = escape and [[\]] .. char or char
+			add_rule(vim.tbl_extend("keep", {
+				char = char,
+				input_after = char,
+			}, opts))
+			add_rule(vim.tbl_extend("keep", {
+				char = char,
+				at = [[\%#]] .. esc_char,
+				leave = 1,
+			}, opts))
+			add_rule(vim.tbl_extend("keep", {
+				char = "<BS>",
+				at = esc_char .. [[\%#]] .. esc_char,
+				delete = 1,
+			}, opts))
+		end
+	end
+
+	-- Lexima Rules
+	-- Correct unbalanced pairs:
+	add_rule({
+		char = "<BS>",
+		at = [[""\%#"]],
+		delete = 1,
+		input = [[<BS><BS>"]],
+		input_after = [["]],
+	})
+	add_rule({
+		char = "<BS>",
+		at = [[((\%#)]],
+		delete = 1,
+		input = [[<BS><BS>(]],
+		input_after = [[)]],
+	})
+	add_rule({
+		char = "<BS>",
+		at = [[[^(](\%#))]],
+		delete = 1,
+	})
+
+	-- Markdown rules:
+	-- Links:
+	add_rule({
+		char = "]",
+		at = [=[\[[^]]*\%#\]]=],
+		except = [==[\[@[^]]*\%#[^]]*\]]==],
+		leave = "]",
+		input = "(",
+		input_after = ")",
+		filetype = { "text", "markdown" },
+	})
+	-- Blockquotes:
+	add_rule({
+		char = "<BS>",
+		input = "<BS><BS>",
+		at = [[^> \%#]],
+		filetype = { "text", "markdown" },
+	})
+	add_rule({
+		char = "<CR>",
+		at = [[^> .\+\%#$]],
+		input = "<CR>> ",
+		filetype = { "text", "markdown" },
+	})
+	add_rule({
+		char = "<CR>",
+		at = [[^> \%#$]],
+		input = "<BS><BS><CR>",
+		filetype = { "text", "markdown" },
+	})
+	add_rule({
+		char = ">",
+		input = "> ",
+		at = [[^\%#]],
+		filetype = { "text", "markdown" },
+	})
+	-- Unordered Lists:
+	add_rule({
+		char = "<CR>",
+		at = [[^\s*\([*-]\) .*\%#$]],
+		filetype = { "text", "markdown" },
+		with_submatch = true,
+		input = [[<CR>\1 ]],
+		except = [[^\s*\([*-]\) \%#$]],
+	})
+	add_rule({
+		char = "<CR>",
+		at = [[^\s*\([*-]\) \%#$]],
+		filetype = { "text", "markdown" },
+		input = [[<Home><C-O>"_D<CR>]],
+	})
+	add_rule({
+		char = "<BS>",
+		at = [[^\(\s*\)[*-] \%#$]],
+		filetype = { "text", "markdown" },
+		with_submatch = true,
+		input = [[<Home><C-O>"_D\1]],
+	})
+	-- Ordered Lists (including automatic increment):
+	add_rule({
+		char = "<CR>",
+		at = [[^\s*\([0-9]\+\)\..*\%#$]],
+		filetype = { "text", "markdown", "org" },
+		with_submatch = true,
+		input = [[<CR>\1. <Home><C-o>:exec "normal! \<c-a\>" "$"<CR>]],
+		except = [[^\s*\([0-9]\)\. \%#$]],
+	})
+	add_rule({
+		char = "<CR>",
+		at = [[^\s*\([0-9]\+\)\. \%#$]],
+		filetype = { "text", "markdown", "org" },
+		input = [[<Home><C-O>"_D<CR>]],
+	})
+	add_rule({
+		char = "<BS>",
+		at = [[^\(\s*\)[0-9]\+\. \%#$]],
+		filetype = { "text", "markdown", "org" },
+		with_submatch = true,
+		input = [[<Home><C-O>"_D\1]],
+	})
+	-- Tasks:
+	add_rule({
+		char = "[",
+		input = "[ ] ",
+		at = [[^\s*[*-+] \s*\%#]],
+		filetype = { "text", "markdown", "org" },
+	})
+	add_rule({
+		char = "[",
+		input = "[ ] ",
+		at = [[^\s*\d\+\. \s*\%#]],
+		filetype = { "text", "markdown", "org" },
+	})
+	add_rule({
+		char = "<BS>",
+		input = "<BS><BS><BS>",
+		at = [[^\s*[*-+\d]\+\.\{0,1\} \s*\[.\]\%#]],
+		filetype = { "text", "markdown", "org" },
+	})
+	-- Bold/Italic Pairs:
+	make_markdown_bi_rule("*", true)
+	make_markdown_bi_rule("_")
+
+	-- Org-only rules:
+	make_pair({ "_", "+" }, {
+		filetype = "org",
+	})
+	make_pair({ "~", "*" }, true, {
+		filetype = "org",
+	})
+	-- Don't pair asterisks for headlines:
+	add_rule({
+		char = "*",
+		at = [[^\**\%#]],
+		filetype = "org",
+	})
+	-- Also don't pair if we are actually starting a line with italics:
+	add_rule({
+		char = "*",
+		at = [[^\*\+\w[^*]\+\%#]],
+		filetype = "org",
+	})
+	-- Don't pair pluses in dates:
+	add_rule({
+		char = "+",
+		at = [[<[^>]\+\%#]],
+		filetype = "org",
+	})
+	-- Ordered List:
+	add_rule({
+		char = "+",
+		input = "+ ",
+		at = [[^\s*\%#]],
+		filetype = "org",
+	})
+	add_rule({
+		char = "<BS>",
+		at = [[^\(\s*\)[+-] \%#$]],
+		filetype = "org",
+		with_submatch = true,
+		input = [[<Home><C-O>"_D\1]],
+	})
+	add_rule({
+		char = "<CR>",
+		at = [[^\s*\([+-]\) .*\%#$]],
+		filetype = "org",
+		with_submatch = true,
+		input = [[<CR>\1 ]],
+		except = [[^\s*\([+-]\) \%#$]],
+	})
+	add_rule({
+		char = "<CR>",
+		at = [[^\s*\([+-]\) \%#$]],
+		filetype = "org",
+		input = [[<Home><C-O>"_D]],
+	})
+	-- Handle cookies properly:
+	add_rule({
+		char = "/",
+		input = "/<Right>",
+		at = [==[\[\%#\]]==],
+		filetype = "org",
+	})
+	add_rule({
+		char = "%",
+		input = "%<Right>",
+		at = [==[\[\%#\]]==],
+		filetype = "org",
+	})
+	-- Links:
+	add_rule({
+		char = "[",
+		at = [[^\s*[+-] \[ \] \%#]],
+		input = "<BS><Left><BS>[",
+		input_after = "]",
+		filetype = "org",
+	}) -- Convert a todo item into a link
+	-- Links:
+	add_rule({
+		char = "[",
+		at = [[^\s*[0-9]\.\s\+\[ \]\s\+\%#]],
+		input = "<BS><Left><BS>[",
+		input_after = "]",
+		filetype = "org",
+	}) -- Convert a todo item into a link
+	add_rule({
+		char = "]",
+		at = [==[\%#\]]==],
+		input = "<Right>",
+		filetype = "org",
+	}) -- Leave a square bracket
+	add_rule({
+		char = "/",
+		at = [==[/\%#]==],
+		input = "",
+		input_after = "/",
+		filetype = "org",
+	}) -- Autocomplete italics from //
+	add_rule({
+		char = "<BS>",
+		at = [==[/\%#/]==],
+		input = "<BS>",
+		delete = 1,
+		filetype = "org",
+	}) -- Autocomplete italics from //
+
+	-- Rules for help files:
+	add_rule({
+		char = "<Bar>",
+		input_after = "<Bar>",
+		filetype = "help",
+	})
+	add_rule({
+		char = "<Bar>",
+		at = [[\%#|]],
+		leave = 1,
+		filetype = "help",
+	})
+	add_rule({
+		char = "<BS>",
+		at = [[|\%#|]],
+		delete = 1,
+		filetype = "help",
+	})
+
+	-- Electric Quotes
+	add_rule({
+		char = "`",
+		input = "‘",
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+		except = [[\%#`]],
+	})
+	add_rule({
+		char = "`",
+		at = [[\%#`]],
+		delete = 1,
+	})
+	add_rule({
+		char = "`",
+		at = [[‘\%#]],
+		input = "<BS>“",
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+	add_rule({
+		char = "'",
+		at = [[[‘“][^‘“]*\%#]],
+		except = [[’\%#]],
+		input = "’",
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+	add_rule({
+		char = "'",
+		at = [[’\%#]],
+		input = "<BS>”",
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+	add_rule({
+		char = "<BS>",
+		at = [[“\%#]],
+		input = "<BS>‘",
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+	add_rule({
+		char = "<BS>",
+		at = [[”\%#]],
+		input = "<BS>’",
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+	add_rule({
+		char = ".",
+		at = [[\.\.\%#]],
+		input = "<BS><BS>…",
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+	add_rule({
+		char = "<BS>",
+		at = [[…\%#]],
+		input = "<BS>..",
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+
+	-- Electric dashes and dots
+	add_rule({
+		char = "-",
+		input = "<BS>–",
+		at = [[-\%#]],
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+	add_rule({
+		char = "-",
+		input = "<BS>—",
+		at = [[–\%#]],
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+	add_rule({
+		char = "<BS>",
+		input = "<BS>–",
+		at = [[—\%#]],
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+	add_rule({
+		char = "<BS>",
+		input = "<BS>-",
+		at = [[–\%#]],
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+	add_rule({
+		char = ".",
+		input = "<BS><BS>…",
+		at = [[..\%#]],
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+	add_rule({
+		char = "<BS>",
+		input = "<BS>..",
+		at = [[…\%#]],
+		enabled = function()
+			return vim.b.use_electric_quotes
+		end,
+	})
+
+		-- XML-style closetag:
+	if vim.g.lexima_disable_closetag == 0 then
+		add_rule({
+			char = "<",
+			input_after = ">",
+			filetype = { "html", "xml", "javascript", "javascriptreact" },
+		})
+		add_rule({
+			char = "<BS>",
+			at = [[<\%#>]],
+			delete = 1,
+			filetype = { "html", "xml", "javascript", "javascriptreact" },
+		})
+		add_rule({
+			char = ">",
+			at = [[<\(\w\+\)[^>]*\%#>]],
+			leave = 1,
+			input_after = [[</\1>]],
+			with_submatch = 1,
+			filetype = { "html", "xml", "javascript", "javascriptreact" },
+		})
+	end
+end
+
+vim.api.nvim_create_autocmd("InsertEnter", {
+	group = vim.api.nvim_create_augroup("dotfiles-lexima-load", {}),
+	callback = function()
+		MiniDeps.add("oncomouse/lexima.vim")
+		load_lexima()
+		vim.g.dotfiles_load_lexima = true
+	end,
+	once = true,
+})
+
+-- }}}
+-- nvim-ref {{{
+MiniDeps.add("oncomouse/nvim-ref")
+MiniDeps.later(function()
+	require("nvim-ref").setup({
+		bibfiles = {
+			vim.fs.joinpath(vim.g.seadrive_path, "My Library/Documents/Academic Stuff/library.bib"),
+		},
+	})
+end)
+-- }}}
+-- indent-blankline.nvim {{{
+MiniDeps.add("lukas-reineke/indent-blankline.nvim")
+MiniDeps.later(function()
+	require("ibl").setup({
+	indent = { char = "▏" },
+	scope = { enabled = false },
+	exclude = {
+		filetypes = {
+			"help",
+			"alpha",
+			"dashboard",
+			"neo-tree",
+			"Trouble",
+			"lazy",
+			"mason",
+			"notify",
+			"toggleterm",
+			"lazyterm",
+		},
+	},
+})
+end)
+-- }}}
+-- zen-mode.nvim {{{
+MiniDeps.add("folke/zen-mode.nvim")
+MiniDeps.later(function()
+	require("zen-mode").setup({
+		window = {
+			backdrop = 1,
+		},
+		plugins = {
+			tmux = {
+				enabled = true,
+			},
+		},
+	})
+	vim.keymap.set("n", "<leader>gz", "<cmd>ZenMode<cr>", { desc = "ZenMode"} )
+end)
+-- }}}
+-- none-ls.nvim {{{
+MiniDeps.add({
+	source = "nvimtools/none-ls.nvim",
+	depends = {
+		"nvimtools/none-ls-extras.nvim",
+	}
+})
+MiniDeps.later(function()
+	local sources = {
+		-- GENERAL PURPOSE
+		require("null-ls").builtins.formatting.prettier.with({
+			update_on_insert = false,
+			filetypes = {
+				"css",
+				"graphql",
+				"handlebars",
+				"html",
+				"json",
+				"jsonc",
+				"less",
+				"markdown",
+				"markdown.mdx",
+				"scss",
+				"svelte",
+				"typescript",
+				"typescript.react",
+				"vue",
+			},
+			extra_args = { "--use-tabs" },
+			prefer_local = "node_modules/.bin",
+		}),
+
+		-- YAML
+		require("null-ls").builtins.formatting.prettier.with({
+			filetypes = {
+				"yaml",
+			},
+			prefer_local = "node_modules/.bin",
+		}),
+
+		-- LUA
+		require("null-ls").builtins.formatting.stylua,
+		require("null-ls").builtins.diagnostics.selene.with({
+			cwd = function(_)
+				return vim.fs.dirname(
+					vim.fs.find({ "selene.toml" }, { upward = true, path = vim.api.nvim_buf_get_name(0) })[1]
+				) or vim.fn.expand("~/.config/selene/") -- fallback value
+			end,
+		}),
+
+		-- PYTHON
+		require("none-ls.formatting.ruff"),
+		require("none-ls.diagnostics.ruff"),
+
+		-- FISH
+		require("null-ls").builtins.formatting.fish_indent,
+
+		-- SHELL
+		require("null-ls").builtins.formatting.shfmt,
+
+		-- VIML
+		require("null-ls").builtins.diagnostics.vint,
+
+		-- HTML
+		require("dotfiles.null-ls.builtins.diagnostics.htmlhint"),
+
+		-- JAVASCRIPT DEFAULTS
+		require("null-ls").builtins.diagnostics.standardjs,
+		require("null-ls").builtins.formatting.standardjs,
+	}
+
+	require("null-ls").setup({
+		sources = sources,
+	})
+end)
+-- }}}
 -- }}}
 -- Theme {{{
 if not pcall(vim.cmd.colorscheme, "catppuccin") then
