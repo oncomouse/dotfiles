@@ -63,7 +63,8 @@ vim.opt.list = true
 --------------------------------------------------------------------------------
 -- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
 --------------------------------------------------------------------------------
-local path_package = vim.fn.stdpath("data") .. "/site/"
+local path_package = vim.fn.stdpath("data") .. "/mini.nvim-minimal/"
+vim.opt.packpath:append(path_package)
 local mini_path = path_package .. "pack/deps/start/mini.nvim"
 if not vim.loop.fs_stat(mini_path) then
 	vim.cmd('echo "Installing `mini.nvim`" | redraw')
@@ -329,11 +330,10 @@ vim.api.nvim_create_user_command("LazyGit", ":terminal lazygit<cr>", {
 	force = true,
 })
 --------------------------------------------------------------------------------
--- Mini.nvim:
+-- MiniDeps.nvim:
 --------------------------------------------------------------------------------
 
 MiniDeps.add("tpope/vim-sleuth")
-
 MiniDeps.add({
 	source = "catppuccin/nvim",
 	hooks = {
@@ -342,6 +342,7 @@ MiniDeps.add({
 		end,
 	},
 })
+MiniDeps.add("monaqa/dial.nvim")
 
 MiniDeps.now(function()
 	require("catppuccin").setup({
@@ -474,18 +475,6 @@ MiniDeps.later(function()
 	})
 end)
 
-MiniDeps.now(function()
-	require("mini.statusline").setup({
-		content = {
-			inactive = function()
-				return require("mini.statusline").combine_groups({
-					{ hl = "StatuslineNC", strings = { "%t%m" } },
-				})
-			end,
-		},
-	})
-end)
-
 MiniDeps.later(function()
 	local function make_point()
 		local _, l, c, _ = unpack(vim.fn.getpos("."))
@@ -558,10 +547,14 @@ MiniDeps.later(function()
 			}
 		end,
 	})
+end)
 
+MiniDeps.later(function()
 	-- ga and gA for alignment:
 	require("mini.align").setup({})
+end)
 
+MiniDeps.now(function()
 	-- mini.basics:
 	require("mini.basics").setup({
 		options = {
@@ -574,14 +567,18 @@ MiniDeps.later(function()
 	})
 	vim.opt.completeopt:append("preview")
 	vim.opt.shortmess:append("Wc")
+end)
 
+MiniDeps.later(function()
 	-- mini.bracketed:
 	require("mini.bracketed").setup({})
 	vim.keymap.set("n", "[t", "<cmd>tabprevious<cr>", {})
 	vim.keymap.set("n", "]t", "<cmd>tabnext<cr>", {})
 	vim.keymap.set("n", "[T", "<cmd>tabfirst<cr>", {})
 	vim.keymap.set("n", "]T", "<cmd>tablast<cr>", {})
+end)
 
+MiniDeps.later(function()
 	-- :Bd[!] for layout-safe bufdelete
 	require("mini.bufremove").setup({})
 	vim.api.nvim_create_user_command("Bd", function(args)
@@ -589,7 +586,9 @@ MiniDeps.later(function()
 	end, {
 		bang = true,
 	})
+end)
 
+MiniDeps.later(function()
 	-- Use mini.clue for assisting with keybindings:
 	require("mini.clue").setup({
 		window = {
@@ -641,12 +640,18 @@ MiniDeps.later(function()
 			require("mini.clue").gen_clues.z(),
 		},
 	})
+end)
 
+MiniDeps.later(function()
 	-- gc for commenting/uncommenting:
 	require("mini.comment").setup({})
+end)
 
+MiniDeps.later(function()
 	require("mini.extra").setup({})
+end)
 
+MiniDeps.later(function()
 	-- file browser <leader>fm / <leader>fM
 	require("mini.files").setup({
 		windows = {
@@ -681,7 +686,9 @@ MiniDeps.later(function()
 	vim.keymap.set("n", "<leader>fM", "<cmd>lua MiniFiles.open(vim.loop.cwd(), true)<cr>", {
 		desc = "Open mini.files (cwd)",
 	})
+end)
 
+MiniDeps.later(function()
 	-- Highlight patterns:
 	local hipatterns = require("mini.hipatterns")
 	hipatterns.setup({
@@ -696,7 +703,9 @@ MiniDeps.later(function()
 			hex_color = hipatterns.gen_highlighter.hex_color(),
 		},
 	})
+end)
 
+MiniDeps.later(function()
 	-- Indentscope:
 	require("mini.indentscope").setup({
 		symbol = "│",
@@ -712,12 +721,18 @@ MiniDeps.later(function()
 			vim.b.miniindentscope_disable = true
 		end,
 	})
+end)
 
+MiniDeps.later(function()
 	require("mini.notify").setup()
 	vim.keymap.set("n", "<leader>nn", MiniNotify.show_history, { desc = "Help Tags" })
+end)
 
+MiniDeps.later(function()
 	require("mini.operators").setup()
+end)
 
+MiniDeps.now(function()
 	require("mini.misc").setup()
 	require("mini.misc").setup_auto_root({
 		".git",
@@ -730,12 +745,18 @@ MiniDeps.later(function()
 		".project-root",
 	})
 	require("mini.misc").setup_restore_cursor()
+end)
 
+MiniDeps.later(function()
 	require("mini.move").setup({})
+end)
 
+MiniDeps.later(function()
 	-- May as well setup a minimal autopair:
 	require("mini.pairs").setup({})
+end)
 
+MiniDeps.later(function()
 	require("mini.pick").setup({
 		options = {
 			cache = true,
@@ -825,7 +846,7 @@ MiniDeps.later(function()
 	end
 
 	vim.keymap.set("n", "<leader>hf", "<cmd>Pick help<cr>", { desc = "Search help tags" })
-	vim.keymap.set("n", "<leader>fp", function()
+	vim.keymap.set("n", "<leader>pf", function()
 		MiniPick.builtin.files({}, {
 			mappings = {
 				open_binary = {
@@ -852,10 +873,26 @@ MiniDeps.later(function()
 	vim.keymap.set("n", "<leader>ff", "<cmd>Pick explorer<CR>", { desc = "Find file" })
 	vim.keymap.set("n", "<leader>a", "<cmd>Pick buffers sort_lastused=true<cr>", { desc = "Buffers" })
 	vim.keymap.set({ "n", "v" }, "<leader>*", "<cmd>Pick grep pattern='<cword>'<cr>", { desc = "Search current word" })
+end)
 
+MiniDeps.later(function()
 	-- use gS to split and join items in a list:
 	require("mini.splitjoin").setup({})
+end)
 
+MiniDeps.now(function()
+	require("mini.statusline").setup({
+		content = {
+			inactive = function()
+				return require("mini.statusline").combine_groups({
+					{ hl = "StatuslineNC", strings = { "%t%m" } },
+				})
+			end,
+		},
+	})
+end)
+
+MiniDeps.later(function()
 	-- Replace vim-surround:
 	require("mini.surround").setup({
 		custom_surroundings = {
@@ -922,13 +959,15 @@ MiniDeps.later(function()
 			}
 		end,
 	})
+end)
 
+MiniDeps.now(function()
 	require("mini.tabline").setup({
 		set_vim_settings = false,
 		tabpage_section = "none",
 	})
 end)
-MiniDeps.add("monaqa/dial.nvim")
+
 MiniDeps.later(function()
 	vim.keymap.set({ "n", "v" }, "<C-a>", "<Plug>(dial-increment)")
 	vim.keymap.set({ "n", "v" }, "<C-x>", "<Plug>(dial-decrement)")
