@@ -65,6 +65,7 @@ vim.opt.list = true
 --------------------------------------------------------------------------------
 local path_package = vim.fn.stdpath("data") .. "/mini.nvim-minimal/"
 vim.opt.packpath:append(path_package)
+vim.cmd("packloadall!")
 local mini_path = path_package .. "pack/deps/start/mini.nvim"
 if not vim.loop.fs_stat(mini_path) then
 	vim.cmd('echo "Installing `mini.nvim`" | redraw')
@@ -346,6 +347,7 @@ MiniDeps.add("monaqa/dial.nvim")
 
 MiniDeps.now(function()
 	require("catppuccin").setup({
+		flavour = "latte",
 		transparent_background = true,
 		integrations = {
 			mini = true,
