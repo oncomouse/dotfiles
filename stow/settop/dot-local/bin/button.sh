@@ -55,6 +55,7 @@ helper_find_or_open() {
 
 action_focus() {
 	helper_find_or_open "$1"
+	pkill flex-launcher 2> /dev/null
 }
 
 action_prev() {
@@ -65,7 +66,7 @@ action_prev() {
 		;;
 	*freetube*)
 		sleep 0.2 &&
-			xdotool key --clearmodifiers "l"
+			xdotool key --clearmodifiers "j"
 		;;
 		# *)
 		#     helper_message "no action taken for $1"
@@ -81,7 +82,7 @@ action_next() {
 		;;
 	*freetube*)
 		sleep 0.2 &&
-			xdotool key --clearmodifiers "j"
+			xdotool key --clearmodifiers "l"
 		;;
 		# *)
 		#     helper_message "no action taken for $target"
@@ -144,17 +145,17 @@ action_search() {
 
 # Subtitles
 action_settings() {
-	helper_find_or_open flex-launcher
-	# # helper_message "called: settings"
-	# case "$1" in
-	# *kodi*)
-	# 	kodi-send --action="ShowSubtitles"
-	# 	;;
-	# *freetube*)
-	# 	sleep 0.2 &&
-	# 		xdotool key --clearmodifiers c
-	# 	;;
-	# esac
+	# helper_find_or_open flex-launcher
+	# helper_message "called: settings"
+	case "$1" in
+	*kodi*)
+		kodi-send --action="ShowSubtitles"
+		;;
+	*freetube*)
+		sleep 0.2 &&
+			xdotool key --clearmodifiers c
+		;;
+	esac
 }
 
 action_action_center() {

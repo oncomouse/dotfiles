@@ -35,6 +35,7 @@ brew "lua-language-server"
 brew "lua@5.1", link: false
 brew "luarocks"
 brew "macos-trash"
+brew "neovim"
 brew "node"
 brew "openssh"
 brew "pandoc"
