@@ -124,7 +124,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	install = {
-		colorscheme = { "catppuccin-mocha" },
+		colorscheme = { "catppuccin" },
 	},
 	spec = {
 		{ import = "dotfiles.plugins" },
@@ -414,7 +414,7 @@ require("rocks") -- Add luarocks to the path
 require("select-digraphs").setup({}) -- Configure select-digraphs
 -- }}}
 -- Theme {{{
-if not pcall(vim.cmd.colorscheme, "catppuccin-mocha") then
+if not pcall(vim.cmd.colorscheme, "catppuccin") then
 	vim.cmd([[colorscheme default]])
 end
 -- }}}

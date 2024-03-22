@@ -16,6 +16,7 @@ return {
 		end,
 		lazy = true,
 		opts = {
+			flavour = "latte",
 			transparent_background = true,
 			integrations = {
 				mini = true,

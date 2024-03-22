@@ -26,11 +26,6 @@ set fish_color_history_current --bold
 
 if status is-login
 
-    # Setup Pywal colors:
-    if test -d $HOME/.cache/wal
-        source ~/.cache/wal/colors.fish
-    end
-
     # EDITOR
     set -gx EDITOR (which nvim)
 
@@ -58,6 +53,7 @@ if status is-login
     set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
     set -gx FZF_ALT_C_COMMAND "fd --type d --follow"
     if test -d "$HOME/.cache/wal"
+        source ~/.cache/wal/colors.fish
         set -gx FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS --color=bg+:$color8,bg:$background,spinner:$color14,hl:$color12" \
             "--color=fg:$foreground,header:$color12,info:$background,pointer:$color14" \
             "--color=marker:$color14,fg+:$foreground,prompt:$color3,hl+:$color12"
