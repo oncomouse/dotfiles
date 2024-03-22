@@ -7,7 +7,7 @@ local function nerdify_font(font, params)
 	return wezterm.font_with_fallback({
 		font,
 		{
-			family = "Fira Code Nerd Font",
+			family = "FiraCode Nerd Font",
 		},
 	}, params)
 end

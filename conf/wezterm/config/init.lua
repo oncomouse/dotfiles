@@ -5,7 +5,7 @@ local defaults = require("config.base")
 local fonts = require("config.fonts")
 local keys = require("config.keys")
 local config = {
-	color_scheme = "Catppuccin Mocha",
+	color_scheme = "Catppuccin Latte",
 	cursor_blink_rate = 0,
 }
 
