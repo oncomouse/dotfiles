@@ -340,9 +340,10 @@
 (global-set-key (kbd "C-M-<up>") 'move-dup-duplicate-up)
 (global-set-key (kbd "C-M-<down>") 'move-dup-duplicate-down)
 
+(define-key global-map (kbd "C-;") 'embark-act)
+
 ;; Use which-key for embark suggestions:
 (with-eval-after-load 'embark
-  (define-key global-map (kbd "C-;") 'embark-act)
   (defun embark-which-key-indicator ()
     "An embark indicator that displays keymaps using which-key.
 The which-key help message will show the type and value of the
