@@ -551,6 +551,11 @@ If mark is active, merge lines in the current region."
 (with-eval-after-load 'markdown-mode
   (add-hook 'markdown-mode-hook 'visual-line-mode))
 
+;; Sentences only need one space, Emacs. C'mon
+(add-hook 'markdown-mode-hook (setq-local sentence-end-double-space nil))
+(add-hook 'text-mode-hook (setq-local sentence-end-double-space nil))
+(add-hook 'org-mode-hook (setq-local sentence-end-double-space nil))
+
 (with-eval-after-load 'org
   (setq org-capture-templates
         `(("t" "todo" entry (file+headline "" "Inbox") ; "" => `org-default-notes-file'
