@@ -792,7 +792,8 @@ If not in a clock, move to next headline."
 
 (with-eval-after-load 'consult
   (setq consult-narrow-key "<")
-  (setq consult-widen-key ">"))
+  (setq consult-widen-key ">")
+  (define-key global-map (kbd "C-x C-r") 'consult-recent-file))
 
 ;; Configure projectile
 (with-eval-after-load 'projectile
