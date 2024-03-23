@@ -876,11 +876,14 @@ Pass SOURCES to consult-buffer, if provided."
 ;;                 marginalia-command-categories)))
 
 ;; Configure cape
-(when (require-package 'cape)
-  (add-hook 'org-mode-hook (add-hook
-                            'completion-at-point-functions
-                            (cape-capf-super #'cape-dict #'cape-dabbrev #'cape-keyword) 0 t)))
+(defun ap/writing-cape ()
+  "Custom completion-at-point-function for use in writing environments."
+  (cape-capf-super #'cape-dict #'cape-dabbrev #'cape-keyword))
 
+(when (require-package 'cape)
+  (add-hook 'markdown-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape)))
+  (add-hook 'text-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape)))
+  (add-hook 'org-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape))))
 
 (provide 'init)
 
