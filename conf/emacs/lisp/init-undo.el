@@ -22,7 +22,7 @@
     :global t))
 
 (when (require-package 'undo-fu-session)
-  (add-hook 'undo-fu-mode 'undo-fu-session-global-mode)
+  (add-hook 'undo-fu-mode-hook 'undo-fu-session-global-mode)
   (setq undo-fu-session-directory (concat user-emacs-directory "undo-fu-session/"))
   (setq undo-fu-session-incompatible-files '("\\.gpg$" "/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
 
