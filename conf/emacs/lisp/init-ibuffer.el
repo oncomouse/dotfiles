@@ -15,15 +15,6 @@
 
 ;; (add-hook 'ibuffer-hook 'ibuffer-set-up-preferred-filters)
 
-
-(require-package 'ibuffer-projectile)
-
-(add-hook 'ibuffer-hook
-          (lambda ()
-            (ibuffer-projectile-set-filter-groups)
-            (unless (eq ibuffer-sorting-mode 'alphabetic)
-              (ibuffer-do-sort-by-alphabetic))))
-
 (setq-default ibuffer-show-empty-filter-groups nil)
 
 (sanityinc/fullframe-mode 'ibuffer-mode)
