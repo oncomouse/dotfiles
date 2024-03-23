@@ -838,6 +838,12 @@ Pass SOURCES to consult-buffer, if provided."
   (add-hook 'text-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape)))
   (add-hook 'org-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape))))
 
+(when (require-package 'dim)
+  (dim-minor-names
+   '((eldoc-mode "")
+     (elisp-slime-nav-mode "")
+     (apheleia-mode ""))))
+
 (provide 'init)
 
 ;; Local Variables:
