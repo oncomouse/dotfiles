@@ -359,6 +359,14 @@ end
 vim.keymap.set("i", "<A-b>", move_word(true), { desc = "Move back one word" })
 vim.keymap.set("i", "<A-f>", move_word(), { desc = "Move forward one word" })
 
+-- More emacs mappings:
+vim.keymap.set("i", "<C-d>", "<C-o>x", { desc = "Delete character in front of mark." })
+vim.keymap.set("i", "<M-H>", "<C-o><<", { desc = "Decrease indent." })
+vim.keymap.set("i", "<M-L>", "<C-o>>>", { desc = "Decrease indent." })
+vim.keymap.set("i", "", "<C-o>u", { desc = "Undo." })
+vim.keymap.set("i", "", "<C-o>d0", { desc = "Kill line backwards." })
+vim.keymap.set("i", "<M-BS>", "<C-o>db<C-o>i", { desc = "Kill word backwards." })
+
 -- Clear Currently Highlighted Regexp:
 vim.keymap.set(
 	"n",
