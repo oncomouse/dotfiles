@@ -342,8 +342,11 @@
 
 (define-key global-map (kbd "C-;") 'embark-act)
 
-;; Use which-key for embark suggestions:
 (with-eval-after-load 'embark
+  ;; Use helpful instead of help:
+  (with-eval-after-load 'helpful
+    (define-key embark-symbol-map (kbd "h") 'helpful-symbol))
+  ;; Use which-key for embark suggestions:
   (defun embark-which-key-indicator ()
     "An embark indicator that displays keymaps using which-key.
 The which-key help message will show the type and value of the
