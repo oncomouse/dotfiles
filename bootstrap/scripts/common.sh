@@ -9,18 +9,15 @@ os=$(bash ~/dotfiles/bootstrap/scripts/os.sh)
 # TODO Apparently, we have to use pyenv to install Python things:
 # ~/dotfiles/bootstrap/scripts/python-modules.sh
 ~/dotfiles/bootstrap/scripts/fisher.sh
-# ~/dotfiles/bootstrap/scripts/rustup.sh
 ~/dotfiles/bootstrap/scripts/tmux.sh
 ~/dotfiles/bootstrap/scripts/ruby-gems.sh
 if [ -z "$SERVER" ]; then
 	~/dotfiles/bootstrap/scripts/theme.sh
-	# ~/dotfiles/bootstrap/scripts/firefox.sh
 	if [ "$DOTFILES_TARGET" = "desktop" ]; then
 		~/dotfiles/bootstrap/scripts/luarocks.sh
 		~/dotfiles/bootstrap/scripts/asdf.sh
 		~/dotfiles/bootstrap/scripts/csl.sh
 		~/dotfiles/bootstrap/scripts/tex.sh
-		# ~/dotfiles/bootstrap/scripts/doom.sh
 	fi
 fi
 
