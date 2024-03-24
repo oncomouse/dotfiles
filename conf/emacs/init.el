@@ -244,6 +244,7 @@
   (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
 
   (define-key corfu-map (kbd "C-c") 'corfu-quit)
+  (define-key corfu-map (kbd "C-g") 'corfu-quit)
   (define-key corfu-map (kbd "C-y") 'corfu-insert)
   (define-key global-map (kbd "C-M-i") 'completion-at-point))
 
@@ -548,7 +549,9 @@ If mark is active, merge lines in the current region."
 (add-hook 'org-mode-hook (setq-local sentence-end-double-space nil))
 
 (with-eval-after-load 'org
-  
+
+  (define-key global-map (kbd "C-c a") 'org-agenda)
+  (define-key global-map (kbd "C-c c") 'org-capture)
   (define-key ap/leader-open-map (kbd "a") 'org-agenda)
   (define-key ap/leader-open-map (kbd "c") 'org-capture)
 

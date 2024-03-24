@@ -90,7 +90,7 @@ is selected)."
      #'+format/buffer)))
 
 (when (require-package 'apheleia)
-  (define-key ap/leader-code-map (kbd "f") '+format/region-or-buffer)
+  (define-key global-map (kbd "C-c f") '+format/region-or-buffer)
   (apheleia-global-mode +1))
 
 (provide 'init-format)
