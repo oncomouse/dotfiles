@@ -228,7 +228,7 @@
       user-mail-address "apilsch@tamu.edu")
 
 ;; Set font
-(set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 140)
+(set-face-attribute 'default nil :font "FiraCode Nerd Font" :height (if *is-a-mac* 155 140))
 
 ;; This file bootstraps the configuration, which is divided into
 ;; a number of other files.
