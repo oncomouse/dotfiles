@@ -853,9 +853,12 @@ Pass SOURCES to consult-buffer, if provided."
   (add-hook 'text-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape)))
   (add-hook 'org-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape))))
 
-(when (require-package 'dim)
+(require-package 'dim)
+(with-eval-after-load 'dim
   (dim-minor-names
    '((eldoc-mode "")
+     (paredit-mode "")
+     (aggressive-indent-mode "")
      (elisp-slime-nav-mode "")
      (apheleia-mode ""))))
 
