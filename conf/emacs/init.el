@@ -561,6 +561,13 @@ If mark is active, merge lines in the current region."
           ("n" "note" entry (file "")
            "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
           ))
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "|" "DONE(d!/!)")
+                ))
+        org-todo-repeat-to-state "TODO")
+  (setq org-log-into-drawer nil)
+  ;; Open file links in the same frame:
+  (setf (alist-get 'file org-link-frame-setup) #'find-file)
   (setq
    org-beamer-mode t ;; Export to beamer
    org-complete-tags-always-offer-all-agenda-tags t ;; Always use all tags from Agenda files in capture
