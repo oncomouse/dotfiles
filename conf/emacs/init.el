@@ -815,7 +815,6 @@ If not in a clock, move to next headline."
 (define-key ap/emacs-lisp-map (kbd "g v") #'find-variable)
 (define-key ap/emacs-lisp-map (kbd "g l") #'find-library)
 
-
 (defun ap/project-buffers (&optional sources)
   "Display buffers using consult-buffer, narrowed to only project files.
 
@@ -835,11 +834,11 @@ Pass SOURCES to consult-buffer, if provided."
 ;;                 marginalia-command-categories)))
 
 ;; Configure cape
-(defun ap/writing-cape ()
-  "Custom completion-at-point-function for use in writing environments."
-  (cape-capf-super #'cape-dict #'cape-dabbrev #'cape-keyword))
-
-(when (require-package 'cape)
+(require-package 'cape)
+(with-eval-after-load 'cape
+  (defun ap/writing-cape ()
+    "Custom completion-at-point-function for use in writing environments."
+    (cape-capf-super #'cape-dict #'cape-dabbrev #'cape-keyword))
   (add-hook 'markdown-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape)))
   (add-hook 'text-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape)))
   (add-hook 'org-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape))))
