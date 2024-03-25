@@ -153,7 +153,8 @@
 ;; (maybe-require-package 'just-mode)
 ;; (maybe-require-package 'justl)
 
-(require 'init-paredit)
+;; (require 'init-paredit)
+(setq sanityinc/lispy-modes-hook '(sanityinc/enable-check-parens-on-save))
 (require 'init-lisp)
 ;; (require 'init-sly)
 ;; (require 'init-clojure)
@@ -216,7 +217,7 @@
 
 
 ;; Local
-;;; :
+
 (when *is-a-mac*
   (when (require-package 'ns-auto-titlebar)
     (ns-auto-titlebar-mode)))

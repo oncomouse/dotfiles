@@ -76,30 +76,40 @@ of a line (ie. an org-mode headline)."
     (delete-char 1)
     (right-char 1)))
 
-(with-eval-after-load 'smartparens
+(when (require-package 'smartparens)
+  (add-hook 'text-mode-hook #'smartparens-mode)
+  (add-hook 'prog-mode-hook #'smartparens-mode)
+  (add-hook 'org-mode-hook #'smartparens-mode)
+  (add-hook 'markdown-mode-hook #'smartparens-mode)
+  (require 'smartparens-config)
   (advice-add 'delete-backward-char :after 'dotfiles/delete-org-checkbox)
 
-  (sp-with-modes 'org-mode
-                 (sp-local-pair "-" " "
-                                :when '(sp-point-after-bol-p)
+  (define-key emacs-lisp-mode-map (kbd "C-)") #'sp-forward-slurp-sexp)
+  (define-key emacs-lisp-mode-map (kbd "C-}") #'sp-forward-barf-sexp)
+  (define-key emacs-lisp-mode-map (kbd "C-{") #'sp-backward-barf-sexp)
+  (define-key emacs-lisp-mode-map (kbd "C-(") #'sp-backward-slurp-sexp)
 
-                                :post-handlers '(dotfiles/sp-move-point-right))
-                 (sp-local-pair "+" "+" ;; TODO: don't pair when inside a date
-                                :post-handlers '(dotfiles/sp-handle-bullets))
-                 (sp-local-pair "[" nil
-                                :post-handlers '(dotfiles/sp-handle-checkbox))
-                 (sp-local-pair "*" "*"
-                                :unless '(dotfiles/sp-point-at-headline-p))
-                 (sp-local-pair "~" "~"
-                                :unless '(sp-point-after-word-p))
-                 (sp-local-pair "_" "_"
-                                :unless '(sp-point-after-word-p))
-                 (sp-local-pair "%" " "
-                                :when '(dotfiles/sp-point-in-org-cookie-p)
-                                :post-handlers '(dotfiles/sp-delete dotfiles/sp-move-point-right))
-                 (sp-local-pair "/" "/" ;; TODO: insert one slash and move right when inside a cookie
-                                :post-handlers '(dotfiles/sp-handle-org-fraction-cookie)
-                                :unless '(sp-point-after-word-p)
-                                :actions '(insert autoskip wrap navigate))))
+  (sp-with-modes 'org-mode
+    (sp-local-pair "-" " "
+                   :when '(sp-point-after-bol-p)
+
+                   :post-handlers '(dotfiles/sp-move-point-right))
+    (sp-local-pair "+" "+" ;; TODO: don't pair when inside a date
+                   :post-handlers '(dotfiles/sp-handle-bullets))
+    (sp-local-pair "[" nil
+                   :post-handlers '(dotfiles/sp-handle-checkbox))
+    (sp-local-pair "*" "*"
+                   :unless '(dotfiles/sp-point-at-headline-p))
+    (sp-local-pair "~" "~"
+                   :unless '(sp-point-after-word-p))
+    (sp-local-pair "_" "_"
+                   :unless '(sp-point-after-word-p))
+    (sp-local-pair "%" " "
+                   :when '(dotfiles/sp-point-in-org-cookie-p)
+                   :post-handlers '(dotfiles/sp-delete dotfiles/sp-move-point-right))
+    (sp-local-pair "/" "/" ;; TODO: insert one slash and move right when inside a cookie
+                   :post-handlers '(dotfiles/sp-handle-org-fraction-cookie)
+                   :unless '(sp-point-after-word-p)
+                   :actions '(insert autoskip wrap navigate))))
 
 (provide 'init-electric)
