@@ -568,7 +568,8 @@ If mark is active, merge lines in the current region."
         (quote ((sequence "TODO(t)" "|" "DONE(d!/!)")
                 ))
         org-todo-repeat-to-state "TODO")
-  (setq org-log-into-drawer nil)
+  (setq org-log-into-drawer nil
+        org-agenda-sticky nil)
   ;; Open file links in the same frame:
   (setf (alist-get 'file org-link-frame-setup) #'find-file)
   (setq
