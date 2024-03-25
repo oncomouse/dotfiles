@@ -487,6 +487,9 @@ If mark is active, merge lines in the current region."
   (define-key surround-keymap (kbd "*") (lambda (&rest _) (interactive) (surround-mark "*")))
   (define-key surround-keymap (kbd "/") (lambda (&rest _) (interactive) (surround-mark "/"))))
 
+(when (require-package 'expand-region)
+  (global-set-key (kbd "C-=") 'er/expand-region))
+
 (require 'init-vterm)
 
 ;; Doom's version control menu
