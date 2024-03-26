@@ -263,9 +263,6 @@
 (defvar ap/leader-open-map (make-sparse-keymap))
 (define-key ap/leader-map (kbd "o") ap/leader-open-map)
 
-(define-key global-map (kbd "C-c c") nil)
-(define-key global-map (kbd "C-c a") nil)
-
 (defvar ap/leader-code-map (make-sparse-keymap))
 (define-key ap/leader-map (kbd "c") ap/leader-code-map)
 
@@ -553,7 +550,6 @@ If mark is active, merge lines in the current region."
 (add-hook 'text-mode-hook (lambda (&rest _) (setq-local sentence-end-double-space nil)))
 
 (with-eval-after-load 'org
-
   (define-key global-map (kbd "C-c a") 'org-agenda)
   (define-key global-map (kbd "C-c c") 'org-capture)
   (define-key ap/leader-open-map (kbd "a") 'org-agenda)
@@ -799,7 +795,6 @@ If not in a clock, move to next headline."
     (define-key org-mode-map (kbd "C-c l p d") #'org-priority-down)
     (define-key org-mode-map (kbd "C-c l p p") #'org-priority)
     (define-key org-mode-map (kbd "C-c l p u") #'org-priority-up)))
-
 
 
 (require 'init-undo)
