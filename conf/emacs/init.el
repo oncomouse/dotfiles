@@ -218,6 +218,9 @@
 
 ;; Local
 
+;; Surpress nativecomp warnings:
+(setq native-comp-async-report-warnings-errors nil)
+
 (when *is-a-mac*
   (when (require-package 'ns-auto-titlebar)
     (ns-auto-titlebar-mode)))
