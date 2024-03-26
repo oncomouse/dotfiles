@@ -3,8 +3,10 @@
 ;;; Code:
 (when (require-package 'vterm)
   (add-hook 'vterm-mode-hook (lambda () ""
-                               (define-key vterm-mode-map "M-g" nil)
-                               (define-key vterm-mode-map "C-c C-c" (lambda (_) (interactive "p") (vterm-send "C-c")))))
+                               (define-key vterm-mode-map (kbd "M-v") #'scroll-up-command)
+                               (define-key vterm-mode-map (kbd "C-v") #'scroll-down-command)
+                               (define-key vterm-mode-map (kbd "M-g") nil)
+                               (define-key vterm-mode-map (kbd "C-c C-c") (lambda (_) (interactive "p") (vterm-send "C-c")))))
   (setq vterm-kill-buffer-on-exit t)
 
   ;; 5000 lines of scrollback, instead of 1000
