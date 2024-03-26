@@ -841,23 +841,32 @@ Pass SOURCES to consult-buffer, if provided."
 ;;                 marginalia-command-categories)))
 
 ;; Configure cape
-(require-package 'cape)
-(with-eval-after-load 'cape
-  (defun ap/writing-cape ()
-    "Custom completion-at-point-function for use in writing environments."
-    (cape-capf-super #'cape-dict #'cape-dabbrev #'cape-keyword))
-  (add-hook 'markdown-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape)))
-  (add-hook 'text-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape)))
-  (add-hook 'org-mode-hook (setq-local completion-at-point-functions (list #'ap/writing-cape))))
+(defun ap/writing-cape ()
+  "Custom completion-at-point-function for use in writing environments."
+  (cape-capf-super #'cape-dict #'cape-dabbrev #'cape-keyword))
+(defun ap/--set-cape ()
+  (setq-local completion-at-point-functions (list #'ap/writing-cape)))
+(when (require-package 'cape)
+  (add-hook 'markdown-mode-hook #'ap/--set-cape)
+  (add-hook 'text-mode-hook #'ap/--set-cape)
+  (add-hook 'org-mode-hook #'ap/--set-cape))
 
-(require-package 'dim)
-(with-eval-after-load 'dim
+(when (require-package 'dim)
   (dim-minor-names
    '((eldoc-mode "")
      (paredit-mode "")
      (aggressive-indent-mode "")
      (elisp-slime-nav-mode "")
+     (smartparens-mode "")
      (apheleia-mode ""))))
+
+(when (require-package 'flyspell)
+  (add-hook 'markdown-mode-hook 'flyspell-mode)
+  (add-hook 'org-mode-hook 'flyspell-mode)
+  (add-hook 'text-mode-hook 'flyspell-mode)
+  (with-eval-after-load "flyspell"
+    (define-key flyspell-mode-map (kbd "C-;") nil)
+    (define-key flyspell-mode-map (kbd "C-M-i") nil)))
 
 (provide 'init)
 
