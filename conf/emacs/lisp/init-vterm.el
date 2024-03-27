@@ -34,11 +34,13 @@
                  ;;(dedicated . t) ;dedicated is supported in emacs27
                  (reusable-frames . visible)
                  (window-height . 0.35))))
+
 (defun ap/open-fullscreen-vterm ()
   "Open a vterm in fullscreen mode"
   (interactive)
   (let ((vterm-toggle-fullscreen-p t)
         (display-buffer-alist nil))
     (vterm)))
-(provide init-vterm)
+
+(provide 'init-vterm)
 ;;; init-vterm.el ends here
