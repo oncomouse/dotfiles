@@ -237,21 +237,6 @@
 ;; This file bootstraps the configuration, which is divided into
 ;; a number of other files.
 
-(with-eval-after-load 'corfu
-  (defun corfu-enable-in-minibuffer ()
-    "Enable Corfu in the minibuffer."
-    (when (local-variable-p 'completion-at-point-functions)
-      ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
-      (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
-                  corfu-popupinfo-delay nil)
-      (corfu-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
-
-  (define-key corfu-map (kbd "C-c") 'corfu-quit)
-  (define-key corfu-map (kbd "C-g") 'corfu-quit)
-  (define-key corfu-map (kbd "C-y") 'corfu-insert)
-  (define-key global-map (kbd "C-M-i") 'completion-at-point))
-
 (require-package 'hydra)
 
 (defvar ap/leader-map (make-sparse-keymap))
@@ -286,37 +271,55 @@
   :repeat t
   "s" #'isearch-repeat-forward
   "r" #'isearch-repeat-backward)
-
+
 ;; Resize window using hydras
 (defhydra hydra-window-resizer (:columns 2)
-  "Window Sizing"
+  "Window Sizing."
   ("-" shrink-window-horizontally "horizontal shrink")
   ("=" enlarge-window-horizontally "horizontal enlarge")
   ("_" shrink-window "vertical shrink")
   ("+" enlarge-window "vertical enlarge"))
 
 (defun aw-window-resize (window)
+  "Resize WINDOW using `hydra-window-resizer/body'."
   (aw-switch-to-window window)
   (hydra-window-resizer/body))
 
-(when (require-package 'ace-window)
-  (define-key global-map (kbd "C-x o") 'ace-window)
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
-        aw-dispatch-alist
-        '((?x aw-delete-window "Delete Window")
-          (?m aw-swap-window "Swap Windows")
-          (?M aw-move-window "Move Window")
-          (?c aw-copy-window "Copy Window")
-          (?B aw-switch-buffer-in-window "Select Buffer")
-          (?n aw-flip-window)
-          (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
-          (?c aw-split-window-fair "Split Fair Window")
-          (?v aw-split-window-vert "Split Vert Window")
-          (?b aw-split-window-horz "Split Horz Window")
-          (?o delete-other-windows "Delete Other Windows")
-          (?r aw-window-resize "Resize Window")
-          (?? aw-show-dispatch-help))))
+(use-package ace-window
+  :straight t
+  :bind ("C-x o" . ace-window)
+  :custom
+  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (aw-dispatch-alist
+   '((?x aw-delete-window "Delete Window")
+     (?m aw-swap-window "Swap Windows")
+     (?M aw-move-window "Move Window")
+     (?c aw-copy-window "Copy Window")
+     (?B aw-switch-buffer-in-window "Select Buffer")
+     (?n aw-flip-window)
+     (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
+     (?c aw-split-window-fair "Split Fair Window")
+     (?v aw-split-window-vert "Split Vert Window")
+     (?b aw-split-window-horz "Split Horz Window")
+     (?o delete-other-windows "Delete Other Windows")
+     (?r aw-window-resize "Resize Window")
+     (?? aw-show-dispatch-help))))
 
+
+(with-eval-after-load 'corfu
+  (defun corfu-enable-in-minibuffer ()
+    "Enable Corfu in the minibuffer."
+    (when (local-variable-p 'completion-at-point-functions)
+      ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
+      (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
+                  corfu-popupinfo-delay nil)
+      (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+
+  (define-key corfu-map (kbd "C-c") 'corfu-quit)
+  (define-key corfu-map (kbd "C-g") 'corfu-quit)
+  (define-key corfu-map (kbd "C-y") 'corfu-insert)
+  (define-key global-map (kbd "C-M-i") 'completion-at-point))
 (defun crm-indicator (args)
   (cons (format "[CRM%s] %s"
                 (replace-regexp-in-string
@@ -332,6 +335,7 @@
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 ;; Enable recursive minibuffers
 (setq enable-recursive-minibuffers t)
+
 
 (require 'init-format)
 (require 'init-electric)
@@ -341,7 +345,7 @@
 (global-set-key (kbd "M-<down>") 'move-dup-move-lines-down)
 (global-set-key (kbd "C-M-<up>") 'move-dup-duplicate-up)
 (global-set-key (kbd "C-M-<down>") 'move-dup-duplicate-down)
-
+
 (define-key global-map (kbd "C-;") 'embark-act)
 
 (with-eval-after-load 'embark
@@ -387,17 +391,20 @@ targets."
   (advice-add #'embark-completing-read-prompter
               :around #'embark-hide-which-key-indicator))
 
-(when (require-package 'crux)
-  (define-key global-map (kbd "C-k") 'crux-smart-kill-line)
-  (define-key global-map (kbd "C-o") 'crux-smart-open-line)
-  (define-key global-map (kbd "C-S-o") 'crux-smart-open-line-above)
-  (define-key ap/leader-open-map (kbd "o") 'crux-open-with)
-  (define-key global-map (kbd "C-<backspace>") 'crux-kill-line-backwards)
-  (define-key ctl-x-map (kbd "C-u") 'crux-upcase-region)
-  (define-key ctl-x-map (kbd "C-l") 'crux-downcase-region)
-  (define-key ctl-x-map (kbd "M-c") 'crux-capitalize-region)
-  (keymap-set global-map "<remap> <move-beginning-of-line>" #'crux-move-beginning-of-line)
-  (keymap-set global-map "<remap> <kill-whole-line>" #'crux-kill-whole-line))
+(use-package crux
+  :straight t
+  :bind (("C-k" . crux-smart-kill-line)
+         ("C-o" . crux-smart-open-line)
+         ("C-S-o" . crux-smart-open-line-above)
+         ("C-<backspace>" . crux-kill-line-backwards)
+         ([remap move-beginning-of-line] . crux-move-beginning-of-line)
+         ([remap kill-whole-line] . crux-kill-whole-line)
+         :map ap/leader-open-map
+         ("o" . crux-open-with)
+         :map ctl-x-map
+         ("C-u" . crux-upcase-region)
+         ("C-l" . crux-downcase-region)
+         ("M-c" . crux-capitalize-region)))
 
 ;; Use isearch in other windows
 (defun isearch-forward-other-window (prefix)
