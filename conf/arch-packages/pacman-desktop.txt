@@ -1,4 +1,6 @@
-arc-gtk-theme
+karc-gtk-theme
+aspell
+aspell-en
 diff-so-fancy
 dunst
 feh
