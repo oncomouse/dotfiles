@@ -1,12 +1,14 @@
 ;;; init-undo.el -*- lexical-binding: t; -*-
 
-(when (require-package 'undo-fu)
-  (add-hook 'after-init-hook 'undo-fu-mode)
+(use-package undo-fu
+  :straight t
+  :hook (after-init . undo-fu-mode)
+  :custom
   ;; Increase undo history limits to reduce likelihood of data loss
-  (setq undo-limit 400000           ; 400kb (default is 160kb)
-        undo-strong-limit 3000000   ; 3mb   (default is 240kb)
-        undo-outer-limit 48000000)  ; 48mb  (default is 24mb)
-
+  (undo-limit 400000)           ; 400kb (default is 160kb)
+  (undo-strong-limit 3000000)   ; 3mb   (default is 240kb)
+  (undo-outer-limit 48000000)  ; 48mb  (default is 24mb)
+  :config
   (define-minor-mode undo-fu-mode
     "Enables `undo-fu' for the current session."
     :keymap (let ((map (make-sparse-keymap)))
@@ -21,11 +23,13 @@
     :init-value nil
     :global t))
 
-(when (require-package 'undo-fu-session)
-  (add-hook 'undo-fu-mode-hook 'undo-fu-session-global-mode)
-  (setq undo-fu-session-directory (concat user-emacs-directory "undo-fu-session/"))
-  (setq undo-fu-session-incompatible-files '("\\.gpg$" "/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
-
+(use-package undo-fu-session
+  :straight t
+  :hook (undo-fu-mode  . undo-fu-session-global-mode)
+  :custom
+  (undo-fu-session-directory (concat user-emacs-directory "undo-fu-session/"))
+  (undo-fu-session-incompatible-files '("\\.gpg$" "/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
+  :config
   (when (executable-find "zstd")
     ;; There are other algorithms available, but zstd is the fastest, and speed
     ;; is our priority within Emacs

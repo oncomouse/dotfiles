@@ -5,7 +5,9 @@
 ;; a number of other files.
 
 ;;; Code:
-(when (require-package 'ligature)
+(use-package ligature
+  :straight t
+  :config
   ;; Enable the "www" ligature in every possible major mode
   (ligature-set-ligatures 't '("www"))
   ;; Enable traditional ligature support in eww-mode, if the

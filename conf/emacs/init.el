@@ -70,11 +70,14 @@
 (require 'init-exec-path) ;; Set up $PATH
 
 ;; General performance tuning
-(when (require-package 'gcmh)
-  (setq gcmh-high-cons-threshold (* 128 1024 1024))
-  (add-hook 'after-init-hook (lambda ()
-                               (gcmh-mode)
-                               (diminish 'gcmh-mode))))
+(use-package gcmh
+  :straight t
+  :custom
+  (gcmh-high-cons-threshold (* 128 1024 1024))
+  :hook
+  (after-init . (lambda ()
+                  (gcmh-mode)
+                  (diminish 'gcmh-mode))))
 
 (setq jit-lock-defer-time 0)
 
@@ -82,9 +85,9 @@
 (require 'init-preload-local nil t)
 
 ;; Load configs for specific features and modes
-(require-package 'diminish)
-(maybe-require-package 'scratch)
-(require-package 'command-log-mode)
+(use-package diminish :straight t)
+(use-package scratch :straight t)
+(use-package command-log-mode :straight t)
 
 (require 'init-frame-hooks)
 (require 'init-xterm)
@@ -126,7 +129,7 @@
 ;; (require 'init-erlang)
 (require 'init-javascript)
 ;; (require 'init-php)
-(require-package 'org)
+(use-package org :straight t)
 (require 'init-org)
 ;; (require 'init-nxml)
 (require 'init-html)
@@ -149,10 +152,7 @@
 (require 'init-docker)
 ;; (require 'init-terraform)
 ;; (require 'init-nix)
-(maybe-require-package 'nginx-mode)
-;; (maybe-require-package 'just-mode)
-;; (maybe-require-package 'justl)
-
+(use-package nginx-mode :straight t)
 ;; (require 'init-paredit)
 (setq sanityinc/lispy-modes-hook '(sanityinc/enable-check-parens-on-save))
 (require 'init-lisp)
@@ -175,17 +175,17 @@
 
 ;; Extra packages which don't require any configuration
 
-(require-package 'sudo-edit)
-;; (require-package 'gnuplot)
-(require-package 'htmlize)
+(use-package sudo-edit :straight t)
+(use-package htmlize :straight t)
 (when *is-a-mac*
-  (require-package 'osx-location))
-;; (maybe-require-package 'dotenv-mode)
-;; (maybe-require-package 'shfmt)
+  (use-package osx-location :straight t))
 
-(when (maybe-require-package 'uptimes)
+(use-package uptimes
+  :straight t
+  :init
   (setq-default uptimes-keep-count 200)
-  (add-hook 'after-init-hook (lambda () (require 'uptimes))))
+  :hook
+  (after-init . (lambda () (require 'uptimes))))
 
 (when (fboundp 'global-eldoc-mode)
   (add-hook 'after-init-hook 'global-eldoc-mode))
@@ -222,7 +222,9 @@
 (setq native-comp-async-report-warnings-errors nil)
 
 (when *is-a-mac*
-  (when (require-package 'ns-auto-titlebar)
+  (use-package ns-auto-titlebar
+    :straight t
+    :config
     (ns-auto-titlebar-mode)))
 
 (require 'init-secret)
@@ -237,7 +239,7 @@
 ;; This file bootstraps the configuration, which is divided into
 ;; a number of other files.
 
-(require-package 'hydra)
+(use-package hydra :straight t)
 
 (defvar ap/leader-map (make-sparse-keymap))
 (define-key global-map (kbd "C-c") ap/leader-map)
@@ -682,12 +684,6 @@ If not in a clock, move to next headline."
   (define-key org-mode-map (kbd "M-<down>") (ap/wrap-dotimes 'org-metadown))
   (define-key org-mode-map (kbd "C-z") 'org-cycle-list-bullet)
 
-  (when (require-package 'org-appear)
-    (setq org-appear-trigger 'always)
-    (setq org-appear-autoentities t)
-    (setq org-appear-autolinks t)
-    (setq org-appear-autosubmarkers t)
-    (add-hook 'org-mode-hook 'org-appear-mode))
   ;; Doom local-leader for org-mode
   (with-eval-after-load 'org
     (define-key org-mode-map (kbd "C-c #") #'org-update-statistics-cookies)
@@ -807,6 +803,16 @@ If not in a clock, move to next headline."
     (define-key org-mode-map (kbd "C-c l p d") #'org-priority-down)
     (define-key org-mode-map (kbd "C-c l p p") #'org-priority)
     (define-key org-mode-map (kbd "C-c l p u") #'org-priority-up)))
+
+(use-package org-appear
+  :straight t
+  :custom
+  (org-appear-trigger 'always)
+  (org-appear-autoentities t)
+  (org-appear-autolinks t)
+  (org-appear-autosubmarkers t)
+  :hook
+  (org-mode . org-appear-mode))
 
 ;; Bibliography
 ;; So that RefTeX finds my bibliography

@@ -1,12 +1,13 @@
 ;; init-helpful.el --- Support for helpful
 
-(when (require-package 'helpful)
-  (global-set-key (kbd "C-h f") #'helpful-callable)
-  (global-set-key (kbd "C-h o") #'helpful-symbol)
-  (global-set-key (kbd "C-h v") #'helpful-variable)
-  (global-set-key (kbd "C-h k") #'helpful-key)
-  (global-set-key (kbd "C-h x") #'helpful-command)
-
+(use-package helpful
+  :straight t
+  :bind (("C-h f" . helpful-callable)
+         ("C-h o" . helpful-symbol)
+         ("C-h v" . helpful-variable)
+         ("C-h k" . helpful-key)
+         ("C-h x" . helpful-command))
+  :config
   ;; Source: https://github.com/Wilfred/helpful/issues/250
   (defvar *helpful-buffer-ring-size 5
     "How many buffers are stored for use with `*helpful-next'.")
@@ -63,16 +64,17 @@
       (funcall helpful-switch-buffer-function buf)))
 
   (with-eval-after-load 'helpful (define-key helpful-mode-map (kbd "C-x C-b") '*helpful-previous)
-                        (define-key helpful-mode-map (kbd "C-x C-f") '*helpful-next)))
+                        (define-key helpful-mode-map (kbd "C-x C-f") '*helpful-next))
 
-;; Pop-up support for documentation windows
-(add-to-list 'display-buffer-alist
-             '("^\\*\\([Hh]elp\\|Apropos\\|info\\)" (display-buffer-reuse-window display-buffer-in-side-window)
-               (quit . t)
-               (transient . t)
-               (side . bottom)
-               (slot . 0)
-               (window-height . 0.33)))
+  ;; Pop-up support for documentation windows
+  (add-to-list 'display-buffer-alist
+               '("^\\*\\([Hh]elp\\|Apropos\\|info\\)" (display-buffer-reuse-window display-buffer-in-side-window)
+                 (quit . t)
+                 (transient . t)
+                 (side . bottom)
+                 (slot . 0)
+                 (window-height . 0.33))))
+
 
 (provide 'init-helpful)
 ;;; init-helpful.el ends here
