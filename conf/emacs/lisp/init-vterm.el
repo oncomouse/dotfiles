@@ -14,10 +14,10 @@
 
 (when (require-package 'vterm-toggle)
   (define-key ap/leader-open-map (kbd "t") 'vterm-toggle)
-  (define-key ap/leader-open-map (kbd "T") 'vterm-toggle-cd)
+  (define-key ap/leader-open-map (kbd "T") 'ap/open-fullscreen-vterm)
   (add-hook 'vterm-mode-hook (lambda () ""
-                               (define-key vterm-mode-map (kdb "s-n") 'vterm-toggle-forward)
-                               (define-key vterm-mode-map (kdb "s-p") 'vterm-toggle-backward)))
+                               (define-key vterm-mode-map (kbd "s-n") 'vterm-toggle-forward)
+                               (define-key vterm-mode-map (kbd "s-p") 'vterm-toggle-backward)))
   (setq vterm-toggle-fullscreen-p nil)
 
   ;; Display vterm at the bottom:
@@ -34,5 +34,11 @@
                  ;;(dedicated . t) ;dedicated is supported in emacs27
                  (reusable-frames . visible)
                  (window-height . 0.35))))
-(provide 'init-vterm)
+(defun ap/open-fullscreen-vterm ()
+  "Open a vterm in fullscreen mode"
+  (interactive)
+  (let ((vterm-toggle-fullscreen-p t)
+        (display-buffer-alist nil))
+    (vterm)))
+(provide init-vterm)
 ;;; init-vterm.el ends here
