@@ -854,14 +854,18 @@ Pass SOURCES to consult-buffer, if provided."
   (add-hook 'text-mode-hook #'ap/--set-cape)
   (add-hook 'org-mode-hook #'ap/--set-cape))
 
-(when (require-package 'dim)
-  (dim-minor-names
-   '((eldoc-mode "")
-     (paredit-mode "")
-     (aggressive-indent-mode "")
-     (elisp-slime-nav-mode "")
-     (smartparens-mode "")
-     (apheleia-mode ""))))
+(with-eval-after-load 'eldoc
+  (diminish 'eldoc-mode))
+(with-eval-after-load 'paredit
+  (diminish 'paredit-mode))
+(with-eval-after-load 'aggressive-indent
+  (diminish 'aggressive-indent-mode))
+(with-eval-after-load 'elisp-slime-nav
+  (diminish 'elisp-slime-nav-mode))
+(with-eval-after-load 'smartparens
+  (diminish 'smartparens-mode))
+(with-eval-after-load 'apheleia
+  (diminish 'apheleia-mode))
 
 (when (require-package 'flyspell)
   (add-hook 'markdown-mode-hook 'flyspell-mode)
