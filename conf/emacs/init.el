@@ -798,6 +798,42 @@ If not in a clock, move to next headline."
     (define-key org-mode-map (kbd "C-c l p d") #'org-priority-down)
     (define-key org-mode-map (kbd "C-c l p p") #'org-priority)
     (define-key org-mode-map (kbd "C-c l p u") #'org-priority-up)))
+
+;; Bibliography
+;; So that RefTeX finds my bibliography
+(setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
+(eval-after-load 'reftex-vars
+  '(progn
+     (setq reftex-cite-format '((?\C-m . "[@%l]")))))
+;; Basic markdown citation mapping:
+(add-hook 'markdown-mode-hook
+	  (lambda () (define-key markdown-mode-map (kbd "C-c @")
+				 (lambda ()
+				   (interactive)
+				   (let ((reftex-cite-format "[@%l]"))
+				     (reftex-citation))))))
+
+;; Citar for advanced citation:
+(setq citar-bibliography reftex-default-bibliography)
+(require-package 'citar)
+(with-eval-after-load 'citar
+  (add-hook 'org-mode-hook 'citar-capf-setup)
+  (add-hook 'markdown-mode-hook 'citar-capf-setup)
+  (add-hook 'LaTex-mode-hook 'citar-capf-setup)
+  ;; Run `citar-org-update-pre-suffix' after inserting a citation to immediately
+  ;; set its prefix and suffix
+  (advice-add 'org-cite-insert :after #'(lambda (args)
+                                          (save-excursion
+                                            (left-char) ; First move point inside citation
+                                            (citar-org-update-pre-suffix))))
+  (define-key markdown-mode-map (kbd "C-c @") 'citar-insert-citation)
+  (define-key org-mode-map (kbd "C-c l @") 'citar-insert-citation))
+(require-package 'citar-embark)
+(with-eval-after-load 'citar-embark
+  (citar-embark-mode)
+  (diminish 'citar-embark-mode))
+(with-eval-after-load 'org
+  (setq org-cite-global-bibliography (list reftex-default-bibliography)))
 
 
 (require 'init-undo)
