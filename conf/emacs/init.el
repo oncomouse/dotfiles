@@ -90,7 +90,7 @@
 (use-package command-log-mode :straight t)
 
 (require 'init-frame-hooks)
-(require 'init-xterm)
+;; (require 'init-xterm)
 (require 'init-themes)
 
 ;; (require 'init-osx-keys)
@@ -216,7 +216,11 @@
 (require 'init-locales)
 
 
-;; Local
+(require 'init-secret)
+(require 'init-format)
+(require 'init-electric)
+(require 'init-crux)
+;; Local
 
 ;; Surpress nativecomp warnings:
 (setq native-comp-async-report-warnings-errors nil)
@@ -227,7 +231,6 @@
     :config
     (ns-auto-titlebar-mode)))
 
-(require 'init-secret)
 
 ;; Whoami
 (setq user-full-name "Andrew Pilsch"
@@ -306,41 +309,8 @@
      (?o delete-other-windows "Delete Other Windows")
      (?r aw-window-resize "Resize Window")
      (?? aw-show-dispatch-help))))
-
-
-(with-eval-after-load 'corfu
-  (defun corfu-enable-in-minibuffer ()
-    "Enable Corfu in the minibuffer."
-    (when (local-variable-p 'completion-at-point-functions)
-      ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
-      (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
-                  corfu-popupinfo-delay nil)
-      (corfu-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
-
-  (define-key corfu-map (kbd "C-c") 'corfu-quit)
-  (define-key corfu-map (kbd "C-g") 'corfu-quit)
-  (define-key corfu-map (kbd "C-y") 'corfu-insert)
-  (define-key global-map (kbd "C-M-i") 'completion-at-point))
-(defun crm-indicator (args)
-  (cons (format "[CRM%s] %s"
-                (replace-regexp-in-string
-                 "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                 crm-separator)
-                (car args))
-        (cdr args)))
-(advice-add #'completing-read-multiple :filter-args #'crm-indicator)
-
-;; Do not allow the cursor in the minibuffer prompt
-(setq minibuffer-prompt-properties
-      '(read-only t cursor-intangible t face minibuffer-prompt))
-(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-;; Enable recursive minibuffers
-(setq enable-recursive-minibuffers t)
 
 
-(require 'init-format)
-(require 'init-electric)
 
 ;; Restore default move-dup bindings:
 (global-set-key (kbd "M-<up>") 'move-dup-move-lines-up)
@@ -348,66 +318,6 @@
 (global-set-key (kbd "C-M-<up>") 'move-dup-duplicate-up)
 (global-set-key (kbd "C-M-<down>") 'move-dup-duplicate-down)
 
-(define-key global-map (kbd "C-;") 'embark-act)
-
-(with-eval-after-load 'embark
-  ;; Use helpful instead of help:
-  (with-eval-after-load 'helpful
-    (define-key embark-symbol-map (kbd "h") 'helpful-symbol))
-  ;; Use which-key for embark suggestions:
-  (defun embark-which-key-indicator ()
-    "An embark indicator that displays keymaps using which-key.
-The which-key help message will show the type and value of the
-current target followed by an ellipsis if there are further
-targets."
-    (lambda (&optional keymap targets prefix)
-      (if (null keymap)
-          (which-key--hide-popup-ignore-command)
-        (which-key--show-keymap
-         (if (eq (plist-get (car targets) :type) 'embark-become)
-             "Become"
-           (format "Act on %s '%s'%s"
-                   (plist-get (car targets) :type)
-                   (embark--truncate-target (plist-get (car targets) :target))
-                   (if (cdr targets) "…" "")))
-         (if prefix
-             (pcase (lookup-key keymap prefix 'accept-default)
-               ((and (pred keymapp) km) km)
-               (_ (key-binding prefix 'accept-default)))
-           keymap)
-         nil nil t (lambda (binding)
-                     (not (string-suffix-p "-argument" (cdr binding))))))))
-
-  (setq embark-indicators
-        '(embark-which-key-indicator
-          embark-highlight-indicator
-          embark-isearch-highlight-indicator))
-
-  (defun embark-hide-which-key-indicator (fn &rest args)
-    "Hide the which-key indicator immediately when using the completing-read prompter."
-    (which-key--hide-popup-ignore-command)
-    (let ((embark-indicators
-           (remq #'embark-which-key-indicator embark-indicators)))
-      (apply fn args)))
-
-  (advice-add #'embark-completing-read-prompter
-              :around #'embark-hide-which-key-indicator))
-
-(use-package crux
-  :straight t
-  :bind (("C-k" . crux-smart-kill-line)
-         ("C-o" . crux-smart-open-line)
-         ("C-S-o" . crux-smart-open-line-above)
-         ("C-<backspace>" . crux-kill-line-backwards)
-         ([remap move-beginning-of-line] . crux-move-beginning-of-line)
-         ([remap kill-whole-line] . crux-kill-whole-line)
-         :map ap/leader-open-map
-         ("o" . crux-open-with)
-         :map ctl-x-map
-         ("C-u" . crux-upcase-region)
-         ("C-l" . crux-downcase-region)
-         ("M-c" . crux-capitalize-region)))
-
 ;; Use isearch in other windows
 (defun isearch-forward-other-window (prefix)
   "Function to isearch-forward in other-window."
@@ -431,23 +341,7 @@ targets."
 
 (define-key global-map (kbd "C-M-s") 'isearch-forward-other-window)
 (define-key global-map (kbd "C-M-r") 'isearch-backward-other-window)
-
-(defun ap/join-line (&optional c)
-  "Vim-style join-line, that merges lines to the end of the line at point.
-
-If mark is active, merge lines in the current region."
-  (interactive "p")
-  (if mark-active
-      (let ((beg (region-beginning))
-            (end (copy-marker (region-end))))
-        (goto-char beg)
-        (while (< (point) end)
-          (join-line 1))))
-  (dotimes (_ c)
-    (join-line t)))
-
-(define-key global-map (kbd "C-^") 'ap/join-line)
-
+
 ;; Transient-mark-mode supporting push-mark
 ;; Source: https://www.masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
 (defun push-mark-no-activate ()
@@ -693,10 +587,6 @@ If not in a clock, move to next headline."
     (define-key org-mode-map (kbd "C-c l ,") #'org-switchb)
     (define-key org-mode-map (kbd "C-c l .") #'org-goto)
     (define-key org-mode-map (kbd "C-c l @") #'org-cite-insert)
-    (define-key org-mode-map (kbd "C-c l .") #'counsel-org-goto)
-    (define-key org-mode-map (kbd "C-c l /") #'counsel-org-goto-all)
-    (define-key org-mode-map (kbd "C-c l .") #'consult-org-heading)
-    (define-key org-mode-map (kbd "C-c l /") #'consult-org-agenda)
     (define-key org-mode-map (kbd "C-c l A") #'org-archive-subtree-default)
     (define-key org-mode-map (kbd "C-c l e") #'org-export-dispatch)
     (define-key org-mode-map (kbd "C-c l f") #'org-footnote-action)
@@ -761,8 +651,6 @@ If not in a clock, move to next headline."
     (define-key org-mode-map (kbd "C-c l d s") #'org-schedule)
     (define-key org-mode-map (kbd "C-c l d t") #'org-time-stamp)
     (define-key org-mode-map (kbd "C-c l d T") #'org-time-stamp-inactive)
-    (define-key org-mode-map (kbd "C-c l g g") #'consult-org-heading)
-    (define-key org-mode-map (kbd "C-c l g G") #'consult-org-agenda)
     (define-key org-mode-map (kbd "C-c l g c") #'org-clock-goto)
     (define-key org-mode-map (kbd "C-c l g C") (lambda (&rest _) (interactive) (org-clock-goto 'select)))
     (define-key org-mode-map (kbd "C-c l g i") #'org-id-goto)
@@ -864,14 +752,6 @@ If not in a clock, move to next headline."
 
 (require 'init-undo)
 (require 'init-helpful)
-
-(with-eval-after-load 'consult
-  (setq consult-narrow-key "<")
-  (setq consult-widen-key ">")
-  (define-key global-map (kbd "C-x C-r") 'consult-recent-file))
-
-;; (require 'init-projectile)
-
 (require 'init-workspaces)
 
 ;; emacs-lisp local map:
