@@ -489,13 +489,15 @@ If mark is active, merge lines in the current region."
   "h" 'ap/outline-next-heading
   "H" 'ap/outline-previous-heading)
 
-(when (require-package 'surround)
-  (surround-make-keymap)
-  (define-key global-map (kbd "M-'") surround-keymap)
-  (define-key surround-keymap (kbd "*") (lambda (&rest _) (interactive) (surround-mark "*")))
-  (define-key surround-keymap (kbd "/") (lambda (&rest _) (interactive) (surround-mark "/"))))
+(use-package surround
+  :straight t
+  :bind-keymap ("M-'" . surround-keymap)
+  :bind (:map surround-keymap
+              ("*" . (lambda (&rest _) (interactive) (surround-mark "*")))
+              ("/" . (lambda (&rest _) (interactive) (surround-mark "/")))))
 
 (use-package expand-region
+  :straight t
   :bind (("C-=" . er/expand-region)))
 
 (require 'init-vterm)

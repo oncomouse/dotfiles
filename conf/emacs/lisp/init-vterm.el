@@ -1,25 +1,29 @@
 ;;; init-vterm.el --- Vterm configuration
 ;;; Commentary:
 ;;; Code:
-(when (require-package 'vterm)
-  (add-hook 'vterm-mode-hook (lambda () ""
-                               (define-key vterm-mode-map (kbd "M-v") #'scroll-up-command)
-                               (define-key vterm-mode-map (kbd "C-v") #'scroll-down-command)
-                               (define-key vterm-mode-map (kbd "M-g") nil)
-                               (define-key vterm-mode-map (kbd "C-c C-c") (lambda (_) (interactive "p") (vterm-send "C-c")))))
-  (setq vterm-kill-buffer-on-exit t)
 
-  ;; 5000 lines of scrollback, instead of 1000
-  (setq vterm-max-scrollback 5000))
+(use-package vterm
+  :straight t
+  :custom
+  (vterm-kill-buffer-on-exit t)
+  (vterm-max-scrollback 5000)
+  :bind (:map vterm-mode-map
+              ("M-v" . scroll-up-command)
+              ("C-v" . scroll-down-command)
+              ("M-g" . nil)
+              ("C-c C-c" . (lambda (_) (interactive "p") (vterm-send "C-c")))))
 
-(when (require-package 'vterm-toggle)
-  (define-key ap/leader-open-map (kbd "t") 'vterm-toggle)
-  (define-key ap/leader-open-map (kbd "T") 'ap/open-fullscreen-vterm)
-  (add-hook 'vterm-mode-hook (lambda () ""
-                               (define-key vterm-mode-map (kbd "s-n") 'vterm-toggle-forward)
-                               (define-key vterm-mode-map (kbd "s-p") 'vterm-toggle-backward)))
-  (setq vterm-toggle-fullscreen-p nil)
-
+(use-package vterm-toggle
+  :straight t
+  :custom
+  (vterm-toggle-fullscreen-p nil)
+  :bind (:map ap/leader-open-map
+              ("t" . vterm-toggle)
+              ("T" . ap/open-fullscreen-vterm)
+              :map vterm-mode-map
+              ("s-n" . vterm-toggle-forward)
+              ("s-p" . vterm-toggle-backward))
+  :config
   ;; Display vterm at the bottom:
   (add-to-list 'display-buffer-alist
                '((lambda (buffer-or-name _)
