@@ -89,8 +89,10 @@ is selected)."
        #'+format/region
      #'+format/buffer)))
 
-(when (require-package 'apheleia)
-  (define-key global-map (kbd "C-c f") '+format/region-or-buffer)
+(use-package apheleia
+  :straight t
+  :bind (("C-c f" . +format/region-or-buffer))
+  :config
   (apheleia-global-mode +1))
 
 (provide 'init-format)
