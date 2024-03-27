@@ -488,8 +488,8 @@ If mark is active, merge lines in the current region."
   (define-key surround-keymap (kbd "*") (lambda (&rest _) (interactive) (surround-mark "*")))
   (define-key surround-keymap (kbd "/") (lambda (&rest _) (interactive) (surround-mark "/"))))
 
-(when (require-package 'expand-region)
-  (global-set-key (kbd "C-=") 'er/expand-region))
+(use-package expand-region
+  :bind (("C-=" . er/expand-region)))
 
 (require 'init-vterm)
 
@@ -906,13 +906,12 @@ Pass SOURCES to consult-buffer, if provided."
 (with-eval-after-load 'apheleia
   (diminish 'apheleia-mode))
 
-(when (require-package 'flyspell)
-  (add-hook 'markdown-mode-hook 'flyspell-mode)
-  (add-hook 'org-mode-hook 'flyspell-mode)
-  (add-hook 'text-mode-hook 'flyspell-mode)
-  (with-eval-after-load "flyspell"
-    (define-key flyspell-mode-map (kbd "C-;") nil)
-    (define-key flyspell-mode-map (kbd "C-M-i") nil)))
+(use-package flyspell
+  :straight t
+  :hook ((markdown-mode org-mode text-mode) . flyspell-mode)
+  :bind (:map flyspell-mode-map
+              ("C-;" . nil)
+              ("C-M-i" . nil)))
 
 (provide 'init)
 
