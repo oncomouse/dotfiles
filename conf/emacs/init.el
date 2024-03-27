@@ -802,6 +802,10 @@ If not in a clock, move to next headline."
 ;; Bibliography
 ;; So that RefTeX finds my bibliography
 (setq reftex-default-bibliography (concat dotfiles-seadrive-path "/My Library/Documents/Academic Stuff/library.bib"))
+
+;; Configure org-cite
+(setq org-cite-global-bibliography (list reftex-default-bibliography))
+
 (eval-after-load 'reftex-vars
   '(progn
      (setq reftex-cite-format '((?\C-m . "[@%l]")))))
@@ -814,26 +818,33 @@ If not in a clock, move to next headline."
 				     (reftex-citation))))))
 
 ;; Citar for advanced citation:
-(setq citar-bibliography reftex-default-bibliography)
-(require-package 'citar)
-(with-eval-after-load 'citar
-  (add-hook 'org-mode-hook 'citar-capf-setup)
-  (add-hook 'markdown-mode-hook 'citar-capf-setup)
-  (add-hook 'LaTex-mode-hook 'citar-capf-setup)
+(use-package citar
+  :straight t
+  :hook ((org-mode markdown-mode latex-mode) . citar-capf-setup)
+  :custom
+  (org-cite-insert-processor 'citar)
+  (org-cite-follow-processor 'citar)
+  (org-cite-activate-processor 'citar)
+  (citar-bibliography org-cite-global-bibliography)
+  :config
   ;; Run `citar-org-update-pre-suffix' after inserting a citation to immediately
   ;; set its prefix and suffix
   (advice-add 'org-cite-insert :after #'(lambda (args)
                                           (save-excursion
                                             (left-char) ; First move point inside citation
                                             (citar-org-update-pre-suffix))))
-  (define-key markdown-mode-map (kbd "C-c @") 'citar-insert-citation)
-  (define-key org-mode-map (kbd "C-c l @") 'citar-insert-citation))
-(require-package 'citar-embark)
-(with-eval-after-load 'citar-embark
-  (citar-embark-mode)
-  (diminish 'citar-embark-mode))
-(with-eval-after-load 'org
-  (setq org-cite-global-bibliography (list reftex-default-bibliography)))
+  :bind
+  (:map org-mode-map :package org ("C-c l @" . 'citar-insert-citation)
+        :map markdown-mode-map :package markdown ("C-c @" . 'citar-insert-citation)))
+
+(use-package citar-embark
+  :straight t
+  :after (citar org)
+  :diminish citar-embark-mode
+  :custom
+  (citar-at-point-function 'embark-act)
+  :config
+  (citar-embark-mode))
 
 
 (require 'init-undo)
@@ -872,23 +883,15 @@ Pass SOURCES to consult-buffer, if provided."
 (define-key global-map (kbd "C-x b") 'ap/project-buffers)
 (define-key global-map (kbd "C-x B") 'consult-buffer)
 
-;; Bufler
-;; (when (require-package 'bufler)
-;;   (keymap-set global-map "<remap> <ibuffer>" 'bufler)
-;;   (setq marginalia-command-categories
-;;         (append '((bufler-switch-buffer . buffer))
-;;                 marginalia-command-categories)))
-
 ;; Configure cape
 (defun ap/writing-cape ()
   "Custom completion-at-point-function for use in writing environments."
   (cape-capf-super #'cape-dict #'cape-dabbrev #'cape-keyword))
 (defun ap/--set-cape ()
-  (setq-local completion-at-point-functions (list #'ap/writing-cape)))
-(when (require-package 'cape)
-  (add-hook 'markdown-mode-hook #'ap/--set-cape)
-  (add-hook 'text-mode-hook #'ap/--set-cape)
-  (add-hook 'org-mode-hook #'ap/--set-cape))
+  (add-hook 'completion-at-point-functions #'ap/writing-cape 0 t))
+(use-package cape
+  :straight t
+  :hook ((markdown-mode org-mode text-mode) . ap/--set-cape))
 
 (with-eval-after-load 'eldoc
   (diminish 'eldoc-mode))
