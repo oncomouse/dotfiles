@@ -336,7 +336,7 @@
   "Wrap OLDFUN in a loop and perform it C times.  Supply R if provided."
   (interactive "p")
   (dotimes (_ (or c 1))
-    (funcall oldfun)))
+    (apply oldfun (unless (eq 0 (car (func-arity oldfun))) r))))
 
 (advice-add 'outline-previous-heading :around 'ap/countable-wrapper)
 (advice-add 'outline-next-heading :around 'ap/countable-wrapper)
