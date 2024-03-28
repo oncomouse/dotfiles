@@ -702,6 +702,7 @@ If not in a clock, move to next headline."
 ;; Citar for advanced citation:
 (use-package citar
   :straight t
+  :after org
   :hook ((org-mode markdown-mode latex-mode) . citar-capf-setup)
   :custom
   (org-cite-insert-processor 'citar)
