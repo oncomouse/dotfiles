@@ -238,7 +238,6 @@
     :config
     (ns-auto-titlebar-mode)))
 
-
 ;; Whoami
 (setq user-full-name "Andrew Pilsch"
       user-mail-address "apilsch@tamu.edu")
@@ -333,27 +332,21 @@
 (global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
 (global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
 
-(require 'init-avy)
-
-;; Navigate headings in the outline with universal arguments
-(defun ap/outline-next-heading (&optional c)
-  "Interactive, count-able heading motion"
+(defun ap/countable-wrapper (oldfun &optional c &rest r)
+  "Wrap OLDFUN in a loop and perform it C times.  Supply R if provided."
   (interactive "p")
-  (dotimes (_ c)
-    (outline-next-heading)))
+  (dotimes (_ (or c 1))
+    (funcall oldfun)))
 
-(defun ap/outline-previous-heading (&optional c)
-  "Interactive, count-able heading motion"
-  (interactive "p")
-  (dotimes (_ c)
-    (outline-previous-heading)))
+(advice-add 'outline-previous-heading :around 'ap/countable-wrapper)
+(advice-add 'outline-next-heading :around 'ap/countable-wrapper)
 
-(define-key ap/move-map (kbd "h") 'ap/outline-next-heading)
-(define-key ap/move-map (kbd "H") 'ap/outline-previous-heading)
+(define-key ap/move-map (kbd "h") 'outline-next-heading)
+(define-key ap/move-map (kbd "H") 'outline-previous-heading)
 (defvar-keymap outline-heading-repeat-map
   :repeat t
-  "h" 'ap/outline-next-heading
-  "H" 'ap/outline-previous-heading)
+  "h" 'outline-next-heading
+  "H" 'outline-previous-heading)
 
 (use-package surround
   :straight t
@@ -365,8 +358,6 @@
 (use-package expand-region
   :straight t
   :bind (("C-=" . er/expand-region)))
-
-(require 'init-vterm)
 
 ;; Doom's version control menu
 (defvar ap/vc-map (make-sparse-keymap))
