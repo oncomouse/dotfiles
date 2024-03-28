@@ -88,6 +88,7 @@
 (use-package diminish :straight t)
 (use-package scratch :straight t)
 (use-package command-log-mode :straight t)
+(use-package hydra :straight t)
 
 (require 'init-frame-hooks)
 ;; (require 'init-xterm)
@@ -197,7 +198,6 @@
            (treesit-available-p))
   (require 'init-treesitter))
 
-(require 'init-ligature)
 
 
 
@@ -224,6 +224,9 @@
 (require 'init-undo)
 (require 'init-helpful)
 (require 'init-workspaces)
+(require 'init-vterm)
+(require 'init-avy)
+(require 'init-ligature)
 ;; Local
 
 ;; Surpress nativecomp warnings:
@@ -245,8 +248,6 @@
 
 ;; This file bootstraps the configuration, which is divided into
 ;; a number of other files.
-
-(use-package hydra :straight t)
 
 (defvar ap/leader-map (make-sparse-keymap))
 (define-key global-map (kbd "C-c") ap/leader-map)
