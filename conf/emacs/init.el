@@ -670,6 +670,16 @@ If not in a clock, move to next headline."
   (org-appear-autosubmarkers t)
   :hook
   (org-mode . org-appear-mode))
+
+(use-package ox-pandoc
+  :straight t
+  :after ox
+  :init
+  (add-to-list 'org-export-backends 'pandoc)
+  (setq org-pandoc-options
+        '((standalone . t)
+          (mathjax . t)
+          (variable . "revealjs-url=https://revealjs.com"))))
 
 ;; Bibliography
 ;; So that RefTeX finds my bibliography
