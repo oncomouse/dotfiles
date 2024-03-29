@@ -510,24 +510,24 @@ Switch to TODO otherwise"
   (advice-add 'org-agenda-switch-to :before 'ap/jump-to-admin-workspace)
 
   ;; Use C-S-Up/Down to navigate headlines when not using to change clocks
-  (defun ap/shiftcontroldown (&optional n)
+  (defun ap/shiftcontroldown (oldfunc &optional n)
     "Re-implement 'org-shiftcontroldown' and pass N to it.
 If not in a clock, move to next headline."
     (interactive "p")
     (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
-        (org-shiftcontroldown n)
+        (oldfunc n)
       (dotimes (_ n) (outline-next-heading))))
 
-  (defun ap/shiftcontrolup (&optional n)
+  (defun ap/shiftcontrolup (oldfunc &optional n)
     "Re-implement 'org-shiftcontrolup' and pass N to it.
-If not in a clock, move to next headline."
+If not in a clock, move to previous headline."
     (interactive "p")
     (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
-        (org-shiftcontrolup n)
+        (oldfunc n)
       (dotimes (_ n) (outline-previous-heading))))
 
-  (define-key org-mode-map (kbd "C-S-<down>") 'ap/shiftcontroldown)
-  (define-key org-mode-map (kbd "C-S-<up>") 'ap/shiftcontrolup)
+  (advice-add 'org-shiftcontrolup :around 'ap/shiftcontrolup)
+  (advice-add 'org-shiftcontroldown :around 'ap/shiftcontroldown)
 
   (defun ap/wrap-dotimes (fn)
     "Wrap FN in a dotimes loop to make it repeatable with universal arguments."
