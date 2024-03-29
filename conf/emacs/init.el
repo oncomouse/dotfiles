@@ -516,7 +516,7 @@ If not in a clock, move to next headline."
     (interactive "p")
     (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
         (oldfunc n)
-      (dotimes (_ n) (outline-next-heading))))
+      (dotimes (_ n) (outline-forward-same-level))))
 
   (defun ap/shiftcontrolup (oldfunc &optional n)
     "Re-implement 'org-shiftcontrolup' and pass N to it.
@@ -524,7 +524,7 @@ If not in a clock, move to previous headline."
     (interactive "p")
     (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
         (oldfunc n)
-      (dotimes (_ n) (outline-previous-heading))))
+      (dotimes (_ n) (outline-backward-same-level))))
 
   (advice-add 'org-shiftcontrolup :around 'ap/shiftcontrolup)
   (advice-add 'org-shiftcontroldown :around 'ap/shiftcontroldown)
