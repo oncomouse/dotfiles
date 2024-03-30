@@ -1,6 +1,7 @@
 *.zwc
 **/*.swp
 *.pyo
+*.elc
 .config/fish/conf.d/
 .config/fish/fish_variables
 .config/fish/functions/*.copy
