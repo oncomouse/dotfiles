@@ -215,8 +215,7 @@
 ;; Locales (setting them earlier in this file doesn't work in X)
 (require 'init-locales)
 
-
-(require 'init-secret)
+;; Local Packages
 (require 'init-format)
 (require 'init-electric)
 (require 'init-crux)
@@ -227,54 +226,7 @@
 (require 'init-vterm)
 (require 'init-avy)
 (require 'init-ligature)
-;; Local
-
-;; Surpress nativecomp warnings:
-(setq native-comp-async-report-warnings-errors nil)
-
-(when *is-a-mac*
-  (use-package ns-auto-titlebar
-    :straight t
-    :config
-    (ns-auto-titlebar-mode)))
-
-;; Whoami
-(setq user-full-name "Andrew Pilsch"
-      user-mail-address "apilsch@tamu.edu")
-
-;; Set font
-(set-face-attribute 'default nil :font "FiraCode Nerd Font" :height (if *is-a-mac* 155 140))
-
-;; This file bootstraps the configuration, which is divided into
-;; a number of other files.
-
-(defvar ap/leader-map (make-sparse-keymap))
-(define-key global-map (kbd "C-c") ap/leader-map)
-
-(defvar ap/localleader-map (make-sparse-keymap))
-(define-key global-map (kbd "C-c l") ap/localleader-map)
-
-(defvar ap/move-map (make-sparse-keymap))
-(define-key global-map (kbd "M-g") ap/move-map)
-
-(defvar ap/leader-open-map (make-sparse-keymap))
-(define-key ap/leader-map (kbd "o") ap/leader-open-map)
-
-(defvar ap/leader-code-map (make-sparse-keymap))
-(define-key ap/leader-map (kbd "c") ap/leader-code-map)
-
-;; Whoami
-(setq user-full-name "Andrew Pilsch"
-      user-mail-address "apilsch@tamu.edu")
-
-;; Reload files when the change on disk
-(global-auto-revert-mode t)
-
-;; Enable repeat-mode
-(repeat-mode)
-;; Enable repeat for the mark-ring
-(setq set-mark-command-repeat-pop t)
-
+
 ;; Repeat isearch with s/r
 (defvar-keymap isearch-repeat-map
   :repeat t
@@ -340,7 +292,6 @@
 
 (advice-add 'outline-previous-heading :around 'ap/countable-wrapper)
 (advice-add 'outline-next-heading :around 'ap/countable-wrapper)
-
 (define-key ap/move-map (kbd "h") 'outline-next-heading)
 (define-key ap/move-map (kbd "H") 'outline-previous-heading)
 (defvar-keymap outline-heading-repeat-map
@@ -363,13 +314,11 @@
 (defvar ap/vc-map (make-sparse-keymap))
 (define-key ap/leader-map (kbd "v") ap/vc-map)
 (define-key ap/vc-map (kbd "R") #'vc-revert)
-
 (define-key ap/vc-map (kbd "r") #'diff-hl-revert-hunk)
 (define-key ap/vc-map (kbd "s") #'diff-hl-stage-current-hunk)
 (define-key ap/vc-map (kbd "t") #'git-timemachine-toggle)
 (define-key ap/vc-map (kbd "n") #'diff-hunk-next)
 (define-key ap/vc-map (kbd "p") #'diff-hunk-prev)
-
 (define-key ap/vc-map (kbd "/") #'magit-dispatch)
 (define-key ap/vc-map (kbd ".") #'magit-file-dispatch)
 (define-key ap/vc-map (kbd "'") #'forge-dispatch)
@@ -387,7 +336,6 @@
 (define-key ap/vc-map (kbd "f c") #'magit-show-commit)
 (define-key ap/vc-map (kbd "f i") #'forge-visit-issue)
 (define-key ap/vc-map (kbd "f p") #'forge-visit-pullreq)
-
 (define-key ap/vc-map (kbd "o .") #'+vc/browse-at-remote)
 (define-key ap/vc-map (kbd "o h") #'+vc/browse-at-remote-homepage)
 (define-key ap/vc-map (kbd "o r") #'forge-browse-remote)
@@ -396,7 +344,6 @@
 (define-key ap/vc-map (kbd "o p") #'forge-browse-pullreq)
 (define-key ap/vc-map (kbd "o I") #'forge-browse-issues)
 (define-key ap/vc-map (kbd "o P") #'forge-browse-pullreqs)
-
 (define-key ap/vc-map (kbd "l r") #'magit-list-repositories)
 (define-key ap/vc-map (kbd "l s") #'magit-list-submodules)
 (define-key ap/vc-map (kbd "l i") #'forge-list-issues)
@@ -413,14 +360,14 @@
 (with-eval-after-load 'markdown-mode
   (add-hook 'markdown-mode-hook 'visual-line-mode))
 
-;; Sentences only need one space, Emacs. C'mon
-(add-hook 'org-mode-hook (lambda (&rest _) (setq-local sentence-end-double-space nil)))
-(add-hook 'markdown-mode-hook (lambda (&rest _) (setq-local sentence-end-double-space nil)))
-(add-hook 'text-mode-hook (lambda (&rest _) (setq-local sentence-end-double-space nil)))
+;; It's not the 80s, emacs.
+(setq sentence-end-double-space nil)
 
 (with-eval-after-load 'org
-  (define-key global-map (kbd "C-c a") 'org-agenda)
-  (define-key global-map (kbd "C-c c") 'org-capture)
+  (define-key ap/leader-open-map (kbd "j") 'org-clock-goto)
+  (define-key ap/leader-open-map (kbd "l") 'org-clock-in-last)
+  (define-key ap/leader-open-map (kbd "i") 'org-clock-in)
+  (define-key ap/leader-open-map (kbd "o") 'org-clock-out)
   (define-key ap/leader-open-map (kbd "a") 'org-agenda)
   (define-key ap/leader-open-map (kbd "c") 'org-capture)
 
@@ -540,118 +487,117 @@ If not in a clock, move to previous headline."
   (define-key org-mode-map (kbd "C-z") 'org-cycle-list-bullet)
 
   ;; Doom local-leader for org-mode
-  (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-c #") #'org-update-statistics-cookies)
-    (define-key org-mode-map (kbd "C-c l '") #'org-edit-special)
-    (define-key org-mode-map (kbd "C-c l *") #'org-ctrl-c-star)
-    (define-key org-mode-map (kbd "C-c l +") #'org-ctrl-c-minus)
-    (define-key org-mode-map (kbd "C-c l ,") #'org-switchb)
-    (define-key org-mode-map (kbd "C-c l .") #'org-goto)
-    (define-key org-mode-map (kbd "C-c l @") #'org-cite-insert)
-    (define-key org-mode-map (kbd "C-c l A") #'org-archive-subtree-default)
-    (define-key org-mode-map (kbd "C-c l e") #'org-export-dispatch)
-    (define-key org-mode-map (kbd "C-c l f") #'org-footnote-action)
-    (define-key org-mode-map (kbd "C-c l h") #'org-toggle-heading)
-    (define-key org-mode-map (kbd "C-c l i") #'org-toggle-item)
-    (define-key org-mode-map (kbd "C-c l I") #'org-id-get-create)
-    (define-key org-mode-map (kbd "C-c l k") #'org-babel-remove-result)
-    ;; (define-key org-mode-map (kbd "C-c l K") #'+org/remove-result-blocks)
-    (define-key org-mode-map (kbd "C-c l n") #'org-store-link)
-    (define-key org-mode-map (kbd "C-c l o") #'org-set-property)
-    (define-key org-mode-map (kbd "C-c l q") #'org-set-tags-command)
-    (define-key org-mode-map (kbd "C-c l t") #'org-todo)
-    (define-key org-mode-map (kbd "C-c l T") #'org-todo-list)
-    (define-key org-mode-map (kbd "C-c l x") #'org-toggle-checkbox)
-    (define-key org-mode-map (kbd "C-c l a a") #'org-attach)
-    (define-key org-mode-map (kbd "C-c l a d") #'org-attach-delete-one)
-    (define-key org-mode-map (kbd "C-c l a D") #'org-attach-delete-all)
-    (define-key org-mode-map (kbd "C-c l a f") #'+org/find-file-in-attachments)
-    (define-key org-mode-map (kbd "C-c l a l") #'+org/attach-file-and-insert-link)
-    (define-key org-mode-map (kbd "C-c l a n") #'org-attach-new)
-    (define-key org-mode-map (kbd "C-c l a o") #'org-attach-open)
-    (define-key org-mode-map (kbd "C-c l a O") #'org-attach-open-in-emacs)
-    (define-key org-mode-map (kbd "C-c l a r") #'org-attach-reveal)
-    (define-key org-mode-map (kbd "C-c l a R") #'org-attach-reveal-in-emacs)
-    (define-key org-mode-map (kbd "C-c l a u") #'org-attach-url)
-    (define-key org-mode-map (kbd "C-c l a s") #'org-attach-set-directory)
-    (define-key org-mode-map (kbd "C-c l a S") #'org-attach-sync)
-    (define-key org-mode-map (kbd "C-c l b -") #'org-table-insert-hline)
-    (define-key org-mode-map (kbd "C-c l b a") #'org-table-align)
-    (define-key org-mode-map (kbd "C-c l b b") #'org-table-blank-field)
-    (define-key org-mode-map (kbd "C-c l b c") #'org-table-create-or-convert-from-region)
-    (define-key org-mode-map (kbd "C-c l b e") #'org-table-edit-field)
-    (define-key org-mode-map (kbd "C-c l b f") #'org-table-edit-formulas)
-    (define-key org-mode-map (kbd "C-c l b h") #'org-table-field-info)
-    (define-key org-mode-map (kbd "C-c l b s") #'org-table-sort-lines)
-    (define-key org-mode-map (kbd "C-c l b r") #'org-table-recalculate)
-    (define-key org-mode-map (kbd "C-c l b R") #'org-table-recalculate-buffer-tables)
-    (define-key org-mode-map (kbd "C-c l b d c") #'org-table-delete-column)
-    (define-key org-mode-map (kbd "C-c l b d r") #'org-table-kill-row)
-    (define-key org-mode-map (kbd "C-c l b i c") #'org-table-insert-column)
-    (define-key org-mode-map (kbd "C-c l b i h") #'org-table-insert-hline)
-    (define-key org-mode-map (kbd "C-c l b i r") #'org-table-insert-row)
-    (define-key org-mode-map (kbd "C-c l b i H") #'org-table-hline-and-move)
-    (define-key org-mode-map (kbd "C-c l b t f") #'org-table-toggle-formula-debugger)
-    (define-key org-mode-map (kbd "C-c l b t o") #'org-table-toggle-coordinate-overlays)
-    (define-key org-mode-map (kbd "C-c l c c") #'org-clock-cancel)
-    (define-key org-mode-map (kbd "C-c l c d") #'org-clock-mark-default-task)
-    (define-key org-mode-map (kbd "C-c l c e") #'org-clock-modify-effort-estimate)
-    (define-key org-mode-map (kbd "C-c l c E") #'org-set-effort)
-    (define-key org-mode-map (kbd "C-c l c g") #'org-clock-goto)
-    (define-key org-mode-map (kbd "C-c l c G") (lambda (&rest _) (interactive) (org-clock-goto 'select)))
-    ;; (define-key org-mode-map (kbd "C-c l c l") #'+org/toggle-last-clock)
-    (define-key org-mode-map (kbd "C-c l c i") #'org-clock-in)
-    (define-key org-mode-map (kbd "C-c l c I") #'org-clock-in-last)
-    (define-key org-mode-map (kbd "C-c l c o") #'org-clock-out)
-    (define-key org-mode-map (kbd "C-c l c r") #'org-resolve-clocks)
-    (define-key org-mode-map (kbd "C-c l c R") #'org-clock-report)
-    (define-key org-mode-map (kbd "C-c l c t") #'org-evaluate-time-range)
-    (define-key org-mode-map (kbd "C-c l c =") #'org-clock-timestamps-up)
-    (define-key org-mode-map (kbd "C-c l c -") #'org-clock-timestamps-down)
-    (define-key org-mode-map (kbd "C-c l d d") #'org-deadline)
-    (define-key org-mode-map (kbd "C-c l d s") #'org-schedule)
-    (define-key org-mode-map (kbd "C-c l d t") #'org-time-stamp)
-    (define-key org-mode-map (kbd "C-c l d T") #'org-time-stamp-inactive)
-    (define-key org-mode-map (kbd "C-c l g c") #'org-clock-goto)
-    (define-key org-mode-map (kbd "C-c l g C") (lambda (&rest _) (interactive) (org-clock-goto 'select)))
-    (define-key org-mode-map (kbd "C-c l g i") #'org-id-goto)
-    (define-key org-mode-map (kbd "C-c l g r") #'org-refile-goto-last-stored)
-    ;; (define-key org-mode-map (kbd "C-c l g v") #'+org/goto-visible)
-    (define-key org-mode-map (kbd "C-c l g x") #'org-capture-goto-last-stored)
-    (define-key org-mode-map (kbd "C-c l l c") #'org-cliplink)
-    ;; (define-key org-mode-map (kbd "C-c l l d") #'+org/remove-link)
-    (define-key org-mode-map (kbd "C-c l l i") #'org-id-store-link)
-    (define-key org-mode-map (kbd "C-c l l l") #'org-insert-link)
-    (define-key org-mode-map (kbd "C-c l l L") #'org-insert-all-links)
-    (define-key org-mode-map (kbd "C-c l l s") #'org-store-link)
-    (define-key org-mode-map (kbd "C-c l l S") #'org-insert-last-stored-link)
-    (define-key org-mode-map (kbd "C-c l l t") #'org-toggle-link-display)
-    (when *is-a-mac*
-      (define-key org-mode-map (kbd "C-c l l g") #'org-mac-link-get-link))
-    (define-key org-mode-map (kbd "C-c l P a") #'org-publish-all)
-    (define-key org-mode-map (kbd "C-c l P f") #'org-publish-current-file)
-    (define-key org-mode-map (kbd "C-c l P p") #'org-publish)
-    (define-key org-mode-map (kbd "C-c l P P") #'org-publish-current-project)
-    (define-key org-mode-map (kbd "C-c l P s") #'org-publish-sitemap)
-    (define-key org-mode-map (kbd "C-c l r") #'org-refile)
-    (define-key org-mode-map (kbd "C-c l R") #'org-refile-reverse)
-    (define-key org-mode-map (kbd "C-c l s a") #'org-toggle-archive-tag)
-    (define-key org-mode-map (kbd "C-c l s b") #'org-tree-to-indirect-buffer)
-    (define-key org-mode-map (kbd "C-c l s c") #'org-clone-subtree-with-time-shift)
-    (define-key org-mode-map (kbd "C-c l s d") #'org-cut-subtree)
-    (define-key org-mode-map (kbd "C-c l s h") #'org-promote-subtree)
-    (define-key org-mode-map (kbd "C-c l s j") #'org-move-subtree-down)
-    (define-key org-mode-map (kbd "C-c l s k") #'org-move-subtree-up)
-    (define-key org-mode-map (kbd "C-c l s l") #'org-demote-subtree)
-    (define-key org-mode-map (kbd "C-c l s n") #'org-narrow-to-subtree)
-    (define-key org-mode-map (kbd "C-c l s r") #'org-refile)
-    (define-key org-mode-map (kbd "C-c l s s") #'org-sparse-tree)
-    (define-key org-mode-map (kbd "C-c l s A") #'org-archive-subtree-default)
-    (define-key org-mode-map (kbd "C-c l s N") #'widen)
-    (define-key org-mode-map (kbd "C-c l s S") #'org-sort)
-    (define-key org-mode-map (kbd "C-c l p d") #'org-priority-down)
-    (define-key org-mode-map (kbd "C-c l p p") #'org-priority)
-    (define-key org-mode-map (kbd "C-c l p u") #'org-priority-up)))
+  (define-key org-mode-map (kbd "C-c #") #'org-update-statistics-cookies)
+  (define-key org-mode-map (kbd "C-c l '") #'org-edit-special)
+  (define-key org-mode-map (kbd "C-c l *") #'org-ctrl-c-star)
+  (define-key org-mode-map (kbd "C-c l +") #'org-ctrl-c-minus)
+  (define-key org-mode-map (kbd "C-c l ,") #'org-switchb)
+  (define-key org-mode-map (kbd "C-c l .") #'org-goto)
+  (define-key org-mode-map (kbd "C-c l @") #'org-cite-insert)
+  (define-key org-mode-map (kbd "C-c l A") #'org-archive-subtree-default)
+  (define-key org-mode-map (kbd "C-c l e") #'org-export-dispatch)
+  (define-key org-mode-map (kbd "C-c l f") #'org-footnote-action)
+  (define-key org-mode-map (kbd "C-c l h") #'org-toggle-heading)
+  (define-key org-mode-map (kbd "C-c l i") #'org-toggle-item)
+  (define-key org-mode-map (kbd "C-c l I") #'org-id-get-create)
+  (define-key org-mode-map (kbd "C-c l k") #'org-babel-remove-result)
+  ;; (define-key org-mode-map (kbd "C-c l K") #'+org/remove-result-blocks)
+  (define-key org-mode-map (kbd "C-c l n") #'org-store-link)
+  (define-key org-mode-map (kbd "C-c l o") #'org-set-property)
+  (define-key org-mode-map (kbd "C-c l q") #'org-set-tags-command)
+  (define-key org-mode-map (kbd "C-c l t") #'org-todo)
+  (define-key org-mode-map (kbd "C-c l T") #'org-todo-list)
+  (define-key org-mode-map (kbd "C-c l x") #'org-toggle-checkbox)
+  (define-key org-mode-map (kbd "C-c l a a") #'org-attach)
+  (define-key org-mode-map (kbd "C-c l a d") #'org-attach-delete-one)
+  (define-key org-mode-map (kbd "C-c l a D") #'org-attach-delete-all)
+  (define-key org-mode-map (kbd "C-c l a f") #'+org/find-file-in-attachments)
+  (define-key org-mode-map (kbd "C-c l a l") #'+org/attach-file-and-insert-link)
+  (define-key org-mode-map (kbd "C-c l a n") #'org-attach-new)
+  (define-key org-mode-map (kbd "C-c l a o") #'org-attach-open)
+  (define-key org-mode-map (kbd "C-c l a O") #'org-attach-open-in-emacs)
+  (define-key org-mode-map (kbd "C-c l a r") #'org-attach-reveal)
+  (define-key org-mode-map (kbd "C-c l a R") #'org-attach-reveal-in-emacs)
+  (define-key org-mode-map (kbd "C-c l a u") #'org-attach-url)
+  (define-key org-mode-map (kbd "C-c l a s") #'org-attach-set-directory)
+  (define-key org-mode-map (kbd "C-c l a S") #'org-attach-sync)
+  (define-key org-mode-map (kbd "C-c l b -") #'org-table-insert-hline)
+  (define-key org-mode-map (kbd "C-c l b a") #'org-table-align)
+  (define-key org-mode-map (kbd "C-c l b b") #'org-table-blank-field)
+  (define-key org-mode-map (kbd "C-c l b c") #'org-table-create-or-convert-from-region)
+  (define-key org-mode-map (kbd "C-c l b e") #'org-table-edit-field)
+  (define-key org-mode-map (kbd "C-c l b f") #'org-table-edit-formulas)
+  (define-key org-mode-map (kbd "C-c l b h") #'org-table-field-info)
+  (define-key org-mode-map (kbd "C-c l b s") #'org-table-sort-lines)
+  (define-key org-mode-map (kbd "C-c l b r") #'org-table-recalculate)
+  (define-key org-mode-map (kbd "C-c l b R") #'org-table-recalculate-buffer-tables)
+  (define-key org-mode-map (kbd "C-c l b d c") #'org-table-delete-column)
+  (define-key org-mode-map (kbd "C-c l b d r") #'org-table-kill-row)
+  (define-key org-mode-map (kbd "C-c l b i c") #'org-table-insert-column)
+  (define-key org-mode-map (kbd "C-c l b i h") #'org-table-insert-hline)
+  (define-key org-mode-map (kbd "C-c l b i r") #'org-table-insert-row)
+  (define-key org-mode-map (kbd "C-c l b i H") #'org-table-hline-and-move)
+  (define-key org-mode-map (kbd "C-c l b t f") #'org-table-toggle-formula-debugger)
+  (define-key org-mode-map (kbd "C-c l b t o") #'org-table-toggle-coordinate-overlays)
+  (define-key org-mode-map (kbd "C-c l c c") #'org-clock-cancel)
+  (define-key org-mode-map (kbd "C-c l c d") #'org-clock-mark-default-task)
+  (define-key org-mode-map (kbd "C-c l c e") #'org-clock-modify-effort-estimate)
+  (define-key org-mode-map (kbd "C-c l c E") #'org-set-effort)
+  (define-key org-mode-map (kbd "C-c l c g") #'org-clock-goto)
+  (define-key org-mode-map (kbd "C-c l c G") (lambda (&rest _) (interactive) (org-clock-goto 'select)))
+  ;; (define-key org-mode-map (kbd "C-c l c l") #'+org/toggle-last-clock)
+  (define-key org-mode-map (kbd "C-c l c i") #'org-clock-in)
+  (define-key org-mode-map (kbd "C-c l c I") #'org-clock-in-last)
+  (define-key org-mode-map (kbd "C-c l c o") #'org-clock-out)
+  (define-key org-mode-map (kbd "C-c l c r") #'org-resolve-clocks)
+  (define-key org-mode-map (kbd "C-c l c R") #'org-clock-report)
+  (define-key org-mode-map (kbd "C-c l c t") #'org-evaluate-time-range)
+  (define-key org-mode-map (kbd "C-c l c =") #'org-clock-timestamps-up)
+  (define-key org-mode-map (kbd "C-c l c -") #'org-clock-timestamps-down)
+  (define-key org-mode-map (kbd "C-c l d d") #'org-deadline)
+  (define-key org-mode-map (kbd "C-c l d s") #'org-schedule)
+  (define-key org-mode-map (kbd "C-c l d t") #'org-time-stamp)
+  (define-key org-mode-map (kbd "C-c l d T") #'org-time-stamp-inactive)
+  (define-key org-mode-map (kbd "C-c l g c") #'org-clock-goto)
+  (define-key org-mode-map (kbd "C-c l g C") (lambda (&rest _) (interactive) (org-clock-goto 'select)))
+  (define-key org-mode-map (kbd "C-c l g i") #'org-id-goto)
+  (define-key org-mode-map (kbd "C-c l g r") #'org-refile-goto-last-stored)
+  ;; (define-key org-mode-map (kbd "C-c l g v") #'+org/goto-visible)
+  (define-key org-mode-map (kbd "C-c l g x") #'org-capture-goto-last-stored)
+  (define-key org-mode-map (kbd "C-c l l c") #'org-cliplink)
+  ;; (define-key org-mode-map (kbd "C-c l l d") #'+org/remove-link)
+  (define-key org-mode-map (kbd "C-c l l i") #'org-id-store-link)
+  (define-key org-mode-map (kbd "C-c l l l") #'org-insert-link)
+  (define-key org-mode-map (kbd "C-c l l L") #'org-insert-all-links)
+  (define-key org-mode-map (kbd "C-c l l s") #'org-store-link)
+  (define-key org-mode-map (kbd "C-c l l S") #'org-insert-last-stored-link)
+  (define-key org-mode-map (kbd "C-c l l t") #'org-toggle-link-display)
+  (when *is-a-mac*
+    (define-key org-mode-map (kbd "C-c l l g") #'org-mac-link-get-link))
+  (define-key org-mode-map (kbd "C-c l P a") #'org-publish-all)
+  (define-key org-mode-map (kbd "C-c l P f") #'org-publish-current-file)
+  (define-key org-mode-map (kbd "C-c l P p") #'org-publish)
+  (define-key org-mode-map (kbd "C-c l P P") #'org-publish-current-project)
+  (define-key org-mode-map (kbd "C-c l P s") #'org-publish-sitemap)
+  (define-key org-mode-map (kbd "C-c l r") #'org-refile)
+  (define-key org-mode-map (kbd "C-c l R") #'org-refile-reverse)
+  (define-key org-mode-map (kbd "C-c l s a") #'org-toggle-archive-tag)
+  (define-key org-mode-map (kbd "C-c l s b") #'org-tree-to-indirect-buffer)
+  (define-key org-mode-map (kbd "C-c l s c") #'org-clone-subtree-with-time-shift)
+  (define-key org-mode-map (kbd "C-c l s d") #'org-cut-subtree)
+  (define-key org-mode-map (kbd "C-c l s h") #'org-promote-subtree)
+  (define-key org-mode-map (kbd "C-c l s j") #'org-move-subtree-down)
+  (define-key org-mode-map (kbd "C-c l s k") #'org-move-subtree-up)
+  (define-key org-mode-map (kbd "C-c l s l") #'org-demote-subtree)
+  (define-key org-mode-map (kbd "C-c l s n") #'org-narrow-to-subtree)
+  (define-key org-mode-map (kbd "C-c l s r") #'org-refile)
+  (define-key org-mode-map (kbd "C-c l s s") #'org-sparse-tree)
+  (define-key org-mode-map (kbd "C-c l s A") #'org-archive-subtree-default)
+  (define-key org-mode-map (kbd "C-c l s N") #'widen)
+  (define-key org-mode-map (kbd "C-c l s S") #'org-sort)
+  (define-key org-mode-map (kbd "C-c l p d") #'org-priority-down)
+  (define-key org-mode-map (kbd "C-c l p p") #'org-priority)
+  (define-key org-mode-map (kbd "C-c l p u") #'org-priority-up))
 
 (use-package org-appear
   :straight t
