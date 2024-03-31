@@ -715,12 +715,7 @@ Pass SOURCES to consult-buffer, if provided."
 (with-eval-after-load 'apheleia
   (diminish 'apheleia-mode))
 
-(use-package flyspell
-  :straight t
-  :hook ((markdown-mode org-mode text-mode) . flyspell-mode)
-  :bind (:map flyspell-mode-map
-              ("C-;" . nil)
-              ("C-M-i" . nil)))
+(require 'init-flyspell)
 
 (provide 'init)
 
