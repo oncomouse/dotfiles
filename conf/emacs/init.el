@@ -130,7 +130,6 @@
 ;; (require 'init-erlang)
 (require 'init-javascript)
 ;; (require 'init-php)
-(use-package org :straight t)
 (require 'init-org)
 ;; (require 'init-nxml)
 (require 'init-html)
