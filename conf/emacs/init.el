@@ -681,7 +681,7 @@ If not in a clock, move to previous headline."
 (define-key ap/emacs-lisp-map (kbd "g l") #'find-library)
 
 (defun ap/project-buffers (&optional sources)
-  "Display buffers using consult-buffer, narrowed to only project files.
+  "Display buffers using  `consult-buffer', narrowed to only project files.
 
 Pass SOURCES to consult-buffer, if provided."
   (interactive)
