@@ -716,6 +716,42 @@ Pass SOURCES to consult-buffer, if provided."
 
 (require 'init-flyspell)
 
+;; (defun ap/copy-word (&optional toend) "Copy whole word at point to `kill-ring'.
+
+;; If TOEND is non-nil, only copy from point to end of word"
+;;        (interactive)
+;;        (mark-word)
+;;        (unless toend (backward-word))
+;;        (whole-line-or-region-kill-ring-save 0))
+
+;; (defun ap/--mark-to-end-of-paragraph ()
+;;   (set-mark-command 0)
+;;   (forward-paragraph)
+;;   (backward-char))
+
+;; (defun ap/copy-paragraph (&optional toend) "Copy the paragraph at point to `kill-ring'.
+
+;; If TOEND is non-nil, only copy from point to end of paragraph."
+;;        (interactive)
+;;        (if (not toend) (mark-paragraph) (ap/--mark-to-end-of-paragraph))
+;;        (whole-line-or-region-kill-ring-save 0))
+
+;; (defhydra ap/copy-to-kill-ring
+;;   ("w" ap/copy-word "whole word")
+;;   ("W" (lambda () (ap/copy-word t)) "end of word")
+;;   ("s" ap/copy-sentence "whole sentence")
+;;   ("S" (lambda () (ap/copy-sentence t)) "end of sentence")
+;;   ("l" ap/copy-line "whole line")
+;;   ("L" (lambda () (ap/copy-line t)) "end of line")
+;;   ("p" ap/copy-paragraph "whole paragraph")
+;;   ("P" (lambda () (ap/copy-paragraph t)) "end of paragraph"))
+
+;; (defun ap/whole-line-or-region-kill-ring-save (p)
+;;   "Save P whole lines to the `kill-ring' or activate `ap/copy-to-kill-ring'."
+;;   (if (region-active-p)
+;;       (whole-line-or-region-kill-ring-save p)
+;;     (ap/copy-to-kill-ring/body)))
+
 (provide 'init)
 
 ;; Local Variables:
