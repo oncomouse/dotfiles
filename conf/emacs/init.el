@@ -720,12 +720,12 @@ Pass SOURCES to consult-buffer, if provided."
 
 ;; If TOEND is non-nil, only copy from point to end of word"
 ;;        (interactive)
-;;        (mark-word)
-;;        (unless toend (backward-word))
-;;        (whole-line-or-region-kill-ring-save 0))
+;;        (save-excursion (mark-word)
+;;                        (unless toend (backward-word))
+;;                        (whole-line-or-region-kill-ring-save 0)))
 
 ;; (defun ap/--mark-to-end-of-paragraph ()
-;;   (set-mark-command 0)
+;;   (call-interactively 'set-mark-command)
 ;;   (forward-paragraph)
 ;;   (backward-char))
 
@@ -733,8 +733,9 @@ Pass SOURCES to consult-buffer, if provided."
 
 ;; If TOEND is non-nil, only copy from point to end of paragraph."
 ;;        (interactive)
-;;        (if (not toend) (mark-paragraph) (ap/--mark-to-end-of-paragraph))
-;;        (whole-line-or-region-kill-ring-save 0))
+;;        (save-excursion
+;;          (if (not toend) (mark-paragraph) (ap/--mark-to-end-of-paragraph))
+;;          (whole-line-or-region-kill-ring-save 0)))
 
 ;; (defhydra ap/copy-to-kill-ring
 ;;   ("w" ap/copy-word "whole word")
