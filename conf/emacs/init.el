@@ -715,20 +715,26 @@ Pass SOURCES to consult-buffer, if provided."
   (diminish 'apheleia-mode))
 
 (require 'init-flyspell)
+
+(defun ap/mark-word (&optional toend) "Mark the word.
 
-(defun ap/mark-word (&optional toend) "Mark the word. If TOEND is non-nil, only mark from point to end of paragraph."
+If TOEND is non-nil, only mark from point to end of paragraph."
        (interactive)
        (mark-word)
        (unless toend (backward-word)))
 
-(defun ap/mark-paragraph (&optional toend) "Mark the paragraph. If TOEND is non-nil, only mark from point to end of pargraph."
+(defun ap/mark-paragraph (&optional toend) "Mark the paragraph.
+
+If TOEND is non-nil, only mark from point to end of pargraph."
        (interactive)
        (unless (region-active-p) (call-interactively 'set-mark-command))
        (cond
         (toend (forward-paragraph) (backward-char))
         (t (mark-paragraph))))
 
-(defun ap/mark-line (&optional toend) "Mark the line. If TOEND is non-nil, only mark from point to the end of the line."
+(defun ap/mark-line (&optional toend) "Mark the line.
+
+If TOEND is non-nil, only mark from point to the end of the line."
        (interactive)
        (unless (region-active-p) (call-interactively 'set-mark-command))
        (let ((visual-line-mode nil))
@@ -736,12 +742,42 @@ Pass SOURCES to consult-buffer, if provided."
          (unless toend (exchange-point-and-mark)
                  (move-beginning-of-line nil))))
 
-(defun ap/mark-sentence (&optional toend) "Mark the sentence at point. If TOEND is non-nil, only mark from point to end of sentence."
+(defun ap/mark-sentence (&optional toend) "Mark the sentence at point.
+
+If TOEND is non-nil, only mark from point to end of sentence."
        (interactive)
        (unless (region-active-p) (call-interactively 'set-mark-command))
        (forward-sentence)
        (exchange-point-and-mark)
        (unless toend (backward-sentence)))
+
+(defun ap/mark-clause (&optional toend) "Mark the current clause (between commas).
+
+If TOEND is non-nil, only mark from point to end of clause."
+       (interactive)
+       ;; Three modes:
+       ;; 1) point is between start of sentence and a comma
+       ;; 2) point is between a comma and the end of the sentence
+       ;; 3) point is between two commas
+       (let ((cur-point (point)) sen-start sen-end comma1 comma2)
+         (backward-sentence)
+         (setq sen-start (point))
+         (forward-sentence)
+         (setq sen-end (point))
+         (goto-char cur-point)
+         (setq comma1 (search-backward "," sen-start t))
+         (unless (eq comma1 nil)
+           (setq comma1 (point)))
+         (goto-char cur-point)
+         (setq comma2 (search-forward "," sen-end t))
+         (unless (eq comma2 nil)
+           (setq comma2 (point)))
+         (call-interactively 'set-mark-command)
+         (cond
+          ((and (numberp comma1) (numberp comma2)) (goto-char (if toend cur-point comma1)) (exchange-point-and-mark) (goto-char comma2) (message (format "%d %d" comma1 comma2)))
+          ((numberp comma1) (goto-char (if toend cur-point comma1)) (exchange-point-and-mark) (goto-char sen-end))
+          ((numberp comma2) (goto-char (if toend cur-point sen-start)) (exchange-point-and-mark) (goto-char comma2))
+          (t (got-char (if toend cur-point sen-start)) (exchange-point-and-mark) (got-char sen-end)))))
 
 (defhydra ap/mark-hydra (:color blue)
   ("w" ap/mark-word "whole word")
@@ -750,64 +786,44 @@ Pass SOURCES to consult-buffer, if provided."
   ("S" (lambda () (interactive) (ap/mark-sentence t)) "end of sentence")
   ("l" ap/mark-line "whole line")
   ("L" (lambda () (interactive) (ap/mark-line t)) "end of line")
+  ("c" ap/mark-clause "whole clause")
+  ("C" (lambda () (interactive) (ap/mark-clause t)) "end of clause")
   ("p" ap/mark-paragraph "whole paragraph")
   ("P" (lambda () (interactive) (ap/mark-paragraph t)) "end of paragraph"))
 
-(define-key global-map (kbd "M-m") 'ap/mark-hydra/body)
 
 (require 'pulse)
-(defun ap/copy-word (&optional toend) "Copy whole word at point to `kill-ring'.
 
-If TOEND is non-nil, only copy from point to end of word"
-       (interactive)
-       (save-excursion (ap/mark-word toend)
-                       (pulse-momentary-highlight-region (point) (mark))
-                       (whole-line-or-region-wrap-region-kill 'kill-ring-save 0)))
+(defun ap/save-mark-to-kill-ring (markfun &optional toend)
+  "Save region marked by MARKFUN to the `kill-ring'.
 
-(defun ap/copy-paragraph (&optional toend) "Copy the paragraph at point to `kill-ring'.
+If TOEND is non-nil, only save from point to end of region."
+  (interactive)
+  (save-excursion
+    (funcall markfun toend)
+    (pulse-momentary-highlight-region (point) (mark))
+    (whole-line-or-region-wrap-region-kill 'kill-ring-save 0)))
 
-If TOEND is non-nil, only copy from point to end of paragraph."
-       (interactive)
-       (save-excursion
-         (ap/mark-paragraph toend)
-         (pulse-momentary-highlight-region (point) (mark))
-         (whole-line-or-region-wrap-region-kill 'kill-ring-save 0)))
-
-(defun ap/copy-line (&optional toend) "Save line at point to `kill-ring'.
-
-If TOEND is non-nil, only copy from point to end of line."
-       (interactive)
-       (save-excursion
-         (ap/mark-line toend)
-         (pulse-momentary-highlight-region (point) (mark))
-         (whole-line-or-region-wrap-region-kill 'kill-ring-save 0)))
-
-(defun ap/copy-sentence (&optional toend) "Save sentence at point to `kill-ring'.
-
-If TOEND is non-nil, only copy from point to end of sentence."
-       (interactive)
-       (save-excursion
-         (ap/mark-sentence toend)
-         (pulse-momentary-highlight-region (point) (mark))
-         (whole-line-or-region-wrap-region-kill 'kill-ring-save 0)))
-
-(defhydra ap/copy-to-kill-ring (:color blue)
-  ("w" ap/copy-word "whole word")
-  ("W" (lambda () (interactive) (ap/copy-word t)) "end of word")
-  ("s" ap/copy-sentence "whole sentence")
-  ("S" (lambda () (interactive) (ap/copy-sentence t)) "end of sentence")
-  ("l" ap/copy-line "whole line")
-  ("L" (lambda () (interactive) (ap/copy-line t)) "end of line")
-  ("p" ap/copy-paragraph "whole paragraph")
-  ("P" (lambda () (interactive) (ap/copy-paragraph t)) "end of paragraph"))
+(defhydra ap/save-to-kill-ring (:color blue)
+  ("w" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-word)) "whole word")
+  ("W" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-word t)) "end of word")
+  ("s" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-sentence)) "whole sentence")
+  ("S" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-sentence t)) "end of sentence")
+  ("l" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-line)) "whole line")
+  ("L" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-line t)) "end of line")
+  ("c" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-clause)) "whole clause")
+  ("C" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-clause t)) "end of clause")
+  ("p" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-paragraph)) "whole paragraph")
+  ("P" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-paragraph t)) "end of paragraph"))
 
 (defun ap/whole-line-or-region-kill-ring-save (p)
-  "Save P whole lines to the `kill-ring' or activate `ap/copy-to-kill-ring'."
+  "Save P whole lines to the `kill-ring' or activate `ap/save-to-kill-ring'."
   (interactive "P")
   (if (region-active-p)
       (whole-line-or-region-wrap-region-kill 'kill-ring-save p)
-    (ap/copy-to-kill-ring/body)))
+    (ap/save-to-kill-ring/body)))
 
+(define-key global-map (kbd "M-m") 'ap/mark-hydra/body)
 (advice-add 'whole-line-or-region-kill-ring-save :override 'ap/whole-line-or-region-kill-ring-save)
 
 (use-package volatile-highlights
