@@ -68,6 +68,16 @@ If TOEND is non-nil, only mark from point to end of clause."
           ((numberp comma2) (goto-char (if toend cur-point sen-start)) (exchange-point-and-mark) (goto-char comma2))
           (t (got-char (if toend cur-point sen-start)) (exchange-point-and-mark) (got-char sen-end)))))
 
+(defun ap/save-mark-to-kill-ring (markfun &optional toend)
+  "Save region marked by MARKFUN to the `kill-ring'.
+
+If TOEND is non-nil, only save from point to end of region."
+  (interactive)
+  (save-excursion
+    (funcall markfun toend)
+    (pulse-momentary-highlight-region (point) (mark))
+    (whole-line-or-region-wrap-region-kill 'kill-ring-save 0)))
+
 (defhydra ap/mark-hydra (:color blue)
   ("w" ap/mark-word "whole word")
   ("W" (lambda () (interactive) (ap/mark-word t)) "end of word")
@@ -79,17 +89,6 @@ If TOEND is non-nil, only mark from point to end of clause."
   ("C" (lambda () (interactive) (ap/mark-clause t)) "end of clause")
   ("p" ap/mark-paragraph "whole paragraph")
   ("P" (lambda () (interactive) (ap/mark-paragraph t)) "end of paragraph"))
-
-
-(defun ap/save-mark-to-kill-ring (markfun &optional toend)
-  "Save region marked by MARKFUN to the `kill-ring'.
-
-If TOEND is non-nil, only save from point to end of region."
-  (interactive)
-  (save-excursion
-    (funcall markfun toend)
-    (pulse-momentary-highlight-region (point) (mark))
-    (whole-line-or-region-wrap-region-kill 'kill-ring-save 0)))
 
 (defhydra ap/save-to-kill-ring (:color blue)
   ("w" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-word)) "whole word")
