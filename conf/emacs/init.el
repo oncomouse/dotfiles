@@ -692,11 +692,10 @@ Pass SOURCES to consult-buffer, if provided."
 (define-key global-map (kbd "C-x B") 'consult-buffer)
 
 ;; Configure cape
-(defun ap/writing-cape ()
-  "Custom completion-at-point-function for use in writing environments."
-  (cape-capf-super #'cape-dict #'cape-dabbrev #'cape-keyword))
-(defun ap/--set-cape ()
-  (add-hook 'completion-at-point-functions #'ap/writing-cape 0 t))
+(defun ap/--set-cape () "Define a custom cape function."
+       (add-hook 'completion-at-point-functions #'cape-keyword 0 t)
+       (add-hook 'completion-at-point-functions #'cape-dabbrev 0 t)
+       (add-hook 'completion-at-point-functions #'cape-dict 0 t))
 (use-package cape
   :straight t
   :hook ((markdown-mode org-mode text-mode) . ap/--set-cape))
