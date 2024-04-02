@@ -753,6 +753,18 @@ If TOEND is non-nil, only copy from point to end of line."
          (pulse-momentary-highlight-region (point) (mark))
          (whole-line-or-region-kill-ring-save 0)))
 
+(defun ap/copy-sentence (&optional toend) "Save sentence at point to `kill-ring'.
+
+If TOEND is non-nil, only copy from point to end of sentence."
+       (interactive)
+       (save-excursion
+         (call-interactively 'set-mark-command)
+         (forward-sentence)
+         (exchange-point-and-mark)
+         (unless toend (backward-sentence))
+         (pulse-momentary-highlight-region (point) (mark))
+         (whole-line-or-region-kill-ring-save 0)))
+
 (defhydra ap/copy-to-kill-ring (:color blue)
   ("w" ap/copy-word "whole word")
   ("W" (lambda () (interactive) (ap/copy-word t)) "end of word")
