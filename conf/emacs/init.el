@@ -720,6 +720,12 @@ Pass SOURCES to consult-buffer, if provided."
   :straight t
   :hook (after-init . volatile-highlights-mode))
 
+;; (use-package markdown-ts-mode
+;;   :straight (markdown-ts-mode :type git :host github :repo "LionyxML/markdown-ts-mode")
+;;   :mode ("\\.md\\'" . markdown-ts-mode)
+;;   :config
+;;   (add-to-list 'treesit-language-source-alist '(markdown "https://github.com/ikatyang/tree-sitter-markdown" "master" "src")))
+
 (provide 'init)
 
 ;; Local Variables:
