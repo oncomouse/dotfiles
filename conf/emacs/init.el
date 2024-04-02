@@ -716,12 +716,14 @@ Pass SOURCES to consult-buffer, if provided."
 
 (require 'init-flyspell)
 
+(require 'pulse)
 (defun ap/copy-word (&optional toend) "Copy whole word at point to `kill-ring'.
 
 If TOEND is non-nil, only copy from point to end of word"
        (interactive)
        (save-excursion (mark-word)
                        (unless toend (backward-word))
+                       (pulse-momentary-highlight-region (point) (mark))
                        (whole-line-or-region-kill-ring-save 0)))
 
 (defun ap/--mark-to-end-of-paragraph ()
@@ -735,6 +737,7 @@ If TOEND is non-nil, only copy from point to end of paragraph."
        (interactive)
        (save-excursion
          (if (not toend) (mark-paragraph) (ap/--mark-to-end-of-paragraph))
+         (pulse-momentary-highlight-region (point) (mark))
          (whole-line-or-region-kill-ring-save 0)))
 
 (defun ap/copy-line (&optional toend) "Save line at point to `kill-ring'.
@@ -747,17 +750,18 @@ If TOEND is non-nil, only copy from point to end of line."
            (move-end-of-line nil)
            (exchange-point-and-mark)
            (unless toend (move-beginning-of-line nil)))
+         (pulse-momentary-highlight-region (point) (mark))
          (whole-line-or-region-kill-ring-save 0)))
 
 (defhydra ap/copy-to-kill-ring (:color blue)
   ("w" ap/copy-word "whole word")
-  ("W" (lambda () (ap/copy-word t)) "end of word")
+  ("W" (lambda () (interactive) (ap/copy-word t)) "end of word")
   ("s" ap/copy-sentence "whole sentence")
-  ("S" (lambda () (ap/copy-sentence t)) "end of sentence")
+  ("S" (lambda () (interactive) (ap/copy-sentence t)) "end of sentence")
   ("l" ap/copy-line "whole line")
-  ("L" (lambda () (ap/copy-line t)) "end of line")
+  ("L" (lambda () (interactive) (ap/copy-line t)) "end of line")
   ("p" ap/copy-paragraph "whole paragraph")
-  ("P" (lambda () (ap/copy-paragraph t)) "end of paragraph"))
+  ("P" (lambda () (interactive) (ap/copy-paragraph t)) "end of paragraph"))
 
 (defun ap/whole-line-or-region-kill-ring-save (p)
   "Save P whole lines to the `kill-ring' or activate `ap/copy-to-kill-ring'."
@@ -766,7 +770,11 @@ If TOEND is non-nil, only copy from point to end of line."
       (whole-line-or-region-kill-ring-save p)
     (ap/copy-to-kill-ring/body)))
 
-(define-key global-map (kbd "M-w") 'ap/whole-line-or-region-kill-ring)
+(define-key global-map (kbd "M-w") 'ap/whole-line-or-region-kill-ring-save)
+
+(use-package volatile-highlights
+  :straight t
+  :hook (after-init . volatile-highlights-mode))
 
 (provide 'init)
 
