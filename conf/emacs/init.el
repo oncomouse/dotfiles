@@ -718,6 +718,7 @@ Pass SOURCES to consult-buffer, if provided."
 
 (use-package volatile-highlights
   :straight t
+  :diminish volatile-highlights-mode
   :hook (after-init . volatile-highlights-mode))
 
 ;; (use-package markdown-ts-mode
