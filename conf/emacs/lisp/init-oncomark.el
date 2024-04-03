@@ -102,6 +102,30 @@ If TOEND is non-nil, only save from point to end of region."
   ("p" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-paragraph)) "whole paragraph")
   ("P" (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-paragraph t)) "end of paragraph"))
 
+;; (defvar ap/mark-word-map (make-sparse-keymap))
+;; (define-key ap/mark-word-map (kbd "w") 'ap/mark-word)
+;; (define-key ap/mark-word-map (kbd "W") (lambda () (interactive) (ap/mark-word t)))
+;; (define-key ap/mark-word-map (kbd "s") 'ap/mark-sentence)
+;; (define-key ap/mark-word-map (kbd "S") (lambda () (interactive) (ap/mark-sentence t)))
+;; (define-key ap/mark-word-map (kbd "l") 'ap/mark-line)
+;; (define-key ap/mark-word-map (kbd "L") (lambda () (interactive) (ap/mark-line t)))
+;; (define-key ap/mark-word-map (kbd "c") 'ap/mark-clause)
+;; (define-key ap/mark-word-map (kbd "C") (lambda () (interactive) (ap/mark-clause t)))
+;; (define-key ap/mark-word-map (kbd "p") 'ap/mark-paragraph)
+;; (define-key ap/mark-word-map (kbd "P") (lambda () (interactive) (ap/mark-paragraph t)))
+
+;; (defvar ap/kill-ring-save-map (make-sparse-keymap))
+;; (define-key ap/kill-ring-save-map (kbd "w") (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-word)))
+;; (define-key ap/kill-ring-save-map (kbd "W") (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-word t)))
+;; (define-key ap/kill-ring-save-map (kbd "s") (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-sentence)))
+;; (define-key ap/kill-ring-save-map (kbd "S") (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-sentence t)))
+;; (define-key ap/kill-ring-save-map (kbd "l") (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-line)))
+;; (define-key ap/kill-ring-save-map (kbd "L") (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-line t)))
+;; (define-key ap/kill-ring-save-map (kbd "c") (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-clause)))
+;; (define-key ap/kill-ring-save-map (kbd "C") (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-clause t)))
+;; (define-key ap/kill-ring-save-map (kbd "p") (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-paragraph)))
+;; (define-key ap/kill-ring-save-map (kbd "P") (lambda () (interactive) (ap/save-mark-to-kill-ring 'ap/mark-paragraph t)))
+
 (defun ap/whole-line-or-region-kill-ring-save (p)
   "Save P whole lines to the `kill-ring' or activate `ap/save-to-kill-ring'."
   (interactive "P")
@@ -109,6 +133,7 @@ If TOEND is non-nil, only save from point to end of region."
       (whole-line-or-region-wrap-region-kill 'kill-ring-save p)
     (ap/save-to-kill-ring/body)))
 
+;; (define-key global-map (kbd "M-m") ap/mark-word-map)
 (define-key global-map (kbd "M-m") 'ap/mark-hydra/body)
 (advice-add 'whole-line-or-region-kill-ring-save :override 'ap/whole-line-or-region-kill-ring-save)
 
