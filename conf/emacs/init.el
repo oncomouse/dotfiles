@@ -653,7 +653,6 @@ If not in a clock, move to previous headline."
                                           (save-excursion
                                             (left-char) ; First move point inside citation
                                             (citar-org-update-pre-suffix))))
-  
   :bind
   (:map org-mode-map :package org ("C-c l @" . 'citar-insert-citation)
         :map markdown-mode-map :package markdown ("C-c @" . 'citar-insert-citation)))
