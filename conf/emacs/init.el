@@ -653,6 +653,7 @@ If not in a clock, move to previous headline."
                                           (save-excursion
                                             (left-char) ; First move point inside citation
                                             (citar-org-update-pre-suffix))))
+  
   :bind
   (:map org-mode-map :package org ("C-c l @" . 'citar-insert-citation)
         :map markdown-mode-map :package markdown ("C-c @" . 'citar-insert-citation)))
@@ -692,14 +693,17 @@ Pass SOURCES to consult-buffer, if provided."
 (define-key global-map (kbd "C-x B") 'consult-buffer)
 
 ;; Configure cape
-(defun ap/--set-cape () "Define a custom cape function."
-       (add-hook 'completion-at-point-functions #'cape-keyword 0 t)
-       (add-hook 'completion-at-point-functions #'cape-dabbrev 0 t)
-       (add-hook 'completion-at-point-functions #'cape-dict 0 t))
+(defun ap/add-capf (func)
+  "Add FUNC to the `completion-at-point-functions' for the buffer."
+  (let ((funcs func))
+    (when (not (listp func)) (setq funcs (list func)))
+    (mapcar (lambda (x) (add-hook 'completion-at-point-functions x 0 t)) funcs)))
+
 (use-package cape
   :straight t
-  :hook ((markdown-mode org-mode text-mode) . ap/--set-cape))
-
+  :hook ((markdown-mode org-mode text-mode) .
+         (lambda () (ap/add-capf (list #'cape-keyword #'cape-dabbrev #'cape-dict)))))
+
 (with-eval-after-load 'eldoc
   (diminish 'eldoc-mode))
 (with-eval-after-load 'paredit
