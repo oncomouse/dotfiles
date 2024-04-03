@@ -35,6 +35,9 @@
   (with-eval-after-load 'helpful
     (define-key embark-symbol-map (kbd "h") 'helpful-symbol))
 
+  ;; Use embark for paging key help instead of which-key:
+  (with-eval-after-load 'which-key
+    (setq prefix-help-command #'embark-prefix-help-command))
   ;; Use which-key for embark suggestions:
   (defun embark-which-key-indicator ()
     "An embark indicator that displays keymaps using which-key.
