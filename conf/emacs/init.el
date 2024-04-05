@@ -730,6 +730,8 @@ Pass SOURCES to consult-buffer, if provided."
 ;;   :config
 ;;   (add-to-list 'treesit-language-source-alist '(markdown "https://github.com/ikatyang/tree-sitter-markdown" "master" "src")))
 
+(require 'init-holidays)
+
 (provide 'init)
 
 ;; Local Variables:
