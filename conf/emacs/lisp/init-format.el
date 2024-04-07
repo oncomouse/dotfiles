@@ -91,8 +91,7 @@ is selected)."
 
 (use-package apheleia
   :straight t
-  :bind (("C-c f" . +format/region-or-buffer))
-  :config
-  (apheleia-global-mode +1))
+  :bind (("C-c f" . +format/region-or-buffer)))
 
 (provide 'init-format)
+;; init-format.el ends here
