@@ -243,7 +243,8 @@
 ;; This file bootstraps the configuration, which is divided into
 ;; a number of other files.
 
-(require-package 'hydra)
+(use-package hydra
+  :straight t)
 
 (defvar ap/leader-map (make-sparse-keymap))
 (define-key global-map (kbd "C-c") ap/leader-map)
