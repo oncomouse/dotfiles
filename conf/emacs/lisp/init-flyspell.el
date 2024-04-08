@@ -29,12 +29,17 @@
 (use-package flyspell
   :straight t
   :hook (
-         ((markdown-mode org-mode text-mode prog-mode) . flyspell-mode)
+         ((markdown-mode org-mode text-mode) . flyspell-mode)
+         (prog-mode . flyspell-prog-mode)
          ((markdown-mode org-mode text-mode) . ap/configure-flyspell)
          (prog-mode . (lambda () (ap/configure-flyspell t))))
   :bind (:map flyspell-mode-map
               ("C-;" . nil)
               ("C-M-i" . nil)))
+
+(use-package flyspell-lazy
+  :straight t
+  :hook ((flyspell-mode) . (lambda () (flyspell-lazy-mode 1))))
 
 (provide 'init-flyspell)
 ;; init-flyspell.el ends here
