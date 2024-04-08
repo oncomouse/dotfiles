@@ -555,6 +555,10 @@ targets."
 (add-hook 'markdown-mode-hook (lambda (&rest _) (setq-local sentence-end-double-space nil)))
 (add-hook 'text-mode-hook (lambda (&rest _) (setq-local sentence-end-double-space nil)))
 
+;; Turn off electric-indent for org:
+(add-hook 'org-mode-hook
+	  (lambda () (electric-indent-local-mode -1)))
+
 (with-eval-after-load 'org
   (define-key global-map (kbd "C-c a") 'org-agenda)
   (define-key global-map (kbd "C-c c") 'org-capture)
