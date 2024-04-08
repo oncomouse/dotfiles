@@ -41,24 +41,26 @@
                                     )
                                   holidays)))))
 
-(with-eval-after-load 'calendar
-  ;; This gets overwritten somehow:
-  (setq calendar-holidays (append holiday-general-holidays holiday-local-holidays
-                                  holiday-other-holidays holiday-christian-holidays
-                                  holiday-hebrew-holidays holiday-islamic-holidays
-                                  holiday-bahai-holidays holiday-oriental-holidays
-                                  holiday-solar-holidays))
+(use-package holidays
+  :init
   ;; Disable unused holidays:
   (setq
    holiday-hebrew-holidays nil
    holiday-bahai-holidays nil
    holiday-islamic-holidays nil
    holiday-oriental-holidays nil)
-
   ;; Attach our custom holiday lists:
   (setq holiday-other-holidays
         '((ap/filter-holidays ap/tamu-holidays)
-          (ap/filter-holidays ap/daycare-closed))))
+          (ap/filter-holidays ap/daycare-closed)))
+  ;; This gets overwritten somehow:
+  (setq calendar-holidays (append holiday-general-holidays holiday-local-holidays
+                                  holiday-other-holidays holiday-christian-holidays
+                                  holiday-hebrew-holidays holiday-islamic-holidays
+                                  holiday-bahai-holidays holiday-oriental-holidays
+                                  holiday-solar-holidays))
+
+  )
 
 (with-eval-after-load 'org
   (setq org-agenda-include-diary t))

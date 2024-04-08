@@ -928,6 +928,8 @@ When C-u (ARG is 4) is pressed, delete other windows."
   :hook ((prog-mode) . rainbow-mode)
   :diminish rainbow-mode)
 
+(require 'init-holidays)
+
 (provide 'init)
 
 ;; Local Variables:
