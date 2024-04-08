@@ -456,8 +456,8 @@ targets."
 (define-key global-map (kbd "M-`") 'jump-to-mark)
 
 ;; Indent with C-</>
-(global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
-(global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
+(global-set-key (kbd "C->") #'indent-rigidly-right-to-tab-stop)
+(global-set-key (kbd "C-<") #'indent-rigidly-left-to-tab-stop)
 
 (require 'init-avy)
 
