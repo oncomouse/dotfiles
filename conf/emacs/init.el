@@ -937,6 +937,11 @@ When C-u (ARG is 4) is pressed, delete other windows."
 
 (define-key global-map (kbd "C-x 0") 'ap/close-window)
 
+(use-package rainbow-mode
+  :straight t
+  :hook ((prog-mode) . rainbow-mode)
+  :diminish rainbow-mode)
+
 (provide 'init)
 
 ;; Local Variables:
