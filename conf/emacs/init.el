@@ -928,6 +928,15 @@ Pass SOURCES to consult-buffer, if provided."
               ("C-;" . nil)
               ("C-M-i" . nil)))
 
+(defun ap/close-window (&optional arg)
+  "Combines `delete-window' and `delete-other-windows'.
+
+When C-u (ARG is 4) is pressed, delete other windows."
+  (interactive "p")
+  (if (= arg 4) (delete-other-windows) (delete-window)))
+
+(define-key global-map (kbd "C-x 0") 'ap/close-window)
+
 (provide 'init)
 
 ;; Local Variables:
