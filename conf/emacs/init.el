@@ -575,9 +575,9 @@ If mark is active, merge lines in the current region."
 
   (setq org-capture-templates
         `(("t" "todo" entry (file+headline "" "Inbox") ; "" => `org-default-notes-file'
-           "* TODO %?\n%U\n%i\n")
+           "* TODO %?\n%T\n%i\n")
           ("n" "note" entry (file "")
-           "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
+           "* %? :NOTE:\n%T\n%a\n" :clock-resume t)
           ))
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "|" "DONE(d!/!)")
