@@ -36,5 +36,9 @@
               ("C-;" . nil)
               ("C-M-i" . nil)))
 
+(use-package flyspell-lazy
+             :straight t
+             :hook (flyspell-mode . (lambda () (flyspell-lazy-mode 1))))
+
 (provide 'init-flyspell)
 ;; init-flyspell.el ends here

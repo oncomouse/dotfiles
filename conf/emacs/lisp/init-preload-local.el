@@ -2,6 +2,11 @@
 ;;; Code:
 ;;; Commentary:
 
+;; savehist was a problem on macos:
+(when *is-a-mac*
+  (setq history-length 100)
+  (put 'minibuffer-history 'history-length 50)
+  (put 'kill-ring 'history-length 25))
 ;; Surpress nativecomp warnings:
 (setq native-comp-async-report-warnings-errors nil)
 
@@ -17,6 +22,8 @@
 
 ;; Set font
 (set-face-attribute 'default nil :font "FiraCode Nerd Font" :height (if *is-a-mac* 155 140))
+(unless *is-a-mac*
+  (set-face-attribute 'italic nil :font "Fira Mono" :slant 'italic))
 
 ;; This file bootstraps the configuration, which is divided into
 ;; a number of other files.

@@ -280,8 +280,8 @@
 (define-key global-map (kbd "M-`") 'jump-to-mark)
 
 ;; Indent with C-</>
-(global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop)
-(global-set-key (kbd "C-<") 'indent-rigidly-left-to-tab-stop)
+(global-set-key (kbd "C->") #'indent-rigidly-right-to-tab-stop)
+(global-set-key (kbd "C-<") #'indent-rigidly-left-to-tab-stop)
 
 (defun ap/countable-wrapper (oldfun &optional c &rest r)
   "Wrap OLDFUN in a loop and perform it C times.  Supply R if provided."
@@ -362,6 +362,10 @@
 ;; It's not the 80s, emacs.
 (setq sentence-end-double-space nil)
 
+;; Turn off electric-indent for org:
+(add-hook 'org-mode-hook
+	  (lambda () (electric-indent-local-mode -1)))
+
 (with-eval-after-load 'org
   (define-key ap/leader-open-map (kbd "j") 'org-clock-goto)
   (define-key ap/leader-open-map (kbd "l") 'org-clock-in-last)
@@ -372,9 +376,9 @@
 
   (setq org-capture-templates
         `(("t" "todo" entry (file+headline "" "Inbox") ; "" => `org-default-notes-file'
-           "* TODO %?\n%U\n%i\n")
+           "* TODO %?\n%N\n%i\n")
           ("n" "note" entry (file "")
-           "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
+           "* %? :NOTE:\n%N\n%a\n" :clock-resume t)
           ))
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "|" "DONE(d!/!)")
@@ -718,6 +722,7 @@ Pass SOURCES to consult-buffer, if provided."
 
 (require 'init-flyspell)
 (require 'init-oncomark)
+(require 'init-holidays)
 
 (use-package volatile-highlights
   :straight t
@@ -730,7 +735,18 @@ Pass SOURCES to consult-buffer, if provided."
 ;;   :config
 ;;   (add-to-list 'treesit-language-source-alist '(markdown "https://github.com/ikatyang/tree-sitter-markdown" "master" "src")))
 
-(require 'init-holidays)
+(defun ap/close-window (&optional arg)
+  "Combines `delete-window' and `delete-other-windows'.
+When C-u (ARG is 4) is pressed, delete other windows."
+  (interactive "p")
+  (if (= arg 4) (delete-other-windows) (delete-window)))
+
+(define-key global-map (kbd "C-x 0") 'ap/close-window)
+
+(use-package rainbow-mode
+  :straight t
+  :hook ((prog-mode) . rainbow-mode)
+  :diminish rainbow-mode)
 
 (provide 'init)
 

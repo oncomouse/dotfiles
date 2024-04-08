@@ -1,3 +1,4 @@
+otf-fira-mono-italic-git
 perl-term-shellui
 pandoc-bin
 rofi-emoji
