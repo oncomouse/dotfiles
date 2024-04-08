@@ -239,7 +239,9 @@
 
 ;; Set font
 (set-face-attribute 'default nil :font "FiraCode Nerd Font" :height (if *is-a-mac* 155 140))
-
+;; Proper italic support on Linux:
+(unless *is-a-mac*
+  (set-face-attribute 'italic nil :font "Fira Mono" :slant 'italic))
 ;; This file bootstraps the configuration, which is divided into
 ;; a number of other files.
 
