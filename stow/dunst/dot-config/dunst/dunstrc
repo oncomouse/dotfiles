@@ -12,7 +12,7 @@
     padding = 8
     horizontal_padding = 8
     frame_width = 2
-    frame_color = "#d9d7ce"
+    frame_color = "#ccd0da"
     separator_color = auto
     sort = no
     idle_threshold = 0
@@ -82,23 +82,23 @@
 
 [urgency_low]
     timeout = 10
-	background = "#3b4857"
-	foreground = "#c7c7c7"
-	frame_color = "#73d0FF"
+	background = "#EFF1F5"
+	foreground = "#4C4F69"
+	frame_color = "#ccd0da"
     #icon = /path/to/icon
 
 [urgency_normal]
     timeout = 10
-	background = "#3b4857"
-	foreground = "#c7c7c7"
-	frame_color = "#95e6cb"
+	background = "#EFF1F5"
+	foreground = "#4C4F69"
+	frame_color = "#04a5e5"
     #icon = /path/to/icon
 
 [urgency_critical]
     timeout = 0
-	background = "#FFC44C"
-	foreground = "#3b4857"
-	frame_color = "#f28779"
+	background = "#dc8a78"
+	foreground = "#4C4F69"
+	frame_color = "#e64553"
     #icon = /path/to/icon
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
