@@ -70,11 +70,14 @@
 (require 'init-exec-path) ;; Set up $PATH
 
 ;; General performance tuning
-(when (require-package 'gcmh)
-  (setq gcmh-high-cons-threshold (* 128 1024 1024))
-  (add-hook 'after-init-hook (lambda ()
-                               (gcmh-mode)
-                               (diminish 'gcmh-mode))))
+(use-package gcmh
+  :straight t
+  :custom
+  (gcmh-high-cons-threshold (* 128 1024 1024))
+  :hook
+  (after-init . (lambda ()
+                  (gcmh-mode)
+                  (diminish 'gcmh-mode))))
 
 (setq jit-lock-defer-time 0)
 
@@ -82,12 +85,13 @@
 (require 'init-preload-local nil t)
 
 ;; Load configs for specific features and modes
-(require-package 'diminish)
-(maybe-require-package 'scratch)
-(require-package 'command-log-mode)
+(use-package diminish :straight t)
+(use-package scratch :straight t)
+(use-package command-log-mode :straight t)
+(use-package hydra :straight t)
 
 (require 'init-frame-hooks)
-(require 'init-xterm)
+;; (require 'init-xterm)
 (require 'init-themes)
 
 ;; (require 'init-osx-keys)
@@ -126,7 +130,6 @@
 ;; (require 'init-erlang)
 (require 'init-javascript)
 ;; (require 'init-php)
-(require-package 'org)
 (require 'init-org)
 ;; (require 'init-nxml)
 (require 'init-html)
@@ -149,10 +152,7 @@
 (require 'init-docker)
 ;; (require 'init-terraform)
 ;; (require 'init-nix)
-(maybe-require-package 'nginx-mode)
-;; (maybe-require-package 'just-mode)
-;; (maybe-require-package 'justl)
-
+(use-package nginx-mode :straight t)
 ;; (require 'init-paredit)
 (setq sanityinc/lispy-modes-hook '(sanityinc/enable-check-parens-on-save))
 (require 'init-lisp)
@@ -175,17 +175,17 @@
 
 ;; Extra packages which don't require any configuration
 
-(require-package 'sudo-edit)
-;; (require-package 'gnuplot)
-(require-package 'htmlize)
+(use-package sudo-edit :straight t)
+(use-package htmlize :straight t)
 (when *is-a-mac*
-  (require-package 'osx-location))
-;; (maybe-require-package 'dotenv-mode)
-;; (maybe-require-package 'shfmt)
+  (use-package osx-location :straight t))
 
-(when (maybe-require-package 'uptimes)
+(use-package uptimes
+  :straight t
+  :init
   (setq-default uptimes-keep-count 200)
-  (add-hook 'after-init-hook (lambda () (require 'uptimes))))
+  :hook
+  (after-init . (lambda () (require 'uptimes))))
 
 (when (fboundp 'global-eldoc-mode)
   (add-hook 'after-init-hook 'global-eldoc-mode))
@@ -197,7 +197,6 @@
            (treesit-available-p))
   (require 'init-treesitter))
 
-(require 'init-ligature)
 
 
 
@@ -215,133 +214,23 @@
 ;; Locales (setting them earlier in this file doesn't work in X)
 (require 'init-locales)
 
+;; Local Packages
+(require 'init-format)
+(require 'init-electric)
+(require 'init-crux)
+(require 'init-ace-window)
+(require 'init-undo)
+(require 'init-helpful)
+(require 'init-workspaces)
+(require 'init-vterm)
+(require 'init-avy)
+(require 'init-ligature)
 
-;; Local
-
-;; Surpress nativecomp warnings:
-(setq native-comp-async-report-warnings-errors nil)
-
-(when *is-a-mac*
-  (when (require-package 'ns-auto-titlebar)
-    (ns-auto-titlebar-mode)))
-
-(require 'init-secret)
-
-;; Whoami
-(setq user-full-name "Andrew Pilsch"
-      user-mail-address "apilsch@tamu.edu")
-
-;; Set font
-(set-face-attribute 'default nil :font "FiraCode Nerd Font" :height (if *is-a-mac* 155 140))
-;; Proper italic support on Linux:
-(unless *is-a-mac*
-  (set-face-attribute 'italic nil :font "Fira Mono" :slant 'italic))
-;; This file bootstraps the configuration, which is divided into
-;; a number of other files.
-
-(use-package hydra
-  :straight t)
-
-(defvar ap/leader-map (make-sparse-keymap))
-(define-key global-map (kbd "C-c") ap/leader-map)
-
-(defvar ap/localleader-map (make-sparse-keymap))
-(define-key global-map (kbd "C-c l") ap/localleader-map)
-
-(defvar ap/move-map (make-sparse-keymap))
-(define-key global-map (kbd "M-g") ap/move-map)
-
-(defvar ap/leader-open-map (make-sparse-keymap))
-(define-key ap/leader-map (kbd "o") ap/leader-open-map)
-
-(defvar ap/leader-code-map (make-sparse-keymap))
-(define-key ap/leader-map (kbd "c") ap/leader-code-map)
-
-;; Whoami
-(setq user-full-name "Andrew Pilsch"
-      user-mail-address "apilsch@tamu.edu")
-
-;; Reload files when the change on disk
-(global-auto-revert-mode t)
-
-;; Enable repeat-mode
-(repeat-mode)
-;; Enable repeat for the mark-ring
-(setq set-mark-command-repeat-pop t)
-
 ;; Repeat isearch with s/r
 (defvar-keymap isearch-repeat-map
   :repeat t
   "s" #'isearch-repeat-forward
   "r" #'isearch-repeat-backward)
-
-;; Resize window using hydras
-(defhydra hydra-window-resizer (:columns 2)
-  "Window Sizing."
-  ("-" shrink-window-horizontally "horizontal shrink")
-  ("=" enlarge-window-horizontally "horizontal enlarge")
-  ("_" shrink-window "vertical shrink")
-  ("+" enlarge-window "vertical enlarge"))
-
-(defun aw-window-resize (window)
-  "Resize WINDOW using `hydra-window-resizer/body'."
-  (aw-switch-to-window window)
-  (hydra-window-resizer/body))
-
-(use-package ace-window
-  :straight t
-  :bind ("C-x o" . ace-window)
-  :custom
-  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-  (aw-dispatch-alist
-   '((?x aw-delete-window "Delete Window")
-     (?m aw-swap-window "Swap Windows")
-     (?M aw-move-window "Move Window")
-     (?c aw-copy-window "Copy Window")
-     (?B aw-switch-buffer-in-window "Select Buffer")
-     (?n aw-flip-window)
-     (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
-     (?c aw-split-window-fair "Split Fair Window")
-     (?v aw-split-window-vert "Split Vert Window")
-     (?b aw-split-window-horz "Split Horz Window")
-     (?o delete-other-windows "Delete Other Windows")
-     (?r aw-window-resize "Resize Window")
-     (?? aw-show-dispatch-help))))
-
-
-(with-eval-after-load 'corfu
-  (defun corfu-enable-in-minibuffer ()
-    "Enable Corfu in the minibuffer."
-    (when (local-variable-p 'completion-at-point-functions)
-      ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
-      (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
-                  corfu-popupinfo-delay nil)
-      (corfu-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
-
-  (define-key corfu-map (kbd "C-c") 'corfu-quit)
-  (define-key corfu-map (kbd "C-g") 'corfu-quit)
-  (define-key corfu-map (kbd "C-y") 'corfu-insert)
-  (define-key global-map (kbd "C-M-i") 'completion-at-point))
-(defun crm-indicator (args)
-  (cons (format "[CRM%s] %s"
-                (replace-regexp-in-string
-                 "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                 crm-separator)
-                (car args))
-        (cdr args)))
-(advice-add #'completing-read-multiple :filter-args #'crm-indicator)
-
-;; Do not allow the cursor in the minibuffer prompt
-(setq minibuffer-prompt-properties
-      '(read-only t cursor-intangible t face minibuffer-prompt))
-(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-;; Enable recursive minibuffers
-(setq enable-recursive-minibuffers t)
-
-
-(require 'init-format)
-(require 'init-electric)
 
 ;; Restore default move-dup bindings:
 (global-set-key (kbd "M-<up>") 'move-dup-move-lines-up)
@@ -349,67 +238,6 @@
 (global-set-key (kbd "C-M-<up>") 'move-dup-duplicate-up)
 (global-set-key (kbd "C-M-<down>") 'move-dup-duplicate-down)
 
-(define-key global-map (kbd "C-;") 'embark-act)
-
-(with-eval-after-load 'embark
-  ;; Use helpful instead of help:
-  (with-eval-after-load 'helpful
-    (define-key embark-symbol-map (kbd "h") 'helpful-symbol))
-  ;; Use which-key for embark suggestions:
-  (defun embark-which-key-indicator ()
-    "An embark indicator that displays keymaps using which-key.
-The which-key help message will show the type and value of the
-current target followed by an ellipsis if there are further
-targets."
-    (lambda (&optional keymap targets prefix)
-      (if (null keymap)
-          (which-key--hide-popup-ignore-command)
-        (which-key--show-keymap
-         (if (eq (plist-get (car targets) :type) 'embark-become)
-             "Become"
-           (format "Act on %s '%s'%s"
-                   (plist-get (car targets) :type)
-                   (embark--truncate-target (plist-get (car targets) :target))
-                   (if (cdr targets) "…" "")))
-         (if prefix
-             (pcase (lookup-key keymap prefix 'accept-default)
-               ((and (pred keymapp) km) km)
-               (_ (key-binding prefix 'accept-default)))
-           keymap)
-         nil nil t (lambda (binding)
-                     (not (string-suffix-p "-argument" (cdr binding))))))))
-
-  (setq embark-indicators
-        '(embark-which-key-indicator
-          embark-highlight-indicator
-          embark-isearch-highlight-indicator))
-
-  (defun embark-hide-which-key-indicator (fn &rest args)
-    "Hide the which-key indicator immediately when using the completing-read prompter."
-    (which-key--hide-popup-ignore-command)
-    (let ((embark-indicators
-           (remq #'embark-which-key-indicator embark-indicators)))
-      (apply fn args)))
-
-  (advice-add #'embark-completing-read-prompter
-              :around #'embark-hide-which-key-indicator))
-
-(use-package crux
-  :straight t
-  :bind (("C-k" . crux-smart-kill-line)
-         ("C-o" . crux-smart-open-line)
-         ("C-S-o" . crux-smart-open-line-above)
-         ("C-<backspace>" . crux-kill-line-backwards)
-         ("C-^" . crux-top-join-line)
-         ([remap move-beginning-of-line] . crux-move-beginning-of-line)
-         ([remap kill-whole-line] . crux-kill-whole-line)
-         :map ap/leader-open-map
-         ("o" . crux-open-with)
-         :map ctl-x-map
-         ("C-u" . crux-upcase-region)
-         ("C-l" . crux-downcase-region)
-         ("M-c" . crux-capitalize-region)))
-
 ;; Use isearch in other windows
 (defun isearch-forward-other-window (prefix)
   "Function to isearch-forward in other-window."
@@ -433,7 +261,7 @@ targets."
 
 (define-key global-map (kbd "C-M-s") 'isearch-forward-other-window)
 (define-key global-map (kbd "C-M-r") 'isearch-backward-other-window)
-
+
 ;; Transient-mark-mode supporting push-mark
 ;; Source: https://www.masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
 (defun push-mark-no-activate ()
@@ -455,27 +283,20 @@ targets."
 (global-set-key (kbd "C->") #'indent-rigidly-right-to-tab-stop)
 (global-set-key (kbd "C-<") #'indent-rigidly-left-to-tab-stop)
 
-(require 'init-avy)
-
-;; Navigate headings in the outline with universal arguments
-(defun ap/outline-next-heading (&optional c)
-  "Interactive, count-able heading motion"
+(defun ap/countable-wrapper (oldfun &optional c &rest r)
+  "Wrap OLDFUN in a loop and perform it C times.  Supply R if provided."
   (interactive "p")
-  (dotimes (_ c)
-    (outline-next-heading)))
+  (dotimes (_ (or c 1))
+    (apply oldfun (unless (eq 0 (car (func-arity oldfun))) r))))
 
-(defun ap/outline-previous-heading (&optional c)
-  "Interactive, count-able heading motion"
-  (interactive "p")
-  (dotimes (_ c)
-    (outline-previous-heading)))
-
-(define-key ap/move-map (kbd "h") 'ap/outline-next-heading)
-(define-key ap/move-map (kbd "H") 'ap/outline-previous-heading)
+(advice-add 'outline-previous-heading :around 'ap/countable-wrapper)
+(advice-add 'outline-next-heading :around 'ap/countable-wrapper)
+(define-key ap/move-map (kbd "h") 'outline-next-heading)
+(define-key ap/move-map (kbd "H") 'outline-previous-heading)
 (defvar-keymap outline-heading-repeat-map
   :repeat t
-  "h" 'ap/outline-next-heading
-  "H" 'ap/outline-previous-heading)
+  "h" 'outline-next-heading
+  "H" 'outline-previous-heading)
 
 (use-package surround
   :straight t
@@ -488,19 +309,15 @@ targets."
   :straight t
   :bind (("C-=" . er/expand-region)))
 
-(require 'init-vterm)
-
 ;; Doom's version control menu
 (defvar ap/vc-map (make-sparse-keymap))
 (define-key ap/leader-map (kbd "v") ap/vc-map)
 (define-key ap/vc-map (kbd "R") #'vc-revert)
-
 (define-key ap/vc-map (kbd "r") #'diff-hl-revert-hunk)
 (define-key ap/vc-map (kbd "s") #'diff-hl-stage-current-hunk)
 (define-key ap/vc-map (kbd "t") #'git-timemachine-toggle)
 (define-key ap/vc-map (kbd "n") #'diff-hunk-next)
 (define-key ap/vc-map (kbd "p") #'diff-hunk-prev)
-
 (define-key ap/vc-map (kbd "/") #'magit-dispatch)
 (define-key ap/vc-map (kbd ".") #'magit-file-dispatch)
 (define-key ap/vc-map (kbd "'") #'forge-dispatch)
@@ -518,7 +335,6 @@ targets."
 (define-key ap/vc-map (kbd "f c") #'magit-show-commit)
 (define-key ap/vc-map (kbd "f i") #'forge-visit-issue)
 (define-key ap/vc-map (kbd "f p") #'forge-visit-pullreq)
-
 (define-key ap/vc-map (kbd "o .") #'+vc/browse-at-remote)
 (define-key ap/vc-map (kbd "o h") #'+vc/browse-at-remote-homepage)
 (define-key ap/vc-map (kbd "o r") #'forge-browse-remote)
@@ -527,7 +343,6 @@ targets."
 (define-key ap/vc-map (kbd "o p") #'forge-browse-pullreq)
 (define-key ap/vc-map (kbd "o I") #'forge-browse-issues)
 (define-key ap/vc-map (kbd "o P") #'forge-browse-pullreqs)
-
 (define-key ap/vc-map (kbd "l r") #'magit-list-repositories)
 (define-key ap/vc-map (kbd "l s") #'magit-list-submodules)
 (define-key ap/vc-map (kbd "l i") #'forge-list-issues)
@@ -544,30 +359,26 @@ targets."
 (with-eval-after-load 'markdown-mode
   (add-hook 'markdown-mode-hook 'visual-line-mode))
 
-;; Sentences only need one space, Emacs. C'mon
-(add-hook 'org-mode-hook (lambda (&rest _) (setq-local sentence-end-double-space nil)))
-(add-hook 'markdown-mode-hook (lambda (&rest _) (setq-local sentence-end-double-space nil)))
-(add-hook 'text-mode-hook (lambda (&rest _) (setq-local sentence-end-double-space nil)))
-
-;; Turn off electric-indent for org:
-(add-hook 'org-mode-hook
-	  (lambda () (electric-indent-local-mode -1)))
+;; It's not the 80s, emacs.
+(setq sentence-end-double-space nil)
 
 ;; Turn off electric-indent for org:
 (add-hook 'org-mode-hook
 	  (lambda () (electric-indent-local-mode -1)))
 
 (with-eval-after-load 'org
-  (define-key global-map (kbd "C-c a") 'org-agenda)
-  (define-key global-map (kbd "C-c c") 'org-capture)
+  (define-key ap/leader-open-map (kbd "j") 'org-clock-goto)
+  (define-key ap/leader-open-map (kbd "l") 'org-clock-in-last)
+  (define-key ap/leader-open-map (kbd "i") 'org-clock-in)
+  (define-key ap/leader-open-map (kbd "o") 'org-clock-out)
   (define-key ap/leader-open-map (kbd "a") 'org-agenda)
   (define-key ap/leader-open-map (kbd "c") 'org-capture)
 
   (setq org-capture-templates
         `(("t" "todo" entry (file+headline "" "Inbox") ; "" => `org-default-notes-file'
-           "* TODO %?\n%T\n%i\n")
+           "* TODO %?\n%N\n%i\n")
           ("n" "note" entry (file "")
-           "* %? :NOTE:\n%T\n%a\n" :clock-resume t)
+           "* %? :NOTE:\n%N\n%a\n" :clock-resume t)
           ))
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "|" "DONE(d!/!)")
@@ -649,24 +460,24 @@ Switch to TODO otherwise"
   (advice-add 'org-agenda-switch-to :before 'ap/jump-to-admin-workspace)
 
   ;; Use C-S-Up/Down to navigate headlines when not using to change clocks
-  (defun ap/shiftcontroldown (&optional n)
+  (defun ap/shiftcontroldown (oldfunc &optional n)
     "Re-implement 'org-shiftcontroldown' and pass N to it.
 If not in a clock, move to next headline."
     (interactive "p")
     (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
-        (org-shiftcontroldown n)
-      (dotimes (_ n) (outline-next-heading))))
+        (oldfunc n)
+      (dotimes (_ n) (outline-forward-same-level))))
 
-  (defun ap/shiftcontrolup (&optional n)
+  (defun ap/shiftcontrolup (oldfunc &optional n)
     "Re-implement 'org-shiftcontrolup' and pass N to it.
-If not in a clock, move to next headline."
+If not in a clock, move to previous headline."
     (interactive "p")
     (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
-        (org-shiftcontrolup n)
-      (dotimes (_ n) (outline-previous-heading))))
+        (oldfunc n)
+      (dotimes (_ n) (outline-backward-same-level))))
 
-  (define-key org-mode-map (kbd "C-S-<down>") 'ap/shiftcontroldown)
-  (define-key org-mode-map (kbd "C-S-<up>") 'ap/shiftcontrolup)
+  (advice-add 'org-shiftcontrolup :around 'ap/shiftcontrolup)
+  (advice-add 'org-shiftcontroldown :around 'ap/shiftcontroldown)
 
   (defun ap/wrap-dotimes (fn)
     "Wrap FN in a dotimes loop to make it repeatable with universal arguments."
@@ -678,131 +489,138 @@ If not in a clock, move to next headline."
   (define-key org-mode-map (kbd "M-<down>") (ap/wrap-dotimes 'org-metadown))
   (define-key org-mode-map (kbd "C-z") 'org-cycle-list-bullet)
 
-  (when (require-package 'org-appear)
-    (setq org-appear-trigger 'always)
-    (setq org-appear-autoentities t)
-    (setq org-appear-autolinks t)
-    (setq org-appear-autosubmarkers t)
-    (add-hook 'org-mode-hook 'org-appear-mode))
   ;; Doom local-leader for org-mode
-  (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-c #") #'org-update-statistics-cookies)
-    (define-key org-mode-map (kbd "C-c l '") #'org-edit-special)
-    (define-key org-mode-map (kbd "C-c l *") #'org-ctrl-c-star)
-    (define-key org-mode-map (kbd "C-c l +") #'org-ctrl-c-minus)
-    (define-key org-mode-map (kbd "C-c l ,") #'org-switchb)
-    (define-key org-mode-map (kbd "C-c l .") #'org-goto)
-    (define-key org-mode-map (kbd "C-c l @") #'org-cite-insert)
-    (define-key org-mode-map (kbd "C-c l .") #'counsel-org-goto)
-    (define-key org-mode-map (kbd "C-c l /") #'counsel-org-goto-all)
-    (define-key org-mode-map (kbd "C-c l .") #'consult-org-heading)
-    (define-key org-mode-map (kbd "C-c l /") #'consult-org-agenda)
-    (define-key org-mode-map (kbd "C-c l A") #'org-archive-subtree-default)
-    (define-key org-mode-map (kbd "C-c l e") #'org-export-dispatch)
-    (define-key org-mode-map (kbd "C-c l f") #'org-footnote-action)
-    (define-key org-mode-map (kbd "C-c l h") #'org-toggle-heading)
-    (define-key org-mode-map (kbd "C-c l i") #'org-toggle-item)
-    (define-key org-mode-map (kbd "C-c l I") #'org-id-get-create)
-    (define-key org-mode-map (kbd "C-c l k") #'org-babel-remove-result)
-    ;; (define-key org-mode-map (kbd "C-c l K") #'+org/remove-result-blocks)
-    (define-key org-mode-map (kbd "C-c l n") #'org-store-link)
-    (define-key org-mode-map (kbd "C-c l o") #'org-set-property)
-    (define-key org-mode-map (kbd "C-c l q") #'org-set-tags-command)
-    (define-key org-mode-map (kbd "C-c l t") #'org-todo)
-    (define-key org-mode-map (kbd "C-c l T") #'org-todo-list)
-    (define-key org-mode-map (kbd "C-c l x") #'org-toggle-checkbox)
-    (define-key org-mode-map (kbd "C-c l a a") #'org-attach)
-    (define-key org-mode-map (kbd "C-c l a d") #'org-attach-delete-one)
-    (define-key org-mode-map (kbd "C-c l a D") #'org-attach-delete-all)
-    (define-key org-mode-map (kbd "C-c l a f") #'+org/find-file-in-attachments)
-    (define-key org-mode-map (kbd "C-c l a l") #'+org/attach-file-and-insert-link)
-    (define-key org-mode-map (kbd "C-c l a n") #'org-attach-new)
-    (define-key org-mode-map (kbd "C-c l a o") #'org-attach-open)
-    (define-key org-mode-map (kbd "C-c l a O") #'org-attach-open-in-emacs)
-    (define-key org-mode-map (kbd "C-c l a r") #'org-attach-reveal)
-    (define-key org-mode-map (kbd "C-c l a R") #'org-attach-reveal-in-emacs)
-    (define-key org-mode-map (kbd "C-c l a u") #'org-attach-url)
-    (define-key org-mode-map (kbd "C-c l a s") #'org-attach-set-directory)
-    (define-key org-mode-map (kbd "C-c l a S") #'org-attach-sync)
-    (define-key org-mode-map (kbd "C-c l b -") #'org-table-insert-hline)
-    (define-key org-mode-map (kbd "C-c l b a") #'org-table-align)
-    (define-key org-mode-map (kbd "C-c l b b") #'org-table-blank-field)
-    (define-key org-mode-map (kbd "C-c l b c") #'org-table-create-or-convert-from-region)
-    (define-key org-mode-map (kbd "C-c l b e") #'org-table-edit-field)
-    (define-key org-mode-map (kbd "C-c l b f") #'org-table-edit-formulas)
-    (define-key org-mode-map (kbd "C-c l b h") #'org-table-field-info)
-    (define-key org-mode-map (kbd "C-c l b s") #'org-table-sort-lines)
-    (define-key org-mode-map (kbd "C-c l b r") #'org-table-recalculate)
-    (define-key org-mode-map (kbd "C-c l b R") #'org-table-recalculate-buffer-tables)
-    (define-key org-mode-map (kbd "C-c l b d c") #'org-table-delete-column)
-    (define-key org-mode-map (kbd "C-c l b d r") #'org-table-kill-row)
-    (define-key org-mode-map (kbd "C-c l b i c") #'org-table-insert-column)
-    (define-key org-mode-map (kbd "C-c l b i h") #'org-table-insert-hline)
-    (define-key org-mode-map (kbd "C-c l b i r") #'org-table-insert-row)
-    (define-key org-mode-map (kbd "C-c l b i H") #'org-table-hline-and-move)
-    (define-key org-mode-map (kbd "C-c l b t f") #'org-table-toggle-formula-debugger)
-    (define-key org-mode-map (kbd "C-c l b t o") #'org-table-toggle-coordinate-overlays)
-    (define-key org-mode-map (kbd "C-c l c c") #'org-clock-cancel)
-    (define-key org-mode-map (kbd "C-c l c d") #'org-clock-mark-default-task)
-    (define-key org-mode-map (kbd "C-c l c e") #'org-clock-modify-effort-estimate)
-    (define-key org-mode-map (kbd "C-c l c E") #'org-set-effort)
-    (define-key org-mode-map (kbd "C-c l c g") #'org-clock-goto)
-    (define-key org-mode-map (kbd "C-c l c G") (lambda (&rest _) (interactive) (org-clock-goto 'select)))
-    ;; (define-key org-mode-map (kbd "C-c l c l") #'+org/toggle-last-clock)
-    (define-key org-mode-map (kbd "C-c l c i") #'org-clock-in)
-    (define-key org-mode-map (kbd "C-c l c I") #'org-clock-in-last)
-    (define-key org-mode-map (kbd "C-c l c o") #'org-clock-out)
-    (define-key org-mode-map (kbd "C-c l c r") #'org-resolve-clocks)
-    (define-key org-mode-map (kbd "C-c l c R") #'org-clock-report)
-    (define-key org-mode-map (kbd "C-c l c t") #'org-evaluate-time-range)
-    (define-key org-mode-map (kbd "C-c l c =") #'org-clock-timestamps-up)
-    (define-key org-mode-map (kbd "C-c l c -") #'org-clock-timestamps-down)
-    (define-key org-mode-map (kbd "C-c l d d") #'org-deadline)
-    (define-key org-mode-map (kbd "C-c l d s") #'org-schedule)
-    (define-key org-mode-map (kbd "C-c l d t") #'org-time-stamp)
-    (define-key org-mode-map (kbd "C-c l d T") #'org-time-stamp-inactive)
-    (define-key org-mode-map (kbd "C-c l g g") #'consult-org-heading)
-    (define-key org-mode-map (kbd "C-c l g G") #'consult-org-agenda)
-    (define-key org-mode-map (kbd "C-c l g c") #'org-clock-goto)
-    (define-key org-mode-map (kbd "C-c l g C") (lambda (&rest _) (interactive) (org-clock-goto 'select)))
-    (define-key org-mode-map (kbd "C-c l g i") #'org-id-goto)
-    (define-key org-mode-map (kbd "C-c l g r") #'org-refile-goto-last-stored)
-    ;; (define-key org-mode-map (kbd "C-c l g v") #'+org/goto-visible)
-    (define-key org-mode-map (kbd "C-c l g x") #'org-capture-goto-last-stored)
-    (define-key org-mode-map (kbd "C-c l l c") #'org-cliplink)
-    ;; (define-key org-mode-map (kbd "C-c l l d") #'+org/remove-link)
-    (define-key org-mode-map (kbd "C-c l l i") #'org-id-store-link)
-    (define-key org-mode-map (kbd "C-c l l l") #'org-insert-link)
-    (define-key org-mode-map (kbd "C-c l l L") #'org-insert-all-links)
-    (define-key org-mode-map (kbd "C-c l l s") #'org-store-link)
-    (define-key org-mode-map (kbd "C-c l l S") #'org-insert-last-stored-link)
-    (define-key org-mode-map (kbd "C-c l l t") #'org-toggle-link-display)
-    (when *is-a-mac*
-      (define-key org-mode-map (kbd "C-c l l g") #'org-mac-link-get-link))
-    (define-key org-mode-map (kbd "C-c l P a") #'org-publish-all)
-    (define-key org-mode-map (kbd "C-c l P f") #'org-publish-current-file)
-    (define-key org-mode-map (kbd "C-c l P p") #'org-publish)
-    (define-key org-mode-map (kbd "C-c l P P") #'org-publish-current-project)
-    (define-key org-mode-map (kbd "C-c l P s") #'org-publish-sitemap)
-    (define-key org-mode-map (kbd "C-c l r") #'org-refile)
-    (define-key org-mode-map (kbd "C-c l R") #'org-refile-reverse)
-    (define-key org-mode-map (kbd "C-c l s a") #'org-toggle-archive-tag)
-    (define-key org-mode-map (kbd "C-c l s b") #'org-tree-to-indirect-buffer)
-    (define-key org-mode-map (kbd "C-c l s c") #'org-clone-subtree-with-time-shift)
-    (define-key org-mode-map (kbd "C-c l s d") #'org-cut-subtree)
-    (define-key org-mode-map (kbd "C-c l s h") #'org-promote-subtree)
-    (define-key org-mode-map (kbd "C-c l s j") #'org-move-subtree-down)
-    (define-key org-mode-map (kbd "C-c l s k") #'org-move-subtree-up)
-    (define-key org-mode-map (kbd "C-c l s l") #'org-demote-subtree)
-    (define-key org-mode-map (kbd "C-c l s n") #'org-narrow-to-subtree)
-    (define-key org-mode-map (kbd "C-c l s r") #'org-refile)
-    (define-key org-mode-map (kbd "C-c l s s") #'org-sparse-tree)
-    (define-key org-mode-map (kbd "C-c l s A") #'org-archive-subtree-default)
-    (define-key org-mode-map (kbd "C-c l s N") #'widen)
-    (define-key org-mode-map (kbd "C-c l s S") #'org-sort)
-    (define-key org-mode-map (kbd "C-c l p d") #'org-priority-down)
-    (define-key org-mode-map (kbd "C-c l p p") #'org-priority)
-    (define-key org-mode-map (kbd "C-c l p u") #'org-priority-up)))
+  (define-key org-mode-map (kbd "C-c #") #'org-update-statistics-cookies)
+  (define-key org-mode-map (kbd "C-c l '") #'org-edit-special)
+  (define-key org-mode-map (kbd "C-c l *") #'org-ctrl-c-star)
+  (define-key org-mode-map (kbd "C-c l +") #'org-ctrl-c-minus)
+  (define-key org-mode-map (kbd "C-c l ,") #'org-switchb)
+  (define-key org-mode-map (kbd "C-c l .") #'org-goto)
+  (define-key org-mode-map (kbd "C-c l @") #'org-cite-insert)
+  (define-key org-mode-map (kbd "C-c l A") #'org-archive-subtree-default)
+  (define-key org-mode-map (kbd "C-c l e") #'org-export-dispatch)
+  (define-key org-mode-map (kbd "C-c l f") #'org-footnote-action)
+  (define-key org-mode-map (kbd "C-c l h") #'org-toggle-heading)
+  (define-key org-mode-map (kbd "C-c l i") #'org-toggle-item)
+  (define-key org-mode-map (kbd "C-c l I") #'org-id-get-create)
+  (define-key org-mode-map (kbd "C-c l k") #'org-babel-remove-result)
+  ;; (define-key org-mode-map (kbd "C-c l K") #'+org/remove-result-blocks)
+  (define-key org-mode-map (kbd "C-c l n") #'org-store-link)
+  (define-key org-mode-map (kbd "C-c l o") #'org-set-property)
+  (define-key org-mode-map (kbd "C-c l q") #'org-set-tags-command)
+  (define-key org-mode-map (kbd "C-c l t") #'org-todo)
+  (define-key org-mode-map (kbd "C-c l T") #'org-todo-list)
+  (define-key org-mode-map (kbd "C-c l x") #'org-toggle-checkbox)
+  (define-key org-mode-map (kbd "C-c l a a") #'org-attach)
+  (define-key org-mode-map (kbd "C-c l a d") #'org-attach-delete-one)
+  (define-key org-mode-map (kbd "C-c l a D") #'org-attach-delete-all)
+  (define-key org-mode-map (kbd "C-c l a f") #'+org/find-file-in-attachments)
+  (define-key org-mode-map (kbd "C-c l a l") #'+org/attach-file-and-insert-link)
+  (define-key org-mode-map (kbd "C-c l a n") #'org-attach-new)
+  (define-key org-mode-map (kbd "C-c l a o") #'org-attach-open)
+  (define-key org-mode-map (kbd "C-c l a O") #'org-attach-open-in-emacs)
+  (define-key org-mode-map (kbd "C-c l a r") #'org-attach-reveal)
+  (define-key org-mode-map (kbd "C-c l a R") #'org-attach-reveal-in-emacs)
+  (define-key org-mode-map (kbd "C-c l a u") #'org-attach-url)
+  (define-key org-mode-map (kbd "C-c l a s") #'org-attach-set-directory)
+  (define-key org-mode-map (kbd "C-c l a S") #'org-attach-sync)
+  (define-key org-mode-map (kbd "C-c l b -") #'org-table-insert-hline)
+  (define-key org-mode-map (kbd "C-c l b a") #'org-table-align)
+  (define-key org-mode-map (kbd "C-c l b b") #'org-table-blank-field)
+  (define-key org-mode-map (kbd "C-c l b c") #'org-table-create-or-convert-from-region)
+  (define-key org-mode-map (kbd "C-c l b e") #'org-table-edit-field)
+  (define-key org-mode-map (kbd "C-c l b f") #'org-table-edit-formulas)
+  (define-key org-mode-map (kbd "C-c l b h") #'org-table-field-info)
+  (define-key org-mode-map (kbd "C-c l b s") #'org-table-sort-lines)
+  (define-key org-mode-map (kbd "C-c l b r") #'org-table-recalculate)
+  (define-key org-mode-map (kbd "C-c l b R") #'org-table-recalculate-buffer-tables)
+  (define-key org-mode-map (kbd "C-c l b d c") #'org-table-delete-column)
+  (define-key org-mode-map (kbd "C-c l b d r") #'org-table-kill-row)
+  (define-key org-mode-map (kbd "C-c l b i c") #'org-table-insert-column)
+  (define-key org-mode-map (kbd "C-c l b i h") #'org-table-insert-hline)
+  (define-key org-mode-map (kbd "C-c l b i r") #'org-table-insert-row)
+  (define-key org-mode-map (kbd "C-c l b i H") #'org-table-hline-and-move)
+  (define-key org-mode-map (kbd "C-c l b t f") #'org-table-toggle-formula-debugger)
+  (define-key org-mode-map (kbd "C-c l b t o") #'org-table-toggle-coordinate-overlays)
+  (define-key org-mode-map (kbd "C-c l c c") #'org-clock-cancel)
+  (define-key org-mode-map (kbd "C-c l c d") #'org-clock-mark-default-task)
+  (define-key org-mode-map (kbd "C-c l c e") #'org-clock-modify-effort-estimate)
+  (define-key org-mode-map (kbd "C-c l c E") #'org-set-effort)
+  (define-key org-mode-map (kbd "C-c l c g") #'org-clock-goto)
+  (define-key org-mode-map (kbd "C-c l c G") (lambda (&rest _) (interactive) (org-clock-goto 'select)))
+  ;; (define-key org-mode-map (kbd "C-c l c l") #'+org/toggle-last-clock)
+  (define-key org-mode-map (kbd "C-c l c i") #'org-clock-in)
+  (define-key org-mode-map (kbd "C-c l c I") #'org-clock-in-last)
+  (define-key org-mode-map (kbd "C-c l c o") #'org-clock-out)
+  (define-key org-mode-map (kbd "C-c l c r") #'org-resolve-clocks)
+  (define-key org-mode-map (kbd "C-c l c R") #'org-clock-report)
+  (define-key org-mode-map (kbd "C-c l c t") #'org-evaluate-time-range)
+  (define-key org-mode-map (kbd "C-c l c =") #'org-clock-timestamps-up)
+  (define-key org-mode-map (kbd "C-c l c -") #'org-clock-timestamps-down)
+  (define-key org-mode-map (kbd "C-c l d d") #'org-deadline)
+  (define-key org-mode-map (kbd "C-c l d s") #'org-schedule)
+  (define-key org-mode-map (kbd "C-c l d t") #'org-time-stamp)
+  (define-key org-mode-map (kbd "C-c l d T") #'org-time-stamp-inactive)
+  (define-key org-mode-map (kbd "C-c l g c") #'org-clock-goto)
+  (define-key org-mode-map (kbd "C-c l g C") (lambda (&rest _) (interactive) (org-clock-goto 'select)))
+  (define-key org-mode-map (kbd "C-c l g i") #'org-id-goto)
+  (define-key org-mode-map (kbd "C-c l g r") #'org-refile-goto-last-stored)
+  ;; (define-key org-mode-map (kbd "C-c l g v") #'+org/goto-visible)
+  (define-key org-mode-map (kbd "C-c l g x") #'org-capture-goto-last-stored)
+  (define-key org-mode-map (kbd "C-c l l c") #'org-cliplink)
+  ;; (define-key org-mode-map (kbd "C-c l l d") #'+org/remove-link)
+  (define-key org-mode-map (kbd "C-c l l i") #'org-id-store-link)
+  (define-key org-mode-map (kbd "C-c l l l") #'org-insert-link)
+  (define-key org-mode-map (kbd "C-c l l L") #'org-insert-all-links)
+  (define-key org-mode-map (kbd "C-c l l s") #'org-store-link)
+  (define-key org-mode-map (kbd "C-c l l S") #'org-insert-last-stored-link)
+  (define-key org-mode-map (kbd "C-c l l t") #'org-toggle-link-display)
+  (when *is-a-mac*
+    (define-key org-mode-map (kbd "C-c l l g") #'org-mac-link-get-link))
+  (define-key org-mode-map (kbd "C-c l P a") #'org-publish-all)
+  (define-key org-mode-map (kbd "C-c l P f") #'org-publish-current-file)
+  (define-key org-mode-map (kbd "C-c l P p") #'org-publish)
+  (define-key org-mode-map (kbd "C-c l P P") #'org-publish-current-project)
+  (define-key org-mode-map (kbd "C-c l P s") #'org-publish-sitemap)
+  (define-key org-mode-map (kbd "C-c l r") #'org-refile)
+  (define-key org-mode-map (kbd "C-c l R") #'org-refile-reverse)
+  (define-key org-mode-map (kbd "C-c l s a") #'org-toggle-archive-tag)
+  (define-key org-mode-map (kbd "C-c l s b") #'org-tree-to-indirect-buffer)
+  (define-key org-mode-map (kbd "C-c l s c") #'org-clone-subtree-with-time-shift)
+  (define-key org-mode-map (kbd "C-c l s d") #'org-cut-subtree)
+  (define-key org-mode-map (kbd "C-c l s h") #'org-promote-subtree)
+  (define-key org-mode-map (kbd "C-c l s j") #'org-move-subtree-down)
+  (define-key org-mode-map (kbd "C-c l s k") #'org-move-subtree-up)
+  (define-key org-mode-map (kbd "C-c l s l") #'org-demote-subtree)
+  (define-key org-mode-map (kbd "C-c l s n") #'org-narrow-to-subtree)
+  (define-key org-mode-map (kbd "C-c l s r") #'org-refile)
+  (define-key org-mode-map (kbd "C-c l s s") #'org-sparse-tree)
+  (define-key org-mode-map (kbd "C-c l s A") #'org-archive-subtree-default)
+  (define-key org-mode-map (kbd "C-c l s N") #'widen)
+  (define-key org-mode-map (kbd "C-c l s S") #'org-sort)
+  (define-key org-mode-map (kbd "C-c l p d") #'org-priority-down)
+  (define-key org-mode-map (kbd "C-c l p p") #'org-priority)
+  (define-key org-mode-map (kbd "C-c l p u") #'org-priority-up))
+
+(use-package org-appear
+  :straight t
+  :custom
+  (org-appear-trigger 'always)
+  (org-appear-autoentities t)
+  (org-appear-autolinks t)
+  (org-appear-autosubmarkers t)
+  :hook
+  (org-mode . org-appear-mode))
+
+(use-package ox-pandoc
+  :straight t
+  :after ox
+  :init
+  (add-to-list 'org-export-backends 'pandoc)
+  (setq org-pandoc-options
+        '((standalone . t)
+          (mathjax . t)
+          (variable . "revealjs-url=https://revealjs.com"))))
 
 ;; Bibliography
 ;; So that RefTeX finds my bibliography
@@ -825,6 +643,7 @@ If not in a clock, move to next headline."
 ;; Citar for advanced citation:
 (use-package citar
   :straight t
+  :after org
   :hook ((org-mode markdown-mode latex-mode) . citar-capf-setup)
   :custom
   (org-cite-insert-processor 'citar)
@@ -852,18 +671,6 @@ If not in a clock, move to next headline."
   (citar-embark-mode))
 
 
-(require 'init-undo)
-(require 'init-helpful)
-
-(with-eval-after-load 'consult
-  (setq consult-narrow-key "<")
-  (setq consult-widen-key ">")
-  (define-key global-map (kbd "C-x C-r") 'consult-recent-file))
-
-;; (require 'init-projectile)
-
-(require 'init-workspaces)
-
 ;; emacs-lisp local map:
 (defvar ap/emacs-lisp-map (make-sparse-keymap))
 (define-key emacs-lisp-mode-map (kbd "C-c l") ap/emacs-lisp-map)
@@ -876,9 +683,9 @@ If not in a clock, move to next headline."
 (define-key ap/emacs-lisp-map (kbd "g f") #'find-function)
 (define-key ap/emacs-lisp-map (kbd "g v") #'find-variable)
 (define-key ap/emacs-lisp-map (kbd "g l") #'find-library)
-
+
 (defun ap/project-buffers (&optional sources)
-  "Display buffers using consult-buffer, narrowed to only project files.
+  "Display buffers using  `consult-buffer', narrowed to only project files.
 
 Pass SOURCES to consult-buffer, if provided."
   (interactive)
@@ -887,17 +694,19 @@ Pass SOURCES to consult-buffer, if provided."
 
 (define-key global-map (kbd "C-x b") 'ap/project-buffers)
 (define-key global-map (kbd "C-x B") 'consult-buffer)
-
+
 ;; Configure cape
-(defun ap/writing-cape ()
-  "Custom completion-at-point-function for use in writing environments."
-  (cape-capf-super #'cape-dict #'cape-dabbrev #'cape-keyword))
-(defun ap/--set-cape ()
-  (add-hook 'completion-at-point-functions #'ap/writing-cape 0 t))
+(defun ap/add-capf (func)
+  "Add FUNC to the `completion-at-point-functions' for the buffer."
+  (let ((funcs func))
+    (when (not (listp func)) (setq funcs (list func)))
+    (mapcar (lambda (x) (add-hook 'completion-at-point-functions x 0 t)) funcs)))
+
 (use-package cape
   :straight t
-  :hook ((markdown-mode org-mode text-mode) . ap/--set-cape))
-
+  :hook ((markdown-mode org-mode text-mode) .
+         (lambda () (ap/add-capf (list #'cape-keyword #'cape-dabbrev #'cape-dict)))))
+
 (with-eval-after-load 'eldoc
   (diminish 'eldoc-mode))
 (with-eval-after-load 'paredit
@@ -915,19 +724,16 @@ Pass SOURCES to consult-buffer, if provided."
 (require 'init-oncomark)
 (require 'init-holidays)
 
-(defun ap/close-window (&optional arg)
-  "Combines `delete-window' and `delete-other-windows'.
-
-When C-u (ARG is 4) is pressed, delete other windows."
-  (interactive "p")
-  (if (= arg 4) (delete-other-windows) (delete-window)))
-
-(define-key global-map (kbd "C-x 0") 'ap/close-window)
-
-(use-package rainbow-mode
+(use-package volatile-highlights
   :straight t
-  :hook ((prog-mode) . rainbow-mode)
-  :diminish rainbow-mode)
+  :diminish volatile-highlights-mode
+  :hook (after-init . volatile-highlights-mode))
+
+;; (use-package markdown-ts-mode
+;;   :straight (markdown-ts-mode :type git :host github :repo "LionyxML/markdown-ts-mode")
+;;   :mode ("\\.md\\'" . markdown-ts-mode)
+;;   :config
+;;   (add-to-list 'treesit-language-source-alist '(markdown "https://github.com/ikatyang/tree-sitter-markdown" "master" "src")))
 
 (defun ap/close-window (&optional arg)
   "Combines `delete-window' and `delete-other-windows'.
