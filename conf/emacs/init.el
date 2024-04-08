@@ -44,12 +44,6 @@
 ;; Adjust garbage collection threshold for early startup (see use of gcmh below)
 (setq gc-cons-threshold (* 128 1024 1024))
 
-;; savehist has a problem on macos:
-(when *is-a-mac*
-  (setq history-length 100)
-  (put 'minibuffer-history 'history-length 50)
-  (put 'kill-ring 'history-length 25))
-
 ;; Process performance tuning
 
 (setq read-process-output-max (* 4 1024 1024))
@@ -559,6 +553,10 @@ targets."
 (add-hook 'org-mode-hook
 	  (lambda () (electric-indent-local-mode -1)))
 
+;; Turn off electric-indent for org:
+(add-hook 'org-mode-hook
+	  (lambda () (electric-indent-local-mode -1)))
+
 (with-eval-after-load 'org
   (define-key global-map (kbd "C-c a") 'org-agenda)
   (define-key global-map (kbd "C-c c") 'org-capture)
@@ -914,6 +912,8 @@ Pass SOURCES to consult-buffer, if provided."
   (diminish 'apheleia-mode))
 
 (require 'init-flyspell)
+(require 'init-oncomark)
+(require 'init-holidays)
 
 (defun ap/close-window (&optional arg)
   "Combines `delete-window' and `delete-other-windows'.
@@ -929,7 +929,18 @@ When C-u (ARG is 4) is pressed, delete other windows."
   :hook ((prog-mode) . rainbow-mode)
   :diminish rainbow-mode)
 
-(require 'init-holidays)
+(defun ap/close-window (&optional arg)
+  "Combines `delete-window' and `delete-other-windows'.
+When C-u (ARG is 4) is pressed, delete other windows."
+  (interactive "p")
+  (if (= arg 4) (delete-other-windows) (delete-window)))
+
+(define-key global-map (kbd "C-x 0") 'ap/close-window)
+
+(use-package rainbow-mode
+  :straight t
+  :hook ((prog-mode) . rainbow-mode)
+  :diminish rainbow-mode)
 
 (provide 'init)
 

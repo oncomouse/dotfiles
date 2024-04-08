@@ -62,6 +62,12 @@
 
   )
 
+  ;; This gets overwritten somehow:
+  (setq calendar-holidays (append holiday-general-holidays holiday-local-holidays
+                                  holiday-other-holidays holiday-christian-holidays
+                                  holiday-hebrew-holidays holiday-islamic-holidays
+                                  holiday-bahai-holidays holiday-oriental-holidays
+                                  holiday-solar-holidays))
 (with-eval-after-load 'org
   (setq org-agenda-include-diary t))
 
