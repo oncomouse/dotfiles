@@ -403,6 +403,7 @@ targets."
          ("C-o" . crux-smart-open-line)
          ("C-S-o" . crux-smart-open-line-above)
          ("C-<backspace>" . crux-kill-line-backwards)
+         ("C-^" . crux-top-join-line)
          ([remap move-beginning-of-line] . crux-move-beginning-of-line)
          ([remap kill-whole-line] . crux-kill-whole-line)
          :map ap/leader-open-map
@@ -435,22 +436,6 @@ targets."
 
 (define-key global-map (kbd "C-M-s") 'isearch-forward-other-window)
 (define-key global-map (kbd "C-M-r") 'isearch-backward-other-window)
-
-(defun ap/join-line (&optional c)
-  "Vim-style join-line, that merges lines to the end of the line at point.
-
-If mark is active, merge lines in the current region."
-  (interactive "p")
-  (if mark-active
-      (let ((beg (region-beginning))
-            (end (copy-marker (region-end))))
-        (goto-char beg)
-        (while (< (point) end)
-          (join-line 1))))
-  (dotimes (_ c)
-    (join-line t)))
-
-(define-key global-map (kbd "C-^") 'ap/join-line)
 
 ;; Transient-mark-mode supporting push-mark
 ;; Source: https://www.masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
