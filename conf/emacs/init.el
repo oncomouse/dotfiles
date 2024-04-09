@@ -377,9 +377,9 @@
 
   (setq org-capture-templates
         `(("t" "todo" entry (file+headline "" "Inbox") ; "" => `org-default-notes-file'
-           "* TODO %?\n%N\n%i\n")
+           "* TODO %?\n%T\n%i\n")
           ("n" "note" entry (file "")
-           "* %? :NOTE:\n%N\n%a\n" :clock-resume t)
+           "* %? :NOTE:\n%T\n%a\n" :clock-resume t)
           ))
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "|" "DONE(d!/!)")
