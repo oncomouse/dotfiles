@@ -1,4 +1,4 @@
-;;; init-flyspell.el --- Configure flyspell
+;;; init-spelling.el --- Configure spellchecking
 ;;; Commentary:
 ;;; Code:
 
@@ -41,5 +41,5 @@
   :straight t
   :hook ((flyspell-mode) . (lambda () (flyspell-lazy-mode 1))))
 
-(provide 'init-flyspell)
-;; init-flyspell.el ends here
+(provide 'init-spelling)
+;; init-spelling.el ends here

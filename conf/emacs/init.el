@@ -720,7 +720,7 @@ Pass SOURCES to consult-buffer, if provided."
 (with-eval-after-load 'apheleia
   (diminish 'apheleia-mode))
 
-(require 'init-flyspell)
+(require 'init-spelling)
 (require 'init-oncomark)
 (require 'init-holidays)
 
