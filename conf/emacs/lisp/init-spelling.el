@@ -9,8 +9,8 @@
       (spell-fu-goto-previous-error)
     (spell-fu-goto-next-error)))
 
-(defun ap/configure-flyspell (&optional code-spell)
-  "Configure `flyspell'. Set code when CODE-SPELL is non-nil."
+(defun ap/configure-ispell (&optional code-spell)
+  "Configure `ispell'. Set options for code when CODE-SPELL is non-nil."
   (interactive)
   (cond
    ((and (not code-spell) (executable-find "hunspell"))
@@ -36,6 +36,8 @@
 
 (use-package spell-fu
   :straight t
+  :hook (((text-mode) . ap/configure-ispell)
+         ((prog-mode) . (lambda () (ap/configure-ispell t))))
   :init
   (setq spell-fu-word-delimit-camel-case t)
   (setq spell-fu-global-ignore-buffer (lambda (buf) (buffer-local-value 'buffer-read-only buf)))
@@ -84,8 +86,6 @@
           font-lock-keyword-face
           font-lock-variable-name-face)))
     "Faces in certain major modes that spell-fu will not spellcheck.")
-  :hook (((text-mode) . ap/configure-flyspell)
-         ((prog-mode) . (lambda () (ap/configure-flyspell t))))
   :config
   (defun +spell-init-excluded-faces-h ()
     "Set `spell-fu-faces-exclude' according to `+spell-excluded-faces-alist'."
