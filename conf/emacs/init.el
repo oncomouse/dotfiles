@@ -38,7 +38,7 @@
 
 (require 'init-benchmarking) ;; Measure startup time
 
-(defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
+(defconst *spell-check-support-enabled* t) ;; Enable with t if you prefer
 (defconst *is-a-mac* (eq system-type 'darwin))
 
 ;; Adjust garbage collection threshold for early startup (see use of gcmh below)
@@ -101,7 +101,7 @@
 (require 'init-grep)
 (require 'init-uniquify)
 (require 'init-ibuffer)
-(require 'init-flymake)
+;; (require 'init-flymake)
 (require 'init-eglot)
 
 (require 'init-recentf)
@@ -225,6 +225,7 @@
 (require 'init-vterm)
 (require 'init-avy)
 (require 'init-ligature)
+(require 'init-flycheck)
 
 ;; Repeat isearch with s/r
 (defvar-keymap isearch-repeat-map
@@ -720,7 +721,6 @@ Pass SOURCES to consult-buffer, if provided."
 (with-eval-after-load 'apheleia
   (diminish 'apheleia-mode))
 
-(require 'init-spelling)
 (require 'init-oncomark)
 (require 'init-holidays)
 
