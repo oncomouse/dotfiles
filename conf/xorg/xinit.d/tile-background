@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-hsetroot -cover ~/dotfiles/backgrounds/hashtags-black.png
-# if [ ! -e ~/.cache/wal/background.png ]; then
-# 	convert ~/.cache/wal/background.svg ~/.cache/wal/background.png
-# fi
-# hsetroot -tile ~/.cache/wal/background.png
+# hsetroot -cover ~/dotfiles/backgrounds/hashtags-black.png
+if [ ! -e ~/.cache/wal/background.png ]; then
+	convert ~/.cache/wal/background.svg ~/.cache/wal/background.png
+fi
+hsetroot -tile ~/.cache/wal/background.png
 # vim:ft=sh

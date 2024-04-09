@@ -180,32 +180,32 @@ definekey top s-XF86AudioRaiseVolume exec dotfiles-volume mpd-up &
 definekey top s-XF86AudioLowerVolume exec dotfiles-volume mpd-down &
 
 # [unused keys]
-unbind Left
-unbind Right
-unbind Up
-unbind Down
-unbind F1
-unbind F2
-unbind F3
-unbind F4
-unbind F5
-unbind F6
-unbind F7
-unbind F8
-unbind F9
-unbind F10
-unbind F11
-unbind F12
-unbind 0
-unbind 7
-unbind 8
-unbind 9
-unbind C-Left
-unbind C-Right
-unbind C-Up
-unbind C-Down
-unbind C-Return
-unbind a
+# unbind Left
+# unbind Right
+# unbind Up
+# unbind Down
+# unbind F1
+# unbind F2
+# unbind F3
+# unbind F4
+# unbind F5
+# unbind F6
+# unbind F7
+# unbind F8
+# unbind F9
+# unbind F10
+# unbind F11
+# unbind F12
+# unbind 0
+# unbind 7
+# unbind 8
+# unbind 9
+# unbind C-Left
+# unbind C-Right
+# unbind C-Up
+# unbind C-Down
+# unbind C-Return
+# unbind a
 
 # [Replaced w/ Super key bindings]
 unbind C-A

@@ -2,7 +2,7 @@
      baseProfile="full"
      width="100" height="100"
      xmlns="http://www.w3.org/2000/svg">
-	<rect width="100%" height="100%" fill="{color0}" />
+	<rect width="100%" height="100%" fill="{background}" />
 	<circle cx="25" cy="25" fill="{color8}" r="3" />
 	<circle cx="75" cy="75" fill="{color8}" r="3" />
  </svg>
