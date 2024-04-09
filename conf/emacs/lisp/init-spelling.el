@@ -9,6 +9,29 @@
       (spell-fu-goto-previous-error)
     (spell-fu-goto-next-error)))
 
+(defun ap/configure-flyspell (&optional code-spell)
+  "Configure `flyspell'. Set code when CODE-SPELL is non-nil."
+  (interactive)
+  (cond
+   ((and (not code-spell) (executable-find "hunspell"))
+    (setq-local ispell-program-name "hunspell")
+    (setq-local ispell-local-dictionary "en_US")
+    (setq-local ispell-local-dictionary-alist
+                ;; Please note the list `("-d" "en_US")` contains ACTUAL parameters passed to hunspell
+                ;; You could use `("-d" "en_US,en_US-med")` to check with multiple dictionaries
+                '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
+    ;; new variable `ispell-hunspell-dictionary-alist' is defined in Emacs
+    ;; If it's nil, Emacs tries to automatically set up the dictionaries.
+    (when (boundp 'ispell-hunspell-dictionary-alist)
+      (setq-local ispell-hunspell-dictionary-alist ispell-local-dictionary-alist)))
+   ((executable-find "aspell")
+    (setq-local ispell-program-name "aspell")
+    ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
+    (setq-local ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
+    (when code-spell
+      (setq-local ispell-extra-args '("--camel-case" "--run-together" "--run-together-limit=16"))))
+   (t (setq-local ispell-program-name nil))))
+
 (require 'ispell)
 
 (use-package spell-fu
@@ -61,6 +84,8 @@
           font-lock-keyword-face
           font-lock-variable-name-face)))
     "Faces in certain major modes that spell-fu will not spellcheck.")
+  :hook (((text-mode) . ap/configure-flyspell)
+         ((prog-mode) . (lambda () (ap/configure-flyspell t))))
   :config
   (defun +spell-init-excluded-faces-h ()
     "Set `spell-fu-faces-exclude' according to `+spell-excluded-faces-alist'."
