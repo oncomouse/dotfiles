@@ -53,6 +53,13 @@
           markdown-plain-url-face
           markdown-reference-face
           markdown-url-face))
+      (org-agenda-mode
+       . (org-agenda-calendar-event
+          org-agenda-done
+          org-imminent-deadline
+          org-scheduled-previously
+          org-upcoming-deadline
+          org-upcoming-distant-deadline))
       (org-mode
        . (org-block
           org-block-begin-line
