@@ -1,19 +1,31 @@
 #!/usr/bin/env bash
+output=0
 case "$1" in
-  "up")
-	  dotfiles-media volume up
-	;;
-  "down")
-	  dotfiles-media volume down
-	;;
-  "mute")
-	  dotfiles-media mute
-	;;
-  *)
-	;;
+"up")
+    dotfiles-media volume up
+    output="$(pamixer --get-volume-human | sed s/muted/x/g)"
+    ;;
+"down")
+    dotfiles-media volume down
+    output="$(pamixer --get-volume-human | sed s/muted/x/g)"
+    ;;
+"mute")
+    dotfiles-media mute
+    output="$(pamixer --get-volume-human | sed s/muted/x/g)"
+    ;;
+"mpd-up")
+    mpc volume +5
+    output="mpd: $(mpc volume | cut -d " " -f 2)"
+    ;;
+"mpd-down")
+    mpc volume -5
+    output="mpd: $(mpc volume | cut -d " " -f 2)"
+    ;;
+*) ;;
 esac
-output="$(pamixer --get-volume-human | sed s/muted/x/g)"
 if [ ${#output} -gt 0 ] && [ "$(pgrep -c dunst)" -gt 0 ]; then
-	dunstify -i audio-volume-high -h string:x-dunst-stack-tag:volume "$output" -t 1500
+    dunstify -i audio-volume-high -h string:x-dunst-stack-tag:volume "$output" -t 1500
+else
+    notify-send -i audio-volume-high "$output"
 fi
 # vim:ft=sh

@@ -174,10 +174,10 @@ definekey top XF86AudioPrev exec dotfiles-media prev &
 definekey top XF86AudioNext exec dotfiles-media next &
 definekey top XF86AudioStop exec dotfiles-media stop &
 definekey top XF86PowerOff exec dotfiles-power &
-definekey top s-Up exec mpc volume +5 &
-definekey top s-Down exec mpc volume -5 &
-definekey top s-XF86AudioRaiseVolume exec mpc volume +5 && notify-send -i audio-volume-high "mpd: $(mpc volume | cut -d " " -f 2)" &
-definekey top s-XF86AudioLowerVolume exec mpc volume -5 && notify-send -i audio-volume-high "mpd: $(mpc volume | cut -d " " -f 2)" &
+definekey top s-Up exec dotfiles-volume mpd-up &
+definekey top s-Down exec dotfiles-volume mpd-down &
+definekey top s-XF86AudioRaiseVolume exec dotfiles-volume mpd-up &
+definekey top s-XF86AudioLowerVolume exec dotfiles-volume mpd-down &
 
 # [unused keys]
 unbind Left
