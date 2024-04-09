@@ -226,6 +226,8 @@
 (require 'init-avy)
 (require 'init-ligature)
 (require 'init-flycheck)
+(require 'init-oncomark)
+(require 'init-holidays)
 
 ;; Repeat isearch with s/r
 (defvar-keymap isearch-repeat-map
@@ -299,17 +301,6 @@
   "h" 'outline-next-heading
   "H" 'outline-previous-heading)
 
-(use-package surround
-  :straight t
-  :bind-keymap ("M-'" . surround-keymap)
-  :bind (:map surround-keymap
-              ("*" . (lambda (&rest _) (interactive) (surround-mark "*")))
-              ("/" . (lambda (&rest _) (interactive) (surround-mark "/")))))
-
-(use-package expand-region
-  :straight t
-  :bind (("C-=" . er/expand-region)))
-
 ;; Doom's version control menu
 (defvar ap/vc-map (make-sparse-keymap))
 (define-key ap/leader-map (kbd "v") ap/vc-map)
@@ -362,10 +353,6 @@
 
 ;; It's not the 80s, emacs.
 (setq sentence-end-double-space nil)
-
-;; Turn off electric-indent for org:
-(add-hook 'org-mode-hook
-	  (lambda () (electric-indent-local-mode -1)))
 
 (with-eval-after-load 'org
   (define-key ap/leader-open-map (kbd "j") 'org-clock-goto)
@@ -712,17 +699,12 @@ Pass SOURCES to consult-buffer, if provided."
   (diminish 'eldoc-mode))
 (with-eval-after-load 'paredit
   (diminish 'paredit-mode))
-(with-eval-after-load 'aggressive-indent
-  (diminish 'aggressive-indent-mode))
 (with-eval-after-load 'elisp-slime-nav
   (diminish 'elisp-slime-nav-mode))
 (with-eval-after-load 'smartparens
   (diminish 'smartparens-mode))
 (with-eval-after-load 'apheleia
   (diminish 'apheleia-mode))
-
-(require 'init-oncomark)
-(require 'init-holidays)
 
 ;; (use-package markdown-ts-mode
 ;;   :straight (markdown-ts-mode :type git :host github :repo "LionyxML/markdown-ts-mode")

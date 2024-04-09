@@ -348,12 +348,23 @@ of a line (ie. an org-mode headline)."
                    :post-handlers '(dotfiles/sp-handle-org-fraction-cookie)
                    :unless '(sp-point-after-word-p)
                    :actions '(insert autoskip wrap navigate))))
-    
+
 
-    (use-package rainbow-mode
-      :straight t
-      :hook ((prog-mode) . rainbow-mode)
-      :diminish rainbow-mode)
+(use-package surround
+  :straight t
+  :bind-keymap ("M-'" . surround-keymap)
+  :bind (:map surround-keymap
+              ("*" . (lambda (&rest _) (interactive) (surround-mark "*")))
+              ("/" . (lambda (&rest _) (interactive) (surround-mark "/")))))
+
+(use-package expand-region
+  :straight t
+  :bind (("C-=" . er/expand-region)))
+
+(use-package rainbow-mode
+  :straight t
+  :hook ((prog-mode) . rainbow-mode)
+  :diminish rainbow-mode)
 
 (use-package volatile-highlights
   :straight t
