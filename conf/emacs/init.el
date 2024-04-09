@@ -216,7 +216,7 @@
 
 ;; Local Packages
 (require 'init-format)
-(require 'init-electric)
+;; (require 'init-electric)
 (require 'init-crux)
 (require 'init-ace-window)
 (require 'init-undo)
@@ -724,11 +724,6 @@ Pass SOURCES to consult-buffer, if provided."
 (require 'init-oncomark)
 (require 'init-holidays)
 
-(use-package volatile-highlights
-  :straight t
-  :diminish volatile-highlights-mode
-  :hook (after-init . volatile-highlights-mode))
-
 ;; (use-package markdown-ts-mode
 ;;   :straight (markdown-ts-mode :type git :host github :repo "LionyxML/markdown-ts-mode")
 ;;   :mode ("\\.md\\'" . markdown-ts-mode)
@@ -742,11 +737,6 @@ When C-u (ARG is 4) is pressed, delete other windows."
   (if (= arg 4) (delete-other-windows) (delete-window)))
 
 (define-key global-map (kbd "C-x 0") 'ap/close-window)
-
-(use-package rainbow-mode
-  :straight t
-  :hook ((prog-mode) . rainbow-mode)
-  :diminish rainbow-mode)
 
 (provide 'init)
 
