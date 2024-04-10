@@ -308,19 +308,6 @@
 ;; It's not the 80s, emacs.
 (setq sentence-end-double-space nil)
 
-;; emacs-lisp local map:
-(defvar ap/emacs-lisp-map (make-sparse-keymap))
-(define-key emacs-lisp-mode-map (kbd "C-c l") ap/emacs-lisp-map)
-(define-key lisp-interaction-mode-map (kbd "C-c l") ap/emacs-lisp-map)
-(define-key ap/emacs-lisp-map (kbd "e b") #'eval-buffer)
-(define-key ap/emacs-lisp-map (kbd "e d") #'eval-defun)
-(define-key ap/emacs-lisp-map (kbd "e e") #'eval-last-sexp)
-(define-key ap/emacs-lisp-map (kbd "e r") #'eval-region)
-(define-key ap/emacs-lisp-map (kbd "e l") #'load-library)
-(define-key ap/emacs-lisp-map (kbd "g f") #'find-function)
-(define-key ap/emacs-lisp-map (kbd "g v") #'find-variable)
-(define-key ap/emacs-lisp-map (kbd "g l") #'find-library)
-
 (defun ap/project-buffers (&optional sources)
   "Display buffers using  `consult-buffer', narrowed to only project files.
 
@@ -346,12 +333,6 @@ Pass SOURCES to consult-buffer, if provided."
 
 (with-eval-after-load 'eldoc
   (diminish 'eldoc-mode))
-(with-eval-after-load 'paredit
-  (diminish 'paredit-mode))
-(with-eval-after-load 'elisp-slime-nav
-  (diminish 'elisp-slime-nav-mode))
-(with-eval-after-load 'smartparens
-  (diminish 'smartparens-mode))
 (with-eval-after-load 'apheleia
   (diminish 'apheleia-mode))
 

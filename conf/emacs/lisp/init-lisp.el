@@ -7,7 +7,8 @@
 (use-package elisp-slime-nav
   :straight t
   :hook (((emacs-lisp-mode ielm-mode) . turn-on-elisp-slime-nav-mode)
-         (emacs-lisp-mode . (lambda () (setq mode-name "ELisp")))))
+         (emacs-lisp-mode . (lambda () (setq mode-name "ELisp"))))
+  :diminish elisp-slime-nav)
 
 (setq-default initial-scratch-message
               (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))

@@ -319,6 +319,7 @@ of a line (ie. an org-mode headline)."
               ("C-}" . sp-forward-barf-sexp)
               ("C-(" . sp-backward-slurp-sexp)
               ("C-{" . sp-backward-barf-sexp))
+  :diminish smartparens-mode
   :config
   (advice-add 'delete-backward-char :after 'dotfiles/delete-org-checkbox)
   (sp-with-modes 'emacs-lisp-mode
