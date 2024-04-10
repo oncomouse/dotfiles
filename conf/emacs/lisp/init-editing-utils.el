@@ -324,7 +324,7 @@ of a line (ie. an org-mode headline)."
   (sp-with-modes 'emacs-lisp-mode
     (sp-local-pair "`" "'"
                    :when '(sp-in-string-quotes-p))
-    (sp-local-pair "'" "'" :actions :rem))
+    (sp-local-pair "'" "'" :actions nil))
   (sp-with-modes 'org-mode
     (sp-local-pair "-" " "
                    :when '(sp-point-after-bol-p)
