@@ -8,7 +8,17 @@
   :config
   (add-auto-mode 'markdown-mode "\\.md\\.html\\'")
   (with-eval-after-load 'whitespace-cleanup-mode
-    (add-to-list 'whitespace-cleanup-mode-ignore-modes 'markdown-mode)))
+    (add-to-list 'whitespace-cleanup-mode-ignore-modes 'markdown-mode))
+  (mmm-add-classes
+   '((pandoc-yaml
+      :submode yaml-mode
+      :front "^---\n"
+      :front-delim 0
+      :front-face error
+      :back "^---$"
+      :back-delim 0
+      :back-face error)))
+  (mmm-add-mode-ext-class 'markdown-mode nil 'pandoc-yaml))
 
 ;; (use-package markdown-ts-mode
 ;;   :straight (markdown-ts-mode :type git :host github :repo "LionyxML/markdown-ts-mode")
