@@ -361,11 +361,6 @@ of a line (ie. an org-mode headline)."
   :straight t
   :bind (("C-=" . er/expand-region)))
 
-(use-package rainbow-mode
-  :straight t
-  :hook ((prog-mode) . rainbow-mode)
-  :diminish rainbow-mode)
-
 (use-package volatile-highlights
   :straight t
   :diminish volatile-highlights-mode
