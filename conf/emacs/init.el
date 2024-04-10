@@ -301,10 +301,6 @@
   "h" 'outline-next-heading
   "H" 'outline-previous-heading)
 
-;; Run markdown in visual line mode:
-(with-eval-after-load 'markdown-mode
-  (add-hook 'markdown-mode-hook 'visual-line-mode))
-
 ;; It's not the 80s, emacs.
 (setq sentence-end-double-space nil)
 
@@ -335,12 +331,6 @@ Pass SOURCES to consult-buffer, if provided."
   (diminish 'eldoc-mode))
 (with-eval-after-load 'apheleia
   (diminish 'apheleia-mode))
-
-;; (use-package markdown-ts-mode
-;;   :straight (markdown-ts-mode :type git :host github :repo "LionyxML/markdown-ts-mode")
-;;   :mode ("\\.md\\'" . markdown-ts-mode)
-;;   :config
-;;   (add-to-list 'treesit-language-source-alist '(markdown "https://github.com/ikatyang/tree-sitter-markdown" "master" "src")))
 
 (defun ap/close-window (&optional arg)
   "Combines `delete-window' and `delete-other-windows'.
