@@ -108,10 +108,10 @@ targets."
     (global-set-key (kbd "M-?") 'sanityinc/consult-ripgrep-at-point))
 
   (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-c l .") #'consult-org-heading)
-    (define-key org-mode-map (kbd "C-c l /") #'consult-org-agenda)
-    (define-key org-mode-map (kbd "C-c l g g") #'consult-org-heading)
-    (define-key org-mode-map (kbd "C-c l g G") #'consult-org-agenda)))
+    (define-key ap/org-mode-local-map (kbd ".") #'consult-org-heading)
+    (define-key ap/org-mode-local-map (kbd "/") #'consult-org-agenda)
+    (define-key ap/org-mode-local-map (kbd "g g") #'consult-org-heading)
+    (define-key ap/org-mode-local-map (kbd "g G") #'consult-org-agenda)))
 
 (use-package embark-consult
   :straight t
