@@ -176,8 +176,12 @@
   :straight t
   :bind (([M-S-up] . move-dup-move-lines-up)
          ([M-S-down] . move-dup-move-lines-down)
+         ([M-up] . move-dup-move-lines-up)
+         ([M-down] . move-dup-move-lines-down)
          ("C-c u" . move-dup-duplicate-up)
-         ("C-c d" . move-dup-duplicate-down)))
+         ("C-c d" . move-dup-duplicate-down)
+         ([C-M-up] . move-dup-duplicate-up)
+         ([C-M-down] . move-dup-duplicate-down)))
 
 
 ;;; Fix backward-up-list to understand quotes, see http://bit.ly/h7mdIL

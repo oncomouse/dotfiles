@@ -203,12 +203,6 @@
   :repeat t
   "s" #'isearch-repeat-forward
   "r" #'isearch-repeat-backward)
-
-;; Restore default move-dup bindings:
-(global-set-key (kbd "M-<up>") 'move-dup-move-lines-up)
-(global-set-key (kbd "M-<down>") 'move-dup-move-lines-down)
-(global-set-key (kbd "C-M-<up>") 'move-dup-duplicate-up)
-(global-set-key (kbd "C-M-<down>") 'move-dup-duplicate-down)
 
 ;; Use isearch in other windows
 (defun isearch-forward-other-window (prefix)
