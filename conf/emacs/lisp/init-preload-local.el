@@ -31,9 +31,6 @@
 (defvar ap/leader-map (make-sparse-keymap))
 (define-key global-map (kbd "C-c") ap/leader-map)
 
-(defvar ap/localleader-map (make-sparse-keymap))
-(define-key global-map (kbd "C-c l") ap/localleader-map)
-
 (defvar ap/move-map (make-sparse-keymap))
 (define-key global-map (kbd "M-g") ap/move-map)
 
