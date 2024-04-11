@@ -573,7 +573,7 @@ If not in a clock, move to previous headline."
   (define-key ap/org-mode-local-map (kbd "d t") #'org-time-stamp)
   (define-key ap/org-mode-local-map (kbd "d T") #'org-time-stamp-inactive)
   (define-key ap/org-mode-local-map (kbd "g c") #'org-clock-goto)
-  (define-key ap/org-mode-local-map (kbd "g C") (lambda (&rest _) (interactive)) (org-clock-goto 'select))
+  (define-key ap/org-mode-local-map (kbd "g C") (lambda (&rest _) (interactive) (org-clock-goto 'select)))
   (define-key ap/org-mode-local-map (kbd "g i") #'org-id-goto)
   (define-key ap/org-mode-local-map (kbd "g r") #'org-refile-goto-last-stored)
   (define-key ap/org-mode-local-map (kbd "g x") #'org-capture-goto-last-stored)
