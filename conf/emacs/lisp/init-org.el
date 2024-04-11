@@ -22,20 +22,21 @@
 
 ;;; Code:
 (defvar ap/org-mode-local-map (make-sparse-keymap))
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c l") ap/org-mode-local-map))
 
 (use-package org
   :straight t)
 
-(when *is-a-mac*
-  (maybe-require-package 'grab-mac-link))
+(use-package grab-mac-link
+  :straight t
+  :when *is-a-mac*)
 
-(maybe-require-package 'org-cliplink)
+(use-package org-cliplink
+  :straight t)
 
-(define-key global-map (kbd "C-c l") 'org-store-link)
+;; (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
-
-(defvar sanityinc/org-global-prefix-map (make-sparse-keymap)
-  "A keymap for handy global access to org helpers, particularly clocking.")
 
 ;; Various preferences
 (setq org-log-done t
@@ -46,8 +47,13 @@
       org-fast-tag-selection-single-key 'expert
       org-html-validation-link nil
       org-export-kill-product-buffer-when-displayed t
-      org-tags-column 80)
-
+      org-tags-column 80
+      org-beamer-mode t ;; Export to beamer
+      org-complete-tags-always-offer-all-agenda-tags t ;; Always use all tags from Agenda files in capture
+      org-hide-leading-stars nil
+      org-startup-indented nil
+      org-indent-mode "noindent"
+      org-imenu-depth 2)
 
 ;; Lots of stuff from http://doc.norang.ca/org-mode.html
 
@@ -59,47 +65,7 @@
 
 
 
-(maybe-require-package 'writeroom-mode)
-
-(define-minor-mode prose-mode
-  "Set up a buffer for prose editing.
-This enables or modifies a number of settings so that the
-experience of editing prose is a little more like that of a
-typical word processor."
-  :init-value nil :lighter " Prose" :keymap nil
-  (if prose-mode
-      (progn
-        (when (fboundp 'writeroom-mode)
-          (writeroom-mode 1))
-        (setq truncate-lines nil)
-        (setq word-wrap t)
-        (setq cursor-type 'bar)
-        (when (eq major-mode 'org)
-          (kill-local-variable 'buffer-face-mode-face))
-        (buffer-face-mode 1)
-        ;;(delete-selection-mode 1)
-        (setq-local blink-cursor-interval 0.6)
-        (setq-local show-trailing-whitespace nil)
-        (setq-local line-spacing 0.2)
-        (setq-local electric-pair-mode nil)
-        (ignore-errors (flyspell-mode 1))
-        (visual-line-mode 1))
-    (kill-local-variable 'truncate-lines)
-    (kill-local-variable 'word-wrap)
-    (kill-local-variable 'cursor-type)
-    (kill-local-variable 'blink-cursor-interval)
-    (kill-local-variable 'show-trailing-whitespace)
-    (kill-local-variable 'line-spacing)
-    (kill-local-variable 'electric-pair-mode)
-    (buffer-face-mode -1)
-    ;; (delete-selection-mode -1)
-    (flyspell-mode -1)
-    (visual-line-mode -1)
-    (when (fboundp 'writeroom-mode)
-      (writeroom-mode 0))))
-
-;;(add-hook 'org-mode-hook 'buffer-face-mode)
-
+(use-package writeroom-mode :straight t)
 
 (setq org-support-shift-select t)
 
@@ -107,13 +73,12 @@ typical word processor."
 
 (global-set-key (kbd "C-c c") 'org-capture)
 
-(setq org-capture-templates
-      `(("t" "todo" entry (file "")  ; "" => `org-default-notes-file'
-         "* NEXT %?\n%U\n" :clock-resume t)
-        ("n" "note" entry (file "")
-         "* %? :NOTE:\n%U\n%a\n" :clock-resume t)
-        ))
-
+  (setq org-capture-templates
+        `(("t" "todo" entry (file+headline "" "Inbox") ; "" => `org-default-notes-file'
+           "* TODO %?\n%T\n%i\n")
+          ("n" "note" entry (file "")
+           "* %? :NOTE:\n%T\n%a\n" :clock-resume t)
+          ))
 
 
 ;;; Refiling
@@ -158,10 +123,9 @@ typical word processor."
 ;;; To-do settings
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
-              (sequence "PROJECT(p)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
-              (sequence "WAITING(w@/!)" "DELEGATED(e!)" "HOLD(h)" "|" "CANCELLED(c@/!)")))
-      org-todo-repeat-to-state "NEXT")
+        (quote ((sequence "TODO(t)" "|" "DONE(d!/!)")
+                ))
+        org-todo-repeat-to-state "TODO")
 
 (setq org-todo-keyword-faces
       (quote (("NEXT" :inherit warning)
@@ -180,10 +144,10 @@ typical word processor."
         `(,active-project-match ("NEXT")))
 
   (setq org-agenda-compact-blocks t
-        org-agenda-sticky t
-        org-agenda-start-on-weekday nil
-        org-agenda-span 'day
-        org-agenda-include-diary nil
+        org-agenda-start-on-weekday 1
+        org-agenda-span 7
+        org-agenda-start-day nil
+        org-agenda-include-diary t
         org-agenda-sorting-strategy
         '((agenda habit-down time-up user-defined-up effort-up category-keep)
           (todo category-up effort-up)
@@ -269,10 +233,6 @@ typical word processor."
 (setq org-clock-persist t)
 (setq org-clock-in-resume t)
 
-;; Save clock data and notes in the LOGBOOK drawer
-(setq org-clock-into-drawer t)
-;; Save state changes in the LOGBOOK drawer
-(setq org-log-into-drawer t)
 ;; Removes clocked tasks with 0:00 duration
 (setq org-clock-out-remove-zero-time-clocks t)
 
@@ -319,15 +279,14 @@ typical word processor."
 (setq org-archive-mark-done nil)
 (setq org-archive-location "%s_archive::* Archive")
 
-
-
 
 
-(require-package 'org-pomodoro)
-(setq org-pomodoro-keep-killed-pomodoro-time t)
-(with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
-
+(use-package org-pomodoro
+  :straight t
+  :init
+  (setq org-pomodoro-keep-killed-pomodoro-time t)
+  :bind (:map org-agenda-mode-map
+              ("P" . org-pomodoro)))
 
 ;; ;; Show iCal calendars in the org agenda
 ;; (when (and *is-a-mac* (require 'org-mac-iCal nil t))
@@ -387,125 +346,102 @@ typical word processor."
   (define-key ap/leader-open-map (kbd "i") 'org-clock-in)
   (define-key ap/leader-open-map (kbd "o") 'org-clock-out)
   (define-key ap/leader-open-map (kbd "a") 'org-agenda)
-  (define-key ap/leader-open-map (kbd "c") 'org-capture)
+  (define-key ap/leader-open-map (kbd "c") 'org-capture))
 
-  (setq org-capture-templates
-        `(("t" "todo" entry (file+headline "" "Inbox") ; "" => `org-default-notes-file'
-           "* TODO %?\n%T\n%i\n")
-          ("n" "note" entry (file "")
-           "* %? :NOTE:\n%T\n%a\n" :clock-resume t)
-          ))
-  (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "|" "DONE(d!/!)")
-                ))
-        org-todo-repeat-to-state "TODO")
-  (setq org-log-into-drawer nil
-        org-agenda-sticky nil)
-  ;; Open file links in the same frame:
-  (setf (alist-get 'file org-link-frame-setup) #'find-file)
-  (setq
-   org-beamer-mode t ;; Export to beamer
-   org-complete-tags-always-offer-all-agenda-tags t ;; Always use all tags from Agenda files in capture
-   org-hide-leading-stars nil
-   org-startup-indented nil
-   org-directory (concat dotfiles-seadrive-path "/Todo/org")
-   org-agenda-files (list
-                     (concat dotfiles-seadrive-path "/Todo/todo.org")
-                     (concat dotfiles-seadrive-path "/Todo/inbox.org"))
-   org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org")
-   org-indent-mode "noindent"
-   org-refile-targets
-   '((nil :maxlevel . 2)
-     (org-agenda-files :maxlevel . 2))
-   org-imenu-depth 2
-   org-agenda-span 7
-   org-agenda-start-on-weekday 1
-   org-agenda-start-day nil)
-  (defun ap/org-summary-todo (n-done n-not-done)
-    "Switch entry to DONE when all subentries are done, to TODO otherwise.
+;; Open file links in the same frame:
+(with-eval-after-load 'org
+  (setf (alist-get 'file org-link-frame-setup) #'find-file))
+
+
+(setq
+ org-directory (concat dotfiles-seadrive-path "/Todo/org")
+ org-agenda-files (list
+                   (concat dotfiles-seadrive-path "/Todo/todo.org")
+                   (concat dotfiles-seadrive-path "/Todo/inbox.org"))
+ org-default-notes-file (concat dotfiles-seadrive-path "/Todo/inbox.org"))
+
+
+
+(defun ap/org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise.
 
 N-DONE is the number of done elements; N-NOT-DONE is the number of
 not done."
-    (let (org-log-done org-log-states)  ; turn off logging
-      (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+  (let (org-log-done org-log-states)  ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-  (defun ap/org-checkbox-todo ()
-    "Switch header TODO state to DONE when all checkboxes are ticked.
+(defun ap/org-checkbox-todo ()
+  "Switch header TODO state to DONE when all checkboxes are ticked.
 
 Switch to TODO otherwise"
-    (let ((todo-state (org-get-todo-state)) beg end)
-      (unless (not todo-state)
-        (save-excursion
-          (org-back-to-heading t)
-          (setq beg (point))
-          (end-of-line)
-          (setq end (point))
-          (goto-char beg)
-          (if (re-search-forward "\\[\\([0-9]*%\\)\\]\\|\\[\\([0-9]*\\)/\\([0-9]*\\)\\]"
-                                 end t)
-              (if (match-end 1)
-                  (if (equal (match-string 1) "100%")
-                      (unless (string-equal todo-state "DONE")
-                        (org-todo 'done))
-                    (unless (string-equal todo-state "TODO")
-                      (org-todo 'todo)))
-                (if (and (> (match-end 2) (match-beginning 2))
-                         (equal (match-string 2) (match-string 3)))
+  (let ((todo-state (org-get-todo-state)) beg end)
+    (unless (not todo-state)
+      (save-excursion
+        (org-back-to-heading t)
+        (setq beg (point))
+        (end-of-line)
+        (setq end (point))
+        (goto-char beg)
+        (if (re-search-forward "\\[\\([0-9]*%\\)\\]\\|\\[\\([0-9]*\\)/\\([0-9]*\\)\\]"
+                               end t)
+            (if (match-end 1)
+                (if (equal (match-string 1) "100%")
                     (unless (string-equal todo-state "DONE")
                       (org-todo 'done))
                   (unless (string-equal todo-state "TODO")
-                    (org-todo 'todo)))))))))
+                    (org-todo 'todo)))
+              (if (and (> (match-end 2) (match-beginning 2))
+                       (equal (match-string 2) (match-string 3)))
+                  (unless (string-equal todo-state "DONE")
+                    (org-todo 'done))
+                (unless (string-equal todo-state "TODO")
+                  (org-todo 'todo)))))))))
 
+(with-eval-after-load 'org
   (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
   (add-hook 'org-after-todo-statistics-hook 'ap/org-summary-todo)
-  (add-hook 'org-checkbox-statistics-hook 'ap/org-checkbox-todo)
-  (add-to-list 'org-file-apps '("\\.docx\\'" . "open %s"))
-  (defun ap/bookmark-before-org-agenda (&rest _)
-    "Set a bookmark before opening 'org-agenda', for jumping across workspaces."
-    (when (buffer-file-name) (bookmark-set "org-agenda-lastpos"))
-    )
+  (add-hook 'org-checkbox-statistics-hook 'ap/org-checkbox-todo))
 
-  (defun ap/jump-to-admin-workspace (&rest _)
-    "Move to the admin workspace when opening agenda, rather than open agenda in the current workspace."
-    (interactive "p")
-    (let ((inhibit-message t))
-      ;; (+workspace/switch-to 0)
-      ))
-  (advice-add 'org-agenda-list :before 'ap/bookmark-before-org-agenda)
-  (advice-add 'org-agenda-switch-to :before 'ap/jump-to-admin-workspace)
+(with-eval-after-load 'org
+  (add-to-list 'org-file-apps '("\\.docx\\'" . "open %s")))
 
-  ;; Use C-S-Up/Down to navigate headlines when not using to change clocks
-  (defun ap/shiftcontroldown (oldfunc &optional n)
-    "Re-implement 'org-shiftcontroldown' and pass N to it.
+
+
+;; Use C-S-Up/Down to navigate headlines when not using to change clocks
+(defun ap/shiftcontroldown (oldfunc &optional n)
+  "Re-implement 'org-shiftcontroldown' and pass N to it.
 If not in a clock, move to next headline."
-    (interactive "p")
-    (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
-        (oldfunc n)
-      (dotimes (_ n) (outline-forward-same-level))))
+  (interactive "p")
+  (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
+      (oldfunc n)
+    (dotimes (_ n) (outline-forward-same-level))))
 
-  (defun ap/shiftcontrolup (oldfunc &optional n)
-    "Re-implement 'org-shiftcontrolup' and pass N to it.
+(defun ap/shiftcontrolup (oldfunc &optional n)
+  "Re-implement 'org-shiftcontrolup' and pass N to it.
 If not in a clock, move to previous headline."
-    (interactive "p")
-    (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
-        (oldfunc n)
-      (dotimes (_ n) (outline-backward-same-level))))
+  (interactive "p")
+  (if (and (org-at-clock-log-p) (org-at-timestamp-p 'lax))
+      (oldfunc n)
+    (dotimes (_ n) (outline-backward-same-level))))
 
+(with-eval-after-load 'org
   (advice-add 'org-shiftcontrolup :around 'ap/shiftcontrolup)
-  (advice-add 'org-shiftcontroldown :around 'ap/shiftcontroldown)
+  (advice-add 'org-shiftcontroldown :around 'ap/shiftcontroldown))
 
-  (defun ap/wrap-dotimes (fn)
-    "Wrap FN in a dotimes loop to make it repeatable with universal arguments."
-    (let ((fn fn)) #'(lambda (&optional c)
-                       (interactive "p")
-                       (dotimes (_ c) (funcall fn)))))
+(defun ap/wrap-dotimes (fn)
+  "Wrap FN in a dotimes loop to make it repeatable with universal arguments."
+  (let ((fn fn)) #'(lambda (&optional c)
+                     (interactive "p")
+                     (dotimes (_ c) (funcall fn)))))
 
+(with-eval-after-load 'org
   (define-key org-mode-map (kbd "M-<up>") (ap/wrap-dotimes 'org-metaup))
   (define-key org-mode-map (kbd "M-<down>") (ap/wrap-dotimes 'org-metadown))
   (define-key org-mode-map (kbd "C-z") 'org-cycle-list-bullet)
-  (define-key org-mode-map (kbd "C-c #") #'org-update-statistics-cookies)
+  (define-key org-mode-map (kbd "C-c #") #'org-update-statistics-cookies))
 
-  ;; Doom local-leader for org-mode
+;; Doom local-leader for org-mode
+(with-eval-after-load 'org
   (define-key ap/org-mode-local-map (kbd "'") #'org-edit-special)
   (define-key ap/org-mode-local-map (kbd "*") #'org-ctrl-c-star)
   (define-key ap/org-mode-local-map (kbd "+") #'org-ctrl-c-minus)
@@ -630,7 +566,9 @@ If not in a clock, move to previous headline."
         '((standalone . t)
           (mathjax . t)
           (variable . "revealjs-url=https://revealjs.com"))))
+
 
+
 ;; Bibliography
 
 
