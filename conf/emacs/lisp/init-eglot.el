@@ -8,6 +8,12 @@
 (use-package eglot
   :straight t)
 
+(use-package eglot-booster
+  :straight (eglot-booster :type git :host github :repo "jdtsmith/eglot-booster")
+  :after eglot
+  :config
+  (eglot-booster-mode))
+
 (use-package consult-eglot
   :straight t
   :after (consult eglot))
