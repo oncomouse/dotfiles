@@ -8,7 +8,7 @@
   :straight t
   :hook (((emacs-lisp-mode ielm-mode) . turn-on-elisp-slime-nav-mode)
          (emacs-lisp-mode . (lambda () (setq mode-name "ELisp"))))
-  :diminish elisp-slime-nav)
+  :diminish elisp-slime-nav-mode)
 
 (setq-default initial-scratch-message
               (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
@@ -123,6 +123,7 @@ there is no current file, eval the current buffer."
   (add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol t)
   (add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol-partially t))
 
+(add-hook 'emacs-lisp-mode-hook 'set-up-hippie-expand-for-elisp)
 
 
 ;; Automatic byte compilation
