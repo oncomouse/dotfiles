@@ -293,8 +293,6 @@ Pass SOURCES to consult-buffer, if provided."
 
 (with-eval-after-load 'eldoc
   (diminish 'eldoc-mode))
-(with-eval-after-load 'apheleia
-  (diminish 'apheleia-mode))
 
 (defun ap/close-window (&optional arg)
   "Combines `delete-window' and `delete-other-windows'.
