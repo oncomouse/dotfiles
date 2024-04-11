@@ -127,7 +127,6 @@
 
 (require 'init-compile)
 (require 'init-crontab)
-(require 'init-textile)
 (require 'init-markdown)
 (require 'init-csv)
 (require 'init-javascript)
@@ -194,7 +193,6 @@
 
 ;; Locales (setting them earlier in this file doesn't work in X)
 (require 'init-locales)
-
 
 (require 'init-oncomark)
 (require 'init-holidays)
