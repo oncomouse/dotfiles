@@ -10,16 +10,10 @@
     (unless (eq (selected-window) (next-window))
       (delete-window))))
 
-(defcustom sanityinc/eat-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "t") 'eat-other-window)
-    map)
-  "Prefix map for commands that create and manipulate eat buffers.")
-
+;; TODO: bind eat-other-window to C-c o t
 (use-package eat
   :straight t
   :hook ((eat-exit . sanityinc/on-eat-exit))
-  :bind-keymap ("C-c t" . sanityinc/eat-map)
   :custom
   (eat-term-terminfo-directory (concat (getenv "HOME") "/.emacs.d/straight/repos/eat/terminfo"))
   :config
