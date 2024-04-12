@@ -73,12 +73,12 @@
 
 (global-set-key (kbd "C-c c") 'org-capture)
 
-  (setq org-capture-templates
-        `(("t" "todo" entry (file+headline "" "Inbox") ; "" => `org-default-notes-file'
-           "* TODO %?\n%T\n%i\n")
-          ("n" "note" entry (file "")
-           "* %? :NOTE:\n%T\n%a\n" :clock-resume t)
-          ))
+(setq org-capture-templates
+      `(("t" "todo" entry (file+headline "" "Inbox") ; "" => `org-default-notes-file'
+         "* TODO %?\n%t\n%i\n")
+        ("n" "note" entry (file "")
+         "* %? :NOTE:\n%t\n%a\n" :clock-resume t)
+        ))
 
 
 ;;; Refiling
@@ -123,9 +123,9 @@
 ;;; To-do settings
 
 (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "|" "DONE(d!/!)")
-                ))
-        org-todo-repeat-to-state "TODO")
+      (quote ((sequence "TODO(t)" "|" "DONE(d!/!)")
+              ))
+      org-todo-repeat-to-state "TODO")
 
 (setq org-todo-keyword-faces
       (quote (("NEXT" :inherit warning)
