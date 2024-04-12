@@ -34,26 +34,12 @@
           ".cache"
           ".clangd"))
 
-  ;; Combined project search instead of individual programs:
-  (defun ap/project-search (search-term &optional arg)
-    (interactive (list (projectile--read-search-string-with-default
-                        (format "%s for" (if current-prefix-arg "Regexp search" "Search")))
-                       current-prefix-arg))
-    "Run a searching with SEARCH-TERM at current project root using best search program.
-
-With an optional prefix argument ARG SEARCH-TERM is interpreted as a
-regular expression.
-
-This command depends on of the Emacs packages ripgrep or rg being
-installed to work."
-    (cond
-     ((executable-find "rg") (projectile-ripgrep search-term arg))
-     ((executable-find "ag") (projectile-ag search-term arg))
-     ((executable-find "grep") (projectile-grep search-term arg))
-     (t (projectile-find-references search-term arg))))
-
   ;; Override search menu:
-  (define-key projectile-command-map (kbd "s") 'ap/project-search)
+  (define-key projectile-command-map (kbd "s") (cond
+                                                ((executable-find "rg") 'projectile-ripgrep)
+                                                ((executable-find "ag") 'projectile-ag)
+                                                ((executable-find "grep") 'projectile-grep)
+                                                (t 'projectile-find-references)))
 
   ;; Switch to a project buffer if one is open, otherwise run find files:
   (defun ap/projectile-smart-switch ()
@@ -86,6 +72,13 @@ installed to work."
                                                             (ibuffer-projectile-set-filter-groups)
                                                             (unless (eq ibuffer-sorting-mode 'alphabetic)
                                                               (ibuffer-do-sort-by-alphabetic)))))
+(with-eval-after-load 'consult
+  (defun projectile-consult-ripgrep (&optional initial)
+    "Search current project (or prompt user for a project), with INITIAL as the starting prompt."
+    (interactive)
+    (consult-ripgrep (projectile-acquire-root) initial))
+  (consult-customize projectile-consult-ripgrep :preview-key "M-P")
+  (define-key global-map [remap projectile-ripgrep] 'projectile-consult-ripgrep))
 
 (provide 'init-projectile)
 ;;; init-projectile.el ends here
