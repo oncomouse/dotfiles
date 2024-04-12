@@ -58,6 +58,7 @@
 		vterm-mode-hook
 		shell-mode-hook
 		treemacs-mode-hook
+                eat-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda() (display-line-numbers-mode 0))))
 
