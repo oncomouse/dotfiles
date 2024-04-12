@@ -87,7 +87,7 @@ targets."
         ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
         ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
         ([remap goto-line] . consult-goto-line)
-        ([remap recent] . consult-recent-file))
+        ([remap recentf] . consult-recent-file))
   :config
   (defmacro sanityinc/no-consult-preview (&rest cmds)
     `(with-eval-after-load 'consult
