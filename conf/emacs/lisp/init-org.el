@@ -67,6 +67,9 @@
 
 (use-package writeroom-mode :straight t)
 
+;;; Disable electric-indent mode in org
+(add-hook 'org-mode-hook (lambda () (electric-indent-mode -1)))
+
 (setq org-support-shift-select t)
 
 ;;; Capturing
