@@ -206,10 +206,6 @@
   :diminish whole-line-or-region-local-mode)
 
 
-;; M-^ is inconvenient, so also bind M-j
-(global-set-key (kbd "M-j") 'join-line)
-
-
 ;; Random line sorting
 (defun sanityinc/sort-lines-random (beg end)
   "Sort lines in region from BEG to END randomly."
