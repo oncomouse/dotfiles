@@ -41,15 +41,6 @@
                                                 ((executable-find "grep") 'projectile-grep)
                                                 (t 'projectile-find-references)))
 
-  ;; Switch to a project buffer if one is open, otherwise run find files:
-  (defun ap/projectile-smart-switch ()
-    "Open latest edited buffer when switched the  exist project, find files when switched to a new project."
-    (if
-        (null (projectile-project-buffer-files))
-        (projectile-find-file)
-      (call-interactively #'projectile-switch-to-buffer)))
-  (setq projectile-switch-project-action #'ap/projectile-smart-switch)
-
   ;; Configure marginalia for projectile
   (with-eval-after-load 'marginalia
     (setq marginalia-command-categories
