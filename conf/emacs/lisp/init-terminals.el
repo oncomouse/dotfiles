@@ -11,6 +11,7 @@
       (delete-window))))
 
 ;; TODO: bind eat-other-window to C-c o t
+;; TODO: get display-buffer-alist working with eat
 (use-package eat
   :straight t
   :hook ((eat-exit . sanityinc/on-eat-exit))
