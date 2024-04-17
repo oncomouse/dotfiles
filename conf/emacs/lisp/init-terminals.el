@@ -22,7 +22,6 @@
   (vterm-toggle-fullscreen-p nil)
   :bind (:map ap/leader-open-map
               ("t" . vterm-toggle)
-              ("T" . ap/open-fullscreen-vterm)
               :map vterm-mode-map
               ("s-n" . vterm-toggle-forward)
               ("s-p" . vterm-toggle-backward))
@@ -41,14 +40,6 @@
                  ;;(dedicated . t) ;dedicated is supported in emacs27
                  (reusable-frames . visible)
                  (window-height . 0.35))))
-
-(defun ap/open-fullscreen-vterm ()
-  "Open a vterm in fullscreen mode"
-  (interactive)
-  (let ((vterm-toggle-fullscreen-p t)
-        (display-buffer-alist nil))
-    (vterm)))
-
 
 (provide 'init-terminals)
 ;;; init-terminals.el ends here
