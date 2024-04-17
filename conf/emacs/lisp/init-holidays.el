@@ -2,20 +2,23 @@
 ;;; Commentary:
 ;;; Code:
 
+(defun ap/define-holiday (month day year &optional name)
+  (list (list month day year) (or name "")))
+
 (defcustom ap/tamu-holidays
-  (list (list (list 9 2 2024) "Labor Day")
-        (list (list 10 7 2024) "Fall Break")
-        (list (list 10 8 2024) "Fall Break")
-        (list (list 11 27 2024) "Reading Day")
-        (list (list 11 28 2024) "Thanksgiving Break")
-        (list (list 11 29 2024) "Thanksgiving Break")
-        (list (list 1 20 2025) "MLK Day")
-        (list (list 3 10 2025) "Spring Break")
-        (list (list 3 11 2025) "Spring Break")
-        (list (list 3 12 2025) "Spring Break")
-        (list (list 3 13 2025) "Spring Break")
-        (list (list 3 14 2025) "Spring Break")
-        (list (list 4 18 2025) "Reading Day"))
+  (list (ap/define-holiday 9 2 2024 "Labor Day")
+        (ap/define-holiday 10 7 2024 "Fall Break")
+        (ap/define-holiday 10 8 2024 "Fall Break")
+        (ap/define-holiday 11 27 2024 "Reading Day")
+        (ap/define-holiday 11 28 2024 "Thanksgiving Break")
+        (ap/define-holiday 11 29 2024 "Thanksgiving Break")
+        (ap/define-holiday 1 20 2025 "MLK Day")
+        (ap/define-holiday 3 10 2025 "Spring Break")
+        (ap/define-holiday 3 11 2025 "Spring Break")
+        (ap/define-holiday 3 12 2025 "Spring Break")
+        (ap/define-holiday 3 13 2025 "Spring Break")
+        (ap/define-holiday 3 14 2025 "Spring Break")
+        (ap/define-holiday 4 18 2025 "Reading Day"))
   "List of days Texas A&M has no classes.")
 
 (defcustom ap/daycare-closed
@@ -41,33 +44,25 @@
                                     )
                                   holidays)))))
 
-(use-package holidays
-  :init
-  ;; Disable unused holidays:
-  (setq
-   holiday-hebrew-holidays nil
-   holiday-bahai-holidays nil
-   holiday-islamic-holidays nil
-   holiday-oriental-holidays nil)
-  ;; Attach our custom holiday lists:
-  (setq holiday-other-holidays
-        '((ap/filter-holidays ap/tamu-holidays)
-          (ap/filter-holidays ap/daycare-closed)))
-  ;; This gets overwritten somehow:
-  (setq calendar-holidays (append holiday-general-holidays holiday-local-holidays
-                                  holiday-other-holidays holiday-christian-holidays
-                                  holiday-hebrew-holidays holiday-islamic-holidays
-                                  holiday-bahai-holidays holiday-oriental-holidays
-                                  holiday-solar-holidays))
+;; Disable unused holidays:
+(setq
+ holiday-hebrew-holidays nil
+ holiday-bahai-holidays nil
+ holiday-islamic-holidays nil
+ holiday-oriental-holidays nil)
+;; Attach our custom holiday lists:
+(setq holiday-other-holidays
+      '((ap/filter-holidays ap/tamu-holidays)
+        (ap/filter-holidays ap/daycare-closed)))
+;; This gets overwritten somehow:
+(setq calendar-holidays (append holiday-general-holidays holiday-local-holidays
+                                holiday-other-holidays holiday-christian-holidays
+                                holiday-hebrew-holidays holiday-islamic-holidays
+                                holiday-bahai-holidays holiday-oriental-holidays
+                                holiday-solar-holidays))
 
-  )
+(require 'holidays)
 
-  ;; This gets overwritten somehow:
-  (setq calendar-holidays (append holiday-general-holidays holiday-local-holidays
-                                  holiday-other-holidays holiday-christian-holidays
-                                  holiday-hebrew-holidays holiday-islamic-holidays
-                                  holiday-bahai-holidays holiday-oriental-holidays
-                                  holiday-solar-holidays))
 (with-eval-after-load 'org
   (setq org-agenda-include-diary t))
 
