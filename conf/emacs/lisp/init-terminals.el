@@ -4,24 +4,6 @@
 
 ;;; Code:
 
-(defun sanityinc/on-eat-exit (process)
-  (when (zerop (process-exit-status process))
-    (kill-buffer)
-    (unless (eq (selected-window) (next-window))
-      (delete-window))))
-
-;; TODO: bind eat-other-window to C-c o t
-;; TODO: get display-buffer-alist working with eat
-(use-package eat
-  :straight t
-  :hook ((eat-exit . sanityinc/on-eat-exit))
-  :custom
-  (eat-term-terminfo-directory (concat (getenv "HOME") "/.emacs.d/straight/repos/eat/terminfo"))
-  :config
-  (custom-set-variables
-   `(eat-semi-char-non-bound-keys
-     (quote ,(cons [?\e ?w] eat-semi-char-non-bound-keys)))))
-
 (use-package vterm
   :straight t
   :custom
@@ -36,6 +18,7 @@
 (use-package vterm-toggle
   :straight t
   :custom
+  (vterm-toggle-scope 'project)
   (vterm-toggle-fullscreen-p nil)
   :bind (:map ap/leader-open-map
               ("t" . vterm-toggle)
