@@ -23,7 +23,7 @@
 ;; Set font
 (set-face-attribute 'default nil :font "FiraCode Nerd Font" :height (if *is-a-mac* 155 140))
 (unless *is-a-mac*
-  (set-face-attribute 'italic nil :font "Fira Mono" :slant 'italic))
+  (set-face-attribute 'italic nil :font "Fira Mono" :slant 'italic :height 145))
 
 ;; This file bootstraps the configuration, which is divided into
 ;; a number of other files.
