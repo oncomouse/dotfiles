@@ -137,5 +137,15 @@ Call a second time to restore the original window configuration."
   (add-hook 'after-init-hook (apply-partially 'windmove-default-keybindings 'control))
   (add-hook 'after-init-hook (apply-partially 'windswap-default-keybindings 'shift 'control)))
 
+
+
+(defun ap/close-window (&optional args)
+  "Combines `delete-window' and `delete-other-windows'.
+When \`C-u' (ARGS is 4) is pressed, delete other windows."
+  (interactive "P")
+  (if (= (prefix-numeric-value args) 4) (delete-other-windows) (delete-window)))
+
+(define-key global-map (kbd "C-x 0") 'ap/close-window)
+
 (provide 'init-windows)
 ;;; init-windows.el ends here
