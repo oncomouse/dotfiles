@@ -18,6 +18,8 @@
   (load bootstrap-file nil 'nomessage))
 (require 'cl-lib)
 
+(setq straight-use-package-by-default t)
+
 
 ;; Work-around for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
 (when (and (version< emacs-version "26.3") (boundp 'libgnutls-version) (>= libgnutls-version 30604))
@@ -44,13 +46,6 @@ locate PACKAGE."
     (error
      (message "Couldn't install optional package `%s': %S" package err)
      nil)))
-
-
-;;; Fire up package.el
-
-(setq package-enable-at-startup nil)
-(setq package-native-compile t)
-(package-initialize)
 
 
 ;; package.el updates the saved version of package-selected-packages correctly only
